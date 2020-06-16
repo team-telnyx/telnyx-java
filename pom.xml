@@ -157,7 +157,7 @@
 
   <profiles>
     <profile>
-      <id>sign-artifacts</id>
+      <id>mvn-central-sign-in</id>
       <build>
         <plugins>
           <plugin>
@@ -166,7 +166,7 @@
             <version>1.5</version>
             <executions>
               <execution>
-                <id>sign-artifacts</id>
+                <id>mvn-central-sign-in</id>
                 <phase>verify</phase>
                 <goals>
                   <goal>sign</goal>
