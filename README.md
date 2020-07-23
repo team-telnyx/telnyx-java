@@ -73,24 +73,25 @@ Please follow the [installation](#installation) instruction and execute the foll
 import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
-import io.swagger.client.api.MessagesApi;
+import io.swagger.client.api.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
 
-public class MessagesApiExample {
+public class CallCommandsApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
-        MessagesApi apiInstance = new MessagesApi();
-        NewLongCodeMessage body = new NewLongCodeMessage(); // NewLongCodeMessage | Message payload
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        AnswerRequest body = new AnswerRequest(); // AnswerRequest | Answer call request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CreateMessageResponse result = apiInstance.createLongCodeMessage(body);
+            CallControlCommandResponse result = apiInstance.callControlAnswer(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MessagesApi#createLongCodeMessage");
+            System.err.println("Exception when calling CallCommandsApi#callControlAnswer");
             e.printStackTrace();
         }
     }
@@ -98,24 +99,25 @@ public class MessagesApiExample {
 import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
-import io.swagger.client.api.MessagesApi;
+import io.swagger.client.api.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
 
-public class MessagesApiExample {
+public class CallCommandsApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
-        MessagesApi apiInstance = new MessagesApi();
-        NewMessage body = new NewMessage(); // NewMessage | Message payload
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        BridgeRequest body = new BridgeRequest(); // BridgeRequest | Bridge call request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CreateMessageResponse result = apiInstance.createMessage(body);
+            CallControlCommandResponse result = apiInstance.callControlBridge(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MessagesApi#createMessage");
+            System.err.println("Exception when calling CallCommandsApi#callControlBridge");
             e.printStackTrace();
         }
     }
@@ -123,24 +125,24 @@ public class MessagesApiExample {
 import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
-import io.swagger.client.api.MessagesApi;
+import io.swagger.client.api.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
 
-public class MessagesApiExample {
+public class CallCommandsApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
-        MessagesApi apiInstance = new MessagesApi();
-        NewNumberPoolMessage body = new NewNumberPoolMessage(); // NewNumberPoolMessage | Message payload
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        DialRequest body = new DialRequest(); // DialRequest | Dial request
         try {
-            CreateMessageResponse result = apiInstance.createNumberPoolMessage(body);
+            RetrieveCallStatusResponse result = apiInstance.callControlDial(body);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MessagesApi#createNumberPoolMessage");
+            System.err.println("Exception when calling CallCommandsApi#callControlDial");
             e.printStackTrace();
         }
     }
@@ -148,24 +150,25 @@ public class MessagesApiExample {
 import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
-import io.swagger.client.api.MessagesApi;
+import io.swagger.client.api.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
 
-public class MessagesApiExample {
+public class CallCommandsApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
-        MessagesApi apiInstance = new MessagesApi();
-        NewShortCodeMessage body = new NewShortCodeMessage(); // NewShortCodeMessage | Message payload
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        StartForkingRequest body = new StartForkingRequest(); // StartForkingRequest | Fork media request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CreateMessageResponse result = apiInstance.createShortCodeMessage(body);
+            CallControlCommandResponse result = apiInstance.callControlForkStart(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MessagesApi#createShortCodeMessage");
+            System.err.println("Exception when calling CallCommandsApi#callControlForkStart");
             e.printStackTrace();
         }
     }
@@ -173,24 +176,337 @@ public class MessagesApiExample {
 import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
-import io.swagger.client.api.MessagesApi;
+import io.swagger.client.api.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
 
-public class MessagesApiExample {
+public class CallCommandsApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
-        MessagesApi apiInstance = new MessagesApi();
-        UUID id = new UUID(); // UUID | The id of the message
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        StopForkingRequest body = new StopForkingRequest(); // StopForkingRequest | Stop forking media request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            RetrieveMessageResponse result = apiInstance.retrieveMessage(id);
+            CallControlCommandResponse result = apiInstance.callControlForkStop(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MessagesApi#retrieveMessage");
+            System.err.println("Exception when calling CallCommandsApi#callControlForkStop");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        StopGatherRequest body = new StopGatherRequest(); // StopGatherRequest | Stop current gather
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlGatherStop(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlGatherStop");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        GatherUsingAudioRequest body = new GatherUsingAudioRequest(); // GatherUsingAudioRequest | Gather using audio request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlGatherUsingAudio(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlGatherUsingAudio");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        GatherUsingSpeakRequest body = new GatherUsingSpeakRequest(); // GatherUsingSpeakRequest | Gather using speak request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlGatherUsingSpeak(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlGatherUsingSpeak");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        HangupRequest body = new HangupRequest(); // HangupRequest | Hangup request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlHangup(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlHangup");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        PlayAudioUrlRequest body = new PlayAudioUrlRequest(); // PlayAudioUrlRequest | Play audio URL request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlPlaybackStart(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlPlaybackStart");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        PlaybackStopRequest body = new PlaybackStopRequest(); // PlaybackStopRequest | Stop audio playback request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlPlaybackStop(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlPlaybackStop");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        StartRecordingRequest body = new StartRecordingRequest(); // StartRecordingRequest | Start recording audio request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlRecordStart(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlRecordStart");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        StopRecordingRequest body = new StopRecordingRequest(); // StopRecordingRequest | Stop recording call request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlRecordStop(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlRecordStop");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        RejectRequest body = new RejectRequest(); // RejectRequest | Reject request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlReject(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlReject");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        SendDTMFRequest body = new SendDTMFRequest(); // SendDTMFRequest | Send DTMF request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlSendDTMF(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlSendDTMF");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        SpeakRequest body = new SpeakRequest(); // SpeakRequest | Speak request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlSpeak(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlSpeak");
+            e.printStackTrace();
+        }
+    }
+}
+import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CallCommandsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CallCommandsApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CallCommandsApi apiInstance = new CallCommandsApi();
+        TransferCallRequest body = new TransferCallRequest(); // TransferCallRequest | Transfer call request
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        try {
+            CallControlCommandResponse result = apiInstance.callControlTransfer(body, callControlId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callControlTransfer");
             e.printStackTrace();
         }
     }
@@ -203,6 +519,36 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*CallCommandsApi* | [**callControlAnswer**](docs/CallCommandsApi.md#callControlAnswer) | **POST** /calls/{call_control_id}/actions/answer | Answer call
+*CallCommandsApi* | [**callControlBridge**](docs/CallCommandsApi.md#callControlBridge) | **POST** /calls/{call_control_id}/actions/bridge | Bridge calls
+*CallCommandsApi* | [**callControlDial**](docs/CallCommandsApi.md#callControlDial) | **POST** /calls | Dial
+*CallCommandsApi* | [**callControlForkStart**](docs/CallCommandsApi.md#callControlForkStart) | **POST** /calls/{call_control_id}/actions/fork_start | Forking start
+*CallCommandsApi* | [**callControlForkStop**](docs/CallCommandsApi.md#callControlForkStop) | **POST** /calls/{call_control_id}/actions/fork_stop | Forking stop
+*CallCommandsApi* | [**callControlGatherStop**](docs/CallCommandsApi.md#callControlGatherStop) | **POST** /calls/{call_control_id}/actions/gather_stop | Gather stop
+*CallCommandsApi* | [**callControlGatherUsingAudio**](docs/CallCommandsApi.md#callControlGatherUsingAudio) | **POST** /calls/{call_control_id}/actions/gather_using_audio | Gather using audio
+*CallCommandsApi* | [**callControlGatherUsingSpeak**](docs/CallCommandsApi.md#callControlGatherUsingSpeak) | **POST** /calls/{call_control_id}/actions/gather_using_speak | Gather using speak
+*CallCommandsApi* | [**callControlHangup**](docs/CallCommandsApi.md#callControlHangup) | **POST** /calls/{call_control_id}/actions/hangup | Hangup call
+*CallCommandsApi* | [**callControlPlaybackStart**](docs/CallCommandsApi.md#callControlPlaybackStart) | **POST** /calls/{call_control_id}/actions/playback_start | Play audio URL
+*CallCommandsApi* | [**callControlPlaybackStop**](docs/CallCommandsApi.md#callControlPlaybackStop) | **POST** /calls/{call_control_id}/actions/playback_stop | Stop audio playback
+*CallCommandsApi* | [**callControlRecordStart**](docs/CallCommandsApi.md#callControlRecordStart) | **POST** /calls/{call_control_id}/actions/record_start | Recording start
+*CallCommandsApi* | [**callControlRecordStop**](docs/CallCommandsApi.md#callControlRecordStop) | **POST** /calls/{call_control_id}/actions/record_stop | Recording stop
+*CallCommandsApi* | [**callControlReject**](docs/CallCommandsApi.md#callControlReject) | **POST** /calls/{call_control_id}/actions/reject | Reject call
+*CallCommandsApi* | [**callControlSendDTMF**](docs/CallCommandsApi.md#callControlSendDTMF) | **POST** /calls/{call_control_id}/actions/send_dtmf | Send DTMF
+*CallCommandsApi* | [**callControlSpeak**](docs/CallCommandsApi.md#callControlSpeak) | **POST** /calls/{call_control_id}/actions/speak | Speak text
+*CallCommandsApi* | [**callControlTransfer**](docs/CallCommandsApi.md#callControlTransfer) | **POST** /calls/{call_control_id}/actions/transfer | Transfer call
+*CallInformationApi* | [**retrieveCallStatus**](docs/CallInformationApi.md#retrieveCallStatus) | **GET** /calls/{call_control_id} | Retrieve call status
+*ConferenceCommandsApi* | [**callControlRecordConferenceStart**](docs/ConferenceCommandsApi.md#callControlRecordConferenceStart) | **POST** /conferences/{id}/actions/record_start | Conference recording start
+*ConferenceCommandsApi* | [**callControlRecordConferenceStop**](docs/ConferenceCommandsApi.md#callControlRecordConferenceStop) | **POST** /conferences/{id}/actions/record_stop | Conference recording stop
+*ConferenceCommandsApi* | [**createConference**](docs/ConferenceCommandsApi.md#createConference) | **POST** /conferences | Create conference
+*ConferenceCommandsApi* | [**getConference**](docs/ConferenceCommandsApi.md#getConference) | **GET** /conferences/{id} | Retrieve a conference
+*ConferenceCommandsApi* | [**getConferenceParticipants**](docs/ConferenceCommandsApi.md#getConferenceParticipants) | **GET** /conferences/{id}/participants | List conference participants
+*ConferenceCommandsApi* | [**getConferences**](docs/ConferenceCommandsApi.md#getConferences) | **GET** /conferences | List conferences
+*ConferenceCommandsApi* | [**holdConference**](docs/ConferenceCommandsApi.md#holdConference) | **POST** /conferences/{id}/actions/hold | Hold conference participants
+*ConferenceCommandsApi* | [**joinConference**](docs/ConferenceCommandsApi.md#joinConference) | **POST** /conferences/{id}/actions/join | Join a conference
+*ConferenceCommandsApi* | [**muteConference**](docs/ConferenceCommandsApi.md#muteConference) | **POST** /conferences/{id}/actions/mute | Mute conference participants
+*ConferenceCommandsApi* | [**unholdConference**](docs/ConferenceCommandsApi.md#unholdConference) | **POST** /conferences/{id}/actions/unhold | Unhold conference participants
+*ConferenceCommandsApi* | [**unmuteConference**](docs/ConferenceCommandsApi.md#unmuteConference) | **POST** /conferences/{id}/actions/unmute | Unmute conference participants
+*DebuggingApi* | [**callControlDebuggingEventList**](docs/DebuggingApi.md#callControlDebuggingEventList) | **GET** /call_events | List call events
 *MessagesApi* | [**createLongCodeMessage**](docs/MessagesApi.md#createLongCodeMessage) | **POST** /messages/long_code | Send a Long Code message
 *MessagesApi* | [**createMessage**](docs/MessagesApi.md#createMessage) | **POST** /messages | Send a message
 *MessagesApi* | [**createNumberPoolMessage**](docs/MessagesApi.md#createNumberPoolMessage) | **POST** /messages/number_pool | Send a message using Number Pool
@@ -232,22 +578,89 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [AnswerRequest](docs/AnswerRequest.md)
+ - [BridgeRequest](docs/BridgeRequest.md)
+ - [Call](docs/Call.md)
+ - [CallAnswered](docs/CallAnswered.md)
+ - [CallAnsweredPayload](docs/CallAnsweredPayload.md)
+ - [CallBridged](docs/CallBridged.md)
+ - [CallBridgedPayload](docs/CallBridgedPayload.md)
+ - [CallControlCommandResponse](docs/CallControlCommandResponse.md)
+ - [CallControlCommandResult](docs/CallControlCommandResult.md)
+ - [CallControlInvalidParamsResponse](docs/CallControlInvalidParamsResponse.md)
+ - [CallDtmfReceived](docs/CallDtmfReceived.md)
+ - [CallDtmfReceivedPayload](docs/CallDtmfReceivedPayload.md)
+ - [CallEvent](docs/CallEvent.md)
+ - [CallForkStarted](docs/CallForkStarted.md)
+ - [CallForkStartedPayload](docs/CallForkStartedPayload.md)
+ - [CallForkStopped](docs/CallForkStopped.md)
+ - [CallGatherEnded](docs/CallGatherEnded.md)
+ - [CallGatherEndedPayload](docs/CallGatherEndedPayload.md)
+ - [CallHangup](docs/CallHangup.md)
+ - [CallHangupPayload](docs/CallHangupPayload.md)
+ - [CallInitiated](docs/CallInitiated.md)
+ - [CallInitiatedPayload](docs/CallInitiatedPayload.md)
+ - [CallMachineDetectionEnded](docs/CallMachineDetectionEnded.md)
+ - [CallMachineDetectionEndedPayload](docs/CallMachineDetectionEndedPayload.md)
+ - [CallMachineGreetingEnded](docs/CallMachineGreetingEnded.md)
+ - [CallMachineGreetingEndedPayload](docs/CallMachineGreetingEndedPayload.md)
+ - [CallPlaybackEnded](docs/CallPlaybackEnded.md)
+ - [CallPlaybackEndedPayload](docs/CallPlaybackEndedPayload.md)
+ - [CallPlaybackStarted](docs/CallPlaybackStarted.md)
+ - [CallPlaybackStartedPayload](docs/CallPlaybackStartedPayload.md)
+ - [CallRecordingSaved](docs/CallRecordingSaved.md)
+ - [CallRecordingSavedPayload](docs/CallRecordingSavedPayload.md)
+ - [CallRecordingSavedPayloadPublicRecordingUrls](docs/CallRecordingSavedPayloadPublicRecordingUrls.md)
+ - [CallRecordingSavedPayloadRecordingUrls](docs/CallRecordingSavedPayloadRecordingUrls.md)
+ - [CallSpeakEnded](docs/CallSpeakEnded.md)
+ - [CallSpeakEndedPayload](docs/CallSpeakEndedPayload.md)
+ - [CallSpeakStarted](docs/CallSpeakStarted.md)
+ - [CallSpeakStartedPayload](docs/CallSpeakStartedPayload.md)
+ - [Conference](docs/Conference.md)
+ - [ConferenceCommandResponse](docs/ConferenceCommandResponse.md)
+ - [ConferenceCommandResult](docs/ConferenceCommandResult.md)
+ - [ConferenceCreated](docs/ConferenceCreated.md)
+ - [ConferenceCreatedPayload](docs/ConferenceCreatedPayload.md)
+ - [ConferenceEnded](docs/ConferenceEnded.md)
+ - [ConferenceEndedBy](docs/ConferenceEndedBy.md)
+ - [ConferenceEndedPayload](docs/ConferenceEndedPayload.md)
+ - [ConferenceHoldRequest](docs/ConferenceHoldRequest.md)
+ - [ConferenceMuteRequest](docs/ConferenceMuteRequest.md)
+ - [ConferenceParticipantJoined](docs/ConferenceParticipantJoined.md)
+ - [ConferenceParticipantJoinedPayload](docs/ConferenceParticipantJoinedPayload.md)
+ - [ConferenceParticipantLeft](docs/ConferenceParticipantLeft.md)
+ - [ConferenceRecordingSaved](docs/ConferenceRecordingSaved.md)
+ - [ConferenceRecordingSavedPayload](docs/ConferenceRecordingSavedPayload.md)
+ - [ConferenceUnholdRequest](docs/ConferenceUnholdRequest.md)
+ - [ConferenceUnmuteRequest](docs/ConferenceUnmuteRequest.md)
+ - [CreateConferenceRequest](docs/CreateConferenceRequest.md)
+ - [CreateConferenceResponse](docs/CreateConferenceResponse.md)
  - [CreateMessageResponse](docs/CreateMessageResponse.md)
  - [CreateMessagingProfilesResponse](docs/CreateMessagingProfilesResponse.md)
+ - [CustomSipHeader](docs/CustomSipHeader.md)
  - [DeleteMessagingProfileResponse](docs/DeleteMessagingProfileResponse.md)
+ - [DialRequest](docs/DialRequest.md)
  - [Error](docs/Error.md)
  - [ErrorSource](docs/ErrorSource.md)
  - [Errors](docs/Errors.md)
+ - [GatherUsingAudioRequest](docs/GatherUsingAudioRequest.md)
+ - [GatherUsingSpeakRequest](docs/GatherUsingSpeakRequest.md)
+ - [GetConferenceResponse](docs/GetConferenceResponse.md)
+ - [HangupRequest](docs/HangupRequest.md)
  - [HostedNumber](docs/HostedNumber.md)
  - [InboundMessage](docs/InboundMessage.md)
  - [InboundMessageEvent](docs/InboundMessageEvent.md)
  - [InboundMessageFrom](docs/InboundMessageFrom.md)
  - [InboundMessageMedia](docs/InboundMessageMedia.md)
+ - [JoinConferenceRequest](docs/JoinConferenceRequest.md)
+ - [ListCallEventsResponse](docs/ListCallEventsResponse.md)
+ - [ListConferenceResponse](docs/ListConferenceResponse.md)
  - [ListMessagingHostedNumberOrderResponse](docs/ListMessagingHostedNumberOrderResponse.md)
  - [ListMessagingProfileMetricsResponse](docs/ListMessagingProfileMetricsResponse.md)
  - [ListMessagingProfileURLDomainsResponse](docs/ListMessagingProfileURLDomainsResponse.md)
  - [ListMessagingProfilesResponse](docs/ListMessagingProfilesResponse.md)
  - [ListMessagingSettingsResponse](docs/ListMessagingSettingsResponse.md)
+ - [ListParticipantsResponse](docs/ListParticipantsResponse.md)
  - [ListShortCodesResponse](docs/ListShortCodesResponse.md)
  - [MessageQueueInfo](docs/MessageQueueInfo.md)
  - [MessageQueueInfoQueueLengths](docs/MessageQueueInfoQueueLengths.md)
@@ -282,7 +695,13 @@ Class | Method | HTTP request | Description
  - [OutboundMessageTo](docs/OutboundMessageTo.md)
  - [PaginationMeta](docs/PaginationMeta.md)
  - [PaginationMetaSimple](docs/PaginationMetaSimple.md)
+ - [Participant](docs/Participant.md)
+ - [ParticipantConference](docs/ParticipantConference.md)
+ - [PlayAudioUrlRequest](docs/PlayAudioUrlRequest.md)
+ - [PlaybackStopRequest](docs/PlaybackStopRequest.md)
+ - [RejectRequest](docs/RejectRequest.md)
  - [ReplacedLinkClickEvent](docs/ReplacedLinkClickEvent.md)
+ - [RetrieveCallStatusResponse](docs/RetrieveCallStatusResponse.md)
  - [RetrieveMessageResponse](docs/RetrieveMessageResponse.md)
  - [RetrieveMessagingHostedNumberOrderResponse](docs/RetrieveMessagingHostedNumberOrderResponse.md)
  - [RetrieveMessagingHostedNumberResponse](docs/RetrieveMessagingHostedNumberResponse.md)
@@ -292,9 +711,18 @@ Class | Method | HTTP request | Description
  - [RetrieveMessagingProfileShortCodesResponse](docs/RetrieveMessagingProfileShortCodesResponse.md)
  - [RetrieveMessagingSettingsResponse](docs/RetrieveMessagingSettingsResponse.md)
  - [RetrieveShortCodeResponse](docs/RetrieveShortCodeResponse.md)
+ - [SendDTMFRequest](docs/SendDTMFRequest.md)
  - [ShortCode](docs/ShortCode.md)
  - [ShortCodeInfo](docs/ShortCodeInfo.md)
  - [ShortCodeUpdate](docs/ShortCodeUpdate.md)
+ - [SpeakRequest](docs/SpeakRequest.md)
+ - [StartForkingRequest](docs/StartForkingRequest.md)
+ - [StartRecordingRequest](docs/StartRecordingRequest.md)
+ - [StopForkingRequest](docs/StopForkingRequest.md)
+ - [StopGatherRequest](docs/StopGatherRequest.md)
+ - [StopRecordingRequest](docs/StopRecordingRequest.md)
+ - [TransferCallRequest](docs/TransferCallRequest.md)
+ - [TransferCallRequestAnsweringMachineDetectionConfig](docs/TransferCallRequestAnsweringMachineDetectionConfig.md)
  - [UpdateMessagingProfileResponse](docs/UpdateMessagingProfileResponse.md)
  - [UpdateShortCodeResponse](docs/UpdateShortCodeResponse.md)
  - [UpdatedMessagingProfile](docs/UpdatedMessagingProfile.md)
