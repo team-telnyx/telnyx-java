@@ -13,10 +13,18 @@
 package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
+import io.swagger.client.model.DeletePhoneNumberResponse;
 import io.swagger.client.model.Errors;
 import io.swagger.client.model.ListMessagingSettingsResponse;
+import io.swagger.client.model.ListPhoneNumberVoicesResponse;
+import io.swagger.client.model.ListPhoneNumbersResponse;
 import io.swagger.client.model.MessagingPhoneNumberUpdate;
+import io.swagger.client.model.PhoneNumberEnableEmergency;
+import io.swagger.client.model.PhoneNumberUpdate;
 import io.swagger.client.model.RetrieveMessagingSettingsResponse;
+import io.swagger.client.model.RetrievePhoneNumberResponse;
+import io.swagger.client.model.RetrievePhoneNumberVoiceResponse;
+import io.swagger.client.model.VoiceUpdate;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -33,6 +41,98 @@ public class NumberConfigurationsApiTest {
 
     private final NumberConfigurationsApi api = new NumberConfigurationsApi();
 
+    /**
+     * Delete a phone number
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void deletePhoneNumberTest() throws ApiException {
+        String id = null;
+        DeletePhoneNumberResponse response = api.deletePhoneNumber(id);
+
+        // TODO: test validations
+    }
+    /**
+     * Enable emergency for a phone number
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void enableEmergencyPhoneNumberTest() throws ApiException {
+        PhoneNumberEnableEmergency body = null;
+        String id = null;
+        PhoneNumberEnableEmergency response = api.enableEmergencyPhoneNumber(body, id);
+
+        // TODO: test validations
+    }
+    /**
+     * List voice settings for multiple phone numbers
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void findPhoneNumberVoicesTest() throws ApiException {
+        Integer pageNumber = null;
+        Integer pageSize = null;
+        String filterPhoneNumber = null;
+        String filterConnectionNameContains = null;
+        String filterUsagePaymentMethod = null;
+        String sort = null;
+        ListPhoneNumberVoicesResponse response = api.findPhoneNumberVoices(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
+
+        // TODO: test validations
+    }
+    /**
+     * List all phone numbers
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void findPhoneNumbersTest() throws ApiException {
+        Integer pageNumber = null;
+        Integer pageSize = null;
+        String filterTag = null;
+        String filterPhoneNumber = null;
+        String filterStatus = null;
+        String filterVoiceConnectionNameContains = null;
+        String filterVoiceConnectionNameStartsWith = null;
+        String filterVoiceConnectionNameEndsWith = null;
+        String filterVoiceConnectionNameEq = null;
+        String filterUsagePaymentMethod = null;
+        String filterBillingGroupId = null;
+        String sort = null;
+        ListPhoneNumbersResponse response = api.findPhoneNumbers(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
+
+        // TODO: test validations
+    }
+    /**
+     * Get the settings for a phone number
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void getPhoneNumberTest() throws ApiException {
+        String id = null;
+        RetrievePhoneNumberResponse response = api.getPhoneNumber(id);
+
+        // TODO: test validations
+    }
     /**
      * List all phone numbers&#x27; messaging settings
      *
@@ -63,6 +163,37 @@ public class NumberConfigurationsApiTest {
         // TODO: test validations
     }
     /**
+     * Get the voice settings for a phone number
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void retrievePhoneNumberVoiceTest() throws ApiException {
+        String id = null;
+        RetrievePhoneNumberVoiceResponse response = api.retrievePhoneNumberVoice(id);
+
+        // TODO: test validations
+    }
+    /**
+     * Update the settings for a phone number
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void updatePhoneNumberTest() throws ApiException {
+        PhoneNumberUpdate body = null;
+        String id = null;
+        RetrievePhoneNumberResponse response = api.updatePhoneNumber(body, id);
+
+        // TODO: test validations
+    }
+    /**
      * Update the messaging settings for a phone number
      *
      * 
@@ -75,6 +206,22 @@ public class NumberConfigurationsApiTest {
         MessagingPhoneNumberUpdate body = null;
         String id = null;
         RetrieveMessagingSettingsResponse response = api.updatePhoneNumberMessagingSettings(body, id);
+
+        // TODO: test validations
+    }
+    /**
+     * Update the voice settings for a phone number
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void updatePhoneNumberVoiceTest() throws ApiException {
+        VoiceUpdate body = null;
+        String id = null;
+        RetrievePhoneNumberVoiceResponse response = api.updatePhoneNumberVoice(body, id);
 
         // TODO: test validations
     }

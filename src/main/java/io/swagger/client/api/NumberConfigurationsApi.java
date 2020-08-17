@@ -26,10 +26,18 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import io.swagger.client.model.DeletePhoneNumberResponse;
 import io.swagger.client.model.Errors;
 import io.swagger.client.model.ListMessagingSettingsResponse;
+import io.swagger.client.model.ListPhoneNumberVoicesResponse;
+import io.swagger.client.model.ListPhoneNumbersResponse;
 import io.swagger.client.model.MessagingPhoneNumberUpdate;
+import io.swagger.client.model.PhoneNumberEnableEmergency;
+import io.swagger.client.model.PhoneNumberUpdate;
 import io.swagger.client.model.RetrieveMessagingSettingsResponse;
+import io.swagger.client.model.RetrievePhoneNumberResponse;
+import io.swagger.client.model.RetrievePhoneNumberVoiceResponse;
+import io.swagger.client.model.VoiceUpdate;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -56,6 +64,729 @@ public class NumberConfigurationsApi {
         this.apiClient = apiClient;
     }
 
+    /**
+     * Build call for deletePhoneNumber
+     * @param id Identifies the resource. (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call deletePhoneNumberCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/phone_numbers/{id}"
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return apiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call deletePhoneNumberValidateBeforeCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling deletePhoneNumber(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = deletePhoneNumberCall(id, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Delete a phone number
+     * 
+     * @param id Identifies the resource. (required)
+     * @return DeletePhoneNumberResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public DeletePhoneNumberResponse deletePhoneNumber(String id) throws ApiException {
+        ApiResponse<DeletePhoneNumberResponse> resp = deletePhoneNumberWithHttpInfo(id);
+        return resp.getData();
+    }
+
+    /**
+     * Delete a phone number
+     * 
+     * @param id Identifies the resource. (required)
+     * @return ApiResponse&lt;DeletePhoneNumberResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<DeletePhoneNumberResponse> deletePhoneNumberWithHttpInfo(String id) throws ApiException {
+        com.squareup.okhttp.Call call = deletePhoneNumberValidateBeforeCall(id, null, null);
+        Type localVarReturnType = new TypeToken<DeletePhoneNumberResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Delete a phone number (asynchronously)
+     * 
+     * @param id Identifies the resource. (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call deletePhoneNumberAsync(String id, final ApiCallback<DeletePhoneNumberResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = deletePhoneNumberValidateBeforeCall(id, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<DeletePhoneNumberResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for enableEmergencyPhoneNumber
+     * @param body  (required)
+     * @param id Identifies the resource. (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call enableEmergencyPhoneNumberCall(PhoneNumberEnableEmergency body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+        
+        // create path and map variables
+        String localVarPath = "/phone_numbers/{id}/actions/enable_emergency"
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call enableEmergencyPhoneNumberValidateBeforeCall(PhoneNumberEnableEmergency body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling enableEmergencyPhoneNumber(Async)");
+        }
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling enableEmergencyPhoneNumber(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = enableEmergencyPhoneNumberCall(body, id, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Enable emergency for a phone number
+     * 
+     * @param body  (required)
+     * @param id Identifies the resource. (required)
+     * @return PhoneNumberEnableEmergency
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PhoneNumberEnableEmergency enableEmergencyPhoneNumber(PhoneNumberEnableEmergency body, String id) throws ApiException {
+        ApiResponse<PhoneNumberEnableEmergency> resp = enableEmergencyPhoneNumberWithHttpInfo(body, id);
+        return resp.getData();
+    }
+
+    /**
+     * Enable emergency for a phone number
+     * 
+     * @param body  (required)
+     * @param id Identifies the resource. (required)
+     * @return ApiResponse&lt;PhoneNumberEnableEmergency&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<PhoneNumberEnableEmergency> enableEmergencyPhoneNumberWithHttpInfo(PhoneNumberEnableEmergency body, String id) throws ApiException {
+        com.squareup.okhttp.Call call = enableEmergencyPhoneNumberValidateBeforeCall(body, id, null, null);
+        Type localVarReturnType = new TypeToken<PhoneNumberEnableEmergency>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Enable emergency for a phone number (asynchronously)
+     * 
+     * @param body  (required)
+     * @param id Identifies the resource. (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call enableEmergencyPhoneNumberAsync(PhoneNumberEnableEmergency body, String id, final ApiCallback<PhoneNumberEnableEmergency> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = enableEmergencyPhoneNumberValidateBeforeCall(body, id, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<PhoneNumberEnableEmergency>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for findPhoneNumberVoices
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageSize The size of the page (optional, default to 20)
+     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+     * @param filterConnectionNameContains Filter contains connection name. Requires at least three characters (optional)
+     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call findPhoneNumberVoicesCall(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/phone_numbers/voice";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (pageNumber != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page[number]", pageNumber));
+        if (pageSize != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page[size]", pageSize));
+        if (filterPhoneNumber != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[phone_number]", filterPhoneNumber));
+        if (filterConnectionNameContains != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[connection_name][contains]", filterConnectionNameContains));
+        if (filterUsagePaymentMethod != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[usage_payment_method]", filterUsagePaymentMethod));
+        if (sort != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("sort", sort));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call findPhoneNumberVoicesValidateBeforeCall(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        com.squareup.okhttp.Call call = findPhoneNumberVoicesCall(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * List voice settings for multiple phone numbers
+     * 
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageSize The size of the page (optional, default to 20)
+     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+     * @param filterConnectionNameContains Filter contains connection name. Requires at least three characters (optional)
+     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order (optional)
+     * @return ListPhoneNumberVoicesResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ListPhoneNumberVoicesResponse findPhoneNumberVoices(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort) throws ApiException {
+        ApiResponse<ListPhoneNumberVoicesResponse> resp = findPhoneNumberVoicesWithHttpInfo(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
+        return resp.getData();
+    }
+
+    /**
+     * List voice settings for multiple phone numbers
+     * 
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageSize The size of the page (optional, default to 20)
+     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+     * @param filterConnectionNameContains Filter contains connection name. Requires at least three characters (optional)
+     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order (optional)
+     * @return ApiResponse&lt;ListPhoneNumberVoicesResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<ListPhoneNumberVoicesResponse> findPhoneNumberVoicesWithHttpInfo(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort) throws ApiException {
+        com.squareup.okhttp.Call call = findPhoneNumberVoicesValidateBeforeCall(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort, null, null);
+        Type localVarReturnType = new TypeToken<ListPhoneNumberVoicesResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * List voice settings for multiple phone numbers (asynchronously)
+     * 
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageSize The size of the page (optional, default to 20)
+     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+     * @param filterConnectionNameContains Filter contains connection name. Requires at least three characters (optional)
+     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call findPhoneNumberVoicesAsync(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort, final ApiCallback<ListPhoneNumberVoicesResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = findPhoneNumberVoicesValidateBeforeCall(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<ListPhoneNumberVoicesResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for findPhoneNumbers
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageSize The size of the page (optional, default to 20)
+     * @param filterTag Filter by phone number tags (optional)
+     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+     * @param filterStatus Filter by phone number status (optional)
+     * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameStartsWith Filter starts with connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameEndsWith Filter ends with connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameEq Filter by connection name (optional)
+     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+     * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#x27;null&#x27;. (optional)
+     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call findPhoneNumbersCall(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/phone_numbers";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (pageNumber != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page[number]", pageNumber));
+        if (pageSize != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page[size]", pageSize));
+        if (filterTag != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[tag]", filterTag));
+        if (filterPhoneNumber != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[phone_number]", filterPhoneNumber));
+        if (filterStatus != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[status]", filterStatus));
+        if (filterVoiceConnectionNameContains != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[voice.connection_name][contains]", filterVoiceConnectionNameContains));
+        if (filterVoiceConnectionNameStartsWith != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[voice.connection_name][starts_with]", filterVoiceConnectionNameStartsWith));
+        if (filterVoiceConnectionNameEndsWith != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[voice.connection_name][ends_with]", filterVoiceConnectionNameEndsWith));
+        if (filterVoiceConnectionNameEq != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[voice.connection_name][eq]", filterVoiceConnectionNameEq));
+        if (filterUsagePaymentMethod != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[usage_payment_method]", filterUsagePaymentMethod));
+        if (filterBillingGroupId != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter[billing_group_id]", filterBillingGroupId));
+        if (sort != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("sort", sort));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call findPhoneNumbersValidateBeforeCall(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        com.squareup.okhttp.Call call = findPhoneNumbersCall(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * List all phone numbers
+     * 
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageSize The size of the page (optional, default to 20)
+     * @param filterTag Filter by phone number tags (optional)
+     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+     * @param filterStatus Filter by phone number status (optional)
+     * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameStartsWith Filter starts with connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameEndsWith Filter ends with connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameEq Filter by connection name (optional)
+     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+     * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#x27;null&#x27;. (optional)
+     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order (optional)
+     * @return ListPhoneNumbersResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ListPhoneNumbersResponse findPhoneNumbers(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort) throws ApiException {
+        ApiResponse<ListPhoneNumbersResponse> resp = findPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
+        return resp.getData();
+    }
+
+    /**
+     * List all phone numbers
+     * 
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageSize The size of the page (optional, default to 20)
+     * @param filterTag Filter by phone number tags (optional)
+     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+     * @param filterStatus Filter by phone number status (optional)
+     * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameStartsWith Filter starts with connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameEndsWith Filter ends with connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameEq Filter by connection name (optional)
+     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+     * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#x27;null&#x27;. (optional)
+     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order (optional)
+     * @return ApiResponse&lt;ListPhoneNumbersResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<ListPhoneNumbersResponse> findPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort) throws ApiException {
+        com.squareup.okhttp.Call call = findPhoneNumbersValidateBeforeCall(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort, null, null);
+        Type localVarReturnType = new TypeToken<ListPhoneNumbersResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * List all phone numbers (asynchronously)
+     * 
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageSize The size of the page (optional, default to 20)
+     * @param filterTag Filter by phone number tags (optional)
+     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+     * @param filterStatus Filter by phone number status (optional)
+     * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameStartsWith Filter starts with connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameEndsWith Filter ends with connection name. Requires at least three characters (optional)
+     * @param filterVoiceConnectionNameEq Filter by connection name (optional)
+     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+     * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#x27;null&#x27;. (optional)
+     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call findPhoneNumbersAsync(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort, final ApiCallback<ListPhoneNumbersResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = findPhoneNumbersValidateBeforeCall(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<ListPhoneNumbersResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getPhoneNumber
+     * @param id Identifies the resource. (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getPhoneNumberCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/phone_numbers/{id}"
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getPhoneNumberValidateBeforeCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling getPhoneNumber(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = getPhoneNumberCall(id, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get the settings for a phone number
+     * 
+     * @param id Identifies the resource. (required)
+     * @return RetrievePhoneNumberResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public RetrievePhoneNumberResponse getPhoneNumber(String id) throws ApiException {
+        ApiResponse<RetrievePhoneNumberResponse> resp = getPhoneNumberWithHttpInfo(id);
+        return resp.getData();
+    }
+
+    /**
+     * Get the settings for a phone number
+     * 
+     * @param id Identifies the resource. (required)
+     * @return ApiResponse&lt;RetrievePhoneNumberResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<RetrievePhoneNumberResponse> getPhoneNumberWithHttpInfo(String id) throws ApiException {
+        com.squareup.okhttp.Call call = getPhoneNumberValidateBeforeCall(id, null, null);
+        Type localVarReturnType = new TypeToken<RetrievePhoneNumberResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get the settings for a phone number (asynchronously)
+     * 
+     * @param id Identifies the resource. (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getPhoneNumberAsync(String id, final ApiCallback<RetrievePhoneNumberResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getPhoneNumberValidateBeforeCall(id, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<RetrievePhoneNumberResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
     /**
      * Build call for listPhoneNumberMessagingSettings
      * @param progressListener Progress listener
@@ -298,6 +1029,264 @@ public class NumberConfigurationsApi {
         return call;
     }
     /**
+     * Build call for retrievePhoneNumberVoice
+     * @param id Identifies the resource. (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call retrievePhoneNumberVoiceCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/phone_numbers/{id}/voice"
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call retrievePhoneNumberVoiceValidateBeforeCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling retrievePhoneNumberVoice(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = retrievePhoneNumberVoiceCall(id, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get the voice settings for a phone number
+     * 
+     * @param id Identifies the resource. (required)
+     * @return RetrievePhoneNumberVoiceResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public RetrievePhoneNumberVoiceResponse retrievePhoneNumberVoice(String id) throws ApiException {
+        ApiResponse<RetrievePhoneNumberVoiceResponse> resp = retrievePhoneNumberVoiceWithHttpInfo(id);
+        return resp.getData();
+    }
+
+    /**
+     * Get the voice settings for a phone number
+     * 
+     * @param id Identifies the resource. (required)
+     * @return ApiResponse&lt;RetrievePhoneNumberVoiceResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<RetrievePhoneNumberVoiceResponse> retrievePhoneNumberVoiceWithHttpInfo(String id) throws ApiException {
+        com.squareup.okhttp.Call call = retrievePhoneNumberVoiceValidateBeforeCall(id, null, null);
+        Type localVarReturnType = new TypeToken<RetrievePhoneNumberVoiceResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get the voice settings for a phone number (asynchronously)
+     * 
+     * @param id Identifies the resource. (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call retrievePhoneNumberVoiceAsync(String id, final ApiCallback<RetrievePhoneNumberVoiceResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = retrievePhoneNumberVoiceValidateBeforeCall(id, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<RetrievePhoneNumberVoiceResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for updatePhoneNumber
+     * @param body Updated settings for the phone number (required)
+     * @param id Identifies the resource. (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call updatePhoneNumberCall(PhoneNumberUpdate body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+        
+        // create path and map variables
+        String localVarPath = "/phone_numbers/{id}"
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return apiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call updatePhoneNumberValidateBeforeCall(PhoneNumberUpdate body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling updatePhoneNumber(Async)");
+        }
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling updatePhoneNumber(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = updatePhoneNumberCall(body, id, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Update the settings for a phone number
+     * 
+     * @param body Updated settings for the phone number (required)
+     * @param id Identifies the resource. (required)
+     * @return RetrievePhoneNumberResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public RetrievePhoneNumberResponse updatePhoneNumber(PhoneNumberUpdate body, String id) throws ApiException {
+        ApiResponse<RetrievePhoneNumberResponse> resp = updatePhoneNumberWithHttpInfo(body, id);
+        return resp.getData();
+    }
+
+    /**
+     * Update the settings for a phone number
+     * 
+     * @param body Updated settings for the phone number (required)
+     * @param id Identifies the resource. (required)
+     * @return ApiResponse&lt;RetrievePhoneNumberResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<RetrievePhoneNumberResponse> updatePhoneNumberWithHttpInfo(PhoneNumberUpdate body, String id) throws ApiException {
+        com.squareup.okhttp.Call call = updatePhoneNumberValidateBeforeCall(body, id, null, null);
+        Type localVarReturnType = new TypeToken<RetrievePhoneNumberResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Update the settings for a phone number (asynchronously)
+     * 
+     * @param body Updated settings for the phone number (required)
+     * @param id Identifies the resource. (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call updatePhoneNumberAsync(PhoneNumberUpdate body, String id, final ApiCallback<RetrievePhoneNumberResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = updatePhoneNumberValidateBeforeCall(body, id, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<RetrievePhoneNumberResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for updatePhoneNumberMessagingSettings
      * @param body Updated messaging settings for the phone number (required)
      * @param id Identifies the type of resource. (required)
@@ -427,6 +1416,139 @@ public class NumberConfigurationsApi {
 
         com.squareup.okhttp.Call call = updatePhoneNumberMessagingSettingsValidateBeforeCall(body, id, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<RetrieveMessagingSettingsResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for updatePhoneNumberVoice
+     * @param body Updated voice settings for the phone number (required)
+     * @param id Identifies the resource. (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call updatePhoneNumberVoiceCall(VoiceUpdate body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+        
+        // create path and map variables
+        String localVarPath = "/phone_numbers/{id}/voice"
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return apiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call updatePhoneNumberVoiceValidateBeforeCall(VoiceUpdate body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling updatePhoneNumberVoice(Async)");
+        }
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling updatePhoneNumberVoice(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = updatePhoneNumberVoiceCall(body, id, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Update the voice settings for a phone number
+     * 
+     * @param body Updated voice settings for the phone number (required)
+     * @param id Identifies the resource. (required)
+     * @return RetrievePhoneNumberVoiceResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public RetrievePhoneNumberVoiceResponse updatePhoneNumberVoice(VoiceUpdate body, String id) throws ApiException {
+        ApiResponse<RetrievePhoneNumberVoiceResponse> resp = updatePhoneNumberVoiceWithHttpInfo(body, id);
+        return resp.getData();
+    }
+
+    /**
+     * Update the voice settings for a phone number
+     * 
+     * @param body Updated voice settings for the phone number (required)
+     * @param id Identifies the resource. (required)
+     * @return ApiResponse&lt;RetrievePhoneNumberVoiceResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<RetrievePhoneNumberVoiceResponse> updatePhoneNumberVoiceWithHttpInfo(VoiceUpdate body, String id) throws ApiException {
+        com.squareup.okhttp.Call call = updatePhoneNumberVoiceValidateBeforeCall(body, id, null, null);
+        Type localVarReturnType = new TypeToken<RetrievePhoneNumberVoiceResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Update the voice settings for a phone number (asynchronously)
+     * 
+     * @param body Updated voice settings for the phone number (required)
+     * @param id Identifies the resource. (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call updatePhoneNumberVoiceAsync(VoiceUpdate body, String id, final ApiCallback<RetrievePhoneNumberVoiceResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = updatePhoneNumberVoiceValidateBeforeCall(body, id, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<RetrievePhoneNumberVoiceResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

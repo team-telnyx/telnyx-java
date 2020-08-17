@@ -548,6 +548,9 @@ Class | Method | HTTP request | Description
 *ConferenceCommandsApi* | [**muteConference**](docs/ConferenceCommandsApi.md#muteConference) | **POST** /conferences/{id}/actions/mute | Mute conference participants
 *ConferenceCommandsApi* | [**unholdConference**](docs/ConferenceCommandsApi.md#unholdConference) | **POST** /conferences/{id}/actions/unhold | Unhold conference participants
 *ConferenceCommandsApi* | [**unmuteConference**](docs/ConferenceCommandsApi.md#unmuteConference) | **POST** /conferences/{id}/actions/unmute | Unmute conference participants
+*CsvDownloadsApi* | [**createCsvDownload**](docs/CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | create a new CSV download request
+*CsvDownloadsApi* | [**findCsvDownloads**](docs/CsvDownloadsApi.md#findCsvDownloads) | **GET** /phone_numbers/csv_downloads | List your submitted CSV download requests
+*CsvDownloadsApi* | [**retrieveCsvDownload**](docs/CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Get a single submitted CSV download request.
 *DebuggingApi* | [**callControlDebuggingEventList**](docs/DebuggingApi.md#callControlDebuggingEventList) | **GET** /call_events | List call events
 *MessagesApi* | [**createLongCodeMessage**](docs/MessagesApi.md#createLongCodeMessage) | **POST** /messages/long_code | Send a Long Code message
 *MessagesApi* | [**createMessage**](docs/MessagesApi.md#createMessage) | **POST** /messages | Send a message
@@ -569,9 +572,33 @@ Class | Method | HTTP request | Description
 *MessagingProfilesApi* | [**retrieveMessagingProfile**](docs/MessagingProfilesApi.md#retrieveMessagingProfile) | **GET** /messaging_profiles/{id} | Retrieve a messaging profile
 *MessagingProfilesApi* | [**updateMessagingProfile**](docs/MessagingProfilesApi.md#updateMessagingProfile) | **PATCH** /messaging_profiles/{id} | Update a messaging profile
 *MessagingUrlDomainsApi* | [**getAllMessagingUrlDomains**](docs/MessagingUrlDomainsApi.md#getAllMessagingUrlDomains) | **GET** /messaging_url_domains | List all available messaging URL domains
+*NumberConfigurationsApi* | [**deletePhoneNumber**](docs/NumberConfigurationsApi.md#deletePhoneNumber) | **DELETE** /phone_numbers/{id} | Delete a phone number
+*NumberConfigurationsApi* | [**enableEmergencyPhoneNumber**](docs/NumberConfigurationsApi.md#enableEmergencyPhoneNumber) | **POST** /phone_numbers/{id}/actions/enable_emergency | Enable emergency for a phone number
+*NumberConfigurationsApi* | [**findPhoneNumberVoices**](docs/NumberConfigurationsApi.md#findPhoneNumberVoices) | **GET** /phone_numbers/voice | List voice settings for multiple phone numbers
+*NumberConfigurationsApi* | [**findPhoneNumbers**](docs/NumberConfigurationsApi.md#findPhoneNumbers) | **GET** /phone_numbers | List all phone numbers
+*NumberConfigurationsApi* | [**getPhoneNumber**](docs/NumberConfigurationsApi.md#getPhoneNumber) | **GET** /phone_numbers/{id} | Get the settings for a phone number
 *NumberConfigurationsApi* | [**listPhoneNumberMessagingSettings**](docs/NumberConfigurationsApi.md#listPhoneNumberMessagingSettings) | **GET** /phone_numbers/messaging | List all phone numbers&#x27; messaging settings
 *NumberConfigurationsApi* | [**retrievePhoneNumberMessagingSettings**](docs/NumberConfigurationsApi.md#retrievePhoneNumberMessagingSettings) | **GET** /phone_numbers/{id}/messaging | Retrieve the messaging settings for a phone number
+*NumberConfigurationsApi* | [**retrievePhoneNumberVoice**](docs/NumberConfigurationsApi.md#retrievePhoneNumberVoice) | **GET** /phone_numbers/{id}/voice | Get the voice settings for a phone number
+*NumberConfigurationsApi* | [**updatePhoneNumber**](docs/NumberConfigurationsApi.md#updatePhoneNumber) | **PATCH** /phone_numbers/{id} | Update the settings for a phone number
 *NumberConfigurationsApi* | [**updatePhoneNumberMessagingSettings**](docs/NumberConfigurationsApi.md#updatePhoneNumberMessagingSettings) | **PATCH** /phone_numbers/{id}/messaging | Update the messaging settings for a phone number
+*NumberConfigurationsApi* | [**updatePhoneNumberVoice**](docs/NumberConfigurationsApi.md#updatePhoneNumberVoice) | **PATCH** /phone_numbers/{id}/voice | Update the voice settings for a phone number
+*NumberOrderDocumentsApi* | [**createNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#createNumberOrderDocument) | **POST** /number_order_documents | Upload Number Order Document
+*NumberOrderDocumentsApi* | [**listNumberOrderDocuments**](docs/NumberOrderDocumentsApi.md#listNumberOrderDocuments) | **GET** /number_order_documents | Get Uploaded Number Order Documents
+*NumberOrderDocumentsApi* | [**retrieveNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#retrieveNumberOrderDocument) | **GET** /number_order_documents/{number_order_document_id} | Get a Single Number Order Document
+*NumberOrderDocumentsApi* | [**updateNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#updateNumberOrderDocument) | **PATCH** /number_order_documents/{number_order_document_id} | Update Number Order Document
+*NumberOrderRegulatoryRequirementsApi* | [**listNumberOrderRegulatoryRequirements**](docs/NumberOrderRegulatoryRequirementsApi.md#listNumberOrderRegulatoryRequirements) | **GET** /regulatory_requirements | Get list of Number Order Regulatory Requirements
+*NumberOrderRegulatoryRequirementsApi* | [**listPhoneNumberRegulatoryRequirements**](docs/NumberOrderRegulatoryRequirementsApi.md#listPhoneNumberRegulatoryRequirements) | **GET** /phone_number_regulatory_requirements | Get Regulatory Requirements Per Number
+*NumberOrderRegulatoryRequirementsApi* | [**retrieveNumberOrderRegulatoryRequirement**](docs/NumberOrderRegulatoryRequirementsApi.md#retrieveNumberOrderRegulatoryRequirement) | **GET** /regulatory_requirements/{requirement_id} | Get Detailed Number Order Regulatory Requirement
+*NumberOrdersApi* | [**createNumberOrder**](docs/NumberOrdersApi.md#createNumberOrder) | **POST** /number_orders | Create Phone Number Order
+*NumberOrdersApi* | [**listNumberOrders**](docs/NumberOrdersApi.md#listNumberOrders) | **GET** /number_orders | Get multiple Number Orders
+*NumberOrdersApi* | [**retrieveNumberOrder**](docs/NumberOrdersApi.md#retrieveNumberOrder) | **GET** /number_orders/{number_order_id} | Get a single phone number order
+*NumberOrdersApi* | [**updateNumberOrder**](docs/NumberOrdersApi.md#updateNumberOrder) | **PATCH** /number_orders/{number_order_id} | Update phone number order
+*NumberReservationsApi* | [**createNumberReservations**](docs/NumberReservationsApi.md#createNumberReservations) | **POST** /number_reservations | Create a Phone Number Reservation
+*NumberReservationsApi* | [**extendNumberReservationExpiryTime**](docs/NumberReservationsApi.md#extendNumberReservationExpiryTime) | **POST** /number_reservations/{number_reservation_id}/actions/extend | Extend a Phone Number Reservation
+*NumberReservationsApi* | [**listNumberReservations**](docs/NumberReservationsApi.md#listNumberReservations) | **GET** /number_reservations | List multiple Number Reservations
+*NumberReservationsApi* | [**retrieveNumberReservation**](docs/NumberReservationsApi.md#retrieveNumberReservation) | **GET** /number_reservations/{number_reservation_id} | Get a Single Phone Number Reservation
+*NumberSearchApi* | [**listAvailablePhoneNumbers**](docs/NumberSearchApi.md#listAvailablePhoneNumbers) | **GET** /available_phone_numbers | List available phone numbers
 *ShortCodesApi* | [**listShortCodes**](docs/ShortCodesApi.md#listShortCodes) | **GET** /short_codes | List all short codes
 *ShortCodesApi* | [**retrieveShortCode**](docs/ShortCodesApi.md#retrieveShortCode) | **GET** /short_codes/{id} | Retrieve a short code
 *ShortCodesApi* | [**updateShortCode**](docs/ShortCodesApi.md#updateShortCode) | **PATCH** /short_codes/{id} | Update short code
@@ -579,6 +606,8 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [AnswerRequest](docs/AnswerRequest.md)
+ - [AvailablePhoneNumber](docs/AvailablePhoneNumber.md)
+ - [AvailablePhoneNumbersMetadata](docs/AvailablePhoneNumbersMetadata.md)
  - [BridgeRequest](docs/BridgeRequest.md)
  - [Call](docs/Call.md)
  - [CallAnswered](docs/CallAnswered.md)
@@ -594,6 +623,7 @@ Class | Method | HTTP request | Description
  - [CallForkStarted](docs/CallForkStarted.md)
  - [CallForkStartedPayload](docs/CallForkStartedPayload.md)
  - [CallForkStopped](docs/CallForkStopped.md)
+ - [CallForwarding](docs/CallForwarding.md)
  - [CallGatherEnded](docs/CallGatherEnded.md)
  - [CallGatherEndedPayload](docs/CallGatherEndedPayload.md)
  - [CallHangup](docs/CallHangup.md)
@@ -608,6 +638,7 @@ Class | Method | HTTP request | Description
  - [CallPlaybackEndedPayload](docs/CallPlaybackEndedPayload.md)
  - [CallPlaybackStarted](docs/CallPlaybackStarted.md)
  - [CallPlaybackStartedPayload](docs/CallPlaybackStartedPayload.md)
+ - [CallRecording](docs/CallRecording.md)
  - [CallRecordingSaved](docs/CallRecordingSaved.md)
  - [CallRecordingSavedPayload](docs/CallRecordingSavedPayload.md)
  - [CallRecordingSavedPayloadPublicRecordingUrls](docs/CallRecordingSavedPayloadPublicRecordingUrls.md)
@@ -616,6 +647,7 @@ Class | Method | HTTP request | Description
  - [CallSpeakEndedPayload](docs/CallSpeakEndedPayload.md)
  - [CallSpeakStarted](docs/CallSpeakStarted.md)
  - [CallSpeakStartedPayload](docs/CallSpeakStartedPayload.md)
+ - [CnamListing](docs/CnamListing.md)
  - [Conference](docs/Conference.md)
  - [ConferenceCommandResponse](docs/ConferenceCommandResponse.md)
  - [ConferenceCommandResult](docs/ConferenceCommandResult.md)
@@ -633,13 +665,20 @@ Class | Method | HTTP request | Description
  - [ConferenceRecordingSavedPayload](docs/ConferenceRecordingSavedPayload.md)
  - [ConferenceUnholdRequest](docs/ConferenceUnholdRequest.md)
  - [ConferenceUnmuteRequest](docs/ConferenceUnmuteRequest.md)
+ - [CostInformation](docs/CostInformation.md)
  - [CreateConferenceRequest](docs/CreateConferenceRequest.md)
  - [CreateConferenceResponse](docs/CreateConferenceResponse.md)
  - [CreateMessageResponse](docs/CreateMessageResponse.md)
  - [CreateMessagingProfilesResponse](docs/CreateMessagingProfilesResponse.md)
+ - [CreateNumberOrderDocumentResponse](docs/CreateNumberOrderDocumentResponse.md)
+ - [CreateNumberOrderResponse](docs/CreateNumberOrderResponse.md)
+ - [CreateNumberReservationsResponse](docs/CreateNumberReservationsResponse.md)
+ - [CsvDownload](docs/CsvDownload.md)
  - [CustomSipHeader](docs/CustomSipHeader.md)
  - [DeleteMessagingProfileResponse](docs/DeleteMessagingProfileResponse.md)
+ - [DeletePhoneNumberResponse](docs/DeletePhoneNumberResponse.md)
  - [DialRequest](docs/DialRequest.md)
+ - [EmergencySettings](docs/EmergencySettings.md)
  - [Error](docs/Error.md)
  - [ErrorSource](docs/ErrorSource.md)
  - [Errors](docs/Errors.md)
@@ -653,15 +692,25 @@ Class | Method | HTTP request | Description
  - [InboundMessageFrom](docs/InboundMessageFrom.md)
  - [InboundMessageMedia](docs/InboundMessageMedia.md)
  - [JoinConferenceRequest](docs/JoinConferenceRequest.md)
+ - [ListAvailablePhoneNumbersResponse](docs/ListAvailablePhoneNumbersResponse.md)
  - [ListCallEventsResponse](docs/ListCallEventsResponse.md)
  - [ListConferenceResponse](docs/ListConferenceResponse.md)
+ - [ListCsvDownloadsResponse](docs/ListCsvDownloadsResponse.md)
  - [ListMessagingHostedNumberOrderResponse](docs/ListMessagingHostedNumberOrderResponse.md)
  - [ListMessagingProfileMetricsResponse](docs/ListMessagingProfileMetricsResponse.md)
  - [ListMessagingProfileURLDomainsResponse](docs/ListMessagingProfileURLDomainsResponse.md)
  - [ListMessagingProfilesResponse](docs/ListMessagingProfilesResponse.md)
  - [ListMessagingSettingsResponse](docs/ListMessagingSettingsResponse.md)
+ - [ListNumberOrderDocumentsResponse](docs/ListNumberOrderDocumentsResponse.md)
+ - [ListNumberOrderRegulatoryRequirementsResponse](docs/ListNumberOrderRegulatoryRequirementsResponse.md)
+ - [ListNumberOrdersResponse](docs/ListNumberOrdersResponse.md)
+ - [ListNumberReservationsResponse](docs/ListNumberReservationsResponse.md)
  - [ListParticipantsResponse](docs/ListParticipantsResponse.md)
+ - [ListPhoneNumberRegulatoryRequirementsResponse](docs/ListPhoneNumberRegulatoryRequirementsResponse.md)
+ - [ListPhoneNumberVoicesResponse](docs/ListPhoneNumberVoicesResponse.md)
+ - [ListPhoneNumbersResponse](docs/ListPhoneNumbersResponse.md)
  - [ListShortCodesResponse](docs/ListShortCodesResponse.md)
+ - [MediaFeatures](docs/MediaFeatures.md)
  - [MessageQueueInfo](docs/MessageQueueInfo.md)
  - [MessageQueueInfoQueueLengths](docs/MessageQueueInfoQueueLengths.md)
  - [MessagingFeatureSet](docs/MessagingFeatureSet.md)
@@ -687,7 +736,11 @@ Class | Method | HTTP request | Description
  - [NewNumberPoolMessage](docs/NewNumberPoolMessage.md)
  - [NewShortCodeMessage](docs/NewShortCodeMessage.md)
  - [NumberHealthMetrics](docs/NumberHealthMetrics.md)
+ - [NumberOrder](docs/NumberOrder.md)
+ - [NumberOrderDetailed](docs/NumberOrderDetailed.md)
+ - [NumberOrderDocument](docs/NumberOrderDocument.md)
  - [NumberPoolSettings](docs/NumberPoolSettings.md)
+ - [NumberReservation](docs/NumberReservation.md)
  - [OutboundMessage](docs/OutboundMessage.md)
  - [OutboundMessageCost](docs/OutboundMessageCost.md)
  - [OutboundMessageEvent](docs/OutboundMessageEvent.md)
@@ -697,11 +750,23 @@ Class | Method | HTTP request | Description
  - [PaginationMetaSimple](docs/PaginationMetaSimple.md)
  - [Participant](docs/Participant.md)
  - [ParticipantConference](docs/ParticipantConference.md)
+ - [PhoneNumber](docs/PhoneNumber.md)
+ - [PhoneNumberEnableEmergency](docs/PhoneNumberEnableEmergency.md)
+ - [PhoneNumberRegulatoryGroup](docs/PhoneNumberRegulatoryGroup.md)
+ - [PhoneNumberRegulatoryRequirement](docs/PhoneNumberRegulatoryRequirement.md)
+ - [PhoneNumberResponse](docs/PhoneNumberResponse.md)
+ - [PhoneNumberUpdate](docs/PhoneNumberUpdate.md)
+ - [PhoneNumberVoice](docs/PhoneNumberVoice.md)
  - [PlayAudioUrlRequest](docs/PlayAudioUrlRequest.md)
  - [PlaybackStopRequest](docs/PlaybackStopRequest.md)
+ - [RegionInformation](docs/RegionInformation.md)
+ - [RegulatoryRequirement](docs/RegulatoryRequirement.md)
+ - [RegulatoryRequirementCriteria](docs/RegulatoryRequirementCriteria.md)
  - [RejectRequest](docs/RejectRequest.md)
  - [ReplacedLinkClickEvent](docs/ReplacedLinkClickEvent.md)
+ - [ReservedPhoneNumber](docs/ReservedPhoneNumber.md)
  - [RetrieveCallStatusResponse](docs/RetrieveCallStatusResponse.md)
+ - [RetrieveCsvDownloadResponse](docs/RetrieveCsvDownloadResponse.md)
  - [RetrieveMessageResponse](docs/RetrieveMessageResponse.md)
  - [RetrieveMessagingHostedNumberOrderResponse](docs/RetrieveMessagingHostedNumberOrderResponse.md)
  - [RetrieveMessagingHostedNumberResponse](docs/RetrieveMessagingHostedNumberResponse.md)
@@ -710,6 +775,12 @@ Class | Method | HTTP request | Description
  - [RetrieveMessagingProfileResponse](docs/RetrieveMessagingProfileResponse.md)
  - [RetrieveMessagingProfileShortCodesResponse](docs/RetrieveMessagingProfileShortCodesResponse.md)
  - [RetrieveMessagingSettingsResponse](docs/RetrieveMessagingSettingsResponse.md)
+ - [RetrieveNumberOrderDocumentResponse](docs/RetrieveNumberOrderDocumentResponse.md)
+ - [RetrieveNumberOrderRegulatoryRequirementResponse](docs/RetrieveNumberOrderRegulatoryRequirementResponse.md)
+ - [RetrieveNumberOrderResponse](docs/RetrieveNumberOrderResponse.md)
+ - [RetrieveNumberReservationResponse](docs/RetrieveNumberReservationResponse.md)
+ - [RetrievePhoneNumberResponse](docs/RetrievePhoneNumberResponse.md)
+ - [RetrievePhoneNumberVoiceResponse](docs/RetrievePhoneNumberVoiceResponse.md)
  - [RetrieveShortCodeResponse](docs/RetrieveShortCodeResponse.md)
  - [SendDTMFRequest](docs/SendDTMFRequest.md)
  - [ShortCode](docs/ShortCode.md)
@@ -724,9 +795,12 @@ Class | Method | HTTP request | Description
  - [TransferCallRequest](docs/TransferCallRequest.md)
  - [TransferCallRequestAnsweringMachineDetectionConfig](docs/TransferCallRequestAnsweringMachineDetectionConfig.md)
  - [UpdateMessagingProfileResponse](docs/UpdateMessagingProfileResponse.md)
+ - [UpdateNumberOrderDocumentResponse](docs/UpdateNumberOrderDocumentResponse.md)
+ - [UpdateNumberOrderResponse](docs/UpdateNumberOrderResponse.md)
  - [UpdateShortCodeResponse](docs/UpdateShortCodeResponse.md)
  - [UpdatedMessagingProfile](docs/UpdatedMessagingProfile.md)
  - [UrlShortenerSettings](docs/UrlShortenerSettings.md)
+ - [VoiceUpdate](docs/VoiceUpdate.md)
 
 ## Documentation for Authorization
 
