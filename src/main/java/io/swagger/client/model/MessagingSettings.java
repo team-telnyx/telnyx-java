@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 /**
  * MessagingSettings
  */
@@ -83,7 +82,7 @@ public class MessagingSettings {
   private String phoneNumber = null;
 
   @SerializedName("messaging_profile_id")
-  private UUID messagingProfileId = null;
+  private String messagingProfileId = null;
 
   @SerializedName("created_at")
   private OffsetDateTime createdAt = null;
@@ -181,7 +180,7 @@ public class MessagingSettings {
     return phoneNumber;
   }
 
-  public MessagingSettings messagingProfileId(UUID messagingProfileId) {
+  public MessagingSettings messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
     return this;
   }
@@ -191,11 +190,11 @@ public class MessagingSettings {
    * @return messagingProfileId
   **/
   @Schema(description = "Unique identifier for a messaging profile.")
-  public UUID getMessagingProfileId() {
+  public String getMessagingProfileId() {
     return messagingProfileId;
   }
 
-  public void setMessagingProfileId(UUID messagingProfileId) {
+  public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
 
