@@ -6,31 +6,42 @@
   <packaging>jar</packaging>
   <name>telnyx</name>
   <version>2.0.0-alpha</version>
-  <url>https://github.com/swagger-api/swagger-codegen</url>
-  <description>Swagger Java</description>
+  <url>https://github.com/team-telnyx/telnyx-java/</url>
+  <description>Telnyx Java</description>
   <scm>
-    <connection>scm:git:git@github.com:swagger-api/swagger-codegen.git</connection>
-    <developerConnection>scm:git:git@github.com:swagger-api/swagger-codegen.git</developerConnection>
-    <url>https://github.com/swagger-api/swagger-codegen</url>
+    <connection>scm:git:git@github.com/team-telnyx/telnyx-java.git</connection>
+    <developerConnection>scm:git:git@github.com/team-telnyx/telnyx-java.git</developerConnection>
+    <url>https://github.com/team-telnyx/telnyx-java/</url>
   </scm>
   <prerequisites>
     <maven>2.2.0</maven>
   </prerequisites>
 
+    <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
   <licenses>
     <license>
-      <name>Unlicense</name>
-      <url>http://unlicense.org</url>
+      <name>MIT</name>
+      <url>https://opensource.org/licenses/MIT</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
 
   <developers>
     <developer>
-      <name>Swagger</name>
-      <email>apiteam@swagger.io</email>
-      <organization>Swagger</organization>
-      <organizationUrl>http://swagger.io</organizationUrl>
+      <name>Telnyx</name>
+      <email>support@telnyx.com</email>
+      <organization>Telnyx</organization>
+      <organizationUrl>Telnyx.com</organizationUrl>
     </developer>
   </developers>
 

@@ -1,0 +1,20 @@
+{
+  "java8"                   : true,
+  "dateLibrary"             : "java8",
+  "hideGenerationTimestamp" : true,
+  "groupId"                 : "com.telnyx.sdk",
+  "artifactId"              : "telnyx",
+  "artifactVersion"         : "2.0.0-alpha",
+  "modelPackage"            : "com.telnyx.sdk.models",
+  "apiPackage"              : "com.telnyx.sdk.apis",
+  "httpUserAgent"           : "telnyx-java",
+  "licenseName" : "MIT",
+  "licenseUrl": "https://opensource.org/licenses/MIT",
+  "developerName": "Telnyx",
+  "developerEmail": "support@telnyx.com",
+  "developerOrganization": "Telnyx",
+  "developerOrganizationUrl": "https://telnyx.com"
+
+
+
+}
