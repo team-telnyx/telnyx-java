@@ -75,7 +75,7 @@ public class RejectRequest {
       }
     }
   }  @SerializedName("cause")
-  private CauseEnum cause = none;
+  private CauseEnum cause = null;
 
   public RejectRequest clientState(String clientState) {
     this.clientState = clientState;
@@ -122,7 +122,7 @@ public class RejectRequest {
    * Cause for call rejection.
    * @return cause
   **/
-  @Schema(example = "USER_BUSY", description = "Cause for call rejection.")
+  @Schema(example = "USER_BUSY", required = true, description = "Cause for call rejection.")
   public CauseEnum getCause() {
     return cause;
   }

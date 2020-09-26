@@ -88,7 +88,7 @@ public class CreateCallControlApplicationRequest {
       }
     }
   }  @SerializedName("anchorsite_override")
-  private AnchorsiteOverrideEnum anchorsiteOverride = Latency;
+  private AnchorsiteOverrideEnum anchorsiteOverride = AnchorsiteOverrideEnum.LATENCY_;
 
   /**
    * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.

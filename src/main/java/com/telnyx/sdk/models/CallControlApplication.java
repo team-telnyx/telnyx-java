@@ -82,7 +82,7 @@ public class CallControlApplication {
       }
     }
   }  @SerializedName("anchorsite_override")
-  private AnchorsiteOverrideEnum anchorsiteOverride = Latency;
+  private AnchorsiteOverrideEnum anchorsiteOverride = AnchorsiteOverrideEnum.LATENCY_;
 
   @SerializedName("application_name")
   private String applicationName = null;
