@@ -4,11 +4,11 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callControlDebuggingEventList**](DebuggingApi.md#callControlDebuggingEventList) | **GET** /call_events | List call events
+[**listCallEvents**](DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
 
-<a name="callControlDebuggingEventList"></a>
-# **callControlDebuggingEventList**
-> ListCallEventsResponse callControlDebuggingEventList(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq)
+<a name="listCallEvents"></a>
+# **listCallEvents**
+> ListCallEventsResponse listCallEvents(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq)
 
 List call events
 
@@ -17,11 +17,11 @@ Filters call events by given filter parameters. Events are ordered by &#x60;even
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.DebuggingApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.DebuggingApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -37,10 +37,10 @@ String filterEventTimestampLt = "filterEventTimestampLt_example"; // String | Ev
 String filterEventTimestampLte = "filterEventTimestampLte_example"; // String | Event timestamp: lower than or equal
 String filterEventTimestampEq = "filterEventTimestampEq_example"; // String | Event timestamp: equal
 try {
-    ListCallEventsResponse result = apiInstance.callControlDebuggingEventList(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
+    ListCallEventsResponse result = apiInstance.listCallEvents(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling DebuggingApi#callControlDebuggingEventList");
+    System.err.println("Exception when calling DebuggingApi#listCallEvents");
     e.printStackTrace();
 }
 ```

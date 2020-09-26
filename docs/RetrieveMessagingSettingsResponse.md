@@ -3,4 +3,4 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**MessagingSettings**](MessagingSettings.md) |  |  [optional]
+**data** | [**PhoneNumberWithMessagingSettings**](PhoneNumberWithMessagingSettings.md) |  |  [optional]

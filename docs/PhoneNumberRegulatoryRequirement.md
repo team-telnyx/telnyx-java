@@ -4,8 +4,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | **String** |  |  [optional]
-**requirementId** | [**UUID**](UUID.md) | Unique id for a requirement |  [optional]
-**fieldValue** | **String** | The value of the requirement, this could be an id to a resource or a string value |  [optional]
+**requirementId** | [**UUID**](UUID.md) | Unique id for a requirement. |  [optional]
+**fieldValue** | **String** | The value of the requirement, this could be an id to a resource or a string value. |  [optional]
 **fieldType** | [**FieldTypeEnum**](#FieldTypeEnum) |  |  [optional]
 
 <a name="FieldTypeEnum"></a>

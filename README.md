@@ -39,7 +39,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0-alpha</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -49,7 +49,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:1.0.0"
+compile "com.telnyx.sdk:telnyx:2.0.0-alpha"
 ```
 
 ### Others
@@ -62,7 +62,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/telnyx-1.0.0.jar`
+* `target/telnyx-2.0.0-alpha.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -70,10 +70,10 @@ Then manually install the following JARs:
 Please follow the [installation](#installation) instruction and execute the following Java code:
 
 ```java
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -88,18 +88,18 @@ public class CallCommandsApiExample {
         AnswerRequest body = new AnswerRequest(); // AnswerRequest | Answer call request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlAnswer(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callAnswer(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlAnswer");
+            System.err.println("Exception when calling CallCommandsApi#callAnswer");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -114,18 +114,18 @@ public class CallCommandsApiExample {
         BridgeRequest body = new BridgeRequest(); // BridgeRequest | Bridge call request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlBridge(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callBridge(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlBridge");
+            System.err.println("Exception when calling CallCommandsApi#callBridge");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -139,18 +139,18 @@ public class CallCommandsApiExample {
         CallCommandsApi apiInstance = new CallCommandsApi();
         DialRequest body = new DialRequest(); // DialRequest | Dial request
         try {
-            RetrieveCallStatusResponse result = apiInstance.callControlDial(body);
+            RetrieveCallStatusResponse result = apiInstance.callDial(body);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlDial");
+            System.err.println("Exception when calling CallCommandsApi#callDial");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -165,18 +165,18 @@ public class CallCommandsApiExample {
         StartForkingRequest body = new StartForkingRequest(); // StartForkingRequest | Fork media request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlForkStart(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callForkStart(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlForkStart");
+            System.err.println("Exception when calling CallCommandsApi#callForkStart");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -191,18 +191,18 @@ public class CallCommandsApiExample {
         StopForkingRequest body = new StopForkingRequest(); // StopForkingRequest | Stop forking media request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlForkStop(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callForkStop(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlForkStop");
+            System.err.println("Exception when calling CallCommandsApi#callForkStop");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -217,18 +217,18 @@ public class CallCommandsApiExample {
         StopGatherRequest body = new StopGatherRequest(); // StopGatherRequest | Stop current gather
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlGatherStop(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callGatherStop(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlGatherStop");
+            System.err.println("Exception when calling CallCommandsApi#callGatherStop");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -243,18 +243,18 @@ public class CallCommandsApiExample {
         GatherUsingAudioRequest body = new GatherUsingAudioRequest(); // GatherUsingAudioRequest | Gather using audio request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlGatherUsingAudio(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callGatherUsingAudio(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlGatherUsingAudio");
+            System.err.println("Exception when calling CallCommandsApi#callGatherUsingAudio");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -269,18 +269,18 @@ public class CallCommandsApiExample {
         GatherUsingSpeakRequest body = new GatherUsingSpeakRequest(); // GatherUsingSpeakRequest | Gather using speak request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlGatherUsingSpeak(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callGatherUsingSpeak(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlGatherUsingSpeak");
+            System.err.println("Exception when calling CallCommandsApi#callGatherUsingSpeak");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -295,18 +295,18 @@ public class CallCommandsApiExample {
         HangupRequest body = new HangupRequest(); // HangupRequest | Hangup request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlHangup(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callHangup(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlHangup");
+            System.err.println("Exception when calling CallCommandsApi#callHangup");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -321,18 +321,18 @@ public class CallCommandsApiExample {
         PlayAudioUrlRequest body = new PlayAudioUrlRequest(); // PlayAudioUrlRequest | Play audio URL request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlPlaybackStart(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callPlaybackStart(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlPlaybackStart");
+            System.err.println("Exception when calling CallCommandsApi#callPlaybackStart");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -347,18 +347,18 @@ public class CallCommandsApiExample {
         PlaybackStopRequest body = new PlaybackStopRequest(); // PlaybackStopRequest | Stop audio playback request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlPlaybackStop(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callPlaybackStop(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlPlaybackStop");
+            System.err.println("Exception when calling CallCommandsApi#callPlaybackStop");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -373,18 +373,18 @@ public class CallCommandsApiExample {
         StartRecordingRequest body = new StartRecordingRequest(); // StartRecordingRequest | Start recording audio request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlRecordStart(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callRecordStart(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlRecordStart");
+            System.err.println("Exception when calling CallCommandsApi#callRecordStart");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -399,18 +399,18 @@ public class CallCommandsApiExample {
         StopRecordingRequest body = new StopRecordingRequest(); // StopRecordingRequest | Stop recording call request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlRecordStop(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callRecordStop(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlRecordStop");
+            System.err.println("Exception when calling CallCommandsApi#callRecordStop");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -425,18 +425,18 @@ public class CallCommandsApiExample {
         RejectRequest body = new RejectRequest(); // RejectRequest | Reject request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlReject(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callReject(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlReject");
+            System.err.println("Exception when calling CallCommandsApi#callReject");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -451,18 +451,18 @@ public class CallCommandsApiExample {
         SendDTMFRequest body = new SendDTMFRequest(); // SendDTMFRequest | Send DTMF request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlSendDTMF(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callSendDTMF(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlSendDTMF");
+            System.err.println("Exception when calling CallCommandsApi#callSendDTMF");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -477,18 +477,18 @@ public class CallCommandsApiExample {
         SpeakRequest body = new SpeakRequest(); // SpeakRequest | Speak request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlSpeak(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callSpeak(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlSpeak");
+            System.err.println("Exception when calling CallCommandsApi#callSpeak");
             e.printStackTrace();
         }
     }
 }
-import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CallCommandsApi;
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.CallCommandsApi;
 
 import java.io.File;
 import java.util.*;
@@ -503,10 +503,10 @@ public class CallCommandsApiExample {
         TransferCallRequest body = new TransferCallRequest(); // TransferCallRequest | Transfer call request
         String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
         try {
-            CallControlCommandResponse result = apiInstance.callControlTransfer(body, callControlId);
+            CallControlCommandResponse result = apiInstance.callTransfer(body, callControlId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callControlTransfer");
+            System.err.println("Exception when calling CallCommandsApi#callTransfer");
             e.printStackTrace();
         }
     }
@@ -519,87 +519,97 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CallCommandsApi* | [**callControlAnswer**](docs/CallCommandsApi.md#callControlAnswer) | **POST** /calls/{call_control_id}/actions/answer | Answer call
-*CallCommandsApi* | [**callControlBridge**](docs/CallCommandsApi.md#callControlBridge) | **POST** /calls/{call_control_id}/actions/bridge | Bridge calls
-*CallCommandsApi* | [**callControlDial**](docs/CallCommandsApi.md#callControlDial) | **POST** /calls | Dial
-*CallCommandsApi* | [**callControlForkStart**](docs/CallCommandsApi.md#callControlForkStart) | **POST** /calls/{call_control_id}/actions/fork_start | Forking start
-*CallCommandsApi* | [**callControlForkStop**](docs/CallCommandsApi.md#callControlForkStop) | **POST** /calls/{call_control_id}/actions/fork_stop | Forking stop
-*CallCommandsApi* | [**callControlGatherStop**](docs/CallCommandsApi.md#callControlGatherStop) | **POST** /calls/{call_control_id}/actions/gather_stop | Gather stop
-*CallCommandsApi* | [**callControlGatherUsingAudio**](docs/CallCommandsApi.md#callControlGatherUsingAudio) | **POST** /calls/{call_control_id}/actions/gather_using_audio | Gather using audio
-*CallCommandsApi* | [**callControlGatherUsingSpeak**](docs/CallCommandsApi.md#callControlGatherUsingSpeak) | **POST** /calls/{call_control_id}/actions/gather_using_speak | Gather using speak
-*CallCommandsApi* | [**callControlHangup**](docs/CallCommandsApi.md#callControlHangup) | **POST** /calls/{call_control_id}/actions/hangup | Hangup call
-*CallCommandsApi* | [**callControlPlaybackStart**](docs/CallCommandsApi.md#callControlPlaybackStart) | **POST** /calls/{call_control_id}/actions/playback_start | Play audio URL
-*CallCommandsApi* | [**callControlPlaybackStop**](docs/CallCommandsApi.md#callControlPlaybackStop) | **POST** /calls/{call_control_id}/actions/playback_stop | Stop audio playback
-*CallCommandsApi* | [**callControlRecordStart**](docs/CallCommandsApi.md#callControlRecordStart) | **POST** /calls/{call_control_id}/actions/record_start | Recording start
-*CallCommandsApi* | [**callControlRecordStop**](docs/CallCommandsApi.md#callControlRecordStop) | **POST** /calls/{call_control_id}/actions/record_stop | Recording stop
-*CallCommandsApi* | [**callControlReject**](docs/CallCommandsApi.md#callControlReject) | **POST** /calls/{call_control_id}/actions/reject | Reject call
-*CallCommandsApi* | [**callControlSendDTMF**](docs/CallCommandsApi.md#callControlSendDTMF) | **POST** /calls/{call_control_id}/actions/send_dtmf | Send DTMF
-*CallCommandsApi* | [**callControlSpeak**](docs/CallCommandsApi.md#callControlSpeak) | **POST** /calls/{call_control_id}/actions/speak | Speak text
-*CallCommandsApi* | [**callControlTransfer**](docs/CallCommandsApi.md#callControlTransfer) | **POST** /calls/{call_control_id}/actions/transfer | Transfer call
-*CallInformationApi* | [**retrieveCallStatus**](docs/CallInformationApi.md#retrieveCallStatus) | **GET** /calls/{call_control_id} | Retrieve call status
-*ConferenceCommandsApi* | [**callControlRecordConferenceStart**](docs/ConferenceCommandsApi.md#callControlRecordConferenceStart) | **POST** /conferences/{id}/actions/record_start | Conference recording start
-*ConferenceCommandsApi* | [**callControlRecordConferenceStop**](docs/ConferenceCommandsApi.md#callControlRecordConferenceStop) | **POST** /conferences/{id}/actions/record_stop | Conference recording stop
-*ConferenceCommandsApi* | [**createConference**](docs/ConferenceCommandsApi.md#createConference) | **POST** /conferences | Create conference
-*ConferenceCommandsApi* | [**getConference**](docs/ConferenceCommandsApi.md#getConference) | **GET** /conferences/{id} | Retrieve a conference
-*ConferenceCommandsApi* | [**getConferenceParticipants**](docs/ConferenceCommandsApi.md#getConferenceParticipants) | **GET** /conferences/{id}/participants | List conference participants
-*ConferenceCommandsApi* | [**getConferences**](docs/ConferenceCommandsApi.md#getConferences) | **GET** /conferences | List conferences
-*ConferenceCommandsApi* | [**holdConference**](docs/ConferenceCommandsApi.md#holdConference) | **POST** /conferences/{id}/actions/hold | Hold conference participants
-*ConferenceCommandsApi* | [**joinConference**](docs/ConferenceCommandsApi.md#joinConference) | **POST** /conferences/{id}/actions/join | Join a conference
-*ConferenceCommandsApi* | [**muteConference**](docs/ConferenceCommandsApi.md#muteConference) | **POST** /conferences/{id}/actions/mute | Mute conference participants
-*ConferenceCommandsApi* | [**unholdConference**](docs/ConferenceCommandsApi.md#unholdConference) | **POST** /conferences/{id}/actions/unhold | Unhold conference participants
-*ConferenceCommandsApi* | [**unmuteConference**](docs/ConferenceCommandsApi.md#unmuteConference) | **POST** /conferences/{id}/actions/unmute | Unmute conference participants
-*CsvDownloadsApi* | [**createCsvDownload**](docs/CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | create a new CSV download request
-*CsvDownloadsApi* | [**findCsvDownloads**](docs/CsvDownloadsApi.md#findCsvDownloads) | **GET** /phone_numbers/csv_downloads | List your submitted CSV download requests
-*CsvDownloadsApi* | [**retrieveCsvDownload**](docs/CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Get a single submitted CSV download request.
-*DebuggingApi* | [**callControlDebuggingEventList**](docs/DebuggingApi.md#callControlDebuggingEventList) | **GET** /call_events | List call events
-*MessagesApi* | [**createLongCodeMessage**](docs/MessagesApi.md#createLongCodeMessage) | **POST** /messages/long_code | Send a Long Code message
+*CallCommandsApi* | [**callAnswer**](docs/CallCommandsApi.md#callAnswer) | **POST** /calls/{call_control_id}/actions/answer | Answer a call
+*CallCommandsApi* | [**callBridge**](docs/CallCommandsApi.md#callBridge) | **POST** /calls/{call_control_id}/actions/bridge | Bridge calls
+*CallCommandsApi* | [**callDial**](docs/CallCommandsApi.md#callDial) | **POST** /calls | Dial a call
+*CallCommandsApi* | [**callForkStart**](docs/CallCommandsApi.md#callForkStart) | **POST** /calls/{call_control_id}/actions/fork_start | Start forking a call
+*CallCommandsApi* | [**callForkStop**](docs/CallCommandsApi.md#callForkStop) | **POST** /calls/{call_control_id}/actions/fork_stop | Stop forking a call
+*CallCommandsApi* | [**callGatherStop**](docs/CallCommandsApi.md#callGatherStop) | **POST** /calls/{call_control_id}/actions/gather_stop | Gather stop on a call
+*CallCommandsApi* | [**callGatherUsingAudio**](docs/CallCommandsApi.md#callGatherUsingAudio) | **POST** /calls/{call_control_id}/actions/gather_using_audio | Gather using audio on a call
+*CallCommandsApi* | [**callGatherUsingSpeak**](docs/CallCommandsApi.md#callGatherUsingSpeak) | **POST** /calls/{call_control_id}/actions/gather_using_speak | Gather using speak on a call
+*CallCommandsApi* | [**callHangup**](docs/CallCommandsApi.md#callHangup) | **POST** /calls/{call_control_id}/actions/hangup | Hangup a call
+*CallCommandsApi* | [**callPlaybackStart**](docs/CallCommandsApi.md#callPlaybackStart) | **POST** /calls/{call_control_id}/actions/playback_start | Play audio URL on a call
+*CallCommandsApi* | [**callPlaybackStop**](docs/CallCommandsApi.md#callPlaybackStop) | **POST** /calls/{call_control_id}/actions/playback_stop | Stop audio playback on a call
+*CallCommandsApi* | [**callRecordStart**](docs/CallCommandsApi.md#callRecordStart) | **POST** /calls/{call_control_id}/actions/record_start | Start recording a call
+*CallCommandsApi* | [**callRecordStop**](docs/CallCommandsApi.md#callRecordStop) | **POST** /calls/{call_control_id}/actions/record_stop | Stop recording a call
+*CallCommandsApi* | [**callReject**](docs/CallCommandsApi.md#callReject) | **POST** /calls/{call_control_id}/actions/reject | Reject a call
+*CallCommandsApi* | [**callSendDTMF**](docs/CallCommandsApi.md#callSendDTMF) | **POST** /calls/{call_control_id}/actions/send_dtmf | Send DTMF on a call
+*CallCommandsApi* | [**callSpeak**](docs/CallCommandsApi.md#callSpeak) | **POST** /calls/{call_control_id}/actions/speak | Speak text on a call
+*CallCommandsApi* | [**callTransfer**](docs/CallCommandsApi.md#callTransfer) | **POST** /calls/{call_control_id}/actions/transfer | Transfer a call
+*CallControlApplicationsApi* | [**createCallControlApplication**](docs/CallControlApplicationsApi.md#createCallControlApplication) | **POST** /call_control_applications | Create a call control application
+*CallControlApplicationsApi* | [**deleteCallControlApplication**](docs/CallControlApplicationsApi.md#deleteCallControlApplication) | **DELETE** /call_control_applications/{id} | Delete a call control application
+*CallControlApplicationsApi* | [**listCallControlApplications**](docs/CallControlApplicationsApi.md#listCallControlApplications) | **GET** /call_control_applications | List call control applications
+*CallControlApplicationsApi* | [**retrieveCallControlApplication**](docs/CallControlApplicationsApi.md#retrieveCallControlApplication) | **GET** /call_control_applications/{id} | Retrieve a call control application
+*CallControlApplicationsApi* | [**updateCallControlApplication**](docs/CallControlApplicationsApi.md#updateCallControlApplication) | **PATCH** /call_control_applications/{id} | Update a call control application
+*CallInformationApi* | [**retrieveCallStatus**](docs/CallInformationApi.md#retrieveCallStatus) | **GET** /calls/{call_control_id} | Retrieve a call status
+*ConferenceCommandsApi* | [**conferenceDialParticipantIn**](docs/ConferenceCommandsApi.md#conferenceDialParticipantIn) | **POST** /conferences/{id}/actions/dial_participant | Dial a new participant into a conference
+*ConferenceCommandsApi* | [**conferenceHoldParticipants**](docs/ConferenceCommandsApi.md#conferenceHoldParticipants) | **POST** /conferences/{id}/actions/hold | Hold conference participants
+*ConferenceCommandsApi* | [**conferenceJoin**](docs/ConferenceCommandsApi.md#conferenceJoin) | **POST** /conferences/{id}/actions/join | Join a conference
+*ConferenceCommandsApi* | [**conferenceMuteParticipants**](docs/ConferenceCommandsApi.md#conferenceMuteParticipants) | **POST** /conferences/{id}/actions/mute | Mute conference participants
+*ConferenceCommandsApi* | [**conferencePlayAudio**](docs/ConferenceCommandsApi.md#conferencePlayAudio) | **POST** /conferences/{id}/actions/play | Play audio to conference participants
+*ConferenceCommandsApi* | [**conferenceSpeakText**](docs/ConferenceCommandsApi.md#conferenceSpeakText) | **POST** /conferences/{id}/actions/speak | Speak text to conference participants
+*ConferenceCommandsApi* | [**conferenceStartRecording**](docs/ConferenceCommandsApi.md#conferenceStartRecording) | **POST** /conferences/{id}/actions/record_start | Start recording a conference
+*ConferenceCommandsApi* | [**conferenceStopRecording**](docs/ConferenceCommandsApi.md#conferenceStopRecording) | **POST** /conferences/{id}/actions/record_stop | Stop recording a conference
+*ConferenceCommandsApi* | [**conferenceUnholdParticipants**](docs/ConferenceCommandsApi.md#conferenceUnholdParticipants) | **POST** /conferences/{id}/actions/unhold | Unhold conference participants
+*ConferenceCommandsApi* | [**conferenceUnmuteParticipants**](docs/ConferenceCommandsApi.md#conferenceUnmuteParticipants) | **POST** /conferences/{id}/actions/unmute | Unmute conference participants
+*ConferenceCommandsApi* | [**createConference**](docs/ConferenceCommandsApi.md#createConference) | **POST** /conferences | Create a conference
+*ConferenceCommandsApi* | [**listConferenceParticipants**](docs/ConferenceCommandsApi.md#listConferenceParticipants) | **GET** /conferences/{conference_id}/participants | List conference participants
+*ConferenceCommandsApi* | [**listConferences**](docs/ConferenceCommandsApi.md#listConferences) | **GET** /conferences | List conferences
+*ConferenceCommandsApi* | [**retrieveConference**](docs/ConferenceCommandsApi.md#retrieveConference) | **GET** /conferences/{id} | Retrieve a conference
+*CsvDownloadsApi* | [**createCsvDownload**](docs/CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | Create a Csv download
+*CsvDownloadsApi* | [**listCsvDownloads**](docs/CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List Csv downloads
+*CsvDownloadsApi* | [**retrieveCsvDownload**](docs/CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a Csv download
+*DebuggingApi* | [**listCallEvents**](docs/DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
+*MessagesApi* | [**createLongCodeMessage**](docs/MessagesApi.md#createLongCodeMessage) | **POST** /messages/long_code | Send a long code message
 *MessagesApi* | [**createMessage**](docs/MessagesApi.md#createMessage) | **POST** /messages | Send a message
-*MessagesApi* | [**createNumberPoolMessage**](docs/MessagesApi.md#createNumberPoolMessage) | **POST** /messages/number_pool | Send a message using Number Pool
-*MessagesApi* | [**createShortCodeMessage**](docs/MessagesApi.md#createShortCodeMessage) | **POST** /messages/short_code | Send a Short Code message
+*MessagesApi* | [**createNumberPoolMessage**](docs/MessagesApi.md#createNumberPoolMessage) | **POST** /messages/number_pool | Send a message using number pool
+*MessagesApi* | [**createShortCodeMessage**](docs/MessagesApi.md#createShortCodeMessage) | **POST** /messages/short_code | Send a short code message
 *MessagesApi* | [**retrieveMessage**](docs/MessagesApi.md#retrieveMessage) | **GET** /messages/{id} | Retrieve a message
-*MessagingHostedNumberApi* | [**deleteMessagingHostedNumber**](docs/MessagingHostedNumberApi.md#deleteMessagingHostedNumber) | **DELETE** /messaging_hosted_numbers/{id} | Delete Messaging Hosted Number
-*MessagingHostedNumberApi* | [**getMessagingHostedNumberOrder**](docs/MessagingHostedNumberApi.md#getMessagingHostedNumberOrder) | **GET** /messaging_hosted_number_orders/{id} | Get Messaging Hosted Numbers Order Information
-*MessagingHostedNumberApi* | [**listMessagingHostedNumberOrder**](docs/MessagingHostedNumberApi.md#listMessagingHostedNumberOrder) | **GET** /messaging_hosted_number_orders | List All Messaging Hosted Number Orders
-*MessagingHostedNumberApi* | [**newMessagingHostedNumberOrder**](docs/MessagingHostedNumberApi.md#newMessagingHostedNumberOrder) | **POST** /messaging_hosted_number_orders | New Messaging Hosted Numbers Order
-*MessagingHostedNumberApi* | [**uploadFilesMessagingHostedNumberOrder**](docs/MessagingHostedNumberApi.md#uploadFilesMessagingHostedNumberOrder) | **POST** /messaging_hosted_number_orders/{id}/actions/file_upload | Upload LOA and Bill required for a Messaging Hosted Number Order
+*MessagingHostedNumberApi* | [**createMessagingHostedNumberOrder**](docs/MessagingHostedNumberApi.md#createMessagingHostedNumberOrder) | **POST** /messaging_hosted_number_orders | Create a messaging hosted number order
+*MessagingHostedNumberApi* | [**deleteMessagingHostedNumber**](docs/MessagingHostedNumberApi.md#deleteMessagingHostedNumber) | **DELETE** /messaging_hosted_numbers/{id} | Delete a messaging hosted number
+*MessagingHostedNumberApi* | [**listMessagingHostedNumberOrder**](docs/MessagingHostedNumberApi.md#listMessagingHostedNumberOrder) | **GET** /messaging_hosted_number_orders | List messaging hosted number orders
+*MessagingHostedNumberApi* | [**retrieveMessagingHostedNumberOrder**](docs/MessagingHostedNumberApi.md#retrieveMessagingHostedNumberOrder) | **GET** /messaging_hosted_number_orders/{id} | Retrieve a messaging hosted number order
+*MessagingHostedNumberApi* | [**uploadFileMessagingHostedNumberOrder**](docs/MessagingHostedNumberApi.md#uploadFileMessagingHostedNumberOrder) | **POST** /messaging_hosted_number_orders/{id}/actions/file_upload | Upload file required for a messaging hosted number order
 *MessagingProfilesApi* | [**createMessagingProfile**](docs/MessagingProfilesApi.md#createMessagingProfile) | **POST** /messaging_profiles | Create a messaging profile
 *MessagingProfilesApi* | [**deleteMessagingProfile**](docs/MessagingProfilesApi.md#deleteMessagingProfile) | **DELETE** /messaging_profiles/{id} | Delete a messaging profile
-*MessagingProfilesApi* | [**getMessagingProfileDetailedMetrics**](docs/MessagingProfilesApi.md#getMessagingProfileDetailedMetrics) | **GET** /messaging_profiles/{id}/metrics | Get detailed messaging metrics for a messaging profile
-*MessagingProfilesApi* | [**listMessagingProfileMetrics**](docs/MessagingProfilesApi.md#listMessagingProfileMetrics) | **GET** /messaging_profile_metrics | List high-level messaging profile metrics
-*MessagingProfilesApi* | [**listMessagingProfilePhoneNumbers**](docs/MessagingProfilesApi.md#listMessagingProfilePhoneNumbers) | **GET** /messaging_profiles/{id}/phone_numbers | List all phone numbers associated with a messaging profile
-*MessagingProfilesApi* | [**listMessagingProfileShortCodes**](docs/MessagingProfilesApi.md#listMessagingProfileShortCodes) | **GET** /messaging_profiles/{id}/short_codes | List all short codes associated with a messaging profile
-*MessagingProfilesApi* | [**listMessagingProfiles**](docs/MessagingProfilesApi.md#listMessagingProfiles) | **GET** /messaging_profiles | List all messaging profiles
+*MessagingProfilesApi* | [**getMessagingProfileDetailedMetrics**](docs/MessagingProfilesApi.md#getMessagingProfileDetailedMetrics) | **GET** /messaging_profiles/{id}/metrics | Retrieve messaging profile metrics
+*MessagingProfilesApi* | [**listMessagingProfileMetrics**](docs/MessagingProfilesApi.md#listMessagingProfileMetrics) | **GET** /messaging_profile_metrics | List messaging profile metrics
+*MessagingProfilesApi* | [**listMessagingProfilePhoneNumbers**](docs/MessagingProfilesApi.md#listMessagingProfilePhoneNumbers) | **GET** /messaging_profiles/{id}/phone_numbers | List phone numbers associated with a messaging profile
+*MessagingProfilesApi* | [**listMessagingProfileShortCodes**](docs/MessagingProfilesApi.md#listMessagingProfileShortCodes) | **GET** /messaging_profiles/{id}/short_codes | List short codes associated with a messaging profile
+*MessagingProfilesApi* | [**listMessagingProfiles**](docs/MessagingProfilesApi.md#listMessagingProfiles) | **GET** /messaging_profiles | List messaging profiles
 *MessagingProfilesApi* | [**retrieveMessagingProfile**](docs/MessagingProfilesApi.md#retrieveMessagingProfile) | **GET** /messaging_profiles/{id} | Retrieve a messaging profile
 *MessagingProfilesApi* | [**updateMessagingProfile**](docs/MessagingProfilesApi.md#updateMessagingProfile) | **PATCH** /messaging_profiles/{id} | Update a messaging profile
-*MessagingUrlDomainsApi* | [**getAllMessagingUrlDomains**](docs/MessagingUrlDomainsApi.md#getAllMessagingUrlDomains) | **GET** /messaging_url_domains | List all available messaging URL domains
+*MessagingUrlDomainsApi* | [**listMessagingUrlDomains**](docs/MessagingUrlDomainsApi.md#listMessagingUrlDomains) | **GET** /messaging_url_domains | List messaging URL domains
 *NumberConfigurationsApi* | [**deletePhoneNumber**](docs/NumberConfigurationsApi.md#deletePhoneNumber) | **DELETE** /phone_numbers/{id} | Delete a phone number
 *NumberConfigurationsApi* | [**enableEmergencyPhoneNumber**](docs/NumberConfigurationsApi.md#enableEmergencyPhoneNumber) | **POST** /phone_numbers/{id}/actions/enable_emergency | Enable emergency for a phone number
-*NumberConfigurationsApi* | [**findPhoneNumberVoices**](docs/NumberConfigurationsApi.md#findPhoneNumberVoices) | **GET** /phone_numbers/voice | List voice settings for multiple phone numbers
-*NumberConfigurationsApi* | [**findPhoneNumbers**](docs/NumberConfigurationsApi.md#findPhoneNumbers) | **GET** /phone_numbers | List all phone numbers
-*NumberConfigurationsApi* | [**getPhoneNumber**](docs/NumberConfigurationsApi.md#getPhoneNumber) | **GET** /phone_numbers/{id} | Get the settings for a phone number
-*NumberConfigurationsApi* | [**listPhoneNumberMessagingSettings**](docs/NumberConfigurationsApi.md#listPhoneNumberMessagingSettings) | **GET** /phone_numbers/messaging | List all phone numbers&#x27; messaging settings
-*NumberConfigurationsApi* | [**retrievePhoneNumberMessagingSettings**](docs/NumberConfigurationsApi.md#retrievePhoneNumberMessagingSettings) | **GET** /phone_numbers/{id}/messaging | Retrieve the messaging settings for a phone number
-*NumberConfigurationsApi* | [**retrievePhoneNumberVoice**](docs/NumberConfigurationsApi.md#retrievePhoneNumberVoice) | **GET** /phone_numbers/{id}/voice | Get the voice settings for a phone number
-*NumberConfigurationsApi* | [**updatePhoneNumber**](docs/NumberConfigurationsApi.md#updatePhoneNumber) | **PATCH** /phone_numbers/{id} | Update the settings for a phone number
-*NumberConfigurationsApi* | [**updatePhoneNumberMessagingSettings**](docs/NumberConfigurationsApi.md#updatePhoneNumberMessagingSettings) | **PATCH** /phone_numbers/{id}/messaging | Update the messaging settings for a phone number
-*NumberConfigurationsApi* | [**updatePhoneNumberVoice**](docs/NumberConfigurationsApi.md#updatePhoneNumberVoice) | **PATCH** /phone_numbers/{id}/voice | Update the voice settings for a phone number
-*NumberOrderDocumentsApi* | [**createNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#createNumberOrderDocument) | **POST** /number_order_documents | Upload Number Order Document
-*NumberOrderDocumentsApi* | [**listNumberOrderDocuments**](docs/NumberOrderDocumentsApi.md#listNumberOrderDocuments) | **GET** /number_order_documents | Get Uploaded Number Order Documents
-*NumberOrderDocumentsApi* | [**retrieveNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#retrieveNumberOrderDocument) | **GET** /number_order_documents/{number_order_document_id} | Get a Single Number Order Document
-*NumberOrderDocumentsApi* | [**updateNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#updateNumberOrderDocument) | **PATCH** /number_order_documents/{number_order_document_id} | Update Number Order Document
-*NumberOrderRegulatoryRequirementsApi* | [**listNumberOrderRegulatoryRequirements**](docs/NumberOrderRegulatoryRequirementsApi.md#listNumberOrderRegulatoryRequirements) | **GET** /regulatory_requirements | Get list of Number Order Regulatory Requirements
-*NumberOrderRegulatoryRequirementsApi* | [**listPhoneNumberRegulatoryRequirements**](docs/NumberOrderRegulatoryRequirementsApi.md#listPhoneNumberRegulatoryRequirements) | **GET** /phone_number_regulatory_requirements | Get Regulatory Requirements Per Number
-*NumberOrderRegulatoryRequirementsApi* | [**retrieveNumberOrderRegulatoryRequirement**](docs/NumberOrderRegulatoryRequirementsApi.md#retrieveNumberOrderRegulatoryRequirement) | **GET** /regulatory_requirements/{requirement_id} | Get Detailed Number Order Regulatory Requirement
-*NumberOrdersApi* | [**createNumberOrder**](docs/NumberOrdersApi.md#createNumberOrder) | **POST** /number_orders | Create Phone Number Order
-*NumberOrdersApi* | [**listNumberOrders**](docs/NumberOrdersApi.md#listNumberOrders) | **GET** /number_orders | Get multiple Number Orders
-*NumberOrdersApi* | [**retrieveNumberOrder**](docs/NumberOrdersApi.md#retrieveNumberOrder) | **GET** /number_orders/{number_order_id} | Get a single phone number order
-*NumberOrdersApi* | [**updateNumberOrder**](docs/NumberOrdersApi.md#updateNumberOrder) | **PATCH** /number_orders/{number_order_id} | Update phone number order
-*NumberReservationsApi* | [**createNumberReservations**](docs/NumberReservationsApi.md#createNumberReservations) | **POST** /number_reservations | Create a Phone Number Reservation
-*NumberReservationsApi* | [**extendNumberReservationExpiryTime**](docs/NumberReservationsApi.md#extendNumberReservationExpiryTime) | **POST** /number_reservations/{number_reservation_id}/actions/extend | Extend a Phone Number Reservation
-*NumberReservationsApi* | [**listNumberReservations**](docs/NumberReservationsApi.md#listNumberReservations) | **GET** /number_reservations | List multiple Number Reservations
-*NumberReservationsApi* | [**retrieveNumberReservation**](docs/NumberReservationsApi.md#retrieveNumberReservation) | **GET** /number_reservations/{number_reservation_id} | Get a Single Phone Number Reservation
+*NumberConfigurationsApi* | [**listPhoneNumbers**](docs/NumberConfigurationsApi.md#listPhoneNumbers) | **GET** /phone_numbers | List phone numbers
+*NumberConfigurationsApi* | [**listPhoneNumbersWithMessagingSettings**](docs/NumberConfigurationsApi.md#listPhoneNumbersWithMessagingSettings) | **GET** /phone_numbers/messaging | List phone numbers with messaging settings
+*NumberConfigurationsApi* | [**listPhoneNumbersWithVoiceSettings**](docs/NumberConfigurationsApi.md#listPhoneNumbersWithVoiceSettings) | **GET** /phone_numbers/voice | List phone numbers with voice settings
+*NumberConfigurationsApi* | [**retrievePhoneNumber**](docs/NumberConfigurationsApi.md#retrievePhoneNumber) | **GET** /phone_numbers/{id} | Retrieve a phone number
+*NumberConfigurationsApi* | [**retrievePhoneNumberWithMessagingSettings**](docs/NumberConfigurationsApi.md#retrievePhoneNumberWithMessagingSettings) | **GET** /phone_numbers/{id}/messaging | Retrieve a phone number with messaging settings
+*NumberConfigurationsApi* | [**retrievePhoneNumberWithVoiceSettings**](docs/NumberConfigurationsApi.md#retrievePhoneNumberWithVoiceSettings) | **GET** /phone_numbers/{id}/voice | Retrieve a phone number with voice settings
+*NumberConfigurationsApi* | [**updatePhoneNumber**](docs/NumberConfigurationsApi.md#updatePhoneNumber) | **PATCH** /phone_numbers/{id} | Update a phone number
+*NumberConfigurationsApi* | [**updatePhoneNumberWithMessagingSettings**](docs/NumberConfigurationsApi.md#updatePhoneNumberWithMessagingSettings) | **PATCH** /phone_numbers/{id}/messaging | Update a phone number with messaging settings
+*NumberConfigurationsApi* | [**updatePhoneNumberWithVoiceSettings**](docs/NumberConfigurationsApi.md#updatePhoneNumberWithVoiceSettings) | **PATCH** /phone_numbers/{id}/voice | Update a phone number with voice settings
+*NumberOrderDocumentsApi* | [**createNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#createNumberOrderDocument) | **POST** /number_order_documents | Create a number order document
+*NumberOrderDocumentsApi* | [**listNumberOrderDocuments**](docs/NumberOrderDocumentsApi.md#listNumberOrderDocuments) | **GET** /number_order_documents | List number order documents
+*NumberOrderDocumentsApi* | [**retrieveNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#retrieveNumberOrderDocument) | **GET** /number_order_documents/{number_order_document_id} | Retrieve a number order document
+*NumberOrderDocumentsApi* | [**updateNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#updateNumberOrderDocument) | **PATCH** /number_order_documents/{number_order_document_id} | Update a number order document
+*NumberOrderRegulatoryRequirementsApi* | [**listNumberOrderRegulatoryRequirements**](docs/NumberOrderRegulatoryRequirementsApi.md#listNumberOrderRegulatoryRequirements) | **GET** /regulatory_requirements | List number order regulatory requirements
+*NumberOrderRegulatoryRequirementsApi* | [**listPhoneNumberRegulatoryRequirements**](docs/NumberOrderRegulatoryRequirementsApi.md#listPhoneNumberRegulatoryRequirements) | **GET** /phone_number_regulatory_requirements | List regulatory requirements per number
+*NumberOrderRegulatoryRequirementsApi* | [**retrieveNumberOrderRegulatoryRequirement**](docs/NumberOrderRegulatoryRequirementsApi.md#retrieveNumberOrderRegulatoryRequirement) | **GET** /regulatory_requirements/{requirement_id} | Retrieve a number order regulatory requirement
+*NumberOrdersApi* | [**createNumberOrder**](docs/NumberOrdersApi.md#createNumberOrder) | **POST** /number_orders | Create a number order
+*NumberOrdersApi* | [**listNumberOrders**](docs/NumberOrdersApi.md#listNumberOrders) | **GET** /number_orders | List number orders
+*NumberOrdersApi* | [**retrieveNumberOrder**](docs/NumberOrdersApi.md#retrieveNumberOrder) | **GET** /number_orders/{number_order_id} | Retrieve a number order
+*NumberOrdersApi* | [**updateNumberOrder**](docs/NumberOrdersApi.md#updateNumberOrder) | **PATCH** /number_orders/{number_order_id} | Update a number order
+*NumberReservationsApi* | [**createNumberReservation**](docs/NumberReservationsApi.md#createNumberReservation) | **POST** /number_reservations | Create a number reservation
+*NumberReservationsApi* | [**extendNumberReservationExpiryTime**](docs/NumberReservationsApi.md#extendNumberReservationExpiryTime) | **POST** /number_reservations/{number_reservation_id}/actions/extend | Extend a number reservation
+*NumberReservationsApi* | [**listNumberReservations**](docs/NumberReservationsApi.md#listNumberReservations) | **GET** /number_reservations | List number reservations
+*NumberReservationsApi* | [**retrieveNumberReservation**](docs/NumberReservationsApi.md#retrieveNumberReservation) | **GET** /number_reservations/{number_reservation_id} | Retrieve a number reservation
 *NumberSearchApi* | [**listAvailablePhoneNumbers**](docs/NumberSearchApi.md#listAvailablePhoneNumbers) | **GET** /available_phone_numbers | List available phone numbers
-*ShortCodesApi* | [**listShortCodes**](docs/ShortCodesApi.md#listShortCodes) | **GET** /short_codes | List all short codes
+*RecordingsCommandsApi* | [**listRecordings**](docs/RecordingsCommandsApi.md#listRecordings) | **GET** /recordings | List recordings
+*RecordingsCommandsApi* | [**retrieveRecording**](docs/RecordingsCommandsApi.md#retrieveRecording) | **GET** /recordings/{id} | Retrieve a recording
+*ShortCodesApi* | [**listShortCodes**](docs/ShortCodesApi.md#listShortCodes) | **GET** /short_codes | List short codes
 *ShortCodesApi* | [**retrieveShortCode**](docs/ShortCodesApi.md#retrieveShortCode) | **GET** /short_codes/{id} | Retrieve a short code
 *ShortCodesApi* | [**updateShortCode**](docs/ShortCodesApi.md#updateShortCode) | **PATCH** /short_codes/{id} | Update short code
 
@@ -614,9 +624,12 @@ Class | Method | HTTP request | Description
  - [CallAnsweredPayload](docs/CallAnsweredPayload.md)
  - [CallBridged](docs/CallBridged.md)
  - [CallBridgedPayload](docs/CallBridgedPayload.md)
+ - [CallControlApplication](docs/CallControlApplication.md)
+ - [CallControlApplicationInbound](docs/CallControlApplicationInbound.md)
+ - [CallControlApplicationOutbound](docs/CallControlApplicationOutbound.md)
+ - [CallControlApplicationResponse](docs/CallControlApplicationResponse.md)
  - [CallControlCommandResponse](docs/CallControlCommandResponse.md)
  - [CallControlCommandResult](docs/CallControlCommandResult.md)
- - [CallControlInvalidParamsResponse](docs/CallControlInvalidParamsResponse.md)
  - [CallDtmfReceived](docs/CallDtmfReceived.md)
  - [CallDtmfReceivedPayload](docs/CallDtmfReceivedPayload.md)
  - [CallEvent](docs/CallEvent.md)
@@ -653,6 +666,7 @@ Class | Method | HTTP request | Description
  - [ConferenceCommandResult](docs/ConferenceCommandResult.md)
  - [ConferenceCreated](docs/ConferenceCreated.md)
  - [ConferenceCreatedPayload](docs/ConferenceCreatedPayload.md)
+ - [ConferenceDialRequest](docs/ConferenceDialRequest.md)
  - [ConferenceEnded](docs/ConferenceEnded.md)
  - [ConferenceEndedBy](docs/ConferenceEndedBy.md)
  - [ConferenceEndedPayload](docs/ConferenceEndedPayload.md)
@@ -661,44 +675,68 @@ Class | Method | HTTP request | Description
  - [ConferenceParticipantJoined](docs/ConferenceParticipantJoined.md)
  - [ConferenceParticipantJoinedPayload](docs/ConferenceParticipantJoinedPayload.md)
  - [ConferenceParticipantLeft](docs/ConferenceParticipantLeft.md)
+ - [ConferenceParticipantPlaybackEnded](docs/ConferenceParticipantPlaybackEnded.md)
+ - [ConferenceParticipantPlaybackEndedPayload](docs/ConferenceParticipantPlaybackEndedPayload.md)
+ - [ConferenceParticipantPlaybackStarted](docs/ConferenceParticipantPlaybackStarted.md)
+ - [ConferenceParticipantSpeakEnded](docs/ConferenceParticipantSpeakEnded.md)
+ - [ConferenceParticipantSpeakEndedPayload](docs/ConferenceParticipantSpeakEndedPayload.md)
+ - [ConferenceParticipantSpeakStarted](docs/ConferenceParticipantSpeakStarted.md)
+ - [ConferencePlayRequest](docs/ConferencePlayRequest.md)
+ - [ConferencePlaybackEnded](docs/ConferencePlaybackEnded.md)
+ - [ConferencePlaybackEndedPayload](docs/ConferencePlaybackEndedPayload.md)
+ - [ConferencePlaybackStarted](docs/ConferencePlaybackStarted.md)
  - [ConferenceRecordingSaved](docs/ConferenceRecordingSaved.md)
  - [ConferenceRecordingSavedPayload](docs/ConferenceRecordingSavedPayload.md)
+ - [ConferenceResponse](docs/ConferenceResponse.md)
+ - [ConferenceSpeakEnded](docs/ConferenceSpeakEnded.md)
+ - [ConferenceSpeakEndedPayload](docs/ConferenceSpeakEndedPayload.md)
+ - [ConferenceSpeakRequest](docs/ConferenceSpeakRequest.md)
+ - [ConferenceSpeakStarted](docs/ConferenceSpeakStarted.md)
  - [ConferenceUnholdRequest](docs/ConferenceUnholdRequest.md)
  - [ConferenceUnmuteRequest](docs/ConferenceUnmuteRequest.md)
  - [CostInformation](docs/CostInformation.md)
+ - [CreateCallControlApplicationRequest](docs/CreateCallControlApplicationRequest.md)
  - [CreateConferenceRequest](docs/CreateConferenceRequest.md)
- - [CreateConferenceResponse](docs/CreateConferenceResponse.md)
- - [CreateMessageResponse](docs/CreateMessageResponse.md)
- - [CreateMessagingProfilesResponse](docs/CreateMessagingProfilesResponse.md)
- - [CreateNumberOrderDocumentResponse](docs/CreateNumberOrderDocumentResponse.md)
- - [CreateNumberOrderResponse](docs/CreateNumberOrderResponse.md)
- - [CreateNumberReservationsResponse](docs/CreateNumberReservationsResponse.md)
+ - [CreateLongCodeMessageRequest](docs/CreateLongCodeMessageRequest.md)
+ - [CreateMessageRequest](docs/CreateMessageRequest.md)
+ - [CreateMessagingHostedNumberOrderRequest](docs/CreateMessagingHostedNumberOrderRequest.md)
+ - [CreateMessagingProfileRequest](docs/CreateMessagingProfileRequest.md)
+ - [CreateNumberOrderDocumentRequest](docs/CreateNumberOrderDocumentRequest.md)
+ - [CreateNumberOrderRequest](docs/CreateNumberOrderRequest.md)
+ - [CreateNumberPoolMessageRequest](docs/CreateNumberPoolMessageRequest.md)
+ - [CreateNumberReservationRequest](docs/CreateNumberReservationRequest.md)
+ - [CreateShortCodeMessageRequest](docs/CreateShortCodeMessageRequest.md)
  - [CsvDownload](docs/CsvDownload.md)
+ - [CsvDownloadResponse](docs/CsvDownloadResponse.md)
  - [CustomSipHeader](docs/CustomSipHeader.md)
- - [DeleteMessagingProfileResponse](docs/DeleteMessagingProfileResponse.md)
- - [DeletePhoneNumberResponse](docs/DeletePhoneNumberResponse.md)
  - [DialRequest](docs/DialRequest.md)
+ - [DialRequestAnsweringMachineDetectionConfig](docs/DialRequestAnsweringMachineDetectionConfig.md)
  - [EmergencySettings](docs/EmergencySettings.md)
  - [Error](docs/Error.md)
  - [ErrorSource](docs/ErrorSource.md)
  - [Errors](docs/Errors.md)
  - [GatherUsingAudioRequest](docs/GatherUsingAudioRequest.md)
  - [GatherUsingSpeakRequest](docs/GatherUsingSpeakRequest.md)
- - [GetConferenceResponse](docs/GetConferenceResponse.md)
+ - [GetRecordingResponse](docs/GetRecordingResponse.md)
  - [HangupRequest](docs/HangupRequest.md)
  - [HostedNumber](docs/HostedNumber.md)
  - [InboundMessage](docs/InboundMessage.md)
- - [InboundMessageEvent](docs/InboundMessageEvent.md)
- - [InboundMessageFrom](docs/InboundMessageFrom.md)
- - [InboundMessageMedia](docs/InboundMessageMedia.md)
+ - [InboundMessageResponse](docs/InboundMessageResponse.md)
+ - [InboundMessageResponseCost](docs/InboundMessageResponseCost.md)
+ - [InboundMessageResponseFrom](docs/InboundMessageResponseFrom.md)
+ - [InboundMessageResponseMedia](docs/InboundMessageResponseMedia.md)
+ - [InboundMessageResponseTo](docs/InboundMessageResponseTo.md)
  - [JoinConferenceRequest](docs/JoinConferenceRequest.md)
  - [ListAvailablePhoneNumbersResponse](docs/ListAvailablePhoneNumbersResponse.md)
+ - [ListCallControlApplicationsResponse](docs/ListCallControlApplicationsResponse.md)
  - [ListCallEventsResponse](docs/ListCallEventsResponse.md)
- - [ListConferenceResponse](docs/ListConferenceResponse.md)
+ - [ListConferencesResponse](docs/ListConferencesResponse.md)
  - [ListCsvDownloadsResponse](docs/ListCsvDownloadsResponse.md)
  - [ListMessagingHostedNumberOrderResponse](docs/ListMessagingHostedNumberOrderResponse.md)
  - [ListMessagingProfileMetricsResponse](docs/ListMessagingProfileMetricsResponse.md)
- - [ListMessagingProfileURLDomainsResponse](docs/ListMessagingProfileURLDomainsResponse.md)
+ - [ListMessagingProfilePhoneNumbersResponse](docs/ListMessagingProfilePhoneNumbersResponse.md)
+ - [ListMessagingProfileShortCodesResponse](docs/ListMessagingProfileShortCodesResponse.md)
+ - [ListMessagingProfileUrlDomainsResponse](docs/ListMessagingProfileUrlDomainsResponse.md)
  - [ListMessagingProfilesResponse](docs/ListMessagingProfilesResponse.md)
  - [ListMessagingSettingsResponse](docs/ListMessagingSettingsResponse.md)
  - [ListNumberOrderDocumentsResponse](docs/ListNumberOrderDocumentsResponse.md)
@@ -707,17 +745,14 @@ Class | Method | HTTP request | Description
  - [ListNumberReservationsResponse](docs/ListNumberReservationsResponse.md)
  - [ListParticipantsResponse](docs/ListParticipantsResponse.md)
  - [ListPhoneNumberRegulatoryRequirementsResponse](docs/ListPhoneNumberRegulatoryRequirementsResponse.md)
- - [ListPhoneNumberVoicesResponse](docs/ListPhoneNumberVoicesResponse.md)
  - [ListPhoneNumbersResponse](docs/ListPhoneNumbersResponse.md)
+ - [ListPhoneNumbersWithVoiceSettingsResponse](docs/ListPhoneNumbersWithVoiceSettingsResponse.md)
+ - [ListRecordingsResponse](docs/ListRecordingsResponse.md)
  - [ListShortCodesResponse](docs/ListShortCodesResponse.md)
  - [MediaFeatures](docs/MediaFeatures.md)
- - [MessageQueueInfo](docs/MessageQueueInfo.md)
- - [MessageQueueInfoQueueLengths](docs/MessageQueueInfoQueueLengths.md)
+ - [MessageResponse](docs/MessageResponse.md)
  - [MessagingFeatureSet](docs/MessagingFeatureSet.md)
  - [MessagingHostedNumberOrder](docs/MessagingHostedNumberOrder.md)
- - [MessagingPhoneNumber](docs/MessagingPhoneNumber.md)
- - [MessagingPhoneNumberFeatures](docs/MessagingPhoneNumberFeatures.md)
- - [MessagingPhoneNumberUpdate](docs/MessagingPhoneNumberUpdate.md)
  - [MessagingProfile](docs/MessagingProfile.md)
  - [MessagingProfileDetailedMetric](docs/MessagingProfileDetailedMetric.md)
  - [MessagingProfileDetailedMetrics](docs/MessagingProfileDetailedMetrics.md)
@@ -725,67 +760,57 @@ Class | Method | HTTP request | Description
  - [MessagingProfileHighLevelMetricsInbound](docs/MessagingProfileHighLevelMetricsInbound.md)
  - [MessagingProfileHighLevelMetricsOutbound](docs/MessagingProfileHighLevelMetricsOutbound.md)
  - [MessagingProfileMessageTypeMetrics](docs/MessagingProfileMessageTypeMetrics.md)
- - [MessagingResponse](docs/MessagingResponse.md)
- - [MessagingSettings](docs/MessagingSettings.md)
+ - [MessagingProfileResponse](docs/MessagingProfileResponse.md)
  - [MessagingUrlDomain](docs/MessagingUrlDomain.md)
- - [NewLongCodeMessage](docs/NewLongCodeMessage.md)
- - [NewMessage](docs/NewMessage.md)
- - [NewMessagingHostedNumberOrder](docs/NewMessagingHostedNumberOrder.md)
- - [NewMessagingHostedNumberOrderFileUpload](docs/NewMessagingHostedNumberOrderFileUpload.md)
- - [NewMessagingProfile](docs/NewMessagingProfile.md)
- - [NewNumberPoolMessage](docs/NewNumberPoolMessage.md)
- - [NewShortCodeMessage](docs/NewShortCodeMessage.md)
  - [NumberHealthMetrics](docs/NumberHealthMetrics.md)
  - [NumberOrder](docs/NumberOrder.md)
  - [NumberOrderDetailed](docs/NumberOrderDetailed.md)
  - [NumberOrderDocument](docs/NumberOrderDocument.md)
+ - [NumberOrderDocumentResponse](docs/NumberOrderDocumentResponse.md)
+ - [NumberOrderRegulatoryRequirementResponse](docs/NumberOrderRegulatoryRequirementResponse.md)
+ - [NumberOrderResponse](docs/NumberOrderResponse.md)
  - [NumberPoolSettings](docs/NumberPoolSettings.md)
  - [NumberReservation](docs/NumberReservation.md)
+ - [NumberReservationResponse](docs/NumberReservationResponse.md)
+ - [OneOfConferencePlayRequestLoop](docs/OneOfConferencePlayRequestLoop.md)
  - [OutboundMessage](docs/OutboundMessage.md)
- - [OutboundMessageCost](docs/OutboundMessageCost.md)
- - [OutboundMessageEvent](docs/OutboundMessageEvent.md)
- - [OutboundMessageMedia](docs/OutboundMessageMedia.md)
- - [OutboundMessageTo](docs/OutboundMessageTo.md)
+ - [OutboundMessageResponse](docs/OutboundMessageResponse.md)
+ - [OutboundMessageResponseFrom](docs/OutboundMessageResponseFrom.md)
+ - [OutboundMessageResponseMedia](docs/OutboundMessageResponseMedia.md)
+ - [OutboundMessageResponseTo](docs/OutboundMessageResponseTo.md)
  - [PaginationMeta](docs/PaginationMeta.md)
  - [PaginationMetaSimple](docs/PaginationMetaSimple.md)
  - [Participant](docs/Participant.md)
  - [ParticipantConference](docs/ParticipantConference.md)
  - [PhoneNumber](docs/PhoneNumber.md)
+ - [PhoneNumberDetailed](docs/PhoneNumberDetailed.md)
  - [PhoneNumberEnableEmergency](docs/PhoneNumberEnableEmergency.md)
+ - [PhoneNumberEnableEmergencyRequest](docs/PhoneNumberEnableEmergencyRequest.md)
  - [PhoneNumberRegulatoryGroup](docs/PhoneNumberRegulatoryGroup.md)
  - [PhoneNumberRegulatoryRequirement](docs/PhoneNumberRegulatoryRequirement.md)
  - [PhoneNumberResponse](docs/PhoneNumberResponse.md)
- - [PhoneNumberUpdate](docs/PhoneNumberUpdate.md)
- - [PhoneNumberVoice](docs/PhoneNumberVoice.md)
+ - [PhoneNumberWithMessagingSettings](docs/PhoneNumberWithMessagingSettings.md)
+ - [PhoneNumberWithMessagingSettingsFeatures](docs/PhoneNumberWithMessagingSettingsFeatures.md)
+ - [PhoneNumberWithVoiceSettings](docs/PhoneNumberWithVoiceSettings.md)
  - [PlayAudioUrlRequest](docs/PlayAudioUrlRequest.md)
  - [PlaybackStopRequest](docs/PlaybackStopRequest.md)
+ - [Recording](docs/Recording.md)
+ - [RecordingDownloadUrls](docs/RecordingDownloadUrls.md)
  - [RegionInformation](docs/RegionInformation.md)
  - [RegulatoryRequirement](docs/RegulatoryRequirement.md)
  - [RegulatoryRequirementCriteria](docs/RegulatoryRequirementCriteria.md)
  - [RejectRequest](docs/RejectRequest.md)
- - [ReplacedLinkClickEvent](docs/ReplacedLinkClickEvent.md)
+ - [ReplacedLinkClick](docs/ReplacedLinkClick.md)
  - [ReservedPhoneNumber](docs/ReservedPhoneNumber.md)
  - [RetrieveCallStatusResponse](docs/RetrieveCallStatusResponse.md)
- - [RetrieveCsvDownloadResponse](docs/RetrieveCsvDownloadResponse.md)
- - [RetrieveMessageResponse](docs/RetrieveMessageResponse.md)
  - [RetrieveMessagingHostedNumberOrderResponse](docs/RetrieveMessagingHostedNumberOrderResponse.md)
  - [RetrieveMessagingHostedNumberResponse](docs/RetrieveMessagingHostedNumberResponse.md)
  - [RetrieveMessagingProfileMetricsResponse](docs/RetrieveMessagingProfileMetricsResponse.md)
- - [RetrieveMessagingProfilePhoneNumbersResponse](docs/RetrieveMessagingProfilePhoneNumbersResponse.md)
- - [RetrieveMessagingProfileResponse](docs/RetrieveMessagingProfileResponse.md)
- - [RetrieveMessagingProfileShortCodesResponse](docs/RetrieveMessagingProfileShortCodesResponse.md)
  - [RetrieveMessagingSettingsResponse](docs/RetrieveMessagingSettingsResponse.md)
- - [RetrieveNumberOrderDocumentResponse](docs/RetrieveNumberOrderDocumentResponse.md)
- - [RetrieveNumberOrderRegulatoryRequirementResponse](docs/RetrieveNumberOrderRegulatoryRequirementResponse.md)
- - [RetrieveNumberOrderResponse](docs/RetrieveNumberOrderResponse.md)
- - [RetrieveNumberReservationResponse](docs/RetrieveNumberReservationResponse.md)
- - [RetrievePhoneNumberResponse](docs/RetrievePhoneNumberResponse.md)
  - [RetrievePhoneNumberVoiceResponse](docs/RetrievePhoneNumberVoiceResponse.md)
- - [RetrieveShortCodeResponse](docs/RetrieveShortCodeResponse.md)
  - [SendDTMFRequest](docs/SendDTMFRequest.md)
  - [ShortCode](docs/ShortCode.md)
- - [ShortCodeInfo](docs/ShortCodeInfo.md)
- - [ShortCodeUpdate](docs/ShortCodeUpdate.md)
+ - [ShortCodeResponse](docs/ShortCodeResponse.md)
  - [SpeakRequest](docs/SpeakRequest.md)
  - [StartForkingRequest](docs/StartForkingRequest.md)
  - [StartRecordingRequest](docs/StartRecordingRequest.md)
@@ -793,14 +818,16 @@ Class | Method | HTTP request | Description
  - [StopGatherRequest](docs/StopGatherRequest.md)
  - [StopRecordingRequest](docs/StopRecordingRequest.md)
  - [TransferCallRequest](docs/TransferCallRequest.md)
- - [TransferCallRequestAnsweringMachineDetectionConfig](docs/TransferCallRequestAnsweringMachineDetectionConfig.md)
- - [UpdateMessagingProfileResponse](docs/UpdateMessagingProfileResponse.md)
- - [UpdateNumberOrderDocumentResponse](docs/UpdateNumberOrderDocumentResponse.md)
- - [UpdateNumberOrderResponse](docs/UpdateNumberOrderResponse.md)
- - [UpdateShortCodeResponse](docs/UpdateShortCodeResponse.md)
- - [UpdatedMessagingProfile](docs/UpdatedMessagingProfile.md)
+ - [UpdateCallControlApplicationRequest](docs/UpdateCallControlApplicationRequest.md)
+ - [UpdateMessagingProfileRequest](docs/UpdateMessagingProfileRequest.md)
+ - [UpdateNumberOrderDocumentRequest](docs/UpdateNumberOrderDocumentRequest.md)
+ - [UpdateNumberOrderRequest](docs/UpdateNumberOrderRequest.md)
+ - [UpdatePhoneNumberMessagingSettingsRequest](docs/UpdatePhoneNumberMessagingSettingsRequest.md)
+ - [UpdatePhoneNumberRequest](docs/UpdatePhoneNumberRequest.md)
+ - [UpdatePhoneNumberVoiceSettingsRequest](docs/UpdatePhoneNumberVoiceSettingsRequest.md)
+ - [UpdateShortCodeRequest](docs/UpdateShortCodeRequest.md)
+ - [UploadFileMessagingHostedNumberOrderRequest](docs/UploadFileMessagingHostedNumberOrderRequest.md)
  - [UrlShortenerSettings](docs/UrlShortenerSettings.md)
- - [VoiceUpdate](docs/VoiceUpdate.md)
 
 ## Documentation for Authorization
 

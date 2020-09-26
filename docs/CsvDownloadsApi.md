@@ -4,31 +4,31 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createCsvDownload**](CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | create a new CSV download request
-[**findCsvDownloads**](CsvDownloadsApi.md#findCsvDownloads) | **GET** /phone_numbers/csv_downloads | List your submitted CSV download requests
-[**retrieveCsvDownload**](CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Get a single submitted CSV download request.
+[**createCsvDownload**](CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | Create a Csv download
+[**listCsvDownloads**](CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List Csv downloads
+[**retrieveCsvDownload**](CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a Csv download
 
 <a name="createCsvDownload"></a>
 # **createCsvDownload**
-> RetrieveCsvDownloadResponse createCsvDownload()
+> CsvDownloadResponse createCsvDownload()
 
-create a new CSV download request
+Create a Csv download
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.CsvDownloadsApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.CsvDownloadsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 CsvDownloadsApi apiInstance = new CsvDownloadsApi();
 try {
-    RetrieveCsvDownloadResponse result = apiInstance.createCsvDownload();
+    CsvDownloadResponse result = apiInstance.createCsvDownload();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CsvDownloadsApi#createCsvDownload");
@@ -41,7 +41,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**RetrieveCsvDownloadResponse**](RetrieveCsvDownloadResponse.md)
+[**CsvDownloadResponse**](CsvDownloadResponse.md)
 
 ### Authorization
 
@@ -52,20 +52,20 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="findCsvDownloads"></a>
-# **findCsvDownloads**
-> ListCsvDownloadsResponse findCsvDownloads(pageNumber, pageSize)
+<a name="listCsvDownloads"></a>
+# **listCsvDownloads**
+> ListCsvDownloadsResponse listCsvDownloads(pageNumber, pageSize)
 
-List your submitted CSV download requests
+List Csv downloads
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.CsvDownloadsApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.CsvDownloadsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -74,10 +74,10 @@ CsvDownloadsApi apiInstance = new CsvDownloadsApi();
 Integer pageNumber = 1; // Integer | The page number to load
 Integer pageSize = 20; // Integer | The size of the page
 try {
-    ListCsvDownloadsResponse result = apiInstance.findCsvDownloads(pageNumber, pageSize);
+    ListCsvDownloadsResponse result = apiInstance.listCsvDownloads(pageNumber, pageSize);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling CsvDownloadsApi#findCsvDownloads");
+    System.err.println("Exception when calling CsvDownloadsApi#listCsvDownloads");
     e.printStackTrace();
 }
 ```
@@ -104,18 +104,18 @@ Name | Type | Description  | Notes
 
 <a name="retrieveCsvDownload"></a>
 # **retrieveCsvDownload**
-> RetrieveCsvDownloadResponse retrieveCsvDownload(id)
+> CsvDownloadResponse retrieveCsvDownload(id)
 
-Get a single submitted CSV download request.
+Retrieve a Csv download
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.CsvDownloadsApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.CsvDownloadsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -123,7 +123,7 @@ ApiClient defaultClient = Configuration.getDefaultApiClient();
 CsvDownloadsApi apiInstance = new CsvDownloadsApi();
 String id = "id_example"; // String | Identifies the CSV download.
 try {
-    RetrieveCsvDownloadResponse result = apiInstance.retrieveCsvDownload(id);
+    CsvDownloadResponse result = apiInstance.retrieveCsvDownload(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CsvDownloadsApi#retrieveCsvDownload");
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveCsvDownloadResponse**](RetrieveCsvDownloadResponse.md)
+[**CsvDownloadResponse**](CsvDownloadResponse.md)
 
 ### Authorization
 

@@ -4,7 +4,7 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**listShortCodes**](ShortCodesApi.md#listShortCodes) | **GET** /short_codes | List all short codes
+[**listShortCodes**](ShortCodesApi.md#listShortCodes) | **GET** /short_codes | List short codes
 [**retrieveShortCode**](ShortCodesApi.md#retrieveShortCode) | **GET** /short_codes/{id} | Retrieve a short code
 [**updateShortCode**](ShortCodesApi.md#updateShortCode) | **PATCH** /short_codes/{id} | Update short code
 
@@ -12,16 +12,16 @@ Method | HTTP request | Description
 # **listShortCodes**
 > ListShortCodesResponse listShortCodes(pageNumber, pageSize, filterMessagingProfileId)
 
-List all short codes
+List short codes
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.ShortCodesApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.ShortCodesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -62,18 +62,18 @@ Name | Type | Description  | Notes
 
 <a name="retrieveShortCode"></a>
 # **retrieveShortCode**
-> RetrieveShortCodeResponse retrieveShortCode(id)
+> ShortCodeResponse retrieveShortCode(id)
 
 Retrieve a short code
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.ShortCodesApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.ShortCodesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -81,7 +81,7 @@ ApiClient defaultClient = Configuration.getDefaultApiClient();
 ShortCodesApi apiInstance = new ShortCodesApi();
 UUID id = new UUID(); // UUID | The id of the short code
 try {
-    RetrieveShortCodeResponse result = apiInstance.retrieveShortCode(id);
+    ShortCodeResponse result = apiInstance.retrieveShortCode(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ShortCodesApi#retrieveShortCode");
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveShortCodeResponse**](RetrieveShortCodeResponse.md)
+[**ShortCodeResponse**](ShortCodeResponse.md)
 
 ### Authorization
 
@@ -110,7 +110,7 @@ Name | Type | Description  | Notes
 
 <a name="updateShortCode"></a>
 # **updateShortCode**
-> UpdateShortCodeResponse updateShortCode(body, id)
+> ShortCodeResponse updateShortCode(body, id)
 
 Update short code
 
@@ -119,20 +119,20 @@ Update the settings for a specific short code. To unbind a short code from a pro
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.ShortCodesApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.ShortCodesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 ShortCodesApi apiInstance = new ShortCodesApi();
-ShortCodeUpdate body = new ShortCodeUpdate(); // ShortCodeUpdate | Short code update
+UpdateShortCodeRequest body = new UpdateShortCodeRequest(); // UpdateShortCodeRequest | Short code update
 UUID id = new UUID(); // UUID | The id of the short code
 try {
-    UpdateShortCodeResponse result = apiInstance.updateShortCode(body, id);
+    ShortCodeResponse result = apiInstance.updateShortCode(body, id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ShortCodesApi#updateShortCode");
@@ -144,12 +144,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ShortCodeUpdate**](ShortCodeUpdate.md)| Short code update |
+ **body** | [**UpdateShortCodeRequest**](UpdateShortCodeRequest.md)| Short code update |
  **id** | [**UUID**](.md)| The id of the short code |
 
 ### Return type
 
-[**UpdateShortCodeResponse**](UpdateShortCodeResponse.md)
+[**ShortCodeResponse**](ShortCodeResponse.md)
 
 ### Authorization
 

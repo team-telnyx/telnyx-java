@@ -4,35 +4,35 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createNumberOrder**](NumberOrdersApi.md#createNumberOrder) | **POST** /number_orders | Create Phone Number Order
-[**listNumberOrders**](NumberOrdersApi.md#listNumberOrders) | **GET** /number_orders | Get multiple Number Orders
-[**retrieveNumberOrder**](NumberOrdersApi.md#retrieveNumberOrder) | **GET** /number_orders/{number_order_id} | Get a single phone number order
-[**updateNumberOrder**](NumberOrdersApi.md#updateNumberOrder) | **PATCH** /number_orders/{number_order_id} | Update phone number order
+[**createNumberOrder**](NumberOrdersApi.md#createNumberOrder) | **POST** /number_orders | Create a number order
+[**listNumberOrders**](NumberOrdersApi.md#listNumberOrders) | **GET** /number_orders | List number orders
+[**retrieveNumberOrder**](NumberOrdersApi.md#retrieveNumberOrder) | **GET** /number_orders/{number_order_id} | Retrieve a number order
+[**updateNumberOrder**](NumberOrdersApi.md#updateNumberOrder) | **PATCH** /number_orders/{number_order_id} | Update a number order
 
 <a name="createNumberOrder"></a>
 # **createNumberOrder**
-> CreateNumberOrderResponse createNumberOrder(body)
+> NumberOrderResponse createNumberOrder(body)
 
-Create Phone Number Order
+Create a number order
 
-Creates a Phone Number Order
+Creates a phone number order.
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberOrdersApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.NumberOrdersApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 NumberOrdersApi apiInstance = new NumberOrdersApi();
-NumberOrder body = new NumberOrder(); // NumberOrder | 
+CreateNumberOrderRequest body = new CreateNumberOrderRequest(); // CreateNumberOrderRequest | 
 try {
-    CreateNumberOrderResponse result = apiInstance.createNumberOrder(body);
+    NumberOrderResponse result = apiInstance.createNumberOrder(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NumberOrdersApi#createNumberOrder");
@@ -44,11 +44,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NumberOrder**](NumberOrder.md)|  |
+ **body** | [**CreateNumberOrderRequest**](CreateNumberOrderRequest.md)|  |
 
 ### Return type
 
-[**CreateNumberOrderResponse**](CreateNumberOrderResponse.md)
+[**NumberOrderResponse**](NumberOrderResponse.md)
 
 ### Authorization
 
@@ -63,29 +63,29 @@ Name | Type | Description  | Notes
 # **listNumberOrders**
 > ListNumberOrdersResponse listNumberOrders(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet)
 
-Get multiple Number Orders
+List number orders
 
-Get a paginated list of Number Orders
+Get a paginated list of number orders.
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberOrdersApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.NumberOrdersApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 NumberOrdersApi apiInstance = new NumberOrdersApi();
-String filterStatus = "filterStatus_example"; // String | Filter number orders by status
-String filterCreatedAtGt = "filterCreatedAtGt_example"; // String | Filter number orders later than this value
-String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number orders earlier than this value
-String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number orders having these phone numbers
-String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number orders via the customer reference set
-Boolean filterRequirementsMet = true; // Boolean | Filter number orders by requirements met
+String filterStatus = "filterStatus_example"; // String | Filter number orders by status.
+String filterCreatedAtGt = "filterCreatedAtGt_example"; // String | Filter number orders later than this value.
+String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number orders earlier than this value.
+String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number orders having these phone numbers.
+String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number orders via the customer reference set.
+Boolean filterRequirementsMet = true; // Boolean | Filter number orders by requirements met.
 try {
     ListNumberOrdersResponse result = apiInstance.listNumberOrders(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet);
     System.out.println(result);
@@ -99,12 +99,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filterStatus** | **String**| Filter number orders by status | [optional]
- **filterCreatedAtGt** | **String**| Filter number orders later than this value | [optional]
- **filterCreatedAtLt** | **String**| Filter number orders earlier than this value | [optional]
- **filterPhoneNumbersPhoneNumber** | **String**| Filter number orders having these phone numbers | [optional]
- **filterCustomerReference** | **String**| Filter number orders via the customer reference set | [optional]
- **filterRequirementsMet** | **Boolean**| Filter number orders by requirements met | [optional]
+ **filterStatus** | **String**| Filter number orders by status. | [optional]
+ **filterCreatedAtGt** | **String**| Filter number orders later than this value. | [optional]
+ **filterCreatedAtLt** | **String**| Filter number orders earlier than this value. | [optional]
+ **filterPhoneNumbersPhoneNumber** | **String**| Filter number orders having these phone numbers. | [optional]
+ **filterCustomerReference** | **String**| Filter number orders via the customer reference set. | [optional]
+ **filterRequirementsMet** | **Boolean**| Filter number orders by requirements met. | [optional]
 
 ### Return type
 
@@ -121,28 +121,28 @@ Name | Type | Description  | Notes
 
 <a name="retrieveNumberOrder"></a>
 # **retrieveNumberOrder**
-> RetrieveNumberOrderResponse retrieveNumberOrder(numberOrderId)
+> NumberOrderResponse retrieveNumberOrder(numberOrderId)
 
-Get a single phone number order
+Retrieve a number order
 
-Get an existing single phone number order
+Get an existing phone number order.
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberOrdersApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.NumberOrdersApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 NumberOrdersApi apiInstance = new NumberOrdersApi();
-String numberOrderId = "numberOrderId_example"; // String | The number order id
+String numberOrderId = "numberOrderId_example"; // String | The number order ID.
 try {
-    RetrieveNumberOrderResponse result = apiInstance.retrieveNumberOrder(numberOrderId);
+    NumberOrderResponse result = apiInstance.retrieveNumberOrder(numberOrderId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NumberOrdersApi#retrieveNumberOrder");
@@ -154,11 +154,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **numberOrderId** | **String**| The number order id |
+ **numberOrderId** | **String**| The number order ID. |
 
 ### Return type
 
-[**RetrieveNumberOrderResponse**](RetrieveNumberOrderResponse.md)
+[**NumberOrderResponse**](NumberOrderResponse.md)
 
 ### Authorization
 
@@ -171,29 +171,29 @@ Name | Type | Description  | Notes
 
 <a name="updateNumberOrder"></a>
 # **updateNumberOrder**
-> UpdateNumberOrderResponse updateNumberOrder(body, numberOrderId)
+> NumberOrderResponse updateNumberOrder(body, numberOrderId)
 
-Update phone number order
+Update a number order
 
-Updates a Phone Number Order
+Updates a phone number order.
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberOrdersApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.NumberOrdersApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 NumberOrdersApi apiInstance = new NumberOrdersApi();
-NumberOrder body = new NumberOrder(); // NumberOrder | 
-String numberOrderId = "numberOrderId_example"; // String | The number order id
+UpdateNumberOrderRequest body = new UpdateNumberOrderRequest(); // UpdateNumberOrderRequest | 
+String numberOrderId = "numberOrderId_example"; // String | The number order ID.
 try {
-    UpdateNumberOrderResponse result = apiInstance.updateNumberOrder(body, numberOrderId);
+    NumberOrderResponse result = apiInstance.updateNumberOrder(body, numberOrderId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NumberOrdersApi#updateNumberOrder");
@@ -205,12 +205,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NumberOrder**](NumberOrder.md)|  |
- **numberOrderId** | **String**| The number order id |
+ **body** | [**UpdateNumberOrderRequest**](UpdateNumberOrderRequest.md)|  |
+ **numberOrderId** | **String**| The number order ID. |
 
 ### Return type
 
-[**UpdateNumberOrderResponse**](UpdateNumberOrderResponse.md)
+[**NumberOrderResponse**](NumberOrderResponse.md)
 
 ### Authorization
 

@@ -4,32 +4,32 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getAllMessagingUrlDomains**](MessagingUrlDomainsApi.md#getAllMessagingUrlDomains) | **GET** /messaging_url_domains | List all available messaging URL domains
+[**listMessagingUrlDomains**](MessagingUrlDomainsApi.md#listMessagingUrlDomains) | **GET** /messaging_url_domains | List messaging URL domains
 
-<a name="getAllMessagingUrlDomains"></a>
-# **getAllMessagingUrlDomains**
-> ListMessagingProfileURLDomainsResponse getAllMessagingUrlDomains()
+<a name="listMessagingUrlDomains"></a>
+# **listMessagingUrlDomains**
+> ListMessagingProfileUrlDomainsResponse listMessagingUrlDomains()
 
-List all available messaging URL domains
+List messaging URL domains
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.MessagingUrlDomainsApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.MessagingUrlDomainsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 MessagingUrlDomainsApi apiInstance = new MessagingUrlDomainsApi();
 try {
-    ListMessagingProfileURLDomainsResponse result = apiInstance.getAllMessagingUrlDomains();
+    ListMessagingProfileUrlDomainsResponse result = apiInstance.listMessagingUrlDomains();
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling MessagingUrlDomainsApi#getAllMessagingUrlDomains");
+    System.err.println("Exception when calling MessagingUrlDomainsApi#listMessagingUrlDomains");
     e.printStackTrace();
 }
 ```
@@ -39,7 +39,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ListMessagingProfileURLDomainsResponse**](ListMessagingProfileURLDomainsResponse.md)
+[**ListMessagingProfileUrlDomainsResponse**](ListMessagingProfileUrlDomainsResponse.md)
 
 ### Authorization
 

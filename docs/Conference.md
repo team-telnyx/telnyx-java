@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **status** | [**StatusEnum**](#StatusEnum) | Status of the conference |  [optional]
 **endReason** | [**EndReasonEnum**](#EndReasonEnum) | Reason why the conference ended |  [optional]
 **endedBy** | [**ConferenceEndedBy**](ConferenceEndedBy.md) |  |  [optional]
+**connectionId** | **String** | Identifies the connection associated with the conference |  [optional]
 
 <a name="RecordTypeEnum"></a>
 ## Enum: RecordTypeEnum

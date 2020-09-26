@@ -4,34 +4,34 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createLongCodeMessage**](MessagesApi.md#createLongCodeMessage) | **POST** /messages/long_code | Send a Long Code message
+[**createLongCodeMessage**](MessagesApi.md#createLongCodeMessage) | **POST** /messages/long_code | Send a long code message
 [**createMessage**](MessagesApi.md#createMessage) | **POST** /messages | Send a message
-[**createNumberPoolMessage**](MessagesApi.md#createNumberPoolMessage) | **POST** /messages/number_pool | Send a message using Number Pool
-[**createShortCodeMessage**](MessagesApi.md#createShortCodeMessage) | **POST** /messages/short_code | Send a Short Code message
+[**createNumberPoolMessage**](MessagesApi.md#createNumberPoolMessage) | **POST** /messages/number_pool | Send a message using number pool
+[**createShortCodeMessage**](MessagesApi.md#createShortCodeMessage) | **POST** /messages/short_code | Send a short code message
 [**retrieveMessage**](MessagesApi.md#retrieveMessage) | **GET** /messages/{id} | Retrieve a message
 
 <a name="createLongCodeMessage"></a>
 # **createLongCodeMessage**
-> CreateMessageResponse createLongCodeMessage(body)
+> MessageResponse createLongCodeMessage(body)
 
-Send a Long Code message
+Send a long code message
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.MessagesApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.MessagesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 MessagesApi apiInstance = new MessagesApi();
-NewLongCodeMessage body = new NewLongCodeMessage(); // NewLongCodeMessage | Message payload
+CreateLongCodeMessageRequest body = new CreateLongCodeMessageRequest(); // CreateLongCodeMessageRequest | Message payload
 try {
-    CreateMessageResponse result = apiInstance.createLongCodeMessage(body);
+    MessageResponse result = apiInstance.createLongCodeMessage(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling MessagesApi#createLongCodeMessage");
@@ -43,11 +43,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NewLongCodeMessage**](NewLongCodeMessage.md)| Message payload | [optional]
+ **body** | [**CreateLongCodeMessageRequest**](CreateLongCodeMessageRequest.md)| Message payload | [optional]
 
 ### Return type
 
-[**CreateMessageResponse**](CreateMessageResponse.md)
+[**MessageResponse**](MessageResponse.md)
 
 ### Authorization
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 <a name="createMessage"></a>
 # **createMessage**
-> CreateMessageResponse createMessage(body)
+> MessageResponse createMessage(body)
 
 Send a message
 
@@ -69,19 +69,19 @@ Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.MessagesApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.MessagesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 MessagesApi apiInstance = new MessagesApi();
-NewMessage body = new NewMessage(); // NewMessage | Message payload
+CreateMessageRequest body = new CreateMessageRequest(); // CreateMessageRequest | Message payload
 try {
-    CreateMessageResponse result = apiInstance.createMessage(body);
+    MessageResponse result = apiInstance.createMessage(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling MessagesApi#createMessage");
@@ -93,11 +93,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NewMessage**](NewMessage.md)| Message payload | [optional]
+ **body** | [**CreateMessageRequest**](CreateMessageRequest.md)| Message payload | [optional]
 
 ### Return type
 
-[**CreateMessageResponse**](CreateMessageResponse.md)
+[**MessageResponse**](MessageResponse.md)
 
 ### Authorization
 
@@ -110,26 +110,26 @@ Name | Type | Description  | Notes
 
 <a name="createNumberPoolMessage"></a>
 # **createNumberPoolMessage**
-> CreateMessageResponse createNumberPoolMessage(body)
+> MessageResponse createNumberPoolMessage(body)
 
-Send a message using Number Pool
+Send a message using number pool
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.MessagesApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.MessagesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 MessagesApi apiInstance = new MessagesApi();
-NewNumberPoolMessage body = new NewNumberPoolMessage(); // NewNumberPoolMessage | Message payload
+CreateNumberPoolMessageRequest body = new CreateNumberPoolMessageRequest(); // CreateNumberPoolMessageRequest | Message payload
 try {
-    CreateMessageResponse result = apiInstance.createNumberPoolMessage(body);
+    MessageResponse result = apiInstance.createNumberPoolMessage(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling MessagesApi#createNumberPoolMessage");
@@ -141,11 +141,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NewNumberPoolMessage**](NewNumberPoolMessage.md)| Message payload | [optional]
+ **body** | [**CreateNumberPoolMessageRequest**](CreateNumberPoolMessageRequest.md)| Message payload | [optional]
 
 ### Return type
 
-[**CreateMessageResponse**](CreateMessageResponse.md)
+[**MessageResponse**](MessageResponse.md)
 
 ### Authorization
 
@@ -158,26 +158,26 @@ Name | Type | Description  | Notes
 
 <a name="createShortCodeMessage"></a>
 # **createShortCodeMessage**
-> CreateMessageResponse createShortCodeMessage(body)
+> MessageResponse createShortCodeMessage(body)
 
-Send a Short Code message
+Send a short code message
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.MessagesApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.MessagesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 MessagesApi apiInstance = new MessagesApi();
-NewShortCodeMessage body = new NewShortCodeMessage(); // NewShortCodeMessage | Message payload
+CreateShortCodeMessageRequest body = new CreateShortCodeMessageRequest(); // CreateShortCodeMessageRequest | Message payload
 try {
-    CreateMessageResponse result = apiInstance.createShortCodeMessage(body);
+    MessageResponse result = apiInstance.createShortCodeMessage(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling MessagesApi#createShortCodeMessage");
@@ -189,11 +189,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NewShortCodeMessage**](NewShortCodeMessage.md)| Message payload | [optional]
+ **body** | [**CreateShortCodeMessageRequest**](CreateShortCodeMessageRequest.md)| Message payload | [optional]
 
 ### Return type
 
-[**CreateMessageResponse**](CreateMessageResponse.md)
+[**MessageResponse**](MessageResponse.md)
 
 ### Authorization
 
@@ -206,18 +206,20 @@ Name | Type | Description  | Notes
 
 <a name="retrieveMessage"></a>
 # **retrieveMessage**
-> RetrieveMessageResponse retrieveMessage(id)
+> MessageResponse retrieveMessage(id)
 
 Retrieve a message
+
+Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/docs/api/v1/reports/MDR-Reports)
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.MessagesApi;
+//import com.telnyx.sdk.ApiClient;
+//import com.telnyx.sdk.ApiException;
+//import com.telnyx.sdk.Configuration;
+//import com.telnyx.sdk.auth.*;
+//import com.telnyx.sdk.apis.MessagesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -225,7 +227,7 @@ ApiClient defaultClient = Configuration.getDefaultApiClient();
 MessagesApi apiInstance = new MessagesApi();
 UUID id = new UUID(); // UUID | The id of the message
 try {
-    RetrieveMessageResponse result = apiInstance.retrieveMessage(id);
+    MessageResponse result = apiInstance.retrieveMessage(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling MessagesApi#retrieveMessage");
@@ -241,7 +243,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveMessageResponse**](RetrieveMessageResponse.md)
+[**MessageResponse**](MessageResponse.md)
 
 ### Authorization
 
