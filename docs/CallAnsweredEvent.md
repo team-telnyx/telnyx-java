@@ -1,6 +1,6 @@
-# MessageResponse
+# CallAnsweredEvent
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**OutboundMessagePayload**](OutboundMessagePayload.md) |  |  [optional]
+**data** | [**CallAnswered**](CallAnswered.md) |  |  [optional]

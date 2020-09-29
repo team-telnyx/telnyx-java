@@ -1,6 +1,6 @@
-# MessageResponse
+# ReplacedLinkClickEvent
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**OutboundMessagePayload**](OutboundMessagePayload.md) |  |  [optional]
+**data** | [**ReplacedLinkClick**](ReplacedLinkClick.md) |  |  [optional]

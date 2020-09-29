@@ -19,19 +19,19 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.telnyx.sdk.models.OutboundMessagePayload;
+import com.telnyx.sdk.models.CallAnswered;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * MessageResponse
+ * CallAnsweredEvent
  */
 
 
-public class MessageResponse {
+public class CallAnsweredEvent {
   @SerializedName("data")
-  private OutboundMessagePayload data = null;
+  private CallAnswered data = null;
 
-  public MessageResponse data(OutboundMessagePayload data) {
+  public CallAnsweredEvent data(CallAnswered data) {
     this.data = data;
     return this;
   }
@@ -41,11 +41,11 @@ public class MessageResponse {
    * @return data
   **/
   @Schema(description = "")
-  public OutboundMessagePayload getData() {
+  public CallAnswered getData() {
     return data;
   }
 
-  public void setData(OutboundMessagePayload data) {
+  public void setData(CallAnswered data) {
     this.data = data;
   }
 
@@ -58,8 +58,8 @@ public class MessageResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MessageResponse messageResponse = (MessageResponse) o;
-    return Objects.equals(this.data, messageResponse.data);
+    CallAnsweredEvent callAnsweredEvent = (CallAnsweredEvent) o;
+    return Objects.equals(this.data, callAnsweredEvent.data);
   }
 
   @Override
@@ -71,7 +71,7 @@ public class MessageResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MessageResponse {\n");
+    sb.append("class CallAnsweredEvent {\n");
     
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");

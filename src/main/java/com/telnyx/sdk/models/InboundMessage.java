@@ -19,7 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.telnyx.sdk.models.InboundMessageResponse;
+import com.telnyx.sdk.models.InboundMessagePayload;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.time.OffsetDateTime;
@@ -123,7 +123,7 @@ public class InboundMessage {
   private OffsetDateTime occurredAt = null;
 
   @SerializedName("payload")
-  private InboundMessageResponse payload = null;
+  private InboundMessagePayload payload = null;
 
   public InboundMessage recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -197,7 +197,7 @@ public class InboundMessage {
     this.occurredAt = occurredAt;
   }
 
-  public InboundMessage payload(InboundMessageResponse payload) {
+  public InboundMessage payload(InboundMessagePayload payload) {
     this.payload = payload;
     return this;
   }
@@ -207,11 +207,11 @@ public class InboundMessage {
    * @return payload
   **/
   @Schema(description = "")
-  public InboundMessageResponse getPayload() {
+  public InboundMessagePayload getPayload() {
     return payload;
   }
 
-  public void setPayload(InboundMessageResponse payload) {
+  public void setPayload(InboundMessagePayload payload) {
     this.payload = payload;
   }
 

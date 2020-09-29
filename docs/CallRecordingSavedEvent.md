@@ -1,6 +1,6 @@
-# MessageResponse
+# CallRecordingSavedEvent
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**OutboundMessagePayload**](OutboundMessagePayload.md) |  |  [optional]
+**data** | [**CallRecordingSaved**](CallRecordingSaved.md) |  |  [optional]

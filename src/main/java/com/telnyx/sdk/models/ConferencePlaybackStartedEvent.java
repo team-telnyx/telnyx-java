@@ -19,19 +19,19 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.telnyx.sdk.models.OutboundMessagePayload;
+import com.telnyx.sdk.models.ConferencePlaybackStarted;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * MessageResponse
+ * ConferencePlaybackStartedEvent
  */
 
 
-public class MessageResponse {
+public class ConferencePlaybackStartedEvent {
   @SerializedName("data")
-  private OutboundMessagePayload data = null;
+  private ConferencePlaybackStarted data = null;
 
-  public MessageResponse data(OutboundMessagePayload data) {
+  public ConferencePlaybackStartedEvent data(ConferencePlaybackStarted data) {
     this.data = data;
     return this;
   }
@@ -41,11 +41,11 @@ public class MessageResponse {
    * @return data
   **/
   @Schema(description = "")
-  public OutboundMessagePayload getData() {
+  public ConferencePlaybackStarted getData() {
     return data;
   }
 
-  public void setData(OutboundMessagePayload data) {
+  public void setData(ConferencePlaybackStarted data) {
     this.data = data;
   }
 
@@ -58,8 +58,8 @@ public class MessageResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MessageResponse messageResponse = (MessageResponse) o;
-    return Objects.equals(this.data, messageResponse.data);
+    ConferencePlaybackStartedEvent conferencePlaybackStartedEvent = (ConferencePlaybackStartedEvent) o;
+    return Objects.equals(this.data, conferencePlaybackStartedEvent.data);
   }
 
   @Override
@@ -71,7 +71,7 @@ public class MessageResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MessageResponse {\n");
+    sb.append("class ConferencePlaybackStartedEvent {\n");
     
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");

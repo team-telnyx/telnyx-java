@@ -17,7 +17,7 @@
     <maven>2.2.0</maven>
   </prerequisites>
 
-    <distributionManagement>
+  <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -41,7 +41,7 @@
       <name>Telnyx</name>
       <email>support@telnyx.com</email>
       <organization>Telnyx</organization>
-      <organizationUrl>Telnyx.com</organizationUrl>
+      <organizationUrl>https://telnyx.com</organizationUrl>
     </developer>
   </developers>
 
@@ -181,7 +181,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.maven.plugins</groupId>
+    <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-javadoc-plugin</artifactId>
       <version>3.2.0</version>
       <type>maven-plugin</type>

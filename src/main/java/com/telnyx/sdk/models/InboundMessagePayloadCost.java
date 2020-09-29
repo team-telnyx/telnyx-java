@@ -19,34 +19,54 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.telnyx.sdk.models.OutboundMessagePayload;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * MessageResponse
+ * InboundMessagePayloadCost
  */
 
 
-public class MessageResponse {
-  @SerializedName("data")
-  private OutboundMessagePayload data = null;
+public class InboundMessagePayloadCost {
+  @SerializedName("amount")
+  private String amount = null;
 
-  public MessageResponse data(OutboundMessagePayload data) {
-    this.data = data;
+  @SerializedName("currency")
+  private String currency = null;
+
+  public InboundMessagePayloadCost amount(String amount) {
+    this.amount = amount;
     return this;
   }
 
    /**
-   * Get data
-   * @return data
+   * The amount deducted from your account.
+   * @return amount
   **/
-  @Schema(description = "")
-  public OutboundMessagePayload getData() {
-    return data;
+  @Schema(description = "The amount deducted from your account.")
+  public String getAmount() {
+    return amount;
   }
 
-  public void setData(OutboundMessagePayload data) {
-    this.data = data;
+  public void setAmount(String amount) {
+    this.amount = amount;
+  }
+
+  public InboundMessagePayloadCost currency(String currency) {
+    this.currency = currency;
+    return this;
+  }
+
+   /**
+   * The ISO 4217 currency identifier.
+   * @return currency
+  **/
+  @Schema(description = "The ISO 4217 currency identifier.")
+  public String getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(String currency) {
+    this.currency = currency;
   }
 
 
@@ -58,22 +78,24 @@ public class MessageResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MessageResponse messageResponse = (MessageResponse) o;
-    return Objects.equals(this.data, messageResponse.data);
+    InboundMessagePayloadCost inboundMessagePayloadCost = (InboundMessagePayloadCost) o;
+    return Objects.equals(this.amount, inboundMessagePayloadCost.amount) &&
+        Objects.equals(this.currency, inboundMessagePayloadCost.currency);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(amount, currency);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MessageResponse {\n");
+    sb.append("class InboundMessagePayloadCost {\n");
     
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("}");
     return sb.toString();
   }

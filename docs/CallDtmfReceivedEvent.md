@@ -1,6 +1,6 @@
-# MessageResponse
+# CallDtmfReceivedEvent
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**OutboundMessagePayload**](OutboundMessagePayload.md) |  |  [optional]
+**data** | [**CallDtmfReceived**](CallDtmfReceived.md) |  |  [optional]

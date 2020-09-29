@@ -1,6 +1,6 @@
-# MessageResponse
+# ConferenceEndedEvent
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**OutboundMessagePayload**](OutboundMessagePayload.md) |  |  [optional]
+**data** | [**ConferenceEnded**](ConferenceEnded.md) |  |  [optional]

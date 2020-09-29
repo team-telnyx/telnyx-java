@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | [**UUID**](UUID.md) | Identifies the type of resource. |  [optional]
 **eventType** | [**EventTypeEnum**](#EventTypeEnum) | The type of event being delivered. |  [optional]
 **occurredAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 formatted date indicating when the resource was created. |  [optional]
-**payload** | [**InboundMessageResponse**](InboundMessageResponse.md) |  |  [optional]
+**payload** | [**InboundMessagePayload**](InboundMessagePayload.md) |  |  [optional]
 
 <a name="RecordTypeEnum"></a>
 ## Enum: RecordTypeEnum

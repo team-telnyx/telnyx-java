@@ -1,6 +1,6 @@
-# MessageResponse
+# CallHangupEvent
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**OutboundMessagePayload**](OutboundMessagePayload.md) |  |  [optional]
+**data** | [**CallHangup**](CallHangup.md) |  |  [optional]

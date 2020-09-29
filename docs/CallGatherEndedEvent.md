@@ -1,6 +1,6 @@
-# MessageResponse
+# CallGatherEndedEvent
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**OutboundMessagePayload**](OutboundMessagePayload.md) |  |  [optional]
+**data** | [**CallGatherEnded**](CallGatherEnded.md) |  |  [optional]
