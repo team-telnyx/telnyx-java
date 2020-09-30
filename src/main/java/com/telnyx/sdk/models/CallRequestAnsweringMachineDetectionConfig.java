@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 @Schema(description = "Optional configuration parameters to modify 'answering_machine_detection' performance.")
 
-public class DialRequestAnsweringMachineDetectionConfig {
+public class CallRequestAnsweringMachineDetectionConfig {
   @SerializedName("total_analysis_time_millis")
   private Integer totalAnalysisTimeMillis = 3500;
 
@@ -57,7 +57,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
   @SerializedName("greeting_silence_duration_millis")
   private Integer greetingSilenceDurationMillis = 1500;
 
-  public DialRequestAnsweringMachineDetectionConfig totalAnalysisTimeMillis(Integer totalAnalysisTimeMillis) {
+  public CallRequestAnsweringMachineDetectionConfig totalAnalysisTimeMillis(Integer totalAnalysisTimeMillis) {
     this.totalAnalysisTimeMillis = totalAnalysisTimeMillis;
     return this;
   }
@@ -75,7 +75,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
     this.totalAnalysisTimeMillis = totalAnalysisTimeMillis;
   }
 
-  public DialRequestAnsweringMachineDetectionConfig afterGreetingSilenceMillis(Integer afterGreetingSilenceMillis) {
+  public CallRequestAnsweringMachineDetectionConfig afterGreetingSilenceMillis(Integer afterGreetingSilenceMillis) {
     this.afterGreetingSilenceMillis = afterGreetingSilenceMillis;
     return this;
   }
@@ -93,7 +93,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
     this.afterGreetingSilenceMillis = afterGreetingSilenceMillis;
   }
 
-  public DialRequestAnsweringMachineDetectionConfig betweenWordsSilenceMillis(Integer betweenWordsSilenceMillis) {
+  public CallRequestAnsweringMachineDetectionConfig betweenWordsSilenceMillis(Integer betweenWordsSilenceMillis) {
     this.betweenWordsSilenceMillis = betweenWordsSilenceMillis;
     return this;
   }
@@ -111,7 +111,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
     this.betweenWordsSilenceMillis = betweenWordsSilenceMillis;
   }
 
-  public DialRequestAnsweringMachineDetectionConfig greetingDurationMillis(Integer greetingDurationMillis) {
+  public CallRequestAnsweringMachineDetectionConfig greetingDurationMillis(Integer greetingDurationMillis) {
     this.greetingDurationMillis = greetingDurationMillis;
     return this;
   }
@@ -129,7 +129,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
     this.greetingDurationMillis = greetingDurationMillis;
   }
 
-  public DialRequestAnsweringMachineDetectionConfig initialSilenceMillis(Integer initialSilenceMillis) {
+  public CallRequestAnsweringMachineDetectionConfig initialSilenceMillis(Integer initialSilenceMillis) {
     this.initialSilenceMillis = initialSilenceMillis;
     return this;
   }
@@ -147,7 +147,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
     this.initialSilenceMillis = initialSilenceMillis;
   }
 
-  public DialRequestAnsweringMachineDetectionConfig maximumNumberOfWords(Integer maximumNumberOfWords) {
+  public CallRequestAnsweringMachineDetectionConfig maximumNumberOfWords(Integer maximumNumberOfWords) {
     this.maximumNumberOfWords = maximumNumberOfWords;
     return this;
   }
@@ -165,7 +165,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
     this.maximumNumberOfWords = maximumNumberOfWords;
   }
 
-  public DialRequestAnsweringMachineDetectionConfig maximumWordLengthMillis(Integer maximumWordLengthMillis) {
+  public CallRequestAnsweringMachineDetectionConfig maximumWordLengthMillis(Integer maximumWordLengthMillis) {
     this.maximumWordLengthMillis = maximumWordLengthMillis;
     return this;
   }
@@ -183,7 +183,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
     this.maximumWordLengthMillis = maximumWordLengthMillis;
   }
 
-  public DialRequestAnsweringMachineDetectionConfig silenceThreshold(Integer silenceThreshold) {
+  public CallRequestAnsweringMachineDetectionConfig silenceThreshold(Integer silenceThreshold) {
     this.silenceThreshold = silenceThreshold;
     return this;
   }
@@ -201,7 +201,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
     this.silenceThreshold = silenceThreshold;
   }
 
-  public DialRequestAnsweringMachineDetectionConfig greetingTotalAnalysisTimeMillis(Integer greetingTotalAnalysisTimeMillis) {
+  public CallRequestAnsweringMachineDetectionConfig greetingTotalAnalysisTimeMillis(Integer greetingTotalAnalysisTimeMillis) {
     this.greetingTotalAnalysisTimeMillis = greetingTotalAnalysisTimeMillis;
     return this;
   }
@@ -219,7 +219,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
     this.greetingTotalAnalysisTimeMillis = greetingTotalAnalysisTimeMillis;
   }
 
-  public DialRequestAnsweringMachineDetectionConfig greetingSilenceDurationMillis(Integer greetingSilenceDurationMillis) {
+  public CallRequestAnsweringMachineDetectionConfig greetingSilenceDurationMillis(Integer greetingSilenceDurationMillis) {
     this.greetingSilenceDurationMillis = greetingSilenceDurationMillis;
     return this;
   }
@@ -246,17 +246,17 @@ public class DialRequestAnsweringMachineDetectionConfig {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DialRequestAnsweringMachineDetectionConfig dialRequestAnsweringMachineDetectionConfig = (DialRequestAnsweringMachineDetectionConfig) o;
-    return Objects.equals(this.totalAnalysisTimeMillis, dialRequestAnsweringMachineDetectionConfig.totalAnalysisTimeMillis) &&
-        Objects.equals(this.afterGreetingSilenceMillis, dialRequestAnsweringMachineDetectionConfig.afterGreetingSilenceMillis) &&
-        Objects.equals(this.betweenWordsSilenceMillis, dialRequestAnsweringMachineDetectionConfig.betweenWordsSilenceMillis) &&
-        Objects.equals(this.greetingDurationMillis, dialRequestAnsweringMachineDetectionConfig.greetingDurationMillis) &&
-        Objects.equals(this.initialSilenceMillis, dialRequestAnsweringMachineDetectionConfig.initialSilenceMillis) &&
-        Objects.equals(this.maximumNumberOfWords, dialRequestAnsweringMachineDetectionConfig.maximumNumberOfWords) &&
-        Objects.equals(this.maximumWordLengthMillis, dialRequestAnsweringMachineDetectionConfig.maximumWordLengthMillis) &&
-        Objects.equals(this.silenceThreshold, dialRequestAnsweringMachineDetectionConfig.silenceThreshold) &&
-        Objects.equals(this.greetingTotalAnalysisTimeMillis, dialRequestAnsweringMachineDetectionConfig.greetingTotalAnalysisTimeMillis) &&
-        Objects.equals(this.greetingSilenceDurationMillis, dialRequestAnsweringMachineDetectionConfig.greetingSilenceDurationMillis);
+    CallRequestAnsweringMachineDetectionConfig callRequestAnsweringMachineDetectionConfig = (CallRequestAnsweringMachineDetectionConfig) o;
+    return Objects.equals(this.totalAnalysisTimeMillis, callRequestAnsweringMachineDetectionConfig.totalAnalysisTimeMillis) &&
+        Objects.equals(this.afterGreetingSilenceMillis, callRequestAnsweringMachineDetectionConfig.afterGreetingSilenceMillis) &&
+        Objects.equals(this.betweenWordsSilenceMillis, callRequestAnsweringMachineDetectionConfig.betweenWordsSilenceMillis) &&
+        Objects.equals(this.greetingDurationMillis, callRequestAnsweringMachineDetectionConfig.greetingDurationMillis) &&
+        Objects.equals(this.initialSilenceMillis, callRequestAnsweringMachineDetectionConfig.initialSilenceMillis) &&
+        Objects.equals(this.maximumNumberOfWords, callRequestAnsweringMachineDetectionConfig.maximumNumberOfWords) &&
+        Objects.equals(this.maximumWordLengthMillis, callRequestAnsweringMachineDetectionConfig.maximumWordLengthMillis) &&
+        Objects.equals(this.silenceThreshold, callRequestAnsweringMachineDetectionConfig.silenceThreshold) &&
+        Objects.equals(this.greetingTotalAnalysisTimeMillis, callRequestAnsweringMachineDetectionConfig.greetingTotalAnalysisTimeMillis) &&
+        Objects.equals(this.greetingSilenceDurationMillis, callRequestAnsweringMachineDetectionConfig.greetingSilenceDurationMillis);
   }
 
   @Override
@@ -268,7 +268,7 @@ public class DialRequestAnsweringMachineDetectionConfig {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DialRequestAnsweringMachineDetectionConfig {\n");
+    sb.append("class CallRequestAnsweringMachineDetectionConfig {\n");
     
     sb.append("    totalAnalysisTimeMillis: ").append(toIndentedString(totalAnalysisTimeMillis)).append("\n");
     sb.append("    afterGreetingSilenceMillis: ").append(toIndentedString(afterGreetingSilenceMillis)).append("\n");

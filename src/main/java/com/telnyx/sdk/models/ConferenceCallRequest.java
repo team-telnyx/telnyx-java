@@ -24,11 +24,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * ConferenceDialRequest
+ * ConferenceCallRequest
  */
 
 
-public class ConferenceDialRequest {
+public class ConferenceCallRequest {
   @SerializedName("call_control_id")
   private String callControlId = null;
 
@@ -105,7 +105,7 @@ public class ConferenceDialRequest {
   @SerializedName("whisper_call_control_ids")
   private List<String> whisperCallControlIds = null;
 
-  public ConferenceDialRequest callControlId(String callControlId) {
+  public ConferenceCallRequest callControlId(String callControlId) {
     this.callControlId = callControlId;
     return this;
   }
@@ -123,7 +123,7 @@ public class ConferenceDialRequest {
     this.callControlId = callControlId;
   }
 
-  public ConferenceDialRequest clientState(String clientState) {
+  public ConferenceCallRequest clientState(String clientState) {
     this.clientState = clientState;
     return this;
   }
@@ -141,7 +141,7 @@ public class ConferenceDialRequest {
     this.clientState = clientState;
   }
 
-  public ConferenceDialRequest commandId(String commandId) {
+  public ConferenceCallRequest commandId(String commandId) {
     this.commandId = commandId;
     return this;
   }
@@ -159,7 +159,7 @@ public class ConferenceDialRequest {
     this.commandId = commandId;
   }
 
-  public ConferenceDialRequest from(String from) {
+  public ConferenceCallRequest from(String from) {
     this.from = from;
     return this;
   }
@@ -177,7 +177,7 @@ public class ConferenceDialRequest {
     this.from = from;
   }
 
-  public ConferenceDialRequest hold(Boolean hold) {
+  public ConferenceCallRequest hold(Boolean hold) {
     this.hold = hold;
     return this;
   }
@@ -195,7 +195,7 @@ public class ConferenceDialRequest {
     this.hold = hold;
   }
 
-  public ConferenceDialRequest holdAudioUrl(String holdAudioUrl) {
+  public ConferenceCallRequest holdAudioUrl(String holdAudioUrl) {
     this.holdAudioUrl = holdAudioUrl;
     return this;
   }
@@ -213,7 +213,7 @@ public class ConferenceDialRequest {
     this.holdAudioUrl = holdAudioUrl;
   }
 
-  public ConferenceDialRequest mute(Boolean mute) {
+  public ConferenceCallRequest mute(Boolean mute) {
     this.mute = mute;
     return this;
   }
@@ -231,7 +231,7 @@ public class ConferenceDialRequest {
     this.mute = mute;
   }
 
-  public ConferenceDialRequest startConferenceOnEnter(Boolean startConferenceOnEnter) {
+  public ConferenceCallRequest startConferenceOnEnter(Boolean startConferenceOnEnter) {
     this.startConferenceOnEnter = startConferenceOnEnter;
     return this;
   }
@@ -249,7 +249,7 @@ public class ConferenceDialRequest {
     this.startConferenceOnEnter = startConferenceOnEnter;
   }
 
-  public ConferenceDialRequest supervisorRole(SupervisorRoleEnum supervisorRole) {
+  public ConferenceCallRequest supervisorRole(SupervisorRoleEnum supervisorRole) {
     this.supervisorRole = supervisorRole;
     return this;
   }
@@ -267,7 +267,7 @@ public class ConferenceDialRequest {
     this.supervisorRole = supervisorRole;
   }
 
-  public ConferenceDialRequest to(String to) {
+  public ConferenceCallRequest to(String to) {
     this.to = to;
     return this;
   }
@@ -285,12 +285,12 @@ public class ConferenceDialRequest {
     this.to = to;
   }
 
-  public ConferenceDialRequest whisperCallControlIds(List<String> whisperCallControlIds) {
+  public ConferenceCallRequest whisperCallControlIds(List<String> whisperCallControlIds) {
     this.whisperCallControlIds = whisperCallControlIds;
     return this;
   }
 
-  public ConferenceDialRequest addWhisperCallControlIdsItem(String whisperCallControlIdsItem) {
+  public ConferenceCallRequest addWhisperCallControlIdsItem(String whisperCallControlIdsItem) {
     if (this.whisperCallControlIds == null) {
       this.whisperCallControlIds = new ArrayList<>();
     }
@@ -320,18 +320,18 @@ public class ConferenceDialRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ConferenceDialRequest conferenceDialRequest = (ConferenceDialRequest) o;
-    return Objects.equals(this.callControlId, conferenceDialRequest.callControlId) &&
-        Objects.equals(this.clientState, conferenceDialRequest.clientState) &&
-        Objects.equals(this.commandId, conferenceDialRequest.commandId) &&
-        Objects.equals(this.from, conferenceDialRequest.from) &&
-        Objects.equals(this.hold, conferenceDialRequest.hold) &&
-        Objects.equals(this.holdAudioUrl, conferenceDialRequest.holdAudioUrl) &&
-        Objects.equals(this.mute, conferenceDialRequest.mute) &&
-        Objects.equals(this.startConferenceOnEnter, conferenceDialRequest.startConferenceOnEnter) &&
-        Objects.equals(this.supervisorRole, conferenceDialRequest.supervisorRole) &&
-        Objects.equals(this.to, conferenceDialRequest.to) &&
-        Objects.equals(this.whisperCallControlIds, conferenceDialRequest.whisperCallControlIds);
+    ConferenceCallRequest conferenceCallRequest = (ConferenceCallRequest) o;
+    return Objects.equals(this.callControlId, conferenceCallRequest.callControlId) &&
+        Objects.equals(this.clientState, conferenceCallRequest.clientState) &&
+        Objects.equals(this.commandId, conferenceCallRequest.commandId) &&
+        Objects.equals(this.from, conferenceCallRequest.from) &&
+        Objects.equals(this.hold, conferenceCallRequest.hold) &&
+        Objects.equals(this.holdAudioUrl, conferenceCallRequest.holdAudioUrl) &&
+        Objects.equals(this.mute, conferenceCallRequest.mute) &&
+        Objects.equals(this.startConferenceOnEnter, conferenceCallRequest.startConferenceOnEnter) &&
+        Objects.equals(this.supervisorRole, conferenceCallRequest.supervisorRole) &&
+        Objects.equals(this.to, conferenceCallRequest.to) &&
+        Objects.equals(this.whisperCallControlIds, conferenceCallRequest.whisperCallControlIds);
   }
 
   @Override
@@ -343,7 +343,7 @@ public class ConferenceDialRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ConferenceDialRequest {\n");
+    sb.append("class ConferenceCallRequest {\n");
     
     sb.append("    callControlId: ").append(toIndentedString(callControlId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");

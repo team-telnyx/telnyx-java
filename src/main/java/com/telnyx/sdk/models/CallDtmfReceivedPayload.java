@@ -21,7 +21,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.UUID;
 /**
  * CallDtmfReceivedPayload
  */
@@ -29,7 +28,7 @@ import java.util.UUID;
 
 public class CallDtmfReceivedPayload {
   @SerializedName("call_control_id")
-  private UUID callControlId = null;
+  private String callControlId = null;
 
   @SerializedName("connection_id")
   private String connectionId = null;
@@ -52,7 +51,7 @@ public class CallDtmfReceivedPayload {
   @SerializedName("digit")
   private String digit = null;
 
-  public CallDtmfReceivedPayload callControlId(UUID callControlId) {
+  public CallDtmfReceivedPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
     return this;
   }
@@ -61,12 +60,12 @@ public class CallDtmfReceivedPayload {
    * Call ID used to issue commands via Call Control API.
    * @return callControlId
   **/
-  @Schema(description = "Call ID used to issue commands via Call Control API.")
-  public UUID getCallControlId() {
+  @Schema(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", description = "Call ID used to issue commands via Call Control API.")
+  public String getCallControlId() {
     return callControlId;
   }
 
-  public void setCallControlId(UUID callControlId) {
+  public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
 

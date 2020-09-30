@@ -1,4 +1,4 @@
-# ConferenceDialRequest
+# ConferenceCallRequest
 
 ## Properties
 Name | Type | Description | Notes

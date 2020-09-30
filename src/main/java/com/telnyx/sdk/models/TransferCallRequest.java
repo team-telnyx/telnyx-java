@@ -19,8 +19,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.telnyx.sdk.models.CallRequestAnsweringMachineDetectionConfig;
 import com.telnyx.sdk.models.CustomSipHeader;
-import com.telnyx.sdk.models.DialRequestAnsweringMachineDetectionConfig;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class TransferCallRequest {
   private Integer timeLimitSecs = 14400;
 
   /**
-   * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a &#x60;call.machine.premium.detection.ended&#x60; webhook with one of the following results: &#x60;human_residence&#x60;, &#x60;human_business&#x60;, &#x60;machine&#x60;, &#x60;silence&#x60; or &#x60;fax_detected&#x60;. If we detect a beep, we also send a &#x60;call.machine.premium.greeting.ended&#x60; webhook with the result of &#x60;beep_detected&#x60;. If we detect a beep before &#x60;call.machine.premium.detection.ended&#x60; we only send &#x60;call.machine.premium.greeting.ended&#x60;, and if we detect a beep after &#x60;call.machine.premium.detection.ended&#x60;, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; is used and a &#x60;machine&#x60; is detected, you will receive another &#x60;call.machine.greeting.ended&#x60; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x60;call.machine.greeting.ended&#x60; if a beep is detected.
+   * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x27;greeting_end&#x27; or &#x27;detect_words&#x27; is used and a &#x27;machine&#x27; is detected, you will receive another &#x27;call.machine.greeting.ended&#x27; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x27;call.machine.greeting.ended&#x27; if a beep is detected.
    */
   @JsonAdapter(AnsweringMachineDetectionEnum.Adapter.class)
   public enum AnsweringMachineDetectionEnum {
@@ -94,7 +94,7 @@ public class TransferCallRequest {
   private AnsweringMachineDetectionEnum answeringMachineDetection = AnsweringMachineDetectionEnum.DISABLED;
 
   @SerializedName("answering_machine_detection_config")
-  private DialRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig = null;
+  private CallRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig = null;
 
   @SerializedName("custom_headers")
   private List<CustomSipHeader> customHeaders = null;
@@ -254,10 +254,10 @@ public class TransferCallRequest {
   }
 
    /**
-   * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a &#x60;call.machine.premium.detection.ended&#x60; webhook with one of the following results: &#x60;human_residence&#x60;, &#x60;human_business&#x60;, &#x60;machine&#x60;, &#x60;silence&#x60; or &#x60;fax_detected&#x60;. If we detect a beep, we also send a &#x60;call.machine.premium.greeting.ended&#x60; webhook with the result of &#x60;beep_detected&#x60;. If we detect a beep before &#x60;call.machine.premium.detection.ended&#x60; we only send &#x60;call.machine.premium.greeting.ended&#x60;, and if we detect a beep after &#x60;call.machine.premium.detection.ended&#x60;, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; is used and a &#x60;machine&#x60; is detected, you will receive another &#x60;call.machine.greeting.ended&#x60; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x60;call.machine.greeting.ended&#x60; if a beep is detected.
+   * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x27;greeting_end&#x27; or &#x27;detect_words&#x27; is used and a &#x27;machine&#x27; is detected, you will receive another &#x27;call.machine.greeting.ended&#x27; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x27;call.machine.greeting.ended&#x27; if a beep is detected.
    * @return answeringMachineDetection
   **/
-  @Schema(description = "Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a `call.machine.premium.detection.ended` webhook with one of the following results: `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect a beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we only send `call.machine.premium.greeting.ended`, and if we detect a beep after `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will receive another `call.machine.greeting.ended` webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive `call.machine.greeting.ended` if a beep is detected.")
+  @Schema(description = "Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If 'greeting_end' or 'detect_words' is used and a 'machine' is detected, you will receive another 'call.machine.greeting.ended' webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive 'call.machine.greeting.ended' if a beep is detected.")
   public AnsweringMachineDetectionEnum getAnsweringMachineDetection() {
     return answeringMachineDetection;
   }
@@ -266,7 +266,7 @@ public class TransferCallRequest {
     this.answeringMachineDetection = answeringMachineDetection;
   }
 
-  public TransferCallRequest answeringMachineDetectionConfig(DialRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
+  public TransferCallRequest answeringMachineDetectionConfig(CallRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
     this.answeringMachineDetectionConfig = answeringMachineDetectionConfig;
     return this;
   }
@@ -276,11 +276,11 @@ public class TransferCallRequest {
    * @return answeringMachineDetectionConfig
   **/
   @Schema(description = "")
-  public DialRequestAnsweringMachineDetectionConfig getAnsweringMachineDetectionConfig() {
+  public CallRequestAnsweringMachineDetectionConfig getAnsweringMachineDetectionConfig() {
     return answeringMachineDetectionConfig;
   }
 
-  public void setAnsweringMachineDetectionConfig(DialRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
+  public void setAnsweringMachineDetectionConfig(CallRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
     this.answeringMachineDetectionConfig = answeringMachineDetectionConfig;
   }
 

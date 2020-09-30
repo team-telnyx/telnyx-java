@@ -19,18 +19,18 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.telnyx.sdk.models.CallRequestAnsweringMachineDetectionConfig;
 import com.telnyx.sdk.models.CustomSipHeader;
-import com.telnyx.sdk.models.DialRequestAnsweringMachineDetectionConfig;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * DialRequest
+ * CallRequest
  */
 
 
-public class DialRequest {
+public class CallRequest {
   @SerializedName("to")
   private String to = null;
 
@@ -50,7 +50,7 @@ public class DialRequest {
   private Integer timeLimitSecs = 14400;
 
   /**
-   * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a &#x60;call.machine.premium.detection.ended&#x60; webhook with one of the following results: &#x60;human_residence&#x60;, &#x60;human_business&#x60;, &#x60;machine&#x60;, &#x60;silence&#x60; or &#x60;fax_detected&#x60;. If we detect a beep, we also send a &#x60;call.machine.premium.greeting.ended&#x60; webhook with the result of &#x60;beep_detected&#x60;. If we detect a beep before &#x60;call.machine.premium.detection.ended&#x60; we only send &#x60;call.machine.premium.greeting.ended&#x60;, and if we detect a beep after &#x60;call.machine.premium.detection.ended&#x60;, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; is used and a &#x60;machine&#x60; is detected, you will receive another &#x60;call.machine.greeting.ended&#x60; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x60;call.machine.greeting.ended&#x60; if a beep is detected.
+   * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x27;greeting_end&#x27; or &#x27;detect_words&#x27; is used and a &#x27;machine&#x27; is detected, you will receive another &#x27;call.machine.greeting.ended&#x27; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x27;call.machine.greeting.ended&#x27; if a beep is detected.
    */
   @JsonAdapter(AnsweringMachineDetectionEnum.Adapter.class)
   public enum AnsweringMachineDetectionEnum {
@@ -97,7 +97,7 @@ public class DialRequest {
   private AnsweringMachineDetectionEnum answeringMachineDetection = AnsweringMachineDetectionEnum.DISABLED;
 
   @SerializedName("answering_machine_detection_config")
-  private DialRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig = null;
+  private CallRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig = null;
 
   @SerializedName("custom_headers")
   private List<CustomSipHeader> customHeaders = null;
@@ -164,7 +164,7 @@ public class DialRequest {
   }  @SerializedName("webhook_url_method")
   private WebhookUrlMethodEnum webhookUrlMethod = WebhookUrlMethodEnum.POST;
 
-  public DialRequest to(String to) {
+  public CallRequest to(String to) {
     this.to = to;
     return this;
   }
@@ -182,7 +182,7 @@ public class DialRequest {
     this.to = to;
   }
 
-  public DialRequest from(String from) {
+  public CallRequest from(String from) {
     this.from = from;
     return this;
   }
@@ -200,7 +200,7 @@ public class DialRequest {
     this.from = from;
   }
 
-  public DialRequest connectionId(String connectionId) {
+  public CallRequest connectionId(String connectionId) {
     this.connectionId = connectionId;
     return this;
   }
@@ -218,7 +218,7 @@ public class DialRequest {
     this.connectionId = connectionId;
   }
 
-  public DialRequest audioUrl(String audioUrl) {
+  public CallRequest audioUrl(String audioUrl) {
     this.audioUrl = audioUrl;
     return this;
   }
@@ -236,7 +236,7 @@ public class DialRequest {
     this.audioUrl = audioUrl;
   }
 
-  public DialRequest timeoutSecs(Integer timeoutSecs) {
+  public CallRequest timeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
     return this;
   }
@@ -254,7 +254,7 @@ public class DialRequest {
     this.timeoutSecs = timeoutSecs;
   }
 
-  public DialRequest timeLimitSecs(Integer timeLimitSecs) {
+  public CallRequest timeLimitSecs(Integer timeLimitSecs) {
     this.timeLimitSecs = timeLimitSecs;
     return this;
   }
@@ -272,16 +272,16 @@ public class DialRequest {
     this.timeLimitSecs = timeLimitSecs;
   }
 
-  public DialRequest answeringMachineDetection(AnsweringMachineDetectionEnum answeringMachineDetection) {
+  public CallRequest answeringMachineDetection(AnsweringMachineDetectionEnum answeringMachineDetection) {
     this.answeringMachineDetection = answeringMachineDetection;
     return this;
   }
 
    /**
-   * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a &#x60;call.machine.premium.detection.ended&#x60; webhook with one of the following results: &#x60;human_residence&#x60;, &#x60;human_business&#x60;, &#x60;machine&#x60;, &#x60;silence&#x60; or &#x60;fax_detected&#x60;. If we detect a beep, we also send a &#x60;call.machine.premium.greeting.ended&#x60; webhook with the result of &#x60;beep_detected&#x60;. If we detect a beep before &#x60;call.machine.premium.detection.ended&#x60; we only send &#x60;call.machine.premium.greeting.ended&#x60;, and if we detect a beep after &#x60;call.machine.premium.detection.ended&#x60;, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; is used and a &#x60;machine&#x60; is detected, you will receive another &#x60;call.machine.greeting.ended&#x60; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x60;call.machine.greeting.ended&#x60; if a beep is detected.
+   * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x27;greeting_end&#x27; or &#x27;detect_words&#x27; is used and a &#x27;machine&#x27; is detected, you will receive another &#x27;call.machine.greeting.ended&#x27; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x27;call.machine.greeting.ended&#x27; if a beep is detected.
    * @return answeringMachineDetection
   **/
-  @Schema(description = "Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a `call.machine.premium.detection.ended` webhook with one of the following results: `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect a beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we only send `call.machine.premium.greeting.ended`, and if we detect a beep after `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will receive another `call.machine.greeting.ended` webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive `call.machine.greeting.ended` if a beep is detected.")
+  @Schema(description = "Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If 'greeting_end' or 'detect_words' is used and a 'machine' is detected, you will receive another 'call.machine.greeting.ended' webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive 'call.machine.greeting.ended' if a beep is detected.")
   public AnsweringMachineDetectionEnum getAnsweringMachineDetection() {
     return answeringMachineDetection;
   }
@@ -290,7 +290,7 @@ public class DialRequest {
     this.answeringMachineDetection = answeringMachineDetection;
   }
 
-  public DialRequest answeringMachineDetectionConfig(DialRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
+  public CallRequest answeringMachineDetectionConfig(CallRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
     this.answeringMachineDetectionConfig = answeringMachineDetectionConfig;
     return this;
   }
@@ -300,20 +300,20 @@ public class DialRequest {
    * @return answeringMachineDetectionConfig
   **/
   @Schema(description = "")
-  public DialRequestAnsweringMachineDetectionConfig getAnsweringMachineDetectionConfig() {
+  public CallRequestAnsweringMachineDetectionConfig getAnsweringMachineDetectionConfig() {
     return answeringMachineDetectionConfig;
   }
 
-  public void setAnsweringMachineDetectionConfig(DialRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
+  public void setAnsweringMachineDetectionConfig(CallRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
     this.answeringMachineDetectionConfig = answeringMachineDetectionConfig;
   }
 
-  public DialRequest customHeaders(List<CustomSipHeader> customHeaders) {
+  public CallRequest customHeaders(List<CustomSipHeader> customHeaders) {
     this.customHeaders = customHeaders;
     return this;
   }
 
-  public DialRequest addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+  public CallRequest addCustomHeadersItem(CustomSipHeader customHeadersItem) {
     if (this.customHeaders == null) {
       this.customHeaders = new ArrayList<>();
     }
@@ -334,7 +334,7 @@ public class DialRequest {
     this.customHeaders = customHeaders;
   }
 
-  public DialRequest clientState(String clientState) {
+  public CallRequest clientState(String clientState) {
     this.clientState = clientState;
     return this;
   }
@@ -352,7 +352,7 @@ public class DialRequest {
     this.clientState = clientState;
   }
 
-  public DialRequest commandId(String commandId) {
+  public CallRequest commandId(String commandId) {
     this.commandId = commandId;
     return this;
   }
@@ -370,7 +370,7 @@ public class DialRequest {
     this.commandId = commandId;
   }
 
-  public DialRequest linkTo(String linkTo) {
+  public CallRequest linkTo(String linkTo) {
     this.linkTo = linkTo;
     return this;
   }
@@ -388,7 +388,7 @@ public class DialRequest {
     this.linkTo = linkTo;
   }
 
-  public DialRequest sipAuthUsername(String sipAuthUsername) {
+  public CallRequest sipAuthUsername(String sipAuthUsername) {
     this.sipAuthUsername = sipAuthUsername;
     return this;
   }
@@ -406,7 +406,7 @@ public class DialRequest {
     this.sipAuthUsername = sipAuthUsername;
   }
 
-  public DialRequest sipAuthPassword(String sipAuthPassword) {
+  public CallRequest sipAuthPassword(String sipAuthPassword) {
     this.sipAuthPassword = sipAuthPassword;
     return this;
   }
@@ -424,7 +424,7 @@ public class DialRequest {
     this.sipAuthPassword = sipAuthPassword;
   }
 
-  public DialRequest webhookUrl(String webhookUrl) {
+  public CallRequest webhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
     return this;
   }
@@ -442,7 +442,7 @@ public class DialRequest {
     this.webhookUrl = webhookUrl;
   }
 
-  public DialRequest webhookUrlMethod(WebhookUrlMethodEnum webhookUrlMethod) {
+  public CallRequest webhookUrlMethod(WebhookUrlMethodEnum webhookUrlMethod) {
     this.webhookUrlMethod = webhookUrlMethod;
     return this;
   }
@@ -469,23 +469,23 @@ public class DialRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DialRequest dialRequest = (DialRequest) o;
-    return Objects.equals(this.to, dialRequest.to) &&
-        Objects.equals(this.from, dialRequest.from) &&
-        Objects.equals(this.connectionId, dialRequest.connectionId) &&
-        Objects.equals(this.audioUrl, dialRequest.audioUrl) &&
-        Objects.equals(this.timeoutSecs, dialRequest.timeoutSecs) &&
-        Objects.equals(this.timeLimitSecs, dialRequest.timeLimitSecs) &&
-        Objects.equals(this.answeringMachineDetection, dialRequest.answeringMachineDetection) &&
-        Objects.equals(this.answeringMachineDetectionConfig, dialRequest.answeringMachineDetectionConfig) &&
-        Objects.equals(this.customHeaders, dialRequest.customHeaders) &&
-        Objects.equals(this.clientState, dialRequest.clientState) &&
-        Objects.equals(this.commandId, dialRequest.commandId) &&
-        Objects.equals(this.linkTo, dialRequest.linkTo) &&
-        Objects.equals(this.sipAuthUsername, dialRequest.sipAuthUsername) &&
-        Objects.equals(this.sipAuthPassword, dialRequest.sipAuthPassword) &&
-        Objects.equals(this.webhookUrl, dialRequest.webhookUrl) &&
-        Objects.equals(this.webhookUrlMethod, dialRequest.webhookUrlMethod);
+    CallRequest callRequest = (CallRequest) o;
+    return Objects.equals(this.to, callRequest.to) &&
+        Objects.equals(this.from, callRequest.from) &&
+        Objects.equals(this.connectionId, callRequest.connectionId) &&
+        Objects.equals(this.audioUrl, callRequest.audioUrl) &&
+        Objects.equals(this.timeoutSecs, callRequest.timeoutSecs) &&
+        Objects.equals(this.timeLimitSecs, callRequest.timeLimitSecs) &&
+        Objects.equals(this.answeringMachineDetection, callRequest.answeringMachineDetection) &&
+        Objects.equals(this.answeringMachineDetectionConfig, callRequest.answeringMachineDetectionConfig) &&
+        Objects.equals(this.customHeaders, callRequest.customHeaders) &&
+        Objects.equals(this.clientState, callRequest.clientState) &&
+        Objects.equals(this.commandId, callRequest.commandId) &&
+        Objects.equals(this.linkTo, callRequest.linkTo) &&
+        Objects.equals(this.sipAuthUsername, callRequest.sipAuthUsername) &&
+        Objects.equals(this.sipAuthPassword, callRequest.sipAuthPassword) &&
+        Objects.equals(this.webhookUrl, callRequest.webhookUrl) &&
+        Objects.equals(this.webhookUrlMethod, callRequest.webhookUrlMethod);
   }
 
   @Override
@@ -497,7 +497,7 @@ public class DialRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DialRequest {\n");
+    sb.append("class CallRequest {\n");
     
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");

@@ -22,7 +22,6 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 /**
  * ConferenceParticipantSpeakEndedPayload
  */
@@ -30,7 +29,7 @@ import java.util.UUID;
 
 public class ConferenceParticipantSpeakEndedPayload {
   @SerializedName("call_control_id")
-  private UUID callControlId = null;
+  private String callControlId = null;
 
   @SerializedName("call_leg_id")
   private String callLegId = null;
@@ -53,7 +52,7 @@ public class ConferenceParticipantSpeakEndedPayload {
   @SerializedName("occurred_at")
   private OffsetDateTime occurredAt = null;
 
-  public ConferenceParticipantSpeakEndedPayload callControlId(UUID callControlId) {
+  public ConferenceParticipantSpeakEndedPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
     return this;
   }
@@ -62,12 +61,12 @@ public class ConferenceParticipantSpeakEndedPayload {
    * Participant&#x27;s call ID used to issue commands via Call Control API.
    * @return callControlId
   **/
-  @Schema(description = "Participant's call ID used to issue commands via Call Control API.")
-  public UUID getCallControlId() {
+  @Schema(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", description = "Participant's call ID used to issue commands via Call Control API.")
+  public String getCallControlId() {
     return callControlId;
   }
 
-  public void setCallControlId(UUID callControlId) {
+  public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
 

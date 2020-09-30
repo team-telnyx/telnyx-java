@@ -13,8 +13,8 @@
 package com.telnyx.sdk.apis;
 
 import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.models.ConferenceCallRequest;
 import com.telnyx.sdk.models.ConferenceCommandResponse;
-import com.telnyx.sdk.models.ConferenceDialRequest;
 import com.telnyx.sdk.models.ConferenceHoldRequest;
 import com.telnyx.sdk.models.ConferenceMuteRequest;
 import com.telnyx.sdk.models.ConferencePlayRequest;
@@ -54,7 +54,7 @@ public class ConferenceCommandsApiTest {
      */
     @Test
     public void conferenceDialParticipantInTest() throws ApiException {
-        ConferenceDialRequest body = null;
+        ConferenceCallRequest body = null;
         String id = null;
         ConferenceCommandResponse response = api.conferenceDialParticipantIn(body, id);
 

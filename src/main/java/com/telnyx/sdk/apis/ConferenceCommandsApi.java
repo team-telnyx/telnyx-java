@@ -26,8 +26,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import com.telnyx.sdk.models.ConferenceCallRequest;
 import com.telnyx.sdk.models.ConferenceCommandResponse;
-import com.telnyx.sdk.models.ConferenceDialRequest;
 import com.telnyx.sdk.models.ConferenceHoldRequest;
 import com.telnyx.sdk.models.ConferenceMuteRequest;
 import com.telnyx.sdk.models.ConferencePlayRequest;
@@ -76,7 +76,7 @@ public class ConferenceCommandsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call conferenceDialParticipantInCall(ConferenceDialRequest body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call conferenceDialParticipantInCall(ConferenceCallRequest body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
@@ -119,7 +119,7 @@ public class ConferenceCommandsApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call conferenceDialParticipantInValidateBeforeCall(ConferenceDialRequest body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call conferenceDialParticipantInValidateBeforeCall(ConferenceCallRequest body, String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling conferenceDialParticipantIn(Async)");
@@ -146,7 +146,7 @@ public class ConferenceCommandsApi {
      * @return ConferenceCommandResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ConferenceCommandResponse conferenceDialParticipantIn(ConferenceDialRequest body, String id) throws ApiException {
+    public ConferenceCommandResponse conferenceDialParticipantIn(ConferenceCallRequest body, String id) throws ApiException {
         ApiResponse<ConferenceCommandResponse> resp = conferenceDialParticipantInWithHttpInfo(body, id);
         return resp.getData();
     }
@@ -159,7 +159,7 @@ public class ConferenceCommandsApi {
      * @return ApiResponse&lt;ConferenceCommandResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ConferenceCommandResponse> conferenceDialParticipantInWithHttpInfo(ConferenceDialRequest body, String id) throws ApiException {
+    public ApiResponse<ConferenceCommandResponse> conferenceDialParticipantInWithHttpInfo(ConferenceCallRequest body, String id) throws ApiException {
         com.squareup.okhttp.Call call = conferenceDialParticipantInValidateBeforeCall(body, id, null, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -174,7 +174,7 @@ public class ConferenceCommandsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call conferenceDialParticipantInAsync(ConferenceDialRequest body, String id, final ApiCallback<ConferenceCommandResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call conferenceDialParticipantInAsync(ConferenceCallRequest body, String id, final ApiCallback<ConferenceCommandResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;

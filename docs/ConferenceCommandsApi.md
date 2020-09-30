@@ -40,7 +40,7 @@ ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 
 ConferenceCommandsApi apiInstance = new ConferenceCommandsApi();
-ConferenceDialRequest body = new ConferenceDialRequest(); // ConferenceDialRequest | Dial Into Conference request object
+ConferenceCallRequest body = new ConferenceCallRequest(); // ConferenceCallRequest | Dial Into Conference request object
 String id = "id_example"; // String | Uniquely identifies the conference by id or name
 try {
     ConferenceCommandResponse result = apiInstance.conferenceDialParticipantIn(body, id);
@@ -55,7 +55,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ConferenceDialRequest**](ConferenceDialRequest.md)| Dial Into Conference request object |
+ **body** | [**ConferenceCallRequest**](ConferenceCallRequest.md)| Dial Into Conference request object |
  **id** | **String**| Uniquely identifies the conference by id or name |
 
 ### Return type

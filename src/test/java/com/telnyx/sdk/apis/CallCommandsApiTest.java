@@ -16,7 +16,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.models.AnswerRequest;
 import com.telnyx.sdk.models.BridgeRequest;
 import com.telnyx.sdk.models.CallControlCommandResponse;
-import com.telnyx.sdk.models.DialRequest;
+import com.telnyx.sdk.models.CallRequest;
 import com.telnyx.sdk.models.Errors;
 import com.telnyx.sdk.models.GatherUsingAudioRequest;
 import com.telnyx.sdk.models.GatherUsingSpeakRequest;
@@ -82,16 +82,16 @@ public class CallCommandsApiTest {
         // TODO: test validations
     }
     /**
-     * Dial a call
+     * Create an outbound call
      *
-     * Dial a number from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected 
+     * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void callDialTest() throws ApiException {
-        DialRequest body = null;
+        CallRequest body = null;
         RetrieveCallStatusResponse response = api.callDial(body);
 
         // TODO: test validations

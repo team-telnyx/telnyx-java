@@ -137,7 +137,7 @@ public class CallCommandsApiExample {
 
 
         CallCommandsApi apiInstance = new CallCommandsApi();
-        DialRequest body = new DialRequest(); // DialRequest | Dial request
+        CallRequest body = new CallRequest(); // CallRequest | Call request
         try {
             RetrieveCallStatusResponse result = apiInstance.callDial(body);
             System.out.println(result);
@@ -521,7 +521,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *CallCommandsApi* | [**callAnswer**](docs/CallCommandsApi.md#callAnswer) | **POST** /calls/{call_control_id}/actions/answer | Answer a call
 *CallCommandsApi* | [**callBridge**](docs/CallCommandsApi.md#callBridge) | **POST** /calls/{call_control_id}/actions/bridge | Bridge calls
-*CallCommandsApi* | [**callDial**](docs/CallCommandsApi.md#callDial) | **POST** /calls | Dial a call
+*CallCommandsApi* | [**callDial**](docs/CallCommandsApi.md#callDial) | **POST** /calls | Create an outbound call
 *CallCommandsApi* | [**callForkStart**](docs/CallCommandsApi.md#callForkStart) | **POST** /calls/{call_control_id}/actions/fork_start | Start forking a call
 *CallCommandsApi* | [**callForkStop**](docs/CallCommandsApi.md#callForkStop) | **POST** /calls/{call_control_id}/actions/fork_stop | Stop forking a call
 *CallCommandsApi* | [**callGatherStop**](docs/CallCommandsApi.md#callGatherStop) | **POST** /calls/{call_control_id}/actions/gather_stop | Gather stop on a call
@@ -669,6 +669,8 @@ Class | Method | HTTP request | Description
  - [CallRecordingSavedPayload](docs/CallRecordingSavedPayload.md)
  - [CallRecordingSavedPayloadPublicRecordingUrls](docs/CallRecordingSavedPayloadPublicRecordingUrls.md)
  - [CallRecordingSavedPayloadRecordingUrls](docs/CallRecordingSavedPayloadRecordingUrls.md)
+ - [CallRequest](docs/CallRequest.md)
+ - [CallRequestAnsweringMachineDetectionConfig](docs/CallRequestAnsweringMachineDetectionConfig.md)
  - [CallSpeakEnded](docs/CallSpeakEnded.md)
  - [CallSpeakEndedEvent](docs/CallSpeakEndedEvent.md)
  - [CallSpeakEndedPayload](docs/CallSpeakEndedPayload.md)
@@ -677,12 +679,12 @@ Class | Method | HTTP request | Description
  - [CallSpeakStartedPayload](docs/CallSpeakStartedPayload.md)
  - [CnamListing](docs/CnamListing.md)
  - [Conference](docs/Conference.md)
+ - [ConferenceCallRequest](docs/ConferenceCallRequest.md)
  - [ConferenceCommandResponse](docs/ConferenceCommandResponse.md)
  - [ConferenceCommandResult](docs/ConferenceCommandResult.md)
  - [ConferenceCreated](docs/ConferenceCreated.md)
  - [ConferenceCreatedEvent](docs/ConferenceCreatedEvent.md)
  - [ConferenceCreatedPayload](docs/ConferenceCreatedPayload.md)
- - [ConferenceDialRequest](docs/ConferenceDialRequest.md)
  - [ConferenceEnded](docs/ConferenceEnded.md)
  - [ConferenceEndedBy](docs/ConferenceEndedBy.md)
  - [ConferenceEndedEvent](docs/ConferenceEndedEvent.md)
@@ -737,8 +739,6 @@ Class | Method | HTTP request | Description
  - [CsvDownload](docs/CsvDownload.md)
  - [CsvDownloadResponse](docs/CsvDownloadResponse.md)
  - [CustomSipHeader](docs/CustomSipHeader.md)
- - [DialRequest](docs/DialRequest.md)
- - [DialRequestAnsweringMachineDetectionConfig](docs/DialRequestAnsweringMachineDetectionConfig.md)
  - [EmergencySettings](docs/EmergencySettings.md)
  - [Error](docs/Error.md)
  - [ErrorSource](docs/ErrorSource.md)

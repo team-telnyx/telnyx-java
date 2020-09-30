@@ -1,4 +1,4 @@
-# DialRequestAnsweringMachineDetectionConfig
+# CallRequestAnsweringMachineDetectionConfig
 
 ## Properties
 Name | Type | Description | Notes
