@@ -26,9 +26,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.telnyx.sdk.models.CsvDownloadResponse;
+import com.telnyx.sdk.models.CSVDownloadResponse;
 import com.telnyx.sdk.models.Errors;
-import com.telnyx.sdk.models.ListCsvDownloadsResponse;
+import com.telnyx.sdk.models.ListCSVDownloadsResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -116,36 +116,36 @@ public class CsvDownloadsApi {
     }
 
     /**
-     * Create a Csv download
+     * Create a CSV download
      * 
-     * @return CsvDownloadResponse
+     * @return CSVDownloadResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CsvDownloadResponse createCsvDownload() throws ApiException {
-        ApiResponse<CsvDownloadResponse> resp = createCsvDownloadWithHttpInfo();
+    public CSVDownloadResponse createCsvDownload() throws ApiException {
+        ApiResponse<CSVDownloadResponse> resp = createCsvDownloadWithHttpInfo();
         return resp.getData();
     }
 
     /**
-     * Create a Csv download
+     * Create a CSV download
      * 
-     * @return ApiResponse&lt;CsvDownloadResponse&gt;
+     * @return ApiResponse&lt;CSVDownloadResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CsvDownloadResponse> createCsvDownloadWithHttpInfo() throws ApiException {
+    public ApiResponse<CSVDownloadResponse> createCsvDownloadWithHttpInfo() throws ApiException {
         com.squareup.okhttp.Call call = createCsvDownloadValidateBeforeCall(null, null);
-        Type localVarReturnType = new TypeToken<CsvDownloadResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CSVDownloadResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Create a Csv download (asynchronously)
+     * Create a CSV download (asynchronously)
      * 
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call createCsvDownloadAsync(final ApiCallback<CsvDownloadResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call createCsvDownloadAsync(final ApiCallback<CSVDownloadResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -167,7 +167,7 @@ public class CsvDownloadsApi {
         }
 
         com.squareup.okhttp.Call call = createCsvDownloadValidateBeforeCall(progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<CsvDownloadResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CSVDownloadResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -238,34 +238,34 @@ public class CsvDownloadsApi {
     }
 
     /**
-     * List Csv downloads
+     * List CSV downloads
      * 
      * @param pageNumber The page number to load (optional, default to 1)
      * @param pageSize The size of the page (optional, default to 20)
-     * @return ListCsvDownloadsResponse
+     * @return ListCSVDownloadsResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ListCsvDownloadsResponse listCsvDownloads(Integer pageNumber, Integer pageSize) throws ApiException {
-        ApiResponse<ListCsvDownloadsResponse> resp = listCsvDownloadsWithHttpInfo(pageNumber, pageSize);
+    public ListCSVDownloadsResponse listCsvDownloads(Integer pageNumber, Integer pageSize) throws ApiException {
+        ApiResponse<ListCSVDownloadsResponse> resp = listCsvDownloadsWithHttpInfo(pageNumber, pageSize);
         return resp.getData();
     }
 
     /**
-     * List Csv downloads
+     * List CSV downloads
      * 
      * @param pageNumber The page number to load (optional, default to 1)
      * @param pageSize The size of the page (optional, default to 20)
-     * @return ApiResponse&lt;ListCsvDownloadsResponse&gt;
+     * @return ApiResponse&lt;ListCSVDownloadsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ListCsvDownloadsResponse> listCsvDownloadsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+    public ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
         com.squareup.okhttp.Call call = listCsvDownloadsValidateBeforeCall(pageNumber, pageSize, null, null);
-        Type localVarReturnType = new TypeToken<ListCsvDownloadsResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ListCSVDownloadsResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * List Csv downloads (asynchronously)
+     * List CSV downloads (asynchronously)
      * 
      * @param pageNumber The page number to load (optional, default to 1)
      * @param pageSize The size of the page (optional, default to 20)
@@ -273,7 +273,7 @@ public class CsvDownloadsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call listCsvDownloadsAsync(Integer pageNumber, Integer pageSize, final ApiCallback<ListCsvDownloadsResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call listCsvDownloadsAsync(Integer pageNumber, Integer pageSize, final ApiCallback<ListCSVDownloadsResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -295,7 +295,7 @@ public class CsvDownloadsApi {
         }
 
         com.squareup.okhttp.Call call = listCsvDownloadsValidateBeforeCall(pageNumber, pageSize, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ListCsvDownloadsResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ListCSVDownloadsResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -366,39 +366,39 @@ public class CsvDownloadsApi {
     }
 
     /**
-     * Retrieve a Csv download
+     * Retrieve a CSV download
      * 
      * @param id Identifies the CSV download. (required)
-     * @return CsvDownloadResponse
+     * @return CSVDownloadResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CsvDownloadResponse retrieveCsvDownload(String id) throws ApiException {
-        ApiResponse<CsvDownloadResponse> resp = retrieveCsvDownloadWithHttpInfo(id);
+    public CSVDownloadResponse retrieveCsvDownload(String id) throws ApiException {
+        ApiResponse<CSVDownloadResponse> resp = retrieveCsvDownloadWithHttpInfo(id);
         return resp.getData();
     }
 
     /**
-     * Retrieve a Csv download
+     * Retrieve a CSV download
      * 
      * @param id Identifies the CSV download. (required)
-     * @return ApiResponse&lt;CsvDownloadResponse&gt;
+     * @return ApiResponse&lt;CSVDownloadResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CsvDownloadResponse> retrieveCsvDownloadWithHttpInfo(String id) throws ApiException {
+    public ApiResponse<CSVDownloadResponse> retrieveCsvDownloadWithHttpInfo(String id) throws ApiException {
         com.squareup.okhttp.Call call = retrieveCsvDownloadValidateBeforeCall(id, null, null);
-        Type localVarReturnType = new TypeToken<CsvDownloadResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CSVDownloadResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Retrieve a Csv download (asynchronously)
+     * Retrieve a CSV download (asynchronously)
      * 
      * @param id Identifies the CSV download. (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call retrieveCsvDownloadAsync(String id, final ApiCallback<CsvDownloadResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call retrieveCsvDownloadAsync(String id, final ApiCallback<CSVDownloadResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -420,7 +420,7 @@ public class CsvDownloadsApi {
         }
 
         com.squareup.okhttp.Call call = retrieveCsvDownloadValidateBeforeCall(id, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<CsvDownloadResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CSVDownloadResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

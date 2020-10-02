@@ -13,9 +13,9 @@
 package com.telnyx.sdk.apis;
 
 import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.models.CsvDownloadResponse;
+import com.telnyx.sdk.models.CSVDownloadResponse;
 import com.telnyx.sdk.models.Errors;
-import com.telnyx.sdk.models.ListCsvDownloadsResponse;
+import com.telnyx.sdk.models.ListCSVDownloadsResponse;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -33,7 +33,7 @@ public class CsvDownloadsApiTest {
     private final CsvDownloadsApi api = new CsvDownloadsApi();
 
     /**
-     * Create a Csv download
+     * Create a CSV download
      *
      * 
      *
@@ -42,12 +42,12 @@ public class CsvDownloadsApiTest {
      */
     @Test
     public void createCsvDownloadTest() throws ApiException {
-        CsvDownloadResponse response = api.createCsvDownload();
+        CSVDownloadResponse response = api.createCsvDownload();
 
         // TODO: test validations
     }
     /**
-     * List Csv downloads
+     * List CSV downloads
      *
      * 
      *
@@ -58,12 +58,12 @@ public class CsvDownloadsApiTest {
     public void listCsvDownloadsTest() throws ApiException {
         Integer pageNumber = null;
         Integer pageSize = null;
-        ListCsvDownloadsResponse response = api.listCsvDownloads(pageNumber, pageSize);
+        ListCSVDownloadsResponse response = api.listCsvDownloads(pageNumber, pageSize);
 
         // TODO: test validations
     }
     /**
-     * Retrieve a Csv download
+     * Retrieve a CSV download
      *
      * 
      *
@@ -73,7 +73,7 @@ public class CsvDownloadsApiTest {
     @Test
     public void retrieveCsvDownloadTest() throws ApiException {
         String id = null;
-        CsvDownloadResponse response = api.retrieveCsvDownload(id);
+        CSVDownloadResponse response = api.retrieveCsvDownload(id);
 
         // TODO: test validations
     }

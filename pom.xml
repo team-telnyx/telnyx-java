@@ -5,9 +5,9 @@
   <artifactId>telnyx</artifactId>
   <packaging>jar</packaging>
   <name>telnyx</name>
-  <version>2.0.0-alpha</version>
+  <version>2.0.1-alpha</version>
   <url>https://github.com/team-telnyx/telnyx-java/</url>
-  <description>Telnyx Java</description>
+  <description>Telnyx Java SDK</description>
   <scm>
     <connection>scm:git:git@github.com/team-telnyx/telnyx-java.git</connection>
     <developerConnection>scm:git:git@github.com/team-telnyx/telnyx-java.git</developerConnection>
@@ -16,6 +16,14 @@
   <prerequisites>
     <maven>2.2.0</maven>
   </prerequisites>
+
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>https://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <distributionManagement>
     <snapshotRepository>
@@ -27,14 +35,6 @@
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
-
-  <licenses>
-    <license>
-      <name>MIT</name>
-      <url>https://opensource.org/licenses/MIT</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
 
   <developers>
     <developer>
@@ -129,7 +129,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>2.10.4</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -180,12 +180,6 @@
   </profiles>
 
   <dependencies>
-    <dependency>
-    <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-javadoc-plugin</artifactId>
-      <version>3.2.0</version>
-      <type>maven-plugin</type>
-    </dependency>
     <dependency>
       <groupId>io.swagger.core.v3</groupId>
       <artifactId>swagger-annotations</artifactId>

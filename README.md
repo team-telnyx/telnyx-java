@@ -39,7 +39,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.0.0-alpha</version>
+  <version>2.0.1-alpha</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -49,7 +49,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.0.0-alpha"
+compile "com.telnyx.sdk:telnyx:2.0.1-alpha"
 ```
 
 ### Others
@@ -62,7 +62,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/telnyx-2.0.0-alpha.jar`
+* `target/telnyx-2.0.1-alpha.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -556,9 +556,9 @@ Class | Method | HTTP request | Description
 *ConferenceCommandsApi* | [**listConferenceParticipants**](docs/ConferenceCommandsApi.md#listConferenceParticipants) | **GET** /conferences/{conference_id}/participants | List conference participants
 *ConferenceCommandsApi* | [**listConferences**](docs/ConferenceCommandsApi.md#listConferences) | **GET** /conferences | List conferences
 *ConferenceCommandsApi* | [**retrieveConference**](docs/ConferenceCommandsApi.md#retrieveConference) | **GET** /conferences/{id} | Retrieve a conference
-*CsvDownloadsApi* | [**createCsvDownload**](docs/CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | Create a Csv download
-*CsvDownloadsApi* | [**listCsvDownloads**](docs/CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List Csv downloads
-*CsvDownloadsApi* | [**retrieveCsvDownload**](docs/CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a Csv download
+*CsvDownloadsApi* | [**createCsvDownload**](docs/CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | Create a CSV download
+*CsvDownloadsApi* | [**listCsvDownloads**](docs/CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List CSV downloads
+*CsvDownloadsApi* | [**retrieveCsvDownload**](docs/CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a CSV download
 *DebuggingApi* | [**listCallEvents**](docs/DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
 *MessagesApi* | [**createLongCodeMessage**](docs/MessagesApi.md#createLongCodeMessage) | **POST** /messages/long_code | Send a long code message
 *MessagesApi* | [**createMessage**](docs/MessagesApi.md#createMessage) | **POST** /messages | Send a message
@@ -619,6 +619,7 @@ Class | Method | HTTP request | Description
  - [AvailablePhoneNumber](docs/AvailablePhoneNumber.md)
  - [AvailablePhoneNumbersMetadata](docs/AvailablePhoneNumbersMetadata.md)
  - [BridgeRequest](docs/BridgeRequest.md)
+ - [CSVDownloadResponse](docs/CSVDownloadResponse.md)
  - [Call](docs/Call.md)
  - [CallAnswered](docs/CallAnswered.md)
  - [CallAnsweredEvent](docs/CallAnsweredEvent.md)
@@ -737,7 +738,6 @@ Class | Method | HTTP request | Description
  - [CreateNumberReservationRequest](docs/CreateNumberReservationRequest.md)
  - [CreateShortCodeMessageRequest](docs/CreateShortCodeMessageRequest.md)
  - [CsvDownload](docs/CsvDownload.md)
- - [CsvDownloadResponse](docs/CsvDownloadResponse.md)
  - [CustomSipHeader](docs/CustomSipHeader.md)
  - [EmergencySettings](docs/EmergencySettings.md)
  - [Error](docs/Error.md)
@@ -757,10 +757,10 @@ Class | Method | HTTP request | Description
  - [InboundMessagePayloadTo](docs/InboundMessagePayloadTo.md)
  - [JoinConferenceRequest](docs/JoinConferenceRequest.md)
  - [ListAvailablePhoneNumbersResponse](docs/ListAvailablePhoneNumbersResponse.md)
+ - [ListCSVDownloadsResponse](docs/ListCSVDownloadsResponse.md)
  - [ListCallControlApplicationsResponse](docs/ListCallControlApplicationsResponse.md)
  - [ListCallEventsResponse](docs/ListCallEventsResponse.md)
  - [ListConferencesResponse](docs/ListConferencesResponse.md)
- - [ListCsvDownloadsResponse](docs/ListCsvDownloadsResponse.md)
  - [ListMessagingHostedNumberOrderResponse](docs/ListMessagingHostedNumberOrderResponse.md)
  - [ListMessagingProfileMetricsResponse](docs/ListMessagingProfileMetricsResponse.md)
  - [ListMessagingProfilePhoneNumbersResponse](docs/ListMessagingProfilePhoneNumbersResponse.md)

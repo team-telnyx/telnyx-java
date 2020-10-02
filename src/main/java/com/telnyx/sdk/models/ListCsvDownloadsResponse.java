@@ -25,20 +25,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * ListCsvDownloadsResponse
+ * ListCSVDownloadsResponse
  */
 
 
-public class ListCsvDownloadsResponse {
+public class ListCSVDownloadsResponse {
   @SerializedName("data")
   private List<CsvDownload> data = null;
 
-  public ListCsvDownloadsResponse data(List<CsvDownload> data) {
+  public ListCSVDownloadsResponse data(List<CsvDownload> data) {
     this.data = data;
     return this;
   }
 
-  public ListCsvDownloadsResponse addDataItem(CsvDownload dataItem) {
+  public ListCSVDownloadsResponse addDataItem(CsvDownload dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -68,8 +68,8 @@ public class ListCsvDownloadsResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ListCsvDownloadsResponse listCsvDownloadsResponse = (ListCsvDownloadsResponse) o;
-    return Objects.equals(this.data, listCsvDownloadsResponse.data);
+    ListCSVDownloadsResponse listCSVDownloadsResponse = (ListCSVDownloadsResponse) o;
+    return Objects.equals(this.data, listCSVDownloadsResponse.data);
   }
 
   @Override
@@ -81,7 +81,7 @@ public class ListCsvDownloadsResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ListCsvDownloadsResponse {\n");
+    sb.append("class ListCSVDownloadsResponse {\n");
     
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");

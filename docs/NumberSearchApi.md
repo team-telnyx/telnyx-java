@@ -30,7 +30,7 @@ String filterPhoneNumberEndsWith = "filterPhoneNumberEndsWith_example"; // Strin
 String filterPhoneNumberContains = "filterPhoneNumberContains_example"; // String | Filter numbers containing a pattern.
 String filterLocality = "filterLocality_example"; // String | Filter phone numbers by city.
 String filterAdministrativeArea = "filterAdministrativeArea_example"; // String | Filter phone numbers by US state/CA province.
-String filterCountryCode = "filterCountryCode_example"; // String | Filter phone numbers by ISO 2 country code.
+String filterCountryCode = "filterCountryCode_example"; // String | Filter phone numbers by ISO alpha-2 country code.
 String filterNationalDestinationCode = "filterNationalDestinationCode_example"; // String | Filter by the national destination code of the number. This filter is only applicable to North American numbers.
 String filterRateCenter = "filterRateCenter_example"; // String | Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers.
 String filterNumberType = "filterNumberType_example"; // String | Filter phone numbers by number type.
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
  **filterPhoneNumberContains** | **String**| Filter numbers containing a pattern. | [optional]
  **filterLocality** | **String**| Filter phone numbers by city. | [optional]
  **filterAdministrativeArea** | **String**| Filter phone numbers by US state/CA province. | [optional]
- **filterCountryCode** | **String**| Filter phone numbers by ISO 2 country code. | [optional]
+ **filterCountryCode** | **String**| Filter phone numbers by ISO alpha-2 country code. | [optional]
  **filterNationalDestinationCode** | **String**| Filter by the national destination code of the number. This filter is only applicable to North American numbers. | [optional]
  **filterRateCenter** | **String**| Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers. | [optional]
  **filterNumberType** | **String**| Filter phone numbers by number type. | [optional] [enum: toll-free, national, mobile, local]

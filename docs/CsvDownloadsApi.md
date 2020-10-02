@@ -4,15 +4,15 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createCsvDownload**](CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | Create a Csv download
-[**listCsvDownloads**](CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List Csv downloads
-[**retrieveCsvDownload**](CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a Csv download
+[**createCsvDownload**](CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | Create a CSV download
+[**listCsvDownloads**](CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List CSV downloads
+[**retrieveCsvDownload**](CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a CSV download
 
 <a name="createCsvDownload"></a>
 # **createCsvDownload**
-> CsvDownloadResponse createCsvDownload()
+> CSVDownloadResponse createCsvDownload()
 
-Create a Csv download
+Create a CSV download
 
 ### Example
 ```java
@@ -28,7 +28,7 @@ ApiClient defaultClient = Configuration.getDefaultApiClient();
 
 CsvDownloadsApi apiInstance = new CsvDownloadsApi();
 try {
-    CsvDownloadResponse result = apiInstance.createCsvDownload();
+    CSVDownloadResponse result = apiInstance.createCsvDownload();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CsvDownloadsApi#createCsvDownload");
@@ -41,7 +41,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**CsvDownloadResponse**](CsvDownloadResponse.md)
+[**CSVDownloadResponse**](CSVDownloadResponse.md)
 
 ### Authorization
 
@@ -54,9 +54,9 @@ This endpoint does not need any parameter.
 
 <a name="listCsvDownloads"></a>
 # **listCsvDownloads**
-> ListCsvDownloadsResponse listCsvDownloads(pageNumber, pageSize)
+> ListCSVDownloadsResponse listCsvDownloads(pageNumber, pageSize)
 
-List Csv downloads
+List CSV downloads
 
 ### Example
 ```java
@@ -74,7 +74,7 @@ CsvDownloadsApi apiInstance = new CsvDownloadsApi();
 Integer pageNumber = 1; // Integer | The page number to load
 Integer pageSize = 20; // Integer | The size of the page
 try {
-    ListCsvDownloadsResponse result = apiInstance.listCsvDownloads(pageNumber, pageSize);
+    ListCSVDownloadsResponse result = apiInstance.listCsvDownloads(pageNumber, pageSize);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CsvDownloadsApi#listCsvDownloads");
@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListCsvDownloadsResponse**](ListCsvDownloadsResponse.md)
+[**ListCSVDownloadsResponse**](ListCSVDownloadsResponse.md)
 
 ### Authorization
 
@@ -104,9 +104,9 @@ Name | Type | Description  | Notes
 
 <a name="retrieveCsvDownload"></a>
 # **retrieveCsvDownload**
-> CsvDownloadResponse retrieveCsvDownload(id)
+> CSVDownloadResponse retrieveCsvDownload(id)
 
-Retrieve a Csv download
+Retrieve a CSV download
 
 ### Example
 ```java
@@ -123,7 +123,7 @@ ApiClient defaultClient = Configuration.getDefaultApiClient();
 CsvDownloadsApi apiInstance = new CsvDownloadsApi();
 String id = "id_example"; // String | Identifies the CSV download.
 try {
-    CsvDownloadResponse result = apiInstance.retrieveCsvDownload(id);
+    CSVDownloadResponse result = apiInstance.retrieveCsvDownload(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CsvDownloadsApi#retrieveCsvDownload");
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CsvDownloadResponse**](CsvDownloadResponse.md)
+[**CSVDownloadResponse**](CSVDownloadResponse.md)
 
 ### Authorization
 

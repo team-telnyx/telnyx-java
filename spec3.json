@@ -40,10 +40,6 @@
       "description": "Conference command operations"
     },
     {
-      "name": "Conferences",
-      "description": "Conference operations"
-    },
-    {
       "name": "Debugging",
       "description": "Call Control debugging"
     },
@@ -174,7 +170,7 @@
           {
             "name": "filter[country_code]",
             "in": "query",
-            "description": "Filter phone numbers by ISO 2 country code.",
+            "description": "Filter phone numbers by ISO alpha-2 country code.",
             "schema": {
               "type": "string",
               "example": "US"
@@ -4199,7 +4195,7 @@
     },
     "/phone_numbers/csv_downloads": {
       "get": {
-        "summary": "List Csv downloads",
+        "summary": "List CSV downloads",
         "operationId": "listCsvDownloads",
         "tags": [
           "CSV Downloads"
@@ -4224,7 +4220,7 @@
       },
       "post": {
         "x-latency-category": "background",
-        "summary": "Create a Csv download",
+        "summary": "Create a CSV download",
         "operationId": "createCsvDownload",
         "tags": [
           "CSV Downloads"
@@ -4242,7 +4238,7 @@
     "/phone_numbers/csv_downloads/{id}": {
       "get": {
         "x-latency-category": "background",
-        "summary": "Retrieve a Csv download",
+        "summary": "Retrieve a CSV download",
         "operationId": "retrieveCsvDownload",
         "tags": [
           "CSV Downloads"
@@ -5191,7 +5187,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "title": "Csv Download Response",
+              "title": "CSV Download Response",
               "properties": {
                 "data": {
                   "type": "array",
@@ -5305,7 +5301,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "title": "List Csv Downloads Response",
+              "title": "List CSV Downloads Response",
               "properties": {
                 "data": {
                   "type": "array",
@@ -5514,7 +5510,7 @@
         }
       },
       "ListNumberReservationsResponse": {
-        "description": "Successful response with a list og number reservations.",
+        "description": "Successful response with a list of number reservations.",
         "content": {
           "application/json": {
             "schema": {
@@ -8851,7 +8847,7 @@
       },
       "ConferenceParticipantJoinedEvent": {
         "type": "object",
-        "title": "Conference Participant Event",
+        "title": "Conference Participant Joined Event",
         "properties": {
           "data": {
             "$ref": "#/components/schemas/ConferenceParticipantJoined"
@@ -9153,7 +9149,7 @@
       },
       "ConferenceParticipantPlaybackStartedEvent": {
         "type": "object",
-        "title": "Conference Participant Playback Event",
+        "title": "Conference Participant Playback Started Event",
         "properties": {
           "data": {
             "$ref": "#/components/schemas/ConferenceParticipantPlaybackStarted"
