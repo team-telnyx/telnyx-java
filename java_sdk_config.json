@@ -1,5 +1,5 @@
 {
-  "artifactVersion"          : "2.0.1-alpha",
+  "artifactVersion"          : "2.0.2-alpha",
   "java8"                    : true,
   "dateLibrary"              : "java8",
   "hideGenerationTimestamp"  : true,
