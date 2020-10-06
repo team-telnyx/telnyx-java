@@ -3,4 +3,4 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**NumberOrderDetailed**](NumberOrderDetailed.md) |  |  [optional]
+**data** | [**NumberOrder**](NumberOrder.md) |  |  [optional]

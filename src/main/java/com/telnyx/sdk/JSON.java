@@ -50,37 +50,6 @@ public class JSON {
 
     public static GsonBuilder createGson() {
         GsonFireBuilder fireBuilder = new GsonFireBuilder()
-          .registerTypeSelector(NumberOrder.class, new TypeSelector<NumberOrder>() {
-            @Override
-            public Class<? extends NumberOrder> getClassForElement(JsonElement readElement) {
-                Map<String, Class<? extends NumberOrder>> classByDiscriminatorValue = new HashMap<>();
-                    classByDiscriminatorValue.put("NumberOrderDetailed".toUpperCase(), NumberOrderDetailed.class);
-                    classByDiscriminatorValue.put("NumberOrder".toUpperCase(), NumberOrder.class);
-                return getClassByDiscriminator(
-                            classByDiscriminatorValue,
-                            getDiscriminatorValue(readElement, ""));
-            }
-          })
-          .registerPostProcessor(NumberOrder.class, new PostProcessor<NumberOrder>() {
-              @Override
-              public void postDeserialize(NumberOrder result, JsonElement src, Gson gson) {
-
-              }
-
-              @Override
-              public void postSerialize(JsonElement result, NumberOrder src, Gson gson) {
-                  Map<Class<? extends NumberOrder>, String> discriminatorValueByClass = new HashMap<>();
-                      discriminatorValueByClass.put(NumberOrderDetailed.class, "NumberOrderDetailed");
-                      discriminatorValueByClass.put(NumberOrder.class, "NumberOrder");
-                  if(result instanceof JsonObject)
-                  {
-                      if(!((JsonObject) result).has(""))
-                      {
-                          ((JsonObject) result).addProperty("", discriminatorValueByClass.get(src.getClass()));
-                      }
-                  }
-              }
-          })
         ;
         return fireBuilder.createGsonBuilder();
     }

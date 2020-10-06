@@ -19,7 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.telnyx.sdk.models.NumberOrderDetailed;
+import com.telnyx.sdk.models.NumberOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
@@ -29,9 +29,9 @@ import java.io.IOException;
 
 public class NumberOrderResponse {
   @SerializedName("data")
-  private NumberOrderDetailed data = null;
+  private NumberOrder data = null;
 
-  public NumberOrderResponse data(NumberOrderDetailed data) {
+  public NumberOrderResponse data(NumberOrder data) {
     this.data = data;
     return this;
   }
@@ -41,11 +41,11 @@ public class NumberOrderResponse {
    * @return data
   **/
   @Schema(description = "")
-  public NumberOrderDetailed getData() {
+  public NumberOrder getData() {
     return data;
   }
 
-  public void setData(NumberOrderDetailed data) {
+  public void setData(NumberOrder data) {
     this.data = data;
   }
 
