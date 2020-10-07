@@ -38,7 +38,7 @@ public class MessagingHostedNumberOrder {
   private UUID id = null;
 
   @SerializedName("messaging_profile_id")
-  private UUID messagingProfileId = null;
+  private String messagingProfileId = null;
 
   /**
    * Gets or Sets status
@@ -106,7 +106,7 @@ public class MessagingHostedNumberOrder {
     return id;
   }
 
-  public MessagingHostedNumberOrder messagingProfileId(UUID messagingProfileId) {
+  public MessagingHostedNumberOrder messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
     return this;
   }
@@ -116,11 +116,11 @@ public class MessagingHostedNumberOrder {
    * @return messagingProfileId
   **/
   @Schema(description = "Automatically associate the number with this messaging profile ID when the order is complete.")
-  public UUID getMessagingProfileId() {
+  public String getMessagingProfileId() {
     return messagingProfileId;
   }
 
-  public void setMessagingProfileId(UUID messagingProfileId) {
+  public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
 

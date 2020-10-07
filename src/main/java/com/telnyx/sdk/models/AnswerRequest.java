@@ -28,7 +28,7 @@ import java.io.IOException;
 
 public class AnswerRequest {
   @SerializedName("client_state")
-  private String clientState = null;
+  private byte[] clientState = null;
 
   @SerializedName("command_id")
   private String commandId = null;
@@ -80,7 +80,7 @@ public class AnswerRequest {
   }  @SerializedName("webhook_url_method")
   private WebhookUrlMethodEnum webhookUrlMethod = WebhookUrlMethodEnum.POST;
 
-  public AnswerRequest clientState(String clientState) {
+  public AnswerRequest clientState(byte[] clientState) {
     this.clientState = clientState;
     return this;
   }
@@ -89,12 +89,12 @@ public class AnswerRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @Schema(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", description = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
-  public String getClientState() {
+  @Schema(description = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
+  public byte[] getClientState() {
     return clientState;
   }
 
-  public void setClientState(String clientState) {
+  public void setClientState(byte[] clientState) {
     this.clientState = clientState;
   }
 
@@ -162,7 +162,7 @@ public class AnswerRequest {
       return false;
     }
     AnswerRequest answerRequest = (AnswerRequest) o;
-    return Objects.equals(this.clientState, answerRequest.clientState) &&
+    return Arrays.equals(this.clientState, answerRequest.clientState) &&
         Objects.equals(this.commandId, answerRequest.commandId) &&
         Objects.equals(this.webhookUrl, answerRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, answerRequest.webhookUrlMethod);
@@ -170,7 +170,7 @@ public class AnswerRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(clientState, commandId, webhookUrl, webhookUrlMethod);
+    return Objects.hash(Arrays.hashCode(clientState), commandId, webhookUrl, webhookUrlMethod);
   }
 
 

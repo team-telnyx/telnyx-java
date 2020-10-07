@@ -7,4 +7,4 @@ Name | Type | Description | Notes
 **title** | **String** |  | 
 **detail** | **String** |  |  [optional]
 **source** | [**ErrorSource**](ErrorSource.md) |  |  [optional]
-**meta** | **Object** |  |  [optional]
+**meta** | [**ErrorMeta**](ErrorMeta.md) |  |  [optional]

@@ -21,7 +21,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.UUID;
 /**
  * UpdatePhoneNumberMessagingSettingsRequest
  */
@@ -29,12 +28,12 @@ import java.util.UUID;
 
 public class UpdatePhoneNumberMessagingSettingsRequest {
   @SerializedName("messaging_profile_id")
-  private UUID messagingProfileId = null;
+  private String messagingProfileId = null;
 
   @SerializedName("messaging_product")
   private String messagingProduct = null;
 
-  public UpdatePhoneNumberMessagingSettingsRequest messagingProfileId(UUID messagingProfileId) {
+  public UpdatePhoneNumberMessagingSettingsRequest messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
     return this;
   }
@@ -44,11 +43,11 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
    * @return messagingProfileId
   **/
   @Schema(description = "Unique identifier for a messaging profile.")
-  public UUID getMessagingProfileId() {
+  public String getMessagingProfileId() {
     return messagingProfileId;
   }
 
-  public void setMessagingProfileId(UUID messagingProfileId) {
+  public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
 

@@ -24,7 +24,6 @@ import com.telnyx.sdk.models.MessagingProfileHighLevelMetricsOutbound;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.UUID;
 /**
  * MessagingProfileHighLevelMetrics
  */
@@ -75,7 +74,7 @@ public class MessagingProfileHighLevelMetrics {
   private RecordTypeEnum recordType = null;
 
   @SerializedName("messaging_profile_id")
-  private UUID messagingProfileId = null;
+  private String messagingProfileId = null;
 
   @SerializedName("phone_numbers")
   private BigDecimal phoneNumbers = null;
@@ -100,7 +99,7 @@ public class MessagingProfileHighLevelMetrics {
    * @return messagingProfileId
   **/
   @Schema(description = "Identifies the type of resource.")
-  public UUID getMessagingProfileId() {
+  public String getMessagingProfileId() {
     return messagingProfileId;
   }
 

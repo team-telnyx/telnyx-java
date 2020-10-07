@@ -19,6 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.telnyx.sdk.models.ErrorMeta;
 import com.telnyx.sdk.models.ErrorSource;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class Error {
   private ErrorSource source = null;
 
   @SerializedName("meta")
-  private Object meta = null;
+  private ErrorMeta meta = null;
 
   public Error code(String code) {
     this.code = code;
@@ -52,7 +53,7 @@ public class Error {
    * Get code
    * @return code
   **/
-  @Schema(required = true, description = "")
+  @Schema(example = "10015", required = true, description = "")
   public String getCode() {
     return code;
   }
@@ -70,7 +71,7 @@ public class Error {
    * Get title
    * @return title
   **/
-  @Schema(required = true, description = "")
+  @Schema(example = "Invalid sorting value", required = true, description = "")
   public String getTitle() {
     return title;
   }
@@ -88,7 +89,7 @@ public class Error {
    * Get detail
    * @return detail
   **/
-  @Schema(description = "")
+  @Schema(example = "The value provided for sorting is not valid. Check the value used and try again.", description = "")
   public String getDetail() {
     return detail;
   }
@@ -115,7 +116,7 @@ public class Error {
     this.source = source;
   }
 
-  public Error meta(Object meta) {
+  public Error meta(ErrorMeta meta) {
     this.meta = meta;
     return this;
   }
@@ -125,11 +126,11 @@ public class Error {
    * @return meta
   **/
   @Schema(description = "")
-  public Object getMeta() {
+  public ErrorMeta getMeta() {
     return meta;
   }
 
-  public void setMeta(Object meta) {
+  public void setMeta(ErrorMeta meta) {
     this.meta = meta;
   }
 

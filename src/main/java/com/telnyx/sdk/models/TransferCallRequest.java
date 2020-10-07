@@ -51,6 +51,7 @@ public class TransferCallRequest {
    */
   @JsonAdapter(AnsweringMachineDetectionEnum.Adapter.class)
   public enum AnsweringMachineDetectionEnum {
+    PREMIUM("premium"),
     DETECT("detect"),
     DETECT_BEEP("detect_beep"),
     DETECT_WORDS("detect_words"),

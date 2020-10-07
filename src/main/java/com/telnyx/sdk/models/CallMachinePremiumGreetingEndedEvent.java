@@ -19,54 +19,34 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.telnyx.sdk.models.CallMachinePremiumGreetingEnded;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * ErrorSource
+ * CallMachinePremiumGreetingEndedEvent
  */
 
 
-public class ErrorSource {
-  @SerializedName("pointer")
-  private String pointer = null;
+public class CallMachinePremiumGreetingEndedEvent {
+  @SerializedName("data")
+  private CallMachinePremiumGreetingEnded data = null;
 
-  @SerializedName("parameter")
-  private String parameter = null;
-
-  public ErrorSource pointer(String pointer) {
-    this.pointer = pointer;
+  public CallMachinePremiumGreetingEndedEvent data(CallMachinePremiumGreetingEnded data) {
+    this.data = data;
     return this;
   }
 
    /**
-   * JSON pointer (RFC6901) to the offending entity.
-   * @return pointer
+   * Get data
+   * @return data
   **/
-  @Schema(example = "/sort", description = "JSON pointer (RFC6901) to the offending entity.")
-  public String getPointer() {
-    return pointer;
+  @Schema(description = "")
+  public CallMachinePremiumGreetingEnded getData() {
+    return data;
   }
 
-  public void setPointer(String pointer) {
-    this.pointer = pointer;
-  }
-
-  public ErrorSource parameter(String parameter) {
-    this.parameter = parameter;
-    return this;
-  }
-
-   /**
-   * Indicates which query parameter caused the error.
-   * @return parameter
-  **/
-  @Schema(description = "Indicates which query parameter caused the error.")
-  public String getParameter() {
-    return parameter;
-  }
-
-  public void setParameter(String parameter) {
-    this.parameter = parameter;
+  public void setData(CallMachinePremiumGreetingEnded data) {
+    this.data = data;
   }
 
 
@@ -78,24 +58,22 @@ public class ErrorSource {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ErrorSource errorSource = (ErrorSource) o;
-    return Objects.equals(this.pointer, errorSource.pointer) &&
-        Objects.equals(this.parameter, errorSource.parameter);
+    CallMachinePremiumGreetingEndedEvent callMachinePremiumGreetingEndedEvent = (CallMachinePremiumGreetingEndedEvent) o;
+    return Objects.equals(this.data, callMachinePremiumGreetingEndedEvent.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pointer, parameter);
+    return Objects.hash(data);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ErrorSource {\n");
+    sb.append("class CallMachinePremiumGreetingEndedEvent {\n");
     
-    sb.append("    pointer: ").append(toIndentedString(pointer)).append("\n");
-    sb.append("    parameter: ").append(toIndentedString(parameter)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
   }

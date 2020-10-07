@@ -23,7 +23,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 /**
  * CreateMessageRequest
  */
@@ -34,10 +33,10 @@ public class CreateMessageRequest {
   private String from = null;
 
   @SerializedName("messaging_profile_id")
-  private UUID messagingProfileId = null;
+  private String messagingProfileId = null;
 
   @SerializedName("to")
-  private String to = null;
+  private OneOfCreateMessageRequestTo to = null;
 
   @SerializedName("text")
   private String text = null;
@@ -122,7 +121,7 @@ public class CreateMessageRequest {
     this.from = from;
   }
 
-  public CreateMessageRequest messagingProfileId(UUID messagingProfileId) {
+  public CreateMessageRequest messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
     return this;
   }
@@ -132,29 +131,29 @@ public class CreateMessageRequest {
    * @return messagingProfileId
   **/
   @Schema(description = "Unique identifier for a messaging profile.  **Required if sending via number pool or with an alphanumeric sender ID.** ")
-  public UUID getMessagingProfileId() {
+  public String getMessagingProfileId() {
     return messagingProfileId;
   }
 
-  public void setMessagingProfileId(UUID messagingProfileId) {
+  public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
 
-  public CreateMessageRequest to(String to) {
+  public CreateMessageRequest to(OneOfCreateMessageRequestTo to) {
     this.to = to;
     return this;
   }
 
    /**
-   * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
+   * Get to
    * @return to
   **/
-  @Schema(required = true, description = "Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).")
-  public String getTo() {
+  @Schema(required = true, description = "")
+  public OneOfCreateMessageRequestTo getTo() {
     return to;
   }
 
-  public void setTo(String to) {
+  public void setTo(OneOfCreateMessageRequestTo to) {
     this.to = to;
   }
 

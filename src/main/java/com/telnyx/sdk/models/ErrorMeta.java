@@ -22,51 +22,30 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * ErrorSource
+ * ErrorMeta
  */
 
 
-public class ErrorSource {
-  @SerializedName("pointer")
-  private String pointer = null;
+public class ErrorMeta {
+  @SerializedName("url")
+  private String url = null;
 
-  @SerializedName("parameter")
-  private String parameter = null;
-
-  public ErrorSource pointer(String pointer) {
-    this.pointer = pointer;
+  public ErrorMeta url(String url) {
+    this.url = url;
     return this;
   }
 
    /**
-   * JSON pointer (RFC6901) to the offending entity.
-   * @return pointer
+   * URL with additional information on the error.
+   * @return url
   **/
-  @Schema(example = "/sort", description = "JSON pointer (RFC6901) to the offending entity.")
-  public String getPointer() {
-    return pointer;
+  @Schema(example = "https://developers.telnyx.com/docs/overview/errors/10015", description = "URL with additional information on the error.")
+  public String getUrl() {
+    return url;
   }
 
-  public void setPointer(String pointer) {
-    this.pointer = pointer;
-  }
-
-  public ErrorSource parameter(String parameter) {
-    this.parameter = parameter;
-    return this;
-  }
-
-   /**
-   * Indicates which query parameter caused the error.
-   * @return parameter
-  **/
-  @Schema(description = "Indicates which query parameter caused the error.")
-  public String getParameter() {
-    return parameter;
-  }
-
-  public void setParameter(String parameter) {
-    this.parameter = parameter;
+  public void setUrl(String url) {
+    this.url = url;
   }
 
 
@@ -78,24 +57,22 @@ public class ErrorSource {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ErrorSource errorSource = (ErrorSource) o;
-    return Objects.equals(this.pointer, errorSource.pointer) &&
-        Objects.equals(this.parameter, errorSource.parameter);
+    ErrorMeta errorMeta = (ErrorMeta) o;
+    return Objects.equals(this.url, errorMeta.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pointer, parameter);
+    return Objects.hash(url);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ErrorSource {\n");
+    sb.append("class ErrorMeta {\n");
     
-    sb.append("    pointer: ").append(toIndentedString(pointer)).append("\n");
-    sb.append("    parameter: ").append(toIndentedString(parameter)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("}");
     return sb.toString();
   }

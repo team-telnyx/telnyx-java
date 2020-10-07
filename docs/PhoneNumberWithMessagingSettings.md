@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional]
 **id** | **String** | Identifies the type of resource. |  [optional]
 **phoneNumber** | **String** | +E.164 formatted phone number. |  [optional]
-**messagingProfileId** | [**UUID**](UUID.md) | Unique identifier for a messaging profile. |  [optional]
+**messagingProfileId** | **String** | Unique identifier for a messaging profile. |  [optional]
 **createdAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 formatted date indicating when the resource was created. |  [optional]
 **updatedAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 formatted date indicating when the resource was updated. |  [optional]
 **countryCode** | **String** | ISO 3166-1 alpha-2 country code. |  [optional]

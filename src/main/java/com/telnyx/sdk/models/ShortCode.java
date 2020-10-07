@@ -82,7 +82,7 @@ public class ShortCode {
   private String countryCode = null;
 
   @SerializedName("messaging_profile_id")
-  private UUID messagingProfileId = null;
+  private String messagingProfileId = null;
 
   @SerializedName("created_at")
   private OffsetDateTime createdAt = null;
@@ -126,7 +126,7 @@ public class ShortCode {
     return countryCode;
   }
 
-  public ShortCode messagingProfileId(UUID messagingProfileId) {
+  public ShortCode messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
     return this;
   }
@@ -136,11 +136,11 @@ public class ShortCode {
    * @return messagingProfileId
   **/
   @Schema(required = true, description = "Unique identifier for a messaging profile.")
-  public UUID getMessagingProfileId() {
+  public String getMessagingProfileId() {
     return messagingProfileId;
   }
 
-  public void setMessagingProfileId(UUID messagingProfileId) {
+  public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
 
