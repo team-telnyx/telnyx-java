@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | **String** | Identifies the type of the resource. |  [optional]
 **id** | [**UUID**](UUID.md) | Resource unique identifier. |  [optional]
-**messagingProfileId** | [**UUID**](UUID.md) | Automatically associate the number with this messaging profile ID when the order is complete. |  [optional]
+**messagingProfileId** | **String** | Automatically associate the number with this messaging profile ID when the order is complete. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **phoneNumbers** | [**List&lt;HostedNumber&gt;**](HostedNumber.md) |  |  [optional]
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **direction** | [**DirectionEnum**](#DirectionEnum) | The direction of the message. Inbound messages are sent to you whereas outbound messages are sent from you. |  [optional]
 **id** | [**UUID**](UUID.md) | Identifies the type of resource. |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) | The type of message. |  [optional]
-**messagingProfileId** | [**UUID**](UUID.md) | Unique identifier for a messaging profile. |  [optional]
+**messagingProfileId** | **String** | Unique identifier for a messaging profile. |  [optional]
 **from** | [**OutboundMessagePayloadFrom**](OutboundMessagePayloadFrom.md) |  |  [optional]
 **to** | [**List&lt;OutboundMessagePayloadTo&gt;**](OutboundMessagePayloadTo.md) |  |  [optional]
 **text** | **String** | Message body (i.e., content) as a non-empty string.  **Required for SMS** |  [optional]

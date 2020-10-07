@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **from** | **String** | Phone number, in +E.164 format, used to send the message. | 
-**to** | **String** | Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code). | 
+**to** | **OneOfCreateShortCodeMessageRequestTo** |  | 
 **text** | **String** | Message body (i.e., content) as a non-empty string.  **Required for SMS** |  [optional]
 **subject** | **String** | Subject of multimedia message. |  [optional]
 **mediaUrls** | **List&lt;String&gt;** | A list of media URLs. The total media size must be less than 1 MB.  **Required for MMS** |  [optional]

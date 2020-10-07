@@ -33,7 +33,7 @@ public class CreateShortCodeMessageRequest {
   private String from = null;
 
   @SerializedName("to")
-  private String to = null;
+  private OneOfCreateShortCodeMessageRequestTo to = null;
 
   @SerializedName("text")
   private String text = null;
@@ -118,21 +118,21 @@ public class CreateShortCodeMessageRequest {
     this.from = from;
   }
 
-  public CreateShortCodeMessageRequest to(String to) {
+  public CreateShortCodeMessageRequest to(OneOfCreateShortCodeMessageRequestTo to) {
     this.to = to;
     return this;
   }
 
    /**
-   * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
+   * Get to
    * @return to
   **/
-  @Schema(required = true, description = "Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).")
-  public String getTo() {
+  @Schema(required = true, description = "")
+  public OneOfCreateShortCodeMessageRequestTo getTo() {
     return to;
   }
 
-  public void setTo(String to) {
+  public void setTo(OneOfCreateShortCodeMessageRequestTo to) {
     this.to = to;
   }
 

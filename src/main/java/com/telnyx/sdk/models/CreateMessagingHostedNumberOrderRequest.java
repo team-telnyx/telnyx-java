@@ -23,7 +23,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 /**
  * CreateMessagingHostedNumberOrderRequest
  */
@@ -34,7 +33,7 @@ public class CreateMessagingHostedNumberOrderRequest {
   private List<String> phoneNumbers = null;
 
   @SerializedName("messaging_profile_id")
-  private UUID messagingProfileId = null;
+  private String messagingProfileId = null;
 
   public CreateMessagingHostedNumberOrderRequest phoneNumbers(List<String> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
@@ -62,7 +61,7 @@ public class CreateMessagingHostedNumberOrderRequest {
     this.phoneNumbers = phoneNumbers;
   }
 
-  public CreateMessagingHostedNumberOrderRequest messagingProfileId(UUID messagingProfileId) {
+  public CreateMessagingHostedNumberOrderRequest messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
     return this;
   }
@@ -72,11 +71,11 @@ public class CreateMessagingHostedNumberOrderRequest {
    * @return messagingProfileId
   **/
   @Schema(description = "Automatically associate the number with this messaging profile ID when the order is complete.")
-  public UUID getMessagingProfileId() {
+  public String getMessagingProfileId() {
     return messagingProfileId;
   }
 
-  public void setMessagingProfileId(UUID messagingProfileId) {
+  public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
 

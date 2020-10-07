@@ -1,6 +1,6 @@
-# UpdateShortCodeRequest
+# ErrorMeta
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**messagingProfileId** | **String** | Unique identifier for a messaging profile. | 
+**url** | **String** | URL with additional information on the error. |  [optional]

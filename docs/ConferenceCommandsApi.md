@@ -10,11 +10,11 @@ Method | HTTP request | Description
 [**conferenceMuteParticipants**](ConferenceCommandsApi.md#conferenceMuteParticipants) | **POST** /conferences/{id}/actions/mute | Mute conference participants
 [**conferencePlayAudio**](ConferenceCommandsApi.md#conferencePlayAudio) | **POST** /conferences/{id}/actions/play | Play audio to conference participants
 [**conferenceSpeakText**](ConferenceCommandsApi.md#conferenceSpeakText) | **POST** /conferences/{id}/actions/speak | Speak text to conference participants
-[**conferenceStartRecording**](ConferenceCommandsApi.md#conferenceStartRecording) | **POST** /conferences/{id}/actions/record_start | Start recording a conference
-[**conferenceStopRecording**](ConferenceCommandsApi.md#conferenceStopRecording) | **POST** /conferences/{id}/actions/record_stop | Stop recording a conference
+[**conferenceStartRecording**](ConferenceCommandsApi.md#conferenceStartRecording) | **POST** /conferences/{id}/actions/record_start | Conference recording start
+[**conferenceStopRecording**](ConferenceCommandsApi.md#conferenceStopRecording) | **POST** /conferences/{id}/actions/record_stop | Conference recording stop
 [**conferenceUnholdParticipants**](ConferenceCommandsApi.md#conferenceUnholdParticipants) | **POST** /conferences/{id}/actions/unhold | Unhold conference participants
 [**conferenceUnmuteParticipants**](ConferenceCommandsApi.md#conferenceUnmuteParticipants) | **POST** /conferences/{id}/actions/unmute | Unmute conference participants
-[**createConference**](ConferenceCommandsApi.md#createConference) | **POST** /conferences | Create a conference
+[**createConference**](ConferenceCommandsApi.md#createConference) | **POST** /conferences | Create conference
 [**listConferenceParticipants**](ConferenceCommandsApi.md#listConferenceParticipants) | **GET** /conferences/{conference_id}/participants | List conference participants
 [**listConferences**](ConferenceCommandsApi.md#listConferences) | **GET** /conferences | List conferences
 [**retrieveConference**](ConferenceCommandsApi.md#retrieveConference) | **GET** /conferences/{id} | Retrieve a conference
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 # **conferenceStartRecording**
 > ConferenceCommandResponse conferenceStartRecording(body, id)
 
-Start recording a conference
+Conference recording start
 
 Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 # **conferenceStopRecording**
 > ConferenceCommandResponse conferenceStopRecording(body, id)
 
-Stop recording a conference
+Conference recording stop
 
 Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 # **createConference**
 > ConferenceResponse createConference(body)
 
-Create a conference
+Create conference
 
 Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
 

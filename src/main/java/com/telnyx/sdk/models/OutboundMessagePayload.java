@@ -170,7 +170,7 @@ public class OutboundMessagePayload {
   private TypeEnum type = null;
 
   @SerializedName("messaging_profile_id")
-  private UUID messagingProfileId = null;
+  private String messagingProfileId = null;
 
   @SerializedName("from")
   private OutboundMessagePayloadFrom from = null;
@@ -292,7 +292,7 @@ public class OutboundMessagePayload {
     this.type = type;
   }
 
-  public OutboundMessagePayload messagingProfileId(UUID messagingProfileId) {
+  public OutboundMessagePayload messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
     return this;
   }
@@ -302,11 +302,11 @@ public class OutboundMessagePayload {
    * @return messagingProfileId
   **/
   @Schema(description = "Unique identifier for a messaging profile.")
-  public UUID getMessagingProfileId() {
+  public String getMessagingProfileId() {
     return messagingProfileId;
   }
 
-  public void setMessagingProfileId(UUID messagingProfileId) {
+  public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
 

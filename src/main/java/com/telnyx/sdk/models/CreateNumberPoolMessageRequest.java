@@ -23,7 +23,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 /**
  * CreateNumberPoolMessageRequest
  */
@@ -31,10 +30,10 @@ import java.util.UUID;
 
 public class CreateNumberPoolMessageRequest {
   @SerializedName("messaging_profile_id")
-  private UUID messagingProfileId = null;
+  private String messagingProfileId = null;
 
   @SerializedName("to")
-  private String to = null;
+  private OneOfCreateNumberPoolMessageRequestTo to = null;
 
   @SerializedName("text")
   private String text = null;
@@ -101,7 +100,7 @@ public class CreateNumberPoolMessageRequest {
   @SerializedName("auto_detect")
   private Boolean autoDetect = false;
 
-  public CreateNumberPoolMessageRequest messagingProfileId(UUID messagingProfileId) {
+  public CreateNumberPoolMessageRequest messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
     return this;
   }
@@ -111,29 +110,29 @@ public class CreateNumberPoolMessageRequest {
    * @return messagingProfileId
   **/
   @Schema(required = true, description = "Unique identifier for a messaging profile.")
-  public UUID getMessagingProfileId() {
+  public String getMessagingProfileId() {
     return messagingProfileId;
   }
 
-  public void setMessagingProfileId(UUID messagingProfileId) {
+  public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
 
-  public CreateNumberPoolMessageRequest to(String to) {
+  public CreateNumberPoolMessageRequest to(OneOfCreateNumberPoolMessageRequestTo to) {
     this.to = to;
     return this;
   }
 
    /**
-   * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
+   * Get to
    * @return to
   **/
-  @Schema(required = true, description = "Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).")
-  public String getTo() {
+  @Schema(required = true, description = "")
+  public OneOfCreateNumberPoolMessageRequestTo getTo() {
     return to;
   }
 
-  public void setTo(String to) {
+  public void setTo(OneOfCreateNumberPoolMessageRequestTo to) {
     this.to = to;
   }
 

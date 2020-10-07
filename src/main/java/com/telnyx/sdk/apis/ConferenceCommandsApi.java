@@ -937,7 +937,7 @@ public class ConferenceCommandsApi {
     }
 
     /**
-     * Start recording a conference
+     * Conference recording start
      * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
      * @param body  (required)
      * @param id Specifies the conference to record by id or name (required)
@@ -950,7 +950,7 @@ public class ConferenceCommandsApi {
     }
 
     /**
-     * Start recording a conference
+     * Conference recording start
      * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
      * @param body  (required)
      * @param id Specifies the conference to record by id or name (required)
@@ -964,7 +964,7 @@ public class ConferenceCommandsApi {
     }
 
     /**
-     * Start recording a conference (asynchronously)
+     * Conference recording start (asynchronously)
      * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
      * @param body  (required)
      * @param id Specifies the conference to record by id or name (required)
@@ -1070,7 +1070,7 @@ public class ConferenceCommandsApi {
     }
 
     /**
-     * Stop recording a conference
+     * Conference recording stop
      * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
      * @param body Stop recording conference request (required)
      * @param id Specifies the conference to stop the recording for by id or name (required)
@@ -1083,7 +1083,7 @@ public class ConferenceCommandsApi {
     }
 
     /**
-     * Stop recording a conference
+     * Conference recording stop
      * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
      * @param body Stop recording conference request (required)
      * @param id Specifies the conference to stop the recording for by id or name (required)
@@ -1097,7 +1097,7 @@ public class ConferenceCommandsApi {
     }
 
     /**
-     * Stop recording a conference (asynchronously)
+     * Conference recording stop (asynchronously)
      * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
      * @param body Stop recording conference request (required)
      * @param id Specifies the conference to stop the recording for by id or name (required)
@@ -1463,7 +1463,7 @@ public class ConferenceCommandsApi {
     }
 
     /**
-     * Create a conference
+     * Create conference
      * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
      * @param body Create a conference (required)
      * @return ConferenceResponse
@@ -1475,7 +1475,7 @@ public class ConferenceCommandsApi {
     }
 
     /**
-     * Create a conference
+     * Create conference
      * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
      * @param body Create a conference (required)
      * @return ApiResponse&lt;ConferenceResponse&gt;
@@ -1488,7 +1488,7 @@ public class ConferenceCommandsApi {
     }
 
     /**
-     * Create a conference (asynchronously)
+     * Create conference (asynchronously)
      * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
      * @param body Create a conference (required)
      * @param callback The callback to be executed when the API call finishes

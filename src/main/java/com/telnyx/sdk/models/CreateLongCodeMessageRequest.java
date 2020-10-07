@@ -33,7 +33,7 @@ public class CreateLongCodeMessageRequest {
   private String from = null;
 
   @SerializedName("to")
-  private String to = null;
+  private OneOfCreateLongCodeMessageRequestTo to = null;
 
   @SerializedName("text")
   private String text = null;
@@ -118,21 +118,21 @@ public class CreateLongCodeMessageRequest {
     this.from = from;
   }
 
-  public CreateLongCodeMessageRequest to(String to) {
+  public CreateLongCodeMessageRequest to(OneOfCreateLongCodeMessageRequestTo to) {
     this.to = to;
     return this;
   }
 
    /**
-   * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
+   * Get to
    * @return to
   **/
-  @Schema(required = true, description = "Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).")
-  public String getTo() {
+  @Schema(required = true, description = "")
+  public OneOfCreateLongCodeMessageRequestTo getTo() {
     return to;
   }
 
-  public void setTo(String to) {
+  public void setTo(OneOfCreateLongCodeMessageRequestTo to) {
     this.to = to;
   }
 
