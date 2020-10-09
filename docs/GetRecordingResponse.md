@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**Recording**](.md) |  |  [optional]
+**data** | [**Recording**](Recording.md) |  |  [optional]
 
 
 
