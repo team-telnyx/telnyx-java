@@ -48,7 +48,13 @@ public class RecordingsCommandsApiTest {
         String filterCreatedAtLte = null;
         Integer pageNumber = null;
         Integer pageSize = null;
-        ListRecordingsResponse response = api.listRecordings(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize);
+        ListRecordingsResponse response = api.listRecordings()
+                .filterConferenceId(filterConferenceId)
+                .filterCreatedAtGte(filterCreatedAtGte)
+                .filterCreatedAtLte(filterCreatedAtLte)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
 
         // TODO: test validations
     }
@@ -64,7 +70,8 @@ public class RecordingsCommandsApiTest {
     @Test
     public void retrieveRecordingTest() throws ApiException {
         String id = null;
-        GetRecordingResponse response = api.retrieveRecording(id);
+        GetRecordingResponse response = api.retrieveRecording(id)
+                .execute();
 
         // TODO: test validations
     }

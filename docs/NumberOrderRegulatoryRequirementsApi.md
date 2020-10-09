@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 <a name="listNumberOrderRegulatoryRequirements"></a>
 # **listNumberOrderRegulatoryRequirements**
-> ListNumberOrderRegulatoryRequirementsResponse listNumberOrderRegulatoryRequirements(filterRequirementId, filterFieldType, filterRequirementType)
+> ListNumberOrderRegulatoryRequirementsResponse listNumberOrderRegulatoryRequirements().filterRequirementId(filterRequirementId).filterFieldType(filterFieldType).filterRequirementType(filterRequirementType).execute();
 
 List number order regulatory requirements
 
@@ -41,7 +41,11 @@ public class Example {
     String filterFieldType = "filterFieldType_example"; // String | Filter number order regulatory requirements by `field_type`.
     String filterRequirementType = "filterRequirementType_example"; // String | Filter number order regulatory requirements by `requirement_type`.
     try {
-      ListNumberOrderRegulatoryRequirementsResponse result = apiInstance.listNumberOrderRegulatoryRequirements(filterRequirementId, filterFieldType, filterRequirementType);
+      ListNumberOrderRegulatoryRequirementsResponse result = apiInstance.listNumberOrderRegulatoryRequirements()
+            .filterRequirementId(filterRequirementId)
+            .filterFieldType(filterFieldType)
+            .filterRequirementType(filterRequirementType)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrderRegulatoryRequirementsApi#listNumberOrderRegulatoryRequirements");
@@ -83,7 +87,7 @@ Name | Type | Description  | Notes
 
 <a name="listPhoneNumberRegulatoryRequirements"></a>
 # **listPhoneNumberRegulatoryRequirements**
-> ListPhoneNumberRegulatoryRequirementsResponse listPhoneNumberRegulatoryRequirements(filterPhoneNumber)
+> ListPhoneNumberRegulatoryRequirementsResponse listPhoneNumberRegulatoryRequirements().filterPhoneNumber(filterPhoneNumber).execute();
 
 List regulatory requirements per number
 
@@ -111,7 +115,9 @@ public class Example {
     NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
     List<String> filterPhoneNumber = Arrays.asList(); // List<String> | The list of phone numbers to retrieve regulatory requirements for.
     try {
-      ListPhoneNumberRegulatoryRequirementsResponse result = apiInstance.listPhoneNumberRegulatoryRequirements(filterPhoneNumber);
+      ListPhoneNumberRegulatoryRequirementsResponse result = apiInstance.listPhoneNumberRegulatoryRequirements()
+            .filterPhoneNumber(filterPhoneNumber)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrderRegulatoryRequirementsApi#listPhoneNumberRegulatoryRequirements");
@@ -151,7 +157,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveNumberOrderRegulatoryRequirement"></a>
 # **retrieveNumberOrderRegulatoryRequirement**
-> NumberOrderRegulatoryRequirementResponse retrieveNumberOrderRegulatoryRequirement(requirementId)
+> NumberOrderRegulatoryRequirementResponse retrieveNumberOrderRegulatoryRequirement(requirementId).execute();
 
 Retrieve a number order regulatory requirement
 
@@ -179,7 +185,8 @@ public class Example {
     NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
     String requirementId = "requirementId_example"; // String | The number order regulatory requirement ID.
     try {
-      NumberOrderRegulatoryRequirementResponse result = apiInstance.retrieveNumberOrderRegulatoryRequirement(requirementId);
+      NumberOrderRegulatoryRequirementResponse result = apiInstance.retrieveNumberOrderRegulatoryRequirement(requirementId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrderRegulatoryRequirementsApi#retrieveNumberOrderRegulatoryRequirement");

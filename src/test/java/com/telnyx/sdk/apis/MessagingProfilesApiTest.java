@@ -52,7 +52,8 @@ public class MessagingProfilesApiTest {
     @Test
     public void createMessagingProfileTest() throws ApiException {
         CreateMessagingProfileRequest createMessagingProfileRequest = null;
-        MessagingProfileResponse response = api.createMessagingProfile(createMessagingProfileRequest);
+        MessagingProfileResponse response = api.createMessagingProfile(createMessagingProfileRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -68,7 +69,8 @@ public class MessagingProfilesApiTest {
     @Test
     public void deleteMessagingProfileTest() throws ApiException {
         UUID id = null;
-        MessagingProfileResponse response = api.deleteMessagingProfile(id);
+        MessagingProfileResponse response = api.deleteMessagingProfile(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -85,7 +87,9 @@ public class MessagingProfilesApiTest {
     public void getMessagingProfileDetailedMetricsTest() throws ApiException {
         UUID id = null;
         String timeFrame = null;
-        RetrieveMessagingProfileMetricsResponse response = api.getMessagingProfileDetailedMetrics(id, timeFrame);
+        RetrieveMessagingProfileMetricsResponse response = api.getMessagingProfileDetailedMetrics(id)
+                .timeFrame(timeFrame)
+                .execute();
 
         // TODO: test validations
     }
@@ -104,7 +108,12 @@ public class MessagingProfilesApiTest {
         Integer pageSize = null;
         UUID id = null;
         String timeFrame = null;
-        ListMessagingProfileMetricsResponse response = api.listMessagingProfileMetrics(pageNumber, pageSize, id, timeFrame);
+        ListMessagingProfileMetricsResponse response = api.listMessagingProfileMetrics()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .id(id)
+                .timeFrame(timeFrame)
+                .execute();
 
         // TODO: test validations
     }
@@ -122,7 +131,10 @@ public class MessagingProfilesApiTest {
         UUID id = null;
         Integer pageNumber = null;
         Integer pageSize = null;
-        ListMessagingProfilePhoneNumbersResponse response = api.listMessagingProfilePhoneNumbers(id, pageNumber, pageSize);
+        ListMessagingProfilePhoneNumbersResponse response = api.listMessagingProfilePhoneNumbers(id)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
 
         // TODO: test validations
     }
@@ -140,7 +152,10 @@ public class MessagingProfilesApiTest {
         UUID id = null;
         Integer pageNumber = null;
         Integer pageSize = null;
-        ListMessagingProfileShortCodesResponse response = api.listMessagingProfileShortCodes(id, pageNumber, pageSize);
+        ListMessagingProfileShortCodesResponse response = api.listMessagingProfileShortCodes(id)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
 
         // TODO: test validations
     }
@@ -157,7 +172,10 @@ public class MessagingProfilesApiTest {
     public void listMessagingProfilesTest() throws ApiException {
         Integer pageNumber = null;
         Integer pageSize = null;
-        ListMessagingProfilesResponse response = api.listMessagingProfiles(pageNumber, pageSize);
+        ListMessagingProfilesResponse response = api.listMessagingProfiles()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
 
         // TODO: test validations
     }
@@ -173,7 +191,8 @@ public class MessagingProfilesApiTest {
     @Test
     public void retrieveMessagingProfileTest() throws ApiException {
         UUID id = null;
-        MessagingProfileResponse response = api.retrieveMessagingProfile(id);
+        MessagingProfileResponse response = api.retrieveMessagingProfile(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -190,7 +209,8 @@ public class MessagingProfilesApiTest {
     public void updateMessagingProfileTest() throws ApiException {
         UUID id = null;
         UpdateMessagingProfileRequest updateMessagingProfileRequest = null;
-        MessagingProfileResponse response = api.updateMessagingProfile(id, updateMessagingProfileRequest);
+        MessagingProfileResponse response = api.updateMessagingProfile(id, updateMessagingProfileRequest)
+                .execute();
 
         // TODO: test validations
     }

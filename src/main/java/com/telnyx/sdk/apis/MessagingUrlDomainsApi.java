@@ -55,19 +55,7 @@ public class MessagingUrlDomainsApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for listMessagingUrlDomains
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging URL domain. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listMessagingUrlDomainsCall(final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listMessagingUrlDomainsCall(final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -105,47 +93,94 @@ public class MessagingUrlDomainsApi {
 
     }
 
-    /**
-     * List messaging URL domains
-     * 
-     * @return ListMessagingProfileUrlDomainsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging URL domain. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListMessagingProfileUrlDomainsResponse listMessagingUrlDomains() throws ApiException {
-        ApiResponse<ListMessagingProfileUrlDomainsResponse> localVarResp = listMessagingUrlDomainsWithHttpInfo();
-        return localVarResp.getData();
-    }
 
-    /**
-     * List messaging URL domains
-     * 
-     * @return ApiResponse&lt;ListMessagingProfileUrlDomainsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging URL domain. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListMessagingProfileUrlDomainsResponse> listMessagingUrlDomainsWithHttpInfo() throws ApiException {
+    private ApiResponse<ListMessagingProfileUrlDomainsResponse> listMessagingUrlDomainsWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = listMessagingUrlDomainsValidateBeforeCall(null);
         Type localVarReturnType = new TypeToken<ListMessagingProfileUrlDomainsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call listMessagingUrlDomainsAsync(final ApiCallback<ListMessagingProfileUrlDomainsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = listMessagingUrlDomainsValidateBeforeCall(_callback);
+        Type localVarReturnType = new TypeToken<ListMessagingProfileUrlDomainsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIlistMessagingUrlDomainsRequest {
+
+        private APIlistMessagingUrlDomainsRequest() {
+        }
+
+        /**
+         * Build call for listMessagingUrlDomains
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging URL domain. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listMessagingUrlDomainsCall(_callback);
+        }
+
+        /**
+         * Execute listMessagingUrlDomains request
+         * @return ListMessagingProfileUrlDomainsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging URL domain. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListMessagingProfileUrlDomainsResponse execute() throws ApiException {
+            ApiResponse<ListMessagingProfileUrlDomainsResponse> localVarResp = listMessagingUrlDomainsWithHttpInfo();
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listMessagingUrlDomains request with HTTP info returned
+         * @return ApiResponse&lt;ListMessagingProfileUrlDomainsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging URL domain. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListMessagingProfileUrlDomainsResponse> executeWithHttpInfo() throws ApiException {
+            return listMessagingUrlDomainsWithHttpInfo();
+        }
+
+        /**
+         * Execute listMessagingUrlDomains request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging URL domain. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListMessagingProfileUrlDomainsResponse> _callback) throws ApiException {
+            return listMessagingUrlDomainsAsync(_callback);
+        }
+    }
+
     /**
-     * List messaging URL domains (asynchronously)
+     * List messaging URL domains
      * 
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIlistMessagingUrlDomainsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -153,11 +188,7 @@ public class MessagingUrlDomainsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listMessagingUrlDomainsAsync(final ApiCallback<ListMessagingProfileUrlDomainsResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = listMessagingUrlDomainsValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<ListMessagingProfileUrlDomainsResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIlistMessagingUrlDomainsRequest listMessagingUrlDomains() {
+        return new APIlistMessagingUrlDomainsRequest();
     }
 }

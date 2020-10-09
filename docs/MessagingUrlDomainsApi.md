@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="listMessagingUrlDomains"></a>
 # **listMessagingUrlDomains**
-> ListMessagingProfileUrlDomainsResponse listMessagingUrlDomains()
+> ListMessagingProfileUrlDomainsResponse listMessagingUrlDomains().execute();
 
 List messaging URL domains
 
@@ -34,7 +34,8 @@ public class Example {
 
     MessagingUrlDomainsApi apiInstance = new MessagingUrlDomainsApi(defaultClient);
     try {
-      ListMessagingProfileUrlDomainsResponse result = apiInstance.listMessagingUrlDomains();
+      ListMessagingProfileUrlDomainsResponse result = apiInstance.listMessagingUrlDomains()
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingUrlDomainsApi#listMessagingUrlDomains");

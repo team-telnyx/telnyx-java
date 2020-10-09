@@ -53,7 +53,17 @@ public class DebuggingApiTest {
         String filterEventTimestampLt = null;
         String filterEventTimestampLte = null;
         String filterEventTimestampEq = null;
-        ListCallEventsResponse response = api.listCallEvents(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
+        ListCallEventsResponse response = api.listCallEvents()
+                .filterCallLegId(filterCallLegId)
+                .filterCallSessionId(filterCallSessionId)
+                .filterStatus(filterStatus)
+                .filterType(filterType)
+                .filterEventTimestampGt(filterEventTimestampGt)
+                .filterEventTimestampGte(filterEventTimestampGte)
+                .filterEventTimestampLt(filterEventTimestampLt)
+                .filterEventTimestampLte(filterEventTimestampLte)
+                .filterEventTimestampEq(filterEventTimestampEq)
+                .execute();
 
         // TODO: test validations
     }

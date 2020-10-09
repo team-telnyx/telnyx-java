@@ -49,7 +49,9 @@ public class MessagesApiTest {
     @Test
     public void createLongCodeMessageTest() throws ApiException {
         CreateLongCodeMessageRequest createLongCodeMessageRequest = null;
-        MessageResponse response = api.createLongCodeMessage(createLongCodeMessageRequest);
+        MessageResponse response = api.createLongCodeMessage()
+                .createLongCodeMessageRequest(createLongCodeMessageRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -65,7 +67,9 @@ public class MessagesApiTest {
     @Test
     public void createMessageTest() throws ApiException {
         CreateMessageRequest createMessageRequest = null;
-        MessageResponse response = api.createMessage(createMessageRequest);
+        MessageResponse response = api.createMessage()
+                .createMessageRequest(createMessageRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -81,7 +85,9 @@ public class MessagesApiTest {
     @Test
     public void createNumberPoolMessageTest() throws ApiException {
         CreateNumberPoolMessageRequest createNumberPoolMessageRequest = null;
-        MessageResponse response = api.createNumberPoolMessage(createNumberPoolMessageRequest);
+        MessageResponse response = api.createNumberPoolMessage()
+                .createNumberPoolMessageRequest(createNumberPoolMessageRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -97,7 +103,9 @@ public class MessagesApiTest {
     @Test
     public void createShortCodeMessageTest() throws ApiException {
         CreateShortCodeMessageRequest createShortCodeMessageRequest = null;
-        MessageResponse response = api.createShortCodeMessage(createShortCodeMessageRequest);
+        MessageResponse response = api.createShortCodeMessage()
+                .createShortCodeMessageRequest(createShortCodeMessageRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -113,7 +121,8 @@ public class MessagesApiTest {
     @Test
     public void retrieveMessageTest() throws ApiException {
         UUID id = null;
-        MessageResponse response = api.retrieveMessage(id);
+        MessageResponse response = api.retrieveMessage(id)
+                .execute();
 
         // TODO: test validations
     }

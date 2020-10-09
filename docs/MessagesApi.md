@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="createLongCodeMessage"></a>
 # **createLongCodeMessage**
-> MessageResponse createLongCodeMessage(createLongCodeMessageRequest)
+> MessageResponse createLongCodeMessage().createLongCodeMessageRequest(createLongCodeMessageRequest).execute();
 
 Send a long code message
 
@@ -39,7 +39,9 @@ public class Example {
     MessagesApi apiInstance = new MessagesApi(defaultClient);
     CreateLongCodeMessageRequest createLongCodeMessageRequest = new CreateLongCodeMessageRequest(); // CreateLongCodeMessageRequest | Message payload
     try {
-      MessageResponse result = apiInstance.createLongCodeMessage(createLongCodeMessageRequest);
+      MessageResponse result = apiInstance.createLongCodeMessage()
+            .createLongCodeMessageRequest(createLongCodeMessageRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagesApi#createLongCodeMessage");
@@ -79,7 +81,7 @@ Name | Type | Description  | Notes
 
 <a name="createMessage"></a>
 # **createMessage**
-> MessageResponse createMessage(createMessageRequest)
+> MessageResponse createMessage().createMessageRequest(createMessageRequest).execute();
 
 Send a message
 
@@ -107,7 +109,9 @@ public class Example {
     MessagesApi apiInstance = new MessagesApi(defaultClient);
     CreateMessageRequest createMessageRequest = new CreateMessageRequest(); // CreateMessageRequest | Message payload
     try {
-      MessageResponse result = apiInstance.createMessage(createMessageRequest);
+      MessageResponse result = apiInstance.createMessage()
+            .createMessageRequest(createMessageRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagesApi#createMessage");
@@ -147,7 +151,7 @@ Name | Type | Description  | Notes
 
 <a name="createNumberPoolMessage"></a>
 # **createNumberPoolMessage**
-> MessageResponse createNumberPoolMessage(createNumberPoolMessageRequest)
+> MessageResponse createNumberPoolMessage().createNumberPoolMessageRequest(createNumberPoolMessageRequest).execute();
 
 Send a message using number pool
 
@@ -173,7 +177,9 @@ public class Example {
     MessagesApi apiInstance = new MessagesApi(defaultClient);
     CreateNumberPoolMessageRequest createNumberPoolMessageRequest = new CreateNumberPoolMessageRequest(); // CreateNumberPoolMessageRequest | Message payload
     try {
-      MessageResponse result = apiInstance.createNumberPoolMessage(createNumberPoolMessageRequest);
+      MessageResponse result = apiInstance.createNumberPoolMessage()
+            .createNumberPoolMessageRequest(createNumberPoolMessageRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagesApi#createNumberPoolMessage");
@@ -213,7 +219,7 @@ Name | Type | Description  | Notes
 
 <a name="createShortCodeMessage"></a>
 # **createShortCodeMessage**
-> MessageResponse createShortCodeMessage(createShortCodeMessageRequest)
+> MessageResponse createShortCodeMessage().createShortCodeMessageRequest(createShortCodeMessageRequest).execute();
 
 Send a short code message
 
@@ -239,7 +245,9 @@ public class Example {
     MessagesApi apiInstance = new MessagesApi(defaultClient);
     CreateShortCodeMessageRequest createShortCodeMessageRequest = new CreateShortCodeMessageRequest(); // CreateShortCodeMessageRequest | Message payload
     try {
-      MessageResponse result = apiInstance.createShortCodeMessage(createShortCodeMessageRequest);
+      MessageResponse result = apiInstance.createShortCodeMessage()
+            .createShortCodeMessageRequest(createShortCodeMessageRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagesApi#createShortCodeMessage");
@@ -279,7 +287,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveMessage"></a>
 # **retrieveMessage**
-> MessageResponse retrieveMessage(id)
+> MessageResponse retrieveMessage(id).execute();
 
 Retrieve a message
 
@@ -307,7 +315,8 @@ public class Example {
     MessagesApi apiInstance = new MessagesApi(defaultClient);
     UUID id = new UUID(); // UUID | The id of the message
     try {
-      MessageResponse result = apiInstance.retrieveMessage(id);
+      MessageResponse result = apiInstance.retrieveMessage(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagesApi#retrieveMessage");

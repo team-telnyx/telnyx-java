@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 <a name="createNumberOrderDocument"></a>
 # **createNumberOrderDocument**
-> NumberOrderDocumentResponse createNumberOrderDocument(createNumberOrderDocumentRequest)
+> NumberOrderDocumentResponse createNumberOrderDocument(createNumberOrderDocumentRequest).execute();
 
 Create a number order document
 
@@ -40,7 +40,8 @@ public class Example {
     NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
     CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest = new CreateNumberOrderDocumentRequest(); // CreateNumberOrderDocumentRequest | 
     try {
-      NumberOrderDocumentResponse result = apiInstance.createNumberOrderDocument(createNumberOrderDocumentRequest);
+      NumberOrderDocumentResponse result = apiInstance.createNumberOrderDocument(createNumberOrderDocumentRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrderDocumentsApi#createNumberOrderDocument");
@@ -80,7 +81,7 @@ Name | Type | Description  | Notes
 
 <a name="listNumberOrderDocuments"></a>
 # **listNumberOrderDocuments**
-> ListNumberOrderDocumentsResponse listNumberOrderDocuments(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt)
+> ListNumberOrderDocumentsResponse listNumberOrderDocuments().filterRequirementId(filterRequirementId).filterCreatedAtGt(filterCreatedAtGt).filterCreatedAtLt(filterCreatedAtLt).execute();
 
 List number order documents
 
@@ -110,7 +111,11 @@ public class Example {
     String filterCreatedAtGt = "filterCreatedAtGt_example"; // String | Filter number order documents after this datetime.
     String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number order documents from before this datetime.
     try {
-      ListNumberOrderDocumentsResponse result = apiInstance.listNumberOrderDocuments(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt);
+      ListNumberOrderDocumentsResponse result = apiInstance.listNumberOrderDocuments()
+            .filterRequirementId(filterRequirementId)
+            .filterCreatedAtGt(filterCreatedAtGt)
+            .filterCreatedAtLt(filterCreatedAtLt)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrderDocumentsApi#listNumberOrderDocuments");
@@ -152,7 +157,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveNumberOrderDocument"></a>
 # **retrieveNumberOrderDocument**
-> NumberOrderDocumentResponse retrieveNumberOrderDocument(numberOrderDocumentId)
+> NumberOrderDocumentResponse retrieveNumberOrderDocument(numberOrderDocumentId).execute();
 
 Retrieve a number order document
 
@@ -180,7 +185,8 @@ public class Example {
     NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
     String numberOrderDocumentId = "numberOrderDocumentId_example"; // String | The number order document ID.
     try {
-      NumberOrderDocumentResponse result = apiInstance.retrieveNumberOrderDocument(numberOrderDocumentId);
+      NumberOrderDocumentResponse result = apiInstance.retrieveNumberOrderDocument(numberOrderDocumentId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrderDocumentsApi#retrieveNumberOrderDocument");
@@ -220,7 +226,7 @@ Name | Type | Description  | Notes
 
 <a name="updateNumberOrderDocument"></a>
 # **updateNumberOrderDocument**
-> NumberOrderDocumentResponse updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest)
+> NumberOrderDocumentResponse updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest).execute();
 
 Update a number order document
 
@@ -249,7 +255,8 @@ public class Example {
     String numberOrderDocumentId = "numberOrderDocumentId_example"; // String | The number order document ID.
     UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest = new UpdateNumberOrderDocumentRequest(); // UpdateNumberOrderDocumentRequest | 
     try {
-      NumberOrderDocumentResponse result = apiInstance.updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest);
+      NumberOrderDocumentResponse result = apiInstance.updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrderDocumentsApi#updateNumberOrderDocument");

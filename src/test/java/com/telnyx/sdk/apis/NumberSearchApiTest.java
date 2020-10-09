@@ -57,7 +57,22 @@ public class NumberSearchApiTest {
         Boolean filterBestEffort = null;
         Boolean filterQuickship = null;
         Boolean filterReservable = null;
-        ListAvailablePhoneNumbersResponse response = api.listAvailablePhoneNumbers(filterPhoneNumberStartsWith, filterPhoneNumberEndsWith, filterPhoneNumberContains, filterLocality, filterAdministrativeArea, filterCountryCode, filterNationalDestinationCode, filterRateCenter, filterNumberType, filterFeatures, filterLimit, filterBestEffort, filterQuickship, filterReservable);
+        ListAvailablePhoneNumbersResponse response = api.listAvailablePhoneNumbers()
+                .filterPhoneNumberStartsWith(filterPhoneNumberStartsWith)
+                .filterPhoneNumberEndsWith(filterPhoneNumberEndsWith)
+                .filterPhoneNumberContains(filterPhoneNumberContains)
+                .filterLocality(filterLocality)
+                .filterAdministrativeArea(filterAdministrativeArea)
+                .filterCountryCode(filterCountryCode)
+                .filterNationalDestinationCode(filterNationalDestinationCode)
+                .filterRateCenter(filterRateCenter)
+                .filterNumberType(filterNumberType)
+                .filterFeatures(filterFeatures)
+                .filterLimit(filterLimit)
+                .filterBestEffort(filterBestEffort)
+                .filterQuickship(filterQuickship)
+                .filterReservable(filterReservable)
+                .execute();
 
         // TODO: test validations
     }

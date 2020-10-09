@@ -63,7 +63,8 @@ public class CallCommandsApiTest {
     public void callAnswerTest() throws ApiException {
         String callControlId = null;
         AnswerRequest answerRequest = null;
-        CallControlCommandResponse response = api.callAnswer(callControlId, answerRequest);
+        CallControlCommandResponse response = api.callAnswer(callControlId, answerRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -80,7 +81,8 @@ public class CallCommandsApiTest {
     public void callBridgeTest() throws ApiException {
         String callControlId = null;
         BridgeRequest bridgeRequest = null;
-        CallControlCommandResponse response = api.callBridge(callControlId, bridgeRequest);
+        CallControlCommandResponse response = api.callBridge(callControlId, bridgeRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -96,7 +98,8 @@ public class CallCommandsApiTest {
     @Test
     public void callDialTest() throws ApiException {
         CallRequest callRequest = null;
-        RetrieveCallStatusResponse response = api.callDial(callRequest);
+        RetrieveCallStatusResponse response = api.callDial(callRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -113,7 +116,8 @@ public class CallCommandsApiTest {
     public void callForkStartTest() throws ApiException {
         String callControlId = null;
         StartForkingRequest startForkingRequest = null;
-        CallControlCommandResponse response = api.callForkStart(callControlId, startForkingRequest);
+        CallControlCommandResponse response = api.callForkStart(callControlId, startForkingRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -130,7 +134,8 @@ public class CallCommandsApiTest {
     public void callForkStopTest() throws ApiException {
         String callControlId = null;
         StopForkingRequest stopForkingRequest = null;
-        CallControlCommandResponse response = api.callForkStop(callControlId, stopForkingRequest);
+        CallControlCommandResponse response = api.callForkStop(callControlId, stopForkingRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -147,7 +152,8 @@ public class CallCommandsApiTest {
     public void callGatherStopTest() throws ApiException {
         String callControlId = null;
         StopGatherRequest stopGatherRequest = null;
-        CallControlCommandResponse response = api.callGatherStop(callControlId, stopGatherRequest);
+        CallControlCommandResponse response = api.callGatherStop(callControlId, stopGatherRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -164,7 +170,8 @@ public class CallCommandsApiTest {
     public void callGatherUsingAudioTest() throws ApiException {
         String callControlId = null;
         GatherUsingAudioRequest gatherUsingAudioRequest = null;
-        CallControlCommandResponse response = api.callGatherUsingAudio(callControlId, gatherUsingAudioRequest);
+        CallControlCommandResponse response = api.callGatherUsingAudio(callControlId, gatherUsingAudioRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -181,7 +188,8 @@ public class CallCommandsApiTest {
     public void callGatherUsingSpeakTest() throws ApiException {
         String callControlId = null;
         GatherUsingSpeakRequest gatherUsingSpeakRequest = null;
-        CallControlCommandResponse response = api.callGatherUsingSpeak(callControlId, gatherUsingSpeakRequest);
+        CallControlCommandResponse response = api.callGatherUsingSpeak(callControlId, gatherUsingSpeakRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -198,7 +206,8 @@ public class CallCommandsApiTest {
     public void callHangupTest() throws ApiException {
         String callControlId = null;
         HangupRequest hangupRequest = null;
-        CallControlCommandResponse response = api.callHangup(callControlId, hangupRequest);
+        CallControlCommandResponse response = api.callHangup(callControlId, hangupRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -215,7 +224,8 @@ public class CallCommandsApiTest {
     public void callPlaybackStartTest() throws ApiException {
         String callControlId = null;
         PlayAudioUrlRequest playAudioUrlRequest = null;
-        CallControlCommandResponse response = api.callPlaybackStart(callControlId, playAudioUrlRequest);
+        CallControlCommandResponse response = api.callPlaybackStart(callControlId, playAudioUrlRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -232,7 +242,8 @@ public class CallCommandsApiTest {
     public void callPlaybackStopTest() throws ApiException {
         String callControlId = null;
         PlaybackStopRequest playbackStopRequest = null;
-        CallControlCommandResponse response = api.callPlaybackStop(callControlId, playbackStopRequest);
+        CallControlCommandResponse response = api.callPlaybackStop(callControlId, playbackStopRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -249,7 +260,8 @@ public class CallCommandsApiTest {
     public void callRecordStartTest() throws ApiException {
         String callControlId = null;
         StartRecordingRequest startRecordingRequest = null;
-        CallControlCommandResponse response = api.callRecordStart(callControlId, startRecordingRequest);
+        CallControlCommandResponse response = api.callRecordStart(callControlId, startRecordingRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -266,7 +278,8 @@ public class CallCommandsApiTest {
     public void callRecordStopTest() throws ApiException {
         String callControlId = null;
         StopRecordingRequest stopRecordingRequest = null;
-        CallControlCommandResponse response = api.callRecordStop(callControlId, stopRecordingRequest);
+        CallControlCommandResponse response = api.callRecordStop(callControlId, stopRecordingRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -283,7 +296,8 @@ public class CallCommandsApiTest {
     public void callRejectTest() throws ApiException {
         String callControlId = null;
         RejectRequest rejectRequest = null;
-        CallControlCommandResponse response = api.callReject(callControlId, rejectRequest);
+        CallControlCommandResponse response = api.callReject(callControlId, rejectRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -300,7 +314,8 @@ public class CallCommandsApiTest {
     public void callSendDTMFTest() throws ApiException {
         String callControlId = null;
         SendDTMFRequest sendDTMFRequest = null;
-        CallControlCommandResponse response = api.callSendDTMF(callControlId, sendDTMFRequest);
+        CallControlCommandResponse response = api.callSendDTMF(callControlId, sendDTMFRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -317,7 +332,8 @@ public class CallCommandsApiTest {
     public void callSpeakTest() throws ApiException {
         String callControlId = null;
         SpeakRequest speakRequest = null;
-        CallControlCommandResponse response = api.callSpeak(callControlId, speakRequest);
+        CallControlCommandResponse response = api.callSpeak(callControlId, speakRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -334,7 +350,8 @@ public class CallCommandsApiTest {
     public void callTransferTest() throws ApiException {
         String callControlId = null;
         TransferCallRequest transferCallRequest = null;
-        CallControlCommandResponse response = api.callTransfer(callControlId, transferCallRequest);
+        CallControlCommandResponse response = api.callTransfer(callControlId, transferCallRequest)
+                .execute();
 
         // TODO: test validations
     }

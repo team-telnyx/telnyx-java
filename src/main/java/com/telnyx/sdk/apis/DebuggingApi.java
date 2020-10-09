@@ -56,28 +56,7 @@ public class DebuggingApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for listCallEvents
-     * @param filterCallLegId The unique identifier of an individual call leg. (optional)
-     * @param filterCallSessionId The unique identifier of the call control session. A session may include multiple call leg events. (optional)
-     * @param filterStatus Event status (optional)
-     * @param filterType Event type (optional)
-     * @param filterEventTimestampGt Event timestamp: greater than (optional)
-     * @param filterEventTimestampGte Event timestamp: greater than or equal (optional)
-     * @param filterEventTimestampLt Event timestamp: lower than (optional)
-     * @param filterEventTimestampLte Event timestamp: lower than or equal (optional)
-     * @param filterEventTimestampEq Event timestamp: equal (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of call events. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listCallEventsCall(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listCallEventsCall(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -151,74 +130,193 @@ public class DebuggingApi {
 
     }
 
-    /**
-     * List call events
-     * Filters call events by given filter parameters. Events are ordered by &#x60;event_timestamp&#x60;. If filter for &#x60;call_leg_id&#x60; or &#x60;call_session_id&#x60; is not present, it only filters events from the last 24 hours.  **Note**: Only one &#x60;filter[event_timestamp]&#x60; can be passed. 
-     * @param filterCallLegId The unique identifier of an individual call leg. (optional)
-     * @param filterCallSessionId The unique identifier of the call control session. A session may include multiple call leg events. (optional)
-     * @param filterStatus Event status (optional)
-     * @param filterType Event type (optional)
-     * @param filterEventTimestampGt Event timestamp: greater than (optional)
-     * @param filterEventTimestampGte Event timestamp: greater than or equal (optional)
-     * @param filterEventTimestampLt Event timestamp: lower than (optional)
-     * @param filterEventTimestampLte Event timestamp: lower than or equal (optional)
-     * @param filterEventTimestampEq Event timestamp: equal (optional)
-     * @return ListCallEventsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of call events. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListCallEventsResponse listCallEvents(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq) throws ApiException {
-        ApiResponse<ListCallEventsResponse> localVarResp = listCallEventsWithHttpInfo(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List call events
-     * Filters call events by given filter parameters. Events are ordered by &#x60;event_timestamp&#x60;. If filter for &#x60;call_leg_id&#x60; or &#x60;call_session_id&#x60; is not present, it only filters events from the last 24 hours.  **Note**: Only one &#x60;filter[event_timestamp]&#x60; can be passed. 
-     * @param filterCallLegId The unique identifier of an individual call leg. (optional)
-     * @param filterCallSessionId The unique identifier of the call control session. A session may include multiple call leg events. (optional)
-     * @param filterStatus Event status (optional)
-     * @param filterType Event type (optional)
-     * @param filterEventTimestampGt Event timestamp: greater than (optional)
-     * @param filterEventTimestampGte Event timestamp: greater than or equal (optional)
-     * @param filterEventTimestampLt Event timestamp: lower than (optional)
-     * @param filterEventTimestampLte Event timestamp: lower than or equal (optional)
-     * @param filterEventTimestampEq Event timestamp: equal (optional)
-     * @return ApiResponse&lt;ListCallEventsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of call events. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq) throws ApiException {
+    private ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq) throws ApiException {
         okhttp3.Call localVarCall = listCallEventsValidateBeforeCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, null);
         Type localVarReturnType = new TypeToken<ListCallEventsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call listCallEventsAsync(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, final ApiCallback<ListCallEventsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = listCallEventsValidateBeforeCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, _callback);
+        Type localVarReturnType = new TypeToken<ListCallEventsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIlistCallEventsRequest {
+        private UUID filterCallLegId;
+        private UUID filterCallSessionId;
+        private String filterStatus;
+        private String filterType;
+        private String filterEventTimestampGt;
+        private String filterEventTimestampGte;
+        private String filterEventTimestampLt;
+        private String filterEventTimestampLte;
+        private String filterEventTimestampEq;
+
+        private APIlistCallEventsRequest() {
+        }
+
+        /**
+         * Set filterCallLegId
+         * @param filterCallLegId The unique identifier of an individual call leg. (optional)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest filterCallLegId(UUID filterCallLegId) {
+            this.filterCallLegId = filterCallLegId;
+            return this;
+        }
+
+        /**
+         * Set filterCallSessionId
+         * @param filterCallSessionId The unique identifier of the call control session. A session may include multiple call leg events. (optional)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest filterCallSessionId(UUID filterCallSessionId) {
+            this.filterCallSessionId = filterCallSessionId;
+            return this;
+        }
+
+        /**
+         * Set filterStatus
+         * @param filterStatus Event status (optional)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest filterStatus(String filterStatus) {
+            this.filterStatus = filterStatus;
+            return this;
+        }
+
+        /**
+         * Set filterType
+         * @param filterType Event type (optional)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest filterType(String filterType) {
+            this.filterType = filterType;
+            return this;
+        }
+
+        /**
+         * Set filterEventTimestampGt
+         * @param filterEventTimestampGt Event timestamp: greater than (optional)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest filterEventTimestampGt(String filterEventTimestampGt) {
+            this.filterEventTimestampGt = filterEventTimestampGt;
+            return this;
+        }
+
+        /**
+         * Set filterEventTimestampGte
+         * @param filterEventTimestampGte Event timestamp: greater than or equal (optional)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest filterEventTimestampGte(String filterEventTimestampGte) {
+            this.filterEventTimestampGte = filterEventTimestampGte;
+            return this;
+        }
+
+        /**
+         * Set filterEventTimestampLt
+         * @param filterEventTimestampLt Event timestamp: lower than (optional)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest filterEventTimestampLt(String filterEventTimestampLt) {
+            this.filterEventTimestampLt = filterEventTimestampLt;
+            return this;
+        }
+
+        /**
+         * Set filterEventTimestampLte
+         * @param filterEventTimestampLte Event timestamp: lower than or equal (optional)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest filterEventTimestampLte(String filterEventTimestampLte) {
+            this.filterEventTimestampLte = filterEventTimestampLte;
+            return this;
+        }
+
+        /**
+         * Set filterEventTimestampEq
+         * @param filterEventTimestampEq Event timestamp: equal (optional)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest filterEventTimestampEq(String filterEventTimestampEq) {
+            this.filterEventTimestampEq = filterEventTimestampEq;
+            return this;
+        }
+
+        /**
+         * Build call for listCallEvents
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of call events. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listCallEventsCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, _callback);
+        }
+
+        /**
+         * Execute listCallEvents request
+         * @return ListCallEventsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of call events. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListCallEventsResponse execute() throws ApiException {
+            ApiResponse<ListCallEventsResponse> localVarResp = listCallEventsWithHttpInfo(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listCallEvents request with HTTP info returned
+         * @return ApiResponse&lt;ListCallEventsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of call events. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListCallEventsResponse> executeWithHttpInfo() throws ApiException {
+            return listCallEventsWithHttpInfo(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
+        }
+
+        /**
+         * Execute listCallEvents request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of call events. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListCallEventsResponse> _callback) throws ApiException {
+            return listCallEventsAsync(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, _callback);
+        }
+    }
+
     /**
-     * List call events (asynchronously)
+     * List call events
      * Filters call events by given filter parameters. Events are ordered by &#x60;event_timestamp&#x60;. If filter for &#x60;call_leg_id&#x60; or &#x60;call_session_id&#x60; is not present, it only filters events from the last 24 hours.  **Note**: Only one &#x60;filter[event_timestamp]&#x60; can be passed. 
-     * @param filterCallLegId The unique identifier of an individual call leg. (optional)
-     * @param filterCallSessionId The unique identifier of the call control session. A session may include multiple call leg events. (optional)
-     * @param filterStatus Event status (optional)
-     * @param filterType Event type (optional)
-     * @param filterEventTimestampGt Event timestamp: greater than (optional)
-     * @param filterEventTimestampGte Event timestamp: greater than or equal (optional)
-     * @param filterEventTimestampLt Event timestamp: lower than (optional)
-     * @param filterEventTimestampLte Event timestamp: lower than or equal (optional)
-     * @param filterEventTimestampEq Event timestamp: equal (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIlistCallEventsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -226,11 +324,7 @@ public class DebuggingApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listCallEventsAsync(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, final ApiCallback<ListCallEventsResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = listCallEventsValidateBeforeCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, _callback);
-        Type localVarReturnType = new TypeToken<ListCallEventsResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIlistCallEventsRequest listCallEvents() {
+        return new APIlistCallEventsRequest();
     }
 }

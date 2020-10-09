@@ -60,20 +60,7 @@ public class MessagesApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for createLongCodeMessage
-     * @param createLongCodeMessageRequest Message payload (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createLongCodeMessageCall(CreateLongCodeMessageRequest createLongCodeMessageRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createLongCodeMessageCall(CreateLongCodeMessageRequest createLongCodeMessageRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createLongCodeMessageRequest;
 
         // create path and map variables
@@ -111,70 +98,105 @@ public class MessagesApi {
 
     }
 
-    /**
-     * Send a long code message
-     * 
-     * @param createLongCodeMessageRequest Message payload (optional)
-     * @return MessageResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public MessageResponse createLongCodeMessage(CreateLongCodeMessageRequest createLongCodeMessageRequest) throws ApiException {
-        ApiResponse<MessageResponse> localVarResp = createLongCodeMessageWithHttpInfo(createLongCodeMessageRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Send a long code message
-     * 
-     * @param createLongCodeMessageRequest Message payload (optional)
-     * @return ApiResponse&lt;MessageResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MessageResponse> createLongCodeMessageWithHttpInfo(CreateLongCodeMessageRequest createLongCodeMessageRequest) throws ApiException {
+    private ApiResponse<MessageResponse> createLongCodeMessageWithHttpInfo(CreateLongCodeMessageRequest createLongCodeMessageRequest) throws ApiException {
         okhttp3.Call localVarCall = createLongCodeMessageValidateBeforeCall(createLongCodeMessageRequest, null);
         Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Send a long code message (asynchronously)
-     * 
-     * @param createLongCodeMessageRequest Message payload (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createLongCodeMessageAsync(CreateLongCodeMessageRequest createLongCodeMessageRequest, final ApiCallback<MessageResponse> _callback) throws ApiException {
+    private okhttp3.Call createLongCodeMessageAsync(CreateLongCodeMessageRequest createLongCodeMessageRequest, final ApiCallback<MessageResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createLongCodeMessageValidateBeforeCall(createLongCodeMessageRequest, _callback);
         Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateLongCodeMessageRequest {
+        private CreateLongCodeMessageRequest createLongCodeMessageRequest;
+
+        private APIcreateLongCodeMessageRequest() {
+        }
+
+        /**
+         * Set createLongCodeMessageRequest
+         * @param createLongCodeMessageRequest Message payload (optional)
+         * @return APIcreateLongCodeMessageRequest
+         */
+        public APIcreateLongCodeMessageRequest createLongCodeMessageRequest(CreateLongCodeMessageRequest createLongCodeMessageRequest) {
+            this.createLongCodeMessageRequest = createLongCodeMessageRequest;
+            return this;
+        }
+
+        /**
+         * Build call for createLongCodeMessage
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createLongCodeMessageCall(createLongCodeMessageRequest, _callback);
+        }
+
+        /**
+         * Execute createLongCodeMessage request
+         * @return MessageResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public MessageResponse execute() throws ApiException {
+            ApiResponse<MessageResponse> localVarResp = createLongCodeMessageWithHttpInfo(createLongCodeMessageRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createLongCodeMessage request with HTTP info returned
+         * @return ApiResponse&lt;MessageResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<MessageResponse> executeWithHttpInfo() throws ApiException {
+            return createLongCodeMessageWithHttpInfo(createLongCodeMessageRequest);
+        }
+
+        /**
+         * Execute createLongCodeMessage request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<MessageResponse> _callback) throws ApiException {
+            return createLongCodeMessageAsync(createLongCodeMessageRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for createMessage
-     * @param createMessageRequest Message payload (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Send a long code message
+     * 
+     * @return APIcreateLongCodeMessageRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -182,7 +204,10 @@ public class MessagesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createMessageCall(CreateMessageRequest createMessageRequest, final ApiCallback _callback) throws ApiException {
+    public APIcreateLongCodeMessageRequest createLongCodeMessage() {
+        return new APIcreateLongCodeMessageRequest();
+    }
+    private okhttp3.Call createMessageCall(CreateMessageRequest createMessageRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createMessageRequest;
 
         // create path and map variables
@@ -220,70 +245,105 @@ public class MessagesApi {
 
     }
 
-    /**
-     * Send a message
-     * Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.  This endpoint allows you to send a message with any messaging resource. Current messaging resources include: long-code, short-code, number-pool, and alphanumeric-sender-id. 
-     * @param createMessageRequest Message payload (optional)
-     * @return MessageResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public MessageResponse createMessage(CreateMessageRequest createMessageRequest) throws ApiException {
-        ApiResponse<MessageResponse> localVarResp = createMessageWithHttpInfo(createMessageRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Send a message
-     * Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.  This endpoint allows you to send a message with any messaging resource. Current messaging resources include: long-code, short-code, number-pool, and alphanumeric-sender-id. 
-     * @param createMessageRequest Message payload (optional)
-     * @return ApiResponse&lt;MessageResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MessageResponse> createMessageWithHttpInfo(CreateMessageRequest createMessageRequest) throws ApiException {
+    private ApiResponse<MessageResponse> createMessageWithHttpInfo(CreateMessageRequest createMessageRequest) throws ApiException {
         okhttp3.Call localVarCall = createMessageValidateBeforeCall(createMessageRequest, null);
         Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Send a message (asynchronously)
-     * Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.  This endpoint allows you to send a message with any messaging resource. Current messaging resources include: long-code, short-code, number-pool, and alphanumeric-sender-id. 
-     * @param createMessageRequest Message payload (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createMessageAsync(CreateMessageRequest createMessageRequest, final ApiCallback<MessageResponse> _callback) throws ApiException {
+    private okhttp3.Call createMessageAsync(CreateMessageRequest createMessageRequest, final ApiCallback<MessageResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createMessageValidateBeforeCall(createMessageRequest, _callback);
         Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateMessageRequest {
+        private CreateMessageRequest createMessageRequest;
+
+        private APIcreateMessageRequest() {
+        }
+
+        /**
+         * Set createMessageRequest
+         * @param createMessageRequest Message payload (optional)
+         * @return APIcreateMessageRequest
+         */
+        public APIcreateMessageRequest createMessageRequest(CreateMessageRequest createMessageRequest) {
+            this.createMessageRequest = createMessageRequest;
+            return this;
+        }
+
+        /**
+         * Build call for createMessage
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createMessageCall(createMessageRequest, _callback);
+        }
+
+        /**
+         * Execute createMessage request
+         * @return MessageResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public MessageResponse execute() throws ApiException {
+            ApiResponse<MessageResponse> localVarResp = createMessageWithHttpInfo(createMessageRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createMessage request with HTTP info returned
+         * @return ApiResponse&lt;MessageResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<MessageResponse> executeWithHttpInfo() throws ApiException {
+            return createMessageWithHttpInfo(createMessageRequest);
+        }
+
+        /**
+         * Execute createMessage request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<MessageResponse> _callback) throws ApiException {
+            return createMessageAsync(createMessageRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for createNumberPoolMessage
-     * @param createNumberPoolMessageRequest Message payload (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Send a message
+     * Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.  This endpoint allows you to send a message with any messaging resource. Current messaging resources include: long-code, short-code, number-pool, and alphanumeric-sender-id. 
+     * @return APIcreateMessageRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -291,7 +351,10 @@ public class MessagesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createNumberPoolMessageCall(CreateNumberPoolMessageRequest createNumberPoolMessageRequest, final ApiCallback _callback) throws ApiException {
+    public APIcreateMessageRequest createMessage() {
+        return new APIcreateMessageRequest();
+    }
+    private okhttp3.Call createNumberPoolMessageCall(CreateNumberPoolMessageRequest createNumberPoolMessageRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createNumberPoolMessageRequest;
 
         // create path and map variables
@@ -329,70 +392,105 @@ public class MessagesApi {
 
     }
 
-    /**
-     * Send a message using number pool
-     * 
-     * @param createNumberPoolMessageRequest Message payload (optional)
-     * @return MessageResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public MessageResponse createNumberPoolMessage(CreateNumberPoolMessageRequest createNumberPoolMessageRequest) throws ApiException {
-        ApiResponse<MessageResponse> localVarResp = createNumberPoolMessageWithHttpInfo(createNumberPoolMessageRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Send a message using number pool
-     * 
-     * @param createNumberPoolMessageRequest Message payload (optional)
-     * @return ApiResponse&lt;MessageResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MessageResponse> createNumberPoolMessageWithHttpInfo(CreateNumberPoolMessageRequest createNumberPoolMessageRequest) throws ApiException {
+    private ApiResponse<MessageResponse> createNumberPoolMessageWithHttpInfo(CreateNumberPoolMessageRequest createNumberPoolMessageRequest) throws ApiException {
         okhttp3.Call localVarCall = createNumberPoolMessageValidateBeforeCall(createNumberPoolMessageRequest, null);
         Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Send a message using number pool (asynchronously)
-     * 
-     * @param createNumberPoolMessageRequest Message payload (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNumberPoolMessageAsync(CreateNumberPoolMessageRequest createNumberPoolMessageRequest, final ApiCallback<MessageResponse> _callback) throws ApiException {
+    private okhttp3.Call createNumberPoolMessageAsync(CreateNumberPoolMessageRequest createNumberPoolMessageRequest, final ApiCallback<MessageResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createNumberPoolMessageValidateBeforeCall(createNumberPoolMessageRequest, _callback);
         Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateNumberPoolMessageRequest {
+        private CreateNumberPoolMessageRequest createNumberPoolMessageRequest;
+
+        private APIcreateNumberPoolMessageRequest() {
+        }
+
+        /**
+         * Set createNumberPoolMessageRequest
+         * @param createNumberPoolMessageRequest Message payload (optional)
+         * @return APIcreateNumberPoolMessageRequest
+         */
+        public APIcreateNumberPoolMessageRequest createNumberPoolMessageRequest(CreateNumberPoolMessageRequest createNumberPoolMessageRequest) {
+            this.createNumberPoolMessageRequest = createNumberPoolMessageRequest;
+            return this;
+        }
+
+        /**
+         * Build call for createNumberPoolMessage
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createNumberPoolMessageCall(createNumberPoolMessageRequest, _callback);
+        }
+
+        /**
+         * Execute createNumberPoolMessage request
+         * @return MessageResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public MessageResponse execute() throws ApiException {
+            ApiResponse<MessageResponse> localVarResp = createNumberPoolMessageWithHttpInfo(createNumberPoolMessageRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createNumberPoolMessage request with HTTP info returned
+         * @return ApiResponse&lt;MessageResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<MessageResponse> executeWithHttpInfo() throws ApiException {
+            return createNumberPoolMessageWithHttpInfo(createNumberPoolMessageRequest);
+        }
+
+        /**
+         * Execute createNumberPoolMessage request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<MessageResponse> _callback) throws ApiException {
+            return createNumberPoolMessageAsync(createNumberPoolMessageRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for createShortCodeMessage
-     * @param createShortCodeMessageRequest Message payload (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Send a message using number pool
+     * 
+     * @return APIcreateNumberPoolMessageRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -400,7 +498,10 @@ public class MessagesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createShortCodeMessageCall(CreateShortCodeMessageRequest createShortCodeMessageRequest, final ApiCallback _callback) throws ApiException {
+    public APIcreateNumberPoolMessageRequest createNumberPoolMessage() {
+        return new APIcreateNumberPoolMessageRequest();
+    }
+    private okhttp3.Call createShortCodeMessageCall(CreateShortCodeMessageRequest createShortCodeMessageRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createShortCodeMessageRequest;
 
         // create path and map variables
@@ -438,70 +539,105 @@ public class MessagesApi {
 
     }
 
-    /**
-     * Send a short code message
-     * 
-     * @param createShortCodeMessageRequest Message payload (optional)
-     * @return MessageResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public MessageResponse createShortCodeMessage(CreateShortCodeMessageRequest createShortCodeMessageRequest) throws ApiException {
-        ApiResponse<MessageResponse> localVarResp = createShortCodeMessageWithHttpInfo(createShortCodeMessageRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Send a short code message
-     * 
-     * @param createShortCodeMessageRequest Message payload (optional)
-     * @return ApiResponse&lt;MessageResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MessageResponse> createShortCodeMessageWithHttpInfo(CreateShortCodeMessageRequest createShortCodeMessageRequest) throws ApiException {
+    private ApiResponse<MessageResponse> createShortCodeMessageWithHttpInfo(CreateShortCodeMessageRequest createShortCodeMessageRequest) throws ApiException {
         okhttp3.Call localVarCall = createShortCodeMessageValidateBeforeCall(createShortCodeMessageRequest, null);
         Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Send a short code message (asynchronously)
-     * 
-     * @param createShortCodeMessageRequest Message payload (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createShortCodeMessageAsync(CreateShortCodeMessageRequest createShortCodeMessageRequest, final ApiCallback<MessageResponse> _callback) throws ApiException {
+    private okhttp3.Call createShortCodeMessageAsync(CreateShortCodeMessageRequest createShortCodeMessageRequest, final ApiCallback<MessageResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createShortCodeMessageValidateBeforeCall(createShortCodeMessageRequest, _callback);
         Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateShortCodeMessageRequest {
+        private CreateShortCodeMessageRequest createShortCodeMessageRequest;
+
+        private APIcreateShortCodeMessageRequest() {
+        }
+
+        /**
+         * Set createShortCodeMessageRequest
+         * @param createShortCodeMessageRequest Message payload (optional)
+         * @return APIcreateShortCodeMessageRequest
+         */
+        public APIcreateShortCodeMessageRequest createShortCodeMessageRequest(CreateShortCodeMessageRequest createShortCodeMessageRequest) {
+            this.createShortCodeMessageRequest = createShortCodeMessageRequest;
+            return this;
+        }
+
+        /**
+         * Build call for createShortCodeMessage
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createShortCodeMessageCall(createShortCodeMessageRequest, _callback);
+        }
+
+        /**
+         * Execute createShortCodeMessage request
+         * @return MessageResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public MessageResponse execute() throws ApiException {
+            ApiResponse<MessageResponse> localVarResp = createShortCodeMessageWithHttpInfo(createShortCodeMessageRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createShortCodeMessage request with HTTP info returned
+         * @return ApiResponse&lt;MessageResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<MessageResponse> executeWithHttpInfo() throws ApiException {
+            return createShortCodeMessageWithHttpInfo(createShortCodeMessageRequest);
+        }
+
+        /**
+         * Execute createShortCodeMessage request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<MessageResponse> _callback) throws ApiException {
+            return createShortCodeMessageAsync(createShortCodeMessageRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveMessage
-     * @param id The id of the message (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Send a short code message
+     * 
+     * @return APIcreateShortCodeMessageRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -509,7 +645,10 @@ public class MessagesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveMessageCall(UUID id, final ApiCallback _callback) throws ApiException {
+    public APIcreateShortCodeMessageRequest createShortCodeMessage() {
+        return new APIcreateShortCodeMessageRequest();
+    }
+    private okhttp3.Call retrieveMessageCall(UUID id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -553,50 +692,97 @@ public class MessagesApi {
 
     }
 
-    /**
-     * Retrieve a message
-     * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/docs/api/v1/reports/MDR-Reports)
-     * @param id The id of the message (required)
-     * @return MessageResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public MessageResponse retrieveMessage(UUID id) throws ApiException {
-        ApiResponse<MessageResponse> localVarResp = retrieveMessageWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a message
-     * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/docs/api/v1/reports/MDR-Reports)
-     * @param id The id of the message (required)
-     * @return ApiResponse&lt;MessageResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MessageResponse> retrieveMessageWithHttpInfo(UUID id) throws ApiException {
+    private ApiResponse<MessageResponse> retrieveMessageWithHttpInfo(UUID id) throws ApiException {
         okhttp3.Call localVarCall = retrieveMessageValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call retrieveMessageAsync(UUID id, final ApiCallback<MessageResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = retrieveMessageValidateBeforeCall(id, _callback);
+        Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIretrieveMessageRequest {
+        private final UUID id;
+
+        private APIretrieveMessageRequest(UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrieveMessage
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveMessageCall(id, _callback);
+        }
+
+        /**
+         * Execute retrieveMessage request
+         * @return MessageResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public MessageResponse execute() throws ApiException {
+            ApiResponse<MessageResponse> localVarResp = retrieveMessageWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveMessage request with HTTP info returned
+         * @return ApiResponse&lt;MessageResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<MessageResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveMessageWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrieveMessage request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<MessageResponse> _callback) throws ApiException {
+            return retrieveMessageAsync(id, _callback);
+        }
+    }
+
     /**
-     * Retrieve a message (asynchronously)
+     * Retrieve a message
      * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/docs/api/v1/reports/MDR-Reports)
      * @param id The id of the message (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIretrieveMessageRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -604,11 +790,7 @@ public class MessagesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveMessageAsync(UUID id, final ApiCallback<MessageResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = retrieveMessageValidateBeforeCall(id, _callback);
-        Type localVarReturnType = new TypeToken<MessageResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIretrieveMessageRequest retrieveMessage(UUID id) {
+        return new APIretrieveMessageRequest(id);
     }
 }

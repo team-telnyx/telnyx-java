@@ -14776,4 +14776,5 @@ components:
     bearerAuth:
       scheme: bearer
       type: http
+x-group-parameters: "true"
 

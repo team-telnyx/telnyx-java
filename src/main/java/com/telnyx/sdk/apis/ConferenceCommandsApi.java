@@ -68,23 +68,7 @@ public class ConferenceCommandsApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for conferenceDialParticipantIn
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceCallRequest Dial Into Conference request object (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceDialParticipantInCall(String id, ConferenceCallRequest conferenceCallRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call conferenceDialParticipantInCall(String id, ConferenceCallRequest conferenceCallRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = conferenceCallRequest;
 
         // create path and map variables
@@ -133,80 +117,108 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Dial a new participant into a conference
-     * Dials a phone number and, when the call is answered, automatically joins them into the specified conference.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; - &#x60;call.answered&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceCallRequest Dial Into Conference request object (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferenceDialParticipantIn(String id, ConferenceCallRequest conferenceCallRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferenceDialParticipantInWithHttpInfo(id, conferenceCallRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Dial a new participant into a conference
-     * Dials a phone number and, when the call is answered, automatically joins them into the specified conference.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; - &#x60;call.answered&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceCallRequest Dial Into Conference request object (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferenceDialParticipantInWithHttpInfo(String id, ConferenceCallRequest conferenceCallRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferenceDialParticipantInWithHttpInfo(String id, ConferenceCallRequest conferenceCallRequest) throws ApiException {
         okhttp3.Call localVarCall = conferenceDialParticipantInValidateBeforeCall(id, conferenceCallRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Dial a new participant into a conference (asynchronously)
-     * Dials a phone number and, when the call is answered, automatically joins them into the specified conference.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; - &#x60;call.answered&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceCallRequest Dial Into Conference request object (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceDialParticipantInAsync(String id, ConferenceCallRequest conferenceCallRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferenceDialParticipantInAsync(String id, ConferenceCallRequest conferenceCallRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferenceDialParticipantInValidateBeforeCall(id, conferenceCallRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferenceDialParticipantInRequest {
+        private final String id;
+        private final ConferenceCallRequest conferenceCallRequest;
+
+        private APIconferenceDialParticipantInRequest(String id, ConferenceCallRequest conferenceCallRequest) {
+            this.id = id;
+            this.conferenceCallRequest = conferenceCallRequest;
+        }
+
+        /**
+         * Build call for conferenceDialParticipantIn
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferenceDialParticipantInCall(id, conferenceCallRequest, _callback);
+        }
+
+        /**
+         * Execute conferenceDialParticipantIn request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferenceDialParticipantInWithHttpInfo(id, conferenceCallRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferenceDialParticipantIn request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferenceDialParticipantInWithHttpInfo(id, conferenceCallRequest);
+        }
+
+        /**
+         * Execute conferenceDialParticipantIn request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferenceDialParticipantInAsync(id, conferenceCallRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for conferenceHoldParticipants
+     * Dial a new participant into a conference
+     * Dials a phone number and, when the call is answered, automatically joins them into the specified conference.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; - &#x60;call.answered&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
      * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceHoldRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @param conferenceCallRequest Dial Into Conference request object (required)
+     * @return APIconferenceDialParticipantInRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -216,7 +228,10 @@ public class ConferenceCommandsApi {
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call conferenceHoldParticipantsCall(String id, ConferenceHoldRequest conferenceHoldRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferenceDialParticipantInRequest conferenceDialParticipantIn(String id, ConferenceCallRequest conferenceCallRequest) {
+        return new APIconferenceDialParticipantInRequest(id, conferenceCallRequest);
+    }
+    private okhttp3.Call conferenceHoldParticipantsCall(String id, ConferenceHoldRequest conferenceHoldRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = conferenceHoldRequest;
 
         // create path and map variables
@@ -265,89 +280,121 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Hold conference participants
-     * Hold a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceHoldRequest  (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferenceHoldParticipants(String id, ConferenceHoldRequest conferenceHoldRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferenceHoldParticipantsWithHttpInfo(id, conferenceHoldRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Hold conference participants
-     * Hold a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceHoldRequest  (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferenceHoldParticipantsWithHttpInfo(String id, ConferenceHoldRequest conferenceHoldRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferenceHoldParticipantsWithHttpInfo(String id, ConferenceHoldRequest conferenceHoldRequest) throws ApiException {
         okhttp3.Call localVarCall = conferenceHoldParticipantsValidateBeforeCall(id, conferenceHoldRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Hold conference participants (asynchronously)
-     * Hold a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceHoldRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceHoldParticipantsAsync(String id, ConferenceHoldRequest conferenceHoldRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferenceHoldParticipantsAsync(String id, ConferenceHoldRequest conferenceHoldRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferenceHoldParticipantsValidateBeforeCall(id, conferenceHoldRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferenceHoldParticipantsRequest {
+        private final String id;
+        private final ConferenceHoldRequest conferenceHoldRequest;
+
+        private APIconferenceHoldParticipantsRequest(String id, ConferenceHoldRequest conferenceHoldRequest) {
+            this.id = id;
+            this.conferenceHoldRequest = conferenceHoldRequest;
+        }
+
+        /**
+         * Build call for conferenceHoldParticipants
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferenceHoldParticipantsCall(id, conferenceHoldRequest, _callback);
+        }
+
+        /**
+         * Execute conferenceHoldParticipants request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferenceHoldParticipantsWithHttpInfo(id, conferenceHoldRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferenceHoldParticipants request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferenceHoldParticipantsWithHttpInfo(id, conferenceHoldRequest);
+        }
+
+        /**
+         * Execute conferenceHoldParticipants request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferenceHoldParticipantsAsync(id, conferenceHoldRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for conferenceJoin
+     * Hold conference participants
+     * Hold a list of participants in a conference call
      * @param id Uniquely identifies the conference by id or name (required)
-     * @param joinConferenceRequest Join Conference request object (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @param conferenceHoldRequest  (required)
+     * @return APIconferenceHoldParticipantsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call conferenceJoinCall(String id, JoinConferenceRequest joinConferenceRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferenceHoldParticipantsRequest conferenceHoldParticipants(String id, ConferenceHoldRequest conferenceHoldRequest) {
+        return new APIconferenceHoldParticipantsRequest(id, conferenceHoldRequest);
+    }
+    private okhttp3.Call conferenceJoinCall(String id, JoinConferenceRequest joinConferenceRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = joinConferenceRequest;
 
         // create path and map variables
@@ -396,87 +443,116 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Join a conference
-     * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute.  **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param joinConferenceRequest Join Conference request object (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferenceJoin(String id, JoinConferenceRequest joinConferenceRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferenceJoinWithHttpInfo(id, joinConferenceRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Join a conference
-     * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute.  **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param joinConferenceRequest Join Conference request object (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferenceJoinWithHttpInfo(String id, JoinConferenceRequest joinConferenceRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferenceJoinWithHttpInfo(String id, JoinConferenceRequest joinConferenceRequest) throws ApiException {
         okhttp3.Call localVarCall = conferenceJoinValidateBeforeCall(id, joinConferenceRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Join a conference (asynchronously)
-     * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute.  **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param joinConferenceRequest Join Conference request object (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceJoinAsync(String id, JoinConferenceRequest joinConferenceRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferenceJoinAsync(String id, JoinConferenceRequest joinConferenceRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferenceJoinValidateBeforeCall(id, joinConferenceRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferenceJoinRequest {
+        private final String id;
+        private final JoinConferenceRequest joinConferenceRequest;
+
+        private APIconferenceJoinRequest(String id, JoinConferenceRequest joinConferenceRequest) {
+            this.id = id;
+            this.joinConferenceRequest = joinConferenceRequest;
+        }
+
+        /**
+         * Build call for conferenceJoin
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferenceJoinCall(id, joinConferenceRequest, _callback);
+        }
+
+        /**
+         * Execute conferenceJoin request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferenceJoinWithHttpInfo(id, joinConferenceRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferenceJoin request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferenceJoinWithHttpInfo(id, joinConferenceRequest);
+        }
+
+        /**
+         * Execute conferenceJoin request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferenceJoinAsync(id, joinConferenceRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for conferenceMuteParticipants
+     * Join a conference
+     * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute.  **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
      * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceMuteRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @param joinConferenceRequest Join Conference request object (required)
+     * @return APIconferenceJoinRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call conferenceMuteParticipantsCall(String id, ConferenceMuteRequest conferenceMuteRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferenceJoinRequest conferenceJoin(String id, JoinConferenceRequest joinConferenceRequest) {
+        return new APIconferenceJoinRequest(id, joinConferenceRequest);
+    }
+    private okhttp3.Call conferenceMuteParticipantsCall(String id, ConferenceMuteRequest conferenceMuteRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = conferenceMuteRequest;
 
         // create path and map variables
@@ -525,80 +601,108 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Mute conference participants
-     * Mute a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceMuteRequest  (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferenceMuteParticipants(String id, ConferenceMuteRequest conferenceMuteRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferenceMuteParticipantsWithHttpInfo(id, conferenceMuteRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Mute conference participants
-     * Mute a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceMuteRequest  (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferenceMuteParticipantsWithHttpInfo(String id, ConferenceMuteRequest conferenceMuteRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferenceMuteParticipantsWithHttpInfo(String id, ConferenceMuteRequest conferenceMuteRequest) throws ApiException {
         okhttp3.Call localVarCall = conferenceMuteParticipantsValidateBeforeCall(id, conferenceMuteRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Mute conference participants (asynchronously)
-     * Mute a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceMuteRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceMuteParticipantsAsync(String id, ConferenceMuteRequest conferenceMuteRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferenceMuteParticipantsAsync(String id, ConferenceMuteRequest conferenceMuteRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferenceMuteParticipantsValidateBeforeCall(id, conferenceMuteRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferenceMuteParticipantsRequest {
+        private final String id;
+        private final ConferenceMuteRequest conferenceMuteRequest;
+
+        private APIconferenceMuteParticipantsRequest(String id, ConferenceMuteRequest conferenceMuteRequest) {
+            this.id = id;
+            this.conferenceMuteRequest = conferenceMuteRequest;
+        }
+
+        /**
+         * Build call for conferenceMuteParticipants
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferenceMuteParticipantsCall(id, conferenceMuteRequest, _callback);
+        }
+
+        /**
+         * Execute conferenceMuteParticipants request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferenceMuteParticipantsWithHttpInfo(id, conferenceMuteRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferenceMuteParticipants request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferenceMuteParticipantsWithHttpInfo(id, conferenceMuteRequest);
+        }
+
+        /**
+         * Execute conferenceMuteParticipants request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferenceMuteParticipantsAsync(id, conferenceMuteRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for conferencePlayAudio
+     * Mute conference participants
+     * Mute a list of participants in a conference call
      * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferencePlayRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @param conferenceMuteRequest  (required)
+     * @return APIconferenceMuteParticipantsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -608,7 +712,10 @@ public class ConferenceCommandsApi {
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call conferencePlayAudioCall(String id, ConferencePlayRequest conferencePlayRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferenceMuteParticipantsRequest conferenceMuteParticipants(String id, ConferenceMuteRequest conferenceMuteRequest) {
+        return new APIconferenceMuteParticipantsRequest(id, conferenceMuteRequest);
+    }
+    private okhttp3.Call conferencePlayAudioCall(String id, ConferencePlayRequest conferencePlayRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = conferencePlayRequest;
 
         // create path and map variables
@@ -657,80 +764,108 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Play audio to conference participants
-     * Play audio to all or some participants on a conference call.
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferencePlayRequest  (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferencePlayAudio(String id, ConferencePlayRequest conferencePlayRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferencePlayAudioWithHttpInfo(id, conferencePlayRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Play audio to conference participants
-     * Play audio to all or some participants on a conference call.
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferencePlayRequest  (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferencePlayAudioWithHttpInfo(String id, ConferencePlayRequest conferencePlayRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferencePlayAudioWithHttpInfo(String id, ConferencePlayRequest conferencePlayRequest) throws ApiException {
         okhttp3.Call localVarCall = conferencePlayAudioValidateBeforeCall(id, conferencePlayRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Play audio to conference participants (asynchronously)
-     * Play audio to all or some participants on a conference call.
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferencePlayRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferencePlayAudioAsync(String id, ConferencePlayRequest conferencePlayRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferencePlayAudioAsync(String id, ConferencePlayRequest conferencePlayRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferencePlayAudioValidateBeforeCall(id, conferencePlayRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferencePlayAudioRequest {
+        private final String id;
+        private final ConferencePlayRequest conferencePlayRequest;
+
+        private APIconferencePlayAudioRequest(String id, ConferencePlayRequest conferencePlayRequest) {
+            this.id = id;
+            this.conferencePlayRequest = conferencePlayRequest;
+        }
+
+        /**
+         * Build call for conferencePlayAudio
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferencePlayAudioCall(id, conferencePlayRequest, _callback);
+        }
+
+        /**
+         * Execute conferencePlayAudio request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferencePlayAudioWithHttpInfo(id, conferencePlayRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferencePlayAudio request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferencePlayAudioWithHttpInfo(id, conferencePlayRequest);
+        }
+
+        /**
+         * Execute conferencePlayAudio request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferencePlayAudioAsync(id, conferencePlayRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for conferenceSpeakText
-     * @param id Specifies the conference by id or name (required)
-     * @param conferenceSpeakRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Play audio to conference participants
+     * Play audio to all or some participants on a conference call.
+     * @param id Uniquely identifies the conference by id or name (required)
+     * @param conferencePlayRequest  (required)
+     * @return APIconferencePlayAudioRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -740,7 +875,10 @@ public class ConferenceCommandsApi {
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call conferenceSpeakTextCall(String id, ConferenceSpeakRequest conferenceSpeakRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferencePlayAudioRequest conferencePlayAudio(String id, ConferencePlayRequest conferencePlayRequest) {
+        return new APIconferencePlayAudioRequest(id, conferencePlayRequest);
+    }
+    private okhttp3.Call conferenceSpeakTextCall(String id, ConferenceSpeakRequest conferenceSpeakRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = conferenceSpeakRequest;
 
         // create path and map variables
@@ -789,80 +927,108 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Speak text to conference participants
-     * Convert text to speech and play it to all or some participants.
-     * @param id Specifies the conference by id or name (required)
-     * @param conferenceSpeakRequest  (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferenceSpeakText(String id, ConferenceSpeakRequest conferenceSpeakRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferenceSpeakTextWithHttpInfo(id, conferenceSpeakRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Speak text to conference participants
-     * Convert text to speech and play it to all or some participants.
-     * @param id Specifies the conference by id or name (required)
-     * @param conferenceSpeakRequest  (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferenceSpeakTextWithHttpInfo(String id, ConferenceSpeakRequest conferenceSpeakRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferenceSpeakTextWithHttpInfo(String id, ConferenceSpeakRequest conferenceSpeakRequest) throws ApiException {
         okhttp3.Call localVarCall = conferenceSpeakTextValidateBeforeCall(id, conferenceSpeakRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Speak text to conference participants (asynchronously)
-     * Convert text to speech and play it to all or some participants.
-     * @param id Specifies the conference by id or name (required)
-     * @param conferenceSpeakRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceSpeakTextAsync(String id, ConferenceSpeakRequest conferenceSpeakRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferenceSpeakTextAsync(String id, ConferenceSpeakRequest conferenceSpeakRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferenceSpeakTextValidateBeforeCall(id, conferenceSpeakRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferenceSpeakTextRequest {
+        private final String id;
+        private final ConferenceSpeakRequest conferenceSpeakRequest;
+
+        private APIconferenceSpeakTextRequest(String id, ConferenceSpeakRequest conferenceSpeakRequest) {
+            this.id = id;
+            this.conferenceSpeakRequest = conferenceSpeakRequest;
+        }
+
+        /**
+         * Build call for conferenceSpeakText
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferenceSpeakTextCall(id, conferenceSpeakRequest, _callback);
+        }
+
+        /**
+         * Execute conferenceSpeakText request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferenceSpeakTextWithHttpInfo(id, conferenceSpeakRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferenceSpeakText request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferenceSpeakTextWithHttpInfo(id, conferenceSpeakRequest);
+        }
+
+        /**
+         * Execute conferenceSpeakText request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferenceSpeakTextAsync(id, conferenceSpeakRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for conferenceStartRecording
-     * @param id Specifies the conference to record by id or name (required)
-     * @param startRecordingRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Speak text to conference participants
+     * Convert text to speech and play it to all or some participants.
+     * @param id Specifies the conference by id or name (required)
+     * @param conferenceSpeakRequest  (required)
+     * @return APIconferenceSpeakTextRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -872,7 +1038,10 @@ public class ConferenceCommandsApi {
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call conferenceStartRecordingCall(String id, StartRecordingRequest startRecordingRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferenceSpeakTextRequest conferenceSpeakText(String id, ConferenceSpeakRequest conferenceSpeakRequest) {
+        return new APIconferenceSpeakTextRequest(id, conferenceSpeakRequest);
+    }
+    private okhttp3.Call conferenceStartRecordingCall(String id, StartRecordingRequest startRecordingRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = startRecordingRequest;
 
         // create path and map variables
@@ -921,80 +1090,108 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Conference recording start
-     * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
-     * @param id Specifies the conference to record by id or name (required)
-     * @param startRecordingRequest  (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferenceStartRecording(String id, StartRecordingRequest startRecordingRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferenceStartRecordingWithHttpInfo(id, startRecordingRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Conference recording start
-     * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
-     * @param id Specifies the conference to record by id or name (required)
-     * @param startRecordingRequest  (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferenceStartRecordingWithHttpInfo(String id, StartRecordingRequest startRecordingRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferenceStartRecordingWithHttpInfo(String id, StartRecordingRequest startRecordingRequest) throws ApiException {
         okhttp3.Call localVarCall = conferenceStartRecordingValidateBeforeCall(id, startRecordingRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Conference recording start (asynchronously)
-     * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
-     * @param id Specifies the conference to record by id or name (required)
-     * @param startRecordingRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceStartRecordingAsync(String id, StartRecordingRequest startRecordingRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferenceStartRecordingAsync(String id, StartRecordingRequest startRecordingRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferenceStartRecordingValidateBeforeCall(id, startRecordingRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferenceStartRecordingRequest {
+        private final String id;
+        private final StartRecordingRequest startRecordingRequest;
+
+        private APIconferenceStartRecordingRequest(String id, StartRecordingRequest startRecordingRequest) {
+            this.id = id;
+            this.startRecordingRequest = startRecordingRequest;
+        }
+
+        /**
+         * Build call for conferenceStartRecording
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferenceStartRecordingCall(id, startRecordingRequest, _callback);
+        }
+
+        /**
+         * Execute conferenceStartRecording request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferenceStartRecordingWithHttpInfo(id, startRecordingRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferenceStartRecording request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferenceStartRecordingWithHttpInfo(id, startRecordingRequest);
+        }
+
+        /**
+         * Execute conferenceStartRecording request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferenceStartRecordingAsync(id, startRecordingRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for conferenceStopRecording
-     * @param id Specifies the conference to stop the recording for by id or name (required)
-     * @param stopRecordingRequest Stop recording conference request (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Conference recording start
+     * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
+     * @param id Specifies the conference to record by id or name (required)
+     * @param startRecordingRequest  (required)
+     * @return APIconferenceStartRecordingRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1004,7 +1201,10 @@ public class ConferenceCommandsApi {
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call conferenceStopRecordingCall(String id, StopRecordingRequest stopRecordingRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferenceStartRecordingRequest conferenceStartRecording(String id, StartRecordingRequest startRecordingRequest) {
+        return new APIconferenceStartRecordingRequest(id, startRecordingRequest);
+    }
+    private okhttp3.Call conferenceStopRecordingCall(String id, StopRecordingRequest stopRecordingRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = stopRecordingRequest;
 
         // create path and map variables
@@ -1053,80 +1253,108 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Conference recording stop
-     * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
-     * @param id Specifies the conference to stop the recording for by id or name (required)
-     * @param stopRecordingRequest Stop recording conference request (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferenceStopRecording(String id, StopRecordingRequest stopRecordingRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferenceStopRecordingWithHttpInfo(id, stopRecordingRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Conference recording stop
-     * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
-     * @param id Specifies the conference to stop the recording for by id or name (required)
-     * @param stopRecordingRequest Stop recording conference request (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferenceStopRecordingWithHttpInfo(String id, StopRecordingRequest stopRecordingRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferenceStopRecordingWithHttpInfo(String id, StopRecordingRequest stopRecordingRequest) throws ApiException {
         okhttp3.Call localVarCall = conferenceStopRecordingValidateBeforeCall(id, stopRecordingRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Conference recording stop (asynchronously)
-     * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
-     * @param id Specifies the conference to stop the recording for by id or name (required)
-     * @param stopRecordingRequest Stop recording conference request (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceStopRecordingAsync(String id, StopRecordingRequest stopRecordingRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferenceStopRecordingAsync(String id, StopRecordingRequest stopRecordingRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferenceStopRecordingValidateBeforeCall(id, stopRecordingRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferenceStopRecordingRequest {
+        private final String id;
+        private final StopRecordingRequest stopRecordingRequest;
+
+        private APIconferenceStopRecordingRequest(String id, StopRecordingRequest stopRecordingRequest) {
+            this.id = id;
+            this.stopRecordingRequest = stopRecordingRequest;
+        }
+
+        /**
+         * Build call for conferenceStopRecording
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferenceStopRecordingCall(id, stopRecordingRequest, _callback);
+        }
+
+        /**
+         * Execute conferenceStopRecording request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferenceStopRecordingWithHttpInfo(id, stopRecordingRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferenceStopRecording request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferenceStopRecordingWithHttpInfo(id, stopRecordingRequest);
+        }
+
+        /**
+         * Execute conferenceStopRecording request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferenceStopRecordingAsync(id, stopRecordingRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for conferenceUnholdParticipants
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceUnholdRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Conference recording stop
+     * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
+     * @param id Specifies the conference to stop the recording for by id or name (required)
+     * @param stopRecordingRequest Stop recording conference request (required)
+     * @return APIconferenceStopRecordingRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1136,7 +1364,10 @@ public class ConferenceCommandsApi {
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call conferenceUnholdParticipantsCall(String id, ConferenceUnholdRequest conferenceUnholdRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferenceStopRecordingRequest conferenceStopRecording(String id, StopRecordingRequest stopRecordingRequest) {
+        return new APIconferenceStopRecordingRequest(id, stopRecordingRequest);
+    }
+    private okhttp3.Call conferenceUnholdParticipantsCall(String id, ConferenceUnholdRequest conferenceUnholdRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = conferenceUnholdRequest;
 
         // create path and map variables
@@ -1185,80 +1416,108 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Unhold conference participants
-     * Unhold a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceUnholdRequest  (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferenceUnholdParticipants(String id, ConferenceUnholdRequest conferenceUnholdRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferenceUnholdParticipantsWithHttpInfo(id, conferenceUnholdRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Unhold conference participants
-     * Unhold a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceUnholdRequest  (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferenceUnholdParticipantsWithHttpInfo(String id, ConferenceUnholdRequest conferenceUnholdRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferenceUnholdParticipantsWithHttpInfo(String id, ConferenceUnholdRequest conferenceUnholdRequest) throws ApiException {
         okhttp3.Call localVarCall = conferenceUnholdParticipantsValidateBeforeCall(id, conferenceUnholdRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Unhold conference participants (asynchronously)
-     * Unhold a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceUnholdRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceUnholdParticipantsAsync(String id, ConferenceUnholdRequest conferenceUnholdRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferenceUnholdParticipantsAsync(String id, ConferenceUnholdRequest conferenceUnholdRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferenceUnholdParticipantsValidateBeforeCall(id, conferenceUnholdRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferenceUnholdParticipantsRequest {
+        private final String id;
+        private final ConferenceUnholdRequest conferenceUnholdRequest;
+
+        private APIconferenceUnholdParticipantsRequest(String id, ConferenceUnholdRequest conferenceUnholdRequest) {
+            this.id = id;
+            this.conferenceUnholdRequest = conferenceUnholdRequest;
+        }
+
+        /**
+         * Build call for conferenceUnholdParticipants
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferenceUnholdParticipantsCall(id, conferenceUnholdRequest, _callback);
+        }
+
+        /**
+         * Execute conferenceUnholdParticipants request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferenceUnholdParticipantsWithHttpInfo(id, conferenceUnholdRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferenceUnholdParticipants request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferenceUnholdParticipantsWithHttpInfo(id, conferenceUnholdRequest);
+        }
+
+        /**
+         * Execute conferenceUnholdParticipants request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferenceUnholdParticipantsAsync(id, conferenceUnholdRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for conferenceUnmuteParticipants
+     * Unhold conference participants
+     * Unhold a list of participants in a conference call
      * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceUnmuteRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @param conferenceUnholdRequest  (required)
+     * @return APIconferenceUnholdParticipantsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1268,7 +1527,10 @@ public class ConferenceCommandsApi {
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call conferenceUnmuteParticipantsCall(String id, ConferenceUnmuteRequest conferenceUnmuteRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferenceUnholdParticipantsRequest conferenceUnholdParticipants(String id, ConferenceUnholdRequest conferenceUnholdRequest) {
+        return new APIconferenceUnholdParticipantsRequest(id, conferenceUnholdRequest);
+    }
+    private okhttp3.Call conferenceUnmuteParticipantsCall(String id, ConferenceUnmuteRequest conferenceUnmuteRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = conferenceUnmuteRequest;
 
         // create path and map variables
@@ -1317,88 +1579,121 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Unmute conference participants
-     * Unmute a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceUnmuteRequest  (required)
-     * @return ConferenceCommandResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceCommandResponse conferenceUnmuteParticipants(String id, ConferenceUnmuteRequest conferenceUnmuteRequest) throws ApiException {
-        ApiResponse<ConferenceCommandResponse> localVarResp = conferenceUnmuteParticipantsWithHttpInfo(id, conferenceUnmuteRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Unmute conference participants
-     * Unmute a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceUnmuteRequest  (required)
-     * @return ApiResponse&lt;ConferenceCommandResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceCommandResponse> conferenceUnmuteParticipantsWithHttpInfo(String id, ConferenceUnmuteRequest conferenceUnmuteRequest) throws ApiException {
+    private ApiResponse<ConferenceCommandResponse> conferenceUnmuteParticipantsWithHttpInfo(String id, ConferenceUnmuteRequest conferenceUnmuteRequest) throws ApiException {
         okhttp3.Call localVarCall = conferenceUnmuteParticipantsValidateBeforeCall(id, conferenceUnmuteRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Unmute conference participants (asynchronously)
-     * Unmute a list of participants in a conference call
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param conferenceUnmuteRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call conferenceUnmuteParticipantsAsync(String id, ConferenceUnmuteRequest conferenceUnmuteRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+    private okhttp3.Call conferenceUnmuteParticipantsAsync(String id, ConferenceUnmuteRequest conferenceUnmuteRequest, final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = conferenceUnmuteParticipantsValidateBeforeCall(id, conferenceUnmuteRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceCommandResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIconferenceUnmuteParticipantsRequest {
+        private final String id;
+        private final ConferenceUnmuteRequest conferenceUnmuteRequest;
+
+        private APIconferenceUnmuteParticipantsRequest(String id, ConferenceUnmuteRequest conferenceUnmuteRequest) {
+            this.id = id;
+            this.conferenceUnmuteRequest = conferenceUnmuteRequest;
+        }
+
+        /**
+         * Build call for conferenceUnmuteParticipants
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return conferenceUnmuteParticipantsCall(id, conferenceUnmuteRequest, _callback);
+        }
+
+        /**
+         * Execute conferenceUnmuteParticipants request
+         * @return ConferenceCommandResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceCommandResponse execute() throws ApiException {
+            ApiResponse<ConferenceCommandResponse> localVarResp = conferenceUnmuteParticipantsWithHttpInfo(id, conferenceUnmuteRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute conferenceUnmuteParticipants request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceCommandResponse> executeWithHttpInfo() throws ApiException {
+            return conferenceUnmuteParticipantsWithHttpInfo(id, conferenceUnmuteRequest);
+        }
+
+        /**
+         * Execute conferenceUnmuteParticipants request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceCommandResponse> _callback) throws ApiException {
+            return conferenceUnmuteParticipantsAsync(id, conferenceUnmuteRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for createConference
-     * @param createConferenceRequest Create a conference (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Unmute conference participants
+     * Unmute a list of participants in a conference call
+     * @param id Uniquely identifies the conference by id or name (required)
+     * @param conferenceUnmuteRequest  (required)
+     * @return APIconferenceUnmuteParticipantsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createConferenceCall(CreateConferenceRequest createConferenceRequest, final ApiCallback _callback) throws ApiException {
+    public APIconferenceUnmuteParticipantsRequest conferenceUnmuteParticipants(String id, ConferenceUnmuteRequest conferenceUnmuteRequest) {
+        return new APIconferenceUnmuteParticipantsRequest(id, conferenceUnmuteRequest);
+    }
+    private okhttp3.Call createConferenceCall(CreateConferenceRequest createConferenceRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createConferenceRequest;
 
         // create path and map variables
@@ -1441,88 +1736,113 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Create conference
-     * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
-     * @param createConferenceRequest Create a conference (required)
-     * @return ConferenceResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceResponse createConference(CreateConferenceRequest createConferenceRequest) throws ApiException {
-        ApiResponse<ConferenceResponse> localVarResp = createConferenceWithHttpInfo(createConferenceRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Create conference
-     * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
-     * @param createConferenceRequest Create a conference (required)
-     * @return ApiResponse&lt;ConferenceResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceResponse> createConferenceWithHttpInfo(CreateConferenceRequest createConferenceRequest) throws ApiException {
+    private ApiResponse<ConferenceResponse> createConferenceWithHttpInfo(CreateConferenceRequest createConferenceRequest) throws ApiException {
         okhttp3.Call localVarCall = createConferenceValidateBeforeCall(createConferenceRequest, null);
         Type localVarReturnType = new TypeToken<ConferenceResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Create conference (asynchronously)
-     * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
-     * @param createConferenceRequest Create a conference (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createConferenceAsync(CreateConferenceRequest createConferenceRequest, final ApiCallback<ConferenceResponse> _callback) throws ApiException {
+    private okhttp3.Call createConferenceAsync(CreateConferenceRequest createConferenceRequest, final ApiCallback<ConferenceResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createConferenceValidateBeforeCall(createConferenceRequest, _callback);
         Type localVarReturnType = new TypeToken<ConferenceResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateConferenceRequest {
+        private final CreateConferenceRequest createConferenceRequest;
+
+        private APIcreateConferenceRequest(CreateConferenceRequest createConferenceRequest) {
+            this.createConferenceRequest = createConferenceRequest;
+        }
+
+        /**
+         * Build call for createConference
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createConferenceCall(createConferenceRequest, _callback);
+        }
+
+        /**
+         * Execute createConference request
+         * @return ConferenceResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceResponse execute() throws ApiException {
+            ApiResponse<ConferenceResponse> localVarResp = createConferenceWithHttpInfo(createConferenceRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createConference request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceResponse> executeWithHttpInfo() throws ApiException {
+            return createConferenceWithHttpInfo(createConferenceRequest);
+        }
+
+        /**
+         * Execute createConference request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceResponse> _callback) throws ApiException {
+            return createConferenceAsync(createConferenceRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for listConferenceParticipants
-     * @param conferenceId Uniquely identifies the conference by id or name (required)
-     * @param filterMuted If present, participants will be filtered to those who are/are not muted (optional)
-     * @param filterOnHold If present, participants will be filtered to those who are/are not put on hold (optional)
-     * @param filterWhispering If present, participants will be filtered to those who are whispering or are not (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Create conference
+     * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
+     * @param createConferenceRequest Create a conference (required)
+     * @return APIcreateConferenceRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listConferenceParticipantsCall(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public APIcreateConferenceRequest createConference(CreateConferenceRequest createConferenceRequest) {
+        return new APIcreateConferenceRequest(createConferenceRequest);
+    }
+    private okhttp3.Call listConferenceParticipantsCall(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -1586,102 +1906,173 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * List conference participants
-     * Lists conference participants
-     * @param conferenceId Uniquely identifies the conference by id or name (required)
-     * @param filterMuted If present, participants will be filtered to those who are/are not muted (optional)
-     * @param filterOnHold If present, participants will be filtered to those who are/are not put on hold (optional)
-     * @param filterWhispering If present, participants will be filtered to those who are whispering or are not (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ListParticipantsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListParticipantsResponse listConferenceParticipants(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize) throws ApiException {
-        ApiResponse<ListParticipantsResponse> localVarResp = listConferenceParticipantsWithHttpInfo(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List conference participants
-     * Lists conference participants
-     * @param conferenceId Uniquely identifies the conference by id or name (required)
-     * @param filterMuted If present, participants will be filtered to those who are/are not muted (optional)
-     * @param filterOnHold If present, participants will be filtered to those who are/are not put on hold (optional)
-     * @param filterWhispering If present, participants will be filtered to those who are whispering or are not (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ApiResponse&lt;ListParticipantsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttpInfo(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize) throws ApiException {
+    private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttpInfo(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize) throws ApiException {
         okhttp3.Call localVarCall = listConferenceParticipantsValidateBeforeCall(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListParticipantsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List conference participants (asynchronously)
-     * Lists conference participants
-     * @param conferenceId Uniquely identifies the conference by id or name (required)
-     * @param filterMuted If present, participants will be filtered to those who are/are not muted (optional)
-     * @param filterOnHold If present, participants will be filtered to those who are/are not put on hold (optional)
-     * @param filterWhispering If present, participants will be filtered to those who are whispering or are not (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listConferenceParticipantsAsync(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize, final ApiCallback<ListParticipantsResponse> _callback) throws ApiException {
+    private okhttp3.Call listConferenceParticipantsAsync(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize, final ApiCallback<ListParticipantsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listConferenceParticipantsValidateBeforeCall(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListParticipantsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistConferenceParticipantsRequest {
+        private final String conferenceId;
+        private Boolean filterMuted;
+        private Boolean filterOnHold;
+        private Boolean filterWhispering;
+        private Integer pageNumber;
+        private Integer pageSize;
+
+        private APIlistConferenceParticipantsRequest(String conferenceId) {
+            this.conferenceId = conferenceId;
+        }
+
+        /**
+         * Set filterMuted
+         * @param filterMuted If present, participants will be filtered to those who are/are not muted (optional)
+         * @return APIlistConferenceParticipantsRequest
+         */
+        public APIlistConferenceParticipantsRequest filterMuted(Boolean filterMuted) {
+            this.filterMuted = filterMuted;
+            return this;
+        }
+
+        /**
+         * Set filterOnHold
+         * @param filterOnHold If present, participants will be filtered to those who are/are not put on hold (optional)
+         * @return APIlistConferenceParticipantsRequest
+         */
+        public APIlistConferenceParticipantsRequest filterOnHold(Boolean filterOnHold) {
+            this.filterOnHold = filterOnHold;
+            return this;
+        }
+
+        /**
+         * Set filterWhispering
+         * @param filterWhispering If present, participants will be filtered to those who are whispering or are not (optional)
+         * @return APIlistConferenceParticipantsRequest
+         */
+        public APIlistConferenceParticipantsRequest filterWhispering(Boolean filterWhispering) {
+            this.filterWhispering = filterWhispering;
+            return this;
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistConferenceParticipantsRequest
+         */
+        public APIlistConferenceParticipantsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistConferenceParticipantsRequest
+         */
+        public APIlistConferenceParticipantsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Build call for listConferenceParticipants
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listConferenceParticipantsCall(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize, _callback);
+        }
+
+        /**
+         * Execute listConferenceParticipants request
+         * @return ListParticipantsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListParticipantsResponse execute() throws ApiException {
+            ApiResponse<ListParticipantsResponse> localVarResp = listConferenceParticipantsWithHttpInfo(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listConferenceParticipants request with HTTP info returned
+         * @return ApiResponse&lt;ListParticipantsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListParticipantsResponse> executeWithHttpInfo() throws ApiException {
+            return listConferenceParticipantsWithHttpInfo(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize);
+        }
+
+        /**
+         * Execute listConferenceParticipants request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListParticipantsResponse> _callback) throws ApiException {
+            return listConferenceParticipantsAsync(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize, _callback);
+        }
+    }
+
     /**
-     * Build call for listConferences
-     * @param filterName If present, conferences will be filtered to those with a matching &#x60;name&#x60; attribute. Matching is case-sensitive (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List conference participants
+     * Lists conference participants
+     * @param conferenceId Uniquely identifies the conference by id or name (required)
+     * @return APIlistConferenceParticipantsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listConferencesCall(String filterName, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public APIlistConferenceParticipantsRequest listConferenceParticipants(String conferenceId) {
+        return new APIlistConferenceParticipantsRequest(conferenceId);
+    }
+    private okhttp3.Call listConferencesCall(String filterName, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -1731,87 +2122,143 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * List conferences
-     * Lists conferences. Conferences are created on demand, and will expire after all participants have left the conference or after 4 hours regardless of the number of active participants. Conferences are listed in descending order by &#x60;expires_at&#x60;.
-     * @param filterName If present, conferences will be filtered to those with a matching &#x60;name&#x60; attribute. Matching is case-sensitive (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ListConferencesResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListConferencesResponse listConferences(String filterName, Integer pageNumber, Integer pageSize) throws ApiException {
-        ApiResponse<ListConferencesResponse> localVarResp = listConferencesWithHttpInfo(filterName, pageNumber, pageSize);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List conferences
-     * Lists conferences. Conferences are created on demand, and will expire after all participants have left the conference or after 4 hours regardless of the number of active participants. Conferences are listed in descending order by &#x60;expires_at&#x60;.
-     * @param filterName If present, conferences will be filtered to those with a matching &#x60;name&#x60; attribute. Matching is case-sensitive (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ApiResponse&lt;ListConferencesResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String filterName, Integer pageNumber, Integer pageSize) throws ApiException {
+    private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String filterName, Integer pageNumber, Integer pageSize) throws ApiException {
         okhttp3.Call localVarCall = listConferencesValidateBeforeCall(filterName, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListConferencesResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List conferences (asynchronously)
-     * Lists conferences. Conferences are created on demand, and will expire after all participants have left the conference or after 4 hours regardless of the number of active participants. Conferences are listed in descending order by &#x60;expires_at&#x60;.
-     * @param filterName If present, conferences will be filtered to those with a matching &#x60;name&#x60; attribute. Matching is case-sensitive (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listConferencesAsync(String filterName, Integer pageNumber, Integer pageSize, final ApiCallback<ListConferencesResponse> _callback) throws ApiException {
+    private okhttp3.Call listConferencesAsync(String filterName, Integer pageNumber, Integer pageSize, final ApiCallback<ListConferencesResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listConferencesValidateBeforeCall(filterName, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListConferencesResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistConferencesRequest {
+        private String filterName;
+        private Integer pageNumber;
+        private Integer pageSize;
+
+        private APIlistConferencesRequest() {
+        }
+
+        /**
+         * Set filterName
+         * @param filterName If present, conferences will be filtered to those with a matching &#x60;name&#x60; attribute. Matching is case-sensitive (optional)
+         * @return APIlistConferencesRequest
+         */
+        public APIlistConferencesRequest filterName(String filterName) {
+            this.filterName = filterName;
+            return this;
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistConferencesRequest
+         */
+        public APIlistConferencesRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistConferencesRequest
+         */
+        public APIlistConferencesRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Build call for listConferences
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listConferencesCall(filterName, pageNumber, pageSize, _callback);
+        }
+
+        /**
+         * Execute listConferences request
+         * @return ListConferencesResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListConferencesResponse execute() throws ApiException {
+            ApiResponse<ListConferencesResponse> localVarResp = listConferencesWithHttpInfo(filterName, pageNumber, pageSize);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listConferences request with HTTP info returned
+         * @return ApiResponse&lt;ListConferencesResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListConferencesResponse> executeWithHttpInfo() throws ApiException {
+            return listConferencesWithHttpInfo(filterName, pageNumber, pageSize);
+        }
+
+        /**
+         * Execute listConferences request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListConferencesResponse> _callback) throws ApiException {
+            return listConferencesAsync(filterName, pageNumber, pageSize, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveConference
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List conferences
+     * Lists conferences. Conferences are created on demand, and will expire after all participants have left the conference or after 4 hours regardless of the number of active participants. Conferences are listed in descending order by &#x60;expires_at&#x60;.
+     * @return APIlistConferencesRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveConferenceCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIlistConferencesRequest listConferences() {
+        return new APIlistConferencesRequest();
+    }
+    private okhttp3.Call retrieveConferenceCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -1855,50 +2302,97 @@ public class ConferenceCommandsApi {
 
     }
 
-    /**
-     * Retrieve a conference
-     * Retrieve an existing conference
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @return ConferenceResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-     </table>
-     */
-    public ConferenceResponse retrieveConference(String id) throws ApiException {
-        ApiResponse<ConferenceResponse> localVarResp = retrieveConferenceWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a conference
-     * Retrieve an existing conference
-     * @param id Uniquely identifies the conference by id or name (required)
-     * @return ApiResponse&lt;ConferenceResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConferenceResponse> retrieveConferenceWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<ConferenceResponse> retrieveConferenceWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = retrieveConferenceValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<ConferenceResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call retrieveConferenceAsync(String id, final ApiCallback<ConferenceResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = retrieveConferenceValidateBeforeCall(id, _callback);
+        Type localVarReturnType = new TypeToken<ConferenceResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIretrieveConferenceRequest {
+        private final String id;
+
+        private APIretrieveConferenceRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrieveConference
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveConferenceCall(id, _callback);
+        }
+
+        /**
+         * Execute retrieveConference request
+         * @return ConferenceResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConferenceResponse execute() throws ApiException {
+            ApiResponse<ConferenceResponse> localVarResp = retrieveConferenceWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveConference request with HTTP info returned
+         * @return ApiResponse&lt;ConferenceResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConferenceResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveConferenceWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrieveConference request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConferenceResponse> _callback) throws ApiException {
+            return retrieveConferenceAsync(id, _callback);
+        }
+    }
+
     /**
-     * Retrieve a conference (asynchronously)
+     * Retrieve a conference
      * Retrieve an existing conference
      * @param id Uniquely identifies the conference by id or name (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIretrieveConferenceRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1906,11 +2400,7 @@ public class ConferenceCommandsApi {
         <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveConferenceAsync(String id, final ApiCallback<ConferenceResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = retrieveConferenceValidateBeforeCall(id, _callback);
-        Type localVarReturnType = new TypeToken<ConferenceResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIretrieveConferenceRequest retrieveConference(String id) {
+        return new APIretrieveConferenceRequest(id);
     }
 }

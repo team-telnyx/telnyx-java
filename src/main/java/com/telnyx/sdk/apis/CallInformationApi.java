@@ -55,20 +55,7 @@ public class CallInformationApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for retrieveCallStatus
-     * @param callControlId Unique identifier and token for controlling the call (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrieveCallStatusCall(String callControlId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call retrieveCallStatusCall(String callControlId, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -112,50 +99,97 @@ public class CallInformationApi {
 
     }
 
-    /**
-     * Retrieve a call status
-     * Returns the status of a call (data is available 10 minutes after call ended).
-     * @param callControlId Unique identifier and token for controlling the call (required)
-     * @return RetrieveCallStatusResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrieveCallStatusResponse retrieveCallStatus(String callControlId) throws ApiException {
-        ApiResponse<RetrieveCallStatusResponse> localVarResp = retrieveCallStatusWithHttpInfo(callControlId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a call status
-     * Returns the status of a call (data is available 10 minutes after call ended).
-     * @param callControlId Unique identifier and token for controlling the call (required)
-     * @return ApiResponse&lt;RetrieveCallStatusResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrieveCallStatusResponse> retrieveCallStatusWithHttpInfo(String callControlId) throws ApiException {
+    private ApiResponse<RetrieveCallStatusResponse> retrieveCallStatusWithHttpInfo(String callControlId) throws ApiException {
         okhttp3.Call localVarCall = retrieveCallStatusValidateBeforeCall(callControlId, null);
         Type localVarReturnType = new TypeToken<RetrieveCallStatusResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call retrieveCallStatusAsync(String callControlId, final ApiCallback<RetrieveCallStatusResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = retrieveCallStatusValidateBeforeCall(callControlId, _callback);
+        Type localVarReturnType = new TypeToken<RetrieveCallStatusResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIretrieveCallStatusRequest {
+        private final String callControlId;
+
+        private APIretrieveCallStatusRequest(String callControlId) {
+            this.callControlId = callControlId;
+        }
+
+        /**
+         * Build call for retrieveCallStatus
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveCallStatusCall(callControlId, _callback);
+        }
+
+        /**
+         * Execute retrieveCallStatus request
+         * @return RetrieveCallStatusResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrieveCallStatusResponse execute() throws ApiException {
+            ApiResponse<RetrieveCallStatusResponse> localVarResp = retrieveCallStatusWithHttpInfo(callControlId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveCallStatus request with HTTP info returned
+         * @return ApiResponse&lt;RetrieveCallStatusResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrieveCallStatusResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveCallStatusWithHttpInfo(callControlId);
+        }
+
+        /**
+         * Execute retrieveCallStatus request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrieveCallStatusResponse> _callback) throws ApiException {
+            return retrieveCallStatusAsync(callControlId, _callback);
+        }
+    }
+
     /**
-     * Retrieve a call status (asynchronously)
+     * Retrieve a call status
      * Returns the status of a call (data is available 10 minutes after call ended).
      * @param callControlId Unique identifier and token for controlling the call (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIretrieveCallStatusRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -163,11 +197,7 @@ public class CallInformationApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveCallStatusAsync(String callControlId, final ApiCallback<RetrieveCallStatusResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = retrieveCallStatusValidateBeforeCall(callControlId, _callback);
-        Type localVarReturnType = new TypeToken<RetrieveCallStatusResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIretrieveCallStatusRequest retrieveCallStatus(String callControlId) {
+        return new APIretrieveCallStatusRequest(callControlId);
     }
 }

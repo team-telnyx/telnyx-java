@@ -57,20 +57,7 @@ public class CallControlApplicationsApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for createCallControlApplication
-     * @param createCallControlApplicationRequest Create call control application request. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createCallControlApplicationCall(CreateCallControlApplicationRequest createCallControlApplicationRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createCallControlApplicationCall(CreateCallControlApplicationRequest createCallControlApplicationRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createCallControlApplicationRequest;
 
         // create path and map variables
@@ -113,80 +100,108 @@ public class CallControlApplicationsApi {
 
     }
 
-    /**
-     * Create a call control application
-     * Create a call control application.
-     * @param createCallControlApplicationRequest Create call control application request. (required)
-     * @return CallControlApplicationResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public CallControlApplicationResponse createCallControlApplication(CreateCallControlApplicationRequest createCallControlApplicationRequest) throws ApiException {
-        ApiResponse<CallControlApplicationResponse> localVarResp = createCallControlApplicationWithHttpInfo(createCallControlApplicationRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Create a call control application
-     * Create a call control application.
-     * @param createCallControlApplicationRequest Create call control application request. (required)
-     * @return ApiResponse&lt;CallControlApplicationResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CallControlApplicationResponse> createCallControlApplicationWithHttpInfo(CreateCallControlApplicationRequest createCallControlApplicationRequest) throws ApiException {
+    private ApiResponse<CallControlApplicationResponse> createCallControlApplicationWithHttpInfo(CreateCallControlApplicationRequest createCallControlApplicationRequest) throws ApiException {
         okhttp3.Call localVarCall = createCallControlApplicationValidateBeforeCall(createCallControlApplicationRequest, null);
         Type localVarReturnType = new TypeToken<CallControlApplicationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Create a call control application (asynchronously)
-     * Create a call control application.
-     * @param createCallControlApplicationRequest Create call control application request. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createCallControlApplicationAsync(CreateCallControlApplicationRequest createCallControlApplicationRequest, final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
+    private okhttp3.Call createCallControlApplicationAsync(CreateCallControlApplicationRequest createCallControlApplicationRequest, final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createCallControlApplicationValidateBeforeCall(createCallControlApplicationRequest, _callback);
         Type localVarReturnType = new TypeToken<CallControlApplicationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateCallControlApplicationRequest {
+        private final CreateCallControlApplicationRequest createCallControlApplicationRequest;
+
+        private APIcreateCallControlApplicationRequest(CreateCallControlApplicationRequest createCallControlApplicationRequest) {
+            this.createCallControlApplicationRequest = createCallControlApplicationRequest;
+        }
+
+        /**
+         * Build call for createCallControlApplication
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad Request </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createCallControlApplicationCall(createCallControlApplicationRequest, _callback);
+        }
+
+        /**
+         * Execute createCallControlApplication request
+         * @return CallControlApplicationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad Request </td><td>  -  </td></tr>
+         </table>
+         */
+        public CallControlApplicationResponse execute() throws ApiException {
+            ApiResponse<CallControlApplicationResponse> localVarResp = createCallControlApplicationWithHttpInfo(createCallControlApplicationRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createCallControlApplication request with HTTP info returned
+         * @return ApiResponse&lt;CallControlApplicationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad Request </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<CallControlApplicationResponse> executeWithHttpInfo() throws ApiException {
+            return createCallControlApplicationWithHttpInfo(createCallControlApplicationRequest);
+        }
+
+        /**
+         * Execute createCallControlApplication request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad Request </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
+            return createCallControlApplicationAsync(createCallControlApplicationRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for deleteCallControlApplication
-     * @param id Identifies the resource. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Create a call control application
+     * Create a call control application.
+     * @param createCallControlApplicationRequest Create call control application request. (required)
+     * @return APIcreateCallControlApplicationRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteCallControlApplicationCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIcreateCallControlApplicationRequest createCallControlApplication(CreateCallControlApplicationRequest createCallControlApplicationRequest) {
+        return new APIcreateCallControlApplicationRequest(createCallControlApplicationRequest);
+    }
+    private okhttp3.Call deleteCallControlApplicationCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -230,90 +245,118 @@ public class CallControlApplicationsApi {
 
     }
 
-    /**
-     * Delete a call control application
-     * Deletes a call control application.
-     * @param id Identifies the resource. (required)
-     * @return CallControlApplicationResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public CallControlApplicationResponse deleteCallControlApplication(String id) throws ApiException {
-        ApiResponse<CallControlApplicationResponse> localVarResp = deleteCallControlApplicationWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Delete a call control application
-     * Deletes a call control application.
-     * @param id Identifies the resource. (required)
-     * @return ApiResponse&lt;CallControlApplicationResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CallControlApplicationResponse> deleteCallControlApplicationWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<CallControlApplicationResponse> deleteCallControlApplicationWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = deleteCallControlApplicationValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<CallControlApplicationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Delete a call control application (asynchronously)
-     * Deletes a call control application.
-     * @param id Identifies the resource. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteCallControlApplicationAsync(String id, final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
+    private okhttp3.Call deleteCallControlApplicationAsync(String id, final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteCallControlApplicationValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<CallControlApplicationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIdeleteCallControlApplicationRequest {
+        private final String id;
+
+        private APIdeleteCallControlApplicationRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for deleteCallControlApplication
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return deleteCallControlApplicationCall(id, _callback);
+        }
+
+        /**
+         * Execute deleteCallControlApplication request
+         * @return CallControlApplicationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public CallControlApplicationResponse execute() throws ApiException {
+            ApiResponse<CallControlApplicationResponse> localVarResp = deleteCallControlApplicationWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute deleteCallControlApplication request with HTTP info returned
+         * @return ApiResponse&lt;CallControlApplicationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<CallControlApplicationResponse> executeWithHttpInfo() throws ApiException {
+            return deleteCallControlApplicationWithHttpInfo(id);
+        }
+
+        /**
+         * Execute deleteCallControlApplication request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
+            return deleteCallControlApplicationAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for listCallControlApplications
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterApplicationNameContains If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
-     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-     * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Delete a call control application
+     * Deletes a call control application.
+     * @param id Identifies the resource. (required)
+     * @return APIdeleteCallControlApplicationRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listCallControlApplicationsCall(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundOutboundVoiceProfileId, String sort, final ApiCallback _callback) throws ApiException {
+    public APIdeleteCallControlApplicationRequest deleteCallControlApplication(String id) {
+        return new APIdeleteCallControlApplicationRequest(id);
+    }
+    private okhttp3.Call listCallControlApplicationsCall(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundOutboundVoiceProfileId, String sort, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -371,98 +414,170 @@ public class CallControlApplicationsApi {
 
     }
 
-    /**
-     * List call control applications
-     * Return a list of call control applications.
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterApplicationNameContains If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
-     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-     * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-     * @return ListCallControlApplicationsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListCallControlApplicationsResponse listCallControlApplications(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
-        ApiResponse<ListCallControlApplicationsResponse> localVarResp = listCallControlApplicationsWithHttpInfo(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List call control applications
-     * Return a list of call control applications.
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterApplicationNameContains If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
-     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-     * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-     * @return ApiResponse&lt;ListCallControlApplicationsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+    private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
         okhttp3.Call localVarCall = listCallControlApplicationsValidateBeforeCall(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort, null);
         Type localVarReturnType = new TypeToken<ListCallControlApplicationsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List call control applications (asynchronously)
-     * Return a list of call control applications.
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterApplicationNameContains If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
-     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-     * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listCallControlApplicationsAsync(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundOutboundVoiceProfileId, String sort, final ApiCallback<ListCallControlApplicationsResponse> _callback) throws ApiException {
+    private okhttp3.Call listCallControlApplicationsAsync(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundOutboundVoiceProfileId, String sort, final ApiCallback<ListCallControlApplicationsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listCallControlApplicationsValidateBeforeCall(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort, _callback);
         Type localVarReturnType = new TypeToken<ListCallControlApplicationsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistCallControlApplicationsRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
+        private String filterApplicationNameContains;
+        private String filterOutboundOutboundVoiceProfileId;
+        private String sort;
+
+        private APIlistCallControlApplicationsRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistCallControlApplicationsRequest
+         */
+        public APIlistCallControlApplicationsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistCallControlApplicationsRequest
+         */
+        public APIlistCallControlApplicationsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set filterApplicationNameContains
+         * @param filterApplicationNameContains If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
+         * @return APIlistCallControlApplicationsRequest
+         */
+        public APIlistCallControlApplicationsRequest filterApplicationNameContains(String filterApplicationNameContains) {
+            this.filterApplicationNameContains = filterApplicationNameContains;
+            return this;
+        }
+
+        /**
+         * Set filterOutboundOutboundVoiceProfileId
+         * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+         * @return APIlistCallControlApplicationsRequest
+         */
+        public APIlistCallControlApplicationsRequest filterOutboundOutboundVoiceProfileId(String filterOutboundOutboundVoiceProfileId) {
+            this.filterOutboundOutboundVoiceProfileId = filterOutboundOutboundVoiceProfileId;
+            return this;
+        }
+
+        /**
+         * Set sort
+         * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+         * @return APIlistCallControlApplicationsRequest
+         */
+        public APIlistCallControlApplicationsRequest sort(String sort) {
+            this.sort = sort;
+            return this;
+        }
+
+        /**
+         * Build call for listCallControlApplications
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listCallControlApplicationsCall(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort, _callback);
+        }
+
+        /**
+         * Execute listCallControlApplications request
+         * @return ListCallControlApplicationsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListCallControlApplicationsResponse execute() throws ApiException {
+            ApiResponse<ListCallControlApplicationsResponse> localVarResp = listCallControlApplicationsWithHttpInfo(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listCallControlApplications request with HTTP info returned
+         * @return ApiResponse&lt;ListCallControlApplicationsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListCallControlApplicationsResponse> executeWithHttpInfo() throws ApiException {
+            return listCallControlApplicationsWithHttpInfo(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
+        }
+
+        /**
+         * Execute listCallControlApplications request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListCallControlApplicationsResponse> _callback) throws ApiException {
+            return listCallControlApplicationsAsync(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveCallControlApplication
-     * @param id Identifies the resource. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List call control applications
+     * Return a list of call control applications.
+     * @return APIlistCallControlApplicationsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveCallControlApplicationCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIlistCallControlApplicationsRequest listCallControlApplications() {
+        return new APIlistCallControlApplicationsRequest();
+    }
+    private okhttp3.Call retrieveCallControlApplicationCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -506,77 +621,105 @@ public class CallControlApplicationsApi {
 
     }
 
-    /**
-     * Retrieve a call control application
-     * Retrieves the details of an existing call control application.
-     * @param id Identifies the resource. (required)
-     * @return CallControlApplicationResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public CallControlApplicationResponse retrieveCallControlApplication(String id) throws ApiException {
-        ApiResponse<CallControlApplicationResponse> localVarResp = retrieveCallControlApplicationWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a call control application
-     * Retrieves the details of an existing call control application.
-     * @param id Identifies the resource. (required)
-     * @return ApiResponse&lt;CallControlApplicationResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CallControlApplicationResponse> retrieveCallControlApplicationWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<CallControlApplicationResponse> retrieveCallControlApplicationWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = retrieveCallControlApplicationValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<CallControlApplicationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve a call control application (asynchronously)
-     * Retrieves the details of an existing call control application.
-     * @param id Identifies the resource. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrieveCallControlApplicationAsync(String id, final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
+    private okhttp3.Call retrieveCallControlApplicationAsync(String id, final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = retrieveCallControlApplicationValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<CallControlApplicationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIretrieveCallControlApplicationRequest {
+        private final String id;
+
+        private APIretrieveCallControlApplicationRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrieveCallControlApplication
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveCallControlApplicationCall(id, _callback);
+        }
+
+        /**
+         * Execute retrieveCallControlApplication request
+         * @return CallControlApplicationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public CallControlApplicationResponse execute() throws ApiException {
+            ApiResponse<CallControlApplicationResponse> localVarResp = retrieveCallControlApplicationWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveCallControlApplication request with HTTP info returned
+         * @return ApiResponse&lt;CallControlApplicationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<CallControlApplicationResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveCallControlApplicationWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrieveCallControlApplication request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
+            return retrieveCallControlApplicationAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for updateCallControlApplication
+     * Retrieve a call control application
+     * Retrieves the details of an existing call control application.
      * @param id Identifies the resource. (required)
-     * @param updateCallControlApplicationRequest Update call control application request. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIretrieveCallControlApplicationRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -586,7 +729,10 @@ public class CallControlApplicationsApi {
         <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateCallControlApplicationCall(String id, UpdateCallControlApplicationRequest updateCallControlApplicationRequest, final ApiCallback _callback) throws ApiException {
+    public APIretrieveCallControlApplicationRequest retrieveCallControlApplication(String id) {
+        return new APIretrieveCallControlApplicationRequest(id);
+    }
+    private okhttp3.Call updateCallControlApplicationCall(String id, UpdateCallControlApplicationRequest updateCallControlApplicationRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = updateCallControlApplicationRequest;
 
         // create path and map variables
@@ -635,57 +781,108 @@ public class CallControlApplicationsApi {
 
     }
 
-    /**
-     * Update a call control application
-     * Updates settings of an existing call control application.
-     * @param id Identifies the resource. (required)
-     * @param updateCallControlApplicationRequest Update call control application request. (required)
-     * @return CallControlApplicationResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public CallControlApplicationResponse updateCallControlApplication(String id, UpdateCallControlApplicationRequest updateCallControlApplicationRequest) throws ApiException {
-        ApiResponse<CallControlApplicationResponse> localVarResp = updateCallControlApplicationWithHttpInfo(id, updateCallControlApplicationRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Update a call control application
-     * Updates settings of an existing call control application.
-     * @param id Identifies the resource. (required)
-     * @param updateCallControlApplicationRequest Update call control application request. (required)
-     * @return ApiResponse&lt;CallControlApplicationResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CallControlApplicationResponse> updateCallControlApplicationWithHttpInfo(String id, UpdateCallControlApplicationRequest updateCallControlApplicationRequest) throws ApiException {
+    private ApiResponse<CallControlApplicationResponse> updateCallControlApplicationWithHttpInfo(String id, UpdateCallControlApplicationRequest updateCallControlApplicationRequest) throws ApiException {
         okhttp3.Call localVarCall = updateCallControlApplicationValidateBeforeCall(id, updateCallControlApplicationRequest, null);
         Type localVarReturnType = new TypeToken<CallControlApplicationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call updateCallControlApplicationAsync(String id, UpdateCallControlApplicationRequest updateCallControlApplicationRequest, final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updateCallControlApplicationValidateBeforeCall(id, updateCallControlApplicationRequest, _callback);
+        Type localVarReturnType = new TypeToken<CallControlApplicationResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIupdateCallControlApplicationRequest {
+        private final String id;
+        private final UpdateCallControlApplicationRequest updateCallControlApplicationRequest;
+
+        private APIupdateCallControlApplicationRequest(String id, UpdateCallControlApplicationRequest updateCallControlApplicationRequest) {
+            this.id = id;
+            this.updateCallControlApplicationRequest = updateCallControlApplicationRequest;
+        }
+
+        /**
+         * Build call for updateCallControlApplication
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return updateCallControlApplicationCall(id, updateCallControlApplicationRequest, _callback);
+        }
+
+        /**
+         * Execute updateCallControlApplication request
+         * @return CallControlApplicationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public CallControlApplicationResponse execute() throws ApiException {
+            ApiResponse<CallControlApplicationResponse> localVarResp = updateCallControlApplicationWithHttpInfo(id, updateCallControlApplicationRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute updateCallControlApplication request with HTTP info returned
+         * @return ApiResponse&lt;CallControlApplicationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<CallControlApplicationResponse> executeWithHttpInfo() throws ApiException {
+            return updateCallControlApplicationWithHttpInfo(id, updateCallControlApplicationRequest);
+        }
+
+        /**
+         * Execute updateCallControlApplication request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
+            return updateCallControlApplicationAsync(id, updateCallControlApplicationRequest, _callback);
+        }
+    }
+
     /**
-     * Update a call control application (asynchronously)
+     * Update a call control application
      * Updates settings of an existing call control application.
      * @param id Identifies the resource. (required)
      * @param updateCallControlApplicationRequest Update call control application request. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIupdateCallControlApplicationRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -695,11 +892,7 @@ public class CallControlApplicationsApi {
         <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateCallControlApplicationAsync(String id, UpdateCallControlApplicationRequest updateCallControlApplicationRequest, final ApiCallback<CallControlApplicationResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateCallControlApplicationValidateBeforeCall(id, updateCallControlApplicationRequest, _callback);
-        Type localVarReturnType = new TypeToken<CallControlApplicationResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIupdateCallControlApplicationRequest updateCallControlApplication(String id, UpdateCallControlApplicationRequest updateCallControlApplicationRequest) {
+        return new APIupdateCallControlApplicationRequest(id, updateCallControlApplicationRequest);
     }
 }

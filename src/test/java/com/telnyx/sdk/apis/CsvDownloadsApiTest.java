@@ -44,7 +44,8 @@ public class CsvDownloadsApiTest {
      */
     @Test
     public void createCsvDownloadTest() throws ApiException {
-        CSVDownloadResponse response = api.createCsvDownload();
+        CSVDownloadResponse response = api.createCsvDownload()
+                .execute();
 
         // TODO: test validations
     }
@@ -61,7 +62,10 @@ public class CsvDownloadsApiTest {
     public void listCsvDownloadsTest() throws ApiException {
         Integer pageNumber = null;
         Integer pageSize = null;
-        ListCSVDownloadsResponse response = api.listCsvDownloads(pageNumber, pageSize);
+        ListCSVDownloadsResponse response = api.listCsvDownloads()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
 
         // TODO: test validations
     }
@@ -77,7 +81,8 @@ public class CsvDownloadsApiTest {
     @Test
     public void retrieveCsvDownloadTest() throws ApiException {
         String id = null;
-        CSVDownloadResponse response = api.retrieveCsvDownload(id);
+        CSVDownloadResponse response = api.retrieveCsvDownload(id)
+                .execute();
 
         // TODO: test validations
     }

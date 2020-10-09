@@ -49,7 +49,11 @@ public class ShortCodesApiTest {
         Integer pageNumber = null;
         Integer pageSize = null;
         String filterMessagingProfileId = null;
-        ListShortCodesResponse response = api.listShortCodes(pageNumber, pageSize, filterMessagingProfileId);
+        ListShortCodesResponse response = api.listShortCodes()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterMessagingProfileId(filterMessagingProfileId)
+                .execute();
 
         // TODO: test validations
     }
@@ -65,7 +69,8 @@ public class ShortCodesApiTest {
     @Test
     public void retrieveShortCodeTest() throws ApiException {
         UUID id = null;
-        ShortCodeResponse response = api.retrieveShortCode(id);
+        ShortCodeResponse response = api.retrieveShortCode(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -82,7 +87,8 @@ public class ShortCodesApiTest {
     public void updateShortCodeTest() throws ApiException {
         UUID id = null;
         UpdateShortCodeRequest updateShortCodeRequest = null;
-        ShortCodeResponse response = api.updateShortCode(id, updateShortCodeRequest);
+        ShortCodeResponse response = api.updateShortCode(id, updateShortCodeRequest)
+                .execute();
 
         // TODO: test validations
     }

@@ -58,20 +58,7 @@ public class NumberOrdersApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for createNumberOrder
-     * @param createNumberOrderRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNumberOrderCall(CreateNumberOrderRequest createNumberOrderRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createNumberOrderCall(CreateNumberOrderRequest createNumberOrderRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createNumberOrderRequest;
 
         // create path and map variables
@@ -114,83 +101,108 @@ public class NumberOrdersApi {
 
     }
 
-    /**
-     * Create a number order
-     * Creates a phone number order.
-     * @param createNumberOrderRequest  (required)
-     * @return NumberOrderResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberOrderResponse createNumberOrder(CreateNumberOrderRequest createNumberOrderRequest) throws ApiException {
-        ApiResponse<NumberOrderResponse> localVarResp = createNumberOrderWithHttpInfo(createNumberOrderRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Create a number order
-     * Creates a phone number order.
-     * @param createNumberOrderRequest  (required)
-     * @return ApiResponse&lt;NumberOrderResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberOrderResponse> createNumberOrderWithHttpInfo(CreateNumberOrderRequest createNumberOrderRequest) throws ApiException {
+    private ApiResponse<NumberOrderResponse> createNumberOrderWithHttpInfo(CreateNumberOrderRequest createNumberOrderRequest) throws ApiException {
         okhttp3.Call localVarCall = createNumberOrderValidateBeforeCall(createNumberOrderRequest, null);
         Type localVarReturnType = new TypeToken<NumberOrderResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Create a number order (asynchronously)
-     * Creates a phone number order.
-     * @param createNumberOrderRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNumberOrderAsync(CreateNumberOrderRequest createNumberOrderRequest, final ApiCallback<NumberOrderResponse> _callback) throws ApiException {
+    private okhttp3.Call createNumberOrderAsync(CreateNumberOrderRequest createNumberOrderRequest, final ApiCallback<NumberOrderResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createNumberOrderValidateBeforeCall(createNumberOrderRequest, _callback);
         Type localVarReturnType = new TypeToken<NumberOrderResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateNumberOrderRequest {
+        private final CreateNumberOrderRequest createNumberOrderRequest;
+
+        private APIcreateNumberOrderRequest(CreateNumberOrderRequest createNumberOrderRequest) {
+            this.createNumberOrderRequest = createNumberOrderRequest;
+        }
+
+        /**
+         * Build call for createNumberOrder
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createNumberOrderCall(createNumberOrderRequest, _callback);
+        }
+
+        /**
+         * Execute createNumberOrder request
+         * @return NumberOrderResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberOrderResponse execute() throws ApiException {
+            ApiResponse<NumberOrderResponse> localVarResp = createNumberOrderWithHttpInfo(createNumberOrderRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createNumberOrder request with HTTP info returned
+         * @return ApiResponse&lt;NumberOrderResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberOrderResponse> executeWithHttpInfo() throws ApiException {
+            return createNumberOrderWithHttpInfo(createNumberOrderRequest);
+        }
+
+        /**
+         * Execute createNumberOrder request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberOrderResponse> _callback) throws ApiException {
+            return createNumberOrderAsync(createNumberOrderRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for listNumberOrders
-     * @param filterStatus Filter number orders by status. (optional)
-     * @param filterCreatedAtGt Filter number orders later than this value. (optional)
-     * @param filterCreatedAtLt Filter number orders earlier than this value. (optional)
-     * @param filterPhoneNumbersPhoneNumber Filter number orders having these phone numbers. (optional)
-     * @param filterCustomerReference Filter number orders via the customer reference set. (optional)
-     * @param filterRequirementsMet Filter number orders by requirements met. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Create a number order
+     * Creates a phone number order.
+     * @param createNumberOrderRequest  (required)
+     * @return APIcreateNumberOrderRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listNumberOrdersCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, final ApiCallback _callback) throws ApiException {
+    public APIcreateNumberOrderRequest createNumberOrder(CreateNumberOrderRequest createNumberOrderRequest) {
+        return new APIcreateNumberOrderRequest(createNumberOrderRequest);
+    }
+    private okhttp3.Call listNumberOrdersCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -252,93 +264,171 @@ public class NumberOrdersApi {
 
     }
 
-    /**
-     * List number orders
-     * Get a paginated list of number orders.
-     * @param filterStatus Filter number orders by status. (optional)
-     * @param filterCreatedAtGt Filter number orders later than this value. (optional)
-     * @param filterCreatedAtLt Filter number orders earlier than this value. (optional)
-     * @param filterPhoneNumbersPhoneNumber Filter number orders having these phone numbers. (optional)
-     * @param filterCustomerReference Filter number orders via the customer reference set. (optional)
-     * @param filterRequirementsMet Filter number orders by requirements met. (optional)
-     * @return ListNumberOrdersResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListNumberOrdersResponse listNumberOrders(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet) throws ApiException {
-        ApiResponse<ListNumberOrdersResponse> localVarResp = listNumberOrdersWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List number orders
-     * Get a paginated list of number orders.
-     * @param filterStatus Filter number orders by status. (optional)
-     * @param filterCreatedAtGt Filter number orders later than this value. (optional)
-     * @param filterCreatedAtLt Filter number orders earlier than this value. (optional)
-     * @param filterPhoneNumbersPhoneNumber Filter number orders having these phone numbers. (optional)
-     * @param filterCustomerReference Filter number orders via the customer reference set. (optional)
-     * @param filterRequirementsMet Filter number orders by requirements met. (optional)
-     * @return ApiResponse&lt;ListNumberOrdersResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet) throws ApiException {
+    private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet) throws ApiException {
         okhttp3.Call localVarCall = listNumberOrdersValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, null);
         Type localVarReturnType = new TypeToken<ListNumberOrdersResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List number orders (asynchronously)
-     * Get a paginated list of number orders.
-     * @param filterStatus Filter number orders by status. (optional)
-     * @param filterCreatedAtGt Filter number orders later than this value. (optional)
-     * @param filterCreatedAtLt Filter number orders earlier than this value. (optional)
-     * @param filterPhoneNumbersPhoneNumber Filter number orders having these phone numbers. (optional)
-     * @param filterCustomerReference Filter number orders via the customer reference set. (optional)
-     * @param filterRequirementsMet Filter number orders by requirements met. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listNumberOrdersAsync(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, final ApiCallback<ListNumberOrdersResponse> _callback) throws ApiException {
+    private okhttp3.Call listNumberOrdersAsync(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, final ApiCallback<ListNumberOrdersResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listNumberOrdersValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, _callback);
         Type localVarReturnType = new TypeToken<ListNumberOrdersResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistNumberOrdersRequest {
+        private String filterStatus;
+        private String filterCreatedAtGt;
+        private String filterCreatedAtLt;
+        private String filterPhoneNumbersPhoneNumber;
+        private String filterCustomerReference;
+        private Boolean filterRequirementsMet;
+
+        private APIlistNumberOrdersRequest() {
+        }
+
+        /**
+         * Set filterStatus
+         * @param filterStatus Filter number orders by status. (optional)
+         * @return APIlistNumberOrdersRequest
+         */
+        public APIlistNumberOrdersRequest filterStatus(String filterStatus) {
+            this.filterStatus = filterStatus;
+            return this;
+        }
+
+        /**
+         * Set filterCreatedAtGt
+         * @param filterCreatedAtGt Filter number orders later than this value. (optional)
+         * @return APIlistNumberOrdersRequest
+         */
+        public APIlistNumberOrdersRequest filterCreatedAtGt(String filterCreatedAtGt) {
+            this.filterCreatedAtGt = filterCreatedAtGt;
+            return this;
+        }
+
+        /**
+         * Set filterCreatedAtLt
+         * @param filterCreatedAtLt Filter number orders earlier than this value. (optional)
+         * @return APIlistNumberOrdersRequest
+         */
+        public APIlistNumberOrdersRequest filterCreatedAtLt(String filterCreatedAtLt) {
+            this.filterCreatedAtLt = filterCreatedAtLt;
+            return this;
+        }
+
+        /**
+         * Set filterPhoneNumbersPhoneNumber
+         * @param filterPhoneNumbersPhoneNumber Filter number orders having these phone numbers. (optional)
+         * @return APIlistNumberOrdersRequest
+         */
+        public APIlistNumberOrdersRequest filterPhoneNumbersPhoneNumber(String filterPhoneNumbersPhoneNumber) {
+            this.filterPhoneNumbersPhoneNumber = filterPhoneNumbersPhoneNumber;
+            return this;
+        }
+
+        /**
+         * Set filterCustomerReference
+         * @param filterCustomerReference Filter number orders via the customer reference set. (optional)
+         * @return APIlistNumberOrdersRequest
+         */
+        public APIlistNumberOrdersRequest filterCustomerReference(String filterCustomerReference) {
+            this.filterCustomerReference = filterCustomerReference;
+            return this;
+        }
+
+        /**
+         * Set filterRequirementsMet
+         * @param filterRequirementsMet Filter number orders by requirements met. (optional)
+         * @return APIlistNumberOrdersRequest
+         */
+        public APIlistNumberOrdersRequest filterRequirementsMet(Boolean filterRequirementsMet) {
+            this.filterRequirementsMet = filterRequirementsMet;
+            return this;
+        }
+
+        /**
+         * Build call for listNumberOrders
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listNumberOrdersCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, _callback);
+        }
+
+        /**
+         * Execute listNumberOrders request
+         * @return ListNumberOrdersResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListNumberOrdersResponse execute() throws ApiException {
+            ApiResponse<ListNumberOrdersResponse> localVarResp = listNumberOrdersWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listNumberOrders request with HTTP info returned
+         * @return ApiResponse&lt;ListNumberOrdersResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListNumberOrdersResponse> executeWithHttpInfo() throws ApiException {
+            return listNumberOrdersWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet);
+        }
+
+        /**
+         * Execute listNumberOrders request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListNumberOrdersResponse> _callback) throws ApiException {
+            return listNumberOrdersAsync(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveNumberOrder
-     * @param numberOrderId The number order ID. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List number orders
+     * Get a paginated list of number orders.
+     * @return APIlistNumberOrdersRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveNumberOrderCall(String numberOrderId, final ApiCallback _callback) throws ApiException {
+    public APIlistNumberOrdersRequest listNumberOrders() {
+        return new APIlistNumberOrdersRequest();
+    }
+    private okhttp3.Call retrieveNumberOrderCall(String numberOrderId, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -382,71 +472,97 @@ public class NumberOrdersApi {
 
     }
 
-    /**
-     * Retrieve a number order
-     * Get an existing phone number order.
-     * @param numberOrderId The number order ID. (required)
-     * @return NumberOrderResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberOrderResponse retrieveNumberOrder(String numberOrderId) throws ApiException {
-        ApiResponse<NumberOrderResponse> localVarResp = retrieveNumberOrderWithHttpInfo(numberOrderId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a number order
-     * Get an existing phone number order.
-     * @param numberOrderId The number order ID. (required)
-     * @return ApiResponse&lt;NumberOrderResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberOrderResponse> retrieveNumberOrderWithHttpInfo(String numberOrderId) throws ApiException {
+    private ApiResponse<NumberOrderResponse> retrieveNumberOrderWithHttpInfo(String numberOrderId) throws ApiException {
         okhttp3.Call localVarCall = retrieveNumberOrderValidateBeforeCall(numberOrderId, null);
         Type localVarReturnType = new TypeToken<NumberOrderResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve a number order (asynchronously)
-     * Get an existing phone number order.
-     * @param numberOrderId The number order ID. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrieveNumberOrderAsync(String numberOrderId, final ApiCallback<NumberOrderResponse> _callback) throws ApiException {
+    private okhttp3.Call retrieveNumberOrderAsync(String numberOrderId, final ApiCallback<NumberOrderResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = retrieveNumberOrderValidateBeforeCall(numberOrderId, _callback);
         Type localVarReturnType = new TypeToken<NumberOrderResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIretrieveNumberOrderRequest {
+        private final String numberOrderId;
+
+        private APIretrieveNumberOrderRequest(String numberOrderId) {
+            this.numberOrderId = numberOrderId;
+        }
+
+        /**
+         * Build call for retrieveNumberOrder
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveNumberOrderCall(numberOrderId, _callback);
+        }
+
+        /**
+         * Execute retrieveNumberOrder request
+         * @return NumberOrderResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberOrderResponse execute() throws ApiException {
+            ApiResponse<NumberOrderResponse> localVarResp = retrieveNumberOrderWithHttpInfo(numberOrderId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveNumberOrder request with HTTP info returned
+         * @return ApiResponse&lt;NumberOrderResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberOrderResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveNumberOrderWithHttpInfo(numberOrderId);
+        }
+
+        /**
+         * Execute retrieveNumberOrder request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberOrderResponse> _callback) throws ApiException {
+            return retrieveNumberOrderAsync(numberOrderId, _callback);
+        }
+    }
+
     /**
-     * Build call for updateNumberOrder
+     * Retrieve a number order
+     * Get an existing phone number order.
      * @param numberOrderId The number order ID. (required)
-     * @param updateNumberOrderRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIretrieveNumberOrderRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -454,7 +570,10 @@ public class NumberOrdersApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateNumberOrderCall(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest, final ApiCallback _callback) throws ApiException {
+    public APIretrieveNumberOrderRequest retrieveNumberOrder(String numberOrderId) {
+        return new APIretrieveNumberOrderRequest(numberOrderId);
+    }
+    private okhttp3.Call updateNumberOrderCall(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = updateNumberOrderRequest;
 
         // create path and map variables
@@ -503,53 +622,100 @@ public class NumberOrdersApi {
 
     }
 
-    /**
-     * Update a number order
-     * Updates a phone number order.
-     * @param numberOrderId The number order ID. (required)
-     * @param updateNumberOrderRequest  (required)
-     * @return NumberOrderResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberOrderResponse updateNumberOrder(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest) throws ApiException {
-        ApiResponse<NumberOrderResponse> localVarResp = updateNumberOrderWithHttpInfo(numberOrderId, updateNumberOrderRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Update a number order
-     * Updates a phone number order.
-     * @param numberOrderId The number order ID. (required)
-     * @param updateNumberOrderRequest  (required)
-     * @return ApiResponse&lt;NumberOrderResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberOrderResponse> updateNumberOrderWithHttpInfo(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest) throws ApiException {
+    private ApiResponse<NumberOrderResponse> updateNumberOrderWithHttpInfo(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest) throws ApiException {
         okhttp3.Call localVarCall = updateNumberOrderValidateBeforeCall(numberOrderId, updateNumberOrderRequest, null);
         Type localVarReturnType = new TypeToken<NumberOrderResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call updateNumberOrderAsync(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest, final ApiCallback<NumberOrderResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updateNumberOrderValidateBeforeCall(numberOrderId, updateNumberOrderRequest, _callback);
+        Type localVarReturnType = new TypeToken<NumberOrderResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIupdateNumberOrderRequest {
+        private final String numberOrderId;
+        private final UpdateNumberOrderRequest updateNumberOrderRequest;
+
+        private APIupdateNumberOrderRequest(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest) {
+            this.numberOrderId = numberOrderId;
+            this.updateNumberOrderRequest = updateNumberOrderRequest;
+        }
+
+        /**
+         * Build call for updateNumberOrder
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return updateNumberOrderCall(numberOrderId, updateNumberOrderRequest, _callback);
+        }
+
+        /**
+         * Execute updateNumberOrder request
+         * @return NumberOrderResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberOrderResponse execute() throws ApiException {
+            ApiResponse<NumberOrderResponse> localVarResp = updateNumberOrderWithHttpInfo(numberOrderId, updateNumberOrderRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute updateNumberOrder request with HTTP info returned
+         * @return ApiResponse&lt;NumberOrderResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberOrderResponse> executeWithHttpInfo() throws ApiException {
+            return updateNumberOrderWithHttpInfo(numberOrderId, updateNumberOrderRequest);
+        }
+
+        /**
+         * Execute updateNumberOrder request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberOrderResponse> _callback) throws ApiException {
+            return updateNumberOrderAsync(numberOrderId, updateNumberOrderRequest, _callback);
+        }
+    }
+
     /**
-     * Update a number order (asynchronously)
+     * Update a number order
      * Updates a phone number order.
      * @param numberOrderId The number order ID. (required)
      * @param updateNumberOrderRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIupdateNumberOrderRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -557,11 +723,7 @@ public class NumberOrdersApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateNumberOrderAsync(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest, final ApiCallback<NumberOrderResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateNumberOrderValidateBeforeCall(numberOrderId, updateNumberOrderRequest, _callback);
-        Type localVarReturnType = new TypeToken<NumberOrderResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIupdateNumberOrderRequest updateNumberOrder(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest) {
+        return new APIupdateNumberOrderRequest(numberOrderId, updateNumberOrderRequest);
     }
 }

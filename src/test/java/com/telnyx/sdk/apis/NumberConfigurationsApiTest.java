@@ -54,7 +54,8 @@ public class NumberConfigurationsApiTest {
     @Test
     public void deletePhoneNumberTest() throws ApiException {
         String id = null;
-        PhoneNumberResponse response = api.deletePhoneNumber(id);
+        PhoneNumberResponse response = api.deletePhoneNumber(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -71,7 +72,8 @@ public class NumberConfigurationsApiTest {
     public void enableEmergencyPhoneNumberTest() throws ApiException {
         String id = null;
         PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest = null;
-        PhoneNumberEnableEmergency response = api.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest);
+        PhoneNumberEnableEmergency response = api.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -98,7 +100,20 @@ public class NumberConfigurationsApiTest {
         String filterUsagePaymentMethod = null;
         String filterBillingGroupId = null;
         String sort = null;
-        ListPhoneNumbersResponse response = api.listPhoneNumbers(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
+        ListPhoneNumbersResponse response = api.listPhoneNumbers()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterTag(filterTag)
+                .filterPhoneNumber(filterPhoneNumber)
+                .filterStatus(filterStatus)
+                .filterVoiceConnectionNameContains(filterVoiceConnectionNameContains)
+                .filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith)
+                .filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith)
+                .filterVoiceConnectionNameEq(filterVoiceConnectionNameEq)
+                .filterUsagePaymentMethod(filterUsagePaymentMethod)
+                .filterBillingGroupId(filterBillingGroupId)
+                .sort(sort)
+                .execute();
 
         // TODO: test validations
     }
@@ -113,7 +128,8 @@ public class NumberConfigurationsApiTest {
      */
     @Test
     public void listPhoneNumbersWithMessagingSettingsTest() throws ApiException {
-        ListMessagingSettingsResponse response = api.listPhoneNumbersWithMessagingSettings();
+        ListMessagingSettingsResponse response = api.listPhoneNumbersWithMessagingSettings()
+                .execute();
 
         // TODO: test validations
     }
@@ -134,7 +150,14 @@ public class NumberConfigurationsApiTest {
         String filterConnectionNameContains = null;
         String filterUsagePaymentMethod = null;
         String sort = null;
-        ListPhoneNumbersWithVoiceSettingsResponse response = api.listPhoneNumbersWithVoiceSettings(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
+        ListPhoneNumbersWithVoiceSettingsResponse response = api.listPhoneNumbersWithVoiceSettings()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterPhoneNumber(filterPhoneNumber)
+                .filterConnectionNameContains(filterConnectionNameContains)
+                .filterUsagePaymentMethod(filterUsagePaymentMethod)
+                .sort(sort)
+                .execute();
 
         // TODO: test validations
     }
@@ -150,7 +173,8 @@ public class NumberConfigurationsApiTest {
     @Test
     public void retrievePhoneNumberTest() throws ApiException {
         String id = null;
-        PhoneNumberResponse response = api.retrievePhoneNumber(id);
+        PhoneNumberResponse response = api.retrievePhoneNumber(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -166,7 +190,8 @@ public class NumberConfigurationsApiTest {
     @Test
     public void retrievePhoneNumberWithMessagingSettingsTest() throws ApiException {
         String id = null;
-        RetrieveMessagingSettingsResponse response = api.retrievePhoneNumberWithMessagingSettings(id);
+        RetrieveMessagingSettingsResponse response = api.retrievePhoneNumberWithMessagingSettings(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -182,7 +207,8 @@ public class NumberConfigurationsApiTest {
     @Test
     public void retrievePhoneNumberWithVoiceSettingsTest() throws ApiException {
         String id = null;
-        RetrievePhoneNumberVoiceResponse response = api.retrievePhoneNumberWithVoiceSettings(id);
+        RetrievePhoneNumberVoiceResponse response = api.retrievePhoneNumberWithVoiceSettings(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -199,7 +225,8 @@ public class NumberConfigurationsApiTest {
     public void updatePhoneNumberTest() throws ApiException {
         String id = null;
         UpdatePhoneNumberRequest updatePhoneNumberRequest = null;
-        PhoneNumberResponse response = api.updatePhoneNumber(id, updatePhoneNumberRequest);
+        PhoneNumberResponse response = api.updatePhoneNumber(id, updatePhoneNumberRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -216,7 +243,8 @@ public class NumberConfigurationsApiTest {
     public void updatePhoneNumberWithMessagingSettingsTest() throws ApiException {
         String id = null;
         UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest = null;
-        RetrieveMessagingSettingsResponse response = api.updatePhoneNumberWithMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest);
+        RetrieveMessagingSettingsResponse response = api.updatePhoneNumberWithMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -233,7 +261,8 @@ public class NumberConfigurationsApiTest {
     public void updatePhoneNumberWithVoiceSettingsTest() throws ApiException {
         String id = null;
         UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest = null;
-        RetrievePhoneNumberVoiceResponse response = api.updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest);
+        RetrievePhoneNumberVoiceResponse response = api.updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest)
+                .execute();
 
         // TODO: test validations
     }

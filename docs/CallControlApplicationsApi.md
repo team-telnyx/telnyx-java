@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="createCallControlApplication"></a>
 # **createCallControlApplication**
-> CallControlApplicationResponse createCallControlApplication(createCallControlApplicationRequest)
+> CallControlApplicationResponse createCallControlApplication(createCallControlApplicationRequest).execute();
 
 Create a call control application
 
@@ -41,7 +41,8 @@ public class Example {
     CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
     CreateCallControlApplicationRequest createCallControlApplicationRequest = new CreateCallControlApplicationRequest(); // CreateCallControlApplicationRequest | Create call control application request.
     try {
-      CallControlApplicationResponse result = apiInstance.createCallControlApplication(createCallControlApplicationRequest);
+      CallControlApplicationResponse result = apiInstance.createCallControlApplication(createCallControlApplicationRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallControlApplicationsApi#createCallControlApplication");
@@ -81,7 +82,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteCallControlApplication"></a>
 # **deleteCallControlApplication**
-> CallControlApplicationResponse deleteCallControlApplication(id)
+> CallControlApplicationResponse deleteCallControlApplication(id).execute();
 
 Delete a call control application
 
@@ -109,7 +110,8 @@ public class Example {
     CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
     String id = 1293384261075731499; // String | Identifies the resource.
     try {
-      CallControlApplicationResponse result = apiInstance.deleteCallControlApplication(id);
+      CallControlApplicationResponse result = apiInstance.deleteCallControlApplication(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallControlApplicationsApi#deleteCallControlApplication");
@@ -151,7 +153,7 @@ Name | Type | Description  | Notes
 
 <a name="listCallControlApplications"></a>
 # **listCallControlApplications**
-> ListCallControlApplicationsResponse listCallControlApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort)
+> ListCallControlApplicationsResponse listCallControlApplications().pageNumber(pageNumber).pageSize(pageSize).filterApplicationNameContains(filterApplicationNameContains).filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId).sort(sort).execute();
 
 List call control applications
 
@@ -183,7 +185,13 @@ public class Example {
     String filterOutboundOutboundVoiceProfileId = 1293384261075731499; // String | Identifies the associated outbound voice profile.
     String sort = connection_name; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
     try {
-      ListCallControlApplicationsResponse result = apiInstance.listCallControlApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
+      ListCallControlApplicationsResponse result = apiInstance.listCallControlApplications()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .filterApplicationNameContains(filterApplicationNameContains)
+            .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
+            .sort(sort)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallControlApplicationsApi#listCallControlApplications");
@@ -229,7 +237,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveCallControlApplication"></a>
 # **retrieveCallControlApplication**
-> CallControlApplicationResponse retrieveCallControlApplication(id)
+> CallControlApplicationResponse retrieveCallControlApplication(id).execute();
 
 Retrieve a call control application
 
@@ -257,7 +265,8 @@ public class Example {
     CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
     String id = 1293384261075731499; // String | Identifies the resource.
     try {
-      CallControlApplicationResponse result = apiInstance.retrieveCallControlApplication(id);
+      CallControlApplicationResponse result = apiInstance.retrieveCallControlApplication(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallControlApplicationsApi#retrieveCallControlApplication");
@@ -299,7 +308,7 @@ Name | Type | Description  | Notes
 
 <a name="updateCallControlApplication"></a>
 # **updateCallControlApplication**
-> CallControlApplicationResponse updateCallControlApplication(id, updateCallControlApplicationRequest)
+> CallControlApplicationResponse updateCallControlApplication(id, updateCallControlApplicationRequest).execute();
 
 Update a call control application
 
@@ -328,7 +337,8 @@ public class Example {
     String id = 1293384261075731499; // String | Identifies the resource.
     UpdateCallControlApplicationRequest updateCallControlApplicationRequest = new UpdateCallControlApplicationRequest(); // UpdateCallControlApplicationRequest | Update call control application request.
     try {
-      CallControlApplicationResponse result = apiInstance.updateCallControlApplication(id, updateCallControlApplicationRequest);
+      CallControlApplicationResponse result = apiInstance.updateCallControlApplication(id, updateCallControlApplicationRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallControlApplicationsApi#updateCallControlApplication");

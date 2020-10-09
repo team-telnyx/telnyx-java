@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="listAvailablePhoneNumbers"></a>
 # **listAvailablePhoneNumbers**
-> ListAvailablePhoneNumbersResponse listAvailablePhoneNumbers(filterPhoneNumberStartsWith, filterPhoneNumberEndsWith, filterPhoneNumberContains, filterLocality, filterAdministrativeArea, filterCountryCode, filterNationalDestinationCode, filterRateCenter, filterNumberType, filterFeatures, filterLimit, filterBestEffort, filterQuickship, filterReservable)
+> ListAvailablePhoneNumbersResponse listAvailablePhoneNumbers().filterPhoneNumberStartsWith(filterPhoneNumberStartsWith).filterPhoneNumberEndsWith(filterPhoneNumberEndsWith).filterPhoneNumberContains(filterPhoneNumberContains).filterLocality(filterLocality).filterAdministrativeArea(filterAdministrativeArea).filterCountryCode(filterCountryCode).filterNationalDestinationCode(filterNationalDestinationCode).filterRateCenter(filterRateCenter).filterNumberType(filterNumberType).filterFeatures(filterFeatures).filterLimit(filterLimit).filterBestEffort(filterBestEffort).filterQuickship(filterQuickship).filterReservable(filterReservable).execute();
 
 List available phone numbers
 
@@ -48,7 +48,22 @@ public class Example {
     Boolean filterQuickship = true; // Boolean | Filter to exclude phone numbers that need additional time after to purchase to receive phone calls.
     Boolean filterReservable = true; // Boolean | Filter to exclude phone numbers that cannot be reserved before purchase.
     try {
-      ListAvailablePhoneNumbersResponse result = apiInstance.listAvailablePhoneNumbers(filterPhoneNumberStartsWith, filterPhoneNumberEndsWith, filterPhoneNumberContains, filterLocality, filterAdministrativeArea, filterCountryCode, filterNationalDestinationCode, filterRateCenter, filterNumberType, filterFeatures, filterLimit, filterBestEffort, filterQuickship, filterReservable);
+      ListAvailablePhoneNumbersResponse result = apiInstance.listAvailablePhoneNumbers()
+            .filterPhoneNumberStartsWith(filterPhoneNumberStartsWith)
+            .filterPhoneNumberEndsWith(filterPhoneNumberEndsWith)
+            .filterPhoneNumberContains(filterPhoneNumberContains)
+            .filterLocality(filterLocality)
+            .filterAdministrativeArea(filterAdministrativeArea)
+            .filterCountryCode(filterCountryCode)
+            .filterNationalDestinationCode(filterNationalDestinationCode)
+            .filterRateCenter(filterRateCenter)
+            .filterNumberType(filterNumberType)
+            .filterFeatures(filterFeatures)
+            .filterLimit(filterLimit)
+            .filterBestEffort(filterBestEffort)
+            .filterQuickship(filterQuickship)
+            .filterReservable(filterReservable)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberSearchApi#listAvailablePhoneNumbers");

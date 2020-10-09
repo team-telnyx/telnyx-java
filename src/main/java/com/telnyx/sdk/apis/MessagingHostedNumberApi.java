@@ -59,20 +59,7 @@ public class MessagingHostedNumberApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for createMessagingHostedNumberOrder
-     * @param createMessagingHostedNumberOrderRequest Message payload (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createMessagingHostedNumberOrderCall(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createMessagingHostedNumberOrderCall(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createMessagingHostedNumberOrderRequest;
 
         // create path and map variables
@@ -110,78 +97,116 @@ public class MessagingHostedNumberApi {
 
     }
 
-    /**
-     * Create a messaging hosted number order
-     * 
-     * @param createMessagingHostedNumberOrderRequest Message payload (optional)
-     * @return RetrieveMessagingHostedNumberOrderResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrieveMessagingHostedNumberOrderResponse createMessagingHostedNumberOrder(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest) throws ApiException {
-        ApiResponse<RetrieveMessagingHostedNumberOrderResponse> localVarResp = createMessagingHostedNumberOrderWithHttpInfo(createMessagingHostedNumberOrderRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Create a messaging hosted number order
-     * 
-     * @param createMessagingHostedNumberOrderRequest Message payload (optional)
-     * @return ApiResponse&lt;RetrieveMessagingHostedNumberOrderResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> createMessagingHostedNumberOrderWithHttpInfo(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest) throws ApiException {
+    private ApiResponse<RetrieveMessagingHostedNumberOrderResponse> createMessagingHostedNumberOrderWithHttpInfo(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest) throws ApiException {
         okhttp3.Call localVarCall = createMessagingHostedNumberOrderValidateBeforeCall(createMessagingHostedNumberOrderRequest, null);
         Type localVarReturnType = new TypeToken<RetrieveMessagingHostedNumberOrderResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Create a messaging hosted number order (asynchronously)
-     * 
-     * @param createMessagingHostedNumberOrderRequest Message payload (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createMessagingHostedNumberOrderAsync(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest, final ApiCallback<RetrieveMessagingHostedNumberOrderResponse> _callback) throws ApiException {
+    private okhttp3.Call createMessagingHostedNumberOrderAsync(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest, final ApiCallback<RetrieveMessagingHostedNumberOrderResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createMessagingHostedNumberOrderValidateBeforeCall(createMessagingHostedNumberOrderRequest, _callback);
         Type localVarReturnType = new TypeToken<RetrieveMessagingHostedNumberOrderResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateMessagingHostedNumberOrderRequest {
+        private CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest;
+
+        private APIcreateMessagingHostedNumberOrderRequest() {
+        }
+
+        /**
+         * Set createMessagingHostedNumberOrderRequest
+         * @param createMessagingHostedNumberOrderRequest Message payload (optional)
+         * @return APIcreateMessagingHostedNumberOrderRequest
+         */
+        public APIcreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest) {
+            this.createMessagingHostedNumberOrderRequest = createMessagingHostedNumberOrderRequest;
+            return this;
+        }
+
+        /**
+         * Build call for createMessagingHostedNumberOrder
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createMessagingHostedNumberOrderCall(createMessagingHostedNumberOrderRequest, _callback);
+        }
+
+        /**
+         * Execute createMessagingHostedNumberOrder request
+         * @return RetrieveMessagingHostedNumberOrderResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrieveMessagingHostedNumberOrderResponse execute() throws ApiException {
+            ApiResponse<RetrieveMessagingHostedNumberOrderResponse> localVarResp = createMessagingHostedNumberOrderWithHttpInfo(createMessagingHostedNumberOrderRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createMessagingHostedNumberOrder request with HTTP info returned
+         * @return ApiResponse&lt;RetrieveMessagingHostedNumberOrderResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> executeWithHttpInfo() throws ApiException {
+            return createMessagingHostedNumberOrderWithHttpInfo(createMessagingHostedNumberOrderRequest);
+        }
+
+        /**
+         * Execute createMessagingHostedNumberOrder request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrieveMessagingHostedNumberOrderResponse> _callback) throws ApiException {
+            return createMessagingHostedNumberOrderAsync(createMessagingHostedNumberOrderRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for deleteMessagingHostedNumber
-     * @param id Identifies the type of resource. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Create a messaging hosted number order
+     * 
+     * @return APIcreateMessagingHostedNumberOrderRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteMessagingHostedNumberCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIcreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrder() {
+        return new APIcreateMessagingHostedNumberOrderRequest();
+    }
+    private okhttp3.Call deleteMessagingHostedNumberCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -225,77 +250,108 @@ public class MessagingHostedNumberApi {
 
     }
 
-    /**
-     * Delete a messaging hosted number
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @return RetrieveMessagingHostedNumberResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrieveMessagingHostedNumberResponse deleteMessagingHostedNumber(String id) throws ApiException {
-        ApiResponse<RetrieveMessagingHostedNumberResponse> localVarResp = deleteMessagingHostedNumberWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Delete a messaging hosted number
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @return ApiResponse&lt;RetrieveMessagingHostedNumberResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrieveMessagingHostedNumberResponse> deleteMessagingHostedNumberWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<RetrieveMessagingHostedNumberResponse> deleteMessagingHostedNumberWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = deleteMessagingHostedNumberValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<RetrieveMessagingHostedNumberResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Delete a messaging hosted number (asynchronously)
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteMessagingHostedNumberAsync(String id, final ApiCallback<RetrieveMessagingHostedNumberResponse> _callback) throws ApiException {
+    private okhttp3.Call deleteMessagingHostedNumberAsync(String id, final ApiCallback<RetrieveMessagingHostedNumberResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteMessagingHostedNumberValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<RetrieveMessagingHostedNumberResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIdeleteMessagingHostedNumberRequest {
+        private final String id;
+
+        private APIdeleteMessagingHostedNumberRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for deleteMessagingHostedNumber
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return deleteMessagingHostedNumberCall(id, _callback);
+        }
+
+        /**
+         * Execute deleteMessagingHostedNumber request
+         * @return RetrieveMessagingHostedNumberResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrieveMessagingHostedNumberResponse execute() throws ApiException {
+            ApiResponse<RetrieveMessagingHostedNumberResponse> localVarResp = deleteMessagingHostedNumberWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute deleteMessagingHostedNumber request with HTTP info returned
+         * @return ApiResponse&lt;RetrieveMessagingHostedNumberResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrieveMessagingHostedNumberResponse> executeWithHttpInfo() throws ApiException {
+            return deleteMessagingHostedNumberWithHttpInfo(id);
+        }
+
+        /**
+         * Execute deleteMessagingHostedNumber request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrieveMessagingHostedNumberResponse> _callback) throws ApiException {
+            return deleteMessagingHostedNumberAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for listMessagingHostedNumberOrder
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Delete a messaging hosted number
+     * 
+     * @param id Identifies the type of resource. (required)
+     * @return APIdeleteMessagingHostedNumberRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listMessagingHostedNumberOrderCall(final ApiCallback _callback) throws ApiException {
+    public APIdeleteMessagingHostedNumberRequest deleteMessagingHostedNumber(String id) {
+        return new APIdeleteMessagingHostedNumberRequest(id);
+    }
+    private okhttp3.Call listMessagingHostedNumberOrderCall(final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -333,75 +389,105 @@ public class MessagingHostedNumberApi {
 
     }
 
-    /**
-     * List messaging hosted number orders
-     * 
-     * @return ListMessagingHostedNumberOrderResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListMessagingHostedNumberOrderResponse listMessagingHostedNumberOrder() throws ApiException {
-        ApiResponse<ListMessagingHostedNumberOrderResponse> localVarResp = listMessagingHostedNumberOrderWithHttpInfo();
-        return localVarResp.getData();
-    }
 
-    /**
-     * List messaging hosted number orders
-     * 
-     * @return ApiResponse&lt;ListMessagingHostedNumberOrderResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedNumberOrderWithHttpInfo() throws ApiException {
+    private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedNumberOrderWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = listMessagingHostedNumberOrderValidateBeforeCall(null);
         Type localVarReturnType = new TypeToken<ListMessagingHostedNumberOrderResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List messaging hosted number orders (asynchronously)
-     * 
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listMessagingHostedNumberOrderAsync(final ApiCallback<ListMessagingHostedNumberOrderResponse> _callback) throws ApiException {
+    private okhttp3.Call listMessagingHostedNumberOrderAsync(final ApiCallback<ListMessagingHostedNumberOrderResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listMessagingHostedNumberOrderValidateBeforeCall(_callback);
         Type localVarReturnType = new TypeToken<ListMessagingHostedNumberOrderResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistMessagingHostedNumberOrderRequest {
+
+        private APIlistMessagingHostedNumberOrderRequest() {
+        }
+
+        /**
+         * Build call for listMessagingHostedNumberOrder
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listMessagingHostedNumberOrderCall(_callback);
+        }
+
+        /**
+         * Execute listMessagingHostedNumberOrder request
+         * @return ListMessagingHostedNumberOrderResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListMessagingHostedNumberOrderResponse execute() throws ApiException {
+            ApiResponse<ListMessagingHostedNumberOrderResponse> localVarResp = listMessagingHostedNumberOrderWithHttpInfo();
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listMessagingHostedNumberOrder request with HTTP info returned
+         * @return ApiResponse&lt;ListMessagingHostedNumberOrderResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListMessagingHostedNumberOrderResponse> executeWithHttpInfo() throws ApiException {
+            return listMessagingHostedNumberOrderWithHttpInfo();
+        }
+
+        /**
+         * Execute listMessagingHostedNumberOrder request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListMessagingHostedNumberOrderResponse> _callback) throws ApiException {
+            return listMessagingHostedNumberOrderAsync(_callback);
+        }
+    }
+
     /**
-     * Build call for retrieveMessagingHostedNumberOrder
-     * @param id Identifies the type of resource. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List messaging hosted number orders
+     * 
+     * @return APIlistMessagingHostedNumberOrderRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveMessagingHostedNumberOrderCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIlistMessagingHostedNumberOrderRequest listMessagingHostedNumberOrder() {
+        return new APIlistMessagingHostedNumberOrderRequest();
+    }
+    private okhttp3.Call retrieveMessagingHostedNumberOrderCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -445,72 +531,97 @@ public class MessagingHostedNumberApi {
 
     }
 
-    /**
-     * Retrieve a messaging hosted number order
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @return RetrieveMessagingHostedNumberOrderResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrieveMessagingHostedNumberOrderResponse retrieveMessagingHostedNumberOrder(String id) throws ApiException {
-        ApiResponse<RetrieveMessagingHostedNumberOrderResponse> localVarResp = retrieveMessagingHostedNumberOrderWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a messaging hosted number order
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @return ApiResponse&lt;RetrieveMessagingHostedNumberOrderResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> retrieveMessagingHostedNumberOrderWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<RetrieveMessagingHostedNumberOrderResponse> retrieveMessagingHostedNumberOrderWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = retrieveMessagingHostedNumberOrderValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<RetrieveMessagingHostedNumberOrderResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve a messaging hosted number order (asynchronously)
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrieveMessagingHostedNumberOrderAsync(String id, final ApiCallback<RetrieveMessagingHostedNumberOrderResponse> _callback) throws ApiException {
+    private okhttp3.Call retrieveMessagingHostedNumberOrderAsync(String id, final ApiCallback<RetrieveMessagingHostedNumberOrderResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = retrieveMessagingHostedNumberOrderValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<RetrieveMessagingHostedNumberOrderResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIretrieveMessagingHostedNumberOrderRequest {
+        private final String id;
+
+        private APIretrieveMessagingHostedNumberOrderRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrieveMessagingHostedNumberOrder
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveMessagingHostedNumberOrderCall(id, _callback);
+        }
+
+        /**
+         * Execute retrieveMessagingHostedNumberOrder request
+         * @return RetrieveMessagingHostedNumberOrderResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrieveMessagingHostedNumberOrderResponse execute() throws ApiException {
+            ApiResponse<RetrieveMessagingHostedNumberOrderResponse> localVarResp = retrieveMessagingHostedNumberOrderWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveMessagingHostedNumberOrder request with HTTP info returned
+         * @return ApiResponse&lt;RetrieveMessagingHostedNumberOrderResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveMessagingHostedNumberOrderWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrieveMessagingHostedNumberOrder request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrieveMessagingHostedNumberOrderResponse> _callback) throws ApiException {
+            return retrieveMessagingHostedNumberOrderAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for uploadFileMessagingHostedNumberOrder
+     * Retrieve a messaging hosted number order
+     * 
      * @param id Identifies the type of resource. (required)
-     * @param loa Must be a signed LOA for the numbers in the order in PDF format. (optional)
-     * @param bill Must be the last month&#39;s bill with proof of ownership of all of the numbers in the order in PDF format. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIretrieveMessagingHostedNumberOrderRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -518,7 +629,10 @@ public class MessagingHostedNumberApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call uploadFileMessagingHostedNumberOrderCall(String id, File loa, File bill, final ApiCallback _callback) throws ApiException {
+    public APIretrieveMessagingHostedNumberOrderRequest retrieveMessagingHostedNumberOrder(String id) {
+        return new APIretrieveMessagingHostedNumberOrderRequest(id);
+    }
+    private okhttp3.Call uploadFileMessagingHostedNumberOrderCall(String id, File loa, File bill, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -570,56 +684,119 @@ public class MessagingHostedNumberApi {
 
     }
 
-    /**
-     * Upload file required for a messaging hosted number order
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @param loa Must be a signed LOA for the numbers in the order in PDF format. (optional)
-     * @param bill Must be the last month&#39;s bill with proof of ownership of all of the numbers in the order in PDF format. (optional)
-     * @return RetrieveMessagingHostedNumberOrderResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrieveMessagingHostedNumberOrderResponse uploadFileMessagingHostedNumberOrder(String id, File loa, File bill) throws ApiException {
-        ApiResponse<RetrieveMessagingHostedNumberOrderResponse> localVarResp = uploadFileMessagingHostedNumberOrderWithHttpInfo(id, loa, bill);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Upload file required for a messaging hosted number order
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @param loa Must be a signed LOA for the numbers in the order in PDF format. (optional)
-     * @param bill Must be the last month&#39;s bill with proof of ownership of all of the numbers in the order in PDF format. (optional)
-     * @return ApiResponse&lt;RetrieveMessagingHostedNumberOrderResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> uploadFileMessagingHostedNumberOrderWithHttpInfo(String id, File loa, File bill) throws ApiException {
+    private ApiResponse<RetrieveMessagingHostedNumberOrderResponse> uploadFileMessagingHostedNumberOrderWithHttpInfo(String id, File loa, File bill) throws ApiException {
         okhttp3.Call localVarCall = uploadFileMessagingHostedNumberOrderValidateBeforeCall(id, loa, bill, null);
         Type localVarReturnType = new TypeToken<RetrieveMessagingHostedNumberOrderResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call uploadFileMessagingHostedNumberOrderAsync(String id, File loa, File bill, final ApiCallback<RetrieveMessagingHostedNumberOrderResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = uploadFileMessagingHostedNumberOrderValidateBeforeCall(id, loa, bill, _callback);
+        Type localVarReturnType = new TypeToken<RetrieveMessagingHostedNumberOrderResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIuploadFileMessagingHostedNumberOrderRequest {
+        private final String id;
+        private File loa;
+        private File bill;
+
+        private APIuploadFileMessagingHostedNumberOrderRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Set loa
+         * @param loa Must be a signed LOA for the numbers in the order in PDF format. (optional)
+         * @return APIuploadFileMessagingHostedNumberOrderRequest
+         */
+        public APIuploadFileMessagingHostedNumberOrderRequest loa(File loa) {
+            this.loa = loa;
+            return this;
+        }
+
+        /**
+         * Set bill
+         * @param bill Must be the last month&#39;s bill with proof of ownership of all of the numbers in the order in PDF format. (optional)
+         * @return APIuploadFileMessagingHostedNumberOrderRequest
+         */
+        public APIuploadFileMessagingHostedNumberOrderRequest bill(File bill) {
+            this.bill = bill;
+            return this;
+        }
+
+        /**
+         * Build call for uploadFileMessagingHostedNumberOrder
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return uploadFileMessagingHostedNumberOrderCall(id, loa, bill, _callback);
+        }
+
+        /**
+         * Execute uploadFileMessagingHostedNumberOrder request
+         * @return RetrieveMessagingHostedNumberOrderResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrieveMessagingHostedNumberOrderResponse execute() throws ApiException {
+            ApiResponse<RetrieveMessagingHostedNumberOrderResponse> localVarResp = uploadFileMessagingHostedNumberOrderWithHttpInfo(id, loa, bill);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute uploadFileMessagingHostedNumberOrder request with HTTP info returned
+         * @return ApiResponse&lt;RetrieveMessagingHostedNumberOrderResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> executeWithHttpInfo() throws ApiException {
+            return uploadFileMessagingHostedNumberOrderWithHttpInfo(id, loa, bill);
+        }
+
+        /**
+         * Execute uploadFileMessagingHostedNumberOrder request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrieveMessagingHostedNumberOrderResponse> _callback) throws ApiException {
+            return uploadFileMessagingHostedNumberOrderAsync(id, loa, bill, _callback);
+        }
+    }
+
     /**
-     * Upload file required for a messaging hosted number order (asynchronously)
+     * Upload file required for a messaging hosted number order
      * 
      * @param id Identifies the type of resource. (required)
-     * @param loa Must be a signed LOA for the numbers in the order in PDF format. (optional)
-     * @param bill Must be the last month&#39;s bill with proof of ownership of all of the numbers in the order in PDF format. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIuploadFileMessagingHostedNumberOrderRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -627,11 +804,7 @@ public class MessagingHostedNumberApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call uploadFileMessagingHostedNumberOrderAsync(String id, File loa, File bill, final ApiCallback<RetrieveMessagingHostedNumberOrderResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = uploadFileMessagingHostedNumberOrderValidateBeforeCall(id, loa, bill, _callback);
-        Type localVarReturnType = new TypeToken<RetrieveMessagingHostedNumberOrderResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIuploadFileMessagingHostedNumberOrderRequest uploadFileMessagingHostedNumberOrder(String id) {
+        return new APIuploadFileMessagingHostedNumberOrderRequest(id);
     }
 }

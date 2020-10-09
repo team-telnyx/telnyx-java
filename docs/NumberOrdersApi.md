@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 <a name="createNumberOrder"></a>
 # **createNumberOrder**
-> NumberOrderResponse createNumberOrder(createNumberOrderRequest)
+> NumberOrderResponse createNumberOrder(createNumberOrderRequest).execute();
 
 Create a number order
 
@@ -40,7 +40,8 @@ public class Example {
     NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
     CreateNumberOrderRequest createNumberOrderRequest = new CreateNumberOrderRequest(); // CreateNumberOrderRequest | 
     try {
-      NumberOrderResponse result = apiInstance.createNumberOrder(createNumberOrderRequest);
+      NumberOrderResponse result = apiInstance.createNumberOrder(createNumberOrderRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrdersApi#createNumberOrder");
@@ -80,7 +81,7 @@ Name | Type | Description  | Notes
 
 <a name="listNumberOrders"></a>
 # **listNumberOrders**
-> ListNumberOrdersResponse listNumberOrders(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet)
+> ListNumberOrdersResponse listNumberOrders().filterStatus(filterStatus).filterCreatedAtGt(filterCreatedAtGt).filterCreatedAtLt(filterCreatedAtLt).filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber).filterCustomerReference(filterCustomerReference).filterRequirementsMet(filterRequirementsMet).execute();
 
 List number orders
 
@@ -113,7 +114,14 @@ public class Example {
     String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number orders via the customer reference set.
     Boolean filterRequirementsMet = true; // Boolean | Filter number orders by requirements met.
     try {
-      ListNumberOrdersResponse result = apiInstance.listNumberOrders(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet);
+      ListNumberOrdersResponse result = apiInstance.listNumberOrders()
+            .filterStatus(filterStatus)
+            .filterCreatedAtGt(filterCreatedAtGt)
+            .filterCreatedAtLt(filterCreatedAtLt)
+            .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
+            .filterCustomerReference(filterCustomerReference)
+            .filterRequirementsMet(filterRequirementsMet)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrdersApi#listNumberOrders");
@@ -158,7 +166,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveNumberOrder"></a>
 # **retrieveNumberOrder**
-> NumberOrderResponse retrieveNumberOrder(numberOrderId)
+> NumberOrderResponse retrieveNumberOrder(numberOrderId).execute();
 
 Retrieve a number order
 
@@ -186,7 +194,8 @@ public class Example {
     NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
     String numberOrderId = "numberOrderId_example"; // String | The number order ID.
     try {
-      NumberOrderResponse result = apiInstance.retrieveNumberOrder(numberOrderId);
+      NumberOrderResponse result = apiInstance.retrieveNumberOrder(numberOrderId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrdersApi#retrieveNumberOrder");
@@ -226,7 +235,7 @@ Name | Type | Description  | Notes
 
 <a name="updateNumberOrder"></a>
 # **updateNumberOrder**
-> NumberOrderResponse updateNumberOrder(numberOrderId, updateNumberOrderRequest)
+> NumberOrderResponse updateNumberOrder(numberOrderId, updateNumberOrderRequest).execute();
 
 Update a number order
 
@@ -255,7 +264,8 @@ public class Example {
     String numberOrderId = "numberOrderId_example"; // String | The number order ID.
     UpdateNumberOrderRequest updateNumberOrderRequest = new UpdateNumberOrderRequest(); // UpdateNumberOrderRequest | 
     try {
-      NumberOrderResponse result = apiInstance.updateNumberOrder(numberOrderId, updateNumberOrderRequest);
+      NumberOrderResponse result = apiInstance.updateNumberOrder(numberOrderId, updateNumberOrderRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberOrdersApi#updateNumberOrder");

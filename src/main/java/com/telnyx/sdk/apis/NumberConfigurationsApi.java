@@ -65,20 +65,7 @@ public class NumberConfigurationsApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for deletePhoneNumber
-     * @param id Identifies the resource. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deletePhoneNumberCall(String id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deletePhoneNumberCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -122,80 +109,108 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * Delete a phone number
-     * 
-     * @param id Identifies the resource. (required)
-     * @return PhoneNumberResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public PhoneNumberResponse deletePhoneNumber(String id) throws ApiException {
-        ApiResponse<PhoneNumberResponse> localVarResp = deletePhoneNumberWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Delete a phone number
-     * 
-     * @param id Identifies the resource. (required)
-     * @return ApiResponse&lt;PhoneNumberResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PhoneNumberResponse> deletePhoneNumberWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<PhoneNumberResponse> deletePhoneNumberWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = deletePhoneNumberValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<PhoneNumberResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Delete a phone number (asynchronously)
-     * 
-     * @param id Identifies the resource. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deletePhoneNumberAsync(String id, final ApiCallback<PhoneNumberResponse> _callback) throws ApiException {
+    private okhttp3.Call deletePhoneNumberAsync(String id, final ApiCallback<PhoneNumberResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deletePhoneNumberValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<PhoneNumberResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIdeletePhoneNumberRequest {
+        private final String id;
+
+        private APIdeletePhoneNumberRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for deletePhoneNumber
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return deletePhoneNumberCall(id, _callback);
+        }
+
+        /**
+         * Execute deletePhoneNumber request
+         * @return PhoneNumberResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public PhoneNumberResponse execute() throws ApiException {
+            ApiResponse<PhoneNumberResponse> localVarResp = deletePhoneNumberWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute deletePhoneNumber request with HTTP info returned
+         * @return ApiResponse&lt;PhoneNumberResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PhoneNumberResponse> executeWithHttpInfo() throws ApiException {
+            return deletePhoneNumberWithHttpInfo(id);
+        }
+
+        /**
+         * Execute deletePhoneNumber request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PhoneNumberResponse> _callback) throws ApiException {
+            return deletePhoneNumberAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for enableEmergencyPhoneNumber
+     * Delete a phone number
+     * 
      * @param id Identifies the resource. (required)
-     * @param phoneNumberEnableEmergencyRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIdeletePhoneNumberRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call enableEmergencyPhoneNumberCall(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest, final ApiCallback _callback) throws ApiException {
+    public APIdeletePhoneNumberRequest deletePhoneNumber(String id) {
+        return new APIdeletePhoneNumberRequest(id);
+    }
+    private okhttp3.Call enableEmergencyPhoneNumberCall(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = phoneNumberEnableEmergencyRequest;
 
         // create path and map variables
@@ -244,95 +259,116 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * Enable emergency for a phone number
-     * 
-     * @param id Identifies the resource. (required)
-     * @param phoneNumberEnableEmergencyRequest  (required)
-     * @return PhoneNumberEnableEmergency
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public PhoneNumberEnableEmergency enableEmergencyPhoneNumber(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
-        ApiResponse<PhoneNumberEnableEmergency> localVarResp = enableEmergencyPhoneNumberWithHttpInfo(id, phoneNumberEnableEmergencyRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Enable emergency for a phone number
-     * 
-     * @param id Identifies the resource. (required)
-     * @param phoneNumberEnableEmergencyRequest  (required)
-     * @return ApiResponse&lt;PhoneNumberEnableEmergency&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PhoneNumberEnableEmergency> enableEmergencyPhoneNumberWithHttpInfo(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
+    private ApiResponse<PhoneNumberEnableEmergency> enableEmergencyPhoneNumberWithHttpInfo(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
         okhttp3.Call localVarCall = enableEmergencyPhoneNumberValidateBeforeCall(id, phoneNumberEnableEmergencyRequest, null);
         Type localVarReturnType = new TypeToken<PhoneNumberEnableEmergency>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Enable emergency for a phone number (asynchronously)
-     * 
-     * @param id Identifies the resource. (required)
-     * @param phoneNumberEnableEmergencyRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call enableEmergencyPhoneNumberAsync(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest, final ApiCallback<PhoneNumberEnableEmergency> _callback) throws ApiException {
+    private okhttp3.Call enableEmergencyPhoneNumberAsync(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest, final ApiCallback<PhoneNumberEnableEmergency> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = enableEmergencyPhoneNumberValidateBeforeCall(id, phoneNumberEnableEmergencyRequest, _callback);
         Type localVarReturnType = new TypeToken<PhoneNumberEnableEmergency>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIenableEmergencyPhoneNumberRequest {
+        private final String id;
+        private final PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest;
+
+        private APIenableEmergencyPhoneNumberRequest(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) {
+            this.id = id;
+            this.phoneNumberEnableEmergencyRequest = phoneNumberEnableEmergencyRequest;
+        }
+
+        /**
+         * Build call for enableEmergencyPhoneNumber
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
+            <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return enableEmergencyPhoneNumberCall(id, phoneNumberEnableEmergencyRequest, _callback);
+        }
+
+        /**
+         * Execute enableEmergencyPhoneNumber request
+         * @return PhoneNumberEnableEmergency
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
+            <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public PhoneNumberEnableEmergency execute() throws ApiException {
+            ApiResponse<PhoneNumberEnableEmergency> localVarResp = enableEmergencyPhoneNumberWithHttpInfo(id, phoneNumberEnableEmergencyRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute enableEmergencyPhoneNumber request with HTTP info returned
+         * @return ApiResponse&lt;PhoneNumberEnableEmergency&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
+            <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PhoneNumberEnableEmergency> executeWithHttpInfo() throws ApiException {
+            return enableEmergencyPhoneNumberWithHttpInfo(id, phoneNumberEnableEmergencyRequest);
+        }
+
+        /**
+         * Execute enableEmergencyPhoneNumber request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
+            <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PhoneNumberEnableEmergency> _callback) throws ApiException {
+            return enableEmergencyPhoneNumberAsync(id, phoneNumberEnableEmergencyRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for listPhoneNumbers
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterTag Filter by phone number tags. (optional)
-     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
-     * @param filterStatus Filter by phone number status. (optional)
-     * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameStartsWith Filter starts with connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameEndsWith Filter ends with connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameEq Filter by connection name. (optional)
-     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
-     * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. (optional)
-     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Enable emergency for a phone number
+     * 
+     * @param id Identifies the resource. (required)
+     * @param phoneNumberEnableEmergencyRequest  (required)
+     * @return APIenableEmergencyPhoneNumberRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listPhoneNumbersCall(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort, final ApiCallback _callback) throws ApiException {
+    public APIenableEmergencyPhoneNumberRequest enableEmergencyPhoneNumber(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) {
+        return new APIenableEmergencyPhoneNumberRequest(id, phoneNumberEnableEmergencyRequest);
+    }
+    private okhttp3.Call listPhoneNumbersCall(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -418,110 +454,237 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * List phone numbers
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterTag Filter by phone number tags. (optional)
-     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
-     * @param filterStatus Filter by phone number status. (optional)
-     * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameStartsWith Filter starts with connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameEndsWith Filter ends with connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameEq Filter by connection name. (optional)
-     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
-     * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. (optional)
-     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-     * @return ListPhoneNumbersResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListPhoneNumbersResponse listPhoneNumbers(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort) throws ApiException {
-        ApiResponse<ListPhoneNumbersResponse> localVarResp = listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List phone numbers
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterTag Filter by phone number tags. (optional)
-     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
-     * @param filterStatus Filter by phone number status. (optional)
-     * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameStartsWith Filter starts with connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameEndsWith Filter ends with connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameEq Filter by connection name. (optional)
-     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
-     * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. (optional)
-     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-     * @return ApiResponse&lt;ListPhoneNumbersResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort) throws ApiException {
+    private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort) throws ApiException {
         okhttp3.Call localVarCall = listPhoneNumbersValidateBeforeCall(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort, null);
         Type localVarReturnType = new TypeToken<ListPhoneNumbersResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List phone numbers (asynchronously)
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterTag Filter by phone number tags. (optional)
-     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
-     * @param filterStatus Filter by phone number status. (optional)
-     * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameStartsWith Filter starts with connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameEndsWith Filter ends with connection name. Requires at least three characters. (optional)
-     * @param filterVoiceConnectionNameEq Filter by connection name. (optional)
-     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
-     * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. (optional)
-     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listPhoneNumbersAsync(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort, final ApiCallback<ListPhoneNumbersResponse> _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumbersAsync(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort, final ApiCallback<ListPhoneNumbersResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listPhoneNumbersValidateBeforeCall(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort, _callback);
         Type localVarReturnType = new TypeToken<ListPhoneNumbersResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistPhoneNumbersRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
+        private String filterTag;
+        private String filterPhoneNumber;
+        private String filterStatus;
+        private String filterVoiceConnectionNameContains;
+        private String filterVoiceConnectionNameStartsWith;
+        private String filterVoiceConnectionNameEndsWith;
+        private String filterVoiceConnectionNameEq;
+        private String filterUsagePaymentMethod;
+        private String filterBillingGroupId;
+        private String sort;
+
+        private APIlistPhoneNumbersRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set filterTag
+         * @param filterTag Filter by phone number tags. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest filterTag(String filterTag) {
+            this.filterTag = filterTag;
+            return this;
+        }
+
+        /**
+         * Set filterPhoneNumber
+         * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest filterPhoneNumber(String filterPhoneNumber) {
+            this.filterPhoneNumber = filterPhoneNumber;
+            return this;
+        }
+
+        /**
+         * Set filterStatus
+         * @param filterStatus Filter by phone number status. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest filterStatus(String filterStatus) {
+            this.filterStatus = filterStatus;
+            return this;
+        }
+
+        /**
+         * Set filterVoiceConnectionNameContains
+         * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest filterVoiceConnectionNameContains(String filterVoiceConnectionNameContains) {
+            this.filterVoiceConnectionNameContains = filterVoiceConnectionNameContains;
+            return this;
+        }
+
+        /**
+         * Set filterVoiceConnectionNameStartsWith
+         * @param filterVoiceConnectionNameStartsWith Filter starts with connection name. Requires at least three characters. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest filterVoiceConnectionNameStartsWith(String filterVoiceConnectionNameStartsWith) {
+            this.filterVoiceConnectionNameStartsWith = filterVoiceConnectionNameStartsWith;
+            return this;
+        }
+
+        /**
+         * Set filterVoiceConnectionNameEndsWith
+         * @param filterVoiceConnectionNameEndsWith Filter ends with connection name. Requires at least three characters. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest filterVoiceConnectionNameEndsWith(String filterVoiceConnectionNameEndsWith) {
+            this.filterVoiceConnectionNameEndsWith = filterVoiceConnectionNameEndsWith;
+            return this;
+        }
+
+        /**
+         * Set filterVoiceConnectionNameEq
+         * @param filterVoiceConnectionNameEq Filter by connection name. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest filterVoiceConnectionNameEq(String filterVoiceConnectionNameEq) {
+            this.filterVoiceConnectionNameEq = filterVoiceConnectionNameEq;
+            return this;
+        }
+
+        /**
+         * Set filterUsagePaymentMethod
+         * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest filterUsagePaymentMethod(String filterUsagePaymentMethod) {
+            this.filterUsagePaymentMethod = filterUsagePaymentMethod;
+            return this;
+        }
+
+        /**
+         * Set filterBillingGroupId
+         * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest filterBillingGroupId(String filterBillingGroupId) {
+            this.filterBillingGroupId = filterBillingGroupId;
+            return this;
+        }
+
+        /**
+         * Set sort
+         * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
+         * @return APIlistPhoneNumbersRequest
+         */
+        public APIlistPhoneNumbersRequest sort(String sort) {
+            this.sort = sort;
+            return this;
+        }
+
+        /**
+         * Build call for listPhoneNumbers
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listPhoneNumbersCall(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort, _callback);
+        }
+
+        /**
+         * Execute listPhoneNumbers request
+         * @return ListPhoneNumbersResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListPhoneNumbersResponse execute() throws ApiException {
+            ApiResponse<ListPhoneNumbersResponse> localVarResp = listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listPhoneNumbers request with HTTP info returned
+         * @return ApiResponse&lt;ListPhoneNumbersResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListPhoneNumbersResponse> executeWithHttpInfo() throws ApiException {
+            return listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
+        }
+
+        /**
+         * Execute listPhoneNumbers request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListPhoneNumbersResponse> _callback) throws ApiException {
+            return listPhoneNumbersAsync(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort, _callback);
+        }
+    }
+
     /**
-     * Build call for listPhoneNumbersWithMessagingSettings
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List phone numbers
+     * 
+     * @return APIlistPhoneNumbersRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listPhoneNumbersWithMessagingSettingsCall(final ApiCallback _callback) throws ApiException {
+    public APIlistPhoneNumbersRequest listPhoneNumbers() {
+        return new APIlistPhoneNumbersRequest();
+    }
+    private okhttp3.Call listPhoneNumbersWithMessagingSettingsCall(final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -559,80 +722,105 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * List phone numbers with messaging settings
-     * 
-     * @return ListMessagingSettingsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListMessagingSettingsResponse listPhoneNumbersWithMessagingSettings() throws ApiException {
-        ApiResponse<ListMessagingSettingsResponse> localVarResp = listPhoneNumbersWithMessagingSettingsWithHttpInfo();
-        return localVarResp.getData();
-    }
 
-    /**
-     * List phone numbers with messaging settings
-     * 
-     * @return ApiResponse&lt;ListMessagingSettingsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessagingSettingsWithHttpInfo() throws ApiException {
+    private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessagingSettingsWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = listPhoneNumbersWithMessagingSettingsValidateBeforeCall(null);
         Type localVarReturnType = new TypeToken<ListMessagingSettingsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List phone numbers with messaging settings (asynchronously)
-     * 
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listPhoneNumbersWithMessagingSettingsAsync(final ApiCallback<ListMessagingSettingsResponse> _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumbersWithMessagingSettingsAsync(final ApiCallback<ListMessagingSettingsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listPhoneNumbersWithMessagingSettingsValidateBeforeCall(_callback);
         Type localVarReturnType = new TypeToken<ListMessagingSettingsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistPhoneNumbersWithMessagingSettingsRequest {
+
+        private APIlistPhoneNumbersWithMessagingSettingsRequest() {
+        }
+
+        /**
+         * Build call for listPhoneNumbersWithMessagingSettings
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listPhoneNumbersWithMessagingSettingsCall(_callback);
+        }
+
+        /**
+         * Execute listPhoneNumbersWithMessagingSettings request
+         * @return ListMessagingSettingsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListMessagingSettingsResponse execute() throws ApiException {
+            ApiResponse<ListMessagingSettingsResponse> localVarResp = listPhoneNumbersWithMessagingSettingsWithHttpInfo();
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listPhoneNumbersWithMessagingSettings request with HTTP info returned
+         * @return ApiResponse&lt;ListMessagingSettingsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListMessagingSettingsResponse> executeWithHttpInfo() throws ApiException {
+            return listPhoneNumbersWithMessagingSettingsWithHttpInfo();
+        }
+
+        /**
+         * Execute listPhoneNumbersWithMessagingSettings request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListMessagingSettingsResponse> _callback) throws ApiException {
+            return listPhoneNumbersWithMessagingSettingsAsync(_callback);
+        }
+    }
+
     /**
-     * Build call for listPhoneNumbersWithVoiceSettings
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
-     * @param filterConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
-     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
-     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List phone numbers with messaging settings
+     * 
+     * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listPhoneNumbersWithVoiceSettingsCall(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort, final ApiCallback _callback) throws ApiException {
+    public APIlistPhoneNumbersWithMessagingSettingsRequest listPhoneNumbersWithMessagingSettings() {
+        return new APIlistPhoneNumbersWithMessagingSettingsRequest();
+    }
+    private okhttp3.Call listPhoneNumbersWithVoiceSettingsCall(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -694,93 +882,171 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * List phone numbers with voice settings
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
-     * @param filterConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
-     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
-     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-     * @return ListPhoneNumbersWithVoiceSettingsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListPhoneNumbersWithVoiceSettingsResponse listPhoneNumbersWithVoiceSettings(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort) throws ApiException {
-        ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> localVarResp = listPhoneNumbersWithVoiceSettingsWithHttpInfo(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List phone numbers with voice settings
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
-     * @param filterConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
-     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
-     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-     * @return ApiResponse&lt;ListPhoneNumbersWithVoiceSettingsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersWithVoiceSettingsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort) throws ApiException {
+    private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersWithVoiceSettingsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort) throws ApiException {
         okhttp3.Call localVarCall = listPhoneNumbersWithVoiceSettingsValidateBeforeCall(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort, null);
         Type localVarReturnType = new TypeToken<ListPhoneNumbersWithVoiceSettingsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List phone numbers with voice settings (asynchronously)
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
-     * @param filterConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
-     * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
-     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listPhoneNumbersWithVoiceSettingsAsync(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort, final ApiCallback<ListPhoneNumbersWithVoiceSettingsResponse> _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumbersWithVoiceSettingsAsync(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort, final ApiCallback<ListPhoneNumbersWithVoiceSettingsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listPhoneNumbersWithVoiceSettingsValidateBeforeCall(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort, _callback);
         Type localVarReturnType = new TypeToken<ListPhoneNumbersWithVoiceSettingsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistPhoneNumbersWithVoiceSettingsRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
+        private String filterPhoneNumber;
+        private String filterConnectionNameContains;
+        private String filterUsagePaymentMethod;
+        private String sort;
+
+        private APIlistPhoneNumbersWithVoiceSettingsRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistPhoneNumbersWithVoiceSettingsRequest
+         */
+        public APIlistPhoneNumbersWithVoiceSettingsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistPhoneNumbersWithVoiceSettingsRequest
+         */
+        public APIlistPhoneNumbersWithVoiceSettingsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set filterPhoneNumber
+         * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+         * @return APIlistPhoneNumbersWithVoiceSettingsRequest
+         */
+        public APIlistPhoneNumbersWithVoiceSettingsRequest filterPhoneNumber(String filterPhoneNumber) {
+            this.filterPhoneNumber = filterPhoneNumber;
+            return this;
+        }
+
+        /**
+         * Set filterConnectionNameContains
+         * @param filterConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
+         * @return APIlistPhoneNumbersWithVoiceSettingsRequest
+         */
+        public APIlistPhoneNumbersWithVoiceSettingsRequest filterConnectionNameContains(String filterConnectionNameContains) {
+            this.filterConnectionNameContains = filterConnectionNameContains;
+            return this;
+        }
+
+        /**
+         * Set filterUsagePaymentMethod
+         * @param filterUsagePaymentMethod Filter by usage_payment_method. (optional)
+         * @return APIlistPhoneNumbersWithVoiceSettingsRequest
+         */
+        public APIlistPhoneNumbersWithVoiceSettingsRequest filterUsagePaymentMethod(String filterUsagePaymentMethod) {
+            this.filterUsagePaymentMethod = filterUsagePaymentMethod;
+            return this;
+        }
+
+        /**
+         * Set sort
+         * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
+         * @return APIlistPhoneNumbersWithVoiceSettingsRequest
+         */
+        public APIlistPhoneNumbersWithVoiceSettingsRequest sort(String sort) {
+            this.sort = sort;
+            return this;
+        }
+
+        /**
+         * Build call for listPhoneNumbersWithVoiceSettings
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listPhoneNumbersWithVoiceSettingsCall(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort, _callback);
+        }
+
+        /**
+         * Execute listPhoneNumbersWithVoiceSettings request
+         * @return ListPhoneNumbersWithVoiceSettingsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListPhoneNumbersWithVoiceSettingsResponse execute() throws ApiException {
+            ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> localVarResp = listPhoneNumbersWithVoiceSettingsWithHttpInfo(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listPhoneNumbersWithVoiceSettings request with HTTP info returned
+         * @return ApiResponse&lt;ListPhoneNumbersWithVoiceSettingsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> executeWithHttpInfo() throws ApiException {
+            return listPhoneNumbersWithVoiceSettingsWithHttpInfo(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
+        }
+
+        /**
+         * Execute listPhoneNumbersWithVoiceSettings request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListPhoneNumbersWithVoiceSettingsResponse> _callback) throws ApiException {
+            return listPhoneNumbersWithVoiceSettingsAsync(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort, _callback);
+        }
+    }
+
     /**
-     * Build call for retrievePhoneNumber
-     * @param id Identifies the resource. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List phone numbers with voice settings
+     * 
+     * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrievePhoneNumberCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIlistPhoneNumbersWithVoiceSettingsRequest listPhoneNumbersWithVoiceSettings() {
+        return new APIlistPhoneNumbersWithVoiceSettingsRequest();
+    }
+    private okhttp3.Call retrievePhoneNumberCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -824,78 +1090,108 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * Retrieve a phone number
-     * 
-     * @param id Identifies the resource. (required)
-     * @return PhoneNumberResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public PhoneNumberResponse retrievePhoneNumber(String id) throws ApiException {
-        ApiResponse<PhoneNumberResponse> localVarResp = retrievePhoneNumberWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a phone number
-     * 
-     * @param id Identifies the resource. (required)
-     * @return ApiResponse&lt;PhoneNumberResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PhoneNumberResponse> retrievePhoneNumberWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<PhoneNumberResponse> retrievePhoneNumberWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = retrievePhoneNumberValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<PhoneNumberResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve a phone number (asynchronously)
-     * 
-     * @param id Identifies the resource. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrievePhoneNumberAsync(String id, final ApiCallback<PhoneNumberResponse> _callback) throws ApiException {
+    private okhttp3.Call retrievePhoneNumberAsync(String id, final ApiCallback<PhoneNumberResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = retrievePhoneNumberValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<PhoneNumberResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIretrievePhoneNumberRequest {
+        private final String id;
+
+        private APIretrievePhoneNumberRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrievePhoneNumber
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrievePhoneNumberCall(id, _callback);
+        }
+
+        /**
+         * Execute retrievePhoneNumber request
+         * @return PhoneNumberResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public PhoneNumberResponse execute() throws ApiException {
+            ApiResponse<PhoneNumberResponse> localVarResp = retrievePhoneNumberWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrievePhoneNumber request with HTTP info returned
+         * @return ApiResponse&lt;PhoneNumberResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PhoneNumberResponse> executeWithHttpInfo() throws ApiException {
+            return retrievePhoneNumberWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrievePhoneNumber request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PhoneNumberResponse> _callback) throws ApiException {
+            return retrievePhoneNumberAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for retrievePhoneNumberWithMessagingSettings
-     * @param id Identifies the type of resource. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Retrieve a phone number
+     * 
+     * @param id Identifies the resource. (required)
+     * @return APIretrievePhoneNumberRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrievePhoneNumberWithMessagingSettingsCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIretrievePhoneNumberRequest retrievePhoneNumber(String id) {
+        return new APIretrievePhoneNumberRequest(id);
+    }
+    private okhttp3.Call retrievePhoneNumberWithMessagingSettingsCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -939,70 +1235,97 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * Retrieve a phone number with messaging settings
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @return RetrieveMessagingSettingsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrieveMessagingSettingsResponse retrievePhoneNumberWithMessagingSettings(String id) throws ApiException {
-        ApiResponse<RetrieveMessagingSettingsResponse> localVarResp = retrievePhoneNumberWithMessagingSettingsWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a phone number with messaging settings
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @return ApiResponse&lt;RetrieveMessagingSettingsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrieveMessagingSettingsResponse> retrievePhoneNumberWithMessagingSettingsWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<RetrieveMessagingSettingsResponse> retrievePhoneNumberWithMessagingSettingsWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = retrievePhoneNumberWithMessagingSettingsValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<RetrieveMessagingSettingsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve a phone number with messaging settings (asynchronously)
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrievePhoneNumberWithMessagingSettingsAsync(String id, final ApiCallback<RetrieveMessagingSettingsResponse> _callback) throws ApiException {
+    private okhttp3.Call retrievePhoneNumberWithMessagingSettingsAsync(String id, final ApiCallback<RetrieveMessagingSettingsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = retrievePhoneNumberWithMessagingSettingsValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<RetrieveMessagingSettingsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIretrievePhoneNumberWithMessagingSettingsRequest {
+        private final String id;
+
+        private APIretrievePhoneNumberWithMessagingSettingsRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrievePhoneNumberWithMessagingSettings
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrievePhoneNumberWithMessagingSettingsCall(id, _callback);
+        }
+
+        /**
+         * Execute retrievePhoneNumberWithMessagingSettings request
+         * @return RetrieveMessagingSettingsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrieveMessagingSettingsResponse execute() throws ApiException {
+            ApiResponse<RetrieveMessagingSettingsResponse> localVarResp = retrievePhoneNumberWithMessagingSettingsWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrievePhoneNumberWithMessagingSettings request with HTTP info returned
+         * @return ApiResponse&lt;RetrieveMessagingSettingsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrieveMessagingSettingsResponse> executeWithHttpInfo() throws ApiException {
+            return retrievePhoneNumberWithMessagingSettingsWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrievePhoneNumberWithMessagingSettings request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrieveMessagingSettingsResponse> _callback) throws ApiException {
+            return retrievePhoneNumberWithMessagingSettingsAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for retrievePhoneNumberWithVoiceSettings
-     * @param id Identifies the resource. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Retrieve a phone number with messaging settings
+     * 
+     * @param id Identifies the type of resource. (required)
+     * @return APIretrievePhoneNumberWithMessagingSettingsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1010,7 +1333,10 @@ public class NumberConfigurationsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrievePhoneNumberWithVoiceSettingsCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIretrievePhoneNumberWithMessagingSettingsRequest retrievePhoneNumberWithMessagingSettings(String id) {
+        return new APIretrievePhoneNumberWithMessagingSettingsRequest(id);
+    }
+    private okhttp3.Call retrievePhoneNumberWithVoiceSettingsCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -1054,79 +1380,108 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * Retrieve a phone number with voice settings
-     * 
-     * @param id Identifies the resource. (required)
-     * @return RetrievePhoneNumberVoiceResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrievePhoneNumberVoiceResponse retrievePhoneNumberWithVoiceSettings(String id) throws ApiException {
-        ApiResponse<RetrievePhoneNumberVoiceResponse> localVarResp = retrievePhoneNumberWithVoiceSettingsWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a phone number with voice settings
-     * 
-     * @param id Identifies the resource. (required)
-     * @return ApiResponse&lt;RetrievePhoneNumberVoiceResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrievePhoneNumberVoiceResponse> retrievePhoneNumberWithVoiceSettingsWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<RetrievePhoneNumberVoiceResponse> retrievePhoneNumberWithVoiceSettingsWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = retrievePhoneNumberWithVoiceSettingsValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<RetrievePhoneNumberVoiceResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve a phone number with voice settings (asynchronously)
-     * 
-     * @param id Identifies the resource. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrievePhoneNumberWithVoiceSettingsAsync(String id, final ApiCallback<RetrievePhoneNumberVoiceResponse> _callback) throws ApiException {
+    private okhttp3.Call retrievePhoneNumberWithVoiceSettingsAsync(String id, final ApiCallback<RetrievePhoneNumberVoiceResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = retrievePhoneNumberWithVoiceSettingsValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<RetrievePhoneNumberVoiceResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIretrievePhoneNumberWithVoiceSettingsRequest {
+        private final String id;
+
+        private APIretrievePhoneNumberWithVoiceSettingsRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrievePhoneNumberWithVoiceSettings
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrievePhoneNumberWithVoiceSettingsCall(id, _callback);
+        }
+
+        /**
+         * Execute retrievePhoneNumberWithVoiceSettings request
+         * @return RetrievePhoneNumberVoiceResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrievePhoneNumberVoiceResponse execute() throws ApiException {
+            ApiResponse<RetrievePhoneNumberVoiceResponse> localVarResp = retrievePhoneNumberWithVoiceSettingsWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrievePhoneNumberWithVoiceSettings request with HTTP info returned
+         * @return ApiResponse&lt;RetrievePhoneNumberVoiceResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrievePhoneNumberVoiceResponse> executeWithHttpInfo() throws ApiException {
+            return retrievePhoneNumberWithVoiceSettingsWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrievePhoneNumberWithVoiceSettings request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrievePhoneNumberVoiceResponse> _callback) throws ApiException {
+            return retrievePhoneNumberWithVoiceSettingsAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for updatePhoneNumber
+     * Retrieve a phone number with voice settings
+     * 
      * @param id Identifies the resource. (required)
-     * @param updatePhoneNumberRequest Updated settings for the phone number. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIretrievePhoneNumberWithVoiceSettingsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updatePhoneNumberCall(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest, final ApiCallback _callback) throws ApiException {
+    public APIretrievePhoneNumberWithVoiceSettingsRequest retrievePhoneNumberWithVoiceSettings(String id) {
+        return new APIretrievePhoneNumberWithVoiceSettingsRequest(id);
+    }
+    private okhttp3.Call updatePhoneNumberCall(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = updatePhoneNumberRequest;
 
         // create path and map variables
@@ -1175,82 +1530,111 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * Update a phone number
-     * 
-     * @param id Identifies the resource. (required)
-     * @param updatePhoneNumberRequest Updated settings for the phone number. (required)
-     * @return PhoneNumberResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public PhoneNumberResponse updatePhoneNumber(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest) throws ApiException {
-        ApiResponse<PhoneNumberResponse> localVarResp = updatePhoneNumberWithHttpInfo(id, updatePhoneNumberRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Update a phone number
-     * 
-     * @param id Identifies the resource. (required)
-     * @param updatePhoneNumberRequest Updated settings for the phone number. (required)
-     * @return ApiResponse&lt;PhoneNumberResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PhoneNumberResponse> updatePhoneNumberWithHttpInfo(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest) throws ApiException {
+    private ApiResponse<PhoneNumberResponse> updatePhoneNumberWithHttpInfo(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest) throws ApiException {
         okhttp3.Call localVarCall = updatePhoneNumberValidateBeforeCall(id, updatePhoneNumberRequest, null);
         Type localVarReturnType = new TypeToken<PhoneNumberResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Update a phone number (asynchronously)
-     * 
-     * @param id Identifies the resource. (required)
-     * @param updatePhoneNumberRequest Updated settings for the phone number. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updatePhoneNumberAsync(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest, final ApiCallback<PhoneNumberResponse> _callback) throws ApiException {
+    private okhttp3.Call updatePhoneNumberAsync(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest, final ApiCallback<PhoneNumberResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updatePhoneNumberValidateBeforeCall(id, updatePhoneNumberRequest, _callback);
         Type localVarReturnType = new TypeToken<PhoneNumberResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIupdatePhoneNumberRequest {
+        private final String id;
+        private final UpdatePhoneNumberRequest updatePhoneNumberRequest;
+
+        private APIupdatePhoneNumberRequest(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest) {
+            this.id = id;
+            this.updatePhoneNumberRequest = updatePhoneNumberRequest;
+        }
+
+        /**
+         * Build call for updatePhoneNumber
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return updatePhoneNumberCall(id, updatePhoneNumberRequest, _callback);
+        }
+
+        /**
+         * Execute updatePhoneNumber request
+         * @return PhoneNumberResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public PhoneNumberResponse execute() throws ApiException {
+            ApiResponse<PhoneNumberResponse> localVarResp = updatePhoneNumberWithHttpInfo(id, updatePhoneNumberRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute updatePhoneNumber request with HTTP info returned
+         * @return ApiResponse&lt;PhoneNumberResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PhoneNumberResponse> executeWithHttpInfo() throws ApiException {
+            return updatePhoneNumberWithHttpInfo(id, updatePhoneNumberRequest);
+        }
+
+        /**
+         * Execute updatePhoneNumber request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PhoneNumberResponse> _callback) throws ApiException {
+            return updatePhoneNumberAsync(id, updatePhoneNumberRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for updatePhoneNumberWithMessagingSettings
-     * @param id Identifies the type of resource. (required)
-     * @param updatePhoneNumberMessagingSettingsRequest Updated messaging settings for the phone number (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Update a phone number
+     * 
+     * @param id Identifies the resource. (required)
+     * @param updatePhoneNumberRequest Updated settings for the phone number. (required)
+     * @return APIupdatePhoneNumberRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updatePhoneNumberWithMessagingSettingsCall(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest, final ApiCallback _callback) throws ApiException {
+    public APIupdatePhoneNumberRequest updatePhoneNumber(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest) {
+        return new APIupdatePhoneNumberRequest(id, updatePhoneNumberRequest);
+    }
+    private okhttp3.Call updatePhoneNumberWithMessagingSettingsCall(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = updatePhoneNumberMessagingSettingsRequest;
 
         // create path and map variables
@@ -1299,74 +1683,100 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * Update a phone number with messaging settings
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @param updatePhoneNumberMessagingSettingsRequest Updated messaging settings for the phone number (required)
-     * @return RetrieveMessagingSettingsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrieveMessagingSettingsResponse updatePhoneNumberWithMessagingSettings(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest) throws ApiException {
-        ApiResponse<RetrieveMessagingSettingsResponse> localVarResp = updatePhoneNumberWithMessagingSettingsWithHttpInfo(id, updatePhoneNumberMessagingSettingsRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Update a phone number with messaging settings
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @param updatePhoneNumberMessagingSettingsRequest Updated messaging settings for the phone number (required)
-     * @return ApiResponse&lt;RetrieveMessagingSettingsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrieveMessagingSettingsResponse> updatePhoneNumberWithMessagingSettingsWithHttpInfo(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest) throws ApiException {
+    private ApiResponse<RetrieveMessagingSettingsResponse> updatePhoneNumberWithMessagingSettingsWithHttpInfo(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest) throws ApiException {
         okhttp3.Call localVarCall = updatePhoneNumberWithMessagingSettingsValidateBeforeCall(id, updatePhoneNumberMessagingSettingsRequest, null);
         Type localVarReturnType = new TypeToken<RetrieveMessagingSettingsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Update a phone number with messaging settings (asynchronously)
-     * 
-     * @param id Identifies the type of resource. (required)
-     * @param updatePhoneNumberMessagingSettingsRequest Updated messaging settings for the phone number (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updatePhoneNumberWithMessagingSettingsAsync(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest, final ApiCallback<RetrieveMessagingSettingsResponse> _callback) throws ApiException {
+    private okhttp3.Call updatePhoneNumberWithMessagingSettingsAsync(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest, final ApiCallback<RetrieveMessagingSettingsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updatePhoneNumberWithMessagingSettingsValidateBeforeCall(id, updatePhoneNumberMessagingSettingsRequest, _callback);
         Type localVarReturnType = new TypeToken<RetrieveMessagingSettingsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIupdatePhoneNumberWithMessagingSettingsRequest {
+        private final String id;
+        private final UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest;
+
+        private APIupdatePhoneNumberWithMessagingSettingsRequest(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest) {
+            this.id = id;
+            this.updatePhoneNumberMessagingSettingsRequest = updatePhoneNumberMessagingSettingsRequest;
+        }
+
+        /**
+         * Build call for updatePhoneNumberWithMessagingSettings
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return updatePhoneNumberWithMessagingSettingsCall(id, updatePhoneNumberMessagingSettingsRequest, _callback);
+        }
+
+        /**
+         * Execute updatePhoneNumberWithMessagingSettings request
+         * @return RetrieveMessagingSettingsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrieveMessagingSettingsResponse execute() throws ApiException {
+            ApiResponse<RetrieveMessagingSettingsResponse> localVarResp = updatePhoneNumberWithMessagingSettingsWithHttpInfo(id, updatePhoneNumberMessagingSettingsRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute updatePhoneNumberWithMessagingSettings request with HTTP info returned
+         * @return ApiResponse&lt;RetrieveMessagingSettingsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrieveMessagingSettingsResponse> executeWithHttpInfo() throws ApiException {
+            return updatePhoneNumberWithMessagingSettingsWithHttpInfo(id, updatePhoneNumberMessagingSettingsRequest);
+        }
+
+        /**
+         * Execute updatePhoneNumberWithMessagingSettings request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrieveMessagingSettingsResponse> _callback) throws ApiException {
+            return updatePhoneNumberWithMessagingSettingsAsync(id, updatePhoneNumberMessagingSettingsRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for updatePhoneNumberWithVoiceSettings
-     * @param id Identifies the resource. (required)
-     * @param updatePhoneNumberVoiceSettingsRequest Updated voice settings for the phone number. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Update a phone number with messaging settings
+     * 
+     * @param id Identifies the type of resource. (required)
+     * @param updatePhoneNumberMessagingSettingsRequest Updated messaging settings for the phone number (required)
+     * @return APIupdatePhoneNumberWithMessagingSettingsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1374,7 +1784,10 @@ public class NumberConfigurationsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updatePhoneNumberWithVoiceSettingsCall(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest, final ApiCallback _callback) throws ApiException {
+    public APIupdatePhoneNumberWithMessagingSettingsRequest updatePhoneNumberWithMessagingSettings(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest) {
+        return new APIupdatePhoneNumberWithMessagingSettingsRequest(id, updatePhoneNumberMessagingSettingsRequest);
+    }
+    private okhttp3.Call updatePhoneNumberWithVoiceSettingsCall(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = updatePhoneNumberVoiceSettingsRequest;
 
         // create path and map variables
@@ -1423,53 +1836,100 @@ public class NumberConfigurationsApi {
 
     }
 
-    /**
-     * Update a phone number with voice settings
-     * 
-     * @param id Identifies the resource. (required)
-     * @param updatePhoneNumberVoiceSettingsRequest Updated voice settings for the phone number. (required)
-     * @return RetrievePhoneNumberVoiceResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrievePhoneNumberVoiceResponse updatePhoneNumberWithVoiceSettings(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest) throws ApiException {
-        ApiResponse<RetrievePhoneNumberVoiceResponse> localVarResp = updatePhoneNumberWithVoiceSettingsWithHttpInfo(id, updatePhoneNumberVoiceSettingsRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Update a phone number with voice settings
-     * 
-     * @param id Identifies the resource. (required)
-     * @param updatePhoneNumberVoiceSettingsRequest Updated voice settings for the phone number. (required)
-     * @return ApiResponse&lt;RetrievePhoneNumberVoiceResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrievePhoneNumberVoiceResponse> updatePhoneNumberWithVoiceSettingsWithHttpInfo(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest) throws ApiException {
+    private ApiResponse<RetrievePhoneNumberVoiceResponse> updatePhoneNumberWithVoiceSettingsWithHttpInfo(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest) throws ApiException {
         okhttp3.Call localVarCall = updatePhoneNumberWithVoiceSettingsValidateBeforeCall(id, updatePhoneNumberVoiceSettingsRequest, null);
         Type localVarReturnType = new TypeToken<RetrievePhoneNumberVoiceResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call updatePhoneNumberWithVoiceSettingsAsync(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest, final ApiCallback<RetrievePhoneNumberVoiceResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updatePhoneNumberWithVoiceSettingsValidateBeforeCall(id, updatePhoneNumberVoiceSettingsRequest, _callback);
+        Type localVarReturnType = new TypeToken<RetrievePhoneNumberVoiceResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIupdatePhoneNumberWithVoiceSettingsRequest {
+        private final String id;
+        private final UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest;
+
+        private APIupdatePhoneNumberWithVoiceSettingsRequest(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest) {
+            this.id = id;
+            this.updatePhoneNumberVoiceSettingsRequest = updatePhoneNumberVoiceSettingsRequest;
+        }
+
+        /**
+         * Build call for updatePhoneNumberWithVoiceSettings
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return updatePhoneNumberWithVoiceSettingsCall(id, updatePhoneNumberVoiceSettingsRequest, _callback);
+        }
+
+        /**
+         * Execute updatePhoneNumberWithVoiceSettings request
+         * @return RetrievePhoneNumberVoiceResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrievePhoneNumberVoiceResponse execute() throws ApiException {
+            ApiResponse<RetrievePhoneNumberVoiceResponse> localVarResp = updatePhoneNumberWithVoiceSettingsWithHttpInfo(id, updatePhoneNumberVoiceSettingsRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute updatePhoneNumberWithVoiceSettings request with HTTP info returned
+         * @return ApiResponse&lt;RetrievePhoneNumberVoiceResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrievePhoneNumberVoiceResponse> executeWithHttpInfo() throws ApiException {
+            return updatePhoneNumberWithVoiceSettingsWithHttpInfo(id, updatePhoneNumberVoiceSettingsRequest);
+        }
+
+        /**
+         * Execute updatePhoneNumberWithVoiceSettings request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrievePhoneNumberVoiceResponse> _callback) throws ApiException {
+            return updatePhoneNumberWithVoiceSettingsAsync(id, updatePhoneNumberVoiceSettingsRequest, _callback);
+        }
+    }
+
     /**
-     * Update a phone number with voice settings (asynchronously)
+     * Update a phone number with voice settings
      * 
      * @param id Identifies the resource. (required)
      * @param updatePhoneNumberVoiceSettingsRequest Updated voice settings for the phone number. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIupdatePhoneNumberWithVoiceSettingsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1477,11 +1937,7 @@ public class NumberConfigurationsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updatePhoneNumberWithVoiceSettingsAsync(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest, final ApiCallback<RetrievePhoneNumberVoiceResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updatePhoneNumberWithVoiceSettingsValidateBeforeCall(id, updatePhoneNumberVoiceSettingsRequest, _callback);
-        Type localVarReturnType = new TypeToken<RetrievePhoneNumberVoiceResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIupdatePhoneNumberWithVoiceSettingsRequest updatePhoneNumberWithVoiceSettings(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest) {
+        return new APIupdatePhoneNumberWithVoiceSettingsRequest(id, updatePhoneNumberVoiceSettingsRequest);
     }
 }

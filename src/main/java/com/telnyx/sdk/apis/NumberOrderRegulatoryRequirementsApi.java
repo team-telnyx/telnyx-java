@@ -57,22 +57,7 @@ public class NumberOrderRegulatoryRequirementsApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for listNumberOrderRegulatoryRequirements
-     * @param filterRequirementId Filter number order regulatory requirements by &#x60;requirement_id&#x60;. (optional)
-     * @param filterFieldType Filter number order regulatory requirements by &#x60;field_type&#x60;. (optional)
-     * @param filterRequirementType Filter number order regulatory requirements by &#x60;requirement_type&#x60;. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listNumberOrderRegulatoryRequirementsCall(String filterRequirementId, String filterFieldType, String filterRequirementType, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listNumberOrderRegulatoryRequirementsCall(String filterRequirementId, String filterFieldType, String filterRequirementType, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -122,84 +107,138 @@ public class NumberOrderRegulatoryRequirementsApi {
 
     }
 
-    /**
-     * List number order regulatory requirements
-     * Gets a paginated list of number order regulatory requirements.
-     * @param filterRequirementId Filter number order regulatory requirements by &#x60;requirement_id&#x60;. (optional)
-     * @param filterFieldType Filter number order regulatory requirements by &#x60;field_type&#x60;. (optional)
-     * @param filterRequirementType Filter number order regulatory requirements by &#x60;requirement_type&#x60;. (optional)
-     * @return ListNumberOrderRegulatoryRequirementsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListNumberOrderRegulatoryRequirementsResponse listNumberOrderRegulatoryRequirements(String filterRequirementId, String filterFieldType, String filterRequirementType) throws ApiException {
-        ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> localVarResp = listNumberOrderRegulatoryRequirementsWithHttpInfo(filterRequirementId, filterFieldType, filterRequirementType);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List number order regulatory requirements
-     * Gets a paginated list of number order regulatory requirements.
-     * @param filterRequirementId Filter number order regulatory requirements by &#x60;requirement_id&#x60;. (optional)
-     * @param filterFieldType Filter number order regulatory requirements by &#x60;field_type&#x60;. (optional)
-     * @param filterRequirementType Filter number order regulatory requirements by &#x60;requirement_type&#x60;. (optional)
-     * @return ApiResponse&lt;ListNumberOrderRegulatoryRequirementsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> listNumberOrderRegulatoryRequirementsWithHttpInfo(String filterRequirementId, String filterFieldType, String filterRequirementType) throws ApiException {
+    private ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> listNumberOrderRegulatoryRequirementsWithHttpInfo(String filterRequirementId, String filterFieldType, String filterRequirementType) throws ApiException {
         okhttp3.Call localVarCall = listNumberOrderRegulatoryRequirementsValidateBeforeCall(filterRequirementId, filterFieldType, filterRequirementType, null);
         Type localVarReturnType = new TypeToken<ListNumberOrderRegulatoryRequirementsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List number order regulatory requirements (asynchronously)
-     * Gets a paginated list of number order regulatory requirements.
-     * @param filterRequirementId Filter number order regulatory requirements by &#x60;requirement_id&#x60;. (optional)
-     * @param filterFieldType Filter number order regulatory requirements by &#x60;field_type&#x60;. (optional)
-     * @param filterRequirementType Filter number order regulatory requirements by &#x60;requirement_type&#x60;. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listNumberOrderRegulatoryRequirementsAsync(String filterRequirementId, String filterFieldType, String filterRequirementType, final ApiCallback<ListNumberOrderRegulatoryRequirementsResponse> _callback) throws ApiException {
+    private okhttp3.Call listNumberOrderRegulatoryRequirementsAsync(String filterRequirementId, String filterFieldType, String filterRequirementType, final ApiCallback<ListNumberOrderRegulatoryRequirementsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listNumberOrderRegulatoryRequirementsValidateBeforeCall(filterRequirementId, filterFieldType, filterRequirementType, _callback);
         Type localVarReturnType = new TypeToken<ListNumberOrderRegulatoryRequirementsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistNumberOrderRegulatoryRequirementsRequest {
+        private String filterRequirementId;
+        private String filterFieldType;
+        private String filterRequirementType;
+
+        private APIlistNumberOrderRegulatoryRequirementsRequest() {
+        }
+
+        /**
+         * Set filterRequirementId
+         * @param filterRequirementId Filter number order regulatory requirements by &#x60;requirement_id&#x60;. (optional)
+         * @return APIlistNumberOrderRegulatoryRequirementsRequest
+         */
+        public APIlistNumberOrderRegulatoryRequirementsRequest filterRequirementId(String filterRequirementId) {
+            this.filterRequirementId = filterRequirementId;
+            return this;
+        }
+
+        /**
+         * Set filterFieldType
+         * @param filterFieldType Filter number order regulatory requirements by &#x60;field_type&#x60;. (optional)
+         * @return APIlistNumberOrderRegulatoryRequirementsRequest
+         */
+        public APIlistNumberOrderRegulatoryRequirementsRequest filterFieldType(String filterFieldType) {
+            this.filterFieldType = filterFieldType;
+            return this;
+        }
+
+        /**
+         * Set filterRequirementType
+         * @param filterRequirementType Filter number order regulatory requirements by &#x60;requirement_type&#x60;. (optional)
+         * @return APIlistNumberOrderRegulatoryRequirementsRequest
+         */
+        public APIlistNumberOrderRegulatoryRequirementsRequest filterRequirementType(String filterRequirementType) {
+            this.filterRequirementType = filterRequirementType;
+            return this;
+        }
+
+        /**
+         * Build call for listNumberOrderRegulatoryRequirements
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listNumberOrderRegulatoryRequirementsCall(filterRequirementId, filterFieldType, filterRequirementType, _callback);
+        }
+
+        /**
+         * Execute listNumberOrderRegulatoryRequirements request
+         * @return ListNumberOrderRegulatoryRequirementsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListNumberOrderRegulatoryRequirementsResponse execute() throws ApiException {
+            ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> localVarResp = listNumberOrderRegulatoryRequirementsWithHttpInfo(filterRequirementId, filterFieldType, filterRequirementType);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listNumberOrderRegulatoryRequirements request with HTTP info returned
+         * @return ApiResponse&lt;ListNumberOrderRegulatoryRequirementsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> executeWithHttpInfo() throws ApiException {
+            return listNumberOrderRegulatoryRequirementsWithHttpInfo(filterRequirementId, filterFieldType, filterRequirementType);
+        }
+
+        /**
+         * Execute listNumberOrderRegulatoryRequirements request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListNumberOrderRegulatoryRequirementsResponse> _callback) throws ApiException {
+            return listNumberOrderRegulatoryRequirementsAsync(filterRequirementId, filterFieldType, filterRequirementType, _callback);
+        }
+    }
+
     /**
-     * Build call for listPhoneNumberRegulatoryRequirements
-     * @param filterPhoneNumber The list of phone numbers to retrieve regulatory requirements for. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List number order regulatory requirements
+     * Gets a paginated list of number order regulatory requirements.
+     * @return APIlistNumberOrderRegulatoryRequirementsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listPhoneNumberRegulatoryRequirementsCall(List<String> filterPhoneNumber, final ApiCallback _callback) throws ApiException {
+    public APIlistNumberOrderRegulatoryRequirementsRequest listNumberOrderRegulatoryRequirements() {
+        return new APIlistNumberOrderRegulatoryRequirementsRequest();
+    }
+    private okhttp3.Call listPhoneNumberRegulatoryRequirementsCall(List<String> filterPhoneNumber, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -241,78 +280,116 @@ public class NumberOrderRegulatoryRequirementsApi {
 
     }
 
-    /**
-     * List regulatory requirements per number
-     * Gets a paginated list of phone number regulatory requirements.
-     * @param filterPhoneNumber The list of phone numbers to retrieve regulatory requirements for. (optional)
-     * @return ListPhoneNumberRegulatoryRequirementsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListPhoneNumberRegulatoryRequirementsResponse listPhoneNumberRegulatoryRequirements(List<String> filterPhoneNumber) throws ApiException {
-        ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> localVarResp = listPhoneNumberRegulatoryRequirementsWithHttpInfo(filterPhoneNumber);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List regulatory requirements per number
-     * Gets a paginated list of phone number regulatory requirements.
-     * @param filterPhoneNumber The list of phone numbers to retrieve regulatory requirements for. (optional)
-     * @return ApiResponse&lt;ListPhoneNumberRegulatoryRequirementsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumberRegulatoryRequirementsWithHttpInfo(List<String> filterPhoneNumber) throws ApiException {
+    private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumberRegulatoryRequirementsWithHttpInfo(List<String> filterPhoneNumber) throws ApiException {
         okhttp3.Call localVarCall = listPhoneNumberRegulatoryRequirementsValidateBeforeCall(filterPhoneNumber, null);
         Type localVarReturnType = new TypeToken<ListPhoneNumberRegulatoryRequirementsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List regulatory requirements per number (asynchronously)
-     * Gets a paginated list of phone number regulatory requirements.
-     * @param filterPhoneNumber The list of phone numbers to retrieve regulatory requirements for. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listPhoneNumberRegulatoryRequirementsAsync(List<String> filterPhoneNumber, final ApiCallback<ListPhoneNumberRegulatoryRequirementsResponse> _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumberRegulatoryRequirementsAsync(List<String> filterPhoneNumber, final ApiCallback<ListPhoneNumberRegulatoryRequirementsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listPhoneNumberRegulatoryRequirementsValidateBeforeCall(filterPhoneNumber, _callback);
         Type localVarReturnType = new TypeToken<ListPhoneNumberRegulatoryRequirementsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistPhoneNumberRegulatoryRequirementsRequest {
+        private List<String> filterPhoneNumber;
+
+        private APIlistPhoneNumberRegulatoryRequirementsRequest() {
+        }
+
+        /**
+         * Set filterPhoneNumber
+         * @param filterPhoneNumber The list of phone numbers to retrieve regulatory requirements for. (optional)
+         * @return APIlistPhoneNumberRegulatoryRequirementsRequest
+         */
+        public APIlistPhoneNumberRegulatoryRequirementsRequest filterPhoneNumber(List<String> filterPhoneNumber) {
+            this.filterPhoneNumber = filterPhoneNumber;
+            return this;
+        }
+
+        /**
+         * Build call for listPhoneNumberRegulatoryRequirements
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listPhoneNumberRegulatoryRequirementsCall(filterPhoneNumber, _callback);
+        }
+
+        /**
+         * Execute listPhoneNumberRegulatoryRequirements request
+         * @return ListPhoneNumberRegulatoryRequirementsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListPhoneNumberRegulatoryRequirementsResponse execute() throws ApiException {
+            ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> localVarResp = listPhoneNumberRegulatoryRequirementsWithHttpInfo(filterPhoneNumber);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listPhoneNumberRegulatoryRequirements request with HTTP info returned
+         * @return ApiResponse&lt;ListPhoneNumberRegulatoryRequirementsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> executeWithHttpInfo() throws ApiException {
+            return listPhoneNumberRegulatoryRequirementsWithHttpInfo(filterPhoneNumber);
+        }
+
+        /**
+         * Execute listPhoneNumberRegulatoryRequirements request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListPhoneNumberRegulatoryRequirementsResponse> _callback) throws ApiException {
+            return listPhoneNumberRegulatoryRequirementsAsync(filterPhoneNumber, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveNumberOrderRegulatoryRequirement
-     * @param requirementId The number order regulatory requirement ID. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List regulatory requirements per number
+     * Gets a paginated list of phone number regulatory requirements.
+     * @return APIlistPhoneNumberRegulatoryRequirementsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order regulatory requirement. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveNumberOrderRegulatoryRequirementCall(String requirementId, final ApiCallback _callback) throws ApiException {
+    public APIlistPhoneNumberRegulatoryRequirementsRequest listPhoneNumberRegulatoryRequirements() {
+        return new APIlistPhoneNumberRegulatoryRequirementsRequest();
+    }
+    private okhttp3.Call retrieveNumberOrderRegulatoryRequirementCall(String requirementId, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -356,50 +433,97 @@ public class NumberOrderRegulatoryRequirementsApi {
 
     }
 
-    /**
-     * Retrieve a number order regulatory requirement
-     * Gets a single number order regulatory requirement.
-     * @param requirementId The number order regulatory requirement ID. (required)
-     * @return NumberOrderRegulatoryRequirementResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order regulatory requirement. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberOrderRegulatoryRequirementResponse retrieveNumberOrderRegulatoryRequirement(String requirementId) throws ApiException {
-        ApiResponse<NumberOrderRegulatoryRequirementResponse> localVarResp = retrieveNumberOrderRegulatoryRequirementWithHttpInfo(requirementId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a number order regulatory requirement
-     * Gets a single number order regulatory requirement.
-     * @param requirementId The number order regulatory requirement ID. (required)
-     * @return ApiResponse&lt;NumberOrderRegulatoryRequirementResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order regulatory requirement. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberOrderRegulatoryRequirementResponse> retrieveNumberOrderRegulatoryRequirementWithHttpInfo(String requirementId) throws ApiException {
+    private ApiResponse<NumberOrderRegulatoryRequirementResponse> retrieveNumberOrderRegulatoryRequirementWithHttpInfo(String requirementId) throws ApiException {
         okhttp3.Call localVarCall = retrieveNumberOrderRegulatoryRequirementValidateBeforeCall(requirementId, null);
         Type localVarReturnType = new TypeToken<NumberOrderRegulatoryRequirementResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call retrieveNumberOrderRegulatoryRequirementAsync(String requirementId, final ApiCallback<NumberOrderRegulatoryRequirementResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = retrieveNumberOrderRegulatoryRequirementValidateBeforeCall(requirementId, _callback);
+        Type localVarReturnType = new TypeToken<NumberOrderRegulatoryRequirementResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIretrieveNumberOrderRegulatoryRequirementRequest {
+        private final String requirementId;
+
+        private APIretrieveNumberOrderRegulatoryRequirementRequest(String requirementId) {
+            this.requirementId = requirementId;
+        }
+
+        /**
+         * Build call for retrieveNumberOrderRegulatoryRequirement
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order regulatory requirement. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveNumberOrderRegulatoryRequirementCall(requirementId, _callback);
+        }
+
+        /**
+         * Execute retrieveNumberOrderRegulatoryRequirement request
+         * @return NumberOrderRegulatoryRequirementResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order regulatory requirement. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberOrderRegulatoryRequirementResponse execute() throws ApiException {
+            ApiResponse<NumberOrderRegulatoryRequirementResponse> localVarResp = retrieveNumberOrderRegulatoryRequirementWithHttpInfo(requirementId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveNumberOrderRegulatoryRequirement request with HTTP info returned
+         * @return ApiResponse&lt;NumberOrderRegulatoryRequirementResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order regulatory requirement. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberOrderRegulatoryRequirementResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveNumberOrderRegulatoryRequirementWithHttpInfo(requirementId);
+        }
+
+        /**
+         * Execute retrieveNumberOrderRegulatoryRequirement request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order regulatory requirement. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberOrderRegulatoryRequirementResponse> _callback) throws ApiException {
+            return retrieveNumberOrderRegulatoryRequirementAsync(requirementId, _callback);
+        }
+    }
+
     /**
-     * Retrieve a number order regulatory requirement (asynchronously)
+     * Retrieve a number order regulatory requirement
      * Gets a single number order regulatory requirement.
      * @param requirementId The number order regulatory requirement ID. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIretrieveNumberOrderRegulatoryRequirementRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -407,11 +531,7 @@ public class NumberOrderRegulatoryRequirementsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveNumberOrderRegulatoryRequirementAsync(String requirementId, final ApiCallback<NumberOrderRegulatoryRequirementResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = retrieveNumberOrderRegulatoryRequirementValidateBeforeCall(requirementId, _callback);
-        Type localVarReturnType = new TypeToken<NumberOrderRegulatoryRequirementResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIretrieveNumberOrderRegulatoryRequirementRequest retrieveNumberOrderRegulatoryRequirement(String requirementId) {
+        return new APIretrieveNumberOrderRegulatoryRequirementRequest(requirementId);
     }
 }

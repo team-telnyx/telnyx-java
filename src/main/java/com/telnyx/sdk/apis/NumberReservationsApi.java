@@ -57,20 +57,7 @@ public class NumberReservationsApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for createNumberReservation
-     * @param createNumberReservationRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNumberReservationCall(CreateNumberReservationRequest createNumberReservationRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createNumberReservationCall(CreateNumberReservationRequest createNumberReservationRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createNumberReservationRequest;
 
         // create path and map variables
@@ -113,70 +100,97 @@ public class NumberReservationsApi {
 
     }
 
-    /**
-     * Create a number reservation
-     * Creates a Phone Number Reservation for multiple numbers.
-     * @param createNumberReservationRequest  (required)
-     * @return NumberReservationResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberReservationResponse createNumberReservation(CreateNumberReservationRequest createNumberReservationRequest) throws ApiException {
-        ApiResponse<NumberReservationResponse> localVarResp = createNumberReservationWithHttpInfo(createNumberReservationRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Create a number reservation
-     * Creates a Phone Number Reservation for multiple numbers.
-     * @param createNumberReservationRequest  (required)
-     * @return ApiResponse&lt;NumberReservationResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberReservationResponse> createNumberReservationWithHttpInfo(CreateNumberReservationRequest createNumberReservationRequest) throws ApiException {
+    private ApiResponse<NumberReservationResponse> createNumberReservationWithHttpInfo(CreateNumberReservationRequest createNumberReservationRequest) throws ApiException {
         okhttp3.Call localVarCall = createNumberReservationValidateBeforeCall(createNumberReservationRequest, null);
         Type localVarReturnType = new TypeToken<NumberReservationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Create a number reservation (asynchronously)
-     * Creates a Phone Number Reservation for multiple numbers.
-     * @param createNumberReservationRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNumberReservationAsync(CreateNumberReservationRequest createNumberReservationRequest, final ApiCallback<NumberReservationResponse> _callback) throws ApiException {
+    private okhttp3.Call createNumberReservationAsync(CreateNumberReservationRequest createNumberReservationRequest, final ApiCallback<NumberReservationResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createNumberReservationValidateBeforeCall(createNumberReservationRequest, _callback);
         Type localVarReturnType = new TypeToken<NumberReservationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateNumberReservationRequest {
+        private final CreateNumberReservationRequest createNumberReservationRequest;
+
+        private APIcreateNumberReservationRequest(CreateNumberReservationRequest createNumberReservationRequest) {
+            this.createNumberReservationRequest = createNumberReservationRequest;
+        }
+
+        /**
+         * Build call for createNumberReservation
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createNumberReservationCall(createNumberReservationRequest, _callback);
+        }
+
+        /**
+         * Execute createNumberReservation request
+         * @return NumberReservationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberReservationResponse execute() throws ApiException {
+            ApiResponse<NumberReservationResponse> localVarResp = createNumberReservationWithHttpInfo(createNumberReservationRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createNumberReservation request with HTTP info returned
+         * @return ApiResponse&lt;NumberReservationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberReservationResponse> executeWithHttpInfo() throws ApiException {
+            return createNumberReservationWithHttpInfo(createNumberReservationRequest);
+        }
+
+        /**
+         * Execute createNumberReservation request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberReservationResponse> _callback) throws ApiException {
+            return createNumberReservationAsync(createNumberReservationRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for extendNumberReservationExpiryTime
-     * @param numberReservationId The number reservation ID. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Create a number reservation
+     * Creates a Phone Number Reservation for multiple numbers.
+     * @param createNumberReservationRequest  (required)
+     * @return APIcreateNumberReservationRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -184,7 +198,10 @@ public class NumberReservationsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call extendNumberReservationExpiryTimeCall(String numberReservationId, final ApiCallback _callback) throws ApiException {
+    public APIcreateNumberReservationRequest createNumberReservation(CreateNumberReservationRequest createNumberReservationRequest) {
+        return new APIcreateNumberReservationRequest(createNumberReservationRequest);
+    }
+    private okhttp3.Call extendNumberReservationExpiryTimeCall(String numberReservationId, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -228,82 +245,108 @@ public class NumberReservationsApi {
 
     }
 
-    /**
-     * Extend a number reservation
-     * Extends reservation expiry time on all phone numbers.
-     * @param numberReservationId The number reservation ID. (required)
-     * @return NumberReservationResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberReservationResponse extendNumberReservationExpiryTime(String numberReservationId) throws ApiException {
-        ApiResponse<NumberReservationResponse> localVarResp = extendNumberReservationExpiryTimeWithHttpInfo(numberReservationId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Extend a number reservation
-     * Extends reservation expiry time on all phone numbers.
-     * @param numberReservationId The number reservation ID. (required)
-     * @return ApiResponse&lt;NumberReservationResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberReservationResponse> extendNumberReservationExpiryTimeWithHttpInfo(String numberReservationId) throws ApiException {
+    private ApiResponse<NumberReservationResponse> extendNumberReservationExpiryTimeWithHttpInfo(String numberReservationId) throws ApiException {
         okhttp3.Call localVarCall = extendNumberReservationExpiryTimeValidateBeforeCall(numberReservationId, null);
         Type localVarReturnType = new TypeToken<NumberReservationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Extend a number reservation (asynchronously)
-     * Extends reservation expiry time on all phone numbers.
-     * @param numberReservationId The number reservation ID. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call extendNumberReservationExpiryTimeAsync(String numberReservationId, final ApiCallback<NumberReservationResponse> _callback) throws ApiException {
+    private okhttp3.Call extendNumberReservationExpiryTimeAsync(String numberReservationId, final ApiCallback<NumberReservationResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = extendNumberReservationExpiryTimeValidateBeforeCall(numberReservationId, _callback);
         Type localVarReturnType = new TypeToken<NumberReservationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIextendNumberReservationExpiryTimeRequest {
+        private final String numberReservationId;
+
+        private APIextendNumberReservationExpiryTimeRequest(String numberReservationId) {
+            this.numberReservationId = numberReservationId;
+        }
+
+        /**
+         * Build call for extendNumberReservationExpiryTime
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return extendNumberReservationExpiryTimeCall(numberReservationId, _callback);
+        }
+
+        /**
+         * Execute extendNumberReservationExpiryTime request
+         * @return NumberReservationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberReservationResponse execute() throws ApiException {
+            ApiResponse<NumberReservationResponse> localVarResp = extendNumberReservationExpiryTimeWithHttpInfo(numberReservationId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute extendNumberReservationExpiryTime request with HTTP info returned
+         * @return ApiResponse&lt;NumberReservationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberReservationResponse> executeWithHttpInfo() throws ApiException {
+            return extendNumberReservationExpiryTimeWithHttpInfo(numberReservationId);
+        }
+
+        /**
+         * Execute extendNumberReservationExpiryTime request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberReservationResponse> _callback) throws ApiException {
+            return extendNumberReservationExpiryTimeAsync(numberReservationId, _callback);
+        }
+    }
+
     /**
-     * Build call for listNumberReservations
-     * @param filterStatus Filter number reservations by status. (optional)
-     * @param filterCreatedAtGt Filter number reservations later than this value. (optional)
-     * @param filterCreatedAtLt Filter number reservations earlier than this value. (optional)
-     * @param filterPhoneNumbersPhoneNumber Filter number reservations having these phone numbers. (optional)
-     * @param filterCustomerReference Filter number reservations via the customer reference set. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Extend a number reservation
+     * Extends reservation expiry time on all phone numbers.
+     * @param numberReservationId The number reservation ID. (required)
+     * @return APIextendNumberReservationExpiryTimeRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listNumberReservationsCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, final ApiCallback _callback) throws ApiException {
+    public APIextendNumberReservationExpiryTimeRequest extendNumberReservationExpiryTime(String numberReservationId) {
+        return new APIextendNumberReservationExpiryTimeRequest(numberReservationId);
+    }
+    private okhttp3.Call listNumberReservationsCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -361,90 +404,160 @@ public class NumberReservationsApi {
 
     }
 
-    /**
-     * List number reservations
-     * Gets a paginated list of phone number reservations.
-     * @param filterStatus Filter number reservations by status. (optional)
-     * @param filterCreatedAtGt Filter number reservations later than this value. (optional)
-     * @param filterCreatedAtLt Filter number reservations earlier than this value. (optional)
-     * @param filterPhoneNumbersPhoneNumber Filter number reservations having these phone numbers. (optional)
-     * @param filterCustomerReference Filter number reservations via the customer reference set. (optional)
-     * @return ListNumberReservationsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListNumberReservationsResponse listNumberReservations(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference) throws ApiException {
-        ApiResponse<ListNumberReservationsResponse> localVarResp = listNumberReservationsWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List number reservations
-     * Gets a paginated list of phone number reservations.
-     * @param filterStatus Filter number reservations by status. (optional)
-     * @param filterCreatedAtGt Filter number reservations later than this value. (optional)
-     * @param filterCreatedAtLt Filter number reservations earlier than this value. (optional)
-     * @param filterPhoneNumbersPhoneNumber Filter number reservations having these phone numbers. (optional)
-     * @param filterCustomerReference Filter number reservations via the customer reference set. (optional)
-     * @return ApiResponse&lt;ListNumberReservationsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHttpInfo(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference) throws ApiException {
+    private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHttpInfo(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference) throws ApiException {
         okhttp3.Call localVarCall = listNumberReservationsValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, null);
         Type localVarReturnType = new TypeToken<ListNumberReservationsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List number reservations (asynchronously)
-     * Gets a paginated list of phone number reservations.
-     * @param filterStatus Filter number reservations by status. (optional)
-     * @param filterCreatedAtGt Filter number reservations later than this value. (optional)
-     * @param filterCreatedAtLt Filter number reservations earlier than this value. (optional)
-     * @param filterPhoneNumbersPhoneNumber Filter number reservations having these phone numbers. (optional)
-     * @param filterCustomerReference Filter number reservations via the customer reference set. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listNumberReservationsAsync(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, final ApiCallback<ListNumberReservationsResponse> _callback) throws ApiException {
+    private okhttp3.Call listNumberReservationsAsync(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, final ApiCallback<ListNumberReservationsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listNumberReservationsValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, _callback);
         Type localVarReturnType = new TypeToken<ListNumberReservationsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistNumberReservationsRequest {
+        private String filterStatus;
+        private String filterCreatedAtGt;
+        private String filterCreatedAtLt;
+        private String filterPhoneNumbersPhoneNumber;
+        private String filterCustomerReference;
+
+        private APIlistNumberReservationsRequest() {
+        }
+
+        /**
+         * Set filterStatus
+         * @param filterStatus Filter number reservations by status. (optional)
+         * @return APIlistNumberReservationsRequest
+         */
+        public APIlistNumberReservationsRequest filterStatus(String filterStatus) {
+            this.filterStatus = filterStatus;
+            return this;
+        }
+
+        /**
+         * Set filterCreatedAtGt
+         * @param filterCreatedAtGt Filter number reservations later than this value. (optional)
+         * @return APIlistNumberReservationsRequest
+         */
+        public APIlistNumberReservationsRequest filterCreatedAtGt(String filterCreatedAtGt) {
+            this.filterCreatedAtGt = filterCreatedAtGt;
+            return this;
+        }
+
+        /**
+         * Set filterCreatedAtLt
+         * @param filterCreatedAtLt Filter number reservations earlier than this value. (optional)
+         * @return APIlistNumberReservationsRequest
+         */
+        public APIlistNumberReservationsRequest filterCreatedAtLt(String filterCreatedAtLt) {
+            this.filterCreatedAtLt = filterCreatedAtLt;
+            return this;
+        }
+
+        /**
+         * Set filterPhoneNumbersPhoneNumber
+         * @param filterPhoneNumbersPhoneNumber Filter number reservations having these phone numbers. (optional)
+         * @return APIlistNumberReservationsRequest
+         */
+        public APIlistNumberReservationsRequest filterPhoneNumbersPhoneNumber(String filterPhoneNumbersPhoneNumber) {
+            this.filterPhoneNumbersPhoneNumber = filterPhoneNumbersPhoneNumber;
+            return this;
+        }
+
+        /**
+         * Set filterCustomerReference
+         * @param filterCustomerReference Filter number reservations via the customer reference set. (optional)
+         * @return APIlistNumberReservationsRequest
+         */
+        public APIlistNumberReservationsRequest filterCustomerReference(String filterCustomerReference) {
+            this.filterCustomerReference = filterCustomerReference;
+            return this;
+        }
+
+        /**
+         * Build call for listNumberReservations
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listNumberReservationsCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, _callback);
+        }
+
+        /**
+         * Execute listNumberReservations request
+         * @return ListNumberReservationsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListNumberReservationsResponse execute() throws ApiException {
+            ApiResponse<ListNumberReservationsResponse> localVarResp = listNumberReservationsWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listNumberReservations request with HTTP info returned
+         * @return ApiResponse&lt;ListNumberReservationsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListNumberReservationsResponse> executeWithHttpInfo() throws ApiException {
+            return listNumberReservationsWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference);
+        }
+
+        /**
+         * Execute listNumberReservations request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListNumberReservationsResponse> _callback) throws ApiException {
+            return listNumberReservationsAsync(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveNumberReservation
-     * @param numberReservationId The number reservation ID. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List number reservations
+     * Gets a paginated list of phone number reservations.
+     * @return APIlistNumberReservationsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveNumberReservationCall(String numberReservationId, final ApiCallback _callback) throws ApiException {
+    public APIlistNumberReservationsRequest listNumberReservations() {
+        return new APIlistNumberReservationsRequest();
+    }
+    private okhttp3.Call retrieveNumberReservationCall(String numberReservationId, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -488,50 +601,97 @@ public class NumberReservationsApi {
 
     }
 
-    /**
-     * Retrieve a number reservation
-     * Gets a single phone number reservation.
-     * @param numberReservationId The number reservation ID. (required)
-     * @return NumberReservationResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberReservationResponse retrieveNumberReservation(String numberReservationId) throws ApiException {
-        ApiResponse<NumberReservationResponse> localVarResp = retrieveNumberReservationWithHttpInfo(numberReservationId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a number reservation
-     * Gets a single phone number reservation.
-     * @param numberReservationId The number reservation ID. (required)
-     * @return ApiResponse&lt;NumberReservationResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberReservationResponse> retrieveNumberReservationWithHttpInfo(String numberReservationId) throws ApiException {
+    private ApiResponse<NumberReservationResponse> retrieveNumberReservationWithHttpInfo(String numberReservationId) throws ApiException {
         okhttp3.Call localVarCall = retrieveNumberReservationValidateBeforeCall(numberReservationId, null);
         Type localVarReturnType = new TypeToken<NumberReservationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call retrieveNumberReservationAsync(String numberReservationId, final ApiCallback<NumberReservationResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = retrieveNumberReservationValidateBeforeCall(numberReservationId, _callback);
+        Type localVarReturnType = new TypeToken<NumberReservationResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIretrieveNumberReservationRequest {
+        private final String numberReservationId;
+
+        private APIretrieveNumberReservationRequest(String numberReservationId) {
+            this.numberReservationId = numberReservationId;
+        }
+
+        /**
+         * Build call for retrieveNumberReservation
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveNumberReservationCall(numberReservationId, _callback);
+        }
+
+        /**
+         * Execute retrieveNumberReservation request
+         * @return NumberReservationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberReservationResponse execute() throws ApiException {
+            ApiResponse<NumberReservationResponse> localVarResp = retrieveNumberReservationWithHttpInfo(numberReservationId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveNumberReservation request with HTTP info returned
+         * @return ApiResponse&lt;NumberReservationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberReservationResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveNumberReservationWithHttpInfo(numberReservationId);
+        }
+
+        /**
+         * Execute retrieveNumberReservation request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberReservationResponse> _callback) throws ApiException {
+            return retrieveNumberReservationAsync(numberReservationId, _callback);
+        }
+    }
+
     /**
-     * Retrieve a number reservation (asynchronously)
+     * Retrieve a number reservation
      * Gets a single phone number reservation.
      * @param numberReservationId The number reservation ID. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIretrieveNumberReservationRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -539,11 +699,7 @@ public class NumberReservationsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveNumberReservationAsync(String numberReservationId, final ApiCallback<NumberReservationResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = retrieveNumberReservationValidateBeforeCall(numberReservationId, _callback);
-        Type localVarReturnType = new TypeToken<NumberReservationResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIretrieveNumberReservationRequest retrieveNumberReservation(String numberReservationId) {
+        return new APIretrieveNumberReservationRequest(numberReservationId);
     }
 }

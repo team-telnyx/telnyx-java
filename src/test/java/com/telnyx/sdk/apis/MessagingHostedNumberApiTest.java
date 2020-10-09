@@ -48,7 +48,9 @@ public class MessagingHostedNumberApiTest {
     @Test
     public void createMessagingHostedNumberOrderTest() throws ApiException {
         CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest = null;
-        RetrieveMessagingHostedNumberOrderResponse response = api.createMessagingHostedNumberOrder(createMessagingHostedNumberOrderRequest);
+        RetrieveMessagingHostedNumberOrderResponse response = api.createMessagingHostedNumberOrder()
+                .createMessagingHostedNumberOrderRequest(createMessagingHostedNumberOrderRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -64,7 +66,8 @@ public class MessagingHostedNumberApiTest {
     @Test
     public void deleteMessagingHostedNumberTest() throws ApiException {
         String id = null;
-        RetrieveMessagingHostedNumberResponse response = api.deleteMessagingHostedNumber(id);
+        RetrieveMessagingHostedNumberResponse response = api.deleteMessagingHostedNumber(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -79,7 +82,8 @@ public class MessagingHostedNumberApiTest {
      */
     @Test
     public void listMessagingHostedNumberOrderTest() throws ApiException {
-        ListMessagingHostedNumberOrderResponse response = api.listMessagingHostedNumberOrder();
+        ListMessagingHostedNumberOrderResponse response = api.listMessagingHostedNumberOrder()
+                .execute();
 
         // TODO: test validations
     }
@@ -95,7 +99,8 @@ public class MessagingHostedNumberApiTest {
     @Test
     public void retrieveMessagingHostedNumberOrderTest() throws ApiException {
         String id = null;
-        RetrieveMessagingHostedNumberOrderResponse response = api.retrieveMessagingHostedNumberOrder(id);
+        RetrieveMessagingHostedNumberOrderResponse response = api.retrieveMessagingHostedNumberOrder(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -113,7 +118,10 @@ public class MessagingHostedNumberApiTest {
         String id = null;
         File loa = null;
         File bill = null;
-        RetrieveMessagingHostedNumberOrderResponse response = api.uploadFileMessagingHostedNumberOrder(id, loa, bill);
+        RetrieveMessagingHostedNumberOrderResponse response = api.uploadFileMessagingHostedNumberOrder(id)
+                .loa(loa)
+                .bill(bill)
+                .execute();
 
         // TODO: test validations
     }

@@ -58,7 +58,8 @@ public class ConferenceCommandsApiTest {
     public void conferenceDialParticipantInTest() throws ApiException {
         String id = null;
         ConferenceCallRequest conferenceCallRequest = null;
-        ConferenceCommandResponse response = api.conferenceDialParticipantIn(id, conferenceCallRequest);
+        ConferenceCommandResponse response = api.conferenceDialParticipantIn(id, conferenceCallRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -75,7 +76,8 @@ public class ConferenceCommandsApiTest {
     public void conferenceHoldParticipantsTest() throws ApiException {
         String id = null;
         ConferenceHoldRequest conferenceHoldRequest = null;
-        ConferenceCommandResponse response = api.conferenceHoldParticipants(id, conferenceHoldRequest);
+        ConferenceCommandResponse response = api.conferenceHoldParticipants(id, conferenceHoldRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -92,7 +94,8 @@ public class ConferenceCommandsApiTest {
     public void conferenceJoinTest() throws ApiException {
         String id = null;
         JoinConferenceRequest joinConferenceRequest = null;
-        ConferenceCommandResponse response = api.conferenceJoin(id, joinConferenceRequest);
+        ConferenceCommandResponse response = api.conferenceJoin(id, joinConferenceRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -109,7 +112,8 @@ public class ConferenceCommandsApiTest {
     public void conferenceMuteParticipantsTest() throws ApiException {
         String id = null;
         ConferenceMuteRequest conferenceMuteRequest = null;
-        ConferenceCommandResponse response = api.conferenceMuteParticipants(id, conferenceMuteRequest);
+        ConferenceCommandResponse response = api.conferenceMuteParticipants(id, conferenceMuteRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -126,7 +130,8 @@ public class ConferenceCommandsApiTest {
     public void conferencePlayAudioTest() throws ApiException {
         String id = null;
         ConferencePlayRequest conferencePlayRequest = null;
-        ConferenceCommandResponse response = api.conferencePlayAudio(id, conferencePlayRequest);
+        ConferenceCommandResponse response = api.conferencePlayAudio(id, conferencePlayRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -143,7 +148,8 @@ public class ConferenceCommandsApiTest {
     public void conferenceSpeakTextTest() throws ApiException {
         String id = null;
         ConferenceSpeakRequest conferenceSpeakRequest = null;
-        ConferenceCommandResponse response = api.conferenceSpeakText(id, conferenceSpeakRequest);
+        ConferenceCommandResponse response = api.conferenceSpeakText(id, conferenceSpeakRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -160,7 +166,8 @@ public class ConferenceCommandsApiTest {
     public void conferenceStartRecordingTest() throws ApiException {
         String id = null;
         StartRecordingRequest startRecordingRequest = null;
-        ConferenceCommandResponse response = api.conferenceStartRecording(id, startRecordingRequest);
+        ConferenceCommandResponse response = api.conferenceStartRecording(id, startRecordingRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -177,7 +184,8 @@ public class ConferenceCommandsApiTest {
     public void conferenceStopRecordingTest() throws ApiException {
         String id = null;
         StopRecordingRequest stopRecordingRequest = null;
-        ConferenceCommandResponse response = api.conferenceStopRecording(id, stopRecordingRequest);
+        ConferenceCommandResponse response = api.conferenceStopRecording(id, stopRecordingRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -194,7 +202,8 @@ public class ConferenceCommandsApiTest {
     public void conferenceUnholdParticipantsTest() throws ApiException {
         String id = null;
         ConferenceUnholdRequest conferenceUnholdRequest = null;
-        ConferenceCommandResponse response = api.conferenceUnholdParticipants(id, conferenceUnholdRequest);
+        ConferenceCommandResponse response = api.conferenceUnholdParticipants(id, conferenceUnholdRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -211,7 +220,8 @@ public class ConferenceCommandsApiTest {
     public void conferenceUnmuteParticipantsTest() throws ApiException {
         String id = null;
         ConferenceUnmuteRequest conferenceUnmuteRequest = null;
-        ConferenceCommandResponse response = api.conferenceUnmuteParticipants(id, conferenceUnmuteRequest);
+        ConferenceCommandResponse response = api.conferenceUnmuteParticipants(id, conferenceUnmuteRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -227,7 +237,8 @@ public class ConferenceCommandsApiTest {
     @Test
     public void createConferenceTest() throws ApiException {
         CreateConferenceRequest createConferenceRequest = null;
-        ConferenceResponse response = api.createConference(createConferenceRequest);
+        ConferenceResponse response = api.createConference(createConferenceRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -248,7 +259,13 @@ public class ConferenceCommandsApiTest {
         Boolean filterWhispering = null;
         Integer pageNumber = null;
         Integer pageSize = null;
-        ListParticipantsResponse response = api.listConferenceParticipants(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize);
+        ListParticipantsResponse response = api.listConferenceParticipants(conferenceId)
+                .filterMuted(filterMuted)
+                .filterOnHold(filterOnHold)
+                .filterWhispering(filterWhispering)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
 
         // TODO: test validations
     }
@@ -266,7 +283,11 @@ public class ConferenceCommandsApiTest {
         String filterName = null;
         Integer pageNumber = null;
         Integer pageSize = null;
-        ListConferencesResponse response = api.listConferences(filterName, pageNumber, pageSize);
+        ListConferencesResponse response = api.listConferences()
+                .filterName(filterName)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
 
         // TODO: test validations
     }
@@ -282,7 +303,8 @@ public class ConferenceCommandsApiTest {
     @Test
     public void retrieveConferenceTest() throws ApiException {
         String id = null;
-        ConferenceResponse response = api.retrieveConference(id);
+        ConferenceResponse response = api.retrieveConference(id)
+                .execute();
 
         // TODO: test validations
     }

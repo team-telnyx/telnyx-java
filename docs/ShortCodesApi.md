@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 <a name="listShortCodes"></a>
 # **listShortCodes**
-> ListShortCodesResponse listShortCodes(pageNumber, pageSize, filterMessagingProfileId)
+> ListShortCodesResponse listShortCodes().pageNumber(pageNumber).pageSize(pageSize).filterMessagingProfileId(filterMessagingProfileId).execute();
 
 List short codes
 
@@ -39,7 +39,11 @@ public class Example {
     Integer pageSize = 20; // Integer | The size of the page
     String filterMessagingProfileId = "filterMessagingProfileId_example"; // String | Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile.
     try {
-      ListShortCodesResponse result = apiInstance.listShortCodes(pageNumber, pageSize, filterMessagingProfileId);
+      ListShortCodesResponse result = apiInstance.listShortCodes()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .filterMessagingProfileId(filterMessagingProfileId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ShortCodesApi#listShortCodes");
@@ -81,7 +85,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveShortCode"></a>
 # **retrieveShortCode**
-> ShortCodeResponse retrieveShortCode(id)
+> ShortCodeResponse retrieveShortCode(id).execute();
 
 Retrieve a short code
 
@@ -107,7 +111,8 @@ public class Example {
     ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
     UUID id = new UUID(); // UUID | The id of the short code
     try {
-      ShortCodeResponse result = apiInstance.retrieveShortCode(id);
+      ShortCodeResponse result = apiInstance.retrieveShortCode(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ShortCodesApi#retrieveShortCode");
@@ -147,7 +152,7 @@ Name | Type | Description  | Notes
 
 <a name="updateShortCode"></a>
 # **updateShortCode**
-> ShortCodeResponse updateShortCode(id, updateShortCodeRequest)
+> ShortCodeResponse updateShortCode(id, updateShortCodeRequest).execute();
 
 Update short code
 
@@ -176,7 +181,8 @@ public class Example {
     UUID id = new UUID(); // UUID | The id of the short code
     UpdateShortCodeRequest updateShortCodeRequest = new UpdateShortCodeRequest(); // UpdateShortCodeRequest | Short code update
     try {
-      ShortCodeResponse result = apiInstance.updateShortCode(id, updateShortCodeRequest);
+      ShortCodeResponse result = apiInstance.updateShortCode(id, updateShortCodeRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ShortCodesApi#updateShortCode");

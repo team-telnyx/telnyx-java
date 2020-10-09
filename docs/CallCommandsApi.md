@@ -25,7 +25,7 @@ Method | HTTP request | Description
 
 <a name="callAnswer"></a>
 # **callAnswer**
-> CallControlCommandResponse callAnswer(callControlId, answerRequest)
+> CallControlCommandResponse callAnswer(callControlId, answerRequest).execute();
 
 Answer call
 
@@ -54,7 +54,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     AnswerRequest answerRequest = new AnswerRequest(); // AnswerRequest | Answer call request
     try {
-      CallControlCommandResponse result = apiInstance.callAnswer(callControlId, answerRequest);
+      CallControlCommandResponse result = apiInstance.callAnswer(callControlId, answerRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callAnswer");
@@ -95,7 +96,7 @@ Name | Type | Description  | Notes
 
 <a name="callBridge"></a>
 # **callBridge**
-> CallControlCommandResponse callBridge(callControlId, bridgeRequest)
+> CallControlCommandResponse callBridge(callControlId, bridgeRequest).execute();
 
 Bridge calls
 
@@ -124,7 +125,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     BridgeRequest bridgeRequest = new BridgeRequest(); // BridgeRequest | Bridge call request
     try {
-      CallControlCommandResponse result = apiInstance.callBridge(callControlId, bridgeRequest);
+      CallControlCommandResponse result = apiInstance.callBridge(callControlId, bridgeRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callBridge");
@@ -165,7 +167,7 @@ Name | Type | Description  | Notes
 
 <a name="callDial"></a>
 # **callDial**
-> RetrieveCallStatusResponse callDial(callRequest)
+> RetrieveCallStatusResponse callDial(callRequest).execute();
 
 Dial
 
@@ -193,7 +195,8 @@ public class Example {
     CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
     CallRequest callRequest = new CallRequest(); // CallRequest | Call request
     try {
-      RetrieveCallStatusResponse result = apiInstance.callDial(callRequest);
+      RetrieveCallStatusResponse result = apiInstance.callDial(callRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callDial");
@@ -233,7 +236,7 @@ Name | Type | Description  | Notes
 
 <a name="callForkStart"></a>
 # **callForkStart**
-> CallControlCommandResponse callForkStart(callControlId, startForkingRequest)
+> CallControlCommandResponse callForkStart(callControlId, startForkingRequest).execute();
 
 Forking start
 
@@ -262,7 +265,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     StartForkingRequest startForkingRequest = new StartForkingRequest(); // StartForkingRequest | Fork media request
     try {
-      CallControlCommandResponse result = apiInstance.callForkStart(callControlId, startForkingRequest);
+      CallControlCommandResponse result = apiInstance.callForkStart(callControlId, startForkingRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callForkStart");
@@ -303,7 +307,7 @@ Name | Type | Description  | Notes
 
 <a name="callForkStop"></a>
 # **callForkStop**
-> CallControlCommandResponse callForkStop(callControlId, stopForkingRequest)
+> CallControlCommandResponse callForkStop(callControlId, stopForkingRequest).execute();
 
 Forking stop
 
@@ -332,7 +336,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     StopForkingRequest stopForkingRequest = new StopForkingRequest(); // StopForkingRequest | Stop forking media request
     try {
-      CallControlCommandResponse result = apiInstance.callForkStop(callControlId, stopForkingRequest);
+      CallControlCommandResponse result = apiInstance.callForkStop(callControlId, stopForkingRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callForkStop");
@@ -373,7 +378,7 @@ Name | Type | Description  | Notes
 
 <a name="callGatherStop"></a>
 # **callGatherStop**
-> CallControlCommandResponse callGatherStop(callControlId, stopGatherRequest)
+> CallControlCommandResponse callGatherStop(callControlId, stopGatherRequest).execute();
 
 Gather stop
 
@@ -402,7 +407,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     StopGatherRequest stopGatherRequest = new StopGatherRequest(); // StopGatherRequest | Stop current gather
     try {
-      CallControlCommandResponse result = apiInstance.callGatherStop(callControlId, stopGatherRequest);
+      CallControlCommandResponse result = apiInstance.callGatherStop(callControlId, stopGatherRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callGatherStop");
@@ -443,7 +449,7 @@ Name | Type | Description  | Notes
 
 <a name="callGatherUsingAudio"></a>
 # **callGatherUsingAudio**
-> CallControlCommandResponse callGatherUsingAudio(callControlId, gatherUsingAudioRequest)
+> CallControlCommandResponse callGatherUsingAudio(callControlId, gatherUsingAudioRequest).execute();
 
 Gather using audio
 
@@ -472,7 +478,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     GatherUsingAudioRequest gatherUsingAudioRequest = new GatherUsingAudioRequest(); // GatherUsingAudioRequest | Gather using audio request
     try {
-      CallControlCommandResponse result = apiInstance.callGatherUsingAudio(callControlId, gatherUsingAudioRequest);
+      CallControlCommandResponse result = apiInstance.callGatherUsingAudio(callControlId, gatherUsingAudioRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callGatherUsingAudio");
@@ -513,7 +520,7 @@ Name | Type | Description  | Notes
 
 <a name="callGatherUsingSpeak"></a>
 # **callGatherUsingSpeak**
-> CallControlCommandResponse callGatherUsingSpeak(callControlId, gatherUsingSpeakRequest)
+> CallControlCommandResponse callGatherUsingSpeak(callControlId, gatherUsingSpeakRequest).execute();
 
 Gather using speak
 
@@ -542,7 +549,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     GatherUsingSpeakRequest gatherUsingSpeakRequest = new GatherUsingSpeakRequest(); // GatherUsingSpeakRequest | Gather using speak request
     try {
-      CallControlCommandResponse result = apiInstance.callGatherUsingSpeak(callControlId, gatherUsingSpeakRequest);
+      CallControlCommandResponse result = apiInstance.callGatherUsingSpeak(callControlId, gatherUsingSpeakRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callGatherUsingSpeak");
@@ -583,7 +591,7 @@ Name | Type | Description  | Notes
 
 <a name="callHangup"></a>
 # **callHangup**
-> CallControlCommandResponse callHangup(callControlId, hangupRequest)
+> CallControlCommandResponse callHangup(callControlId, hangupRequest).execute();
 
 Hangup call
 
@@ -612,7 +620,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     HangupRequest hangupRequest = new HangupRequest(); // HangupRequest | Hangup request
     try {
-      CallControlCommandResponse result = apiInstance.callHangup(callControlId, hangupRequest);
+      CallControlCommandResponse result = apiInstance.callHangup(callControlId, hangupRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callHangup");
@@ -653,7 +662,7 @@ Name | Type | Description  | Notes
 
 <a name="callPlaybackStart"></a>
 # **callPlaybackStart**
-> CallControlCommandResponse callPlaybackStart(callControlId, playAudioUrlRequest)
+> CallControlCommandResponse callPlaybackStart(callControlId, playAudioUrlRequest).execute();
 
 Play audio URL
 
@@ -682,7 +691,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     PlayAudioUrlRequest playAudioUrlRequest = new PlayAudioUrlRequest(); // PlayAudioUrlRequest | Play audio URL request
     try {
-      CallControlCommandResponse result = apiInstance.callPlaybackStart(callControlId, playAudioUrlRequest);
+      CallControlCommandResponse result = apiInstance.callPlaybackStart(callControlId, playAudioUrlRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callPlaybackStart");
@@ -723,7 +733,7 @@ Name | Type | Description  | Notes
 
 <a name="callPlaybackStop"></a>
 # **callPlaybackStop**
-> CallControlCommandResponse callPlaybackStop(callControlId, playbackStopRequest)
+> CallControlCommandResponse callPlaybackStop(callControlId, playbackStopRequest).execute();
 
 Stop audio playback
 
@@ -752,7 +762,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     PlaybackStopRequest playbackStopRequest = new PlaybackStopRequest(); // PlaybackStopRequest | Stop audio playback request
     try {
-      CallControlCommandResponse result = apiInstance.callPlaybackStop(callControlId, playbackStopRequest);
+      CallControlCommandResponse result = apiInstance.callPlaybackStop(callControlId, playbackStopRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callPlaybackStop");
@@ -793,7 +804,7 @@ Name | Type | Description  | Notes
 
 <a name="callRecordStart"></a>
 # **callRecordStart**
-> CallControlCommandResponse callRecordStart(callControlId, startRecordingRequest)
+> CallControlCommandResponse callRecordStart(callControlId, startRecordingRequest).execute();
 
 Recording start
 
@@ -822,7 +833,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     StartRecordingRequest startRecordingRequest = new StartRecordingRequest(); // StartRecordingRequest | Start recording audio request
     try {
-      CallControlCommandResponse result = apiInstance.callRecordStart(callControlId, startRecordingRequest);
+      CallControlCommandResponse result = apiInstance.callRecordStart(callControlId, startRecordingRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callRecordStart");
@@ -863,7 +875,7 @@ Name | Type | Description  | Notes
 
 <a name="callRecordStop"></a>
 # **callRecordStop**
-> CallControlCommandResponse callRecordStop(callControlId, stopRecordingRequest)
+> CallControlCommandResponse callRecordStop(callControlId, stopRecordingRequest).execute();
 
 Recording stop
 
@@ -892,7 +904,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     StopRecordingRequest stopRecordingRequest = new StopRecordingRequest(); // StopRecordingRequest | Stop recording call request
     try {
-      CallControlCommandResponse result = apiInstance.callRecordStop(callControlId, stopRecordingRequest);
+      CallControlCommandResponse result = apiInstance.callRecordStop(callControlId, stopRecordingRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callRecordStop");
@@ -933,7 +946,7 @@ Name | Type | Description  | Notes
 
 <a name="callReject"></a>
 # **callReject**
-> CallControlCommandResponse callReject(callControlId, rejectRequest)
+> CallControlCommandResponse callReject(callControlId, rejectRequest).execute();
 
 Reject a call
 
@@ -962,7 +975,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     RejectRequest rejectRequest = new RejectRequest(); // RejectRequest | Reject request
     try {
-      CallControlCommandResponse result = apiInstance.callReject(callControlId, rejectRequest);
+      CallControlCommandResponse result = apiInstance.callReject(callControlId, rejectRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callReject");
@@ -1003,7 +1017,7 @@ Name | Type | Description  | Notes
 
 <a name="callSendDTMF"></a>
 # **callSendDTMF**
-> CallControlCommandResponse callSendDTMF(callControlId, sendDTMFRequest)
+> CallControlCommandResponse callSendDTMF(callControlId, sendDTMFRequest).execute();
 
 Send DTMF
 
@@ -1032,7 +1046,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     SendDTMFRequest sendDTMFRequest = new SendDTMFRequest(); // SendDTMFRequest | Send DTMF request
     try {
-      CallControlCommandResponse result = apiInstance.callSendDTMF(callControlId, sendDTMFRequest);
+      CallControlCommandResponse result = apiInstance.callSendDTMF(callControlId, sendDTMFRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callSendDTMF");
@@ -1073,7 +1088,7 @@ Name | Type | Description  | Notes
 
 <a name="callSpeak"></a>
 # **callSpeak**
-> CallControlCommandResponse callSpeak(callControlId, speakRequest)
+> CallControlCommandResponse callSpeak(callControlId, speakRequest).execute();
 
 Speak text
 
@@ -1102,7 +1117,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     SpeakRequest speakRequest = new SpeakRequest(); // SpeakRequest | Speak request
     try {
-      CallControlCommandResponse result = apiInstance.callSpeak(callControlId, speakRequest);
+      CallControlCommandResponse result = apiInstance.callSpeak(callControlId, speakRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callSpeak");
@@ -1143,7 +1159,7 @@ Name | Type | Description  | Notes
 
 <a name="callTransfer"></a>
 # **callTransfer**
-> CallControlCommandResponse callTransfer(callControlId, transferCallRequest)
+> CallControlCommandResponse callTransfer(callControlId, transferCallRequest).execute();
 
 Transfer call
 
@@ -1172,7 +1188,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     TransferCallRequest transferCallRequest = new TransferCallRequest(); // TransferCallRequest | Transfer call request
     try {
-      CallControlCommandResponse result = apiInstance.callTransfer(callControlId, transferCallRequest);
+      CallControlCommandResponse result = apiInstance.callTransfer(callControlId, transferCallRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callTransfer");

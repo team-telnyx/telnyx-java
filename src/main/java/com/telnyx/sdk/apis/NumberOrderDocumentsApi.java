@@ -58,20 +58,7 @@ public class NumberOrderDocumentsApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for createNumberOrderDocument
-     * @param createNumberOrderDocumentRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNumberOrderDocumentCall(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createNumberOrderDocumentCall(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createNumberOrderDocumentRequest;
 
         // create path and map variables
@@ -114,80 +101,108 @@ public class NumberOrderDocumentsApi {
 
     }
 
-    /**
-     * Create a number order document
-     * Upload a phone number order document.
-     * @param createNumberOrderDocumentRequest  (required)
-     * @return NumberOrderDocumentResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberOrderDocumentResponse createNumberOrderDocument(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest) throws ApiException {
-        ApiResponse<NumberOrderDocumentResponse> localVarResp = createNumberOrderDocumentWithHttpInfo(createNumberOrderDocumentRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Create a number order document
-     * Upload a phone number order document.
-     * @param createNumberOrderDocumentRequest  (required)
-     * @return ApiResponse&lt;NumberOrderDocumentResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberOrderDocumentResponse> createNumberOrderDocumentWithHttpInfo(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest) throws ApiException {
+    private ApiResponse<NumberOrderDocumentResponse> createNumberOrderDocumentWithHttpInfo(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest) throws ApiException {
         okhttp3.Call localVarCall = createNumberOrderDocumentValidateBeforeCall(createNumberOrderDocumentRequest, null);
         Type localVarReturnType = new TypeToken<NumberOrderDocumentResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Create a number order document (asynchronously)
-     * Upload a phone number order document.
-     * @param createNumberOrderDocumentRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNumberOrderDocumentAsync(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest, final ApiCallback<NumberOrderDocumentResponse> _callback) throws ApiException {
+    private okhttp3.Call createNumberOrderDocumentAsync(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest, final ApiCallback<NumberOrderDocumentResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createNumberOrderDocumentValidateBeforeCall(createNumberOrderDocumentRequest, _callback);
         Type localVarReturnType = new TypeToken<NumberOrderDocumentResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateNumberOrderDocumentRequest {
+        private final CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest;
+
+        private APIcreateNumberOrderDocumentRequest(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest) {
+            this.createNumberOrderDocumentRequest = createNumberOrderDocumentRequest;
+        }
+
+        /**
+         * Build call for createNumberOrderDocument
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createNumberOrderDocumentCall(createNumberOrderDocumentRequest, _callback);
+        }
+
+        /**
+         * Execute createNumberOrderDocument request
+         * @return NumberOrderDocumentResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberOrderDocumentResponse execute() throws ApiException {
+            ApiResponse<NumberOrderDocumentResponse> localVarResp = createNumberOrderDocumentWithHttpInfo(createNumberOrderDocumentRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createNumberOrderDocument request with HTTP info returned
+         * @return ApiResponse&lt;NumberOrderDocumentResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberOrderDocumentResponse> executeWithHttpInfo() throws ApiException {
+            return createNumberOrderDocumentWithHttpInfo(createNumberOrderDocumentRequest);
+        }
+
+        /**
+         * Execute createNumberOrderDocument request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberOrderDocumentResponse> _callback) throws ApiException {
+            return createNumberOrderDocumentAsync(createNumberOrderDocumentRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for listNumberOrderDocuments
-     * @param filterRequirementId Filter number order documents by &#x60;requirement_id&#x60;. (optional)
-     * @param filterCreatedAtGt Filter number order documents after this datetime. (optional)
-     * @param filterCreatedAtLt Filter number order documents from before this datetime. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Create a number order document
+     * Upload a phone number order document.
+     * @param createNumberOrderDocumentRequest  (required)
+     * @return APIcreateNumberOrderDocumentRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listNumberOrderDocumentsCall(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, final ApiCallback _callback) throws ApiException {
+    public APIcreateNumberOrderDocumentRequest createNumberOrderDocument(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest) {
+        return new APIcreateNumberOrderDocumentRequest(createNumberOrderDocumentRequest);
+    }
+    private okhttp3.Call listNumberOrderDocumentsCall(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -237,84 +252,138 @@ public class NumberOrderDocumentsApi {
 
     }
 
-    /**
-     * List number order documents
-     * Gets a paginated list of number order documents.
-     * @param filterRequirementId Filter number order documents by &#x60;requirement_id&#x60;. (optional)
-     * @param filterCreatedAtGt Filter number order documents after this datetime. (optional)
-     * @param filterCreatedAtLt Filter number order documents from before this datetime. (optional)
-     * @return ListNumberOrderDocumentsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListNumberOrderDocumentsResponse listNumberOrderDocuments(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt) throws ApiException {
-        ApiResponse<ListNumberOrderDocumentsResponse> localVarResp = listNumberOrderDocumentsWithHttpInfo(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List number order documents
-     * Gets a paginated list of number order documents.
-     * @param filterRequirementId Filter number order documents by &#x60;requirement_id&#x60;. (optional)
-     * @param filterCreatedAtGt Filter number order documents after this datetime. (optional)
-     * @param filterCreatedAtLt Filter number order documents from before this datetime. (optional)
-     * @return ApiResponse&lt;ListNumberOrderDocumentsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWithHttpInfo(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt) throws ApiException {
+    private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWithHttpInfo(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt) throws ApiException {
         okhttp3.Call localVarCall = listNumberOrderDocumentsValidateBeforeCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, null);
         Type localVarReturnType = new TypeToken<ListNumberOrderDocumentsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List number order documents (asynchronously)
-     * Gets a paginated list of number order documents.
-     * @param filterRequirementId Filter number order documents by &#x60;requirement_id&#x60;. (optional)
-     * @param filterCreatedAtGt Filter number order documents after this datetime. (optional)
-     * @param filterCreatedAtLt Filter number order documents from before this datetime. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listNumberOrderDocumentsAsync(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, final ApiCallback<ListNumberOrderDocumentsResponse> _callback) throws ApiException {
+    private okhttp3.Call listNumberOrderDocumentsAsync(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, final ApiCallback<ListNumberOrderDocumentsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listNumberOrderDocumentsValidateBeforeCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, _callback);
         Type localVarReturnType = new TypeToken<ListNumberOrderDocumentsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistNumberOrderDocumentsRequest {
+        private String filterRequirementId;
+        private String filterCreatedAtGt;
+        private String filterCreatedAtLt;
+
+        private APIlistNumberOrderDocumentsRequest() {
+        }
+
+        /**
+         * Set filterRequirementId
+         * @param filterRequirementId Filter number order documents by &#x60;requirement_id&#x60;. (optional)
+         * @return APIlistNumberOrderDocumentsRequest
+         */
+        public APIlistNumberOrderDocumentsRequest filterRequirementId(String filterRequirementId) {
+            this.filterRequirementId = filterRequirementId;
+            return this;
+        }
+
+        /**
+         * Set filterCreatedAtGt
+         * @param filterCreatedAtGt Filter number order documents after this datetime. (optional)
+         * @return APIlistNumberOrderDocumentsRequest
+         */
+        public APIlistNumberOrderDocumentsRequest filterCreatedAtGt(String filterCreatedAtGt) {
+            this.filterCreatedAtGt = filterCreatedAtGt;
+            return this;
+        }
+
+        /**
+         * Set filterCreatedAtLt
+         * @param filterCreatedAtLt Filter number order documents from before this datetime. (optional)
+         * @return APIlistNumberOrderDocumentsRequest
+         */
+        public APIlistNumberOrderDocumentsRequest filterCreatedAtLt(String filterCreatedAtLt) {
+            this.filterCreatedAtLt = filterCreatedAtLt;
+            return this;
+        }
+
+        /**
+         * Build call for listNumberOrderDocuments
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listNumberOrderDocumentsCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, _callback);
+        }
+
+        /**
+         * Execute listNumberOrderDocuments request
+         * @return ListNumberOrderDocumentsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListNumberOrderDocumentsResponse execute() throws ApiException {
+            ApiResponse<ListNumberOrderDocumentsResponse> localVarResp = listNumberOrderDocumentsWithHttpInfo(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listNumberOrderDocuments request with HTTP info returned
+         * @return ApiResponse&lt;ListNumberOrderDocumentsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListNumberOrderDocumentsResponse> executeWithHttpInfo() throws ApiException {
+            return listNumberOrderDocumentsWithHttpInfo(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt);
+        }
+
+        /**
+         * Execute listNumberOrderDocuments request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListNumberOrderDocumentsResponse> _callback) throws ApiException {
+            return listNumberOrderDocumentsAsync(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveNumberOrderDocument
-     * @param numberOrderDocumentId The number order document ID. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List number order documents
+     * Gets a paginated list of number order documents.
+     * @return APIlistNumberOrderDocumentsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveNumberOrderDocumentCall(String numberOrderDocumentId, final ApiCallback _callback) throws ApiException {
+    public APIlistNumberOrderDocumentsRequest listNumberOrderDocuments() {
+        return new APIlistNumberOrderDocumentsRequest();
+    }
+    private okhttp3.Call retrieveNumberOrderDocumentCall(String numberOrderDocumentId, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -358,71 +427,97 @@ public class NumberOrderDocumentsApi {
 
     }
 
-    /**
-     * Retrieve a number order document
-     * Gets a single number order document.
-     * @param numberOrderDocumentId The number order document ID. (required)
-     * @return NumberOrderDocumentResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberOrderDocumentResponse retrieveNumberOrderDocument(String numberOrderDocumentId) throws ApiException {
-        ApiResponse<NumberOrderDocumentResponse> localVarResp = retrieveNumberOrderDocumentWithHttpInfo(numberOrderDocumentId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a number order document
-     * Gets a single number order document.
-     * @param numberOrderDocumentId The number order document ID. (required)
-     * @return ApiResponse&lt;NumberOrderDocumentResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberOrderDocumentResponse> retrieveNumberOrderDocumentWithHttpInfo(String numberOrderDocumentId) throws ApiException {
+    private ApiResponse<NumberOrderDocumentResponse> retrieveNumberOrderDocumentWithHttpInfo(String numberOrderDocumentId) throws ApiException {
         okhttp3.Call localVarCall = retrieveNumberOrderDocumentValidateBeforeCall(numberOrderDocumentId, null);
         Type localVarReturnType = new TypeToken<NumberOrderDocumentResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve a number order document (asynchronously)
-     * Gets a single number order document.
-     * @param numberOrderDocumentId The number order document ID. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrieveNumberOrderDocumentAsync(String numberOrderDocumentId, final ApiCallback<NumberOrderDocumentResponse> _callback) throws ApiException {
+    private okhttp3.Call retrieveNumberOrderDocumentAsync(String numberOrderDocumentId, final ApiCallback<NumberOrderDocumentResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = retrieveNumberOrderDocumentValidateBeforeCall(numberOrderDocumentId, _callback);
         Type localVarReturnType = new TypeToken<NumberOrderDocumentResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIretrieveNumberOrderDocumentRequest {
+        private final String numberOrderDocumentId;
+
+        private APIretrieveNumberOrderDocumentRequest(String numberOrderDocumentId) {
+            this.numberOrderDocumentId = numberOrderDocumentId;
+        }
+
+        /**
+         * Build call for retrieveNumberOrderDocument
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveNumberOrderDocumentCall(numberOrderDocumentId, _callback);
+        }
+
+        /**
+         * Execute retrieveNumberOrderDocument request
+         * @return NumberOrderDocumentResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberOrderDocumentResponse execute() throws ApiException {
+            ApiResponse<NumberOrderDocumentResponse> localVarResp = retrieveNumberOrderDocumentWithHttpInfo(numberOrderDocumentId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveNumberOrderDocument request with HTTP info returned
+         * @return ApiResponse&lt;NumberOrderDocumentResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberOrderDocumentResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveNumberOrderDocumentWithHttpInfo(numberOrderDocumentId);
+        }
+
+        /**
+         * Execute retrieveNumberOrderDocument request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberOrderDocumentResponse> _callback) throws ApiException {
+            return retrieveNumberOrderDocumentAsync(numberOrderDocumentId, _callback);
+        }
+    }
+
     /**
-     * Build call for updateNumberOrderDocument
+     * Retrieve a number order document
+     * Gets a single number order document.
      * @param numberOrderDocumentId The number order document ID. (required)
-     * @param updateNumberOrderDocumentRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIretrieveNumberOrderDocumentRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -430,7 +525,10 @@ public class NumberOrderDocumentsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateNumberOrderDocumentCall(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest, final ApiCallback _callback) throws ApiException {
+    public APIretrieveNumberOrderDocumentRequest retrieveNumberOrderDocument(String numberOrderDocumentId) {
+        return new APIretrieveNumberOrderDocumentRequest(numberOrderDocumentId);
+    }
+    private okhttp3.Call updateNumberOrderDocumentCall(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = updateNumberOrderDocumentRequest;
 
         // create path and map variables
@@ -479,53 +577,100 @@ public class NumberOrderDocumentsApi {
 
     }
 
-    /**
-     * Update a number order document
-     * Updates a number order document.
-     * @param numberOrderDocumentId The number order document ID. (required)
-     * @param updateNumberOrderDocumentRequest  (required)
-     * @return NumberOrderDocumentResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public NumberOrderDocumentResponse updateNumberOrderDocument(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest) throws ApiException {
-        ApiResponse<NumberOrderDocumentResponse> localVarResp = updateNumberOrderDocumentWithHttpInfo(numberOrderDocumentId, updateNumberOrderDocumentRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Update a number order document
-     * Updates a number order document.
-     * @param numberOrderDocumentId The number order document ID. (required)
-     * @param updateNumberOrderDocumentRequest  (required)
-     * @return ApiResponse&lt;NumberOrderDocumentResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<NumberOrderDocumentResponse> updateNumberOrderDocumentWithHttpInfo(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest) throws ApiException {
+    private ApiResponse<NumberOrderDocumentResponse> updateNumberOrderDocumentWithHttpInfo(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest) throws ApiException {
         okhttp3.Call localVarCall = updateNumberOrderDocumentValidateBeforeCall(numberOrderDocumentId, updateNumberOrderDocumentRequest, null);
         Type localVarReturnType = new TypeToken<NumberOrderDocumentResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call updateNumberOrderDocumentAsync(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest, final ApiCallback<NumberOrderDocumentResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updateNumberOrderDocumentValidateBeforeCall(numberOrderDocumentId, updateNumberOrderDocumentRequest, _callback);
+        Type localVarReturnType = new TypeToken<NumberOrderDocumentResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIupdateNumberOrderDocumentRequest {
+        private final String numberOrderDocumentId;
+        private final UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest;
+
+        private APIupdateNumberOrderDocumentRequest(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest) {
+            this.numberOrderDocumentId = numberOrderDocumentId;
+            this.updateNumberOrderDocumentRequest = updateNumberOrderDocumentRequest;
+        }
+
+        /**
+         * Build call for updateNumberOrderDocument
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return updateNumberOrderDocumentCall(numberOrderDocumentId, updateNumberOrderDocumentRequest, _callback);
+        }
+
+        /**
+         * Execute updateNumberOrderDocument request
+         * @return NumberOrderDocumentResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public NumberOrderDocumentResponse execute() throws ApiException {
+            ApiResponse<NumberOrderDocumentResponse> localVarResp = updateNumberOrderDocumentWithHttpInfo(numberOrderDocumentId, updateNumberOrderDocumentRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute updateNumberOrderDocument request with HTTP info returned
+         * @return ApiResponse&lt;NumberOrderDocumentResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<NumberOrderDocumentResponse> executeWithHttpInfo() throws ApiException {
+            return updateNumberOrderDocumentWithHttpInfo(numberOrderDocumentId, updateNumberOrderDocumentRequest);
+        }
+
+        /**
+         * Execute updateNumberOrderDocument request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<NumberOrderDocumentResponse> _callback) throws ApiException {
+            return updateNumberOrderDocumentAsync(numberOrderDocumentId, updateNumberOrderDocumentRequest, _callback);
+        }
+    }
+
     /**
-     * Update a number order document (asynchronously)
+     * Update a number order document
      * Updates a number order document.
      * @param numberOrderDocumentId The number order document ID. (required)
      * @param updateNumberOrderDocumentRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIupdateNumberOrderDocumentRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -533,11 +678,7 @@ public class NumberOrderDocumentsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateNumberOrderDocumentAsync(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest, final ApiCallback<NumberOrderDocumentResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateNumberOrderDocumentValidateBeforeCall(numberOrderDocumentId, updateNumberOrderDocumentRequest, _callback);
-        Type localVarReturnType = new TypeToken<NumberOrderDocumentResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIupdateNumberOrderDocumentRequest updateNumberOrderDocument(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest) {
+        return new APIupdateNumberOrderDocumentRequest(numberOrderDocumentId, updateNumberOrderDocumentRequest);
     }
 }

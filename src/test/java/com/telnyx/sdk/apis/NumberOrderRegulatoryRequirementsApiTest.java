@@ -48,7 +48,11 @@ public class NumberOrderRegulatoryRequirementsApiTest {
         String filterRequirementId = null;
         String filterFieldType = null;
         String filterRequirementType = null;
-        ListNumberOrderRegulatoryRequirementsResponse response = api.listNumberOrderRegulatoryRequirements(filterRequirementId, filterFieldType, filterRequirementType);
+        ListNumberOrderRegulatoryRequirementsResponse response = api.listNumberOrderRegulatoryRequirements()
+                .filterRequirementId(filterRequirementId)
+                .filterFieldType(filterFieldType)
+                .filterRequirementType(filterRequirementType)
+                .execute();
 
         // TODO: test validations
     }
@@ -64,7 +68,9 @@ public class NumberOrderRegulatoryRequirementsApiTest {
     @Test
     public void listPhoneNumberRegulatoryRequirementsTest() throws ApiException {
         List<String> filterPhoneNumber = null;
-        ListPhoneNumberRegulatoryRequirementsResponse response = api.listPhoneNumberRegulatoryRequirements(filterPhoneNumber);
+        ListPhoneNumberRegulatoryRequirementsResponse response = api.listPhoneNumberRegulatoryRequirements()
+                .filterPhoneNumber(filterPhoneNumber)
+                .execute();
 
         // TODO: test validations
     }
@@ -80,7 +86,8 @@ public class NumberOrderRegulatoryRequirementsApiTest {
     @Test
     public void retrieveNumberOrderRegulatoryRequirementTest() throws ApiException {
         String requirementId = null;
-        NumberOrderRegulatoryRequirementResponse response = api.retrieveNumberOrderRegulatoryRequirement(requirementId);
+        NumberOrderRegulatoryRequirementResponse response = api.retrieveNumberOrderRegulatoryRequirement(requirementId)
+                .execute();
 
         // TODO: test validations
     }

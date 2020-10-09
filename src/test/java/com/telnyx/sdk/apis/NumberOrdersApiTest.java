@@ -47,7 +47,8 @@ public class NumberOrdersApiTest {
     @Test
     public void createNumberOrderTest() throws ApiException {
         CreateNumberOrderRequest createNumberOrderRequest = null;
-        NumberOrderResponse response = api.createNumberOrder(createNumberOrderRequest);
+        NumberOrderResponse response = api.createNumberOrder(createNumberOrderRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -68,7 +69,14 @@ public class NumberOrdersApiTest {
         String filterPhoneNumbersPhoneNumber = null;
         String filterCustomerReference = null;
         Boolean filterRequirementsMet = null;
-        ListNumberOrdersResponse response = api.listNumberOrders(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet);
+        ListNumberOrdersResponse response = api.listNumberOrders()
+                .filterStatus(filterStatus)
+                .filterCreatedAtGt(filterCreatedAtGt)
+                .filterCreatedAtLt(filterCreatedAtLt)
+                .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
+                .filterCustomerReference(filterCustomerReference)
+                .filterRequirementsMet(filterRequirementsMet)
+                .execute();
 
         // TODO: test validations
     }
@@ -84,7 +92,8 @@ public class NumberOrdersApiTest {
     @Test
     public void retrieveNumberOrderTest() throws ApiException {
         String numberOrderId = null;
-        NumberOrderResponse response = api.retrieveNumberOrder(numberOrderId);
+        NumberOrderResponse response = api.retrieveNumberOrder(numberOrderId)
+                .execute();
 
         // TODO: test validations
     }
@@ -101,7 +110,8 @@ public class NumberOrdersApiTest {
     public void updateNumberOrderTest() throws ApiException {
         String numberOrderId = null;
         UpdateNumberOrderRequest updateNumberOrderRequest = null;
-        NumberOrderResponse response = api.updateNumberOrder(numberOrderId, updateNumberOrderRequest);
+        NumberOrderResponse response = api.updateNumberOrder(numberOrderId, updateNumberOrderRequest)
+                .execute();
 
         // TODO: test validations
     }

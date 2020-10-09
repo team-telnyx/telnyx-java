@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="listRecordings"></a>
 # **listRecordings**
-> ListRecordingsResponse listRecordings(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize)
+> ListRecordingsResponse listRecordings().filterConferenceId(filterConferenceId).filterCreatedAtGte(filterCreatedAtGte).filterCreatedAtLte(filterCreatedAtLte).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List recordings
 
@@ -42,7 +42,13 @@ public class Example {
     Integer pageNumber = 1; // Integer | The page number to load
     Integer pageSize = 20; // Integer | The size of the page
     try {
-      ListRecordingsResponse result = apiInstance.listRecordings(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize);
+      ListRecordingsResponse result = apiInstance.listRecordings()
+            .filterConferenceId(filterConferenceId)
+            .filterCreatedAtGte(filterCreatedAtGte)
+            .filterCreatedAtLte(filterCreatedAtLte)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling RecordingsCommandsApi#listRecordings");
@@ -87,7 +93,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveRecording"></a>
 # **retrieveRecording**
-> GetRecordingResponse retrieveRecording(id)
+> GetRecordingResponse retrieveRecording(id).execute();
 
 Retrieve a recording
 
@@ -115,7 +121,8 @@ public class Example {
     RecordingsCommandsApi apiInstance = new RecordingsCommandsApi(defaultClient);
     String id = "id_example"; // String | Uniquely identifies the recording
     try {
-      GetRecordingResponse result = apiInstance.retrieveRecording(id);
+      GetRecordingResponse result = apiInstance.retrieveRecording(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling RecordingsCommandsApi#retrieveRecording");

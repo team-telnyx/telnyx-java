@@ -46,7 +46,8 @@ public class NumberReservationsApiTest {
     @Test
     public void createNumberReservationTest() throws ApiException {
         CreateNumberReservationRequest createNumberReservationRequest = null;
-        NumberReservationResponse response = api.createNumberReservation(createNumberReservationRequest);
+        NumberReservationResponse response = api.createNumberReservation(createNumberReservationRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -62,7 +63,8 @@ public class NumberReservationsApiTest {
     @Test
     public void extendNumberReservationExpiryTimeTest() throws ApiException {
         String numberReservationId = null;
-        NumberReservationResponse response = api.extendNumberReservationExpiryTime(numberReservationId);
+        NumberReservationResponse response = api.extendNumberReservationExpiryTime(numberReservationId)
+                .execute();
 
         // TODO: test validations
     }
@@ -82,7 +84,13 @@ public class NumberReservationsApiTest {
         String filterCreatedAtLt = null;
         String filterPhoneNumbersPhoneNumber = null;
         String filterCustomerReference = null;
-        ListNumberReservationsResponse response = api.listNumberReservations(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference);
+        ListNumberReservationsResponse response = api.listNumberReservations()
+                .filterStatus(filterStatus)
+                .filterCreatedAtGt(filterCreatedAtGt)
+                .filterCreatedAtLt(filterCreatedAtLt)
+                .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
+                .filterCustomerReference(filterCustomerReference)
+                .execute();
 
         // TODO: test validations
     }
@@ -98,7 +106,8 @@ public class NumberReservationsApiTest {
     @Test
     public void retrieveNumberReservationTest() throws ApiException {
         String numberReservationId = null;
-        NumberReservationResponse response = api.retrieveNumberReservation(numberReservationId);
+        NumberReservationResponse response = api.retrieveNumberReservation(numberReservationId)
+                .execute();
 
         // TODO: test validations
     }

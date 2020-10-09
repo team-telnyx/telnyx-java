@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="listCallEvents"></a>
 # **listCallEvents**
-> ListCallEventsResponse listCallEvents(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq)
+> ListCallEventsResponse listCallEvents().filterCallLegId(filterCallLegId).filterCallSessionId(filterCallSessionId).filterStatus(filterStatus).filterType(filterType).filterEventTimestampGt(filterEventTimestampGt).filterEventTimestampGte(filterEventTimestampGte).filterEventTimestampLt(filterEventTimestampLt).filterEventTimestampLte(filterEventTimestampLte).filterEventTimestampEq(filterEventTimestampEq).execute();
 
 List call events
 
@@ -45,7 +45,17 @@ public class Example {
     String filterEventTimestampLte = 2019-03-29T11:10:00Z; // String | Event timestamp: lower than or equal
     String filterEventTimestampEq = 2019-03-29T11:10:00Z; // String | Event timestamp: equal
     try {
-      ListCallEventsResponse result = apiInstance.listCallEvents(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
+      ListCallEventsResponse result = apiInstance.listCallEvents()
+            .filterCallLegId(filterCallLegId)
+            .filterCallSessionId(filterCallSessionId)
+            .filterStatus(filterStatus)
+            .filterType(filterType)
+            .filterEventTimestampGt(filterEventTimestampGt)
+            .filterEventTimestampGte(filterEventTimestampGte)
+            .filterEventTimestampLt(filterEventTimestampLt)
+            .filterEventTimestampLte(filterEventTimestampLte)
+            .filterEventTimestampEq(filterEventTimestampEq)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DebuggingApi#listCallEvents");

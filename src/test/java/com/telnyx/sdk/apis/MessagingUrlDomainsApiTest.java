@@ -43,7 +43,8 @@ public class MessagingUrlDomainsApiTest {
      */
     @Test
     public void listMessagingUrlDomainsTest() throws ApiException {
-        ListMessagingProfileUrlDomainsResponse response = api.listMessagingUrlDomains();
+        ListMessagingProfileUrlDomainsResponse response = api.listMessagingUrlDomains()
+                .execute();
 
         // TODO: test validations
     }

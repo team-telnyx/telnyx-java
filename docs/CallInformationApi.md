@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="retrieveCallStatus"></a>
 # **retrieveCallStatus**
-> RetrieveCallStatusResponse retrieveCallStatus(callControlId)
+> RetrieveCallStatusResponse retrieveCallStatus(callControlId).execute();
 
 Retrieve a call status
 
@@ -37,7 +37,8 @@ public class Example {
     CallInformationApi apiInstance = new CallInformationApi(defaultClient);
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     try {
-      RetrieveCallStatusResponse result = apiInstance.retrieveCallStatus(callControlId);
+      RetrieveCallStatusResponse result = apiInstance.retrieveCallStatus(callControlId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallInformationApi#retrieveCallStatus");

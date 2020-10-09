@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 <a name="createNumberReservation"></a>
 # **createNumberReservation**
-> NumberReservationResponse createNumberReservation(createNumberReservationRequest)
+> NumberReservationResponse createNumberReservation(createNumberReservationRequest).execute();
 
 Create a number reservation
 
@@ -40,7 +40,8 @@ public class Example {
     NumberReservationsApi apiInstance = new NumberReservationsApi(defaultClient);
     CreateNumberReservationRequest createNumberReservationRequest = new CreateNumberReservationRequest(); // CreateNumberReservationRequest | 
     try {
-      NumberReservationResponse result = apiInstance.createNumberReservation(createNumberReservationRequest);
+      NumberReservationResponse result = apiInstance.createNumberReservation(createNumberReservationRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberReservationsApi#createNumberReservation");
@@ -80,7 +81,7 @@ Name | Type | Description  | Notes
 
 <a name="extendNumberReservationExpiryTime"></a>
 # **extendNumberReservationExpiryTime**
-> NumberReservationResponse extendNumberReservationExpiryTime(numberReservationId)
+> NumberReservationResponse extendNumberReservationExpiryTime(numberReservationId).execute();
 
 Extend a number reservation
 
@@ -108,7 +109,8 @@ public class Example {
     NumberReservationsApi apiInstance = new NumberReservationsApi(defaultClient);
     String numberReservationId = "numberReservationId_example"; // String | The number reservation ID.
     try {
-      NumberReservationResponse result = apiInstance.extendNumberReservationExpiryTime(numberReservationId);
+      NumberReservationResponse result = apiInstance.extendNumberReservationExpiryTime(numberReservationId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberReservationsApi#extendNumberReservationExpiryTime");
@@ -148,7 +150,7 @@ Name | Type | Description  | Notes
 
 <a name="listNumberReservations"></a>
 # **listNumberReservations**
-> ListNumberReservationsResponse listNumberReservations(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference)
+> ListNumberReservationsResponse listNumberReservations().filterStatus(filterStatus).filterCreatedAtGt(filterCreatedAtGt).filterCreatedAtLt(filterCreatedAtLt).filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber).filterCustomerReference(filterCustomerReference).execute();
 
 List number reservations
 
@@ -180,7 +182,13 @@ public class Example {
     String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number reservations having these phone numbers.
     String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number reservations via the customer reference set.
     try {
-      ListNumberReservationsResponse result = apiInstance.listNumberReservations(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference);
+      ListNumberReservationsResponse result = apiInstance.listNumberReservations()
+            .filterStatus(filterStatus)
+            .filterCreatedAtGt(filterCreatedAtGt)
+            .filterCreatedAtLt(filterCreatedAtLt)
+            .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
+            .filterCustomerReference(filterCustomerReference)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberReservationsApi#listNumberReservations");
@@ -224,7 +232,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveNumberReservation"></a>
 # **retrieveNumberReservation**
-> NumberReservationResponse retrieveNumberReservation(numberReservationId)
+> NumberReservationResponse retrieveNumberReservation(numberReservationId).execute();
 
 Retrieve a number reservation
 
@@ -252,7 +260,8 @@ public class Example {
     NumberReservationsApi apiInstance = new NumberReservationsApi(defaultClient);
     String numberReservationId = "numberReservationId_example"; // String | The number reservation ID.
     try {
-      NumberReservationResponse result = apiInstance.retrieveNumberReservation(numberReservationId);
+      NumberReservationResponse result = apiInstance.retrieveNumberReservation(numberReservationId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberReservationsApi#retrieveNumberReservation");

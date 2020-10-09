@@ -56,19 +56,7 @@ public class CsvDownloadsApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for createCsvDownload
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createCsvDownloadCall(final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createCsvDownloadCall(final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -106,76 +94,105 @@ public class CsvDownloadsApi {
 
     }
 
-    /**
-     * Create a CSV download
-     * 
-     * @return CSVDownloadResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public CSVDownloadResponse createCsvDownload() throws ApiException {
-        ApiResponse<CSVDownloadResponse> localVarResp = createCsvDownloadWithHttpInfo();
-        return localVarResp.getData();
-    }
 
-    /**
-     * Create a CSV download
-     * 
-     * @return ApiResponse&lt;CSVDownloadResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CSVDownloadResponse> createCsvDownloadWithHttpInfo() throws ApiException {
+    private ApiResponse<CSVDownloadResponse> createCsvDownloadWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = createCsvDownloadValidateBeforeCall(null);
         Type localVarReturnType = new TypeToken<CSVDownloadResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Create a CSV download (asynchronously)
-     * 
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createCsvDownloadAsync(final ApiCallback<CSVDownloadResponse> _callback) throws ApiException {
+    private okhttp3.Call createCsvDownloadAsync(final ApiCallback<CSVDownloadResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createCsvDownloadValidateBeforeCall(_callback);
         Type localVarReturnType = new TypeToken<CSVDownloadResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateCsvDownloadRequest {
+
+        private APIcreateCsvDownloadRequest() {
+        }
+
+        /**
+         * Build call for createCsvDownload
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createCsvDownloadCall(_callback);
+        }
+
+        /**
+         * Execute createCsvDownload request
+         * @return CSVDownloadResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public CSVDownloadResponse execute() throws ApiException {
+            ApiResponse<CSVDownloadResponse> localVarResp = createCsvDownloadWithHttpInfo();
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createCsvDownload request with HTTP info returned
+         * @return ApiResponse&lt;CSVDownloadResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<CSVDownloadResponse> executeWithHttpInfo() throws ApiException {
+            return createCsvDownloadWithHttpInfo();
+        }
+
+        /**
+         * Execute createCsvDownload request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<CSVDownloadResponse> _callback) throws ApiException {
+            return createCsvDownloadAsync(_callback);
+        }
+    }
+
     /**
-     * Build call for listCsvDownloads
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Create a CSV download
+     * 
+     * @return APIcreateCsvDownloadRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listCsvDownloadsCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public APIcreateCsvDownloadRequest createCsvDownload() {
+        return new APIcreateCsvDownloadRequest();
+    }
+    private okhttp3.Call listCsvDownloadsCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -221,81 +238,127 @@ public class CsvDownloadsApi {
 
     }
 
-    /**
-     * List CSV downloads
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ListCSVDownloadsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListCSVDownloadsResponse listCsvDownloads(Integer pageNumber, Integer pageSize) throws ApiException {
-        ApiResponse<ListCSVDownloadsResponse> localVarResp = listCsvDownloadsWithHttpInfo(pageNumber, pageSize);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List CSV downloads
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ApiResponse&lt;ListCSVDownloadsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+    private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
         okhttp3.Call localVarCall = listCsvDownloadsValidateBeforeCall(pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListCSVDownloadsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List CSV downloads (asynchronously)
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listCsvDownloadsAsync(Integer pageNumber, Integer pageSize, final ApiCallback<ListCSVDownloadsResponse> _callback) throws ApiException {
+    private okhttp3.Call listCsvDownloadsAsync(Integer pageNumber, Integer pageSize, final ApiCallback<ListCSVDownloadsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listCsvDownloadsValidateBeforeCall(pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListCSVDownloadsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistCsvDownloadsRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
+
+        private APIlistCsvDownloadsRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistCsvDownloadsRequest
+         */
+        public APIlistCsvDownloadsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistCsvDownloadsRequest
+         */
+        public APIlistCsvDownloadsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Build call for listCsvDownloads
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listCsvDownloadsCall(pageNumber, pageSize, _callback);
+        }
+
+        /**
+         * Execute listCsvDownloads request
+         * @return ListCSVDownloadsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListCSVDownloadsResponse execute() throws ApiException {
+            ApiResponse<ListCSVDownloadsResponse> localVarResp = listCsvDownloadsWithHttpInfo(pageNumber, pageSize);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listCsvDownloads request with HTTP info returned
+         * @return ApiResponse&lt;ListCSVDownloadsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListCSVDownloadsResponse> executeWithHttpInfo() throws ApiException {
+            return listCsvDownloadsWithHttpInfo(pageNumber, pageSize);
+        }
+
+        /**
+         * Execute listCsvDownloads request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListCSVDownloadsResponse> _callback) throws ApiException {
+            return listCsvDownloadsAsync(pageNumber, pageSize, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveCsvDownload
-     * @param id Identifies the CSV download. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List CSV downloads
+     * 
+     * @return APIlistCsvDownloadsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveCsvDownloadCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIlistCsvDownloadsRequest listCsvDownloads() {
+        return new APIlistCsvDownloadsRequest();
+    }
+    private okhttp3.Call retrieveCsvDownloadCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -339,50 +402,97 @@ public class CsvDownloadsApi {
 
     }
 
-    /**
-     * Retrieve a CSV download
-     * 
-     * @param id Identifies the CSV download. (required)
-     * @return CSVDownloadResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public CSVDownloadResponse retrieveCsvDownload(String id) throws ApiException {
-        ApiResponse<CSVDownloadResponse> localVarResp = retrieveCsvDownloadWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a CSV download
-     * 
-     * @param id Identifies the CSV download. (required)
-     * @return ApiResponse&lt;CSVDownloadResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CSVDownloadResponse> retrieveCsvDownloadWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<CSVDownloadResponse> retrieveCsvDownloadWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = retrieveCsvDownloadValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<CSVDownloadResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call retrieveCsvDownloadAsync(String id, final ApiCallback<CSVDownloadResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = retrieveCsvDownloadValidateBeforeCall(id, _callback);
+        Type localVarReturnType = new TypeToken<CSVDownloadResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIretrieveCsvDownloadRequest {
+        private final String id;
+
+        private APIretrieveCsvDownloadRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrieveCsvDownload
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveCsvDownloadCall(id, _callback);
+        }
+
+        /**
+         * Execute retrieveCsvDownload request
+         * @return CSVDownloadResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public CSVDownloadResponse execute() throws ApiException {
+            ApiResponse<CSVDownloadResponse> localVarResp = retrieveCsvDownloadWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveCsvDownload request with HTTP info returned
+         * @return ApiResponse&lt;CSVDownloadResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<CSVDownloadResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveCsvDownloadWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrieveCsvDownload request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<CSVDownloadResponse> _callback) throws ApiException {
+            return retrieveCsvDownloadAsync(id, _callback);
+        }
+    }
+
     /**
-     * Retrieve a CSV download (asynchronously)
+     * Retrieve a CSV download
      * 
      * @param id Identifies the CSV download. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIretrieveCsvDownloadRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -390,11 +500,7 @@ public class CsvDownloadsApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveCsvDownloadAsync(String id, final ApiCallback<CSVDownloadResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = retrieveCsvDownloadValidateBeforeCall(id, _callback);
-        Type localVarReturnType = new TypeToken<CSVDownloadResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIretrieveCsvDownloadRequest retrieveCsvDownload(String id) {
+        return new APIretrieveCsvDownloadRequest(id);
     }
 }

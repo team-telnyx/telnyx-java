@@ -63,20 +63,7 @@ public class MessagingProfilesApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for createMessagingProfile
-     * @param createMessagingProfileRequest New Messaging Profile object (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createMessagingProfileCall(CreateMessagingProfileRequest createMessagingProfileRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createMessagingProfileCall(CreateMessagingProfileRequest createMessagingProfileRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = createMessagingProfileRequest;
 
         // create path and map variables
@@ -119,70 +106,97 @@ public class MessagingProfilesApi {
 
     }
 
-    /**
-     * Create a messaging profile
-     * 
-     * @param createMessagingProfileRequest New Messaging Profile object (required)
-     * @return MessagingProfileResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public MessagingProfileResponse createMessagingProfile(CreateMessagingProfileRequest createMessagingProfileRequest) throws ApiException {
-        ApiResponse<MessagingProfileResponse> localVarResp = createMessagingProfileWithHttpInfo(createMessagingProfileRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Create a messaging profile
-     * 
-     * @param createMessagingProfileRequest New Messaging Profile object (required)
-     * @return ApiResponse&lt;MessagingProfileResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MessagingProfileResponse> createMessagingProfileWithHttpInfo(CreateMessagingProfileRequest createMessagingProfileRequest) throws ApiException {
+    private ApiResponse<MessagingProfileResponse> createMessagingProfileWithHttpInfo(CreateMessagingProfileRequest createMessagingProfileRequest) throws ApiException {
         okhttp3.Call localVarCall = createMessagingProfileValidateBeforeCall(createMessagingProfileRequest, null);
         Type localVarReturnType = new TypeToken<MessagingProfileResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Create a messaging profile (asynchronously)
-     * 
-     * @param createMessagingProfileRequest New Messaging Profile object (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createMessagingProfileAsync(CreateMessagingProfileRequest createMessagingProfileRequest, final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
+    private okhttp3.Call createMessagingProfileAsync(CreateMessagingProfileRequest createMessagingProfileRequest, final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createMessagingProfileValidateBeforeCall(createMessagingProfileRequest, _callback);
         Type localVarReturnType = new TypeToken<MessagingProfileResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateMessagingProfileRequest {
+        private final CreateMessagingProfileRequest createMessagingProfileRequest;
+
+        private APIcreateMessagingProfileRequest(CreateMessagingProfileRequest createMessagingProfileRequest) {
+            this.createMessagingProfileRequest = createMessagingProfileRequest;
+        }
+
+        /**
+         * Build call for createMessagingProfile
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createMessagingProfileCall(createMessagingProfileRequest, _callback);
+        }
+
+        /**
+         * Execute createMessagingProfile request
+         * @return MessagingProfileResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public MessagingProfileResponse execute() throws ApiException {
+            ApiResponse<MessagingProfileResponse> localVarResp = createMessagingProfileWithHttpInfo(createMessagingProfileRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createMessagingProfile request with HTTP info returned
+         * @return ApiResponse&lt;MessagingProfileResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<MessagingProfileResponse> executeWithHttpInfo() throws ApiException {
+            return createMessagingProfileWithHttpInfo(createMessagingProfileRequest);
+        }
+
+        /**
+         * Execute createMessagingProfile request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
+            return createMessagingProfileAsync(createMessagingProfileRequest, _callback);
+        }
+    }
+
     /**
-     * Build call for deleteMessagingProfile
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Create a messaging profile
+     * 
+     * @param createMessagingProfileRequest New Messaging Profile object (required)
+     * @return APIcreateMessagingProfileRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -190,7 +204,10 @@ public class MessagingProfilesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteMessagingProfileCall(UUID id, final ApiCallback _callback) throws ApiException {
+    public APIcreateMessagingProfileRequest createMessagingProfile(CreateMessagingProfileRequest createMessagingProfileRequest) {
+        return new APIcreateMessagingProfileRequest(createMessagingProfileRequest);
+    }
+    private okhttp3.Call deleteMessagingProfileCall(UUID id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -234,79 +251,108 @@ public class MessagingProfilesApi {
 
     }
 
-    /**
-     * Delete a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @return MessagingProfileResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public MessagingProfileResponse deleteMessagingProfile(UUID id) throws ApiException {
-        ApiResponse<MessagingProfileResponse> localVarResp = deleteMessagingProfileWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Delete a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @return ApiResponse&lt;MessagingProfileResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MessagingProfileResponse> deleteMessagingProfileWithHttpInfo(UUID id) throws ApiException {
+    private ApiResponse<MessagingProfileResponse> deleteMessagingProfileWithHttpInfo(UUID id) throws ApiException {
         okhttp3.Call localVarCall = deleteMessagingProfileValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<MessagingProfileResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Delete a messaging profile (asynchronously)
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteMessagingProfileAsync(UUID id, final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
+    private okhttp3.Call deleteMessagingProfileAsync(UUID id, final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteMessagingProfileValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<MessagingProfileResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIdeleteMessagingProfileRequest {
+        private final UUID id;
+
+        private APIdeleteMessagingProfileRequest(UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for deleteMessagingProfile
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return deleteMessagingProfileCall(id, _callback);
+        }
+
+        /**
+         * Execute deleteMessagingProfile request
+         * @return MessagingProfileResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public MessagingProfileResponse execute() throws ApiException {
+            ApiResponse<MessagingProfileResponse> localVarResp = deleteMessagingProfileWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute deleteMessagingProfile request with HTTP info returned
+         * @return ApiResponse&lt;MessagingProfileResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<MessagingProfileResponse> executeWithHttpInfo() throws ApiException {
+            return deleteMessagingProfileWithHttpInfo(id);
+        }
+
+        /**
+         * Execute deleteMessagingProfile request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
+            return deleteMessagingProfileAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for getMessagingProfileDetailedMetrics
+     * Delete a messaging profile
+     * 
      * @param id The id of the messaging profile to retrieve (required)
-     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIdeleteMessagingProfileRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getMessagingProfileDetailedMetricsCall(UUID id, String timeFrame, final ApiCallback _callback) throws ApiException {
+    public APIdeleteMessagingProfileRequest deleteMessagingProfile(UUID id) {
+        return new APIdeleteMessagingProfileRequest(id);
+    }
+    private okhttp3.Call getMessagingProfileDetailedMetricsCall(UUID id, String timeFrame, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -354,84 +400,119 @@ public class MessagingProfilesApi {
 
     }
 
-    /**
-     * Retrieve messaging profile metrics
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @return RetrieveMessagingProfileMetricsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public RetrieveMessagingProfileMetricsResponse getMessagingProfileDetailedMetrics(UUID id, String timeFrame) throws ApiException {
-        ApiResponse<RetrieveMessagingProfileMetricsResponse> localVarResp = getMessagingProfileDetailedMetricsWithHttpInfo(id, timeFrame);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve messaging profile metrics
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @return ApiResponse&lt;RetrieveMessagingProfileMetricsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RetrieveMessagingProfileMetricsResponse> getMessagingProfileDetailedMetricsWithHttpInfo(UUID id, String timeFrame) throws ApiException {
+    private ApiResponse<RetrieveMessagingProfileMetricsResponse> getMessagingProfileDetailedMetricsWithHttpInfo(UUID id, String timeFrame) throws ApiException {
         okhttp3.Call localVarCall = getMessagingProfileDetailedMetricsValidateBeforeCall(id, timeFrame, null);
         Type localVarReturnType = new TypeToken<RetrieveMessagingProfileMetricsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve messaging profile metrics (asynchronously)
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getMessagingProfileDetailedMetricsAsync(UUID id, String timeFrame, final ApiCallback<RetrieveMessagingProfileMetricsResponse> _callback) throws ApiException {
+    private okhttp3.Call getMessagingProfileDetailedMetricsAsync(UUID id, String timeFrame, final ApiCallback<RetrieveMessagingProfileMetricsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getMessagingProfileDetailedMetricsValidateBeforeCall(id, timeFrame, _callback);
         Type localVarReturnType = new TypeToken<RetrieveMessagingProfileMetricsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIgetMessagingProfileDetailedMetricsRequest {
+        private final UUID id;
+        private String timeFrame;
+
+        private APIgetMessagingProfileDetailedMetricsRequest(UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Set timeFrame
+         * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
+         * @return APIgetMessagingProfileDetailedMetricsRequest
+         */
+        public APIgetMessagingProfileDetailedMetricsRequest timeFrame(String timeFrame) {
+            this.timeFrame = timeFrame;
+            return this;
+        }
+
+        /**
+         * Build call for getMessagingProfileDetailedMetrics
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getMessagingProfileDetailedMetricsCall(id, timeFrame, _callback);
+        }
+
+        /**
+         * Execute getMessagingProfileDetailedMetrics request
+         * @return RetrieveMessagingProfileMetricsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public RetrieveMessagingProfileMetricsResponse execute() throws ApiException {
+            ApiResponse<RetrieveMessagingProfileMetricsResponse> localVarResp = getMessagingProfileDetailedMetricsWithHttpInfo(id, timeFrame);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getMessagingProfileDetailedMetrics request with HTTP info returned
+         * @return ApiResponse&lt;RetrieveMessagingProfileMetricsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<RetrieveMessagingProfileMetricsResponse> executeWithHttpInfo() throws ApiException {
+            return getMessagingProfileDetailedMetricsWithHttpInfo(id, timeFrame);
+        }
+
+        /**
+         * Execute getMessagingProfileDetailedMetrics request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<RetrieveMessagingProfileMetricsResponse> _callback) throws ApiException {
+            return getMessagingProfileDetailedMetricsAsync(id, timeFrame, _callback);
+        }
+    }
+
     /**
-     * Build call for listMessagingProfileMetrics
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param id The id of the messaging profile(s) to retrieve (optional)
-     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Retrieve messaging profile metrics
+     * 
+     * @param id The id of the messaging profile to retrieve (required)
+     * @return APIgetMessagingProfileDetailedMetricsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listMessagingProfileMetricsCall(Integer pageNumber, Integer pageSize, UUID id, String timeFrame, final ApiCallback _callback) throws ApiException {
+    public APIgetMessagingProfileDetailedMetricsRequest getMessagingProfileDetailedMetrics(UUID id) {
+        return new APIgetMessagingProfileDetailedMetricsRequest(id);
+    }
+    private okhttp3.Call listMessagingProfileMetricsCall(Integer pageNumber, Integer pageSize, UUID id, String timeFrame, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -485,89 +566,149 @@ public class MessagingProfilesApi {
 
     }
 
-    /**
-     * List messaging profile metrics
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param id The id of the messaging profile(s) to retrieve (optional)
-     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @return ListMessagingProfileMetricsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListMessagingProfileMetricsResponse listMessagingProfileMetrics(Integer pageNumber, Integer pageSize, UUID id, String timeFrame) throws ApiException {
-        ApiResponse<ListMessagingProfileMetricsResponse> localVarResp = listMessagingProfileMetricsWithHttpInfo(pageNumber, pageSize, id, timeFrame);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List messaging profile metrics
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param id The id of the messaging profile(s) to retrieve (optional)
-     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @return ApiResponse&lt;ListMessagingProfileMetricsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListMessagingProfileMetricsResponse> listMessagingProfileMetricsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID id, String timeFrame) throws ApiException {
+    private ApiResponse<ListMessagingProfileMetricsResponse> listMessagingProfileMetricsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID id, String timeFrame) throws ApiException {
         okhttp3.Call localVarCall = listMessagingProfileMetricsValidateBeforeCall(pageNumber, pageSize, id, timeFrame, null);
         Type localVarReturnType = new TypeToken<ListMessagingProfileMetricsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List messaging profile metrics (asynchronously)
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param id The id of the messaging profile(s) to retrieve (optional)
-     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listMessagingProfileMetricsAsync(Integer pageNumber, Integer pageSize, UUID id, String timeFrame, final ApiCallback<ListMessagingProfileMetricsResponse> _callback) throws ApiException {
+    private okhttp3.Call listMessagingProfileMetricsAsync(Integer pageNumber, Integer pageSize, UUID id, String timeFrame, final ApiCallback<ListMessagingProfileMetricsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listMessagingProfileMetricsValidateBeforeCall(pageNumber, pageSize, id, timeFrame, _callback);
         Type localVarReturnType = new TypeToken<ListMessagingProfileMetricsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistMessagingProfileMetricsRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
+        private UUID id;
+        private String timeFrame;
+
+        private APIlistMessagingProfileMetricsRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistMessagingProfileMetricsRequest
+         */
+        public APIlistMessagingProfileMetricsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistMessagingProfileMetricsRequest
+         */
+        public APIlistMessagingProfileMetricsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set id
+         * @param id The id of the messaging profile(s) to retrieve (optional)
+         * @return APIlistMessagingProfileMetricsRequest
+         */
+        public APIlistMessagingProfileMetricsRequest id(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        /**
+         * Set timeFrame
+         * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
+         * @return APIlistMessagingProfileMetricsRequest
+         */
+        public APIlistMessagingProfileMetricsRequest timeFrame(String timeFrame) {
+            this.timeFrame = timeFrame;
+            return this;
+        }
+
+        /**
+         * Build call for listMessagingProfileMetrics
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listMessagingProfileMetricsCall(pageNumber, pageSize, id, timeFrame, _callback);
+        }
+
+        /**
+         * Execute listMessagingProfileMetrics request
+         * @return ListMessagingProfileMetricsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListMessagingProfileMetricsResponse execute() throws ApiException {
+            ApiResponse<ListMessagingProfileMetricsResponse> localVarResp = listMessagingProfileMetricsWithHttpInfo(pageNumber, pageSize, id, timeFrame);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listMessagingProfileMetrics request with HTTP info returned
+         * @return ApiResponse&lt;ListMessagingProfileMetricsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListMessagingProfileMetricsResponse> executeWithHttpInfo() throws ApiException {
+            return listMessagingProfileMetricsWithHttpInfo(pageNumber, pageSize, id, timeFrame);
+        }
+
+        /**
+         * Execute listMessagingProfileMetrics request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListMessagingProfileMetricsResponse> _callback) throws ApiException {
+            return listMessagingProfileMetricsAsync(pageNumber, pageSize, id, timeFrame, _callback);
+        }
+    }
+
     /**
-     * Build call for listMessagingProfilePhoneNumbers
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List messaging profile metrics
+     * 
+     * @return APIlistMessagingProfileMetricsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listMessagingProfilePhoneNumbersCall(UUID id, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public APIlistMessagingProfileMetricsRequest listMessagingProfileMetrics() {
+        return new APIlistMessagingProfileMetricsRequest();
+    }
+    private okhttp3.Call listMessagingProfilePhoneNumbersCall(UUID id, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -619,86 +760,130 @@ public class MessagingProfilesApi {
 
     }
 
-    /**
-     * List phone numbers associated with a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ListMessagingProfilePhoneNumbersResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListMessagingProfilePhoneNumbersResponse listMessagingProfilePhoneNumbers(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-        ApiResponse<ListMessagingProfilePhoneNumbersResponse> localVarResp = listMessagingProfilePhoneNumbersWithHttpInfo(id, pageNumber, pageSize);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List phone numbers associated with a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ApiResponse&lt;ListMessagingProfilePhoneNumbersResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListMessagingProfilePhoneNumbersResponse> listMessagingProfilePhoneNumbersWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+    private ApiResponse<ListMessagingProfilePhoneNumbersResponse> listMessagingProfilePhoneNumbersWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
         okhttp3.Call localVarCall = listMessagingProfilePhoneNumbersValidateBeforeCall(id, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListMessagingProfilePhoneNumbersResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List phone numbers associated with a messaging profile (asynchronously)
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listMessagingProfilePhoneNumbersAsync(UUID id, Integer pageNumber, Integer pageSize, final ApiCallback<ListMessagingProfilePhoneNumbersResponse> _callback) throws ApiException {
+    private okhttp3.Call listMessagingProfilePhoneNumbersAsync(UUID id, Integer pageNumber, Integer pageSize, final ApiCallback<ListMessagingProfilePhoneNumbersResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listMessagingProfilePhoneNumbersValidateBeforeCall(id, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListMessagingProfilePhoneNumbersResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistMessagingProfilePhoneNumbersRequest {
+        private final UUID id;
+        private Integer pageNumber;
+        private Integer pageSize;
+
+        private APIlistMessagingProfilePhoneNumbersRequest(UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistMessagingProfilePhoneNumbersRequest
+         */
+        public APIlistMessagingProfilePhoneNumbersRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistMessagingProfilePhoneNumbersRequest
+         */
+        public APIlistMessagingProfilePhoneNumbersRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Build call for listMessagingProfilePhoneNumbers
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listMessagingProfilePhoneNumbersCall(id, pageNumber, pageSize, _callback);
+        }
+
+        /**
+         * Execute listMessagingProfilePhoneNumbers request
+         * @return ListMessagingProfilePhoneNumbersResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListMessagingProfilePhoneNumbersResponse execute() throws ApiException {
+            ApiResponse<ListMessagingProfilePhoneNumbersResponse> localVarResp = listMessagingProfilePhoneNumbersWithHttpInfo(id, pageNumber, pageSize);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listMessagingProfilePhoneNumbers request with HTTP info returned
+         * @return ApiResponse&lt;ListMessagingProfilePhoneNumbersResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListMessagingProfilePhoneNumbersResponse> executeWithHttpInfo() throws ApiException {
+            return listMessagingProfilePhoneNumbersWithHttpInfo(id, pageNumber, pageSize);
+        }
+
+        /**
+         * Execute listMessagingProfilePhoneNumbers request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListMessagingProfilePhoneNumbersResponse> _callback) throws ApiException {
+            return listMessagingProfilePhoneNumbersAsync(id, pageNumber, pageSize, _callback);
+        }
+    }
+
     /**
-     * Build call for listMessagingProfileShortCodes
+     * List phone numbers associated with a messaging profile
+     * 
      * @param id The id of the messaging profile to retrieve (required)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIlistMessagingProfilePhoneNumbersRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listMessagingProfileShortCodesCall(UUID id, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public APIlistMessagingProfilePhoneNumbersRequest listMessagingProfilePhoneNumbers(UUID id) {
+        return new APIlistMessagingProfilePhoneNumbersRequest(id);
+    }
+    private okhttp3.Call listMessagingProfileShortCodesCall(UUID id, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -750,85 +935,130 @@ public class MessagingProfilesApi {
 
     }
 
-    /**
-     * List short codes associated with a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ListMessagingProfileShortCodesResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListMessagingProfileShortCodesResponse listMessagingProfileShortCodes(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-        ApiResponse<ListMessagingProfileShortCodesResponse> localVarResp = listMessagingProfileShortCodesWithHttpInfo(id, pageNumber, pageSize);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List short codes associated with a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ApiResponse&lt;ListMessagingProfileShortCodesResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListMessagingProfileShortCodesResponse> listMessagingProfileShortCodesWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+    private ApiResponse<ListMessagingProfileShortCodesResponse> listMessagingProfileShortCodesWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
         okhttp3.Call localVarCall = listMessagingProfileShortCodesValidateBeforeCall(id, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListMessagingProfileShortCodesResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List short codes associated with a messaging profile (asynchronously)
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listMessagingProfileShortCodesAsync(UUID id, Integer pageNumber, Integer pageSize, final ApiCallback<ListMessagingProfileShortCodesResponse> _callback) throws ApiException {
+    private okhttp3.Call listMessagingProfileShortCodesAsync(UUID id, Integer pageNumber, Integer pageSize, final ApiCallback<ListMessagingProfileShortCodesResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listMessagingProfileShortCodesValidateBeforeCall(id, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListMessagingProfileShortCodesResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistMessagingProfileShortCodesRequest {
+        private final UUID id;
+        private Integer pageNumber;
+        private Integer pageSize;
+
+        private APIlistMessagingProfileShortCodesRequest(UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistMessagingProfileShortCodesRequest
+         */
+        public APIlistMessagingProfileShortCodesRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistMessagingProfileShortCodesRequest
+         */
+        public APIlistMessagingProfileShortCodesRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Build call for listMessagingProfileShortCodes
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listMessagingProfileShortCodesCall(id, pageNumber, pageSize, _callback);
+        }
+
+        /**
+         * Execute listMessagingProfileShortCodes request
+         * @return ListMessagingProfileShortCodesResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListMessagingProfileShortCodesResponse execute() throws ApiException {
+            ApiResponse<ListMessagingProfileShortCodesResponse> localVarResp = listMessagingProfileShortCodesWithHttpInfo(id, pageNumber, pageSize);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listMessagingProfileShortCodes request with HTTP info returned
+         * @return ApiResponse&lt;ListMessagingProfileShortCodesResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListMessagingProfileShortCodesResponse> executeWithHttpInfo() throws ApiException {
+            return listMessagingProfileShortCodesWithHttpInfo(id, pageNumber, pageSize);
+        }
+
+        /**
+         * Execute listMessagingProfileShortCodes request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListMessagingProfileShortCodesResponse> _callback) throws ApiException {
+            return listMessagingProfileShortCodesAsync(id, pageNumber, pageSize, _callback);
+        }
+    }
+
     /**
-     * Build call for listMessagingProfiles
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List short codes associated with a messaging profile
+     * 
+     * @param id The id of the messaging profile to retrieve (required)
+     * @return APIlistMessagingProfileShortCodesRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profiles. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listMessagingProfilesCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public APIlistMessagingProfileShortCodesRequest listMessagingProfileShortCodes(UUID id) {
+        return new APIlistMessagingProfileShortCodesRequest(id);
+    }
+    private okhttp3.Call listMessagingProfilesCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -874,81 +1104,127 @@ public class MessagingProfilesApi {
 
     }
 
-    /**
-     * List messaging profiles
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ListMessagingProfilesResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profiles. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListMessagingProfilesResponse listMessagingProfiles(Integer pageNumber, Integer pageSize) throws ApiException {
-        ApiResponse<ListMessagingProfilesResponse> localVarResp = listMessagingProfilesWithHttpInfo(pageNumber, pageSize);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List messaging profiles
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ApiResponse&lt;ListMessagingProfilesResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profiles. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+    private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
         okhttp3.Call localVarCall = listMessagingProfilesValidateBeforeCall(pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListMessagingProfilesResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List messaging profiles (asynchronously)
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of messaging profiles. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listMessagingProfilesAsync(Integer pageNumber, Integer pageSize, final ApiCallback<ListMessagingProfilesResponse> _callback) throws ApiException {
+    private okhttp3.Call listMessagingProfilesAsync(Integer pageNumber, Integer pageSize, final ApiCallback<ListMessagingProfilesResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listMessagingProfilesValidateBeforeCall(pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListMessagingProfilesResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistMessagingProfilesRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
+
+        private APIlistMessagingProfilesRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistMessagingProfilesRequest
+         */
+        public APIlistMessagingProfilesRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistMessagingProfilesRequest
+         */
+        public APIlistMessagingProfilesRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Build call for listMessagingProfiles
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profiles. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listMessagingProfilesCall(pageNumber, pageSize, _callback);
+        }
+
+        /**
+         * Execute listMessagingProfiles request
+         * @return ListMessagingProfilesResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profiles. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListMessagingProfilesResponse execute() throws ApiException {
+            ApiResponse<ListMessagingProfilesResponse> localVarResp = listMessagingProfilesWithHttpInfo(pageNumber, pageSize);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listMessagingProfiles request with HTTP info returned
+         * @return ApiResponse&lt;ListMessagingProfilesResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profiles. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListMessagingProfilesResponse> executeWithHttpInfo() throws ApiException {
+            return listMessagingProfilesWithHttpInfo(pageNumber, pageSize);
+        }
+
+        /**
+         * Execute listMessagingProfiles request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of messaging profiles. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListMessagingProfilesResponse> _callback) throws ApiException {
+            return listMessagingProfilesAsync(pageNumber, pageSize, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveMessagingProfile
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List messaging profiles
+     * 
+     * @return APIlistMessagingProfilesRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of messaging profiles. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveMessagingProfileCall(UUID id, final ApiCallback _callback) throws ApiException {
+    public APIlistMessagingProfilesRequest listMessagingProfiles() {
+        return new APIlistMessagingProfilesRequest();
+    }
+    private okhttp3.Call retrieveMessagingProfileCall(UUID id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -992,71 +1268,97 @@ public class MessagingProfilesApi {
 
     }
 
-    /**
-     * Retrieve a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @return MessagingProfileResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public MessagingProfileResponse retrieveMessagingProfile(UUID id) throws ApiException {
-        ApiResponse<MessagingProfileResponse> localVarResp = retrieveMessagingProfileWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @return ApiResponse&lt;MessagingProfileResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MessagingProfileResponse> retrieveMessagingProfileWithHttpInfo(UUID id) throws ApiException {
+    private ApiResponse<MessagingProfileResponse> retrieveMessagingProfileWithHttpInfo(UUID id) throws ApiException {
         okhttp3.Call localVarCall = retrieveMessagingProfileValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<MessagingProfileResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve a messaging profile (asynchronously)
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrieveMessagingProfileAsync(UUID id, final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
+    private okhttp3.Call retrieveMessagingProfileAsync(UUID id, final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = retrieveMessagingProfileValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<MessagingProfileResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIretrieveMessagingProfileRequest {
+        private final UUID id;
+
+        private APIretrieveMessagingProfileRequest(UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrieveMessagingProfile
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveMessagingProfileCall(id, _callback);
+        }
+
+        /**
+         * Execute retrieveMessagingProfile request
+         * @return MessagingProfileResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public MessagingProfileResponse execute() throws ApiException {
+            ApiResponse<MessagingProfileResponse> localVarResp = retrieveMessagingProfileWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveMessagingProfile request with HTTP info returned
+         * @return ApiResponse&lt;MessagingProfileResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<MessagingProfileResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveMessagingProfileWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrieveMessagingProfile request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
+            return retrieveMessagingProfileAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for updateMessagingProfile
+     * Retrieve a messaging profile
+     * 
      * @param id The id of the messaging profile to retrieve (required)
-     * @param updateMessagingProfileRequest New Messaging Profile object (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIretrieveMessagingProfileRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1064,7 +1366,10 @@ public class MessagingProfilesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateMessagingProfileCall(UUID id, UpdateMessagingProfileRequest updateMessagingProfileRequest, final ApiCallback _callback) throws ApiException {
+    public APIretrieveMessagingProfileRequest retrieveMessagingProfile(UUID id) {
+        return new APIretrieveMessagingProfileRequest(id);
+    }
+    private okhttp3.Call updateMessagingProfileCall(UUID id, UpdateMessagingProfileRequest updateMessagingProfileRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = updateMessagingProfileRequest;
 
         // create path and map variables
@@ -1113,53 +1418,100 @@ public class MessagingProfilesApi {
 
     }
 
-    /**
-     * Update a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param updateMessagingProfileRequest New Messaging Profile object (required)
-     * @return MessagingProfileResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public MessagingProfileResponse updateMessagingProfile(UUID id, UpdateMessagingProfileRequest updateMessagingProfileRequest) throws ApiException {
-        ApiResponse<MessagingProfileResponse> localVarResp = updateMessagingProfileWithHttpInfo(id, updateMessagingProfileRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Update a messaging profile
-     * 
-     * @param id The id of the messaging profile to retrieve (required)
-     * @param updateMessagingProfileRequest New Messaging Profile object (required)
-     * @return ApiResponse&lt;MessagingProfileResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MessagingProfileResponse> updateMessagingProfileWithHttpInfo(UUID id, UpdateMessagingProfileRequest updateMessagingProfileRequest) throws ApiException {
+    private ApiResponse<MessagingProfileResponse> updateMessagingProfileWithHttpInfo(UUID id, UpdateMessagingProfileRequest updateMessagingProfileRequest) throws ApiException {
         okhttp3.Call localVarCall = updateMessagingProfileValidateBeforeCall(id, updateMessagingProfileRequest, null);
         Type localVarReturnType = new TypeToken<MessagingProfileResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call updateMessagingProfileAsync(UUID id, UpdateMessagingProfileRequest updateMessagingProfileRequest, final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updateMessagingProfileValidateBeforeCall(id, updateMessagingProfileRequest, _callback);
+        Type localVarReturnType = new TypeToken<MessagingProfileResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIupdateMessagingProfileRequest {
+        private final UUID id;
+        private final UpdateMessagingProfileRequest updateMessagingProfileRequest;
+
+        private APIupdateMessagingProfileRequest(UUID id, UpdateMessagingProfileRequest updateMessagingProfileRequest) {
+            this.id = id;
+            this.updateMessagingProfileRequest = updateMessagingProfileRequest;
+        }
+
+        /**
+         * Build call for updateMessagingProfile
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return updateMessagingProfileCall(id, updateMessagingProfileRequest, _callback);
+        }
+
+        /**
+         * Execute updateMessagingProfile request
+         * @return MessagingProfileResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public MessagingProfileResponse execute() throws ApiException {
+            ApiResponse<MessagingProfileResponse> localVarResp = updateMessagingProfileWithHttpInfo(id, updateMessagingProfileRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute updateMessagingProfile request with HTTP info returned
+         * @return ApiResponse&lt;MessagingProfileResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<MessagingProfileResponse> executeWithHttpInfo() throws ApiException {
+            return updateMessagingProfileWithHttpInfo(id, updateMessagingProfileRequest);
+        }
+
+        /**
+         * Execute updateMessagingProfile request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a messaging profile. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
+            return updateMessagingProfileAsync(id, updateMessagingProfileRequest, _callback);
+        }
+    }
+
     /**
-     * Update a messaging profile (asynchronously)
+     * Update a messaging profile
      * 
      * @param id The id of the messaging profile to retrieve (required)
      * @param updateMessagingProfileRequest New Messaging Profile object (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIupdateMessagingProfileRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1167,11 +1519,7 @@ public class MessagingProfilesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateMessagingProfileAsync(UUID id, UpdateMessagingProfileRequest updateMessagingProfileRequest, final ApiCallback<MessagingProfileResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateMessagingProfileValidateBeforeCall(id, updateMessagingProfileRequest, _callback);
-        Type localVarReturnType = new TypeToken<MessagingProfileResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIupdateMessagingProfileRequest updateMessagingProfile(UUID id, UpdateMessagingProfileRequest updateMessagingProfileRequest) {
+        return new APIupdateMessagingProfileRequest(id, updateMessagingProfileRequest);
     }
 }

@@ -55,25 +55,7 @@ public class RecordingsCommandsApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for listRecordings
-     * @param filterConferenceId Return only recordings associated with a given conference (optional)
-     * @param filterCreatedAtGte Return only recordings created later than or at given ISO 8601 datetime (optional)
-     * @param filterCreatedAtLte Return only recordings created earlier than or at given ISO 8601 datetime (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listRecordingsCall(String filterConferenceId, String filterCreatedAtGte, String filterCreatedAtLte, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listRecordingsCall(String filterConferenceId, String filterCreatedAtGte, String filterCreatedAtLte, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -131,94 +113,165 @@ public class RecordingsCommandsApi {
 
     }
 
-    /**
-     * List recordings
-     * Lists recordings for the authenticated user
-     * @param filterConferenceId Return only recordings associated with a given conference (optional)
-     * @param filterCreatedAtGte Return only recordings created later than or at given ISO 8601 datetime (optional)
-     * @param filterCreatedAtLte Return only recordings created earlier than or at given ISO 8601 datetime (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ListRecordingsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListRecordingsResponse listRecordings(String filterConferenceId, String filterCreatedAtGte, String filterCreatedAtLte, Integer pageNumber, Integer pageSize) throws ApiException {
-        ApiResponse<ListRecordingsResponse> localVarResp = listRecordingsWithHttpInfo(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List recordings
-     * Lists recordings for the authenticated user
-     * @param filterConferenceId Return only recordings associated with a given conference (optional)
-     * @param filterCreatedAtGte Return only recordings created later than or at given ISO 8601 datetime (optional)
-     * @param filterCreatedAtLte Return only recordings created earlier than or at given ISO 8601 datetime (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return ApiResponse&lt;ListRecordingsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListRecordingsResponse> listRecordingsWithHttpInfo(String filterConferenceId, String filterCreatedAtGte, String filterCreatedAtLte, Integer pageNumber, Integer pageSize) throws ApiException {
+    private ApiResponse<ListRecordingsResponse> listRecordingsWithHttpInfo(String filterConferenceId, String filterCreatedAtGte, String filterCreatedAtLte, Integer pageNumber, Integer pageSize) throws ApiException {
         okhttp3.Call localVarCall = listRecordingsValidateBeforeCall(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListRecordingsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List recordings (asynchronously)
-     * Lists recordings for the authenticated user
-     * @param filterConferenceId Return only recordings associated with a given conference (optional)
-     * @param filterCreatedAtGte Return only recordings created later than or at given ISO 8601 datetime (optional)
-     * @param filterCreatedAtLte Return only recordings created earlier than or at given ISO 8601 datetime (optional)
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listRecordingsAsync(String filterConferenceId, String filterCreatedAtGte, String filterCreatedAtLte, Integer pageNumber, Integer pageSize, final ApiCallback<ListRecordingsResponse> _callback) throws ApiException {
+    private okhttp3.Call listRecordingsAsync(String filterConferenceId, String filterCreatedAtGte, String filterCreatedAtLte, Integer pageNumber, Integer pageSize, final ApiCallback<ListRecordingsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listRecordingsValidateBeforeCall(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListRecordingsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistRecordingsRequest {
+        private String filterConferenceId;
+        private String filterCreatedAtGte;
+        private String filterCreatedAtLte;
+        private Integer pageNumber;
+        private Integer pageSize;
+
+        private APIlistRecordingsRequest() {
+        }
+
+        /**
+         * Set filterConferenceId
+         * @param filterConferenceId Return only recordings associated with a given conference (optional)
+         * @return APIlistRecordingsRequest
+         */
+        public APIlistRecordingsRequest filterConferenceId(String filterConferenceId) {
+            this.filterConferenceId = filterConferenceId;
+            return this;
+        }
+
+        /**
+         * Set filterCreatedAtGte
+         * @param filterCreatedAtGte Return only recordings created later than or at given ISO 8601 datetime (optional)
+         * @return APIlistRecordingsRequest
+         */
+        public APIlistRecordingsRequest filterCreatedAtGte(String filterCreatedAtGte) {
+            this.filterCreatedAtGte = filterCreatedAtGte;
+            return this;
+        }
+
+        /**
+         * Set filterCreatedAtLte
+         * @param filterCreatedAtLte Return only recordings created earlier than or at given ISO 8601 datetime (optional)
+         * @return APIlistRecordingsRequest
+         */
+        public APIlistRecordingsRequest filterCreatedAtLte(String filterCreatedAtLte) {
+            this.filterCreatedAtLte = filterCreatedAtLte;
+            return this;
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistRecordingsRequest
+         */
+        public APIlistRecordingsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistRecordingsRequest
+         */
+        public APIlistRecordingsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Build call for listRecordings
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listRecordingsCall(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize, _callback);
+        }
+
+        /**
+         * Execute listRecordings request
+         * @return ListRecordingsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListRecordingsResponse execute() throws ApiException {
+            ApiResponse<ListRecordingsResponse> localVarResp = listRecordingsWithHttpInfo(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listRecordings request with HTTP info returned
+         * @return ApiResponse&lt;ListRecordingsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListRecordingsResponse> executeWithHttpInfo() throws ApiException {
+            return listRecordingsWithHttpInfo(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize);
+        }
+
+        /**
+         * Execute listRecordings request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListRecordingsResponse> _callback) throws ApiException {
+            return listRecordingsAsync(filterConferenceId, filterCreatedAtGte, filterCreatedAtLte, pageNumber, pageSize, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveRecording
-     * @param id Uniquely identifies the recording (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List recordings
+     * Lists recordings for the authenticated user
+     * @return APIlistRecordingsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a recording. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveRecordingCall(String id, final ApiCallback _callback) throws ApiException {
+    public APIlistRecordingsRequest listRecordings() {
+        return new APIlistRecordingsRequest();
+    }
+    private okhttp3.Call retrieveRecordingCall(String id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -262,52 +315,101 @@ public class RecordingsCommandsApi {
 
     }
 
-    /**
-     * Retrieve a recording
-     * Retrieve a recording from the authenticated user&#39;s recordings
-     * @param id Uniquely identifies the recording (required)
-     * @return GetRecordingResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a recording. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-     </table>
-     */
-    public GetRecordingResponse retrieveRecording(String id) throws ApiException {
-        ApiResponse<GetRecordingResponse> localVarResp = retrieveRecordingWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a recording
-     * Retrieve a recording from the authenticated user&#39;s recordings
-     * @param id Uniquely identifies the recording (required)
-     * @return ApiResponse&lt;GetRecordingResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a recording. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<GetRecordingResponse> retrieveRecordingWithHttpInfo(String id) throws ApiException {
+    private ApiResponse<GetRecordingResponse> retrieveRecordingWithHttpInfo(String id) throws ApiException {
         okhttp3.Call localVarCall = retrieveRecordingValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<GetRecordingResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call retrieveRecordingAsync(String id, final ApiCallback<GetRecordingResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = retrieveRecordingValidateBeforeCall(id, _callback);
+        Type localVarReturnType = new TypeToken<GetRecordingResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIretrieveRecordingRequest {
+        private final String id;
+
+        private APIretrieveRecordingRequest(String id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrieveRecording
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a recording. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveRecordingCall(id, _callback);
+        }
+
+        /**
+         * Execute retrieveRecording request
+         * @return GetRecordingResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a recording. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         </table>
+         */
+        public GetRecordingResponse execute() throws ApiException {
+            ApiResponse<GetRecordingResponse> localVarResp = retrieveRecordingWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveRecording request with HTTP info returned
+         * @return ApiResponse&lt;GetRecordingResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a recording. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<GetRecordingResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveRecordingWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrieveRecording request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a recording. </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<GetRecordingResponse> _callback) throws ApiException {
+            return retrieveRecordingAsync(id, _callback);
+        }
+    }
+
     /**
-     * Retrieve a recording (asynchronously)
+     * Retrieve a recording
      * Retrieve a recording from the authenticated user&#39;s recordings
      * @param id Uniquely identifies the recording (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIretrieveRecordingRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -316,11 +418,7 @@ public class RecordingsCommandsApi {
         <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveRecordingAsync(String id, final ApiCallback<GetRecordingResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = retrieveRecordingValidateBeforeCall(id, _callback);
-        Type localVarReturnType = new TypeToken<GetRecordingResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIretrieveRecordingRequest retrieveRecording(String id) {
+        return new APIretrieveRecordingRequest(id);
     }
 }

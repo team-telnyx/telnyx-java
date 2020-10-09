@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 <a name="createMessagingProfile"></a>
 # **createMessagingProfile**
-> MessagingProfileResponse createMessagingProfile(createMessagingProfileRequest)
+> MessagingProfileResponse createMessagingProfile(createMessagingProfileRequest).execute();
 
 Create a messaging profile
 
@@ -43,7 +43,8 @@ public class Example {
     MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
     CreateMessagingProfileRequest createMessagingProfileRequest = new CreateMessagingProfileRequest(); // CreateMessagingProfileRequest | New Messaging Profile object
     try {
-      MessagingProfileResponse result = apiInstance.createMessagingProfile(createMessagingProfileRequest);
+      MessagingProfileResponse result = apiInstance.createMessagingProfile(createMessagingProfileRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingProfilesApi#createMessagingProfile");
@@ -83,7 +84,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteMessagingProfile"></a>
 # **deleteMessagingProfile**
-> MessagingProfileResponse deleteMessagingProfile(id)
+> MessagingProfileResponse deleteMessagingProfile(id).execute();
 
 Delete a messaging profile
 
@@ -109,7 +110,8 @@ public class Example {
     MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
     UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
     try {
-      MessagingProfileResponse result = apiInstance.deleteMessagingProfile(id);
+      MessagingProfileResponse result = apiInstance.deleteMessagingProfile(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingProfilesApi#deleteMessagingProfile");
@@ -149,7 +151,7 @@ Name | Type | Description  | Notes
 
 <a name="getMessagingProfileDetailedMetrics"></a>
 # **getMessagingProfileDetailedMetrics**
-> RetrieveMessagingProfileMetricsResponse getMessagingProfileDetailedMetrics(id, timeFrame)
+> RetrieveMessagingProfileMetricsResponse getMessagingProfileDetailedMetrics(id).timeFrame(timeFrame).execute();
 
 Retrieve messaging profile metrics
 
@@ -176,7 +178,9 @@ public class Example {
     UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
     String timeFrame = "24h"; // String | The timeframe for which you'd like to retrieve metrics.
     try {
-      RetrieveMessagingProfileMetricsResponse result = apiInstance.getMessagingProfileDetailedMetrics(id, timeFrame);
+      RetrieveMessagingProfileMetricsResponse result = apiInstance.getMessagingProfileDetailedMetrics(id)
+            .timeFrame(timeFrame)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingProfilesApi#getMessagingProfileDetailedMetrics");
@@ -217,7 +221,7 @@ Name | Type | Description  | Notes
 
 <a name="listMessagingProfileMetrics"></a>
 # **listMessagingProfileMetrics**
-> ListMessagingProfileMetricsResponse listMessagingProfileMetrics(pageNumber, pageSize, id, timeFrame)
+> ListMessagingProfileMetricsResponse listMessagingProfileMetrics().pageNumber(pageNumber).pageSize(pageSize).id(id).timeFrame(timeFrame).execute();
 
 List messaging profile metrics
 
@@ -246,7 +250,12 @@ public class Example {
     UUID id = new UUID(); // UUID | The id of the messaging profile(s) to retrieve
     String timeFrame = "24h"; // String | The timeframe for which you'd like to retrieve metrics.
     try {
-      ListMessagingProfileMetricsResponse result = apiInstance.listMessagingProfileMetrics(pageNumber, pageSize, id, timeFrame);
+      ListMessagingProfileMetricsResponse result = apiInstance.listMessagingProfileMetrics()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .id(id)
+            .timeFrame(timeFrame)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfileMetrics");
@@ -289,7 +298,7 @@ Name | Type | Description  | Notes
 
 <a name="listMessagingProfilePhoneNumbers"></a>
 # **listMessagingProfilePhoneNumbers**
-> ListMessagingProfilePhoneNumbersResponse listMessagingProfilePhoneNumbers(id, pageNumber, pageSize)
+> ListMessagingProfilePhoneNumbersResponse listMessagingProfilePhoneNumbers(id).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List phone numbers associated with a messaging profile
 
@@ -317,7 +326,10 @@ public class Example {
     Integer pageNumber = 1; // Integer | The page number to load
     Integer pageSize = 20; // Integer | The size of the page
     try {
-      ListMessagingProfilePhoneNumbersResponse result = apiInstance.listMessagingProfilePhoneNumbers(id, pageNumber, pageSize);
+      ListMessagingProfilePhoneNumbersResponse result = apiInstance.listMessagingProfilePhoneNumbers(id)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfilePhoneNumbers");
@@ -359,7 +371,7 @@ Name | Type | Description  | Notes
 
 <a name="listMessagingProfileShortCodes"></a>
 # **listMessagingProfileShortCodes**
-> ListMessagingProfileShortCodesResponse listMessagingProfileShortCodes(id, pageNumber, pageSize)
+> ListMessagingProfileShortCodesResponse listMessagingProfileShortCodes(id).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List short codes associated with a messaging profile
 
@@ -387,7 +399,10 @@ public class Example {
     Integer pageNumber = 1; // Integer | The page number to load
     Integer pageSize = 20; // Integer | The size of the page
     try {
-      ListMessagingProfileShortCodesResponse result = apiInstance.listMessagingProfileShortCodes(id, pageNumber, pageSize);
+      ListMessagingProfileShortCodesResponse result = apiInstance.listMessagingProfileShortCodes(id)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfileShortCodes");
@@ -429,7 +444,7 @@ Name | Type | Description  | Notes
 
 <a name="listMessagingProfiles"></a>
 # **listMessagingProfiles**
-> ListMessagingProfilesResponse listMessagingProfiles(pageNumber, pageSize)
+> ListMessagingProfilesResponse listMessagingProfiles().pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List messaging profiles
 
@@ -456,7 +471,10 @@ public class Example {
     Integer pageNumber = 1; // Integer | The page number to load
     Integer pageSize = 20; // Integer | The size of the page
     try {
-      ListMessagingProfilesResponse result = apiInstance.listMessagingProfiles(pageNumber, pageSize);
+      ListMessagingProfilesResponse result = apiInstance.listMessagingProfiles()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfiles");
@@ -497,7 +515,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveMessagingProfile"></a>
 # **retrieveMessagingProfile**
-> MessagingProfileResponse retrieveMessagingProfile(id)
+> MessagingProfileResponse retrieveMessagingProfile(id).execute();
 
 Retrieve a messaging profile
 
@@ -523,7 +541,8 @@ public class Example {
     MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
     UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
     try {
-      MessagingProfileResponse result = apiInstance.retrieveMessagingProfile(id);
+      MessagingProfileResponse result = apiInstance.retrieveMessagingProfile(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingProfilesApi#retrieveMessagingProfile");
@@ -563,7 +582,7 @@ Name | Type | Description  | Notes
 
 <a name="updateMessagingProfile"></a>
 # **updateMessagingProfile**
-> MessagingProfileResponse updateMessagingProfile(id, updateMessagingProfileRequest)
+> MessagingProfileResponse updateMessagingProfile(id, updateMessagingProfileRequest).execute();
 
 Update a messaging profile
 
@@ -590,7 +609,8 @@ public class Example {
     UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
     UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest(); // UpdateMessagingProfileRequest | New Messaging Profile object
     try {
-      MessagingProfileResponse result = apiInstance.updateMessagingProfile(id, updateMessagingProfileRequest);
+      MessagingProfileResponse result = apiInstance.updateMessagingProfile(id, updateMessagingProfileRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingProfilesApi#updateMessagingProfile");

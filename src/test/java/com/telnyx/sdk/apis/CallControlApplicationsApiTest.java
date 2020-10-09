@@ -46,7 +46,8 @@ public class CallControlApplicationsApiTest {
     @Test
     public void createCallControlApplicationTest() throws ApiException {
         CreateCallControlApplicationRequest createCallControlApplicationRequest = null;
-        CallControlApplicationResponse response = api.createCallControlApplication(createCallControlApplicationRequest);
+        CallControlApplicationResponse response = api.createCallControlApplication(createCallControlApplicationRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -62,7 +63,8 @@ public class CallControlApplicationsApiTest {
     @Test
     public void deleteCallControlApplicationTest() throws ApiException {
         String id = null;
-        CallControlApplicationResponse response = api.deleteCallControlApplication(id);
+        CallControlApplicationResponse response = api.deleteCallControlApplication(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -82,7 +84,13 @@ public class CallControlApplicationsApiTest {
         String filterApplicationNameContains = null;
         String filterOutboundOutboundVoiceProfileId = null;
         String sort = null;
-        ListCallControlApplicationsResponse response = api.listCallControlApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
+        ListCallControlApplicationsResponse response = api.listCallControlApplications()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterApplicationNameContains(filterApplicationNameContains)
+                .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
+                .sort(sort)
+                .execute();
 
         // TODO: test validations
     }
@@ -98,7 +106,8 @@ public class CallControlApplicationsApiTest {
     @Test
     public void retrieveCallControlApplicationTest() throws ApiException {
         String id = null;
-        CallControlApplicationResponse response = api.retrieveCallControlApplication(id);
+        CallControlApplicationResponse response = api.retrieveCallControlApplication(id)
+                .execute();
 
         // TODO: test validations
     }
@@ -115,7 +124,8 @@ public class CallControlApplicationsApiTest {
     public void updateCallControlApplicationTest() throws ApiException {
         String id = null;
         UpdateCallControlApplicationRequest updateCallControlApplicationRequest = null;
-        CallControlApplicationResponse response = api.updateCallControlApplication(id, updateCallControlApplicationRequest);
+        CallControlApplicationResponse response = api.updateCallControlApplication(id, updateCallControlApplicationRequest)
+                .execute();
 
         // TODO: test validations
     }

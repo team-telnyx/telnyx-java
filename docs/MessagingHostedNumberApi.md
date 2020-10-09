@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="createMessagingHostedNumberOrder"></a>
 # **createMessagingHostedNumberOrder**
-> RetrieveMessagingHostedNumberOrderResponse createMessagingHostedNumberOrder(createMessagingHostedNumberOrderRequest)
+> RetrieveMessagingHostedNumberOrderResponse createMessagingHostedNumberOrder().createMessagingHostedNumberOrderRequest(createMessagingHostedNumberOrderRequest).execute();
 
 Create a messaging hosted number order
 
@@ -39,7 +39,9 @@ public class Example {
     MessagingHostedNumberApi apiInstance = new MessagingHostedNumberApi(defaultClient);
     CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest = new CreateMessagingHostedNumberOrderRequest(); // CreateMessagingHostedNumberOrderRequest | Message payload
     try {
-      RetrieveMessagingHostedNumberOrderResponse result = apiInstance.createMessagingHostedNumberOrder(createMessagingHostedNumberOrderRequest);
+      RetrieveMessagingHostedNumberOrderResponse result = apiInstance.createMessagingHostedNumberOrder()
+            .createMessagingHostedNumberOrderRequest(createMessagingHostedNumberOrderRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingHostedNumberApi#createMessagingHostedNumberOrder");
@@ -79,7 +81,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteMessagingHostedNumber"></a>
 # **deleteMessagingHostedNumber**
-> RetrieveMessagingHostedNumberResponse deleteMessagingHostedNumber(id)
+> RetrieveMessagingHostedNumberResponse deleteMessagingHostedNumber(id).execute();
 
 Delete a messaging hosted number
 
@@ -105,7 +107,8 @@ public class Example {
     MessagingHostedNumberApi apiInstance = new MessagingHostedNumberApi(defaultClient);
     String id = "id_example"; // String | Identifies the type of resource.
     try {
-      RetrieveMessagingHostedNumberResponse result = apiInstance.deleteMessagingHostedNumber(id);
+      RetrieveMessagingHostedNumberResponse result = apiInstance.deleteMessagingHostedNumber(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingHostedNumberApi#deleteMessagingHostedNumber");
@@ -145,7 +148,7 @@ Name | Type | Description  | Notes
 
 <a name="listMessagingHostedNumberOrder"></a>
 # **listMessagingHostedNumberOrder**
-> ListMessagingHostedNumberOrderResponse listMessagingHostedNumberOrder()
+> ListMessagingHostedNumberOrderResponse listMessagingHostedNumberOrder().execute();
 
 List messaging hosted number orders
 
@@ -170,7 +173,8 @@ public class Example {
 
     MessagingHostedNumberApi apiInstance = new MessagingHostedNumberApi(defaultClient);
     try {
-      ListMessagingHostedNumberOrderResponse result = apiInstance.listMessagingHostedNumberOrder();
+      ListMessagingHostedNumberOrderResponse result = apiInstance.listMessagingHostedNumberOrder()
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingHostedNumberApi#listMessagingHostedNumberOrder");
@@ -207,7 +211,7 @@ This endpoint does not need any parameter.
 
 <a name="retrieveMessagingHostedNumberOrder"></a>
 # **retrieveMessagingHostedNumberOrder**
-> RetrieveMessagingHostedNumberOrderResponse retrieveMessagingHostedNumberOrder(id)
+> RetrieveMessagingHostedNumberOrderResponse retrieveMessagingHostedNumberOrder(id).execute();
 
 Retrieve a messaging hosted number order
 
@@ -233,7 +237,8 @@ public class Example {
     MessagingHostedNumberApi apiInstance = new MessagingHostedNumberApi(defaultClient);
     String id = "id_example"; // String | Identifies the type of resource.
     try {
-      RetrieveMessagingHostedNumberOrderResponse result = apiInstance.retrieveMessagingHostedNumberOrder(id);
+      RetrieveMessagingHostedNumberOrderResponse result = apiInstance.retrieveMessagingHostedNumberOrder(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingHostedNumberApi#retrieveMessagingHostedNumberOrder");
@@ -273,7 +278,7 @@ Name | Type | Description  | Notes
 
 <a name="uploadFileMessagingHostedNumberOrder"></a>
 # **uploadFileMessagingHostedNumberOrder**
-> RetrieveMessagingHostedNumberOrderResponse uploadFileMessagingHostedNumberOrder(id, loa, bill)
+> RetrieveMessagingHostedNumberOrderResponse uploadFileMessagingHostedNumberOrder(id).loa(loa).bill(bill).execute();
 
 Upload file required for a messaging hosted number order
 
@@ -301,7 +306,10 @@ public class Example {
     File loa = new File("/path/to/file"); // File | Must be a signed LOA for the numbers in the order in PDF format.
     File bill = new File("/path/to/file"); // File | Must be the last month's bill with proof of ownership of all of the numbers in the order in PDF format.
     try {
-      RetrieveMessagingHostedNumberOrderResponse result = apiInstance.uploadFileMessagingHostedNumberOrder(id, loa, bill);
+      RetrieveMessagingHostedNumberOrderResponse result = apiInstance.uploadFileMessagingHostedNumberOrder(id)
+            .loa(loa)
+            .bill(bill)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessagingHostedNumberApi#uploadFileMessagingHostedNumberOrder");

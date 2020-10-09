@@ -44,7 +44,8 @@ public class CallInformationApiTest {
     @Test
     public void retrieveCallStatusTest() throws ApiException {
         String callControlId = null;
-        RetrieveCallStatusResponse response = api.retrieveCallStatus(callControlId);
+        RetrieveCallStatusResponse response = api.retrieveCallStatus(callControlId)
+                .execute();
 
         // TODO: test validations
     }

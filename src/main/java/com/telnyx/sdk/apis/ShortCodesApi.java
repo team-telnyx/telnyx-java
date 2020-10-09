@@ -58,22 +58,7 @@ public class ShortCodesApi {
         this.localVarApiClient = apiClient;
     }
 
-    /**
-     * Build call for listShortCodes
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterMessagingProfileId Filter by Messaging Profile ID. Use the string &#x60;null&#x60; for phone numbers without assigned profiles. A synonym for the &#x60;/messaging_profiles/{id}/short_codes&#x60; endpoint when querying about an extant profile. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listShortCodesCall(Integer pageNumber, Integer pageSize, String filterMessagingProfileId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listShortCodesCall(Integer pageNumber, Integer pageSize, String filterMessagingProfileId, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -123,84 +108,138 @@ public class ShortCodesApi {
 
     }
 
-    /**
-     * List short codes
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterMessagingProfileId Filter by Messaging Profile ID. Use the string &#x60;null&#x60; for phone numbers without assigned profiles. A synonym for the &#x60;/messaging_profiles/{id}/short_codes&#x60; endpoint when querying about an extant profile. (optional)
-     * @return ListShortCodesResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListShortCodesResponse listShortCodes(Integer pageNumber, Integer pageSize, String filterMessagingProfileId) throws ApiException {
-        ApiResponse<ListShortCodesResponse> localVarResp = listShortCodesWithHttpInfo(pageNumber, pageSize, filterMessagingProfileId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * List short codes
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterMessagingProfileId Filter by Messaging Profile ID. Use the string &#x60;null&#x60; for phone numbers without assigned profiles. A synonym for the &#x60;/messaging_profiles/{id}/short_codes&#x60; endpoint when querying about an extant profile. (optional)
-     * @return ApiResponse&lt;ListShortCodesResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListShortCodesResponse> listShortCodesWithHttpInfo(Integer pageNumber, Integer pageSize, String filterMessagingProfileId) throws ApiException {
+    private ApiResponse<ListShortCodesResponse> listShortCodesWithHttpInfo(Integer pageNumber, Integer pageSize, String filterMessagingProfileId) throws ApiException {
         okhttp3.Call localVarCall = listShortCodesValidateBeforeCall(pageNumber, pageSize, filterMessagingProfileId, null);
         Type localVarReturnType = new TypeToken<ListShortCodesResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * List short codes (asynchronously)
-     * 
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @param pageSize The size of the page (optional, default to 20)
-     * @param filterMessagingProfileId Filter by Messaging Profile ID. Use the string &#x60;null&#x60; for phone numbers without assigned profiles. A synonym for the &#x60;/messaging_profiles/{id}/short_codes&#x60; endpoint when querying about an extant profile. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listShortCodesAsync(Integer pageNumber, Integer pageSize, String filterMessagingProfileId, final ApiCallback<ListShortCodesResponse> _callback) throws ApiException {
+    private okhttp3.Call listShortCodesAsync(Integer pageNumber, Integer pageSize, String filterMessagingProfileId, final ApiCallback<ListShortCodesResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listShortCodesValidateBeforeCall(pageNumber, pageSize, filterMessagingProfileId, _callback);
         Type localVarReturnType = new TypeToken<ListShortCodesResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistShortCodesRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
+        private String filterMessagingProfileId;
+
+        private APIlistShortCodesRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistShortCodesRequest
+         */
+        public APIlistShortCodesRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistShortCodesRequest
+         */
+        public APIlistShortCodesRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set filterMessagingProfileId
+         * @param filterMessagingProfileId Filter by Messaging Profile ID. Use the string &#x60;null&#x60; for phone numbers without assigned profiles. A synonym for the &#x60;/messaging_profiles/{id}/short_codes&#x60; endpoint when querying about an extant profile. (optional)
+         * @return APIlistShortCodesRequest
+         */
+        public APIlistShortCodesRequest filterMessagingProfileId(String filterMessagingProfileId) {
+            this.filterMessagingProfileId = filterMessagingProfileId;
+            return this;
+        }
+
+        /**
+         * Build call for listShortCodes
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listShortCodesCall(pageNumber, pageSize, filterMessagingProfileId, _callback);
+        }
+
+        /**
+         * Execute listShortCodes request
+         * @return ListShortCodesResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ListShortCodesResponse execute() throws ApiException {
+            ApiResponse<ListShortCodesResponse> localVarResp = listShortCodesWithHttpInfo(pageNumber, pageSize, filterMessagingProfileId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listShortCodes request with HTTP info returned
+         * @return ApiResponse&lt;ListShortCodesResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ListShortCodesResponse> executeWithHttpInfo() throws ApiException {
+            return listShortCodesWithHttpInfo(pageNumber, pageSize, filterMessagingProfileId);
+        }
+
+        /**
+         * Execute listShortCodes request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ListShortCodesResponse> _callback) throws ApiException {
+            return listShortCodesAsync(pageNumber, pageSize, filterMessagingProfileId, _callback);
+        }
+    }
+
     /**
-     * Build call for retrieveShortCode
-     * @param id The id of the short code (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * List short codes
+     * 
+     * @return APIlistShortCodesRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveShortCodeCall(UUID id, final ApiCallback _callback) throws ApiException {
+    public APIlistShortCodesRequest listShortCodes() {
+        return new APIlistShortCodesRequest();
+    }
+    private okhttp3.Call retrieveShortCodeCall(UUID id, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -244,71 +283,97 @@ public class ShortCodesApi {
 
     }
 
-    /**
-     * Retrieve a short code
-     * 
-     * @param id The id of the short code (required)
-     * @return ShortCodeResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ShortCodeResponse retrieveShortCode(UUID id) throws ApiException {
-        ApiResponse<ShortCodeResponse> localVarResp = retrieveShortCodeWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve a short code
-     * 
-     * @param id The id of the short code (required)
-     * @return ApiResponse&lt;ShortCodeResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ShortCodeResponse> retrieveShortCodeWithHttpInfo(UUID id) throws ApiException {
+    private ApiResponse<ShortCodeResponse> retrieveShortCodeWithHttpInfo(UUID id) throws ApiException {
         okhttp3.Call localVarCall = retrieveShortCodeValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<ShortCodeResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve a short code (asynchronously)
-     * 
-     * @param id The id of the short code (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call retrieveShortCodeAsync(UUID id, final ApiCallback<ShortCodeResponse> _callback) throws ApiException {
+    private okhttp3.Call retrieveShortCodeAsync(UUID id, final ApiCallback<ShortCodeResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = retrieveShortCodeValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<ShortCodeResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIretrieveShortCodeRequest {
+        private final UUID id;
+
+        private APIretrieveShortCodeRequest(UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for retrieveShortCode
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retrieveShortCodeCall(id, _callback);
+        }
+
+        /**
+         * Execute retrieveShortCode request
+         * @return ShortCodeResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ShortCodeResponse execute() throws ApiException {
+            ApiResponse<ShortCodeResponse> localVarResp = retrieveShortCodeWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retrieveShortCode request with HTTP info returned
+         * @return ApiResponse&lt;ShortCodeResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ShortCodeResponse> executeWithHttpInfo() throws ApiException {
+            return retrieveShortCodeWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrieveShortCode request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ShortCodeResponse> _callback) throws ApiException {
+            return retrieveShortCodeAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for updateShortCode
+     * Retrieve a short code
+     * 
      * @param id The id of the short code (required)
-     * @param updateShortCodeRequest Short code update (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIretrieveShortCodeRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -316,7 +381,10 @@ public class ShortCodesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateShortCodeCall(UUID id, UpdateShortCodeRequest updateShortCodeRequest, final ApiCallback _callback) throws ApiException {
+    public APIretrieveShortCodeRequest retrieveShortCode(UUID id) {
+        return new APIretrieveShortCodeRequest(id);
+    }
+    private okhttp3.Call updateShortCodeCall(UUID id, UpdateShortCodeRequest updateShortCodeRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = updateShortCodeRequest;
 
         // create path and map variables
@@ -365,53 +433,100 @@ public class ShortCodesApi {
 
     }
 
-    /**
-     * Update short code
-     * Update the settings for a specific short code. To unbind a short code from a profile, set the &#x60;messaging_profile_id&#x60; to &#x60;null&#x60; or an empty string.
-     * @param id The id of the short code (required)
-     * @param updateShortCodeRequest Short code update (required)
-     * @return ShortCodeResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ShortCodeResponse updateShortCode(UUID id, UpdateShortCodeRequest updateShortCodeRequest) throws ApiException {
-        ApiResponse<ShortCodeResponse> localVarResp = updateShortCodeWithHttpInfo(id, updateShortCodeRequest);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Update short code
-     * Update the settings for a specific short code. To unbind a short code from a profile, set the &#x60;messaging_profile_id&#x60; to &#x60;null&#x60; or an empty string.
-     * @param id The id of the short code (required)
-     * @param updateShortCodeRequest Short code update (required)
-     * @return ApiResponse&lt;ShortCodeResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ShortCodeResponse> updateShortCodeWithHttpInfo(UUID id, UpdateShortCodeRequest updateShortCodeRequest) throws ApiException {
+    private ApiResponse<ShortCodeResponse> updateShortCodeWithHttpInfo(UUID id, UpdateShortCodeRequest updateShortCodeRequest) throws ApiException {
         okhttp3.Call localVarCall = updateShortCodeValidateBeforeCall(id, updateShortCodeRequest, null);
         Type localVarReturnType = new TypeToken<ShortCodeResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call updateShortCodeAsync(UUID id, UpdateShortCodeRequest updateShortCodeRequest, final ApiCallback<ShortCodeResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updateShortCodeValidateBeforeCall(id, updateShortCodeRequest, _callback);
+        Type localVarReturnType = new TypeToken<ShortCodeResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIupdateShortCodeRequest {
+        private final UUID id;
+        private final UpdateShortCodeRequest updateShortCodeRequest;
+
+        private APIupdateShortCodeRequest(UUID id, UpdateShortCodeRequest updateShortCodeRequest) {
+            this.id = id;
+            this.updateShortCodeRequest = updateShortCodeRequest;
+        }
+
+        /**
+         * Build call for updateShortCode
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return updateShortCodeCall(id, updateShortCodeRequest, _callback);
+        }
+
+        /**
+         * Execute updateShortCode request
+         * @return ShortCodeResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ShortCodeResponse execute() throws ApiException {
+            ApiResponse<ShortCodeResponse> localVarResp = updateShortCodeWithHttpInfo(id, updateShortCodeRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute updateShortCode request with HTTP info returned
+         * @return ApiResponse&lt;ShortCodeResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ShortCodeResponse> executeWithHttpInfo() throws ApiException {
+            return updateShortCodeWithHttpInfo(id, updateShortCodeRequest);
+        }
+
+        /**
+         * Execute updateShortCode request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ShortCodeResponse> _callback) throws ApiException {
+            return updateShortCodeAsync(id, updateShortCodeRequest, _callback);
+        }
+    }
+
     /**
-     * Update short code (asynchronously)
+     * Update short code
      * Update the settings for a specific short code. To unbind a short code from a profile, set the &#x60;messaging_profile_id&#x60; to &#x60;null&#x60; or an empty string.
      * @param id The id of the short code (required)
      * @param updateShortCodeRequest Short code update (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIupdateShortCodeRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -419,11 +534,7 @@ public class ShortCodesApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateShortCodeAsync(UUID id, UpdateShortCodeRequest updateShortCodeRequest, final ApiCallback<ShortCodeResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateShortCodeValidateBeforeCall(id, updateShortCodeRequest, _callback);
-        Type localVarReturnType = new TypeToken<ShortCodeResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIupdateShortCodeRequest updateShortCode(UUID id, UpdateShortCodeRequest updateShortCodeRequest) {
+        return new APIupdateShortCodeRequest(id, updateShortCodeRequest);
     }
 }

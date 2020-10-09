@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 <a name="createCsvDownload"></a>
 # **createCsvDownload**
-> CSVDownloadResponse createCsvDownload()
+> CSVDownloadResponse createCsvDownload().execute();
 
 Create a CSV download
 
@@ -36,7 +36,8 @@ public class Example {
 
     CsvDownloadsApi apiInstance = new CsvDownloadsApi(defaultClient);
     try {
-      CSVDownloadResponse result = apiInstance.createCsvDownload();
+      CSVDownloadResponse result = apiInstance.createCsvDownload()
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CsvDownloadsApi#createCsvDownload");
@@ -73,7 +74,7 @@ This endpoint does not need any parameter.
 
 <a name="listCsvDownloads"></a>
 # **listCsvDownloads**
-> ListCSVDownloadsResponse listCsvDownloads(pageNumber, pageSize)
+> ListCSVDownloadsResponse listCsvDownloads().pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List CSV downloads
 
@@ -100,7 +101,10 @@ public class Example {
     Integer pageNumber = 1; // Integer | The page number to load
     Integer pageSize = 20; // Integer | The size of the page
     try {
-      ListCSVDownloadsResponse result = apiInstance.listCsvDownloads(pageNumber, pageSize);
+      ListCSVDownloadsResponse result = apiInstance.listCsvDownloads()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CsvDownloadsApi#listCsvDownloads");
@@ -141,7 +145,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveCsvDownload"></a>
 # **retrieveCsvDownload**
-> CSVDownloadResponse retrieveCsvDownload(id)
+> CSVDownloadResponse retrieveCsvDownload(id).execute();
 
 Retrieve a CSV download
 
@@ -167,7 +171,8 @@ public class Example {
     CsvDownloadsApi apiInstance = new CsvDownloadsApi(defaultClient);
     String id = "id_example"; // String | Identifies the CSV download.
     try {
-      CSVDownloadResponse result = apiInstance.retrieveCsvDownload(id);
+      CSVDownloadResponse result = apiInstance.retrieveCsvDownload(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CsvDownloadsApi#retrieveCsvDownload");

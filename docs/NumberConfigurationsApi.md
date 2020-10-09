@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 <a name="deletePhoneNumber"></a>
 # **deletePhoneNumber**
-> PhoneNumberResponse deletePhoneNumber(id)
+> PhoneNumberResponse deletePhoneNumber(id).execute();
 
 Delete a phone number
 
@@ -45,7 +45,8 @@ public class Example {
     NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
     String id = 1293384261075731499; // String | Identifies the resource.
     try {
-      PhoneNumberResponse result = apiInstance.deletePhoneNumber(id);
+      PhoneNumberResponse result = apiInstance.deletePhoneNumber(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#deletePhoneNumber");
@@ -85,7 +86,7 @@ Name | Type | Description  | Notes
 
 <a name="enableEmergencyPhoneNumber"></a>
 # **enableEmergencyPhoneNumber**
-> PhoneNumberEnableEmergency enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest)
+> PhoneNumberEnableEmergency enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest).execute();
 
 Enable emergency for a phone number
 
@@ -112,7 +113,8 @@ public class Example {
     String id = 1293384261075731499; // String | Identifies the resource.
     PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest = new PhoneNumberEnableEmergencyRequest(); // PhoneNumberEnableEmergencyRequest | 
     try {
-      PhoneNumberEnableEmergency result = apiInstance.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest);
+      PhoneNumberEnableEmergency result = apiInstance.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#enableEmergencyPhoneNumber");
@@ -154,7 +156,7 @@ Name | Type | Description  | Notes
 
 <a name="listPhoneNumbers"></a>
 # **listPhoneNumbers**
-> ListPhoneNumbersResponse listPhoneNumbers(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort)
+> ListPhoneNumbersResponse listPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionNameEq(filterVoiceConnectionNameEq).filterUsagePaymentMethod(filterUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).sort(sort).execute();
 
 List phone numbers
 
@@ -191,7 +193,20 @@ public class Example {
     String filterBillingGroupId = 62e4bf2e-c278-4282-b524-488d9c9c43b2; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
     String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
     try {
-      ListPhoneNumbersResponse result = apiInstance.listPhoneNumbers(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
+      ListPhoneNumbersResponse result = apiInstance.listPhoneNumbers()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .filterTag(filterTag)
+            .filterPhoneNumber(filterPhoneNumber)
+            .filterStatus(filterStatus)
+            .filterVoiceConnectionNameContains(filterVoiceConnectionNameContains)
+            .filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith)
+            .filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith)
+            .filterVoiceConnectionNameEq(filterVoiceConnectionNameEq)
+            .filterUsagePaymentMethod(filterUsagePaymentMethod)
+            .filterBillingGroupId(filterBillingGroupId)
+            .sort(sort)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#listPhoneNumbers");
@@ -242,7 +257,7 @@ Name | Type | Description  | Notes
 
 <a name="listPhoneNumbersWithMessagingSettings"></a>
 # **listPhoneNumbersWithMessagingSettings**
-> ListMessagingSettingsResponse listPhoneNumbersWithMessagingSettings()
+> ListMessagingSettingsResponse listPhoneNumbersWithMessagingSettings().execute();
 
 List phone numbers with messaging settings
 
@@ -267,7 +282,8 @@ public class Example {
 
     NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
     try {
-      ListMessagingSettingsResponse result = apiInstance.listPhoneNumbersWithMessagingSettings();
+      ListMessagingSettingsResponse result = apiInstance.listPhoneNumbersWithMessagingSettings()
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#listPhoneNumbersWithMessagingSettings");
@@ -304,7 +320,7 @@ This endpoint does not need any parameter.
 
 <a name="listPhoneNumbersWithVoiceSettings"></a>
 # **listPhoneNumbersWithVoiceSettings**
-> ListPhoneNumbersWithVoiceSettingsResponse listPhoneNumbersWithVoiceSettings(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort)
+> ListPhoneNumbersWithVoiceSettingsResponse listPhoneNumbersWithVoiceSettings().pageNumber(pageNumber).pageSize(pageSize).filterPhoneNumber(filterPhoneNumber).filterConnectionNameContains(filterConnectionNameContains).filterUsagePaymentMethod(filterUsagePaymentMethod).sort(sort).execute();
 
 List phone numbers with voice settings
 
@@ -335,7 +351,14 @@ public class Example {
     String filterUsagePaymentMethod = channel; // String | Filter by usage_payment_method.
     String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
     try {
-      ListPhoneNumbersWithVoiceSettingsResponse result = apiInstance.listPhoneNumbersWithVoiceSettings(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
+      ListPhoneNumbersWithVoiceSettingsResponse result = apiInstance.listPhoneNumbersWithVoiceSettings()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .filterPhoneNumber(filterPhoneNumber)
+            .filterConnectionNameContains(filterConnectionNameContains)
+            .filterUsagePaymentMethod(filterUsagePaymentMethod)
+            .sort(sort)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#listPhoneNumbersWithVoiceSettings");
@@ -380,7 +403,7 @@ Name | Type | Description  | Notes
 
 <a name="retrievePhoneNumber"></a>
 # **retrievePhoneNumber**
-> PhoneNumberResponse retrievePhoneNumber(id)
+> PhoneNumberResponse retrievePhoneNumber(id).execute();
 
 Retrieve a phone number
 
@@ -406,7 +429,8 @@ public class Example {
     NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
     String id = 1293384261075731499; // String | Identifies the resource.
     try {
-      PhoneNumberResponse result = apiInstance.retrievePhoneNumber(id);
+      PhoneNumberResponse result = apiInstance.retrievePhoneNumber(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#retrievePhoneNumber");
@@ -446,7 +470,7 @@ Name | Type | Description  | Notes
 
 <a name="retrievePhoneNumberWithMessagingSettings"></a>
 # **retrievePhoneNumberWithMessagingSettings**
-> RetrieveMessagingSettingsResponse retrievePhoneNumberWithMessagingSettings(id)
+> RetrieveMessagingSettingsResponse retrievePhoneNumberWithMessagingSettings(id).execute();
 
 Retrieve a phone number with messaging settings
 
@@ -472,7 +496,8 @@ public class Example {
     NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
     String id = "id_example"; // String | Identifies the type of resource.
     try {
-      RetrieveMessagingSettingsResponse result = apiInstance.retrievePhoneNumberWithMessagingSettings(id);
+      RetrieveMessagingSettingsResponse result = apiInstance.retrievePhoneNumberWithMessagingSettings(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#retrievePhoneNumberWithMessagingSettings");
@@ -512,7 +537,7 @@ Name | Type | Description  | Notes
 
 <a name="retrievePhoneNumberWithVoiceSettings"></a>
 # **retrievePhoneNumberWithVoiceSettings**
-> RetrievePhoneNumberVoiceResponse retrievePhoneNumberWithVoiceSettings(id)
+> RetrievePhoneNumberVoiceResponse retrievePhoneNumberWithVoiceSettings(id).execute();
 
 Retrieve a phone number with voice settings
 
@@ -538,7 +563,8 @@ public class Example {
     NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
     String id = 1293384261075731499; // String | Identifies the resource.
     try {
-      RetrievePhoneNumberVoiceResponse result = apiInstance.retrievePhoneNumberWithVoiceSettings(id);
+      RetrievePhoneNumberVoiceResponse result = apiInstance.retrievePhoneNumberWithVoiceSettings(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#retrievePhoneNumberWithVoiceSettings");
@@ -578,7 +604,7 @@ Name | Type | Description  | Notes
 
 <a name="updatePhoneNumber"></a>
 # **updatePhoneNumber**
-> PhoneNumberResponse updatePhoneNumber(id, updatePhoneNumberRequest)
+> PhoneNumberResponse updatePhoneNumber(id, updatePhoneNumberRequest).execute();
 
 Update a phone number
 
@@ -605,7 +631,8 @@ public class Example {
     String id = 1293384261075731499; // String | Identifies the resource.
     UpdatePhoneNumberRequest updatePhoneNumberRequest = new UpdatePhoneNumberRequest(); // UpdatePhoneNumberRequest | Updated settings for the phone number.
     try {
-      PhoneNumberResponse result = apiInstance.updatePhoneNumber(id, updatePhoneNumberRequest);
+      PhoneNumberResponse result = apiInstance.updatePhoneNumber(id, updatePhoneNumberRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#updatePhoneNumber");
@@ -646,7 +673,7 @@ Name | Type | Description  | Notes
 
 <a name="updatePhoneNumberWithMessagingSettings"></a>
 # **updatePhoneNumberWithMessagingSettings**
-> RetrieveMessagingSettingsResponse updatePhoneNumberWithMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest)
+> RetrieveMessagingSettingsResponse updatePhoneNumberWithMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest).execute();
 
 Update a phone number with messaging settings
 
@@ -673,7 +700,8 @@ public class Example {
     String id = "id_example"; // String | Identifies the type of resource.
     UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest = new UpdatePhoneNumberMessagingSettingsRequest(); // UpdatePhoneNumberMessagingSettingsRequest | Updated messaging settings for the phone number
     try {
-      RetrieveMessagingSettingsResponse result = apiInstance.updatePhoneNumberWithMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest);
+      RetrieveMessagingSettingsResponse result = apiInstance.updatePhoneNumberWithMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#updatePhoneNumberWithMessagingSettings");
@@ -714,7 +742,7 @@ Name | Type | Description  | Notes
 
 <a name="updatePhoneNumberWithVoiceSettings"></a>
 # **updatePhoneNumberWithVoiceSettings**
-> RetrievePhoneNumberVoiceResponse updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest)
+> RetrievePhoneNumberVoiceResponse updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest).execute();
 
 Update a phone number with voice settings
 
@@ -741,7 +769,8 @@ public class Example {
     String id = 1293384261075731499; // String | Identifies the resource.
     UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest = new UpdatePhoneNumberVoiceSettingsRequest(); // UpdatePhoneNumberVoiceSettingsRequest | Updated voice settings for the phone number.
     try {
-      RetrievePhoneNumberVoiceResponse result = apiInstance.updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest);
+      RetrievePhoneNumberVoiceResponse result = apiInstance.updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NumberConfigurationsApi#updatePhoneNumberWithVoiceSettings");

@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 <a name="conferenceDialParticipantIn"></a>
 # **conferenceDialParticipantIn**
-> ConferenceCommandResponse conferenceDialParticipantIn(id, conferenceCallRequest)
+> ConferenceCommandResponse conferenceDialParticipantIn(id, conferenceCallRequest).execute();
 
 Dial a new participant into a conference
 
@@ -51,7 +51,8 @@ public class Example {
     String id = "id_example"; // String | Uniquely identifies the conference by id or name
     ConferenceCallRequest conferenceCallRequest = new ConferenceCallRequest(); // ConferenceCallRequest | Dial Into Conference request object
     try {
-      ConferenceCommandResponse result = apiInstance.conferenceDialParticipantIn(id, conferenceCallRequest);
+      ConferenceCommandResponse result = apiInstance.conferenceDialParticipantIn(id, conferenceCallRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferenceDialParticipantIn");
@@ -94,7 +95,7 @@ Name | Type | Description  | Notes
 
 <a name="conferenceHoldParticipants"></a>
 # **conferenceHoldParticipants**
-> ConferenceCommandResponse conferenceHoldParticipants(id, conferenceHoldRequest)
+> ConferenceCommandResponse conferenceHoldParticipants(id, conferenceHoldRequest).execute();
 
 Hold conference participants
 
@@ -123,7 +124,8 @@ public class Example {
     String id = "id_example"; // String | Uniquely identifies the conference by id or name
     ConferenceHoldRequest conferenceHoldRequest = new ConferenceHoldRequest(); // ConferenceHoldRequest | 
     try {
-      ConferenceCommandResponse result = apiInstance.conferenceHoldParticipants(id, conferenceHoldRequest);
+      ConferenceCommandResponse result = apiInstance.conferenceHoldParticipants(id, conferenceHoldRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferenceHoldParticipants");
@@ -166,7 +168,7 @@ Name | Type | Description  | Notes
 
 <a name="conferenceJoin"></a>
 # **conferenceJoin**
-> ConferenceCommandResponse conferenceJoin(id, joinConferenceRequest)
+> ConferenceCommandResponse conferenceJoin(id, joinConferenceRequest).execute();
 
 Join a conference
 
@@ -195,7 +197,8 @@ public class Example {
     String id = "id_example"; // String | Uniquely identifies the conference by id or name
     JoinConferenceRequest joinConferenceRequest = new JoinConferenceRequest(); // JoinConferenceRequest | Join Conference request object
     try {
-      ConferenceCommandResponse result = apiInstance.conferenceJoin(id, joinConferenceRequest);
+      ConferenceCommandResponse result = apiInstance.conferenceJoin(id, joinConferenceRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferenceJoin");
@@ -237,7 +240,7 @@ Name | Type | Description  | Notes
 
 <a name="conferenceMuteParticipants"></a>
 # **conferenceMuteParticipants**
-> ConferenceCommandResponse conferenceMuteParticipants(id, conferenceMuteRequest)
+> ConferenceCommandResponse conferenceMuteParticipants(id, conferenceMuteRequest).execute();
 
 Mute conference participants
 
@@ -266,7 +269,8 @@ public class Example {
     String id = "id_example"; // String | Uniquely identifies the conference by id or name
     ConferenceMuteRequest conferenceMuteRequest = new ConferenceMuteRequest(); // ConferenceMuteRequest | 
     try {
-      ConferenceCommandResponse result = apiInstance.conferenceMuteParticipants(id, conferenceMuteRequest);
+      ConferenceCommandResponse result = apiInstance.conferenceMuteParticipants(id, conferenceMuteRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferenceMuteParticipants");
@@ -309,7 +313,7 @@ Name | Type | Description  | Notes
 
 <a name="conferencePlayAudio"></a>
 # **conferencePlayAudio**
-> ConferenceCommandResponse conferencePlayAudio(id, conferencePlayRequest)
+> ConferenceCommandResponse conferencePlayAudio(id, conferencePlayRequest).execute();
 
 Play audio to conference participants
 
@@ -338,7 +342,8 @@ public class Example {
     String id = "id_example"; // String | Uniquely identifies the conference by id or name
     ConferencePlayRequest conferencePlayRequest = new ConferencePlayRequest(); // ConferencePlayRequest | 
     try {
-      ConferenceCommandResponse result = apiInstance.conferencePlayAudio(id, conferencePlayRequest);
+      ConferenceCommandResponse result = apiInstance.conferencePlayAudio(id, conferencePlayRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferencePlayAudio");
@@ -381,7 +386,7 @@ Name | Type | Description  | Notes
 
 <a name="conferenceSpeakText"></a>
 # **conferenceSpeakText**
-> ConferenceCommandResponse conferenceSpeakText(id, conferenceSpeakRequest)
+> ConferenceCommandResponse conferenceSpeakText(id, conferenceSpeakRequest).execute();
 
 Speak text to conference participants
 
@@ -410,7 +415,8 @@ public class Example {
     String id = "id_example"; // String | Specifies the conference by id or name
     ConferenceSpeakRequest conferenceSpeakRequest = new ConferenceSpeakRequest(); // ConferenceSpeakRequest | 
     try {
-      ConferenceCommandResponse result = apiInstance.conferenceSpeakText(id, conferenceSpeakRequest);
+      ConferenceCommandResponse result = apiInstance.conferenceSpeakText(id, conferenceSpeakRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferenceSpeakText");
@@ -453,7 +459,7 @@ Name | Type | Description  | Notes
 
 <a name="conferenceStartRecording"></a>
 # **conferenceStartRecording**
-> ConferenceCommandResponse conferenceStartRecording(id, startRecordingRequest)
+> ConferenceCommandResponse conferenceStartRecording(id, startRecordingRequest).execute();
 
 Conference recording start
 
@@ -482,7 +488,8 @@ public class Example {
     String id = "id_example"; // String | Specifies the conference to record by id or name
     StartRecordingRequest startRecordingRequest = new StartRecordingRequest(); // StartRecordingRequest | 
     try {
-      ConferenceCommandResponse result = apiInstance.conferenceStartRecording(id, startRecordingRequest);
+      ConferenceCommandResponse result = apiInstance.conferenceStartRecording(id, startRecordingRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferenceStartRecording");
@@ -525,7 +532,7 @@ Name | Type | Description  | Notes
 
 <a name="conferenceStopRecording"></a>
 # **conferenceStopRecording**
-> ConferenceCommandResponse conferenceStopRecording(id, stopRecordingRequest)
+> ConferenceCommandResponse conferenceStopRecording(id, stopRecordingRequest).execute();
 
 Conference recording stop
 
@@ -554,7 +561,8 @@ public class Example {
     String id = "id_example"; // String | Specifies the conference to stop the recording for by id or name
     StopRecordingRequest stopRecordingRequest = new StopRecordingRequest(); // StopRecordingRequest | Stop recording conference request
     try {
-      ConferenceCommandResponse result = apiInstance.conferenceStopRecording(id, stopRecordingRequest);
+      ConferenceCommandResponse result = apiInstance.conferenceStopRecording(id, stopRecordingRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferenceStopRecording");
@@ -597,7 +605,7 @@ Name | Type | Description  | Notes
 
 <a name="conferenceUnholdParticipants"></a>
 # **conferenceUnholdParticipants**
-> ConferenceCommandResponse conferenceUnholdParticipants(id, conferenceUnholdRequest)
+> ConferenceCommandResponse conferenceUnholdParticipants(id, conferenceUnholdRequest).execute();
 
 Unhold conference participants
 
@@ -626,7 +634,8 @@ public class Example {
     String id = "id_example"; // String | Uniquely identifies the conference by id or name
     ConferenceUnholdRequest conferenceUnholdRequest = new ConferenceUnholdRequest(); // ConferenceUnholdRequest | 
     try {
-      ConferenceCommandResponse result = apiInstance.conferenceUnholdParticipants(id, conferenceUnholdRequest);
+      ConferenceCommandResponse result = apiInstance.conferenceUnholdParticipants(id, conferenceUnholdRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferenceUnholdParticipants");
@@ -669,7 +678,7 @@ Name | Type | Description  | Notes
 
 <a name="conferenceUnmuteParticipants"></a>
 # **conferenceUnmuteParticipants**
-> ConferenceCommandResponse conferenceUnmuteParticipants(id, conferenceUnmuteRequest)
+> ConferenceCommandResponse conferenceUnmuteParticipants(id, conferenceUnmuteRequest).execute();
 
 Unmute conference participants
 
@@ -698,7 +707,8 @@ public class Example {
     String id = "id_example"; // String | Uniquely identifies the conference by id or name
     ConferenceUnmuteRequest conferenceUnmuteRequest = new ConferenceUnmuteRequest(); // ConferenceUnmuteRequest | 
     try {
-      ConferenceCommandResponse result = apiInstance.conferenceUnmuteParticipants(id, conferenceUnmuteRequest);
+      ConferenceCommandResponse result = apiInstance.conferenceUnmuteParticipants(id, conferenceUnmuteRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#conferenceUnmuteParticipants");
@@ -741,7 +751,7 @@ Name | Type | Description  | Notes
 
 <a name="createConference"></a>
 # **createConference**
-> ConferenceResponse createConference(createConferenceRequest)
+> ConferenceResponse createConference(createConferenceRequest).execute();
 
 Create conference
 
@@ -769,7 +779,8 @@ public class Example {
     ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
     CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest(); // CreateConferenceRequest | Create a conference
     try {
-      ConferenceResponse result = apiInstance.createConference(createConferenceRequest);
+      ConferenceResponse result = apiInstance.createConference(createConferenceRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#createConference");
@@ -810,7 +821,7 @@ Name | Type | Description  | Notes
 
 <a name="listConferenceParticipants"></a>
 # **listConferenceParticipants**
-> ListParticipantsResponse listConferenceParticipants(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize)
+> ListParticipantsResponse listConferenceParticipants(conferenceId).filterMuted(filterMuted).filterOnHold(filterOnHold).filterWhispering(filterWhispering).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List conference participants
 
@@ -843,7 +854,13 @@ public class Example {
     Integer pageNumber = 1; // Integer | The page number to load
     Integer pageSize = 20; // Integer | The size of the page
     try {
-      ListParticipantsResponse result = apiInstance.listConferenceParticipants(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize);
+      ListParticipantsResponse result = apiInstance.listConferenceParticipants(conferenceId)
+            .filterMuted(filterMuted)
+            .filterOnHold(filterOnHold)
+            .filterWhispering(filterWhispering)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#listConferenceParticipants");
@@ -890,7 +907,7 @@ Name | Type | Description  | Notes
 
 <a name="listConferences"></a>
 # **listConferences**
-> ListConferencesResponse listConferences(filterName, pageNumber, pageSize)
+> ListConferencesResponse listConferences().filterName(filterName).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List conferences
 
@@ -920,7 +937,11 @@ public class Example {
     Integer pageNumber = 1; // Integer | The page number to load
     Integer pageSize = 20; // Integer | The size of the page
     try {
-      ListConferencesResponse result = apiInstance.listConferences(filterName, pageNumber, pageSize);
+      ListConferencesResponse result = apiInstance.listConferences()
+            .filterName(filterName)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#listConferences");
@@ -963,7 +984,7 @@ Name | Type | Description  | Notes
 
 <a name="retrieveConference"></a>
 # **retrieveConference**
-> ConferenceResponse retrieveConference(id)
+> ConferenceResponse retrieveConference(id).execute();
 
 Retrieve a conference
 
@@ -991,7 +1012,8 @@ public class Example {
     ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
     String id = "id_example"; // String | Uniquely identifies the conference by id or name
     try {
-      ConferenceResponse result = apiInstance.retrieveConference(id);
+      ConferenceResponse result = apiInstance.retrieveConference(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConferenceCommandsApi#retrieveConference");

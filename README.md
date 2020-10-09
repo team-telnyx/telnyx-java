@@ -92,7 +92,8 @@ public class Example {
     String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
     AnswerRequest answerRequest = new AnswerRequest(); // AnswerRequest | Answer call request
     try {
-      CallControlCommandResponse result = apiInstance.callAnswer(callControlId, answerRequest);
+      CallControlCommandResponse result = apiInstance.callAnswer(callControlId, answerRequest)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CallCommandsApi#callAnswer");

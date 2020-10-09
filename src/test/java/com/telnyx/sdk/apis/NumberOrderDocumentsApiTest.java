@@ -47,7 +47,8 @@ public class NumberOrderDocumentsApiTest {
     @Test
     public void createNumberOrderDocumentTest() throws ApiException {
         CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest = null;
-        NumberOrderDocumentResponse response = api.createNumberOrderDocument(createNumberOrderDocumentRequest);
+        NumberOrderDocumentResponse response = api.createNumberOrderDocument(createNumberOrderDocumentRequest)
+                .execute();
 
         // TODO: test validations
     }
@@ -65,7 +66,11 @@ public class NumberOrderDocumentsApiTest {
         String filterRequirementId = null;
         String filterCreatedAtGt = null;
         String filterCreatedAtLt = null;
-        ListNumberOrderDocumentsResponse response = api.listNumberOrderDocuments(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt);
+        ListNumberOrderDocumentsResponse response = api.listNumberOrderDocuments()
+                .filterRequirementId(filterRequirementId)
+                .filterCreatedAtGt(filterCreatedAtGt)
+                .filterCreatedAtLt(filterCreatedAtLt)
+                .execute();
 
         // TODO: test validations
     }
@@ -81,7 +86,8 @@ public class NumberOrderDocumentsApiTest {
     @Test
     public void retrieveNumberOrderDocumentTest() throws ApiException {
         String numberOrderDocumentId = null;
-        NumberOrderDocumentResponse response = api.retrieveNumberOrderDocument(numberOrderDocumentId);
+        NumberOrderDocumentResponse response = api.retrieveNumberOrderDocument(numberOrderDocumentId)
+                .execute();
 
         // TODO: test validations
     }
@@ -98,7 +104,8 @@ public class NumberOrderDocumentsApiTest {
     public void updateNumberOrderDocumentTest() throws ApiException {
         String numberOrderDocumentId = null;
         UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest = null;
-        NumberOrderDocumentResponse response = api.updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest);
+        NumberOrderDocumentResponse response = api.updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest)
+                .execute();
 
         // TODO: test validations
     }
