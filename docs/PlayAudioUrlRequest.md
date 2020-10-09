@@ -1,6 +1,9 @@
+
+
 # PlayAudioUrlRequest
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **audioUrl** | **String** | The URL of the file to be played back on the call. The URL can point to either a WAV or MP3 file. | 
@@ -10,3 +13,6 @@ Name | Type | Description | Notes
 **targetLegs** | **String** | Specifies the leg or legs on which audio will be played. If supplied, the value must be either &#x60;self&#x60;, &#x60;opposite&#x60; or &#x60;both&#x60;. |  [optional]
 **clientState** | **String** | Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. |  [optional]
 **commandId** | **String** | Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;. |  [optional]
+
+
+

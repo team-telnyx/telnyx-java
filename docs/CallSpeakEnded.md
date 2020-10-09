@@ -1,6 +1,9 @@
+
+
 # CallSpeakEnded
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional]
@@ -9,14 +12,21 @@ Name | Type | Description | Notes
 **occurredAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 datetime of when the event occurred. |  [optional]
 **payload** | [**CallSpeakEndedPayload**](CallSpeakEndedPayload.md) |  |  [optional]
 
-<a name="RecordTypeEnum"></a>
+
+
 ## Enum: RecordTypeEnum
+
 Name | Value
 ---- | -----
 EVENT | &quot;event&quot;
 
-<a name="EventTypeEnum"></a>
+
+
 ## Enum: EventTypeEnum
+
 Name | Value
 ---- | -----
-ENDED | &quot;call.speak.ended&quot;
+CALL_SPEAK_ENDED | &quot;call.speak.ended&quot;
+
+
+

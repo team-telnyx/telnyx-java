@@ -1,6 +1,9 @@
+
+
 # ConferenceRecordingSavedPayload
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **conferenceId** | **String** | ID that is unique to the conference and can be used to correlate webhook events. |  [optional]
@@ -12,9 +15,14 @@ Name | Type | Description | Notes
 **recordingUrls** | [**CallRecordingSavedPayloadRecordingUrls**](CallRecordingSavedPayloadRecordingUrls.md) |  |  [optional]
 **publicRecordingUrls** | [**CallRecordingSavedPayloadPublicRecordingUrls**](CallRecordingSavedPayloadPublicRecordingUrls.md) |  |  [optional]
 
-<a name="ChannelsEnum"></a>
+
+
 ## Enum: ChannelsEnum
+
 Name | Value
 ---- | -----
 SINGLE | &quot;single&quot;
 DUAL | &quot;dual&quot;
+
+
+

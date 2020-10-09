@@ -1,6 +1,9 @@
+
+
 # CallEvent
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | [**RecordTypeEnum**](#RecordTypeEnum) |  | 
@@ -11,15 +14,22 @@ Name | Type | Description | Notes
 **type** | [**TypeEnum**](#TypeEnum) | Event type | 
 **metadata** | **Object** | Event metadata, which includes raw event, and extra information based on event type | 
 
-<a name="RecordTypeEnum"></a>
+
+
 ## Enum: RecordTypeEnum
+
 Name | Value
 ---- | -----
-EVENT | &quot;call_event&quot;
+CALL_EVENT | &quot;call_event&quot;
 
-<a name="TypeEnum"></a>
+
+
 ## Enum: TypeEnum
+
 Name | Value
 ---- | -----
 COMMAND | &quot;command&quot;
 WEBHOOK | &quot;webhook&quot;
+
+
+

@@ -1,6 +1,9 @@
+
+
 # Participant
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | [**RecordTypeEnum**](#RecordTypeEnum) |  | 
@@ -17,16 +20,23 @@ Name | Type | Description | Notes
 **muted** | **Boolean** | Whether the participant is muted. | 
 **onHold** | **Boolean** | Whether the participant is put on_hold. | 
 
-<a name="RecordTypeEnum"></a>
+
+
 ## Enum: RecordTypeEnum
+
 Name | Value
 ---- | -----
 PARTICIPANT | &quot;participant&quot;
 
-<a name="StatusEnum"></a>
+
+
 ## Enum: StatusEnum
+
 Name | Value
 ---- | -----
 JOINING | &quot;joining&quot;
 JOINED | &quot;joined&quot;
 LEFT | &quot;left&quot;
+
+
+

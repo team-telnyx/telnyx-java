@@ -1,10 +1,13 @@
+
+
 # GatherUsingSpeakRequest
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **payload** | **String** | The text or SSML to be converted into speech. There is a 5,000 character limit. | 
-**invalidPayload** | **String** | The text or SSML to be converted into speech when digits don&#x27;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. There is a 5,000 character limit. |  [optional]
+**invalidPayload** | **String** | The text or SSML to be converted into speech when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. There is a 5,000 character limit. |  [optional]
 **payloadType** | [**PayloadTypeEnum**](#PayloadTypeEnum) | The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML). |  [optional]
 **serviceLevel** | [**ServiceLevelEnum**](#ServiceLevelEnum) | This parameter impacts speech quality, language options and payload types. When using &#x60;basic&#x60;, only the &#x60;en-US&#x60; language and payload type &#x60;text&#x60; are allowed. |  [optional]
 **voice** | [**VoiceEnum**](#VoiceEnum) | The gender of the voice used to speak back the text. | 
@@ -19,29 +22,37 @@ Name | Type | Description | Notes
 **clientState** | **String** | Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. |  [optional]
 **commandId** | **String** | Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;. |  [optional]
 
-<a name="PayloadTypeEnum"></a>
+
+
 ## Enum: PayloadTypeEnum
+
 Name | Value
 ---- | -----
 TEXT | &quot;text&quot;
 SSML | &quot;ssml&quot;
 
-<a name="ServiceLevelEnum"></a>
+
+
 ## Enum: ServiceLevelEnum
+
 Name | Value
 ---- | -----
 BASIC | &quot;basic&quot;
 PREMIUM | &quot;premium&quot;
 
-<a name="VoiceEnum"></a>
+
+
 ## Enum: VoiceEnum
+
 Name | Value
 ---- | -----
 MALE | &quot;male&quot;
 FEMALE | &quot;female&quot;
 
-<a name="LanguageEnum"></a>
+
+
 ## Enum: LanguageEnum
+
 Name | Value
 ---- | -----
 ARB | &quot;arb&quot;
@@ -73,3 +84,6 @@ RO_RO | &quot;ro-RO&quot;
 RU_RU | &quot;ru-RU&quot;
 SV_SE | &quot;sv-SE&quot;
 TR_TR | &quot;tr-TR&quot;
+
+
+

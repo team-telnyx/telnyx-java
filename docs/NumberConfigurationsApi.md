@@ -6,42 +6,55 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deletePhoneNumber**](NumberConfigurationsApi.md#deletePhoneNumber) | **DELETE** /phone_numbers/{id} | Delete a phone number
 [**enableEmergencyPhoneNumber**](NumberConfigurationsApi.md#enableEmergencyPhoneNumber) | **POST** /phone_numbers/{id}/actions/enable_emergency | Enable emergency for a phone number
-[**findPhoneNumberVoices**](NumberConfigurationsApi.md#findPhoneNumberVoices) | **GET** /phone_numbers/voice | List voice settings for multiple phone numbers
-[**findPhoneNumbers**](NumberConfigurationsApi.md#findPhoneNumbers) | **GET** /phone_numbers | List all phone numbers
-[**getPhoneNumber**](NumberConfigurationsApi.md#getPhoneNumber) | **GET** /phone_numbers/{id} | Get the settings for a phone number
-[**listPhoneNumberMessagingSettings**](NumberConfigurationsApi.md#listPhoneNumberMessagingSettings) | **GET** /phone_numbers/messaging | List all phone numbers&#x27; messaging settings
-[**retrievePhoneNumberMessagingSettings**](NumberConfigurationsApi.md#retrievePhoneNumberMessagingSettings) | **GET** /phone_numbers/{id}/messaging | Retrieve the messaging settings for a phone number
-[**retrievePhoneNumberVoice**](NumberConfigurationsApi.md#retrievePhoneNumberVoice) | **GET** /phone_numbers/{id}/voice | Get the voice settings for a phone number
-[**updatePhoneNumber**](NumberConfigurationsApi.md#updatePhoneNumber) | **PATCH** /phone_numbers/{id} | Update the settings for a phone number
-[**updatePhoneNumberMessagingSettings**](NumberConfigurationsApi.md#updatePhoneNumberMessagingSettings) | **PATCH** /phone_numbers/{id}/messaging | Update the messaging settings for a phone number
-[**updatePhoneNumberVoice**](NumberConfigurationsApi.md#updatePhoneNumberVoice) | **PATCH** /phone_numbers/{id}/voice | Update the voice settings for a phone number
+[**listPhoneNumbers**](NumberConfigurationsApi.md#listPhoneNumbers) | **GET** /phone_numbers | List phone numbers
+[**listPhoneNumbersWithMessagingSettings**](NumberConfigurationsApi.md#listPhoneNumbersWithMessagingSettings) | **GET** /phone_numbers/messaging | List phone numbers with messaging settings
+[**listPhoneNumbersWithVoiceSettings**](NumberConfigurationsApi.md#listPhoneNumbersWithVoiceSettings) | **GET** /phone_numbers/voice | List phone numbers with voice settings
+[**retrievePhoneNumber**](NumberConfigurationsApi.md#retrievePhoneNumber) | **GET** /phone_numbers/{id} | Retrieve a phone number
+[**retrievePhoneNumberWithMessagingSettings**](NumberConfigurationsApi.md#retrievePhoneNumberWithMessagingSettings) | **GET** /phone_numbers/{id}/messaging | Retrieve a phone number with messaging settings
+[**retrievePhoneNumberWithVoiceSettings**](NumberConfigurationsApi.md#retrievePhoneNumberWithVoiceSettings) | **GET** /phone_numbers/{id}/voice | Retrieve a phone number with voice settings
+[**updatePhoneNumber**](NumberConfigurationsApi.md#updatePhoneNumber) | **PATCH** /phone_numbers/{id} | Update a phone number
+[**updatePhoneNumberWithMessagingSettings**](NumberConfigurationsApi.md#updatePhoneNumberWithMessagingSettings) | **PATCH** /phone_numbers/{id}/messaging | Update a phone number with messaging settings
+[**updatePhoneNumberWithVoiceSettings**](NumberConfigurationsApi.md#updatePhoneNumberWithVoiceSettings) | **PATCH** /phone_numbers/{id}/voice | Update a phone number with voice settings
+
 
 <a name="deletePhoneNumber"></a>
 # **deletePhoneNumber**
-> DeletePhoneNumberResponse deletePhoneNumber(id)
+> PhoneNumberResponse deletePhoneNumber(id)
 
 Delete a phone number
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-String id = "id_example"; // String | Identifies the resource.
-try {
-    DeletePhoneNumberResponse result = apiInstance.deletePhoneNumber(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#deletePhoneNumber");
-    e.printStackTrace();
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    String id = 1293384261075731499; // String | Identifies the resource.
+    try {
+      PhoneNumberResponse result = apiInstance.deletePhoneNumber(id);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#deletePhoneNumber");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -53,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeletePhoneNumberResponse**](DeletePhoneNumberResponse.md)
+[**PhoneNumberResponse**](PhoneNumberResponse.md)
 
 ### Authorization
 
@@ -64,33 +77,51 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with details about a phone number. |  -  |
+**0** | Unexpected error |  -  |
+
 <a name="enableEmergencyPhoneNumber"></a>
 # **enableEmergencyPhoneNumber**
-> PhoneNumberEnableEmergency enableEmergencyPhoneNumber(body, id)
+> PhoneNumberEnableEmergency enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest)
 
 Enable emergency for a phone number
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-PhoneNumberEnableEmergency body = new PhoneNumberEnableEmergency(); // PhoneNumberEnableEmergency | 
-String id = "id_example"; // String | Identifies the resource.
-try {
-    PhoneNumberEnableEmergency result = apiInstance.enableEmergencyPhoneNumber(body, id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#enableEmergencyPhoneNumber");
-    e.printStackTrace();
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    String id = 1293384261075731499; // String | Identifies the resource.
+    PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest = new PhoneNumberEnableEmergencyRequest(); // PhoneNumberEnableEmergencyRequest | 
+    try {
+      PhoneNumberEnableEmergency result = apiInstance.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#enableEmergencyPhoneNumber");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -98,8 +129,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**PhoneNumberEnableEmergency**](PhoneNumberEnableEmergency.md)|  |
  **id** | **String**| Identifies the resource. |
+ **phoneNumberEnableEmergencyRequest** | [**PhoneNumberEnableEmergencyRequest**](PhoneNumberEnableEmergencyRequest.md)|  |
 
 ### Return type
 
@@ -114,37 +145,62 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="findPhoneNumberVoices"></a>
-# **findPhoneNumberVoices**
-> ListPhoneNumberVoicesResponse findPhoneNumberVoices(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Phone number emergency enabled. |  -  |
+**202** | Phone number emergency requested. |  -  |
+**0** | Unexpected error |  -  |
 
-List voice settings for multiple phone numbers
+<a name="listPhoneNumbers"></a>
+# **listPhoneNumbers**
+> ListPhoneNumbersResponse listPhoneNumbers(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort)
+
+List phone numbers
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-Integer pageNumber = 1; // Integer | The page number to load
-Integer pageSize = 20; // Integer | The size of the page
-String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
-String filterConnectionNameContains = "filterConnectionNameContains_example"; // String | Filter contains connection name. Requires at least three characters
-String filterUsagePaymentMethod = "filterUsagePaymentMethod_example"; // String | Filter by usage_payment_method.
-String sort = "sort_example"; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order
-try {
-    ListPhoneNumberVoicesResponse result = apiInstance.findPhoneNumberVoices(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#findPhoneNumberVoices");
-    e.printStackTrace();
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
+    String filterTag = "filterTag_example"; // String | Filter by phone number tags.
+    String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
+    String filterStatus = active; // String | Filter by phone number status.
+    String filterVoiceConnectionNameContains = test; // String | Filter contains connection name. Requires at least three characters.
+    String filterVoiceConnectionNameStartsWith = test; // String | Filter starts with connection name. Requires at least three characters.
+    String filterVoiceConnectionNameEndsWith = test; // String | Filter ends with connection name. Requires at least three characters.
+    String filterVoiceConnectionNameEq = test; // String | Filter by connection name.
+    String filterUsagePaymentMethod = channel; // String | Filter by usage_payment_method.
+    String filterBillingGroupId = 62e4bf2e-c278-4282-b524-488d9c9c43b2; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
+    String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+    try {
+      ListPhoneNumbersResponse result = apiInstance.listPhoneNumbers(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#listPhoneNumbers");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -152,82 +208,18 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1] [enum: ]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20] [enum: ]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **filterTag** | **String**| Filter by phone number tags. | [optional]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
- **filterConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters | [optional]
+ **filterStatus** | **String**| Filter by phone number status. | [optional] [enum: purchase_pending, purchase_failed, port_pending, active, deleted, port_failed, emergency_only, ported_out, port_out_pending]
+ **filterVoiceConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters. | [optional]
+ **filterVoiceConnectionNameStartsWith** | **String**| Filter starts with connection name. Requires at least three characters. | [optional]
+ **filterVoiceConnectionNameEndsWith** | **String**| Filter ends with connection name. Requires at least three characters. | [optional]
+ **filterVoiceConnectionNameEq** | **String**| Filter by connection name. | [optional]
  **filterUsagePaymentMethod** | **String**| Filter by usage_payment_method. | [optional] [enum: pay-per-minute, channel]
- **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order | [optional] [enum: purchased_at, phone_number, connection_name, usage_payment_method]
-
-### Return type
-
-[**ListPhoneNumberVoicesResponse**](ListPhoneNumberVoicesResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="findPhoneNumbers"></a>
-# **findPhoneNumbers**
-> ListPhoneNumbersResponse findPhoneNumbers(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort)
-
-List all phone numbers
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-Integer pageNumber = 1; // Integer | The page number to load
-Integer pageSize = 20; // Integer | The size of the page
-String filterTag = "filterTag_example"; // String | Filter by phone number tags
-String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
-String filterStatus = "filterStatus_example"; // String | Filter by phone number status
-String filterVoiceConnectionNameContains = "filterVoiceConnectionNameContains_example"; // String | Filter contains connection name. Requires at least three characters
-String filterVoiceConnectionNameStartsWith = "filterVoiceConnectionNameStartsWith_example"; // String | Filter starts with connection name. Requires at least three characters
-String filterVoiceConnectionNameEndsWith = "filterVoiceConnectionNameEndsWith_example"; // String | Filter ends with connection name. Requires at least three characters
-String filterVoiceConnectionNameEq = "filterVoiceConnectionNameEq_example"; // String | Filter by connection name
-String filterUsagePaymentMethod = "filterUsagePaymentMethod_example"; // String | Filter by usage_payment_method.
-String filterBillingGroupId = "filterBillingGroupId_example"; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
-String sort = "sort_example"; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order
-try {
-    ListPhoneNumbersResponse result = apiInstance.findPhoneNumbers(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#findPhoneNumbers");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1] [enum: ]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20] [enum: ]
- **filterTag** | **String**| Filter by phone number tags | [optional]
- **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
- **filterStatus** | **String**| Filter by phone number status | [optional] [enum: purchase_pending, purchase_failed, port_pending, active, deleted, port_failed, emergency_only, ported_out, port_out_pending]
- **filterVoiceConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters | [optional]
- **filterVoiceConnectionNameStartsWith** | **String**| Filter starts with connection name. Requires at least three characters | [optional]
- **filterVoiceConnectionNameEndsWith** | **String**| Filter ends with connection name. Requires at least three characters | [optional]
- **filterVoiceConnectionNameEq** | **String**| Filter by connection name | [optional]
- **filterUsagePaymentMethod** | **String**| Filter by usage_payment_method. | [optional] [enum: pay-per-minute, channel]
- **filterBillingGroupId** | **String**| Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#x27;null&#x27;. | [optional]
- **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order | [optional] [enum: purchased_at, phone_number, connection_name, usage_payment_method]
+ **filterBillingGroupId** | **String**| Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. | [optional]
+ **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: purchased_at, phone_number, connection_name, usage_payment_method]
 
 ### Return type
 
@@ -242,79 +234,49 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="getPhoneNumber"></a>
-# **getPhoneNumber**
-> RetrievePhoneNumberResponse getPhoneNumber(id)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with a list of phone numbers. |  -  |
+**0** | Unexpected error |  -  |
 
-Get the settings for a phone number
+<a name="listPhoneNumbersWithMessagingSettings"></a>
+# **listPhoneNumbersWithMessagingSettings**
+> ListMessagingSettingsResponse listPhoneNumbersWithMessagingSettings()
 
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-String id = "id_example"; // String | Identifies the resource.
-try {
-    RetrievePhoneNumberResponse result = apiInstance.getPhoneNumber(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#getPhoneNumber");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
-
-### Return type
-
-[**RetrievePhoneNumberResponse**](RetrievePhoneNumberResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="listPhoneNumberMessagingSettings"></a>
-# **listPhoneNumberMessagingSettings**
-> ListMessagingSettingsResponse listPhoneNumberMessagingSettings()
-
-List all phone numbers&#x27; messaging settings
+List phone numbers with messaging settings
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-try {
-    ListMessagingSettingsResponse result = apiInstance.listPhoneNumberMessagingSettings();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#listPhoneNumberMessagingSettings");
-    e.printStackTrace();
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    try {
+      ListMessagingSettingsResponse result = apiInstance.listPhoneNumbersWithMessagingSettings();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#listPhoneNumbersWithMessagingSettings");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -334,32 +296,192 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="retrievePhoneNumberMessagingSettings"></a>
-# **retrievePhoneNumberMessagingSettings**
-> RetrieveMessagingSettingsResponse retrievePhoneNumberMessagingSettings(id)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with a list of phone numbers with messaging settings. |  -  |
+**0** | Unexpected error |  -  |
 
-Retrieve the messaging settings for a phone number
+<a name="listPhoneNumbersWithVoiceSettings"></a>
+# **listPhoneNumbersWithVoiceSettings**
+> ListPhoneNumbersWithVoiceSettingsResponse listPhoneNumbersWithVoiceSettings(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort)
+
+List phone numbers with voice settings
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
+    String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
+    String filterConnectionNameContains = test; // String | Filter contains connection name. Requires at least three characters.
+    String filterUsagePaymentMethod = channel; // String | Filter by usage_payment_method.
+    String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+    try {
+      ListPhoneNumbersWithVoiceSettingsResponse result = apiInstance.listPhoneNumbersWithVoiceSettings(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#listPhoneNumbersWithVoiceSettings");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
 
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-String id = "id_example"; // String | Identifies the type of resource.
-try {
-    RetrieveMessagingSettingsResponse result = apiInstance.retrievePhoneNumberMessagingSettings(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#retrievePhoneNumberMessagingSettings");
-    e.printStackTrace();
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
+ **filterConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters. | [optional]
+ **filterUsagePaymentMethod** | **String**| Filter by usage_payment_method. | [optional] [enum: pay-per-minute, channel]
+ **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: purchased_at, phone_number, connection_name, usage_payment_method]
+
+### Return type
+
+[**ListPhoneNumbersWithVoiceSettingsResponse**](ListPhoneNumbersWithVoiceSettingsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with a list of phone numbers with voice settings. |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="retrievePhoneNumber"></a>
+# **retrievePhoneNumber**
+> PhoneNumberResponse retrievePhoneNumber(id)
+
+Retrieve a phone number
+
+### Example
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    String id = 1293384261075731499; // String | Identifies the resource.
+    try {
+      PhoneNumberResponse result = apiInstance.retrievePhoneNumber(id);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#retrievePhoneNumber");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Identifies the resource. |
+
+### Return type
+
+[**PhoneNumberResponse**](PhoneNumberResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with details about a phone number. |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="retrievePhoneNumberWithMessagingSettings"></a>
+# **retrievePhoneNumberWithMessagingSettings**
+> RetrieveMessagingSettingsResponse retrievePhoneNumberWithMessagingSettings(id)
+
+Retrieve a phone number with messaging settings
+
+### Example
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    String id = "id_example"; // String | Identifies the type of resource.
+    try {
+      RetrieveMessagingSettingsResponse result = apiInstance.retrievePhoneNumberWithMessagingSettings(id);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#retrievePhoneNumberWithMessagingSettings");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -382,32 +504,50 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="retrievePhoneNumberVoice"></a>
-# **retrievePhoneNumberVoice**
-> RetrievePhoneNumberVoiceResponse retrievePhoneNumberVoice(id)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with details about a phone number including voice settings. |  -  |
+**0** | Unexpected error |  -  |
 
-Get the voice settings for a phone number
+<a name="retrievePhoneNumberWithVoiceSettings"></a>
+# **retrievePhoneNumberWithVoiceSettings**
+> RetrievePhoneNumberVoiceResponse retrievePhoneNumberWithVoiceSettings(id)
+
+Retrieve a phone number with voice settings
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-String id = "id_example"; // String | Identifies the resource.
-try {
-    RetrievePhoneNumberVoiceResponse result = apiInstance.retrievePhoneNumberVoice(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#retrievePhoneNumberVoice");
-    e.printStackTrace();
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    String id = 1293384261075731499; // String | Identifies the resource.
+    try {
+      RetrievePhoneNumberVoiceResponse result = apiInstance.retrievePhoneNumberWithVoiceSettings(id);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#retrievePhoneNumberWithVoiceSettings");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -429,34 +569,52 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with details about a phone number including voice settings. |  -  |
+**0** | Unexpected error |  -  |
 
 <a name="updatePhoneNumber"></a>
 # **updatePhoneNumber**
-> RetrievePhoneNumberResponse updatePhoneNumber(body, id)
+> PhoneNumberResponse updatePhoneNumber(id, updatePhoneNumberRequest)
 
-Update the settings for a phone number
+Update a phone number
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-PhoneNumberUpdate body = new PhoneNumberUpdate(); // PhoneNumberUpdate | Updated settings for the phone number
-String id = "id_example"; // String | Identifies the resource.
-try {
-    RetrievePhoneNumberResponse result = apiInstance.updatePhoneNumber(body, id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#updatePhoneNumber");
-    e.printStackTrace();
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    String id = 1293384261075731499; // String | Identifies the resource.
+    UpdatePhoneNumberRequest updatePhoneNumberRequest = new UpdatePhoneNumberRequest(); // UpdatePhoneNumberRequest | Updated settings for the phone number.
+    try {
+      PhoneNumberResponse result = apiInstance.updatePhoneNumber(id, updatePhoneNumberRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#updatePhoneNumber");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -464,12 +622,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**PhoneNumberUpdate**](PhoneNumberUpdate.md)| Updated settings for the phone number |
  **id** | **String**| Identifies the resource. |
+ **updatePhoneNumberRequest** | [**UpdatePhoneNumberRequest**](UpdatePhoneNumberRequest.md)| Updated settings for the phone number. |
 
 ### Return type
 
-[**RetrievePhoneNumberResponse**](RetrievePhoneNumberResponse.md)
+[**PhoneNumberResponse**](PhoneNumberResponse.md)
 
 ### Authorization
 
@@ -480,33 +638,51 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="updatePhoneNumberMessagingSettings"></a>
-# **updatePhoneNumberMessagingSettings**
-> RetrieveMessagingSettingsResponse updatePhoneNumberMessagingSettings(body, id)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with details about a phone number. |  -  |
+**0** | Unexpected error |  -  |
 
-Update the messaging settings for a phone number
+<a name="updatePhoneNumberWithMessagingSettings"></a>
+# **updatePhoneNumberWithMessagingSettings**
+> RetrieveMessagingSettingsResponse updatePhoneNumberWithMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest)
+
+Update a phone number with messaging settings
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-MessagingPhoneNumberUpdate body = new MessagingPhoneNumberUpdate(); // MessagingPhoneNumberUpdate | Updated messaging settings for the phone number
-String id = "id_example"; // String | Identifies the type of resource.
-try {
-    RetrieveMessagingSettingsResponse result = apiInstance.updatePhoneNumberMessagingSettings(body, id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#updatePhoneNumberMessagingSettings");
-    e.printStackTrace();
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    String id = "id_example"; // String | Identifies the type of resource.
+    UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest = new UpdatePhoneNumberMessagingSettingsRequest(); // UpdatePhoneNumberMessagingSettingsRequest | Updated messaging settings for the phone number
+    try {
+      RetrieveMessagingSettingsResponse result = apiInstance.updatePhoneNumberWithMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#updatePhoneNumberWithMessagingSettings");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -514,8 +690,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MessagingPhoneNumberUpdate**](MessagingPhoneNumberUpdate.md)| Updated messaging settings for the phone number |
  **id** | **String**| Identifies the type of resource. |
+ **updatePhoneNumberMessagingSettingsRequest** | [**UpdatePhoneNumberMessagingSettingsRequest**](UpdatePhoneNumberMessagingSettingsRequest.md)| Updated messaging settings for the phone number |
 
 ### Return type
 
@@ -530,33 +706,51 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="updatePhoneNumberVoice"></a>
-# **updatePhoneNumberVoice**
-> RetrievePhoneNumberVoiceResponse updatePhoneNumberVoice(body, id)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with details about a phone number including voice settings. |  -  |
+**0** | Unexpected error |  -  |
 
-Update the voice settings for a phone number
+<a name="updatePhoneNumberWithVoiceSettings"></a>
+# **updatePhoneNumberWithVoiceSettings**
+> RetrievePhoneNumberVoiceResponse updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest)
+
+Update a phone number with voice settings
 
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.NumberConfigurationsApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.models.*;
+import com.telnyx.sdk.apis.NumberConfigurationsApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.telnyx.com/v2");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
-
-NumberConfigurationsApi apiInstance = new NumberConfigurationsApi();
-VoiceUpdate body = new VoiceUpdate(); // VoiceUpdate | Updated voice settings for the phone number
-String id = "id_example"; // String | Identifies the resource.
-try {
-    RetrievePhoneNumberVoiceResponse result = apiInstance.updatePhoneNumberVoice(body, id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NumberConfigurationsApi#updatePhoneNumberVoice");
-    e.printStackTrace();
+    NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    String id = 1293384261075731499; // String | Identifies the resource.
+    UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest = new UpdatePhoneNumberVoiceSettingsRequest(); // UpdatePhoneNumberVoiceSettingsRequest | Updated voice settings for the phone number.
+    try {
+      RetrievePhoneNumberVoiceResponse result = apiInstance.updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NumberConfigurationsApi#updatePhoneNumberWithVoiceSettings");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -564,8 +758,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**VoiceUpdate**](VoiceUpdate.md)| Updated voice settings for the phone number |
  **id** | **String**| Identifies the resource. |
+ **updatePhoneNumberVoiceSettingsRequest** | [**UpdatePhoneNumberVoiceSettingsRequest**](UpdatePhoneNumberVoiceSettingsRequest.md)| Updated voice settings for the phone number. |
 
 ### Return type
 
@@ -579,4 +773,10 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with details about a phone number including voice settings. |  -  |
+**0** | Unexpected error |  -  |
 

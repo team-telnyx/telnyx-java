@@ -1,6 +1,9 @@
+
+
 # AvailablePhoneNumber
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | [**RecordTypeEnum**](#RecordTypeEnum) |  |  [optional]
@@ -13,8 +16,13 @@ Name | Type | Description | Notes
 **costInformation** | [**CostInformation**](CostInformation.md) |  |  [optional]
 **regulatoryRequirements** | [**List&lt;RegulatoryRequirement&gt;**](RegulatoryRequirement.md) |  |  [optional]
 
-<a name="RecordTypeEnum"></a>
+
+
 ## Enum: RecordTypeEnum
+
 Name | Value
 ---- | -----
-NUMBER | &quot;available_phone_number&quot;
+AVAILABLE_PHONE_NUMBER | &quot;available_phone_number&quot;
+
+
+
