@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 <a name="listNumberReservations"></a>
 # **listNumberReservations**
-> ListNumberReservationsResponse listNumberReservations().filterStatus(filterStatus).filterCreatedAtGt(filterCreatedAtGt).filterCreatedAtLt(filterCreatedAtLt).filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber).filterCustomerReference(filterCustomerReference).execute();
+> ListNumberReservationsResponse listNumberReservations().filterStatus(filterStatus).filterCreatedAtGt(filterCreatedAtGt).filterCreatedAtLt(filterCreatedAtLt).filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber).filterCustomerReference(filterCustomerReference).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List number reservations
 
@@ -181,6 +181,8 @@ public class Example {
     String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number reservations earlier than this value.
     String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number reservations having these phone numbers.
     String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number reservations via the customer reference set.
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
     try {
       ListNumberReservationsResponse result = apiInstance.listNumberReservations()
             .filterStatus(filterStatus)
@@ -188,6 +190,8 @@ public class Example {
             .filterCreatedAtLt(filterCreatedAtLt)
             .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
             .filterCustomerReference(filterCustomerReference)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -210,6 +214,8 @@ Name | Type | Description  | Notes
  **filterCreatedAtLt** | **String**| Filter number reservations earlier than this value. | [optional]
  **filterPhoneNumbersPhoneNumber** | **String**| Filter number reservations having these phone numbers. | [optional]
  **filterCustomerReference** | **String**| Filter number reservations via the customer reference set. | [optional]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

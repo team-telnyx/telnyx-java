@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 <a name="listMessagingHostedNumberOrder"></a>
 # **listMessagingHostedNumberOrder**
-> ListMessagingHostedNumberOrderResponse listMessagingHostedNumberOrder().execute();
+> ListMessagingHostedNumberOrderResponse listMessagingHostedNumberOrder().pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List messaging hosted number orders
 
@@ -172,8 +172,12 @@ public class Example {
     bearerAuth.setBearerToken("BEARER TOKEN");
 
     MessagingHostedNumberApi apiInstance = new MessagingHostedNumberApi(defaultClient);
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
     try {
       ListMessagingHostedNumberOrderResponse result = apiInstance.listMessagingHostedNumberOrder()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -188,7 +192,11 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

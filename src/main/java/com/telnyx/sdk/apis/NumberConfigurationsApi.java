@@ -684,7 +684,7 @@ public class NumberConfigurationsApi {
     public APIlistPhoneNumbersRequest listPhoneNumbers() {
         return new APIlistPhoneNumbersRequest();
     }
-    private okhttp3.Call listPhoneNumbersWithMessagingSettingsCall(final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumbersWithMessagingSettingsCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -692,6 +692,14 @@ public class NumberConfigurationsApi {
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (pageNumber != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[number]", pageNumber));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[size]", pageSize));
+        }
+
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
@@ -714,32 +722,54 @@ public class NumberConfigurationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listPhoneNumbersWithMessagingSettingsValidateBeforeCall(final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumbersWithMessagingSettingsValidateBeforeCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = listPhoneNumbersWithMessagingSettingsCall(_callback);
+        okhttp3.Call localVarCall = listPhoneNumbersWithMessagingSettingsCall(pageNumber, pageSize, _callback);
         return localVarCall;
 
     }
 
 
-    private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessagingSettingsWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = listPhoneNumbersWithMessagingSettingsValidateBeforeCall(null);
+    private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessagingSettingsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+        okhttp3.Call localVarCall = listPhoneNumbersWithMessagingSettingsValidateBeforeCall(pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListMessagingSettingsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listPhoneNumbersWithMessagingSettingsAsync(final ApiCallback<ListMessagingSettingsResponse> _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumbersWithMessagingSettingsAsync(Integer pageNumber, Integer pageSize, final ApiCallback<ListMessagingSettingsResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listPhoneNumbersWithMessagingSettingsValidateBeforeCall(_callback);
+        okhttp3.Call localVarCall = listPhoneNumbersWithMessagingSettingsValidateBeforeCall(pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListMessagingSettingsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIlistPhoneNumbersWithMessagingSettingsRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
 
         private APIlistPhoneNumbersWithMessagingSettingsRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistPhoneNumbersWithMessagingSettingsRequest
+         */
+        public APIlistPhoneNumbersWithMessagingSettingsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistPhoneNumbersWithMessagingSettingsRequest
+         */
+        public APIlistPhoneNumbersWithMessagingSettingsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
         }
 
         /**
@@ -755,7 +785,7 @@ public class NumberConfigurationsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listPhoneNumbersWithMessagingSettingsCall(_callback);
+            return listPhoneNumbersWithMessagingSettingsCall(pageNumber, pageSize, _callback);
         }
 
         /**
@@ -770,7 +800,7 @@ public class NumberConfigurationsApi {
          </table>
          */
         public ListMessagingSettingsResponse execute() throws ApiException {
-            ApiResponse<ListMessagingSettingsResponse> localVarResp = listPhoneNumbersWithMessagingSettingsWithHttpInfo();
+            ApiResponse<ListMessagingSettingsResponse> localVarResp = listPhoneNumbersWithMessagingSettingsWithHttpInfo(pageNumber, pageSize);
             return localVarResp.getData();
         }
 
@@ -786,7 +816,7 @@ public class NumberConfigurationsApi {
          </table>
          */
         public ApiResponse<ListMessagingSettingsResponse> executeWithHttpInfo() throws ApiException {
-            return listPhoneNumbersWithMessagingSettingsWithHttpInfo();
+            return listPhoneNumbersWithMessagingSettingsWithHttpInfo(pageNumber, pageSize);
         }
 
         /**
@@ -802,7 +832,7 @@ public class NumberConfigurationsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ListMessagingSettingsResponse> _callback) throws ApiException {
-            return listPhoneNumbersWithMessagingSettingsAsync(_callback);
+            return listPhoneNumbersWithMessagingSettingsAsync(pageNumber, pageSize, _callback);
         }
     }
 

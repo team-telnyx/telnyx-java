@@ -56,7 +56,7 @@ public class DebuggingApi {
         this.localVarApiClient = apiClient;
     }
 
-    private okhttp3.Call listCallEventsCall(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listCallEventsCall(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -100,6 +100,14 @@ public class DebuggingApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("filter[event_timestamp][eq]", filterEventTimestampEq));
         }
 
+        if (pageNumber != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[number]", pageNumber));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[size]", pageSize));
+        }
+
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
@@ -122,24 +130,24 @@ public class DebuggingApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listCallEventsValidateBeforeCall(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listCallEventsValidateBeforeCall(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = listCallEventsCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, _callback);
+        okhttp3.Call localVarCall = listCallEventsCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, pageNumber, pageSize, _callback);
         return localVarCall;
 
     }
 
 
-    private ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq) throws ApiException {
-        okhttp3.Call localVarCall = listCallEventsValidateBeforeCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, null);
+    private ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, Integer pageNumber, Integer pageSize) throws ApiException {
+        okhttp3.Call localVarCall = listCallEventsValidateBeforeCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListCallEventsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listCallEventsAsync(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, final ApiCallback<ListCallEventsResponse> _callback) throws ApiException {
+    private okhttp3.Call listCallEventsAsync(UUID filterCallLegId, UUID filterCallSessionId, String filterStatus, String filterType, String filterEventTimestampGt, String filterEventTimestampGte, String filterEventTimestampLt, String filterEventTimestampLte, String filterEventTimestampEq, Integer pageNumber, Integer pageSize, final ApiCallback<ListCallEventsResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listCallEventsValidateBeforeCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, _callback);
+        okhttp3.Call localVarCall = listCallEventsValidateBeforeCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListCallEventsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -155,6 +163,8 @@ public class DebuggingApi {
         private String filterEventTimestampLt;
         private String filterEventTimestampLte;
         private String filterEventTimestampEq;
+        private Integer pageNumber;
+        private Integer pageSize;
 
         private APIlistCallEventsRequest() {
         }
@@ -250,6 +260,26 @@ public class DebuggingApi {
         }
 
         /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistCallEventsRequest
+         */
+        public APIlistCallEventsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
          * Build call for listCallEvents
          * @param _callback ApiCallback API callback
          * @return Call to execute
@@ -262,7 +292,7 @@ public class DebuggingApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listCallEventsCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, _callback);
+            return listCallEventsCall(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, pageNumber, pageSize, _callback);
         }
 
         /**
@@ -277,7 +307,7 @@ public class DebuggingApi {
          </table>
          */
         public ListCallEventsResponse execute() throws ApiException {
-            ApiResponse<ListCallEventsResponse> localVarResp = listCallEventsWithHttpInfo(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
+            ApiResponse<ListCallEventsResponse> localVarResp = listCallEventsWithHttpInfo(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, pageNumber, pageSize);
             return localVarResp.getData();
         }
 
@@ -293,7 +323,7 @@ public class DebuggingApi {
          </table>
          */
         public ApiResponse<ListCallEventsResponse> executeWithHttpInfo() throws ApiException {
-            return listCallEventsWithHttpInfo(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
+            return listCallEventsWithHttpInfo(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, pageNumber, pageSize);
         }
 
         /**
@@ -309,7 +339,7 @@ public class DebuggingApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ListCallEventsResponse> _callback) throws ApiException {
-            return listCallEventsAsync(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, _callback);
+            return listCallEventsAsync(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq, pageNumber, pageSize, _callback);
         }
     }
 

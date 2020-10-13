@@ -553,6 +553,27 @@ paths:
           example: 2019-03-29T11:10:00Z
           type: string
         style: form
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -2987,6 +3008,28 @@ paths:
   /messaging_hosted_number_orders:
     get:
       operationId: listMessagingHostedNumberOrder
+      parameters:
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -3581,6 +3624,28 @@ paths:
   /messaging_url_domains:
     get:
       operationId: listMessagingUrlDomains
+      parameters:
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -3627,6 +3692,27 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
         style: form
       responses:
         "200":
@@ -3794,6 +3880,27 @@ paths:
         required: false
         schema:
           type: boolean
+        style: form
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
         style: form
       responses:
         "200":
@@ -3970,6 +4077,27 @@ paths:
         schema:
           type: string
         style: form
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -4093,6 +4221,27 @@ paths:
           items:
             type: string
           type: array
+        style: form
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
         style: form
       responses:
         "200":
@@ -4363,6 +4512,28 @@ paths:
   /phone_numbers/messaging:
     get:
       operationId: listPhoneNumbersWithMessagingSettings
+      parameters:
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -4889,6 +5060,27 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
         style: form
       responses:
         "200":
@@ -12326,11 +12518,18 @@ components:
           name: call.hangup
           type: webhook
           metadata: {}
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
       properties:
         data:
           items:
             $ref: '#/components/schemas/CallEvent'
           type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
       title: List Call Events Response
       type: object
     Retrieve_Call_Status_Response:
@@ -12549,11 +12748,18 @@ components:
             id: 464bd54e-a328-4b11-a131-28e6793cb6f2
             phone_number: +18665550002
             status: pending
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
       properties:
         data:
           items:
             $ref: '#/components/schemas/MessagingHostedNumberOrder'
           type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
       title: List Messaging Hosted Number Order Response
       type: object
     Retrieve_Messaging_Hosted_Number_Order_Response:
@@ -13170,11 +13376,18 @@ components:
           record_type: csv_download
           url: https://www.telnyx.com/sample/42587e44-3a3e-46de-9255-0c9a7a1d1ec7
           status: pending
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
       properties:
         data:
           items:
             $ref: '#/components/schemas/CsvDownload'
           type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
       title: List CSV Downloads Response
       type: object
     CSV_Download_Response:
@@ -13311,11 +13524,18 @@ components:
             inbound_call_recording_enabled: true
             inbound_call_recording_format: wav
             inbound_call_recording_channels: single
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
       properties:
         data:
           items:
             $ref: '#/components/schemas/PhoneNumberWithVoiceSettings'
           type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
       title: List Phone Numbers With Voice Settings Response
       type: object
     Phone_Number_Response:

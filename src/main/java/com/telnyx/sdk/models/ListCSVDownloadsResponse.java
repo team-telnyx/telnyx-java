@@ -21,6 +21,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.telnyx.sdk.models.CsvDownload;
+import com.telnyx.sdk.models.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
@@ -38,6 +39,10 @@ public class ListCSVDownloadsResponse {
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
   private List<CsvDownload> data = null;
+
+  public static final String SERIALIZED_NAME_META = "meta";
+  @SerializedName(SERIALIZED_NAME_META)
+  private PaginationMeta meta;
 
 
   public ListCSVDownloadsResponse data(List<CsvDownload> data) {
@@ -71,6 +76,29 @@ public class ListCSVDownloadsResponse {
   }
 
 
+  public ListCSVDownloadsResponse meta(PaginationMeta meta) {
+    
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public PaginationMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(PaginationMeta meta) {
+    this.meta = meta;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -80,12 +108,13 @@ public class ListCSVDownloadsResponse {
       return false;
     }
     ListCSVDownloadsResponse listCSVDownloadsResponse = (ListCSVDownloadsResponse) o;
-    return Objects.equals(this.data, listCSVDownloadsResponse.data);
+    return Objects.equals(this.data, listCSVDownloadsResponse.data) &&
+        Objects.equals(this.meta, listCSVDownloadsResponse.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(data, meta);
   }
 
 
@@ -94,6 +123,7 @@ public class ListCSVDownloadsResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class ListCSVDownloadsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

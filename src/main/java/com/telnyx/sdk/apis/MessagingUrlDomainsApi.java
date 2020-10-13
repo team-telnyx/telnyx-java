@@ -55,7 +55,7 @@ public class MessagingUrlDomainsApi {
         this.localVarApiClient = apiClient;
     }
 
-    private okhttp3.Call listMessagingUrlDomainsCall(final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listMessagingUrlDomainsCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -63,6 +63,14 @@ public class MessagingUrlDomainsApi {
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (pageNumber != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[number]", pageNumber));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[size]", pageSize));
+        }
+
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
@@ -85,32 +93,54 @@ public class MessagingUrlDomainsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listMessagingUrlDomainsValidateBeforeCall(final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listMessagingUrlDomainsValidateBeforeCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = listMessagingUrlDomainsCall(_callback);
+        okhttp3.Call localVarCall = listMessagingUrlDomainsCall(pageNumber, pageSize, _callback);
         return localVarCall;
 
     }
 
 
-    private ApiResponse<ListMessagingProfileUrlDomainsResponse> listMessagingUrlDomainsWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = listMessagingUrlDomainsValidateBeforeCall(null);
+    private ApiResponse<ListMessagingProfileUrlDomainsResponse> listMessagingUrlDomainsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+        okhttp3.Call localVarCall = listMessagingUrlDomainsValidateBeforeCall(pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListMessagingProfileUrlDomainsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listMessagingUrlDomainsAsync(final ApiCallback<ListMessagingProfileUrlDomainsResponse> _callback) throws ApiException {
+    private okhttp3.Call listMessagingUrlDomainsAsync(Integer pageNumber, Integer pageSize, final ApiCallback<ListMessagingProfileUrlDomainsResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listMessagingUrlDomainsValidateBeforeCall(_callback);
+        okhttp3.Call localVarCall = listMessagingUrlDomainsValidateBeforeCall(pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListMessagingProfileUrlDomainsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIlistMessagingUrlDomainsRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
 
         private APIlistMessagingUrlDomainsRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistMessagingUrlDomainsRequest
+         */
+        public APIlistMessagingUrlDomainsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistMessagingUrlDomainsRequest
+         */
+        public APIlistMessagingUrlDomainsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
         }
 
         /**
@@ -126,7 +156,7 @@ public class MessagingUrlDomainsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listMessagingUrlDomainsCall(_callback);
+            return listMessagingUrlDomainsCall(pageNumber, pageSize, _callback);
         }
 
         /**
@@ -141,7 +171,7 @@ public class MessagingUrlDomainsApi {
          </table>
          */
         public ListMessagingProfileUrlDomainsResponse execute() throws ApiException {
-            ApiResponse<ListMessagingProfileUrlDomainsResponse> localVarResp = listMessagingUrlDomainsWithHttpInfo();
+            ApiResponse<ListMessagingProfileUrlDomainsResponse> localVarResp = listMessagingUrlDomainsWithHttpInfo(pageNumber, pageSize);
             return localVarResp.getData();
         }
 
@@ -157,7 +187,7 @@ public class MessagingUrlDomainsApi {
          </table>
          */
         public ApiResponse<ListMessagingProfileUrlDomainsResponse> executeWithHttpInfo() throws ApiException {
-            return listMessagingUrlDomainsWithHttpInfo();
+            return listMessagingUrlDomainsWithHttpInfo(pageNumber, pageSize);
         }
 
         /**
@@ -173,7 +203,7 @@ public class MessagingUrlDomainsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ListMessagingProfileUrlDomainsResponse> _callback) throws ApiException {
-            return listMessagingUrlDomainsAsync(_callback);
+            return listMessagingUrlDomainsAsync(pageNumber, pageSize, _callback);
         }
     }
 

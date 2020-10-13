@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 <a name="listPhoneNumbersWithMessagingSettings"></a>
 # **listPhoneNumbersWithMessagingSettings**
-> ListMessagingSettingsResponse listPhoneNumbersWithMessagingSettings().execute();
+> ListMessagingSettingsResponse listPhoneNumbersWithMessagingSettings().pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List phone numbers with messaging settings
 
@@ -281,8 +281,12 @@ public class Example {
     bearerAuth.setBearerToken("BEARER TOKEN");
 
     NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
     try {
       ListMessagingSettingsResponse result = apiInstance.listPhoneNumbersWithMessagingSettings()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -297,7 +301,11 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

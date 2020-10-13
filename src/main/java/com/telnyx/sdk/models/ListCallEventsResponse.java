@@ -21,6 +21,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.telnyx.sdk.models.CallEvent;
+import com.telnyx.sdk.models.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
@@ -38,6 +39,10 @@ public class ListCallEventsResponse {
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
   private List<CallEvent> data = null;
+
+  public static final String SERIALIZED_NAME_META = "meta";
+  @SerializedName(SERIALIZED_NAME_META)
+  private PaginationMeta meta;
 
 
   public ListCallEventsResponse data(List<CallEvent> data) {
@@ -71,6 +76,29 @@ public class ListCallEventsResponse {
   }
 
 
+  public ListCallEventsResponse meta(PaginationMeta meta) {
+    
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public PaginationMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(PaginationMeta meta) {
+    this.meta = meta;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -80,12 +108,13 @@ public class ListCallEventsResponse {
       return false;
     }
     ListCallEventsResponse listCallEventsResponse = (ListCallEventsResponse) o;
-    return Objects.equals(this.data, listCallEventsResponse.data);
+    return Objects.equals(this.data, listCallEventsResponse.data) &&
+        Objects.equals(this.meta, listCallEventsResponse.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(data, meta);
   }
 
 
@@ -94,6 +123,7 @@ public class ListCallEventsResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class ListCallEventsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }
