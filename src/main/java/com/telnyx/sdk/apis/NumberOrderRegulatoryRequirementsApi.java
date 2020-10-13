@@ -57,7 +57,7 @@ public class NumberOrderRegulatoryRequirementsApi {
         this.localVarApiClient = apiClient;
     }
 
-    private okhttp3.Call listNumberOrderRegulatoryRequirementsCall(String filterRequirementId, String filterFieldType, String filterRequirementType, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listNumberOrderRegulatoryRequirementsCall(String filterRequirementId, String filterFieldType, String filterRequirementType, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -75,6 +75,14 @@ public class NumberOrderRegulatoryRequirementsApi {
 
         if (filterRequirementType != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("filter[requirement_type]", filterRequirementType));
+        }
+
+        if (pageNumber != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[number]", pageNumber));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[size]", pageSize));
         }
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -99,24 +107,24 @@ public class NumberOrderRegulatoryRequirementsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listNumberOrderRegulatoryRequirementsValidateBeforeCall(String filterRequirementId, String filterFieldType, String filterRequirementType, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listNumberOrderRegulatoryRequirementsValidateBeforeCall(String filterRequirementId, String filterFieldType, String filterRequirementType, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = listNumberOrderRegulatoryRequirementsCall(filterRequirementId, filterFieldType, filterRequirementType, _callback);
+        okhttp3.Call localVarCall = listNumberOrderRegulatoryRequirementsCall(filterRequirementId, filterFieldType, filterRequirementType, pageNumber, pageSize, _callback);
         return localVarCall;
 
     }
 
 
-    private ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> listNumberOrderRegulatoryRequirementsWithHttpInfo(String filterRequirementId, String filterFieldType, String filterRequirementType) throws ApiException {
-        okhttp3.Call localVarCall = listNumberOrderRegulatoryRequirementsValidateBeforeCall(filterRequirementId, filterFieldType, filterRequirementType, null);
+    private ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> listNumberOrderRegulatoryRequirementsWithHttpInfo(String filterRequirementId, String filterFieldType, String filterRequirementType, Integer pageNumber, Integer pageSize) throws ApiException {
+        okhttp3.Call localVarCall = listNumberOrderRegulatoryRequirementsValidateBeforeCall(filterRequirementId, filterFieldType, filterRequirementType, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListNumberOrderRegulatoryRequirementsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listNumberOrderRegulatoryRequirementsAsync(String filterRequirementId, String filterFieldType, String filterRequirementType, final ApiCallback<ListNumberOrderRegulatoryRequirementsResponse> _callback) throws ApiException {
+    private okhttp3.Call listNumberOrderRegulatoryRequirementsAsync(String filterRequirementId, String filterFieldType, String filterRequirementType, Integer pageNumber, Integer pageSize, final ApiCallback<ListNumberOrderRegulatoryRequirementsResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listNumberOrderRegulatoryRequirementsValidateBeforeCall(filterRequirementId, filterFieldType, filterRequirementType, _callback);
+        okhttp3.Call localVarCall = listNumberOrderRegulatoryRequirementsValidateBeforeCall(filterRequirementId, filterFieldType, filterRequirementType, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListNumberOrderRegulatoryRequirementsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -126,6 +134,8 @@ public class NumberOrderRegulatoryRequirementsApi {
         private String filterRequirementId;
         private String filterFieldType;
         private String filterRequirementType;
+        private Integer pageNumber;
+        private Integer pageSize;
 
         private APIlistNumberOrderRegulatoryRequirementsRequest() {
         }
@@ -161,6 +171,26 @@ public class NumberOrderRegulatoryRequirementsApi {
         }
 
         /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistNumberOrderRegulatoryRequirementsRequest
+         */
+        public APIlistNumberOrderRegulatoryRequirementsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistNumberOrderRegulatoryRequirementsRequest
+         */
+        public APIlistNumberOrderRegulatoryRequirementsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
          * Build call for listNumberOrderRegulatoryRequirements
          * @param _callback ApiCallback API callback
          * @return Call to execute
@@ -173,7 +203,7 @@ public class NumberOrderRegulatoryRequirementsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listNumberOrderRegulatoryRequirementsCall(filterRequirementId, filterFieldType, filterRequirementType, _callback);
+            return listNumberOrderRegulatoryRequirementsCall(filterRequirementId, filterFieldType, filterRequirementType, pageNumber, pageSize, _callback);
         }
 
         /**
@@ -188,7 +218,7 @@ public class NumberOrderRegulatoryRequirementsApi {
          </table>
          */
         public ListNumberOrderRegulatoryRequirementsResponse execute() throws ApiException {
-            ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> localVarResp = listNumberOrderRegulatoryRequirementsWithHttpInfo(filterRequirementId, filterFieldType, filterRequirementType);
+            ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> localVarResp = listNumberOrderRegulatoryRequirementsWithHttpInfo(filterRequirementId, filterFieldType, filterRequirementType, pageNumber, pageSize);
             return localVarResp.getData();
         }
 
@@ -204,7 +234,7 @@ public class NumberOrderRegulatoryRequirementsApi {
          </table>
          */
         public ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> executeWithHttpInfo() throws ApiException {
-            return listNumberOrderRegulatoryRequirementsWithHttpInfo(filterRequirementId, filterFieldType, filterRequirementType);
+            return listNumberOrderRegulatoryRequirementsWithHttpInfo(filterRequirementId, filterFieldType, filterRequirementType, pageNumber, pageSize);
         }
 
         /**
@@ -220,7 +250,7 @@ public class NumberOrderRegulatoryRequirementsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ListNumberOrderRegulatoryRequirementsResponse> _callback) throws ApiException {
-            return listNumberOrderRegulatoryRequirementsAsync(filterRequirementId, filterFieldType, filterRequirementType, _callback);
+            return listNumberOrderRegulatoryRequirementsAsync(filterRequirementId, filterFieldType, filterRequirementType, pageNumber, pageSize, _callback);
         }
     }
 
@@ -238,7 +268,7 @@ public class NumberOrderRegulatoryRequirementsApi {
     public APIlistNumberOrderRegulatoryRequirementsRequest listNumberOrderRegulatoryRequirements() {
         return new APIlistNumberOrderRegulatoryRequirementsRequest();
     }
-    private okhttp3.Call listPhoneNumberRegulatoryRequirementsCall(List<String> filterPhoneNumber, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumberRegulatoryRequirementsCall(List<String> filterPhoneNumber, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -248,6 +278,14 @@ public class NumberOrderRegulatoryRequirementsApi {
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         if (filterPhoneNumber != null) {
             localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "filter[phone_number]", filterPhoneNumber));
+        }
+
+        if (pageNumber != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[number]", pageNumber));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[size]", pageSize));
         }
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -272,24 +310,24 @@ public class NumberOrderRegulatoryRequirementsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listPhoneNumberRegulatoryRequirementsValidateBeforeCall(List<String> filterPhoneNumber, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumberRegulatoryRequirementsValidateBeforeCall(List<String> filterPhoneNumber, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = listPhoneNumberRegulatoryRequirementsCall(filterPhoneNumber, _callback);
+        okhttp3.Call localVarCall = listPhoneNumberRegulatoryRequirementsCall(filterPhoneNumber, pageNumber, pageSize, _callback);
         return localVarCall;
 
     }
 
 
-    private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumberRegulatoryRequirementsWithHttpInfo(List<String> filterPhoneNumber) throws ApiException {
-        okhttp3.Call localVarCall = listPhoneNumberRegulatoryRequirementsValidateBeforeCall(filterPhoneNumber, null);
+    private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumberRegulatoryRequirementsWithHttpInfo(List<String> filterPhoneNumber, Integer pageNumber, Integer pageSize) throws ApiException {
+        okhttp3.Call localVarCall = listPhoneNumberRegulatoryRequirementsValidateBeforeCall(filterPhoneNumber, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListPhoneNumberRegulatoryRequirementsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listPhoneNumberRegulatoryRequirementsAsync(List<String> filterPhoneNumber, final ApiCallback<ListPhoneNumberRegulatoryRequirementsResponse> _callback) throws ApiException {
+    private okhttp3.Call listPhoneNumberRegulatoryRequirementsAsync(List<String> filterPhoneNumber, Integer pageNumber, Integer pageSize, final ApiCallback<ListPhoneNumberRegulatoryRequirementsResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listPhoneNumberRegulatoryRequirementsValidateBeforeCall(filterPhoneNumber, _callback);
+        okhttp3.Call localVarCall = listPhoneNumberRegulatoryRequirementsValidateBeforeCall(filterPhoneNumber, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListPhoneNumberRegulatoryRequirementsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -297,6 +335,8 @@ public class NumberOrderRegulatoryRequirementsApi {
 
     public class APIlistPhoneNumberRegulatoryRequirementsRequest {
         private List<String> filterPhoneNumber;
+        private Integer pageNumber;
+        private Integer pageSize;
 
         private APIlistPhoneNumberRegulatoryRequirementsRequest() {
         }
@@ -308,6 +348,26 @@ public class NumberOrderRegulatoryRequirementsApi {
          */
         public APIlistPhoneNumberRegulatoryRequirementsRequest filterPhoneNumber(List<String> filterPhoneNumber) {
             this.filterPhoneNumber = filterPhoneNumber;
+            return this;
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistPhoneNumberRegulatoryRequirementsRequest
+         */
+        public APIlistPhoneNumberRegulatoryRequirementsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistPhoneNumberRegulatoryRequirementsRequest
+         */
+        public APIlistPhoneNumberRegulatoryRequirementsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
             return this;
         }
 
@@ -324,7 +384,7 @@ public class NumberOrderRegulatoryRequirementsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listPhoneNumberRegulatoryRequirementsCall(filterPhoneNumber, _callback);
+            return listPhoneNumberRegulatoryRequirementsCall(filterPhoneNumber, pageNumber, pageSize, _callback);
         }
 
         /**
@@ -339,7 +399,7 @@ public class NumberOrderRegulatoryRequirementsApi {
          </table>
          */
         public ListPhoneNumberRegulatoryRequirementsResponse execute() throws ApiException {
-            ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> localVarResp = listPhoneNumberRegulatoryRequirementsWithHttpInfo(filterPhoneNumber);
+            ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> localVarResp = listPhoneNumberRegulatoryRequirementsWithHttpInfo(filterPhoneNumber, pageNumber, pageSize);
             return localVarResp.getData();
         }
 
@@ -355,7 +415,7 @@ public class NumberOrderRegulatoryRequirementsApi {
          </table>
          */
         public ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> executeWithHttpInfo() throws ApiException {
-            return listPhoneNumberRegulatoryRequirementsWithHttpInfo(filterPhoneNumber);
+            return listPhoneNumberRegulatoryRequirementsWithHttpInfo(filterPhoneNumber, pageNumber, pageSize);
         }
 
         /**
@@ -371,7 +431,7 @@ public class NumberOrderRegulatoryRequirementsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ListPhoneNumberRegulatoryRequirementsResponse> _callback) throws ApiException {
-            return listPhoneNumberRegulatoryRequirementsAsync(filterPhoneNumber, _callback);
+            return listPhoneNumberRegulatoryRequirementsAsync(filterPhoneNumber, pageNumber, pageSize, _callback);
         }
     }
 

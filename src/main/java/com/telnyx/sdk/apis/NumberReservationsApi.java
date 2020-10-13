@@ -346,7 +346,7 @@ public class NumberReservationsApi {
     public APIextendNumberReservationExpiryTimeRequest extendNumberReservationExpiryTime(String numberReservationId) {
         return new APIextendNumberReservationExpiryTimeRequest(numberReservationId);
     }
-    private okhttp3.Call listNumberReservationsCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listNumberReservationsCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -374,6 +374,14 @@ public class NumberReservationsApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("filter[customer_reference]", filterCustomerReference));
         }
 
+        if (pageNumber != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[number]", pageNumber));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[size]", pageSize));
+        }
+
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
@@ -396,24 +404,24 @@ public class NumberReservationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listNumberReservationsValidateBeforeCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listNumberReservationsValidateBeforeCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = listNumberReservationsCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, _callback);
+        okhttp3.Call localVarCall = listNumberReservationsCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, pageNumber, pageSize, _callback);
         return localVarCall;
 
     }
 
 
-    private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHttpInfo(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference) throws ApiException {
-        okhttp3.Call localVarCall = listNumberReservationsValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, null);
+    private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHttpInfo(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Integer pageNumber, Integer pageSize) throws ApiException {
+        okhttp3.Call localVarCall = listNumberReservationsValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListNumberReservationsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listNumberReservationsAsync(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, final ApiCallback<ListNumberReservationsResponse> _callback) throws ApiException {
+    private okhttp3.Call listNumberReservationsAsync(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Integer pageNumber, Integer pageSize, final ApiCallback<ListNumberReservationsResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listNumberReservationsValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, _callback);
+        okhttp3.Call localVarCall = listNumberReservationsValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListNumberReservationsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -425,6 +433,8 @@ public class NumberReservationsApi {
         private String filterCreatedAtLt;
         private String filterPhoneNumbersPhoneNumber;
         private String filterCustomerReference;
+        private Integer pageNumber;
+        private Integer pageSize;
 
         private APIlistNumberReservationsRequest() {
         }
@@ -480,6 +490,26 @@ public class NumberReservationsApi {
         }
 
         /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistNumberReservationsRequest
+         */
+        public APIlistNumberReservationsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistNumberReservationsRequest
+         */
+        public APIlistNumberReservationsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
          * Build call for listNumberReservations
          * @param _callback ApiCallback API callback
          * @return Call to execute
@@ -492,7 +522,7 @@ public class NumberReservationsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listNumberReservationsCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, _callback);
+            return listNumberReservationsCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, pageNumber, pageSize, _callback);
         }
 
         /**
@@ -507,7 +537,7 @@ public class NumberReservationsApi {
          </table>
          */
         public ListNumberReservationsResponse execute() throws ApiException {
-            ApiResponse<ListNumberReservationsResponse> localVarResp = listNumberReservationsWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference);
+            ApiResponse<ListNumberReservationsResponse> localVarResp = listNumberReservationsWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, pageNumber, pageSize);
             return localVarResp.getData();
         }
 
@@ -523,7 +553,7 @@ public class NumberReservationsApi {
          </table>
          */
         public ApiResponse<ListNumberReservationsResponse> executeWithHttpInfo() throws ApiException {
-            return listNumberReservationsWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference);
+            return listNumberReservationsWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, pageNumber, pageSize);
         }
 
         /**
@@ -539,7 +569,7 @@ public class NumberReservationsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ListNumberReservationsResponse> _callback) throws ApiException {
-            return listNumberReservationsAsync(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, _callback);
+            return listNumberReservationsAsync(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, pageNumber, pageSize, _callback);
         }
     }
 

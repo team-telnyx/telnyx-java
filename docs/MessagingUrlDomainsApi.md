@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="listMessagingUrlDomains"></a>
 # **listMessagingUrlDomains**
-> ListMessagingProfileUrlDomainsResponse listMessagingUrlDomains().execute();
+> ListMessagingProfileUrlDomainsResponse listMessagingUrlDomains().pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List messaging URL domains
 
@@ -33,8 +33,12 @@ public class Example {
     bearerAuth.setBearerToken("BEARER TOKEN");
 
     MessagingUrlDomainsApi apiInstance = new MessagingUrlDomainsApi(defaultClient);
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
     try {
       ListMessagingProfileUrlDomainsResponse result = apiInstance.listMessagingUrlDomains()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -49,7 +53,11 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

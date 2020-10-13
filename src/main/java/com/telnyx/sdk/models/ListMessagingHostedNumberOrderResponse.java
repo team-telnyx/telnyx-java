@@ -21,6 +21,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.telnyx.sdk.models.MessagingHostedNumberOrder;
+import com.telnyx.sdk.models.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
@@ -38,6 +39,10 @@ public class ListMessagingHostedNumberOrderResponse {
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
   private List<MessagingHostedNumberOrder> data = null;
+
+  public static final String SERIALIZED_NAME_META = "meta";
+  @SerializedName(SERIALIZED_NAME_META)
+  private PaginationMeta meta;
 
 
   public ListMessagingHostedNumberOrderResponse data(List<MessagingHostedNumberOrder> data) {
@@ -71,6 +76,29 @@ public class ListMessagingHostedNumberOrderResponse {
   }
 
 
+  public ListMessagingHostedNumberOrderResponse meta(PaginationMeta meta) {
+    
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public PaginationMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(PaginationMeta meta) {
+    this.meta = meta;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -80,12 +108,13 @@ public class ListMessagingHostedNumberOrderResponse {
       return false;
     }
     ListMessagingHostedNumberOrderResponse listMessagingHostedNumberOrderResponse = (ListMessagingHostedNumberOrderResponse) o;
-    return Objects.equals(this.data, listMessagingHostedNumberOrderResponse.data);
+    return Objects.equals(this.data, listMessagingHostedNumberOrderResponse.data) &&
+        Objects.equals(this.meta, listMessagingHostedNumberOrderResponse.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(data, meta);
   }
 
 
@@ -94,6 +123,7 @@ public class ListMessagingHostedNumberOrderResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class ListMessagingHostedNumberOrderResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

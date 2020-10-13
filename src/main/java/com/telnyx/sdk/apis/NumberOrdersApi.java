@@ -202,7 +202,7 @@ public class NumberOrdersApi {
     public APIcreateNumberOrderRequest createNumberOrder(CreateNumberOrderRequest createNumberOrderRequest) {
         return new APIcreateNumberOrderRequest(createNumberOrderRequest);
     }
-    private okhttp3.Call listNumberOrdersCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listNumberOrdersCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -234,6 +234,14 @@ public class NumberOrdersApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("filter[requirements_met]", filterRequirementsMet));
         }
 
+        if (pageNumber != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[number]", pageNumber));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[size]", pageSize));
+        }
+
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
@@ -256,24 +264,24 @@ public class NumberOrdersApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listNumberOrdersValidateBeforeCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listNumberOrdersValidateBeforeCall(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = listNumberOrdersCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, _callback);
+        okhttp3.Call localVarCall = listNumberOrdersCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, pageNumber, pageSize, _callback);
         return localVarCall;
 
     }
 
 
-    private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet) throws ApiException {
-        okhttp3.Call localVarCall = listNumberOrdersValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, null);
+    private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, Integer pageNumber, Integer pageSize) throws ApiException {
+        okhttp3.Call localVarCall = listNumberOrdersValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListNumberOrdersResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listNumberOrdersAsync(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, final ApiCallback<ListNumberOrdersResponse> _callback) throws ApiException {
+    private okhttp3.Call listNumberOrdersAsync(String filterStatus, String filterCreatedAtGt, String filterCreatedAtLt, String filterPhoneNumbersPhoneNumber, String filterCustomerReference, Boolean filterRequirementsMet, Integer pageNumber, Integer pageSize, final ApiCallback<ListNumberOrdersResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listNumberOrdersValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, _callback);
+        okhttp3.Call localVarCall = listNumberOrdersValidateBeforeCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListNumberOrdersResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -286,6 +294,8 @@ public class NumberOrdersApi {
         private String filterPhoneNumbersPhoneNumber;
         private String filterCustomerReference;
         private Boolean filterRequirementsMet;
+        private Integer pageNumber;
+        private Integer pageSize;
 
         private APIlistNumberOrdersRequest() {
         }
@@ -351,6 +361,26 @@ public class NumberOrdersApi {
         }
 
         /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistNumberOrdersRequest
+         */
+        public APIlistNumberOrdersRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistNumberOrdersRequest
+         */
+        public APIlistNumberOrdersRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
          * Build call for listNumberOrders
          * @param _callback ApiCallback API callback
          * @return Call to execute
@@ -363,7 +393,7 @@ public class NumberOrdersApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listNumberOrdersCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, _callback);
+            return listNumberOrdersCall(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, pageNumber, pageSize, _callback);
         }
 
         /**
@@ -378,7 +408,7 @@ public class NumberOrdersApi {
          </table>
          */
         public ListNumberOrdersResponse execute() throws ApiException {
-            ApiResponse<ListNumberOrdersResponse> localVarResp = listNumberOrdersWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet);
+            ApiResponse<ListNumberOrdersResponse> localVarResp = listNumberOrdersWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, pageNumber, pageSize);
             return localVarResp.getData();
         }
 
@@ -394,7 +424,7 @@ public class NumberOrdersApi {
          </table>
          */
         public ApiResponse<ListNumberOrdersResponse> executeWithHttpInfo() throws ApiException {
-            return listNumberOrdersWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet);
+            return listNumberOrdersWithHttpInfo(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, pageNumber, pageSize);
         }
 
         /**
@@ -410,7 +440,7 @@ public class NumberOrdersApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ListNumberOrdersResponse> _callback) throws ApiException {
-            return listNumberOrdersAsync(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, _callback);
+            return listNumberOrdersAsync(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersPhoneNumber, filterCustomerReference, filterRequirementsMet, pageNumber, pageSize, _callback);
         }
     }
 

@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="listCallEvents"></a>
 # **listCallEvents**
-> ListCallEventsResponse listCallEvents().filterCallLegId(filterCallLegId).filterCallSessionId(filterCallSessionId).filterStatus(filterStatus).filterType(filterType).filterEventTimestampGt(filterEventTimestampGt).filterEventTimestampGte(filterEventTimestampGte).filterEventTimestampLt(filterEventTimestampLt).filterEventTimestampLte(filterEventTimestampLte).filterEventTimestampEq(filterEventTimestampEq).execute();
+> ListCallEventsResponse listCallEvents().filterCallLegId(filterCallLegId).filterCallSessionId(filterCallSessionId).filterStatus(filterStatus).filterType(filterType).filterEventTimestampGt(filterEventTimestampGt).filterEventTimestampGte(filterEventTimestampGte).filterEventTimestampLt(filterEventTimestampLt).filterEventTimestampLte(filterEventTimestampLte).filterEventTimestampEq(filterEventTimestampEq).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List call events
 
@@ -44,6 +44,8 @@ public class Example {
     String filterEventTimestampLt = 2019-03-29T11:10:00Z; // String | Event timestamp: lower than
     String filterEventTimestampLte = 2019-03-29T11:10:00Z; // String | Event timestamp: lower than or equal
     String filterEventTimestampEq = 2019-03-29T11:10:00Z; // String | Event timestamp: equal
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
     try {
       ListCallEventsResponse result = apiInstance.listCallEvents()
             .filterCallLegId(filterCallLegId)
@@ -55,6 +57,8 @@ public class Example {
             .filterEventTimestampLt(filterEventTimestampLt)
             .filterEventTimestampLte(filterEventTimestampLte)
             .filterEventTimestampEq(filterEventTimestampEq)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -81,6 +85,8 @@ Name | Type | Description  | Notes
  **filterEventTimestampLt** | **String**| Event timestamp: lower than | [optional]
  **filterEventTimestampLte** | **String**| Event timestamp: lower than or equal | [optional]
  **filterEventTimestampEq** | **String**| Event timestamp: equal | [optional]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

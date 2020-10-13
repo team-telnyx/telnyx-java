@@ -20,6 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.telnyx.sdk.models.PaginationMeta;
 import com.telnyx.sdk.models.PhoneNumberWithVoiceSettings;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,6 +39,10 @@ public class ListPhoneNumbersWithVoiceSettingsResponse {
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
   private List<PhoneNumberWithVoiceSettings> data = null;
+
+  public static final String SERIALIZED_NAME_META = "meta";
+  @SerializedName(SERIALIZED_NAME_META)
+  private PaginationMeta meta;
 
 
   public ListPhoneNumbersWithVoiceSettingsResponse data(List<PhoneNumberWithVoiceSettings> data) {
@@ -71,6 +76,29 @@ public class ListPhoneNumbersWithVoiceSettingsResponse {
   }
 
 
+  public ListPhoneNumbersWithVoiceSettingsResponse meta(PaginationMeta meta) {
+    
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public PaginationMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(PaginationMeta meta) {
+    this.meta = meta;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -80,12 +108,13 @@ public class ListPhoneNumbersWithVoiceSettingsResponse {
       return false;
     }
     ListPhoneNumbersWithVoiceSettingsResponse listPhoneNumbersWithVoiceSettingsResponse = (ListPhoneNumbersWithVoiceSettingsResponse) o;
-    return Objects.equals(this.data, listPhoneNumbersWithVoiceSettingsResponse.data);
+    return Objects.equals(this.data, listPhoneNumbersWithVoiceSettingsResponse.data) &&
+        Objects.equals(this.meta, listPhoneNumbersWithVoiceSettingsResponse.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(data, meta);
   }
 
 
@@ -94,6 +123,7 @@ public class ListPhoneNumbersWithVoiceSettingsResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class ListPhoneNumbersWithVoiceSettingsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

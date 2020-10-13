@@ -202,7 +202,7 @@ public class NumberOrderDocumentsApi {
     public APIcreateNumberOrderDocumentRequest createNumberOrderDocument(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest) {
         return new APIcreateNumberOrderDocumentRequest(createNumberOrderDocumentRequest);
     }
-    private okhttp3.Call listNumberOrderDocumentsCall(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listNumberOrderDocumentsCall(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -220,6 +220,14 @@ public class NumberOrderDocumentsApi {
 
         if (filterCreatedAtLt != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("filter[created_at][lt]", filterCreatedAtLt));
+        }
+
+        if (pageNumber != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[number]", pageNumber));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[size]", pageSize));
         }
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -244,24 +252,24 @@ public class NumberOrderDocumentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listNumberOrderDocumentsValidateBeforeCall(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listNumberOrderDocumentsValidateBeforeCall(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = listNumberOrderDocumentsCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, _callback);
+        okhttp3.Call localVarCall = listNumberOrderDocumentsCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize, _callback);
         return localVarCall;
 
     }
 
 
-    private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWithHttpInfo(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt) throws ApiException {
-        okhttp3.Call localVarCall = listNumberOrderDocumentsValidateBeforeCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, null);
+    private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWithHttpInfo(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, Integer pageNumber, Integer pageSize) throws ApiException {
+        okhttp3.Call localVarCall = listNumberOrderDocumentsValidateBeforeCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListNumberOrderDocumentsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listNumberOrderDocumentsAsync(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, final ApiCallback<ListNumberOrderDocumentsResponse> _callback) throws ApiException {
+    private okhttp3.Call listNumberOrderDocumentsAsync(String filterRequirementId, String filterCreatedAtGt, String filterCreatedAtLt, Integer pageNumber, Integer pageSize, final ApiCallback<ListNumberOrderDocumentsResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listNumberOrderDocumentsValidateBeforeCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, _callback);
+        okhttp3.Call localVarCall = listNumberOrderDocumentsValidateBeforeCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListNumberOrderDocumentsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -271,6 +279,8 @@ public class NumberOrderDocumentsApi {
         private String filterRequirementId;
         private String filterCreatedAtGt;
         private String filterCreatedAtLt;
+        private Integer pageNumber;
+        private Integer pageSize;
 
         private APIlistNumberOrderDocumentsRequest() {
         }
@@ -306,6 +316,26 @@ public class NumberOrderDocumentsApi {
         }
 
         /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistNumberOrderDocumentsRequest
+         */
+        public APIlistNumberOrderDocumentsRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistNumberOrderDocumentsRequest
+         */
+        public APIlistNumberOrderDocumentsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
          * Build call for listNumberOrderDocuments
          * @param _callback ApiCallback API callback
          * @return Call to execute
@@ -318,7 +348,7 @@ public class NumberOrderDocumentsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listNumberOrderDocumentsCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, _callback);
+            return listNumberOrderDocumentsCall(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize, _callback);
         }
 
         /**
@@ -333,7 +363,7 @@ public class NumberOrderDocumentsApi {
          </table>
          */
         public ListNumberOrderDocumentsResponse execute() throws ApiException {
-            ApiResponse<ListNumberOrderDocumentsResponse> localVarResp = listNumberOrderDocumentsWithHttpInfo(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt);
+            ApiResponse<ListNumberOrderDocumentsResponse> localVarResp = listNumberOrderDocumentsWithHttpInfo(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize);
             return localVarResp.getData();
         }
 
@@ -349,7 +379,7 @@ public class NumberOrderDocumentsApi {
          </table>
          */
         public ApiResponse<ListNumberOrderDocumentsResponse> executeWithHttpInfo() throws ApiException {
-            return listNumberOrderDocumentsWithHttpInfo(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt);
+            return listNumberOrderDocumentsWithHttpInfo(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize);
         }
 
         /**
@@ -365,7 +395,7 @@ public class NumberOrderDocumentsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ListNumberOrderDocumentsResponse> _callback) throws ApiException {
-            return listNumberOrderDocumentsAsync(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, _callback);
+            return listNumberOrderDocumentsAsync(filterRequirementId, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize, _callback);
         }
     }
 

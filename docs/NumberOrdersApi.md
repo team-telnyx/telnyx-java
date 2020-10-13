@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 <a name="listNumberOrders"></a>
 # **listNumberOrders**
-> ListNumberOrdersResponse listNumberOrders().filterStatus(filterStatus).filterCreatedAtGt(filterCreatedAtGt).filterCreatedAtLt(filterCreatedAtLt).filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber).filterCustomerReference(filterCustomerReference).filterRequirementsMet(filterRequirementsMet).execute();
+> ListNumberOrdersResponse listNumberOrders().filterStatus(filterStatus).filterCreatedAtGt(filterCreatedAtGt).filterCreatedAtLt(filterCreatedAtLt).filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber).filterCustomerReference(filterCustomerReference).filterRequirementsMet(filterRequirementsMet).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List number orders
 
@@ -113,6 +113,8 @@ public class Example {
     String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number orders having these phone numbers.
     String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number orders via the customer reference set.
     Boolean filterRequirementsMet = true; // Boolean | Filter number orders by requirements met.
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
     try {
       ListNumberOrdersResponse result = apiInstance.listNumberOrders()
             .filterStatus(filterStatus)
@@ -121,6 +123,8 @@ public class Example {
             .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
             .filterCustomerReference(filterCustomerReference)
             .filterRequirementsMet(filterRequirementsMet)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -144,6 +148,8 @@ Name | Type | Description  | Notes
  **filterPhoneNumbersPhoneNumber** | **String**| Filter number orders having these phone numbers. | [optional]
  **filterCustomerReference** | **String**| Filter number orders via the customer reference set. | [optional]
  **filterRequirementsMet** | **Boolean**| Filter number orders by requirements met. | [optional]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

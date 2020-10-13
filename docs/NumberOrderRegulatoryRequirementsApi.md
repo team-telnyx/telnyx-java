@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 <a name="listNumberOrderRegulatoryRequirements"></a>
 # **listNumberOrderRegulatoryRequirements**
-> ListNumberOrderRegulatoryRequirementsResponse listNumberOrderRegulatoryRequirements().filterRequirementId(filterRequirementId).filterFieldType(filterFieldType).filterRequirementType(filterRequirementType).execute();
+> ListNumberOrderRegulatoryRequirementsResponse listNumberOrderRegulatoryRequirements().filterRequirementId(filterRequirementId).filterFieldType(filterFieldType).filterRequirementType(filterRequirementType).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List number order regulatory requirements
 
@@ -40,11 +40,15 @@ public class Example {
     String filterRequirementId = "filterRequirementId_example"; // String | Filter number order regulatory requirements by `requirement_id`.
     String filterFieldType = "filterFieldType_example"; // String | Filter number order regulatory requirements by `field_type`.
     String filterRequirementType = "filterRequirementType_example"; // String | Filter number order regulatory requirements by `requirement_type`.
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
     try {
       ListNumberOrderRegulatoryRequirementsResponse result = apiInstance.listNumberOrderRegulatoryRequirements()
             .filterRequirementId(filterRequirementId)
             .filterFieldType(filterFieldType)
             .filterRequirementType(filterRequirementType)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -65,6 +69,8 @@ Name | Type | Description  | Notes
  **filterRequirementId** | **String**| Filter number order regulatory requirements by &#x60;requirement_id&#x60;. | [optional]
  **filterFieldType** | **String**| Filter number order regulatory requirements by &#x60;field_type&#x60;. | [optional]
  **filterRequirementType** | **String**| Filter number order regulatory requirements by &#x60;requirement_type&#x60;. | [optional]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 
@@ -87,7 +93,7 @@ Name | Type | Description  | Notes
 
 <a name="listPhoneNumberRegulatoryRequirements"></a>
 # **listPhoneNumberRegulatoryRequirements**
-> ListPhoneNumberRegulatoryRequirementsResponse listPhoneNumberRegulatoryRequirements().filterPhoneNumber(filterPhoneNumber).execute();
+> ListPhoneNumberRegulatoryRequirementsResponse listPhoneNumberRegulatoryRequirements().filterPhoneNumber(filterPhoneNumber).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List regulatory requirements per number
 
@@ -114,9 +120,13 @@ public class Example {
 
     NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
     List<String> filterPhoneNumber = Arrays.asList(); // List<String> | The list of phone numbers to retrieve regulatory requirements for.
+    Integer pageNumber = 1; // Integer | The page number to load
+    Integer pageSize = 20; // Integer | The size of the page
     try {
       ListPhoneNumberRegulatoryRequirementsResponse result = apiInstance.listPhoneNumberRegulatoryRequirements()
             .filterPhoneNumber(filterPhoneNumber)
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -135,6 +145,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filterPhoneNumber** | [**List&lt;String&gt;**](String.md)| The list of phone numbers to retrieve regulatory requirements for. | [optional]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

@@ -351,7 +351,7 @@ public class MessagingHostedNumberApi {
     public APIdeleteMessagingHostedNumberRequest deleteMessagingHostedNumber(String id) {
         return new APIdeleteMessagingHostedNumberRequest(id);
     }
-    private okhttp3.Call listMessagingHostedNumberOrderCall(final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listMessagingHostedNumberOrderCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -359,6 +359,14 @@ public class MessagingHostedNumberApi {
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (pageNumber != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[number]", pageNumber));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page[size]", pageSize));
+        }
+
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
@@ -381,32 +389,54 @@ public class MessagingHostedNumberApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listMessagingHostedNumberOrderValidateBeforeCall(final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listMessagingHostedNumberOrderValidateBeforeCall(Integer pageNumber, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = listMessagingHostedNumberOrderCall(_callback);
+        okhttp3.Call localVarCall = listMessagingHostedNumberOrderCall(pageNumber, pageSize, _callback);
         return localVarCall;
 
     }
 
 
-    private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedNumberOrderWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = listMessagingHostedNumberOrderValidateBeforeCall(null);
+    private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedNumberOrderWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+        okhttp3.Call localVarCall = listMessagingHostedNumberOrderValidateBeforeCall(pageNumber, pageSize, null);
         Type localVarReturnType = new TypeToken<ListMessagingHostedNumberOrderResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listMessagingHostedNumberOrderAsync(final ApiCallback<ListMessagingHostedNumberOrderResponse> _callback) throws ApiException {
+    private okhttp3.Call listMessagingHostedNumberOrderAsync(Integer pageNumber, Integer pageSize, final ApiCallback<ListMessagingHostedNumberOrderResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listMessagingHostedNumberOrderValidateBeforeCall(_callback);
+        okhttp3.Call localVarCall = listMessagingHostedNumberOrderValidateBeforeCall(pageNumber, pageSize, _callback);
         Type localVarReturnType = new TypeToken<ListMessagingHostedNumberOrderResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIlistMessagingHostedNumberOrderRequest {
+        private Integer pageNumber;
+        private Integer pageSize;
 
         private APIlistMessagingHostedNumberOrderRequest() {
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistMessagingHostedNumberOrderRequest
+         */
+        public APIlistMessagingHostedNumberOrderRequest pageNumber(Integer pageNumber) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistMessagingHostedNumberOrderRequest
+         */
+        public APIlistMessagingHostedNumberOrderRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
         }
 
         /**
@@ -422,7 +452,7 @@ public class MessagingHostedNumberApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listMessagingHostedNumberOrderCall(_callback);
+            return listMessagingHostedNumberOrderCall(pageNumber, pageSize, _callback);
         }
 
         /**
@@ -437,7 +467,7 @@ public class MessagingHostedNumberApi {
          </table>
          */
         public ListMessagingHostedNumberOrderResponse execute() throws ApiException {
-            ApiResponse<ListMessagingHostedNumberOrderResponse> localVarResp = listMessagingHostedNumberOrderWithHttpInfo();
+            ApiResponse<ListMessagingHostedNumberOrderResponse> localVarResp = listMessagingHostedNumberOrderWithHttpInfo(pageNumber, pageSize);
             return localVarResp.getData();
         }
 
@@ -453,7 +483,7 @@ public class MessagingHostedNumberApi {
          </table>
          */
         public ApiResponse<ListMessagingHostedNumberOrderResponse> executeWithHttpInfo() throws ApiException {
-            return listMessagingHostedNumberOrderWithHttpInfo();
+            return listMessagingHostedNumberOrderWithHttpInfo(pageNumber, pageSize);
         }
 
         /**
@@ -469,7 +499,7 @@ public class MessagingHostedNumberApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ListMessagingHostedNumberOrderResponse> _callback) throws ApiException {
-            return listMessagingHostedNumberOrderAsync(_callback);
+            return listMessagingHostedNumberOrderAsync(pageNumber, pageSize, _callback);
         }
     }
 
