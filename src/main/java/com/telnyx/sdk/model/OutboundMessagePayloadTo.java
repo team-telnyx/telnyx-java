@@ -107,7 +107,9 @@ public class OutboundMessagePayloadTo {
     
     VOIP("VoIP"),
     
-    PRE_PAID_WIRELESS("Pre-Paid Wireless");
+    PRE_PAID_WIRELESS("Pre-Paid Wireless"),
+    
+    EMPTY("");
 
     private String value;
 

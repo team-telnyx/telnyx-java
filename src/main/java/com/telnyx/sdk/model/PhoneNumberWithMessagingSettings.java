@@ -118,7 +118,13 @@ public class PhoneNumberWithMessagingSettings {
     
     TOLL_FREE("toll-free"),
     
-    SHORT_CODE("short-code");
+    SHORT_CODE("short-code"),
+    
+    LONGCODE("longcode"),
+    
+    TOLLFREE("tollfree"),
+    
+    SHORTCODE("shortcode");
 
     private String value;
 

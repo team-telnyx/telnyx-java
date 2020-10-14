@@ -37,6 +37,9 @@ Name | Value
 LONG_CODE | &quot;long-code&quot;
 TOLL_FREE | &quot;toll-free&quot;
 SHORT_CODE | &quot;short-code&quot;
+LONGCODE | &quot;longcode&quot;
+TOLLFREE | &quot;tollfree&quot;
+SHORTCODE | &quot;shortcode&quot;
 
 
 

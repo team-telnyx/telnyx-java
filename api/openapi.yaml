@@ -3477,7 +3477,7 @@ paths:
       x-accepts: application/json
   /messaging_profiles/{id}/metrics:
     get:
-      operationId: getMessagingProfileDetailedMetrics
+      operationId: retrieveMessagingProfileDetailedMetrics
       parameters:
       - description: The id of the messaging profile to retrieve
         explode: false
@@ -11013,6 +11013,9 @@ components:
           - long-code
           - toll-free
           - short-code
+          - longcode
+          - tollfree
+          - shortcode
           readOnly: true
           type: string
         health:
@@ -14812,6 +14815,7 @@ components:
           - VoWiFi
           - VoIP
           - Pre-Paid Wireless
+          - ""
           type: string
       type: object
     InboundMessagePayload_from:
@@ -14837,6 +14841,7 @@ components:
           - VoWiFi
           - VoIP
           - Pre-Paid Wireless
+          - ""
           type: string
       type: object
     InboundMessagePayload_media:
@@ -14910,6 +14915,7 @@ components:
           - VoWiFi
           - VoIP
           - Pre-Paid Wireless
+          - ""
           type: string
       type: object
     OutboundMessagePayload_to:
@@ -14941,6 +14947,7 @@ components:
           - VoWiFi
           - VoIP
           - Pre-Paid Wireless
+          - ""
           type: string
       type: object
     OutboundMessagePayload_media:

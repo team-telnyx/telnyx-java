@@ -73,24 +73,6 @@ public class MessagingProfilesApiTest {
     }
 
     /**
-     * Retrieve messaging profile metrics
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void getMessagingProfileDetailedMetricsTest() throws ApiException {
-        //UUID id = null;
-        //String timeFrame = null;
-        //RetrieveMessagingProfileMetricsResponse response = api.getMessagingProfileDetailedMetrics(id)
-        //        .timeFrame(timeFrame)
-        //        .execute();
-        // TODO: test validations
-    }
-
-    /**
      * List messaging profile metrics
      *
      * 
@@ -184,6 +166,24 @@ public class MessagingProfilesApiTest {
     public void retrieveMessagingProfileTest() throws ApiException {
         //UUID id = null;
         //MessagingProfileResponse response = api.retrieveMessagingProfile(id);
+        // TODO: test validations
+    }
+
+    /**
+     * Retrieve messaging profile metrics
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void retrieveMessagingProfileDetailedMetricsTest() throws ApiException {
+        //UUID id = null;
+        //String timeFrame = null;
+        //RetrieveMessagingProfileMetricsResponse response = api.retrieveMessagingProfileDetailedMetrics(id)
+        //        .timeFrame(timeFrame)
+        //        .execute();
         // TODO: test validations
     }
 
