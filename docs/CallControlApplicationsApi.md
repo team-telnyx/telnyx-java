@@ -11,51 +11,53 @@ Method | HTTP request | Description
 [**updateCallControlApplication**](CallControlApplicationsApi.md#updateCallControlApplication) | **PATCH** /call_control_applications/{id} | Update a call control application
 
 
-<a name="createCallControlApplication"></a>
-# **createCallControlApplication**
-> CallControlApplicationResponse createCallControlApplication(createCallControlApplicationRequest).execute();
+
+## createCallControlApplication
+
+> CallControlApplicationResponse createCallControlApplication(createCallControlApplicationRequest)
 
 Create a call control application
 
 Create a call control application.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.CallControlApplicationsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallControlApplicationsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
-    CreateCallControlApplicationRequest createCallControlApplicationRequest = new CreateCallControlApplicationRequest(); // CreateCallControlApplicationRequest | Create call control application request.
-    try {
-      CallControlApplicationResponse result = apiInstance.createCallControlApplication(createCallControlApplicationRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling CallControlApplicationsApi#createCallControlApplication");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
+        CreateCallControlApplicationRequest createCallControlApplicationRequest = new CreateCallControlApplicationRequest(); // CreateCallControlApplicationRequest | Create call control application request.
+        try {
+            CallControlApplicationResponse result = apiInstance.createCallControlApplication(createCallControlApplicationRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallControlApplicationsApi#createCallControlApplication");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -71,60 +73,62 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful response with details about a call control application. |  -  |
-**422** | Bad Request |  -  |
+| **201** | Successful response with details about a call control application. |  -  |
+| **422** | Bad Request |  -  |
 
-<a name="deleteCallControlApplication"></a>
-# **deleteCallControlApplication**
-> CallControlApplicationResponse deleteCallControlApplication(id).execute();
+
+## deleteCallControlApplication
+
+> CallControlApplicationResponse deleteCallControlApplication(id)
 
 Delete a call control application
 
 Deletes a call control application.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.CallControlApplicationsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallControlApplicationsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
-    String id = 1293384261075731499; // String | Identifies the resource.
-    try {
-      CallControlApplicationResponse result = apiInstance.deleteCallControlApplication(id)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling CallControlApplicationsApi#deleteCallControlApplication");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
+        String id = 1293384261075731499; // String | Identifies the resource.
+        try {
+            CallControlApplicationResponse result = apiInstance.deleteCallControlApplication(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallControlApplicationsApi#deleteCallControlApplication");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -140,19 +144,20 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a call control application. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Resource not found |  -  |
-**422** | Bad request |  -  |
+| **200** | Successful response with details about a call control application. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **422** | Bad request |  -  |
 
-<a name="listCallControlApplications"></a>
-# **listCallControlApplications**
+
+## listCallControlApplications
+
 > ListCallControlApplicationsResponse listCallControlApplications().pageNumber(pageNumber).pageSize(pageSize).filterApplicationNameContains(filterApplicationNameContains).filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId).sort(sort).execute();
 
 List call control applications
@@ -160,51 +165,53 @@ List call control applications
 Return a list of call control applications.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.CallControlApplicationsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallControlApplicationsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    String filterApplicationNameContains = "\"null\""; // String | If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
-    String filterOutboundOutboundVoiceProfileId = 1293384261075731499; // String | Identifies the associated outbound voice profile.
-    String sort = connection_name; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-    try {
-      ListCallControlApplicationsResponse result = apiInstance.listCallControlApplications()
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .filterApplicationNameContains(filterApplicationNameContains)
-            .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
-            .sort(sort)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling CallControlApplicationsApi#listCallControlApplications");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        String filterApplicationNameContains = "\"null\""; // String | If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+        String filterOutboundOutboundVoiceProfileId = 1293384261075731499; // String | Identifies the associated outbound voice profile.
+        String sort = connection_name; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+        try {
+            ListCallControlApplicationsResponse result = api.listCallControlApplications()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterApplicationNameContains(filterApplicationNameContains)
+                .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
+                .sort(sort)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallControlApplicationsApi#listCallControlApplications");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -224,62 +231,64 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of call control applications. |  -  |
-**400** | Bad request |  -  |
-**401** | Unauthorized |  -  |
-**404** | Resource not found |  -  |
+| **200** | Successful response with a list of call control applications. |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
 
-<a name="retrieveCallControlApplication"></a>
-# **retrieveCallControlApplication**
-> CallControlApplicationResponse retrieveCallControlApplication(id).execute();
+
+## retrieveCallControlApplication
+
+> CallControlApplicationResponse retrieveCallControlApplication(id)
 
 Retrieve a call control application
 
 Retrieves the details of an existing call control application.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.CallControlApplicationsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallControlApplicationsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
-    String id = 1293384261075731499; // String | Identifies the resource.
-    try {
-      CallControlApplicationResponse result = apiInstance.retrieveCallControlApplication(id)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling CallControlApplicationsApi#retrieveCallControlApplication");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
+        String id = 1293384261075731499; // String | Identifies the resource.
+        try {
+            CallControlApplicationResponse result = apiInstance.retrieveCallControlApplication(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallControlApplicationsApi#retrieveCallControlApplication");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -295,63 +304,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a call control application. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Resource not found |  -  |
-**422** | Bad request |  -  |
+| **200** | Successful response with details about a call control application. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **422** | Bad request |  -  |
 
-<a name="updateCallControlApplication"></a>
-# **updateCallControlApplication**
-> CallControlApplicationResponse updateCallControlApplication(id, updateCallControlApplicationRequest).execute();
+
+## updateCallControlApplication
+
+> CallControlApplicationResponse updateCallControlApplication(id, updateCallControlApplicationRequest)
 
 Update a call control application
 
 Updates settings of an existing call control application.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.CallControlApplicationsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallControlApplicationsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
-    String id = 1293384261075731499; // String | Identifies the resource.
-    UpdateCallControlApplicationRequest updateCallControlApplicationRequest = new UpdateCallControlApplicationRequest(); // UpdateCallControlApplicationRequest | Update call control application request.
-    try {
-      CallControlApplicationResponse result = apiInstance.updateCallControlApplication(id, updateCallControlApplicationRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling CallControlApplicationsApi#updateCallControlApplication");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        CallControlApplicationsApi apiInstance = new CallControlApplicationsApi(defaultClient);
+        String id = 1293384261075731499; // String | Identifies the resource.
+        UpdateCallControlApplicationRequest updateCallControlApplicationRequest = new UpdateCallControlApplicationRequest(); // UpdateCallControlApplicationRequest | Update call control application request.
+        try {
+            CallControlApplicationResponse result = apiInstance.updateCallControlApplication(id, updateCallControlApplicationRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallControlApplicationsApi#updateCallControlApplication");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -368,14 +379,14 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a call control application. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Resource not found |  -  |
-**422** | Bad request |  -  |
+| **200** | Successful response with details about a call control application. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **422** | Bad request |  -  |
 

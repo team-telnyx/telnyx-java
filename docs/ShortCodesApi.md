@@ -9,54 +9,57 @@ Method | HTTP request | Description
 [**updateShortCode**](ShortCodesApi.md#updateShortCode) | **PATCH** /short_codes/{id} | Update short code
 
 
-<a name="listShortCodes"></a>
-# **listShortCodes**
+
+## listShortCodes
+
 > ListShortCodesResponse listShortCodes().pageNumber(pageNumber).pageSize(pageSize).filterMessagingProfileId(filterMessagingProfileId).execute();
 
 List short codes
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ShortCodesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ShortCodesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    String filterMessagingProfileId = "filterMessagingProfileId_example"; // String | Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile.
-    try {
-      ListShortCodesResponse result = apiInstance.listShortCodes()
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .filterMessagingProfileId(filterMessagingProfileId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ShortCodesApi#listShortCodes");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        String filterMessagingProfileId = "filterMessagingProfileId_example"; // String | Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile.
+        try {
+            ListShortCodesResponse result = api.listShortCodes()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterMessagingProfileId(filterMessagingProfileId)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ShortCodesApi#listShortCodes");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -74,58 +77,60 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of short codes. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with a list of short codes. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="retrieveShortCode"></a>
-# **retrieveShortCode**
-> ShortCodeResponse retrieveShortCode(id).execute();
+
+## retrieveShortCode
+
+> ShortCodeResponse retrieveShortCode(id)
 
 Retrieve a short code
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ShortCodesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ShortCodesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
-    UUID id = new UUID(); // UUID | The id of the short code
-    try {
-      ShortCodeResponse result = apiInstance.retrieveShortCode(id)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ShortCodesApi#retrieveShortCode");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
+        UUID id = new UUID(); // UUID | The id of the short code
+        try {
+            ShortCodeResponse result = apiInstance.retrieveShortCode(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ShortCodesApi#retrieveShortCode");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -141,61 +146,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a short code. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a short code. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="updateShortCode"></a>
-# **updateShortCode**
-> ShortCodeResponse updateShortCode(id, updateShortCodeRequest).execute();
+
+## updateShortCode
+
+> ShortCodeResponse updateShortCode(id, updateShortCodeRequest)
 
 Update short code
 
-Update the settings for a specific short code. To unbind a short code from a profile, set the &#x60;messaging_profile_id&#x60; to &#x60;null&#x60; or an empty string.
+Update the settings for a specific short code. To unbind a short code from a profile, set the `messaging_profile_id` to `null` or an empty string.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ShortCodesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ShortCodesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
-    UUID id = new UUID(); // UUID | The id of the short code
-    UpdateShortCodeRequest updateShortCodeRequest = new UpdateShortCodeRequest(); // UpdateShortCodeRequest | Short code update
-    try {
-      ShortCodeResponse result = apiInstance.updateShortCode(id, updateShortCodeRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ShortCodesApi#updateShortCode");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
+        UUID id = new UUID(); // UUID | The id of the short code
+        UpdateShortCodeRequest updateShortCodeRequest = new UpdateShortCodeRequest(); // UpdateShortCodeRequest | Short code update
+        try {
+            ShortCodeResponse result = apiInstance.updateShortCode(id, updateShortCodeRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ShortCodesApi#updateShortCode");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -212,12 +219,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a short code. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a short code. |  -  |
+| **0** | Unexpected error |  -  |
 

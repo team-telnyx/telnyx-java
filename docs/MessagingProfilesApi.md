@@ -15,49 +15,51 @@ Method | HTTP request | Description
 [**updateMessagingProfile**](MessagingProfilesApi.md#updateMessagingProfile) | **PATCH** /messaging_profiles/{id} | Update a messaging profile
 
 
-<a name="createMessagingProfile"></a>
-# **createMessagingProfile**
-> MessagingProfileResponse createMessagingProfile(createMessagingProfileRequest).execute();
+
+## createMessagingProfile
+
+> MessagingProfileResponse createMessagingProfile(createMessagingProfileRequest)
 
 Create a messaging profile
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.MessagingProfilesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagingProfilesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-    CreateMessagingProfileRequest createMessagingProfileRequest = new CreateMessagingProfileRequest(); // CreateMessagingProfileRequest | New Messaging Profile object
-    try {
-      MessagingProfileResponse result = apiInstance.createMessagingProfile(createMessagingProfileRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessagingProfilesApi#createMessagingProfile");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
+        CreateMessagingProfileRequest createMessagingProfileRequest = new CreateMessagingProfileRequest(); // CreateMessagingProfileRequest | New Messaging Profile object
+        try {
+            MessagingProfileResponse result = apiInstance.createMessagingProfile(createMessagingProfileRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagingProfilesApi#createMessagingProfile");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -73,58 +75,60 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a messaging profile. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a messaging profile. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="deleteMessagingProfile"></a>
-# **deleteMessagingProfile**
-> MessagingProfileResponse deleteMessagingProfile(id).execute();
+
+## deleteMessagingProfile
+
+> MessagingProfileResponse deleteMessagingProfile(id)
 
 Delete a messaging profile
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.MessagingProfilesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagingProfilesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-    UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
-    try {
-      MessagingProfileResponse result = apiInstance.deleteMessagingProfile(id)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessagingProfilesApi#deleteMessagingProfile");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
+        UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
+        try {
+            MessagingProfileResponse result = apiInstance.deleteMessagingProfile(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagingProfilesApi#deleteMessagingProfile");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -140,60 +144,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a messaging profile. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a messaging profile. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="getMessagingProfileDetailedMetrics"></a>
-# **getMessagingProfileDetailedMetrics**
+
+## getMessagingProfileDetailedMetrics
+
 > RetrieveMessagingProfileMetricsResponse getMessagingProfileDetailedMetrics(id).timeFrame(timeFrame).execute();
 
 Retrieve messaging profile metrics
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.MessagingProfilesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagingProfilesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-    UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
-    String timeFrame = "24h"; // String | The timeframe for which you'd like to retrieve metrics.
-    try {
-      RetrieveMessagingProfileMetricsResponse result = apiInstance.getMessagingProfileDetailedMetrics(id)
-            .timeFrame(timeFrame)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessagingProfilesApi#getMessagingProfileDetailedMetrics");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
+        UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
+        String timeFrame = "24h"; // String | The timeframe for which you'd like to retrieve metrics.
+        try {
+            RetrieveMessagingProfileMetricsResponse result = api.getMessagingProfileDetailedMetrics(id)
+                .timeFrame(timeFrame)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagingProfilesApi#getMessagingProfileDetailedMetrics");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -210,65 +217,68 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a messaging profile&#39;s metrics. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a messaging profile&#39;s metrics. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="listMessagingProfileMetrics"></a>
-# **listMessagingProfileMetrics**
+
+## listMessagingProfileMetrics
+
 > ListMessagingProfileMetricsResponse listMessagingProfileMetrics().pageNumber(pageNumber).pageSize(pageSize).id(id).timeFrame(timeFrame).execute();
 
 List messaging profile metrics
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.MessagingProfilesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagingProfilesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    UUID id = new UUID(); // UUID | The id of the messaging profile(s) to retrieve
-    String timeFrame = "24h"; // String | The timeframe for which you'd like to retrieve metrics.
-    try {
-      ListMessagingProfileMetricsResponse result = apiInstance.listMessagingProfileMetrics()
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .id(id)
-            .timeFrame(timeFrame)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfileMetrics");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        UUID id = new UUID(); // UUID | The id of the messaging profile(s) to retrieve
+        String timeFrame = "24h"; // String | The timeframe for which you'd like to retrieve metrics.
+        try {
+            ListMessagingProfileMetricsResponse result = api.listMessagingProfileMetrics()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .id(id)
+                .timeFrame(timeFrame)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfileMetrics");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -287,62 +297,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of messaging profile metrics. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with a list of messaging profile metrics. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="listMessagingProfilePhoneNumbers"></a>
-# **listMessagingProfilePhoneNumbers**
+
+## listMessagingProfilePhoneNumbers
+
 > ListMessagingProfilePhoneNumbersResponse listMessagingProfilePhoneNumbers(id).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List phone numbers associated with a messaging profile
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.MessagingProfilesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagingProfilesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-    UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    try {
-      ListMessagingProfilePhoneNumbersResponse result = apiInstance.listMessagingProfilePhoneNumbers(id)
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfilePhoneNumbers");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
+        UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListMessagingProfilePhoneNumbersResponse result = api.listMessagingProfilePhoneNumbers(id)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfilePhoneNumbers");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -360,62 +373,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of messaging profile phone numbers. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with a list of messaging profile phone numbers. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="listMessagingProfileShortCodes"></a>
-# **listMessagingProfileShortCodes**
+
+## listMessagingProfileShortCodes
+
 > ListMessagingProfileShortCodesResponse listMessagingProfileShortCodes(id).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List short codes associated with a messaging profile
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.MessagingProfilesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagingProfilesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-    UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    try {
-      ListMessagingProfileShortCodesResponse result = apiInstance.listMessagingProfileShortCodes(id)
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfileShortCodes");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
+        UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListMessagingProfileShortCodesResponse result = api.listMessagingProfileShortCodes(id)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfileShortCodes");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -433,61 +449,64 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of messaging profile short codes. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with a list of messaging profile short codes. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="listMessagingProfiles"></a>
-# **listMessagingProfiles**
+
+## listMessagingProfiles
+
 > ListMessagingProfilesResponse listMessagingProfiles().pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List messaging profiles
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.MessagingProfilesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagingProfilesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    try {
-      ListMessagingProfilesResponse result = apiInstance.listMessagingProfiles()
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfiles");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListMessagingProfilesResponse result = api.listMessagingProfiles()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagingProfilesApi#listMessagingProfiles");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -504,58 +523,60 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of messaging profiles. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with a list of messaging profiles. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="retrieveMessagingProfile"></a>
-# **retrieveMessagingProfile**
-> MessagingProfileResponse retrieveMessagingProfile(id).execute();
+
+## retrieveMessagingProfile
+
+> MessagingProfileResponse retrieveMessagingProfile(id)
 
 Retrieve a messaging profile
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.MessagingProfilesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagingProfilesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-    UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
-    try {
-      MessagingProfileResponse result = apiInstance.retrieveMessagingProfile(id)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessagingProfilesApi#retrieveMessagingProfile");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
+        UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
+        try {
+            MessagingProfileResponse result = apiInstance.retrieveMessagingProfile(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagingProfilesApi#retrieveMessagingProfile");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -571,59 +592,61 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a messaging profile. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a messaging profile. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="updateMessagingProfile"></a>
-# **updateMessagingProfile**
-> MessagingProfileResponse updateMessagingProfile(id, updateMessagingProfileRequest).execute();
+
+## updateMessagingProfile
+
+> MessagingProfileResponse updateMessagingProfile(id, updateMessagingProfileRequest)
 
 Update a messaging profile
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.MessagingProfilesApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagingProfilesApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-    UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
-    UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest(); // UpdateMessagingProfileRequest | New Messaging Profile object
-    try {
-      MessagingProfileResponse result = apiInstance.updateMessagingProfile(id, updateMessagingProfileRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessagingProfilesApi#updateMessagingProfile");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
+        UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
+        UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest(); // UpdateMessagingProfileRequest | New Messaging Profile object
+        try {
+            MessagingProfileResponse result = apiInstance.updateMessagingProfile(id, updateMessagingProfileRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagingProfilesApi#updateMessagingProfile");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -640,12 +663,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a messaging profile. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a messaging profile. |  -  |
+| **0** | Unexpected error |  -  |
 
