@@ -16,6 +16,9 @@ package com.telnyx.sdk;
 import java.util.Map;
 import java.util.List;
 
+/**
+ * API Exception
+ */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiException extends Exception {
     private int code = 0;

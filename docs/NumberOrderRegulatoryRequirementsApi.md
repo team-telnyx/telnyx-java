@@ -9,8 +9,9 @@ Method | HTTP request | Description
 [**retrieveNumberOrderRegulatoryRequirement**](NumberOrderRegulatoryRequirementsApi.md#retrieveNumberOrderRegulatoryRequirement) | **GET** /regulatory_requirements/{requirement_id} | Retrieve a number order regulatory requirement
 
 
-<a name="listNumberOrderRegulatoryRequirements"></a>
-# **listNumberOrderRegulatoryRequirements**
+
+## listNumberOrderRegulatoryRequirements
+
 > ListNumberOrderRegulatoryRequirementsResponse listNumberOrderRegulatoryRequirements().filterRequirementId(filterRequirementId).filterFieldType(filterFieldType).filterRequirementType(filterRequirementType).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List number order regulatory requirements
@@ -18,51 +19,53 @@ List number order regulatory requirements
 Gets a paginated list of number order regulatory requirements.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrderRegulatoryRequirementsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrderRegulatoryRequirementsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
-    String filterRequirementId = "filterRequirementId_example"; // String | Filter number order regulatory requirements by `requirement_id`.
-    String filterFieldType = "filterFieldType_example"; // String | Filter number order regulatory requirements by `field_type`.
-    String filterRequirementType = "filterRequirementType_example"; // String | Filter number order regulatory requirements by `requirement_type`.
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    try {
-      ListNumberOrderRegulatoryRequirementsResponse result = apiInstance.listNumberOrderRegulatoryRequirements()
-            .filterRequirementId(filterRequirementId)
-            .filterFieldType(filterFieldType)
-            .filterRequirementType(filterRequirementType)
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrderRegulatoryRequirementsApi#listNumberOrderRegulatoryRequirements");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
+        String filterRequirementId = "filterRequirementId_example"; // String | Filter number order regulatory requirements by `requirement_id`.
+        String filterFieldType = "filterFieldType_example"; // String | Filter number order regulatory requirements by `field_type`.
+        String filterRequirementType = "filterRequirementType_example"; // String | Filter number order regulatory requirements by `requirement_type`.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListNumberOrderRegulatoryRequirementsResponse result = api.listNumberOrderRegulatoryRequirements()
+                .filterRequirementId(filterRequirementId)
+                .filterFieldType(filterFieldType)
+                .filterRequirementType(filterRequirementType)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrderRegulatoryRequirementsApi#listNumberOrderRegulatoryRequirements");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -82,17 +85,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of number order regulatory requirements. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with a list of number order regulatory requirements. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="listPhoneNumberRegulatoryRequirements"></a>
-# **listPhoneNumberRegulatoryRequirements**
+
+## listPhoneNumberRegulatoryRequirements
+
 > ListPhoneNumberRegulatoryRequirementsResponse listPhoneNumberRegulatoryRequirements().filterPhoneNumber(filterPhoneNumber).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List regulatory requirements per number
@@ -100,47 +104,49 @@ List regulatory requirements per number
 Gets a paginated list of phone number regulatory requirements.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrderRegulatoryRequirementsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrderRegulatoryRequirementsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
-    List<String> filterPhoneNumber = Arrays.asList(); // List<String> | The list of phone numbers to retrieve regulatory requirements for.
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    try {
-      ListPhoneNumberRegulatoryRequirementsResponse result = apiInstance.listPhoneNumberRegulatoryRequirements()
-            .filterPhoneNumber(filterPhoneNumber)
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrderRegulatoryRequirementsApi#listPhoneNumberRegulatoryRequirements");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
+        List<String> filterPhoneNumber = Arrays.asList(); // List<String> | The list of phone numbers to retrieve regulatory requirements for.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListPhoneNumberRegulatoryRequirementsResponse result = api.listPhoneNumberRegulatoryRequirements()
+                .filterPhoneNumber(filterPhoneNumber)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrderRegulatoryRequirementsApi#listPhoneNumberRegulatoryRequirements");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -158,60 +164,62 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of phone number regulatory requirements. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with a list of phone number regulatory requirements. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="retrieveNumberOrderRegulatoryRequirement"></a>
-# **retrieveNumberOrderRegulatoryRequirement**
-> NumberOrderRegulatoryRequirementResponse retrieveNumberOrderRegulatoryRequirement(requirementId).execute();
+
+## retrieveNumberOrderRegulatoryRequirement
+
+> NumberOrderRegulatoryRequirementResponse retrieveNumberOrderRegulatoryRequirement(requirementId)
 
 Retrieve a number order regulatory requirement
 
 Gets a single number order regulatory requirement.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrderRegulatoryRequirementsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrderRegulatoryRequirementsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
-    String requirementId = "requirementId_example"; // String | The number order regulatory requirement ID.
-    try {
-      NumberOrderRegulatoryRequirementResponse result = apiInstance.retrieveNumberOrderRegulatoryRequirement(requirementId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrderRegulatoryRequirementsApi#retrieveNumberOrderRegulatoryRequirement");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
+        String requirementId = "requirementId_example"; // String | The number order regulatory requirement ID.
+        try {
+            NumberOrderRegulatoryRequirementResponse result = apiInstance.retrieveNumberOrderRegulatoryRequirement(requirementId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrderRegulatoryRequirementsApi#retrieveNumberOrderRegulatoryRequirement");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -227,12 +235,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a number order regulatory requirement. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a number order regulatory requirement. |  -  |
+| **0** | Unexpected error |  -  |
 

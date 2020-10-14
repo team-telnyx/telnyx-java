@@ -10,51 +10,53 @@ Method | HTTP request | Description
 [**updateNumberOrderDocument**](NumberOrderDocumentsApi.md#updateNumberOrderDocument) | **PATCH** /number_order_documents/{number_order_document_id} | Update a number order document
 
 
-<a name="createNumberOrderDocument"></a>
-# **createNumberOrderDocument**
-> NumberOrderDocumentResponse createNumberOrderDocument(createNumberOrderDocumentRequest).execute();
+
+## createNumberOrderDocument
+
+> NumberOrderDocumentResponse createNumberOrderDocument(createNumberOrderDocumentRequest)
 
 Create a number order document
 
 Upload a phone number order document.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrderDocumentsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrderDocumentsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
-    CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest = new CreateNumberOrderDocumentRequest(); // CreateNumberOrderDocumentRequest | 
-    try {
-      NumberOrderDocumentResponse result = apiInstance.createNumberOrderDocument(createNumberOrderDocumentRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrderDocumentsApi#createNumberOrderDocument");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
+        CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest = new CreateNumberOrderDocumentRequest(); // CreateNumberOrderDocumentRequest | 
+        try {
+            NumberOrderDocumentResponse result = apiInstance.createNumberOrderDocument(createNumberOrderDocumentRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrderDocumentsApi#createNumberOrderDocument");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -70,17 +72,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a number order document. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a number order document. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="listNumberOrderDocuments"></a>
-# **listNumberOrderDocuments**
+
+## listNumberOrderDocuments
+
 > ListNumberOrderDocumentsResponse listNumberOrderDocuments().filterRequirementId(filterRequirementId).filterCreatedAtGt(filterCreatedAtGt).filterCreatedAtLt(filterCreatedAtLt).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List number order documents
@@ -88,51 +91,53 @@ List number order documents
 Gets a paginated list of number order documents.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrderDocumentsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrderDocumentsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
-    String filterRequirementId = "filterRequirementId_example"; // String | Filter number order documents by `requirement_id`.
-    String filterCreatedAtGt = "filterCreatedAtGt_example"; // String | Filter number order documents after this datetime.
-    String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number order documents from before this datetime.
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    try {
-      ListNumberOrderDocumentsResponse result = apiInstance.listNumberOrderDocuments()
-            .filterRequirementId(filterRequirementId)
-            .filterCreatedAtGt(filterCreatedAtGt)
-            .filterCreatedAtLt(filterCreatedAtLt)
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrderDocumentsApi#listNumberOrderDocuments");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
+        String filterRequirementId = "filterRequirementId_example"; // String | Filter number order documents by `requirement_id`.
+        String filterCreatedAtGt = "filterCreatedAtGt_example"; // String | Filter number order documents after this datetime.
+        String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number order documents from before this datetime.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListNumberOrderDocumentsResponse result = api.listNumberOrderDocuments()
+                .filterRequirementId(filterRequirementId)
+                .filterCreatedAtGt(filterCreatedAtGt)
+                .filterCreatedAtLt(filterCreatedAtLt)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrderDocumentsApi#listNumberOrderDocuments");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -152,60 +157,62 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of number order documents. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with a list of number order documents. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="retrieveNumberOrderDocument"></a>
-# **retrieveNumberOrderDocument**
-> NumberOrderDocumentResponse retrieveNumberOrderDocument(numberOrderDocumentId).execute();
+
+## retrieveNumberOrderDocument
+
+> NumberOrderDocumentResponse retrieveNumberOrderDocument(numberOrderDocumentId)
 
 Retrieve a number order document
 
 Gets a single number order document.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrderDocumentsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrderDocumentsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
-    String numberOrderDocumentId = "numberOrderDocumentId_example"; // String | The number order document ID.
-    try {
-      NumberOrderDocumentResponse result = apiInstance.retrieveNumberOrderDocument(numberOrderDocumentId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrderDocumentsApi#retrieveNumberOrderDocument");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
+        String numberOrderDocumentId = "numberOrderDocumentId_example"; // String | The number order document ID.
+        try {
+            NumberOrderDocumentResponse result = apiInstance.retrieveNumberOrderDocument(numberOrderDocumentId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrderDocumentsApi#retrieveNumberOrderDocument");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -221,61 +228,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a number order document. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a number order document. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="updateNumberOrderDocument"></a>
-# **updateNumberOrderDocument**
-> NumberOrderDocumentResponse updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest).execute();
+
+## updateNumberOrderDocument
+
+> NumberOrderDocumentResponse updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest)
 
 Update a number order document
 
 Updates a number order document.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrderDocumentsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrderDocumentsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
-    String numberOrderDocumentId = "numberOrderDocumentId_example"; // String | The number order document ID.
-    UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest = new UpdateNumberOrderDocumentRequest(); // UpdateNumberOrderDocumentRequest | 
-    try {
-      NumberOrderDocumentResponse result = apiInstance.updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrderDocumentsApi#updateNumberOrderDocument");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrderDocumentsApi apiInstance = new NumberOrderDocumentsApi(defaultClient);
+        String numberOrderDocumentId = "numberOrderDocumentId_example"; // String | The number order document ID.
+        UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest = new UpdateNumberOrderDocumentRequest(); // UpdateNumberOrderDocumentRequest | 
+        try {
+            NumberOrderDocumentResponse result = apiInstance.updateNumberOrderDocument(numberOrderDocumentId, updateNumberOrderDocumentRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrderDocumentsApi#updateNumberOrderDocument");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -292,12 +301,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a number order document. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a number order document. |  -  |
+| **0** | Unexpected error |  -  |
 

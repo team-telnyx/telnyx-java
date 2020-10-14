@@ -20,52 +20,62 @@ Method | HTTP request | Description
 [**retrieveConference**](ConferenceCommandsApi.md#retrieveConference) | **GET** /conferences/{id} | Retrieve a conference
 
 
-<a name="conferenceDialParticipantIn"></a>
-# **conferenceDialParticipantIn**
-> ConferenceCommandResponse conferenceDialParticipantIn(id, conferenceCallRequest).execute();
+
+## conferenceDialParticipantIn
+
+> ConferenceCommandResponse conferenceDialParticipantIn(id, conferenceCallRequest)
 
 Dial a new participant into a conference
 
-Dials a phone number and, when the call is answered, automatically joins them into the specified conference.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; - &#x60;call.answered&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
+Dials a phone number and, when the call is answered, automatically joins them into the specified conference.
+
+**Expected Webhooks:**
+
+- `call.hangup`
+- `call.answered`
+- `conference.participant.joined`
+- `conference.participant.left`
+
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Uniquely identifies the conference by id or name
-    ConferenceCallRequest conferenceCallRequest = new ConferenceCallRequest(); // ConferenceCallRequest | Dial Into Conference request object
-    try {
-      ConferenceCommandResponse result = apiInstance.conferenceDialParticipantIn(id, conferenceCallRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferenceDialParticipantIn");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        ConferenceCallRequest conferenceCallRequest = new ConferenceCallRequest(); // ConferenceCallRequest | Dial Into Conference request object
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceDialParticipantIn(id, conferenceCallRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceDialParticipantIn");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -82,63 +92,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="conferenceHoldParticipants"></a>
-# **conferenceHoldParticipants**
-> ConferenceCommandResponse conferenceHoldParticipants(id, conferenceHoldRequest).execute();
+
+## conferenceHoldParticipants
+
+> ConferenceCommandResponse conferenceHoldParticipants(id, conferenceHoldRequest)
 
 Hold conference participants
 
 Hold a list of participants in a conference call
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Uniquely identifies the conference by id or name
-    ConferenceHoldRequest conferenceHoldRequest = new ConferenceHoldRequest(); // ConferenceHoldRequest | 
-    try {
-      ConferenceCommandResponse result = apiInstance.conferenceHoldParticipants(id, conferenceHoldRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferenceHoldParticipants");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        ConferenceHoldRequest conferenceHoldRequest = new ConferenceHoldRequest(); // ConferenceHoldRequest | 
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceHoldParticipants(id, conferenceHoldRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceHoldParticipants");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -155,63 +167,71 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="conferenceJoin"></a>
-# **conferenceJoin**
-> ConferenceCommandResponse conferenceJoin(id, joinConferenceRequest).execute();
+
+## conferenceJoin
+
+> ConferenceCommandResponse conferenceJoin(id, joinConferenceRequest)
 
 Join a conference
 
-Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute.  **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
+Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the `call_control_id` of the leg you wish to join to the conference as an attribute.
+
+**Expected Webhooks:**
+
+- `conference.participant.joined`
+- `conference.participant.left`
+
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Uniquely identifies the conference by id or name
-    JoinConferenceRequest joinConferenceRequest = new JoinConferenceRequest(); // JoinConferenceRequest | Join Conference request object
-    try {
-      ConferenceCommandResponse result = apiInstance.conferenceJoin(id, joinConferenceRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferenceJoin");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        JoinConferenceRequest joinConferenceRequest = new JoinConferenceRequest(); // JoinConferenceRequest | Join Conference request object
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceJoin(id, joinConferenceRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceJoin");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -228,62 +248,64 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="conferenceMuteParticipants"></a>
-# **conferenceMuteParticipants**
-> ConferenceCommandResponse conferenceMuteParticipants(id, conferenceMuteRequest).execute();
+
+## conferenceMuteParticipants
+
+> ConferenceCommandResponse conferenceMuteParticipants(id, conferenceMuteRequest)
 
 Mute conference participants
 
 Mute a list of participants in a conference call
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Uniquely identifies the conference by id or name
-    ConferenceMuteRequest conferenceMuteRequest = new ConferenceMuteRequest(); // ConferenceMuteRequest | 
-    try {
-      ConferenceCommandResponse result = apiInstance.conferenceMuteParticipants(id, conferenceMuteRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferenceMuteParticipants");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        ConferenceMuteRequest conferenceMuteRequest = new ConferenceMuteRequest(); // ConferenceMuteRequest | 
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceMuteParticipants(id, conferenceMuteRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceMuteParticipants");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -300,63 +322,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="conferencePlayAudio"></a>
-# **conferencePlayAudio**
-> ConferenceCommandResponse conferencePlayAudio(id, conferencePlayRequest).execute();
+
+## conferencePlayAudio
+
+> ConferenceCommandResponse conferencePlayAudio(id, conferencePlayRequest)
 
 Play audio to conference participants
 
 Play audio to all or some participants on a conference call.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Uniquely identifies the conference by id or name
-    ConferencePlayRequest conferencePlayRequest = new ConferencePlayRequest(); // ConferencePlayRequest | 
-    try {
-      ConferenceCommandResponse result = apiInstance.conferencePlayAudio(id, conferencePlayRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferencePlayAudio");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        ConferencePlayRequest conferencePlayRequest = new ConferencePlayRequest(); // ConferencePlayRequest | 
+        try {
+            ConferenceCommandResponse result = apiInstance.conferencePlayAudio(id, conferencePlayRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferencePlayAudio");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -373,63 +397,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="conferenceSpeakText"></a>
-# **conferenceSpeakText**
-> ConferenceCommandResponse conferenceSpeakText(id, conferenceSpeakRequest).execute();
+
+## conferenceSpeakText
+
+> ConferenceCommandResponse conferenceSpeakText(id, conferenceSpeakRequest)
 
 Speak text to conference participants
 
 Convert text to speech and play it to all or some participants.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Specifies the conference by id or name
-    ConferenceSpeakRequest conferenceSpeakRequest = new ConferenceSpeakRequest(); // ConferenceSpeakRequest | 
-    try {
-      ConferenceCommandResponse result = apiInstance.conferenceSpeakText(id, conferenceSpeakRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferenceSpeakText");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Specifies the conference by id or name
+        ConferenceSpeakRequest conferenceSpeakRequest = new ConferenceSpeakRequest(); // ConferenceSpeakRequest | 
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceSpeakText(id, conferenceSpeakRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceSpeakText");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -446,63 +472,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="conferenceStartRecording"></a>
-# **conferenceStartRecording**
-> ConferenceCommandResponse conferenceStartRecording(id, startRecordingRequest).execute();
+
+## conferenceStartRecording
+
+> ConferenceCommandResponse conferenceStartRecording(id, startRecordingRequest)
 
 Conference recording start
 
-Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
+Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.
+
+**Expected Webhooks:**
+
+- `conference.recording.saved`
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Specifies the conference to record by id or name
-    StartRecordingRequest startRecordingRequest = new StartRecordingRequest(); // StartRecordingRequest | 
-    try {
-      ConferenceCommandResponse result = apiInstance.conferenceStartRecording(id, startRecordingRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferenceStartRecording");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Specifies the conference to record by id or name
+        StartRecordingRequest startRecordingRequest = new StartRecordingRequest(); // StartRecordingRequest | 
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceStartRecording(id, startRecordingRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceStartRecording");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -519,63 +551,70 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="conferenceStopRecording"></a>
-# **conferenceStopRecording**
-> ConferenceCommandResponse conferenceStopRecording(id, stopRecordingRequest).execute();
+
+## conferenceStopRecording
+
+> ConferenceCommandResponse conferenceStopRecording(id, stopRecordingRequest)
 
 Conference recording stop
 
-Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
+Stop recording the conference.
+
+**Expected Webhooks:**
+
+- `conference.recording.saved`
+
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Specifies the conference to stop the recording for by id or name
-    StopRecordingRequest stopRecordingRequest = new StopRecordingRequest(); // StopRecordingRequest | Stop recording conference request
-    try {
-      ConferenceCommandResponse result = apiInstance.conferenceStopRecording(id, stopRecordingRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferenceStopRecording");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Specifies the conference to stop the recording for by id or name
+        StopRecordingRequest stopRecordingRequest = new StopRecordingRequest(); // StopRecordingRequest | Stop recording conference request
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceStopRecording(id, stopRecordingRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceStopRecording");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -592,63 +631,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="conferenceUnholdParticipants"></a>
-# **conferenceUnholdParticipants**
-> ConferenceCommandResponse conferenceUnholdParticipants(id, conferenceUnholdRequest).execute();
+
+## conferenceUnholdParticipants
+
+> ConferenceCommandResponse conferenceUnholdParticipants(id, conferenceUnholdRequest)
 
 Unhold conference participants
 
 Unhold a list of participants in a conference call
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Uniquely identifies the conference by id or name
-    ConferenceUnholdRequest conferenceUnholdRequest = new ConferenceUnholdRequest(); // ConferenceUnholdRequest | 
-    try {
-      ConferenceCommandResponse result = apiInstance.conferenceUnholdParticipants(id, conferenceUnholdRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferenceUnholdParticipants");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        ConferenceUnholdRequest conferenceUnholdRequest = new ConferenceUnholdRequest(); // ConferenceUnholdRequest | 
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceUnholdParticipants(id, conferenceUnholdRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceUnholdParticipants");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -665,63 +706,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="conferenceUnmuteParticipants"></a>
-# **conferenceUnmuteParticipants**
-> ConferenceCommandResponse conferenceUnmuteParticipants(id, conferenceUnmuteRequest).execute();
+
+## conferenceUnmuteParticipants
+
+> ConferenceCommandResponse conferenceUnmuteParticipants(id, conferenceUnmuteRequest)
 
 Unmute conference participants
 
 Unmute a list of participants in a conference call
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Uniquely identifies the conference by id or name
-    ConferenceUnmuteRequest conferenceUnmuteRequest = new ConferenceUnmuteRequest(); // ConferenceUnmuteRequest | 
-    try {
-      ConferenceCommandResponse result = apiInstance.conferenceUnmuteParticipants(id, conferenceUnmuteRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#conferenceUnmuteParticipants");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        ConferenceUnmuteRequest conferenceUnmuteRequest = new ConferenceUnmuteRequest(); // ConferenceUnmuteRequest | 
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceUnmuteParticipants(id, conferenceUnmuteRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceUnmuteParticipants");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -738,62 +781,73 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response upon making a conference command. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="createConference"></a>
-# **createConference**
-> ConferenceResponse createConference(createConferenceRequest).execute();
+
+## createConference
+
+> ConferenceResponse createConference(createConferenceRequest)
 
 Create conference
 
-Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
+Create a conference from an existing call leg using a `call_control_id` and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.
+
+**Expected Webhooks:**
+
+- `conference.created`
+- `conference.participant.joined`
+- `conference.participant.left`
+- `conference.ended`
+- `conference.recording.saved`
+
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest(); // CreateConferenceRequest | Create a conference
-    try {
-      ConferenceResponse result = apiInstance.createConference(createConferenceRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#createConference");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest(); // CreateConferenceRequest | Create a conference
+        try {
+            ConferenceResponse result = apiInstance.createConference(createConferenceRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#createConference");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -809,18 +863,19 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a conference. |  -  |
-**401** | Unauthorized |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response with details about a conference. |  -  |
+| **401** | Unauthorized |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="listConferenceParticipants"></a>
-# **listConferenceParticipants**
+
+## listConferenceParticipants
+
 > ListParticipantsResponse listConferenceParticipants(conferenceId).filterMuted(filterMuted).filterOnHold(filterOnHold).filterWhispering(filterWhispering).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List conference participants
@@ -828,52 +883,54 @@ List conference participants
 Lists conference participants
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String conferenceId = "conferenceId_example"; // String | Uniquely identifies the conference by id or name
-    Boolean filterMuted = true; // Boolean | If present, participants will be filtered to those who are/are not muted
-    Boolean filterOnHold = true; // Boolean | If present, participants will be filtered to those who are/are not put on hold
-    Boolean filterWhispering = true; // Boolean | If present, participants will be filtered to those who are whispering or are not
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    try {
-      ListParticipantsResponse result = apiInstance.listConferenceParticipants(conferenceId)
-            .filterMuted(filterMuted)
-            .filterOnHold(filterOnHold)
-            .filterWhispering(filterWhispering)
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#listConferenceParticipants");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String conferenceId = "conferenceId_example"; // String | Uniquely identifies the conference by id or name
+        Boolean filterMuted = true; // Boolean | If present, participants will be filtered to those who are/are not muted
+        Boolean filterOnHold = true; // Boolean | If present, participants will be filtered to those who are/are not put on hold
+        Boolean filterWhispering = true; // Boolean | If present, participants will be filtered to those who are whispering or are not
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListParticipantsResponse result = api.listConferenceParticipants(conferenceId)
+                .filterMuted(filterMuted)
+                .filterOnHold(filterOnHold)
+                .filterWhispering(filterWhispering)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#listConferenceParticipants");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -894,67 +951,70 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of conference participants. |  -  |
-**401** | Unauthorized |  -  |
-**404** | Conference does not exist |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response with a list of conference participants. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="listConferences"></a>
-# **listConferences**
+
+## listConferences
+
 > ListConferencesResponse listConferences().filterName(filterName).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List conferences
 
-Lists conferences. Conferences are created on demand, and will expire after all participants have left the conference or after 4 hours regardless of the number of active participants. Conferences are listed in descending order by &#x60;expires_at&#x60;.
+Lists conferences. Conferences are created on demand, and will expire after all participants have left the conference or after 4 hours regardless of the number of active participants. Conferences are listed in descending order by `expires_at`.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String filterName = "filterName_example"; // String | If present, conferences will be filtered to those with a matching `name` attribute. Matching is case-sensitive
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    try {
-      ListConferencesResponse result = apiInstance.listConferences()
-            .filterName(filterName)
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#listConferences");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String filterName = "filterName_example"; // String | If present, conferences will be filtered to those with a matching `name` attribute. Matching is case-sensitive
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListConferencesResponse result = api.listConferences()
+                .filterName(filterName)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#listConferences");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -972,61 +1032,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of conferences. |  -  |
-**401** | Unauthorized |  -  |
-**422** | Unprocessable entity |  -  |
+| **200** | Successful response with a list of conferences. |  -  |
+| **401** | Unauthorized |  -  |
+| **422** | Unprocessable entity |  -  |
 
-<a name="retrieveConference"></a>
-# **retrieveConference**
-> ConferenceResponse retrieveConference(id).execute();
+
+## retrieveConference
+
+> ConferenceResponse retrieveConference(id)
 
 Retrieve a conference
 
 Retrieve an existing conference
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.ConferenceCommandsApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-    String id = "id_example"; // String | Uniquely identifies the conference by id or name
-    try {
-      ConferenceResponse result = apiInstance.retrieveConference(id)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConferenceCommandsApi#retrieveConference");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        try {
+            ConferenceResponse result = apiInstance.retrieveConference(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#retrieveConference");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1042,12 +1104,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a conference. |  -  |
-**404** | Conference does not exist |  -  |
+| **200** | Successful response with details about a conference. |  -  |
+| **404** | Conference does not exist |  -  |
 

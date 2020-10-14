@@ -234,6 +234,7 @@ paths:
       summary: List available phone numbers
       tags:
       - Number Search
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /call_control_applications:
@@ -325,6 +326,7 @@ paths:
       summary: List call control applications
       tags:
       - Call Control Applications
+      x-group-parameters: "true"
       x-latency-category: interactive
       x-accepts: application/json
     post:
@@ -591,6 +593,7 @@ paths:
       tags:
       - Debugging
       x-latency-category: responsive
+      x-group-parameters: "true"
       x-accepts: application/json
   /calls:
     post:
@@ -1966,6 +1969,7 @@ paths:
       tags:
       - Conference Commands
       x-latency-category: responsive
+      x-group-parameters: "true"
       x-accepts: application/json
     post:
       callbacks:
@@ -2141,6 +2145,7 @@ paths:
       summary: List conference participants
       tags:
       - Conference Commands
+      x-group-parameters: "true"
       x-latency-category: interactive
       x-accepts: application/json
   /conferences/{id}:
@@ -3047,6 +3052,7 @@ paths:
       summary: List messaging hosted number orders
       tags:
       - Messaging Hosted Number
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -3249,6 +3255,7 @@ paths:
       summary: List messaging profile metrics
       tags:
       - Messaging Profiles
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /messaging_profiles:
@@ -3292,6 +3299,7 @@ paths:
       summary: List messaging profiles
       tags:
       - Messaging Profiles
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -3469,7 +3477,7 @@ paths:
       x-accepts: application/json
   /messaging_profiles/{id}/metrics:
     get:
-      operationId: getMessagingProfileDetailedMetrics
+      operationId: retrieveMessagingProfileDetailedMetrics
       parameters:
       - description: The id of the messaging profile to retrieve
         explode: false
@@ -3513,6 +3521,7 @@ paths:
       summary: Retrieve messaging profile metrics
       tags:
       - Messaging Profiles
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /messaging_profiles/{id}/phone_numbers:
@@ -3566,6 +3575,7 @@ paths:
       summary: List phone numbers associated with a messaging profile
       tags:
       - Messaging Profiles
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /messaging_profiles/{id}/short_codes:
@@ -3619,6 +3629,7 @@ paths:
       summary: List short codes associated with a messaging profile
       tags:
       - Messaging Profiles
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /messaging_url_domains:
@@ -3662,6 +3673,7 @@ paths:
       summary: List messaging URL domains
       tags:
       - Messaging URL Domains
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /number_order_documents:
@@ -3730,6 +3742,7 @@ paths:
       summary: List number order documents
       tags:
       - Number Order Documents
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -3918,6 +3931,7 @@ paths:
       summary: List number orders
       tags:
       - Number Orders
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4114,6 +4128,7 @@ paths:
       summary: List number reservations
       tags:
       - Number Reservations
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4260,6 +4275,7 @@ paths:
       summary: List regulatory requirements per number
       tags:
       - Number Order Regulatory Requirements
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers:
@@ -4414,6 +4430,7 @@ paths:
       summary: List phone numbers
       tags:
       - Number Configurations
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/csv_downloads:
@@ -4457,6 +4474,7 @@ paths:
       summary: List CSV downloads
       tags:
       - CSV Downloads
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4551,6 +4569,7 @@ paths:
       summary: List phone numbers with messaging settings
       tags:
       - Number Configurations
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/voice:
@@ -4641,6 +4660,7 @@ paths:
       summary: List phone numbers with voice settings
       tags:
       - Number Configurations
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/{id}:
@@ -5001,6 +5021,7 @@ paths:
       summary: List recordings
       tags:
       - Recordings Commands
+      x-group-parameters: "true"
       x-latency-category: interactive
       x-accepts: application/json
   /recordings/{id}:
@@ -5099,6 +5120,7 @@ paths:
       summary: List number order regulatory requirements
       tags:
       - Number Order Regulatory Requirements
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /regulatory_requirements/{requirement_id}:
@@ -5184,6 +5206,7 @@ paths:
       summary: List short codes
       tags:
       - Short Codes
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /short_codes/{id}:
@@ -8067,7 +8090,7 @@ components:
           example: http://www.example.com/sounds/greeting.wav
           type: string
         loop:
-          $ref: '#/components/schemas/OneOfstringinteger'
+          $ref: '#/components/schemas/Loopcount'
         call_control_ids:
           description: List of call control ids identifying participants the audio
             file should be played to. If not given, the audio file will be played
@@ -8781,6 +8804,8 @@ components:
           status: success
         record_type: number_order
         phone_numbers_count: 1
+        connection_id: "346789098765567"
+        messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
         status: pending
         customer_reference: MY REF 001
         created_at: 2018-01-01T00:00:00.000000Z
@@ -8806,6 +8831,15 @@ components:
           example: 1
           readOnly: true
           type: integer
+        connection_id:
+          description: Identifies the connection associated with this phone number.
+          example: "346789098765567"
+          type: string
+        messaging_profile_id:
+          description: Identifies the messaging profile associated with the phone
+            number.
+          example: abc85f64-5717-4562-b3fc-2c9600
+          type: string
         status:
           description: The status of the order.
           enum:
@@ -9655,6 +9689,10 @@ components:
       - call_control_id
       title: Join Conference Request
       type: object
+    Loopcount:
+      oneOf:
+      - type: string
+      - type: integer
     MediaFeatures:
       description: The media features settings for a phone number.
       example:
@@ -10016,6 +10054,8 @@ components:
           requirements_met: true
           status: success
         record_type: number_order
+        connection_id: "346789098765567"
+        messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
         phone_numbers_count: 1
         status: pending
         customer_reference: MY REF 001
@@ -10042,6 +10082,15 @@ components:
           example: 1
           readOnly: true
           type: integer
+        connection_id:
+          description: Identifies the connection associated with this phone number.
+          example: "346789098765567"
+          type: string
+        messaging_profile_id:
+          description: Identifies the messaging profile associated with the phone
+            number.
+          example: abc85f64-5717-4562-b3fc-2c9600
+          type: string
         status:
           description: The status of the order.
           enum:
@@ -10135,6 +10184,8 @@ components:
             requirements_met: true
             status: success
           record_type: number_order
+          connection_id: "346789098765567"
+          messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
           phone_numbers_count: 1
           status: pending
           customer_reference: MY REF 001
@@ -10260,10 +10311,6 @@ components:
           format: datetime
           readOnly: true
           type: string
-    OneOfstringinteger:
-      oneOf:
-      - type: string
-      - type: integer
     OutboundMessage:
       example:
         record_type: event
@@ -10966,6 +11013,9 @@ components:
           - long-code
           - toll-free
           - short-code
+          - longcode
+          - tollfree
+          - shortcode
           readOnly: true
           type: string
         health:
@@ -11086,12 +11136,7 @@ components:
           example: http://www.example.com/sounds/greeting.wav
           type: string
         loop:
-          default: "1"
-          description: The number of times the audio file should be played. If supplied,
-            the value must be an integer between 1 and 100, or the special string
-            `infinity` for an endless loop.
-          example: infinity
-          type: string
+          $ref: '#/components/schemas/Loopcount'
         overlay:
           default: false
           description: 'When enabled, audio will be mixed on top of any other audio
@@ -13132,6 +13177,8 @@ components:
             requirements_met: true
             status: success
           record_type: number_order
+          connection_id: "346789098765567"
+          messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
           phone_numbers_count: 1
           status: pending
           customer_reference: MY REF 001
@@ -13152,6 +13199,8 @@ components:
             requirements_met: true
             status: success
           record_type: number_order
+          connection_id: "346789098765567"
+          messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
           phone_numbers_count: 1
           status: pending
           customer_reference: MY REF 001
@@ -13189,6 +13238,8 @@ components:
             requirements_met: true
             status: success
           record_type: number_order
+          connection_id: "346789098765567"
+          messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
           phone_numbers_count: 1
           status: pending
           customer_reference: MY REF 001
@@ -14764,6 +14815,7 @@ components:
           - VoWiFi
           - VoIP
           - Pre-Paid Wireless
+          - ""
           type: string
       type: object
     InboundMessagePayload_from:
@@ -14789,6 +14841,7 @@ components:
           - VoWiFi
           - VoIP
           - Pre-Paid Wireless
+          - ""
           type: string
       type: object
     InboundMessagePayload_media:
@@ -14862,6 +14915,7 @@ components:
           - VoWiFi
           - VoIP
           - Pre-Paid Wireless
+          - ""
           type: string
       type: object
     OutboundMessagePayload_to:
@@ -14893,6 +14947,7 @@ components:
           - VoWiFi
           - VoIP
           - Pre-Paid Wireless
+          - ""
           type: string
       type: object
     OutboundMessagePayload_media:
@@ -14949,5 +15004,4 @@ components:
     bearerAuth:
       scheme: bearer
       type: http
-x-group-parameters: "true"
 

@@ -10,51 +10,53 @@ Method | HTTP request | Description
 [**updateNumberOrder**](NumberOrdersApi.md#updateNumberOrder) | **PATCH** /number_orders/{number_order_id} | Update a number order
 
 
-<a name="createNumberOrder"></a>
-# **createNumberOrder**
-> NumberOrderResponse createNumberOrder(createNumberOrderRequest).execute();
+
+## createNumberOrder
+
+> NumberOrderResponse createNumberOrder(createNumberOrderRequest)
 
 Create a number order
 
 Creates a phone number order.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrdersApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrdersApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
-    CreateNumberOrderRequest createNumberOrderRequest = new CreateNumberOrderRequest(); // CreateNumberOrderRequest | 
-    try {
-      NumberOrderResponse result = apiInstance.createNumberOrder(createNumberOrderRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrdersApi#createNumberOrder");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
+        CreateNumberOrderRequest createNumberOrderRequest = new CreateNumberOrderRequest(); // CreateNumberOrderRequest | 
+        try {
+            NumberOrderResponse result = apiInstance.createNumberOrder(createNumberOrderRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrdersApi#createNumberOrder");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -70,17 +72,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a number order. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a number order. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="listNumberOrders"></a>
-# **listNumberOrders**
+
+## listNumberOrders
+
 > ListNumberOrdersResponse listNumberOrders().filterStatus(filterStatus).filterCreatedAtGt(filterCreatedAtGt).filterCreatedAtLt(filterCreatedAtLt).filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber).filterCustomerReference(filterCustomerReference).filterRequirementsMet(filterRequirementsMet).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List number orders
@@ -88,57 +91,59 @@ List number orders
 Get a paginated list of number orders.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrdersApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrdersApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
-    String filterStatus = "filterStatus_example"; // String | Filter number orders by status.
-    String filterCreatedAtGt = "filterCreatedAtGt_example"; // String | Filter number orders later than this value.
-    String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number orders earlier than this value.
-    String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number orders having these phone numbers.
-    String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number orders via the customer reference set.
-    Boolean filterRequirementsMet = true; // Boolean | Filter number orders by requirements met.
-    Integer pageNumber = 1; // Integer | The page number to load
-    Integer pageSize = 20; // Integer | The size of the page
-    try {
-      ListNumberOrdersResponse result = apiInstance.listNumberOrders()
-            .filterStatus(filterStatus)
-            .filterCreatedAtGt(filterCreatedAtGt)
-            .filterCreatedAtLt(filterCreatedAtLt)
-            .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
-            .filterCustomerReference(filterCustomerReference)
-            .filterRequirementsMet(filterRequirementsMet)
-            .pageNumber(pageNumber)
-            .pageSize(pageSize)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrdersApi#listNumberOrders");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
+        String filterStatus = "filterStatus_example"; // String | Filter number orders by status.
+        String filterCreatedAtGt = "filterCreatedAtGt_example"; // String | Filter number orders later than this value.
+        String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number orders earlier than this value.
+        String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number orders having these phone numbers.
+        String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number orders via the customer reference set.
+        Boolean filterRequirementsMet = true; // Boolean | Filter number orders by requirements met.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListNumberOrdersResponse result = api.listNumberOrders()
+                .filterStatus(filterStatus)
+                .filterCreatedAtGt(filterCreatedAtGt)
+                .filterCreatedAtLt(filterCreatedAtLt)
+                .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
+                .filterCustomerReference(filterCustomerReference)
+                .filterRequirementsMet(filterRequirementsMet)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrdersApi#listNumberOrders");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -161,60 +166,62 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with a list of number orders. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with a list of number orders. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="retrieveNumberOrder"></a>
-# **retrieveNumberOrder**
-> NumberOrderResponse retrieveNumberOrder(numberOrderId).execute();
+
+## retrieveNumberOrder
+
+> NumberOrderResponse retrieveNumberOrder(numberOrderId)
 
 Retrieve a number order
 
 Get an existing phone number order.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrdersApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrdersApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
-    String numberOrderId = "numberOrderId_example"; // String | The number order ID.
-    try {
-      NumberOrderResponse result = apiInstance.retrieveNumberOrder(numberOrderId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrdersApi#retrieveNumberOrder");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
+        String numberOrderId = "numberOrderId_example"; // String | The number order ID.
+        try {
+            NumberOrderResponse result = apiInstance.retrieveNumberOrder(numberOrderId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrdersApi#retrieveNumberOrder");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -230,61 +237,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a number order. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a number order. |  -  |
+| **0** | Unexpected error |  -  |
 
-<a name="updateNumberOrder"></a>
-# **updateNumberOrder**
-> NumberOrderResponse updateNumberOrder(numberOrderId, updateNumberOrderRequest).execute();
+
+## updateNumberOrder
+
+> NumberOrderResponse updateNumberOrder(numberOrderId, updateNumberOrderRequest)
 
 Update a number order
 
 Updates a phone number order.
 
 ### Example
+
 ```java
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.models.*;
-import com.telnyx.sdk.apis.NumberOrdersApi;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberOrdersApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.telnyx.com/v2");
-    
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-    NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
-    String numberOrderId = "numberOrderId_example"; // String | The number order ID.
-    UpdateNumberOrderRequest updateNumberOrderRequest = new UpdateNumberOrderRequest(); // UpdateNumberOrderRequest | 
-    try {
-      NumberOrderResponse result = apiInstance.updateNumberOrder(numberOrderId, updateNumberOrderRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling NumberOrdersApi#updateNumberOrder");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
+        String numberOrderId = "numberOrderId_example"; // String | The number order ID.
+        UpdateNumberOrderRequest updateNumberOrderRequest = new UpdateNumberOrderRequest(); // UpdateNumberOrderRequest | 
+        try {
+            NumberOrderResponse result = apiInstance.updateNumberOrder(numberOrderId, updateNumberOrderRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberOrdersApi#updateNumberOrder");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -301,12 +310,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response with details about a number order. |  -  |
-**0** | Unexpected error |  -  |
+| **200** | Successful response with details about a number order. |  -  |
+| **0** | Unexpected error |  -  |
 
