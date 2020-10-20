@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.0.5-alpha</version>
+  <version>2.0.7-beta</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -50,7 +50,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.0.5-alpha"
+compile "com.telnyx.sdk:telnyx:2.0.7-beta"
 ```
 
 ### Others
@@ -63,7 +63,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.0.5-alpha.jar`
+- `target/telnyx-2.0.7-beta.jar`
 - `target/lib/*.jar`
 
 ## Getting Started

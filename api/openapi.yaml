@@ -10267,6 +10267,7 @@ components:
           created_at: 2018-01-01T00:00:00.000000Z
           updated_at: 2018-01-01T00:00:00.000000Z
           expired_at: 2018-01-01T00:00:00.000000Z
+          errors: ""
         status: pending
         customer_reference: MY REF 001
         created_at: 2018-01-01T00:00:00.000000Z
@@ -11484,6 +11485,11 @@ components:
             reservation is going to expire
           example: 2018-01-01T00:00:00.000000Z
           format: datetime
+          readOnly: true
+          type: string
+        errors:
+          description: Errors the reservation could happen upon
+          example: Number is already on hold
           readOnly: true
           type: string
     SendDTMFRequest:
@@ -13264,6 +13270,7 @@ components:
             created_at: 2018-01-01T00:00:00.000000Z
             updated_at: 2018-01-01T00:00:00.000000Z
             expired_at: 2018-01-01T00:00:00.000000Z
+            errors: ""
           status: pending
           customer_reference: MY REF 001
           created_at: 2018-01-01T00:00:00.000000Z
@@ -13278,6 +13285,7 @@ components:
             created_at: 2018-01-01T00:00:00.000000Z
             updated_at: 2018-01-01T00:00:00.000000Z
             expired_at: 2018-01-01T00:00:00.000000Z
+            errors: ""
           status: pending
           customer_reference: MY REF 001
           created_at: 2018-01-01T00:00:00.000000Z
@@ -13309,6 +13317,7 @@ components:
             created_at: 2018-01-01T00:00:00.000000Z
             updated_at: 2018-01-01T00:00:00.000000Z
             expired_at: 2018-01-01T00:00:00.000000Z
+            errors: ""
           status: pending
           customer_reference: MY REF 001
           created_at: 2018-01-01T00:00:00.000000Z
