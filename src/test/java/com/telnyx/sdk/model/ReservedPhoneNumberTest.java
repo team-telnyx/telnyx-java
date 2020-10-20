@@ -96,4 +96,12 @@ public class ReservedPhoneNumberTest {
         // TODO: test expiredAt
     }
 
+    /**
+     * Test the property 'errors'
+     */
+    @Test
+    public void errorsTest() {
+        // TODO: test errors
+    }
+
 }
