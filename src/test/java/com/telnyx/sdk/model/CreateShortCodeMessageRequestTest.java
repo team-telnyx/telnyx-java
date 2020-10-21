@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.BaseMessageRequest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -40,6 +39,22 @@ public class CreateShortCodeMessageRequestTest {
     @Test
     public void testCreateShortCodeMessageRequest() {
         // TODO: test CreateShortCodeMessageRequest
+    }
+
+    /**
+     * Test the property 'from'
+     */
+    @Test
+    public void fromTest() {
+        // TODO: test from
+    }
+
+    /**
+     * Test the property 'to'
+     */
+    @Test
+    public void toTest() {
+        // TODO: test to
     }
 
     /**

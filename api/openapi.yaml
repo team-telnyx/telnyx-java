@@ -5907,53 +5907,6 @@ components:
           example: 0
           type: integer
       type: object
-    BaseMessageRequest:
-      properties:
-        text:
-          description: |-
-            Message body (i.e., content) as a non-empty string.
-
-            **Required for SMS**
-          type: string
-        subject:
-          description: Subject of multimedia message
-          type: string
-        media_urls:
-          description: |-
-            A list of media URLs. The total media size must be less than 1 MB.
-
-            **Required for MMS**
-          items:
-            format: url
-            type: string
-          type: array
-        webhook_url:
-          description: The URL where webhooks related to this message will be sent.
-          format: url
-          type: string
-        webhook_failover_url:
-          description: The failover URL where webhooks related to this message will
-            be sent if sending to the primary URL fails.
-          format: url
-          type: string
-        use_profile_webhooks:
-          default: true
-          description: If the profile this number is associated with has webhooks,
-            use them for delivery notifications. If webhooks are also specified on
-            the message itself, they will be attempted first, then those on the profile.
-          type: boolean
-        type:
-          description: The protocol for sending the message, either SMS or MMS.
-          enum:
-          - SMS
-          - MMS
-          type: string
-        auto_detect:
-          default: false
-          description: Automatically detect if an SMS message is unusually long and
-            exceeds a recommended limit of message parts.
-          type: boolean
-      type: object
     BridgeRequest:
       example:
         call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
@@ -8604,8 +8557,6 @@ components:
       title: Create Conference Request
       type: object
     CreateLongCodeMessageRequest:
-      allOf:
-      - $ref: '#/components/schemas/BaseMessageRequest'
       example:
         from: +18445550001
         to: +13125550002
@@ -8627,13 +8578,55 @@ components:
           example: +E.164
           format: address
           type: string
+        text:
+          description: |-
+            Message body (i.e., content) as a non-empty string.
+
+            **Required for SMS**
+          type: string
+        subject:
+          description: Subject of multimedia message
+          type: string
+        media_urls:
+          description: |-
+            A list of media URLs. The total media size must be less than 1 MB.
+
+            **Required for MMS**
+          items:
+            format: url
+            type: string
+          type: array
+        webhook_url:
+          description: The URL where webhooks related to this message will be sent.
+          format: url
+          type: string
+        webhook_failover_url:
+          description: The failover URL where webhooks related to this message will
+            be sent if sending to the primary URL fails.
+          format: url
+          type: string
+        use_profile_webhooks:
+          default: true
+          description: If the profile this number is associated with has webhooks,
+            use them for delivery notifications. If webhooks are also specified on
+            the message itself, they will be attempted first, then those on the profile.
+          type: boolean
+        type:
+          description: The protocol for sending the message, either SMS or MMS.
+          enum:
+          - SMS
+          - MMS
+          type: string
+        auto_detect:
+          default: false
+          description: Automatically detect if an SMS message is unusually long and
+            exceeds a recommended limit of message parts.
+          type: boolean
       required:
       - from
       - to
       type: object
     CreateMessageRequest:
-      allOf:
-      - $ref: '#/components/schemas/BaseMessageRequest'
       example:
         from: +18445550001
         messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600000000
@@ -8665,6 +8658,50 @@ components:
           example: +E.164
           format: address
           type: string
+        text:
+          description: |-
+            Message body (i.e., content) as a non-empty string.
+
+            **Required for SMS**
+          type: string
+        subject:
+          description: Subject of multimedia message
+          type: string
+        media_urls:
+          description: |-
+            A list of media URLs. The total media size must be less than 1 MB.
+
+            **Required for MMS**
+          items:
+            format: url
+            type: string
+          type: array
+        webhook_url:
+          description: The URL where webhooks related to this message will be sent.
+          format: url
+          type: string
+        webhook_failover_url:
+          description: The failover URL where webhooks related to this message will
+            be sent if sending to the primary URL fails.
+          format: url
+          type: string
+        use_profile_webhooks:
+          default: true
+          description: If the profile this number is associated with has webhooks,
+            use them for delivery notifications. If webhooks are also specified on
+            the message itself, they will be attempted first, then those on the profile.
+          type: boolean
+        type:
+          description: The protocol for sending the message, either SMS or MMS.
+          enum:
+          - SMS
+          - MMS
+          type: string
+        auto_detect:
+          default: false
+          description: Automatically detect if an SMS message is unusually long and
+            exceeds a recommended limit of message parts.
+          type: boolean
       required:
       - to
       type: object
@@ -8872,8 +8909,6 @@ components:
           readOnly: true
           type: boolean
     CreateNumberPoolMessageRequest:
-      allOf:
-      - $ref: '#/components/schemas/BaseMessageRequest'
       example:
         from: +18445550001
         messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600000000
@@ -8896,6 +8931,50 @@ components:
           example: +E.164
           format: address
           type: string
+        text:
+          description: |-
+            Message body (i.e., content) as a non-empty string.
+
+            **Required for SMS**
+          type: string
+        subject:
+          description: Subject of multimedia message
+          type: string
+        media_urls:
+          description: |-
+            A list of media URLs. The total media size must be less than 1 MB.
+
+            **Required for MMS**
+          items:
+            format: url
+            type: string
+          type: array
+        webhook_url:
+          description: The URL where webhooks related to this message will be sent.
+          format: url
+          type: string
+        webhook_failover_url:
+          description: The failover URL where webhooks related to this message will
+            be sent if sending to the primary URL fails.
+          format: url
+          type: string
+        use_profile_webhooks:
+          default: true
+          description: If the profile this number is associated with has webhooks,
+            use them for delivery notifications. If webhooks are also specified on
+            the message itself, they will be attempted first, then those on the profile.
+          type: boolean
+        type:
+          description: The protocol for sending the message, either SMS or MMS.
+          enum:
+          - SMS
+          - MMS
+          type: string
+        auto_detect:
+          default: false
+          description: Automatically detect if an SMS message is unusually long and
+            exceeds a recommended limit of message parts.
+          type: boolean
       required:
       - messaging_profile_id
       - to
@@ -8957,8 +9036,6 @@ components:
           readOnly: true
           type: string
     CreateShortCodeMessageRequest:
-      allOf:
-      - $ref: '#/components/schemas/BaseMessageRequest'
       example:
         from: +18445550001
         to: +18445550001
@@ -8980,6 +9057,50 @@ components:
           example: +E.164
           format: address
           type: string
+        text:
+          description: |-
+            Message body (i.e., content) as a non-empty string.
+
+            **Required for SMS**
+          type: string
+        subject:
+          description: Subject of multimedia message
+          type: string
+        media_urls:
+          description: |-
+            A list of media URLs. The total media size must be less than 1 MB.
+
+            **Required for MMS**
+          items:
+            format: url
+            type: string
+          type: array
+        webhook_url:
+          description: The URL where webhooks related to this message will be sent.
+          format: url
+          type: string
+        webhook_failover_url:
+          description: The failover URL where webhooks related to this message will
+            be sent if sending to the primary URL fails.
+          format: url
+          type: string
+        use_profile_webhooks:
+          default: true
+          description: If the profile this number is associated with has webhooks,
+            use them for delivery notifications. If webhooks are also specified on
+            the message itself, they will be attempted first, then those on the profile.
+          type: boolean
+        type:
+          description: The protocol for sending the message, either SMS or MMS.
+          enum:
+          - SMS
+          - MMS
+          type: string
+        auto_detect:
+          default: false
+          description: Automatically detect if an SMS message is unusually long and
+            exceeds a recommended limit of message parts.
+          type: boolean
       required:
       - from
       - to
