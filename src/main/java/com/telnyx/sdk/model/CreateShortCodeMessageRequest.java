@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.BaseMessageRequest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -36,15 +35,82 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   CreateShortCodeMessageRequest.JSON_PROPERTY_FROM,
-  CreateShortCodeMessageRequest.JSON_PROPERTY_TO
+  CreateShortCodeMessageRequest.JSON_PROPERTY_TO,
+  CreateShortCodeMessageRequest.JSON_PROPERTY_TEXT,
+  CreateShortCodeMessageRequest.JSON_PROPERTY_SUBJECT,
+  CreateShortCodeMessageRequest.JSON_PROPERTY_MEDIA_URLS,
+  CreateShortCodeMessageRequest.JSON_PROPERTY_WEBHOOK_URL,
+  CreateShortCodeMessageRequest.JSON_PROPERTY_WEBHOOK_FAILOVER_URL,
+  CreateShortCodeMessageRequest.JSON_PROPERTY_USE_PROFILE_WEBHOOKS,
+  CreateShortCodeMessageRequest.JSON_PROPERTY_TYPE,
+  CreateShortCodeMessageRequest.JSON_PROPERTY_AUTO_DETECT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CreateShortCodeMessageRequest extends BaseMessageRequest {
+public class CreateShortCodeMessageRequest {
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
 
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
+
+  public static final String JSON_PROPERTY_TEXT = "text";
+  private String text;
+
+  public static final String JSON_PROPERTY_SUBJECT = "subject";
+  private String subject;
+
+  public static final String JSON_PROPERTY_MEDIA_URLS = "media_urls";
+  private List<String> mediaUrls = null;
+
+  public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
+  private String webhookUrl;
+
+  public static final String JSON_PROPERTY_WEBHOOK_FAILOVER_URL = "webhook_failover_url";
+  private String webhookFailoverUrl;
+
+  public static final String JSON_PROPERTY_USE_PROFILE_WEBHOOKS = "use_profile_webhooks";
+  private Boolean useProfileWebhooks = true;
+
+  /**
+   * The protocol for sending the message, either SMS or MMS.
+   */
+  public enum TypeEnum {
+    SMS("SMS"),
+    
+    MMS("MMS");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
+
+  public static final String JSON_PROPERTY_AUTO_DETECT = "auto_detect";
+  private Boolean autoDetect = false;
 
 
   public CreateShortCodeMessageRequest from(String from) {
@@ -93,6 +159,206 @@ public class CreateShortCodeMessageRequest extends BaseMessageRequest {
   }
 
 
+  public CreateShortCodeMessageRequest text(String text) {
+    this.text = text;
+    return this;
+  }
+
+   /**
+   * Message body (i.e., content) as a non-empty string.  **Required for SMS**
+   * @return text
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Message body (i.e., content) as a non-empty string.  **Required for SMS**")
+  @JsonProperty(JSON_PROPERTY_TEXT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getText() {
+    return text;
+  }
+
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
+
+  public CreateShortCodeMessageRequest subject(String subject) {
+    this.subject = subject;
+    return this;
+  }
+
+   /**
+   * Subject of multimedia message
+   * @return subject
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Subject of multimedia message")
+  @JsonProperty(JSON_PROPERTY_SUBJECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSubject() {
+    return subject;
+  }
+
+
+  public void setSubject(String subject) {
+    this.subject = subject;
+  }
+
+
+  public CreateShortCodeMessageRequest mediaUrls(List<String> mediaUrls) {
+    this.mediaUrls = mediaUrls;
+    return this;
+  }
+
+  public CreateShortCodeMessageRequest addMediaUrlsItem(String mediaUrlsItem) {
+    if (this.mediaUrls == null) {
+      this.mediaUrls = new ArrayList<>();
+    }
+    this.mediaUrls.add(mediaUrlsItem);
+    return this;
+  }
+
+   /**
+   * A list of media URLs. The total media size must be less than 1 MB.  **Required for MMS**
+   * @return mediaUrls
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "A list of media URLs. The total media size must be less than 1 MB.  **Required for MMS**")
+  @JsonProperty(JSON_PROPERTY_MEDIA_URLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getMediaUrls() {
+    return mediaUrls;
+  }
+
+
+  public void setMediaUrls(List<String> mediaUrls) {
+    this.mediaUrls = mediaUrls;
+  }
+
+
+  public CreateShortCodeMessageRequest webhookUrl(String webhookUrl) {
+    this.webhookUrl = webhookUrl;
+    return this;
+  }
+
+   /**
+   * The URL where webhooks related to this message will be sent.
+   * @return webhookUrl
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The URL where webhooks related to this message will be sent.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookUrl() {
+    return webhookUrl;
+  }
+
+
+  public void setWebhookUrl(String webhookUrl) {
+    this.webhookUrl = webhookUrl;
+  }
+
+
+  public CreateShortCodeMessageRequest webhookFailoverUrl(String webhookFailoverUrl) {
+    this.webhookFailoverUrl = webhookFailoverUrl;
+    return this;
+  }
+
+   /**
+   * The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.
+   * @return webhookFailoverUrl
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookFailoverUrl() {
+    return webhookFailoverUrl;
+  }
+
+
+  public void setWebhookFailoverUrl(String webhookFailoverUrl) {
+    this.webhookFailoverUrl = webhookFailoverUrl;
+  }
+
+
+  public CreateShortCodeMessageRequest useProfileWebhooks(Boolean useProfileWebhooks) {
+    this.useProfileWebhooks = useProfileWebhooks;
+    return this;
+  }
+
+   /**
+   * If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.
+   * @return useProfileWebhooks
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.")
+  @JsonProperty(JSON_PROPERTY_USE_PROFILE_WEBHOOKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getUseProfileWebhooks() {
+    return useProfileWebhooks;
+  }
+
+
+  public void setUseProfileWebhooks(Boolean useProfileWebhooks) {
+    this.useProfileWebhooks = useProfileWebhooks;
+  }
+
+
+  public CreateShortCodeMessageRequest type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * The protocol for sending the message, either SMS or MMS.
+   * @return type
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The protocol for sending the message, either SMS or MMS.")
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+
+  public CreateShortCodeMessageRequest autoDetect(Boolean autoDetect) {
+    this.autoDetect = autoDetect;
+    return this;
+  }
+
+   /**
+   * Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.
+   * @return autoDetect
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.")
+  @JsonProperty(JSON_PROPERTY_AUTO_DETECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getAutoDetect() {
+    return autoDetect;
+  }
+
+
+  public void setAutoDetect(Boolean autoDetect) {
+    this.autoDetect = autoDetect;
+  }
+
+
   /**
    * Return true if this CreateShortCodeMessageRequest object is equal to o.
    */
@@ -107,12 +373,19 @@ public class CreateShortCodeMessageRequest extends BaseMessageRequest {
     CreateShortCodeMessageRequest createShortCodeMessageRequest = (CreateShortCodeMessageRequest) o;
     return Objects.equals(this.from, createShortCodeMessageRequest.from) &&
         Objects.equals(this.to, createShortCodeMessageRequest.to) &&
-        super.equals(o);
+        Objects.equals(this.text, createShortCodeMessageRequest.text) &&
+        Objects.equals(this.subject, createShortCodeMessageRequest.subject) &&
+        Objects.equals(this.mediaUrls, createShortCodeMessageRequest.mediaUrls) &&
+        Objects.equals(this.webhookUrl, createShortCodeMessageRequest.webhookUrl) &&
+        Objects.equals(this.webhookFailoverUrl, createShortCodeMessageRequest.webhookFailoverUrl) &&
+        Objects.equals(this.useProfileWebhooks, createShortCodeMessageRequest.useProfileWebhooks) &&
+        Objects.equals(this.type, createShortCodeMessageRequest.type) &&
+        Objects.equals(this.autoDetect, createShortCodeMessageRequest.autoDetect);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, to, super.hashCode());
+    return Objects.hash(from, to, text, subject, mediaUrls, webhookUrl, webhookFailoverUrl, useProfileWebhooks, type, autoDetect);
   }
 
 
@@ -120,9 +393,16 @@ public class CreateShortCodeMessageRequest extends BaseMessageRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateShortCodeMessageRequest {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
+    sb.append("    text: ").append(toIndentedString(text)).append("\n");
+    sb.append("    subject: ").append(toIndentedString(subject)).append("\n");
+    sb.append("    mediaUrls: ").append(toIndentedString(mediaUrls)).append("\n");
+    sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
+    sb.append("    webhookFailoverUrl: ").append(toIndentedString(webhookFailoverUrl)).append("\n");
+    sb.append("    useProfileWebhooks: ").append(toIndentedString(useProfileWebhooks)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    autoDetect: ").append(toIndentedString(autoDetect)).append("\n");
     sb.append("}");
     return sb.toString();
   }

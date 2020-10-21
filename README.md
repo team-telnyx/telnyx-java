@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.0.7-beta</version>
+  <version>2.0.8-beta</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -50,7 +50,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.0.7-beta"
+compile "com.telnyx.sdk:telnyx:2.0.8-beta"
 ```
 
 ### Others
@@ -63,7 +63,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.0.7-beta.jar`
+- `target/telnyx-2.0.8-beta.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -211,7 +211,6 @@ Class | Method | HTTP request | Description
  - [AnswerRequest](docs/AnswerRequest.md)
  - [AvailablePhoneNumber](docs/AvailablePhoneNumber.md)
  - [AvailablePhoneNumbersMetadata](docs/AvailablePhoneNumbersMetadata.md)
- - [BaseMessageRequest](docs/BaseMessageRequest.md)
  - [BridgeRequest](docs/BridgeRequest.md)
  - [CSVDownloadResponse](docs/CSVDownloadResponse.md)
  - [Call](docs/Call.md)

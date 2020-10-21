@@ -6162,55 +6162,6 @@
           }
         }
       },
-      "BaseMessageRequest": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "description": "Message body (i.e., content) as a non-empty string.\n\n**Required for SMS**"
-          },
-          "subject": {
-            "type": "string",
-            "description": "Subject of multimedia message"
-          },
-          "media_urls": {
-            "description": "A list of media URLs. The total media size must be less than 1 MB.\n\n**Required for MMS**",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "url"
-            }
-          },
-          "webhook_url": {
-            "description": "The URL where webhooks related to this message will be sent.",
-            "type": "string",
-            "format": "url"
-          },
-          "webhook_failover_url": {
-            "description": "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.",
-            "type": "string",
-            "format": "url"
-          },
-          "use_profile_webhooks": {
-            "type": "boolean",
-            "description": "If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.",
-            "default": true
-          },
-          "type": {
-            "description": "The protocol for sending the message, either SMS or MMS.",
-            "type": "string",
-            "enum": [
-              "SMS",
-              "MMS"
-            ]
-          },
-          "auto_detect": {
-            "description": "Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.",
-            "type": "boolean",
-            "default": false
-          }
-        }
-      },
       "BridgeRequest": {
         "type": "object",
         "title": "Bridge Request",
@@ -10200,11 +10151,6 @@
           "from",
           "to"
         ],
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseMessageRequest"
-          }
-        ],
         "properties": {
           "from": {
             "type": "string",
@@ -10213,6 +10159,50 @@
           },
           "to": {
             "$ref": "#/components/schemas/ToNumber"
+          },
+          "text": {
+            "type": "string",
+            "description": "Message body (i.e., content) as a non-empty string.\n\n**Required for SMS**"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of multimedia message"
+          },
+          "media_urls": {
+            "description": "A list of media URLs. The total media size must be less than 1 MB.\n\n**Required for MMS**",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "url"
+            }
+          },
+          "webhook_url": {
+            "description": "The URL where webhooks related to this message will be sent.",
+            "type": "string",
+            "format": "url"
+          },
+          "webhook_failover_url": {
+            "description": "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.",
+            "type": "string",
+            "format": "url"
+          },
+          "use_profile_webhooks": {
+            "type": "boolean",
+            "description": "If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.",
+            "default": true
+          },
+          "type": {
+            "description": "The protocol for sending the message, either SMS or MMS.",
+            "type": "string",
+            "enum": [
+              "SMS",
+              "MMS"
+            ]
+          },
+          "auto_detect": {
+            "description": "Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.",
+            "type": "boolean",
+            "default": false
           }
         },
         "example": {
@@ -10234,11 +10224,6 @@
         "required": [
           "to"
         ],
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseMessageRequest"
-          }
-        ],
         "properties": {
           "from": {
             "type": "string",
@@ -10251,6 +10236,50 @@
           },
           "to": {
             "$ref": "#/components/schemas/ToNumber"
+          },
+          "text": {
+            "type": "string",
+            "description": "Message body (i.e., content) as a non-empty string.\n\n**Required for SMS**"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of multimedia message"
+          },
+          "media_urls": {
+            "description": "A list of media URLs. The total media size must be less than 1 MB.\n\n**Required for MMS**",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "url"
+            }
+          },
+          "webhook_url": {
+            "description": "The URL where webhooks related to this message will be sent.",
+            "type": "string",
+            "format": "url"
+          },
+          "webhook_failover_url": {
+            "description": "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.",
+            "type": "string",
+            "format": "url"
+          },
+          "use_profile_webhooks": {
+            "type": "boolean",
+            "description": "If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.",
+            "default": true
+          },
+          "type": {
+            "description": "The protocol for sending the message, either SMS or MMS.",
+            "type": "string",
+            "enum": [
+              "SMS",
+              "MMS"
+            ]
+          },
+          "auto_detect": {
+            "description": "Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.",
+            "type": "boolean",
+            "default": false
           }
         },
         "example": {
@@ -10523,11 +10552,6 @@
           "to",
           "messaging_profile_id"
         ],
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseMessageRequest"
-          }
-        ],
         "properties": {
           "messaging_profile_id": {
             "type": "string",
@@ -10535,6 +10559,50 @@
           },
           "to": {
             "$ref": "#/components/schemas/ToNumber"
+          },
+          "text": {
+            "type": "string",
+            "description": "Message body (i.e., content) as a non-empty string.\n\n**Required for SMS**"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of multimedia message"
+          },
+          "media_urls": {
+            "description": "A list of media URLs. The total media size must be less than 1 MB.\n\n**Required for MMS**",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "url"
+            }
+          },
+          "webhook_url": {
+            "description": "The URL where webhooks related to this message will be sent.",
+            "type": "string",
+            "format": "url"
+          },
+          "webhook_failover_url": {
+            "description": "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.",
+            "type": "string",
+            "format": "url"
+          },
+          "use_profile_webhooks": {
+            "type": "boolean",
+            "description": "If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.",
+            "default": true
+          },
+          "type": {
+            "description": "The protocol for sending the message, either SMS or MMS.",
+            "type": "string",
+            "enum": [
+              "SMS",
+              "MMS"
+            ]
+          },
+          "auto_detect": {
+            "description": "Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.",
+            "type": "boolean",
+            "default": false
           }
         },
         "example": {
@@ -10629,11 +10697,6 @@
           "from",
           "to"
         ],
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseMessageRequest"
-          }
-        ],
         "properties": {
           "from": {
             "type": "string",
@@ -10642,6 +10705,50 @@
           },
           "to": {
             "$ref": "#/components/schemas/ToNumber"
+          },
+          "text": {
+            "type": "string",
+            "description": "Message body (i.e., content) as a non-empty string.\n\n**Required for SMS**"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of multimedia message"
+          },
+          "media_urls": {
+            "description": "A list of media URLs. The total media size must be less than 1 MB.\n\n**Required for MMS**",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "url"
+            }
+          },
+          "webhook_url": {
+            "description": "The URL where webhooks related to this message will be sent.",
+            "type": "string",
+            "format": "url"
+          },
+          "webhook_failover_url": {
+            "description": "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.",
+            "type": "string",
+            "format": "url"
+          },
+          "use_profile_webhooks": {
+            "type": "boolean",
+            "description": "If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.",
+            "default": true
+          },
+          "type": {
+            "description": "The protocol for sending the message, either SMS or MMS.",
+            "type": "string",
+            "enum": [
+              "SMS",
+              "MMS"
+            ]
+          },
+          "auto_detect": {
+            "description": "Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.",
+            "type": "boolean",
+            "default": false
           }
         },
         "example": {
