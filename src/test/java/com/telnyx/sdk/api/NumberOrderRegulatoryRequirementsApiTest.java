@@ -15,19 +15,16 @@ package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.ListNumberOrderRegulatoryRequirementsResponse;
-import com.telnyx.sdk.model.ListPhoneNumberRegulatoryRequirementsResponse;
-import com.telnyx.sdk.model.NumberOrderRegulatoryRequirementResponse;
+import com.telnyx.sdk.model.*;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 /**
  * API tests for NumberOrderRegulatoryRequirementsApi
@@ -35,14 +32,72 @@ import java.util.Map;
 public class NumberOrderRegulatoryRequirementsApiTest {
 
     private final NumberOrderRegulatoryRequirementsApi api = new NumberOrderRegulatoryRequirementsApi();
+    private final NumberSearchApi numberSearchApi = new NumberSearchApi();
+    private final NumberOrdersApi numberOrdersApi = new NumberOrdersApi();
+
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+    }
 
     /**
      * List number order regulatory requirements
      *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void get_all_regulatory_requirements() throws ApiException {
+        ListNumberOrderRegulatoryRequirementsResponse response = api.listNumberOrderRegulatoryRequirements()
+                .execute();
+
+        assertNotNull(response);
+        assertFalse(response.getData().isEmpty());
+    }
+
+    /**
+     * List regulatory requirements for a Spanish number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void get_the_regulatory_requirements_for_a_Spanish_phone_number_that_was_ordered() throws ApiException {
+        String countryCode = "ES";
+        String phoneNumber = null;
+
+        try {
+            phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterCountryCode(countryCode)
+                    .filterLimit(1)
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+
+            numberOrdersApi.createNumberOrder(
+                    new CreateNumberOrderRequest()
+                            .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
+        } catch (Exception e) {
+            fail("Test Setup Failure - Unable to create Spanish number order");
+        }
+
+        ListPhoneNumberRegulatoryRequirementsResponse actualResponse = api.listPhoneNumberRegulatoryRequirements()
+                .filterPhoneNumber(Collections.singletonList(phoneNumber))
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+    /**
+     * List number order regulatory requirements
+     * <p>
      * Gets a paginated list of number order regulatory requirements.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void listNumberOrderRegulatoryRequirementsTest() throws ApiException {
@@ -63,11 +118,10 @@ public class NumberOrderRegulatoryRequirementsApiTest {
 
     /**
      * List regulatory requirements per number
-     *
+     * <p>
      * Gets a paginated list of phone number regulatory requirements.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void listPhoneNumberRegulatoryRequirementsTest() throws ApiException {
@@ -84,11 +138,10 @@ public class NumberOrderRegulatoryRequirementsApiTest {
 
     /**
      * Retrieve a number order regulatory requirement
-     *
+     * <p>
      * Gets a single number order regulatory requirement.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void retrieveNumberOrderRegulatoryRequirementTest() throws ApiException {

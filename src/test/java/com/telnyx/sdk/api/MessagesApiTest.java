@@ -15,22 +15,14 @@ package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.CreateLongCodeMessageRequest;
-import com.telnyx.sdk.model.CreateMessageRequest;
-import com.telnyx.sdk.model.CreateNumberPoolMessageRequest;
-import com.telnyx.sdk.model.CreateShortCodeMessageRequest;
-import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.MessageResponse;
+import com.telnyx.sdk.model.*;
+
 import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
 
+import org.junit.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * API tests for MessagesApi
@@ -38,6 +30,15 @@ import java.util.Map;
 public class MessagesApiTest {
 
     private final MessagesApi api = new MessagesApi();
+
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+    }
 
     /**
      * Send a long code message
@@ -49,9 +50,16 @@ public class MessagesApiTest {
      */
     @Test
     public void createLongCodeMessageTest() throws ApiException {
-        //CreateLongCodeMessageRequest createLongCodeMessageRequest = null;
-        //MessageResponse response = api.createLongCodeMessage(createLongCodeMessageRequest);
-        // TODO: test validations
+        CreateLongCodeMessageRequest createLongCodeMessageRequest = new CreateLongCodeMessageRequest()
+                .from(TestConfiguration.TEST_FROM_NUMBER)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .text("Long Code Message Test")
+                .useProfileWebhooks(false)
+                .webhookUrl("http://webhook.com");
+
+        MessageResponse actualResponse = api.createLongCodeMessage(createLongCodeMessageRequest);
+
+        assertNotNull(actualResponse.getData().getId());
     }
 
     /**
@@ -64,9 +72,16 @@ public class MessagesApiTest {
      */
     @Test
     public void createMessageTest() throws ApiException {
-        //CreateMessageRequest createMessageRequest = null;
-        //MessageResponse response = api.createMessage(createMessageRequest);
-        // TODO: test validations
+        CreateMessageRequest createMessageRequest = new CreateMessageRequest()
+                .from(TestConfiguration.TEST_FROM_NUMBER)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .text("Message Test")
+                .useProfileWebhooks(false)
+                .webhookUrl("http://webhook.com");
+
+        MessageResponse actualResponse = api.createMessage(createMessageRequest);
+
+        assertNotNull(actualResponse.getData().getId());
     }
 
     /**
@@ -79,9 +94,16 @@ public class MessagesApiTest {
      */
     @Test
     public void createNumberPoolMessageTest() throws ApiException {
-        //CreateNumberPoolMessageRequest createNumberPoolMessageRequest = null;
-        //MessageResponse response = api.createNumberPoolMessage(createNumberPoolMessageRequest);
-        // TODO: test validations
+        CreateNumberPoolMessageRequest createNumberPoolMessageRequest = new CreateNumberPoolMessageRequest()
+                .messagingProfileId(TestConfiguration.EXISTING_MESSAGING_PROFILE_ID)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .text("Number Pool Message Test")
+                .useProfileWebhooks(false)
+                .webhookUrl("http://webhook.com");
+
+        MessageResponse actualResponse = api.createNumberPoolMessage(createNumberPoolMessageRequest);
+
+        assertNotNull(actualResponse.getData().getId());
     }
 
     /**
@@ -109,9 +131,16 @@ public class MessagesApiTest {
      */
     @Test
     public void retrieveMessageTest() throws ApiException {
-        //UUID id = null;
-        //MessageResponse response = api.retrieveMessage(id);
-        // TODO: test validations
+        CreateMessageRequest createMessageRequest = new CreateMessageRequest()
+                .from(TestConfiguration.TEST_FROM_NUMBER)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .text("Existing Message");
+
+        UUID expectedId = api.createMessage(createMessageRequest).getData().getId();
+
+        MessageResponse actualResponse = api.retrieveMessage(expectedId);
+
+        assertEquals(expectedId, actualResponse.getData().getId());
     }
 
 }

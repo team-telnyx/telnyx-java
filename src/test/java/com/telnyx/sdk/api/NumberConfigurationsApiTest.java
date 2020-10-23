@@ -15,27 +15,17 @@ package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.ListMessagingSettingsResponse;
-import com.telnyx.sdk.model.ListPhoneNumbersResponse;
-import com.telnyx.sdk.model.ListPhoneNumbersWithVoiceSettingsResponse;
-import com.telnyx.sdk.model.PhoneNumberEnableEmergency;
-import com.telnyx.sdk.model.PhoneNumberEnableEmergencyRequest;
-import com.telnyx.sdk.model.PhoneNumberResponse;
-import com.telnyx.sdk.model.RetrieveMessagingSettingsResponse;
-import com.telnyx.sdk.model.RetrievePhoneNumberVoiceResponse;
-import com.telnyx.sdk.model.UpdatePhoneNumberMessagingSettingsRequest;
-import com.telnyx.sdk.model.UpdatePhoneNumberRequest;
-import com.telnyx.sdk.model.UpdatePhoneNumberVoiceSettingsRequest;
+import com.telnyx.sdk.model.*;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.Arrays.asList;
+import static org.junit.Assert.*;
 
 /**
  * API tests for NumberConfigurationsApi
@@ -43,14 +33,386 @@ import java.util.Map;
 public class NumberConfigurationsApiTest {
 
     private final NumberConfigurationsApi api = new NumberConfigurationsApi();
+    private final NumberSearchApi numberSearchApi = new NumberSearchApi();
+    private final NumberOrdersApi numberOrdersApi = new NumberOrdersApi();
+    private final String connectionId = "1476046853102371900";
+
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+    }
+
+    /**
+     * List all phone numbers
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void get_all_of_your_phone_numbers() throws ApiException {
+        ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()
+                .pageNumber(0)
+                .pageSize(1000)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+    /**
+     * Get specific phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void get_a_specific_phone_number() throws ApiException {
+        String phoneNumber = null;
+
+        try {
+            phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterLimit(1)
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+        } catch (ApiException e) {
+            fail("Test Setup Failure - Unable to create phone number to retrieve");
+        }
+
+        ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()
+                .pageNumber(0)
+                .pageSize(1)
+                .filterPhoneNumber(phoneNumber)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * View voice settings of all phone numbers
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void view_voice_settings_of_all_phone_numbers() throws ApiException {
+        ListPhoneNumbersWithVoiceSettingsResponse actualResponse = api.listPhoneNumbersWithVoiceSettings()
+                .pageNumber(0)
+                .pageSize(100)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+    /**
+     * View voice settings of specific phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void view_voice_settings_of_a_specific_phone_number() throws ApiException {
+        String phoneNumberId = null;
+
+        try {
+            String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterLimit(1)
+                    .filterFeatures(asList("sms", "voice"))
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+
+            numberOrdersApi.createNumberOrder(new CreateNumberOrderRequest()
+                    .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
+
+            phoneNumberId = Objects.requireNonNull(api.retrievePhoneNumber(phoneNumber)
+                    .getData())
+                    .getId();
+        } catch (ApiException e) {
+            fail("Test Setup Failure - Unable to create phone number to retrieve");
+        }
+
+        RetrievePhoneNumberVoiceResponse actualResponse = api.retrievePhoneNumberWithVoiceSettings(phoneNumberId);
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Enable inbound call recording on a phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void update_the_voice_settings_of_a_phone_number_to_enable_inbound_call_recording() throws ApiException {
+        String phoneNumberId = null;
+
+        try {
+            String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterLimit(1)
+                    .filterFeatures(asList("sms", "voice"))
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+
+            numberOrdersApi.createNumberOrder(new CreateNumberOrderRequest()
+                    .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
+
+            phoneNumberId = Objects.requireNonNull(api.retrievePhoneNumber(phoneNumber)
+                    .getData())
+                    .getId();
+        } catch (ApiException e) {
+            fail("Test Setup Failure - Unable to create phone number to update");
+        }
+
+        RetrievePhoneNumberVoiceResponse response = api.updatePhoneNumberWithVoiceSettings(phoneNumberId,
+                new UpdatePhoneNumberVoiceSettingsRequest()
+                        .callRecording(new CallRecording().inboundCallRecordingEnabled(true)));
+
+        assertNotNull(response);
+        assertNotNull(response.getData());
+    }
+
+    /**
+     * Attach new connection to a phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void update_the_voice_settings_of_a_phone_number_to_attach_the_number_to_a_new_connection() throws ApiException {
+        String phoneNumberId = null;
+
+        try {
+            String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterLimit(1)
+                    .filterFeatures(asList("sms", "voice"))
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+
+            numberOrdersApi.createNumberOrder(new CreateNumberOrderRequest()
+                    .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber)))).getData().getId();
+
+            phoneNumberId = Objects.requireNonNull(api.retrievePhoneNumber(phoneNumber)
+                    .getData())
+                    .getId();
+        } catch (ApiException e) {
+            fail("Test Setup Failure - Unable to create phone number to update");
+        }
+
+        PhoneNumberResponse actualResponse = api.updatePhoneNumber(phoneNumberId, new UpdatePhoneNumberRequest().connectionId(connectionId));
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Enable emergency on a phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void enable_emergency_on_a_phone_number() throws ApiException {
+        String countryCode = "US";
+        String phoneNumberId = null;
+
+        try {
+            String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterCountryCode(countryCode)
+                    .filterLimit(1)
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+
+            numberOrdersApi.createNumberOrder(new CreateNumberOrderRequest()
+                    .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
+
+            phoneNumberId = Objects.requireNonNull(api.retrievePhoneNumber(phoneNumber)
+                    .getData())
+                    .getId();
+        } catch (ApiException e) {
+            fail("Test Setup Failure - Unable to create phone number");
+        }
+
+        PhoneNumberEnableEmergency actualResponse = api.enableEmergencyPhoneNumber(
+                phoneNumberId, new PhoneNumberEnableEmergencyRequest()
+                        .emergencyEnabled(true));
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * List phone number message settings
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void view_messaging_settings_of_all_phone_numbers() throws ApiException {
+        ListMessagingSettingsResponse actualResponse = api.listPhoneNumbersWithMessagingSettings()
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+    /**
+     * Retrieve phone number with message settings
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void view_messaging_settings_of_a_specific_phone_number() throws ApiException {
+        String phoneNumberId = null;
+
+        try {
+            String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterLimit(1)
+                    .filterFeatures(asList("sms", "voice"))
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+
+            numberOrdersApi.createNumberOrder(new CreateNumberOrderRequest()
+                    .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
+
+            phoneNumberId = Objects.requireNonNull(api.retrievePhoneNumber(phoneNumber)
+                    .getData())
+                    .getId();
+        } catch (ApiException e) {
+            fail("Test Setup Failure - Unable to create phone number");
+        }
+
+        RetrieveMessagingSettingsResponse actualResponse = api.retrievePhoneNumberWithMessagingSettings(phoneNumberId);
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Attach new messaging profile to phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void update_the_messaging_settings_of_a_phone_number_to_attach_the_number_to_a_new_messaging_profile() throws ApiException {
+        String targetMessagingProfileId = "400174f2-6eb8-429b-a946-a27646a94a1a";
+        String phoneNumberId = null;
+
+        try {
+            String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterLimit(1)
+                    .filterFeatures(asList("sms", "voice"))
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+
+            numberOrdersApi.createNumberOrder(new CreateNumberOrderRequest()
+                    .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
+
+            phoneNumberId = Objects.requireNonNull(api.retrievePhoneNumber(phoneNumber)
+                    .getData())
+                    .getId();
+        } catch (ApiException e) {
+            fail("Test Setup Failure - Unable to create phone number");
+        }
+
+        RetrieveMessagingSettingsResponse actualResponse = api.updatePhoneNumberWithMessagingSettings(
+                phoneNumberId,
+                new UpdatePhoneNumberMessagingSettingsRequest()
+                        .messagingProfileId(targetMessagingProfileId));
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Get second page of phone number results
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void get_the_second_page_of_results_for_phone_numbers() throws ApiException {
+        ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()
+                .pageNumber(1)
+                .pageSize(10)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+    /**
+     * Get a page of results with only 2 phone numbers
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void get_a_page_of_results_that_only_has_2_results_for_phone_numbers() throws ApiException {
+        ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()
+                .pageNumber(0)
+                .pageSize(2)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+    /**
+     * Filter phone numbers by tag
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void filter_phone_numbers_for_numbers_by_tag() throws ApiException {
+        final String tag = "TEST_TAG";
+
+        try {
+            String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterLimit(1)
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+
+            numberOrdersApi.createNumberOrder(new CreateNumberOrderRequest()
+                    .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
+
+            String phoneNumberId = Objects.requireNonNull(api.retrievePhoneNumber(phoneNumber)
+                    .getData())
+                    .getId();
+
+            api.updatePhoneNumber(
+                    phoneNumberId,
+                    new UpdatePhoneNumberRequest()
+                            .tags(Collections.singletonList(tag)));
+        } catch (ApiException e) {
+            fail("Test Setup Failure - Unable to create phone number to with tag");
+        }
+
+        ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()
+                .pageNumber(0)
+                .pageSize(2)
+                .filterTag(tag)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
 
     /**
      * Delete a phone number
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deletePhoneNumberTest() throws ApiException {
@@ -62,10 +424,7 @@ public class NumberConfigurationsApiTest {
     /**
      * Enable emergency for a phone number
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void enableEmergencyPhoneNumberTest() throws ApiException {
@@ -78,10 +437,7 @@ public class NumberConfigurationsApiTest {
     /**
      * List phone numbers
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void listPhoneNumbersTest() throws ApiException {
@@ -117,10 +473,7 @@ public class NumberConfigurationsApiTest {
     /**
      * List phone numbers with messaging settings
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void listPhoneNumbersWithMessagingSettingsTest() throws ApiException {
@@ -136,10 +489,7 @@ public class NumberConfigurationsApiTest {
     /**
      * List phone numbers with voice settings
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void listPhoneNumbersWithVoiceSettingsTest() throws ApiException {
@@ -163,10 +513,7 @@ public class NumberConfigurationsApiTest {
     /**
      * Retrieve a phone number
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void retrievePhoneNumberTest() throws ApiException {
@@ -178,10 +525,7 @@ public class NumberConfigurationsApiTest {
     /**
      * Retrieve a phone number with messaging settings
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void retrievePhoneNumberWithMessagingSettingsTest() throws ApiException {
@@ -193,10 +537,7 @@ public class NumberConfigurationsApiTest {
     /**
      * Retrieve a phone number with voice settings
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void retrievePhoneNumberWithVoiceSettingsTest() throws ApiException {
@@ -208,10 +549,7 @@ public class NumberConfigurationsApiTest {
     /**
      * Update a phone number
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updatePhoneNumberTest() throws ApiException {
@@ -224,10 +562,7 @@ public class NumberConfigurationsApiTest {
     /**
      * Update a phone number with messaging settings
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updatePhoneNumberWithMessagingSettingsTest() throws ApiException {
@@ -240,10 +575,7 @@ public class NumberConfigurationsApiTest {
     /**
      * Update a phone number with voice settings
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updatePhoneNumberWithVoiceSettingsTest() throws ApiException {

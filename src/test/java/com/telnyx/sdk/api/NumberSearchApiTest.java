@@ -13,19 +13,16 @@
 
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.Errors;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.ListAvailablePhoneNumbersResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * API tests for NumberSearchApi
@@ -34,47 +31,152 @@ public class NumberSearchApiTest {
 
     private final NumberSearchApi api = new NumberSearchApi();
 
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+    }
+
     /**
      * List available phone numbers
      *
-     * 
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listAvailablePhoneNumbersTest() throws ApiException {
+        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
+                .filterLocality("Chicago")
+                .filterAdministrativeArea("IL")
+                .filterCountryCode("US")
+                .filterLimit(2)
+                .execute();
+
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Search for available phone numbers in the US
+     *
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void listAvailablePhoneNumbersTest() throws ApiException {
-        //String filterPhoneNumberStartsWith = null;
-        //String filterPhoneNumberEndsWith = null;
-        //String filterPhoneNumberContains = null;
-        //String filterLocality = null;
-        //String filterAdministrativeArea = null;
-        //String filterCountryCode = null;
-        //String filterNationalDestinationCode = null;
-        //String filterRateCenter = null;
-        //String filterNumberType = null;
-        //List<String> filterFeatures = null;
-        //Integer filterLimit = null;
-        //Boolean filterBestEffort = null;
-        //Boolean filterQuickship = null;
-        //Boolean filterReservable = null;
-        //ListAvailablePhoneNumbersResponse response = api.listAvailablePhoneNumbers()
-        //        .filterPhoneNumberStartsWith(filterPhoneNumberStartsWith)
-        //        .filterPhoneNumberEndsWith(filterPhoneNumberEndsWith)
-        //        .filterPhoneNumberContains(filterPhoneNumberContains)
-        //        .filterLocality(filterLocality)
-        //        .filterAdministrativeArea(filterAdministrativeArea)
-        //        .filterCountryCode(filterCountryCode)
-        //        .filterNationalDestinationCode(filterNationalDestinationCode)
-        //        .filterRateCenter(filterRateCenter)
-        //        .filterNumberType(filterNumberType)
-        //        .filterFeatures(filterFeatures)
-        //        .filterLimit(filterLimit)
-        //        .filterBestEffort(filterBestEffort)
-        //        .filterQuickship(filterQuickship)
-        //        .filterReservable(filterReservable)
-        //        .execute();
-        // TODO: test validations
+    public void search_for_phone_numbers_in_the_us() throws ApiException {
+        String countryCode = "US";
+
+        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
+                .filterCountryCode(countryCode)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
     }
 
+    /**
+     * Search for available phone numbers by area code
+     *
+     *
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void search_for_phone_numbers_by_area_code() throws ApiException {
+        String areaCode = "IL";
+
+        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
+                .filterAdministrativeArea(areaCode)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+    /**
+     * Search for available phone numbers in Canada
+     *
+     *
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void search_for_phone_numbers_in_Canada() throws ApiException {
+        String countryCode = "CA";
+
+        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
+                .filterCountryCode(countryCode)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+    /**
+     * Search for available phone numbers in Spain
+     *
+     *
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void search_for_phone_numbers_in_spain() throws ApiException {
+        String countryCode = "ES";
+
+        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
+                .filterCountryCode(countryCode)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+    /**
+     * Search for available phone numbers beginning with 22
+     *
+     *
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void search_for_phone_numbers_that_begin_with_22() throws ApiException {
+        String startsWith = "22";
+
+        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
+                .filterPhoneNumberStartsWith(startsWith)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
+
+
+    /**
+     * Search for 100 available phone numbers in Chicago
+     *
+     *
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void search_for_100_phone_numbers_in_Chicago() throws ApiException {
+        String city = "chi";
+        int limit = 100;
+
+        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
+                    .filterLocality(city)
+                    .filterLimit(limit)
+                    .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+    }
 }
