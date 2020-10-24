@@ -13,37 +13,19 @@
 
 package com.telnyx.sdk.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.AnswerRequest;
-import com.telnyx.sdk.model.BridgeRequest;
-import com.telnyx.sdk.model.CallControlCommandResponse;
-import com.telnyx.sdk.model.CallRequest;
-import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GatherUsingAudioRequest;
-import com.telnyx.sdk.model.GatherUsingSpeakRequest;
-import com.telnyx.sdk.model.HangupRequest;
-import com.telnyx.sdk.model.PlayAudioUrlRequest;
-import com.telnyx.sdk.model.PlaybackStopRequest;
-import com.telnyx.sdk.model.RejectRequest;
-import com.telnyx.sdk.model.RetrieveCallStatusResponse;
-import com.telnyx.sdk.model.SendDTMFRequest;
-import com.telnyx.sdk.model.SpeakRequest;
-import com.telnyx.sdk.model.StartForkingRequest;
-import com.telnyx.sdk.model.StartRecordingRequest;
-import com.telnyx.sdk.model.StopForkingRequest;
-import com.telnyx.sdk.model.StopGatherRequest;
-import com.telnyx.sdk.model.StopRecordingRequest;
-import com.telnyx.sdk.model.TransferCallRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
+import com.telnyx.sdk.auth.HttpBearerAuth;
+import com.telnyx.sdk.model.*;
+import org.junit.Before;
 import org.junit.Test;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * API tests for CallCommandsApi
@@ -51,6 +33,82 @@ import java.util.Map;
 public class CallCommandsApiTest {
 
     private final CallCommandsApi api = new CallCommandsApi();
+    private ObjectMapper mapper;
+
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+
+        mapper = new JSON().getMapper();
+    }
+
+    /**
+     * Parses the incoming webhook received when call is initiated
+     *
+     * @throws IOException if the test fixture can't be loaded
+     */
+    @Test
+    public void webhook_whenCallInitiated_receivesCallInitiatedEvent() throws IOException {
+        InputStream callInitatedEventFixtureJson = getClass().getClassLoader().getResourceAsStream("webhook-call-initiated-event.json");
+
+        CallInitiatedEvent actualCallInitatedEvent = mapper.readValue(callInitatedEventFixtureJson, CallInitiatedEvent.class);
+
+        assertNotNull(actualCallInitatedEvent.getData());
+    }
+
+    /**
+     * Parses the incoming webhook received when call is answered
+     *
+     * @throws IOException if the test fixture can't be loaded
+     */
+    @Test
+    public void webhook_whenCallAnswered_receivesCallAnsweredEvent() throws IOException {
+        InputStream callAnsweredEventFixtureJson = getClass().getClassLoader().getResourceAsStream("webhook-call-answered-event.json");
+
+        CallAnsweredEvent actualCallAnsweredEvent = mapper.readValue(callAnsweredEventFixtureJson, CallAnsweredEvent.class);
+
+        assertNotNull(actualCallAnsweredEvent.getData());
+    }
+
+    /**
+     * Parses the incoming webhook received when call hangs up
+     *
+     * @throws IOException if the test fixture can't be loaded
+     */
+    @Test
+    public void webhook_whenCallHangsUp_receivesCallHangupEvent() throws IOException {
+        InputStream callHangupEventFixtureJson = getClass().getClassLoader().getResourceAsStream("webhook-call-hangup-event.json");
+
+        CallHangupEvent actualCallHangupEvent = mapper.readValue(callHangupEventFixtureJson, CallHangupEvent.class);
+
+        assertNotNull(actualCallHangupEvent.getData());
+    }
+
+    /**
+     * Tests that an outbound call can be called
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void callDialTest() throws ApiException {
+        String connectionId = "1471919317632156796";
+        String inboundCallControlId = "1473920583829348434";
+        String clientState = Base64.getEncoder().encodeToString(inboundCallControlId.getBytes());
+
+        CallRequest outboundCallRequest = new CallRequest()
+                .from(TestConfiguration.TEST_FROM_NUMBER)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .connectionId(connectionId)
+                .clientState(clientState);
+
+        RetrieveCallStatusResponse actualRetrieveCallStatusResponse = api.callDial(outboundCallRequest);
+
+        assertNotNull(actualRetrieveCallStatusResponse.getData());
+    }
 
     /**
      * Answer call
@@ -81,21 +139,6 @@ public class CallCommandsApiTest {
         //String callControlId = null;
         //BridgeRequest bridgeRequest = null;
         //CallControlCommandResponse response = api.callBridge(callControlId, bridgeRequest);
-        // TODO: test validations
-    }
-
-    /**
-     * Dial
-     *
-     * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void callDialTest() throws ApiException {
-        //CallRequest callRequest = null;
-        //RetrieveCallStatusResponse response = api.callDial(callRequest);
         // TODO: test validations
     }
 
