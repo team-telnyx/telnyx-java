@@ -119,7 +119,7 @@ public class MessagingProfilesApiTest {
      */
     @Test
     public void listMessagingProfileMetrics_whenMetricsMatchFilterCriteria_returnsMetrics() throws ApiException {
-        ListMessagingProfileMetricsResponse actuaMessagingProfileMetrics = api
+        ListMessagingProfileMetricsResponse actualMessagingProfileMetrics = api
                 .listMessagingProfileMetrics()
                 .pageNumber(1)
                 .pageSize(5)
@@ -127,7 +127,7 @@ public class MessagingProfilesApiTest {
                 .timeFrame("24h")
                 .execute();
 
-        assertNotNull(actuaMessagingProfileMetrics);
+        assertNotNull(actualMessagingProfileMetrics);
     }
 
     /**
