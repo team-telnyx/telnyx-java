@@ -52,7 +52,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void get_all_of_your_phone_numbers() throws ApiException {
+    public void listPhoneNumbers_whenNoFilterCriteria_returnsAllPhoneNumbers() throws ApiException {
         ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()
                 .pageNumber(0)
                 .pageSize(1000)
@@ -68,7 +68,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void get_a_specific_phone_number() throws ApiException {
+    public void listPhoneNumbers_whenFilteringByPhoneNumber_returnsSpecificPhoneNumber() throws ApiException {
         String phoneNumber = null;
 
         try {
@@ -98,7 +98,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void view_voice_settings_of_all_phone_numbers() throws ApiException {
+    public void listPhoneNumbersWithVoiceSettings_whenNoFilterCriteria_returnsVoiceSettingsOfAllPhoneNumbers() throws ApiException {
         ListPhoneNumbersWithVoiceSettingsResponse actualResponse = api.listPhoneNumbersWithVoiceSettings()
                 .pageNumber(0)
                 .pageSize(100)
@@ -114,7 +114,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void view_voice_settings_of_a_specific_phone_number() throws ApiException {
+    public void retrievePhoneNumberWithVoiceSettings_whenNumberExists_returnsVoiceSettingsOfSpecificPhoneNumber() throws ApiException {
         String phoneNumberId = null;
 
         try {
@@ -148,7 +148,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void update_the_voice_settings_of_a_phone_number_to_enable_inbound_call_recording() throws ApiException {
+    public void updatePhoneNumberWithVoiceSettings_whenRequestToEnableInboundCallRecording_returnsUpdatedNumber() throws ApiException {
         String phoneNumberId = null;
 
         try {
@@ -184,7 +184,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void update_the_voice_settings_of_a_phone_number_to_attach_the_number_to_a_new_connection() throws ApiException {
+    public void updatePhoneNumber_whenRequestToAttachToNewConnection_returnsUpdatedNumber() throws ApiException {
         String phoneNumberId = null;
 
         try {
@@ -218,7 +218,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void enable_emergency_on_a_phone_number() throws ApiException {
+    public void enableEmergencyPhoneNumber_whenRequestToEnableEmergencyOnAPhoneNumber_returnsUpdatedNumber() throws ApiException {
         String countryCode = "US";
         String phoneNumberId = null;
 
@@ -256,7 +256,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void view_messaging_settings_of_all_phone_numbers() throws ApiException {
+    public void listPhoneNumbersWithMessagingSettings_whenNoFilterCriteria_returnsMessagingSettingsOfAllPhoneNumbers() throws ApiException {
         ListMessagingSettingsResponse actualResponse = api.listPhoneNumbersWithMessagingSettings()
                 .pageNumber(1)
                 .pageSize(10)
@@ -272,7 +272,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void view_messaging_settings_of_a_specific_phone_number() throws ApiException {
+    public void retrievePhoneNumberWithMessagingSettings_whenNumberExists_returnsMessageSettingsOfSpecificPhoneNumber() throws ApiException {
         String phoneNumberId = null;
 
         try {
@@ -306,7 +306,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void update_the_messaging_settings_of_a_phone_number_to_attach_the_number_to_a_new_messaging_profile() throws ApiException {
+    public void updatePhoneNumberWithMessagingSettings_whenRequestToAttachNumberToNewMessageProfile_returnsUpdatedNumber() throws ApiException {
         String targetMessagingProfileId = "400174f2-6eb8-429b-a946-a27646a94a1a";
         String phoneNumberId = null;
 
@@ -344,7 +344,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void get_the_second_page_of_results_for_phone_numbers() throws ApiException {
+    public void listPhoneNumbers_whenRequestingSecondPage_returnsSecondPageOfResults() throws ApiException {
         ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()
                 .pageNumber(1)
                 .pageSize(10)
@@ -360,7 +360,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void get_a_page_of_results_that_only_has_2_results_for_phone_numbers() throws ApiException {
+    public void listPhoneNumbers_whenRequestingPageWithOnlyTwoNumbers_returnsPageOfResults() throws ApiException {
         ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()
                 .pageNumber(0)
                 .pageSize(2)
@@ -376,7 +376,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void filter_phone_numbers_for_numbers_by_tag() throws ApiException {
+    public void listPhoneNumbers_whenFilteringByTag_returnsNumbers() throws ApiException {
         final String tag = "TEST_TAG";
 
         try {

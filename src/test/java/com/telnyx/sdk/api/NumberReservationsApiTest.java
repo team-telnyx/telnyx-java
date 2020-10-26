@@ -53,7 +53,7 @@ public class NumberReservationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void createNumberReservationTest() throws ApiException {
+    public void createNumberReservation_whenRequestIsValid_returnsNumberReservation() throws ApiException {
         List<AvailablePhoneNumber> availableNumbers = numberSearchApi
                 .listAvailablePhoneNumbers()
                 .filterLimit(2)
@@ -80,7 +80,7 @@ public class NumberReservationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void reserve_a_US_phone_number() throws ApiException {
+    public void createNumberReservation_whenReservingUSPhoneNumber_returnsNumberReservation() throws ApiException {
         String countryCode = "US";
         String phoneNumber = null;
 
@@ -110,7 +110,7 @@ public class NumberReservationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void extend_the_reservation_of_a_phone_number() throws ApiException {
+    public void extendNumberReservationExpiryTime_whenExtendingReservationOfPhoneNumber_returnsNumberReservation() throws ApiException {
         UUID reservationId = null;
 
         try {
@@ -146,7 +146,7 @@ public class NumberReservationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void reserve_5_phone_numbers() throws ApiException {
+    public void createNumberReservation_whenReservingFivePhoneNumbers_returnsNumberReservation() throws ApiException {
         List<String> phoneNumbers = new ArrayList<>();
 
         try {

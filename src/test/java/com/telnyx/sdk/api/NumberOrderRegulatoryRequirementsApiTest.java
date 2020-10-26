@@ -50,7 +50,7 @@ public class NumberOrderRegulatoryRequirementsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void get_all_regulatory_requirements() throws ApiException {
+    public void listNumberOrderRegulatoryRequirements_whenNoFilterCriteria_returnsAllRegulatoryRequirements() throws ApiException {
         ListNumberOrderRegulatoryRequirementsResponse response = api.listNumberOrderRegulatoryRequirements()
                 .execute();
 
@@ -64,7 +64,7 @@ public class NumberOrderRegulatoryRequirementsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void get_the_regulatory_requirements_for_a_Spanish_phone_number_that_was_ordered() throws ApiException {
+    public void listPhoneNumberRegulatoryRequirements_whenFilteringBySpanishPhoneNumber_returnsRegulatoryRequirements() throws ApiException {
         String countryCode = "ES";
         String phoneNumber = null;
 

@@ -46,7 +46,7 @@ public class NumberSearchApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void listAvailablePhoneNumbersTest() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilterCriteriaExists_returnsAvailableNumbers() throws ApiException {
         ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
                 .filterLocality("Chicago")
                 .filterAdministrativeArea("IL")
@@ -66,7 +66,7 @@ public class NumberSearchApiTest {
      *          if the Api call fails
      */
     @Test
-    public void search_for_phone_numbers_in_the_us() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringForUSPhoneNumbers_returnsAvailableNumbers() throws ApiException {
         String countryCode = "US";
 
         ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
@@ -86,7 +86,7 @@ public class NumberSearchApiTest {
      *          if the Api call fails
      */
     @Test
-    public void search_for_phone_numbers_by_area_code() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringByAreaCode_returnsAvailableNumbers() throws ApiException {
         String areaCode = "IL";
 
         ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
@@ -106,7 +106,7 @@ public class NumberSearchApiTest {
      *          if the Api call fails
      */
     @Test
-    public void search_for_phone_numbers_in_Canada() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringForCanadaPhoneNumbers_returnsAvailableNumbers() throws ApiException {
         String countryCode = "CA";
 
         ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
@@ -126,7 +126,7 @@ public class NumberSearchApiTest {
      *          if the Api call fails
      */
     @Test
-    public void search_for_phone_numbers_in_spain() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringForSpainPhoneNumbers_returnsAvailableNumbers() throws ApiException {
         String countryCode = "ES";
 
         ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
@@ -146,7 +146,7 @@ public class NumberSearchApiTest {
      *          if the Api call fails
      */
     @Test
-    public void search_for_phone_numbers_that_begin_with_22() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringByNumbersStartingWith22_returnsAvailableNumbers() throws ApiException {
         String startsWith = "22";
 
         ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
@@ -167,7 +167,7 @@ public class NumberSearchApiTest {
      *          if the Api call fails
      */
     @Test
-    public void search_for_100_phone_numbers_in_Chicago() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringFor100PhoneNumbersInChicago_returnsAvailableNumbers() throws ApiException {
         String city = "chi";
         int limit = 100;
 

@@ -56,7 +56,7 @@ public class NumberOrdersApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void createNumberOrderTest() throws ApiException {
+    public void createNumberOrder_whenRequestIsValid_returnsCreatedOrder() throws ApiException {
         String availablePhoneNumber = numberSearchApi
                 .listAvailablePhoneNumbers()
                 .filterLimit(1)
@@ -79,7 +79,7 @@ public class NumberOrdersApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void order_a_US_phone_number() throws ApiException {
+    public void createNumberOrder_whenOrderingUSPhoneNumber_returnsCreatedOrder() throws ApiException {
         String countryCode = "US";
         String phoneNumber = null;
 
@@ -109,7 +109,7 @@ public class NumberOrdersApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void order_5_US_phone_numbers() throws ApiException {
+    public void createNumberOrder_whenOrderingFiveUSPhoneNumbers_returnsCreatedOrder() throws ApiException {
         String countryCode = "US";
         List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
@@ -140,7 +140,7 @@ public class NumberOrdersApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void order_a_spanish_phone_number() throws ApiException {
+    public void createNumberOrder_whenOrderingASpanishPhoneNumber_returnsCreatedOrder() throws ApiException {
         String countryCode = "ES";
         String phoneNumber = null;
 
@@ -170,7 +170,7 @@ public class NumberOrdersApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void search_and_then_order_a_number_from_paris() throws ApiException {
+    public void createNumberOrder_whenOrderingAParisPhoneNumber_returnsCreatedOrder() throws ApiException {
         String city = "paris";
         String phoneNumber = null;
 
@@ -199,7 +199,7 @@ public class NumberOrdersApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void get_the_second_page_of_results_for_phone_number_orders() throws ApiException {
+    public void listNumberOrders_whenRequestingSecondPageOfResults_returnsSecondPageOfOrders() throws ApiException {
         String countryCode = "US";
         List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
@@ -235,7 +235,7 @@ public class NumberOrdersApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void get_a_page_of_results_that_only_has_2_results_for_phone_number_orders() throws ApiException {
+    public void listNumberOrders_whenRequestingFirstPageAndOnlyTwoPhoneNumberOrdersExist_returnsOrders() throws ApiException {
         String countryCode = "US";
         List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
@@ -272,7 +272,7 @@ public class NumberOrdersApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void filter_phone_number_orders_by_created_at_date() throws ApiException {
+    public void listNumberOrders_whenFilteringByCreatedAtDate_returnsOrders() throws ApiException {
         try {
             String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
                     .filterLimit(1)

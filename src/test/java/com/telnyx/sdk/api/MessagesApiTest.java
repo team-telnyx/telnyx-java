@@ -58,7 +58,7 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createLongCodeMessageTest() throws ApiException {
+    public void createLongCodeMessage_whenRequestIsValid_sendsMessage() throws ApiException {
         CreateLongCodeMessageRequest createLongCodeMessageRequest = new CreateLongCodeMessageRequest()
                 .from(TestConfiguration.TEST_FROM_NUMBER)
                 .to(TestConfiguration.TEST_TO_NUMBER)
@@ -80,7 +80,7 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createMessageTest() throws ApiException {
+    public void createMessage_whenRequestIsValid_sendsMessage() throws ApiException {
         CreateMessageRequest createMessageRequest = new CreateMessageRequest()
                 .from(TestConfiguration.TEST_FROM_NUMBER)
                 .to(TestConfiguration.TEST_TO_NUMBER)
@@ -102,7 +102,7 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createNumberPoolMessageTest() throws ApiException {
+    public void createNumberPoolMessage_whenRequestIsValid_sendsMessage() throws ApiException {
         CreateNumberPoolMessageRequest createNumberPoolMessageRequest = new CreateNumberPoolMessageRequest()
                 .messagingProfileId(TestConfiguration.EXISTING_MESSAGING_PROFILE_ID)
                 .to(TestConfiguration.TEST_TO_NUMBER)
@@ -124,7 +124,7 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createShortCodeMessageTest() throws ApiException {
+    public void createShortCodeMessage_whenRequestIsValid_sendsMessage() throws ApiException {
         //CreateShortCodeMessageRequest createShortCodeMessageRequest = null;
         //MessageResponse response = api.createShortCodeMessage(createShortCodeMessageRequest);
         // TODO: test validations
@@ -139,7 +139,7 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void retrieveMessageTest() throws ApiException {
+    public void retrieveMessage_whenMessageExists_returnsMessage() throws ApiException {
         CreateMessageRequest createMessageRequest = new CreateMessageRequest()
                 .from(TestConfiguration.TEST_FROM_NUMBER)
                 .to(TestConfiguration.TEST_TO_NUMBER)

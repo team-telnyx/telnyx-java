@@ -76,7 +76,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void createMessagingProfileTest() throws ApiException {
+    public void createMessagingProfile_whenRequestIsValid_returnsCreatedMessagingProfile() throws ApiException {
         NumberPoolSettings numberPoolSettings = new NumberPoolSettings()
                 .geomatch(false)
                 .longCodeWeight(BigDecimal.ONE)
@@ -104,7 +104,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteMessagingProfileTest() throws ApiException {
+    public void deleteMessagingProfile_whenProfileExists_returnsDeletedProfile() throws ApiException {
         UUID actualMessagingProfileId = api.deleteMessagingProfile(existingMessagingProfile.getId())
                 .getData()
                 .getId();
@@ -118,7 +118,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void listMessagingProfileMetricsTest() throws ApiException {
+    public void listMessagingProfileMetrics_whenMetricsMatchFilterCriteria_returnsMetrics() throws ApiException {
         ListMessagingProfileMetricsResponse actuaMessagingProfileMetrics = api
                 .listMessagingProfileMetrics()
                 .pageNumber(1)
@@ -136,7 +136,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void listMessagingProfilePhoneNumbersTest() throws ApiException {
+    public void listMessagingProfilePhoneNumbers_whenNumbersExist_returnsNumbers() throws ApiException {
         ListMessagingProfilePhoneNumbersResponse actualResponse = api.listMessagingProfilePhoneNumbers(existingMessagingProfile.getId())
                 .pageNumber(1)
                 .pageSize(20)
@@ -184,7 +184,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveMessagingProfileTest() throws ApiException {
+    public void retrieveMessagingProfile_whenProfileExists_returnsProfile() throws ApiException {
         MessagingProfile actualMessagingProfile = api.retrieveMessagingProfile(existingMessagingProfile.getId()).getData();
 
         assertEquals(existingMessagingProfile.getId(), actualMessagingProfile.getId());
@@ -196,7 +196,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveMessagingProfileDetailedMetricsTest() throws ApiException {
+    public void retrieveMessagingProfileDetailedMetrics_whenDetailedMetricsExist_returnsDetailedMetrics() throws ApiException {
         RetrieveMessagingProfileMetricsResponse response = api
                 .retrieveMessagingProfileDetailedMetrics(existingMessagingProfile.getId())
                 .timeFrame("24h")
@@ -214,7 +214,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateMessagingProfileTest() throws ApiException {
+    public void updateMessagingProfile_whenRequestIsValid_returnsUpdatedProfile() throws ApiException {
         NumberPoolSettings numberPoolSettings = new NumberPoolSettings()
                 .geomatch(true)
                 .longCodeWeight(BigDecimal.valueOf(10.0))
@@ -249,7 +249,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void enableNumberPoolOnMessagingProfileTest() throws ApiException {
+    public void updateMessagingProfile_whenNumberPoolSettingsAreSent_returnsProfileWithEnabledNumberPool() throws ApiException {
         NumberPoolSettings expectedNumberPoolSettings = new NumberPoolSettings()
                 .geomatch(false)
                 .longCodeWeight(BigDecimal.valueOf(2.0))
@@ -274,7 +274,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void disableNumberPoolOnMessagingProfileTest() throws ApiException {
+    public void updateMessagingProfile_whenNumberPoolSettingsNull_returnsDisabledNumberPool() throws ApiException {
         UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest()
                 .numberPoolSettings(null);
 
@@ -292,7 +292,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void disableMessagingProfileTest() throws ApiException {
+    public void updateMessagingProfile_whenRequestToDisable_returnsDisabledMessagingProfile() throws ApiException {
         UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest()
                 .enabled(false);
 
