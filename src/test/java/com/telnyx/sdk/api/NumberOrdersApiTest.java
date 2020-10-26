@@ -303,36 +303,6 @@ public class NumberOrdersApiTest {
     }
 
     /**
-     * List number orders
-     * <p>
-     * Get a paginated list of number orders.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void listNumberOrdersTest() throws ApiException {
-        //String filterStatus = null;
-        //String filterCreatedAtGt = null;
-        //String filterCreatedAtLt = null;
-        //String filterPhoneNumbersPhoneNumber = null;
-        //String filterCustomerReference = null;
-        //Boolean filterRequirementsMet = null;
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //ListNumberOrdersResponse response = api.listNumberOrders()
-        //        .filterStatus(filterStatus)
-        //        .filterCreatedAtGt(filterCreatedAtGt)
-        //        .filterCreatedAtLt(filterCreatedAtLt)
-        //        .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
-        //        .filterCustomerReference(filterCustomerReference)
-        //        .filterRequirementsMet(filterRequirementsMet)
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .execute();
-        // TODO: test validations
-    }
-
-    /**
      * Retrieve a number order
      * <p>
      * Get an existing phone number order.

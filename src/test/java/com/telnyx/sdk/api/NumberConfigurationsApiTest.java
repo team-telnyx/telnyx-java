@@ -258,6 +258,8 @@ public class NumberConfigurationsApiTest {
     @Test
     public void view_messaging_settings_of_all_phone_numbers() throws ApiException {
         ListMessagingSettingsResponse actualResponse = api.listPhoneNumbersWithMessagingSettings()
+                .pageNumber(1)
+                .pageSize(10)
                 .execute();
 
         assertNotNull(actualResponse);
@@ -423,95 +425,6 @@ public class NumberConfigurationsApiTest {
     }
 
     /**
-     * Enable emergency for a phone number
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void enableEmergencyPhoneNumberTest() throws ApiException {
-        //String id = null;
-        //PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest = null;
-        //PhoneNumberEnableEmergency response = api.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest);
-        // TODO: test validations
-    }
-
-    /**
-     * List phone numbers
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void listPhoneNumbersTest() throws ApiException {
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //String filterTag = null;
-        //String filterPhoneNumber = null;
-        //String filterStatus = null;
-        //String filterVoiceConnectionNameContains = null;
-        //String filterVoiceConnectionNameStartsWith = null;
-        //String filterVoiceConnectionNameEndsWith = null;
-        //String filterVoiceConnectionNameEq = null;
-        //String filterUsagePaymentMethod = null;
-        //String filterBillingGroupId = null;
-        //String sort = null;
-        //ListPhoneNumbersResponse response = api.listPhoneNumbers()
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .filterTag(filterTag)
-        //        .filterPhoneNumber(filterPhoneNumber)
-        //        .filterStatus(filterStatus)
-        //        .filterVoiceConnectionNameContains(filterVoiceConnectionNameContains)
-        //        .filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith)
-        //        .filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith)
-        //        .filterVoiceConnectionNameEq(filterVoiceConnectionNameEq)
-        //        .filterUsagePaymentMethod(filterUsagePaymentMethod)
-        //        .filterBillingGroupId(filterBillingGroupId)
-        //        .sort(sort)
-        //        .execute();
-        // TODO: test validations
-    }
-
-    /**
-     * List phone numbers with messaging settings
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void listPhoneNumbersWithMessagingSettingsTest() throws ApiException {
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //ListMessagingSettingsResponse response = api.listPhoneNumbersWithMessagingSettings()
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .execute();
-        // TODO: test validations
-    }
-
-    /**
-     * List phone numbers with voice settings
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void listPhoneNumbersWithVoiceSettingsTest() throws ApiException {
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //String filterPhoneNumber = null;
-        //String filterConnectionNameContains = null;
-        //String filterUsagePaymentMethod = null;
-        //String sort = null;
-        //ListPhoneNumbersWithVoiceSettingsResponse response = api.listPhoneNumbersWithVoiceSettings()
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .filterPhoneNumber(filterPhoneNumber)
-        //        .filterConnectionNameContains(filterConnectionNameContains)
-        //        .filterUsagePaymentMethod(filterUsagePaymentMethod)
-        //        .sort(sort)
-        //        .execute();
-        // TODO: test validations
-    }
-
-    /**
      * Retrieve a phone number
      *
      * @throws ApiException if the Api call fails
@@ -520,69 +433,6 @@ public class NumberConfigurationsApiTest {
     public void retrievePhoneNumberTest() throws ApiException {
         //String id = null;
         //PhoneNumberResponse response = api.retrievePhoneNumber(id);
-        // TODO: test validations
-    }
-
-    /**
-     * Retrieve a phone number with messaging settings
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void retrievePhoneNumberWithMessagingSettingsTest() throws ApiException {
-        //String id = null;
-        //RetrieveMessagingSettingsResponse response = api.retrievePhoneNumberWithMessagingSettings(id);
-        // TODO: test validations
-    }
-
-    /**
-     * Retrieve a phone number with voice settings
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void retrievePhoneNumberWithVoiceSettingsTest() throws ApiException {
-        //String id = null;
-        //RetrievePhoneNumberVoiceResponse response = api.retrievePhoneNumberWithVoiceSettings(id);
-        // TODO: test validations
-    }
-
-    /**
-     * Update a phone number
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void updatePhoneNumberTest() throws ApiException {
-        //String id = null;
-        //UpdatePhoneNumberRequest updatePhoneNumberRequest = null;
-        //PhoneNumberResponse response = api.updatePhoneNumber(id, updatePhoneNumberRequest);
-        // TODO: test validations
-    }
-
-    /**
-     * Update a phone number with messaging settings
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void updatePhoneNumberWithMessagingSettingsTest() throws ApiException {
-        //String id = null;
-        //UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest = null;
-        //RetrieveMessagingSettingsResponse response = api.updatePhoneNumberWithMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest);
-        // TODO: test validations
-    }
-
-    /**
-     * Update a phone number with voice settings
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void updatePhoneNumberWithVoiceSettingsTest() throws ApiException {
-        //String id = null;
-        //UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest = null;
-        //RetrievePhoneNumberVoiceResponse response = api.updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest);
         // TODO: test validations
     }
 

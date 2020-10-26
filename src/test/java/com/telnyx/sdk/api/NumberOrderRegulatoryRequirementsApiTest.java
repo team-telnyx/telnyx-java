@@ -93,50 +93,6 @@ public class NumberOrderRegulatoryRequirementsApiTest {
     }
 
     /**
-     * List number order regulatory requirements
-     * <p>
-     * Gets a paginated list of number order regulatory requirements.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void listNumberOrderRegulatoryRequirementsTest() throws ApiException {
-        //String filterRequirementId = null;
-        //String filterFieldType = null;
-        //String filterRequirementType = null;
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //ListNumberOrderRegulatoryRequirementsResponse response = api.listNumberOrderRegulatoryRequirements()
-        //        .filterRequirementId(filterRequirementId)
-        //        .filterFieldType(filterFieldType)
-        //        .filterRequirementType(filterRequirementType)
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .execute();
-        // TODO: test validations
-    }
-
-    /**
-     * List regulatory requirements per number
-     * <p>
-     * Gets a paginated list of phone number regulatory requirements.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void listPhoneNumberRegulatoryRequirementsTest() throws ApiException {
-        //List<String> filterPhoneNumber = null;
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //ListPhoneNumberRegulatoryRequirementsResponse response = api.listPhoneNumberRegulatoryRequirements()
-        //        .filterPhoneNumber(filterPhoneNumber)
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .execute();
-        // TODO: test validations
-    }
-
-    /**
      * Retrieve a number order regulatory requirement
      * <p>
      * Gets a single number order regulatory requirement.

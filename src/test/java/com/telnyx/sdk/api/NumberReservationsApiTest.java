@@ -172,20 +172,6 @@ public class NumberReservationsApiTest {
     }
 
     /**
-     * Extend a number reservation
-     * <p>
-     * Extends reservation expiry time on all phone numbers.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void extendNumberReservationExpiryTimeTest() throws ApiException {
-        //String numberReservationId = null;
-        //NumberReservationResponse response = api.extendNumberReservationExpiryTime(numberReservationId);
-        // TODO: test validations
-    }
-
-    /**
      * List number reservations
      * <p>
      * Gets a paginated list of phone number reservations.
