@@ -31,3 +31,37 @@ openapi-generator generate \
   -c ./openapi-configuration/open-api_java_sdk_config.json \
   -t ./openapi-configuration/jersey2
 ```
+
+## Test
+
+In order to run the tests, you must first have the [Telnyx Mock Server](https://github.com/team-telnyx/telnyx-mock) 
+running locally with the default port (ie `http://localhost:12111/v2`). This can be changed in the TestConfiguration class.
+
+#### Naming conventions
+
+Test method names follow the naming convention: UnitOfWork_StateUnderTest_ExpectedBehavior 
+as described [here](https://osherove.com/blog/2005/4/3/naming-standards-for-unit-tests.html)
+
+See below for an example:
+
+```java
+    /**
+     * Send a long code message
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void createLongCodeMessage_whenRequestIsValid_sendsMessage() throws ApiException {
+        CreateLongCodeMessageRequest createLongCodeMessageRequest = new CreateLongCodeMessageRequest()
+                .from(TestConfiguration.TEST_FROM_NUMBER)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .text("Long Code Message Test")
+                .useProfileWebhooks(false)
+                .webhookUrl("http://webhook.com");
+
+        MessageResponse actualResponse = api.createLongCodeMessage(createLongCodeMessageRequest);
+
+        assertNotNull(actualResponse.getData().getId());
+    }
+```
