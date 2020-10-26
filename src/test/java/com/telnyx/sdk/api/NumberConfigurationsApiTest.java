@@ -243,6 +243,7 @@ public class NumberConfigurationsApiTest {
 
         PhoneNumberEnableEmergency actualResponse = api.enableEmergencyPhoneNumber(
                 phoneNumberId, new PhoneNumberEnableEmergencyRequest()
+                        .emergencyAddressId(TestConfiguration.EMERGENCY_ADDRESS_ID)
                         .emergencyEnabled(true));
 
         assertNotNull(actualResponse);
