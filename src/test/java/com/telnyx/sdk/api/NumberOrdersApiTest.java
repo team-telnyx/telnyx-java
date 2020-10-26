@@ -92,7 +92,7 @@ public class NumberOrdersApiTest {
                     .get(0)
                     .getPhoneNumber();
         } catch (Exception e) {
-            fail("Test Setup Failure - Unable to find available number to order");
+            fail("Test Setup Failure - Unable to find available number to order: " + e.getMessage());
         }
 
         NumberOrderResponse actualResponse = api.createNumberOrder(
@@ -124,7 +124,7 @@ public class NumberOrdersApiTest {
                     .map(number -> new PhoneNumber().phoneNumber(number))
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            fail("Test Setup Failure - Unable to find 5 available numbers to order");
+            fail("Test Setup Failure - Unable to find 5 available numbers to order: " + e.getMessage());
         }
 
         NumberOrderResponse actualResponse = api.createNumberOrder(
@@ -153,7 +153,7 @@ public class NumberOrdersApiTest {
                     .get(0)
                     .getPhoneNumber();
         } catch (Exception e) {
-            fail("Test Setup Failure - Unable to find available Spanish number to order");
+            fail("Test Setup Failure - Unable to find available Spanish number to order: " + e.getMessage());
         }
 
         NumberOrderResponse actualResponse = api.createNumberOrder(
@@ -182,7 +182,7 @@ public class NumberOrdersApiTest {
                     .get(0)
                     .getPhoneNumber();
         } catch (Exception e) {
-            fail("Test Setup Failure - Unable to find available Paris number to order");
+            fail("Test Setup Failure - Unable to find available Paris number to order: " + e.getMessage());
         }
 
         NumberOrderResponse actualResponse = api.createNumberOrder(
@@ -217,7 +217,7 @@ public class NumberOrdersApiTest {
             api.createNumberOrder(
                     new CreateNumberOrderRequest().phoneNumbers(phoneNumbers));
         } catch (Exception e) {
-            fail("Test Setup Failure");
+            fail("Test Setup Failure: " + e.getMessage());
         }
 
         ListNumberOrdersResponse actualResponse = api.listNumberOrders()
@@ -253,7 +253,7 @@ public class NumberOrdersApiTest {
             api.createNumberOrder(
                     new CreateNumberOrderRequest().phoneNumbers(phoneNumbers));
         } catch (Exception e) {
-            fail("Test Setup Failure");
+            fail("Test Setup Failure: " + e.getMessage());
         }
 
         ListNumberOrdersResponse actualResponse = api.listNumberOrders()
@@ -285,7 +285,7 @@ public class NumberOrdersApiTest {
                     new CreateNumberOrderRequest()
                             .addPhoneNumbersItem(new PhoneNumber().phoneNumber(phoneNumber)));
         } catch (ApiException e) {
-            fail("Test Setup Failure");
+            fail("Test Setup Failure: " + e.getResponseBody());
         }
 
         LocalDate today = LocalDate.now();

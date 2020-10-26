@@ -93,7 +93,7 @@ public class NumberReservationsApiTest {
                     .get(0)
                     .getPhoneNumber();
         } catch (Exception e) {
-            fail("Test Setup Failure - Unable to find available number to reserve");
+            fail("Test Setup Failure - Unable to find available number to reserve: " + e.getMessage());
         }
 
         NumberReservationResponse actualResponse = api.createNumberReservation(
@@ -158,7 +158,7 @@ public class NumberReservationsApiTest {
                     .map(AvailablePhoneNumber::getPhoneNumber)
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            fail("Test Setup Failure - unable to find 5 phone numbers to to reserve");
+            fail("Test Setup Failure - unable to find 5 phone numbers to to reserve: " + e.getMessage());
         }
 
         List<ReservedPhoneNumber> reservedPhoneNumbers = phoneNumbers.stream()

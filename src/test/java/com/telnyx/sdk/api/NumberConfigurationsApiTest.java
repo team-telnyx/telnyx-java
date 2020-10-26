@@ -79,7 +79,7 @@ public class NumberConfigurationsApiTest {
                     .get(0)
                     .getPhoneNumber();
         } catch (ApiException e) {
-            fail("Test Setup Failure - Unable to create phone number to retrieve");
+            fail("Test Setup Failure - Unable to create phone number to retrieve: " + e.getResponseBody());
         }
 
         ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()
@@ -133,7 +133,7 @@ public class NumberConfigurationsApiTest {
                     .getData())
                     .getId();
         } catch (ApiException e) {
-            fail("Test Setup Failure - Unable to create phone number to retrieve");
+            fail("Test Setup Failure - Unable to create phone number to retrieve: " + e.getResponseBody());
         }
 
         RetrievePhoneNumberVoiceResponse actualResponse = api.retrievePhoneNumberWithVoiceSettings(phoneNumberId);
@@ -167,7 +167,7 @@ public class NumberConfigurationsApiTest {
                     .getData())
                     .getId();
         } catch (ApiException e) {
-            fail("Test Setup Failure - Unable to create phone number to update");
+            fail("Test Setup Failure - Unable to create phone number to update: " + e.getResponseBody());
         }
 
         RetrievePhoneNumberVoiceResponse response = api.updatePhoneNumberWithVoiceSettings(phoneNumberId,
@@ -203,7 +203,7 @@ public class NumberConfigurationsApiTest {
                     .getData())
                     .getId();
         } catch (ApiException e) {
-            fail("Test Setup Failure - Unable to create phone number to update");
+            fail("Test Setup Failure - Unable to create phone number to update: " + e.getResponseBody());
         }
 
         PhoneNumberResponse actualResponse = api.updatePhoneNumber(phoneNumberId, new UpdatePhoneNumberRequest().connectionId(connectionId));
@@ -238,7 +238,7 @@ public class NumberConfigurationsApiTest {
                     .getData())
                     .getId();
         } catch (ApiException e) {
-            fail("Test Setup Failure - Unable to create phone number");
+            fail("Test Setup Failure - Unable to create phone number: " + e.getResponseBody());
         }
 
         PhoneNumberEnableEmergency actualResponse = api.enableEmergencyPhoneNumber(
@@ -289,7 +289,7 @@ public class NumberConfigurationsApiTest {
                     .getData())
                     .getId();
         } catch (ApiException e) {
-            fail("Test Setup Failure - Unable to create phone number");
+            fail("Test Setup Failure - Unable to create phone number: " + e.getResponseBody());
         }
 
         RetrieveMessagingSettingsResponse actualResponse = api.retrievePhoneNumberWithMessagingSettings(phoneNumberId);
@@ -324,7 +324,7 @@ public class NumberConfigurationsApiTest {
                     .getData())
                     .getId();
         } catch (ApiException e) {
-            fail("Test Setup Failure - Unable to create phone number");
+            fail("Test Setup Failure - Unable to create phone number: " + e.getResponseBody());
         }
 
         RetrieveMessagingSettingsResponse actualResponse = api.updatePhoneNumberWithMessagingSettings(
@@ -397,7 +397,7 @@ public class NumberConfigurationsApiTest {
                     new UpdatePhoneNumberRequest()
                             .tags(Collections.singletonList(tag)));
         } catch (ApiException e) {
-            fail("Test Setup Failure - Unable to create phone number to with tag");
+            fail("Test Setup Failure - Unable to create phone number to with tag: " + e.getResponseBody());
         }
 
         ListPhoneNumbersResponse actualResponse = api.listPhoneNumbers()

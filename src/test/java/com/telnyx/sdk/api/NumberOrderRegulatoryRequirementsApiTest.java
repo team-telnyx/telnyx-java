@@ -81,7 +81,7 @@ public class NumberOrderRegulatoryRequirementsApiTest {
                     new CreateNumberOrderRequest()
                             .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
         } catch (Exception e) {
-            fail("Test Setup Failure - Unable to create Spanish number order");
+            fail("Test Setup Failure - Unable to create Spanish number order: " + e.getMessage());
         }
 
         ListPhoneNumberRegulatoryRequirementsResponse actualResponse = api.listPhoneNumberRegulatoryRequirements()

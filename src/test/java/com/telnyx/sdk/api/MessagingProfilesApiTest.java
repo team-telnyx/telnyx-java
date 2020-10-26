@@ -57,7 +57,7 @@ public class MessagingProfilesApiTest {
         try {
             existingMessagingProfile = api.createMessagingProfile(createMessagingProfileRequest).getData();
         } catch (Exception e) {
-            fail("Test Setup Failure - Unable to create messaging profile");
+            fail("Test Setup Failure - Unable to create messaging profile: " + e.getMessage());
         }
     }
 
