@@ -1,0 +1,26 @@
+{
+  "data": {
+    "event_type": "call.hangup",
+    "id": "34a7f736-acca-4cb7-af4b-af8abf742441",
+    "occurred_at": "2020-10-24T08:06:51.555978Z",
+    "payload": {
+      "call_control_id": "v2:-YG-yNA6yx7cob6ubCHlVM4iKwiOZxVIpQfjHeSbDKWrUslKQY8V3w",
+      "call_leg_id": "d1a9a99a-15cf-11eb-bfd7-02420a0f7668",
+      "call_session_id": "d1a4cc86-15cf-11eb-aef4-02420a0f7668",
+      "client_state": null,
+      "connection_id": "1489657722675660347",
+      "end_time": "2020-10-24T08:06:51.555978Z",
+      "from": "+15555551234",
+      "hangup_cause": "normal_clearing",
+      "hangup_source": "callee",
+      "sip_hangup_cause": "200",
+      "start_time": "2020-10-24T08:06:28.556022Z",
+      "to": "+15555554321"
+    },
+    "record_type": "event"
+  },
+  "meta": {
+    "attempt": 1,
+    "delivered_to": "http://incoming-webhook.com/messages/inboundMessageWebhook"
+  }
+}

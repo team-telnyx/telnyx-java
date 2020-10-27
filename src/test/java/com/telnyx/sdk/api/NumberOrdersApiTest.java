@@ -15,20 +15,21 @@ package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.CreateNumberOrderRequest;
-import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.ListNumberOrdersResponse;
-import com.telnyx.sdk.model.NumberOrderResponse;
-import com.telnyx.sdk.model.UpdateNumberOrderRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
+import com.telnyx.sdk.model.*;
+import org.junit.Before;
 import org.junit.Test;
 
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.*;
 
 /**
  * API tests for NumberOrdersApi
@@ -36,60 +37,277 @@ import java.util.Map;
 public class NumberOrdersApiTest {
 
     private final NumberOrdersApi api = new NumberOrdersApi();
+    private final NumberSearchApi numberSearchApi = new NumberSearchApi();
 
-    /**
-     * Create a number order
-     *
-     * Creates a phone number order.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void createNumberOrderTest() throws ApiException {
-        //CreateNumberOrderRequest createNumberOrderRequest = null;
-        //NumberOrderResponse response = api.createNumberOrder(createNumberOrderRequest);
-        // TODO: test validations
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
     }
 
     /**
-     * List number orders
+     * Create a number order
+     * <p>
+     * Creates a phone number order.
      *
-     * Get a paginated list of number orders.
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listNumberOrdersTest() throws ApiException {
-        //String filterStatus = null;
-        //String filterCreatedAtGt = null;
-        //String filterCreatedAtLt = null;
-        //String filterPhoneNumbersPhoneNumber = null;
-        //String filterCustomerReference = null;
-        //Boolean filterRequirementsMet = null;
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //ListNumberOrdersResponse response = api.listNumberOrders()
-        //        .filterStatus(filterStatus)
-        //        .filterCreatedAtGt(filterCreatedAtGt)
-        //        .filterCreatedAtLt(filterCreatedAtLt)
-        //        .filterPhoneNumbersPhoneNumber(filterPhoneNumbersPhoneNumber)
-        //        .filterCustomerReference(filterCustomerReference)
-        //        .filterRequirementsMet(filterRequirementsMet)
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .execute();
-        // TODO: test validations
+    public void createNumberOrder_whenRequestIsValid_returnsCreatedOrder() throws ApiException {
+        String availablePhoneNumber = numberSearchApi
+                .listAvailablePhoneNumbers()
+                .filterLimit(1)
+                .execute()
+                .getData()
+                .get(0)
+                .getPhoneNumber();
+
+        CreateNumberOrderRequest createNumberOrderRequest = new CreateNumberOrderRequest()
+                .addPhoneNumbersItem(new PhoneNumber().phoneNumber(availablePhoneNumber));
+
+        NumberOrderResponse actualResponse = api.createNumberOrder(createNumberOrderRequest);
+
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Order a US phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void createNumberOrder_whenOrderingUSPhoneNumber_returnsCreatedOrder() throws ApiException {
+        String countryCode = "US";
+        String phoneNumber = null;
+
+        try {
+            phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterCountryCode(countryCode)
+                    .filterLimit(1)
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+        } catch (Exception e) {
+            fail("Test Setup Failure - Unable to find available number to order: " + e.getMessage());
+        }
+
+        NumberOrderResponse actualResponse = api.createNumberOrder(
+                new CreateNumberOrderRequest()
+                        .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Order 5 US phone numbers
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void createNumberOrder_whenOrderingFiveUSPhoneNumbers_returnsCreatedOrder() throws ApiException {
+        String countryCode = "US";
+        List<PhoneNumber> phoneNumbers = new ArrayList<>();
+
+        try {
+            phoneNumbers = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterCountryCode(countryCode)
+                    .filterLimit(5)
+                    .execute()
+                    .getData())
+                    .stream()
+                    .map(AvailablePhoneNumber::getPhoneNumber)
+                    .map(number -> new PhoneNumber().phoneNumber(number))
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            fail("Test Setup Failure - Unable to find 5 available numbers to order: " + e.getMessage());
+        }
+
+        NumberOrderResponse actualResponse = api.createNumberOrder(
+                new CreateNumberOrderRequest().phoneNumbers(phoneNumbers));
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Order a Spanish phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void createNumberOrder_whenOrderingASpanishPhoneNumber_returnsCreatedOrder() throws ApiException {
+        String countryCode = "ES";
+        String phoneNumber = null;
+
+        try {
+            phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterCountryCode(countryCode)
+                    .filterLimit(1)
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+        } catch (Exception e) {
+            fail("Test Setup Failure - Unable to find available Spanish number to order: " + e.getMessage());
+        }
+
+        NumberOrderResponse actualResponse = api.createNumberOrder(
+                new CreateNumberOrderRequest()
+                        .addPhoneNumbersItem(new PhoneNumber().phoneNumber(phoneNumber)));
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Order a Paris phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void createNumberOrder_whenOrderingAParisPhoneNumber_returnsCreatedOrder() throws ApiException {
+        String city = "paris";
+        String phoneNumber = null;
+
+        try {
+            phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterLocality(city)
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+        } catch (Exception e) {
+            fail("Test Setup Failure - Unable to find available Paris number to order: " + e.getMessage());
+        }
+
+        NumberOrderResponse actualResponse = api.createNumberOrder(
+                new CreateNumberOrderRequest()
+                        .addPhoneNumbersItem(new PhoneNumber().phoneNumber(phoneNumber)));
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Get second page of number order results
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listNumberOrders_whenRequestingSecondPageOfResults_returnsSecondPageOfOrders() throws ApiException {
+        String countryCode = "US";
+        List<PhoneNumber> phoneNumbers = new ArrayList<>();
+
+        try {
+            phoneNumbers = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterCountryCode(countryCode)
+                    .filterLimit(5)
+                    .execute()
+                    .getData())
+                    .stream()
+                    .map(AvailablePhoneNumber::getPhoneNumber)
+                    .map(number -> new PhoneNumber().phoneNumber(number))
+                    .collect(Collectors.toList());
+
+            api.createNumberOrder(
+                    new CreateNumberOrderRequest().phoneNumbers(phoneNumbers));
+        } catch (Exception e) {
+            fail("Test Setup Failure: " + e.getMessage());
+        }
+
+        ListNumberOrdersResponse actualResponse = api.listNumberOrders()
+                .pageNumber(1)
+                .pageSize(1)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+    }
+
+    /**
+     * Get a page of number order results with only 2 phone number orders
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listNumberOrders_whenRequestingFirstPageAndOnlyTwoPhoneNumberOrdersExist_returnsOrders() throws ApiException {
+        String countryCode = "US";
+        List<PhoneNumber> phoneNumbers = new ArrayList<>();
+
+        try {
+            phoneNumbers = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterCountryCode(countryCode)
+                    .filterLimit(5)
+                    .execute()
+                    .getData())
+                    .stream()
+                    .map(AvailablePhoneNumber::getPhoneNumber)
+                    .map(number -> new PhoneNumber().phoneNumber(number))
+                    .collect(Collectors.toList());
+
+            api.createNumberOrder(
+                    new CreateNumberOrderRequest().phoneNumbers(phoneNumbers));
+        } catch (Exception e) {
+            fail("Test Setup Failure: " + e.getMessage());
+        }
+
+        ListNumberOrdersResponse actualResponse = api.listNumberOrders()
+                .pageNumber(0)
+                .pageSize(2)
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertNotNull(actualResponse.getData());
+
+    }
+
+    /**
+     * Filter phone number orders by created at date
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listNumberOrders_whenFilteringByCreatedAtDate_returnsOrders() throws ApiException {
+        try {
+            String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+                    .filterLimit(1)
+                    .execute()
+                    .getData())
+                    .get(0)
+                    .getPhoneNumber();
+
+            api.createNumberOrder(
+                    new CreateNumberOrderRequest()
+                            .addPhoneNumbersItem(new PhoneNumber().phoneNumber(phoneNumber)));
+        } catch (ApiException e) {
+            fail("Test Setup Failure: " + e.getResponseBody());
+        }
+
+        LocalDate today = LocalDate.now();
+        OffsetDateTime startOfToday = today.atTime(OffsetTime.MIN);
+        OffsetDateTime endOfToday = today.atTime(OffsetTime.MAX);
+
+        ListNumberOrdersResponse actualResponse = api.listNumberOrders()
+                .filterCreatedAtGt(startOfToday.toString())
+                .filterCreatedAtLt(endOfToday.toString())
+                .execute();
+
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.getData().isEmpty());
+
     }
 
     /**
      * Retrieve a number order
-     *
+     * <p>
      * Get an existing phone number order.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void retrieveNumberOrderTest() throws ApiException {
@@ -100,11 +318,10 @@ public class NumberOrdersApiTest {
 
     /**
      * Update a number order
-     *
+     * <p>
      * Updates a phone number order.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateNumberOrderTest() throws ApiException {

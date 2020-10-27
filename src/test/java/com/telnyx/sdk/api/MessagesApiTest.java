@@ -13,24 +13,22 @@
 
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.CreateLongCodeMessageRequest;
-import com.telnyx.sdk.model.CreateMessageRequest;
-import com.telnyx.sdk.model.CreateNumberPoolMessageRequest;
-import com.telnyx.sdk.model.CreateShortCodeMessageRequest;
-import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.MessageResponse;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.auth.HttpBearerAuth;
+import com.telnyx.sdk.model.*;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.UUID;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * API tests for MessagesApi
@@ -38,6 +36,18 @@ import java.util.Map;
 public class MessagesApiTest {
 
     private final MessagesApi api = new MessagesApi();
+    private ObjectMapper mapper;
+
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+
+        mapper = new JSON().getMapper();
+    }
 
     /**
      * Send a long code message
@@ -48,10 +58,17 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createLongCodeMessageTest() throws ApiException {
-        //CreateLongCodeMessageRequest createLongCodeMessageRequest = null;
-        //MessageResponse response = api.createLongCodeMessage(createLongCodeMessageRequest);
-        // TODO: test validations
+    public void createLongCodeMessage_whenRequestIsValid_sendsMessage() throws ApiException {
+        CreateLongCodeMessageRequest createLongCodeMessageRequest = new CreateLongCodeMessageRequest()
+                .from(TestConfiguration.TEST_FROM_NUMBER)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .text("Long Code Message Test")
+                .useProfileWebhooks(false)
+                .webhookUrl("http://webhook.com");
+
+        MessageResponse actualResponse = api.createLongCodeMessage(createLongCodeMessageRequest);
+
+        assertNotNull(actualResponse.getData().getId());
     }
 
     /**
@@ -63,10 +80,17 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createMessageTest() throws ApiException {
-        //CreateMessageRequest createMessageRequest = null;
-        //MessageResponse response = api.createMessage(createMessageRequest);
-        // TODO: test validations
+    public void createMessage_whenRequestIsValid_sendsMessage() throws ApiException {
+        CreateMessageRequest createMessageRequest = new CreateMessageRequest()
+                .from(TestConfiguration.TEST_FROM_NUMBER)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .text("Message Test")
+                .useProfileWebhooks(false)
+                .webhookUrl("http://webhook.com");
+
+        MessageResponse actualResponse = api.createMessage(createMessageRequest);
+
+        assertNotNull(actualResponse.getData().getId());
     }
 
     /**
@@ -78,10 +102,17 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createNumberPoolMessageTest() throws ApiException {
-        //CreateNumberPoolMessageRequest createNumberPoolMessageRequest = null;
-        //MessageResponse response = api.createNumberPoolMessage(createNumberPoolMessageRequest);
-        // TODO: test validations
+    public void createNumberPoolMessage_whenRequestIsValid_sendsMessage() throws ApiException {
+        CreateNumberPoolMessageRequest createNumberPoolMessageRequest = new CreateNumberPoolMessageRequest()
+                .messagingProfileId(TestConfiguration.EXISTING_MESSAGING_PROFILE_ID)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .text("Number Pool Message Test")
+                .useProfileWebhooks(false)
+                .webhookUrl("http://webhook.com");
+
+        MessageResponse actualResponse = api.createNumberPoolMessage(createNumberPoolMessageRequest);
+
+        assertNotNull(actualResponse.getData().getId());
     }
 
     /**
@@ -93,7 +124,7 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createShortCodeMessageTest() throws ApiException {
+    public void createShortCodeMessage_whenRequestIsValid_sendsMessage() throws ApiException {
         //CreateShortCodeMessageRequest createShortCodeMessageRequest = null;
         //MessageResponse response = api.createShortCodeMessage(createShortCodeMessageRequest);
         // TODO: test validations
@@ -108,10 +139,46 @@ public class MessagesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void retrieveMessageTest() throws ApiException {
-        //UUID id = null;
-        //MessageResponse response = api.retrieveMessage(id);
-        // TODO: test validations
+    public void retrieveMessage_whenMessageExists_returnsMessage() throws ApiException {
+        CreateMessageRequest createMessageRequest = new CreateMessageRequest()
+                .from(TestConfiguration.TEST_FROM_NUMBER)
+                .to(TestConfiguration.TEST_TO_NUMBER)
+                .text("Existing Message");
+
+        UUID expectedId = api.createMessage(createMessageRequest).getData().getId();
+
+        MessageResponse actualResponse = api.retrieveMessage(expectedId);
+
+        assertEquals(expectedId, actualResponse.getData().getId());
     }
 
+    /**
+     * Parses the incoming webhook received when an outbound message is sent
+     *
+     * @throws IOException
+     *          if the test fixture can't be loaded
+     */
+    @Test
+    public void webhook_whenOutboundMessageSent_receivesMessageSentEvent() throws IOException {
+        InputStream sentEventFixtureJson = getClass().getClassLoader().getResourceAsStream("webhook-message-sent-event.json");
+
+        OutboundMessageEvent actualOutboundMessageEvent = mapper.readValue(sentEventFixtureJson, OutboundMessageEvent.class);
+
+        assertNotNull(actualOutboundMessageEvent.getData());
+    }
+
+    /**
+     * Parses the incoming webhook received when an outbound message is finalized
+     *
+     * @throws IOException
+     *          if the test fixture can't be loaded
+     */
+    @Test
+    public void webhook_whenOutboundMessageFinalized_receivesMessageFinalizedEvent() throws IOException {
+        InputStream finalizedEventFixtureJson = getClass().getClassLoader().getResourceAsStream("webhook-message-finalized-event.json");
+
+        OutboundMessageEvent actualOutboundMessageEvent = mapper.readValue(finalizedEventFixtureJson, OutboundMessageEvent.class);
+
+        assertNotNull(actualOutboundMessageEvent.getData());
+    }
 }
