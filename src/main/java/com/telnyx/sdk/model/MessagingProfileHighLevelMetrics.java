@@ -27,6 +27,7 @@ import com.telnyx.sdk.model.MessagingProfileHighLevelMetricsOutbound;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -80,7 +81,7 @@ public class MessagingProfileHighLevelMetrics {
   private RecordTypeEnum recordType;
 
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
-  private String messagingProfileId;
+  private UUID messagingProfileId;
 
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private BigDecimal phoneNumbers;
@@ -117,7 +118,7 @@ public class MessagingProfileHighLevelMetrics {
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getMessagingProfileId() {
+  public UUID getMessagingProfileId() {
     return messagingProfileId;
   }
 

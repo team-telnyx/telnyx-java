@@ -26,7 +26,8 @@ Name | Type | Description | Notes
 
 Name | Value
 ---- | -----
-MESSAGING_PHONE_NUMBER | &quot;messaging_phone_number&quot;
+PHONE_NUMBER | &quot;messaging_phone_number&quot;
+SETTINGS | &quot;messaging_settings&quot;
 
 
 

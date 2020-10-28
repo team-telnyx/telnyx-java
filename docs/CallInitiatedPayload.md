@@ -32,6 +32,7 @@ OUTGOING | &quot;outgoing&quot;
 Name | Value
 ---- | -----
 PARKED | &quot;parked&quot;
+BRIDGING | &quot;bridging&quot;
 
 
 

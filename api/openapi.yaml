@@ -10070,6 +10070,7 @@ components:
           type: string
         messaging_profile_id:
           description: Identifies the type of resource.
+          format: uuid
           readOnly: true
           type: string
         phone_numbers:
@@ -11097,7 +11098,8 @@ components:
           description: Identifies the type of the resource.
           enum:
           - messaging_phone_number
-          example: messaging_phone_number
+          - messaging_settings
+          example: messaging_settings
           readOnly: true
           type: string
         id:
@@ -14293,6 +14295,7 @@ components:
           description: State received from a command.
           enum:
           - parked
+          - bridging
           example: parked
           type: string
       type: object

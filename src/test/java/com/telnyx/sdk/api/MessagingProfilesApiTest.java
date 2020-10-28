@@ -202,7 +202,7 @@ public class MessagingProfilesApiTest {
                 .timeFrame("24h")
                 .execute();
 
-        String actualMessagingProfileId = response.getData().getOverview().getMessagingProfileId();
+        UUID actualMessagingProfileId = response.getData().getOverview().getMessagingProfileId();
 
         //Todo: why does getmessagingprofileid return string instead of uuid?
         assertEquals(existingMessagingProfile.getId().toString(), actualMessagingProfileId);

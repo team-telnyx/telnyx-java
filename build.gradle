@@ -2,7 +2,7 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 
 group = 'com.telnyx.sdk'
-version = '2.0.8-beta'
+version = '2.0.9-rc.1'
 
 buildscript {
     repositories {
