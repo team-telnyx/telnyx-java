@@ -1,9 +1,12 @@
+
+
 # CallHangupPayload
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**callControlId** | [**UUID**](UUID.md) | Call ID used to issue commands via Call Control API. |  [optional]
+**callControlId** | **String** | Call ID used to issue commands via Call Control API. |  [optional]
 **connectionId** | **String** | Telnyx connection ID used in the call. |  [optional]
 **callLegId** | **String** | ID that is unique to the call and can be used to correlate webhook events. |  [optional]
 **callSessionId** | **String** | ID that is unique to the call session and can be used to correlate webhook events. |  [optional]
@@ -15,14 +18,18 @@ Name | Type | Description | Notes
 **hangupSource** | [**HangupSourceEnum**](#HangupSourceEnum) | The party who ended the call (&#x60;callee&#x60;, &#x60;caller&#x60;, &#x60;unknown&#x60;). |  [optional]
 **sipHangupCause** | **String** | The reason the call was ended (SIP response code). If the SIP response is unavailable (in inbound calls for example) this is set to &#x60;unspecified&#x60;. |  [optional]
 
-<a name="StateEnum"></a>
+
+
 ## Enum: StateEnum
+
 Name | Value
 ---- | -----
 HANGUP | &quot;hangup&quot;
 
-<a name="HangupCauseEnum"></a>
+
+
 ## Enum: HangupCauseEnum
+
 Name | Value
 ---- | -----
 CALL_REJECTED | &quot;call_rejected&quot;
@@ -34,10 +41,15 @@ USER_BUSY | &quot;user_busy&quot;
 NOT_FOUND | &quot;not_found&quot;
 UNSPECIFIED | &quot;unspecified&quot;
 
-<a name="HangupSourceEnum"></a>
+
+
 ## Enum: HangupSourceEnum
+
 Name | Value
 ---- | -----
 CALLER | &quot;caller&quot;
 CALLEE | &quot;callee&quot;
 UNKNOWN | &quot;unknown&quot;
+
+
+

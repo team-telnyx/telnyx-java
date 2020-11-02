@@ -1,0 +1,47 @@
+{
+  "data": {
+    "event_type": "message.sent",
+    "id": "65026014-2ee6-4a1c-9cc5-d0093b72c61a",
+    "occurred_at": "2020-10-24T07:14:06.596+00:00",
+    "payload": {
+      "completed_at": null,
+      "cost": null,
+      "direction": "outbound",
+      "encoding": "GSM-7",
+      "errors": [],
+      "from": {
+        "carrier": "TELNYX LLC",
+        "line_type": "VoIP",
+        "phone_number": "+15555551234",
+        "status": "delivered"
+      },
+      "id": "40317559-7514-426c-a426-da70f10bb237",
+      "media": [],
+      "messaging_profile_id": "400174d8-9abf-4cd0-af88-8f5715f5f78e",
+      "organization_id": "20fc8b33-1664-4da4-8bfb-b6f5d5a69243",
+      "parts": 1,
+      "received_at": "2020-10-24T07:14:06.515+00:00",
+      "record_type": "message",
+      "sent_at": "2020-10-24T07:14:06.596+00:00",
+      "tags": [],
+      "text": "Hello, World!",
+      "to": [
+        {
+          "carrier": "T-MOBILE USA, INC.",
+          "line_type": "Wireless",
+          "phone_number": "+15555554321",
+          "status": "sent"
+        }
+      ],
+      "type": "SMS",
+      "valid_until": "2020-10-24T08:14:06.515+00:00",
+      "webhook_failover_url": "https://incoming-webhook-failover.com/messages/inboundMessageWebhook",
+      "webhook_url": "https://incoming-webhook.com/messages/inboundMessageWebhook"
+    },
+    "record_type": "event"
+  },
+  "meta": {
+    "attempt": 1,
+    "delivered_to": "https://incoming-webhook.com/messages/inboundMessageWebhook"
+  }
+}

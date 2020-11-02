@@ -1,6 +1,9 @@
+
+
 # SpeakRequest
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **payload** | **String** | The text or SSML to be converted into speech. There is a 5,000 character limit. | 
@@ -12,29 +15,37 @@ Name | Type | Description | Notes
 **clientState** | **String** | Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. |  [optional]
 **commandId** | **String** | Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;. |  [optional]
 
-<a name="PayloadTypeEnum"></a>
+
+
 ## Enum: PayloadTypeEnum
+
 Name | Value
 ---- | -----
 TEXT | &quot;text&quot;
 SSML | &quot;ssml&quot;
 
-<a name="ServiceLevelEnum"></a>
+
+
 ## Enum: ServiceLevelEnum
+
 Name | Value
 ---- | -----
 BASIC | &quot;basic&quot;
 PREMIUM | &quot;premium&quot;
 
-<a name="VoiceEnum"></a>
+
+
 ## Enum: VoiceEnum
+
 Name | Value
 ---- | -----
 MALE | &quot;male&quot;
 FEMALE | &quot;female&quot;
 
-<a name="LanguageEnum"></a>
+
+
 ## Enum: LanguageEnum
+
 Name | Value
 ---- | -----
 ARB | &quot;arb&quot;
@@ -66,3 +77,6 @@ RO_RO | &quot;ro-RO&quot;
 RU_RU | &quot;ru-RU&quot;
 SV_SE | &quot;sv-SE&quot;
 TR_TR | &quot;tr-TR&quot;
+
+
+

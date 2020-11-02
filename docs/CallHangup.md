@@ -1,6 +1,9 @@
+
+
 # CallHangup
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional]
@@ -9,14 +12,21 @@ Name | Type | Description | Notes
 **occurredAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 datetime of when the event occurred. |  [optional]
 **payload** | [**CallHangupPayload**](CallHangupPayload.md) |  |  [optional]
 
-<a name="RecordTypeEnum"></a>
+
+
 ## Enum: RecordTypeEnum
+
 Name | Value
 ---- | -----
 EVENT | &quot;event&quot;
 
-<a name="EventTypeEnum"></a>
+
+
 ## Enum: EventTypeEnum
+
 Name | Value
 ---- | -----
-HANGUP | &quot;call.hangup&quot;
+CALL_HANGUP | &quot;call.hangup&quot;
+
+
+

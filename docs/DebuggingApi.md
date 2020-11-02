@@ -4,48 +4,81 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callControlDebuggingEventList**](DebuggingApi.md#callControlDebuggingEventList) | **GET** /call_events | List call events
+[**listCallEvents**](DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
 
-<a name="callControlDebuggingEventList"></a>
-# **callControlDebuggingEventList**
-> ListCallEventsResponse callControlDebuggingEventList(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq)
+
+
+## listCallEvents
+
+> ListCallEventsResponse listCallEvents().filterCallLegId(filterCallLegId).filterCallSessionId(filterCallSessionId).filterStatus(filterStatus).filterType(filterType).filterEventTimestampGt(filterEventTimestampGt).filterEventTimestampGte(filterEventTimestampGte).filterEventTimestampLt(filterEventTimestampLt).filterEventTimestampLte(filterEventTimestampLte).filterEventTimestampEq(filterEventTimestampEq).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List call events
 
-Filters call events by given filter parameters. Events are ordered by &#x60;event_timestamp&#x60;. If filter for &#x60;call_leg_id&#x60; or &#x60;call_session_id&#x60; is not present, it only filters events from the last 24 hours.  **Note**: Only one &#x60;filter[event_timestamp]&#x60; can be passed. 
+Filters call events by given filter parameters. Events are ordered by `event_timestamp`. If filter for `call_leg_id` or `call_session_id` is not present, it only filters events from the last 24 hours.
+
+**Note**: Only one `filter[event_timestamp]` can be passed.
+
 
 ### Example
+
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.DebuggingApi;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.DebuggingApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
 
-
-DebuggingApi apiInstance = new DebuggingApi();
-UUID filterCallLegId = new UUID(); // UUID | The unique identifier of an individual call leg.
-UUID filterCallSessionId = new UUID(); // UUID | The unique identifier of the call control session. A session may include multiple call leg events.
-String filterStatus = "filterStatus_example"; // String | Event status
-String filterType = "filterType_example"; // String | Event type
-String filterEventTimestampGt = "filterEventTimestampGt_example"; // String | Event timestamp: greater than
-String filterEventTimestampGte = "filterEventTimestampGte_example"; // String | Event timestamp: greater than or equal
-String filterEventTimestampLt = "filterEventTimestampLt_example"; // String | Event timestamp: lower than
-String filterEventTimestampLte = "filterEventTimestampLte_example"; // String | Event timestamp: lower than or equal
-String filterEventTimestampEq = "filterEventTimestampEq_example"; // String | Event timestamp: equal
-try {
-    ListCallEventsResponse result = apiInstance.callControlDebuggingEventList(filterCallLegId, filterCallSessionId, filterStatus, filterType, filterEventTimestampGt, filterEventTimestampGte, filterEventTimestampLt, filterEventTimestampLte, filterEventTimestampEq);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DebuggingApi#callControlDebuggingEventList");
-    e.printStackTrace();
+        DebuggingApi apiInstance = new DebuggingApi(defaultClient);
+        UUID filterCallLegId = new UUID(); // UUID | The unique identifier of an individual call leg.
+        UUID filterCallSessionId = new UUID(); // UUID | The unique identifier of the call control session. A session may include multiple call leg events.
+        String filterStatus = delivered; // String | Event status
+        String filterType = webhook; // String | Event type
+        String filterEventTimestampGt = 2019-03-29T11:10:00Z; // String | Event timestamp: greater than
+        String filterEventTimestampGte = 2019-03-29T11:10:00Z; // String | Event timestamp: greater than or equal
+        String filterEventTimestampLt = 2019-03-29T11:10:00Z; // String | Event timestamp: lower than
+        String filterEventTimestampLte = 2019-03-29T11:10:00Z; // String | Event timestamp: lower than or equal
+        String filterEventTimestampEq = 2019-03-29T11:10:00Z; // String | Event timestamp: equal
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListCallEventsResponse result = api.listCallEvents()
+                .filterCallLegId(filterCallLegId)
+                .filterCallSessionId(filterCallSessionId)
+                .filterStatus(filterStatus)
+                .filterType(filterType)
+                .filterEventTimestampGt(filterEventTimestampGt)
+                .filterEventTimestampGte(filterEventTimestampGte)
+                .filterEventTimestampLt(filterEventTimestampLt)
+                .filterEventTimestampLte(filterEventTimestampLte)
+                .filterEventTimestampEq(filterEventTimestampEq)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DebuggingApi#listCallEvents");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -58,6 +91,8 @@ Name | Type | Description  | Notes
  **filterEventTimestampLt** | **String**| Event timestamp: lower than | [optional]
  **filterEventTimestampLte** | **String**| Event timestamp: lower than or equal | [optional]
  **filterEventTimestampEq** | **String**| Event timestamp: equal | [optional]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 
@@ -69,6 +104,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response with a list of call events. |  -  |
+| **0** | Unexpected error |  -  |
 

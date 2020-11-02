@@ -1,6 +1,9 @@
+
+
 # StartRecordingRequest
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **format** | [**FormatEnum**](#FormatEnum) | The audio file format used when storing the call recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;. | 
@@ -9,16 +12,23 @@ Name | Type | Description | Notes
 **commandId** | **String** | Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;. |  [optional]
 **playBeep** | **Boolean** | If enabled, a beep sound will be played at the start of a recording. |  [optional]
 
-<a name="FormatEnum"></a>
+
+
 ## Enum: FormatEnum
+
 Name | Value
 ---- | -----
 WAV | &quot;wav&quot;
 MP3 | &quot;mp3&quot;
 
-<a name="ChannelsEnum"></a>
+
+
 ## Enum: ChannelsEnum
+
 Name | Value
 ---- | -----
 SINGLE | &quot;single&quot;
 DUAL | &quot;dual&quot;
+
+
+

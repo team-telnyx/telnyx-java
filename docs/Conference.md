@@ -1,6 +1,9 @@
+
+
 # Conference
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | [**RecordTypeEnum**](#RecordTypeEnum) |  | 
@@ -13,26 +16,36 @@ Name | Type | Description | Notes
 **status** | [**StatusEnum**](#StatusEnum) | Status of the conference |  [optional]
 **endReason** | [**EndReasonEnum**](#EndReasonEnum) | Reason why the conference ended |  [optional]
 **endedBy** | [**ConferenceEndedBy**](ConferenceEndedBy.md) |  |  [optional]
+**connectionId** | **String** | Identifies the connection associated with the conference |  [optional]
 
-<a name="RecordTypeEnum"></a>
+
+
 ## Enum: RecordTypeEnum
+
 Name | Value
 ---- | -----
 CONFERENCE | &quot;conference&quot;
 
-<a name="StatusEnum"></a>
+
+
 ## Enum: StatusEnum
+
 Name | Value
 ---- | -----
 INIT | &quot;init&quot;
 IN_PROGRESS | &quot;in_progress&quot;
 COMPLETED | &quot;completed&quot;
 
-<a name="EndReasonEnum"></a>
+
+
 ## Enum: EndReasonEnum
+
 Name | Value
 ---- | -----
 ALL_LEFT | &quot;all_left&quot;
 ENDED_VIA_API | &quot;ended_via_api&quot;
 HOST_LEFT | &quot;host_left&quot;
 TIME_EXCEEDED | &quot;time_exceeded&quot;
+
+
+
