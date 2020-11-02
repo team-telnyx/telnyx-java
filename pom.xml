@@ -157,7 +157,7 @@
 
   <profiles>
     <profile>
-      <id>mvn-central-sign-in</id>
+      <id>sign-artifacts</id>
       <build>
         <plugins>
           <plugin>
