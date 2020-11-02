@@ -18,7 +18,7 @@ SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
 
 ## Local Installation
 
-See more at [developers.telnyx.com](https://developers.telnyx.com/docs/v2/development/dev-env-setup?lang=java)
+* See more at [developers.telnyx.com](https://developers.telnyx.com/docs/v2/development/dev-env-setup?lang=java)
 
 ### Maven users
 
@@ -28,7 +28,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.0.9-rc.1</version>
+  <version>2.1.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -38,7 +38,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.0.9-rc.1"
+compile "com.telnyx.sdk:telnyx:2.1.0"
 ```
 
 ### Others
@@ -53,7 +53,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.0.9-rc.1.jar`
+- `target/telnyx-2.1.0.jar`
 - `target/lib/*.jar`
 
 ## JDK Support

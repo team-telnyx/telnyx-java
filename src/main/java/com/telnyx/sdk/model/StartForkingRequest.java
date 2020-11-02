@@ -34,6 +34,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   StartForkingRequest.JSON_PROPERTY_TARGET,
   StartForkingRequest.JSON_PROPERTY_RX,
+  StartForkingRequest.JSON_PROPERTY_STREAM_TYPE,
   StartForkingRequest.JSON_PROPERTY_TX,
   StartForkingRequest.JSON_PROPERTY_CLIENT_STATE,
   StartForkingRequest.JSON_PROPERTY_COMMAND_ID
@@ -45,6 +46,44 @@ public class StartForkingRequest {
 
   public static final String JSON_PROPERTY_RX = "rx";
   private String rx;
+
+  /**
+   * Optionally specify a media type to stream. If &#x60;decrpyted&#x60; selected, Telnyx will decrypt incoming SIP media before forking to the target. &#x60;rx&#x60; and &#x60;tx&#x60; are required fields if &#x60;decrypted&#x60; selected.
+   */
+  public enum StreamTypeEnum {
+    RAW("raw"),
+    
+    DECRYPTED("decrypted");
+
+    private String value;
+
+    StreamTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StreamTypeEnum fromValue(String value) {
+      for (StreamTypeEnum b : StreamTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STREAM_TYPE = "stream_type";
+  private StreamTypeEnum streamType = StreamTypeEnum.RAW;
 
   public static final String JSON_PROPERTY_TX = "tx";
   private String tx;
@@ -101,6 +140,30 @@ public class StartForkingRequest {
 
   public void setRx(String rx) {
     this.rx = rx;
+  }
+
+
+  public StartForkingRequest streamType(StreamTypeEnum streamType) {
+    this.streamType = streamType;
+    return this;
+  }
+
+   /**
+   * Optionally specify a media type to stream. If &#x60;decrpyted&#x60; selected, Telnyx will decrypt incoming SIP media before forking to the target. &#x60;rx&#x60; and &#x60;tx&#x60; are required fields if &#x60;decrypted&#x60; selected.
+   * @return streamType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "decrypted", value = "Optionally specify a media type to stream. If `decrpyted` selected, Telnyx will decrypt incoming SIP media before forking to the target. `rx` and `tx` are required fields if `decrypted` selected.")
+  @JsonProperty(JSON_PROPERTY_STREAM_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamTypeEnum getStreamType() {
+    return streamType;
+  }
+
+
+  public void setStreamType(StreamTypeEnum streamType) {
+    this.streamType = streamType;
   }
 
 
@@ -190,6 +253,7 @@ public class StartForkingRequest {
     StartForkingRequest startForkingRequest = (StartForkingRequest) o;
     return Objects.equals(this.target, startForkingRequest.target) &&
         Objects.equals(this.rx, startForkingRequest.rx) &&
+        Objects.equals(this.streamType, startForkingRequest.streamType) &&
         Objects.equals(this.tx, startForkingRequest.tx) &&
         Objects.equals(this.clientState, startForkingRequest.clientState) &&
         Objects.equals(this.commandId, startForkingRequest.commandId);
@@ -197,7 +261,7 @@ public class StartForkingRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(target, rx, tx, clientState, commandId);
+    return Objects.hash(target, rx, streamType, tx, clientState, commandId);
   }
 
 
@@ -207,6 +271,7 @@ public class StartForkingRequest {
     sb.append("class StartForkingRequest {\n");
     sb.append("    target: ").append(toIndentedString(target)).append("\n");
     sb.append("    rx: ").append(toIndentedString(rx)).append("\n");
+    sb.append("    streamType: ").append(toIndentedString(streamType)).append("\n");
     sb.append("    tx: ").append(toIndentedString(tx)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
