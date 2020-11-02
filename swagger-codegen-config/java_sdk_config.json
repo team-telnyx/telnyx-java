@@ -1,0 +1,8 @@
+{
+"artifactVersion"          : "1.3",
+    "java8" : true,
+    "dateLibrary" : "java8",
+    "hideGenerationTimestamp" : true,
+    "groupId": "com.telnyx.sdk",
+    "artifactId": "telnyx"
+}

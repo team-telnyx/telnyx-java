@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | [**UUID**](UUID.md) | Identifies the type of resource. |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) | The type of message. |  [optional]
 **messagingProfileId** | [**UUID**](UUID.md) | Unique identifier for a messaging profile. |  [optional]
-**from** | **String** | Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code). |  [optional]
+**from** | [**OutboundMessageFrom**](OutboundMessageFrom.md) |  |  [optional]
 **to** | [**List&lt;OutboundMessageTo&gt;**](OutboundMessageTo.md) |  |  [optional]
 **text** | **String** | Message body (i.e., content) as a non-empty string.  **Required for SMS** |  [optional]
 **subject** | **String** | Subject of multimedia message |  [optional]

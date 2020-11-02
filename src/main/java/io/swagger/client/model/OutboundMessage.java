@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.client.model.Error;
 import io.swagger.client.model.OutboundMessageCost;
+import io.swagger.client.model.OutboundMessageFrom;
 import io.swagger.client.model.OutboundMessageMedia;
 import io.swagger.client.model.OutboundMessageTo;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -172,7 +173,7 @@ public class OutboundMessage {
   private UUID messagingProfileId = null;
 
   @SerializedName("from")
-  private String from = null;
+  private OutboundMessageFrom from = null;
 
   @SerializedName("to")
   private List<OutboundMessageTo> to = null;
@@ -309,21 +310,21 @@ public class OutboundMessage {
     this.messagingProfileId = messagingProfileId;
   }
 
-  public OutboundMessage from(String from) {
+  public OutboundMessage from(OutboundMessageFrom from) {
     this.from = from;
     return this;
   }
 
    /**
-   * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
+   * Get from
    * @return from
   **/
-  @Schema(description = "Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).")
-  public String getFrom() {
+  @Schema(description = "")
+  public OutboundMessageFrom getFrom() {
     return from;
   }
 
-  public void setFrom(String from) {
+  public void setFrom(OutboundMessageFrom from) {
     this.from = from;
   }
 
