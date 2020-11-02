@@ -60,7 +60,9 @@ public class PhoneNumberWithMessagingSettings {
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    MESSAGING_PHONE_NUMBER("messaging_phone_number");
+    PHONE_NUMBER("messaging_phone_number"),
+    
+    SETTINGS("messaging_settings");
 
     private String value;
 
@@ -177,7 +179,7 @@ public class PhoneNumberWithMessagingSettings {
    * @return recordType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "messaging_phone_number", value = "Identifies the type of the resource.")
+  @ApiModelProperty(example = "messaging_settings", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

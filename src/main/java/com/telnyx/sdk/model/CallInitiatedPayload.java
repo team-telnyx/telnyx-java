@@ -107,7 +107,9 @@ public class CallInitiatedPayload {
    * State received from a command.
    */
   public enum StateEnum {
-    PARKED("parked");
+    PARKED("parked"),
+    
+    BRIDGING("bridging");
 
     private String value;
 
