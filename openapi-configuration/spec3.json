@@ -14166,6 +14166,16 @@
             "type": "string",
             "example": "192.0.2.1:9000"
           },
+          "stream_type": {
+            "description": "Optionally specify a media type to stream. If `decrpyted` selected, Telnyx will decrypt incoming SIP media before forking to the target. `rx` and `tx` are required fields if `decrypted` selected.",
+            "type": "string",
+            "enum": [
+              "raw",
+              "decrypted"
+            ],
+            "default": "raw",
+            "example": "decrypted"
+          },
           "tx": {
             "description": "The network target, <udp:ip_address:port>, where the call's outgoing RTP media packets should be forwarded.",
             "type": "string",

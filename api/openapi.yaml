@@ -11819,6 +11819,16 @@ components:
             incoming RTP media packets should be forwarded.
           example: 192.0.2.1:9000
           type: string
+        stream_type:
+          default: raw
+          description: Optionally specify a media type to stream. If `decrpyted` selected,
+            Telnyx will decrypt incoming SIP media before forking to the target. `rx`
+            and `tx` are required fields if `decrypted` selected.
+          enum:
+          - raw
+          - decrypted
+          example: decrypted
+          type: string
         tx:
           description: The network target, <udp:ip_address:port>, where the call's
             outgoing RTP media packets should be forwarded.
