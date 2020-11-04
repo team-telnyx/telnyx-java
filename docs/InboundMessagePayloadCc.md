@@ -1,6 +1,6 @@
 
 
-# InboundMessagePayloadTo
+# InboundMessagePayloadCc
 
 ## Properties
 
@@ -24,7 +24,6 @@ DELIVERED | &quot;delivered&quot;
 SENDING_FAILED | &quot;sending_failed&quot;
 DELIVERY_FAILED | &quot;delivery_failed&quot;
 DELIVERY_UNCONFIRMED | &quot;delivery_unconfirmed&quot;
-WEBHOOK_DELIVERED | &quot;webhook_delivered&quot;
 
 
 

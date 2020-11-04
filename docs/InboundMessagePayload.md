@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **type** | [**TypeEnum**](#TypeEnum) | The type of message. This value can be either &#39;sms&#39; or &#39;mms&#39;. |  [optional]
 **messagingProfileId** | **String** | Unique identifier for a messaging profile. |  [optional]
 **to** | [**List&lt;InboundMessagePayloadTo&gt;**](InboundMessagePayloadTo.md) |  |  [optional]
-**cc** | [**List&lt;InboundMessagePayloadTo&gt;**](InboundMessagePayloadTo.md) |  |  [optional]
+**cc** | [**List&lt;InboundMessagePayloadCc&gt;**](InboundMessagePayloadCc.md) |  |  [optional]
 **from** | [**InboundMessagePayloadFrom**](InboundMessagePayloadFrom.md) |  |  [optional]
 **text** | **String** | Message body (i.e., content) as a non-empty string.  **Required for SMS** |  [optional]
 **media** | [**List&lt;InboundMessagePayloadMedia&gt;**](InboundMessagePayloadMedia.md) |  |  [optional]

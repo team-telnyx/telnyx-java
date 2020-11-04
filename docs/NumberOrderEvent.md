@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**NumberOrder**](NumberOrder.md) |  |  [optional]
+**data** | [**NumberOrderEventData**](NumberOrderEventData.md) |  |  [optional]
 
 
 

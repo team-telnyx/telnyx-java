@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Error;
+import com.telnyx.sdk.model.InboundMessagePayloadCc;
 import com.telnyx.sdk.model.InboundMessagePayloadCost;
 import com.telnyx.sdk.model.InboundMessagePayloadFrom;
 import com.telnyx.sdk.model.InboundMessagePayloadMedia;
@@ -188,7 +189,7 @@ public class InboundMessagePayload {
   private List<InboundMessagePayloadTo> to = null;
 
   public static final String JSON_PROPERTY_CC = "cc";
-  private List<InboundMessagePayloadTo> cc = null;
+  private List<InboundMessagePayloadCc> cc = null;
 
   public static final String JSON_PROPERTY_FROM = "from";
   private InboundMessagePayloadFrom from;
@@ -385,12 +386,12 @@ public class InboundMessagePayload {
   }
 
 
-  public InboundMessagePayload cc(List<InboundMessagePayloadTo> cc) {
+  public InboundMessagePayload cc(List<InboundMessagePayloadCc> cc) {
     this.cc = cc;
     return this;
   }
 
-  public InboundMessagePayload addCcItem(InboundMessagePayloadTo ccItem) {
+  public InboundMessagePayload addCcItem(InboundMessagePayloadCc ccItem) {
     if (this.cc == null) {
       this.cc = new ArrayList<>();
     }
@@ -407,12 +408,12 @@ public class InboundMessagePayload {
   @JsonProperty(JSON_PROPERTY_CC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<InboundMessagePayloadTo> getCc() {
+  public List<InboundMessagePayloadCc> getCc() {
     return cc;
   }
 
 
-  public void setCc(List<InboundMessagePayloadTo> cc) {
+  public void setCc(List<InboundMessagePayloadCc> cc) {
     this.cc = cc;
   }
 

@@ -28,7 +28,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -38,7 +38,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.1.0"
+compile "com.telnyx.sdk:telnyx:2.1.1"
 ```
 
 ### Others
@@ -53,7 +53,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.1.0.jar`
+- `target/telnyx-2.1.1.jar`
 - `target/lib/*.jar`
 
 ## JDK Support
@@ -353,6 +353,7 @@ Class | Method | HTTP request | Description
  - [InboundMessage](docs/InboundMessage.md)
  - [InboundMessageEvent](docs/InboundMessageEvent.md)
  - [InboundMessagePayload](docs/InboundMessagePayload.md)
+ - [InboundMessagePayloadCc](docs/InboundMessagePayloadCc.md)
  - [InboundMessagePayloadCost](docs/InboundMessagePayloadCost.md)
  - [InboundMessagePayloadFrom](docs/InboundMessagePayloadFrom.md)
  - [InboundMessagePayloadMedia](docs/InboundMessagePayloadMedia.md)
@@ -399,6 +400,7 @@ Class | Method | HTTP request | Description
  - [NumberOrderDocument](docs/NumberOrderDocument.md)
  - [NumberOrderDocumentResponse](docs/NumberOrderDocumentResponse.md)
  - [NumberOrderEvent](docs/NumberOrderEvent.md)
+ - [NumberOrderEventData](docs/NumberOrderEventData.md)
  - [NumberOrderRegulatoryRequirementResponse](docs/NumberOrderRegulatoryRequirementResponse.md)
  - [NumberOrderResponse](docs/NumberOrderResponse.md)
  - [NumberPoolSettings](docs/NumberPoolSettings.md)
