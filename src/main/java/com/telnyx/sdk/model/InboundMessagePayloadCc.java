@@ -29,16 +29,16 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * InboundMessagePayloadTo
+ * InboundMessagePayloadCc
  */
 @JsonPropertyOrder({
-  InboundMessagePayloadTo.JSON_PROPERTY_PHONE_NUMBER,
-  InboundMessagePayloadTo.JSON_PROPERTY_STATUS,
-  InboundMessagePayloadTo.JSON_PROPERTY_CARRIER,
-  InboundMessagePayloadTo.JSON_PROPERTY_LINE_TYPE
+  InboundMessagePayloadCc.JSON_PROPERTY_PHONE_NUMBER,
+  InboundMessagePayloadCc.JSON_PROPERTY_STATUS,
+  InboundMessagePayloadCc.JSON_PROPERTY_CARRIER,
+  InboundMessagePayloadCc.JSON_PROPERTY_LINE_TYPE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class InboundMessagePayloadTo {
+public class InboundMessagePayloadCc {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
 
@@ -58,9 +58,7 @@ public class InboundMessagePayloadTo {
     
     DELIVERY_FAILED("delivery_failed"),
     
-    DELIVERY_UNCONFIRMED("delivery_unconfirmed"),
-    
-    WEBHOOK_DELIVERED("webhook_delivered");
+    DELIVERY_UNCONFIRMED("delivery_unconfirmed");
 
     private String value;
 
@@ -142,7 +140,7 @@ public class InboundMessagePayloadTo {
   private LineTypeEnum lineType;
 
 
-  public InboundMessagePayloadTo phoneNumber(String phoneNumber) {
+  public InboundMessagePayloadCc phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
   }
@@ -166,7 +164,7 @@ public class InboundMessagePayloadTo {
   }
 
 
-  public InboundMessagePayloadTo status(StatusEnum status) {
+  public InboundMessagePayloadCc status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -190,7 +188,7 @@ public class InboundMessagePayloadTo {
   }
 
 
-  public InboundMessagePayloadTo carrier(String carrier) {
+  public InboundMessagePayloadCc carrier(String carrier) {
     this.carrier = carrier;
     return this;
   }
@@ -214,7 +212,7 @@ public class InboundMessagePayloadTo {
   }
 
 
-  public InboundMessagePayloadTo lineType(LineTypeEnum lineType) {
+  public InboundMessagePayloadCc lineType(LineTypeEnum lineType) {
     this.lineType = lineType;
     return this;
   }
@@ -239,7 +237,7 @@ public class InboundMessagePayloadTo {
 
 
   /**
-   * Return true if this InboundMessagePayload_to object is equal to o.
+   * Return true if this InboundMessagePayload_cc object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -249,11 +247,11 @@ public class InboundMessagePayloadTo {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InboundMessagePayloadTo inboundMessagePayloadTo = (InboundMessagePayloadTo) o;
-    return Objects.equals(this.phoneNumber, inboundMessagePayloadTo.phoneNumber) &&
-        Objects.equals(this.status, inboundMessagePayloadTo.status) &&
-        Objects.equals(this.carrier, inboundMessagePayloadTo.carrier) &&
-        Objects.equals(this.lineType, inboundMessagePayloadTo.lineType);
+    InboundMessagePayloadCc inboundMessagePayloadCc = (InboundMessagePayloadCc) o;
+    return Objects.equals(this.phoneNumber, inboundMessagePayloadCc.phoneNumber) &&
+        Objects.equals(this.status, inboundMessagePayloadCc.status) &&
+        Objects.equals(this.carrier, inboundMessagePayloadCc.carrier) &&
+        Objects.equals(this.lineType, inboundMessagePayloadCc.lineType);
   }
 
   @Override
@@ -265,7 +263,7 @@ public class InboundMessagePayloadTo {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InboundMessagePayloadTo {\n");
+    sb.append("class InboundMessagePayloadCc {\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    carrier: ").append(toIndentedString(carrier)).append("\n");

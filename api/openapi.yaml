@@ -9648,7 +9648,7 @@ components:
           type: array
         cc:
           items:
-            $ref: '#/components/schemas/InboundMessagePayload_to'
+            $ref: '#/components/schemas/InboundMessagePayload_cc'
           type: array
         from:
           $ref: '#/components/schemas/InboundMessagePayload_from'
@@ -10292,6 +10292,43 @@ components:
     NumberOrderEvent:
       example:
         data:
+          occurred_at: 2000-01-23T04:56:07.000+00:00
+          event_type: number_order.complete
+          payload:
+            id: 12ade33a-21c0-473b-b055-b3c836e1c292
+            phone_numbers:
+            - id: dc8e4d67-33a0-4cbb-af74-7b58f05bd494
+              record_type: number_order_phone_number
+              phone_number: +19705555098
+              regulatory_group_id: dc8e4d67-33a0-4cbb-af74-7b58f05bd494
+              regulatory_requirements:
+              - record_type: phone_number_regulatory_requirement
+                requirement_id: 8ffb3622-7c6b-4ccc-b65f-7a3dc0099576
+                field_value: 45f45a04-b4be-4592-95b1-9306b9db2b21
+                field_type: address_id
+              requirements_met: true
+              status: success
+            record_type: number_order
+            connection_id: "346789098765567"
+            messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
+            phone_numbers_count: 1
+            status: pending
+            customer_reference: MY REF 001
+            created_at: 2018-01-01T00:00:00.000000Z
+            updated_at: 2018-01-01T00:00:00.000000Z
+            requirements_met: true
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          record_type: event
+      properties:
+        data:
+          $ref: '#/components/schemas/NumberOrderEventData'
+      title: Number Order Event
+      type: object
+    NumberOrderEventData:
+      example:
+        occurred_at: 2000-01-23T04:56:07.000+00:00
+        event_type: number_order.complete
+        payload:
           id: 12ade33a-21c0-473b-b055-b3c836e1c292
           phone_numbers:
           - id: dc8e4d67-33a0-4cbb-af74-7b58f05bd494
@@ -10314,10 +10351,30 @@ components:
           created_at: 2018-01-01T00:00:00.000000Z
           updated_at: 2018-01-01T00:00:00.000000Z
           requirements_met: true
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        record_type: event
       properties:
-        data:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        id:
+          description: Identifies the type of resource.
+          format: uuid
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          example: number_order.complete
+          type: string
+        occurred_at:
+          description: ISO 8601 formatted date indicating when the resource was created.
+          format: date-time
+          type: string
+        payload:
           $ref: '#/components/schemas/NumberOrder'
-      title: Number Order Event
+      title: Number Order Event Data
       type: object
     NumberPoolSettings:
       description: |
@@ -14932,6 +14989,37 @@ components:
           type: string
       type: object
     InboundMessagePayload_to:
+      properties:
+        phone_number:
+          description: Receiving address (+E.164 formatted phone number or short code).
+          format: address
+          type: string
+        status:
+          enum:
+          - queued
+          - sending
+          - sent
+          - delivered
+          - sending_failed
+          - delivery_failed
+          - delivery_unconfirmed
+          - webhook_delivered
+          type: string
+        carrier:
+          description: The carrier of the receiver.
+          type: string
+        line_type:
+          description: The line-type of the receiver.
+          enum:
+          - Wireline
+          - Wireless
+          - VoWiFi
+          - VoIP
+          - Pre-Paid Wireless
+          - ""
+          type: string
+      type: object
+    InboundMessagePayload_cc:
       properties:
         phone_number:
           description: Receiving address (+E.164 formatted phone number or short code).

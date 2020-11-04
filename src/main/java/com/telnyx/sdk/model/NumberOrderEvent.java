@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.NumberOrder;
+import com.telnyx.sdk.model.NumberOrderEventData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -38,10 +38,10 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NumberOrderEvent {
   public static final String JSON_PROPERTY_DATA = "data";
-  private NumberOrder data;
+  private NumberOrderEventData data;
 
 
-  public NumberOrderEvent data(NumberOrder data) {
+  public NumberOrderEvent data(NumberOrderEventData data) {
     this.data = data;
     return this;
   }
@@ -55,12 +55,12 @@ public class NumberOrderEvent {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public NumberOrder getData() {
+  public NumberOrderEventData getData() {
     return data;
   }
 
 
-  public void setData(NumberOrder data) {
+  public void setData(NumberOrderEventData data) {
     this.data = data;
   }
 
