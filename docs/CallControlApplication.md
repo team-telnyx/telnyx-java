@@ -33,12 +33,6 @@ LATENCY_ | &quot;\&quot;Latency\&quot;&quot;
 CHICAGO_IL_ | &quot;\&quot;Chicago, IL\&quot;&quot;
 ASHBURN_VA_ | &quot;\&quot;Ashburn, VA\&quot;&quot;
 SAN_JOSE_CA_ | &quot;\&quot;San Jose, CA\&quot;&quot;
-SYDNEY_AUSTRALIA_ | &quot;\&quot;Sydney, Australia\&quot;&quot;
-AMSTERDAM_NETHERLANDS_ | &quot;\&quot;Amsterdam, Netherlands\&quot;&quot;
-LONDON_UK_ | &quot;\&quot;London, UK\&quot;&quot;
-TORONTO_CANADA_ | &quot;\&quot;Toronto, Canada\&quot;&quot;
-VANCOUVER_CANADA_ | &quot;\&quot;Vancouver, Canada\&quot;&quot;
-FRANKFURT_GERMANY_ | &quot;\&quot;Frankfurt, Germany\&quot;&quot;
 
 
 

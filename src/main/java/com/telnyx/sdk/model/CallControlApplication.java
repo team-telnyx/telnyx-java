@@ -69,19 +69,7 @@ public class CallControlApplication {
     
     ASHBURN_VA_("\"Ashburn, VA\""),
     
-    SAN_JOSE_CA_("\"San Jose, CA\""),
-    
-    SYDNEY_AUSTRALIA_("\"Sydney, Australia\""),
-    
-    AMSTERDAM_NETHERLANDS_("\"Amsterdam, Netherlands\""),
-    
-    LONDON_UK_("\"London, UK\""),
-    
-    TORONTO_CANADA_("\"Toronto, Canada\""),
-    
-    VANCOUVER_CANADA_("\"Vancouver, Canada\""),
-    
-    FRANKFURT_GERMANY_("\"Frankfurt, Germany\"");
+    SAN_JOSE_CA_("\"San Jose, CA\"");
 
     private String value;
 
