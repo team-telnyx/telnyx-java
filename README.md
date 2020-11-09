@@ -28,7 +28,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.1.1</version>
+  <version>2.1.2</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -38,7 +38,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.1.1"
+compile "com.telnyx.sdk:telnyx:2.1.2"
 ```
 
 ### Others
@@ -53,7 +53,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.1.1.jar`
+- `target/telnyx-2.1.2.jar`
 - `target/lib/*.jar`
 
 ## JDK Support
@@ -399,10 +399,10 @@ Class | Method | HTTP request | Description
  - [NumberOrder](docs/NumberOrder.md)
  - [NumberOrderDocument](docs/NumberOrderDocument.md)
  - [NumberOrderDocumentResponse](docs/NumberOrderDocumentResponse.md)
- - [NumberOrderEvent](docs/NumberOrderEvent.md)
- - [NumberOrderEventData](docs/NumberOrderEventData.md)
  - [NumberOrderRegulatoryRequirementResponse](docs/NumberOrderRegulatoryRequirementResponse.md)
  - [NumberOrderResponse](docs/NumberOrderResponse.md)
+ - [NumberOrdered](docs/NumberOrdered.md)
+ - [NumberOrderedEvent](docs/NumberOrderedEvent.md)
  - [NumberPoolSettings](docs/NumberPoolSettings.md)
  - [NumberReservation](docs/NumberReservation.md)
  - [NumberReservationResponse](docs/NumberReservationResponse.md)

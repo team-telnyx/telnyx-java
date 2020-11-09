@@ -36,6 +36,7 @@ import com.telnyx.sdk.JSON;
   CreateConferenceRequest.JSON_PROPERTY_NAME,
   CreateConferenceRequest.JSON_PROPERTY_BEEP_ENABLED,
   CreateConferenceRequest.JSON_PROPERTY_CLIENT_STATE,
+  CreateConferenceRequest.JSON_PROPERTY_COMFORT_NOISE,
   CreateConferenceRequest.JSON_PROPERTY_COMMAND_ID,
   CreateConferenceRequest.JSON_PROPERTY_DURATION_MINUTES,
   CreateConferenceRequest.JSON_PROPERTY_HOLD_AUDIO_URL,
@@ -93,6 +94,9 @@ public class CreateConferenceRequest {
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
+
+  public static final String JSON_PROPERTY_COMFORT_NOISE = "comfort_noise";
+  private Boolean comfortNoise = true;
 
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
@@ -198,6 +202,30 @@ public class CreateConferenceRequest {
 
   public void setClientState(String clientState) {
     this.clientState = clientState;
+  }
+
+
+  public CreateConferenceRequest comfortNoise(Boolean comfortNoise) {
+    this.comfortNoise = comfortNoise;
+    return this;
+  }
+
+   /**
+   * Toggle background comfort noise.
+   * @return comfortNoise
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "false", value = "Toggle background comfort noise.")
+  @JsonProperty(JSON_PROPERTY_COMFORT_NOISE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getComfortNoise() {
+    return comfortNoise;
+  }
+
+
+  public void setComfortNoise(Boolean comfortNoise) {
+    this.comfortNoise = comfortNoise;
   }
 
 
@@ -313,6 +341,7 @@ public class CreateConferenceRequest {
         Objects.equals(this.name, createConferenceRequest.name) &&
         Objects.equals(this.beepEnabled, createConferenceRequest.beepEnabled) &&
         Objects.equals(this.clientState, createConferenceRequest.clientState) &&
+        Objects.equals(this.comfortNoise, createConferenceRequest.comfortNoise) &&
         Objects.equals(this.commandId, createConferenceRequest.commandId) &&
         Objects.equals(this.durationMinutes, createConferenceRequest.durationMinutes) &&
         Objects.equals(this.holdAudioUrl, createConferenceRequest.holdAudioUrl) &&
@@ -321,7 +350,7 @@ public class CreateConferenceRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, name, beepEnabled, clientState, commandId, durationMinutes, holdAudioUrl, startConferenceOnCreate);
+    return Objects.hash(callControlId, name, beepEnabled, clientState, comfortNoise, commandId, durationMinutes, holdAudioUrl, startConferenceOnCreate);
   }
 
 
@@ -333,6 +362,7 @@ public class CreateConferenceRequest {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    beepEnabled: ").append(toIndentedString(beepEnabled)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
+    sb.append("    comfortNoise: ").append(toIndentedString(comfortNoise)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    durationMinutes: ").append(toIndentedString(durationMinutes)).append("\n");
     sb.append("    holdAudioUrl: ").append(toIndentedString(holdAudioUrl)).append("\n");
