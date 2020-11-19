@@ -16,9 +16,12 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GatherUsingAudioRequest;
 import com.telnyx.sdk.model.GatherUsingSpeakRequest;
 import com.telnyx.sdk.model.HangupRequest;
+import com.telnyx.sdk.model.PauseRecordingRequest;
 import com.telnyx.sdk.model.PlayAudioUrlRequest;
 import com.telnyx.sdk.model.PlaybackStopRequest;
+import com.telnyx.sdk.model.ReferRequest;
 import com.telnyx.sdk.model.RejectRequest;
+import com.telnyx.sdk.model.ResumeRecordingRequest;
 import com.telnyx.sdk.model.RetrieveCallStatusResponse;
 import com.telnyx.sdk.model.SendDTMFRequest;
 import com.telnyx.sdk.model.SpeakRequest;
@@ -904,6 +907,160 @@ public class CallCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Record pause
+   * Pause recording the call. Recording can be resumed via Resume recording command.  **Expected Webhooks:**  There are no webhooks associated with this command. 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param pauseRecordingRequest Pause recording call request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callRecordPause(String callControlId, PauseRecordingRequest pauseRecordingRequest) throws ApiException {
+    return callRecordPauseWithHttpInfo(callControlId, pauseRecordingRequest).getData();
+  }
+
+  /**
+   * Record pause
+   * Pause recording the call. Recording can be resumed via Resume recording command.  **Expected Webhooks:**  There are no webhooks associated with this command. 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param pauseRecordingRequest Pause recording call request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callRecordPauseWithHttpInfo(String callControlId, PauseRecordingRequest pauseRecordingRequest) throws ApiException {
+    Object localVarPostBody = pauseRecordingRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callRecordPause");
+    }
+    
+    // verify the required parameter 'pauseRecordingRequest' is set
+    if (pauseRecordingRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'pauseRecordingRequest' when calling callRecordPause");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/record_pause"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callRecordPause", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Record resume
+   * Resume recording the call.  **Expected Webhooks:**  There are no webhooks associated with this command. 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param resumeRecordingRequest Resume recording call request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callRecordResume(String callControlId, ResumeRecordingRequest resumeRecordingRequest) throws ApiException {
+    return callRecordResumeWithHttpInfo(callControlId, resumeRecordingRequest).getData();
+  }
+
+  /**
+   * Record resume
+   * Resume recording the call.  **Expected Webhooks:**  There are no webhooks associated with this command. 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param resumeRecordingRequest Resume recording call request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callRecordResumeWithHttpInfo(String callControlId, ResumeRecordingRequest resumeRecordingRequest) throws ApiException {
+    Object localVarPostBody = resumeRecordingRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callRecordResume");
+    }
+    
+    // verify the required parameter 'resumeRecordingRequest' is set
+    if (resumeRecordingRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'resumeRecordingRequest' when calling callRecordResume");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/record_resume"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callRecordResume", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Recording start
    * Start recording the call. Recording will stop on call hang-up, or can be initiated via the Stop Recording command.  **Expected Webhooks:**  - &#x60;call.recording.saved&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
@@ -1054,6 +1211,83 @@ public class CallCommandsApi {
     GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
 
     return apiClient.invokeAPI("CallCommandsApi.callRecordStop", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * SIP Refer a call
+   * Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.  **Expected Webhooks:**  - &#x60;call.refer.started&#x60; - &#x60;call.refer.completed&#x60; - &#x60;call.refer.failed&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param referRequest Refer request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callRefer(String callControlId, ReferRequest referRequest) throws ApiException {
+    return callReferWithHttpInfo(callControlId, referRequest).getData();
+  }
+
+  /**
+   * SIP Refer a call
+   * Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.  **Expected Webhooks:**  - &#x60;call.refer.started&#x60; - &#x60;call.refer.completed&#x60; - &#x60;call.refer.failed&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param referRequest Refer request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callReferWithHttpInfo(String callControlId, ReferRequest referRequest) throws ApiException {
+    Object localVarPostBody = referRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callRefer");
+    }
+    
+    // verify the required parameter 'referRequest' is set
+    if (referRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'referRequest' when calling callRefer");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/refer"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callRefer", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

@@ -15,8 +15,11 @@ Method | HTTP request | Description
 [**callHangup**](CallCommandsApi.md#callHangup) | **POST** /calls/{call_control_id}/actions/hangup | Hangup call
 [**callPlaybackStart**](CallCommandsApi.md#callPlaybackStart) | **POST** /calls/{call_control_id}/actions/playback_start | Play audio URL
 [**callPlaybackStop**](CallCommandsApi.md#callPlaybackStop) | **POST** /calls/{call_control_id}/actions/playback_stop | Stop audio playback
+[**callRecordPause**](CallCommandsApi.md#callRecordPause) | **POST** /calls/{call_control_id}/actions/record_pause | Record pause
+[**callRecordResume**](CallCommandsApi.md#callRecordResume) | **POST** /calls/{call_control_id}/actions/record_resume | Record resume
 [**callRecordStart**](CallCommandsApi.md#callRecordStart) | **POST** /calls/{call_control_id}/actions/record_start | Recording start
 [**callRecordStop**](CallCommandsApi.md#callRecordStop) | **POST** /calls/{call_control_id}/actions/record_stop | Recording stop
+[**callRefer**](CallCommandsApi.md#callRefer) | **POST** /calls/{call_control_id}/actions/refer | SIP Refer a call
 [**callReject**](CallCommandsApi.md#callReject) | **POST** /calls/{call_control_id}/actions/reject | Reject a call
 [**callSendDTMF**](CallCommandsApi.md#callSendDTMF) | **POST** /calls/{call_control_id}/actions/send_dtmf | Send DTMF
 [**callSpeak**](CallCommandsApi.md#callSpeak) | **POST** /calls/{call_control_id}/actions/speak | Speak text
@@ -978,6 +981,162 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
+## callRecordPause
+
+> CallControlCommandResponse callRecordPause(callControlId, pauseRecordingRequest)
+
+Record pause
+
+Pause recording the call. Recording can be resumed via Resume recording command.
+
+**Expected Webhooks:**
+
+There are no webhooks associated with this command.
+
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        PauseRecordingRequest pauseRecordingRequest = new PauseRecordingRequest(); // PauseRecordingRequest | Pause recording call request
+        try {
+            CallControlCommandResponse result = apiInstance.callRecordPause(callControlId, pauseRecordingRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callRecordPause");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **callControlId** | **String**| Unique identifier and token for controlling the call |
+ **pauseRecordingRequest** | [**PauseRecordingRequest**](PauseRecordingRequest.md)| Pause recording call request |
+
+### Return type
+
+[**CallControlCommandResponse**](CallControlCommandResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response upon making a call control command. |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## callRecordResume
+
+> CallControlCommandResponse callRecordResume(callControlId, resumeRecordingRequest)
+
+Record resume
+
+Resume recording the call.
+
+**Expected Webhooks:**
+
+There are no webhooks associated with this command.
+
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        ResumeRecordingRequest resumeRecordingRequest = new ResumeRecordingRequest(); // ResumeRecordingRequest | Resume recording call request
+        try {
+            CallControlCommandResponse result = apiInstance.callRecordResume(callControlId, resumeRecordingRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callRecordResume");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **callControlId** | **String**| Unique identifier and token for controlling the call |
+ **resumeRecordingRequest** | [**ResumeRecordingRequest**](ResumeRecordingRequest.md)| Resume recording call request |
+
+### Return type
+
+[**CallControlCommandResponse**](CallControlCommandResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response upon making a call control command. |  -  |
+| **0** | Unexpected error |  -  |
+
+
 ## callRecordStart
 
 > CallControlCommandResponse callRecordStart(callControlId, startRecordingRequest)
@@ -1113,6 +1272,86 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **callControlId** | **String**| Unique identifier and token for controlling the call |
  **stopRecordingRequest** | [**StopRecordingRequest**](StopRecordingRequest.md)| Stop recording call request |
+
+### Return type
+
+[**CallControlCommandResponse**](CallControlCommandResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response upon making a call control command. |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## callRefer
+
+> CallControlCommandResponse callRefer(callControlId, referRequest)
+
+SIP Refer a call
+
+Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.
+
+**Expected Webhooks:**
+
+- `call.refer.started`
+- `call.refer.completed`
+- `call.refer.failed`
+
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        ReferRequest referRequest = new ReferRequest(); // ReferRequest | Refer request
+        try {
+            CallControlCommandResponse result = apiInstance.callRefer(callControlId, referRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callRefer");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **callControlId** | **String**| Unique identifier and token for controlling the call |
+ **referRequest** | [**ReferRequest**](ReferRequest.md)| Refer request |
 
 ### Return type
 

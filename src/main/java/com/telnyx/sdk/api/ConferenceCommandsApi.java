@@ -1029,7 +1029,7 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistConferenceParticipantsRequest
      */
     public APIlistConferenceParticipantsRequest pageNumber(Integer pageNumber) {
@@ -1039,7 +1039,7 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistConferenceParticipantsRequest
      */
     public APIlistConferenceParticipantsRequest pageSize(Integer pageSize) {
@@ -1156,7 +1156,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistConferencesRequest
      */
     public APIlistConferencesRequest pageNumber(Integer pageNumber) {
@@ -1166,7 +1166,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistConferencesRequest
      */
     public APIlistConferencesRequest pageSize(Integer pageSize) {

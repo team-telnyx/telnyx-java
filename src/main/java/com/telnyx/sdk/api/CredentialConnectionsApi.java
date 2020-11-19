@@ -1,0 +1,430 @@
+package com.telnyx.sdk.api;
+
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiResponse;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.Pair;
+
+import javax.ws.rs.core.GenericType;
+
+import com.telnyx.sdk.model.CreateCredentialConnectionRequest;
+import com.telnyx.sdk.model.CredentialConnectionResponse;
+import com.telnyx.sdk.model.ListCredentialConnectionsResponse;
+import com.telnyx.sdk.model.UpdateCredentialConnectionRequest;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+public class CredentialConnectionsApi {
+  private ApiClient apiClient;
+
+  public CredentialConnectionsApi() {
+    this(Configuration.getDefaultApiClient());
+  }
+
+  public CredentialConnectionsApi(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
+
+  /**
+   * Get the API cilent
+   *
+   * @return API client
+   */
+  public ApiClient getApiClient() {
+    return apiClient;
+  }
+
+  /**
+   * Set the API cilent
+   *
+   * @param apiClient an instance of API client
+   */
+  public void setApiClient(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
+
+  /**
+   * Create a credential connection
+   * Creates a credential connection.
+   * @param createCredentialConnectionRequest Parameters that can be defined during credential connection creation (required)
+   * @return CredentialConnectionResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 201 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+     </table>
+   */
+  public CredentialConnectionResponse createCredentialConnection(CreateCredentialConnectionRequest createCredentialConnectionRequest) throws ApiException {
+    return createCredentialConnectionWithHttpInfo(createCredentialConnectionRequest).getData();
+  }
+
+  /**
+   * Create a credential connection
+   * Creates a credential connection.
+   * @param createCredentialConnectionRequest Parameters that can be defined during credential connection creation (required)
+   * @return ApiResponse&lt;CredentialConnectionResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 201 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CredentialConnectionResponse> createCredentialConnectionWithHttpInfo(CreateCredentialConnectionRequest createCredentialConnectionRequest) throws ApiException {
+    Object localVarPostBody = createCredentialConnectionRequest;
+    
+    // verify the required parameter 'createCredentialConnectionRequest' is set
+    if (createCredentialConnectionRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'createCredentialConnectionRequest' when calling createCredentialConnection");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/credential_connections";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CredentialConnectionResponse> localVarReturnType = new GenericType<CredentialConnectionResponse>() {};
+
+    return apiClient.invokeAPI("CredentialConnectionsApi.createCredentialConnection", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Delete a credential connection
+   * Deletes an existing credential connection.
+   * @param id Identifies the resource. (required)
+   * @return CredentialConnectionResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+     </table>
+   */
+  public CredentialConnectionResponse deleteCredentialConnection(String id) throws ApiException {
+    return deleteCredentialConnectionWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Delete a credential connection
+   * Deletes an existing credential connection.
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;CredentialConnectionResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CredentialConnectionResponse> deleteCredentialConnectionWithHttpInfo(String id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteCredentialConnection");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/credential_connections/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CredentialConnectionResponse> localVarReturnType = new GenericType<CredentialConnectionResponse>() {};
+
+    return apiClient.invokeAPI("CredentialConnectionsApi.deleteCredentialConnection", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * List credential connections
+   * Returns a list of your credential connections.
+   * @param pageNumber The page number to load. (optional, default to 1)
+   * @param pageSize The size of the page. (optional, default to 20)
+   * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
+   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+   * @return ListCredentialConnectionsResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with a list of credential connections. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+     </table>
+   */
+  public ListCredentialConnectionsResponse listCredentialConnections(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+    return listCredentialConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort).getData();
+  }
+
+  /**
+   * List credential connections
+   * Returns a list of your credential connections.
+   * @param pageNumber The page number to load. (optional, default to 1)
+   * @param pageSize The size of the page. (optional, default to 20)
+   * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
+   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+   * @return ApiResponse&lt;ListCredentialConnectionsResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with a list of credential connections. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<ListCredentialConnectionsResponse> listCredentialConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/credential_connections";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_name][contains]", filterConnectionNameContains));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound.outbound_voice_profile_id]", filterOutboundOutboundVoiceProfileId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ListCredentialConnectionsResponse> localVarReturnType = new GenericType<ListCredentialConnectionsResponse>() {};
+
+    return apiClient.invokeAPI("CredentialConnectionsApi.listCredentialConnections", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Retrieve a connection
+   * Retrieves the details of an existing credential connection.
+   * @param id Identifies the resource. (required)
+   * @return CredentialConnectionResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+     </table>
+   */
+  public CredentialConnectionResponse retrieveCredentialConnection(String id) throws ApiException {
+    return retrieveCredentialConnectionWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Retrieve a connection
+   * Retrieves the details of an existing credential connection.
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;CredentialConnectionResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CredentialConnectionResponse> retrieveCredentialConnectionWithHttpInfo(String id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveCredentialConnection");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/credential_connections/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CredentialConnectionResponse> localVarReturnType = new GenericType<CredentialConnectionResponse>() {};
+
+    return apiClient.invokeAPI("CredentialConnectionsApi.retrieveCredentialConnection", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Update a credential connection
+   * Updates settings of an existing credential connection.
+   * @param id Identifies the resource. (required)
+   * @param updateCredentialConnectionRequest Parameters that can be updated in a credential connection (required)
+   * @return CredentialConnectionResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+     </table>
+   */
+  public CredentialConnectionResponse updateCredentialConnection(String id, UpdateCredentialConnectionRequest updateCredentialConnectionRequest) throws ApiException {
+    return updateCredentialConnectionWithHttpInfo(id, updateCredentialConnectionRequest).getData();
+  }
+
+  /**
+   * Update a credential connection
+   * Updates settings of an existing credential connection.
+   * @param id Identifies the resource. (required)
+   * @param updateCredentialConnectionRequest Parameters that can be updated in a credential connection (required)
+   * @return ApiResponse&lt;CredentialConnectionResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CredentialConnectionResponse> updateCredentialConnectionWithHttpInfo(String id, UpdateCredentialConnectionRequest updateCredentialConnectionRequest) throws ApiException {
+    Object localVarPostBody = updateCredentialConnectionRequest;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updateCredentialConnection");
+    }
+    
+    // verify the required parameter 'updateCredentialConnectionRequest' is set
+    if (updateCredentialConnectionRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'updateCredentialConnectionRequest' when calling updateCredentialConnection");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/credential_connections/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CredentialConnectionResponse> localVarReturnType = new GenericType<CredentialConnectionResponse>() {};
+
+    return apiClient.invokeAPI("CredentialConnectionsApi.updateCredentialConnection", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+}

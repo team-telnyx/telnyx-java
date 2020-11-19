@@ -206,7 +206,7 @@ public class NumberConfigurationsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String sort) throws ApiException {
+private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -229,6 +229,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.connection_name][eq]", filterVoiceConnectionNameEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[usage_payment_method]", filterUsagePaymentMethod));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[billing_group_id]", filterBillingGroupId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[emergency_address_id]", filterEmergencyAddressId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -265,6 +266,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     private String filterVoiceConnectionNameEq;
     private String filterUsagePaymentMethod;
     private String filterBillingGroupId;
+    private String filterEmergencyAddressId;
     private String sort;
 
     private APIlistPhoneNumbersRequest() {
@@ -272,7 +274,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageNumber(Integer pageNumber) {
@@ -282,7 +284,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageSize(Integer pageSize) {
@@ -381,6 +383,16 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     }
 
     /**
+     * Set filterEmergencyAddressId
+     * @param filterEmergencyAddressId Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string &#39;null&#39;. (optional)
+     * @return APIlistPhoneNumbersRequest
+     */
+    public APIlistPhoneNumbersRequest filterEmergencyAddressId(String filterEmergencyAddressId) {
+      this.filterEmergencyAddressId = filterEmergencyAddressId;
+      return this;
+    }
+
+    /**
      * Set sort
      * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
      * @return APIlistPhoneNumbersRequest
@@ -420,7 +432,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
      */
     public ApiResponse<ListPhoneNumbersResponse> executeWithHttpInfo() throws ApiException {
-      return listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, sort);
+      return listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, sort);
     }
   }
 
@@ -482,7 +494,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageNumber(Integer pageNumber) {
@@ -492,7 +504,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageSize(Integer pageSize) {
@@ -600,7 +612,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageNumber(Integer pageNumber) {
@@ -610,7 +622,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageSize(Integer pageSize) {
