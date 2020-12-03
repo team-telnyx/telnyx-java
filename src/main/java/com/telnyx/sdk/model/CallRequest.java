@@ -189,7 +189,7 @@ public class CallRequest {
    * The DID or SIP URI to dial out to.
    * @return to
   **/
-  @ApiModelProperty(example = "+18005550100 or SIP:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out to.")
+  @ApiModelProperty(example = "+18005550100 or sip:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out to.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

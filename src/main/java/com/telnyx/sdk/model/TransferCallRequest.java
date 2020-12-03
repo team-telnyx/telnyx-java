@@ -181,7 +181,7 @@ public class TransferCallRequest {
    * The DID or SIP URI to dial out and bridge to the given call.
    * @return to
   **/
-  @ApiModelProperty(example = "+18005550100 or SIP:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out and bridge to the given call.")
+  @ApiModelProperty(example = "+18005550100 or sip:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out and bridge to the given call.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -225,11 +225,11 @@ public class TransferCallRequest {
   }
 
    /**
-   * The URL of a file to be played back to the callee before bridging the call. The URL can point to either a WAV or MP3 file.
+   * Audio URL to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file.
    * @return audioUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://www.example.com/sounds/greeting.wav", value = "The URL of a file to be played back to the callee before bridging the call. The URL can point to either a WAV or MP3 file.")
+  @ApiModelProperty(example = "http://www.example.com/sounds/greeting.wav", value = "Audio URL to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file.")
   @JsonProperty(JSON_PROPERTY_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 
 ## listPhoneNumbers
 
-> ListPhoneNumbersResponse listPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionNameEq(filterVoiceConnectionNameEq).filterUsagePaymentMethod(filterUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).sort(sort).execute();
+> ListPhoneNumbersResponse listPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionNameEq(filterVoiceConnectionNameEq).filterUsagePaymentMethod(filterUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).sort(sort).execute();
 
 List phone numbers
 
@@ -197,6 +197,7 @@ public class Example {
         String filterVoiceConnectionNameEq = test; // String | Filter by connection name.
         String filterUsagePaymentMethod = channel; // String | Filter by usage_payment_method.
         String filterBillingGroupId = 62e4bf2e-c278-4282-b524-488d9c9c43b2; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
+        String filterEmergencyAddressId = 9102160989215728032; // String | Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
         String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumbersResponse result = api.listPhoneNumbers()
@@ -211,6 +212,7 @@ public class Example {
                 .filterVoiceConnectionNameEq(filterVoiceConnectionNameEq)
                 .filterUsagePaymentMethod(filterUsagePaymentMethod)
                 .filterBillingGroupId(filterBillingGroupId)
+                .filterEmergencyAddressId(filterEmergencyAddressId)
                 .sort(sort)
                 .execute();
             System.out.println(result);
@@ -241,6 +243,7 @@ Name | Type | Description  | Notes
  **filterVoiceConnectionNameEq** | **String**| Filter by connection name. | [optional]
  **filterUsagePaymentMethod** | **String**| Filter by usage_payment_method. | [optional] [enum: pay-per-minute, channel]
  **filterBillingGroupId** | **String**| Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. | [optional]
+ **filterEmergencyAddressId** | **String**| Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string &#39;null&#39;. | [optional]
  **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: purchased_at, phone_number, connection_name, usage_payment_method]
 
 ### Return type

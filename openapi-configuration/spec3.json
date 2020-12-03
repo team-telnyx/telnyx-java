@@ -541,7 +541,7 @@
     "/calls": {
       "post": {
         "summary": "Dial",
-        "description": "Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting\n- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested\n- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected\n",
+        "description": "Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`",
         "operationId": "callDial",
         "tags": [
           "Call Commands"
@@ -567,7 +567,7 @@
         },
         "callbacks": {
           "callInitiated": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -588,7 +588,7 @@
             }
           },
           "callAnswered": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -609,7 +609,7 @@
             }
           },
           "callHangup": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -630,7 +630,7 @@
             }
           },
           "callMachineDetectionEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -651,7 +651,7 @@
             }
           },
           "callMachineGreetingEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -733,7 +733,7 @@
         },
         "callbacks": {
           "callAnswered": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -791,7 +791,7 @@
         },
         "callbacks": {
           "callBridged": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -849,7 +849,7 @@
         },
         "callbacks": {
           "callForkStarted": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -870,7 +870,7 @@
             }
           },
           "callForkStopped": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -928,7 +928,7 @@
         },
         "callbacks": {
           "callForkStopped": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -986,7 +986,7 @@
         },
         "callbacks": {
           "callGatherEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1044,7 +1044,7 @@
         },
         "callbacks": {
           "callPlaybackStarted": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1065,7 +1065,7 @@
             }
           },
           "callPlaybackEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1086,7 +1086,7 @@
             }
           },
           "callDtmfReceived": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1107,7 +1107,7 @@
             }
           },
           "callGatherEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1165,7 +1165,7 @@
         },
         "callbacks": {
           "callDtmfReceived": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1186,7 +1186,7 @@
             }
           },
           "callGatherEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1244,7 +1244,7 @@
         },
         "callbacks": {
           "callHangup": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1265,7 +1265,7 @@
             }
           },
           "callRecordingSaved": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1323,7 +1323,7 @@
         },
         "callbacks": {
           "callPlaybackStarted": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1344,7 +1344,7 @@
             }
           },
           "callPlaybackEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1402,7 +1402,7 @@
         },
         "callbacks": {
           "callPlaybackEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1423,7 +1423,7 @@
             }
           },
           "callSpeakEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1442,6 +1442,76 @@
                 }
               }
             }
+          }
+        },
+        "x-latency-category": "interactive"
+      }
+    },
+    "/calls/{call_control_id}/actions/record_pause": {
+      "post": {
+        "summary": "Record pause",
+        "description": "Pause recording the call. Recording can be resumed via Resume recording command.\n\n**Expected Webhooks:**\n\nThere are no webhooks associated with this command.\n",
+        "operationId": "callRecordPause",
+        "tags": [
+          "Call Commands"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CallControlId"
+          }
+        ],
+        "requestBody": {
+          "description": "Pause recording call request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PauseRecordingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CallControlCommandResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "interactive"
+      }
+    },
+    "/calls/{call_control_id}/actions/record_resume": {
+      "post": {
+        "summary": "Record resume",
+        "description": "Resume recording the call.\n\n**Expected Webhooks:**\n\nThere are no webhooks associated with this command.\n",
+        "operationId": "callRecordResume",
+        "tags": [
+          "Call Commands"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CallControlId"
+          }
+        ],
+        "requestBody": {
+          "description": "Resume recording call request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResumeRecordingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CallControlCommandResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
           }
         },
         "x-latency-category": "interactive"
@@ -1516,7 +1586,7 @@
         },
         "callbacks": {
           "callRecordingSaved": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1524,6 +1594,106 @@
                     "application/json": {
                       "schema": {
                         "$ref": "#/components/schemas/CallRecordingSavedEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-latency-category": "interactive"
+      }
+    },
+    "/calls/{call_control_id}/actions/refer": {
+      "post": {
+        "summary": "SIP Refer a call",
+        "description": "Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.\n\n**Expected Webhooks:**\n\n- `call.refer.started`\n- `call.refer.completed`\n- `call.refer.failed`\n",
+        "operationId": "callRefer",
+        "tags": [
+          "Call Commands"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CallControlId"
+          }
+        ],
+        "requestBody": {
+          "description": "Refer request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CallControlCommandResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "callbacks": {
+          "callReferStarted": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CallReferStartedEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "callReferCompleted": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CallReferCompletedEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "callReferFailed": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CallReferFailedEvent"
                       }
                     }
                   }
@@ -1574,7 +1744,7 @@
         },
         "callbacks": {
           "callHangup": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1667,7 +1837,7 @@
         },
         "callbacks": {
           "callSpeakStarted": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1688,7 +1858,7 @@
             }
           },
           "callSpeakEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1715,7 +1885,7 @@
     "/calls/{call_control_id}/actions/transfer": {
       "post": {
         "summary": "Transfer call",
-        "description": "Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.bridged` to Leg B\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting\n- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested\n- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected\n",
+        "description": "Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.bridged` to Leg B\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`",
         "operationId": "callTransfer",
         "tags": [
           "Call Commands"
@@ -1746,7 +1916,7 @@
         },
         "callbacks": {
           "callInitiated": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1767,7 +1937,7 @@
             }
           },
           "callBridged": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1788,7 +1958,7 @@
             }
           },
           "callAnswered": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1809,7 +1979,7 @@
             }
           },
           "callHangup": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1897,7 +2067,7 @@
         },
         "callbacks": {
           "conferenceCreated": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1918,7 +2088,7 @@
             }
           },
           "conferenceParticipantJoined": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1939,7 +2109,7 @@
             }
           },
           "conferenceEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -1960,7 +2130,7 @@
             }
           },
           "conferenceParticipantLeft": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2128,7 +2298,7 @@
         },
         "callbacks": {
           "callAnswered": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2149,7 +2319,7 @@
             }
           },
           "callHangup": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2170,7 +2340,7 @@
             }
           },
           "conferenceParticipantJoined": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2191,7 +2361,7 @@
             }
           },
           "conferenceParticipantLeft": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2303,7 +2473,7 @@
         },
         "callbacks": {
           "conferenceParticipantJoined": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2324,7 +2494,7 @@
             }
           },
           "conferenceParticipantLeft": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2439,7 +2609,7 @@
         },
         "callbacks": {
           "conferencePlaybackStarted": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2460,7 +2630,7 @@
             }
           },
           "conferencePlaybackEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2481,7 +2651,7 @@
             }
           },
           "conferenceParticipantPlaybackStarted": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2502,7 +2672,7 @@
             }
           },
           "conferenceParticipantPlaybackEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2664,7 +2834,7 @@
         },
         "callbacks": {
           "conferenceSpeakStarted": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2685,7 +2855,7 @@
             }
           },
           "conferenceSpeakEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2706,7 +2876,7 @@
             }
           },
           "conferenceParticipantSpeakStarted": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2727,7 +2897,7 @@
             }
           },
           "conferenceParticipantSpeakEnded": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2871,7 +3041,7 @@
         },
         "callbacks": {
           "deliveryUpdate": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2922,7 +3092,7 @@
         },
         "callbacks": {
           "deliveryUpdate": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -2973,7 +3143,7 @@
         },
         "callbacks": {
           "deliveryUpdate": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -3024,7 +3194,7 @@
         },
         "callbacks": {
           "deliveryUpdate": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -3323,7 +3493,7 @@
         },
         "callbacks": {
           "inboundMessage": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -3344,7 +3514,7 @@
             }
           },
           "deliveryUpdate": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -3365,7 +3535,7 @@
             }
           },
           "replacedLinkClick": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -3828,7 +3998,7 @@
         },
         "callbacks": {
           "numberOrderStatusUpdate": {
-            "\"{$request.body#/webhook_url}\"": {
+            "{$request.body#/webhook_url}": {
               "post": {
                 "requestBody": {
                   "required": true,
@@ -4230,6 +4400,17 @@
             "schema": {
               "type": "string",
               "example": "62e4bf2e-c278-4282-b524-488d9c9c43b2"
+            }
+          },
+          {
+            "name": "filter[emergency_address_id]",
+            "in": "query",
+            "description": "Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "9102160989215728032"
             }
           },
           {
@@ -7979,6 +8160,316 @@
           }
         }
       },
+      "CallReferCompleted": {
+        "type": "object",
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "call.refer.completed",
+            "enum": [
+              "call.refer.completed"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2018-02-02T22:25:27.521992Z",
+            "description": "ISO 8601 datetime of when the event occurred."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "call_control_id": {
+                "type": "string",
+                "example": "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA",
+                "description": "Unique ID for controlling the call."
+              },
+              "call_leg_id": {
+                "type": "string",
+                "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+                "description": "ID that is unique to the call and can be used to correlate webhook events."
+              },
+              "call_session_id": {
+                "type": "string",
+                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+                "description": "ID that is unique to the call session and can be used to correlate webhook events."
+              },
+              "connection_id": {
+                "type": "string",
+                "example": "7267xxxxxxxxxxxxxx",
+                "description": "Telnyx connection ID used in the call."
+              },
+              "client_state": {
+                "type": "string",
+                "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+                "description": "State received from a command."
+              },
+              "from": {
+                "type": "string",
+                "example": "+35319605860",
+                "description": "Number or SIP URI placing the call."
+              },
+              "sip_notify_response": {
+                "type": "integer",
+                "example": 200,
+                "description": "SIP NOTIFY event status for tracking the REFER attempt."
+              },
+              "to": {
+                "type": "string",
+                "example": "+13129457420",
+                "description": "Destination number or SIP URI of the call."
+              }
+            }
+          }
+        },
+        "example": {
+          "record_type": "event",
+          "event_type": "call.refer.completed",
+          "id": "4ce4366d-8d87-44be-a00b-942154e9c5f5",
+          "occurred_at": "2020-03-30T13:29:44.650000Z",
+          "payload": {
+            "call_control_id": "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA",
+            "call_leg_id": "817f7de8-728a-11ea-9ce6-02420a0f8969",
+            "call_session_id": "817f8c2a-728a-11ea-9cbe-02420a0f8969",
+            "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+            "connection_id": "1289082222292239760",
+            "from": "+35319605860",
+            "sip_notify_response": 200,
+            "to": "+13129457420"
+          }
+        }
+      },
+      "CallReferCompletedEvent": {
+        "type": "object",
+        "title": "Call Recording Saved Event",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CallReferCompleted"
+          }
+        }
+      },
+      "CallReferFailed": {
+        "type": "object",
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "call.refer.failed",
+            "enum": [
+              "call.refer.failed"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2018-02-02T22:25:27.521992Z",
+            "description": "ISO 8601 datetime of when the event occurred."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "call_control_id": {
+                "type": "string",
+                "example": "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA",
+                "description": "Unique ID for controlling the call."
+              },
+              "call_leg_id": {
+                "type": "string",
+                "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+                "description": "ID that is unique to the call and can be used to correlate webhook events."
+              },
+              "call_session_id": {
+                "type": "string",
+                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+                "description": "ID that is unique to the call session and can be used to correlate webhook events."
+              },
+              "connection_id": {
+                "type": "string",
+                "example": "7267xxxxxxxxxxxxxx",
+                "description": "Telnyx connection ID used in the call."
+              },
+              "client_state": {
+                "type": "string",
+                "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+                "description": "State received from a command."
+              },
+              "from": {
+                "type": "string",
+                "example": "+35319605860",
+                "description": "Number or SIP URI placing the call."
+              },
+              "sip_notify_response": {
+                "type": "integer",
+                "example": 603,
+                "description": "SIP NOTIFY event status for tracking the REFER attempt."
+              },
+              "to": {
+                "type": "string",
+                "example": "+13129457420",
+                "description": "Destination number or SIP URI of the call."
+              }
+            }
+          }
+        },
+        "example": {
+          "record_type": "event",
+          "event_type": "call.refer.failed",
+          "id": "fbeb70e0-54eb-4e26-8d19-56b43e66f754",
+          "occurred_at": "2020-03-30T13:29:42.130013Z",
+          "payload": {
+            "call_control_id": "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA",
+            "call_leg_id": "817f7de8-728a-11ea-9ce6-02420a0f8969",
+            "call_session_id": "817f8c2a-728a-11ea-9cbe-02420a0f8969",
+            "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+            "connection_id": "1289082222292239760",
+            "from": "+35319605860",
+            "sip_notify_response": 603,
+            "to": "+13129457420"
+          }
+        }
+      },
+      "CallReferFailedEvent": {
+        "type": "object",
+        "title": "Call Recording Saved Event",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CallReferFailed"
+          }
+        }
+      },
+      "CallReferStarted": {
+        "type": "object",
+        "title": "Call Refer Started",
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "call.refer.started",
+            "enum": [
+              "call.refer.started"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2018-02-02T22:25:27.521992Z",
+            "description": "ISO 8601 datetime of when the event occurred."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "call_control_id": {
+                "type": "string",
+                "example": "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA",
+                "description": "Unique ID for controlling the call."
+              },
+              "call_leg_id": {
+                "type": "string",
+                "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+                "description": "ID that is unique to the call and can be used to correlate webhook events."
+              },
+              "call_session_id": {
+                "type": "string",
+                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+                "description": "ID that is unique to the call session and can be used to correlate webhook events."
+              },
+              "connection_id": {
+                "type": "string",
+                "example": "7267xxxxxxxxxxxxxx",
+                "description": "Telnyx connection ID used in the call."
+              },
+              "client_state": {
+                "type": "string",
+                "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+                "description": "State received from a command."
+              },
+              "from": {
+                "type": "string",
+                "example": "+35319605860",
+                "description": "Number or SIP URI placing the call."
+              },
+              "sip_notify_response": {
+                "type": "integer",
+                "example": 100,
+                "description": "SIP NOTIFY event status for tracking the REFER attempt."
+              },
+              "to": {
+                "type": "string",
+                "example": "+13129457420",
+                "description": "Destination number or SIP URI of the call."
+              }
+            }
+          }
+        },
+        "example": {
+          "record_type": "event",
+          "event_type": "call.refer.started",
+          "id": "fbeb70e0-54eb-4e26-8d19-56b43e66f754",
+          "occurred_at": "2020-03-30T13:29:42.130013Z",
+          "payload": {
+            "call_control_id": "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA",
+            "call_leg_id": "817f7de8-728a-11ea-9ce6-02420a0f8969",
+            "call_session_id": "817f8c2a-728a-11ea-9cbe-02420a0f8969",
+            "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+            "connection_id": "1289082222292239760",
+            "from": "+35319605860",
+            "sip_notify_response": 100,
+            "to": "+13129457420"
+          }
+        }
+      },
+      "CallReferStartedEvent": {
+        "type": "object",
+        "title": "Call Refer Started Event",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CallReferStarted"
+          }
+        }
+      },
       "CallRequest": {
         "type": "object",
         "title": "Dial Request",
@@ -7988,7 +8479,7 @@
           "from"
         ],
         "example": {
-          "to": "+18005550100 or SIP:username@sip.telnyx.com",
+          "to": "+18005550100 or sip:username@sip.telnyx.com",
           "from": "+18005550101",
           "connection_id": "7267xxxxxxxxxxxxxx",
           "audio_url": "http://www.example.com/sounds/greeting.wav",
@@ -8029,7 +8520,7 @@
           "to": {
             "description": "The DID or SIP URI to dial out to.",
             "type": "string",
-            "example": "+18005550100 or SIP:username@sip.telnyx.com"
+            "example": "+18005550100 or sip:username@sip.telnyx.com"
           },
           "from": {
             "description": "The `from` number to be used as the caller id presented to the destination (`to` number). The number should be in +E164 format. This attribute will default to the `from` number of the original call if omitted.",
@@ -8579,7 +9070,7 @@
           "to": {
             "description": "The DID or SIP URI to dial out and bridge to the given call.",
             "type": "string",
-            "example": "+18005550100 or SIP:username@sip.telnyx.com"
+            "example": "+18005550100 or sip:username@sip.telnyx.com"
           },
           "whisper_call_control_ids": {
             "description": "Array of unique call_control_ids the joining supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.",
@@ -12996,6 +13487,22 @@
           }
         }
       },
+      "PauseRecordingRequest": {
+        "type": "object",
+        "title": "Pause Recording Request",
+        "properties": {
+          "client_state": {
+            "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+            "type": "string",
+            "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+          },
+          "command_id": {
+            "description": "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.",
+            "type": "string",
+            "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+          }
+        }
+      },
       "PhoneNumber": {
         "properties": {
           "id": {
@@ -13739,6 +14246,58 @@
           }
         }
       },
+      "ReferRequest": {
+        "type": "object",
+        "title": "Refer request",
+        "required": [
+          "sip_address"
+        ],
+        "properties": {
+          "sip_address": {
+            "description": "The SIP URI to which the call will be referred to.",
+            "type": "string",
+            "example": "sip:username@sip.non-telnyx-address.com"
+          },
+          "client_state": {
+            "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+            "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+            "type": "string"
+          },
+          "command_id": {
+            "description": "Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.",
+            "example": "891510ac-f3e4-11e8-af5b-de00688a4901",
+            "type": "string"
+          },
+          "custom_headers": {
+            "description": "Custom headers to be added to the SIP INVITE.",
+            "type": "array",
+            "example": [
+              {
+                "name": "head_1",
+                "value": "val_1"
+              },
+              {
+                "name": "head_2",
+                "value": "val_2"
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/CustomSipHeader"
+            }
+          },
+          "sip_auth_username": {
+            "description": "SIP Authentication username used for SIP challenges.",
+            "type": "string"
+          },
+          "sip_auth_password": {
+            "description": "SIP Authentication password used for SIP challenges.",
+            "type": "string"
+          }
+        },
+        "example": {
+          "sip_address": "sip:username@sip.non-telnyx-address.com"
+        }
+      },
       "RegionInformation": {
         "properties": {
           "region_type": {
@@ -13972,6 +14531,22 @@
           "created_at": "2018-01-01T00:00:00.000000Z",
           "updated_at": "2018-01-01T00:00:00.000000Z",
           "expired_at": "2018-01-01T00:00:00.000000Z"
+        }
+      },
+      "ResumeRecordingRequest": {
+        "type": "object",
+        "title": "Pause Recording Request",
+        "properties": {
+          "client_state": {
+            "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+            "type": "string",
+            "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+          },
+          "command_id": {
+            "description": "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.",
+            "type": "string",
+            "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+          }
         }
       },
       "SendDTMFRequest": {
@@ -14350,7 +14925,7 @@
           "to"
         ],
         "example": {
-          "to": "+18005550100 or SIP:username@sip.telnyx.com",
+          "to": "+18005550100 or sip:username@sip.telnyx.com",
           "from": "+18005550101",
           "audio_url": "http://www.example.com/sounds/greeting.wav",
           "timeout_secs": 60,
@@ -14389,7 +14964,7 @@
           "to": {
             "description": "The DID or SIP URI to dial out and bridge to the given call.",
             "type": "string",
-            "example": "+18005550100 or SIP:username@sip.telnyx.com"
+            "example": "+18005550100 or sip:username@sip.telnyx.com"
           },
           "from": {
             "description": "The `from` number to be used as the caller id presented to the destination (`to` number). The number should be in +E164 format. This attribute will default to the `from` number of the original call if omitted.",
@@ -14397,7 +14972,7 @@
             "example": "+18005550101"
           },
           "audio_url": {
-            "description": "The URL of a file to be played back to the callee before bridging the call. The URL can point to either a WAV or MP3 file.",
+            "description": "Audio URL to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file.",
             "type": "string",
             "example": "http://www.example.com/sounds/greeting.wav"
           },
