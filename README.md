@@ -28,7 +28,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.1.2</version>
+  <version>2.2.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -38,7 +38,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.1.2"
+compile "com.telnyx.sdk:telnyx:2.2.0"
 ```
 
 ### Others
@@ -53,7 +53,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.1.2.jar`
+- `target/telnyx-2.2.0.jar`
 - `target/lib/*.jar`
 
 ## JDK Support
@@ -133,8 +133,11 @@ Class | Method | HTTP request | Description
 *CallCommandsApi* | [**callHangup**](docs/CallCommandsApi.md#callHangup) | **POST** /calls/{call_control_id}/actions/hangup | Hangup call
 *CallCommandsApi* | [**callPlaybackStart**](docs/CallCommandsApi.md#callPlaybackStart) | **POST** /calls/{call_control_id}/actions/playback_start | Play audio URL
 *CallCommandsApi* | [**callPlaybackStop**](docs/CallCommandsApi.md#callPlaybackStop) | **POST** /calls/{call_control_id}/actions/playback_stop | Stop audio playback
+*CallCommandsApi* | [**callRecordPause**](docs/CallCommandsApi.md#callRecordPause) | **POST** /calls/{call_control_id}/actions/record_pause | Record pause
+*CallCommandsApi* | [**callRecordResume**](docs/CallCommandsApi.md#callRecordResume) | **POST** /calls/{call_control_id}/actions/record_resume | Record resume
 *CallCommandsApi* | [**callRecordStart**](docs/CallCommandsApi.md#callRecordStart) | **POST** /calls/{call_control_id}/actions/record_start | Recording start
 *CallCommandsApi* | [**callRecordStop**](docs/CallCommandsApi.md#callRecordStop) | **POST** /calls/{call_control_id}/actions/record_stop | Recording stop
+*CallCommandsApi* | [**callRefer**](docs/CallCommandsApi.md#callRefer) | **POST** /calls/{call_control_id}/actions/refer | SIP Refer a call
 *CallCommandsApi* | [**callReject**](docs/CallCommandsApi.md#callReject) | **POST** /calls/{call_control_id}/actions/reject | Reject a call
 *CallCommandsApi* | [**callSendDTMF**](docs/CallCommandsApi.md#callSendDTMF) | **POST** /calls/{call_control_id}/actions/send_dtmf | Send DTMF
 *CallCommandsApi* | [**callSpeak**](docs/CallCommandsApi.md#callSpeak) | **POST** /calls/{call_control_id}/actions/speak | Speak text
@@ -274,6 +277,15 @@ Class | Method | HTTP request | Description
  - [CallRecordingSavedPayload](docs/CallRecordingSavedPayload.md)
  - [CallRecordingSavedPayloadPublicRecordingUrls](docs/CallRecordingSavedPayloadPublicRecordingUrls.md)
  - [CallRecordingSavedPayloadRecordingUrls](docs/CallRecordingSavedPayloadRecordingUrls.md)
+ - [CallReferCompleted](docs/CallReferCompleted.md)
+ - [CallReferCompletedEvent](docs/CallReferCompletedEvent.md)
+ - [CallReferCompletedPayload](docs/CallReferCompletedPayload.md)
+ - [CallReferFailed](docs/CallReferFailed.md)
+ - [CallReferFailedEvent](docs/CallReferFailedEvent.md)
+ - [CallReferFailedPayload](docs/CallReferFailedPayload.md)
+ - [CallReferStarted](docs/CallReferStarted.md)
+ - [CallReferStartedEvent](docs/CallReferStartedEvent.md)
+ - [CallReferStartedPayload](docs/CallReferStartedPayload.md)
  - [CallRequest](docs/CallRequest.md)
  - [CallRequestAnsweringMachineDetectionConfig](docs/CallRequestAnsweringMachineDetectionConfig.md)
  - [CallSpeakEnded](docs/CallSpeakEnded.md)
@@ -416,6 +428,7 @@ Class | Method | HTTP request | Description
  - [PaginationMetaSimple](docs/PaginationMetaSimple.md)
  - [Participant](docs/Participant.md)
  - [ParticipantConference](docs/ParticipantConference.md)
+ - [PauseRecordingRequest](docs/PauseRecordingRequest.md)
  - [PhoneNumber](docs/PhoneNumber.md)
  - [PhoneNumberDetailed](docs/PhoneNumberDetailed.md)
  - [PhoneNumberEnableEmergency](docs/PhoneNumberEnableEmergency.md)
@@ -430,6 +443,7 @@ Class | Method | HTTP request | Description
  - [PlaybackStopRequest](docs/PlaybackStopRequest.md)
  - [Recording](docs/Recording.md)
  - [RecordingDownloadUrls](docs/RecordingDownloadUrls.md)
+ - [ReferRequest](docs/ReferRequest.md)
  - [RegionInformation](docs/RegionInformation.md)
  - [RegulatoryRequirement](docs/RegulatoryRequirement.md)
  - [RegulatoryRequirementCriteria](docs/RegulatoryRequirementCriteria.md)
@@ -437,6 +451,7 @@ Class | Method | HTTP request | Description
  - [ReplacedLinkClick](docs/ReplacedLinkClick.md)
  - [ReplacedLinkClickEvent](docs/ReplacedLinkClickEvent.md)
  - [ReservedPhoneNumber](docs/ReservedPhoneNumber.md)
+ - [ResumeRecordingRequest](docs/ResumeRecordingRequest.md)
  - [RetrieveCallStatusResponse](docs/RetrieveCallStatusResponse.md)
  - [RetrieveMessagingHostedNumberOrderResponse](docs/RetrieveMessagingHostedNumberOrderResponse.md)
  - [RetrieveMessagingHostedNumberResponse](docs/RetrieveMessagingHostedNumberResponse.md)

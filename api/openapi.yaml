@@ -599,7 +599,7 @@ paths:
     post:
       callbacks:
         callInitiated:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callInitiated_Post
               requestBody:
@@ -614,7 +614,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callAnswered:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callAnswered_Post
               requestBody:
@@ -629,7 +629,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callHangup:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callHangup_Post
               requestBody:
@@ -644,7 +644,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callMachineDetectionEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callMachineDetectionEnded_Post
               requestBody:
@@ -659,7 +659,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callMachineGreetingEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callMachineGreetingEnded_Post
               requestBody:
@@ -673,7 +673,7 @@ paths:
                   description: The server must return an HTTP 200, otherwise we will
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
-      description: |
+      description: |-
         Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.
 
         **Expected Webhooks:**
@@ -681,9 +681,7 @@ paths:
         - `call.initiated`
         - `call.answered` or `call.hangup`
         - `call.machine.detection.ended` if `answering_machine_detection` was requested
-        - `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting
-        - `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
-        - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected
+        - `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`
       operationId: callDial
       requestBody:
         content:
@@ -747,7 +745,7 @@ paths:
     post:
       callbacks:
         callAnswered:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callAnswered_Post
               requestBody:
@@ -807,7 +805,7 @@ paths:
     post:
       callbacks:
         callBridged:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callBridged_Post
               requestBody:
@@ -868,7 +866,7 @@ paths:
     post:
       callbacks:
         callForkStarted:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callForkStarted_Post
               requestBody:
@@ -883,7 +881,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callForkStopped:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callForkStopped_Post
               requestBody:
@@ -984,7 +982,7 @@ paths:
     post:
       callbacks:
         callForkStopped:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callForkStopped_Post
               requestBody:
@@ -1044,7 +1042,7 @@ paths:
     post:
       callbacks:
         callGatherEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callGatherEnded_Post
               requestBody:
@@ -1104,7 +1102,7 @@ paths:
     post:
       callbacks:
         callPlaybackStarted:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callPlaybackStarted_Post
               requestBody:
@@ -1119,7 +1117,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callPlaybackEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callPlaybackEnded_Post
               requestBody:
@@ -1134,7 +1132,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callDtmfReceived:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callDtmfReceived_Post
               requestBody:
@@ -1149,7 +1147,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callGatherEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callGatherEnded_Post
               requestBody:
@@ -1214,7 +1212,7 @@ paths:
     post:
       callbacks:
         callDtmfReceived:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callDtmfReceived_Post
               requestBody:
@@ -1229,7 +1227,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callGatherEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callGatherEnded_Post
               requestBody:
@@ -1292,7 +1290,7 @@ paths:
     post:
       callbacks:
         callHangup:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callHangup_Post
               requestBody:
@@ -1307,7 +1305,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callRecordingSaved:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callRecordingSaved_Post
               requestBody:
@@ -1368,7 +1366,7 @@ paths:
     post:
       callbacks:
         callPlaybackStarted:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callPlaybackStarted_Post
               requestBody:
@@ -1383,7 +1381,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callPlaybackEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callPlaybackEnded_Post
               requestBody:
@@ -1450,7 +1448,7 @@ paths:
     post:
       callbacks:
         callPlaybackEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callPlaybackEnded_Post
               requestBody:
@@ -1465,7 +1463,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callSpeakEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callSpeakEnded_Post
               requestBody:
@@ -1521,6 +1519,94 @@ paths:
       x-latency-category: interactive
       x-contentType: application/json
       x-accepts: application/json
+  /calls/{call_control_id}/actions/record_pause:
+    post:
+      description: |
+        Pause recording the call. Recording can be resumed via Resume recording command.
+
+        **Expected Webhooks:**
+
+        There are no webhooks associated with this command.
+      operationId: callRecordPause
+      parameters:
+      - description: Unique identifier and token for controlling the call
+        explode: false
+        in: path
+        name: call_control_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PauseRecordingRequest'
+        description: Pause recording call request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call_Control_Command_Response'
+          description: Successful response upon making a call control command.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Record pause
+      tags:
+      - Call Commands
+      x-latency-category: interactive
+      x-contentType: application/json
+      x-accepts: application/json
+  /calls/{call_control_id}/actions/record_resume:
+    post:
+      description: |
+        Resume recording the call.
+
+        **Expected Webhooks:**
+
+        There are no webhooks associated with this command.
+      operationId: callRecordResume
+      parameters:
+      - description: Unique identifier and token for controlling the call
+        explode: false
+        in: path
+        name: call_control_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeRecordingRequest'
+        description: Resume recording call request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call_Control_Command_Response'
+          description: Successful response upon making a call control command.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Record resume
+      tags:
+      - Call Commands
+      x-latency-category: interactive
+      x-contentType: application/json
+      x-accepts: application/json
   /calls/{call_control_id}/actions/record_start:
     post:
       description: |
@@ -1569,7 +1655,7 @@ paths:
     post:
       callbacks:
         callRecordingSaved:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callRecordingSaved_Post
               requestBody:
@@ -1625,11 +1711,103 @@ paths:
       x-latency-category: interactive
       x-contentType: application/json
       x-accepts: application/json
+  /calls/{call_control_id}/actions/refer:
+    post:
+      callbacks:
+        callReferStarted:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: callReferStarted_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CallReferStartedEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+        callReferCompleted:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: callReferCompleted_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CallReferCompletedEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+        callReferFailed:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: callReferFailed_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CallReferFailedEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+      description: |
+        Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.
+
+        **Expected Webhooks:**
+
+        - `call.refer.started`
+        - `call.refer.completed`
+        - `call.refer.failed`
+      operationId: callRefer
+      parameters:
+      - description: Unique identifier and token for controlling the call
+        explode: false
+        in: path
+        name: call_control_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReferRequest'
+        description: Refer request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call_Control_Command_Response'
+          description: Successful response upon making a call control command.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: SIP Refer a call
+      tags:
+      - Call Commands
+      x-latency-category: interactive
+      x-contentType: application/json
+      x-accepts: application/json
   /calls/{call_control_id}/actions/reject:
     post:
       callbacks:
         callHangup:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callHangup_Post
               requestBody:
@@ -1733,7 +1911,7 @@ paths:
     post:
       callbacks:
         callSpeakStarted:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callSpeakStarted_Post
               requestBody:
@@ -1748,7 +1926,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callSpeakEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callSpeakEnded_Post
               requestBody:
@@ -1809,7 +1987,7 @@ paths:
     post:
       callbacks:
         callInitiated:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callInitiated_Post
               requestBody:
@@ -1824,7 +2002,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callBridged:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callBridged_Post
               requestBody:
@@ -1839,7 +2017,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callAnswered:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callAnswered_Post
               requestBody:
@@ -1854,7 +2032,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callHangup:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callHangup_Post
               requestBody:
@@ -1868,7 +2046,7 @@ paths:
                   description: The server must return an HTTP 200, otherwise we will
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
-      description: |
+      description: |-
         Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.
 
         **Expected Webhooks:**
@@ -1877,9 +2055,7 @@ paths:
         - `call.bridged` to Leg B
         - `call.answered` or `call.hangup`
         - `call.machine.detection.ended` if `answering_machine_detection` was requested
-        - `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting
-        - `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
-        - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected
+        - `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`
       operationId: callTransfer
       parameters:
       - description: Unique identifier and token for controlling the call
@@ -1974,7 +2150,7 @@ paths:
     post:
       callbacks:
         conferenceCreated:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceCreated_Post
               requestBody:
@@ -1989,7 +2165,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceParticipantJoined:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantJoined_Post
               requestBody:
@@ -2004,7 +2180,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceEnded_Post
               requestBody:
@@ -2019,7 +2195,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceParticipantLeft:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantLeft_Post
               requestBody:
@@ -2179,7 +2355,7 @@ paths:
     post:
       callbacks:
         callAnswered:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callAnswered_Post
               requestBody:
@@ -2194,7 +2370,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         callHangup:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: callHangup_Post
               requestBody:
@@ -2209,7 +2385,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceParticipantJoined:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantJoined_Post
               requestBody:
@@ -2224,7 +2400,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceParticipantLeft:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantLeft_Post
               requestBody:
@@ -2325,7 +2501,7 @@ paths:
     post:
       callbacks:
         conferenceParticipantJoined:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantJoined_Post
               requestBody:
@@ -2340,7 +2516,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceParticipantLeft:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantLeft_Post
               requestBody:
@@ -2437,7 +2613,7 @@ paths:
     post:
       callbacks:
         conferencePlaybackStarted:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferencePlaybackStarted_Post
               requestBody:
@@ -2452,7 +2628,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferencePlaybackEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferencePlaybackEnded_Post
               requestBody:
@@ -2467,7 +2643,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceParticipantPlaybackStarted:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantPlaybackStarted_Post
               requestBody:
@@ -2482,7 +2658,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceParticipantPlaybackEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantPlaybackEnded_Post
               requestBody:
@@ -2623,7 +2799,7 @@ paths:
     post:
       callbacks:
         conferenceSpeakStarted:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceSpeakStarted_Post
               requestBody:
@@ -2638,7 +2814,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceSpeakEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceSpeakEnded_Post
               requestBody:
@@ -2653,7 +2829,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceParticipantSpeakStarted:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantSpeakStarted_Post
               requestBody:
@@ -2668,7 +2844,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         conferenceParticipantSpeakEnded:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: conferenceParticipantSpeakEnded_Post
               requestBody:
@@ -2798,7 +2974,7 @@ paths:
     post:
       callbacks:
         deliveryUpdate:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: deliveryUpdate_Post
               requestBody:
@@ -2848,7 +3024,7 @@ paths:
     post:
       callbacks:
         deliveryUpdate:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: deliveryUpdate_Post
               requestBody:
@@ -2892,7 +3068,7 @@ paths:
     post:
       callbacks:
         deliveryUpdate:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: deliveryUpdate_Post
               requestBody:
@@ -2936,7 +3112,7 @@ paths:
     post:
       callbacks:
         deliveryUpdate:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: deliveryUpdate_Post
               requestBody:
@@ -3305,7 +3481,7 @@ paths:
     post:
       callbacks:
         inboundMessage:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: inboundMessage_Post
               requestBody:
@@ -3320,7 +3496,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         deliveryUpdate:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: deliveryUpdate_Post
               requestBody:
@@ -3335,7 +3511,7 @@ paths:
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
         replacedLinkClick:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: replacedLinkClick_Post
               requestBody:
@@ -3937,7 +4113,7 @@ paths:
     post:
       callbacks:
         numberOrderStatusUpdate:
-          '"{$request.body#/webhook_url}"':
+          '{$request.body#/webhook_url}':
             post:
               operationId: numberOrderStatusUpdate_Post
               requestBody:
@@ -4397,6 +4573,18 @@ paths:
         required: false
         schema:
           example: 62e4bf2e-c278-4282-b524-488d9c9c43b2
+          type: string
+        style: form
+      - description: Filter by the emergency_address_id associated with phone numbers.
+          To filter only phone numbers that have no emergency address associated with
+          them, set the value of this filter to the string 'null'.
+        explode: true
+        in: query
+        name: filter[emergency_address_id]
+        required: false
+        schema:
+          example: "9102160989215728032"
+          format: int64
           type: string
         style: form
       - description: Specifies the sort order for results. If not given, results are
@@ -7072,9 +7260,196 @@ components:
           $ref: '#/components/schemas/CallRecordingSaved'
       title: Call Recording Saved Event
       type: object
+    CallReferCompleted:
+      example:
+        record_type: event
+        event_type: call.refer.completed
+        id: 4ce4366d-8d87-44be-a00b-942154e9c5f5
+        occurred_at: 2020-03-30T13:29:44.650000Z
+        payload:
+          call_control_id: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
+          call_leg_id: 817f7de8-728a-11ea-9ce6-02420a0f8969
+          call_session_id: 817f8c2a-728a-11ea-9cbe-02420a0f8969
+          client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+          connection_id: "1289082222292239760"
+          from: +35319605860
+          sip_notify_response: 200
+          to: +13129457420
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - call.refer.completed
+          example: call.refer.completed
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        occurred_at:
+          description: ISO 8601 datetime of when the event occurred.
+          example: 2018-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        payload:
+          $ref: '#/components/schemas/CallReferCompleted_payload'
+      type: object
+    CallReferCompletedEvent:
+      example:
+        data:
+          record_type: event
+          event_type: call.refer.completed
+          id: 4ce4366d-8d87-44be-a00b-942154e9c5f5
+          occurred_at: 2020-03-30T13:29:44.650000Z
+          payload:
+            call_control_id: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
+            call_leg_id: 817f7de8-728a-11ea-9ce6-02420a0f8969
+            call_session_id: 817f8c2a-728a-11ea-9cbe-02420a0f8969
+            client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+            connection_id: "1289082222292239760"
+            from: +35319605860
+            sip_notify_response: 200
+            to: +13129457420
+      properties:
+        data:
+          $ref: '#/components/schemas/CallReferCompleted'
+      title: Call Recording Saved Event
+      type: object
+    CallReferFailed:
+      example:
+        record_type: event
+        event_type: call.refer.failed
+        id: fbeb70e0-54eb-4e26-8d19-56b43e66f754
+        occurred_at: 2020-03-30T13:29:42.130013Z
+        payload:
+          call_control_id: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
+          call_leg_id: 817f7de8-728a-11ea-9ce6-02420a0f8969
+          call_session_id: 817f8c2a-728a-11ea-9cbe-02420a0f8969
+          client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+          connection_id: "1289082222292239760"
+          from: +35319605860
+          sip_notify_response: 603
+          to: +13129457420
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - call.refer.failed
+          example: call.refer.failed
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        occurred_at:
+          description: ISO 8601 datetime of when the event occurred.
+          example: 2018-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        payload:
+          $ref: '#/components/schemas/CallReferFailed_payload'
+      type: object
+    CallReferFailedEvent:
+      example:
+        data:
+          record_type: event
+          event_type: call.refer.failed
+          id: fbeb70e0-54eb-4e26-8d19-56b43e66f754
+          occurred_at: 2020-03-30T13:29:42.130013Z
+          payload:
+            call_control_id: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
+            call_leg_id: 817f7de8-728a-11ea-9ce6-02420a0f8969
+            call_session_id: 817f8c2a-728a-11ea-9cbe-02420a0f8969
+            client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+            connection_id: "1289082222292239760"
+            from: +35319605860
+            sip_notify_response: 603
+            to: +13129457420
+      properties:
+        data:
+          $ref: '#/components/schemas/CallReferFailed'
+      title: Call Recording Saved Event
+      type: object
+    CallReferStarted:
+      example:
+        record_type: event
+        event_type: call.refer.started
+        id: fbeb70e0-54eb-4e26-8d19-56b43e66f754
+        occurred_at: 2020-03-30T13:29:42.130013Z
+        payload:
+          call_control_id: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
+          call_leg_id: 817f7de8-728a-11ea-9ce6-02420a0f8969
+          call_session_id: 817f8c2a-728a-11ea-9cbe-02420a0f8969
+          client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+          connection_id: "1289082222292239760"
+          from: +35319605860
+          sip_notify_response: 100
+          to: +13129457420
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - call.refer.started
+          example: call.refer.started
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        occurred_at:
+          description: ISO 8601 datetime of when the event occurred.
+          example: 2018-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        payload:
+          $ref: '#/components/schemas/CallReferStarted_payload'
+      title: Call Refer Started
+      type: object
+    CallReferStartedEvent:
+      example:
+        data:
+          record_type: event
+          event_type: call.refer.started
+          id: fbeb70e0-54eb-4e26-8d19-56b43e66f754
+          occurred_at: 2020-03-30T13:29:42.130013Z
+          payload:
+            call_control_id: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
+            call_leg_id: 817f7de8-728a-11ea-9ce6-02420a0f8969
+            call_session_id: 817f8c2a-728a-11ea-9cbe-02420a0f8969
+            client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+            connection_id: "1289082222292239760"
+            from: +35319605860
+            sip_notify_response: 100
+            to: +13129457420
+      properties:
+        data:
+          $ref: '#/components/schemas/CallReferStarted'
+      title: Call Refer Started Event
+      type: object
     CallRequest:
       example:
-        to: +18005550100 or SIP:username@sip.telnyx.com
+        to: +18005550100 or sip:username@sip.telnyx.com
         from: +18005550101
         connection_id: 7267xxxxxxxxxxxxxx
         audio_url: http://www.example.com/sounds/greeting.wav
@@ -7107,7 +7482,7 @@ components:
       properties:
         to:
           description: The DID or SIP URI to dial out to.
-          example: +18005550100 or SIP:username@sip.telnyx.com
+          example: +18005550100 or sip:username@sip.telnyx.com
           type: string
         from:
           description: The `from` number to be used as the caller id presented to
@@ -7498,7 +7873,7 @@ components:
           type: string
         to:
           description: The DID or SIP URI to dial out and bridge to the given call.
-          example: +18005550100 or SIP:username@sip.telnyx.com
+          example: +18005550100 or sip:username@sip.telnyx.com
           type: string
         whisper_call_control_ids:
           description: Array of unique call_control_ids the joining supervisor can
@@ -10862,6 +11237,23 @@ components:
       - whisper_call_control_ids
       title: Participant
       type: object
+    PauseRecordingRequest:
+      example:
+        command_id: 891510ac-f3e4-11e8-af5b-de00688a4901
+        client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+      properties:
+        client_state:
+          description: Use this field to add state to every subsequent webhook. It
+            must be a valid Base-64 encoded string.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        command_id:
+          description: Use this field to avoid duplicate commands. Telnyx will ignore
+            commands with the same `command_id`.
+          example: 891510ac-f3e4-11e8-af5b-de00688a4901
+          type: string
+      title: Pause Recording Request
+      type: object
     PhoneNumber:
       example:
         id: dc8e4d67-33a0-4cbb-af74-7b58f05bd494
@@ -11470,6 +11862,45 @@ components:
       - updated_at
       title: Recording
       type: object
+    ReferRequest:
+      example:
+        sip_address: sip:username@sip.non-telnyx-address.com
+      properties:
+        sip_address:
+          description: The SIP URI to which the call will be referred to.
+          example: sip:username@sip.non-telnyx-address.com
+          type: string
+        client_state:
+          description: Use this field to add state to every subsequent webhook. It
+            must be a valid Base-64 encoded string.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        command_id:
+          description: Use this field to avoid execution of duplicate commands. Telnyx
+            will ignore subsequent commands with the same `command_id` as one that
+            has already been executed.
+          example: 891510ac-f3e4-11e8-af5b-de00688a4901
+          type: string
+        custom_headers:
+          description: Custom headers to be added to the SIP INVITE.
+          example:
+          - name: head_1
+            value: val_1
+          - name: head_2
+            value: val_2
+          items:
+            $ref: '#/components/schemas/CustomSipHeader'
+          type: array
+        sip_auth_username:
+          description: SIP Authentication username used for SIP challenges.
+          type: string
+        sip_auth_password:
+          description: SIP Authentication password used for SIP challenges.
+          type: string
+      required:
+      - sip_address
+      title: Refer request
+      type: object
     RegionInformation:
       example:
         region_type: country_code
@@ -11665,6 +12096,23 @@ components:
           example: Number is already on hold
           readOnly: true
           type: string
+    ResumeRecordingRequest:
+      example:
+        command_id: 891510ac-f3e4-11e8-af5b-de00688a4901
+        client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+      properties:
+        client_state:
+          description: Use this field to add state to every subsequent webhook. It
+            must be a valid Base-64 encoded string.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        command_id:
+          description: Use this field to avoid duplicate commands. Telnyx will ignore
+            commands with the same `command_id`.
+          example: 891510ac-f3e4-11e8-af5b-de00688a4901
+          type: string
+      title: Pause Recording Request
+      type: object
     SendDTMFRequest:
       example:
         digits: 1www2WABCDw9
@@ -11997,7 +12445,7 @@ components:
       type: string
     TransferCallRequest:
       example:
-        to: +18005550100 or SIP:username@sip.telnyx.com
+        to: +18005550100 or sip:username@sip.telnyx.com
         from: +18005550101
         audio_url: http://www.example.com/sounds/greeting.wav
         timeout_secs: 60
@@ -12028,7 +12476,7 @@ components:
       properties:
         to:
           description: The DID or SIP URI to dial out and bridge to the given call.
-          example: +18005550100 or SIP:username@sip.telnyx.com
+          example: +18005550100 or sip:username@sip.telnyx.com
           type: string
         from:
           description: The `from` number to be used as the caller id presented to
@@ -12037,8 +12485,8 @@ components:
           example: +18005550101
           type: string
         audio_url:
-          description: The URL of a file to be played back to the callee before bridging
-            the call. The URL can point to either a WAV or MP3 file.
+          description: Audio URL to be played back when the transfer destination answers
+            before bridging the call. The URL can point to either a WAV or MP3 file.
           example: http://www.example.com/sounds/greeting.wav
           type: string
         timeout_secs:
@@ -14584,6 +15032,117 @@ components:
           $ref: '#/components/schemas/CallRecordingSaved_payload_recording_urls'
         public_recording_urls:
           $ref: '#/components/schemas/CallRecordingSaved_payload_public_recording_urls'
+      type: object
+    CallReferCompleted_payload:
+      properties:
+        call_control_id:
+          description: Unique ID for controlling the call.
+          example: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
+          type: string
+        call_leg_id:
+          description: ID that is unique to the call and can be used to correlate
+            webhook events.
+          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          type: string
+        call_session_id:
+          description: ID that is unique to the call session and can be used to correlate
+            webhook events.
+          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          type: string
+        connection_id:
+          description: Telnyx connection ID used in the call.
+          example: 7267xxxxxxxxxxxxxx
+          type: string
+        client_state:
+          description: State received from a command.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        from:
+          description: Number or SIP URI placing the call.
+          example: +35319605860
+          type: string
+        sip_notify_response:
+          description: SIP NOTIFY event status for tracking the REFER attempt.
+          example: 200
+          type: integer
+        to:
+          description: Destination number or SIP URI of the call.
+          example: +13129457420
+          type: string
+      type: object
+    CallReferFailed_payload:
+      properties:
+        call_control_id:
+          description: Unique ID for controlling the call.
+          example: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
+          type: string
+        call_leg_id:
+          description: ID that is unique to the call and can be used to correlate
+            webhook events.
+          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          type: string
+        call_session_id:
+          description: ID that is unique to the call session and can be used to correlate
+            webhook events.
+          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          type: string
+        connection_id:
+          description: Telnyx connection ID used in the call.
+          example: 7267xxxxxxxxxxxxxx
+          type: string
+        client_state:
+          description: State received from a command.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        from:
+          description: Number or SIP URI placing the call.
+          example: +35319605860
+          type: string
+        sip_notify_response:
+          description: SIP NOTIFY event status for tracking the REFER attempt.
+          example: 603
+          type: integer
+        to:
+          description: Destination number or SIP URI of the call.
+          example: +13129457420
+          type: string
+      type: object
+    CallReferStarted_payload:
+      properties:
+        call_control_id:
+          description: Unique ID for controlling the call.
+          example: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
+          type: string
+        call_leg_id:
+          description: ID that is unique to the call and can be used to correlate
+            webhook events.
+          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          type: string
+        call_session_id:
+          description: ID that is unique to the call session and can be used to correlate
+            webhook events.
+          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          type: string
+        connection_id:
+          description: Telnyx connection ID used in the call.
+          example: 7267xxxxxxxxxxxxxx
+          type: string
+        client_state:
+          description: State received from a command.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        from:
+          description: Number or SIP URI placing the call.
+          example: +35319605860
+          type: string
+        sip_notify_response:
+          description: SIP NOTIFY event status for tracking the REFER attempt.
+          example: 100
+          type: integer
+        to:
+          description: Destination number or SIP URI of the call.
+          example: +13129457420
+          type: string
       type: object
     CallRequest_answering_machine_detection_config:
       description: Optional configuration parameters to modify 'answering_machine_detection'
