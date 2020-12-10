@@ -206,7 +206,7 @@ public class NumberConfigurationsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String sort) throws ApiException {
+private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String filterCustomerReference, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -230,6 +230,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[usage_payment_method]", filterUsagePaymentMethod));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[billing_group_id]", filterBillingGroupId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[emergency_address_id]", filterEmergencyAddressId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[customer_reference]", filterCustomerReference));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -267,6 +268,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     private String filterUsagePaymentMethod;
     private String filterBillingGroupId;
     private String filterEmergencyAddressId;
+    private String filterCustomerReference;
     private String sort;
 
     private APIlistPhoneNumbersRequest() {
@@ -274,7 +276,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageNumber(Integer pageNumber) {
@@ -284,7 +286,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageSize(Integer pageSize) {
@@ -393,6 +395,16 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     }
 
     /**
+     * Set filterCustomerReference
+     * @param filterCustomerReference Filter numbers via the customer_reference set. (optional)
+     * @return APIlistPhoneNumbersRequest
+     */
+    public APIlistPhoneNumbersRequest filterCustomerReference(String filterCustomerReference) {
+      this.filterCustomerReference = filterCustomerReference;
+      return this;
+    }
+
+    /**
      * Set sort
      * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
      * @return APIlistPhoneNumbersRequest
@@ -432,7 +444,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
      */
     public ApiResponse<ListPhoneNumbersResponse> executeWithHttpInfo() throws ApiException {
-      return listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, sort);
+      return listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, filterCustomerReference, sort);
     }
   }
 
@@ -494,7 +506,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageNumber(Integer pageNumber) {
@@ -504,7 +516,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageSize(Integer pageSize) {
@@ -558,7 +570,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
     return new APIlistPhoneNumbersWithMessagingSettingsRequest();
   }
 
-private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersWithVoiceSettingsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterUsagePaymentMethod, String sort) throws ApiException {
+private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersWithVoiceSettingsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterPhoneNumber, String filterConnectionNameContains, String filterCustomerReference, String filterUsagePaymentMethod, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -574,6 +586,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_name][contains]", filterConnectionNameContains));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[customer_reference]", filterCustomerReference));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[usage_payment_method]", filterUsagePaymentMethod));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
@@ -604,6 +617,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
     private Integer pageSize;
     private String filterPhoneNumber;
     private String filterConnectionNameContains;
+    private String filterCustomerReference;
     private String filterUsagePaymentMethod;
     private String sort;
 
@@ -612,7 +626,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageNumber(Integer pageNumber) {
@@ -622,7 +636,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageSize(Integer pageSize) {
@@ -647,6 +661,16 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest filterConnectionNameContains(String filterConnectionNameContains) {
       this.filterConnectionNameContains = filterConnectionNameContains;
+      return this;
+    }
+
+    /**
+     * Set filterCustomerReference
+     * @param filterCustomerReference Filter numbers via the customer_reference set. (optional)
+     * @return APIlistPhoneNumbersWithVoiceSettingsRequest
+     */
+    public APIlistPhoneNumbersWithVoiceSettingsRequest filterCustomerReference(String filterCustomerReference) {
+      this.filterCustomerReference = filterCustomerReference;
       return this;
     }
 
@@ -700,7 +724,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
      */
     public ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> executeWithHttpInfo() throws ApiException {
-      return listPhoneNumbersWithVoiceSettingsWithHttpInfo(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterUsagePaymentMethod, sort);
+      return listPhoneNumbersWithVoiceSettingsWithHttpInfo(pageNumber, pageSize, filterPhoneNumber, filterConnectionNameContains, filterCustomerReference, filterUsagePaymentMethod, sort);
     }
   }
 

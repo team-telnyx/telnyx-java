@@ -90,7 +90,7 @@ public class CreateConferenceRequest {
   }
 
   public static final String JSON_PROPERTY_BEEP_ENABLED = "beep_enabled";
-  private BeepEnabledEnum beepEnabled;
+  private BeepEnabledEnum beepEnabled = BeepEnabledEnum.NEVER;
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;

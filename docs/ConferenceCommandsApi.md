@@ -876,7 +876,7 @@ Name | Type | Description  | Notes
 
 ## listConferenceParticipants
 
-> ListParticipantsResponse listConferenceParticipants(conferenceId).filterMuted(filterMuted).filterOnHold(filterOnHold).filterWhispering(filterWhispering).pageNumber(pageNumber).pageSize(pageSize).execute();
+> ListParticipantsResponse listConferenceParticipants(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize)
 
 List conference participants
 
@@ -907,16 +907,10 @@ public class Example {
         Boolean filterMuted = true; // Boolean | If present, participants will be filtered to those who are/are not muted
         Boolean filterOnHold = true; // Boolean | If present, participants will be filtered to those who are/are not put on hold
         Boolean filterWhispering = true; // Boolean | If present, participants will be filtered to those who are whispering or are not
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         try {
-            ListParticipantsResponse result = api.listConferenceParticipants(conferenceId)
-                .filterMuted(filterMuted)
-                .filterOnHold(filterOnHold)
-                .filterWhispering(filterWhispering)
-                .pageNumber(pageNumber)
-                .pageSize(pageSize)
-                .execute();
+            ListParticipantsResponse result = apiInstance.listConferenceParticipants(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ConferenceCommandsApi#listConferenceParticipants");
@@ -938,8 +932,8 @@ Name | Type | Description  | Notes
  **filterMuted** | **Boolean**| If present, participants will be filtered to those who are/are not muted | [optional]
  **filterOnHold** | **Boolean**| If present, participants will be filtered to those who are/are not put on hold | [optional]
  **filterWhispering** | **Boolean**| If present, participants will be filtered to those who are whispering or are not | [optional]
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
 
 ### Return type
 
@@ -993,8 +987,8 @@ public class Example {
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String filterName = "filterName_example"; // String | If present, conferences will be filtered to those with a matching `name` attribute. Matching is case-sensitive
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         try {
             ListConferencesResponse result = api.listConferences()
                 .filterName(filterName)
@@ -1019,8 +1013,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filterName** | **String**| If present, conferences will be filtered to those with a matching &#x60;name&#x60; attribute. Matching is case-sensitive | [optional]
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
 
 ### Return type
 

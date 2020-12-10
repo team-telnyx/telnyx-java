@@ -37,6 +37,7 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberRequest.JSON_PROPERTY_ID,
   UpdatePhoneNumberRequest.JSON_PROPERTY_TAGS,
   UpdatePhoneNumberRequest.JSON_PROPERTY_EXTERNAL_PIN,
+  UpdatePhoneNumberRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
   UpdatePhoneNumberRequest.JSON_PROPERTY_CONNECTION_ID,
   UpdatePhoneNumberRequest.JSON_PROPERTY_BILLING_GROUP_ID
 })
@@ -50,6 +51,9 @@ public class UpdatePhoneNumberRequest {
 
   public static final String JSON_PROPERTY_EXTERNAL_PIN = "external_pin";
   private String externalPin;
+
+  public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
+  private String customerReference;
 
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -130,6 +134,30 @@ public class UpdatePhoneNumberRequest {
   }
 
 
+  public UpdatePhoneNumberRequest customerReference(String customerReference) {
+    this.customerReference = customerReference;
+    return this;
+  }
+
+   /**
+   * A customer reference string for customer look ups.
+   * @return customerReference
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCustomerReference() {
+    return customerReference;
+  }
+
+
+  public void setCustomerReference(String customerReference) {
+    this.customerReference = customerReference;
+  }
+
+
   public UpdatePhoneNumberRequest connectionId(String connectionId) {
     this.connectionId = connectionId;
     return this;
@@ -193,13 +221,14 @@ public class UpdatePhoneNumberRequest {
     return Objects.equals(this.id, updatePhoneNumberRequest.id) &&
         Objects.equals(this.tags, updatePhoneNumberRequest.tags) &&
         Objects.equals(this.externalPin, updatePhoneNumberRequest.externalPin) &&
+        Objects.equals(this.customerReference, updatePhoneNumberRequest.customerReference) &&
         Objects.equals(this.connectionId, updatePhoneNumberRequest.connectionId) &&
         Objects.equals(this.billingGroupId, updatePhoneNumberRequest.billingGroupId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, tags, externalPin, connectionId, billingGroupId);
+    return Objects.hash(id, tags, externalPin, customerReference, connectionId, billingGroupId);
   }
 
 
@@ -210,6 +239,7 @@ public class UpdatePhoneNumberRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    externalPin: ").append(toIndentedString(externalPin)).append("\n");
+    sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
     sb.append("}");

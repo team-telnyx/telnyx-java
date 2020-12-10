@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **createdAt** | **String** | An ISO 8901 datetime string denoting when the individual number reservation was created. |  [optional] [readonly]
 **updatedAt** | **String** | An ISO 8901 datetime string for when the the individual number reservation was updated. |  [optional] [readonly]
 **expiredAt** | **String** | An ISO 8901 datetime string for when the individual number reservation is going to expire |  [optional] [readonly]
-**errors** | **String** | Errors the reservation could happen upon |  [optional] [readonly]
 
 
 

@@ -41,6 +41,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_RECORD_TYPE,
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_PHONE_NUMBER,
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_CONNECTION_ID,
+  PhoneNumberWithVoiceSettings.JSON_PROPERTY_CUSTOMER_REFERENCE,
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_TECH_PREFIX_ENABLED,
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_TRANSLATED_NUMBER,
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_CALL_FORWARDING,
@@ -63,6 +64,9 @@ public class PhoneNumberWithVoiceSettings {
 
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
+
+  public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
+  private String customerReference;
 
   public static final String JSON_PROPERTY_TECH_PREFIX_ENABLED = "tech_prefix_enabled";
   private Boolean techPrefixEnabled = false;
@@ -193,6 +197,30 @@ public class PhoneNumberWithVoiceSettings {
 
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
+  }
+
+
+  public PhoneNumberWithVoiceSettings customerReference(String customerReference) {
+    this.customerReference = customerReference;
+    return this;
+  }
+
+   /**
+   * A customer reference string for customer look ups.
+   * @return customerReference
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCustomerReference() {
+    return customerReference;
+  }
+
+
+  public void setCustomerReference(String customerReference) {
+    this.customerReference = customerReference;
   }
 
 
@@ -404,6 +432,7 @@ public class PhoneNumberWithVoiceSettings {
         Objects.equals(this.recordType, phoneNumberWithVoiceSettings.recordType) &&
         Objects.equals(this.phoneNumber, phoneNumberWithVoiceSettings.phoneNumber) &&
         Objects.equals(this.connectionId, phoneNumberWithVoiceSettings.connectionId) &&
+        Objects.equals(this.customerReference, phoneNumberWithVoiceSettings.customerReference) &&
         Objects.equals(this.techPrefixEnabled, phoneNumberWithVoiceSettings.techPrefixEnabled) &&
         Objects.equals(this.translatedNumber, phoneNumberWithVoiceSettings.translatedNumber) &&
         Objects.equals(this.callForwarding, phoneNumberWithVoiceSettings.callForwarding) &&
@@ -416,7 +445,7 @@ public class PhoneNumberWithVoiceSettings {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, connectionId, techPrefixEnabled, translatedNumber, callForwarding, cnamListing, emergency, usagePaymentMethod, mediaFeatures, callRecording);
+    return Objects.hash(id, recordType, phoneNumber, connectionId, customerReference, techPrefixEnabled, translatedNumber, callForwarding, cnamListing, emergency, usagePaymentMethod, mediaFeatures, callRecording);
   }
 
 
@@ -428,6 +457,7 @@ public class PhoneNumberWithVoiceSettings {
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
+    sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    techPrefixEnabled: ").append(toIndentedString(techPrefixEnabled)).append("\n");
     sb.append("    translatedNumber: ").append(toIndentedString(translatedNumber)).append("\n");
     sb.append("    callForwarding: ").append(toIndentedString(callForwarding)).append("\n");

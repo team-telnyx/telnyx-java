@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.CallReferCompleted;
+import com.telnyx.sdk.model.CallReferStarted;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -38,10 +38,10 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CallReferCompletedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
-  private CallReferCompleted data;
+  private CallReferStarted data;
 
 
-  public CallReferCompletedEvent data(CallReferCompleted data) {
+  public CallReferCompletedEvent data(CallReferStarted data) {
     this.data = data;
     return this;
   }
@@ -55,12 +55,12 @@ public class CallReferCompletedEvent {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CallReferCompleted getData() {
+  public CallReferStarted getData() {
     return data;
   }
 
 
-  public void setData(CallReferCompleted data) {
+  public void setData(CallReferStarted data) {
     this.data = data;
   }
 

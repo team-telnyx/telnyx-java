@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 
 ## listPhoneNumbers
 
-> ListPhoneNumbersResponse listPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionNameEq(filterVoiceConnectionNameEq).filterUsagePaymentMethod(filterUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).sort(sort).execute();
+> ListPhoneNumbersResponse listPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionNameEq(filterVoiceConnectionNameEq).filterUsagePaymentMethod(filterUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).filterCustomerReference(filterCustomerReference).sort(sort).execute();
 
 List phone numbers
 
@@ -186,8 +186,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         String filterTag = "filterTag_example"; // String | Filter by phone number tags.
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
         String filterStatus = active; // String | Filter by phone number status.
@@ -198,6 +198,7 @@ public class Example {
         String filterUsagePaymentMethod = channel; // String | Filter by usage_payment_method.
         String filterBillingGroupId = 62e4bf2e-c278-4282-b524-488d9c9c43b2; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
         String filterEmergencyAddressId = 9102160989215728032; // String | Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
+        String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
         String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumbersResponse result = api.listPhoneNumbers()
@@ -213,6 +214,7 @@ public class Example {
                 .filterUsagePaymentMethod(filterUsagePaymentMethod)
                 .filterBillingGroupId(filterBillingGroupId)
                 .filterEmergencyAddressId(filterEmergencyAddressId)
+                .filterCustomerReference(filterCustomerReference)
                 .sort(sort)
                 .execute();
             System.out.println(result);
@@ -232,8 +234,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
  **filterTag** | **String**| Filter by phone number tags. | [optional]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterStatus** | **String**| Filter by phone number status. | [optional] [enum: purchase_pending, purchase_failed, port_pending, active, deleted, port_failed, emergency_only, ported_out, port_out_pending]
@@ -244,6 +246,7 @@ Name | Type | Description  | Notes
  **filterUsagePaymentMethod** | **String**| Filter by usage_payment_method. | [optional] [enum: pay-per-minute, channel]
  **filterBillingGroupId** | **String**| Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. | [optional]
  **filterEmergencyAddressId** | **String**| Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string &#39;null&#39;. | [optional]
+ **filterCustomerReference** | **String**| Filter numbers via the customer_reference set. | [optional]
  **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: purchased_at, phone_number, connection_name, usage_payment_method]
 
 ### Return type
@@ -293,8 +296,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         try {
             ListMessagingSettingsResponse result = api.listPhoneNumbersWithMessagingSettings()
                 .pageNumber(pageNumber)
@@ -317,8 +320,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
 
 ### Return type
 
@@ -342,7 +345,7 @@ Name | Type | Description  | Notes
 
 ## listPhoneNumbersWithVoiceSettings
 
-> ListPhoneNumbersWithVoiceSettingsResponse listPhoneNumbersWithVoiceSettings().pageNumber(pageNumber).pageSize(pageSize).filterPhoneNumber(filterPhoneNumber).filterConnectionNameContains(filterConnectionNameContains).filterUsagePaymentMethod(filterUsagePaymentMethod).sort(sort).execute();
+> ListPhoneNumbersWithVoiceSettingsResponse listPhoneNumbersWithVoiceSettings().pageNumber(pageNumber).pageSize(pageSize).filterPhoneNumber(filterPhoneNumber).filterConnectionNameContains(filterConnectionNameContains).filterCustomerReference(filterCustomerReference).filterUsagePaymentMethod(filterUsagePaymentMethod).sort(sort).execute();
 
 List phone numbers with voice settings
 
@@ -367,10 +370,11 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
         String filterConnectionNameContains = test; // String | Filter contains connection name. Requires at least three characters.
+        String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
         String filterUsagePaymentMethod = channel; // String | Filter by usage_payment_method.
         String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
@@ -379,6 +383,7 @@ public class Example {
                 .pageSize(pageSize)
                 .filterPhoneNumber(filterPhoneNumber)
                 .filterConnectionNameContains(filterConnectionNameContains)
+                .filterCustomerReference(filterCustomerReference)
                 .filterUsagePaymentMethod(filterUsagePaymentMethod)
                 .sort(sort)
                 .execute();
@@ -399,10 +404,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters. | [optional]
+ **filterCustomerReference** | **String**| Filter numbers via the customer_reference set. | [optional]
  **filterUsagePaymentMethod** | **String**| Filter by usage_payment_method. | [optional] [enum: pay-per-minute, channel]
  **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: purchased_at, phone_number, connection_name, usage_payment_method]
 
