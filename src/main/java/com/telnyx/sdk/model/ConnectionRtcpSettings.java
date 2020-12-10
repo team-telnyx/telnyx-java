@@ -80,7 +80,7 @@ public class ConnectionRtcpSettings {
   private Boolean captureEnabled = false;
 
   public static final String JSON_PROPERTY_REPORT_FREQUENCY_SECS = "report_frequency_secs";
-  private Integer reportFrequencySecs = 10;
+  private Integer reportFrequencySecs = 5;
 
 
   public ConnectionRtcpSettings port(PortEnum port) {

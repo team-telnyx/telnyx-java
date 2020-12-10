@@ -938,8 +938,51 @@ public class ConferenceCommandsApi {
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
+  /**
+   * List conference participants
+   * Lists conference participants
+   * @param conferenceId Uniquely identifies the conference by id or name (required)
+   * @param filterMuted If present, participants will be filtered to those who are/are not muted (optional)
+   * @param filterOnHold If present, participants will be filtered to those who are/are not put on hold (optional)
+   * @param filterWhispering If present, participants will be filtered to those who are whispering or are not (optional)
+   * @param pageNumber The page number to load. (optional, default to 1)
+   * @param pageSize The size of the page. (optional, default to 20)
+   * @return ListParticipantsResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+     </table>
+   */
+  public ListParticipantsResponse listConferenceParticipants(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize) throws ApiException {
+    return listConferenceParticipantsWithHttpInfo(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize).getData();
+  }
 
-private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttpInfo(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize) throws ApiException {
+  /**
+   * List conference participants
+   * Lists conference participants
+   * @param conferenceId Uniquely identifies the conference by id or name (required)
+   * @param filterMuted If present, participants will be filtered to those who are/are not muted (optional)
+   * @param filterOnHold If present, participants will be filtered to those who are/are not put on hold (optional)
+   * @param filterWhispering If present, participants will be filtered to those who are whispering or are not (optional)
+   * @param pageNumber The page number to load. (optional, default to 1)
+   * @param pageSize The size of the page. (optional, default to 20)
+   * @return ApiResponse&lt;ListParticipantsResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttpInfo(String conferenceId, Boolean filterMuted, Boolean filterOnHold, Boolean filterWhispering, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'conferenceId' is set
@@ -983,119 +1026,6 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
     return apiClient.invokeAPI("ConferenceCommandsApi.listConferenceParticipants", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
-  }
-
-  public class APIlistConferenceParticipantsRequest {
-    private String conferenceId;
-    private Boolean filterMuted;
-    private Boolean filterOnHold;
-    private Boolean filterWhispering;
-    private Integer pageNumber;
-    private Integer pageSize;
-
-    private APIlistConferenceParticipantsRequest(String conferenceId) {
-      this.conferenceId = conferenceId;
-    }
-
-    /**
-     * Set filterMuted
-     * @param filterMuted If present, participants will be filtered to those who are/are not muted (optional)
-     * @return APIlistConferenceParticipantsRequest
-     */
-    public APIlistConferenceParticipantsRequest filterMuted(Boolean filterMuted) {
-      this.filterMuted = filterMuted;
-      return this;
-    }
-
-    /**
-     * Set filterOnHold
-     * @param filterOnHold If present, participants will be filtered to those who are/are not put on hold (optional)
-     * @return APIlistConferenceParticipantsRequest
-     */
-    public APIlistConferenceParticipantsRequest filterOnHold(Boolean filterOnHold) {
-      this.filterOnHold = filterOnHold;
-      return this;
-    }
-
-    /**
-     * Set filterWhispering
-     * @param filterWhispering If present, participants will be filtered to those who are whispering or are not (optional)
-     * @return APIlistConferenceParticipantsRequest
-     */
-    public APIlistConferenceParticipantsRequest filterWhispering(Boolean filterWhispering) {
-      this.filterWhispering = filterWhispering;
-      return this;
-    }
-
-    /**
-     * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
-     * @return APIlistConferenceParticipantsRequest
-     */
-    public APIlistConferenceParticipantsRequest pageNumber(Integer pageNumber) {
-      this.pageNumber = pageNumber;
-      return this;
-    }
-
-    /**
-     * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
-     * @return APIlistConferenceParticipantsRequest
-     */
-    public APIlistConferenceParticipantsRequest pageSize(Integer pageSize) {
-      this.pageSize = pageSize;
-      return this;
-    }
-
-    /**
-     * Execute listConferenceParticipants request
-     * @return ListParticipantsResponse
-     * @throws ApiException if fails to make API call
-     * @http.response.details
-       <table summary="Response Details" border="1">
-         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-       </table>
-     
-     */
-    
-    public ListParticipantsResponse execute() throws ApiException {
-      return this.executeWithHttpInfo().getData();
-    }
-
-    /**
-     * Execute listConferenceParticipants request with HTTP info returned
-     * @return ApiResponse&lt;ListParticipantsResponse&gt;
-     * @throws ApiException if fails to make API call
-     * @http.response.details
-       <table summary="Response Details" border="1">
-         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-         <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
-       </table>
-
-     */
-    public ApiResponse<ListParticipantsResponse> executeWithHttpInfo() throws ApiException {
-      return listConferenceParticipantsWithHttpInfo(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize);
-    }
-  }
-
-  /**
-   * List conference participants
-   * Lists conference participants
-   * @param conferenceId Uniquely identifies the conference by id or name (required)
-   * @return listConferenceParticipantsRequest
-   * @throws ApiException if fails to make API call
-   
-   
-   */
-  public APIlistConferenceParticipantsRequest listConferenceParticipants(String conferenceId) throws ApiException {
-    return new APIlistConferenceParticipantsRequest(conferenceId);
   }
 
 private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String filterName, Integer pageNumber, Integer pageSize) throws ApiException {

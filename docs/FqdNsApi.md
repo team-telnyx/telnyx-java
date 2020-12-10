@@ -1,14 +1,14 @@
-# FqdNsApi
+# FqdnsApi
 
 All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createFqdn**](FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an Fqdn
-[**deleteFqdn**](FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an Fqdn
-[**listFqdns**](FqdNsApi.md#listFqdns) | **GET** /fqdns | List Fqdns
-[**retrieveFqdn**](FqdNsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an Fqdn
-[**updateFqdn**](FqdNsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an Fqdn
+[**createFqdn**](FqdnsApi.md#createFqdn) | **POST** /fqdns | Create an Fqdn
+[**deleteFqdn**](FqdnsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an Fqdn
+[**listFqdns**](FqdnsApi.md#listFqdns) | **GET** /fqdns | List Fqdns
+[**retrieveFqdn**](FqdnsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an Fqdn
+[**updateFqdn**](FqdnsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an Fqdn
 
 
 
@@ -29,7 +29,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdNsApi;
+import com.telnyx.sdk.api.FqdnsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -40,13 +40,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
+        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
         CreateFqdnRequest createFqdnRequest = new CreateFqdnRequest(); // CreateFqdnRequest | 
         try {
             FqdnResponse result = apiInstance.createFqdn(createFqdnRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdNsApi#createFqdn");
+            System.err.println("Exception when calling FqdnsApi#createFqdn");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -101,7 +101,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdNsApi;
+import com.telnyx.sdk.api.FqdnsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -112,13 +112,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
-        UUID id = 6a09cdc3-8948-47f0-aa62-74ac943d6c58; // UUID | Identifies the resource.
+        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
+        String id = 1517907029795014409; // String | Identifies the resource.
         try {
             FqdnResponse result = apiInstance.deleteFqdn(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdNsApi#deleteFqdn");
+            System.err.println("Exception when calling FqdnsApi#deleteFqdn");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -133,7 +133,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Identifies the resource. |
+ **id** | **String**| Identifies the resource. |
 
 ### Return type
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## listFqdns
 
-> ListFqdnsResponse listFqdns(pageNumber, pageSize, filterConnectionId, filterFqdn, filterPort, filterDnsRecordType)
+> ListFqdnsResponse listFqdns().pageNumber(pageNumber).pageSize(pageSize).filterConnectionId(filterConnectionId).filterFqdn(filterFqdn).filterPort(filterPort).filterDnsRecordType(filterDnsRecordType).execute();
 
 List Fqdns
 
@@ -173,7 +173,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdNsApi;
+import com.telnyx.sdk.api.FqdnsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -184,7 +184,7 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
+        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load.
         Integer pageSize = 20; // Integer | The size of the page.
         String filterConnectionId = "filterConnectionId_example"; // String | ID of the FQDN connection to which the FQDN belongs.
@@ -192,10 +192,17 @@ public class Example {
         Integer filterPort = 5060; // Integer | Port to use when connecting to the FQDN.
         String filterDnsRecordType = a; // String | DNS record type used by the FQDN.
         try {
-            ListFqdnsResponse result = apiInstance.listFqdns(pageNumber, pageSize, filterConnectionId, filterFqdn, filterPort, filterDnsRecordType);
+            ListFqdnsResponse result = api.listFqdns()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterConnectionId(filterConnectionId)
+                .filterFqdn(filterFqdn)
+                .filterPort(filterPort)
+                .filterDnsRecordType(filterDnsRecordType)
+                .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdNsApi#listFqdns");
+            System.err.println("Exception when calling FqdnsApi#listFqdns");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -255,7 +262,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdNsApi;
+import com.telnyx.sdk.api.FqdnsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -266,13 +273,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
-        UUID id = 6a09cdc3-8948-47f0-aa62-74ac943d6c58; // UUID | Identifies the resource.
+        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
+        String id = 1517907029795014409; // String | Identifies the resource.
         try {
             FqdnResponse result = apiInstance.retrieveFqdn(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdNsApi#retrieveFqdn");
+            System.err.println("Exception when calling FqdnsApi#retrieveFqdn");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -287,7 +294,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Identifies the resource. |
+ **id** | **String**| Identifies the resource. |
 
 ### Return type
 
@@ -327,7 +334,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdNsApi;
+import com.telnyx.sdk.api.FqdnsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -338,14 +345,14 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
-        UUID id = 6a09cdc3-8948-47f0-aa62-74ac943d6c58; // UUID | Identifies the resource.
+        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
+        String id = 1517907029795014409; // String | Identifies the resource.
         UpdateFqdnRequest updateFqdnRequest = new UpdateFqdnRequest(); // UpdateFqdnRequest | 
         try {
             FqdnResponse result = apiInstance.updateFqdn(id, updateFqdnRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdNsApi#updateFqdn");
+            System.err.println("Exception when calling FqdnsApi#updateFqdn");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -360,7 +367,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Identifies the resource. |
+ **id** | **String**| Identifies the resource. |
  **updateFqdnRequest** | [**UpdateFqdnRequest**](UpdateFqdnRequest.md)|  | [optional]
 
 ### Return type

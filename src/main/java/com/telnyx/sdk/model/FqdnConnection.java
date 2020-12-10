@@ -22,10 +22,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.AnchorsiteOverride;
 import com.telnyx.sdk.model.ConnectionRtcpSettings;
+import com.telnyx.sdk.model.DtmfType;
+import com.telnyx.sdk.model.EncryptedMedia;
+import com.telnyx.sdk.model.FqdnConnectionTransportProtocol;
 import com.telnyx.sdk.model.InboundFqdn;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -61,186 +68,26 @@ public class FqdnConnection {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active;
 
-  /**
-   * &#x60;Latency&#x60; directs Telnyx to route media through the site with the lowest round-trip time to the user&#39;s connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.
-   */
-  public enum AnchorsiteOverrideEnum {
-    LATENCY("Latency"),
-    
-    CHICAGO_IL("Chicago, IL"),
-    
-    ASHBURN_VA("Ashburn, VA"),
-    
-    SAN_JOSE_CA("San Jose, CA"),
-    
-    SYDNEY_AUSTRALIA("Sydney, Australia"),
-    
-    AMSTERDAM_NETHERLANDS("Amsterdam, Netherlands"),
-    
-    LONDON_UK("London, UK"),
-    
-    TORONTO_CANADA("Toronto, Canada"),
-    
-    VANCOUVER_CANADA("Vancouver, Canada"),
-    
-    FRANKFURT_GERMANY("Frankfurt, Germany");
-
-    private String value;
-
-    AnchorsiteOverrideEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static AnchorsiteOverrideEnum fromValue(String value) {
-      for (AnchorsiteOverrideEnum b : AnchorsiteOverrideEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_ANCHORSITE_OVERRIDE = "anchorsite_override";
-  private AnchorsiteOverrideEnum anchorsiteOverride;
+  private AnchorsiteOverride anchorsiteOverride = AnchorsiteOverride.LATENCY;
 
   public static final String JSON_PROPERTY_CONNECTION_NAME = "connection_name";
   private String connectionName;
 
-  /**
-   * One of UDP, TLS, or TCP.
-   */
-  public enum TransportProtocolEnum {
-    UDP("UDP"),
-    
-    TCP("TCP"),
-    
-    TLS("TLS");
-
-    private String value;
-
-    TransportProtocolEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TransportProtocolEnum fromValue(String value) {
-      for (TransportProtocolEnum b : TransportProtocolEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_TRANSPORT_PROTOCOL = "transport_protocol";
-  private TransportProtocolEnum transportProtocol = TransportProtocolEnum.UDP;
+  private FqdnConnectionTransportProtocol transportProtocol = FqdnConnectionTransportProtocol.UDP;
 
   public static final String JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED = "default_on_hold_comfort_noise_enabled";
   private Boolean defaultOnHoldComfortNoiseEnabled = true;
 
-  /**
-   * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.
-   */
-  public enum DtmfTypeEnum {
-    RFC_2833("RFC 2833"),
-    
-    INBAND("Inband"),
-    
-    SIP_INFO("SIP INFO");
-
-    private String value;
-
-    DtmfTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static DtmfTypeEnum fromValue(String value) {
-      for (DtmfTypeEnum b : DtmfTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_DTMF_TYPE = "dtmf_type";
-  private DtmfTypeEnum dtmfType = DtmfTypeEnum.RFC_2833;
+  private DtmfType dtmfType = DtmfType.RFC_2833;
 
   public static final String JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED = "encode_contact_header_enabled";
   private Boolean encodeContactHeaderEnabled = false;
 
-  /**
-   * Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS.
-   */
-  public enum EncryptedMediaEnum {
-    SRTP("SRTP"),
-    
-    ZRTP("ZRTP");
-
-    private String value;
-
-    EncryptedMediaEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static EncryptedMediaEnum fromValue(String value) {
-      for (EncryptedMediaEnum b : EncryptedMediaEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_ENCRYPTED_MEDIA = "encrypted_media";
-  private EncryptedMediaEnum encryptedMedia;
+  private JsonNullable<EncryptedMedia> encryptedMedia = JsonNullable.<EncryptedMedia>undefined();
 
   public static final String JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED = "onnet_t38_passthrough_enabled";
   private Boolean onnetT38PassthroughEnabled = false;
@@ -330,26 +177,26 @@ public class FqdnConnection {
   }
 
 
-  public FqdnConnection anchorsiteOverride(AnchorsiteOverrideEnum anchorsiteOverride) {
+  public FqdnConnection anchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
     return this;
   }
 
    /**
-   * &#x60;Latency&#x60; directs Telnyx to route media through the site with the lowest round-trip time to the user&#39;s connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.
+   * Get anchorsiteOverride
    * @return anchorsiteOverride
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public AnchorsiteOverrideEnum getAnchorsiteOverride() {
+  public AnchorsiteOverride getAnchorsiteOverride() {
     return anchorsiteOverride;
   }
 
 
-  public void setAnchorsiteOverride(AnchorsiteOverrideEnum anchorsiteOverride) {
+  public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
 
@@ -363,10 +210,9 @@ public class FqdnConnection {
    * Get connectionName
    * @return connectionName
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getConnectionName() {
     return connectionName;
@@ -378,26 +224,26 @@ public class FqdnConnection {
   }
 
 
-  public FqdnConnection transportProtocol(TransportProtocolEnum transportProtocol) {
+  public FqdnConnection transportProtocol(FqdnConnectionTransportProtocol transportProtocol) {
     this.transportProtocol = transportProtocol;
     return this;
   }
 
    /**
-   * One of UDP, TLS, or TCP.
+   * Get transportProtocol
    * @return transportProtocol
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "One of UDP, TLS, or TCP.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TRANSPORT_PROTOCOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public TransportProtocolEnum getTransportProtocol() {
+  public FqdnConnectionTransportProtocol getTransportProtocol() {
     return transportProtocol;
   }
 
 
-  public void setTransportProtocol(TransportProtocolEnum transportProtocol) {
+  public void setTransportProtocol(FqdnConnectionTransportProtocol transportProtocol) {
     this.transportProtocol = transportProtocol;
   }
 
@@ -426,26 +272,26 @@ public class FqdnConnection {
   }
 
 
-  public FqdnConnection dtmfType(DtmfTypeEnum dtmfType) {
+  public FqdnConnection dtmfType(DtmfType dtmfType) {
     this.dtmfType = dtmfType;
     return this;
   }
 
    /**
-   * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.
+   * Get dtmfType
    * @return dtmfType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public DtmfTypeEnum getDtmfType() {
+  public DtmfType getDtmfType() {
     return dtmfType;
   }
 
 
-  public void setDtmfType(DtmfTypeEnum dtmfType) {
+  public void setDtmfType(DtmfType dtmfType) {
     this.dtmfType = dtmfType;
   }
 
@@ -474,27 +320,37 @@ public class FqdnConnection {
   }
 
 
-  public FqdnConnection encryptedMedia(EncryptedMediaEnum encryptedMedia) {
-    this.encryptedMedia = encryptedMedia;
+  public FqdnConnection encryptedMedia(EncryptedMedia encryptedMedia) {
+    this.encryptedMedia = JsonNullable.<EncryptedMedia>of(encryptedMedia);
     return this;
   }
 
    /**
-   * Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS.
+   * Get encryptedMedia
    * @return encryptedMedia
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS.")
+  @ApiModelProperty(value = "")
+  @JsonIgnore
+
+  public EncryptedMedia getEncryptedMedia() {
+        return encryptedMedia.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_ENCRYPTED_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public EncryptedMediaEnum getEncryptedMedia() {
+  public JsonNullable<EncryptedMedia> getEncryptedMedia_JsonNullable() {
     return encryptedMedia;
   }
-
-
-  public void setEncryptedMedia(EncryptedMediaEnum encryptedMedia) {
+  
+  @JsonProperty(JSON_PROPERTY_ENCRYPTED_MEDIA)
+  public void setEncryptedMedia_JsonNullable(JsonNullable<EncryptedMedia> encryptedMedia) {
     this.encryptedMedia = encryptedMedia;
+  }
+
+  public void setEncryptedMedia(EncryptedMedia encryptedMedia) {
+    this.encryptedMedia = JsonNullable.<EncryptedMedia>of(encryptedMedia);
   }
 
 

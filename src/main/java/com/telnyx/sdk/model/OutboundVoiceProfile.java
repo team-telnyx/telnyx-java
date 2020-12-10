@@ -22,13 +22,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.OutboundVoiceProfileCallRecording;
+import com.telnyx.sdk.model.OutboundCallRecording;
+import com.telnyx.sdk.model.ServicePlan;
+import com.telnyx.sdk.model.TrafficType;
+import com.telnyx.sdk.model.UsagePaymentMethod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -70,86 +76,14 @@ public class OutboundVoiceProfile {
   public static final String JSON_PROPERTY_CONNECTIONS_COUNT = "connections_count";
   private Integer connectionsCount;
 
-  /**
-   * Specifies the type of traffic allowed in this profile.
-   */
-  public enum TrafficTypeEnum {
-    CONVERSATIONAL("conversational"),
-    
-    SHORT_DURATION("short_duration");
-
-    private String value;
-
-    TrafficTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TrafficTypeEnum fromValue(String value) {
-      for (TrafficTypeEnum b : TrafficTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_TRAFFIC_TYPE = "traffic_type";
-  private TrafficTypeEnum trafficType = TrafficTypeEnum.CONVERSATIONAL;
-
-  /**
-   * Indicates the coverage of the termination regions. International and Global are the same but International may only be used for high volume/short duration Outbound Voice Profiles.
-   */
-  public enum ServicePlanEnum {
-    US("us"),
-    
-    INTERNATIONAL("international"),
-    
-    GLOBAL("global");
-
-    private String value;
-
-    ServicePlanEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static ServicePlanEnum fromValue(String value) {
-      for (ServicePlanEnum b : ServicePlanEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
+  private TrafficType trafficType = TrafficType.CONVERSATIONAL;
 
   public static final String JSON_PROPERTY_SERVICE_PLAN = "service_plan";
-  private ServicePlanEnum servicePlan = ServicePlanEnum.GLOBAL;
+  private ServicePlan servicePlan = ServicePlan.GLOBAL;
 
   public static final String JSON_PROPERTY_CONCURRENT_CALL_LIMIT = "concurrent_call_limit";
-  private Integer concurrentCallLimit;
+  private JsonNullable<Integer> concurrentCallLimit = JsonNullable.<Integer>undefined();
 
   public static final String JSON_PROPERTY_ENABLED = "enabled";
   private Boolean enabled = true;
@@ -157,43 +91,8 @@ public class OutboundVoiceProfile {
   public static final String JSON_PROPERTY_TAGS = "tags";
   private List<String> tags = null;
 
-  /**
-   * Setting for how costs for outbound profile are calculated.
-   */
-  public enum UsagePaymentMethodEnum {
-    TARIFF("tariff"),
-    
-    RATE_DECK("rate-deck");
-
-    private String value;
-
-    UsagePaymentMethodEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static UsagePaymentMethodEnum fromValue(String value) {
-      for (UsagePaymentMethodEnum b : UsagePaymentMethodEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_USAGE_PAYMENT_METHOD = "usage_payment_method";
-  private UsagePaymentMethodEnum usagePaymentMethod = UsagePaymentMethodEnum.RATE_DECK;
+  private UsagePaymentMethod usagePaymentMethod = UsagePaymentMethod.RATE_DECK;
 
   public static final String JSON_PROPERTY_WHITELISTED_DESTINATIONS = "whitelisted_destinations";
   private List<String> whitelistedDestinations = null;
@@ -208,10 +107,10 @@ public class OutboundVoiceProfile {
   private Boolean dailySpendLimitEnabled = false;
 
   public static final String JSON_PROPERTY_CALL_RECORDING = "call_recording";
-  private OutboundVoiceProfileCallRecording callRecording;
+  private OutboundCallRecording callRecording;
 
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
-  private UUID billingGroupId;
+  private JsonNullable<UUID> billingGroupId = JsonNullable.<UUID>undefined();
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -316,56 +215,56 @@ public class OutboundVoiceProfile {
   }
 
 
-  public OutboundVoiceProfile trafficType(TrafficTypeEnum trafficType) {
+  public OutboundVoiceProfile trafficType(TrafficType trafficType) {
     this.trafficType = trafficType;
     return this;
   }
 
    /**
-   * Specifies the type of traffic allowed in this profile.
+   * Get trafficType
    * @return trafficType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "conversational", value = "Specifies the type of traffic allowed in this profile.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TRAFFIC_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public TrafficTypeEnum getTrafficType() {
+  public TrafficType getTrafficType() {
     return trafficType;
   }
 
 
-  public void setTrafficType(TrafficTypeEnum trafficType) {
+  public void setTrafficType(TrafficType trafficType) {
     this.trafficType = trafficType;
   }
 
 
-  public OutboundVoiceProfile servicePlan(ServicePlanEnum servicePlan) {
+  public OutboundVoiceProfile servicePlan(ServicePlan servicePlan) {
     this.servicePlan = servicePlan;
     return this;
   }
 
    /**
-   * Indicates the coverage of the termination regions. International and Global are the same but International may only be used for high volume/short duration Outbound Voice Profiles.
+   * Get servicePlan
    * @return servicePlan
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "global", value = "Indicates the coverage of the termination regions. International and Global are the same but International may only be used for high volume/short duration Outbound Voice Profiles.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SERVICE_PLAN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public ServicePlanEnum getServicePlan() {
+  public ServicePlan getServicePlan() {
     return servicePlan;
   }
 
 
-  public void setServicePlan(ServicePlanEnum servicePlan) {
+  public void setServicePlan(ServicePlan servicePlan) {
     this.servicePlan = servicePlan;
   }
 
 
   public OutboundVoiceProfile concurrentCallLimit(Integer concurrentCallLimit) {
-    this.concurrentCallLimit = concurrentCallLimit;
+    this.concurrentCallLimit = JsonNullable.<Integer>of(concurrentCallLimit);
     return this;
   }
 
@@ -375,16 +274,26 @@ public class OutboundVoiceProfile {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "10", value = "Must be no more than your global concurrent call limit. Null means no limit.")
+  @JsonIgnore
+
+  public Integer getConcurrentCallLimit() {
+        return concurrentCallLimit.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_CONCURRENT_CALL_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getConcurrentCallLimit() {
+  public JsonNullable<Integer> getConcurrentCallLimit_JsonNullable() {
     return concurrentCallLimit;
   }
-
+  
+  @JsonProperty(JSON_PROPERTY_CONCURRENT_CALL_LIMIT)
+  public void setConcurrentCallLimit_JsonNullable(JsonNullable<Integer> concurrentCallLimit) {
+    this.concurrentCallLimit = concurrentCallLimit;
+  }
 
   public void setConcurrentCallLimit(Integer concurrentCallLimit) {
-    this.concurrentCallLimit = concurrentCallLimit;
+    this.concurrentCallLimit = JsonNullable.<Integer>of(concurrentCallLimit);
   }
 
 
@@ -444,26 +353,26 @@ public class OutboundVoiceProfile {
   }
 
 
-  public OutboundVoiceProfile usagePaymentMethod(UsagePaymentMethodEnum usagePaymentMethod) {
+  public OutboundVoiceProfile usagePaymentMethod(UsagePaymentMethod usagePaymentMethod) {
     this.usagePaymentMethod = usagePaymentMethod;
     return this;
   }
 
    /**
-   * Setting for how costs for outbound profile are calculated.
+   * Get usagePaymentMethod
    * @return usagePaymentMethod
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "tariff", value = "Setting for how costs for outbound profile are calculated.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_USAGE_PAYMENT_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public UsagePaymentMethodEnum getUsagePaymentMethod() {
+  public UsagePaymentMethod getUsagePaymentMethod() {
     return usagePaymentMethod;
   }
 
 
-  public void setUsagePaymentMethod(UsagePaymentMethodEnum usagePaymentMethod) {
+  public void setUsagePaymentMethod(UsagePaymentMethod usagePaymentMethod) {
     this.usagePaymentMethod = usagePaymentMethod;
   }
 
@@ -572,7 +481,7 @@ public class OutboundVoiceProfile {
   }
 
 
-  public OutboundVoiceProfile callRecording(OutboundVoiceProfileCallRecording callRecording) {
+  public OutboundVoiceProfile callRecording(OutboundCallRecording callRecording) {
     this.callRecording = callRecording;
     return this;
   }
@@ -586,18 +495,18 @@ public class OutboundVoiceProfile {
   @JsonProperty(JSON_PROPERTY_CALL_RECORDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public OutboundVoiceProfileCallRecording getCallRecording() {
+  public OutboundCallRecording getCallRecording() {
     return callRecording;
   }
 
 
-  public void setCallRecording(OutboundVoiceProfileCallRecording callRecording) {
+  public void setCallRecording(OutboundCallRecording callRecording) {
     this.callRecording = callRecording;
   }
 
 
   public OutboundVoiceProfile billingGroupId(UUID billingGroupId) {
-    this.billingGroupId = billingGroupId;
+    this.billingGroupId = JsonNullable.<UUID>of(billingGroupId);
     return this;
   }
 
@@ -607,16 +516,26 @@ public class OutboundVoiceProfile {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The ID of the billing group associated with the outbound proflile. Defaults to null (for no group assigned).")
+  @JsonIgnore
+
+  public UUID getBillingGroupId() {
+        return billingGroupId.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public UUID getBillingGroupId() {
+  public JsonNullable<UUID> getBillingGroupId_JsonNullable() {
     return billingGroupId;
   }
-
+  
+  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+  public void setBillingGroupId_JsonNullable(JsonNullable<UUID> billingGroupId) {
+    this.billingGroupId = billingGroupId;
+  }
 
   public void setBillingGroupId(UUID billingGroupId) {
-    this.billingGroupId = billingGroupId;
+    this.billingGroupId = JsonNullable.<UUID>of(billingGroupId);
   }
 
 

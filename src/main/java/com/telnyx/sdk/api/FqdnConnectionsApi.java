@@ -191,47 +191,8 @@ public class FqdnConnectionsApi {
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
-  /**
-   * List Fqdn connections
-   * Returns a list of your FQDN connections.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
-   * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return ListFqdnConnectionsResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public ListFqdnConnectionsResponse listFqdnConnections(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String sort) throws ApiException {
-    return listFqdnConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, sort).getData();
-  }
 
-  /**
-   * List Fqdn connections
-   * Returns a list of your FQDN connections.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
-   * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return ApiResponse&lt;ListFqdnConnectionsResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String sort) throws ApiException {
+private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -268,6 +229,105 @@ public class FqdnConnectionsApi {
     return apiClient.invokeAPI("FqdnConnectionsApi.listFqdnConnections", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
+  }
+
+  public class APIlistFqdnConnectionsRequest {
+    private Integer pageNumber;
+    private Integer pageSize;
+    private String filterConnectionNameContains;
+    private String sort;
+
+    private APIlistFqdnConnectionsRequest() {
+    }
+
+    /**
+     * Set pageNumber
+     * @param pageNumber The page number to load. (optional, default to 1)
+     * @return APIlistFqdnConnectionsRequest
+     */
+    public APIlistFqdnConnectionsRequest pageNumber(Integer pageNumber) {
+      this.pageNumber = pageNumber;
+      return this;
+    }
+
+    /**
+     * Set pageSize
+     * @param pageSize The size of the page. (optional, default to 20)
+     * @return APIlistFqdnConnectionsRequest
+     */
+    public APIlistFqdnConnectionsRequest pageSize(Integer pageSize) {
+      this.pageSize = pageSize;
+      return this;
+    }
+
+    /**
+     * Set filterConnectionNameContains
+     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional)
+     * @return APIlistFqdnConnectionsRequest
+     */
+    public APIlistFqdnConnectionsRequest filterConnectionNameContains(String filterConnectionNameContains) {
+      this.filterConnectionNameContains = filterConnectionNameContains;
+      return this;
+    }
+
+    /**
+     * Set sort
+     * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+     * @return APIlistFqdnConnectionsRequest
+     */
+    public APIlistFqdnConnectionsRequest sort(String sort) {
+      this.sort = sort;
+      return this;
+    }
+
+    /**
+     * Execute listFqdnConnections request
+     * @return ListFqdnConnectionsResponse
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       </table>
+     
+     */
+    
+    public ListFqdnConnectionsResponse execute() throws ApiException {
+      return this.executeWithHttpInfo().getData();
+    }
+
+    /**
+     * Execute listFqdnConnections request with HTTP info returned
+     * @return ApiResponse&lt;ListFqdnConnectionsResponse&gt;
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       </table>
+
+     */
+    public ApiResponse<ListFqdnConnectionsResponse> executeWithHttpInfo() throws ApiException {
+      return listFqdnConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, sort);
+    }
+  }
+
+  /**
+   * List Fqdn connections
+   * Returns a list of your FQDN connections.
+   * @return listFqdnConnectionsRequest
+   * @throws ApiException if fails to make API call
+   
+   
+   */
+  public APIlistFqdnConnectionsRequest listFqdnConnections() throws ApiException {
+    return new APIlistFqdnConnectionsRequest();
   }
   /**
    * Retrieve an Fqdn connection

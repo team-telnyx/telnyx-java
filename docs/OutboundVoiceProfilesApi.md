@@ -6,15 +6,15 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#createOutboundVoiceProfile) | **POST** /outbound_voice_profiles | Create an outbound voice profile
 [**deleteOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#deleteOutboundVoiceProfile) | **DELETE** /outbound_voice_profiles/{id} | Delete an outbound voice profile
-[**getOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#getOutboundVoiceProfile) | **GET** /outbound_voice_profiles/{id} | Retrieve an outbound voice profile
-[**getOutboundVoiceProfiles**](OutboundVoiceProfilesApi.md#getOutboundVoiceProfiles) | **GET** /outbound_voice_profiles | Get all outbound voice profiles
+[**listOutboundVoiceProfiles**](OutboundVoiceProfilesApi.md#listOutboundVoiceProfiles) | **GET** /outbound_voice_profiles | Get all outbound voice profiles
+[**retrieveOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#retrieveOutboundVoiceProfile) | **GET** /outbound_voice_profiles/{id} | Retrieve an outbound voice profile
 [**updateOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#updateOutboundVoiceProfile) | **PATCH** /outbound_voice_profiles/{id} | Updates an existing outbound voice profile.
 
 
 
 ## createOutboundVoiceProfile
 
-> SingleOutboundVoiceProfile createOutboundVoiceProfile(outboundVoiceProfileWritable)
+> OutboundVoiceProfileResponse createOutboundVoiceProfile(createOutboundVoiceProfileRequest)
 
 Create an outbound voice profile
 
@@ -41,9 +41,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
-        OutboundVoiceProfileWritable outboundVoiceProfileWritable = new OutboundVoiceProfileWritable(); // OutboundVoiceProfileWritable | Parameters that can be defined when creating an outbound voice profile
+        CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest = new CreateOutboundVoiceProfileRequest(); // CreateOutboundVoiceProfileRequest | Parameters that can be defined when creating an outbound voice profile
         try {
-            SingleOutboundVoiceProfile result = apiInstance.createOutboundVoiceProfile(outboundVoiceProfileWritable);
+            OutboundVoiceProfileResponse result = apiInstance.createOutboundVoiceProfile(createOutboundVoiceProfileRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling OutboundVoiceProfilesApi#createOutboundVoiceProfile");
@@ -61,11 +61,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **outboundVoiceProfileWritable** | [**OutboundVoiceProfileWritable**](OutboundVoiceProfileWritable.md)| Parameters that can be defined when creating an outbound voice profile |
+ **createOutboundVoiceProfileRequest** | [**CreateOutboundVoiceProfileRequest**](CreateOutboundVoiceProfileRequest.md)| Parameters that can be defined when creating an outbound voice profile |
 
 ### Return type
 
-[**SingleOutboundVoiceProfile**](SingleOutboundVoiceProfile.md)
+[**OutboundVoiceProfileResponse**](OutboundVoiceProfileResponse.md)
 
 ### Authorization
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## deleteOutboundVoiceProfile
 
-> SingleOutboundVoiceProfile deleteOutboundVoiceProfile(id)
+> OutboundVoiceProfileResponse deleteOutboundVoiceProfile(id)
 
 Delete an outbound voice profile
 
@@ -116,7 +116,7 @@ public class Example {
         OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
         String id = 1293384261075731499; // String | Identifies the resource.
         try {
-            SingleOutboundVoiceProfile result = apiInstance.deleteOutboundVoiceProfile(id);
+            OutboundVoiceProfileResponse result = apiInstance.deleteOutboundVoiceProfile(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling OutboundVoiceProfilesApi#deleteOutboundVoiceProfile");
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SingleOutboundVoiceProfile**](SingleOutboundVoiceProfile.md)
+[**OutboundVoiceProfileResponse**](OutboundVoiceProfileResponse.md)
 
 ### Authorization
 
@@ -158,82 +158,9 @@ Name | Type | Description  | Notes
 | **422** | Bad request |  -  |
 
 
-## getOutboundVoiceProfile
+## listOutboundVoiceProfiles
 
-> SingleOutboundVoiceProfile getOutboundVoiceProfile(id)
-
-Retrieve an outbound voice profile
-
-Retrieves the details of an existing outbound voice profile.
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.OutboundVoiceProfilesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
-        String id = 1293384261075731499; // String | Identifies the resource.
-        try {
-            SingleOutboundVoiceProfile result = apiInstance.getOutboundVoiceProfile(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling OutboundVoiceProfilesApi#getOutboundVoiceProfile");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
-
-### Return type
-
-[**SingleOutboundVoiceProfile**](SingleOutboundVoiceProfile.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
-| **422** | Bad request |  -  |
-
-
-## getOutboundVoiceProfiles
-
-> MultipleOutboundVoiceProfiles getOutboundVoiceProfiles(pageNumber, pageSize, filterNameContains, sort)
+> ListOutboundVoiceProfilesResponse listOutboundVoiceProfiles().pageNumber(pageNumber).pageSize(pageSize).filterNameContains(filterNameContains).sort(sort).execute();
 
 Get all outbound voice profiles
 
@@ -265,10 +192,15 @@ public class Example {
         String filterNameContains = office-profile; // String | Optional filter on outbound voice profile name.
         String sort = name; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code>-</code> prefix.<br/><br/> That is: <ul>   <li>     <code>name</code>: sorts the result by the     <code>name</code> field in ascending order.   </li>    <li>     <code>-name</code>: sorts the result by the     <code>name</code> field in descending order.   </li> </ul> <br/>
         try {
-            MultipleOutboundVoiceProfiles result = apiInstance.getOutboundVoiceProfiles(pageNumber, pageSize, filterNameContains, sort);
+            ListOutboundVoiceProfilesResponse result = api.listOutboundVoiceProfiles()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterNameContains(filterNameContains)
+                .sort(sort)
+                .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling OutboundVoiceProfilesApi#getOutboundVoiceProfiles");
+            System.err.println("Exception when calling OutboundVoiceProfilesApi#listOutboundVoiceProfiles");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -290,7 +222,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MultipleOutboundVoiceProfiles**](MultipleOutboundVoiceProfiles.md)
+[**ListOutboundVoiceProfilesResponse**](ListOutboundVoiceProfilesResponse.md)
 
 ### Authorization
 
@@ -309,9 +241,82 @@ Name | Type | Description  | Notes
 | **422** | Bad request |  -  |
 
 
+## retrieveOutboundVoiceProfile
+
+> OutboundVoiceProfileResponse retrieveOutboundVoiceProfile(id)
+
+Retrieve an outbound voice profile
+
+Retrieves the details of an existing outbound voice profile.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.OutboundVoiceProfilesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
+        String id = 1293384261075731499; // String | Identifies the resource.
+        try {
+            OutboundVoiceProfileResponse result = apiInstance.retrieveOutboundVoiceProfile(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OutboundVoiceProfilesApi#retrieveOutboundVoiceProfile");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Identifies the resource. |
+
+### Return type
+
+[**OutboundVoiceProfileResponse**](OutboundVoiceProfileResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **422** | Bad request |  -  |
+
+
 ## updateOutboundVoiceProfile
 
-> SingleOutboundVoiceProfile updateOutboundVoiceProfile(id, outboundVoiceProfileWritable)
+> OutboundVoiceProfileResponse updateOutboundVoiceProfile(id, updateOutboundVoiceProfileRequest)
 
 Updates an existing outbound voice profile.
 
@@ -339,9 +344,9 @@ public class Example {
 
         OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
         String id = 1293384261075731499; // String | Identifies the resource.
-        OutboundVoiceProfileWritable outboundVoiceProfileWritable = new OutboundVoiceProfileWritable(); // OutboundVoiceProfileWritable | Parameters that can be updated on an outbound voice profile
+        UpdateOutboundVoiceProfileRequest updateOutboundVoiceProfileRequest = new UpdateOutboundVoiceProfileRequest(); // UpdateOutboundVoiceProfileRequest | Parameters that can be updated on an outbound voice profile
         try {
-            SingleOutboundVoiceProfile result = apiInstance.updateOutboundVoiceProfile(id, outboundVoiceProfileWritable);
+            OutboundVoiceProfileResponse result = apiInstance.updateOutboundVoiceProfile(id, updateOutboundVoiceProfileRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling OutboundVoiceProfilesApi#updateOutboundVoiceProfile");
@@ -360,11 +365,11 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Identifies the resource. |
- **outboundVoiceProfileWritable** | [**OutboundVoiceProfileWritable**](OutboundVoiceProfileWritable.md)| Parameters that can be updated on an outbound voice profile |
+ **updateOutboundVoiceProfileRequest** | [**UpdateOutboundVoiceProfileRequest**](UpdateOutboundVoiceProfileRequest.md)| Parameters that can be updated on an outbound voice profile |
 
 ### Return type
 
-[**SingleOutboundVoiceProfile**](SingleOutboundVoiceProfile.md)
+[**OutboundVoiceProfileResponse**](OutboundVoiceProfileResponse.md)
 
 ### Authorization
 

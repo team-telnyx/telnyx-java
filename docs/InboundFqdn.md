@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **aniNumberFormat** | [**AniNumberFormatEnum**](#AniNumberFormatEnum) | This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls. |  [optional]
 **dnisNumberFormat** | [**DnisNumberFormatEnum**](#DnisNumberFormatEnum) |  |  [optional]
-**codecs** | **List&lt;String&gt;** | Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP. |  [optional]
-**defaultRoutingMethod** | [**DefaultRoutingMethodEnum**](#DefaultRoutingMethodEnum) | Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed. |  [optional]
+**codecs** | **List&lt;String&gt;** | Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP. |  [optional]
+**defaultRoutingMethod** | [**DefaultRoutingMethodEnum**](#DefaultRoutingMethodEnum) | Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or null, other values are not allowed. |  [optional]
 **channelLimit** | **Integer** | When set, this will limit the total number of inbound calls to phone numbers associated with this connection. |  [optional]
 **generateRingbackTone** | **Boolean** | Generate ringback tone through 183 session progress message with early media. |  [optional]
 **isupHeadersEnabled** | **Boolean** | When set, inbound phone calls will receive ISUP parameters via SIP headers. (Only when available and only when using TCP or TLS transport.) |  [optional]

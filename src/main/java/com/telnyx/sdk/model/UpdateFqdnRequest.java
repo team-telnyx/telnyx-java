@@ -24,6 +24,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,7 +49,7 @@ public class UpdateFqdnRequest {
   private String fqdn;
 
   public static final String JSON_PROPERTY_PORT = "port";
-  private Integer port = 5060;
+  private JsonNullable<Integer> port = JsonNullable.<Integer>of(5060);
 
   public static final String JSON_PROPERTY_DNS_RECORD_TYPE = "dns_record_type";
   private String dnsRecordType;
@@ -85,9 +88,10 @@ public class UpdateFqdnRequest {
    * FQDN represented by this resource.
    * @return fqdn
   **/
-  @ApiModelProperty(example = "example.com", required = true, value = "FQDN represented by this resource.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "example.com", value = "FQDN represented by this resource.")
   @JsonProperty(JSON_PROPERTY_FQDN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFqdn() {
     return fqdn;
@@ -100,7 +104,7 @@ public class UpdateFqdnRequest {
 
 
   public UpdateFqdnRequest port(Integer port) {
-    this.port = port;
+    this.port = JsonNullable.<Integer>of(port);
     return this;
   }
 
@@ -110,16 +114,26 @@ public class UpdateFqdnRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "5060", value = "Port to use when connecting to this FQDN.")
+  @JsonIgnore
+
+  public Integer getPort() {
+        return port.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_PORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getPort() {
+  public JsonNullable<Integer> getPort_JsonNullable() {
     return port;
   }
-
+  
+  @JsonProperty(JSON_PROPERTY_PORT)
+  public void setPort_JsonNullable(JsonNullable<Integer> port) {
+    this.port = port;
+  }
 
   public void setPort(Integer port) {
-    this.port = port;
+    this.port = JsonNullable.<Integer>of(port);
   }
 
 

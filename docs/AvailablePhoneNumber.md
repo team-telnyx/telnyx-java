@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **reservable** | **Boolean** | Specifies whether the phone number can be reserved before purchase or not. |  [optional]
 **regionInformation** | [**List&lt;RegionInformation&gt;**](RegionInformation.md) |  |  [optional]
 **costInformation** | [**CostInformation**](CostInformation.md) |  |  [optional]
-**regulatoryRequirements** | [**List&lt;RegulatoryRequirement&gt;**](RegulatoryRequirement.md) |  |  [optional]
+**features** | [**List&lt;Feature&gt;**](Feature.md) |  |  [optional]
 
 
 

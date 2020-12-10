@@ -24,6 +24,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,7 +49,7 @@ public class CreateFqdnRequest {
   private String fqdn;
 
   public static final String JSON_PROPERTY_PORT = "port";
-  private Integer port = 5060;
+  private JsonNullable<Integer> port = JsonNullable.<Integer>of(5060);
 
   public static final String JSON_PROPERTY_DNS_RECORD_TYPE = "dns_record_type";
   private String dnsRecordType;
@@ -61,10 +64,9 @@ public class CreateFqdnRequest {
    * ID of the FQDN connection to which this IP should be attached.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "ID of the FQDN connection to which this IP should be attached.")
+  @ApiModelProperty(required = true, value = "ID of the FQDN connection to which this IP should be attached.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getConnectionId() {
     return connectionId;
@@ -100,7 +102,7 @@ public class CreateFqdnRequest {
 
 
   public CreateFqdnRequest port(Integer port) {
-    this.port = port;
+    this.port = JsonNullable.<Integer>of(port);
     return this;
   }
 
@@ -110,16 +112,26 @@ public class CreateFqdnRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "5060", value = "Port to use when connecting to this FQDN.")
+  @JsonIgnore
+
+  public Integer getPort() {
+        return port.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_PORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getPort() {
+  public JsonNullable<Integer> getPort_JsonNullable() {
     return port;
   }
-
+  
+  @JsonProperty(JSON_PROPERTY_PORT)
+  public void setPort_JsonNullable(JsonNullable<Integer> port) {
+    this.port = port;
+  }
 
   public void setPort(Integer port) {
-    this.port = port;
+    this.port = JsonNullable.<Integer>of(port);
   }
 
 
@@ -132,10 +144,9 @@ public class CreateFqdnRequest {
    * The DNS record type for the FQDN. For cases where a port is not set, the DNS record type must be &#39;srv&#39;. For cases where a port is set, the DNS record type must be &#39;a&#39;. If the DNS record type is &#39;a&#39; and a port is not specified, 5060 will be used.
    * @return dnsRecordType
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "a", value = "The DNS record type for the FQDN. For cases where a port is not set, the DNS record type must be 'srv'. For cases where a port is set, the DNS record type must be 'a'. If the DNS record type is 'a' and a port is not specified, 5060 will be used.")
+  @ApiModelProperty(example = "a", required = true, value = "The DNS record type for the FQDN. For cases where a port is not set, the DNS record type must be 'srv'. For cases where a port is set, the DNS record type must be 'a'. If the DNS record type is 'a' and a port is not specified, 5060 will be used.")
   @JsonProperty(JSON_PROPERTY_DNS_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDnsRecordType() {
     return dnsRecordType;

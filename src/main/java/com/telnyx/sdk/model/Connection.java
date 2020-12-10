@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.AnchorsiteOverride;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -58,59 +59,8 @@ public class Connection {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active;
 
-  /**
-   * &#x60;Latency&#x60; directs Telnyx to route media through the site with the lowest round-trip time to the user&#39;s connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.
-   */
-  public enum AnchorsiteOverrideEnum {
-    LATENCY("Latency"),
-    
-    CHICAGO_IL("Chicago, IL"),
-    
-    ASHBURN_VA("Ashburn, VA"),
-    
-    SAN_JOSE_CA("San Jose, CA"),
-    
-    SYDNEY_AUSTRALIA("Sydney, Australia"),
-    
-    AMSTERDAM_NETHERLANDS("Amsterdam, Netherlands"),
-    
-    LONDON_UK("London, UK"),
-    
-    TORONTO_CANADA("Toronto, Canada"),
-    
-    VANCOUVER_CANADA("Vancouver, Canada"),
-    
-    FRANKFURT_GERMANY("Frankfurt, Germany");
-
-    private String value;
-
-    AnchorsiteOverrideEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static AnchorsiteOverrideEnum fromValue(String value) {
-      for (AnchorsiteOverrideEnum b : AnchorsiteOverrideEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_ANCHORSITE_OVERRIDE = "anchorsite_override";
-  private AnchorsiteOverrideEnum anchorsiteOverride;
+  private AnchorsiteOverride anchorsiteOverride = AnchorsiteOverride.LATENCY;
 
   public static final String JSON_PROPERTY_CONNECTION_NAME = "connection_name";
   private String connectionName;
@@ -241,26 +191,26 @@ public class Connection {
   }
 
 
-  public Connection anchorsiteOverride(AnchorsiteOverrideEnum anchorsiteOverride) {
+  public Connection anchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
     return this;
   }
 
    /**
-   * &#x60;Latency&#x60; directs Telnyx to route media through the site with the lowest round-trip time to the user&#39;s connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.
+   * Get anchorsiteOverride
    * @return anchorsiteOverride
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Latency", value = "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public AnchorsiteOverrideEnum getAnchorsiteOverride() {
+  public AnchorsiteOverride getAnchorsiteOverride() {
     return anchorsiteOverride;
   }
 
 
-  public void setAnchorsiteOverride(AnchorsiteOverrideEnum anchorsiteOverride) {
+  public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
 

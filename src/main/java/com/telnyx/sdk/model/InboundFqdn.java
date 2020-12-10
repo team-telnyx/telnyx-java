@@ -26,6 +26,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -138,7 +141,7 @@ public class InboundFqdn {
   private List<String> codecs = null;
 
   /**
-   * Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed.
+   * Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or null, other values are not allowed.
    */
   public enum DefaultRoutingMethodEnum {
     SEQUENTIAL("sequential"),
@@ -168,15 +171,15 @@ public class InboundFqdn {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+      return null;
     }
   }
 
   public static final String JSON_PROPERTY_DEFAULT_ROUTING_METHOD = "default_routing_method";
-  private DefaultRoutingMethodEnum defaultRoutingMethod;
+  private JsonNullable<DefaultRoutingMethodEnum> defaultRoutingMethod = JsonNullable.<DefaultRoutingMethodEnum>of(null);
 
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
-  private Integer channelLimit;
+  private JsonNullable<Integer> channelLimit = JsonNullable.<Integer>undefined();
 
   public static final String JSON_PROPERTY_GENERATE_RINGBACK_TONE = "generate_ringback_tone";
   private Boolean generateRingbackTone = false;
@@ -234,7 +237,7 @@ public class InboundFqdn {
   private SipRegionEnum sipRegion = SipRegionEnum.US;
 
   public static final String JSON_PROPERTY_SIP_SUBDOMAIN = "sip_subdomain";
-  private String sipSubdomain;
+  private JsonNullable<String> sipSubdomain = JsonNullable.<String>of("null");
 
   /**
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).
@@ -272,7 +275,7 @@ public class InboundFqdn {
   }
 
   public static final String JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS = "sip_subdomain_receive_settings";
-  private SipSubdomainReceiveSettingsEnum sipSubdomainReceiveSettings;
+  private SipSubdomainReceiveSettingsEnum sipSubdomainReceiveSettings = SipSubdomainReceiveSettingsEnum.FROM_ANYONE;
 
   public static final String JSON_PROPERTY_TIMEOUT1XX_SECS = "timeout_1xx_secs";
   private Integer timeout1xxSecs = 3;
@@ -343,11 +346,11 @@ public class InboundFqdn {
   }
 
    /**
-   * Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.
+   * Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.
    * @return codecs
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.")
+  @ApiModelProperty(value = "Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.")
   @JsonProperty(JSON_PROPERTY_CODECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -362,31 +365,41 @@ public class InboundFqdn {
 
 
   public InboundFqdn defaultRoutingMethod(DefaultRoutingMethodEnum defaultRoutingMethod) {
-    this.defaultRoutingMethod = defaultRoutingMethod;
+    this.defaultRoutingMethod = JsonNullable.<DefaultRoutingMethodEnum>of(defaultRoutingMethod);
     return this;
   }
 
    /**
-   * Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed.
+   * Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or null, other values are not allowed.
    * @return defaultRoutingMethod
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed.")
+  @ApiModelProperty(value = "Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or null, other values are not allowed.")
+  @JsonIgnore
+
+  public DefaultRoutingMethodEnum getDefaultRoutingMethod() {
+        return defaultRoutingMethod.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_DEFAULT_ROUTING_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public DefaultRoutingMethodEnum getDefaultRoutingMethod() {
+  public JsonNullable<DefaultRoutingMethodEnum> getDefaultRoutingMethod_JsonNullable() {
     return defaultRoutingMethod;
   }
-
+  
+  @JsonProperty(JSON_PROPERTY_DEFAULT_ROUTING_METHOD)
+  public void setDefaultRoutingMethod_JsonNullable(JsonNullable<DefaultRoutingMethodEnum> defaultRoutingMethod) {
+    this.defaultRoutingMethod = defaultRoutingMethod;
+  }
 
   public void setDefaultRoutingMethod(DefaultRoutingMethodEnum defaultRoutingMethod) {
-    this.defaultRoutingMethod = defaultRoutingMethod;
+    this.defaultRoutingMethod = JsonNullable.<DefaultRoutingMethodEnum>of(defaultRoutingMethod);
   }
 
 
   public InboundFqdn channelLimit(Integer channelLimit) {
-    this.channelLimit = channelLimit;
+    this.channelLimit = JsonNullable.<Integer>of(channelLimit);
     return this;
   }
 
@@ -396,16 +409,26 @@ public class InboundFqdn {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "When set, this will limit the total number of inbound calls to phone numbers associated with this connection.")
+  @JsonIgnore
+
+  public Integer getChannelLimit() {
+        return channelLimit.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getChannelLimit() {
+  public JsonNullable<Integer> getChannelLimit_JsonNullable() {
     return channelLimit;
   }
-
+  
+  @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
+  public void setChannelLimit_JsonNullable(JsonNullable<Integer> channelLimit) {
+    this.channelLimit = channelLimit;
+  }
 
   public void setChannelLimit(Integer channelLimit) {
-    this.channelLimit = channelLimit;
+    this.channelLimit = JsonNullable.<Integer>of(channelLimit);
   }
 
 
@@ -554,7 +577,7 @@ public class InboundFqdn {
 
 
   public InboundFqdn sipSubdomain(String sipSubdomain) {
-    this.sipSubdomain = sipSubdomain;
+    this.sipSubdomain = JsonNullable.<String>of(sipSubdomain);
     return this;
   }
 
@@ -564,16 +587,26 @@ public class InboundFqdn {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the same way a phone number is used, from a SIP endpoint. Example: the subdomain \"example.sip.telnyx.com\" can be called from any SIP endpoint by using the SIP URI \"sip:@example.sip.telnyx.com\" where the user part can be any alphanumeric value. Please note TLS encrypted calls are not allowed for subdomain calls.")
+  @JsonIgnore
+
+  public String getSipSubdomain() {
+        return sipSubdomain.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getSipSubdomain() {
+  public JsonNullable<String> getSipSubdomain_JsonNullable() {
     return sipSubdomain;
   }
-
+  
+  @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN)
+  public void setSipSubdomain_JsonNullable(JsonNullable<String> sipSubdomain) {
+    this.sipSubdomain = sipSubdomain;
+  }
 
   public void setSipSubdomain(String sipSubdomain) {
-    this.sipSubdomain = sipSubdomain;
+    this.sipSubdomain = JsonNullable.<String>of(sipSubdomain);
   }
 
 

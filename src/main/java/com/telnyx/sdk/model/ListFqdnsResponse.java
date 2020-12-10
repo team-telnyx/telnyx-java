@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Fqdn;
+import com.telnyx.sdk.model.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -35,12 +36,16 @@ import com.telnyx.sdk.JSON;
  * ListFqdnsResponse
  */
 @JsonPropertyOrder({
-  ListFqdnsResponse.JSON_PROPERTY_DATA
+  ListFqdnsResponse.JSON_PROPERTY_DATA,
+  ListFqdnsResponse.JSON_PROPERTY_META
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ListFqdnsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<Fqdn> data = null;
+
+  public static final String JSON_PROPERTY_META = "meta";
+  private PaginationMeta meta;
 
 
   public ListFqdnsResponse data(List<Fqdn> data) {
@@ -75,6 +80,30 @@ public class ListFqdnsResponse {
   }
 
 
+  public ListFqdnsResponse meta(PaginationMeta meta) {
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PaginationMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(PaginationMeta meta) {
+    this.meta = meta;
+  }
+
+
   /**
    * Return true if this List_Fqdns_Response object is equal to o.
    */
@@ -87,12 +116,13 @@ public class ListFqdnsResponse {
       return false;
     }
     ListFqdnsResponse listFqdnsResponse = (ListFqdnsResponse) o;
-    return Objects.equals(this.data, listFqdnsResponse.data);
+    return Objects.equals(this.data, listFqdnsResponse.data) &&
+        Objects.equals(this.meta, listFqdnsResponse.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(data, meta);
   }
 
 
@@ -101,6 +131,7 @@ public class ListFqdnsResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class ListFqdnsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

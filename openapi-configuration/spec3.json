@@ -56,7 +56,7 @@
       "description": "FQDN connection operations"
     },
     {
-      "name": "FQDNs",
+      "name": "FQDNS",
       "description": "FQDN operations"
     },
     {
@@ -112,6 +112,10 @@
       "description": "Outbound voice profiles operations"
     },
     {
+      "name": "Phone Number Jobs",
+      "description": "Asynchronous jobs performed over a batch of phone numbers"
+    },
+    {
       "name": "Programmable Fax Applications",
       "description": "Fax Applications operations"
     },
@@ -129,6 +133,170 @@
     }
   ],
   "paths": {
+    "/available_phone_number_blocks": {
+      "get": {
+        "summary": "List available phone number blocks",
+        "operationId": "listAvailablePhoneNumberBlocks",
+        "tags": [
+          "Number Search"
+        ],
+        "parameters": [
+          {
+            "name": "filter[phone_number][starts_with]",
+            "in": "query",
+            "description": "Filter number blocks that start with a pattern (meant to be used after `national_destination_code` filter has been set).",
+            "schema": {
+              "type": "string",
+              "example": "201"
+            }
+          },
+          {
+            "name": "filter[phone_number][ends_with]",
+            "in": "query",
+            "description": "Filter numbers ending with a pattern.",
+            "schema": {
+              "type": "string",
+              "example": "8000"
+            }
+          },
+          {
+            "name": "filter[phone_number][contains]",
+            "in": "query",
+            "description": "Filter numbers containing a pattern.",
+            "schema": {
+              "type": "string",
+              "example": "456"
+            }
+          },
+          {
+            "name": "filter[locality]",
+            "in": "query",
+            "description": "Filter phone numbers by city.",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "US": {
+                "value": "Chicago"
+              },
+              "CA": {
+                "value": "Toronto"
+              },
+              "AU": {
+                "value": "Canberra"
+              }
+            }
+          },
+          {
+            "name": "filter[administrative_area]",
+            "in": "query",
+            "description": "Filter phone numbers by US state/CA province.",
+            "schema": {
+              "type": "string",
+              "example": "IL"
+            }
+          },
+          {
+            "name": "filter[country_code]",
+            "in": "query",
+            "description": "Filter phone numbers by ISO alpha-2 country code.",
+            "schema": {
+              "type": "string",
+              "example": "US"
+            }
+          },
+          {
+            "name": "filter[national_destination_code]",
+            "in": "query",
+            "description": "Filter by the national destination code of the number. This filter is only applicable to North American numbers.",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "US": {
+                "value": "312"
+              },
+              "CA": {
+                "value": "437"
+              },
+              "AU": {
+                "value": "0251"
+              }
+            }
+          },
+          {
+            "name": "filter[rate_center]",
+            "in": "query",
+            "description": "Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers.",
+            "schema": {
+              "type": "string",
+              "example": "CHICAGO HEIGHTS"
+            }
+          },
+          {
+            "name": "filter[number_type]",
+            "in": "query",
+            "description": "Filter phone numbers by number type.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "toll-free",
+                "national",
+                "mobile",
+                "local"
+              ],
+              "example": "local"
+            }
+          },
+          {
+            "name": "filter[features]",
+            "in": "query",
+            "description": "Filter if the phone number should be used for voice, fax, mms, sms, emergency.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "sms",
+                  "mms",
+                  "voice",
+                  "fax",
+                  "emergency"
+                ]
+              },
+              "example": "voice,sms"
+            }
+          },
+          {
+            "name": "filter[minimum_block_size]",
+            "in": "query",
+            "description": "Filter number blocks by minimum blocks size",
+            "schema": {
+              "type": "integer",
+              "example": 100
+            }
+          },
+          {
+            "name": "filter[limit]",
+            "in": "query",
+            "description": "Limits the number of results.",
+            "schema": {
+              "type": "integer",
+              "example": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListAvailablePhoneNumbersBlockResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
     "/available_phone_numbers": {
       "get": {
         "summary": "List available phone numbers",
@@ -653,6 +821,48 @@
                     "application/json": {
                       "schema": {
                         "$ref": "#/components/schemas/CallHangupEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "callMachinePremiumDetectionEnded": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CallMachinePremiumDetectionEndedEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "callMachinePremiumGreetingEnded": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CallMachinePremiumGreetingEndedEvent"
                       }
                     }
                   }
@@ -2034,6 +2244,90 @@
                 }
               }
             }
+          },
+          "callMachinePremiumDetectionEnded": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CallMachinePremiumDetectionEndedEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "callMachinePremiumGreetingEnded": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CallMachinePremiumGreetingEndedEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "callMachineDetectionEnded": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CallMachineDetectionEndedEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "callMachineGreetingEnded": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CallMachineGreetingEndedEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
           }
         },
         "x-latency-category": "interactive"
@@ -2041,6 +2335,7 @@
     },
     "/conferences": {
       "get": {
+        "x-group-parameters": "true",
         "x-latency-category": "responsive",
         "description": "Lists conferences. Conferences are created on demand, and will expire after all participants have left the conference or after 4 hours regardless of the number of active participants. Conferences are listed in descending order by `expires_at`.",
         "summary": "List conferences",
@@ -2048,7 +2343,6 @@
         "tags": [
           "Conference Commands"
         ],
-        "x-group-parameters": "true",
         "parameters": [
           {
             "$ref": "#/components/parameters/FilterConferenceName"
@@ -2198,7 +2492,6 @@
         "tags": [
           "Conference Commands"
         ],
-        "x-group-parameters": "true",
         "parameters": [
           {
             "name": "conference_id",
@@ -3497,6 +3790,7 @@
         "tags": [
           "FQDN Connections"
         ],
+        "x-group-parameters": "true",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3678,8 +3972,9 @@
         "description": "Get all FQDNs belonging to the user that match the given filters.",
         "operationId": "listFqdns",
         "tags": [
-          "FQDNs"
+          "FQDNS"
         ],
+        "x-group-parameters": "true",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3745,7 +4040,7 @@
         "summary": "Create an Fqdn",
         "operationId": "createFqdn",
         "tags": [
-          "FQDNs"
+          "FQDNS"
         ],
         "requestBody": {
           "content": {
@@ -3776,7 +4071,7 @@
         "summary": "Delete an Fqdn",
         "operationId": "deleteFqdn",
         "tags": [
-          "FQDNs"
+          "FQDNS"
         ],
         "parameters": [
           {
@@ -3801,7 +4096,7 @@
         "summary": "Retrieve an Fqdn",
         "operationId": "retrieveFqdn",
         "tags": [
-          "FQDNs"
+          "FQDNS"
         ],
         "parameters": [
           {
@@ -3826,7 +4121,7 @@
         "summary": "Update an Fqdn",
         "operationId": "updateFqdn",
         "tags": [
-          "FQDNs"
+          "FQDNS"
         ],
         "parameters": [
           {
@@ -4952,6 +5247,149 @@
         "x-latency-category": "responsive"
       }
     },
+    "/number_block_orders": {
+      "get": {
+        "summary": "List number block orders",
+        "description": "Get a paginated list of number block orders.",
+        "operationId": "listNumberBlockOrders",
+        "tags": [
+          "Number Block Orders"
+        ],
+        "parameters": [
+          {
+            "name": "filter[status]",
+            "in": "query",
+            "description": "Filter number block orders by status.",
+            "schema": {
+              "type": "string",
+              "example": "pending"
+            }
+          },
+          {
+            "name": "filter[created_at][gt]",
+            "in": "query",
+            "description": "Filter number block orders later than this value.",
+            "schema": {
+              "type": "string",
+              "example": "2018-01-01T00:00:00.000000Z"
+            }
+          },
+          {
+            "name": "filter[created_at][lt]",
+            "in": "query",
+            "description": "Filter number block orders earlier than this value.",
+            "schema": {
+              "type": "string",
+              "example": "2018-01-01T00:00:00.000000Z"
+            }
+          },
+          {
+            "name": "filter[phone_numbers.starting_number]",
+            "in": "query",
+            "description": "Filter number block  orders having these phone numbers.",
+            "schema": {
+              "type": "string",
+              "example": "+19705555000"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/PageNumber"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListNumberBlockOrdersResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      },
+      "post": {
+        "summary": "Create a number block order",
+        "description": "Creates a phone number block order.",
+        "operationId": "createNumberBlockOrder",
+        "tags": [
+          "Number Block Orders"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNumberBlockOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/NumberBlockOrderResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "callbacks": {
+          "numberOrderStatusUpdate": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NumberOrderBlockEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return a HTTP 200, otherwise we will reattempt to deliver the webhook to the failover URL."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/number_block_orders/{number_block_order_id}": {
+      "get": {
+        "summary": "Retrieve a number block order",
+        "description": "Get an existing phone number block order.",
+        "operationId": "retrieveNumberBlockOrder",
+        "tags": [
+          "Number Block Orders"
+        ],
+        "parameters": [
+          {
+            "name": "number_block_order_id",
+            "in": "path",
+            "description": "The number block order ID.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/NumberBlockOrderResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
     "/number_order_documents": {
       "get": {
         "summary": "List number order documents",
@@ -5452,10 +5890,11 @@
       "get": {
         "description": "Get all outbound voice profiles belonging to the user that match the given filters.",
         "summary": "Get all outbound voice profiles",
-        "operationId": "getOutboundVoiceProfiles",
+        "operationId": "listOutboundVoiceProfiles",
         "tags": [
           "Outbound Voice Profiles"
         ],
+        "x-group-parameters": "true",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -5472,7 +5911,7 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/OutboundVoiceProfilesResponse"
+            "$ref": "#/components/responses/ListOutboundVoiceProfilesResponse"
           },
           "401": {
             "description": "Unauthorized"
@@ -5496,7 +5935,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OutboundVoiceProfileWritable"
+                "$ref": "#/components/schemas/CreateOutboundVoiceProfileRequest"
               }
             }
           }
@@ -5550,7 +5989,7 @@
       "get": {
         "description": "Retrieves the details of an existing outbound voice profile.",
         "summary": "Retrieve an outbound voice profile",
-        "operationId": "getOutboundVoiceProfile",
+        "operationId": "retrieveOutboundVoiceProfile",
         "tags": [
           "Outbound Voice Profiles"
         ],
@@ -5588,7 +6027,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OutboundVoiceProfileWritable"
+                "$ref": "#/components/schemas/UpdateOutboundVoiceProfileRequest"
               }
             }
           }
@@ -5784,6 +6223,14 @@
             }
           },
           {
+            "name": "filter[customer_reference]",
+            "in": "query",
+            "description": "Filter numbers via the customer_reference set.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "sort",
             "in": "query",
             "description": "Specifies the sort order for results. If not given, results are sorted by created_at in descending order.",
@@ -5883,6 +6330,186 @@
         }
       }
     },
+    "/phone_numbers/jobs": {
+      "get": {
+        "summary": "Lists the phone numbers asynchronous jobs.",
+        "operationId": "listPhoneNumbersJobs",
+        "tags": [
+          "Phone Number Jobs"
+        ],
+        "x-group-parameters": "true",
+        "parameters": [
+          {
+            "name": "filter[type]",
+            "in": "query",
+            "description": "Filter the phone number jobs by type.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "update_emergency_settings",
+                "delete_phone_numbers"
+              ],
+              "example": "update_emergency_settings",
+              "description": "Identifies the type of the asynchronous job."
+            }
+          },
+          {
+            "$ref": "#/components/parameters/PageNumber"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Specifies the sort order for results. If not given, results are sorted by created_at in descending order.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created_at"
+              ],
+              "example": "created_at"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListPhoneNumbersJobsResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/phone_numbers/jobs/delete_phone_numbers": {
+      "post": {
+        "x-latency-category": "background",
+        "summary": "Creates a new background job to delete a batch of numbers. At most one thousand numbers can be updated per API call.",
+        "operationId": "createPhoneNumbersJobDeletePhoneNumbers",
+        "tags": [
+          "Phone Number Jobs"
+        ],
+        "x-group-parameters": "true",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhoneNumbersJobDeletePhoneNumbersRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Phone numbers job delete phone numbers requested.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Phone Numbers Job Delete Phone Numbers",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/PhoneNumbersJob"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        }
+      }
+    },
+    "/phone_numbers/jobs/update_emergency_settings": {
+      "post": {
+        "x-latency-category": "background",
+        "summary": "Creates a background job to update the emergency settings of a collection of phone numbers. At most one thousand numbers can be updated per API call.",
+        "operationId": "createPhoneNumbersJobUpdateEmergencySettings",
+        "tags": [
+          "Phone Number Jobs"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhoneNumbersJobUpdateEmergencySettingsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Phone numbers enable emergency requested.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Phone Numbers Enable Emergency",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/PhoneNumbersJob"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        }
+      }
+    },
+    "/phone_numbers/jobs/{id}": {
+      "get": {
+        "summary": "Retrieves the details of a given phone numbers job.",
+        "operationId": "retrievePhoneNumbersJob",
+        "tags": [
+          "Phone Number Jobs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifies the Phone Numbers Job.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-group-parameters": "true",
+        "responses": {
+          "200": {
+            "description": "Phone numbers job details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Phone Numbers Job",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/PhoneNumbersJob"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
     "/phone_numbers/messaging": {
       "get": {
         "summary": "List phone numbers with messaging settings",
@@ -5942,6 +6569,14 @@
             "schema": {
               "type": "string",
               "example": "test"
+            }
+          },
+          {
+            "name": "filter[customer_reference]",
+            "in": "query",
+            "description": "Filter numbers via the customer_reference set.",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -6826,8 +7461,7 @@
         "required": false,
         "description": "If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.",
         "schema": {
-          "type": "string",
-          "default": "null"
+          "type": "string"
         }
       },
       "FilterOutboundVoiceProfileId": {
@@ -6847,9 +7481,9 @@
         "in": "path",
         "required": true,
         "schema": {
-          "format": "uuid",
+          "format": "int64",
           "type": "string",
-          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+          "example": "1517907029795014409"
         }
       },
       "IntId": {
@@ -7252,6 +7886,28 @@
           }
         }
       },
+      "ListAvailablePhoneNumbersBlockResponse": {
+        "description": "Successful response with a list of available phone numbers blocks.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "List Available Phone Numbers Blocks Response",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AvailablePhoneNumberBlock"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/AvailablePhoneNumbersMetadata"
+                }
+              }
+            }
+          }
+        }
+      },
       "ListAvailablePhoneNumbersResponse": {
         "description": "Successful response with a list of available phone numbers.",
         "content": {
@@ -7441,6 +8097,9 @@
                   "items": {
                     "$ref": "#/components/schemas/Fqdn"
                   }
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/PaginationMeta"
                 }
               }
             }
@@ -7620,6 +8279,28 @@
           }
         }
       },
+      "ListNumberBlockOrdersResponse": {
+        "description": "Successful response with a list of number block orders.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "List Number Block Orders Response",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NumberBlockOrder"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/PaginationMeta"
+                }
+              }
+            }
+          }
+        }
+      },
       "ListNumberOrderDocumentsResponse": {
         "description": "Successful response with a list of number order documents.",
         "content": {
@@ -7708,6 +8389,28 @@
           }
         }
       },
+      "ListOutboundVoiceProfilesResponse": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "List Outbound Voice Profiles Response",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OutboundVoiceProfile"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/PaginationMeta"
+                }
+              }
+            }
+          }
+        }
+      },
       "ListParticipantsResponse": {
         "description": "Successful response with a list of conference participants.",
         "content": {
@@ -7742,6 +8445,28 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/PhoneNumberRegulatoryGroup"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/PaginationMeta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ListPhoneNumbersJobsResponse": {
+        "description": "Successful response with a list of phone numbers asynchronous jobs.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "List Phone Numbers Asynchronous Jobs Response",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PhoneNumbersJob"
                   }
                 },
                 "meta": {
@@ -7929,6 +8654,22 @@
       "NotFoundResponse": {
         "description": "Conference does not exist"
       },
+      "NumberBlockOrderResponse": {
+        "description": "Successful response with details about a number block order.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Number Block Order Response",
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/NumberBlockOrder"
+                }
+              }
+            }
+          }
+        }
+      },
       "NumberOrderDocumentResponse": {
         "description": "Successful response with details about a number order document.",
         "content": {
@@ -7998,17 +8739,13 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/SingleOutboundVoiceProfile"
-            }
-          }
-        }
-      },
-      "OutboundVoiceProfilesResponse": {
-        "description": "Successful response",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/MultipleOutboundVoiceProfiles"
+              "type": "object",
+              "title": "Outbound Voice Profile Response",
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/OutboundVoiceProfile"
+                }
+              }
             }
           }
         }
@@ -8251,10 +8988,10 @@
           "cost_information": {
             "$ref": "#/components/schemas/CostInformation"
           },
-          "regulatory_requirements": {
+          "features": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/RegulatoryRequirement"
+              "$ref": "#/components/schemas/Feature"
             }
           }
         },
@@ -8276,12 +9013,71 @@
             "monthly_cost": "6.54",
             "currency": "USD"
           },
-          "regulatory_requirements": [
+          "features": [
             {
-              "requirement_type": "end user proof of address",
-              "label": "Proof of Address",
-              "field_type": "address",
-              "description": "Requirement for providing Proof of Address."
+              "name": "sms"
+            },
+            {
+              "name": "voice"
+            }
+          ]
+        }
+      },
+      "AvailablePhoneNumberBlock": {
+        "type": "object",
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "available_phone_number_block",
+            "enum": [
+              "available_phone_number_block"
+            ]
+          },
+          "starting_number": {
+            "type": "string",
+            "example": "+19705555000"
+          },
+          "range": {
+            "type": "integer",
+            "example": 10
+          },
+          "region_information": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegionInformation"
+            }
+          },
+          "cost_information": {
+            "$ref": "#/components/schemas/CostInformation"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Feature"
+            }
+          }
+        },
+        "example": {
+          "record_type": "available_phone_number_block",
+          "phone_number": "+19705555000",
+          "range": 10,
+          "region_information": [
+            {
+              "region_type": "country_code",
+              "region_name": "US"
+            }
+          ],
+          "cost_information": {
+            "upfront_cost": "3.21",
+            "monthly_cost": "6.54",
+            "currency": "USD"
+          },
+          "features": [
+            {
+              "name": "sms"
+            },
+            {
+              "name": "voice"
             }
           ]
         }
@@ -9730,6 +10526,222 @@
           }
         }
       },
+      "CallMachinePremiumDetectionEnded": {
+        "type": "object",
+        "title": "Call Machine Premium Detection Ended",
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "call.machine.premium.detection.ended",
+            "enum": [
+              "call.machine.premium.detection.ended"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2018-02-02T22:25:27.521992Z",
+            "description": "ISO 8601 datetime of when the event occurred."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "call_control_id": {
+                "type": "string",
+                "example": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
+                "description": "Call ID used to issue commands via Call Control API."
+              },
+              "connection_id": {
+                "type": "string",
+                "example": "7267xxxxxxxxxxxxxx",
+                "description": "Telnyx connection ID used in the call."
+              },
+              "call_leg_id": {
+                "type": "string",
+                "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+                "description": "ID that is unique to the call and can be used to correlate webhook events."
+              },
+              "call_session_id": {
+                "type": "string",
+                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+                "description": "ID that is unique to the call session and can be used to correlate webhook events."
+              },
+              "client_state": {
+                "type": "string",
+                "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+                "description": "State received from a command."
+              },
+              "from": {
+                "type": "string",
+                "example": "+35319605860",
+                "description": "Number or SIP URI placing the call."
+              },
+              "to": {
+                "type": "string",
+                "example": "+13129457420",
+                "description": "Destination number or SIP URI of the call."
+              },
+              "result": {
+                "type": "string",
+                "example": "machine",
+                "enum": [
+                  "human_residence",
+                  "human_business",
+                  "machine",
+                  "silence",
+                  "fax_detected"
+                ],
+                "description": "Premium Answering Machine Detection result."
+              }
+            }
+          }
+        },
+        "example": {
+          "record_type": "event",
+          "event_type": "call.machine.premium.detection.ended",
+          "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+          "occurred_at": "2018-02-02T22:25:27.521992Z",
+          "payload": {
+            "connection_id": "7267xxxxxxxxxxxxxx",
+            "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+            "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+            "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+            "from": "+35319605860",
+            "to": "+35319605860",
+            "result": "machine"
+          }
+        }
+      },
+      "CallMachinePremiumDetectionEndedEvent": {
+        "type": "object",
+        "title": "Call Machine Premium Detection Ended Event",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CallMachinePremiumDetectionEnded"
+          }
+        }
+      },
+      "CallMachinePremiumGreetingEnded": {
+        "type": "object",
+        "title": "Call Machine Premium Greeting Ended",
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "call.machine.premium.greeting.ended",
+            "enum": [
+              "call.machine.premium.greeting.ended"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2018-02-02T22:25:27.521992Z",
+            "description": "ISO 8601 datetime of when the event occurred."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "call_control_id": {
+                "type": "string",
+                "example": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
+                "description": "Call ID used to issue commands via Call Control API."
+              },
+              "connection_id": {
+                "type": "string",
+                "example": "7267xxxxxxxxxxxxxx",
+                "description": "Telnyx connection ID used in the call."
+              },
+              "call_leg_id": {
+                "type": "string",
+                "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+                "description": "ID that is unique to the call and can be used to correlate webhook events."
+              },
+              "call_session_id": {
+                "type": "string",
+                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+                "description": "ID that is unique to the call session and can be used to correlate webhook events."
+              },
+              "client_state": {
+                "type": "string",
+                "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+                "description": "State received from a command."
+              },
+              "from": {
+                "type": "string",
+                "example": "+35319605860",
+                "description": "Number or SIP URI placing the call."
+              },
+              "to": {
+                "type": "string",
+                "example": "+13129457420",
+                "description": "Destination number or SIP URI of the call."
+              },
+              "result": {
+                "type": "string",
+                "example": "beep_detected",
+                "enum": [
+                  "beep_detected"
+                ],
+                "description": "Premium Answering Machine Greeting Ended result."
+              }
+            }
+          }
+        },
+        "example": {
+          "record_type": "event",
+          "event_type": "call.machine.premium.greeting.ended",
+          "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+          "occurred_at": "2018-02-02T22:25:27.521992Z",
+          "payload": {
+            "connection_id": "7267xxxxxxxxxxxxxx",
+            "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+            "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+            "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+            "from": "+35319605860",
+            "to": "+35319605860",
+            "result": "beep_detected"
+          }
+        }
+      },
+      "CallMachinePremiumGreetingEndedEvent": {
+        "type": "object",
+        "title": "Call Machine Premium Greeting Ended Event",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CallMachinePremiumGreetingEnded"
+          }
+        }
+      },
       "CallPlaybackEnded": {
         "type": "object",
         "title": "Call Playback Ended",
@@ -10219,7 +11231,7 @@
         "title": "Call Recording Saved Event",
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/CallReferCompleted"
+            "$ref": "#/components/schemas/CallReferStarted"
           }
         }
       },
@@ -10328,7 +11340,6 @@
       },
       "CallReferStarted": {
         "type": "object",
-        "title": "Call Refer Started",
         "properties": {
           "record_type": {
             "type": "string",
@@ -10423,7 +11434,7 @@
       },
       "CallReferStartedEvent": {
         "type": "object",
-        "title": "Call Refer Started Event",
+        "title": "Call Recording Saved Event",
         "properties": {
           "data": {
             "$ref": "#/components/schemas/CallReferStarted"
@@ -10511,10 +11522,11 @@
             "format": "int32"
           },
           "answering_machine_detection": {
-            "description": "Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If 'greeting_end' or 'detect_words' is used and a 'machine' is detected, you will receive another 'call.machine.greeting.ended' webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive 'call.machine.greeting.ended' if a beep is detected.",
+            "description": "Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a `call.machine.premium.detection.ended` webhook with one of the following results: `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect a beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we only send `call.machine.premium.greeting.ended`, and if we detect a beep after `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will receive another `call.machine.greeting.ended` webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive `call.machine.greeting.ended` if a beep is detected.",
             "default": "disabled",
             "type": "string",
             "enum": [
+              "premium",
               "detect",
               "detect_beep",
               "detect_words",
@@ -12402,21 +13414,7 @@
             "example": true
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.",
-            "example": "Latency"
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string",
@@ -12509,7 +13507,7 @@
           },
           "report_frequency_secs": {
             "type": "integer",
-            "default": 10,
+            "default": 5,
             "description": "RTCP reports are sent to customers based on the frequency set. Frequency is in seconds and it can be set to values from 5 to 3000 seconds.",
             "example": 10
           }
@@ -12684,6 +13682,7 @@
               "on_enter",
               "on_exit"
             ],
+            "default": "never",
             "example": "on_exit",
             "type": "string"
           },
@@ -12749,20 +13748,7 @@
             "example": "my123secure456password789"
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media."
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string"
@@ -12783,14 +13769,7 @@
             "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout."
           },
           "dtmf_type": {
-            "type": "string",
-            "enum": [
-              "RFC 2833",
-              "Inband",
-              "SIP INFO"
-            ],
-            "default": "RFC 2833",
-            "description": "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats."
+            "$ref": "#/components/schemas/DtmfType"
           },
           "encode_contact_header_enabled": {
             "type": "boolean",
@@ -12798,12 +13777,7 @@
             "description": "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios."
           },
           "encrypted_media": {
-            "type": "string",
-            "enum": [
-              "SRTP",
-              "ZRTP"
-            ],
-            "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS."
+            "$ref": "#/components/schemas/EncryptedMedia"
           },
           "onnet_t38_passthrough_enabled": {
             "type": "boolean",
@@ -12972,39 +13946,23 @@
       },
       "CreateFqdnConnectionRequest": {
         "title": "Create Fqdn Connection Request",
+        "required": [
+          "connection_name"
+        ],
         "properties": {
           "active": {
             "type": "boolean",
-            "description": "Defaults to true"
+            "description": "Defaults to true",
+            "default": true
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media."
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string"
           },
           "transport_protocol": {
-            "type": "string",
-            "description": "One of UDP, TLS, or TCP. Applies only to connections with IP authentication or FQDN authentication.",
-            "default": "UDP",
-            "enum": [
-              "UDP",
-              "TCP",
-              "TLS"
-            ]
+            "$ref": "#/components/schemas/FqdnConnectionTransportProtocol"
           },
           "default_on_hold_comfort_noise_enabled": {
             "type": "boolean",
@@ -13012,14 +13970,7 @@
             "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout."
           },
           "dtmf_type": {
-            "type": "string",
-            "enum": [
-              "RFC 2833",
-              "Inband",
-              "SIP INFO"
-            ],
-            "default": "RFC 2833",
-            "description": "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats."
+            "$ref": "#/components/schemas/DtmfType"
           },
           "encode_contact_header_enabled": {
             "type": "boolean",
@@ -13027,12 +13978,7 @@
             "description": "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios."
           },
           "encrypted_media": {
-            "type": "string",
-            "enum": [
-              "SRTP",
-              "ZRTP"
-            ],
-            "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS."
+            "$ref": "#/components/schemas/EncryptedMedia"
           },
           "onnet_t38_passthrough_enabled": {
             "type": "boolean",
@@ -13043,7 +13989,7 @@
             "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
           "inbound": {
-            "$ref": "#/components/schemas/CreateInboundFqdnRequest"
+            "$ref": "#/components/schemas/InboundFqdn"
           }
         },
         "example": {
@@ -13086,7 +14032,9 @@
         "title": "Create Fqdn Request",
         "type": "object",
         "required": [
-          "fqdn"
+          "fqdn",
+          "dns_record_type",
+          "connection_id"
         ],
         "properties": {
           "connection_id": {
@@ -13102,7 +14050,8 @@
             "type": "integer",
             "description": "Port to use when connecting to this FQDN.",
             "default": 5060,
-            "example": 5060
+            "example": 5060,
+            "nullable": true
           },
           "dns_record_type": {
             "type": "string",
@@ -13111,140 +14060,10 @@
           }
         },
         "example": {
-          "connection_id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+          "connection_id": "1516447646313612565",
           "fqdn": "example.com",
           "port": 8080,
           "dns_record_type": "a"
-        }
-      },
-      "CreateInboundFqdnRequest": {
-        "type": "object",
-        "title": "Create Inbound Fqdn Request",
-        "properties": {
-          "ani_number_format": {
-            "type": "string",
-            "enum": [
-              "+E.164",
-              "E.164",
-              "+E.164-national",
-              "E.164-national"
-            ],
-            "default": "E.164-national",
-            "description": "This setting allows you to set the format with which the caller's number (ANI) is sent for inbound phone calls."
-          },
-          "dnis_number_format": {
-            "type": "string",
-            "enum": [
-              "+e164",
-              "e164",
-              "national"
-            ],
-            "default": "e164"
-          },
-          "codecs": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.",
-            "default": [
-              "G722",
-              "G711U",
-              "G711A",
-              "G729",
-              "OPUS",
-              "H.264"
-            ]
-          },
-          "default_routing_method": {
-            "type": "string",
-            "enum": [
-              "sequential",
-              "round-robin"
-            ],
-            "description": "Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed."
-          },
-          "channel_limit": {
-            "type": "integer",
-            "default": null,
-            "description": "When set, this will limit the total number of inbound calls to phone numbers associated with this connection."
-          },
-          "generate_ringback_tone": {
-            "type": "boolean",
-            "default": false,
-            "description": "Generate ringback tone through 183 session progress message with early media."
-          },
-          "isup_headers_enabled": {
-            "type": "boolean",
-            "default": false,
-            "description": "When set, inbound phone calls will receive ISUP parameters via SIP headers. (Only when available and only when using TCP or TLS transport.)"
-          },
-          "prack_enabled": {
-            "type": "boolean",
-            "description": "Enable PRACK messages as defined in RFC3262.",
-            "default": false
-          },
-          "privacy_zone_enabled": {
-            "type": "boolean",
-            "description": "By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.",
-            "default": false
-          },
-          "sip_compact_headers_enabled": {
-            "type": "boolean",
-            "description": "Defaults to true.",
-            "default": true
-          },
-          "sip_region": {
-            "type": "string",
-            "default": "US",
-            "description": "Selects which `sip_region` to receive inbound calls from. If null, the default region (US) will be used.",
-            "enum": [
-              "US",
-              "Europe",
-              "Australia"
-            ]
-          },
-          "sip_subdomain": {
-            "type": "string",
-            "description": "Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the same way a phone number is used, from a SIP endpoint. Example: the subdomain \"example.sip.telnyx.com\" can be called from any SIP endpoint by using the SIP URI \"sip:@example.sip.telnyx.com\" where the user part can be any alphanumeric value. Please note TLS encrypted calls are not allowed for subdomain calls."
-          },
-          "sip_subdomain_receive_settings": {
-            "type": "string",
-            "description": "This option can be enabled to receive calls from: \"Anyone\" (any SIP endpoint in the public Internet) or \"Only my connections\" (any connection assigned to the same Telnyx user).",
-            "enum": [
-              "only_my_connections",
-              "from_anyone"
-            ]
-          },
-          "timeout_1xx_secs": {
-            "type": "integer",
-            "description": "Time(sec) before aborting if connection is not made.",
-            "minimum": 1,
-            "maximum": 120,
-            "default": 3
-          },
-          "timeout_2xx_secs": {
-            "type": "integer",
-            "description": "Time(sec) before aborting if call is unanswered (min: 1, max: 600).",
-            "default": 90
-          }
-        },
-        "example": {
-          "ani_number_format": "+E.164",
-          "dnis_number_format": "+e164",
-          "codecs": "G722",
-          "default_routing_method": "sequential",
-          "channel_limit": 10,
-          "generate_ringback_tone": true,
-          "isup_headers_enabled": true,
-          "prack_enabled": true,
-          "privacy_zone_enabled": true,
-          "sip_compact_headers_enabled": true,
-          "sip_region": "US",
-          "sip_subdomain": "test",
-          "sip_subdomain_receive_settings": "only_my_connections",
-          "timeout_1xx_secs": 10,
-          "timeout_2xx_secs": 20
         }
       },
       "CreateInboundIpRequest": {
@@ -13386,21 +14205,7 @@
             "example": true
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.",
-            "example": "Chicago, IL"
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string",
@@ -13424,15 +14229,7 @@
             "example": true
           },
           "dtmf_type": {
-            "type": "string",
-            "enum": [
-              "RFC 2833",
-              "Inband",
-              "SIP INFO"
-            ],
-            "default": "RFC 2833",
-            "description": "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.",
-            "example": "RFC 2833"
+            "$ref": "#/components/schemas/DtmfType"
           },
           "encode_contact_header_enabled": {
             "type": "boolean",
@@ -13441,13 +14238,7 @@
             "example": true
           },
           "encrypted_media": {
-            "type": "string",
-            "enum": [
-              "SRTP",
-              "ZRTP"
-            ],
-            "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS.",
-            "example": "SRTP"
+            "$ref": "#/components/schemas/EncryptedMedia"
           },
           "onnet_t38_passthrough_enabled": {
             "type": "boolean",
@@ -13788,6 +14579,99 @@
           }
         }
       },
+      "CreateNumberBlockOrderRequest": {
+        "required": [
+          "starting_number",
+          "range"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "12ade33a-21c0-473b-b055-b3c836e1c292",
+            "readOnly": true
+          },
+          "record_type": {
+            "type": "string",
+            "example": "number_block_order",
+            "readOnly": true
+          },
+          "starting_number": {
+            "type": "string",
+            "description": "Starting phone number block",
+            "format": "e164_phone_number",
+            "example": "+19705555000",
+            "writeOnly": true
+          },
+          "range": {
+            "type": "integer",
+            "description": "The phone number range included in the block.",
+            "example": 10,
+            "writeOnly": true
+          },
+          "phone_numbers_count": {
+            "type": "integer",
+            "description": "The count of phone numbers in the number order.",
+            "example": 10,
+            "readOnly": true
+          },
+          "connection_id": {
+            "type": "string",
+            "example": "346789098765567",
+            "description": "Identifies the connection associated with this phone number."
+          },
+          "messaging_profile_id": {
+            "type": "string",
+            "example": "abc85f64-5717-4562-b3fc-2c9600",
+            "description": "Identifies the messaging profile associated with the phone number."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "success",
+              "failure"
+            ],
+            "description": "The status of the order.",
+            "readOnly": true
+          },
+          "customer_reference": {
+            "type": "string",
+            "description": "A customer reference string for customer look ups.",
+            "example": "MY REF 001"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "datetime",
+            "description": "An ISO 8901 datetime string denoting when the number order was created.",
+            "example": "2018-01-01T00:00:00.000000Z",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "datetime",
+            "description": "An ISO 8901 datetime string for when the number order was updated.",
+            "example": "2018-01-01T00:00:00.000000Z",
+            "readOnly": true
+          },
+          "requirements_met": {
+            "type": "boolean",
+            "description": "True if all requirements are met for every phone number, false otherwise.",
+            "example": true,
+            "readOnly": true
+          },
+          "errors": {
+            "type": "string",
+            "description": "Errors the reservation could happen upon",
+            "example": "Number is already on hold",
+            "readOnly": true
+          }
+        },
+        "example": {
+          "starting_number": "+19705555000",
+          "range": 10
+        }
+      },
       "CreateNumberOrderDocumentRequest": {
         "properties": {
           "id": {
@@ -13886,6 +14770,7 @@
               "success",
               "failure"
             ],
+            "example": "success",
             "description": "The status of the order.",
             "readOnly": true
           },
@@ -14089,6 +14974,110 @@
           "customer_reference": "MY REF 001",
           "created_at": "2018-01-01T00:00:00.000000Z",
           "updated_at": "2018-01-01T00:00:00.000000Z"
+        }
+      },
+      "CreateOutboundVoiceProfileRequest": {
+        "type": "object",
+        "title": "Outbound Voice Profile",
+        "example": {
+          "name": "office",
+          "traffic_type": "conversational",
+          "service_plan": "global",
+          "concurrent_call_limit": 10,
+          "enabled": true,
+          "tags": [
+            "office-profile"
+          ],
+          "usage_payment_method": "rate-deck",
+          "whitelisted_destinations": [
+            "US",
+            "BR",
+            "AU"
+          ],
+          "max_destination_rate": 10,
+          "daily_spend_limit": "100.00",
+          "daily_spend_limit_enabled": true,
+          "billing_group_id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        },
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "A user-supplied name to help with organization.",
+            "example": "office",
+            "default": ""
+          },
+          "traffic_type": {
+            "$ref": "#/components/schemas/TrafficType"
+          },
+          "service_plan": {
+            "$ref": "#/components/schemas/ServicePlan"
+          },
+          "concurrent_call_limit": {
+            "type": "integer",
+            "description": "Must be no more than your global concurrent call limit. Null means no limit.",
+            "example": 10,
+            "nullable": true
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Specifies whether the outbound voice profile can be used. Disabled profiles will result in outbound calls being blocked for the associated Connections.",
+            "example": true,
+            "default": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "office-profile"
+            ]
+          },
+          "usage_payment_method": {
+            "$ref": "#/components/schemas/UsagePaymentMethod"
+          },
+          "whitelisted_destinations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The list of destinations you want to be able to call using this outbound voice profile formatted in alpha2.",
+            "example": [
+              "US",
+              "BR",
+              "AU"
+            ],
+            "default": [
+              "US",
+              "CA"
+            ]
+          },
+          "max_destination_rate": {
+            "type": "number",
+            "description": "Maximum rate (price per minute) for a Destination to be allowed when making outbound calls."
+          },
+          "daily_spend_limit": {
+            "type": "string",
+            "description": "The maximum amount of usage charges, in USD, you want Telnyx to allow on this outbound voice profile in a day before disallowing new calls.",
+            "example": "100.00"
+          },
+          "daily_spend_limit_enabled": {
+            "type": "boolean",
+            "description": "Specifies whether to enforce the daily_spend_limit on this outbound voice profile.",
+            "example": true,
+            "default": false
+          },
+          "call_recording": {
+            "$ref": "#/components/schemas/OutboundCallRecording"
+          },
+          "billing_group_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The ID of the billing group associated with the outbound proflile. Defaults to null (for no group assigned).",
+            "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+            "default": null,
+            "nullable": true
+          }
         }
       },
       "CreateShortCodeMessageRequest": {
@@ -14342,20 +15331,7 @@
             "example": "2018-02-02T22:25:27.521Z"
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media."
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string"
@@ -14376,14 +15352,7 @@
             "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout."
           },
           "dtmf_type": {
-            "type": "string",
-            "enum": [
-              "RFC 2833",
-              "Inband",
-              "SIP INFO"
-            ],
-            "default": "RFC 2833",
-            "description": "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats."
+            "$ref": "#/components/schemas/DtmfType"
           },
           "encode_contact_header_enabled": {
             "type": "boolean",
@@ -14391,12 +15360,7 @@
             "description": "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios."
           },
           "encrypted_media": {
-            "type": "string",
-            "enum": [
-              "SRTP",
-              "ZRTP"
-            ],
-            "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS."
+            "$ref": "#/components/schemas/EncryptedMedia"
           },
           "onnet_t38_passthrough_enabled": {
             "type": "boolean",
@@ -14760,6 +15724,16 @@
           "emergency_address_id": "1315261609962112019"
         }
       },
+      "EncryptedMedia": {
+        "type": "string",
+        "enum": [
+          "SRTP",
+          "ZRTP"
+        ],
+        "nullable": true,
+        "example": "SRTP",
+        "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS."
+      },
       "Error": {
         "required": [
           "code",
@@ -14920,6 +15894,17 @@
           "updated_at": "2018-02-02T22:25:27.521Z"
         }
       },
+      "Feature": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "sms"
+          }
+        },
+        "example": {
+          "name": "sms"
+        }
+      },
       "FirstCommandTimeout": {
         "title": "First Command Timeout",
         "type": "boolean",
@@ -14981,9 +15966,9 @@
           }
         },
         "example": {
-          "id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+          "id": "1293384261075731499",
           "record_type": "fqdn",
-          "connection_id": "3456789987654",
+          "connection_id": "1516447646313612565",
           "fqdn": "example.com",
           "port": 5060,
           "dns_record_type": "a",
@@ -14994,6 +15979,9 @@
       "FqdnConnection": {
         "type": "object",
         "title": "Fqdn Connection",
+        "required": [
+          "connection_name"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -15011,33 +15999,13 @@
             "description": "Defaults to true"
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media."
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string"
           },
           "transport_protocol": {
-            "type": "string",
-            "description": "One of UDP, TLS, or TCP.",
-            "default": "UDP",
-            "enum": [
-              "UDP",
-              "TCP",
-              "TLS"
-            ]
+            "$ref": "#/components/schemas/FqdnConnectionTransportProtocol"
           },
           "default_on_hold_comfort_noise_enabled": {
             "type": "boolean",
@@ -15045,14 +16013,7 @@
             "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout."
           },
           "dtmf_type": {
-            "type": "string",
-            "enum": [
-              "RFC 2833",
-              "Inband",
-              "SIP INFO"
-            ],
-            "default": "RFC 2833",
-            "description": "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats."
+            "$ref": "#/components/schemas/DtmfType"
           },
           "encode_contact_header_enabled": {
             "type": "boolean",
@@ -15060,12 +16021,7 @@
             "description": "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios."
           },
           "encrypted_media": {
-            "type": "string",
-            "enum": [
-              "SRTP",
-              "ZRTP"
-            ],
-            "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS."
+            "$ref": "#/components/schemas/EncryptedMedia"
           },
           "onnet_t38_passthrough_enabled": {
             "type": "boolean",
@@ -15090,7 +16046,7 @@
           }
         },
         "example": {
-          "id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+          "id": "1293384261075731499",
           "record_type": "fqdn_connection",
           "active": true,
           "anchorsite_override": "Latency",
@@ -15128,6 +16084,16 @@
             "timeout_2xx_secs": 10
           }
         }
+      },
+      "FqdnConnectionTransportProtocol": {
+        "type": "string",
+        "description": "One of UDP, TLS, or TCP. Applies only to connections with IP authentication or FQDN authentication.",
+        "default": "UDP",
+        "enum": [
+          "UDP",
+          "TCP",
+          "TLS"
+        ]
       },
       "GatherUsingAudioRequest": {
         "type": "object",
@@ -15461,7 +16427,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.",
+            "description": "Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.",
             "default": [
               "G722",
               "G711U",
@@ -15477,11 +16443,14 @@
               "sequential",
               "round-robin"
             ],
-            "description": "Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed."
+            "nullable": true,
+            "default": null,
+            "description": "Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or null, other values are not allowed."
           },
           "channel_limit": {
             "type": "integer",
             "default": null,
+            "nullable": true,
             "description": "When set, this will limit the total number of inbound calls to phone numbers associated with this connection."
           },
           "generate_ringback_tone": {
@@ -15521,6 +16490,8 @@
           },
           "sip_subdomain": {
             "type": "string",
+            "default": null,
+            "nullable": true,
             "description": "Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the same way a phone number is used, from a SIP endpoint. Example: the subdomain \"example.sip.telnyx.com\" can be called from any SIP endpoint by using the SIP URI \"sip:@example.sip.telnyx.com\" where the user part can be any alphanumeric value. Please note TLS encrypted calls are not allowed for subdomain calls."
           },
           "sip_subdomain_receive_settings": {
@@ -15529,7 +16500,8 @@
             "enum": [
               "only_my_connections",
               "from_anyone"
-            ]
+            ],
+            "default": "from_anyone"
           },
           "timeout_1xx_secs": {
             "type": "integer",
@@ -15547,7 +16519,9 @@
         "example": {
           "ani_number_format": "+E.164",
           "dnis_number_format": "+e164",
-          "codecs": "G722",
+          "codecs": [
+            "G722"
+          ],
           "default_routing_method": "sequential",
           "channel_limit": 10,
           "generate_ringback_tone": true,
@@ -16171,21 +17145,7 @@
             "example": true
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.",
-            "example": "latency"
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string",
@@ -16209,15 +17169,7 @@
             "example": true
           },
           "dtmf_type": {
-            "type": "string",
-            "enum": [
-              "RFC 2833",
-              "Inband",
-              "SIP INFO"
-            ],
-            "default": "RFC 2833",
-            "description": "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.",
-            "example": "RFC 2833"
+            "$ref": "#/components/schemas/DtmfType"
           },
           "encode_contact_header_enabled": {
             "type": "boolean",
@@ -16226,13 +17178,7 @@
             "example": true
           },
           "encrypted_media": {
-            "type": "string",
-            "enum": [
-              "SRTP",
-              "ZRTP"
-            ],
-            "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS.",
-            "example": "SRTP"
+            "$ref": "#/components/schemas/EncryptedMedia"
           },
           "onnet_t38_passthrough_enabled": {
             "type": "boolean",
@@ -16835,18 +17781,96 @@
           "use_case": "test"
         }
       },
-      "MultipleOutboundVoiceProfiles": {
-        "type": "object",
+      "NumberBlockOrder": {
         "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OutboundVoiceProfile"
-            }
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "12ade33a-21c0-473b-b055-b3c836e1c292",
+            "readOnly": true
           },
-          "meta": {
-            "$ref": "#/components/schemas/PaginationMeta"
+          "record_type": {
+            "type": "string",
+            "example": "number_block_order",
+            "readOnly": true
+          },
+          "starting_number": {
+            "type": "string",
+            "description": "Starting phone number block",
+            "format": "e164_phone_number",
+            "example": "+19705555000"
+          },
+          "range": {
+            "type": "integer",
+            "description": "The phone number range included in the block.",
+            "example": 10
+          },
+          "phone_numbers_count": {
+            "type": "integer",
+            "description": "The count of phone numbers in the number order.",
+            "example": 1,
+            "readOnly": true
+          },
+          "connection_id": {
+            "type": "string",
+            "example": "346789098765567",
+            "description": "Identifies the connection associated to all numbers in the phone number block."
+          },
+          "messaging_profile_id": {
+            "type": "string",
+            "example": "abc85f64-5717-4562-b3fc-2c9600",
+            "description": "Identifies the messaging profile associated to all numbers in the phone number block."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "success",
+              "failure"
+            ],
+            "example": "success",
+            "description": "The status of the order.",
+            "readOnly": true
+          },
+          "customer_reference": {
+            "type": "string",
+            "description": "A customer reference string for customer look ups.",
+            "example": "MY REF 001"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "datetime",
+            "description": "An ISO 8901 datetime string denoting when the number order was created.",
+            "example": "2018-01-01T00:00:00.000000Z",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "datetime",
+            "description": "An ISO 8901 datetime string for when the number order was updated.",
+            "example": "2018-01-01T00:00:00.000000Z",
+            "readOnly": true
+          },
+          "requirements_met": {
+            "type": "boolean",
+            "description": "True if all requirements are met for every phone number, false otherwise.",
+            "example": true,
+            "readOnly": true
           }
+        },
+        "example": {
+          "id": "12ade33a-21c0-473b-b055-b3c836e1c292",
+          "starting_number": "+19705555000",
+          "range": 10,
+          "record_type": "number_block_order",
+          "connection_id": "346789098765567",
+          "messaging_profile_id": "abc85f64-5717-4562-b3fc-2c9600",
+          "phone_numbers_count": 10,
+          "status": "pending",
+          "customer_reference": "MY REF 001",
+          "created_at": "2018-01-01T00:00:00.000000Z",
+          "updated_at": "2018-01-01T00:00:00.000000Z",
+          "requirements_met": true
         }
       },
       "NumberHealthMetrics": {
@@ -16988,6 +18012,15 @@
           "created_at": "2018-01-01T00:00:00.000000Z",
           "updated_at": "2018-01-01T00:00:00.000000Z",
           "requirements_met": true
+        }
+      },
+      "NumberOrderBlockEvent": {
+        "type": "object",
+        "title": "Number Order Event",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/NumberBlockOrder"
+          }
         }
       },
       "NumberOrderDocument": {
@@ -17198,6 +18231,58 @@
           "customer_reference": "MY REF 001",
           "created_at": "2018-01-01T00:00:00.000000Z",
           "updated_at": "2018-01-01T00:00:00.000000Z"
+        }
+      },
+      "OutboundCallRecording": {
+        "type": "object",
+        "example": {
+          "call_recording_type": "by_caller_phone_number",
+          "call_recording_caller_phone_numbers": [
+            "+19705555098"
+          ],
+          "call_recording_channels": "dual",
+          "call_recording_format": "mp3"
+        },
+        "properties": {
+          "call_recording_type": {
+            "type": "string",
+            "description": "Specifies which calls are recorded.",
+            "enum": [
+              "all",
+              "none",
+              "by_caller_phone_number"
+            ]
+          },
+          "call_recording_caller_phone_numbers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "When call_recording_type is 'by_caller_phone_number', only outbound calls using one of these numbers will be recorded. Numbers must be specified in E164 format.",
+            "example": [
+              "+19705555098"
+            ]
+          },
+          "call_recording_channels": {
+            "type": "string",
+            "description": "When using 'dual' channels, the final audio file will be a stereo recording with the first leg on channel A, and the rest on channel B.",
+            "example": "dual",
+            "default": "single",
+            "enum": [
+              "single",
+              "dual"
+            ]
+          },
+          "call_recording_format": {
+            "type": "string",
+            "description": "The audio file format for calls being recorded.",
+            "example": "mp3",
+            "default": "wav",
+            "enum": [
+              "wav",
+              "mp3"
+            ]
+          }
         }
       },
       "OutboundIp": {
@@ -17671,7 +18756,7 @@
           "daily_spend_limit": "100.00",
           "daily_spend_limit_enabled": true,
           "call_recording": {
-            "call_recording_type": "by_call_phone_number",
+            "call_recording_type": "by_caller_phone_number",
             "call_recording_caller_phone_numbers": [
               "+19705555098"
             ],
@@ -17706,30 +18791,16 @@
             "example": 12
           },
           "traffic_type": {
-            "type": "string",
-            "description": "Specifies the type of traffic allowed in this profile.",
-            "enum": [
-              "conversational",
-              "short_duration"
-            ],
-            "example": "conversational",
-            "default": "conversational"
+            "$ref": "#/components/schemas/TrafficType"
           },
           "service_plan": {
-            "type": "string",
-            "description": "Indicates the coverage of the termination regions. International and Global are the same but International may only be used for high volume/short duration Outbound Voice Profiles.",
-            "enum": [
-              "us",
-              "international",
-              "global"
-            ],
-            "example": "global",
-            "default": "global"
+            "$ref": "#/components/schemas/ServicePlan"
           },
           "concurrent_call_limit": {
             "type": "integer",
             "description": "Must be no more than your global concurrent call limit. Null means no limit.",
-            "example": 10
+            "example": 10,
+            "nullable": true
           },
           "enabled": {
             "type": "boolean",
@@ -17747,14 +18818,7 @@
             ]
           },
           "usage_payment_method": {
-            "type": "string",
-            "description": "Setting for how costs for outbound profile are calculated.",
-            "enum": [
-              "tariff",
-              "rate-deck"
-            ],
-            "example": "tariff",
-            "default": "rate-deck"
+            "$ref": "#/components/schemas/UsagePaymentMethod"
           },
           "whitelisted_destinations": {
             "type": "array",
@@ -17788,56 +18852,15 @@
             "default": false
           },
           "call_recording": {
-            "type": "object",
-            "properties": {
-              "call_recording_type": {
-                "type": "string",
-                "description": "Specifies which calls are recorded.",
-                "enum": [
-                  "all",
-                  "none",
-                  "by_call_phone_number"
-                ],
-                "example": "by_call_phone_number"
-              },
-              "call_recording_caller_phone_numbers": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "description": "When call_recording_type is 'by_caller_phone_number', only outbound calls using one of these numbers will be recorded. Numbers must be specified in E164 format.",
-                "example": [
-                  "+19705555098"
-                ]
-              },
-              "call_recording_channels": {
-                "type": "string",
-                "description": "When using 'dual' channels, the final audio file will be a stereo recording with the first leg on channel A, and the rest on channel B.",
-                "example": "dual",
-                "default": "single",
-                "enum": [
-                  "single",
-                  "dual"
-                ]
-              },
-              "call_recording_format": {
-                "type": "string",
-                "description": "The audio file format for calls being recorded.",
-                "example": "mp3",
-                "default": "wav",
-                "enum": [
-                  "wav",
-                  "mp3"
-                ]
-              }
-            }
+            "$ref": "#/components/schemas/OutboundCallRecording"
           },
           "billing_group_id": {
             "type": "string",
             "format": "uuid",
             "description": "The ID of the billing group associated with the outbound proflile. Defaults to null (for no group assigned).",
             "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
-            "default": null
+            "default": null,
+            "nullable": true
           },
           "created_at": {
             "type": "string",
@@ -17857,171 +18880,6 @@
         "description": "Identifies the associated outbound voice profile.",
         "format": "int64",
         "example": "1293384261075731499"
-      },
-      "OutboundVoiceProfileWritable": {
-        "type": "object",
-        "title": "Outbound Voice Profile",
-        "example": {
-          "name": "office",
-          "traffic_type": "conversational",
-          "service_plan": "global",
-          "concurrent_call_limit": 10,
-          "enabled": true,
-          "tags": [
-            "office-profile"
-          ],
-          "usage_payment_method": "rate-deck",
-          "whitelisted_destinations": [
-            "US",
-            "BR",
-            "AU"
-          ],
-          "max_destination_rate": 10,
-          "daily_spend_limit": "100.00",
-          "daily_spend_limit_enabled": true,
-          "billing_group_id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
-        },
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "A user-supplied name to help with organization.",
-            "example": "office",
-            "default": ""
-          },
-          "traffic_type": {
-            "type": "string",
-            "description": "Specifies the type of traffic allowed in this profile.",
-            "enum": [
-              "conversational",
-              "short_duration"
-            ],
-            "example": "conversational",
-            "default": "conversational"
-          },
-          "service_plan": {
-            "type": "string",
-            "description": "Indicates the coverage of the termination regions. International and Global are the same but International may only be used for high volume/short duration Outbound Voice Profiles.",
-            "enum": [
-              "us",
-              "international",
-              "global"
-            ],
-            "example": "global",
-            "default": "global"
-          },
-          "concurrent_call_limit": {
-            "type": "integer",
-            "description": "Must be no more than your global concurrent call limit. Null means no limit.",
-            "example": 10
-          },
-          "enabled": {
-            "type": "boolean",
-            "description": "Specifies whether the outbound voice profile can be used. Disabled profiles will result in outbound calls being blocked for the associated Connections.",
-            "example": true,
-            "default": true
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "office-profile"
-            ]
-          },
-          "usage_payment_method": {
-            "type": "string",
-            "description": "Setting for how costs for outbound profile are calculated.",
-            "enum": [
-              "tariff",
-              "rate-deck"
-            ],
-            "example": "tariff",
-            "default": "rate-deck"
-          },
-          "whitelisted_destinations": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "The list of destinations you want to be able to call using this outbound voice profile formatted in alpha2.",
-            "example": [
-              "US",
-              "BR",
-              "AU"
-            ],
-            "default": [
-              "US",
-              "CA"
-            ]
-          },
-          "max_destination_rate": {
-            "type": "number",
-            "description": "Maximum rate (price per minute) for a Destination to be allowed when making outbound calls."
-          },
-          "daily_spend_limit": {
-            "type": "string",
-            "description": "The maximum amount of usage charges, in USD, you want Telnyx to allow on this outbound voice profile in a day before disallowing new calls.",
-            "example": "100.00"
-          },
-          "daily_spend_limit_enabled": {
-            "type": "boolean",
-            "description": "Specifies whether to enforce the daily_spend_limit on this outbound voice profile.",
-            "example": true,
-            "default": false
-          },
-          "call_recording": {
-            "type": "object",
-            "properties": {
-              "call_recording_type": {
-                "type": "string",
-                "description": "Specifies which calls are recorded.",
-                "enum": [
-                  "all",
-                  "none",
-                  "by_call_phone_number"
-                ]
-              },
-              "call_recording_caller_phone_numbers": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "description": "When call_recording_type is 'by_caller_phone_number', only outbound calls using one of these numbers will be recorded. Numbers must be specified in E164 format.",
-                "example": [
-                  "+19705555098"
-                ]
-              },
-              "call_recording_channels": {
-                "type": "string",
-                "description": "When using 'dual' channels, the final audio file will be a stereo recording with the first leg on channel A, and the rest on channel B.",
-                "example": "dual",
-                "default": "single",
-                "enum": [
-                  "single",
-                  "dual"
-                ]
-              },
-              "call_recording_format": {
-                "type": "string",
-                "description": "The audio file format for calls being recorded.",
-                "example": "mp3",
-                "default": "wav",
-                "enum": [
-                  "wav",
-                  "mp3"
-                ]
-              }
-            }
-          },
-          "billing_group_id": {
-            "type": "string",
-            "format": "uuid",
-            "description": "The ID of the billing group associated with the outbound proflile. Defaults to null (for no group assigned).",
-            "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
-            "default": null
-          }
-        }
       },
       "PaginationMeta": {
         "type": "object",
@@ -18289,6 +19147,7 @@
           "external_pin": "1234",
           "connection_id": "1293384261075731499",
           "connection_name": "connection-name",
+          "customer_reference": "customer-reference",
           "messaging_profile_id": "abc85f64-5717-4562-b3fc-2c9600000000",
           "messaging_profile_name": "regional-customers",
           "billing_group_id": "86f58db9-0fe3-4adc-9d1f-46e66e6e9323",
@@ -18353,6 +19212,11 @@
           "connection_id": {
             "type": "string",
             "description": "Identifies the connection associated with the phone number."
+          },
+          "customer_reference": {
+            "type": "string",
+            "description": "A customer reference string for customer look ups.",
+            "example": "MY REF 001"
           },
           "messaging_profile_id": {
             "type": "string",
@@ -18671,6 +19535,11 @@
             "example": "1d0e6cb8-8668-462e-94c6-49ae0f0ed48b",
             "description": "Identifies the connection associated with this phone number."
           },
+          "customer_reference": {
+            "type": "string",
+            "description": "A customer reference string for customer look ups.",
+            "example": "MY REF 001"
+          },
           "tech_prefix_enabled": {
             "type": "boolean",
             "default": false,
@@ -18713,6 +19582,7 @@
           "id": "1293384261075731499",
           "record_type": "voice_settings",
           "connection_id": "1d0e6cb8-8668-462e-94c6-49ae0f0ed48b",
+          "customer_reference": "customer-reference",
           "tech_prefix_enabled": false,
           "translated_number": "+13035559999",
           "call_forwarding": {
@@ -18742,6 +19612,226 @@
           }
         }
       },
+      "PhoneNumbersBulkUpdateError": {
+        "properties": {
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number in e164 format.",
+            "format": "e164"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "PhoneNumbersJob": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
+            "description": "Identifies the resource.",
+            "readOnly": true
+          },
+          "record_type": {
+            "type": "string",
+            "example": "phone_numbers_job",
+            "description": "Identifies the type of the resource.",
+            "readOnly": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_progress",
+              "completed",
+              "failed",
+              "expired"
+            ],
+            "default": "pending",
+            "example": "pending",
+            "description": "Indicates the completion status of the asynchronous update.",
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "update_emergency_settings",
+              "delete_phone_numbers"
+            ],
+            "example": "update_emergency_settings",
+            "description": "Identifies the type of the asynchronous job.",
+            "readOnly": true
+          },
+          "etc": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 formatted date indicating when the estimated time of completion of the asynchronous job.",
+            "readOnly": true
+          },
+          "created_at": {
+            "type": "string",
+            "description": "ISO 8601 formatted date indicating when the resource was created.",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "ISO 8601 formatted date indicating when the resource was updated.",
+            "readOnly": true
+          },
+          "created_by": {
+            "type": "string",
+            "format": "uuid",
+            "example": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
+            "description": "Identifies the user which created the resource.",
+            "readOnly": true
+          },
+          "successful_operations": {
+            "type": "array",
+            "items": {
+              "description": "The phone numbers successfully updated.",
+              "$ref": "#/components/schemas/PhoneNumbersJobSuccessfulOperation"
+            },
+            "readOnly": true
+          },
+          "failed_operations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PhoneNumbersJobFailedOperation"
+            },
+            "readOnly": true
+          }
+        },
+        "example": {
+          "id": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
+          "record_type": "phone_numbers_job",
+          "status": "pending",
+          "type": "update_emergency_settings",
+          "etc": "2020-10-30T18:10:00.000Z",
+          "created_at": "2020-10-23T18:10:00.000Z",
+          "updated_at": "2020-10-23T18:10:01.000Z",
+          "created_by": "015e81fc-11b7-4170-974d-5592ce987da7",
+          "successful_operations": [
+            {
+              "id": "2637816387126861836",
+              "phone_number": "+19705555098"
+            },
+            {
+              "id": "33081887126861836",
+              "phone_number": "+19715555098"
+            }
+          ],
+          "failed_operations": [
+            {
+              "id": "3388768018273",
+              "phone_number": "+19705551234",
+              "errors": [
+                {
+                  "code": "10015",
+                  "title": "Bad Request",
+                  "detail": "The field is invalid.",
+                  "source": "/emergency_address_id"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "PhoneNumbersJobDeletePhoneNumbersRequest": {
+        "type": "object",
+        "required": [
+          "phone_numbers"
+        ],
+        "properties": {
+          "phone_numbers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "The phone numbers or IDs to be updated."
+            }
+          }
+        },
+        "example": {
+          "phone_numbers": [
+            "+19705555098",
+            "+19715555098",
+            "32873127836"
+          ]
+        }
+      },
+      "PhoneNumbersJobFailedOperation": {
+        "properties": {
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number in e164 format.",
+            "format": "e164"
+          },
+          "id": {
+            "type": "string",
+            "format": "int64",
+            "description": "The phone number's ID"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "PhoneNumbersJobSuccessfulOperation": {
+        "properties": {
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number in e164 format.",
+            "format": "e164"
+          },
+          "id": {
+            "type": "string",
+            "format": "int64",
+            "description": "The phone number's ID"
+          }
+        }
+      },
+      "PhoneNumbersJobUpdateEmergencySettingsRequest": {
+        "type": "object",
+        "required": [
+          "emergency_enabled",
+          "emergency_address_id",
+          "phone_numbers"
+        ],
+        "properties": {
+          "phone_numbers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "The phone numbers or IDs to be updated."
+            }
+          },
+          "emergency_enabled": {
+            "type": "boolean",
+            "description": "Indicates whether to enable emergency services on this number."
+          },
+          "emergency_address_id": {
+            "type": "string",
+            "format": "int64",
+            "description": "Identifies the address to be used with emergency services."
+          }
+        },
+        "example": {
+          "emergency_enabled": true,
+          "emergency_address_id": "53829456729313",
+          "phone_numbers": [
+            "+19705555098",
+            "+19715555098",
+            "32873127836"
+          ]
+        }
+      },
       "PlayAudioUrlRequest": {
         "type": "object",
         "title": "Play Audio URL Request",
@@ -18756,9 +19846,9 @@
           },
           "loop": {
             "description": "The number of times the audio file should be played. If supplied, the value must be an integer between 1 and 100, or the special string `infinity` for an endless loop.",
+            "$ref": "#/components/schemas/Loopcount",
             "example": "infinity",
-            "default": 1,
-            "$ref": "#/components/schemas/Loopcount"
+            "default": 1
           },
           "overlay": {
             "description": "When enabled, audio will be mixed on top of any other audio that is actively being played back. Note that `overlay: true` will only work if there is another audio file already being played on the call.",
@@ -19202,6 +20292,7 @@
               "failure"
             ],
             "description": "The status of the phone number's reservation.",
+            "example": "success",
             "readOnly": true
           },
           "created_at": {
@@ -19223,12 +20314,6 @@
             "format": "datetime",
             "description": "An ISO 8901 datetime string for when the individual number reservation is going to expire",
             "example": "2018-01-01T00:00:00.000000Z",
-            "readOnly": true
-          },
-          "errors": {
-            "type": "string",
-            "description": "Errors the reservation could happen upon",
-            "example": "Number is already on hold",
             "readOnly": true
           }
         },
@@ -19295,6 +20380,17 @@
           "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
         }
       },
+      "ServicePlan": {
+        "type": "string",
+        "description": "Indicates the coverage of the termination regions. International and Global are the same but International may only be used for high volume/short duration Outbound Voice Profiles.",
+        "enum": [
+          "us",
+          "international",
+          "global"
+        ],
+        "example": "global",
+        "default": "global"
+      },
       "ShortCode": {
         "type": "object",
         "required": [
@@ -19353,14 +20449,6 @@
             "format": "date-time",
             "description": "ISO 8601 formatted date indicating when the resource was updated.",
             "readOnly": true
-          }
-        }
-      },
-      "SingleOutboundVoiceProfile": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/OutboundVoiceProfile"
           }
         }
       },
@@ -19780,6 +20868,16 @@
         "description": "Receiving address (+E.164 formatted phone number or short code).",
         "example": "+E.164"
       },
+      "TrafficType": {
+        "type": "string",
+        "description": "Specifies the type of traffic allowed in this profile.",
+        "enum": [
+          "conversational",
+          "short_duration"
+        ],
+        "example": "conversational",
+        "default": "conversational"
+      },
       "TransferCallRequest": {
         "type": "object",
         "title": "Transfer Call Request",
@@ -19834,7 +20932,7 @@
             "example": "+18005550101"
           },
           "audio_url": {
-            "description": "The URL of a file to be played back to the callee before bridging the call. The URL can point to either a WAV or MP3 file.",
+            "description": "Audio URL to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file.",
             "type": "string",
             "example": "http://www.example.com/sounds/greeting.wav"
           },
@@ -19857,6 +20955,7 @@
             "default": "disabled",
             "type": "string",
             "enum": [
+              "premium",
               "detect",
               "detect_beep",
               "detect_words",
@@ -20128,20 +21227,7 @@
             "example": "my123secure456password789"
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media."
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string"
@@ -20162,14 +21248,7 @@
             "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout."
           },
           "dtmf_type": {
-            "type": "string",
-            "enum": [
-              "RFC 2833",
-              "Inband",
-              "SIP INFO"
-            ],
-            "default": "RFC 2833",
-            "description": "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats."
+            "$ref": "#/components/schemas/DtmfType"
           },
           "encode_contact_header_enabled": {
             "type": "boolean",
@@ -20177,12 +21256,7 @@
             "description": "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios."
           },
           "encrypted_media": {
-            "type": "string",
-            "enum": [
-              "SRTP",
-              "ZRTP"
-            ],
-            "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS."
+            "$ref": "#/components/schemas/EncryptedMedia"
           },
           "onnet_t38_passthrough_enabled": {
             "type": "boolean",
@@ -20357,33 +21431,13 @@
             "description": "Defaults to true"
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media."
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string"
           },
           "transport_protocol": {
-            "type": "string",
-            "description": "One of UDP, TLS, or TCP.",
-            "default": "UDP",
-            "enum": [
-              "UDP",
-              "TCP",
-              "TLS"
-            ]
+            "$ref": "#/components/schemas/FqdnConnectionTransportProtocol"
           },
           "default_on_hold_comfort_noise_enabled": {
             "type": "boolean",
@@ -20391,14 +21445,7 @@
             "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout."
           },
           "dtmf_type": {
-            "type": "string",
-            "enum": [
-              "RFC 2833",
-              "Inband",
-              "SIP INFO"
-            ],
-            "default": "RFC 2833",
-            "description": "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats."
+            "$ref": "#/components/schemas/DtmfType"
           },
           "encode_contact_header_enabled": {
             "type": "boolean",
@@ -20406,12 +21453,7 @@
             "description": "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios."
           },
           "encrypted_media": {
-            "type": "string",
-            "enum": [
-              "SRTP",
-              "ZRTP"
-            ],
-            "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS."
+            "$ref": "#/components/schemas/EncryptedMedia"
           },
           "onnet_t38_passthrough_enabled": {
             "type": "boolean",
@@ -20464,9 +21506,6 @@
       "UpdateFqdnRequest": {
         "title": "Update Fqdn Request",
         "type": "object",
-        "required": [
-          "fqdn"
-        ],
         "properties": {
           "connection_id": {
             "type": "string",
@@ -20481,7 +21520,8 @@
             "type": "integer",
             "description": "Port to use when connecting to this FQDN.",
             "default": 5060,
-            "example": 5060
+            "example": 5060,
+            "nullable": true
           },
           "dns_record_type": {
             "type": "string",
@@ -20490,7 +21530,7 @@
           }
         },
         "example": {
-          "connection_id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+          "connection_id": "1516447646313612565",
           "fqdn": "example.com",
           "port": 8080,
           "dns_record_type": "a"
@@ -20504,20 +21544,7 @@
             "description": "Defaults to true"
           },
           "anchorsite_override": {
-            "type": "string",
-            "enum": [
-              "Latency",
-              "Chicago, IL",
-              "Ashburn, VA",
-              "San Jose, CA",
-              "Sydney, Australia",
-              "Amsterdam, Netherlands",
-              "London, UK",
-              "Toronto, Canada",
-              "Vancouver, Canada",
-              "Frankfurt, Germany"
-            ],
-            "description": "`Latency` directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media."
+            "$ref": "#/components/schemas/AnchorsiteOverride"
           },
           "connection_name": {
             "type": "string"
@@ -20538,14 +21565,7 @@
             "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout."
           },
           "dtmf_type": {
-            "type": "string",
-            "enum": [
-              "RFC 2833",
-              "Inband",
-              "SIP INFO"
-            ],
-            "default": "RFC 2833",
-            "description": "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats."
+            "$ref": "#/components/schemas/DtmfType"
           },
           "encode_contact_header_enabled": {
             "type": "boolean",
@@ -20553,12 +21573,7 @@
             "description": "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios."
           },
           "encrypted_media": {
-            "type": "string",
-            "enum": [
-              "SRTP",
-              "ZRTP"
-            ],
-            "description": "Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS."
+            "$ref": "#/components/schemas/EncryptedMedia"
           },
           "onnet_t38_passthrough_enabled": {
             "type": "boolean",
@@ -20905,6 +21920,110 @@
           "requirements_met": true
         }
       },
+      "UpdateOutboundVoiceProfileRequest": {
+        "type": "object",
+        "title": "Outbound Voice Profile",
+        "example": {
+          "name": "office",
+          "traffic_type": "conversational",
+          "service_plan": "global",
+          "concurrent_call_limit": 10,
+          "enabled": true,
+          "tags": [
+            "office-profile"
+          ],
+          "usage_payment_method": "rate-deck",
+          "whitelisted_destinations": [
+            "US",
+            "BR",
+            "AU"
+          ],
+          "max_destination_rate": 10,
+          "daily_spend_limit": "100.00",
+          "daily_spend_limit_enabled": true,
+          "billing_group_id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        },
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "A user-supplied name to help with organization.",
+            "example": "office",
+            "default": ""
+          },
+          "traffic_type": {
+            "$ref": "#/components/schemas/TrafficType"
+          },
+          "service_plan": {
+            "$ref": "#/components/schemas/ServicePlan"
+          },
+          "concurrent_call_limit": {
+            "type": "integer",
+            "description": "Must be no more than your global concurrent call limit. Null means no limit.",
+            "example": 10,
+            "nullable": true
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Specifies whether the outbound voice profile can be used. Disabled profiles will result in outbound calls being blocked for the associated Connections.",
+            "example": true,
+            "default": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "office-profile"
+            ]
+          },
+          "usage_payment_method": {
+            "$ref": "#/components/schemas/UsagePaymentMethod"
+          },
+          "whitelisted_destinations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The list of destinations you want to be able to call using this outbound voice profile formatted in alpha2.",
+            "example": [
+              "US",
+              "BR",
+              "AU"
+            ],
+            "default": [
+              "US",
+              "CA"
+            ]
+          },
+          "max_destination_rate": {
+            "type": "number",
+            "description": "Maximum rate (price per minute) for a Destination to be allowed when making outbound calls."
+          },
+          "daily_spend_limit": {
+            "type": "string",
+            "description": "The maximum amount of usage charges, in USD, you want Telnyx to allow on this outbound voice profile in a day before disallowing new calls.",
+            "example": "100.00"
+          },
+          "daily_spend_limit_enabled": {
+            "type": "boolean",
+            "description": "Specifies whether to enforce the daily_spend_limit on this outbound voice profile.",
+            "example": true,
+            "default": false
+          },
+          "call_recording": {
+            "$ref": "#/components/schemas/OutboundCallRecording"
+          },
+          "billing_group_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The ID of the billing group associated with the outbound proflile. Defaults to null (for no group assigned).",
+            "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+            "default": null,
+            "nullable": true
+          }
+        }
+      },
       "UpdatePhoneNumberMessagingSettingsRequest": {
         "type": "object",
         "properties": {
@@ -20942,6 +22061,11 @@
             "type": "string",
             "description": "If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, we will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism."
           },
+          "customer_reference": {
+            "type": "string",
+            "description": "A customer reference string for customer look ups.",
+            "example": "MY REF 001"
+          },
           "connection_id": {
             "type": "string",
             "description": "Identifies the connection associated with the phone number."
@@ -20958,6 +22082,7 @@
           ],
           "address_id": "dc8f39ac-953d-4520-b93b-786ae87db0da",
           "external_pin": "1234",
+          "customer_reference": "customer-reference",
           "connection_id": "dc8e4d67-33a0-4cbb-af74-7b58f05bd494",
           "billing_group_id": "dc8e4d67-33a0-4cbb-af74-7b58f05bd494"
         }
@@ -21228,6 +22353,16 @@
           "replace_blacklist_only": true,
           "send_webhooks": false
         }
+      },
+      "UsagePaymentMethod": {
+        "type": "string",
+        "description": "Setting for how costs for outbound profile are calculated.",
+        "enum": [
+          "tariff",
+          "rate-deck"
+        ],
+        "example": "tariff",
+        "default": "rate-deck"
       },
       "WebhookApiVersion": {
         "title": "Webhook API Version",

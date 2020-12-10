@@ -11,7 +11,6 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.CreateFqdnRequest;
 import com.telnyx.sdk.model.FqdnResponse;
 import com.telnyx.sdk.model.ListFqdnsResponse;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateFqdnRequest;
 
 import java.util.ArrayList;
@@ -20,14 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class FqdNsApi {
+public class FqdnsApi {
   private ApiClient apiClient;
 
-  public FqdNsApi() {
+  public FqdnsApi() {
     this(Configuration.getDefaultApiClient());
   }
 
-  public FqdNsApi(ApiClient apiClient) {
+  public FqdnsApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -111,7 +110,7 @@ public class FqdNsApi {
 
     GenericType<FqdnResponse> localVarReturnType = new GenericType<FqdnResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.createFqdn", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.createFqdn", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -129,7 +128,7 @@ public class FqdNsApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public FqdnResponse deleteFqdn(UUID id) throws ApiException {
+  public FqdnResponse deleteFqdn(String id) throws ApiException {
     return deleteFqdnWithHttpInfo(id).getData();
   }
 
@@ -147,7 +146,7 @@ public class FqdNsApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FqdnResponse> deleteFqdnWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<FqdnResponse> deleteFqdnWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -183,53 +182,12 @@ public class FqdNsApi {
 
     GenericType<FqdnResponse> localVarReturnType = new GenericType<FqdnResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.deleteFqdn", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.deleteFqdn", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
-  /**
-   * List Fqdns
-   * Get all FQDNs belonging to the user that match the given filters.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
-   * @param filterConnectionId ID of the FQDN connection to which the FQDN belongs. (optional)
-   * @param filterFqdn FQDN represented by the resource. (optional)
-   * @param filterPort Port to use when connecting to the FQDN. (optional)
-   * @param filterDnsRecordType DNS record type used by the FQDN. (optional)
-   * @return ListFqdnsResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-     </table>
-   */
-  public ListFqdnsResponse listFqdns(Integer pageNumber, Integer pageSize, String filterConnectionId, String filterFqdn, Integer filterPort, String filterDnsRecordType) throws ApiException {
-    return listFqdnsWithHttpInfo(pageNumber, pageSize, filterConnectionId, filterFqdn, filterPort, filterDnsRecordType).getData();
-  }
 
-  /**
-   * List Fqdns
-   * Get all FQDNs belonging to the user that match the given filters.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
-   * @param filterConnectionId ID of the FQDN connection to which the FQDN belongs. (optional)
-   * @param filterFqdn FQDN represented by the resource. (optional)
-   * @param filterPort Port to use when connecting to the FQDN. (optional)
-   * @param filterDnsRecordType DNS record type used by the FQDN. (optional)
-   * @return ApiResponse&lt;ListFqdnsResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<ListFqdnsResponse> listFqdnsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionId, String filterFqdn, Integer filterPort, String filterDnsRecordType) throws ApiException {
+private ApiResponse<ListFqdnsResponse> listFqdnsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionId, String filterFqdn, Integer filterPort, String filterDnsRecordType) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -265,9 +223,128 @@ public class FqdNsApi {
 
     GenericType<ListFqdnsResponse> localVarReturnType = new GenericType<ListFqdnsResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.listFqdns", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.listFqdns", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
+  }
+
+  public class APIlistFqdnsRequest {
+    private Integer pageNumber;
+    private Integer pageSize;
+    private String filterConnectionId;
+    private String filterFqdn;
+    private Integer filterPort;
+    private String filterDnsRecordType;
+
+    private APIlistFqdnsRequest() {
+    }
+
+    /**
+     * Set pageNumber
+     * @param pageNumber The page number to load. (optional, default to 1)
+     * @return APIlistFqdnsRequest
+     */
+    public APIlistFqdnsRequest pageNumber(Integer pageNumber) {
+      this.pageNumber = pageNumber;
+      return this;
+    }
+
+    /**
+     * Set pageSize
+     * @param pageSize The size of the page. (optional, default to 20)
+     * @return APIlistFqdnsRequest
+     */
+    public APIlistFqdnsRequest pageSize(Integer pageSize) {
+      this.pageSize = pageSize;
+      return this;
+    }
+
+    /**
+     * Set filterConnectionId
+     * @param filterConnectionId ID of the FQDN connection to which the FQDN belongs. (optional)
+     * @return APIlistFqdnsRequest
+     */
+    public APIlistFqdnsRequest filterConnectionId(String filterConnectionId) {
+      this.filterConnectionId = filterConnectionId;
+      return this;
+    }
+
+    /**
+     * Set filterFqdn
+     * @param filterFqdn FQDN represented by the resource. (optional)
+     * @return APIlistFqdnsRequest
+     */
+    public APIlistFqdnsRequest filterFqdn(String filterFqdn) {
+      this.filterFqdn = filterFqdn;
+      return this;
+    }
+
+    /**
+     * Set filterPort
+     * @param filterPort Port to use when connecting to the FQDN. (optional)
+     * @return APIlistFqdnsRequest
+     */
+    public APIlistFqdnsRequest filterPort(Integer filterPort) {
+      this.filterPort = filterPort;
+      return this;
+    }
+
+    /**
+     * Set filterDnsRecordType
+     * @param filterDnsRecordType DNS record type used by the FQDN. (optional)
+     * @return APIlistFqdnsRequest
+     */
+    public APIlistFqdnsRequest filterDnsRecordType(String filterDnsRecordType) {
+      this.filterDnsRecordType = filterDnsRecordType;
+      return this;
+    }
+
+    /**
+     * Execute listFqdns request
+     * @return ListFqdnsResponse
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       </table>
+     
+     */
+    
+    public ListFqdnsResponse execute() throws ApiException {
+      return this.executeWithHttpInfo().getData();
+    }
+
+    /**
+     * Execute listFqdns request with HTTP info returned
+     * @return ApiResponse&lt;ListFqdnsResponse&gt;
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       </table>
+
+     */
+    public ApiResponse<ListFqdnsResponse> executeWithHttpInfo() throws ApiException {
+      return listFqdnsWithHttpInfo(pageNumber, pageSize, filterConnectionId, filterFqdn, filterPort, filterDnsRecordType);
+    }
+  }
+
+  /**
+   * List Fqdns
+   * Get all FQDNs belonging to the user that match the given filters.
+   * @return listFqdnsRequest
+   * @throws ApiException if fails to make API call
+   
+   
+   */
+  public APIlistFqdnsRequest listFqdns() throws ApiException {
+    return new APIlistFqdnsRequest();
   }
   /**
    * Retrieve an Fqdn
@@ -283,7 +360,7 @@ public class FqdNsApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public FqdnResponse retrieveFqdn(UUID id) throws ApiException {
+  public FqdnResponse retrieveFqdn(String id) throws ApiException {
     return retrieveFqdnWithHttpInfo(id).getData();
   }
 
@@ -301,7 +378,7 @@ public class FqdNsApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FqdnResponse> retrieveFqdnWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<FqdnResponse> retrieveFqdnWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -337,7 +414,7 @@ public class FqdNsApi {
 
     GenericType<FqdnResponse> localVarReturnType = new GenericType<FqdnResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.retrieveFqdn", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.retrieveFqdn", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -356,7 +433,7 @@ public class FqdNsApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public FqdnResponse updateFqdn(UUID id, UpdateFqdnRequest updateFqdnRequest) throws ApiException {
+  public FqdnResponse updateFqdn(String id, UpdateFqdnRequest updateFqdnRequest) throws ApiException {
     return updateFqdnWithHttpInfo(id, updateFqdnRequest).getData();
   }
 
@@ -375,7 +452,7 @@ public class FqdNsApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FqdnResponse> updateFqdnWithHttpInfo(UUID id, UpdateFqdnRequest updateFqdnRequest) throws ApiException {
+  public ApiResponse<FqdnResponse> updateFqdnWithHttpInfo(String id, UpdateFqdnRequest updateFqdnRequest) throws ApiException {
     Object localVarPostBody = updateFqdnRequest;
     
     // verify the required parameter 'id' is set
@@ -411,7 +488,7 @@ public class FqdNsApi {
 
     GenericType<FqdnResponse> localVarReturnType = new GenericType<FqdnResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.updateFqdn", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.updateFqdn", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
