@@ -67,6 +67,8 @@ tags:
   name: Short Codes
 - description: TeXML Applications operations
   name: TeXML Applications
+- description: Two factor authentication API
+  name: Verify
 paths:
   /available_phone_numbers:
     get:
@@ -7502,6 +7504,318 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
+  /verifications:
+    post:
+      operationId: createVerification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerificationRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVerificationResponse'
+          description: Expected verifications response to a valid request.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Trigger a verification
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications/by_phone_number/{phone_number}:
+    get:
+      operationId: retrieveVerificationByPhoneNumber
+      parameters:
+      - description: The phone number associated with the verification to retrieve.
+        explode: false
+        in: path
+        name: phone_number
+        required: true
+        schema:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVerificationsResponse'
+          description: Expected verifications response to a valid request.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Retrieve a verification by phone number
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-accepts: application/json
+  /verifications/by_phone_number/{phone_number}/actions/verify:
+    post:
+      operationId: verifyVerificationByPhoneNumber
+      parameters:
+      - description: The phone number associated with the verification being verified.
+        explode: false
+        in: path
+        name: phone_number
+        required: true
+        schema:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerificationCodeRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationVerify'
+          description: Expected verify response to a valid request.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Submit a verification code
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications/{verification_id}:
+    get:
+      operationId: retrieveVerificationById
+      parameters:
+      - description: The identifier of the verification to retrieve.
+        explode: false
+        in: path
+        name: verification_id
+        required: true
+        schema:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveVerificationResponse'
+          description: Expected verifications response to a valid request.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Retrieve a verification
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-accepts: application/json
+  /verify_profiles:
+    get:
+      description: Gets a paginated list of Verify profiles.
+      operationId: listVerifyProfiles
+      parameters:
+      - explode: true
+        in: query
+        name: filter[name]
+        required: false
+        schema:
+          description: Optional filter for profile names.
+          title: filter[name]
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 25
+          title: page[size]
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          title: page[number]
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVerifyProfilesResponse'
+          description: Expected Verify profile response to a valid request.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: List all Verify profiles
+      tags:
+      - Verify
+      x-group-parameters: "true"
+      x-latency-category: responsive
+      x-accepts: application/json
+    post:
+      description: Creates a new Verify profile to associate verifications with.
+      operationId: createVerifyProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyProfileRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVerifyProfileResponse'
+          description: Expected Verify profile response to a valid request.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Create a Verify profile
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verify_profiles/{verify_profile_id}:
+    delete:
+      operationId: deleteVerifyProfile
+      parameters:
+      - description: The identifier of the Verify profile to delete.
+        explode: false
+        in: path
+        name: verify_profile_id
+        required: true
+        schema:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteVerifyProfileResponse'
+          description: Expected Verify profile response to a valid request.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Delete a Verify profile
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-accepts: application/json
+    get:
+      description: Gets a single Verify profile.
+      operationId: retrieveVerifyProfile
+      parameters:
+      - description: The identifier of the Verify profile to retrieve.
+        explode: false
+        in: path
+        name: verify_profile_id
+        required: true
+        schema:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVerifyProfileResponse'
+          description: Expected Verify profile response to a valid request.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Retrieve a Verify profile
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-accepts: application/json
+    patch:
+      operationId: updateVerifyProfile
+      parameters:
+      - description: The identifier of the Verify profile to update.
+        explode: false
+        in: path
+        name: verify_profile_id
+        required: true
+        schema:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyProfileRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateVerifyProfileResponse'
+          description: Expected Verify profile response to a valid request.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Update a Verify profile
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
 components:
   callbacks: {}
   examples: {}
@@ -12667,6 +12981,45 @@ components:
       - voice_url
       title: Create Texml Application Request
       type: object
+    CreateVerificationResponse:
+      example:
+        data:
+          verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          phone_number: +13035551234
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          type: sms
+          record_type: verification
+          timeout_secs: 300
+          status: accepted
+      properties:
+        data:
+          $ref: '#/components/schemas/Verification'
+      required:
+      - data
+      title: CreateVerifyVerificationResponse
+      type: object
+    CreateVerifyProfileResponse:
+      example:
+        data:
+          messaging_enabled: true
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          name: Test Profile
+          default_timeout_secs: 300
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          record_type: verify_profile
+          rcs_enabled: true
+      properties:
+        data:
+          $ref: '#/components/schemas/VerifyProfile'
+      required:
+      - data
+      title: CreateVerifyProfileResponse
+      type: object
     CreatedAt:
       description: ISO 8601 formatted date indicating when the resource was created.
       example: 2020-02-02T22:25:27.521Z
@@ -13048,6 +13401,26 @@ components:
       - name
       - value
       title: Custom SIP Header
+      type: object
+    DeleteVerifyProfileResponse:
+      example:
+        data:
+          messaging_enabled: true
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          name: Test Profile
+          default_timeout_secs: 300
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          record_type: verify_profile
+          rcs_enabled: true
+      properties:
+        data:
+          $ref: '#/components/schemas/VerifyProfile'
+      required:
+      - data
+      title: DeleteVerifyProfileResponse
       type: object
     DtmfType:
       default: RFC 2833
@@ -14483,6 +14856,85 @@ components:
       - call_control_id
       title: Join Conference Request
       type: object
+    ListVerificationsResponse:
+      example:
+        data:
+        - verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          phone_number: +13035551234
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          type: sms
+          record_type: verification
+          timeout_secs: 300
+          status: accepted
+        - verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          phone_number: +13035551234
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          type: sms
+          record_type: verification
+          timeout_secs: 300
+          status: accepted
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Verification'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Meta'
+      required:
+      - data
+      - meta
+      title: ListVerificationsResponse
+      type: object
+    ListVerifyProfilesResponse:
+      description: A paginated list of Verify profiles
+      example:
+        data:
+        - messaging_enabled: true
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          name: Test Profile
+          default_timeout_secs: 300
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          record_type: verify_profile
+          rcs_enabled: true
+        - messaging_enabled: true
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          name: Test Profile
+          default_timeout_secs: 300
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          record_type: verify_profile
+          rcs_enabled: true
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/VerifyProfile'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Meta'
+      required:
+      - data
+      - meta
+      title: ListVerifyProfilesResponse
+      type: object
     Loopcount:
       oneOf:
       - type: string
@@ -14799,6 +15251,26 @@ components:
           type: string
         use_case:
           type: string
+      type: object
+    Meta:
+      example:
+        page_number: 2
+        total_pages: 3
+        total_results: 55
+        page_size: 25
+      properties:
+        total_pages:
+          example: 3
+          type: integer
+        total_results:
+          example: 55
+          type: integer
+        page_number:
+          example: 2
+          type: integer
+        page_size:
+          example: 25
+          type: integer
       type: object
     NumberHealthMetrics:
       description: |
@@ -16844,6 +17316,25 @@ components:
           type: string
       title: Pause Recording Request
       type: object
+    RetrieveVerificationResponse:
+      example:
+        data:
+          verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          phone_number: +13035551234
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          type: sms
+          record_type: verification
+          timeout_secs: 300
+          status: accepted
+      properties:
+        data:
+          $ref: '#/components/schemas/Verification'
+      required:
+      - data
+      title: RetrieveVerifyVerificationResponse
+      type: object
     SendDTMFRequest:
       example:
         digits: 1www2WABCDw9
@@ -18523,6 +19014,26 @@ components:
       - voice_url
       title: Update Texml Application Request
       type: object
+    UpdateVerifyProfileResponse:
+      example:
+        data:
+          messaging_enabled: true
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          name: Test Profile
+          default_timeout_secs: 300
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          record_type: verify_profile
+          rcs_enabled: true
+      properties:
+        data:
+          $ref: '#/components/schemas/VerifyProfile'
+      required:
+      - data
+      title: UpdateVerifyProfileResponse
+      type: object
     UpdatedAt:
       description: ISO 8601 formatted date indicating when the resource was updated.
       example: 2020-02-03T22:25:27.521Z
@@ -18589,6 +19100,275 @@ components:
       - rate-deck
       example: tariff
       type: string
+    Verification:
+      example:
+        verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        phone_number: +13035551234
+        id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        type: sms
+        record_type: verification
+        timeout_secs: 300
+        status: accepted
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        verify_profile_id:
+          description: The identifier of the associated Verify profile.
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        type:
+          $ref: '#/components/schemas/VerificationType'
+        timeout_secs:
+          description: 'This is the number of seconds before the code of the request
+            is expired. Once this request has expired, the code will no longer verify
+            the user. Note: this will override the `default_timeout_secs` on the Verify
+            profile.'
+          example: 300
+          type: integer
+        id:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        status:
+          $ref: '#/components/schemas/VerificationStatus'
+        record_type:
+          description: Identifies the type of the resource.
+          example: verification
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - created_at
+      - id
+      - phone_number
+      - status
+      - type
+      - updated_at
+      - verify_profile_id
+      title: Verification
+      type: object
+    VerificationAggregate:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/VerificationAggregate_data'
+          type: array
+      title: VerificationAggregate
+      type: object
+    VerificationCodeRequest:
+      example:
+        code: "17686"
+      properties:
+        code:
+          description: This is the code the user submits for verification.
+          example: "17686"
+          type: string
+      required:
+      - code
+      title: VerifyVerificationCodeRequest
+      type: object
+    VerificationRequest:
+      description: The request body when creating a verification.
+      example:
+        verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        phone_number: +13035551234
+        type: sms
+        timeout_secs: 300
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        verify_profile_id:
+          description: The identifier of the associated Verify profile.
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        type:
+          $ref: '#/components/schemas/VerificationType'
+        timeout_secs:
+          description: 'This is the number of seconds before the code of the request
+            is expired. Once this request has expired, the code will no longer verify
+            the user. Note: this will override the `default_timeout_secs` on the Verify
+            profile.'
+          example: 300
+          type: integer
+      required:
+      - phone_number
+      - type
+      - verify_profile_id
+      title: VerifyVerificationRequest
+      type: object
+    VerificationStatus:
+      description: The possible statuses of the verification request.
+      enum:
+      - pending
+      - sms_delivery_failed
+      - accepted
+      - expired
+      - not_enough_credit
+      - network_error
+      - number_unreachable
+      - internal_error
+      - invalid_destination
+      - timed_out
+      example: accepted
+      title: VerifyVerificationStatus
+      type: string
+    VerificationSubmissionReponseCode:
+      description: Identifies if the verification code has been accepted or rejected.
+      enum:
+      - accepted
+      - rejected
+      example: accepted
+      title: VerifyVerificationSubmissionReponseCode
+      type: string
+    VerificationSubmissionResponse:
+      example:
+        response_code: accepted
+        phone_number: +13035551234
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        response_code:
+          $ref: '#/components/schemas/VerificationSubmissionReponseCode'
+      required:
+      - phone_number
+      - response_code
+      title: VerifyVerificationSubmissionResponse
+      type: object
+    VerificationType:
+      description: The verification request type.
+      enum:
+      - sms
+      example: sms
+      title: VerificationType
+      type: string
+    VerificationVerify:
+      example:
+        data:
+          response_code: accepted
+          phone_number: +13035551234
+      properties:
+        data:
+          $ref: '#/components/schemas/VerificationSubmissionResponse'
+      required:
+      - data
+      title: VerificationVerify
+      type: object
+    VerifyProfile:
+      example:
+        messaging_enabled: true
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        name: Test Profile
+        default_timeout_secs: 300
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+          {code}.'
+        record_type: verify_profile
+        rcs_enabled: true
+      properties:
+        id:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        record_type:
+          description: Identifies the type of the resource.
+          example: verify_profile
+          type: string
+        name:
+          description: The name of the Verify profile.
+          example: Test Profile
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        messaging_enabled:
+          description: Enables SMS text messaging for the Verify profile.
+          example: true
+          type: boolean
+        rcs_enabled:
+          description: Enables RCS messaging for the Verify profile.
+          example: true
+          type: boolean
+        messaging_template:
+          description: Optionally sets a messaging text template when sending the
+            verification code. Uses `{code}` to template in the actual verification
+            code.
+          example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
+          type: string
+        default_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+      required:
+      - created_at
+      - default_timeout_secs
+      - id
+      - name
+      - rcs_enabled
+      - updated_at
+      title: VerifyProfile
+      type: object
+    VerifyProfileRequest:
+      description: The request body when creating a Verify profile.
+      example:
+        messaging_enabled: true
+        name: Test Profile
+        default_timeout_secs: 300
+        messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+          {code}.'
+        rcs_enabled: true
+      properties:
+        name:
+          description: The human readable label for the Verify profile.
+          example: Test Profile
+          type: string
+        messaging_enabled:
+          default: false
+          description: Enables SMS text messaging for the Verify profile.
+          example: true
+          type: boolean
+        rcs_enabled:
+          default: false
+          description: Enables RCS messaging for the Verify profile.
+          example: true
+          type: boolean
+        default_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        messaging_template:
+          description: Optionally sets a messaging text template when sending the
+            verification code. Uses `{code}` to template in the actual verification
+            code.
+          example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
+          type: string
+      required:
+      - name
+      title: VerifyProfileRequest
+      type: object
     WebhookApiVersion:
       default: "1"
       description: Determines which webhook format will be used, Telnyx API v1 or
@@ -22503,6 +23283,25 @@ components:
         wav:
           description: Link to download the recording in wav format
           type: string
+      type: object
+    VerificationAggregate_fields:
+      properties:
+        verify_profile_id:
+          type: string
+        status:
+          type: string
+      type: object
+    VerificationAggregate_aggregations:
+      properties:
+        count:
+          type: integer
+      type: object
+    VerificationAggregate_data:
+      properties:
+        fields:
+          $ref: '#/components/schemas/VerificationAggregate_fields'
+        aggregations:
+          $ref: '#/components/schemas/VerificationAggregate_aggregations'
       type: object
   securitySchemes:
     bearerAuth:

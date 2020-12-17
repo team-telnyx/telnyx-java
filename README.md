@@ -264,6 +264,15 @@ Class | Method | HTTP request | Description
 *TeXmlApplicationsApi* | [**findTexmlApplications**](docs/TeXmlApplicationsApi.md#findTexmlApplications) | **GET** /texml_applications | List all TeXML Applications
 *TeXmlApplicationsApi* | [**getTexmlApplication**](docs/TeXmlApplicationsApi.md#getTexmlApplication) | **GET** /texml_applications/{id} | Retrieve a TeXML Application
 *TeXmlApplicationsApi* | [**updateTexmlApplication**](docs/TeXmlApplicationsApi.md#updateTexmlApplication) | **PATCH** /texml_applications/{id} | Update a TeXML Application
+*VerifyApi* | [**createVerification**](docs/VerifyApi.md#createVerification) | **POST** /verifications | Trigger a verification
+*VerifyApi* | [**createVerifyProfile**](docs/VerifyApi.md#createVerifyProfile) | **POST** /verify_profiles | Create a Verify profile
+*VerifyApi* | [**deleteVerifyProfile**](docs/VerifyApi.md#deleteVerifyProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete a Verify profile
+*VerifyApi* | [**listVerifyProfiles**](docs/VerifyApi.md#listVerifyProfiles) | **GET** /verify_profiles | List all Verify profiles
+*VerifyApi* | [**retrieveVerificationById**](docs/VerifyApi.md#retrieveVerificationById) | **GET** /verifications/{verification_id} | Retrieve a verification
+*VerifyApi* | [**retrieveVerificationByPhoneNumber**](docs/VerifyApi.md#retrieveVerificationByPhoneNumber) | **GET** /verifications/by_phone_number/{phone_number} | Retrieve a verification by phone number
+*VerifyApi* | [**retrieveVerifyProfile**](docs/VerifyApi.md#retrieveVerifyProfile) | **GET** /verify_profiles/{verify_profile_id} | Retrieve a Verify profile
+*VerifyApi* | [**updateVerifyProfile**](docs/VerifyApi.md#updateVerifyProfile) | **PATCH** /verify_profiles/{verify_profile_id} | Update a Verify profile
+*VerifyApi* | [**verifyVerificationByPhoneNumber**](docs/VerifyApi.md#verifyVerificationByPhoneNumber) | **POST** /verifications/by_phone_number/{phone_number}/actions/verify | Submit a verification code
 
 
 ## Documentation for Models
@@ -413,12 +422,15 @@ Class | Method | HTTP request | Description
  - [CreateTexmlApplicationRequest](docs/CreateTexmlApplicationRequest.md)
  - [CreateTexmlApplicationRequestInbound](docs/CreateTexmlApplicationRequestInbound.md)
  - [CreateTexmlApplicationRequestOutbound](docs/CreateTexmlApplicationRequestOutbound.md)
+ - [CreateVerificationResponse](docs/CreateVerificationResponse.md)
+ - [CreateVerifyProfileResponse](docs/CreateVerifyProfileResponse.md)
  - [CredentialConnection](docs/CredentialConnection.md)
  - [CredentialConnectionResponse](docs/CredentialConnectionResponse.md)
  - [CredentialInbound](docs/CredentialInbound.md)
  - [CredentialOutbound](docs/CredentialOutbound.md)
  - [CsvDownload](docs/CsvDownload.md)
  - [CustomSipHeader](docs/CustomSipHeader.md)
+ - [DeleteVerifyProfileResponse](docs/DeleteVerifyProfileResponse.md)
  - [DtmfType](docs/DtmfType.md)
  - [EmergencySettings](docs/EmergencySettings.md)
  - [EncryptedMedia](docs/EncryptedMedia.md)
@@ -486,6 +498,8 @@ Class | Method | HTTP request | Description
  - [ListPhoneNumbersWithVoiceSettingsResponse](docs/ListPhoneNumbersWithVoiceSettingsResponse.md)
  - [ListRecordingsResponse](docs/ListRecordingsResponse.md)
  - [ListShortCodesResponse](docs/ListShortCodesResponse.md)
+ - [ListVerificationsResponse](docs/ListVerificationsResponse.md)
+ - [ListVerifyProfilesResponse](docs/ListVerifyProfilesResponse.md)
  - [Loopcount](docs/Loopcount.md)
  - [MediaFeatures](docs/MediaFeatures.md)
  - [MessageResponse](docs/MessageResponse.md)
@@ -500,6 +514,7 @@ Class | Method | HTTP request | Description
  - [MessagingProfileMessageTypeMetrics](docs/MessagingProfileMessageTypeMetrics.md)
  - [MessagingProfileResponse](docs/MessagingProfileResponse.md)
  - [MessagingUrlDomain](docs/MessagingUrlDomain.md)
+ - [Meta](docs/Meta.md)
  - [NumberHealthMetrics](docs/NumberHealthMetrics.md)
  - [NumberOrder](docs/NumberOrder.md)
  - [NumberOrderDocument](docs/NumberOrderDocument.md)
@@ -562,6 +577,7 @@ Class | Method | HTTP request | Description
  - [RetrieveMessagingProfileMetricsResponse](docs/RetrieveMessagingProfileMetricsResponse.md)
  - [RetrieveMessagingSettingsResponse](docs/RetrieveMessagingSettingsResponse.md)
  - [RetrievePhoneNumberVoiceResponse](docs/RetrievePhoneNumberVoiceResponse.md)
+ - [RetrieveVerificationResponse](docs/RetrieveVerificationResponse.md)
  - [SendDTMFRequest](docs/SendDTMFRequest.md)
  - [ServicePlan](docs/ServicePlan.md)
  - [ShortCode](docs/ShortCode.md)
@@ -591,9 +607,24 @@ Class | Method | HTTP request | Description
  - [UpdatePhoneNumberVoiceSettingsRequest](docs/UpdatePhoneNumberVoiceSettingsRequest.md)
  - [UpdateShortCodeRequest](docs/UpdateShortCodeRequest.md)
  - [UpdateTexmlApplicationRequest](docs/UpdateTexmlApplicationRequest.md)
+ - [UpdateVerifyProfileResponse](docs/UpdateVerifyProfileResponse.md)
  - [UploadFileMessagingHostedNumberOrderRequest](docs/UploadFileMessagingHostedNumberOrderRequest.md)
  - [UrlShortenerSettings](docs/UrlShortenerSettings.md)
  - [UsagePaymentMethod](docs/UsagePaymentMethod.md)
+ - [Verification](docs/Verification.md)
+ - [VerificationAggregate](docs/VerificationAggregate.md)
+ - [VerificationAggregateAggregations](docs/VerificationAggregateAggregations.md)
+ - [VerificationAggregateData](docs/VerificationAggregateData.md)
+ - [VerificationAggregateFields](docs/VerificationAggregateFields.md)
+ - [VerificationCodeRequest](docs/VerificationCodeRequest.md)
+ - [VerificationRequest](docs/VerificationRequest.md)
+ - [VerificationStatus](docs/VerificationStatus.md)
+ - [VerificationSubmissionReponseCode](docs/VerificationSubmissionReponseCode.md)
+ - [VerificationSubmissionResponse](docs/VerificationSubmissionResponse.md)
+ - [VerificationType](docs/VerificationType.md)
+ - [VerificationVerify](docs/VerificationVerify.md)
+ - [VerifyProfile](docs/VerifyProfile.md)
+ - [VerifyProfileRequest](docs/VerifyProfileRequest.md)
  - [WebhookApiVersion](docs/WebhookApiVersion.md)
 
 
