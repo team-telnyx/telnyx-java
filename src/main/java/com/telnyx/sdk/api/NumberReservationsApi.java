@@ -294,7 +294,7 @@ private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHt
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistNumberReservationsRequest
      */
     public APIlistNumberReservationsRequest pageNumber(Integer pageNumber) {
@@ -304,7 +304,7 @@ private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHt
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistNumberReservationsRequest
      */
     public APIlistNumberReservationsRequest pageSize(Integer pageSize) {

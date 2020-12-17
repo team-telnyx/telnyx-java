@@ -192,7 +192,7 @@ public class CallControlApplicationsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -207,7 +207,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[application_name][contains]", filterApplicationNameContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound.outbound_voice_profile_id]", filterOutboundOutboundVoiceProfileId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound_voice_profile_id]", filterOutboundVoiceProfileId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -236,7 +236,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
     private Integer pageNumber;
     private Integer pageSize;
     private String filterApplicationNameContains;
-    private String filterOutboundOutboundVoiceProfileId;
+    private String filterOutboundVoiceProfileId;
     private String sort;
 
     private APIlistCallControlApplicationsRequest() {
@@ -244,7 +244,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistCallControlApplicationsRequest
      */
     public APIlistCallControlApplicationsRequest pageNumber(Integer pageNumber) {
@@ -254,7 +254,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistCallControlApplicationsRequest
      */
     public APIlistCallControlApplicationsRequest pageSize(Integer pageSize) {
@@ -273,12 +273,12 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
     }
 
     /**
-     * Set filterOutboundOutboundVoiceProfileId
-     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+     * Set filterOutboundVoiceProfileId
+     * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
      * @return APIlistCallControlApplicationsRequest
      */
-    public APIlistCallControlApplicationsRequest filterOutboundOutboundVoiceProfileId(String filterOutboundOutboundVoiceProfileId) {
-      this.filterOutboundOutboundVoiceProfileId = filterOutboundOutboundVoiceProfileId;
+    public APIlistCallControlApplicationsRequest filterOutboundVoiceProfileId(String filterOutboundVoiceProfileId) {
+      this.filterOutboundVoiceProfileId = filterOutboundVoiceProfileId;
       return this;
     }
 
@@ -326,7 +326,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
 
      */
     public ApiResponse<ListCallControlApplicationsResponse> executeWithHttpInfo() throws ApiException {
-      return listCallControlApplicationsWithHttpInfo(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
+      return listCallControlApplicationsWithHttpInfo(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
     }
   }
 
