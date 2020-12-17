@@ -41,6 +41,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDetailed.JSON_PROPERTY_TAGS,
   PhoneNumberDetailed.JSON_PROPERTY_EXTERNAL_PIN,
   PhoneNumberDetailed.JSON_PROPERTY_CONNECTION_NAME,
+  PhoneNumberDetailed.JSON_PROPERTY_CUSTOMER_REFERENCE,
   PhoneNumberDetailed.JSON_PROPERTY_CONNECTION_ID,
   PhoneNumberDetailed.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   PhoneNumberDetailed.JSON_PROPERTY_MESSAGING_PROFILE_NAME,
@@ -127,6 +128,9 @@ public class PhoneNumberDetailed {
 
   public static final String JSON_PROPERTY_CONNECTION_NAME = "connection_name";
   private String connectionName;
+
+  public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
+  private String customerReference;
 
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -305,6 +309,30 @@ public class PhoneNumberDetailed {
   }
 
 
+
+
+  public PhoneNumberDetailed customerReference(String customerReference) {
+    this.customerReference = customerReference;
+    return this;
+  }
+
+   /**
+   * A customer reference string for customer look ups.
+   * @return customerReference
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCustomerReference() {
+    return customerReference;
+  }
+
+
+  public void setCustomerReference(String customerReference) {
+    this.customerReference = customerReference;
+  }
 
 
   public PhoneNumberDetailed connectionId(String connectionId) {
@@ -582,6 +610,7 @@ public class PhoneNumberDetailed {
         Objects.equals(this.tags, phoneNumberDetailed.tags) &&
         Objects.equals(this.externalPin, phoneNumberDetailed.externalPin) &&
         Objects.equals(this.connectionName, phoneNumberDetailed.connectionName) &&
+        Objects.equals(this.customerReference, phoneNumberDetailed.customerReference) &&
         Objects.equals(this.connectionId, phoneNumberDetailed.connectionId) &&
         Objects.equals(this.messagingProfileId, phoneNumberDetailed.messagingProfileId) &&
         Objects.equals(this.messagingProfileName, phoneNumberDetailed.messagingProfileName) &&
@@ -600,7 +629,7 @@ public class PhoneNumberDetailed {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, connectionId, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, updatedAt);
+    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, customerReference, connectionId, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, updatedAt);
   }
 
 
@@ -615,6 +644,7 @@ public class PhoneNumberDetailed {
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    externalPin: ").append(toIndentedString(externalPin)).append("\n");
     sb.append("    connectionName: ").append(toIndentedString(connectionName)).append("\n");
+    sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
     sb.append("    messagingProfileName: ").append(toIndentedString(messagingProfileName)).append("\n");
