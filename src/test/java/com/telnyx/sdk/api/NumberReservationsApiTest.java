@@ -17,6 +17,7 @@ import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -110,6 +111,7 @@ public class NumberReservationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void extendNumberReservationExpiryTime_whenExtendingReservationOfPhoneNumber_returnsNumberReservation() throws ApiException {
         UUID reservationId = null;
 
