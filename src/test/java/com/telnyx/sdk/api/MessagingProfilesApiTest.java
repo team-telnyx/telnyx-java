@@ -118,6 +118,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void listMessagingProfileMetrics_whenMetricsMatchFilterCriteria_returnsMetrics() throws ApiException {
         ListMessagingProfileMetricsResponse actualMessagingProfileMetrics = api
                 .listMessagingProfileMetrics()
@@ -196,6 +197,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void retrieveMessagingProfileDetailedMetrics_whenDetailedMetricsExist_returnsDetailedMetrics() throws ApiException {
         RetrieveMessagingProfileMetricsResponse response = api
                 .retrieveMessagingProfileDetailedMetrics(existingMessagingProfile.getId())
@@ -214,6 +216,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void updateMessagingProfile_whenRequestIsValid_returnsUpdatedProfile() throws ApiException {
         NumberPoolSettings numberPoolSettings = new NumberPoolSettings()
                 .geomatch(true)
@@ -249,6 +252,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void updateMessagingProfile_whenNumberPoolSettingsAreSent_returnsProfileWithEnabledNumberPool() throws ApiException {
         NumberPoolSettings expectedNumberPoolSettings = new NumberPoolSettings()
                 .geomatch(false)
@@ -274,6 +278,7 @@ public class MessagingProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void updateMessagingProfile_whenNumberPoolSettingsNull_returnsDisabledNumberPool() throws ApiException {
         UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest()
                 .numberPoolSettings(null);

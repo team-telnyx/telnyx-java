@@ -68,6 +68,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void listPhoneNumbers_whenFilteringByPhoneNumber_returnsSpecificPhoneNumber() throws ApiException {
         String phoneNumber = null;
 
@@ -114,6 +115,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void retrievePhoneNumberWithVoiceSettings_whenNumberExists_returnsVoiceSettingsOfSpecificPhoneNumber() throws ApiException {
         String phoneNumberId = null;
 
@@ -148,6 +150,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void updatePhoneNumberWithVoiceSettings_whenRequestToEnableInboundCallRecording_returnsUpdatedNumber() throws ApiException {
         String phoneNumberId = null;
 
@@ -184,6 +187,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void updatePhoneNumber_whenRequestToAttachToNewConnection_returnsUpdatedNumber() throws ApiException {
         String phoneNumberId = null;
 
@@ -272,6 +276,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void retrievePhoneNumberWithMessagingSettings_whenNumberExists_returnsMessageSettingsOfSpecificPhoneNumber() throws ApiException {
         String phoneNumberId = null;
 
@@ -306,6 +311,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void updatePhoneNumberWithMessagingSettings_whenRequestToAttachNumberToNewMessageProfile_returnsUpdatedNumber() throws ApiException {
         String targetMessagingProfileId = "400174f2-6eb8-429b-a946-a27646a94a1a";
         String phoneNumberId = null;
@@ -376,6 +382,7 @@ public class NumberConfigurationsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void listPhoneNumbers_whenFilteringByTag_returnsNumbers() throws ApiException {
         final String tag = "TEST_TAG";
 
