@@ -64,6 +64,7 @@ public class NumberOrderRegulatoryRequirementsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void listPhoneNumberRegulatoryRequirements_whenFilteringBySpanishPhoneNumber_returnsRegulatoryRequirements() throws ApiException {
         String countryCode = "ES";
         String phoneNumber = null;
