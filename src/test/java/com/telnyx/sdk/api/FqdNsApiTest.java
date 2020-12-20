@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public class FqdNsApiTest {
 
-    private final FqdNsApi api = new FqdNsApi();
+    private final FqdnsApi api = new FqdnsApi();
 
     /**
      * Create an Fqdn
