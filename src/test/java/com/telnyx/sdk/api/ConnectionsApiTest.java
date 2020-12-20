@@ -13,11 +13,13 @@
 
 package com.telnyx.sdk.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.ConnectionResponse;
 import com.telnyx.sdk.model.ListConnectionsResponse;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -27,12 +29,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertNotNull;
+
 /**
  * API tests for ConnectionsApi
  */
 public class ConnectionsApiTest {
 
     private final ConnectionsApi api = new ConnectionsApi();
+    private ObjectMapper mapper;
+
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+
+        mapper = new JSON().getMapper();
+    }
 
     /**
      * List connections
@@ -44,13 +60,13 @@ public class ConnectionsApiTest {
      */
     @Test
     public void listConnectionsTest() throws ApiException {
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //String filterConnectionNameContains = null;
-        //String filterOutboundVoiceProfileId = null;
-        //String sort = null;
-        //ListConnectionsResponse response = api.listConnections(pageNumber, pageSize, filterConnectionNameContains, filterOutboundVoiceProfileId, sort);
-        // TODO: test validations
+        Integer pageNumber = null;
+        Integer pageSize = null;
+        String filterConnectionNameContains = null;
+        String filterOutboundVoiceProfileId = null;
+        String sort = null;
+        ListConnectionsResponse response = api.listConnections(pageNumber, pageSize, filterConnectionNameContains, filterOutboundVoiceProfileId, sort);
+        assertNotNull(response);
     }
 
     /**
