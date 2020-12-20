@@ -14,20 +14,15 @@
 package com.telnyx.sdk.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.ConnectionResponse;
 import com.telnyx.sdk.model.ListConnectionsResponse;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -52,14 +47,13 @@ public class ConnectionsApiTest {
 
     /**
      * List connections
-     *
+     * <p>
      * Returns a list of your connections irrespective of type.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listConnectionsTest() throws ApiException {
+    public void listConnections_always_isNotNull() throws ApiException {
         Integer pageNumber = null;
         Integer pageSize = null;
         String filterConnectionNameContains = null;
@@ -71,17 +65,15 @@ public class ConnectionsApiTest {
 
     /**
      * Retrieve a connection
-     *
+     * <p>
      * Retrieves the high-level details of an existing connection. To retrieve specific authentication information, use the endpoint for the specific connection type.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveConnectionTest() throws ApiException {
-        //String id = null;
-        //ConnectionResponse response = api.retrieveConnection(id);
-        // TODO: test validations
+    public void retrieveConnection_whenConnectionIdIsValid_returnsConnection() throws ApiException {
+        ConnectionResponse response = api.retrieveConnection(TestConfiguration.EXISTING_CONNECTION_ID);
+        assertNotNull(response);
     }
 
 }
