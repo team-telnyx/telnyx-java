@@ -72,7 +72,7 @@ public class Connection {
   private String updatedAt;
 
   public static final String JSON_PROPERTY_WEBHOOK_EVENT_URL = "webhook_event_url";
-  private JsonNullable<String> webhookEventUrl = JsonNullable.<String>of("");
+  private JsonNullable<String> webhookEventUrl = JsonNullable.<String>of("null");
 
   public static final String JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL = "webhook_event_failover_url";
   private JsonNullable<String> webhookEventFailoverUrl = JsonNullable.<String>of("");

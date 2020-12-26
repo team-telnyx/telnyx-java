@@ -81,12 +81,18 @@ public class CredentialConnectionsApiTest {
         //String filterConnectionNameContains = null;
         //String filterOutboundOutboundVoiceProfileId = null;
         //String sort = null;
-        //ListCredentialConnectionsResponse response = api.listCredentialConnections(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort);
+        //ListCredentialConnectionsResponse response = api.listCredentialConnections()
+        //        .pageNumber(pageNumber)
+        //        .pageSize(pageSize)
+        //        .filterConnectionNameContains(filterConnectionNameContains)
+        //        .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
+        //        .sort(sort)
+        //        .execute();
         // TODO: test validations
     }
 
     /**
-     * Retrieve a connection
+     * Retrieve a credential connection
      *
      * Retrieves the details of an existing credential connection.
      *

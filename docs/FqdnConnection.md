@@ -17,10 +17,23 @@ Name | Type | Description | Notes
 **encodeContactHeaderEnabled** | **Boolean** | Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios. |  [optional]
 **encryptedMedia** | [**EncryptedMedia**](EncryptedMedia.md) |  |  [optional]
 **onnetT38PassthroughEnabled** | **Boolean** | Enable on-net T38 if you prefer that the sender and receiver negotiate T38 directly when both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call according to each leg&#39;s settings. |  [optional]
+**webhookEventUrl** | **String** | The URL where webhooks related to this connection will be sent. Must include a scheme, such as &#39;https&#39;. |  [optional]
+**webhookEventFailoverUrl** | **String** | The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as &#39;https&#39;. |  [optional]
+**webhookApiVersion** | [**WebhookApiVersionEnum**](#WebhookApiVersionEnum) | Determines which webhook format will be used, Telnyx API v1 or v2. |  [optional]
+**webhookTimeoutSecs** | **Integer** | Specifies how many seconds to wait before timing out a webhook. |  [optional]
 **rtcpSettings** | [**ConnectionRtcpSettings**](ConnectionRtcpSettings.md) |  |  [optional]
 **createdAt** | **String** | ISO 8601 formatted date indicating when the resource was created. |  [optional]
 **updatedAt** | **String** | ISO 8601 formatted date indicating when the resource was updated. |  [optional]
 **inbound** | [**InboundFqdn**](InboundFqdn.md) |  |  [optional]
+
+
+
+## Enum: WebhookApiVersionEnum
+
+Name | Value
+---- | -----
+_1 | &quot;1&quot;
+_2 | &quot;2&quot;
 
 
 

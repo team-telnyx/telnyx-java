@@ -8,11 +8,10 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreateIpRequest;
-import com.telnyx.sdk.model.IpResponse;
-import com.telnyx.sdk.model.ListIpsResponse;
-import java.util.UUID;
-import com.telnyx.sdk.model.UpdateIpRequest;
+import com.telnyx.sdk.model.CreateFqdnRequest;
+import com.telnyx.sdk.model.FqdnResponse;
+import com.telnyx.sdk.model.ListFqdnsResponse;
+import com.telnyx.sdk.model.UpdateFqdnRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,14 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class IPsApi {
+public class FqdNsApi {
   private ApiClient apiClient;
 
-  public IPsApi() {
+  public FqdNsApi() {
     this(Configuration.getDefaultApiClient());
   }
 
-  public IPsApi(ApiClient apiClient) {
+  public FqdNsApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -50,42 +49,42 @@ public class IPsApi {
   }
 
   /**
-   * Create an Ip
-   * Create a new IP object.
-   * @param createIpRequest  (optional)
-   * @return IpResponse
+   * Create an Fqdn
+   * Create a new FQDN object.
+   * @param createFqdnRequest  (optional)
+   * @return FqdnResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 201 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
+       <tr><td> 201 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public IpResponse createIp(CreateIpRequest createIpRequest) throws ApiException {
-    return createIpWithHttpInfo(createIpRequest).getData();
+  public FqdnResponse createFqdn(CreateFqdnRequest createFqdnRequest) throws ApiException {
+    return createFqdnWithHttpInfo(createFqdnRequest).getData();
   }
 
   /**
-   * Create an Ip
-   * Create a new IP object.
-   * @param createIpRequest  (optional)
-   * @return ApiResponse&lt;IpResponse&gt;
+   * Create an Fqdn
+   * Create a new FQDN object.
+   * @param createFqdnRequest  (optional)
+   * @return ApiResponse&lt;FqdnResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 201 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
+       <tr><td> 201 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<IpResponse> createIpWithHttpInfo(CreateIpRequest createIpRequest) throws ApiException {
-    Object localVarPostBody = createIpRequest;
+  public ApiResponse<FqdnResponse> createFqdnWithHttpInfo(CreateFqdnRequest createFqdnRequest) throws ApiException {
+    Object localVarPostBody = createFqdnRequest;
     
     // create path and map variables
-    String localVarPath = "/ips";
+    String localVarPath = "/fqdns";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -109,54 +108,54 @@ public class IPsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<IpResponse> localVarReturnType = new GenericType<IpResponse>() {};
+    GenericType<FqdnResponse> localVarReturnType = new GenericType<FqdnResponse>() {};
 
-    return apiClient.invokeAPI("IPsApi.createIp", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdNsApi.createFqdn", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Delete an Ip
-   * Delete an IP.
-   * @param id Identifies the type of resource. (required)
-   * @return IpResponse
+   * Delete an Fqdn
+   * Delete an FQDN.
+   * @param id Identifies the resource. (required)
+   * @return FqdnResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public IpResponse deleteIp(UUID id) throws ApiException {
-    return deleteIpWithHttpInfo(id).getData();
+  public FqdnResponse deleteFqdn(String id) throws ApiException {
+    return deleteFqdnWithHttpInfo(id).getData();
   }
 
   /**
-   * Delete an Ip
-   * Delete an IP.
-   * @param id Identifies the type of resource. (required)
-   * @return ApiResponse&lt;IpResponse&gt;
+   * Delete an Fqdn
+   * Delete an FQDN.
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;FqdnResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<IpResponse> deleteIpWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<FqdnResponse> deleteFqdnWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteIp");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteFqdn");
     }
     
     // create path and map variables
-    String localVarPath = "/ips/{id}"
+    String localVarPath = "/fqdns/{id}"
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
@@ -181,18 +180,18 @@ public class IPsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<IpResponse> localVarReturnType = new GenericType<IpResponse>() {};
+    GenericType<FqdnResponse> localVarReturnType = new GenericType<FqdnResponse>() {};
 
-    return apiClient.invokeAPI("IPsApi.deleteIp", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdNsApi.deleteFqdn", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionId, String filterIpAddress, Integer filterPort) throws ApiException {
+private ApiResponse<ListFqdnsResponse> listFqdnsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionId, String filterFqdn, Integer filterPort, String filterDnsRecordType) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
-    String localVarPath = "/ips";
+    String localVarPath = "/fqdns";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -203,8 +202,9 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_id]", filterConnectionId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[ip_address]", filterIpAddress));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[fqdn]", filterFqdn));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[port]", filterPort));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[dns_record_type]", filterDnsRecordType));
 
     
     
@@ -221,29 +221,30 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListIpsResponse> localVarReturnType = new GenericType<ListIpsResponse>() {};
+    GenericType<ListFqdnsResponse> localVarReturnType = new GenericType<ListFqdnsResponse>() {};
 
-    return apiClient.invokeAPI("IPsApi.listIps", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdNsApi.listFqdns", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-  public class APIlistIpsRequest {
+  public class APIlistFqdnsRequest {
     private Integer pageNumber;
     private Integer pageSize;
     private String filterConnectionId;
-    private String filterIpAddress;
+    private String filterFqdn;
     private Integer filterPort;
+    private String filterDnsRecordType;
 
-    private APIlistIpsRequest() {
+    private APIlistFqdnsRequest() {
     }
 
     /**
      * Set pageNumber
      * @param pageNumber The page number to load. (optional, default to 1)
-     * @return APIlistIpsRequest
+     * @return APIlistFqdnsRequest
      */
-    public APIlistIpsRequest pageNumber(Integer pageNumber) {
+    public APIlistFqdnsRequest pageNumber(Integer pageNumber) {
       this.pageNumber = pageNumber;
       return this;
     }
@@ -251,132 +252,142 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
     /**
      * Set pageSize
      * @param pageSize The size of the page. (optional, default to 20)
-     * @return APIlistIpsRequest
+     * @return APIlistFqdnsRequest
      */
-    public APIlistIpsRequest pageSize(Integer pageSize) {
+    public APIlistFqdnsRequest pageSize(Integer pageSize) {
       this.pageSize = pageSize;
       return this;
     }
 
     /**
      * Set filterConnectionId
-     * @param filterConnectionId ID of the IP Connection to which this IP should be attached. (optional)
-     * @return APIlistIpsRequest
+     * @param filterConnectionId ID of the FQDN connection to which the FQDN belongs. (optional)
+     * @return APIlistFqdnsRequest
      */
-    public APIlistIpsRequest filterConnectionId(String filterConnectionId) {
+    public APIlistFqdnsRequest filterConnectionId(String filterConnectionId) {
       this.filterConnectionId = filterConnectionId;
       return this;
     }
 
     /**
-     * Set filterIpAddress
-     * @param filterIpAddress IP adddress represented by this resource. (optional)
-     * @return APIlistIpsRequest
+     * Set filterFqdn
+     * @param filterFqdn FQDN represented by the resource. (optional)
+     * @return APIlistFqdnsRequest
      */
-    public APIlistIpsRequest filterIpAddress(String filterIpAddress) {
-      this.filterIpAddress = filterIpAddress;
+    public APIlistFqdnsRequest filterFqdn(String filterFqdn) {
+      this.filterFqdn = filterFqdn;
       return this;
     }
 
     /**
      * Set filterPort
-     * @param filterPort Port to use when connecting to this IP. (optional)
-     * @return APIlistIpsRequest
+     * @param filterPort Port to use when connecting to the FQDN. (optional)
+     * @return APIlistFqdnsRequest
      */
-    public APIlistIpsRequest filterPort(Integer filterPort) {
+    public APIlistFqdnsRequest filterPort(Integer filterPort) {
       this.filterPort = filterPort;
       return this;
     }
 
     /**
-     * Execute listIps request
-     * @return ListIpsResponse
+     * Set filterDnsRecordType
+     * @param filterDnsRecordType DNS record type used by the FQDN. (optional)
+     * @return APIlistFqdnsRequest
+     */
+    public APIlistFqdnsRequest filterDnsRecordType(String filterDnsRecordType) {
+      this.filterDnsRecordType = filterDnsRecordType;
+      return this;
+    }
+
+    /**
+     * Execute listFqdns request
+     * @return ListFqdnsResponse
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of IPs. </td><td>  -  </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        </table>
      
      */
     
-    public ListIpsResponse execute() throws ApiException {
+    public ListFqdnsResponse execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
-     * Execute listIps request with HTTP info returned
-     * @return ApiResponse&lt;ListIpsResponse&gt;
+     * Execute listFqdns request with HTTP info returned
+     * @return ApiResponse&lt;ListFqdnsResponse&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of IPs. </td><td>  -  </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        </table>
 
      */
-    public ApiResponse<ListIpsResponse> executeWithHttpInfo() throws ApiException {
-      return listIpsWithHttpInfo(pageNumber, pageSize, filterConnectionId, filterIpAddress, filterPort);
+    public ApiResponse<ListFqdnsResponse> executeWithHttpInfo() throws ApiException {
+      return listFqdnsWithHttpInfo(pageNumber, pageSize, filterConnectionId, filterFqdn, filterPort, filterDnsRecordType);
     }
   }
 
   /**
-   * List Ips
-   * Get all IPs belonging to the user that match the given filters.
-   * @return listIpsRequest
+   * List Fqdns
+   * Get all FQDNs belonging to the user that match the given filters.
+   * @return listFqdnsRequest
    * @throws ApiException if fails to make API call
    
    
    */
-  public APIlistIpsRequest listIps() throws ApiException {
-    return new APIlistIpsRequest();
+  public APIlistFqdnsRequest listFqdns() throws ApiException {
+    return new APIlistFqdnsRequest();
   }
   /**
-   * Retrieve an Ip
-   * Return the details regarding a specific IP.
-   * @param id Identifies the type of resource. (required)
-   * @return IpResponse
+   * Retrieve an Fqdn
+   * Return the details regarding a specific FQDN.
+   * @param id Identifies the resource. (required)
+   * @return FqdnResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public IpResponse retrieveIp(UUID id) throws ApiException {
-    return retrieveIpWithHttpInfo(id).getData();
+  public FqdnResponse retrieveFqdn(String id) throws ApiException {
+    return retrieveFqdnWithHttpInfo(id).getData();
   }
 
   /**
-   * Retrieve an Ip
-   * Return the details regarding a specific IP.
-   * @param id Identifies the type of resource. (required)
-   * @return ApiResponse&lt;IpResponse&gt;
+   * Retrieve an Fqdn
+   * Return the details regarding a specific FQDN.
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;FqdnResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<IpResponse> retrieveIpWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<FqdnResponse> retrieveFqdnWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveIp");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveFqdn");
     }
     
     // create path and map variables
-    String localVarPath = "/ips/{id}"
+    String localVarPath = "/fqdns/{id}"
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
@@ -401,56 +412,56 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<IpResponse> localVarReturnType = new GenericType<IpResponse>() {};
+    GenericType<FqdnResponse> localVarReturnType = new GenericType<FqdnResponse>() {};
 
-    return apiClient.invokeAPI("IPsApi.retrieveIp", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdNsApi.retrieveFqdn", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Update an Ip
-   * Update the details of a specific IP.
-   * @param id Identifies the type of resource. (required)
-   * @param updateIpRequest  (optional)
-   * @return IpResponse
+   * Update an Fqdn
+   * Update the details of a specific FQDN.
+   * @param id Identifies the resource. (required)
+   * @param updateFqdnRequest  (optional)
+   * @return FqdnResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public IpResponse updateIp(UUID id, UpdateIpRequest updateIpRequest) throws ApiException {
-    return updateIpWithHttpInfo(id, updateIpRequest).getData();
+  public FqdnResponse updateFqdn(String id, UpdateFqdnRequest updateFqdnRequest) throws ApiException {
+    return updateFqdnWithHttpInfo(id, updateFqdnRequest).getData();
   }
 
   /**
-   * Update an Ip
-   * Update the details of a specific IP.
-   * @param id Identifies the type of resource. (required)
-   * @param updateIpRequest  (optional)
-   * @return ApiResponse&lt;IpResponse&gt;
+   * Update an Fqdn
+   * Update the details of a specific FQDN.
+   * @param id Identifies the resource. (required)
+   * @param updateFqdnRequest  (optional)
+   * @return ApiResponse&lt;FqdnResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<IpResponse> updateIpWithHttpInfo(UUID id, UpdateIpRequest updateIpRequest) throws ApiException {
-    Object localVarPostBody = updateIpRequest;
+  public ApiResponse<FqdnResponse> updateFqdnWithHttpInfo(String id, UpdateFqdnRequest updateFqdnRequest) throws ApiException {
+    Object localVarPostBody = updateFqdnRequest;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateIp");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updateFqdn");
     }
     
     // create path and map variables
-    String localVarPath = "/ips/{id}"
+    String localVarPath = "/fqdns/{id}"
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
@@ -475,9 +486,9 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<IpResponse> localVarReturnType = new GenericType<IpResponse>() {};
+    GenericType<FqdnResponse> localVarReturnType = new GenericType<FqdnResponse>() {};
 
-    return apiClient.invokeAPI("IPsApi.updateIp", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdNsApi.updateFqdn", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

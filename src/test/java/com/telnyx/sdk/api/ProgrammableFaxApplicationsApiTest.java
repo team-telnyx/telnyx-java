@@ -94,9 +94,9 @@ public class ProgrammableFaxApplicationsApiTest {
         //Integer pageNumber = null;
         //Integer pageSize = null;
         //String filterApplicationNameContains = null;
-        //String filterOutboundOutboundVoiceProfileId = null;
+        //String filterOutboundVoiceProfileId = null;
         //String sort = null;
-        //InlineResponse200 response = api.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
+        //InlineResponse200 response = api.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
         // TODO: test validations
     }
 

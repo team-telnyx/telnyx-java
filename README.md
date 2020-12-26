@@ -6,6 +6,9 @@
 
 </div>
 
+[![Build Status](https://github.com/team-telnyx/telnyx-java/workflows/Gradle/badge.svg)](https://github.com/team-telnyx/telnyx-java/actions)
+[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx.svg)](https://mvnrepository.com/artifact/com.telnyx.sdk/telnyx)
+
 Java SDK for the Telnyx API
 
 - API version: 2.0.0
@@ -28,7 +31,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.3.0-beta.1</version>
+  <version>2.3.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -38,7 +41,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.3.0-beta.1"
+compile "com.telnyx.sdk:telnyx:2.3.0"
 ```
 
 ### Others
@@ -53,7 +56,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.3.0-beta.1.jar`
+- `target/telnyx-2.3.0.jar`
 - `target/lib/*.jar`
 
 ## JDK Support
@@ -167,22 +170,22 @@ Class | Method | HTTP request | Description
 *CredentialConnectionsApi* | [**createCredentialConnection**](docs/CredentialConnectionsApi.md#createCredentialConnection) | **POST** /credential_connections | Create a credential connection
 *CredentialConnectionsApi* | [**deleteCredentialConnection**](docs/CredentialConnectionsApi.md#deleteCredentialConnection) | **DELETE** /credential_connections/{id} | Delete a credential connection
 *CredentialConnectionsApi* | [**listCredentialConnections**](docs/CredentialConnectionsApi.md#listCredentialConnections) | **GET** /credential_connections | List credential connections
-*CredentialConnectionsApi* | [**retrieveCredentialConnection**](docs/CredentialConnectionsApi.md#retrieveCredentialConnection) | **GET** /credential_connections/{id} | Retrieve a connection
+*CredentialConnectionsApi* | [**retrieveCredentialConnection**](docs/CredentialConnectionsApi.md#retrieveCredentialConnection) | **GET** /credential_connections/{id} | Retrieve a credential connection
 *CredentialConnectionsApi* | [**updateCredentialConnection**](docs/CredentialConnectionsApi.md#updateCredentialConnection) | **PATCH** /credential_connections/{id} | Update a credential connection
 *CsvDownloadsApi* | [**createCsvDownload**](docs/CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | Create a CSV download
 *CsvDownloadsApi* | [**listCsvDownloads**](docs/CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List CSV downloads
 *CsvDownloadsApi* | [**retrieveCsvDownload**](docs/CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a CSV download
 *DebuggingApi* | [**listCallEvents**](docs/DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
+*FqdNsApi* | [**createFqdn**](docs/FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an Fqdn
+*FqdNsApi* | [**deleteFqdn**](docs/FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an Fqdn
+*FqdNsApi* | [**listFqdns**](docs/FqdNsApi.md#listFqdns) | **GET** /fqdns | List Fqdns
+*FqdNsApi* | [**retrieveFqdn**](docs/FqdNsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an Fqdn
+*FqdNsApi* | [**updateFqdn**](docs/FqdNsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an Fqdn
 *FqdnConnectionsApi* | [**createFqdnConnection**](docs/FqdnConnectionsApi.md#createFqdnConnection) | **POST** /fqdn_connections | Create an Fqdn connection
 *FqdnConnectionsApi* | [**deleteFqdnConnection**](docs/FqdnConnectionsApi.md#deleteFqdnConnection) | **DELETE** /fqdn_connections/{id} | Delete an Fqdn connection
 *FqdnConnectionsApi* | [**listFqdnConnections**](docs/FqdnConnectionsApi.md#listFqdnConnections) | **GET** /fqdn_connections | List Fqdn connections
 *FqdnConnectionsApi* | [**retrieveFqdnConnection**](docs/FqdnConnectionsApi.md#retrieveFqdnConnection) | **GET** /fqdn_connections/{id} | Retrieve an Fqdn connection
 *FqdnConnectionsApi* | [**updateFqdnConnection**](docs/FqdnConnectionsApi.md#updateFqdnConnection) | **PATCH** /fqdn_connections/{id} | Update an Fqdn connection
-*FqdnsApi* | [**createFqdn**](docs/FqdnsApi.md#createFqdn) | **POST** /fqdns | Create an Fqdn
-*FqdnsApi* | [**deleteFqdn**](docs/FqdnsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an Fqdn
-*FqdnsApi* | [**listFqdns**](docs/FqdnsApi.md#listFqdns) | **GET** /fqdns | List Fqdns
-*FqdnsApi* | [**retrieveFqdn**](docs/FqdnsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an Fqdn
-*FqdnsApi* | [**updateFqdn**](docs/FqdnsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an Fqdn
 *IPsApi* | [**createIp**](docs/IPsApi.md#createIp) | **POST** /ips | Create an Ip
 *IPsApi* | [**deleteIp**](docs/IPsApi.md#deleteIp) | **DELETE** /ips/{id} | Delete an Ip
 *IPsApi* | [**listIps**](docs/IPsApi.md#listIps) | **GET** /ips | List Ips
@@ -213,9 +216,10 @@ Class | Method | HTTP request | Description
 *MessagingProfilesApi* | [**retrieveMessagingProfileDetailedMetrics**](docs/MessagingProfilesApi.md#retrieveMessagingProfileDetailedMetrics) | **GET** /messaging_profiles/{id}/metrics | Retrieve messaging profile metrics
 *MessagingProfilesApi* | [**updateMessagingProfile**](docs/MessagingProfilesApi.md#updateMessagingProfile) | **PATCH** /messaging_profiles/{id} | Update a messaging profile
 *MessagingUrlDomainsApi* | [**listMessagingUrlDomains**](docs/MessagingUrlDomainsApi.md#listMessagingUrlDomains) | **GET** /messaging_url_domains | List messaging URL domains
-*NumberBlockOrdersApi* | [**createNumberBlockOrder**](docs/NumberBlockOrdersApi.md#createNumberBlockOrder) | **POST** /number_block_orders | Create a number block order
-*NumberBlockOrdersApi* | [**listNumberBlockOrders**](docs/NumberBlockOrdersApi.md#listNumberBlockOrders) | **GET** /number_block_orders | List number block orders
-*NumberBlockOrdersApi* | [**retrieveNumberBlockOrder**](docs/NumberBlockOrdersApi.md#retrieveNumberBlockOrder) | **GET** /number_block_orders/{number_block_order_id} | Retrieve a number block order
+*NumberBackgroundJobsApi* | [**createPhoneNumbersJobDeletePhoneNumbers**](docs/NumberBackgroundJobsApi.md#createPhoneNumbersJobDeletePhoneNumbers) | **POST** /phone_numbers/jobs/delete_phone_numbers | Delete a batch of numbers
+*NumberBackgroundJobsApi* | [**createPhoneNumbersJobUpdateEmergencySettings**](docs/NumberBackgroundJobsApi.md#createPhoneNumbersJobUpdateEmergencySettings) | **POST** /phone_numbers/jobs/update_emergency_settings | Update the emergency settings from a batch of numbers
+*NumberBackgroundJobsApi* | [**listPhoneNumbersJobs**](docs/NumberBackgroundJobsApi.md#listPhoneNumbersJobs) | **GET** /phone_numbers/jobs | Lists the phone numbers jobs
+*NumberBackgroundJobsApi* | [**retrievePhoneNumbersJob**](docs/NumberBackgroundJobsApi.md#retrievePhoneNumbersJob) | **GET** /phone_numbers/jobs/{id} | Retrieve a phone numbers job
 *NumberConfigurationsApi* | [**deletePhoneNumber**](docs/NumberConfigurationsApi.md#deletePhoneNumber) | **DELETE** /phone_numbers/{id} | Delete a phone number
 *NumberConfigurationsApi* | [**enableEmergencyPhoneNumber**](docs/NumberConfigurationsApi.md#enableEmergencyPhoneNumber) | **POST** /phone_numbers/{id}/actions/enable_emergency | Enable emergency for a phone number
 *NumberConfigurationsApi* | [**listPhoneNumbers**](docs/NumberConfigurationsApi.md#listPhoneNumbers) | **GET** /phone_numbers | List phone numbers
@@ -242,17 +246,12 @@ Class | Method | HTTP request | Description
 *NumberReservationsApi* | [**extendNumberReservationExpiryTime**](docs/NumberReservationsApi.md#extendNumberReservationExpiryTime) | **POST** /number_reservations/{number_reservation_id}/actions/extend | Extend a number reservation
 *NumberReservationsApi* | [**listNumberReservations**](docs/NumberReservationsApi.md#listNumberReservations) | **GET** /number_reservations | List number reservations
 *NumberReservationsApi* | [**retrieveNumberReservation**](docs/NumberReservationsApi.md#retrieveNumberReservation) | **GET** /number_reservations/{number_reservation_id} | Retrieve a number reservation
-*NumberSearchApi* | [**listAvailablePhoneNumberBlocks**](docs/NumberSearchApi.md#listAvailablePhoneNumberBlocks) | **GET** /available_phone_number_blocks | List available phone number blocks
 *NumberSearchApi* | [**listAvailablePhoneNumbers**](docs/NumberSearchApi.md#listAvailablePhoneNumbers) | **GET** /available_phone_numbers | List available phone numbers
 *OutboundVoiceProfilesApi* | [**createOutboundVoiceProfile**](docs/OutboundVoiceProfilesApi.md#createOutboundVoiceProfile) | **POST** /outbound_voice_profiles | Create an outbound voice profile
 *OutboundVoiceProfilesApi* | [**deleteOutboundVoiceProfile**](docs/OutboundVoiceProfilesApi.md#deleteOutboundVoiceProfile) | **DELETE** /outbound_voice_profiles/{id} | Delete an outbound voice profile
 *OutboundVoiceProfilesApi* | [**listOutboundVoiceProfiles**](docs/OutboundVoiceProfilesApi.md#listOutboundVoiceProfiles) | **GET** /outbound_voice_profiles | Get all outbound voice profiles
 *OutboundVoiceProfilesApi* | [**retrieveOutboundVoiceProfile**](docs/OutboundVoiceProfilesApi.md#retrieveOutboundVoiceProfile) | **GET** /outbound_voice_profiles/{id} | Retrieve an outbound voice profile
 *OutboundVoiceProfilesApi* | [**updateOutboundVoiceProfile**](docs/OutboundVoiceProfilesApi.md#updateOutboundVoiceProfile) | **PATCH** /outbound_voice_profiles/{id} | Updates an existing outbound voice profile.
-*PhoneNumberJobsApi* | [**createPhoneNumbersJobDeletePhoneNumbers**](docs/PhoneNumberJobsApi.md#createPhoneNumbersJobDeletePhoneNumbers) | **POST** /phone_numbers/jobs/delete_phone_numbers | Creates a new background job to delete a batch of numbers. At most one thousand numbers can be updated per API call.
-*PhoneNumberJobsApi* | [**createPhoneNumbersJobUpdateEmergencySettings**](docs/PhoneNumberJobsApi.md#createPhoneNumbersJobUpdateEmergencySettings) | **POST** /phone_numbers/jobs/update_emergency_settings | Creates a background job to update the emergency settings of a collection of phone numbers. At most one thousand numbers can be updated per API call.
-*PhoneNumberJobsApi* | [**listPhoneNumbersJobs**](docs/PhoneNumberJobsApi.md#listPhoneNumbersJobs) | **GET** /phone_numbers/jobs | Lists the phone numbers asynchronous jobs.
-*PhoneNumberJobsApi* | [**retrievePhoneNumbersJob**](docs/PhoneNumberJobsApi.md#retrievePhoneNumbersJob) | **GET** /phone_numbers/jobs/{id} | Retrieves the details of a given phone numbers job.
 *ProgrammableFaxApplicationsApi* | [**createFaxApplication**](docs/ProgrammableFaxApplicationsApi.md#createFaxApplication) | **POST** /fax_applications | Creates a Fax Application
 *ProgrammableFaxApplicationsApi* | [**deleteFaxApplication**](docs/ProgrammableFaxApplicationsApi.md#deleteFaxApplication) | **DELETE** /fax_applications/{id} | Deletes a Fax Application
 *ProgrammableFaxApplicationsApi* | [**getFaxApplication**](docs/ProgrammableFaxApplicationsApi.md#getFaxApplication) | **GET** /fax_applications/{id} | Retrieve a Fax Application
@@ -275,7 +274,6 @@ Class | Method | HTTP request | Description
  - [AnchorsiteOverride](docs/AnchorsiteOverride.md)
  - [AnswerRequest](docs/AnswerRequest.md)
  - [AvailablePhoneNumber](docs/AvailablePhoneNumber.md)
- - [AvailablePhoneNumberBlock](docs/AvailablePhoneNumberBlock.md)
  - [AvailablePhoneNumbersMetadata](docs/AvailablePhoneNumbersMetadata.md)
  - [BridgeRequest](docs/BridgeRequest.md)
  - [CSVDownloadResponse](docs/CSVDownloadResponse.md)
@@ -317,12 +315,6 @@ Class | Method | HTTP request | Description
  - [CallMachineGreetingEnded](docs/CallMachineGreetingEnded.md)
  - [CallMachineGreetingEndedEvent](docs/CallMachineGreetingEndedEvent.md)
  - [CallMachineGreetingEndedPayload](docs/CallMachineGreetingEndedPayload.md)
- - [CallMachinePremiumDetectionEnded](docs/CallMachinePremiumDetectionEnded.md)
- - [CallMachinePremiumDetectionEndedEvent](docs/CallMachinePremiumDetectionEndedEvent.md)
- - [CallMachinePremiumDetectionEndedPayload](docs/CallMachinePremiumDetectionEndedPayload.md)
- - [CallMachinePremiumGreetingEnded](docs/CallMachinePremiumGreetingEnded.md)
- - [CallMachinePremiumGreetingEndedEvent](docs/CallMachinePremiumGreetingEndedEvent.md)
- - [CallMachinePremiumGreetingEndedPayload](docs/CallMachinePremiumGreetingEndedPayload.md)
  - [CallPlaybackEnded](docs/CallPlaybackEnded.md)
  - [CallPlaybackEndedEvent](docs/CallPlaybackEndedEvent.md)
  - [CallPlaybackEndedPayload](docs/CallPlaybackEndedPayload.md)
@@ -403,7 +395,6 @@ Class | Method | HTTP request | Description
  - [CreateCallControlApplicationRequest](docs/CreateCallControlApplicationRequest.md)
  - [CreateConferenceRequest](docs/CreateConferenceRequest.md)
  - [CreateCredentialConnectionRequest](docs/CreateCredentialConnectionRequest.md)
- - [CreateCredentialConnectionRequestRtcpSettings](docs/CreateCredentialConnectionRequestRtcpSettings.md)
  - [CreateFaxApplicationRequest](docs/CreateFaxApplicationRequest.md)
  - [CreateFaxApplicationRequestInbound](docs/CreateFaxApplicationRequestInbound.md)
  - [CreateFaxApplicationRequestOutbound](docs/CreateFaxApplicationRequestOutbound.md)
@@ -416,7 +407,6 @@ Class | Method | HTTP request | Description
  - [CreateMessageRequest](docs/CreateMessageRequest.md)
  - [CreateMessagingHostedNumberOrderRequest](docs/CreateMessagingHostedNumberOrderRequest.md)
  - [CreateMessagingProfileRequest](docs/CreateMessagingProfileRequest.md)
- - [CreateNumberBlockOrderRequest](docs/CreateNumberBlockOrderRequest.md)
  - [CreateNumberOrderDocumentRequest](docs/CreateNumberOrderDocumentRequest.md)
  - [CreateNumberOrderRequest](docs/CreateNumberOrderRequest.md)
  - [CreateNumberPoolMessageRequest](docs/CreateNumberPoolMessageRequest.md)
@@ -440,7 +430,6 @@ Class | Method | HTTP request | Description
  - [ErrorSource](docs/ErrorSource.md)
  - [Errors](docs/Errors.md)
  - [FaxApplication](docs/FaxApplication.md)
- - [Feature](docs/Feature.md)
  - [Fqdn](docs/Fqdn.md)
  - [FqdnConnection](docs/FqdnConnection.md)
  - [FqdnConnectionResponse](docs/FqdnConnectionResponse.md)
@@ -470,7 +459,6 @@ Class | Method | HTTP request | Description
  - [IpConnectionResponse](docs/IpConnectionResponse.md)
  - [IpResponse](docs/IpResponse.md)
  - [JoinConferenceRequest](docs/JoinConferenceRequest.md)
- - [ListAvailablePhoneNumbersBlocksResponse](docs/ListAvailablePhoneNumbersBlocksResponse.md)
  - [ListAvailablePhoneNumbersResponse](docs/ListAvailablePhoneNumbersResponse.md)
  - [ListCSVDownloadsResponse](docs/ListCSVDownloadsResponse.md)
  - [ListCallControlApplicationsResponse](docs/ListCallControlApplicationsResponse.md)
@@ -489,7 +477,6 @@ Class | Method | HTTP request | Description
  - [ListMessagingProfileUrlDomainsResponse](docs/ListMessagingProfileUrlDomainsResponse.md)
  - [ListMessagingProfilesResponse](docs/ListMessagingProfilesResponse.md)
  - [ListMessagingSettingsResponse](docs/ListMessagingSettingsResponse.md)
- - [ListNumberBlockOrdersResponse](docs/ListNumberBlockOrdersResponse.md)
  - [ListNumberOrderDocumentsResponse](docs/ListNumberOrderDocumentsResponse.md)
  - [ListNumberOrderRegulatoryRequirementsResponse](docs/ListNumberOrderRegulatoryRequirementsResponse.md)
  - [ListNumberOrdersResponse](docs/ListNumberOrdersResponse.md)
@@ -497,7 +484,7 @@ Class | Method | HTTP request | Description
  - [ListOutboundVoiceProfilesResponse](docs/ListOutboundVoiceProfilesResponse.md)
  - [ListParticipantsResponse](docs/ListParticipantsResponse.md)
  - [ListPhoneNumberRegulatoryRequirementsResponse](docs/ListPhoneNumberRegulatoryRequirementsResponse.md)
- - [ListPhoneNumbersAsynchronousJobsResponse](docs/ListPhoneNumbersAsynchronousJobsResponse.md)
+ - [ListPhoneNumbersBackgroundJobsResponse](docs/ListPhoneNumbersBackgroundJobsResponse.md)
  - [ListPhoneNumbersResponse](docs/ListPhoneNumbersResponse.md)
  - [ListPhoneNumbersWithVoiceSettingsResponse](docs/ListPhoneNumbersWithVoiceSettingsResponse.md)
  - [ListRecordingsResponse](docs/ListRecordingsResponse.md)
@@ -516,11 +503,8 @@ Class | Method | HTTP request | Description
  - [MessagingProfileMessageTypeMetrics](docs/MessagingProfileMessageTypeMetrics.md)
  - [MessagingProfileResponse](docs/MessagingProfileResponse.md)
  - [MessagingUrlDomain](docs/MessagingUrlDomain.md)
- - [NumberBlockOrder](docs/NumberBlockOrder.md)
- - [NumberBlockOrderResponse](docs/NumberBlockOrderResponse.md)
  - [NumberHealthMetrics](docs/NumberHealthMetrics.md)
  - [NumberOrder](docs/NumberOrder.md)
- - [NumberOrderBlockEvent](docs/NumberOrderBlockEvent.md)
  - [NumberOrderDocument](docs/NumberOrderDocument.md)
  - [NumberOrderDocumentResponse](docs/NumberOrderDocumentResponse.md)
  - [NumberOrderRegulatoryRequirementResponse](docs/NumberOrderRegulatoryRequirementResponse.md)
@@ -555,7 +539,6 @@ Class | Method | HTTP request | Description
  - [PhoneNumberWithMessagingSettings](docs/PhoneNumberWithMessagingSettings.md)
  - [PhoneNumberWithMessagingSettingsFeatures](docs/PhoneNumberWithMessagingSettingsFeatures.md)
  - [PhoneNumberWithVoiceSettings](docs/PhoneNumberWithVoiceSettings.md)
- - [PhoneNumbersBulkUpdateError](docs/PhoneNumbersBulkUpdateError.md)
  - [PhoneNumbersEnableEmergency](docs/PhoneNumbersEnableEmergency.md)
  - [PhoneNumbersJob](docs/PhoneNumbersJob.md)
  - [PhoneNumbersJobDeletePhoneNumbers](docs/PhoneNumbersJobDeletePhoneNumbers.md)

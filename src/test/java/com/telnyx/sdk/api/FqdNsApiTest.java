@@ -18,7 +18,6 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.CreateFqdnRequest;
 import com.telnyx.sdk.model.FqdnResponse;
 import com.telnyx.sdk.model.ListFqdnsResponse;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateFqdnRequest;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -35,7 +34,7 @@ import java.util.Map;
  */
 public class FqdNsApiTest {
 
-    private final FqdnsApi api = new FqdnsApi();
+    private final FqdNsApi api = new FqdNsApi();
 
     /**
      * Create an Fqdn
@@ -62,7 +61,7 @@ public class FqdNsApiTest {
      */
     @Test
     public void deleteFqdnTest() throws ApiException {
-        //UUID id = null;
+        //String id = null;
         //FqdnResponse response = api.deleteFqdn(id);
         // TODO: test validations
     }
@@ -83,7 +82,14 @@ public class FqdNsApiTest {
         //String filterFqdn = null;
         //Integer filterPort = null;
         //String filterDnsRecordType = null;
-        //ListFqdnsResponse response = api.listFqdns(pageNumber, pageSize, filterConnectionId, filterFqdn, filterPort, filterDnsRecordType);
+        //ListFqdnsResponse response = api.listFqdns()
+        //        .pageNumber(pageNumber)
+        //        .pageSize(pageSize)
+        //        .filterConnectionId(filterConnectionId)
+        //        .filterFqdn(filterFqdn)
+        //        .filterPort(filterPort)
+        //        .filterDnsRecordType(filterDnsRecordType)
+        //        .execute();
         // TODO: test validations
     }
 
@@ -97,7 +103,7 @@ public class FqdNsApiTest {
      */
     @Test
     public void retrieveFqdnTest() throws ApiException {
-        //UUID id = null;
+        //String id = null;
         //FqdnResponse response = api.retrieveFqdn(id);
         // TODO: test validations
     }
@@ -112,7 +118,7 @@ public class FqdNsApiTest {
      */
     @Test
     public void updateFqdnTest() throws ApiException {
-        //UUID id = null;
+        //String id = null;
         //UpdateFqdnRequest updateFqdnRequest = null;
         //FqdnResponse response = api.updateFqdn(id, updateFqdnRequest);
         // TODO: test validations

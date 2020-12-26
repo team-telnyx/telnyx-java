@@ -82,7 +82,13 @@ public class IPsApiTest {
         //String filterConnectionId = null;
         //String filterIpAddress = null;
         //Integer filterPort = null;
-        //ListIpsResponse response = api.listIps(pageNumber, pageSize, filterConnectionId, filterIpAddress, filterPort);
+        //ListIpsResponse response = api.listIps()
+        //        .pageNumber(pageNumber)
+        //        .pageSize(pageSize)
+        //        .filterConnectionId(filterConnectionId)
+        //        .filterIpAddress(filterIpAddress)
+        //        .filterPort(filterPort)
+        //        .execute();
         // TODO: test validations
     }
 

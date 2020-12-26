@@ -191,49 +191,8 @@ public class CredentialConnectionsApi {
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
-  /**
-   * List credential connections
-   * Returns a list of your credential connections.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
-   * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional)
-   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return ListCredentialConnectionsResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with a list of credential connections. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public ListCredentialConnectionsResponse listCredentialConnections(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
-    return listCredentialConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort).getData();
-  }
 
-  /**
-   * List credential connections
-   * Returns a list of your credential connections.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
-   * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional)
-   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return ApiResponse&lt;ListCredentialConnectionsResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with a list of credential connections. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<ListCredentialConnectionsResponse> listCredentialConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -272,8 +231,118 @@ public class CredentialConnectionsApi {
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
+
+  public class APIlistCredentialConnectionsRequest {
+    private Integer pageNumber;
+    private Integer pageSize;
+    private String filterConnectionNameContains;
+    private String filterOutboundOutboundVoiceProfileId;
+    private String sort;
+
+    private APIlistCredentialConnectionsRequest() {
+    }
+
+    /**
+     * Set pageNumber
+     * @param pageNumber The page number to load. (optional, default to 1)
+     * @return APIlistCredentialConnectionsRequest
+     */
+    public APIlistCredentialConnectionsRequest pageNumber(Integer pageNumber) {
+      this.pageNumber = pageNumber;
+      return this;
+    }
+
+    /**
+     * Set pageSize
+     * @param pageSize The size of the page. (optional, default to 20)
+     * @return APIlistCredentialConnectionsRequest
+     */
+    public APIlistCredentialConnectionsRequest pageSize(Integer pageSize) {
+      this.pageSize = pageSize;
+      return this;
+    }
+
+    /**
+     * Set filterConnectionNameContains
+     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
+     * @return APIlistCredentialConnectionsRequest
+     */
+    public APIlistCredentialConnectionsRequest filterConnectionNameContains(String filterConnectionNameContains) {
+      this.filterConnectionNameContains = filterConnectionNameContains;
+      return this;
+    }
+
+    /**
+     * Set filterOutboundOutboundVoiceProfileId
+     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+     * @return APIlistCredentialConnectionsRequest
+     */
+    public APIlistCredentialConnectionsRequest filterOutboundOutboundVoiceProfileId(String filterOutboundOutboundVoiceProfileId) {
+      this.filterOutboundOutboundVoiceProfileId = filterOutboundOutboundVoiceProfileId;
+      return this;
+    }
+
+    /**
+     * Set sort
+     * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+     * @return APIlistCredentialConnectionsRequest
+     */
+    public APIlistCredentialConnectionsRequest sort(String sort) {
+      this.sort = sort;
+      return this;
+    }
+
+    /**
+     * Execute listCredentialConnections request
+     * @return ListCredentialConnectionsResponse
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of credential connections. </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       </table>
+     
+     */
+    
+    public ListCredentialConnectionsResponse execute() throws ApiException {
+      return this.executeWithHttpInfo().getData();
+    }
+
+    /**
+     * Execute listCredentialConnections request with HTTP info returned
+     * @return ApiResponse&lt;ListCredentialConnectionsResponse&gt;
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of credential connections. </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       </table>
+
+     */
+    public ApiResponse<ListCredentialConnectionsResponse> executeWithHttpInfo() throws ApiException {
+      return listCredentialConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort);
+    }
+  }
+
   /**
-   * Retrieve a connection
+   * List credential connections
+   * Returns a list of your credential connections.
+   * @return listCredentialConnectionsRequest
+   * @throws ApiException if fails to make API call
+   
+   
+   */
+  public APIlistCredentialConnectionsRequest listCredentialConnections() throws ApiException {
+    return new APIlistCredentialConnectionsRequest();
+  }
+  /**
+   * Retrieve a credential connection
    * Retrieves the details of an existing credential connection.
    * @param id Identifies the resource. (required)
    * @return CredentialConnectionResponse
@@ -292,7 +361,7 @@ public class CredentialConnectionsApi {
   }
 
   /**
-   * Retrieve a connection
+   * Retrieve a credential connection
    * Retrieves the details of an existing credential connection.
    * @param id Identifies the resource. (required)
    * @return ApiResponse&lt;CredentialConnectionResponse&gt;

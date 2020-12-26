@@ -1,96 +1,23 @@
-# IPsApi
+# NumberBackgroundJobsApi
 
 All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createIp**](IPsApi.md#createIp) | **POST** /ips | Create an Ip
-[**deleteIp**](IPsApi.md#deleteIp) | **DELETE** /ips/{id} | Delete an Ip
-[**listIps**](IPsApi.md#listIps) | **GET** /ips | List Ips
-[**retrieveIp**](IPsApi.md#retrieveIp) | **GET** /ips/{id} | Retrieve an Ip
-[**updateIp**](IPsApi.md#updateIp) | **PATCH** /ips/{id} | Update an Ip
+[**createPhoneNumbersJobDeletePhoneNumbers**](NumberBackgroundJobsApi.md#createPhoneNumbersJobDeletePhoneNumbers) | **POST** /phone_numbers/jobs/delete_phone_numbers | Delete a batch of numbers
+[**createPhoneNumbersJobUpdateEmergencySettings**](NumberBackgroundJobsApi.md#createPhoneNumbersJobUpdateEmergencySettings) | **POST** /phone_numbers/jobs/update_emergency_settings | Update the emergency settings from a batch of numbers
+[**listPhoneNumbersJobs**](NumberBackgroundJobsApi.md#listPhoneNumbersJobs) | **GET** /phone_numbers/jobs | Lists the phone numbers jobs
+[**retrievePhoneNumbersJob**](NumberBackgroundJobsApi.md#retrievePhoneNumbersJob) | **GET** /phone_numbers/jobs/{id} | Retrieve a phone numbers job
 
 
 
-## createIp
+## createPhoneNumbersJobDeletePhoneNumbers
 
-> IpResponse createIp(createIpRequest)
+> PhoneNumbersJobDeletePhoneNumbers createPhoneNumbersJobDeletePhoneNumbers().phoneNumbersJobDeletePhoneNumbersRequest(phoneNumbersJobDeletePhoneNumbersRequest).execute();
 
-Create an Ip
+Delete a batch of numbers
 
-Create a new IP object.
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IPsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        IPsApi apiInstance = new IPsApi(defaultClient);
-        CreateIpRequest createIpRequest = new CreateIpRequest(); // CreateIpRequest | 
-        try {
-            IpResponse result = apiInstance.createIp(createIpRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling IPsApi#createIp");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createIpRequest** | [**CreateIpRequest**](CreateIpRequest.md)|  | [optional]
-
-### Return type
-
-[**IpResponse**](IpResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **201** | Successful response with details about an IP. |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-
-
-## deleteIp
-
-> IpResponse deleteIp(id)
-
-Delete an Ip
-
-Delete an IP.
+Creates a new background job to delete a batch of numbers. At most one thousand numbers can be updated per API call.
 
 ### Example
 
@@ -101,7 +28,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IPsApi;
+import com.telnyx.sdk.api.NumberBackgroundJobsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -112,95 +39,15 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        IPsApi apiInstance = new IPsApi(defaultClient);
-        UUID id = 6a09cdc3-8948-47f0-aa62-74ac943d6c58; // UUID | Identifies the type of resource.
+        NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
+        PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbersJobDeletePhoneNumbersRequest = new PhoneNumbersJobDeletePhoneNumbersRequest(); // PhoneNumbersJobDeletePhoneNumbersRequest | 
         try {
-            IpResponse result = apiInstance.deleteIp(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling IPsApi#deleteIp");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Identifies the type of resource. |
-
-### Return type
-
-[**IpResponse**](IpResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response with details about an IP. |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-
-
-## listIps
-
-> ListIpsResponse listIps().pageNumber(pageNumber).pageSize(pageSize).filterConnectionId(filterConnectionId).filterIpAddress(filterIpAddress).filterPort(filterPort).execute();
-
-List Ips
-
-Get all IPs belonging to the user that match the given filters.
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IPsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        IPsApi apiInstance = new IPsApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load.
-        Integer pageSize = 20; // Integer | The size of the page.
-        String filterConnectionId = "filterConnectionId_example"; // String | ID of the IP Connection to which this IP should be attached.
-        String filterIpAddress = 192.168.0.0; // String | IP adddress represented by this resource.
-        Integer filterPort = 5060; // Integer | Port to use when connecting to this IP.
-        try {
-            ListIpsResponse result = api.listIps()
-                .pageNumber(pageNumber)
-                .pageSize(pageSize)
-                .filterConnectionId(filterConnectionId)
-                .filterIpAddress(filterIpAddress)
-                .filterPort(filterPort)
+            PhoneNumbersJobDeletePhoneNumbers result = api.createPhoneNumbersJobDeletePhoneNumbers()
+                .phoneNumbersJobDeletePhoneNumbersRequest(phoneNumbersJobDeletePhoneNumbersRequest)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IPsApi#listIps");
+            System.err.println("Exception when calling NumberBackgroundJobsApi#createPhoneNumbersJobDeletePhoneNumbers");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -215,161 +62,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
- **filterConnectionId** | **String**| ID of the IP Connection to which this IP should be attached. | [optional]
- **filterIpAddress** | **String**| IP adddress represented by this resource. | [optional]
- **filterPort** | **Integer**| Port to use when connecting to this IP. | [optional]
+ **phoneNumbersJobDeletePhoneNumbersRequest** | [**PhoneNumbersJobDeletePhoneNumbersRequest**](PhoneNumbersJobDeletePhoneNumbersRequest.md)|  |
 
 ### Return type
 
-[**ListIpsResponse**](ListIpsResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response with a list of IPs. |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-
-
-## retrieveIp
-
-> IpResponse retrieveIp(id)
-
-Retrieve an Ip
-
-Return the details regarding a specific IP.
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IPsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        IPsApi apiInstance = new IPsApi(defaultClient);
-        UUID id = 6a09cdc3-8948-47f0-aa62-74ac943d6c58; // UUID | Identifies the type of resource.
-        try {
-            IpResponse result = apiInstance.retrieveIp(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling IPsApi#retrieveIp");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Identifies the type of resource. |
-
-### Return type
-
-[**IpResponse**](IpResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response with details about an IP. |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-
-
-## updateIp
-
-> IpResponse updateIp(id, updateIpRequest)
-
-Update an Ip
-
-Update the details of a specific IP.
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IPsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        IPsApi apiInstance = new IPsApi(defaultClient);
-        UUID id = 6a09cdc3-8948-47f0-aa62-74ac943d6c58; // UUID | Identifies the type of resource.
-        UpdateIpRequest updateIpRequest = new UpdateIpRequest(); // UpdateIpRequest | 
-        try {
-            IpResponse result = apiInstance.updateIp(id, updateIpRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling IPsApi#updateIp");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Identifies the type of resource. |
- **updateIpRequest** | [**UpdateIpRequest**](UpdateIpRequest.md)|  | [optional]
-
-### Return type
-
-[**IpResponse**](IpResponse.md)
+[**PhoneNumbersJobDeletePhoneNumbers**](PhoneNumbersJobDeletePhoneNumbers.md)
 
 ### Authorization
 
@@ -383,7 +80,227 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response with details about an IP. |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
+| **202** | Phone numbers job delete phone numbers requested. |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## createPhoneNumbersJobUpdateEmergencySettings
+
+> PhoneNumbersEnableEmergency createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest)
+
+Update the emergency settings from a batch of numbers
+
+Creates a background job to update the emergency settings of a collection of phone numbers. At most one thousand numbers can be updated per API call.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberBackgroundJobsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
+        PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest = new PhoneNumbersJobUpdateEmergencySettingsRequest(); // PhoneNumbersJobUpdateEmergencySettingsRequest | 
+        try {
+            PhoneNumbersEnableEmergency result = apiInstance.createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberBackgroundJobsApi#createPhoneNumbersJobUpdateEmergencySettings");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **phoneNumbersJobUpdateEmergencySettingsRequest** | [**PhoneNumbersJobUpdateEmergencySettingsRequest**](PhoneNumbersJobUpdateEmergencySettingsRequest.md)|  |
+
+### Return type
+
+[**PhoneNumbersEnableEmergency**](PhoneNumbersEnableEmergency.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Phone numbers enable emergency requested. |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## listPhoneNumbersJobs
+
+> ListPhoneNumbersBackgroundJobsResponse listPhoneNumbersJobs().filterType(filterType).pageNumber(pageNumber).pageSize(pageSize).sort(sort).execute();
+
+Lists the phone numbers jobs
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberBackgroundJobsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
+        String filterType = update_emergency_settings; // String | Filter the phone number jobs by type.
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
+        String sort = created_at; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+        try {
+            ListPhoneNumbersBackgroundJobsResponse result = api.listPhoneNumbersJobs()
+                .filterType(filterType)
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .sort(sort)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberBackgroundJobsApi#listPhoneNumbersJobs");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filterType** | **String**| Filter the phone number jobs by type. | [optional] [enum: update_emergency_settings, delete_phone_numbers]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
+ **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: created_at]
+
+### Return type
+
+[**ListPhoneNumbersBackgroundJobsResponse**](ListPhoneNumbersBackgroundJobsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response with a list of phone numbers background jobs. |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## retrievePhoneNumbersJob
+
+> PhoneNumbersJob retrievePhoneNumbersJob(id).execute();
+
+Retrieve a phone numbers job
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberBackgroundJobsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
+        String id = "id_example"; // String | Identifies the Phone Numbers Job.
+        try {
+            PhoneNumbersJob result = api.retrievePhoneNumbersJob(id)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberBackgroundJobsApi#retrievePhoneNumbersJob");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Identifies the Phone Numbers Job. |
+
+### Return type
+
+[**PhoneNumbersJob**](PhoneNumbersJob.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Phone numbers job details. |  -  |
+| **0** | Unexpected error |  -  |
 

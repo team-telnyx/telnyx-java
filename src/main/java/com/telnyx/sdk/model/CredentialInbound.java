@@ -415,6 +415,8 @@ public class CredentialInbound {
 
    /**
    * Time(sec) before aborting if call is unanswered (min: 1, max: 600).
+   * minimum: 1
+   * maximum: 600
    * @return timeout2xxSecs
   **/
   @javax.annotation.Nullable

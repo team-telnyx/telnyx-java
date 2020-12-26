@@ -50,6 +50,10 @@ import com.telnyx.sdk.JSON;
   CreateFqdnConnectionRequest.JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED,
   CreateFqdnConnectionRequest.JSON_PROPERTY_ENCRYPTED_MEDIA,
   CreateFqdnConnectionRequest.JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED,
+  CreateFqdnConnectionRequest.JSON_PROPERTY_WEBHOOK_EVENT_URL,
+  CreateFqdnConnectionRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
+  CreateFqdnConnectionRequest.JSON_PROPERTY_WEBHOOK_API_VERSION,
+  CreateFqdnConnectionRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS,
   CreateFqdnConnectionRequest.JSON_PROPERTY_RTCP_SETTINGS,
   CreateFqdnConnectionRequest.JSON_PROPERTY_INBOUND
 })
@@ -81,6 +85,53 @@ public class CreateFqdnConnectionRequest {
 
   public static final String JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED = "onnet_t38_passthrough_enabled";
   private Boolean onnetT38PassthroughEnabled = false;
+
+  public static final String JSON_PROPERTY_WEBHOOK_EVENT_URL = "webhook_event_url";
+  private String webhookEventUrl;
+
+  public static final String JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL = "webhook_event_failover_url";
+  private JsonNullable<String> webhookEventFailoverUrl = JsonNullable.<String>of("");
+
+  /**
+   * Determines which webhook format will be used, Telnyx API v1 or v2.
+   */
+  public enum WebhookApiVersionEnum {
+    _1("1"),
+    
+    _2("2");
+
+    private String value;
+
+    WebhookApiVersionEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static WebhookApiVersionEnum fromValue(String value) {
+      for (WebhookApiVersionEnum b : WebhookApiVersionEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_WEBHOOK_API_VERSION = "webhook_api_version";
+  private WebhookApiVersionEnum webhookApiVersion = WebhookApiVersionEnum._1;
+
+  public static final String JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS = "webhook_timeout_secs";
+  private JsonNullable<Integer> webhookTimeoutSecs = JsonNullable.<Integer>undefined();
 
   public static final String JSON_PROPERTY_RTCP_SETTINGS = "rtcp_settings";
   private ConnectionRtcpSettings rtcpSettings;
@@ -314,6 +365,124 @@ public class CreateFqdnConnectionRequest {
   }
 
 
+  public CreateFqdnConnectionRequest webhookEventUrl(String webhookEventUrl) {
+    this.webhookEventUrl = webhookEventUrl;
+    return this;
+  }
+
+   /**
+   * The URL where webhooks related to this connection will be sent. Must include a scheme, such as &#39;https&#39;.
+   * @return webhookEventUrl
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "https://example.com", value = "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookEventUrl() {
+    return webhookEventUrl;
+  }
+
+
+  public void setWebhookEventUrl(String webhookEventUrl) {
+    this.webhookEventUrl = webhookEventUrl;
+  }
+
+
+  public CreateFqdnConnectionRequest webhookEventFailoverUrl(String webhookEventFailoverUrl) {
+    this.webhookEventFailoverUrl = JsonNullable.<String>of(webhookEventFailoverUrl);
+    return this;
+  }
+
+   /**
+   * The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as &#39;https&#39;.
+   * @return webhookEventFailoverUrl
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "https://failover.example.com", value = "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.")
+  @JsonIgnore
+
+  public String getWebhookEventFailoverUrl() {
+        return webhookEventFailoverUrl.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getWebhookEventFailoverUrl_JsonNullable() {
+    return webhookEventFailoverUrl;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL)
+  public void setWebhookEventFailoverUrl_JsonNullable(JsonNullable<String> webhookEventFailoverUrl) {
+    this.webhookEventFailoverUrl = webhookEventFailoverUrl;
+  }
+
+  public void setWebhookEventFailoverUrl(String webhookEventFailoverUrl) {
+    this.webhookEventFailoverUrl = JsonNullable.<String>of(webhookEventFailoverUrl);
+  }
+
+
+  public CreateFqdnConnectionRequest webhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
+    this.webhookApiVersion = webhookApiVersion;
+    return this;
+  }
+
+   /**
+   * Determines which webhook format will be used, Telnyx API v1 or v2.
+   * @return webhookApiVersion
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "1", value = "Determines which webhook format will be used, Telnyx API v1 or v2.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public WebhookApiVersionEnum getWebhookApiVersion() {
+    return webhookApiVersion;
+  }
+
+
+  public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
+    this.webhookApiVersion = webhookApiVersion;
+  }
+
+
+  public CreateFqdnConnectionRequest webhookTimeoutSecs(Integer webhookTimeoutSecs) {
+    this.webhookTimeoutSecs = JsonNullable.<Integer>of(webhookTimeoutSecs);
+    return this;
+  }
+
+   /**
+   * Specifies how many seconds to wait before timing out a webhook.
+   * minimum: 0
+   * maximum: 30
+   * @return webhookTimeoutSecs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "25", value = "Specifies how many seconds to wait before timing out a webhook.")
+  @JsonIgnore
+
+  public Integer getWebhookTimeoutSecs() {
+        return webhookTimeoutSecs.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<Integer> getWebhookTimeoutSecs_JsonNullable() {
+    return webhookTimeoutSecs;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS)
+  public void setWebhookTimeoutSecs_JsonNullable(JsonNullable<Integer> webhookTimeoutSecs) {
+    this.webhookTimeoutSecs = webhookTimeoutSecs;
+  }
+
+  public void setWebhookTimeoutSecs(Integer webhookTimeoutSecs) {
+    this.webhookTimeoutSecs = JsonNullable.<Integer>of(webhookTimeoutSecs);
+  }
+
+
   public CreateFqdnConnectionRequest rtcpSettings(ConnectionRtcpSettings rtcpSettings) {
     this.rtcpSettings = rtcpSettings;
     return this;
@@ -383,13 +552,17 @@ public class CreateFqdnConnectionRequest {
         Objects.equals(this.encodeContactHeaderEnabled, createFqdnConnectionRequest.encodeContactHeaderEnabled) &&
         Objects.equals(this.encryptedMedia, createFqdnConnectionRequest.encryptedMedia) &&
         Objects.equals(this.onnetT38PassthroughEnabled, createFqdnConnectionRequest.onnetT38PassthroughEnabled) &&
+        Objects.equals(this.webhookEventUrl, createFqdnConnectionRequest.webhookEventUrl) &&
+        Objects.equals(this.webhookEventFailoverUrl, createFqdnConnectionRequest.webhookEventFailoverUrl) &&
+        Objects.equals(this.webhookApiVersion, createFqdnConnectionRequest.webhookApiVersion) &&
+        Objects.equals(this.webhookTimeoutSecs, createFqdnConnectionRequest.webhookTimeoutSecs) &&
         Objects.equals(this.rtcpSettings, createFqdnConnectionRequest.rtcpSettings) &&
         Objects.equals(this.inbound, createFqdnConnectionRequest.inbound);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, encryptedMedia, onnetT38PassthroughEnabled, rtcpSettings, inbound);
+    return Objects.hash(active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, encryptedMedia, onnetT38PassthroughEnabled, webhookEventUrl, webhookEventFailoverUrl, webhookApiVersion, webhookTimeoutSecs, rtcpSettings, inbound);
   }
 
 
@@ -406,6 +579,10 @@ public class CreateFqdnConnectionRequest {
     sb.append("    encodeContactHeaderEnabled: ").append(toIndentedString(encodeContactHeaderEnabled)).append("\n");
     sb.append("    encryptedMedia: ").append(toIndentedString(encryptedMedia)).append("\n");
     sb.append("    onnetT38PassthroughEnabled: ").append(toIndentedString(onnetT38PassthroughEnabled)).append("\n");
+    sb.append("    webhookEventUrl: ").append(toIndentedString(webhookEventUrl)).append("\n");
+    sb.append("    webhookEventFailoverUrl: ").append(toIndentedString(webhookEventFailoverUrl)).append("\n");
+    sb.append("    webhookApiVersion: ").append(toIndentedString(webhookApiVersion)).append("\n");
+    sb.append("    webhookTimeoutSecs: ").append(toIndentedString(webhookTimeoutSecs)).append("\n");
     sb.append("    rtcpSettings: ").append(toIndentedString(rtcpSettings)).append("\n");
     sb.append("    inbound: ").append(toIndentedString(inbound)).append("\n");
     sb.append("}");

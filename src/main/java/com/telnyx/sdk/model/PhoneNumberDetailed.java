@@ -41,8 +41,8 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDetailed.JSON_PROPERTY_TAGS,
   PhoneNumberDetailed.JSON_PROPERTY_EXTERNAL_PIN,
   PhoneNumberDetailed.JSON_PROPERTY_CONNECTION_NAME,
-  PhoneNumberDetailed.JSON_PROPERTY_CONNECTION_ID,
   PhoneNumberDetailed.JSON_PROPERTY_CUSTOMER_REFERENCE,
+  PhoneNumberDetailed.JSON_PROPERTY_CONNECTION_ID,
   PhoneNumberDetailed.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   PhoneNumberDetailed.JSON_PROPERTY_MESSAGING_PROFILE_NAME,
   PhoneNumberDetailed.JSON_PROPERTY_BILLING_GROUP_ID,
@@ -129,11 +129,11 @@ public class PhoneNumberDetailed {
   public static final String JSON_PROPERTY_CONNECTION_NAME = "connection_name";
   private String connectionName;
 
-  public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
-  private String connectionId;
-
   public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
   private String customerReference;
+
+  public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
+  private String connectionId;
 
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
@@ -311,30 +311,6 @@ public class PhoneNumberDetailed {
 
 
 
-  public PhoneNumberDetailed connectionId(String connectionId) {
-    this.connectionId = connectionId;
-    return this;
-  }
-
-   /**
-   * Identifies the connection associated with the phone number.
-   * @return connectionId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Identifies the connection associated with the phone number.")
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getConnectionId() {
-    return connectionId;
-  }
-
-
-  public void setConnectionId(String connectionId) {
-    this.connectionId = connectionId;
-  }
-
-
   public PhoneNumberDetailed customerReference(String customerReference) {
     this.customerReference = customerReference;
     return this;
@@ -356,6 +332,30 @@ public class PhoneNumberDetailed {
 
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
+  }
+
+
+  public PhoneNumberDetailed connectionId(String connectionId) {
+    this.connectionId = connectionId;
+    return this;
+  }
+
+   /**
+   * Identifies the connection associated with the phone number.
+   * @return connectionId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Identifies the connection associated with the phone number.")
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getConnectionId() {
+    return connectionId;
+  }
+
+
+  public void setConnectionId(String connectionId) {
+    this.connectionId = connectionId;
   }
 
 
@@ -610,8 +610,8 @@ public class PhoneNumberDetailed {
         Objects.equals(this.tags, phoneNumberDetailed.tags) &&
         Objects.equals(this.externalPin, phoneNumberDetailed.externalPin) &&
         Objects.equals(this.connectionName, phoneNumberDetailed.connectionName) &&
-        Objects.equals(this.connectionId, phoneNumberDetailed.connectionId) &&
         Objects.equals(this.customerReference, phoneNumberDetailed.customerReference) &&
+        Objects.equals(this.connectionId, phoneNumberDetailed.connectionId) &&
         Objects.equals(this.messagingProfileId, phoneNumberDetailed.messagingProfileId) &&
         Objects.equals(this.messagingProfileName, phoneNumberDetailed.messagingProfileName) &&
         Objects.equals(this.billingGroupId, phoneNumberDetailed.billingGroupId) &&
@@ -629,7 +629,7 @@ public class PhoneNumberDetailed {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, connectionId, customerReference, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, updatedAt);
+    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, customerReference, connectionId, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, updatedAt);
   }
 
 
@@ -644,8 +644,8 @@ public class PhoneNumberDetailed {
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    externalPin: ").append(toIndentedString(externalPin)).append("\n");
     sb.append("    connectionName: ").append(toIndentedString(connectionName)).append("\n");
-    sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
+    sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
     sb.append("    messagingProfileName: ").append(toIndentedString(messagingProfileName)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");

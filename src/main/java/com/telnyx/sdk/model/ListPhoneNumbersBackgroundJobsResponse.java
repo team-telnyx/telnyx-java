@@ -22,27 +22,42 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.CallReferCompleted;
+import com.telnyx.sdk.model.PaginationMeta;
+import com.telnyx.sdk.model.PhoneNumbersJob;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * CallReferCompletedEvent
+ * ListPhoneNumbersBackgroundJobsResponse
  */
 @JsonPropertyOrder({
-  CallReferCompletedEvent.JSON_PROPERTY_DATA
+  ListPhoneNumbersBackgroundJobsResponse.JSON_PROPERTY_DATA,
+  ListPhoneNumbersBackgroundJobsResponse.JSON_PROPERTY_META
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CallReferCompletedEvent {
+public class ListPhoneNumbersBackgroundJobsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private CallReferCompleted data;
+  private List<PhoneNumbersJob> data = null;
+
+  public static final String JSON_PROPERTY_META = "meta";
+  private PaginationMeta meta;
 
 
-  public CallReferCompletedEvent data(CallReferCompleted data) {
+  public ListPhoneNumbersBackgroundJobsResponse data(List<PhoneNumbersJob> data) {
     this.data = data;
+    return this;
+  }
+
+  public ListPhoneNumbersBackgroundJobsResponse addDataItem(PhoneNumbersJob dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<>();
+    }
+    this.data.add(dataItem);
     return this;
   }
 
@@ -55,18 +70,42 @@ public class CallReferCompletedEvent {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CallReferCompleted getData() {
+  public List<PhoneNumbersJob> getData() {
     return data;
   }
 
 
-  public void setData(CallReferCompleted data) {
+  public void setData(List<PhoneNumbersJob> data) {
     this.data = data;
   }
 
 
+  public ListPhoneNumbersBackgroundJobsResponse meta(PaginationMeta meta) {
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PaginationMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(PaginationMeta meta) {
+    this.meta = meta;
+  }
+
+
   /**
-   * Return true if this CallReferCompletedEvent object is equal to o.
+   * Return true if this List_Phone_Numbers_Background_Jobs_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -76,21 +115,23 @@ public class CallReferCompletedEvent {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CallReferCompletedEvent callReferCompletedEvent = (CallReferCompletedEvent) o;
-    return Objects.equals(this.data, callReferCompletedEvent.data);
+    ListPhoneNumbersBackgroundJobsResponse listPhoneNumbersBackgroundJobsResponse = (ListPhoneNumbersBackgroundJobsResponse) o;
+    return Objects.equals(this.data, listPhoneNumbersBackgroundJobsResponse.data) &&
+        Objects.equals(this.meta, listPhoneNumbersBackgroundJobsResponse.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(data, meta);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CallReferCompletedEvent {\n");
+    sb.append("class ListPhoneNumbersBackgroundJobsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

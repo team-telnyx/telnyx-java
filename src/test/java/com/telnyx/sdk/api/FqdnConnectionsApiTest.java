@@ -80,7 +80,12 @@ public class FqdnConnectionsApiTest {
         //Integer pageSize = null;
         //String filterConnectionNameContains = null;
         //String sort = null;
-        //ListFqdnConnectionsResponse response = api.listFqdnConnections(pageNumber, pageSize, filterConnectionNameContains, sort);
+        //ListFqdnConnectionsResponse response = api.listFqdnConnections()
+        //        .pageNumber(pageNumber)
+        //        .pageSize(pageSize)
+        //        .filterConnectionNameContains(filterConnectionNameContains)
+        //        .sort(sort)
+        //        .execute();
         // TODO: test validations
     }
 

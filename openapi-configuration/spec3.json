@@ -56,7 +56,7 @@
       "description": "FQDN connection operations"
     },
     {
-      "name": "FQDNS",
+      "name": "FQDNs",
       "description": "FQDN operations"
     },
     {
@@ -82,6 +82,10 @@
     {
       "name": "Messaging URL Domains",
       "description": "Messaging URL Domains"
+    },
+    {
+      "name": "Number Background Jobs",
+      "description": "Background jobs performed over a batch of phone numbers"
     },
     {
       "name": "Number Configurations",
@@ -112,10 +116,6 @@
       "description": "Outbound voice profiles operations"
     },
     {
-      "name": "Phone Number Jobs",
-      "description": "Asynchronous jobs performed over a batch of phone numbers"
-    },
-    {
       "name": "Programmable Fax Applications",
       "description": "Fax Applications operations"
     },
@@ -133,170 +133,6 @@
     }
   ],
   "paths": {
-    "/available_phone_number_blocks": {
-      "get": {
-        "summary": "List available phone number blocks",
-        "operationId": "listAvailablePhoneNumberBlocks",
-        "tags": [
-          "Number Search"
-        ],
-        "parameters": [
-          {
-            "name": "filter[phone_number][starts_with]",
-            "in": "query",
-            "description": "Filter number blocks that start with a pattern (meant to be used after `national_destination_code` filter has been set).",
-            "schema": {
-              "type": "string",
-              "example": "201"
-            }
-          },
-          {
-            "name": "filter[phone_number][ends_with]",
-            "in": "query",
-            "description": "Filter numbers ending with a pattern.",
-            "schema": {
-              "type": "string",
-              "example": "8000"
-            }
-          },
-          {
-            "name": "filter[phone_number][contains]",
-            "in": "query",
-            "description": "Filter numbers containing a pattern.",
-            "schema": {
-              "type": "string",
-              "example": "456"
-            }
-          },
-          {
-            "name": "filter[locality]",
-            "in": "query",
-            "description": "Filter phone numbers by city.",
-            "schema": {
-              "type": "string"
-            },
-            "examples": {
-              "US": {
-                "value": "Chicago"
-              },
-              "CA": {
-                "value": "Toronto"
-              },
-              "AU": {
-                "value": "Canberra"
-              }
-            }
-          },
-          {
-            "name": "filter[administrative_area]",
-            "in": "query",
-            "description": "Filter phone numbers by US state/CA province.",
-            "schema": {
-              "type": "string",
-              "example": "IL"
-            }
-          },
-          {
-            "name": "filter[country_code]",
-            "in": "query",
-            "description": "Filter phone numbers by ISO alpha-2 country code.",
-            "schema": {
-              "type": "string",
-              "example": "US"
-            }
-          },
-          {
-            "name": "filter[national_destination_code]",
-            "in": "query",
-            "description": "Filter by the national destination code of the number. This filter is only applicable to North American numbers.",
-            "schema": {
-              "type": "string"
-            },
-            "examples": {
-              "US": {
-                "value": "312"
-              },
-              "CA": {
-                "value": "437"
-              },
-              "AU": {
-                "value": "0251"
-              }
-            }
-          },
-          {
-            "name": "filter[rate_center]",
-            "in": "query",
-            "description": "Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers.",
-            "schema": {
-              "type": "string",
-              "example": "CHICAGO HEIGHTS"
-            }
-          },
-          {
-            "name": "filter[number_type]",
-            "in": "query",
-            "description": "Filter phone numbers by number type.",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "toll-free",
-                "national",
-                "mobile",
-                "local"
-              ],
-              "example": "local"
-            }
-          },
-          {
-            "name": "filter[features]",
-            "in": "query",
-            "description": "Filter if the phone number should be used for voice, fax, mms, sms, emergency.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "sms",
-                  "mms",
-                  "voice",
-                  "fax",
-                  "emergency"
-                ]
-              },
-              "example": "voice,sms"
-            }
-          },
-          {
-            "name": "filter[minimum_block_size]",
-            "in": "query",
-            "description": "Filter number blocks by minimum blocks size",
-            "schema": {
-              "type": "integer",
-              "example": 100
-            }
-          },
-          {
-            "name": "filter[limit]",
-            "in": "query",
-            "description": "Limits the number of results.",
-            "schema": {
-              "type": "integer",
-              "example": 100
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/ListAvailablePhoneNumbersBlockResponse"
-          },
-          "default": {
-            "$ref": "#/components/responses/GenericErrorResponse"
-          }
-        },
-        "x-latency-category": "responsive"
-      }
-    },
     "/available_phone_numbers": {
       "get": {
         "summary": "List available phone numbers",
@@ -745,7 +581,7 @@
     "/calls": {
       "post": {
         "summary": "Dial",
-        "description": "Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting\n- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested\n- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected\n",
+        "description": "Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`",
         "operationId": "callDial",
         "tags": [
           "Call Commands"
@@ -821,48 +657,6 @@
                     "application/json": {
                       "schema": {
                         "$ref": "#/components/schemas/CallHangupEvent"
-                      }
-                    }
-                  }
-                },
-                "responses": {
-                  "200": {
-                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
-                  }
-                }
-              }
-            }
-          },
-          "callMachinePremiumDetectionEnded": {
-            "{$request.body#/webhook_url}": {
-              "post": {
-                "requestBody": {
-                  "required": true,
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/CallMachinePremiumDetectionEndedEvent"
-                      }
-                    }
-                  }
-                },
-                "responses": {
-                  "200": {
-                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
-                  }
-                }
-              }
-            }
-          },
-          "callMachinePremiumGreetingEnded": {
-            "{$request.body#/webhook_url}": {
-              "post": {
-                "requestBody": {
-                  "required": true,
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/CallMachinePremiumGreetingEndedEvent"
                       }
                     }
                   }
@@ -2131,7 +1925,7 @@
     "/calls/{call_control_id}/actions/transfer": {
       "post": {
         "summary": "Transfer call",
-        "description": "Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.bridged` to Leg B\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting\n- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested\n- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected\n",
+        "description": "Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.bridged` to Leg B\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`",
         "operationId": "callTransfer",
         "tags": [
           "Call Commands"
@@ -2244,90 +2038,6 @@
                 }
               }
             }
-          },
-          "callMachinePremiumDetectionEnded": {
-            "{$request.body#/webhook_url}": {
-              "post": {
-                "requestBody": {
-                  "required": true,
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/CallMachinePremiumDetectionEndedEvent"
-                      }
-                    }
-                  }
-                },
-                "responses": {
-                  "200": {
-                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
-                  }
-                }
-              }
-            }
-          },
-          "callMachinePremiumGreetingEnded": {
-            "{$request.body#/webhook_url}": {
-              "post": {
-                "requestBody": {
-                  "required": true,
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/CallMachinePremiumGreetingEndedEvent"
-                      }
-                    }
-                  }
-                },
-                "responses": {
-                  "200": {
-                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
-                  }
-                }
-              }
-            }
-          },
-          "callMachineDetectionEnded": {
-            "{$request.body#/webhook_url}": {
-              "post": {
-                "requestBody": {
-                  "required": true,
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/CallMachineDetectionEndedEvent"
-                      }
-                    }
-                  }
-                },
-                "responses": {
-                  "200": {
-                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
-                  }
-                }
-              }
-            }
-          },
-          "callMachineGreetingEnded": {
-            "{$request.body#/webhook_url}": {
-              "post": {
-                "requestBody": {
-                  "required": true,
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/CallMachineGreetingEndedEvent"
-                      }
-                    }
-                  }
-                },
-                "responses": {
-                  "200": {
-                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
-                  }
-                }
-              }
-            }
           }
         },
         "x-latency-category": "interactive"
@@ -2335,7 +2045,6 @@
     },
     "/conferences": {
       "get": {
-        "x-group-parameters": "true",
         "x-latency-category": "responsive",
         "description": "Lists conferences. Conferences are created on demand, and will expire after all participants have left the conference or after 4 hours regardless of the number of active participants. Conferences are listed in descending order by `expires_at`.",
         "summary": "List conferences",
@@ -2343,6 +2052,7 @@
         "tags": [
           "Conference Commands"
         ],
+        "x-group-parameters": "true",
         "parameters": [
           {
             "$ref": "#/components/parameters/FilterConferenceName"
@@ -2492,6 +2202,7 @@
         "tags": [
           "Conference Commands"
         ],
+        "x-group-parameters": "true",
         "parameters": [
           {
             "name": "conference_id",
@@ -3350,6 +3061,7 @@
         "tags": [
           "Connections"
         ],
+        "x-group-parameters": "true",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3361,15 +3073,7 @@
             "$ref": "#/components/parameters/FilterConnectionName"
           },
           {
-            "name": "filter[outbound_voice_profile_id]",
-            "in": "query",
-            "required": false,
-            "description": "Identifies the associated outbound voice profile.",
-            "schema": {
-              "type": "string",
-              "format": "int64",
-              "example": "1293384261075731499"
-            }
+            "$ref": "#/components/parameters/FilterOutboundVoiceProfileId"
           },
           {
             "$ref": "#/components/parameters/SortConnection"
@@ -3436,6 +3140,7 @@
         "tags": [
           "Credential Connections"
         ],
+        "x-group-parameters": "true",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3447,7 +3152,7 @@
             "$ref": "#/components/parameters/FilterConnectionName"
           },
           {
-            "$ref": "#/components/parameters/FilterOutboundVoiceProfileId"
+            "$ref": "#/components/parameters/FilterInnerOutboundVoiceProfileId"
           },
           {
             "$ref": "#/components/parameters/SortConnection"
@@ -3536,7 +3241,7 @@
       },
       "get": {
         "description": "Retrieves the details of an existing credential connection.",
-        "summary": "Retrieve a connection",
+        "summary": "Retrieve a credential connection",
         "operationId": "retrieveCredentialConnection",
         "tags": [
           "Credential Connections"
@@ -3972,7 +3677,7 @@
         "description": "Get all FQDNs belonging to the user that match the given filters.",
         "operationId": "listFqdns",
         "tags": [
-          "FQDNS"
+          "FQDNs"
         ],
         "x-group-parameters": "true",
         "parameters": [
@@ -3986,7 +3691,6 @@
             "name": "filter[connection_id]",
             "description": "ID of the FQDN connection to which the FQDN belongs.",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string"
             }
@@ -3995,7 +3699,6 @@
             "name": "filter[fqdn]",
             "description": "FQDN represented by the resource.",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string",
               "example": "example.com"
@@ -4005,7 +3708,6 @@
             "name": "filter[port]",
             "description": "Port to use when connecting to the FQDN.",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "integer",
               "example": 5060
@@ -4015,7 +3717,6 @@
             "name": "filter[dns_record_type]",
             "description": "DNS record type used by the FQDN.",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string",
               "example": "a"
@@ -4040,7 +3741,7 @@
         "summary": "Create an Fqdn",
         "operationId": "createFqdn",
         "tags": [
-          "FQDNS"
+          "FQDNs"
         ],
         "requestBody": {
           "content": {
@@ -4071,7 +3772,7 @@
         "summary": "Delete an Fqdn",
         "operationId": "deleteFqdn",
         "tags": [
-          "FQDNS"
+          "FQDNs"
         ],
         "parameters": [
           {
@@ -4096,7 +3797,7 @@
         "summary": "Retrieve an Fqdn",
         "operationId": "retrieveFqdn",
         "tags": [
-          "FQDNS"
+          "FQDNs"
         ],
         "parameters": [
           {
@@ -4121,7 +3822,7 @@
         "summary": "Update an Fqdn",
         "operationId": "updateFqdn",
         "tags": [
-          "FQDNS"
+          "FQDNs"
         ],
         "parameters": [
           {
@@ -4159,6 +3860,7 @@
         "tags": [
           "IP Connections"
         ],
+        "x-group-parameters": "true",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -4170,7 +3872,7 @@
             "$ref": "#/components/parameters/FilterConnectionName"
           },
           {
-            "$ref": "#/components/parameters/FilterOutboundVoiceProfileId"
+            "$ref": "#/components/parameters/FilterInnerOutboundVoiceProfileId"
           },
           {
             "$ref": "#/components/parameters/SortConnection"
@@ -4345,6 +4047,7 @@
         "tags": [
           "IPs"
         ],
+        "x-group-parameters": "true",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -4356,7 +4059,6 @@
             "name": "filter[connection_id]",
             "description": "ID of the IP Connection to which this IP should be attached.",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string"
             }
@@ -4365,7 +4067,6 @@
             "name": "filter[ip_address]",
             "description": "IP adddress represented by this resource.",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string",
               "example": "192.168.0.0"
@@ -4375,7 +4076,6 @@
             "name": "filter[port]",
             "description": "Port to use when connecting to this IP.",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "integer",
               "example": 5060
@@ -5247,149 +4947,6 @@
         "x-latency-category": "responsive"
       }
     },
-    "/number_block_orders": {
-      "get": {
-        "summary": "List number block orders",
-        "description": "Get a paginated list of number block orders.",
-        "operationId": "listNumberBlockOrders",
-        "tags": [
-          "Number Block Orders"
-        ],
-        "parameters": [
-          {
-            "name": "filter[status]",
-            "in": "query",
-            "description": "Filter number block orders by status.",
-            "schema": {
-              "type": "string",
-              "example": "pending"
-            }
-          },
-          {
-            "name": "filter[created_at][gt]",
-            "in": "query",
-            "description": "Filter number block orders later than this value.",
-            "schema": {
-              "type": "string",
-              "example": "2018-01-01T00:00:00.000000Z"
-            }
-          },
-          {
-            "name": "filter[created_at][lt]",
-            "in": "query",
-            "description": "Filter number block orders earlier than this value.",
-            "schema": {
-              "type": "string",
-              "example": "2018-01-01T00:00:00.000000Z"
-            }
-          },
-          {
-            "name": "filter[phone_numbers.starting_number]",
-            "in": "query",
-            "description": "Filter number block  orders having these phone numbers.",
-            "schema": {
-              "type": "string",
-              "example": "+19705555000"
-            }
-          },
-          {
-            "$ref": "#/components/parameters/PageNumber"
-          },
-          {
-            "$ref": "#/components/parameters/PageSize"
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/ListNumberBlockOrdersResponse"
-          },
-          "default": {
-            "$ref": "#/components/responses/GenericErrorResponse"
-          }
-        },
-        "x-latency-category": "responsive"
-      },
-      "post": {
-        "summary": "Create a number block order",
-        "description": "Creates a phone number block order.",
-        "operationId": "createNumberBlockOrder",
-        "tags": [
-          "Number Block Orders"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateNumberBlockOrderRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/NumberBlockOrderResponse"
-          },
-          "default": {
-            "$ref": "#/components/responses/GenericErrorResponse"
-          }
-        },
-        "callbacks": {
-          "numberOrderStatusUpdate": {
-            "{$request.body#/webhook_url}": {
-              "post": {
-                "requestBody": {
-                  "required": true,
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/NumberOrderBlockEvent"
-                      }
-                    }
-                  }
-                },
-                "responses": {
-                  "200": {
-                    "description": "The server must return a HTTP 200, otherwise we will reattempt to deliver the webhook to the failover URL."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-latency-category": "responsive"
-      }
-    },
-    "/number_block_orders/{number_block_order_id}": {
-      "get": {
-        "summary": "Retrieve a number block order",
-        "description": "Get an existing phone number block order.",
-        "operationId": "retrieveNumberBlockOrder",
-        "tags": [
-          "Number Block Orders"
-        ],
-        "parameters": [
-          {
-            "name": "number_block_order_id",
-            "in": "path",
-            "description": "The number block order ID.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/NumberBlockOrderResponse"
-          },
-          "default": {
-            "$ref": "#/components/responses/GenericErrorResponse"
-          }
-        },
-        "x-latency-category": "responsive"
-      }
-    },
     "/number_order_documents": {
       "get": {
         "summary": "List number order documents",
@@ -6227,7 +5784,8 @@
             "in": "query",
             "description": "Filter numbers via the customer_reference set.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "MY REF 001"
             }
           },
           {
@@ -6332,10 +5890,10 @@
     },
     "/phone_numbers/jobs": {
       "get": {
-        "summary": "Lists the phone numbers asynchronous jobs.",
+        "summary": "Lists the phone numbers jobs",
         "operationId": "listPhoneNumbersJobs",
         "tags": [
-          "Phone Number Jobs"
+          "Number Background Jobs"
         ],
         "x-group-parameters": "true",
         "parameters": [
@@ -6350,7 +5908,7 @@
                 "delete_phone_numbers"
               ],
               "example": "update_emergency_settings",
-              "description": "Identifies the type of the asynchronous job."
+              "description": "Identifies the type of the background job."
             }
           },
           {
@@ -6387,10 +5945,11 @@
     "/phone_numbers/jobs/delete_phone_numbers": {
       "post": {
         "x-latency-category": "background",
-        "summary": "Creates a new background job to delete a batch of numbers. At most one thousand numbers can be updated per API call.",
+        "summary": "Delete a batch of numbers",
+        "description": "Creates a new background job to delete a batch of numbers. At most one thousand numbers can be updated per API call.",
         "operationId": "createPhoneNumbersJobDeletePhoneNumbers",
         "tags": [
-          "Phone Number Jobs"
+          "Number Background Jobs"
         ],
         "x-group-parameters": "true",
         "requestBody": {
@@ -6429,10 +5988,11 @@
     "/phone_numbers/jobs/update_emergency_settings": {
       "post": {
         "x-latency-category": "background",
-        "summary": "Creates a background job to update the emergency settings of a collection of phone numbers. At most one thousand numbers can be updated per API call.",
+        "summary": "Update the emergency settings from a batch of numbers",
+        "description": "Creates a background job to update the emergency settings of a collection of phone numbers. At most one thousand numbers can be updated per API call.",
         "operationId": "createPhoneNumbersJobUpdateEmergencySettings",
         "tags": [
-          "Phone Number Jobs"
+          "Number Background Jobs"
         ],
         "requestBody": {
           "required": true,
@@ -6469,10 +6029,10 @@
     },
     "/phone_numbers/jobs/{id}": {
       "get": {
-        "summary": "Retrieves the details of a given phone numbers job.",
+        "summary": "Retrieve a phone numbers job",
         "operationId": "retrievePhoneNumbersJob",
         "tags": [
-          "Phone Number Jobs"
+          "Number Background Jobs"
         ],
         "parameters": [
           {
@@ -7166,7 +6726,6 @@
           {
             "name": "filter[friendly_name][contains]",
             "in": "query",
-            "required": false,
             "description": "If present, applications with <code>friendly_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.",
             "schema": {
               "type": "string",
@@ -7342,7 +6901,6 @@
       "FilterApplicationName": {
         "name": "filter[application_name][contains]",
         "in": "query",
-        "required": false,
         "description": "If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.",
         "schema": {
           "type": "string",
@@ -7458,16 +7016,25 @@
       "FilterConnectionName": {
         "name": "filter[connection_name][contains]",
         "in": "query",
-        "required": false,
         "description": "If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "default": null
+        }
+      },
+      "FilterInnerOutboundVoiceProfileId": {
+        "name": "filter[outbound.outbound_voice_profile_id]",
+        "in": "query",
+        "description": "Identifies the associated outbound voice profile.",
+        "schema": {
+          "type": "string",
+          "format": "int64",
+          "example": "1293384261075731499"
         }
       },
       "FilterOutboundVoiceProfileId": {
-        "name": "filter[outbound.outbound_voice_profile_id]",
+        "name": "filter[outbound_voice_profile_id]",
         "in": "query",
-        "required": false,
         "description": "Identifies the associated outbound voice profile.",
         "schema": {
           "type": "string",
@@ -7589,7 +7156,6 @@
       "SortConnection": {
         "name": "sort",
         "in": "query",
-        "required": false,
         "description": "Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>\nThat is: <ul>\n  <li>\n    <code>connection_name</code>: sorts the result by the\n    <code>connection_name</code> field in ascending order.\n  </li>\n\n  <li>\n    <code>-connection_name</code>: sorts the result by the\n    <code>connection_name</code> field in descending order.\n  </li>\n</ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.",
         "schema": {
           "type": "string",
@@ -7880,28 +7446,6 @@
               "properties": {
                 "data": {
                   "$ref": "#/components/schemas/Ip"
-                }
-              }
-            }
-          }
-        }
-      },
-      "ListAvailablePhoneNumbersBlockResponse": {
-        "description": "Successful response with a list of available phone numbers blocks.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "title": "List Available Phone Numbers Blocks Response",
-              "properties": {
-                "data": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AvailablePhoneNumberBlock"
-                  }
-                },
-                "meta": {
-                  "$ref": "#/components/schemas/AvailablePhoneNumbersMetadata"
                 }
               }
             }
@@ -8279,28 +7823,6 @@
           }
         }
       },
-      "ListNumberBlockOrdersResponse": {
-        "description": "Successful response with a list of number block orders.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "title": "List Number Block Orders Response",
-              "properties": {
-                "data": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/NumberBlockOrder"
-                  }
-                },
-                "meta": {
-                  "$ref": "#/components/schemas/PaginationMeta"
-                }
-              }
-            }
-          }
-        }
-      },
       "ListNumberOrderDocumentsResponse": {
         "description": "Successful response with a list of number order documents.",
         "content": {
@@ -8456,12 +7978,12 @@
         }
       },
       "ListPhoneNumbersJobsResponse": {
-        "description": "Successful response with a list of phone numbers asynchronous jobs.",
+        "description": "Successful response with a list of phone numbers background jobs.",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
-              "title": "List Phone Numbers Asynchronous Jobs Response",
+              "title": "List Phone Numbers Background Jobs Response",
               "properties": {
                 "data": {
                   "type": "array",
@@ -8653,22 +8175,6 @@
       },
       "NotFoundResponse": {
         "description": "Conference does not exist"
-      },
-      "NumberBlockOrderResponse": {
-        "description": "Successful response with details about a number block order.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "title": "Number Block Order Response",
-              "properties": {
-                "data": {
-                  "$ref": "#/components/schemas/NumberBlockOrder"
-                }
-              }
-            }
-          }
-        }
       },
       "NumberOrderDocumentResponse": {
         "description": "Successful response with details about a number order document.",
@@ -8988,10 +8494,10 @@
           "cost_information": {
             "$ref": "#/components/schemas/CostInformation"
           },
-          "features": {
+          "regulatory_requirements": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Feature"
+              "$ref": "#/components/schemas/RegulatoryRequirement"
             }
           }
         },
@@ -9013,71 +8519,12 @@
             "monthly_cost": "6.54",
             "currency": "USD"
           },
-          "features": [
+          "regulatory_requirements": [
             {
-              "name": "sms"
-            },
-            {
-              "name": "voice"
-            }
-          ]
-        }
-      },
-      "AvailablePhoneNumberBlock": {
-        "type": "object",
-        "properties": {
-          "record_type": {
-            "type": "string",
-            "example": "available_phone_number_block",
-            "enum": [
-              "available_phone_number_block"
-            ]
-          },
-          "starting_number": {
-            "type": "string",
-            "example": "+19705555000"
-          },
-          "range": {
-            "type": "integer",
-            "example": 10
-          },
-          "region_information": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RegionInformation"
-            }
-          },
-          "cost_information": {
-            "$ref": "#/components/schemas/CostInformation"
-          },
-          "features": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Feature"
-            }
-          }
-        },
-        "example": {
-          "record_type": "available_phone_number_block",
-          "phone_number": "+19705555000",
-          "range": 10,
-          "region_information": [
-            {
-              "region_type": "country_code",
-              "region_name": "US"
-            }
-          ],
-          "cost_information": {
-            "upfront_cost": "3.21",
-            "monthly_cost": "6.54",
-            "currency": "USD"
-          },
-          "features": [
-            {
-              "name": "sms"
-            },
-            {
-              "name": "voice"
+              "requirement_type": "end user proof of address",
+              "label": "Proof of Address",
+              "field_type": "address",
+              "description": "Requirement for providing Proof of Address."
             }
           ]
         }
@@ -10526,222 +9973,6 @@
           }
         }
       },
-      "CallMachinePremiumDetectionEnded": {
-        "type": "object",
-        "title": "Call Machine Premium Detection Ended",
-        "properties": {
-          "record_type": {
-            "type": "string",
-            "example": "event",
-            "enum": [
-              "event"
-            ],
-            "description": "Identifies the type of the resource."
-          },
-          "event_type": {
-            "type": "string",
-            "example": "call.machine.premium.detection.ended",
-            "enum": [
-              "call.machine.premium.detection.ended"
-            ],
-            "description": "The type of event being delivered."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
-            "description": "Identifies the type of resource."
-          },
-          "occurred_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2018-02-02T22:25:27.521992Z",
-            "description": "ISO 8601 datetime of when the event occurred."
-          },
-          "payload": {
-            "type": "object",
-            "properties": {
-              "call_control_id": {
-                "type": "string",
-                "example": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
-                "description": "Call ID used to issue commands via Call Control API."
-              },
-              "connection_id": {
-                "type": "string",
-                "example": "7267xxxxxxxxxxxxxx",
-                "description": "Telnyx connection ID used in the call."
-              },
-              "call_leg_id": {
-                "type": "string",
-                "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
-                "description": "ID that is unique to the call and can be used to correlate webhook events."
-              },
-              "call_session_id": {
-                "type": "string",
-                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
-                "description": "ID that is unique to the call session and can be used to correlate webhook events."
-              },
-              "client_state": {
-                "type": "string",
-                "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
-                "description": "State received from a command."
-              },
-              "from": {
-                "type": "string",
-                "example": "+35319605860",
-                "description": "Number or SIP URI placing the call."
-              },
-              "to": {
-                "type": "string",
-                "example": "+13129457420",
-                "description": "Destination number or SIP URI of the call."
-              },
-              "result": {
-                "type": "string",
-                "example": "machine",
-                "enum": [
-                  "human_residence",
-                  "human_business",
-                  "machine",
-                  "silence",
-                  "fax_detected"
-                ],
-                "description": "Premium Answering Machine Detection result."
-              }
-            }
-          }
-        },
-        "example": {
-          "record_type": "event",
-          "event_type": "call.machine.premium.detection.ended",
-          "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
-          "occurred_at": "2018-02-02T22:25:27.521992Z",
-          "payload": {
-            "connection_id": "7267xxxxxxxxxxxxxx",
-            "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
-            "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
-            "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
-            "from": "+35319605860",
-            "to": "+35319605860",
-            "result": "machine"
-          }
-        }
-      },
-      "CallMachinePremiumDetectionEndedEvent": {
-        "type": "object",
-        "title": "Call Machine Premium Detection Ended Event",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/CallMachinePremiumDetectionEnded"
-          }
-        }
-      },
-      "CallMachinePremiumGreetingEnded": {
-        "type": "object",
-        "title": "Call Machine Premium Greeting Ended",
-        "properties": {
-          "record_type": {
-            "type": "string",
-            "example": "event",
-            "enum": [
-              "event"
-            ],
-            "description": "Identifies the type of the resource."
-          },
-          "event_type": {
-            "type": "string",
-            "example": "call.machine.premium.greeting.ended",
-            "enum": [
-              "call.machine.premium.greeting.ended"
-            ],
-            "description": "The type of event being delivered."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
-            "description": "Identifies the type of resource."
-          },
-          "occurred_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2018-02-02T22:25:27.521992Z",
-            "description": "ISO 8601 datetime of when the event occurred."
-          },
-          "payload": {
-            "type": "object",
-            "properties": {
-              "call_control_id": {
-                "type": "string",
-                "example": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
-                "description": "Call ID used to issue commands via Call Control API."
-              },
-              "connection_id": {
-                "type": "string",
-                "example": "7267xxxxxxxxxxxxxx",
-                "description": "Telnyx connection ID used in the call."
-              },
-              "call_leg_id": {
-                "type": "string",
-                "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
-                "description": "ID that is unique to the call and can be used to correlate webhook events."
-              },
-              "call_session_id": {
-                "type": "string",
-                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
-                "description": "ID that is unique to the call session and can be used to correlate webhook events."
-              },
-              "client_state": {
-                "type": "string",
-                "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
-                "description": "State received from a command."
-              },
-              "from": {
-                "type": "string",
-                "example": "+35319605860",
-                "description": "Number or SIP URI placing the call."
-              },
-              "to": {
-                "type": "string",
-                "example": "+13129457420",
-                "description": "Destination number or SIP URI of the call."
-              },
-              "result": {
-                "type": "string",
-                "example": "beep_detected",
-                "enum": [
-                  "beep_detected"
-                ],
-                "description": "Premium Answering Machine Greeting Ended result."
-              }
-            }
-          }
-        },
-        "example": {
-          "record_type": "event",
-          "event_type": "call.machine.premium.greeting.ended",
-          "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
-          "occurred_at": "2018-02-02T22:25:27.521992Z",
-          "payload": {
-            "connection_id": "7267xxxxxxxxxxxxxx",
-            "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
-            "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
-            "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
-            "from": "+35319605860",
-            "to": "+35319605860",
-            "result": "beep_detected"
-          }
-        }
-      },
-      "CallMachinePremiumGreetingEndedEvent": {
-        "type": "object",
-        "title": "Call Machine Premium Greeting Ended Event",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/CallMachinePremiumGreetingEnded"
-          }
-        }
-      },
       "CallPlaybackEnded": {
         "type": "object",
         "title": "Call Playback Ended",
@@ -11231,7 +10462,7 @@
         "title": "Call Recording Saved Event",
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/CallReferStarted"
+            "$ref": "#/components/schemas/CallReferCompleted"
           }
         }
       },
@@ -11340,6 +10571,7 @@
       },
       "CallReferStarted": {
         "type": "object",
+        "title": "Call Refer Started",
         "properties": {
           "record_type": {
             "type": "string",
@@ -11434,7 +10666,7 @@
       },
       "CallReferStartedEvent": {
         "type": "object",
-        "title": "Call Recording Saved Event",
+        "title": "Call Refer Started Event",
         "properties": {
           "data": {
             "$ref": "#/components/schemas/CallReferStarted"
@@ -11522,11 +10754,10 @@
             "format": "int32"
           },
           "answering_machine_detection": {
-            "description": "Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a `call.machine.premium.detection.ended` webhook with one of the following results: `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect a beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we only send `call.machine.premium.greeting.ended`, and if we detect a beep after `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will receive another `call.machine.greeting.ended` webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive `call.machine.greeting.ended` if a beep is detected.",
+            "description": "Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If 'greeting_end' or 'detect_words' is used and a 'machine' is detected, you will receive another 'call.machine.greeting.ended' webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive 'call.machine.greeting.ended' if a beep is detected.",
             "default": "disabled",
             "type": "string",
             "enum": [
-              "premium",
               "detect",
               "detect_beep",
               "detect_words",
@@ -13434,7 +12665,7 @@
             "description": "The URL where webhooks related to this connection will be sent.",
             "type": "string",
             "format": "url",
-            "default": "",
+            "default": null,
             "nullable": true,
             "example": "https://example.com"
           },
@@ -13732,6 +12963,11 @@
       "CreateCredentialConnectionRequest": {
         "type": "object",
         "title": "Create Credential Connection Request",
+        "required": [
+          "user_name",
+          "password",
+          "connection_name"
+        ],
         "properties": {
           "active": {
             "type": "boolean",
@@ -13784,29 +13020,41 @@
             "default": false,
             "description": "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings."
           },
+          "webhook_event_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+            "example": "https://example.com"
+          },
+          "webhook_event_failover_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+            "example": "https://failover.example.com",
+            "nullable": true,
+            "default": ""
+          },
+          "webhook_api_version": {
+            "type": "string",
+            "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "example": "1",
+            "default": "1"
+          },
+          "webhook_timeout_secs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30,
+            "description": "Specifies how many seconds to wait before timing out a webhook.",
+            "example": 25,
+            "default": null,
+            "nullable": true
+          },
           "rtcp_settings": {
-            "type": "object",
-            "properties": {
-              "port": {
-                "enum": [
-                  "rtcp-mux",
-                  "rtp+1"
-                ],
-                "default": "rtp+1",
-                "description": "RTCP port by default is rtp+1, it can also be set to rtcp-mux"
-              },
-              "capture_enabled": {
-                "type": "boolean",
-                "default": false,
-                "description": "BETA - Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx Mission Control Portal.",
-                "example": true
-              },
-              "report_frequency_seconds": {
-                "type": "integer",
-                "default": 10,
-                "description": "RTCP reports are sent to customers based on the frequency set. Frequency is in seconds and it can be set to values from 5 to 3000 seconds."
-              }
-            }
+            "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
           "inbound": {
             "$ref": "#/components/schemas/CredentialInbound"
@@ -13827,6 +13075,10 @@
           "encode_contact_header_enabled": true,
           "encrypted_media": "SRTP",
           "onnet_t38_passthrough_enabled": true,
+          "webhook_event_url": "https://example.com",
+          "webhook_event_failover_url": "https://failover.example.com",
+          "webhook_api_version": "1",
+          "webhook_timeout_secs": 25,
           "rtcp_settings": {
             "port": "rtcp-mux",
             "capture_enabled": true,
@@ -13985,6 +13237,39 @@
             "default": false,
             "description": "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings."
           },
+          "webhook_event_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+            "example": "https://example.com"
+          },
+          "webhook_event_failover_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+            "example": "https://failover.example.com",
+            "nullable": true,
+            "default": ""
+          },
+          "webhook_api_version": {
+            "type": "string",
+            "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "example": "1",
+            "default": "1"
+          },
+          "webhook_timeout_secs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30,
+            "description": "Specifies how many seconds to wait before timing out a webhook.",
+            "example": 25,
+            "default": null,
+            "nullable": true
+          },
           "rtcp_settings": {
             "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
@@ -14002,6 +13287,10 @@
           "encode_contact_header_enabled": true,
           "encrypted_media": "SRTP",
           "onnet_t38_passthrough_enabled": true,
+          "webhook_event_url": "https://example.com",
+          "webhook_event_failover_url": "https://failover.example.com",
+          "webhook_api_version": "1",
+          "webhook_timeout_secs": 25,
           "rtcp_settings": {
             "port": "rtcp-mux",
             "capture_enabled": true,
@@ -14246,6 +13535,39 @@
             "description": "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings.",
             "example": false
           },
+          "webhook_event_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+            "example": "https://example.com"
+          },
+          "webhook_event_failover_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+            "example": "https://failover.example.com",
+            "nullable": true,
+            "default": ""
+          },
+          "webhook_api_version": {
+            "type": "string",
+            "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "example": "1",
+            "default": "1"
+          },
+          "webhook_timeout_secs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30,
+            "description": "Specifies how many seconds to wait before timing out a webhook.",
+            "example": 25,
+            "default": null,
+            "nullable": true
+          },
           "rtcp_settings": {
             "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
@@ -14266,6 +13588,10 @@
           "encode_contact_header_enabled": true,
           "encrypted_media": "SRTP",
           "onnet_t38_passthrough_enabled": false,
+          "webhook_event_url": "https://example.com",
+          "webhook_event_failover_url": "https://failover.example.com",
+          "webhook_api_version": "1",
+          "webhook_timeout_secs": 25,
           "rtcp_settings": {
             "port": "rtcp-mux",
             "capture_enabled": true,
@@ -14579,99 +13905,6 @@
           }
         }
       },
-      "CreateNumberBlockOrderRequest": {
-        "required": [
-          "starting_number",
-          "range"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "12ade33a-21c0-473b-b055-b3c836e1c292",
-            "readOnly": true
-          },
-          "record_type": {
-            "type": "string",
-            "example": "number_block_order",
-            "readOnly": true
-          },
-          "starting_number": {
-            "type": "string",
-            "description": "Starting phone number block",
-            "format": "e164_phone_number",
-            "example": "+19705555000",
-            "writeOnly": true
-          },
-          "range": {
-            "type": "integer",
-            "description": "The phone number range included in the block.",
-            "example": 10,
-            "writeOnly": true
-          },
-          "phone_numbers_count": {
-            "type": "integer",
-            "description": "The count of phone numbers in the number order.",
-            "example": 10,
-            "readOnly": true
-          },
-          "connection_id": {
-            "type": "string",
-            "example": "346789098765567",
-            "description": "Identifies the connection associated with this phone number."
-          },
-          "messaging_profile_id": {
-            "type": "string",
-            "example": "abc85f64-5717-4562-b3fc-2c9600",
-            "description": "Identifies the messaging profile associated with the phone number."
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "success",
-              "failure"
-            ],
-            "description": "The status of the order.",
-            "readOnly": true
-          },
-          "customer_reference": {
-            "type": "string",
-            "description": "A customer reference string for customer look ups.",
-            "example": "MY REF 001"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "datetime",
-            "description": "An ISO 8901 datetime string denoting when the number order was created.",
-            "example": "2018-01-01T00:00:00.000000Z",
-            "readOnly": true
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "datetime",
-            "description": "An ISO 8901 datetime string for when the number order was updated.",
-            "example": "2018-01-01T00:00:00.000000Z",
-            "readOnly": true
-          },
-          "requirements_met": {
-            "type": "boolean",
-            "description": "True if all requirements are met for every phone number, false otherwise.",
-            "example": true,
-            "readOnly": true
-          },
-          "errors": {
-            "type": "string",
-            "description": "Errors the reservation could happen upon",
-            "example": "Number is already on hold",
-            "readOnly": true
-          }
-        },
-        "example": {
-          "starting_number": "+19705555000",
-          "range": 10
-        }
-      },
       "CreateNumberOrderDocumentRequest": {
         "properties": {
           "id": {
@@ -14770,7 +14003,6 @@
               "success",
               "failure"
             ],
-            "example": "success",
             "description": "The status of the order.",
             "readOnly": true
           },
@@ -15338,7 +14570,8 @@
           },
           "sip_uri_calling_preference": {
             "type": "string",
-            "default": "disabled",
+            "default": null,
+            "example": "disabled",
             "description": "This feature enables inbound SIP URI calls to your Credential Auth Connection. If enabled for all (unrestricted) then anyone who calls the SIP URI <your-username>@telnyx.com will be connected to your Connection. You can also choose to allow only calls that are originated on any Connections under your account (internal).",
             "enum": [
               "disabled",
@@ -15348,7 +14581,7 @@
           },
           "default_on_hold_comfort_noise_enabled": {
             "type": "boolean",
-            "default": false,
+            "default": true,
             "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout."
           },
           "dtmf_type": {
@@ -15367,29 +14600,41 @@
             "default": false,
             "description": "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings."
           },
+          "webhook_event_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+            "example": "https://example.com"
+          },
+          "webhook_event_failover_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+            "example": "https://failover.example.com",
+            "nullable": true,
+            "default": ""
+          },
+          "webhook_api_version": {
+            "type": "string",
+            "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "example": "1",
+            "default": "1"
+          },
+          "webhook_timeout_secs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30,
+            "description": "Specifies how many seconds to wait before timing out a webhook.",
+            "example": 25,
+            "default": null,
+            "nullable": true
+          },
           "rtcp_settings": {
-            "type": "object",
-            "properties": {
-              "port": {
-                "enum": [
-                  "rtcp-mux",
-                  "rtp+1"
-                ],
-                "default": "rtp+1",
-                "description": "RTCP port by default is rtp+1, it can also be set to rtcp-mux"
-              },
-              "capture_enabled": {
-                "type": "boolean",
-                "default": false,
-                "description": "BETA - Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx Mission Control Portal.",
-                "example": true
-              },
-              "report_frequency_seconds": {
-                "type": "integer",
-                "default": 10,
-                "description": "RTCP reports are sent to customers based on the frequency set. Frequency is in seconds and it can be set to values from 5 to 3000 seconds."
-              }
-            }
+            "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
           "inbound": {
             "$ref": "#/components/schemas/CredentialInbound"
@@ -15414,6 +14659,10 @@
           "encode_contact_header_enabled": true,
           "encrypted_media": "SRTP",
           "onnet_t38_passthrough_enabled": true,
+          "webhook_event_url": "https://example.com",
+          "webhook_event_failover_url": "https://failover.example.com",
+          "webhook_api_version": "1",
+          "webhook_timeout_secs": 25,
           "rtcp_settings": {
             "port": "rtp+1",
             "capture_enabled": true,
@@ -15540,6 +14789,8 @@
           "timeout_2xx_secs": {
             "type": "string",
             "description": "Time(sec) before aborting if call is unanswered (min: 1, max: 600).",
+            "minimum": 1,
+            "maximum": 600,
             "default": "90"
           }
         }
@@ -15595,7 +14846,7 @@
           },
           "localization": {
             "type": "string",
-            "default": null,
+            "default": "US",
             "description": "A 2-character country code specifying the country whose national dialing rules should be used. For example, if set to `US` then any US number can be dialed without preprending +1 to the number. When left blank, Telnyx will try US and GB dialing rules, in that order, by default.",
             "example": "US"
           },
@@ -15894,17 +15145,6 @@
           "updated_at": "2018-02-02T22:25:27.521Z"
         }
       },
-      "Feature": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "sms"
-          }
-        },
-        "example": {
-          "name": "sms"
-        }
-      },
       "FirstCommandTimeout": {
         "title": "First Command Timeout",
         "type": "boolean",
@@ -16028,6 +15268,39 @@
             "default": false,
             "description": "Enable on-net T38 if you prefer that the sender and receiver negotiate T38 directly when both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call according to each leg's settings."
           },
+          "webhook_event_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+            "example": "https://example.com"
+          },
+          "webhook_event_failover_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+            "example": "https://failover.example.com",
+            "nullable": true,
+            "default": ""
+          },
+          "webhook_api_version": {
+            "type": "string",
+            "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "example": "1",
+            "default": "1"
+          },
+          "webhook_timeout_secs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30,
+            "description": "Specifies how many seconds to wait before timing out a webhook.",
+            "example": 25,
+            "default": null,
+            "nullable": true
+          },
           "rtcp_settings": {
             "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
@@ -16057,6 +15330,10 @@
           "encode_contact_header_enabled": true,
           "encrypted_media": "SRTP",
           "onnet_t38_passthrough_enabled": true,
+          "webhook_event_url": "https://example.com",
+          "webhook_event_failover_url": "https://failover.example.com",
+          "webhook_api_version": "1",
+          "webhook_timeout_secs": 25,
           "rtcp_settings": {
             "port": "rtcp-mux",
             "capture_enabled": true,
@@ -17186,6 +16463,39 @@
             "description": "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings.",
             "example": false
           },
+          "webhook_event_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+            "example": "https://example.com"
+          },
+          "webhook_event_failover_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+            "example": "https://failover.example.com",
+            "nullable": true,
+            "default": ""
+          },
+          "webhook_api_version": {
+            "type": "string",
+            "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "example": "1",
+            "default": "1"
+          },
+          "webhook_timeout_secs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30,
+            "description": "Specifies how many seconds to wait before timing out a webhook.",
+            "example": 25,
+            "default": null,
+            "nullable": true
+          },
           "rtcp_settings": {
             "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
@@ -17218,6 +16528,10 @@
           "encode_contact_header_enabled": true,
           "encrypted_media": "SRTP",
           "onnet_t38_passthrough_enabled": true,
+          "webhook_event_url": "https://example.com",
+          "webhook_event_failover_url": "https://failover.example.com",
+          "webhook_api_version": "1",
+          "webhook_timeout_secs": 25,
           "rtcp_settings": {
             "port": "rtcp-mux",
             "capture_enabled": true,
@@ -17781,98 +17095,6 @@
           "use_case": "test"
         }
       },
-      "NumberBlockOrder": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "12ade33a-21c0-473b-b055-b3c836e1c292",
-            "readOnly": true
-          },
-          "record_type": {
-            "type": "string",
-            "example": "number_block_order",
-            "readOnly": true
-          },
-          "starting_number": {
-            "type": "string",
-            "description": "Starting phone number block",
-            "format": "e164_phone_number",
-            "example": "+19705555000"
-          },
-          "range": {
-            "type": "integer",
-            "description": "The phone number range included in the block.",
-            "example": 10
-          },
-          "phone_numbers_count": {
-            "type": "integer",
-            "description": "The count of phone numbers in the number order.",
-            "example": 1,
-            "readOnly": true
-          },
-          "connection_id": {
-            "type": "string",
-            "example": "346789098765567",
-            "description": "Identifies the connection associated to all numbers in the phone number block."
-          },
-          "messaging_profile_id": {
-            "type": "string",
-            "example": "abc85f64-5717-4562-b3fc-2c9600",
-            "description": "Identifies the messaging profile associated to all numbers in the phone number block."
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "success",
-              "failure"
-            ],
-            "example": "success",
-            "description": "The status of the order.",
-            "readOnly": true
-          },
-          "customer_reference": {
-            "type": "string",
-            "description": "A customer reference string for customer look ups.",
-            "example": "MY REF 001"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "datetime",
-            "description": "An ISO 8901 datetime string denoting when the number order was created.",
-            "example": "2018-01-01T00:00:00.000000Z",
-            "readOnly": true
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "datetime",
-            "description": "An ISO 8901 datetime string for when the number order was updated.",
-            "example": "2018-01-01T00:00:00.000000Z",
-            "readOnly": true
-          },
-          "requirements_met": {
-            "type": "boolean",
-            "description": "True if all requirements are met for every phone number, false otherwise.",
-            "example": true,
-            "readOnly": true
-          }
-        },
-        "example": {
-          "id": "12ade33a-21c0-473b-b055-b3c836e1c292",
-          "starting_number": "+19705555000",
-          "range": 10,
-          "record_type": "number_block_order",
-          "connection_id": "346789098765567",
-          "messaging_profile_id": "abc85f64-5717-4562-b3fc-2c9600",
-          "phone_numbers_count": 10,
-          "status": "pending",
-          "customer_reference": "MY REF 001",
-          "created_at": "2018-01-01T00:00:00.000000Z",
-          "updated_at": "2018-01-01T00:00:00.000000Z",
-          "requirements_met": true
-        }
-      },
       "NumberHealthMetrics": {
         "type": "object",
         "nullable": false,
@@ -18012,15 +17234,6 @@
           "created_at": "2018-01-01T00:00:00.000000Z",
           "updated_at": "2018-01-01T00:00:00.000000Z",
           "requirements_met": true
-        }
-      },
-      "NumberOrderBlockEvent": {
-        "type": "object",
-        "title": "Number Order Event",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/NumberBlockOrder"
-          }
         }
       },
       "NumberOrderDocument": {
@@ -19209,14 +18422,14 @@
             "description": "The user-assigned name of the connection to be associated with this phone number.",
             "readOnly": true
           },
-          "connection_id": {
-            "type": "string",
-            "description": "Identifies the connection associated with the phone number."
-          },
           "customer_reference": {
             "type": "string",
             "description": "A customer reference string for customer look ups.",
             "example": "MY REF 001"
+          },
+          "connection_id": {
+            "type": "string",
+            "description": "Identifies the connection associated with the phone number."
           },
           "messaging_profile_id": {
             "type": "string",
@@ -19582,7 +18795,7 @@
           "id": "1293384261075731499",
           "record_type": "voice_settings",
           "connection_id": "1d0e6cb8-8668-462e-94c6-49ae0f0ed48b",
-          "customer_reference": "customer-reference",
+          "customer_reference": "customer_reference",
           "tech_prefix_enabled": false,
           "translated_number": "+13035559999",
           "call_forwarding": {
@@ -19609,21 +18822,6 @@
             "inbound_call_recording_enabled": true,
             "inbound_call_recording_format": "wav",
             "inbound_call_recording_channels": "single"
-          }
-        }
-      },
-      "PhoneNumbersBulkUpdateError": {
-        "properties": {
-          "phone_number": {
-            "type": "string",
-            "description": "The phone number in e164 format.",
-            "format": "e164"
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Error"
-            }
           }
         }
       },
@@ -19654,7 +18852,7 @@
             ],
             "default": "pending",
             "example": "pending",
-            "description": "Indicates the completion status of the asynchronous update.",
+            "description": "Indicates the completion status of the background update.",
             "readOnly": true
           },
           "type": {
@@ -19664,13 +18862,13 @@
               "delete_phone_numbers"
             ],
             "example": "update_emergency_settings",
-            "description": "Identifies the type of the asynchronous job.",
+            "description": "Identifies the type of the background job.",
             "readOnly": true
           },
           "etc": {
             "type": "string",
             "format": "date-time",
-            "description": "ISO 8601 formatted date indicating when the estimated time of completion of the asynchronous job.",
+            "description": "ISO 8601 formatted date indicating when the estimated time of completion of the background job.",
             "readOnly": true
           },
           "created_at": {
@@ -19846,9 +19044,9 @@
           },
           "loop": {
             "description": "The number of times the audio file should be played. If supplied, the value must be an integer between 1 and 100, or the special string `infinity` for an endless loop.",
-            "$ref": "#/components/schemas/Loopcount",
             "example": "infinity",
-            "default": 1
+            "default": 1,
+            "$ref": "#/components/schemas/Loopcount"
           },
           "overlay": {
             "description": "When enabled, audio will be mixed on top of any other audio that is actively being played back. Note that `overlay: true` will only work if there is another audio file already being played on the call.",
@@ -20292,7 +19490,6 @@
               "failure"
             ],
             "description": "The status of the phone number's reservation.",
-            "example": "success",
             "readOnly": true
           },
           "created_at": {
@@ -20314,6 +19511,12 @@
             "format": "datetime",
             "description": "An ISO 8901 datetime string for when the individual number reservation is going to expire",
             "example": "2018-01-01T00:00:00.000000Z",
+            "readOnly": true
+          },
+          "errors": {
+            "type": "string",
+            "description": "Errors the reservation could happen upon",
+            "example": "Number is already on hold",
             "readOnly": true
           }
         },
@@ -20955,7 +20158,6 @@
             "default": "disabled",
             "type": "string",
             "enum": [
-              "premium",
               "detect",
               "detect_beep",
               "detect_words",
@@ -21263,29 +20465,41 @@
             "default": false,
             "description": "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings."
           },
+          "webhook_event_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+            "example": "https://example.com"
+          },
+          "webhook_event_failover_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+            "example": "https://failover.example.com",
+            "nullable": true,
+            "default": ""
+          },
+          "webhook_api_version": {
+            "type": "string",
+            "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "example": "1",
+            "default": "1"
+          },
+          "webhook_timeout_secs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30,
+            "description": "Specifies how many seconds to wait before timing out a webhook.",
+            "example": 25,
+            "default": null,
+            "nullable": true
+          },
           "rtcp_settings": {
-            "type": "object",
-            "properties": {
-              "port": {
-                "enum": [
-                  "rtcp-mux",
-                  "rtp+1"
-                ],
-                "default": "rtp+1",
-                "description": "RTCP port by default is rtp+1, it can also be set to rtcp-mux"
-              },
-              "capture_enabled": {
-                "type": "boolean",
-                "default": false,
-                "description": "BETA - Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx Mission Control Portal.",
-                "example": true
-              },
-              "report_frequency_seconds": {
-                "type": "integer",
-                "default": 10,
-                "description": "RTCP reports are sent to customers based on the frequency set. Frequency is in seconds and it can be set to values from 5 to 3000 seconds."
-              }
-            }
+            "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
           "inbound": {
             "$ref": "#/components/schemas/CredentialInbound"
@@ -21306,6 +20520,10 @@
           "encode_contact_header_enabled": true,
           "encrypted_media": "SRTP",
           "onnet_t38_passthrough_enabled": true,
+          "webhook_event_url": "https://example.com",
+          "webhook_event_failover_url": "https://failover.example.com",
+          "webhook_api_version": "1",
+          "webhook_timeout_secs": 25,
           "rtcp_settings": {
             "port": "rtcp-mux",
             "capture_enabled": true,
@@ -21460,6 +20678,39 @@
             "default": false,
             "description": "Enable on-net T38 if you prefer that the sender and receiver negotiate T38 directly when both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call according to each leg's settings."
           },
+          "webhook_event_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+            "example": "https://example.com"
+          },
+          "webhook_event_failover_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+            "example": "https://failover.example.com",
+            "nullable": true,
+            "default": ""
+          },
+          "webhook_api_version": {
+            "type": "string",
+            "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "example": "1",
+            "default": "1"
+          },
+          "webhook_timeout_secs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30,
+            "description": "Specifies how many seconds to wait before timing out a webhook.",
+            "example": 25,
+            "default": null,
+            "nullable": true
+          },
           "rtcp_settings": {
             "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
@@ -21477,6 +20728,10 @@
           "encode_contact_header_enabled": true,
           "encrypted_media": "SRTP",
           "onnet_t38_passthrough_enabled": true,
+          "webhook_event_url": "https://example.com",
+          "webhook_event_failover_url": "https://failover.example.com",
+          "webhook_api_version": "1",
+          "webhook_timeout_secs": 25,
           "rtcp_settings": {
             "port": "rtcp-mux",
             "capture_enabled": true,
@@ -21580,6 +20835,39 @@
             "default": false,
             "description": "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings."
           },
+          "webhook_event_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+            "example": "https://example.com"
+          },
+          "webhook_event_failover_url": {
+            "type": "string",
+            "format": "url",
+            "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+            "example": "https://failover.example.com",
+            "nullable": true,
+            "default": ""
+          },
+          "webhook_api_version": {
+            "type": "string",
+            "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "example": "1",
+            "default": "1"
+          },
+          "webhook_timeout_secs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30,
+            "description": "Specifies how many seconds to wait before timing out a webhook.",
+            "example": 25,
+            "default": null,
+            "nullable": true
+          },
           "rtcp_settings": {
             "$ref": "#/components/schemas/ConnectionRtcpSettings"
           },
@@ -21600,6 +20888,10 @@
           "encode_contact_header_enabled": true,
           "encrypted_media": "SRTP",
           "onnet_t38_passthrough_enabled": false,
+          "webhook_event_url": "https://example.com",
+          "webhook_event_failover_url": "https://failover.example.com",
+          "webhook_api_version": "1",
+          "webhook_timeout_secs": 25,
           "rtcp_settings": {
             "port": "rtcp-mux",
             "capture_enabled": true,

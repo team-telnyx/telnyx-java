@@ -198,7 +198,7 @@ public class Example {
         String filterUsagePaymentMethod = channel; // String | Filter by usage_payment_method.
         String filterBillingGroupId = 62e4bf2e-c278-4282-b524-488d9c9c43b2; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
         String filterEmergencyAddressId = 9102160989215728032; // String | Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
-        String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
+        String filterCustomerReference = MY REF 001; // String | Filter numbers via the customer_reference set.
         String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumbersResponse result = api.listPhoneNumbers()

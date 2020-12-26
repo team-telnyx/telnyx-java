@@ -18,11 +18,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.CreateCredentialConnectionRequestRtcpSettings;
+import com.telnyx.sdk.model.AnchorsiteOverride;
+import com.telnyx.sdk.model.ConnectionRtcpSettings;
 import com.telnyx.sdk.model.CredentialInbound;
 import com.telnyx.sdk.model.CredentialOutbound;
+import com.telnyx.sdk.model.DtmfType;
+import com.telnyx.sdk.model.EncryptedMedia;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -128,6 +134,38 @@ public class CreateCredentialConnectionRequestTest {
     @Test
     public void onnetT38PassthroughEnabledTest() {
         // TODO: test onnetT38PassthroughEnabled
+    }
+
+    /**
+     * Test the property 'webhookEventUrl'
+     */
+    @Test
+    public void webhookEventUrlTest() {
+        // TODO: test webhookEventUrl
+    }
+
+    /**
+     * Test the property 'webhookEventFailoverUrl'
+     */
+    @Test
+    public void webhookEventFailoverUrlTest() {
+        // TODO: test webhookEventFailoverUrl
+    }
+
+    /**
+     * Test the property 'webhookApiVersion'
+     */
+    @Test
+    public void webhookApiVersionTest() {
+        // TODO: test webhookApiVersion
+    }
+
+    /**
+     * Test the property 'webhookTimeoutSecs'
+     */
+    @Test
+    public void webhookTimeoutSecsTest() {
+        // TODO: test webhookTimeoutSecs
     }
 
     /**

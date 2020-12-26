@@ -100,7 +100,7 @@ public class CredentialOutbound {
   private Boolean generateRingbackTone = false;
 
   public static final String JSON_PROPERTY_LOCALIZATION = "localization";
-  private String localization = "null";
+  private String localization = "US";
 
   /**
    * This setting only affects connections with Fax-type Outbound Voice Profiles. The setting dictates whether or not Telnyx sends a t.38 reinvite.&lt;br/&gt;&lt;br/&gt; By default, Telnyx will send the re-invite. If set to &#x60;customer&#x60;, the caller is expected to send the t.38 reinvite.

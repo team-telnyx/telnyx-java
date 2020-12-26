@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**createCredentialConnection**](CredentialConnectionsApi.md#createCredentialConnection) | **POST** /credential_connections | Create a credential connection
 [**deleteCredentialConnection**](CredentialConnectionsApi.md#deleteCredentialConnection) | **DELETE** /credential_connections/{id} | Delete a credential connection
 [**listCredentialConnections**](CredentialConnectionsApi.md#listCredentialConnections) | **GET** /credential_connections | List credential connections
-[**retrieveCredentialConnection**](CredentialConnectionsApi.md#retrieveCredentialConnection) | **GET** /credential_connections/{id} | Retrieve a connection
+[**retrieveCredentialConnection**](CredentialConnectionsApi.md#retrieveCredentialConnection) | **GET** /credential_connections/{id} | Retrieve a credential connection
 [**updateCredentialConnection**](CredentialConnectionsApi.md#updateCredentialConnection) | **PATCH** /credential_connections/{id} | Update a credential connection
 
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## listCredentialConnections
 
-> ListCredentialConnectionsResponse listCredentialConnections(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort)
+> ListCredentialConnectionsResponse listCredentialConnections().pageNumber(pageNumber).pageSize(pageSize).filterConnectionNameContains(filterConnectionNameContains).filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId).sort(sort).execute();
 
 List credential connections
 
@@ -187,11 +187,17 @@ public class Example {
         CredentialConnectionsApi apiInstance = new CredentialConnectionsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load.
         Integer pageSize = 20; // Integer | The size of the page.
-        String filterConnectionNameContains = "filterConnectionNameContains_example"; // String | If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+        String filterConnectionNameContains = "\"null\""; // String | If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
         String filterOutboundOutboundVoiceProfileId = 1293384261075731499; // String | Identifies the associated outbound voice profile.
         String sort = connection_name; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
         try {
-            ListCredentialConnectionsResponse result = apiInstance.listCredentialConnections(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort);
+            ListCredentialConnectionsResponse result = api.listCredentialConnections()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterConnectionNameContains(filterConnectionNameContains)
+                .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
+                .sort(sort)
+                .execute();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CredentialConnectionsApi#listCredentialConnections");
@@ -211,7 +217,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
- **filterConnectionNameContains** | **String**| If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. | [optional]
+ **filterConnectionNameContains** | **String**| If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. | [optional] [default to &quot;null&quot;]
  **filterOutboundOutboundVoiceProfileId** | **String**| Identifies the associated outbound voice profile. | [optional]
  **sort** | **String**| Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. | [optional] [default to created_at] [enum: created_at, connection_name, active]
 
@@ -241,7 +247,7 @@ Name | Type | Description  | Notes
 
 > CredentialConnectionResponse retrieveCredentialConnection(id)
 
-Retrieve a connection
+Retrieve a credential connection
 
 Retrieves the details of an existing credential connection.
 

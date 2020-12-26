@@ -191,49 +191,8 @@ public class IpConnectionsApi {
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
-  /**
-   * List Ip connections
-   * Returns a list of your IP connections.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
-   * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional)
-   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return ListIpConnectionsResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with a list of IP connections. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public ListIpConnectionsResponse listIpConnections(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
-    return listIpConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort).getData();
-  }
 
-  /**
-   * List Ip connections
-   * Returns a list of your IP connections.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
-   * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional)
-   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return ApiResponse&lt;ListIpConnectionsResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with a list of IP connections. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<ListIpConnectionsResponse> listIpConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+private ApiResponse<ListIpConnectionsResponse> listIpConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -271,6 +230,116 @@ public class IpConnectionsApi {
     return apiClient.invokeAPI("IpConnectionsApi.listIpConnections", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
+  }
+
+  public class APIlistIpConnectionsRequest {
+    private Integer pageNumber;
+    private Integer pageSize;
+    private String filterConnectionNameContains;
+    private String filterOutboundOutboundVoiceProfileId;
+    private String sort;
+
+    private APIlistIpConnectionsRequest() {
+    }
+
+    /**
+     * Set pageNumber
+     * @param pageNumber The page number to load. (optional, default to 1)
+     * @return APIlistIpConnectionsRequest
+     */
+    public APIlistIpConnectionsRequest pageNumber(Integer pageNumber) {
+      this.pageNumber = pageNumber;
+      return this;
+    }
+
+    /**
+     * Set pageSize
+     * @param pageSize The size of the page. (optional, default to 20)
+     * @return APIlistIpConnectionsRequest
+     */
+    public APIlistIpConnectionsRequest pageSize(Integer pageSize) {
+      this.pageSize = pageSize;
+      return this;
+    }
+
+    /**
+     * Set filterConnectionNameContains
+     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
+     * @return APIlistIpConnectionsRequest
+     */
+    public APIlistIpConnectionsRequest filterConnectionNameContains(String filterConnectionNameContains) {
+      this.filterConnectionNameContains = filterConnectionNameContains;
+      return this;
+    }
+
+    /**
+     * Set filterOutboundOutboundVoiceProfileId
+     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+     * @return APIlistIpConnectionsRequest
+     */
+    public APIlistIpConnectionsRequest filterOutboundOutboundVoiceProfileId(String filterOutboundOutboundVoiceProfileId) {
+      this.filterOutboundOutboundVoiceProfileId = filterOutboundOutboundVoiceProfileId;
+      return this;
+    }
+
+    /**
+     * Set sort
+     * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+     * @return APIlistIpConnectionsRequest
+     */
+    public APIlistIpConnectionsRequest sort(String sort) {
+      this.sort = sort;
+      return this;
+    }
+
+    /**
+     * Execute listIpConnections request
+     * @return ListIpConnectionsResponse
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of IP connections. </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       </table>
+     
+     */
+    
+    public ListIpConnectionsResponse execute() throws ApiException {
+      return this.executeWithHttpInfo().getData();
+    }
+
+    /**
+     * Execute listIpConnections request with HTTP info returned
+     * @return ApiResponse&lt;ListIpConnectionsResponse&gt;
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of IP connections. </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       </table>
+
+     */
+    public ApiResponse<ListIpConnectionsResponse> executeWithHttpInfo() throws ApiException {
+      return listIpConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort);
+    }
+  }
+
+  /**
+   * List Ip connections
+   * Returns a list of your IP connections.
+   * @return listIpConnectionsRequest
+   * @throws ApiException if fails to make API call
+   
+   
+   */
+  public APIlistIpConnectionsRequest listIpConnections() throws ApiException {
+    return new APIlistIpConnectionsRequest();
   }
   /**
    * Retrieve an Ip connection

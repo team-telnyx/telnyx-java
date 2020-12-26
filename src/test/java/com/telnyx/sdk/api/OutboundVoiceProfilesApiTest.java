@@ -15,9 +15,10 @@ package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.MultipleOutboundVoiceProfiles;
-import com.telnyx.sdk.model.OutboundVoiceProfileWritable;
-import com.telnyx.sdk.model.SingleOutboundVoiceProfile;
+import com.telnyx.sdk.model.CreateOutboundVoiceProfileRequest;
+import com.telnyx.sdk.model.ListOutboundVoiceProfilesResponse;
+import com.telnyx.sdk.model.OutboundVoiceProfileResponse;
+import com.telnyx.sdk.model.UpdateOutboundVoiceProfileRequest;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -45,8 +46,8 @@ public class OutboundVoiceProfilesApiTest {
      */
     @Test
     public void createOutboundVoiceProfileTest() throws ApiException {
-        //OutboundVoiceProfileWritable outboundVoiceProfileWritable = null;
-        //SingleOutboundVoiceProfile response = api.createOutboundVoiceProfile(outboundVoiceProfileWritable);
+        //CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest = null;
+        //OutboundVoiceProfileResponse response = api.createOutboundVoiceProfile(createOutboundVoiceProfileRequest);
         // TODO: test validations
     }
 
@@ -61,22 +62,7 @@ public class OutboundVoiceProfilesApiTest {
     @Test
     public void deleteOutboundVoiceProfileTest() throws ApiException {
         //String id = null;
-        //SingleOutboundVoiceProfile response = api.deleteOutboundVoiceProfile(id);
-        // TODO: test validations
-    }
-
-    /**
-     * Retrieve an outbound voice profile
-     *
-     * Retrieves the details of an existing outbound voice profile.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void getOutboundVoiceProfileTest() throws ApiException {
-        //String id = null;
-        //SingleOutboundVoiceProfile response = api.getOutboundVoiceProfile(id);
+        //OutboundVoiceProfileResponse response = api.deleteOutboundVoiceProfile(id);
         // TODO: test validations
     }
 
@@ -89,12 +75,32 @@ public class OutboundVoiceProfilesApiTest {
      *          if the Api call fails
      */
     @Test
-    public void getOutboundVoiceProfilesTest() throws ApiException {
+    public void listOutboundVoiceProfilesTest() throws ApiException {
         //Integer pageNumber = null;
         //Integer pageSize = null;
         //String filterNameContains = null;
         //String sort = null;
-        //MultipleOutboundVoiceProfiles response = api.getOutboundVoiceProfiles(pageNumber, pageSize, filterNameContains, sort);
+        //ListOutboundVoiceProfilesResponse response = api.listOutboundVoiceProfiles()
+        //        .pageNumber(pageNumber)
+        //        .pageSize(pageSize)
+        //        .filterNameContains(filterNameContains)
+        //        .sort(sort)
+        //        .execute();
+        // TODO: test validations
+    }
+
+    /**
+     * Retrieve an outbound voice profile
+     *
+     * Retrieves the details of an existing outbound voice profile.
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void retrieveOutboundVoiceProfileTest() throws ApiException {
+        //String id = null;
+        //OutboundVoiceProfileResponse response = api.retrieveOutboundVoiceProfile(id);
         // TODO: test validations
     }
 
@@ -109,8 +115,8 @@ public class OutboundVoiceProfilesApiTest {
     @Test
     public void updateOutboundVoiceProfileTest() throws ApiException {
         //String id = null;
-        //OutboundVoiceProfileWritable outboundVoiceProfileWritable = null;
-        //SingleOutboundVoiceProfile response = api.updateOutboundVoiceProfile(id, outboundVoiceProfileWritable);
+        //UpdateOutboundVoiceProfileRequest updateOutboundVoiceProfileRequest = null;
+        //OutboundVoiceProfileResponse response = api.updateOutboundVoiceProfile(id, updateOutboundVoiceProfileRequest);
         // TODO: test validations
     }
 

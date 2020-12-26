@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **tags** | **List&lt;String&gt;** | A list of user-assigned tags to help manage the phone number. |  [optional]
 **externalPin** | **String** | If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, Telnyx will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism. |  [optional]
 **connectionName** | **String** | The user-assigned name of the connection to be associated with this phone number. |  [optional] [readonly]
+**customerReference** | **String** | A customer reference string for customer look ups. |  [optional]
 **connectionId** | **String** | Identifies the connection associated with the phone number. |  [optional]
 **customerReference** | **String** | A customer reference string for customer look ups. |  [optional]
 **messagingProfileId** | **String** | Identifies the messaging profile associated with the phone number. |  [optional]

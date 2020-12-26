@@ -197,10 +197,7 @@ Dial a number or SIP URI from a given connection. A successful response will inc
 - `call.initiated`
 - `call.answered` or `call.hangup`
 - `call.machine.detection.ended` if `answering_machine_detection` was requested
-- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting
-- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
-- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected
-
+- `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`
 
 ### Example
 
@@ -1622,10 +1619,7 @@ Transfer a call to a new destination. If the transfer is unsuccessful, a `call.h
 - `call.bridged` to Leg B
 - `call.answered` or `call.hangup`
 - `call.machine.detection.ended` if `answering_machine_detection` was requested
-- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting
-- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
-- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected
-
+- `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`
 
 ### Example
 

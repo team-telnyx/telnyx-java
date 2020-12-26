@@ -79,9 +79,9 @@ public class TeXmlApplicationsApiTest {
         //Integer pageNumber = null;
         //Integer pageSize = null;
         //String filterFriendlyNameContains = null;
-        //String filterOutboundOutboundVoiceProfileId = null;
+        //String filterOutboundVoiceProfileId = null;
         //String sort = null;
-        //InlineResponse2001 response = api.findTexmlApplications(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundOutboundVoiceProfileId, sort);
+        //InlineResponse2001 response = api.findTexmlApplications(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundVoiceProfileId, sort);
         // TODO: test validations
     }
 

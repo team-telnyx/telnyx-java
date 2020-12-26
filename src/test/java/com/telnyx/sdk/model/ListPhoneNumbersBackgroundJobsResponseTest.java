@@ -18,60 +18,45 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.PaginationMeta;
+import com.telnyx.sdk.model.PhoneNumbersJob;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
 /**
- * Model tests for CreateFqdnRequest
+ * Model tests for ListPhoneNumbersBackgroundJobsResponse
  */
-public class CreateFqdnRequestTest {
-    private final CreateFqdnRequest model = new CreateFqdnRequest();
+public class ListPhoneNumbersBackgroundJobsResponseTest {
+    private final ListPhoneNumbersBackgroundJobsResponse model = new ListPhoneNumbersBackgroundJobsResponse();
 
     /**
-     * Model tests for CreateFqdnRequest
+     * Model tests for ListPhoneNumbersBackgroundJobsResponse
      */
     @Test
-    public void testCreateFqdnRequest() {
-        // TODO: test CreateFqdnRequest
+    public void testListPhoneNumbersBackgroundJobsResponse() {
+        // TODO: test ListPhoneNumbersBackgroundJobsResponse
     }
 
     /**
-     * Test the property 'connectionId'
+     * Test the property 'data'
      */
     @Test
-    public void connectionIdTest() {
-        // TODO: test connectionId
+    public void dataTest() {
+        // TODO: test data
     }
 
     /**
-     * Test the property 'fqdn'
+     * Test the property 'meta'
      */
     @Test
-    public void fqdnTest() {
-        // TODO: test fqdn
-    }
-
-    /**
-     * Test the property 'port'
-     */
-    @Test
-    public void portTest() {
-        // TODO: test port
-    }
-
-    /**
-     * Test the property 'dnsRecordType'
-     */
-    @Test
-    public void dnsRecordTypeTest() {
-        // TODO: test dnsRecordType
+    public void metaTest() {
+        // TODO: test meta
     }
 
 }

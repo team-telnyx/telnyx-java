@@ -30,7 +30,7 @@ tags:
 - description: FQDN connection operations
   name: FQDN Connections
 - description: FQDN operations
-  name: FQDNS
+  name: FQDNs
 - description: IP connection operations
   name: IP Connections
 - description: IP operations
@@ -43,6 +43,8 @@ tags:
   name: Messaging Profiles
 - description: Messaging URL Domains
   name: Messaging URL Domains
+- description: Background jobs performed over a batch of phone numbers
+  name: Number Background Jobs
 - description: Configure your phone numbers
   name: Number Configurations
 - description: Number order documents
@@ -57,8 +59,6 @@ tags:
   name: Number Search
 - description: Outbound voice profiles operations
   name: Outbound Voice Profiles
-- description: Asynchronous jobs performed over a batch of phone numbers
-  name: Phone Number Jobs
 - description: Fax Applications operations
   name: Programmable Fax Applications
 - description: Recordings commands operations
@@ -68,166 +68,6 @@ tags:
 - description: TeXML Applications operations
   name: TeXML Applications
 paths:
-  /available_phone_number_blocks:
-    get:
-      operationId: listAvailablePhoneNumberBlocks
-      parameters:
-      - description: Filter number blocks that start with a pattern (meant to be used
-          after `national_destination_code` filter has been set).
-        explode: true
-        in: query
-        name: filter[phone_number][starts_with]
-        required: false
-        schema:
-          example: "201"
-          type: string
-        style: form
-      - description: Filter numbers ending with a pattern.
-        explode: true
-        in: query
-        name: filter[phone_number][ends_with]
-        required: false
-        schema:
-          example: "8000"
-          type: string
-        style: form
-      - description: Filter numbers containing a pattern.
-        explode: true
-        in: query
-        name: filter[phone_number][contains]
-        required: false
-        schema:
-          example: "456"
-          type: string
-        style: form
-      - description: Filter phone numbers by city.
-        examples:
-          US:
-            value: Chicago
-          CA:
-            value: Toronto
-          AU:
-            value: Canberra
-        explode: true
-        in: query
-        name: filter[locality]
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Filter phone numbers by US state/CA province.
-        explode: true
-        in: query
-        name: filter[administrative_area]
-        required: false
-        schema:
-          example: IL
-          type: string
-        style: form
-      - description: Filter phone numbers by ISO alpha-2 country code.
-        explode: true
-        in: query
-        name: filter[country_code]
-        required: false
-        schema:
-          example: US
-          type: string
-        style: form
-      - description: Filter by the national destination code of the number. This filter
-          is only applicable to North American numbers.
-        examples:
-          US:
-            value: "312"
-          CA:
-            value: "437"
-          AU:
-            value: "0251"
-        explode: true
-        in: query
-        name: filter[national_destination_code]
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Filter phone numbers by NANP rate center. This filter is only
-          applicable to North American numbers.
-        explode: true
-        in: query
-        name: filter[rate_center]
-        required: false
-        schema:
-          example: CHICAGO HEIGHTS
-          type: string
-        style: form
-      - description: Filter phone numbers by number type.
-        explode: true
-        in: query
-        name: filter[number_type]
-        required: false
-        schema:
-          enum:
-          - toll-free
-          - national
-          - mobile
-          - local
-          example: local
-          type: string
-        style: form
-      - description: Filter if the phone number should be used for voice, fax, mms,
-          sms, emergency.
-        explode: true
-        in: query
-        name: filter[features]
-        required: false
-        schema:
-          example: voice,sms
-          items:
-            enum:
-            - sms
-            - mms
-            - voice
-            - fax
-            - emergency
-            type: string
-          type: array
-        style: form
-      - description: Filter number blocks by minimum blocks size
-        explode: true
-        in: query
-        name: filter[minimum_block_size]
-        required: false
-        schema:
-          example: 100
-          type: integer
-        style: form
-      - description: Limits the number of results.
-        explode: true
-        in: query
-        name: filter[limit]
-        required: false
-        schema:
-          example: 100
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/List_Available_Phone_Numbers_Blocks_Response'
-          description: Successful response with a list of available phone numbers
-            blocks.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: List available phone number blocks
-      tags:
-      - Number Search
-      x-latency-category: responsive
-      x-accepts: application/json
   /available_phone_numbers:
     get:
       operationId: listAvailablePhoneNumbers
@@ -457,7 +297,7 @@ paths:
       - description: Identifies the associated outbound voice profile.
         explode: true
         in: query
-        name: filter[outbound.outbound_voice_profile_id]
+        name: filter[outbound_voice_profile_id]
         required: false
         schema:
           example: "1293384261075731499"
@@ -823,36 +663,6 @@ paths:
                   description: The server must return an HTTP 200, otherwise we will
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
-        callMachinePremiumDetectionEnded:
-          '{$request.body#/webhook_url}':
-            post:
-              operationId: callMachinePremiumDetectionEnded_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/CallMachinePremiumDetectionEndedEvent'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-        callMachinePremiumGreetingEnded:
-          '{$request.body#/webhook_url}':
-            post:
-              operationId: callMachinePremiumGreetingEnded_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/CallMachinePremiumGreetingEndedEvent'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
         callMachineDetectionEnded:
           '{$request.body#/webhook_url}':
             post:
@@ -883,7 +693,7 @@ paths:
                   description: The server must return an HTTP 200, otherwise we will
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
-      description: |
+      description: |-
         Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.
 
         **Expected Webhooks:**
@@ -891,9 +701,7 @@ paths:
         - `call.initiated`
         - `call.answered` or `call.hangup`
         - `call.machine.detection.ended` if `answering_machine_detection` was requested
-        - `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting
-        - `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
-        - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected
+        - `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`
       operationId: callDial
       requestBody:
         content:
@@ -2258,67 +2066,7 @@ paths:
                   description: The server must return an HTTP 200, otherwise we will
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
-        callMachinePremiumDetectionEnded:
-          '{$request.body#/webhook_url}':
-            post:
-              operationId: callMachinePremiumDetectionEnded_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/CallMachinePremiumDetectionEndedEvent'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-        callMachinePremiumGreetingEnded:
-          '{$request.body#/webhook_url}':
-            post:
-              operationId: callMachinePremiumGreetingEnded_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/CallMachinePremiumGreetingEndedEvent'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-        callMachineDetectionEnded:
-          '{$request.body#/webhook_url}':
-            post:
-              operationId: callMachineDetectionEnded_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/CallMachineDetectionEndedEvent'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-        callMachineGreetingEnded:
-          '{$request.body#/webhook_url}':
-            post:
-              operationId: callMachineGreetingEnded_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/CallMachineGreetingEndedEvent'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-      description: |
+      description: |-
         Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.
 
         **Expected Webhooks:**
@@ -2327,9 +2075,7 @@ paths:
         - `call.bridged` to Leg B
         - `call.answered` or `call.hangup`
         - `call.machine.detection.ended` if `answering_machine_detection` was requested
-        - `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting
-        - `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
-        - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected
+        - `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`
       operationId: callTransfer
       parameters:
       - description: Unique identifier and token for controlling the call
@@ -2418,8 +2164,8 @@ paths:
       summary: List conferences
       tags:
       - Conference Commands
-      x-group-parameters: "true"
       x-latency-category: responsive
+      x-group-parameters: "true"
       x-accepts: application/json
     post:
       callbacks:
@@ -2595,6 +2341,7 @@ paths:
       summary: List conference participants
       tags:
       - Conference Commands
+      x-group-parameters: "true"
       x-latency-category: interactive
       x-accepts: application/json
   /conferences/{id}:
@@ -3277,6 +3024,7 @@ paths:
         name: filter[connection_name][contains]
         required: false
         schema:
+          default: "null"
           type: string
         style: form
       - description: Identifies the associated outbound voice profile.
@@ -3331,6 +3079,7 @@ paths:
       summary: List connections
       tags:
       - Connections
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /connections/{id}:
@@ -3400,6 +3149,7 @@ paths:
         name: filter[connection_name][contains]
         required: false
         schema:
+          default: "null"
           type: string
         style: form
       - description: Identifies the associated outbound voice profile.
@@ -3454,6 +3204,7 @@ paths:
       summary: List credential connections
       tags:
       - Credential Connections
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -3538,7 +3289,7 @@ paths:
           description: Unauthorized
         "404":
           description: Resource not found
-      summary: Retrieve a connection
+      summary: Retrieve a credential connection
       tags:
       - Credential Connections
       x-latency-category: responsive
@@ -3624,7 +3375,7 @@ paths:
       - description: Identifies the associated outbound voice profile.
         explode: true
         in: query
-        name: filter[outbound.outbound_voice_profile_id]
+        name: filter[outbound_voice_profile_id]
         required: false
         schema:
           example: "1293384261075731499"
@@ -3846,6 +3597,7 @@ paths:
         name: filter[connection_name][contains]
         required: false
         schema:
+          default: "null"
           type: string
         style: form
       - description: |-
@@ -4092,7 +3844,7 @@ paths:
           description: Unauthorized
       summary: List Fqdns
       tags:
-      - FQDNS
+      - FQDNs
       x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
@@ -4117,7 +3869,7 @@ paths:
           description: Unauthorized
       summary: Create an Fqdn
       tags:
-      - FQDNS
+      - FQDNs
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -4149,7 +3901,7 @@ paths:
           description: Unauthorized
       summary: Delete an Fqdn
       tags:
-      - FQDNS
+      - FQDNs
       x-latency-category: responsive
       x-accepts: application/json
     get:
@@ -4179,7 +3931,7 @@ paths:
           description: Unauthorized
       summary: Retrieve an Fqdn
       tags:
-      - FQDNS
+      - FQDNs
       x-latency-category: responsive
       x-accepts: application/json
     patch:
@@ -4214,7 +3966,7 @@ paths:
           description: Unauthorized
       summary: Update an Fqdn
       tags:
-      - FQDNS
+      - FQDNs
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -4252,6 +4004,7 @@ paths:
         name: filter[connection_name][contains]
         required: false
         schema:
+          default: "null"
           type: string
         style: form
       - description: Identifies the associated outbound voice profile.
@@ -4306,6 +4059,7 @@ paths:
       summary: List Ip connections
       tags:
       - IP Connections
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4499,6 +4253,7 @@ paths:
       summary: List Ips
       tags:
       - IPs
+      x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -5505,161 +5260,6 @@ paths:
       x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
-  /number_block_orders:
-    get:
-      description: Get a paginated list of number block orders.
-      operationId: listNumberBlockOrders
-      parameters:
-      - description: Filter number block orders by status.
-        explode: true
-        in: query
-        name: filter[status]
-        required: false
-        schema:
-          example: pending
-          type: string
-        style: form
-      - description: Filter number block orders later than this value.
-        explode: true
-        in: query
-        name: filter[created_at][gt]
-        required: false
-        schema:
-          example: 2018-01-01T00:00:00.000000Z
-          type: string
-        style: form
-      - description: Filter number block orders earlier than this value.
-        explode: true
-        in: query
-        name: filter[created_at][lt]
-        required: false
-        schema:
-          example: 2018-01-01T00:00:00.000000Z
-          type: string
-        style: form
-      - description: Filter number block  orders having these phone numbers.
-        explode: true
-        in: query
-        name: filter[phone_numbers.starting_number]
-        required: false
-        schema:
-          example: +19705555000
-          type: string
-        style: form
-      - description: The page number to load.
-        explode: true
-        in: query
-        name: page[number]
-        required: false
-        schema:
-          default: 1
-          minimum: 1
-          type: integer
-        style: form
-      - description: The size of the page.
-        explode: true
-        in: query
-        name: page[size]
-        required: false
-        schema:
-          default: 20
-          maximum: 250
-          minimum: 1
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/List_Number_Block_Orders_Response'
-          description: Successful response with a list of number block orders.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: List number block orders
-      tags:
-      - Number Block Orders
-      x-latency-category: responsive
-      x-accepts: application/json
-    post:
-      callbacks:
-        numberOrderStatusUpdate:
-          '{$request.body#/webhook_url}':
-            post:
-              operationId: numberOrderStatusUpdate_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/NumberOrderBlockEvent'
-                required: true
-              responses:
-                "200":
-                  description: The server must return a HTTP 200, otherwise we will
-                    reattempt to deliver the webhook to the failover URL.
-              x-callback-request: true
-      description: Creates a phone number block order.
-      operationId: createNumberBlockOrder
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateNumberBlockOrderRequest'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Number_Block_Order_Response'
-          description: Successful response with details about a number block order.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: Create a number block order
-      tags:
-      - Number Block Orders
-      x-latency-category: responsive
-      x-contentType: application/json
-      x-accepts: application/json
-  /number_block_orders/{number_block_order_id}:
-    get:
-      description: Get an existing phone number block order.
-      operationId: retrieveNumberBlockOrder
-      parameters:
-      - description: The number block order ID.
-        explode: false
-        in: path
-        name: number_block_order_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Number_Block_Order_Response'
-          description: Successful response with details about a number block order.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: Retrieve a number block order
-      tags:
-      - Number Block Orders
-      x-latency-category: responsive
-      x-accepts: application/json
   /number_order_documents:
     get:
       description: Gets a paginated list of number order documents.
@@ -6624,6 +6224,7 @@ paths:
         name: filter[customer_reference]
         required: false
         schema:
+          example: MY REF 001
           type: string
         style: form
       - description: Specifies the sort order for results. If not given, results are
@@ -6764,7 +6365,7 @@ paths:
         name: filter[type]
         required: false
         schema:
-          description: Identifies the type of the asynchronous job.
+          description: Identifies the type of the background job.
           enum:
           - update_emergency_settings
           - delete_phone_numbers
@@ -6809,8 +6410,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/List_Phone_Numbers_Asynchronous_Jobs_Response'
-          description: Successful response with a list of phone numbers asynchronous
+                $ref: '#/components/schemas/List_Phone_Numbers_Background_Jobs_Response'
+          description: Successful response with a list of phone numbers background
             jobs.
         default:
           content:
@@ -6818,14 +6419,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
           description: Unexpected error
-      summary: Lists the phone numbers asynchronous jobs.
+      summary: Lists the phone numbers jobs
       tags:
-      - Phone Number Jobs
+      - Number Background Jobs
       x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/jobs/delete_phone_numbers:
     post:
+      description: Creates a new background job to delete a batch of numbers. At most
+        one thousand numbers can be updated per API call.
       operationId: createPhoneNumbersJobDeletePhoneNumbers
       requestBody:
         content:
@@ -6846,16 +6449,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
           description: Unexpected error
-      summary: Creates a new background job to delete a batch of numbers. At most
-        one thousand numbers can be updated per API call.
+      summary: Delete a batch of numbers
       tags:
-      - Phone Number Jobs
+      - Number Background Jobs
       x-latency-category: background
       x-group-parameters: "true"
       x-contentType: application/json
       x-accepts: application/json
   /phone_numbers/jobs/update_emergency_settings:
     post:
+      description: Creates a background job to update the emergency settings of a
+        collection of phone numbers. At most one thousand numbers can be updated per
+        API call.
       operationId: createPhoneNumbersJobUpdateEmergencySettings
       requestBody:
         content:
@@ -6876,10 +6481,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
           description: Unexpected error
-      summary: Creates a background job to update the emergency settings of a collection
-        of phone numbers. At most one thousand numbers can be updated per API call.
+      summary: Update the emergency settings from a batch of numbers
       tags:
-      - Phone Number Jobs
+      - Number Background Jobs
       x-latency-category: background
       x-contentType: application/json
       x-accepts: application/json
@@ -6908,9 +6512,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
           description: Unexpected error
-      summary: Retrieves the details of a given phone numbers job.
+      summary: Retrieve a phone numbers job
       tags:
-      - Phone Number Jobs
+      - Number Background Jobs
       x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
@@ -7716,7 +7320,7 @@ paths:
       - description: Identifies the associated outbound voice profile.
         explode: true
         in: query
-        name: filter[outbound.outbound_voice_profile_id]
+        name: filter[outbound_voice_profile_id]
         required: false
         schema:
           example: "1293384261075731499"
@@ -8041,13 +7645,25 @@ components:
       name: filter[connection_name][contains]
       required: false
       schema:
+        default: "null"
+        type: string
+      style: form
+    FilterInnerOutboundVoiceProfileId:
+      description: Identifies the associated outbound voice profile.
+      explode: true
+      in: query
+      name: filter[outbound.outbound_voice_profile_id]
+      required: false
+      schema:
+        example: "1293384261075731499"
+        format: int64
         type: string
       style: form
     FilterOutboundVoiceProfileId:
       description: Identifies the associated outbound voice profile.
       explode: true
       in: query
-      name: filter[outbound.outbound_voice_profile_id]
+      name: filter[outbound_voice_profile_id]
       required: false
       schema:
         example: "1293384261075731499"
@@ -8333,12 +7949,6 @@ components:
           schema:
             $ref: '#/components/schemas/Ip_Response'
       description: Successful response with details about an IP.
-    ListAvailablePhoneNumbersBlockResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/List_Available_Phone_Numbers_Blocks_Response'
-      description: Successful response with a list of available phone numbers blocks.
     ListAvailablePhoneNumbersResponse:
       content:
         application/json:
@@ -8441,12 +8051,6 @@ components:
           schema:
             $ref: '#/components/schemas/List_Messaging_Profile_Url_Domains_Response'
       description: Successful response with details about a messaging URL domain.
-    ListNumberBlockOrdersResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/List_Number_Block_Orders_Response'
-      description: Successful response with a list of number block orders.
     ListNumberOrderDocumentsResponse:
       content:
         application/json:
@@ -8493,8 +8097,8 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/List_Phone_Numbers_Asynchronous_Jobs_Response'
-      description: Successful response with a list of phone numbers asynchronous jobs.
+            $ref: '#/components/schemas/List_Phone_Numbers_Background_Jobs_Response'
+      description: Successful response with a list of phone numbers background jobs.
     ListPhoneNumbersResponse:
       content:
         application/json:
@@ -8553,12 +8157,6 @@ components:
       description: Successful response with details about a messaging profile.
     NotFoundResponse:
       description: Conference does not exist
-    NumberBlockOrderResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Number_Block_Order_Response'
-      description: Successful response with details about a number block order.
     NumberOrderDocumentResponse:
       content:
         application/json:
@@ -8717,9 +8315,11 @@ components:
           upfront_cost: "3.21"
           monthly_cost: "6.54"
           currency: USD
-        features:
-        - name: sms
-        - name: voice
+        regulatory_requirements:
+        - requirement_type: end user proof of address
+          label: Proof of Address
+          field_type: address
+          description: Requirement for providing Proof of Address.
       properties:
         record_type:
           enum:
@@ -8752,47 +8352,9 @@ components:
           type: array
         cost_information:
           $ref: '#/components/schemas/CostInformation'
-        features:
+        regulatory_requirements:
           items:
-            $ref: '#/components/schemas/Feature'
-          type: array
-      type: object
-    AvailablePhoneNumberBlock:
-      example:
-        record_type: available_phone_number_block
-        phone_number: +19705555000
-        range: 10
-        region_information:
-        - region_type: country_code
-          region_name: US
-        cost_information:
-          upfront_cost: "3.21"
-          monthly_cost: "6.54"
-          currency: USD
-        features:
-        - name: sms
-        - name: voice
-      properties:
-        record_type:
-          enum:
-          - available_phone_number_block
-          example: available_phone_number_block
-          type: string
-        starting_number:
-          example: +19705555000
-          type: string
-        range:
-          example: 10
-          type: integer
-        region_information:
-          items:
-            $ref: '#/components/schemas/RegionInformation'
-          type: array
-        cost_information:
-          $ref: '#/components/schemas/CostInformation'
-        features:
-          items:
-            $ref: '#/components/schemas/Feature'
+            $ref: '#/components/schemas/RegulatoryRequirement'
           type: array
       type: object
     AvailablePhoneNumbersMetadata:
@@ -9746,128 +9308,6 @@ components:
           $ref: '#/components/schemas/CallMachineGreetingEnded'
       title: Call Machine Greeting Ended Event
       type: object
-    CallMachinePremiumDetectionEnded:
-      example:
-        record_type: event
-        event_type: call.machine.premium.detection.ended
-        id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-        occurred_at: 2018-02-02T22:25:27.521992Z
-        payload:
-          connection_id: 7267xxxxxxxxxxxxxx
-          call_leg_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-          call_session_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-          client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
-          from: +35319605860
-          to: +35319605860
-          result: machine
-      properties:
-        record_type:
-          description: Identifies the type of the resource.
-          enum:
-          - event
-          example: event
-          type: string
-        event_type:
-          description: The type of event being delivered.
-          enum:
-          - call.machine.premium.detection.ended
-          example: call.machine.premium.detection.ended
-          type: string
-        id:
-          description: Identifies the type of resource.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        occurred_at:
-          description: ISO 8601 datetime of when the event occurred.
-          example: 2018-02-02T22:25:27.521992Z
-          format: date-time
-          type: string
-        payload:
-          $ref: '#/components/schemas/CallMachinePremiumDetectionEnded_payload'
-      title: Call Machine Premium Detection Ended
-      type: object
-    CallMachinePremiumDetectionEndedEvent:
-      example:
-        data:
-          record_type: event
-          event_type: call.machine.premium.detection.ended
-          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          occurred_at: 2018-02-02T22:25:27.521992Z
-          payload:
-            connection_id: 7267xxxxxxxxxxxxxx
-            call_leg_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-            call_session_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-            client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
-            from: +35319605860
-            to: +35319605860
-            result: machine
-      properties:
-        data:
-          $ref: '#/components/schemas/CallMachinePremiumDetectionEnded'
-      title: Call Machine Premium Detection Ended Event
-      type: object
-    CallMachinePremiumGreetingEnded:
-      example:
-        record_type: event
-        event_type: call.machine.premium.greeting.ended
-        id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-        occurred_at: 2018-02-02T22:25:27.521992Z
-        payload:
-          connection_id: 7267xxxxxxxxxxxxxx
-          call_leg_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-          call_session_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-          client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
-          from: +35319605860
-          to: +35319605860
-          result: beep_detected
-      properties:
-        record_type:
-          description: Identifies the type of the resource.
-          enum:
-          - event
-          example: event
-          type: string
-        event_type:
-          description: The type of event being delivered.
-          enum:
-          - call.machine.premium.greeting.ended
-          example: call.machine.premium.greeting.ended
-          type: string
-        id:
-          description: Identifies the type of resource.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        occurred_at:
-          description: ISO 8601 datetime of when the event occurred.
-          example: 2018-02-02T22:25:27.521992Z
-          format: date-time
-          type: string
-        payload:
-          $ref: '#/components/schemas/CallMachinePremiumGreetingEnded_payload'
-      title: Call Machine Premium Greeting Ended
-      type: object
-    CallMachinePremiumGreetingEndedEvent:
-      example:
-        data:
-          record_type: event
-          event_type: call.machine.premium.greeting.ended
-          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          occurred_at: 2018-02-02T22:25:27.521992Z
-          payload:
-            connection_id: 7267xxxxxxxxxxxxxx
-            call_leg_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-            call_session_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-            client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
-            from: +35319605860
-            to: +35319605860
-            result: beep_detected
-      properties:
-        data:
-          $ref: '#/components/schemas/CallMachinePremiumGreetingEnded'
-      title: Call Machine Premium Greeting Ended Event
-      type: object
     CallPlaybackEnded:
       example:
         record_type: event
@@ -10139,9 +9579,9 @@ components:
       example:
         data:
           record_type: event
-          event_type: call.refer.started
-          id: fbeb70e0-54eb-4e26-8d19-56b43e66f754
-          occurred_at: 2020-03-30T13:29:42.130013Z
+          event_type: call.refer.completed
+          id: 4ce4366d-8d87-44be-a00b-942154e9c5f5
+          occurred_at: 2020-03-30T13:29:44.650000Z
           payload:
             call_control_id: v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA
             call_leg_id: 817f7de8-728a-11ea-9ce6-02420a0f8969
@@ -10149,11 +9589,11 @@ components:
             client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
             connection_id: "1289082222292239760"
             from: +35319605860
-            sip_notify_response: 100
+            sip_notify_response: 200
             to: +13129457420
       properties:
         data:
-          $ref: '#/components/schemas/CallReferStarted'
+          $ref: '#/components/schemas/CallReferCompleted'
       title: Call Recording Saved Event
       type: object
     CallReferFailed:
@@ -10258,6 +9698,7 @@ components:
           type: string
         payload:
           $ref: '#/components/schemas/CallReferStarted_payload'
+      title: Call Refer Started
       type: object
     CallReferStartedEvent:
       example:
@@ -10278,7 +9719,7 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/CallReferStarted'
-      title: Call Recording Saved Event
+      title: Call Refer Started Event
       type: object
     CallRequest:
       example:
@@ -10354,24 +9795,15 @@ components:
           type: integer
         answering_machine_detection:
           default: disabled
-          description: 'Enables Answering Machine Detection. Telnyx offers Premium
-            and Standard detections. With Premium detection, when a call is answered,
-            Telnyx runs real-time detection and sends a `call.machine.premium.detection.ended`
-            webhook with one of the following results: `human_residence`, `human_business`,
-            `machine`, `silence` or `fax_detected`. If we detect a beep, we also send
-            a `call.machine.premium.greeting.ended` webhook with the result of `beep_detected`.
-            If we detect a beep before `call.machine.premium.detection.ended` we only
-            send `call.machine.premium.greeting.ended`, and if we detect a beep after
-            `call.machine.premium.detection.ended`, we send both webhooks. With Standard
-            detection, when a call is answered, Telnyx runs real-time detection to
-            determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended`
-            webhook with the analysis result. If `greeting_end` or `detect_words`
-            is used and a `machine` is detected, you will receive another `call.machine.greeting.ended`
+          description: Enables Answering Machine Detection. When a call is answered,
+            Telnyx runs real-time detection to determine if it was picked up by a
+            human or a machine and sends an `call.machine.detection.ended` webhook
+            with the analysis result. If 'greeting_end' or 'detect_words' is used
+            and a 'machine' is detected, you will receive another 'call.machine.greeting.ended'
             webhook when the answering machine greeting ends with a beep or silence.
-            If `detect_beep` is used, you will only receive `call.machine.greeting.ended`
-            if a beep is detected.'
+            If `detect_beep` is used, you will only receive 'call.machine.greeting.ended'
+            if a beep is detected.
           enum:
-          - premium
           - detect
           - detect_beep
           - detect_words
@@ -11623,7 +11055,7 @@ components:
           example: 2018-02-02T22:25:27.521Z
           type: string
         webhook_event_url:
-          default: ""
+          default: "null"
           description: The URL where webhooks related to this connection will be sent.
           example: https://example.com
           format: url
@@ -11890,6 +11322,10 @@ components:
         encode_contact_header_enabled: true
         encrypted_media: SRTP
         onnet_t38_passthrough_enabled: true
+        webhook_event_url: https://example.com
+        webhook_event_failover_url: https://failover.example.com
+        webhook_api_version: "1"
+        webhook_timeout_secs: 25
         rtcp_settings:
           port: rtcp-mux
           capture_enabled: true
@@ -11969,12 +11405,47 @@ components:
             will be able to use T38 on just one leg of the call depending on each
             leg's settings.
           type: boolean
+        webhook_event_url:
+          description: The URL where webhooks related to this connection will be sent.
+            Must include a scheme, such as 'https'.
+          example: https://example.com
+          format: url
+          type: string
+        webhook_event_failover_url:
+          default: ""
+          description: The failover URL where webhooks related to this connection
+            will be sent if sending to the primary URL fails. Must include a scheme,
+            such as 'https'.
+          example: https://failover.example.com
+          format: url
+          nullable: true
+          type: string
+        webhook_api_version:
+          default: "1"
+          description: Determines which webhook format will be used, Telnyx API v1
+            or v2.
+          enum:
+          - "1"
+          - "2"
+          example: "1"
+          type: string
+        webhook_timeout_secs:
+          description: Specifies how many seconds to wait before timing out a webhook.
+          example: 25
+          maximum: 30
+          minimum: 0
+          nullable: true
+          type: integer
         rtcp_settings:
-          $ref: '#/components/schemas/CreateCredentialConnectionRequest_rtcp_settings'
+          $ref: '#/components/schemas/ConnectionRtcpSettings'
         inbound:
           $ref: '#/components/schemas/CredentialInbound'
         outbound:
           $ref: '#/components/schemas/CredentialOutbound'
+      required:
+      - connection_name
+      - password
+      - user_name
       title: Create Credential Connection Request
       type: object
     CreateFaxApplicationRequest:
@@ -12051,6 +11522,10 @@ components:
         encode_contact_header_enabled: true
         encrypted_media: SRTP
         onnet_t38_passthrough_enabled: true
+        webhook_event_url: https://example.com
+        webhook_event_failover_url: https://failover.example.com
+        webhook_api_version: "1"
+        webhook_timeout_secs: 25
         rtcp_settings:
           port: rtcp-mux
           capture_enabled: true
@@ -12105,6 +11580,37 @@ components:
             will be able to use T38 on just one leg of the call depending on each
             leg's settings.
           type: boolean
+        webhook_event_url:
+          description: The URL where webhooks related to this connection will be sent.
+            Must include a scheme, such as 'https'.
+          example: https://example.com
+          format: url
+          type: string
+        webhook_event_failover_url:
+          default: ""
+          description: The failover URL where webhooks related to this connection
+            will be sent if sending to the primary URL fails. Must include a scheme,
+            such as 'https'.
+          example: https://failover.example.com
+          format: url
+          nullable: true
+          type: string
+        webhook_api_version:
+          default: "1"
+          description: Determines which webhook format will be used, Telnyx API v1
+            or v2.
+          enum:
+          - "1"
+          - "2"
+          example: "1"
+          type: string
+        webhook_timeout_secs:
+          description: Specifies how many seconds to wait before timing out a webhook.
+          example: 25
+          maximum: 30
+          minimum: 0
+          nullable: true
+          type: integer
         rtcp_settings:
           $ref: '#/components/schemas/ConnectionRtcpSettings'
         inbound:
@@ -12282,6 +11788,10 @@ components:
         encode_contact_header_enabled: true
         encrypted_media: SRTP
         onnet_t38_passthrough_enabled: false
+        webhook_event_url: https://example.com
+        webhook_event_failover_url: https://failover.example.com
+        webhook_api_version: "1"
+        webhook_timeout_secs: 25
         rtcp_settings:
           port: rtcp-mux
           capture_enabled: true
@@ -12363,6 +11873,37 @@ components:
             leg's settings.
           example: false
           type: boolean
+        webhook_event_url:
+          description: The URL where webhooks related to this connection will be sent.
+            Must include a scheme, such as 'https'.
+          example: https://example.com
+          format: url
+          type: string
+        webhook_event_failover_url:
+          default: ""
+          description: The failover URL where webhooks related to this connection
+            will be sent if sending to the primary URL fails. Must include a scheme,
+            such as 'https'.
+          example: https://failover.example.com
+          format: url
+          nullable: true
+          type: string
+        webhook_api_version:
+          default: "1"
+          description: Determines which webhook format will be used, Telnyx API v1
+            or v2.
+          enum:
+          - "1"
+          - "2"
+          example: "1"
+          type: string
+        webhook_timeout_secs:
+          description: Specifies how many seconds to wait before timing out a webhook.
+          example: 25
+          maximum: 30
+          minimum: 0
+          nullable: true
+          type: integer
         rtcp_settings:
           $ref: '#/components/schemas/ConnectionRtcpSettings'
         inbound:
@@ -12615,84 +12156,6 @@ components:
       required:
       - name
       type: object
-    CreateNumberBlockOrderRequest:
-      example:
-        starting_number: +19705555000
-        range: 10
-      properties:
-        id:
-          example: 12ade33a-21c0-473b-b055-b3c836e1c292
-          format: uuid
-          readOnly: true
-          type: string
-        record_type:
-          example: number_block_order
-          readOnly: true
-          type: string
-        starting_number:
-          description: Starting phone number block
-          example: +19705555000
-          format: e164_phone_number
-          type: string
-          writeOnly: true
-        range:
-          description: The phone number range included in the block.
-          example: 10
-          type: integer
-          writeOnly: true
-        phone_numbers_count:
-          description: The count of phone numbers in the number order.
-          example: 10
-          readOnly: true
-          type: integer
-        connection_id:
-          description: Identifies the connection associated with this phone number.
-          example: "346789098765567"
-          type: string
-        messaging_profile_id:
-          description: Identifies the messaging profile associated with the phone
-            number.
-          example: abc85f64-5717-4562-b3fc-2c9600
-          type: string
-        status:
-          description: The status of the order.
-          enum:
-          - pending
-          - success
-          - failure
-          readOnly: true
-          type: string
-        customer_reference:
-          description: A customer reference string for customer look ups.
-          example: MY REF 001
-          type: string
-        created_at:
-          description: An ISO 8901 datetime string denoting when the number order
-            was created.
-          example: 2018-01-01T00:00:00.000000Z
-          format: datetime
-          readOnly: true
-          type: string
-        updated_at:
-          description: An ISO 8901 datetime string for when the number order was updated.
-          example: 2018-01-01T00:00:00.000000Z
-          format: datetime
-          readOnly: true
-          type: string
-        requirements_met:
-          description: True if all requirements are met for every phone number, false
-            otherwise.
-          example: true
-          readOnly: true
-          type: boolean
-        errors:
-          description: Errors the reservation could happen upon
-          example: Number is already on hold
-          readOnly: true
-          type: string
-      required:
-      - range
-      - starting_number
     CreateNumberOrderDocumentRequest:
       example:
         id: 387d1e31-a218-4375-8151-103f2d5e2d2c
@@ -12797,7 +12260,6 @@ components:
           - pending
           - success
           - failure
-          example: success
           readOnly: true
           type: string
         customer_reference:
@@ -13227,6 +12689,10 @@ components:
         encode_contact_header_enabled: true
         encrypted_media: SRTP
         onnet_t38_passthrough_enabled: true
+        webhook_event_url: https://example.com
+        webhook_event_failover_url: https://failover.example.com
+        webhook_api_version: "1"
+        webhook_timeout_secs: 25
         rtcp_settings:
           port: rtp+1
           capture_enabled: true
@@ -13291,7 +12757,7 @@ components:
         connection_name:
           type: string
         sip_uri_calling_preference:
-          default: disabled
+          default: "null"
           description: This feature enables inbound SIP URI calls to your Credential
             Auth Connection. If enabled for all (unrestricted) then anyone who calls
             the SIP URI <your-username>@telnyx.com will be connected to your Connection.
@@ -13301,9 +12767,10 @@ components:
           - disabled
           - unrestricted
           - internal
+          example: disabled
           type: string
         default_on_hold_comfort_noise_enabled:
-          default: false
+          default: true
           description: When enabled, Telnyx will generate comfort noise when you place
             the call on hold. If disabled, you will need to generate comfort noise
             or on hold music to avoid RTP timeout.
@@ -13324,8 +12791,39 @@ components:
             will be able to use T38 on just one leg of the call depending on each
             leg's settings.
           type: boolean
+        webhook_event_url:
+          description: The URL where webhooks related to this connection will be sent.
+            Must include a scheme, such as 'https'.
+          example: https://example.com
+          format: url
+          type: string
+        webhook_event_failover_url:
+          default: ""
+          description: The failover URL where webhooks related to this connection
+            will be sent if sending to the primary URL fails. Must include a scheme,
+            such as 'https'.
+          example: https://failover.example.com
+          format: url
+          nullable: true
+          type: string
+        webhook_api_version:
+          default: "1"
+          description: Determines which webhook format will be used, Telnyx API v1
+            or v2.
+          enum:
+          - "1"
+          - "2"
+          example: "1"
+          type: string
+        webhook_timeout_secs:
+          description: Specifies how many seconds to wait before timing out a webhook.
+          example: 25
+          maximum: 30
+          minimum: 0
+          nullable: true
+          type: integer
         rtcp_settings:
-          $ref: '#/components/schemas/CreateCredentialConnectionRequest_rtcp_settings'
+          $ref: '#/components/schemas/ConnectionRtcpSettings'
         inbound:
           $ref: '#/components/schemas/CredentialInbound'
         outbound:
@@ -13419,6 +12917,8 @@ components:
           default: "90"
           description: 'Time(sec) before aborting if call is unanswered (min: 1, max:
             600).'
+          maximum: 600
+          minimum: 1
           type: string
       title: Credential Inbound
       type: object
@@ -13469,7 +12969,7 @@ components:
             with early media.
           type: boolean
         localization:
-          default: "null"
+          default: US
           description: A 2-character country code specifying the country whose national
             dialing rules should be used. For example, if set to `US` then any US
             number can be dialed without preprending +1 to the number. When left blank,
@@ -13702,13 +13202,6 @@ components:
           type: string
       title: Fax Application
       type: object
-    Feature:
-      example:
-        name: sms
-      properties:
-        name:
-          example: sms
-          type: string
     FirstCommandTimeout:
       default: false
       description: Specifies whether calls to phone numbers associated with this connection
@@ -13784,6 +13277,10 @@ components:
         encode_contact_header_enabled: true
         encrypted_media: SRTP
         onnet_t38_passthrough_enabled: true
+        webhook_event_url: https://example.com
+        webhook_event_failover_url: https://failover.example.com
+        webhook_api_version: "1"
+        webhook_timeout_secs: 25
         rtcp_settings:
           port: rtcp-mux
           capture_enabled: true
@@ -13848,6 +13345,37 @@ components:
             disabled, Telnyx will be able to use T38 on just one leg of the call according
             to each leg's settings.
           type: boolean
+        webhook_event_url:
+          description: The URL where webhooks related to this connection will be sent.
+            Must include a scheme, such as 'https'.
+          example: https://example.com
+          format: url
+          type: string
+        webhook_event_failover_url:
+          default: ""
+          description: The failover URL where webhooks related to this connection
+            will be sent if sending to the primary URL fails. Must include a scheme,
+            such as 'https'.
+          example: https://failover.example.com
+          format: url
+          nullable: true
+          type: string
+        webhook_api_version:
+          default: "1"
+          description: Determines which webhook format will be used, Telnyx API v1
+            or v2.
+          enum:
+          - "1"
+          - "2"
+          example: "1"
+          type: string
+        webhook_timeout_secs:
+          description: Specifies how many seconds to wait before timing out a webhook.
+          example: 25
+          maximum: 30
+          minimum: 0
+          nullable: true
+          type: integer
         rtcp_settings:
           $ref: '#/components/schemas/ConnectionRtcpSettings'
         created_at:
@@ -14721,6 +14249,10 @@ components:
         encode_contact_header_enabled: true
         encrypted_media: SRTP
         onnet_t38_passthrough_enabled: true
+        webhook_event_url: https://example.com
+        webhook_event_failover_url: https://failover.example.com
+        webhook_api_version: "1"
+        webhook_timeout_secs: 25
         rtcp_settings:
           port: rtcp-mux
           capture_enabled: true
@@ -14814,6 +14346,37 @@ components:
             leg's settings.
           example: false
           type: boolean
+        webhook_event_url:
+          description: The URL where webhooks related to this connection will be sent.
+            Must include a scheme, such as 'https'.
+          example: https://example.com
+          format: url
+          type: string
+        webhook_event_failover_url:
+          default: ""
+          description: The failover URL where webhooks related to this connection
+            will be sent if sending to the primary URL fails. Must include a scheme,
+            such as 'https'.
+          example: https://failover.example.com
+          format: url
+          nullable: true
+          type: string
+        webhook_api_version:
+          default: "1"
+          description: Determines which webhook format will be used, Telnyx API v1
+            or v2.
+          enum:
+          - "1"
+          - "2"
+          example: "1"
+          type: string
+        webhook_timeout_secs:
+          description: Specifies how many seconds to wait before timing out a webhook.
+          example: 25
+          maximum: 30
+          minimum: 0
+          nullable: true
+          type: integer
         rtcp_settings:
           $ref: '#/components/schemas/ConnectionRtcpSettings'
         created_at:
@@ -15237,86 +14800,6 @@ components:
         use_case:
           type: string
       type: object
-    NumberBlockOrder:
-      example:
-        id: 12ade33a-21c0-473b-b055-b3c836e1c292
-        starting_number: +19705555000
-        range: 10
-        record_type: number_block_order
-        connection_id: "346789098765567"
-        messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
-        phone_numbers_count: 10
-        status: pending
-        customer_reference: MY REF 001
-        created_at: 2018-01-01T00:00:00.000000Z
-        updated_at: 2018-01-01T00:00:00.000000Z
-        requirements_met: true
-      properties:
-        id:
-          example: 12ade33a-21c0-473b-b055-b3c836e1c292
-          format: uuid
-          readOnly: true
-          type: string
-        record_type:
-          example: number_block_order
-          readOnly: true
-          type: string
-        starting_number:
-          description: Starting phone number block
-          example: +19705555000
-          format: e164_phone_number
-          type: string
-        range:
-          description: The phone number range included in the block.
-          example: 10
-          type: integer
-        phone_numbers_count:
-          description: The count of phone numbers in the number order.
-          example: 1
-          readOnly: true
-          type: integer
-        connection_id:
-          description: Identifies the connection associated to all numbers in the
-            phone number block.
-          example: "346789098765567"
-          type: string
-        messaging_profile_id:
-          description: Identifies the messaging profile associated to all numbers
-            in the phone number block.
-          example: abc85f64-5717-4562-b3fc-2c9600
-          type: string
-        status:
-          description: The status of the order.
-          enum:
-          - pending
-          - success
-          - failure
-          example: success
-          readOnly: true
-          type: string
-        customer_reference:
-          description: A customer reference string for customer look ups.
-          example: MY REF 001
-          type: string
-        created_at:
-          description: An ISO 8901 datetime string denoting when the number order
-            was created.
-          example: 2018-01-01T00:00:00.000000Z
-          format: datetime
-          readOnly: true
-          type: string
-        updated_at:
-          description: An ISO 8901 datetime string for when the number order was updated.
-          example: 2018-01-01T00:00:00.000000Z
-          format: datetime
-          readOnly: true
-          type: string
-        requirements_met:
-          description: True if all requirements are met for every phone number, false
-            otherwise.
-          example: true
-          readOnly: true
-          type: boolean
     NumberHealthMetrics:
       description: |
         High level health metrics about the number and it's messaging sending patterns.
@@ -15434,26 +14917,6 @@ components:
           example: true
           readOnly: true
           type: boolean
-    NumberOrderBlockEvent:
-      example:
-        data:
-          id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          starting_number: +19705555000
-          range: 10
-          record_type: number_block_order
-          connection_id: "346789098765567"
-          messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
-          phone_numbers_count: 10
-          status: pending
-          customer_reference: MY REF 001
-          created_at: 2018-01-01T00:00:00.000000Z
-          updated_at: 2018-01-01T00:00:00.000000Z
-          requirements_met: true
-      properties:
-        data:
-          $ref: '#/components/schemas/NumberBlockOrder'
-      title: Number Order Event
-      type: object
     NumberOrderDocument:
       example:
         id: 387d1e31-a218-4375-8151-103f2d5e2d2c
@@ -16482,12 +15945,12 @@ components:
             this phone number.
           readOnly: true
           type: string
-        connection_id:
-          description: Identifies the connection associated with the phone number.
-          type: string
         customer_reference:
           description: A customer reference string for customer look ups.
           example: MY REF 001
+          type: string
+        connection_id:
+          description: Identifies the connection associated with the phone number.
           type: string
         messaging_profile_id:
           description: Identifies the messaging profile associated with the phone
@@ -16723,7 +16186,7 @@ components:
         id: "1293384261075731499"
         record_type: voice_settings
         connection_id: 1d0e6cb8-8668-462e-94c6-49ae0f0ed48b
-        customer_reference: customer-reference
+        customer_reference: customer_reference
         tech_prefix_enabled: false
         translated_number: +13035559999
         call_forwarding:
@@ -16803,16 +16266,6 @@ components:
         call_recording:
           $ref: '#/components/schemas/CallRecording'
       type: object
-    PhoneNumbersBulkUpdateError:
-      properties:
-        phone_number:
-          description: The phone number in e164 format.
-          format: e164
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
     PhoneNumbersJob:
       example:
         id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
@@ -16850,7 +16303,7 @@ components:
           type: string
         status:
           default: pending
-          description: Indicates the completion status of the asynchronous update.
+          description: Indicates the completion status of the background update.
           enum:
           - pending
           - in_progress
@@ -16861,7 +16314,7 @@ components:
           readOnly: true
           type: string
         type:
-          description: Identifies the type of the asynchronous job.
+          description: Identifies the type of the background job.
           enum:
           - update_emergency_settings
           - delete_phone_numbers
@@ -16870,7 +16323,7 @@ components:
           type: string
         etc:
           description: ISO 8601 formatted date indicating when the estimated time
-            of completion of the asynchronous job.
+            of completion of the background job.
           format: date-time
           readOnly: true
           type: string
@@ -17346,7 +16799,6 @@ components:
           - pending
           - success
           - failure
-          example: success
           readOnly: true
           type: string
         created_at:
@@ -17368,6 +16820,11 @@ components:
             reservation is going to expire
           example: 2018-01-01T00:00:00.000000Z
           format: datetime
+          readOnly: true
+          type: string
+        errors:
+          description: Errors the reservation could happen upon
+          example: Number is already on hold
           readOnly: true
           type: string
     ResumeRecordingRequest:
@@ -17931,7 +17388,6 @@ components:
             If `detect_beep` is used, you will only receive 'call.machine.greeting.ended'
             if a beep is detected.
           enum:
-          - premium
           - detect
           - detect_beep
           - detect_words
@@ -18099,6 +17555,10 @@ components:
         encode_contact_header_enabled: true
         encrypted_media: SRTP
         onnet_t38_passthrough_enabled: true
+        webhook_event_url: https://example.com
+        webhook_event_failover_url: https://failover.example.com
+        webhook_api_version: "1"
+        webhook_timeout_secs: 25
         rtcp_settings:
           port: rtcp-mux
           capture_enabled: true
@@ -18178,8 +17638,39 @@ components:
             will be able to use T38 on just one leg of the call depending on each
             leg's settings.
           type: boolean
+        webhook_event_url:
+          description: The URL where webhooks related to this connection will be sent.
+            Must include a scheme, such as 'https'.
+          example: https://example.com
+          format: url
+          type: string
+        webhook_event_failover_url:
+          default: ""
+          description: The failover URL where webhooks related to this connection
+            will be sent if sending to the primary URL fails. Must include a scheme,
+            such as 'https'.
+          example: https://failover.example.com
+          format: url
+          nullable: true
+          type: string
+        webhook_api_version:
+          default: "1"
+          description: Determines which webhook format will be used, Telnyx API v1
+            or v2.
+          enum:
+          - "1"
+          - "2"
+          example: "1"
+          type: string
+        webhook_timeout_secs:
+          description: Specifies how many seconds to wait before timing out a webhook.
+          example: 25
+          maximum: 30
+          minimum: 0
+          nullable: true
+          type: integer
         rtcp_settings:
-          $ref: '#/components/schemas/CreateCredentialConnectionRequest_rtcp_settings'
+          $ref: '#/components/schemas/ConnectionRtcpSettings'
         inbound:
           $ref: '#/components/schemas/CredentialInbound'
         outbound:
@@ -18260,6 +17751,10 @@ components:
         encode_contact_header_enabled: true
         encrypted_media: SRTP
         onnet_t38_passthrough_enabled: true
+        webhook_event_url: https://example.com
+        webhook_event_failover_url: https://failover.example.com
+        webhook_api_version: "1"
+        webhook_timeout_secs: 25
         rtcp_settings:
           port: rtcp-mux
           capture_enabled: true
@@ -18313,6 +17808,37 @@ components:
             disabled, Telnyx will be able to use T38 on just one leg of the call according
             to each leg's settings.
           type: boolean
+        webhook_event_url:
+          description: The URL where webhooks related to this connection will be sent.
+            Must include a scheme, such as 'https'.
+          example: https://example.com
+          format: url
+          type: string
+        webhook_event_failover_url:
+          default: ""
+          description: The failover URL where webhooks related to this connection
+            will be sent if sending to the primary URL fails. Must include a scheme,
+            such as 'https'.
+          example: https://failover.example.com
+          format: url
+          nullable: true
+          type: string
+        webhook_api_version:
+          default: "1"
+          description: Determines which webhook format will be used, Telnyx API v1
+            or v2.
+          enum:
+          - "1"
+          - "2"
+          example: "1"
+          type: string
+        webhook_timeout_secs:
+          description: Specifies how many seconds to wait before timing out a webhook.
+          example: 25
+          maximum: 30
+          minimum: 0
+          nullable: true
+          type: integer
         rtcp_settings:
           $ref: '#/components/schemas/ConnectionRtcpSettings'
         inbound:
@@ -18358,6 +17884,10 @@ components:
         encode_contact_header_enabled: true
         encrypted_media: SRTP
         onnet_t38_passthrough_enabled: false
+        webhook_event_url: https://example.com
+        webhook_event_failover_url: https://failover.example.com
+        webhook_api_version: "1"
+        webhook_timeout_secs: 25
         rtcp_settings:
           port: rtcp-mux
           capture_enabled: true
@@ -18433,6 +17963,37 @@ components:
             will be able to use T38 on just one leg of the call depending on each
             leg's settings.
           type: boolean
+        webhook_event_url:
+          description: The URL where webhooks related to this connection will be sent.
+            Must include a scheme, such as 'https'.
+          example: https://example.com
+          format: url
+          type: string
+        webhook_event_failover_url:
+          default: ""
+          description: The failover URL where webhooks related to this connection
+            will be sent if sending to the primary URL fails. Must include a scheme,
+            such as 'https'.
+          example: https://failover.example.com
+          format: url
+          nullable: true
+          type: string
+        webhook_api_version:
+          default: "1"
+          description: Determines which webhook format will be used, Telnyx API v1
+            or v2.
+          enum:
+          - "1"
+          - "2"
+          example: "1"
+          type: string
+        webhook_timeout_secs:
+          description: Specifies how many seconds to wait before timing out a webhook.
+          example: 25
+          maximum: 30
+          minimum: 0
+          nullable: true
+          type: integer
         rtcp_settings:
           $ref: '#/components/schemas/ConnectionRtcpSettings'
         inbound:
@@ -19063,47 +18624,6 @@ components:
       nullable: true
       title: Webhook Timeout Secs
       type: integer
-    List_Available_Phone_Numbers_Blocks_Response:
-      example:
-        data:
-        - record_type: available_phone_number_block
-          phone_number: +19705555000
-          range: 10
-          region_information:
-          - region_type: country_code
-            region_name: US
-          cost_information:
-            upfront_cost: "3.21"
-            monthly_cost: "6.54"
-            currency: USD
-          features:
-          - name: sms
-          - name: voice
-        - record_type: available_phone_number_block
-          phone_number: +19705555000
-          range: 10
-          region_information:
-          - region_type: country_code
-            region_name: US
-          cost_information:
-            upfront_cost: "3.21"
-            monthly_cost: "6.54"
-            currency: USD
-          features:
-          - name: sms
-          - name: voice
-        meta:
-          total_results: 100
-          best_effort_results: 50
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AvailablePhoneNumberBlock'
-          type: array
-        meta:
-          $ref: '#/components/schemas/AvailablePhoneNumbersMetadata'
-      title: List Available Phone Numbers Blocks Response
-      type: object
     List_Available_Phone_Numbers_Response:
       example:
         data:
@@ -19120,9 +18640,11 @@ components:
             upfront_cost: "3.21"
             monthly_cost: "6.54"
             currency: USD
-          features:
-          - name: sms
-          - name: voice
+          regulatory_requirements:
+          - requirement_type: end user proof of address
+            label: Proof of Address
+            field_type: address
+            description: Requirement for providing Proof of Address.
         - record_type: available_phone_number
           phone_number: +19705555098
           vanity_format: ""
@@ -19136,9 +18658,11 @@ components:
             upfront_cost: "3.21"
             monthly_cost: "6.54"
             currency: USD
-          features:
-          - name: sms
-          - name: voice
+          regulatory_requirements:
+          - requirement_type: end user proof of address
+            label: Proof of Address
+            field_type: address
+            description: Requirement for providing Proof of Address.
         meta:
           total_results: 100
           best_effort_results: 50
@@ -19492,6 +19016,10 @@ components:
           encode_contact_header_enabled: true
           encrypted_media: SRTP
           onnet_t38_passthrough_enabled: true
+          webhook_event_url: https://example.com
+          webhook_event_failover_url: https://failover.example.com
+          webhook_api_version: "1"
+          webhook_timeout_secs: 25
           rtcp_settings:
             port: rtp+1
             capture_enabled: true
@@ -19534,6 +19062,10 @@ components:
           encode_contact_header_enabled: true
           encrypted_media: SRTP
           onnet_t38_passthrough_enabled: true
+          webhook_event_url: https://example.com
+          webhook_event_failover_url: https://failover.example.com
+          webhook_api_version: "1"
+          webhook_timeout_secs: 25
           rtcp_settings:
             port: rtp+1
             capture_enabled: true
@@ -19593,6 +19125,10 @@ components:
           encode_contact_header_enabled: true
           encrypted_media: SRTP
           onnet_t38_passthrough_enabled: true
+          webhook_event_url: https://example.com
+          webhook_event_failover_url: https://failover.example.com
+          webhook_api_version: "1"
+          webhook_timeout_secs: 25
           rtcp_settings:
             port: rtp+1
             capture_enabled: true
@@ -19713,6 +19249,10 @@ components:
           encode_contact_header_enabled: true
           encrypted_media: SRTP
           onnet_t38_passthrough_enabled: true
+          webhook_event_url: https://example.com
+          webhook_event_failover_url: https://failover.example.com
+          webhook_api_version: "1"
+          webhook_timeout_secs: 25
           rtcp_settings:
             port: rtcp-mux
             capture_enabled: true
@@ -19747,6 +19287,10 @@ components:
           encode_contact_header_enabled: true
           encrypted_media: SRTP
           onnet_t38_passthrough_enabled: true
+          webhook_event_url: https://example.com
+          webhook_event_failover_url: https://failover.example.com
+          webhook_api_version: "1"
+          webhook_timeout_secs: 25
           rtcp_settings:
             port: rtcp-mux
             capture_enabled: true
@@ -19798,6 +19342,10 @@ components:
           encode_contact_header_enabled: true
           encrypted_media: SRTP
           onnet_t38_passthrough_enabled: true
+          webhook_event_url: https://example.com
+          webhook_event_failover_url: https://failover.example.com
+          webhook_api_version: "1"
+          webhook_timeout_secs: 25
           rtcp_settings:
             port: rtcp-mux
             capture_enabled: true
@@ -19889,6 +19437,10 @@ components:
           encode_contact_header_enabled: true
           encrypted_media: SRTP
           onnet_t38_passthrough_enabled: true
+          webhook_event_url: https://example.com
+          webhook_event_failover_url: https://failover.example.com
+          webhook_api_version: "1"
+          webhook_timeout_secs: 25
           rtcp_settings:
             port: rtcp-mux
             capture_enabled: true
@@ -19939,6 +19491,10 @@ components:
           encode_contact_header_enabled: true
           encrypted_media: SRTP
           onnet_t38_passthrough_enabled: true
+          webhook_event_url: https://example.com
+          webhook_event_failover_url: https://failover.example.com
+          webhook_api_version: "1"
+          webhook_timeout_secs: 25
           rtcp_settings:
             port: rtcp-mux
             capture_enabled: true
@@ -20006,6 +19562,10 @@ components:
           encode_contact_header_enabled: true
           encrypted_media: SRTP
           onnet_t38_passthrough_enabled: true
+          webhook_event_url: https://example.com
+          webhook_event_failover_url: https://failover.example.com
+          webhook_api_version: "1"
+          webhook_timeout_secs: 25
           rtcp_settings:
             port: rtcp-mux
             capture_enabled: true
@@ -20480,67 +20040,6 @@ components:
           $ref: '#/components/schemas/PaginationMeta'
       title: List Messaging Profile Url Domains Response
       type: object
-    List_Number_Block_Orders_Response:
-      example:
-        data:
-        - id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          starting_number: +19705555000
-          range: 10
-          record_type: number_block_order
-          connection_id: "346789098765567"
-          messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
-          phone_numbers_count: 10
-          status: pending
-          customer_reference: MY REF 001
-          created_at: 2018-01-01T00:00:00.000000Z
-          updated_at: 2018-01-01T00:00:00.000000Z
-          requirements_met: true
-        - id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          starting_number: +19705555000
-          range: 10
-          record_type: number_block_order
-          connection_id: "346789098765567"
-          messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
-          phone_numbers_count: 10
-          status: pending
-          customer_reference: MY REF 001
-          created_at: 2018-01-01T00:00:00.000000Z
-          updated_at: 2018-01-01T00:00:00.000000Z
-          requirements_met: true
-        meta:
-          page_number: 2
-          total_pages: 3
-          total_results: 55
-          page_size: 25
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/NumberBlockOrder'
-          type: array
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-      title: List Number Block Orders Response
-      type: object
-    Number_Block_Order_Response:
-      example:
-        data:
-          id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          starting_number: +19705555000
-          range: 10
-          record_type: number_block_order
-          connection_id: "346789098765567"
-          messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
-          phone_numbers_count: 10
-          status: pending
-          customer_reference: MY REF 001
-          created_at: 2018-01-01T00:00:00.000000Z
-          updated_at: 2018-01-01T00:00:00.000000Z
-          requirements_met: true
-      properties:
-        data:
-          $ref: '#/components/schemas/NumberBlockOrder'
-      title: Number Block Order Response
-      type: object
     List_Number_Order_Documents_Response:
       example:
         data:
@@ -20997,7 +20496,7 @@ components:
           type: array
       title: CSV Download Response
       type: object
-    List_Phone_Numbers_Asynchronous_Jobs_Response:
+    List_Phone_Numbers_Background_Jobs_Response:
       example:
         data:
         - id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
@@ -21054,7 +20553,7 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/PaginationMeta'
-      title: List Phone Numbers Asynchronous Jobs Response
+      title: List Phone Numbers Background Jobs Response
       type: object
     Phone_Numbers_Job_Delete_Phone_Numbers:
       example:
@@ -21212,7 +20711,7 @@ components:
         - id: "1293384261075731499"
           record_type: voice_settings
           connection_id: 1d0e6cb8-8668-462e-94c6-49ae0f0ed48b
-          customer_reference: customer-reference
+          customer_reference: customer_reference
           tech_prefix_enabled: false
           translated_number: +13035559999
           call_forwarding:
@@ -21238,7 +20737,7 @@ components:
         - id: "1293384261075731499"
           record_type: voice_settings
           connection_id: 1d0e6cb8-8668-462e-94c6-49ae0f0ed48b
-          customer_reference: customer-reference
+          customer_reference: customer_reference
           tech_prefix_enabled: false
           translated_number: +13035559999
           call_forwarding:
@@ -21313,7 +20812,7 @@ components:
           id: "1293384261075731499"
           record_type: voice_settings
           connection_id: 1d0e6cb8-8668-462e-94c6-49ae0f0ed48b
-          customer_reference: customer-reference
+          customer_reference: customer_reference
           tech_prefix_enabled: false
           translated_number: +13035559999
           call_forwarding:
@@ -21378,7 +20877,7 @@ components:
           id: "1293384261075731499"
           record_type: voice_settings
           connection_id: 1d0e6cb8-8668-462e-94c6-49ae0f0ed48b
-          customer_reference: customer-reference
+          customer_reference: customer_reference
           tech_prefix_enabled: false
           translated_number: +13035559999
           call_forwarding:
@@ -22026,88 +21525,6 @@ components:
           example: ended
           type: string
       type: object
-    CallMachinePremiumDetectionEnded_payload:
-      properties:
-        call_control_id:
-          description: Call ID used to issue commands via Call Control API.
-          example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
-          type: string
-        connection_id:
-          description: Telnyx connection ID used in the call.
-          example: 7267xxxxxxxxxxxxxx
-          type: string
-        call_leg_id:
-          description: ID that is unique to the call and can be used to correlate
-            webhook events.
-          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-          type: string
-        call_session_id:
-          description: ID that is unique to the call session and can be used to correlate
-            webhook events.
-          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
-          type: string
-        client_state:
-          description: State received from a command.
-          example: aGF2ZSBhIG5pY2UgZGF5ID1d
-          type: string
-        from:
-          description: Number or SIP URI placing the call.
-          example: +35319605860
-          type: string
-        to:
-          description: Destination number or SIP URI of the call.
-          example: +13129457420
-          type: string
-        result:
-          description: Premium Answering Machine Detection result.
-          enum:
-          - human_residence
-          - human_business
-          - machine
-          - silence
-          - fax_detected
-          example: machine
-          type: string
-      type: object
-    CallMachinePremiumGreetingEnded_payload:
-      properties:
-        call_control_id:
-          description: Call ID used to issue commands via Call Control API.
-          example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
-          type: string
-        connection_id:
-          description: Telnyx connection ID used in the call.
-          example: 7267xxxxxxxxxxxxxx
-          type: string
-        call_leg_id:
-          description: ID that is unique to the call and can be used to correlate
-            webhook events.
-          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
-          type: string
-        call_session_id:
-          description: ID that is unique to the call session and can be used to correlate
-            webhook events.
-          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
-          type: string
-        client_state:
-          description: State received from a command.
-          example: aGF2ZSBhIG5pY2UgZGF5ID1d
-          type: string
-        from:
-          description: Number or SIP URI placing the call.
-          example: +35319605860
-          type: string
-        to:
-          description: Destination number or SIP URI of the call.
-          example: +13129457420
-          type: string
-        result:
-          description: Premium Answering Machine Greeting Ended result.
-          enum:
-          - beep_detected
-          example: beep_detected
-          type: string
-      type: object
     CallPlaybackEnded_payload:
       properties:
         call_control_id:
@@ -22741,27 +22158,6 @@ components:
           example: 2018-02-02T22:25:27.521Z
           format: date-time
           type: string
-      type: object
-    CreateCredentialConnectionRequest_rtcp_settings:
-      properties:
-        port:
-          default: rtp+1
-          description: RTCP port by default is rtp+1, it can also be set to rtcp-mux
-          enum:
-          - rtcp-mux
-          - rtp+1
-          type: string
-        capture_enabled:
-          default: false
-          description: BETA - Enable the capture and storage of RTCP messages to create
-            QoS reports on the Telnyx Mission Control Portal.
-          example: true
-          type: boolean
-        report_frequency_seconds:
-          default: 10
-          description: RTCP reports are sent to customers based on the frequency set.
-            Frequency is in seconds and it can be set to values from 5 to 3000 seconds.
-          type: integer
       type: object
     CreateFaxApplicationRequest_inbound:
       properties:
