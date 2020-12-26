@@ -13,11 +13,9 @@
 
 package com.telnyx.sdk.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.ConnectionResponse;
 import com.telnyx.sdk.model.ListConnectionsResponse;
@@ -32,7 +30,6 @@ import static org.junit.Assert.assertNotNull;
 public class ConnectionsApiTest {
 
     private final ConnectionsApi api = new ConnectionsApi();
-    private ObjectMapper mapper;
 
     @Before
     public void setup() {
@@ -42,7 +39,6 @@ public class ConnectionsApiTest {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
 
-        mapper = new JSON().getMapper();
     }
 
     /**
@@ -75,5 +71,4 @@ public class ConnectionsApiTest {
         ConnectionResponse response = api.retrieveConnection(TestConfiguration.EXISTING_CONNECTION_ID);
         assertNotNull(response);
     }
-
 }
