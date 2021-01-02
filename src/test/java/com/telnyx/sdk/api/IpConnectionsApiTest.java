@@ -26,11 +26,15 @@ import com.telnyx.sdk.model.CreateIpConnectionRequest;
 import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.IpConnectionResponse;
+import com.telnyx.sdk.model.ListIpConnectionsResponse;
 import com.telnyx.sdk.model.OutboundIp;
+import com.telnyx.sdk.model.UpdateIpConnectionRequest;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+
+import static org.junit.Assert.*;
 
 /**
  * API tests for IpConnectionsApi
@@ -38,7 +42,6 @@ import java.util.Collections;
 public class IpConnectionsApiTest {
 
     private final IpConnectionsApi api = new IpConnectionsApi();
-    private ObjectMapper mapper;
 
     @Before
     public void setup() {
@@ -47,8 +50,6 @@ public class IpConnectionsApiTest {
 
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
-
-        mapper = new JSON().getMapper();
     }
 
     /**
@@ -59,8 +60,168 @@ public class IpConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void createIpConnection_whenDefaultRequest_returnsIpConnection() throws ApiException {
-        CreateIpConnectionRequest createIpConnectionRequest = new CreateIpConnectionRequest()
+    public void createIpConnection_whenValidRequest_returnsIpConnection() throws ApiException {
+        //given
+        CreateIpConnectionRequest createIpConnectionRequest = prepareSampleCreateIpConnectionRequest();
+
+        //when
+        IpConnectionResponse response = api.createIpConnection(createIpConnectionRequest);
+
+        //then
+        assertNotNull(response);
+    }
+
+    /**
+     * Delete an Ip connection
+     * <p>
+     * Deletes an existing IP connection.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deleteIpConnectionTest() throws ApiException {
+        //given
+        String id = api.createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
+
+        //when
+        IpConnectionResponse response = api.deleteIpConnection(id);
+
+        //then
+        assertNotNull(response);
+
+        IpConnectionResponse retrievedIpConnection = api.retrieveIpConnection(id);
+        assertNull(retrievedIpConnection);
+    }
+
+    /**
+     * List Ip connections
+     * <p>
+     * Returns a list of your IP connections.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listIpConnectionsTest() throws ApiException {
+        //given
+        Integer pageNumber = 1;
+        Integer pageSize = 20;
+        String filterConnectionNameContains = "";
+        String filterOutboundOutboundVoiceProfileId = "123";
+        String sort = "created_at";
+        //when
+         ListIpConnectionsResponse response = api.listIpConnections()
+                 .pageNumber(pageNumber)
+                 .pageSize(pageSize)
+                 .filterConnectionNameContains(filterConnectionNameContains)
+                 .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
+                 .sort(sort)
+                 .execute();
+
+        //then
+                assertNotNull(response);
+    }
+
+    /**
+     * Retrieve an Ip connection
+     * <p>
+     * Retrieves the details of an existing ip connection.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void retrieveIpConnectionTest() throws ApiException {
+        //given
+        String id = api.createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
+
+        //when
+        IpConnectionResponse response = api.retrieveIpConnection(id);
+
+        //then
+        assertNotNull(response);
+    }
+
+    /**
+     * Update an Ip connection
+     * <p>
+     * Updates settings of an existing IP connection.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void updateIpConnectionTest() throws ApiException {
+        //given
+        String id = api.createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
+        UpdateIpConnectionRequest updateIpConnectionRequest = prepareSampleUpdateIpConnectionRequest();
+
+        //when
+        IpConnectionResponse response = api.updateIpConnection(id, updateIpConnectionRequest);
+
+        //then
+        assertNotNull(response);
+        assertEquals(updateIpConnectionRequest.getConnectionName(), response.getData().getConnectionName());
+        assertEquals(updateIpConnectionRequest.getAnchorsiteOverride(), response.getData().getAnchorsiteOverride());
+        assertEquals(updateIpConnectionRequest.getOutbound().getAniOverride(), response.getData().getOutbound().getAniOverride());
+        assertEquals(updateIpConnectionRequest.getOutbound().getIpAuthenticationToken(), response.getData().getOutbound().getIpAuthenticationToken());
+        assertEquals(updateIpConnectionRequest.getOutbound().getLocalization(), response.getData().getOutbound().getLocalization());
+        assertEquals(updateIpConnectionRequest.getOutbound().getTechPrefix(), response.getData().getOutbound().getTechPrefix());
+    }
+
+
+    private UpdateIpConnectionRequest prepareSampleUpdateIpConnectionRequest() {
+        return new UpdateIpConnectionRequest()
+                .active(true)
+                .anchorsiteOverride(AnchorsiteOverride.SAN_JOSE_CA)
+                .connectionName("another_connection")
+                .defaultOnHoldComfortNoiseEnabled(true)
+                .dtmfType(DtmfType.RFC_2833)
+                .encodeContactHeaderEnabled(false)
+                .encryptedMedia(EncryptedMedia.SRTP)
+                //TODO: CreateInboundIpRequest must be used instead of InboundIp
+//                .inbound(new CreateInboundIpRequest()
+//                        .aniNumberFormat(CreateInboundIpRequest.AniNumberFormatEnum._E_164)
+//                        .channelLimit(10)
+//                        .codecs(Collections.singletonList("G722"))
+//                        .defaultRoutingMethod(CreateInboundIpRequest.DefaultRoutingMethodEnum.SEQUENTIAL)
+//                        .dnisNumberFormat(CreateInboundIpRequest.DnisNumberFormatEnum._E164)
+//                        .generateRingbackTone(true)
+//                        .isupHeadersEnabled(true)
+//                        .prackEnabled(true)
+//                        .privacyZoneEnabled(true)
+//                        .sipCompactHeadersEnabled(true)
+//                        .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
+//                        .sipSubdomain("test")
+//                        .sipSubdomainReceiveSettings(CreateInboundIpRequest.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS)
+//                        .timeout1xxSecs(10)
+//                        .timeout2xxSecs(20)
+//                )
+                .onnetT38PassthroughEnabled(false)
+                .outbound(new OutboundIp()
+                        .aniOverride("test2")
+                        .aniOverrideType(OutboundIp.AniOverrideTypeEnum.ALWAYS)
+                        .callParkingEnabled(true)
+                        .channelLimit(10)
+                        .generateRingbackTone(true)
+                        .instantRingbackEnabled(true)
+                        .ipAuthenticationMethod(OutboundIp.IpAuthenticationMethodEnum.TOKEN)
+                        .ipAuthenticationToken("test2")
+                        .localization("test2")
+                        .outboundVoiceProfileId("123")
+                        .t38ReinviteSource(OutboundIp.T38ReinviteSourceEnum.TELNYX)
+                        .techPrefix("test2")
+                )
+                .rtcpSettings(new ConnectionRtcpSettings()
+                        .captureEnabled(true)
+                        .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
+                        .reportFrequencySecs(10)
+                )
+                .transportProtocol(UpdateIpConnectionRequest.TransportProtocolEnum.UDP)
+                .webhookEventFailoverUrl("https://failover.example.com")
+                .webhookEventUrl("https://example.com")
+                .webhookTimeoutSecs(25);
+    }
+
+    private CreateIpConnectionRequest prepareSampleCreateIpConnectionRequest() {
+        return new CreateIpConnectionRequest()
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
                 .connectionName("some_connection")
@@ -105,74 +266,9 @@ public class IpConnectionsApiTest {
                         .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
                         .reportFrequencySecs(10)
                 )
-                .transportProtocol(CreateIpConnectionRequest.TransportProtocolEnum.UDP);
-        //TODO: missed webhook_event_failover_url
-        //TODO: missed webhook_event_url
-        //TODO: missed webhook_timeout_secs
-
-        IpConnectionResponse response = api.createIpConnection(createIpConnectionRequest);
-        // TODO: test validations
+                .transportProtocol(CreateIpConnectionRequest.TransportProtocolEnum.UDP)
+                .webhookEventFailoverUrl("https://failover.example.com")
+                .webhookEventUrl("https://example.com")
+                .webhookTimeoutSecs(25);
     }
-
-    /**
-     * Delete an Ip connection
-     * <p>
-     * Deletes an existing IP connection.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void deleteIpConnectionTest() throws ApiException {
-        //String id = null;
-        //IpConnectionResponse response = api.deleteIpConnection(id);
-        // TODO: test validations
-    }
-
-    /**
-     * List Ip connections
-     * <p>
-     * Returns a list of your IP connections.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void listIpConnectionsTest() throws ApiException {
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //String filterConnectionNameContains = null;
-        //String filterOutboundOutboundVoiceProfileId = null;
-        //String sort = null;
-        //ListIpConnectionsResponse response = api.listIpConnections(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort);
-        // TODO: test validations
-    }
-
-    /**
-     * Retrieve an Ip connection
-     * <p>
-     * Retrieves the details of an existing ip connection.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void retrieveIpConnectionTest() throws ApiException {
-        //String id = null;
-        //IpConnectionResponse response = api.retrieveIpConnection(id);
-        // TODO: test validations
-    }
-
-    /**
-     * Update an Ip connection
-     * <p>
-     * Updates settings of an existing IP connection.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void updateIpConnectionTest() throws ApiException {
-        //String id = null;
-        //UpdateIpConnectionRequest updateIpConnectionRequest = null;
-        //IpConnectionResponse response = api.updateIpConnection(id, updateIpConnectionRequest);
-        // TODO: test validations
-    }
-
 }

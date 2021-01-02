@@ -49,13 +49,25 @@ public class ConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void listConnections_always_isNotNull() throws ApiException {
-        Integer pageNumber = null;
-        Integer pageSize = null;
-        String filterConnectionNameContains = null;
-        String filterOutboundVoiceProfileId = null;
-        String sort = null;
-        ListConnectionsResponse response = api.listConnections(pageNumber, pageSize, filterConnectionNameContains, filterOutboundVoiceProfileId, sort);
+    public void listConnections_whenConnectionExistsAndNoFilterApplied_returnsConnection() throws ApiException {
+        //given
+        Integer pageNumber = 1;
+        Integer pageSize = 20;
+        String filterConnectionNameContains = "";
+        String filterOutboundVoiceProfileId = "123";
+        String sort = "created_at";
+
+        //when
+        ListConnectionsResponse response = api.listConnections()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterConnectionNameContains(filterConnectionNameContains)
+                .filterOutboundVoiceProfileId(filterOutboundVoiceProfileId)
+                .sort(sort)
+                .execute();
+
+
+        //then
         assertNotNull(response);
     }
 
