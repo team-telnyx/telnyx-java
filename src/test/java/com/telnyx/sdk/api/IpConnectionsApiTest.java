@@ -13,11 +13,9 @@
 
 package com.telnyx.sdk.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.AnchorsiteOverride;
 import com.telnyx.sdk.model.ConnectionRtcpSettings;
@@ -60,7 +58,7 @@ public class IpConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void createIpConnection_whenValidRequest_returnsIpConnection() throws ApiException {
+    public void createIpConnection_defaultParams_returnsCreatedIpConnection() throws ApiException {
         //given
         CreateIpConnectionRequest createIpConnectionRequest = prepareSampleCreateIpConnectionRequest();
 
@@ -79,7 +77,7 @@ public class IpConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteIpConnectionTest() throws ApiException {
+    public void deleteIpConnection_ipConnectionIdProvided_ipConnectionWouldNotReturnAnymore() throws ApiException {
         //given
         String id = api.createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
 
@@ -101,7 +99,7 @@ public class IpConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void listIpConnectionsTest() throws ApiException {
+    public void listIpConnections_defaultParams_returnsNotNullListOfIpConnections() throws ApiException {
         //given
         Integer pageNumber = 1;
         Integer pageSize = 20;
@@ -109,16 +107,16 @@ public class IpConnectionsApiTest {
         String filterOutboundOutboundVoiceProfileId = "123";
         String sort = "created_at";
         //when
-         ListIpConnectionsResponse response = api.listIpConnections()
-                 .pageNumber(pageNumber)
-                 .pageSize(pageSize)
-                 .filterConnectionNameContains(filterConnectionNameContains)
-                 .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
-                 .sort(sort)
-                 .execute();
+        ListIpConnectionsResponse response = api.listIpConnections()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterConnectionNameContains(filterConnectionNameContains)
+                .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
+                .sort(sort)
+                .execute();
 
         //then
-                assertNotNull(response);
+        assertNotNull(response);
     }
 
     /**
@@ -129,7 +127,7 @@ public class IpConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveIpConnectionTest() throws ApiException {
+    public void retrieveIpConnection_ipConnectionIdProvided_returnsIpConnection() throws ApiException {
         //given
         String id = api.createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
 
@@ -148,7 +146,7 @@ public class IpConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateIpConnectionTest() throws ApiException {
+    public void updateIpConnection_changedParams_returnsUpdatedIpConnection() throws ApiException {
         //given
         String id = api.createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
         UpdateIpConnectionRequest updateIpConnectionRequest = prepareSampleUpdateIpConnectionRequest();

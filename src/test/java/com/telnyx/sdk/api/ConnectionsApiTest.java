@@ -49,7 +49,7 @@ public class ConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void listConnections_whenConnectionExistsAndNoFilterApplied_returnsConnection() throws ApiException {
+    public void listConnections_defaultParams_returnsNotNullListOfConnections() throws ApiException {
         //given
         Integer pageNumber = 1;
         Integer pageSize = 20;
@@ -79,7 +79,7 @@ public class ConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveConnection_whenConnectionIdIsValid_returnsConnection() throws ApiException {
+    public void retrieveConnection_connectionIdProvided_returnsConnection() throws ApiException {
         ConnectionResponse response = api.retrieveConnection(TestConfiguration.EXISTING_CONNECTION_ID);
         assertNotNull(response);
     }

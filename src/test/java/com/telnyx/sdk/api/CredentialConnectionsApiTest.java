@@ -13,33 +13,24 @@
 
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.AnchorsiteOverride;
 import com.telnyx.sdk.model.ConnectionRtcpSettings;
 import com.telnyx.sdk.model.CreateCredentialConnectionRequest;
-import com.telnyx.sdk.model.CreateInboundIpRequest;
-import com.telnyx.sdk.model.CreateIpConnectionRequest;
 import com.telnyx.sdk.model.CredentialConnectionResponse;
 import com.telnyx.sdk.model.CredentialInbound;
 import com.telnyx.sdk.model.CredentialOutbound;
 import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.ListCredentialConnectionsResponse;
-import com.telnyx.sdk.model.OutboundIp;
 import com.telnyx.sdk.model.UpdateCredentialConnectionRequest;
-import com.telnyx.sdk.model.UpdateIpConnectionRequest;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -61,14 +52,13 @@ public class CredentialConnectionsApiTest {
 
     /**
      * Create a credential connection
-     *
+     * <p>
      * Creates a credential connection.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createCredentialConnectionTest() throws ApiException {
+    public void createCredentialConnection_defaultParams_returnsCreatedCredentialConnection() throws ApiException {
         //given
         CreateCredentialConnectionRequest createCredentialConnectionRequest = prepareSampleCreateCredentialConnectionRequest();
 
@@ -81,14 +71,13 @@ public class CredentialConnectionsApiTest {
 
     /**
      * Delete a credential connection
-     *
+     * <p>
      * Deletes an existing credential connection.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteCredentialConnectionTest() throws ApiException {
+    public void deleteCredentialConnection_credentialConnectionIdProvided_credentialConnectionWouldNotReturnAnymore() throws ApiException {
         //given
         String id = api.createCredentialConnection(prepareSampleCreateCredentialConnectionRequest()).getData().getId();
 
@@ -104,14 +93,13 @@ public class CredentialConnectionsApiTest {
 
     /**
      * List credential connections
-     *
+     * <p>
      * Returns a list of your credential connections.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listCredentialConnectionsTest() throws ApiException {
+    public void listCredentialConnections_defaultParams_returnsNotNullListOfCredentialConnections() throws ApiException {
         //given
         Integer pageNumber = 1;
         Integer pageSize = 20;
@@ -130,14 +118,13 @@ public class CredentialConnectionsApiTest {
 
     /**
      * Retrieve a credential connection
-     *
+     * <p>
      * Retrieves the details of an existing credential connection.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveCredentialConnectionTest() throws ApiException {
+    public void retrieveCredentialConnection_credentialConnectionIdProvided_returnsCredentialConnection() throws ApiException {
         //given
         String id = api.createCredentialConnection(prepareSampleCreateCredentialConnectionRequest()).getData().getId();
 
@@ -150,14 +137,13 @@ public class CredentialConnectionsApiTest {
 
     /**
      * Update a credential connection
-     *
+     * <p>
      * Updates settings of an existing credential connection.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateCredentialConnectionTest() throws ApiException {
+    public void updateCredentialConnection_changedParams_returnsUpdatedCredentialConnection() throws ApiException {
         //given
         String id = api.createCredentialConnection(prepareSampleCreateCredentialConnectionRequest()).getData().getId();
         UpdateCredentialConnectionRequest updateCredentialConnectionRequest = prepareSampleUpdateCredentialConnectionRequest();
@@ -215,6 +201,7 @@ public class CredentialConnectionsApiTest {
                 .webhookEventUrl("https://example.com")
                 .webhookTimeoutSecs(25);
     }
+
     private UpdateCredentialConnectionRequest prepareSampleUpdateCredentialConnectionRequest() {
         return new UpdateCredentialConnectionRequest()
                 .active(true)

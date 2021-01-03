@@ -60,7 +60,7 @@ public class IPsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void createIpTest() throws ApiException {
+    public void createIp_defaultParams_returnsCreatedIp() throws ApiException {
         //given
         CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
 
@@ -79,7 +79,7 @@ public class IPsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteIpTest() throws ApiException {
+    public void deleteIp_ipIdProvided_ipWouldNotReturnAnymore() throws ApiException {
         //given
         CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
         UUID ipId = UUID.fromString(api.createIp(createIpRequest).getData().getId());
@@ -102,7 +102,7 @@ public class IPsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void listIpsTest() throws ApiException {
+    public void listIps_defaultParams_returnsNotNullListOfIps() throws ApiException {
         //given
         Integer pageNumber = 1;
         Integer pageSize = 20;
@@ -125,7 +125,7 @@ public class IPsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveIpTest() throws ApiException {
+    public void retrieveIp_ipIdProvided_returnsIp() throws ApiException {
         //given
         CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
         UUID ipId = UUID.fromString(api.createIp(createIpRequest).getData().getId());
@@ -145,7 +145,7 @@ public class IPsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateIpTest() throws ApiException {
+    public void updateIp_changedParams_returnsUpdatedIp() throws ApiException {
         //given
         CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
         UUID ipId = UUID.fromString(api.createIp(createIpRequest).getData().getId());
