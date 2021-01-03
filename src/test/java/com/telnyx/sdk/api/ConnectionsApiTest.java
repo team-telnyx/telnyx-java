@@ -17,10 +17,19 @@ import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.HttpBearerAuth;
+import com.telnyx.sdk.model.AnchorsiteOverride;
 import com.telnyx.sdk.model.ConnectionResponse;
+import com.telnyx.sdk.model.ConnectionRtcpSettings;
+import com.telnyx.sdk.model.CreateInboundIpRequest;
+import com.telnyx.sdk.model.CreateIpConnectionRequest;
+import com.telnyx.sdk.model.DtmfType;
+import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.ListConnectionsResponse;
+import com.telnyx.sdk.model.OutboundIp;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Collections;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -53,6 +62,7 @@ public class ConnectionsApiTest {
         //given
         Integer pageNumber = 1;
         Integer pageSize = 20;
+        //TODO: these params are not accepted in mock server
         String filterConnectionNameContains = "";
         String filterOutboundVoiceProfileId = "123";
         String sort = "created_at";
@@ -61,9 +71,9 @@ public class ConnectionsApiTest {
         ListConnectionsResponse response = api.listConnections()
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
-                .filterConnectionNameContains(filterConnectionNameContains)
-                .filterOutboundVoiceProfileId(filterOutboundVoiceProfileId)
-                .sort(sort)
+//                .filterConnectionNameContains(filterConnectionNameContains)
+//                .filterOutboundVoiceProfileId(filterOutboundVoiceProfileId)
+//                .sort(sort)
                 .execute();
 
 
@@ -80,7 +90,66 @@ public class ConnectionsApiTest {
      */
     @Test
     public void retrieveConnection_connectionIdProvided_returnsConnection() throws ApiException {
-        ConnectionResponse response = api.retrieveConnection(TestConfiguration.EXISTING_CONNECTION_ID);
+        //given
+        String id = new IpConnectionsApi().createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
+
+        //when
+        ConnectionResponse response = api.retrieveConnection(id);
+
+        //then
         assertNotNull(response);
     }
+
+    private CreateIpConnectionRequest prepareSampleCreateIpConnectionRequest() {
+        return new CreateIpConnectionRequest()
+                .active(true)
+                .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
+                .connectionName("some_connection")
+                .defaultOnHoldComfortNoiseEnabled(true)
+                .dtmfType(DtmfType.RFC_2833)
+                .encodeContactHeaderEnabled(false)
+                .encryptedMedia(EncryptedMedia.SRTP)
+                .inbound(new CreateInboundIpRequest()
+                        .aniNumberFormat(CreateInboundIpRequest.AniNumberFormatEnum._E_164)
+                        .channelLimit(10)
+                        .codecs(Collections.singletonList("G722"))
+                        .defaultRoutingMethod(CreateInboundIpRequest.DefaultRoutingMethodEnum.SEQUENTIAL)
+                        .dnisNumberFormat(CreateInboundIpRequest.DnisNumberFormatEnum._E164)
+                        .generateRingbackTone(true)
+                        .isupHeadersEnabled(true)
+                        .prackEnabled(true)
+                        .privacyZoneEnabled(true)
+                        .sipCompactHeadersEnabled(true)
+                        .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
+                        .sipSubdomain("test")
+                        .sipSubdomainReceiveSettings(CreateInboundIpRequest.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS)
+                        .timeout1xxSecs(10)
+                        .timeout2xxSecs(20)
+                )
+                .onnetT38PassthroughEnabled(false)
+                .outbound(new OutboundIp()
+                        .aniOverride("test")
+                        .aniOverrideType(OutboundIp.AniOverrideTypeEnum.ALWAYS)
+                        .callParkingEnabled(true)
+                        .channelLimit(10)
+                        .generateRingbackTone(true)
+                        .instantRingbackEnabled(true)
+                        .ipAuthenticationMethod(OutboundIp.IpAuthenticationMethodEnum.TOKEN)
+                        .ipAuthenticationToken("test")
+                        .localization("test")
+                        .outboundVoiceProfileId("123")
+                        .t38ReinviteSource(OutboundIp.T38ReinviteSourceEnum.TELNYX)
+                        .techPrefix("test")
+                )
+                .rtcpSettings(new ConnectionRtcpSettings()
+                        .captureEnabled(true)
+                        .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
+                        .reportFrequencySecs(10)
+                )
+                .transportProtocol(CreateIpConnectionRequest.TransportProtocolEnum.UDP)
+                .webhookEventFailoverUrl("https://failover.example.com")
+                .webhookEventUrl("https://example.com")
+                .webhookTimeoutSecs(25);
+    }
+
 }
