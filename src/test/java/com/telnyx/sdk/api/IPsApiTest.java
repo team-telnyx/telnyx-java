@@ -29,6 +29,7 @@ import com.telnyx.sdk.model.ListIpsResponse;
 import com.telnyx.sdk.model.OutboundIp;
 import com.telnyx.sdk.model.UpdateIpRequest;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -79,6 +80,7 @@ public class IPsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void deleteIp_ipIdProvided_ipWouldNotReturnAnymore() throws ApiException {
         //given
         CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
@@ -102,6 +104,7 @@ public class IPsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void listIps_defaultParams_returnsNotNullListOfIps() throws ApiException {
         //given
         Integer pageNumber = 1;

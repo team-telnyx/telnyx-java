@@ -28,6 +28,7 @@ import com.telnyx.sdk.model.ListIpConnectionsResponse;
 import com.telnyx.sdk.model.OutboundIp;
 import com.telnyx.sdk.model.UpdateIpConnectionRequest;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -77,6 +78,7 @@ public class IpConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void deleteIpConnection_ipConnectionIdProvided_ipConnectionWouldNotReturnAnymore() throws ApiException {
         //given
         String id = api.createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
@@ -99,6 +101,7 @@ public class IpConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void listIpConnections_defaultParams_returnsNotNullListOfIpConnections() throws ApiException {
         //given
         Integer pageNumber = 1;

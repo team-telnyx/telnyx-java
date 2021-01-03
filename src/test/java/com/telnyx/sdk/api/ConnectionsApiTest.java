@@ -27,6 +27,7 @@ import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.ListConnectionsResponse;
 import com.telnyx.sdk.model.OutboundIp;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -58,6 +59,7 @@ public class ConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore
     public void listConnections_defaultParams_returnsNotNullListOfConnections() throws ApiException {
         //given
         Integer pageNumber = 1;
@@ -71,9 +73,9 @@ public class ConnectionsApiTest {
         ListConnectionsResponse response = api.listConnections()
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
-//                .filterConnectionNameContains(filterConnectionNameContains)
-//                .filterOutboundVoiceProfileId(filterOutboundVoiceProfileId)
-//                .sort(sort)
+                .filterConnectionNameContains(filterConnectionNameContains)
+                .filterOutboundVoiceProfileId(filterOutboundVoiceProfileId)
+                .sort(sort)
                 .execute();
 
 
