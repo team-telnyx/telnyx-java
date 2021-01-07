@@ -9,6 +9,7 @@
 [![Build Status](https://github.com/team-telnyx/telnyx-java/workflows/Gradle/badge.svg)](https://github.com/team-telnyx/telnyx-java/actions)
 [![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx.svg)](https://mvnrepository.com/artifact/com.telnyx.sdk/telnyx)
 
+
 Java SDK for the Telnyx API
 
 - API version: 2.0.0

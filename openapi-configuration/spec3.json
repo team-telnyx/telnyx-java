@@ -8414,6 +8414,12 @@
         "type": "object",
         "title": "Answer Request",
         "properties": {
+          "billing_group_id": {
+            "description": "Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing Group ID.",
+            "type": "string",
+            "format": "uuid",
+            "example": "f5586561-8ff0-4291-a0ac-84fe544797bd"
+          },
           "client_state": {
             "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
             "type": "string",
@@ -10857,6 +10863,12 @@
             "items": {
               "$ref": "#/components/schemas/CustomSipHeader"
             }
+          },
+          "billing_group_id": {
+            "description": "Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing Group ID.",
+            "type": "string",
+            "format": "uuid",
+            "example": "f5586561-8ff0-4291-a0ac-84fe544797bd"
           },
           "client_state": {
             "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
