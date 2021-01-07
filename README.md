@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.3.0</version>
+  <version>2.3.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.3.0"
+compile "com.telnyx.sdk:telnyx:2.3.1"
 ```
 
 ### Others
@@ -57,7 +57,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.3.0.jar`
+- `target/telnyx-2.3.1.jar`
 - `target/lib/*.jar`
 
 ## JDK Support
