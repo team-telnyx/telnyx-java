@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -32,6 +33,7 @@ import com.telnyx.sdk.JSON;
  * AnswerRequest
  */
 @JsonPropertyOrder({
+  AnswerRequest.JSON_PROPERTY_BILLING_GROUP_ID,
   AnswerRequest.JSON_PROPERTY_CLIENT_STATE,
   AnswerRequest.JSON_PROPERTY_COMMAND_ID,
   AnswerRequest.JSON_PROPERTY_WEBHOOK_URL,
@@ -39,6 +41,9 @@ import com.telnyx.sdk.JSON;
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AnswerRequest {
+  public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
+  private UUID billingGroupId;
+
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
 
@@ -85,6 +90,30 @@ public class AnswerRequest {
 
   public static final String JSON_PROPERTY_WEBHOOK_URL_METHOD = "webhook_url_method";
   private WebhookUrlMethodEnum webhookUrlMethod = WebhookUrlMethodEnum.POST;
+
+
+  public AnswerRequest billingGroupId(UUID billingGroupId) {
+    this.billingGroupId = billingGroupId;
+    return this;
+  }
+
+   /**
+   * Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing Group ID.
+   * @return billingGroupId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "f5586561-8ff0-4291-a0ac-84fe544797bd", value = "Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing Group ID.")
+  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getBillingGroupId() {
+    return billingGroupId;
+  }
+
+
+  public void setBillingGroupId(UUID billingGroupId) {
+    this.billingGroupId = billingGroupId;
+  }
 
 
   public AnswerRequest clientState(String clientState) {
@@ -195,7 +224,8 @@ public class AnswerRequest {
       return false;
     }
     AnswerRequest answerRequest = (AnswerRequest) o;
-    return Objects.equals(this.clientState, answerRequest.clientState) &&
+    return Objects.equals(this.billingGroupId, answerRequest.billingGroupId) &&
+        Objects.equals(this.clientState, answerRequest.clientState) &&
         Objects.equals(this.commandId, answerRequest.commandId) &&
         Objects.equals(this.webhookUrl, answerRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, answerRequest.webhookUrlMethod);
@@ -203,7 +233,7 @@ public class AnswerRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(clientState, commandId, webhookUrl, webhookUrlMethod);
+    return Objects.hash(billingGroupId, clientState, commandId, webhookUrl, webhookUrlMethod);
   }
 
 
@@ -211,6 +241,7 @@ public class AnswerRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AnswerRequest {\n");
+    sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");

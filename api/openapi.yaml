@@ -8270,6 +8270,12 @@ components:
         webhook_url: https://www.example.com/server-b/
         webhook_url_method: POST
       properties:
+        billing_group_id:
+          description: Use this field to set the Billing Group ID for the call. Must
+            be a valid and existing Billing Group ID.
+          example: f5586561-8ff0-4291-a0ac-84fe544797bd
+          format: uuid
+          type: string
         client_state:
           description: Use this field to add state to every subsequent webhook. It
             must be a valid Base-64 encoded string.
@@ -9822,6 +9828,12 @@ components:
           items:
             $ref: '#/components/schemas/CustomSipHeader'
           type: array
+        billing_group_id:
+          description: Use this field to set the Billing Group ID for the call. Must
+            be a valid and existing Billing Group ID.
+          example: f5586561-8ff0-4291-a0ac-84fe544797bd
+          format: uuid
+          type: string
         client_state:
           description: Use this field to add state to every subsequent webhook. It
             must be a valid Base-64 encoded string.

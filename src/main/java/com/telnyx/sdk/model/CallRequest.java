@@ -28,6 +28,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,6 +46,7 @@ import com.telnyx.sdk.JSON;
   CallRequest.JSON_PROPERTY_ANSWERING_MACHINE_DETECTION,
   CallRequest.JSON_PROPERTY_ANSWERING_MACHINE_DETECTION_CONFIG,
   CallRequest.JSON_PROPERTY_CUSTOM_HEADERS,
+  CallRequest.JSON_PROPERTY_BILLING_GROUP_ID,
   CallRequest.JSON_PROPERTY_CLIENT_STATE,
   CallRequest.JSON_PROPERTY_COMMAND_ID,
   CallRequest.JSON_PROPERTY_LINK_TO,
@@ -122,6 +124,9 @@ public class CallRequest {
 
   public static final String JSON_PROPERTY_CUSTOM_HEADERS = "custom_headers";
   private List<CustomSipHeader> customHeaders = null;
+
+  public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
+  private UUID billingGroupId;
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
@@ -401,6 +406,30 @@ public class CallRequest {
   }
 
 
+  public CallRequest billingGroupId(UUID billingGroupId) {
+    this.billingGroupId = billingGroupId;
+    return this;
+  }
+
+   /**
+   * Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing Group ID.
+   * @return billingGroupId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "f5586561-8ff0-4291-a0ac-84fe544797bd", value = "Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing Group ID.")
+  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getBillingGroupId() {
+    return billingGroupId;
+  }
+
+
+  public void setBillingGroupId(UUID billingGroupId) {
+    this.billingGroupId = billingGroupId;
+  }
+
+
   public CallRequest clientState(String clientState) {
     this.clientState = clientState;
     return this;
@@ -590,6 +619,7 @@ public class CallRequest {
         Objects.equals(this.answeringMachineDetection, callRequest.answeringMachineDetection) &&
         Objects.equals(this.answeringMachineDetectionConfig, callRequest.answeringMachineDetectionConfig) &&
         Objects.equals(this.customHeaders, callRequest.customHeaders) &&
+        Objects.equals(this.billingGroupId, callRequest.billingGroupId) &&
         Objects.equals(this.clientState, callRequest.clientState) &&
         Objects.equals(this.commandId, callRequest.commandId) &&
         Objects.equals(this.linkTo, callRequest.linkTo) &&
@@ -601,7 +631,7 @@ public class CallRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, connectionId, audioUrl, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, commandId, linkTo, sipAuthUsername, sipAuthPassword, webhookUrl, webhookUrlMethod);
+    return Objects.hash(to, from, connectionId, audioUrl, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, sipAuthUsername, sipAuthPassword, webhookUrl, webhookUrlMethod);
   }
 
 
@@ -618,6 +648,7 @@ public class CallRequest {
     sb.append("    answeringMachineDetection: ").append(toIndentedString(answeringMachineDetection)).append("\n");
     sb.append("    answeringMachineDetectionConfig: ").append(toIndentedString(answeringMachineDetectionConfig)).append("\n");
     sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
+    sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    linkTo: ").append(toIndentedString(linkTo)).append("\n");
