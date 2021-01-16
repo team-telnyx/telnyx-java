@@ -149,6 +149,7 @@ public class OutboundVoiceProfilesApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore("Once mock is fixed, replace billing group ID with a value that will work for both mock and production")
     public void updateOutboundVoiceProfile_whenRequestIsValid_returnsUpdatedOutboundVoiceProfile() throws ApiException {
         OutboundCallRecording outboundCallRecording = new OutboundCallRecording()
                 .callRecordingCallerPhoneNumbers(asList("+15555551234"))
