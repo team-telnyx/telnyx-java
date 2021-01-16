@@ -179,6 +179,7 @@ public class FqdNsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Ignore("Ignoring this test until we clean up the spec to remove default values on update request objects")
     public void updateFqdn_whenNullableFieldNotIncluded_doesNotUpdateNullableFieldToDefaultValue() throws ApiException {
         CreateFqdnRequest createFqdnRequest = new CreateFqdnRequest()
                 .fqdn("example.com")
