@@ -15,113 +15,209 @@ package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.CreateFqdnRequest;
-import com.telnyx.sdk.model.FqdnResponse;
-import com.telnyx.sdk.model.ListFqdnsResponse;
-import com.telnyx.sdk.model.UpdateFqdnRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import com.telnyx.sdk.model.*;
+import org.junit.*;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static java.lang.Thread.sleep;
+import static org.junit.Assert.*;
 
 /**
- * API tests for FqdNsApi
+ * API tests for FqdnsApi
  */
 public class FqdNsApiTest {
 
     private final FqdNsApi api = new FqdNsApi();
+    private final FqdnConnectionsApi fqdnConnectionsApi = new FqdnConnectionsApi();
+    private Fqdn existingFqdn;
+    private FqdnConnection existingFqdnConnection;
+
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+
+        try {
+            CreateFqdnConnectionRequest createFqdnConnectionRequest = new CreateFqdnConnectionRequest().connectionName("test-fqdn-connection-" + System.currentTimeMillis());
+            existingFqdnConnection = fqdnConnectionsApi.createFqdnConnection(createFqdnConnectionRequest).getData();
+
+            CreateFqdnRequest createFqdnRequest = new CreateFqdnRequest()
+                    .fqdn("example.com")
+                    .dnsRecordType("a")
+                    .port(5090)
+                    .connectionId(existingFqdnConnection.getId());
+            existingFqdn = api.createFqdn(createFqdnRequest).getData();
+        } catch (Exception e) {
+            fail("Test Setup Failure - Unable to create fqdn: " + e.getMessage());
+        }
+    }
+
+    @After
+    public void tearDown() throws InterruptedException {
+        try {
+            api.deleteFqdn(existingFqdn.getId());
+            fqdnConnectionsApi.deleteFqdnConnection(existingFqdnConnection.getId());
+        } catch (ApiException e) {
+            //ignore
+        }
+
+        //todo: Find a better way to avoid rate limiting during integration testing against production system
+        //sleep(100);
+    }
 
     /**
      * Create an Fqdn
      *
-     * Create a new FQDN object.
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createFqdnTest() throws ApiException {
-        //CreateFqdnRequest createFqdnRequest = null;
-        //FqdnResponse response = api.createFqdn(createFqdnRequest);
-        // TODO: test validations
+    public void createFqdn_whenValidRequest_returnsCreatedFqdn() throws ApiException {
+        CreateFqdnRequest createFqdnRequest = new CreateFqdnRequest()
+                .fqdn("create-example.com")
+                .dnsRecordType("a")
+                .port(8080)
+                .connectionId(existingFqdnConnection.getId());
+
+        FqdnResponse actualFqdnResponse = api.createFqdn(createFqdnRequest);
+        String actualId = actualFqdnResponse.getData().getId();
+
+        assertNotNull(actualId);
+
+        //Clean-up
+        try {
+            api.deleteFqdn(actualId);
+        } catch (ApiException e) {
+            // ignore
+        }
     }
 
     /**
      * Delete an Fqdn
      *
-     * Delete an FQDN.
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteFqdnTest() throws ApiException {
-        //String id = null;
-        //FqdnResponse response = api.deleteFqdn(id);
-        // TODO: test validations
+    public void deleteFqdn_whenValidId_returnsDeletedFqdn() throws ApiException {
+        String actualId = api.deleteFqdn(existingFqdn.getId())
+                .getData()
+                .getId();
+
+        assertEquals(existingFqdn.getId(), actualId);
     }
 
     /**
      * List Fqdns
      *
-     * Get all FQDNs belonging to the user that match the given filters.
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listFqdnsTest() throws ApiException {
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //String filterConnectionId = null;
-        //String filterFqdn = null;
-        //Integer filterPort = null;
-        //String filterDnsRecordType = null;
-        //ListFqdnsResponse response = api.listFqdns()
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .filterConnectionId(filterConnectionId)
-        //        .filterFqdn(filterFqdn)
-        //        .filterPort(filterPort)
-        //        .filterDnsRecordType(filterDnsRecordType)
-        //        .execute();
-        // TODO: test validations
+    @Ignore("Mock returns error message when filtering by any field, however all filters work as expected in production. Ignore until mock is fixed.")
+    public void listFqdns_whenFqdnsExist_returnsFqdns() throws ApiException {
+        ListFqdnsResponse listFqdnsResponse = api.listFqdns()
+                .pageNumber(1)
+                .pageSize(10)
+                .filterConnectionId(existingFqdnConnection.getId())
+                .filterFqdn(existingFqdn.getFqdn())
+                .filterPort(existingFqdn.getPort())
+                .filterDnsRecordType(existingFqdn.getDnsRecordType())
+                .execute();
+
+        assertNotNull(listFqdnsResponse.getData());
+        assertNotEquals(0, listFqdnsResponse.getData().size());
     }
 
     /**
      * Retrieve an Fqdn
      *
-     * Return the details regarding a specific FQDN.
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveFqdnTest() throws ApiException {
-        //String id = null;
-        //FqdnResponse response = api.retrieveFqdn(id);
-        // TODO: test validations
+    public void retrieveFqdn_whenFqdnExists_returnsFqdn() throws ApiException {
+        Fqdn actualFqdn = api.retrieveFqdn(existingFqdn.getId()).getData();
+
+        assertEquals(existingFqdn.getId(), actualFqdn.getId());
     }
 
     /**
      * Update an Fqdn
      *
-     * Update the details of a specific FQDN.
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateFqdnTest() throws ApiException {
-        //String id = null;
-        //UpdateFqdnRequest updateFqdnRequest = null;
-        //FqdnResponse response = api.updateFqdn(id, updateFqdnRequest);
-        // TODO: test validations
+    @Ignore("Mock doesn't allow null value, but production api does. This test ensures all fields can be updated. Ignore until mock is fixed.")
+    public void updateFqdn_whenRequestIsValid_returnsUpdatedFqdn() throws ApiException {
+        CreateFqdnConnectionRequest createFqdnConnectionRequest = new CreateFqdnConnectionRequest().connectionName("update-test-fqdn-connection-" + System.currentTimeMillis());
+        FqdnConnection newFqdnConnection = fqdnConnectionsApi.createFqdnConnection(createFqdnConnectionRequest).getData();
+
+        UpdateFqdnRequest updateFqdnRequest = new UpdateFqdnRequest()
+                .fqdn("update-request-test.com")
+                .dnsRecordType("srv")
+                .port(null)
+                .connectionId(newFqdnConnection.getId());
+
+        Fqdn actualFqdn = api.updateFqdn(existingFqdn.getId(), updateFqdnRequest).getData();
+
+        assertEquals(updateFqdnRequest.getFqdn(), actualFqdn.getFqdn());
+        assertEquals(updateFqdnRequest.getDnsRecordType(), actualFqdn.getDnsRecordType());
+        assertEquals(updateFqdnRequest.getPort(), actualFqdn.getPort());
+        assertEquals(updateFqdnRequest.getConnectionId(), actualFqdn.getConnectionId());
+
+        //Clean-up
+        try {
+            fqdnConnectionsApi.deleteFqdnConnection(newFqdnConnection.getId());
+        } catch (ApiException e) {
+            // ignore
+        }
     }
 
+    /**
+     * Update an Fqdn without changing it port
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    @Ignore("Ignoring this test until we clean up the spec to remove default values on update request objects")
+    public void updateFqdn_whenNullableFieldNotIncluded_doesNotUpdateNullableFieldToDefaultValue() throws ApiException {
+        CreateFqdnRequest createFqdnRequest = new CreateFqdnRequest()
+                .fqdn("example.com")
+                .dnsRecordType("a")
+                .port(8888)
+                .connectionId(existingFqdnConnection.getId());
+        Fqdn existingFqdnWithCustomPort = api.createFqdn(createFqdnRequest).getData();
+
+        UpdateFqdnRequest domainOnlyUpdateRequest = new UpdateFqdnRequest()
+                .fqdn("update-request-test.com");
+
+        Fqdn actualFqdn = api.updateFqdn(existingFqdnWithCustomPort.getId(), domainOnlyUpdateRequest).getData();
+
+        assertEquals("Port should remain unchanged when not provided in update request", existingFqdnWithCustomPort.getPort(), actualFqdn.getPort());
+
+        //Clean-up
+        try {
+            api.deleteFqdn(existingFqdnWithCustomPort.getId());
+        } catch (ApiException e) {
+            // ignore
+        }
+    }
+
+    /**
+     * Update an Fqdn, setting port to null
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    @Ignore("Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed.")
+    public void updateFqdn_whenPortIsNull_returnsUpdatedFqdn() throws ApiException {
+        UpdateFqdnRequest updateFqdnRequest = new UpdateFqdnRequest()
+                .dnsRecordType("srv")
+                .port(null)
+                .connectionId(existingFqdnConnection.getId());
+
+        Fqdn actualFqdn = api.updateFqdn(existingFqdn.getId(), updateFqdnRequest).getData();
+
+        assertNull(actualFqdn.getPort());
+    }
 }

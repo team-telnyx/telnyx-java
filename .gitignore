@@ -22,3 +22,6 @@ build
 
 # no longer needed RIP travis :(
 .travis.yml
+
+#Intellij files
+.idea/
