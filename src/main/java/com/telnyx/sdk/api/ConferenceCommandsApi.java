@@ -1088,7 +1088,7 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
   /**
    * List conference participants
    * Lists conference participants
-   * @param conferenceId Uniquely identifies the conference by id or name (required)
+   * @param conferenceId Uniquely identifies the conference by id (required)
    * @return listConferenceParticipantsRequest
    * @throws ApiException if fails to make API call
    
@@ -1224,7 +1224,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
   /**
    * Retrieve a conference
    * Retrieve an existing conference
-   * @param id Uniquely identifies the conference by id or name (required)
+   * @param id Uniquely identifies the conference by id (required)
    * @return ConferenceResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1241,7 +1241,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
   /**
    * Retrieve a conference
    * Retrieve an existing conference
-   * @param id Uniquely identifies the conference by id or name (required)
+   * @param id Uniquely identifies the conference by id (required)
    * @return ApiResponse&lt;ConferenceResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details

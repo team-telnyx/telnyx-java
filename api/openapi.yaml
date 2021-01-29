@@ -2269,7 +2269,7 @@ paths:
       description: Lists conference participants
       operationId: listConferenceParticipants
       parameters:
-      - description: Uniquely identifies the conference by id or name
+      - description: Uniquely identifies the conference by id
         explode: false
         in: path
         name: conference_id
@@ -2349,7 +2349,7 @@ paths:
       description: Retrieve an existing conference
       operationId: retrieveConference
       parameters:
-      - description: Uniquely identifies the conference by id or name
+      - description: Uniquely identifies the conference by id
         explode: false
         in: path
         name: id
@@ -22520,4 +22520,3 @@ components:
     bearerAuth:
       scheme: bearer
       type: http
-

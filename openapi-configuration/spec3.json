@@ -2206,7 +2206,7 @@
         "parameters": [
           {
             "name": "conference_id",
-            "description": "Uniquely identifies the conference by id or name",
+            "description": "Uniquely identifies the conference by id",
             "in": "path",
             "required": true,
             "schema": {
@@ -2272,7 +2272,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": "Uniquely identifies the conference by id or name",
+            "description": "Uniquely identifies the conference by id",
             "in": "path",
             "required": true,
             "schema": {

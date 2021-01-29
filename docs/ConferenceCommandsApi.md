@@ -52,7 +52,7 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
@@ -127,14 +127,14 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String id = "id_example"; // String | Uniquely identifies the conference by id or name
-        ConferenceHoldRequest conferenceHoldRequest = new ConferenceHoldRequest(); // ConferenceHoldRequest | 
+        ConferenceHoldRequest conferenceHoldRequest = new ConferenceHoldRequest(); // ConferenceHoldRequest |
         try {
             ConferenceCommandResponse result = apiInstance.conferenceHoldParticipants(id, conferenceHoldRequest);
             System.out.println(result);
@@ -208,7 +208,7 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
@@ -282,14 +282,14 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String id = "id_example"; // String | Uniquely identifies the conference by id or name
-        ConferenceMuteRequest conferenceMuteRequest = new ConferenceMuteRequest(); // ConferenceMuteRequest | 
+        ConferenceMuteRequest conferenceMuteRequest = new ConferenceMuteRequest(); // ConferenceMuteRequest |
         try {
             ConferenceCommandResponse result = apiInstance.conferenceMuteParticipants(id, conferenceMuteRequest);
             System.out.println(result);
@@ -357,14 +357,14 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String id = "id_example"; // String | Uniquely identifies the conference by id or name
-        ConferencePlayRequest conferencePlayRequest = new ConferencePlayRequest(); // ConferencePlayRequest | 
+        ConferencePlayRequest conferencePlayRequest = new ConferencePlayRequest(); // ConferencePlayRequest |
         try {
             ConferenceCommandResponse result = apiInstance.conferencePlayAudio(id, conferencePlayRequest);
             System.out.println(result);
@@ -432,14 +432,14 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String id = "id_example"; // String | Specifies the conference by id or name
-        ConferenceSpeakRequest conferenceSpeakRequest = new ConferenceSpeakRequest(); // ConferenceSpeakRequest | 
+        ConferenceSpeakRequest conferenceSpeakRequest = new ConferenceSpeakRequest(); // ConferenceSpeakRequest |
         try {
             ConferenceCommandResponse result = apiInstance.conferenceSpeakText(id, conferenceSpeakRequest);
             System.out.println(result);
@@ -511,14 +511,14 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String id = "id_example"; // String | Specifies the conference to record by id or name
-        StartRecordingRequest startRecordingRequest = new StartRecordingRequest(); // StartRecordingRequest | 
+        StartRecordingRequest startRecordingRequest = new StartRecordingRequest(); // StartRecordingRequest |
         try {
             ConferenceCommandResponse result = apiInstance.conferenceStartRecording(id, startRecordingRequest);
             System.out.println(result);
@@ -591,7 +591,7 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
@@ -666,14 +666,14 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String id = "id_example"; // String | Uniquely identifies the conference by id or name
-        ConferenceUnholdRequest conferenceUnholdRequest = new ConferenceUnholdRequest(); // ConferenceUnholdRequest | 
+        ConferenceUnholdRequest conferenceUnholdRequest = new ConferenceUnholdRequest(); // ConferenceUnholdRequest |
         try {
             ConferenceCommandResponse result = apiInstance.conferenceUnholdParticipants(id, conferenceUnholdRequest);
             System.out.println(result);
@@ -741,14 +741,14 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String id = "id_example"; // String | Uniquely identifies the conference by id or name
-        ConferenceUnmuteRequest conferenceUnmuteRequest = new ConferenceUnmuteRequest(); // ConferenceUnmuteRequest | 
+        ConferenceUnmuteRequest conferenceUnmuteRequest = new ConferenceUnmuteRequest(); // ConferenceUnmuteRequest |
         try {
             ConferenceCommandResponse result = apiInstance.conferenceUnmuteParticipants(id, conferenceUnmuteRequest);
             System.out.println(result);
@@ -825,7 +825,7 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
@@ -897,13 +897,13 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-        String conferenceId = "conferenceId_example"; // String | Uniquely identifies the conference by id or name
+        String conferenceId = "conferenceId_example"; // String | Uniquely identifies the conference by id
         Boolean filterMuted = true; // Boolean | If present, participants will be filtered to those who are/are not muted
         Boolean filterOnHold = true; // Boolean | If present, participants will be filtered to those who are/are not put on hold
         Boolean filterWhispering = true; // Boolean | If present, participants will be filtered to those who are whispering or are not
@@ -934,7 +934,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **conferenceId** | **String**| Uniquely identifies the conference by id or name |
+ **conferenceId** | **String**| Uniquely identifies the conference by id |
  **filterMuted** | **Boolean**| If present, participants will be filtered to those who are/are not muted | [optional]
  **filterOnHold** | **Boolean**| If present, participants will be filtered to those who are/are not put on hold | [optional]
  **filterWhispering** | **Boolean**| If present, participants will be filtered to those who are whispering or are not | [optional]
@@ -986,7 +986,7 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
@@ -1066,13 +1066,13 @@ public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
+
         // Configure HTTP bearer authorization: bearerAuth
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        String id = "id_example"; // String | Uniquely identifies the conference by id
         try {
             ConferenceResponse result = apiInstance.retrieveConference(id);
             System.out.println(result);
@@ -1092,7 +1092,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Uniquely identifies the conference by id or name |
+ **id** | **String**| Uniquely identifies the conference by id |
 
 ### Return type
 
@@ -1112,4 +1112,3 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a conference. |  -  |
 | **404** | Conference does not exist |  -  |
-
