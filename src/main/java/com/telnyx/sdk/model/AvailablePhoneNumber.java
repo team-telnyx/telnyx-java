@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CostInformation;
+import com.telnyx.sdk.model.Feature;
 import com.telnyx.sdk.model.RegionInformation;
-import com.telnyx.sdk.model.RegulatoryRequirement;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   AvailablePhoneNumber.JSON_PROPERTY_RESERVABLE,
   AvailablePhoneNumber.JSON_PROPERTY_REGION_INFORMATION,
   AvailablePhoneNumber.JSON_PROPERTY_COST_INFORMATION,
-  AvailablePhoneNumber.JSON_PROPERTY_REGULATORY_REQUIREMENTS
+  AvailablePhoneNumber.JSON_PROPERTY_FEATURES
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AvailablePhoneNumber {
@@ -106,8 +106,8 @@ public class AvailablePhoneNumber {
   public static final String JSON_PROPERTY_COST_INFORMATION = "cost_information";
   private CostInformation costInformation;
 
-  public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
-  private List<RegulatoryRequirement> regulatoryRequirements = null;
+  public static final String JSON_PROPERTY_FEATURES = "features";
+  private List<Feature> features = null;
 
 
   public AvailablePhoneNumber recordType(RecordTypeEnum recordType) {
@@ -310,35 +310,35 @@ public class AvailablePhoneNumber {
   }
 
 
-  public AvailablePhoneNumber regulatoryRequirements(List<RegulatoryRequirement> regulatoryRequirements) {
-    this.regulatoryRequirements = regulatoryRequirements;
+  public AvailablePhoneNumber features(List<Feature> features) {
+    this.features = features;
     return this;
   }
 
-  public AvailablePhoneNumber addRegulatoryRequirementsItem(RegulatoryRequirement regulatoryRequirementsItem) {
-    if (this.regulatoryRequirements == null) {
-      this.regulatoryRequirements = new ArrayList<>();
+  public AvailablePhoneNumber addFeaturesItem(Feature featuresItem) {
+    if (this.features == null) {
+      this.features = new ArrayList<>();
     }
-    this.regulatoryRequirements.add(regulatoryRequirementsItem);
+    this.features.add(featuresItem);
     return this;
   }
 
    /**
-   * Get regulatoryRequirements
-   * @return regulatoryRequirements
+   * Get features
+   * @return features
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
+  @JsonProperty(JSON_PROPERTY_FEATURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<RegulatoryRequirement> getRegulatoryRequirements() {
-    return regulatoryRequirements;
+  public List<Feature> getFeatures() {
+    return features;
   }
 
 
-  public void setRegulatoryRequirements(List<RegulatoryRequirement> regulatoryRequirements) {
-    this.regulatoryRequirements = regulatoryRequirements;
+  public void setFeatures(List<Feature> features) {
+    this.features = features;
   }
 
 
@@ -362,12 +362,12 @@ public class AvailablePhoneNumber {
         Objects.equals(this.reservable, availablePhoneNumber.reservable) &&
         Objects.equals(this.regionInformation, availablePhoneNumber.regionInformation) &&
         Objects.equals(this.costInformation, availablePhoneNumber.costInformation) &&
-        Objects.equals(this.regulatoryRequirements, availablePhoneNumber.regulatoryRequirements);
+        Objects.equals(this.features, availablePhoneNumber.features);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, phoneNumber, vanityFormat, bestEffort, quickship, reservable, regionInformation, costInformation, regulatoryRequirements);
+    return Objects.hash(recordType, phoneNumber, vanityFormat, bestEffort, quickship, reservable, regionInformation, costInformation, features);
   }
 
 
@@ -383,7 +383,7 @@ public class AvailablePhoneNumber {
     sb.append("    reservable: ").append(toIndentedString(reservable)).append("\n");
     sb.append("    regionInformation: ").append(toIndentedString(regionInformation)).append("\n");
     sb.append("    costInformation: ").append(toIndentedString(costInformation)).append("\n");
-    sb.append("    regulatoryRequirements: ").append(toIndentedString(regulatoryRequirements)).append("\n");
+    sb.append("    features: ").append(toIndentedString(features)).append("\n");
     sb.append("}");
     return sb.toString();
   }

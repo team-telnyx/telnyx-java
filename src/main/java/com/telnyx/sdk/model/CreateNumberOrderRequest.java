@@ -254,7 +254,7 @@ public class CreateNumberOrderRequest {
    * @return status
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The status of the order.")
+  @ApiModelProperty(example = "success", value = "The status of the order.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

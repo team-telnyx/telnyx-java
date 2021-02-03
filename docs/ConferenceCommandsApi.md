@@ -876,7 +876,7 @@ Name | Type | Description  | Notes
 
 ## listConferenceParticipants
 
-> ListParticipantsResponse listConferenceParticipants(conferenceId).filterMuted(filterMuted).filterOnHold(filterOnHold).filterWhispering(filterWhispering).pageNumber(pageNumber).pageSize(pageSize).execute();
+> ListParticipantsResponse listConferenceParticipants(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize)
 
 List conference participants
 
@@ -910,13 +910,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load.
         Integer pageSize = 20; // Integer | The size of the page.
         try {
-            ListParticipantsResponse result = api.listConferenceParticipants(conferenceId)
-                .filterMuted(filterMuted)
-                .filterOnHold(filterOnHold)
-                .filterWhispering(filterWhispering)
-                .pageNumber(pageNumber)
-                .pageSize(pageSize)
-                .execute();
+            ListParticipantsResponse result = apiInstance.listConferenceParticipants(conferenceId, filterMuted, filterOnHold, filterWhispering, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ConferenceCommandsApi#listConferenceParticipants");

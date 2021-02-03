@@ -13,22 +13,29 @@
 
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.HttpBearerAuth;
+import com.telnyx.sdk.model.AnchorsiteOverride;
+import com.telnyx.sdk.model.ConnectionRtcpSettings;
+import com.telnyx.sdk.model.CreateInboundIpRequest;
+import com.telnyx.sdk.model.CreateIpConnectionRequest;
 import com.telnyx.sdk.model.CreateIpRequest;
+import com.telnyx.sdk.model.DtmfType;
+import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.IpResponse;
 import com.telnyx.sdk.model.ListIpsResponse;
-import java.util.UUID;
+import com.telnyx.sdk.model.OutboundIp;
 import com.telnyx.sdk.model.UpdateIpRequest;
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.Collections;
+import java.util.UUID;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.*;
 
 /**
  * API tests for IPsApi
@@ -37,90 +44,198 @@ public class IPsApiTest {
 
     private final IPsApi api = new IPsApi();
 
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+    }
+
     /**
      * Create an Ip
-     *
+     * <p>
      * Create a new IP object.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createIpTest() throws ApiException {
-        //CreateIpRequest createIpRequest = null;
-        //IpResponse response = api.createIp(createIpRequest);
-        // TODO: test validations
+    public void createIp_defaultParams_returnsCreatedIp() throws ApiException {
+        //given
+        CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
+
+        //when
+        IpResponse response = api.createIp(createIpRequest);
+
+        //then
+        assertNotNull(response);
     }
 
     /**
      * Delete an Ip
-     *
+     * <p>
      * Delete an IP.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteIpTest() throws ApiException {
-        //UUID id = null;
-        //IpResponse response = api.deleteIp(id);
-        // TODO: test validations
+    @Ignore
+    public void deleteIp_ipIdProvided_ipWouldNotReturnAnymore() throws ApiException {
+        //given
+        CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
+        UUID ipId = UUID.fromString(api.createIp(createIpRequest).getData().getId());
+
+        //when
+        IpResponse response = api.deleteIp(ipId);
+
+        //then
+        assertNotNull(response);
+
+        IpResponse retrievedIp = api.retrieveIp(ipId);
+        assertNull(retrievedIp);
     }
 
     /**
      * List Ips
-     *
+     * <p>
      * Get all IPs belonging to the user that match the given filters.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listIpsTest() throws ApiException {
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //String filterConnectionId = null;
-        //String filterIpAddress = null;
-        //Integer filterPort = null;
-        //ListIpsResponse response = api.listIps()
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .filterConnectionId(filterConnectionId)
-        //        .filterIpAddress(filterIpAddress)
-        //        .filterPort(filterPort)
-        //        .execute();
-        // TODO: test validations
+    @Ignore
+    public void listIps_defaultParams_returnsNotNullListOfIps() throws ApiException {
+        //given
+        Integer pageNumber = 1;
+        Integer pageSize = 20;
+
+        //when
+        ListIpsResponse response = api.listIps()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .execute();
+
+        //then
+        assertNotNull(response);
     }
 
     /**
      * Retrieve an Ip
-     *
+     * <p>
      * Return the details regarding a specific IP.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveIpTest() throws ApiException {
-        //UUID id = null;
-        //IpResponse response = api.retrieveIp(id);
-        // TODO: test validations
+    public void retrieveIp_ipIdProvided_returnsIp() throws ApiException {
+        //given
+        CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
+        UUID ipId = UUID.fromString(api.createIp(createIpRequest).getData().getId());
+
+        //when
+        IpResponse response = api.retrieveIp(ipId);
+
+        //then
+        assertNotNull(response);
     }
 
     /**
      * Update an Ip
-     *
+     * <p>
      * Update the details of a specific IP.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateIpTest() throws ApiException {
-        //UUID id = null;
-        //UpdateIpRequest updateIpRequest = null;
-        //IpResponse response = api.updateIp(id, updateIpRequest);
-        // TODO: test validations
+    public void updateIp_changedParams_returnsUpdatedIp() throws ApiException {
+        //given
+        CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
+        UUID ipId = UUID.fromString(api.createIp(createIpRequest).getData().getId());
+        UpdateIpRequest updateIpRequest = prepareSampleUpdateIpRequest();
+
+        //when
+        IpResponse response = api.updateIp(ipId, updateIpRequest);
+
+        //then
+        assertNotNull(response);
+        assertEquals(updateIpRequest.getPort(), response.getData().getPort());
+        assertEquals(updateIpRequest.getConnectionId(), response.getData().getConnectionId());
+        assertEquals(updateIpRequest.getIpAddress(), response.getData().getIpAddress());
     }
 
+    private UpdateIpRequest prepareSampleUpdateIpRequest() throws ApiException {
+        String ipConnectionId = new IpConnectionsApi()
+                .createIpConnection(prepareSampleCreateIpConnectionRequest())
+                .getData().getId();
+
+        return new UpdateIpRequest()
+                .ipAddress("192.168.0.1")
+                .connectionId(ipConnectionId)
+                .port(5061);
+    }
+
+
+    private CreateIpRequest prepareSampleCreateIpRequest() throws ApiException {
+        String ipConnectionId = new IpConnectionsApi()
+                .createIpConnection(prepareSampleCreateIpConnectionRequest())
+                .getData().getId();
+
+        return new CreateIpRequest()
+                .ipAddress("192.168.0.0")
+                .connectionId(ipConnectionId)
+                .port(5060);
+    }
+
+    private CreateIpConnectionRequest prepareSampleCreateIpConnectionRequest() {
+        return new CreateIpConnectionRequest()
+                .active(true)
+                .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
+                .connectionName("some_connection")
+                .defaultOnHoldComfortNoiseEnabled(true)
+                .dtmfType(DtmfType.RFC_2833)
+                .encodeContactHeaderEnabled(false)
+                .encryptedMedia(EncryptedMedia.SRTP)
+                .inbound(new CreateInboundIpRequest()
+                        .aniNumberFormat(CreateInboundIpRequest.AniNumberFormatEnum._E_164)
+                        .channelLimit(10)
+                        .codecs(Collections.singletonList("G722"))
+                        .defaultRoutingMethod(CreateInboundIpRequest.DefaultRoutingMethodEnum.SEQUENTIAL)
+                        .dnisNumberFormat(CreateInboundIpRequest.DnisNumberFormatEnum._E164)
+                        .generateRingbackTone(true)
+                        .isupHeadersEnabled(true)
+                        .prackEnabled(true)
+                        .privacyZoneEnabled(true)
+                        .sipCompactHeadersEnabled(true)
+                        .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
+                        .sipSubdomain("test")
+                        .sipSubdomainReceiveSettings(CreateInboundIpRequest.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS)
+                        .timeout1xxSecs(10)
+                        .timeout2xxSecs(20)
+                )
+                .onnetT38PassthroughEnabled(false)
+                .outbound(new OutboundIp()
+                        .aniOverride("test")
+                        .aniOverrideType(OutboundIp.AniOverrideTypeEnum.ALWAYS)
+                        .callParkingEnabled(true)
+                        .channelLimit(10)
+                        .generateRingbackTone(true)
+                        .instantRingbackEnabled(true)
+                        .ipAuthenticationMethod(OutboundIp.IpAuthenticationMethodEnum.TOKEN)
+                        .ipAuthenticationToken("test")
+                        .localization("test")
+                        .outboundVoiceProfileId("123")
+                        .t38ReinviteSource(OutboundIp.T38ReinviteSourceEnum.TELNYX)
+                        .techPrefix("test")
+                )
+                .rtcpSettings(new ConnectionRtcpSettings()
+                        .captureEnabled(true)
+                        .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
+                        .reportFrequencySecs(10)
+                )
+                .transportProtocol(CreateIpConnectionRequest.TransportProtocolEnum.UDP)
+                .webhookEventFailoverUrl("https://failover.example.com")
+                .webhookEventUrl("https://example.com")
+                .webhookTimeoutSecs(25);
+    }
 }

@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 
 Name | Value
 ---- | -----
+PREMIUM | &quot;premium&quot;
 DETECT | &quot;detect&quot;
 DETECT_BEEP | &quot;detect_beep&quot;
 DETECT_WORDS | &quot;detect_words&quot;

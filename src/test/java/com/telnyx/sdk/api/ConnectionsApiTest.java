@@ -13,19 +13,26 @@
 
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.HttpBearerAuth;
+import com.telnyx.sdk.model.AnchorsiteOverride;
 import com.telnyx.sdk.model.ConnectionResponse;
+import com.telnyx.sdk.model.ConnectionRtcpSettings;
+import com.telnyx.sdk.model.CreateInboundIpRequest;
+import com.telnyx.sdk.model.CreateIpConnectionRequest;
+import com.telnyx.sdk.model.DtmfType;
+import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.ListConnectionsResponse;
-import org.junit.Assert;
+import com.telnyx.sdk.model.OutboundIp;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.Collections;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * API tests for ConnectionsApi
@@ -34,44 +41,117 @@ public class ConnectionsApiTest {
 
     private final ConnectionsApi api = new ConnectionsApi();
 
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+
+    }
+
     /**
      * List connections
-     *
+     * <p>
      * Returns a list of your connections irrespective of type.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listConnectionsTest() throws ApiException {
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //String filterConnectionNameContains = null;
-        //String filterOutboundVoiceProfileId = null;
-        //String sort = null;
-        //ListConnectionsResponse response = api.listConnections()
-        //        .pageNumber(pageNumber)
-        //        .pageSize(pageSize)
-        //        .filterConnectionNameContains(filterConnectionNameContains)
-        //        .filterOutboundVoiceProfileId(filterOutboundVoiceProfileId)
-        //        .sort(sort)
-        //        .execute();
-        // TODO: test validations
+    @Ignore
+    public void listConnections_defaultParams_returnsNotNullListOfConnections() throws ApiException {
+        //given
+        Integer pageNumber = 1;
+        Integer pageSize = 20;
+        //TODO: these params are not accepted in mock server
+        String filterConnectionNameContains = "";
+        String filterOutboundVoiceProfileId = "123";
+        String sort = "created_at";
+
+        //when
+        ListConnectionsResponse response = api.listConnections()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .filterConnectionNameContains(filterConnectionNameContains)
+                .filterOutboundVoiceProfileId(filterOutboundVoiceProfileId)
+                .sort(sort)
+                .execute();
+
+
+        //then
+        assertNotNull(response);
     }
 
     /**
      * Retrieve a connection
-     *
+     * <p>
      * Retrieves the high-level details of an existing connection. To retrieve specific authentication information, use the endpoint for the specific connection type.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveConnectionTest() throws ApiException {
-        //String id = null;
-        //ConnectionResponse response = api.retrieveConnection(id);
-        // TODO: test validations
+    public void retrieveConnection_connectionIdProvided_returnsConnection() throws ApiException {
+        //given
+        String id = new IpConnectionsApi().createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
+
+        //when
+        ConnectionResponse response = api.retrieveConnection(id);
+
+        //then
+        assertNotNull(response);
+    }
+
+    private CreateIpConnectionRequest prepareSampleCreateIpConnectionRequest() {
+        return new CreateIpConnectionRequest()
+                .active(true)
+                .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
+                .connectionName("some_connection")
+                .defaultOnHoldComfortNoiseEnabled(true)
+                .dtmfType(DtmfType.RFC_2833)
+                .encodeContactHeaderEnabled(false)
+                .encryptedMedia(EncryptedMedia.SRTP)
+                .inbound(new CreateInboundIpRequest()
+                        .aniNumberFormat(CreateInboundIpRequest.AniNumberFormatEnum._E_164)
+                        .channelLimit(10)
+                        .codecs(Collections.singletonList("G722"))
+                        .defaultRoutingMethod(CreateInboundIpRequest.DefaultRoutingMethodEnum.SEQUENTIAL)
+                        .dnisNumberFormat(CreateInboundIpRequest.DnisNumberFormatEnum._E164)
+                        .generateRingbackTone(true)
+                        .isupHeadersEnabled(true)
+                        .prackEnabled(true)
+                        .privacyZoneEnabled(true)
+                        .sipCompactHeadersEnabled(true)
+                        .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
+                        .sipSubdomain("test")
+                        .sipSubdomainReceiveSettings(CreateInboundIpRequest.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS)
+                        .timeout1xxSecs(10)
+                        .timeout2xxSecs(20)
+                )
+                .onnetT38PassthroughEnabled(false)
+                .outbound(new OutboundIp()
+                        .aniOverride("test")
+                        .aniOverrideType(OutboundIp.AniOverrideTypeEnum.ALWAYS)
+                        .callParkingEnabled(true)
+                        .channelLimit(10)
+                        .generateRingbackTone(true)
+                        .instantRingbackEnabled(true)
+                        .ipAuthenticationMethod(OutboundIp.IpAuthenticationMethodEnum.TOKEN)
+                        .ipAuthenticationToken("test")
+                        .localization("test")
+                        .outboundVoiceProfileId("123")
+                        .t38ReinviteSource(OutboundIp.T38ReinviteSourceEnum.TELNYX)
+                        .techPrefix("test")
+                )
+                .rtcpSettings(new ConnectionRtcpSettings()
+                        .captureEnabled(true)
+                        .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
+                        .reportFrequencySecs(10)
+                )
+                .transportProtocol(CreateIpConnectionRequest.TransportProtocolEnum.UDP)
+                .webhookEventFailoverUrl("https://failover.example.com")
+                .webhookEventUrl("https://example.com")
+                .webhookTimeoutSecs(25);
     }
 
 }
