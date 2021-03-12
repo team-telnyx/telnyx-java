@@ -39,7 +39,8 @@ import com.telnyx.sdk.JSON;
   ReservedPhoneNumber.JSON_PROPERTY_STATUS,
   ReservedPhoneNumber.JSON_PROPERTY_CREATED_AT,
   ReservedPhoneNumber.JSON_PROPERTY_UPDATED_AT,
-  ReservedPhoneNumber.JSON_PROPERTY_EXPIRED_AT
+  ReservedPhoneNumber.JSON_PROPERTY_EXPIRED_AT,
+  ReservedPhoneNumber.JSON_PROPERTY_ERRORS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ReservedPhoneNumber {
@@ -100,6 +101,9 @@ public class ReservedPhoneNumber {
 
   public static final String JSON_PROPERTY_EXPIRED_AT = "expired_at";
   private String expiredAt;
+
+  public static final String JSON_PROPERTY_ERRORS = "errors";
+  private String errors;
 
 
    /**
@@ -163,7 +167,7 @@ public class ReservedPhoneNumber {
    * @return status
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "success", value = "The status of the phone number's reservation.")
+  @ApiModelProperty(value = "The status of the phone number's reservation.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -222,6 +226,22 @@ public class ReservedPhoneNumber {
 
 
 
+   /**
+   * Errors the reservation could happen upon
+   * @return errors
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Number is already on hold", value = "Errors the reservation could happen upon")
+  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getErrors() {
+    return errors;
+  }
+
+
+
+
   /**
    * Return true if this ReservedPhoneNumber object is equal to o.
    */
@@ -240,12 +260,13 @@ public class ReservedPhoneNumber {
         Objects.equals(this.status, reservedPhoneNumber.status) &&
         Objects.equals(this.createdAt, reservedPhoneNumber.createdAt) &&
         Objects.equals(this.updatedAt, reservedPhoneNumber.updatedAt) &&
-        Objects.equals(this.expiredAt, reservedPhoneNumber.expiredAt);
+        Objects.equals(this.expiredAt, reservedPhoneNumber.expiredAt) &&
+        Objects.equals(this.errors, reservedPhoneNumber.errors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, status, createdAt, updatedAt, expiredAt);
+    return Objects.hash(id, recordType, phoneNumber, status, createdAt, updatedAt, expiredAt, errors);
   }
 
 
@@ -260,6 +281,7 @@ public class ReservedPhoneNumber {
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    expiredAt: ").append(toIndentedString(expiredAt)).append("\n");
+    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

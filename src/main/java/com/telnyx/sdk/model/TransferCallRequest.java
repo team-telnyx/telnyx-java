@@ -72,8 +72,6 @@ public class TransferCallRequest {
    * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#39;greeting_end&#39; or &#39;detect_words&#39; is used and a &#39;machine&#39; is detected, you will receive another &#39;call.machine.greeting.ended&#39; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#39;call.machine.greeting.ended&#39; if a beep is detected.
    */
   public enum AnsweringMachineDetectionEnum {
-    PREMIUM("premium"),
-    
     DETECT("detect"),
     
     DETECT_BEEP("detect_beep"),

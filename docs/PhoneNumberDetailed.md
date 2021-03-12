@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **connectionName** | **String** | The user-assigned name of the connection to be associated with this phone number. |  [optional] [readonly]
 **customerReference** | **String** | A customer reference string for customer look ups. |  [optional]
 **connectionId** | **String** | Identifies the connection associated with the phone number. |  [optional]
-**customerReference** | **String** | A customer reference string for customer look ups. |  [optional]
 **messagingProfileId** | **String** | Identifies the messaging profile associated with the phone number. |  [optional]
 **messagingProfileName** | **String** | The name of the messaging profile associated with the phone number. |  [optional]
 **billingGroupId** | **String** | Identifies the billing group associated with the phone number. |  [optional]
