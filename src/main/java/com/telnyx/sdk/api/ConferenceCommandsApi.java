@@ -15,6 +15,7 @@ import com.telnyx.sdk.model.ConferenceMuteRequest;
 import com.telnyx.sdk.model.ConferencePlayRequest;
 import com.telnyx.sdk.model.ConferenceResponse;
 import com.telnyx.sdk.model.ConferenceSpeakRequest;
+import com.telnyx.sdk.model.ConferenceStopRequest;
 import com.telnyx.sdk.model.ConferenceUnholdRequest;
 import com.telnyx.sdk.model.ConferenceUnmuteRequest;
 import com.telnyx.sdk.model.CreateConferenceRequest;
@@ -23,6 +24,7 @@ import com.telnyx.sdk.model.ListConferencesResponse;
 import com.telnyx.sdk.model.ListParticipantsResponse;
 import com.telnyx.sdk.model.StartRecordingRequest;
 import com.telnyx.sdk.model.StopRecordingRequest;
+import com.telnyx.sdk.model.UpdateConferenceRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -625,6 +627,87 @@ public class ConferenceCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Stop audio being played on the conference
+   * Stop audio being played to all or some participants on a conference call.
+   * @param id Uniquely identifies the conference by id or name (required)
+   * @param conferenceStopRequest  (required)
+   * @return ConferenceCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+     </table>
+   */
+  public ConferenceCommandResponse conferenceStopAudio(String id, ConferenceStopRequest conferenceStopRequest) throws ApiException {
+    return conferenceStopAudioWithHttpInfo(id, conferenceStopRequest).getData();
+  }
+
+  /**
+   * Stop audio being played on the conference
+   * Stop audio being played to all or some participants on a conference call.
+   * @param id Uniquely identifies the conference by id or name (required)
+   * @param conferenceStopRequest  (required)
+   * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<ConferenceCommandResponse> conferenceStopAudioWithHttpInfo(String id, ConferenceStopRequest conferenceStopRequest) throws ApiException {
+    Object localVarPostBody = conferenceStopRequest;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling conferenceStopAudio");
+    }
+    
+    // verify the required parameter 'conferenceStopRequest' is set
+    if (conferenceStopRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'conferenceStopRequest' when calling conferenceStopAudio");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/conferences/{id}/actions/stop"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ConferenceCommandResponse> localVarReturnType = new GenericType<ConferenceCommandResponse>() {};
+
+    return apiClient.invokeAPI("ConferenceCommandsApi.conferenceStopAudio", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Conference recording stop
    * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
    * @param id Specifies the conference to stop the recording for by id or name (required)
@@ -868,6 +951,85 @@ public class ConferenceCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Update conference participant
+   * Update conference participant supervisor_role
+   * @param id Uniquely identifies the conference by id or name (required)
+   * @param updateConferenceRequest Update Conference request object (required)
+   * @return ConferenceCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+     </table>
+   */
+  public ConferenceCommandResponse conferenceUpdate(String id, UpdateConferenceRequest updateConferenceRequest) throws ApiException {
+    return conferenceUpdateWithHttpInfo(id, updateConferenceRequest).getData();
+  }
+
+  /**
+   * Update conference participant
+   * Update conference participant supervisor_role
+   * @param id Uniquely identifies the conference by id or name (required)
+   * @param updateConferenceRequest Update Conference request object (required)
+   * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<ConferenceCommandResponse> conferenceUpdateWithHttpInfo(String id, UpdateConferenceRequest updateConferenceRequest) throws ApiException {
+    Object localVarPostBody = updateConferenceRequest;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling conferenceUpdate");
+    }
+    
+    // verify the required parameter 'updateConferenceRequest' is set
+    if (updateConferenceRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'updateConferenceRequest' when calling conferenceUpdate");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/conferences/{id}/actions/update"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ConferenceCommandResponse> localVarReturnType = new GenericType<ConferenceCommandResponse>() {};
+
+    return apiClient.invokeAPI("ConferenceCommandsApi.conferenceUpdate", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Create conference
    * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
    * @param createConferenceRequest Create a conference (required)
@@ -1029,7 +1191,7 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistConferenceParticipantsRequest
      */
     public APIlistConferenceParticipantsRequest pageNumber(Integer pageNumber) {
@@ -1039,7 +1201,7 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 250)
      * @return APIlistConferenceParticipantsRequest
      */
     public APIlistConferenceParticipantsRequest pageSize(Integer pageSize) {
@@ -1156,7 +1318,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistConferencesRequest
      */
     public APIlistConferencesRequest pageNumber(Integer pageNumber) {
@@ -1166,7 +1328,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 250)
      * @return APIlistConferencesRequest
      */
     public APIlistConferencesRequest pageSize(Integer pageSize) {

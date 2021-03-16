@@ -131,11 +131,11 @@ public class CallAnsweredPayload {
   }
 
    /**
-   * Telnyx connection ID used in the call.
+   * Call Control App ID (formerly Telnyx connection ID) used in the call.
    * @return connectionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Telnyx connection ID used in the call.")
+  @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Call Control App ID (formerly Telnyx connection ID) used in the call.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

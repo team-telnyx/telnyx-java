@@ -39,6 +39,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CallRequest.JSON_PROPERTY_TO,
   CallRequest.JSON_PROPERTY_FROM,
+  CallRequest.JSON_PROPERTY_FROM_DISPLAY_NAME,
   CallRequest.JSON_PROPERTY_CONNECTION_ID,
   CallRequest.JSON_PROPERTY_AUDIO_URL,
   CallRequest.JSON_PROPERTY_TIMEOUT_SECS,
@@ -62,6 +63,9 @@ public class CallRequest {
 
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
+
+  public static final String JSON_PROPERTY_FROM_DISPLAY_NAME = "from_display_name";
+  private String fromDisplayName;
 
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -231,16 +235,40 @@ public class CallRequest {
   }
 
 
+  public CallRequest fromDisplayName(String fromDisplayName) {
+    this.fromDisplayName = fromDisplayName;
+    return this;
+  }
+
+   /**
+   * The &#x60;from_display_name&#x60; string to be used as the caller id name (SIP From Display Name) presented to the destination (&#x60;to&#x60; number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the &#x60;from&#x60; field.
+   * @return fromDisplayName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Company Name", value = "The `from_display_name` string to be used as the caller id name (SIP From Display Name) presented to the destination (`to` number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the `from` field.")
+  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFromDisplayName() {
+    return fromDisplayName;
+  }
+
+
+  public void setFromDisplayName(String fromDisplayName) {
+    this.fromDisplayName = fromDisplayName;
+  }
+
+
   public CallRequest connectionId(String connectionId) {
     this.connectionId = connectionId;
     return this;
   }
 
    /**
-   * The ID of the connection to be used when dialing the destination.
+   * The ID of the Call Control App (formerly ID of the connection) to be used when dialing the destination.
    * @return connectionId
   **/
-  @ApiModelProperty(required = true, value = "The ID of the connection to be used when dialing the destination.")
+  @ApiModelProperty(required = true, value = "The ID of the Call Control App (formerly ID of the connection) to be used when dialing the destination.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -556,11 +584,11 @@ public class CallRequest {
   }
 
    /**
-   * Use this field to override the URL for which Telnyx will send subsuqeunt webhooks to for this call.
+   * Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.
    * @return webhookUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL for which Telnyx will send subsuqeunt webhooks to for this call.")
+  @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -612,6 +640,7 @@ public class CallRequest {
     CallRequest callRequest = (CallRequest) o;
     return Objects.equals(this.to, callRequest.to) &&
         Objects.equals(this.from, callRequest.from) &&
+        Objects.equals(this.fromDisplayName, callRequest.fromDisplayName) &&
         Objects.equals(this.connectionId, callRequest.connectionId) &&
         Objects.equals(this.audioUrl, callRequest.audioUrl) &&
         Objects.equals(this.timeoutSecs, callRequest.timeoutSecs) &&
@@ -631,7 +660,7 @@ public class CallRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, connectionId, audioUrl, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, sipAuthUsername, sipAuthPassword, webhookUrl, webhookUrlMethod);
+    return Objects.hash(to, from, fromDisplayName, connectionId, audioUrl, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, sipAuthUsername, sipAuthPassword, webhookUrl, webhookUrlMethod);
   }
 
 
@@ -641,6 +670,7 @@ public class CallRequest {
     sb.append("class CallRequest {\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
+    sb.append("    fromDisplayName: ").append(toIndentedString(fromDisplayName)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    audioUrl: ").append(toIndentedString(audioUrl)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");

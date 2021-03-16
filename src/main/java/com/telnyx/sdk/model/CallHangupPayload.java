@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,6 +40,7 @@ import com.telnyx.sdk.JSON;
   CallHangupPayload.JSON_PROPERTY_CLIENT_STATE,
   CallHangupPayload.JSON_PROPERTY_FROM,
   CallHangupPayload.JSON_PROPERTY_TO,
+  CallHangupPayload.JSON_PROPERTY_START_TIME,
   CallHangupPayload.JSON_PROPERTY_STATE,
   CallHangupPayload.JSON_PROPERTY_HANGUP_CAUSE,
   CallHangupPayload.JSON_PROPERTY_HANGUP_SOURCE,
@@ -66,6 +68,9 @@ public class CallHangupPayload {
 
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
+
+  public static final String JSON_PROPERTY_START_TIME = "start_time";
+  private OffsetDateTime startTime;
 
   /**
    * State received from a command.
@@ -227,11 +232,11 @@ public class CallHangupPayload {
   }
 
    /**
-   * Telnyx connection ID used in the call.
+   * Call Control App ID (formerly Telnyx connection ID) used in the call.
    * @return connectionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Telnyx connection ID used in the call.")
+  @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Call Control App ID (formerly Telnyx connection ID) used in the call.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -365,6 +370,30 @@ public class CallHangupPayload {
   }
 
 
+  public CallHangupPayload startTime(OffsetDateTime startTime) {
+    this.startTime = startTime;
+    return this;
+  }
+
+   /**
+   * ISO 8601 datetime of when the call started.
+   * @return startTime
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2018-02-02T22:20:27.521992Z", value = "ISO 8601 datetime of when the call started.")
+  @JsonProperty(JSON_PROPERTY_START_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getStartTime() {
+    return startTime;
+  }
+
+
+  public void setStartTime(OffsetDateTime startTime) {
+    this.startTime = startTime;
+  }
+
+
   public CallHangupPayload state(StateEnum state) {
     this.state = state;
     return this;
@@ -480,6 +509,7 @@ public class CallHangupPayload {
         Objects.equals(this.clientState, callHangupPayload.clientState) &&
         Objects.equals(this.from, callHangupPayload.from) &&
         Objects.equals(this.to, callHangupPayload.to) &&
+        Objects.equals(this.startTime, callHangupPayload.startTime) &&
         Objects.equals(this.state, callHangupPayload.state) &&
         Objects.equals(this.hangupCause, callHangupPayload.hangupCause) &&
         Objects.equals(this.hangupSource, callHangupPayload.hangupSource) &&
@@ -488,7 +518,7 @@ public class CallHangupPayload {
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to, state, hangupCause, hangupSource, sipHangupCause);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to, startTime, state, hangupCause, hangupSource, sipHangupCause);
   }
 
 
@@ -503,6 +533,7 @@ public class CallHangupPayload {
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
+    sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    hangupCause: ").append(toIndentedString(hangupCause)).append("\n");
     sb.append("    hangupSource: ").append(toIndentedString(hangupSource)).append("\n");

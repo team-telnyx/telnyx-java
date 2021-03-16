@@ -38,6 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   TransferCallRequest.JSON_PROPERTY_TO,
   TransferCallRequest.JSON_PROPERTY_FROM,
+  TransferCallRequest.JSON_PROPERTY_FROM_DISPLAY_NAME,
   TransferCallRequest.JSON_PROPERTY_AUDIO_URL,
   TransferCallRequest.JSON_PROPERTY_TIMEOUT_SECS,
   TransferCallRequest.JSON_PROPERTY_TIME_LIMIT_SECS,
@@ -45,6 +46,7 @@ import com.telnyx.sdk.JSON;
   TransferCallRequest.JSON_PROPERTY_ANSWERING_MACHINE_DETECTION_CONFIG,
   TransferCallRequest.JSON_PROPERTY_CUSTOM_HEADERS,
   TransferCallRequest.JSON_PROPERTY_CLIENT_STATE,
+  TransferCallRequest.JSON_PROPERTY_TARGET_LEG_CLIENT_STATE,
   TransferCallRequest.JSON_PROPERTY_COMMAND_ID,
   TransferCallRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
   TransferCallRequest.JSON_PROPERTY_SIP_AUTH_PASSWORD,
@@ -58,6 +60,9 @@ public class TransferCallRequest {
 
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
+
+  public static final String JSON_PROPERTY_FROM_DISPLAY_NAME = "from_display_name";
+  private String fromDisplayName;
 
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
@@ -120,6 +125,9 @@ public class TransferCallRequest {
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
+
+  public static final String JSON_PROPERTY_TARGET_LEG_CLIENT_STATE = "target_leg_client_state";
+  private String targetLegClientState;
 
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
@@ -216,6 +224,30 @@ public class TransferCallRequest {
 
   public void setFrom(String from) {
     this.from = from;
+  }
+
+
+  public TransferCallRequest fromDisplayName(String fromDisplayName) {
+    this.fromDisplayName = fromDisplayName;
+    return this;
+  }
+
+   /**
+   * The &#x60;from_display_name&#x60; string to be used as the caller id name (SIP From Display Name) presented to the destination (&#x60;to&#x60; number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the &#x60;from&#x60; field.
+   * @return fromDisplayName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Company Name", value = "The `from_display_name` string to be used as the caller id name (SIP From Display Name) presented to the destination (`to` number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the `from` field.")
+  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFromDisplayName() {
+    return fromDisplayName;
+  }
+
+
+  public void setFromDisplayName(String fromDisplayName) {
+    this.fromDisplayName = fromDisplayName;
   }
 
 
@@ -395,6 +427,30 @@ public class TransferCallRequest {
   }
 
 
+  public TransferCallRequest targetLegClientState(String targetLegClientState) {
+    this.targetLegClientState = targetLegClientState;
+    return this;
+  }
+
+   /**
+   * Use this field to add state to every subsequent webhook for the new leg. It must be a valid Base-64 encoded string.
+   * @return targetLegClientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook for the new leg. It must be a valid Base-64 encoded string.")
+  @JsonProperty(JSON_PROPERTY_TARGET_LEG_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTargetLegClientState() {
+    return targetLegClientState;
+  }
+
+
+  public void setTargetLegClientState(String targetLegClientState) {
+    this.targetLegClientState = targetLegClientState;
+  }
+
+
   public TransferCallRequest commandId(String commandId) {
     this.commandId = commandId;
     return this;
@@ -473,11 +529,11 @@ public class TransferCallRequest {
   }
 
    /**
-   * Use this field to override the URL for which Telnyx will send subsuqeunt webhooks to for this call.
+   * Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.
    * @return webhookUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL for which Telnyx will send subsuqeunt webhooks to for this call.")
+  @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -529,6 +585,7 @@ public class TransferCallRequest {
     TransferCallRequest transferCallRequest = (TransferCallRequest) o;
     return Objects.equals(this.to, transferCallRequest.to) &&
         Objects.equals(this.from, transferCallRequest.from) &&
+        Objects.equals(this.fromDisplayName, transferCallRequest.fromDisplayName) &&
         Objects.equals(this.audioUrl, transferCallRequest.audioUrl) &&
         Objects.equals(this.timeoutSecs, transferCallRequest.timeoutSecs) &&
         Objects.equals(this.timeLimitSecs, transferCallRequest.timeLimitSecs) &&
@@ -536,6 +593,7 @@ public class TransferCallRequest {
         Objects.equals(this.answeringMachineDetectionConfig, transferCallRequest.answeringMachineDetectionConfig) &&
         Objects.equals(this.customHeaders, transferCallRequest.customHeaders) &&
         Objects.equals(this.clientState, transferCallRequest.clientState) &&
+        Objects.equals(this.targetLegClientState, transferCallRequest.targetLegClientState) &&
         Objects.equals(this.commandId, transferCallRequest.commandId) &&
         Objects.equals(this.sipAuthUsername, transferCallRequest.sipAuthUsername) &&
         Objects.equals(this.sipAuthPassword, transferCallRequest.sipAuthPassword) &&
@@ -545,7 +603,7 @@ public class TransferCallRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, audioUrl, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, commandId, sipAuthUsername, sipAuthPassword, webhookUrl, webhookUrlMethod);
+    return Objects.hash(to, from, fromDisplayName, audioUrl, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, targetLegClientState, commandId, sipAuthUsername, sipAuthPassword, webhookUrl, webhookUrlMethod);
   }
 
 
@@ -555,6 +613,7 @@ public class TransferCallRequest {
     sb.append("class TransferCallRequest {\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
+    sb.append("    fromDisplayName: ").append(toIndentedString(fromDisplayName)).append("\n");
     sb.append("    audioUrl: ").append(toIndentedString(audioUrl)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
     sb.append("    timeLimitSecs: ").append(toIndentedString(timeLimitSecs)).append("\n");
@@ -562,6 +621,7 @@ public class TransferCallRequest {
     sb.append("    answeringMachineDetectionConfig: ").append(toIndentedString(answeringMachineDetectionConfig)).append("\n");
     sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
+    sb.append("    targetLegClientState: ").append(toIndentedString(targetLegClientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    sipAuthUsername: ").append(toIndentedString(sipAuthUsername)).append("\n");
     sb.append("    sipAuthPassword: ").append(toIndentedString(sipAuthPassword)).append("\n");

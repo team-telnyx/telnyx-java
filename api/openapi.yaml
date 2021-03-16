@@ -45,6 +45,8 @@ tags:
   name: Messaging URL Domains
 - description: Background jobs performed over a batch of phone numbers
   name: Number Background Jobs
+- description: Background jobs performed over a phone-numbers block's phone numbers
+  name: Number Blocks Background Jobs
 - description: Configure your phone numbers
   name: Number Configurations
 - description: Number order documents
@@ -67,6 +69,8 @@ tags:
   name: Short Codes
 - description: TeXML Applications operations
   name: TeXML Applications
+- description: Two factor authentication API
+  name: Verify
 paths:
   /available_phone_numbers:
     get:
@@ -176,10 +180,7 @@ paths:
         schema:
           enum:
           - toll-free
-          - national
-          - mobile
-          - local
-          example: local
+          example: toll-free
           type: string
         style: form
       - description: Filter if the phone number should be used for voice, fax, mms,
@@ -238,6 +239,16 @@ paths:
           example: true
           type: boolean
         style: form
+      - description: Filter to exclude phone numbers that are currently on hold for
+          your account.
+        explode: true
+        in: query
+        name: filter[exclude_held_numbers]
+        required: false
+        schema:
+          example: false
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -262,7 +273,7 @@ paths:
       description: Return a list of call control applications.
       operationId: listCallControlApplications
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -272,13 +283,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -575,7 +586,7 @@ paths:
           example: 2019-03-29T11:10:00Z
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -585,13 +596,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -2003,6 +2014,101 @@ paths:
       x-latency-category: interactive
       x-contentType: application/json
       x-accepts: application/json
+  /calls/{call_control_id}/actions/transcription_start:
+    post:
+      callbacks:
+        transcription:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: transcription_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/TranscriptionEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+      description: Start real-time transcription. Transcription will stop on call
+        hang-up, or can be initiated via the Transcription stop command.
+      operationId: callTranscriptionStart
+      parameters:
+      - description: Unique identifier and token for controlling the call
+        explode: false
+        in: path
+        name: call_control_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscriptionStartRequest'
+        description: Transcription start request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call_Control_Command_Response'
+          description: Successful response upon making a call control command.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Transcription start
+      tags:
+      - Call Commands
+      x-latency-category: interactive
+      x-contentType: application/json
+      x-accepts: application/json
+  /calls/{call_control_id}/actions/transcription_stop:
+    post:
+      description: Stop real-time transcription.
+      operationId: callTranscriptionStop
+      parameters:
+      - description: Unique identifier and token for controlling the call
+        explode: false
+        in: path
+        name: call_control_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscriptionStopRequest'
+        description: Transcription stop request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call_Control_Command_Response'
+          description: Successful response upon making a call control command.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Transcription stop
+      tags:
+      - Call Commands
+      x-latency-category: interactive
+      x-contentType: application/json
+      x-accepts: application/json
   /calls/{call_control_id}/actions/transfer:
     post:
       callbacks:
@@ -2129,7 +2235,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -2139,13 +2245,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -2304,7 +2410,7 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -2314,13 +2420,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -2914,6 +3020,61 @@ paths:
       x-latency-category: interactive
       x-contentType: application/json
       x-accepts: application/json
+  /conferences/{id}/actions/stop:
+    post:
+      callbacks:
+        conferenceParticipantPlaybackEnded:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: conferenceParticipantPlaybackEnded_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ConferenceParticipantPlaybackEndedEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+      description: Stop audio being played to all or some participants on a conference
+        call.
+      operationId: conferenceStopAudio
+      parameters:
+      - description: Uniquely identifies the conference by id or name
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConferenceStopRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conference_Command_Response'
+          description: Successful response upon making a conference command.
+        "401":
+          description: Unauthorized
+        "404":
+          description: Conference does not exist
+        "422":
+          description: Unprocessable entity
+      summary: Stop audio being played on the conference
+      tags:
+      - Conference Commands
+      x-latency-category: interactive
+      x-contentType: application/json
+      x-accepts: application/json
   /conferences/{id}/actions/unhold:
     post:
       description: Unhold a list of participants in a conference call
@@ -2990,12 +3151,49 @@ paths:
       x-latency-category: interactive
       x-contentType: application/json
       x-accepts: application/json
+  /conferences/{id}/actions/update:
+    post:
+      description: Update conference participant supervisor_role
+      operationId: conferenceUpdate
+      parameters:
+      - description: Uniquely identifies the conference by id or name
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConferenceRequest'
+        description: Update Conference request object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conference_Command_Response'
+          description: Successful response upon making a conference command.
+        "401":
+          description: Unauthorized
+        "422":
+          description: Unprocessable entity
+      summary: Update conference participant
+      tags:
+      - Conference Commands
+      x-latency-category: interactive
+      x-contentType: application/json
+      x-accepts: application/json
   /connections:
     get:
       description: Returns a list of your connections irrespective of type.
       operationId: listConnections
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3005,13 +3203,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -3120,7 +3318,7 @@ paths:
       description: Returns a list of your credential connections.
       operationId: listCredentialConnections
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3130,13 +3328,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -3340,7 +3538,7 @@ paths:
         receive faxes using the Programmable Fax API with Telnyx.
       operationId: listFaxApplications
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3350,13 +3548,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -3568,7 +3766,7 @@ paths:
       description: Returns a list of your FQDN connections.
       operationId: listFqdnConnections
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3578,13 +3776,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -3775,7 +3973,7 @@ paths:
       description: Get all FQDNs belonging to the user that match the given filters.
       operationId: listFqdns
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3785,13 +3983,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -3975,7 +4173,7 @@ paths:
       description: Returns a list of your IP connections.
       operationId: listIpConnections
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3985,13 +4183,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -4192,7 +4390,7 @@ paths:
       description: Get all IPs belonging to the user that match the given filters.
       operationId: listIps
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -4202,13 +4400,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -4598,7 +4796,7 @@ paths:
     get:
       operationId: listMessagingHostedNumberOrder
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -4608,13 +4806,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -4777,7 +4975,7 @@ paths:
     get:
       operationId: listMessagingProfileMetrics
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -4787,13 +4985,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -4846,7 +5044,7 @@ paths:
     get:
       operationId: listMessagingProfiles
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -4856,13 +5054,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -5112,7 +5310,7 @@ paths:
     get:
       operationId: listMessagingProfilePhoneNumbers
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5122,13 +5320,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -5166,7 +5364,7 @@ paths:
     get:
       operationId: listMessagingProfileShortCodes
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5176,13 +5374,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -5220,7 +5418,7 @@ paths:
     get:
       operationId: listMessagingUrlDomains
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5230,13 +5428,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -5289,7 +5487,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5299,13 +5497,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -5478,7 +5676,7 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5488,13 +5686,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -5675,7 +5873,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5685,13 +5883,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -5811,7 +6009,7 @@ paths:
         the given filters.
       operationId: listOutboundVoiceProfiles
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5821,13 +6019,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -6028,6 +6226,155 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
+  /phone_number_blocks/jobs:
+    get:
+      operationId: listPhoneNumberBlocksJobs
+      parameters:
+      - description: Filter the phone number blocks jobs by type.
+        explode: true
+        in: query
+        name: filter[type]
+        required: false
+        schema:
+          description: Identifies the type of the background job.
+          enum:
+          - delete_phone_number_block
+          example: delete_phone_number_block
+          type: string
+        style: form
+      - description: Filter the phone number blocks jobs by status.
+        explode: true
+        in: query
+        name: filter[status]
+        required: false
+        schema:
+          description: Identifies the status of the background job.
+          enum:
+          - pending
+          - in_progress
+          - completed
+          - failed
+          example: in_progress
+          type: string
+        style: form
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 250
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
+      - description: Specifies the sort order for results. If not given, results are
+          sorted by created_at in descending order.
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          enum:
+          - created_at
+          example: created_at
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List_Phone_Number_Blocks_Background_Jobs_Response'
+          description: Successful response with a list of phone number blocks background
+            jobs.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Lists the phone number blocks jobs
+      tags:
+      - Number Blocks Background Jobs
+      x-group-parameters: "true"
+      x-latency-category: responsive
+      x-accepts: application/json
+  /phone_number_blocks/jobs/delete_phone_number_block:
+    post:
+      description: Creates a new background job to delete all the phone numbers associated
+        with the given block. We will only consider the phone number block as deleted
+        after all phone numbers associated with it are removed, so multiple executions
+        of this job may be necessary in case some of the phone numbers present errors
+        during the deletion process.
+      operationId: createPhoneNumberBlocksJobDeletePhoneNumberBlock
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneNumberBlocksJobDeletePhoneNumberBlockRequest'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Phone_Number_Blocks_Job_Delete_Phone_Number_Block'
+          description: Phone number blocks job delete phone numbers requested.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Deletes all numbers associated with a phone number block
+      tags:
+      - Number Blocks Background Jobs
+      x-latency-category: background
+      x-group-parameters: "true"
+      x-contentType: application/json
+      x-accepts: application/json
+  /phone_number_blocks/jobs/{id}:
+    get:
+      operationId: retrievePhoneNumberBlocksJob
+      parameters:
+      - description: Identifies the Phone Number Blocks Job.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Phone_Number_Blocks_Job'
+          description: Phone number blocks job details.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Retrieves a phone number blocks job
+      tags:
+      - Number Blocks Background Jobs
+      x-group-parameters: "true"
+      x-latency-category: responsive
+      x-accepts: application/json
   /phone_number_regulatory_requirements:
     get:
       description: Gets a paginated list of phone number regulatory requirements.
@@ -6044,7 +6391,7 @@ paths:
             type: string
           type: array
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6054,13 +6401,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -6089,7 +6436,7 @@ paths:
     get:
       operationId: listPhoneNumbers
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6099,13 +6446,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -6265,7 +6612,7 @@ paths:
     get:
       operationId: listCsvDownloads
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6275,13 +6622,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -6372,7 +6719,7 @@ paths:
           example: update_emergency_settings
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6382,13 +6729,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -6487,6 +6834,38 @@ paths:
       x-latency-category: background
       x-contentType: application/json
       x-accepts: application/json
+  /phone_numbers/jobs/update_phone_numbers:
+    post:
+      description: Creates a new background job to update a batch of numbers. At most
+        one thousand numbers can be updated per API call. At least one of the updateable
+        fields must be submitted
+      operationId: createPhoneNumbersJobUpdatePhoneNumber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneNumbersJobUpdatePhoneNumbersRequest'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Phone_Numbers_Job_Update_Phone_Numbers'
+          description: Phone numbers job update phone numbers requested.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Update a batch of numbers
+      tags:
+      - Number Background Jobs
+      x-latency-category: background
+      x-group-parameters: "true"
+      x-contentType: application/json
+      x-accepts: application/json
   /phone_numbers/jobs/{id}:
     get:
       operationId: retrievePhoneNumbersJob
@@ -6522,7 +6901,7 @@ paths:
     get:
       operationId: listPhoneNumbersWithMessagingSettings
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6532,13 +6911,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -6567,7 +6946,7 @@ paths:
     get:
       operationId: listPhoneNumbersWithVoiceSettings
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6577,13 +6956,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -6681,7 +7060,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Phone_Number_Response'
+                $ref: '#/components/schemas/Phone_Number_Response_1'
           description: Successful response with details about a phone number.
         default:
           content:
@@ -6985,7 +7364,7 @@ paths:
           example: 2019-03-29T11:10:00Z
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6995,13 +7374,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -7081,7 +7460,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -7091,13 +7470,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -7158,7 +7537,7 @@ paths:
     get:
       operationId: listShortCodes
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -7168,13 +7547,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -7285,7 +7664,7 @@ paths:
       description: Returns a list of your TeXML Applications.
       operationId: findTexmlApplications
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -7295,13 +7674,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 250
           maximum: 250
           minimum: 1
           type: integer
@@ -7499,6 +7878,319 @@ paths:
       summary: Update a TeXML Application
       tags:
       - TeXML Applications
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications:
+    post:
+      operationId: createVerification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVerificationRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVerificationResponse'
+          description: Expected verifications response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Trigger a verification
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications/by_phone_number/{phone_number}:
+    get:
+      operationId: listVerifications
+      parameters:
+      - description: The phone number associated with the verifications to retrieve.
+        explode: false
+        in: path
+        name: phone_number
+        required: true
+        schema:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVerificationsResponse'
+          description: Expected verifications response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: List verifications by phone number
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-accepts: application/json
+  /verifications/by_phone_number/{phone_number}/actions/verify:
+    post:
+      operationId: verifyVerificationCode
+      parameters:
+      - description: The phone number associated with the verification code being
+          verified.
+        explode: false
+        in: path
+        name: phone_number
+        required: true
+        schema:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyVerificationCodeRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyVerificationCodeResponse'
+          description: Expected verify response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Submit a verification code
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications/{verification_id}:
+    get:
+      operationId: retrieveVerification
+      parameters:
+      - description: The identifier of the verification to retrieve.
+        explode: false
+        in: path
+        name: verification_id
+        required: true
+        schema:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveVerificationResponse'
+          description: Expected verifications response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Retrieve a verification
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-accepts: application/json
+  /verify_profiles:
+    get:
+      description: Gets a paginated list of Verify profiles.
+      operationId: listVerifyProfiles
+      parameters:
+      - explode: true
+        in: query
+        name: filter[name]
+        required: false
+        schema:
+          description: Optional filter for profile names.
+          title: filter[name]
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 25
+          title: page[size]
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          title: page[number]
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVerifyProfilesResponse'
+          description: Expected Verify profile response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: List all Verify profiles
+      tags:
+      - Verify
+      x-group-parameters: "true"
+      x-latency-category: responsive
+      x-accepts: application/json
+    post:
+      description: Creates a new Verify profile to associate verifications with.
+      operationId: createVerifyProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVerifyProfileRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyProfileResponse'
+          description: Expected Verify profile response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Create a Verify profile
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verify_profiles/{verify_profile_id}:
+    delete:
+      operationId: deleteVerifyProfile
+      parameters:
+      - description: The identifier of the Verify profile to delete.
+        explode: false
+        in: path
+        name: verify_profile_id
+        required: true
+        schema:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyProfileResponse'
+          description: Expected Verify profile response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Delete a Verify profile
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-accepts: application/json
+    get:
+      description: Gets a single Verify profile.
+      operationId: retrieveVerifyProfile
+      parameters:
+      - description: The identifier of the Verify profile to retrieve.
+        explode: false
+        in: path
+        name: verify_profile_id
+        required: true
+        schema:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyProfileResponse'
+          description: Expected Verify profile response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Retrieve a Verify profile
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-accepts: application/json
+    patch:
+      operationId: updateVerifyProfile
+      parameters:
+      - description: The identifier of the Verify profile to update.
+        explode: false
+        in: path
+        name: verify_profile_id
+        required: true
+        schema:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVerifyProfileRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyProfileResponse'
+          description: Expected Verify profile response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unexpected error
+      summary: Update a Verify profile
+      tags:
+      - Verify
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -7751,7 +8443,7 @@ components:
         type: string
       style: form
     PageNumber:
-      description: The page number to load.
+      description: The page number to load
       explode: true
       in: query
       name: page[number]
@@ -7762,13 +8454,13 @@ components:
         type: integer
       style: form
     PageSize:
-      description: The size of the page.
+      description: The size of the page
       explode: true
       in: query
       name: page[size]
       required: false
       schema:
-        default: 20
+        default: 250
         maximum: 250
         minimum: 1
         type: integer
@@ -7901,6 +8593,12 @@ components:
           schema:
             $ref: '#/components/schemas/CSV_Download_Response'
       description: Successful response with details about a CSV download.
+    DeletePhoneNumberResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Phone_Number_Response_1'
+      description: Successful response with details about a phone number.
     FaxApplicationResponse:
       content:
         application/json:
@@ -8087,6 +8785,13 @@ components:
           schema:
             $ref: '#/components/schemas/List_Participants_Response'
       description: Successful response with a list of conference participants.
+    ListPhoneNumberBlocksJobsResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/List_Phone_Number_Blocks_Background_Jobs_Response'
+      description: Successful response with a list of phone number blocks background
+        jobs.
     ListPhoneNumberRegulatoryRequirementsResponse:
       content:
         application/json:
@@ -8288,7 +8993,7 @@ components:
           type: string
         webhook_url:
           description: Use this field to override the URL for which Telnyx will send
-            subsuqeunt webhooks to for this call.
+            subsequent webhooks to for this call.
           example: https://www.example.com/server-b/
           type: string
         webhook_url_method:
@@ -9072,6 +9777,7 @@ components:
           client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
           from: +35319605860
           to: +35319605860
+          start_time: 2018-02-02T22:20:27.521992Z
           state: hangup
           hangup_cause: call_rejected
           hangup_source: caller
@@ -9118,6 +9824,7 @@ components:
             client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
             from: +35319605860
             to: +35319605860
+            start_time: 2018-02-02T22:20:27.521992Z
             state: hangup
             hangup_cause: call_rejected
             hangup_source: caller
@@ -9731,6 +10438,7 @@ components:
       example:
         to: +18005550100 or sip:username@sip.telnyx.com
         from: +18005550101
+        from_display_name: Company Name
         connection_id: 7267xxxxxxxxxxxxxx
         audio_url: http://www.example.com/sounds/greeting.wav
         timeout_secs: 60
@@ -9770,8 +10478,17 @@ components:
             attribute will default to the `from` number of the original call if omitted.
           example: +18005550101
           type: string
+        from_display_name:
+          description: The `from_display_name` string to be used as the caller id
+            name (SIP From Display Name) presented to the destination (`to` number).
+            The string should have a maximum of 128 characters, containing only letters,
+            numbers, spaces, and -_~!.+ special characters. If ommited, the display
+            name will be the same as the number in the `from` field.
+          example: Company Name
+          type: string
         connection_id:
-          description: The ID of the connection to be used when dialing the destination.
+          description: The ID of the Call Control App (formerly ID of the connection)
+            to be used when dialing the destination.
           type: string
         audio_url:
           description: The URL of a file to be played back to the callee when the
@@ -9857,7 +10574,7 @@ components:
           type: string
         webhook_url:
           description: Use this field to override the URL for which Telnyx will send
-            subsuqeunt webhooks to for this call.
+            subsequent webhooks to for this call.
           example: https://www.example.com/server-b/
           type: string
         webhook_url_method:
@@ -10072,7 +10789,8 @@ components:
         ended_by:
           $ref: '#/components/schemas/Conference_ended_by'
         connection_id:
-          description: Identifies the connection associated with the conference
+          description: Identifies the connection (Call Control App) associated with
+            the conference
           example: 3fa85f64-9191-4567-b3fc-2c963f66afa6
           type: string
       required:
@@ -10997,6 +11715,21 @@ components:
           $ref: '#/components/schemas/ConferenceSpeakStarted'
       title: Conference Speak Started Event
       type: object
+    ConferenceStopRequest:
+      example:
+        call_control_ids:
+        - call_control_ids
+        - call_control_ids
+      properties:
+        call_control_ids:
+          description: List of call control ids identifying participants the audio
+            file should stop be played to. If not given, the audio will be stoped
+            to the entire conference.
+          items:
+            type: string
+          type: array
+      title: Conference Stop Request
+      type: object
     ConferenceUnholdRequest:
       example:
         call_control_ids:
@@ -11697,6 +12430,7 @@ components:
           - +e164
           - e164
           - national
+          - sip_username
           type: string
         codecs:
           default:
@@ -12232,6 +12966,7 @@ components:
         phone_numbers_count: 1
         connection_id: "346789098765567"
         messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
+        billing_group_id: abc85f64-5717-4562-b3fc-2c9600
         status: pending
         customer_reference: MY REF 001
         created_at: 2018-01-01T00:00:00.000000Z
@@ -12264,6 +12999,10 @@ components:
         messaging_profile_id:
           description: Identifies the messaging profile associated with the phone
             number.
+          example: abc85f64-5717-4562-b3fc-2c9600
+          type: string
+        billing_group_id:
+          description: Identifies the billing group associated with the phone number.
           example: abc85f64-5717-4562-b3fc-2c9600
           type: string
         status:
@@ -12444,9 +13183,9 @@ components:
         billing_group_id: 6a09cdc3-8948-47f0-aa62-74ac943d6c58
       properties:
         name:
-          default: ""
           description: A user-supplied name to help with organization.
           example: office
+          minLength: 3
           type: string
         traffic_type:
           $ref: '#/components/schemas/TrafficType'
@@ -12511,6 +13250,8 @@ components:
           format: uuid
           nullable: true
           type: string
+      required:
+      - name
       title: Outbound Voice Profile
       type: object
     CreateShortCodeMessageRequest:
@@ -12678,6 +13419,108 @@ components:
       - friendly_name
       - voice_url
       title: Create Texml Application Request
+      type: object
+    CreateVerificationRequest:
+      description: The request body when creating a verification.
+      example:
+        verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        phone_number: +13035551234
+        type: sms
+        timeout_secs: 300
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        verify_profile_id:
+          description: The identifier of the associated Verify profile.
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        type:
+          $ref: '#/components/schemas/VerificationType'
+        timeout_secs:
+          description: 'This is the number of seconds before the code of the request
+            is expired. Once this request has expired, the code will no longer verify
+            the user. Note: this will override the `default_timeout_secs` on the Verify
+            profile.'
+          example: 300
+          type: integer
+      required:
+      - phone_number
+      - type
+      - verify_profile_id
+      title: CreateVerificationRequest
+      type: object
+    CreateVerificationResponse:
+      example:
+        data:
+          verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          updated_at: 2020-09-14T17:03:32.965812
+          created_at: 2020-09-14T17:03:32.965812
+          phone_number: +13035551234
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          type: sms
+          record_type: verification
+          timeout_secs: 300
+          status: accepted
+      properties:
+        data:
+          $ref: '#/components/schemas/Verification'
+      required:
+      - data
+      title: CreateVerifyVerificationResponse
+      type: object
+    CreateVerifyProfileRequest:
+      description: The request body when creating a Verify profile.
+      example:
+        messaging_enabled: true
+        name: Test Profile
+        default_timeout_secs: 300
+        messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+          {code}.'
+        rcs_enabled: true
+      properties:
+        name:
+          description: The human readable label for the Verify profile.
+          example: Test Profile
+          type: string
+        messaging_enabled:
+          default: true
+          description: Enables SMS text messaging for the Verify profile.
+          example: true
+          type: boolean
+        rcs_enabled:
+          default: false
+          description: Enables RCS messaging for the Verify profile.
+          example: true
+          type: boolean
+        default_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        messaging_template:
+          default: "null"
+          description: Optionally sets a messaging text template when sending the
+            verification code. Uses `{code}` to template in the actual verification
+            code.
+          example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
+          nullable: true
+          type: string
+      required:
+      - name
+      title: CreateVerifyProfileRequest
+      type: object
+    CreateVerifyProfileResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/VerifyProfile'
+      required:
+      - data
+      title: CreateVerifyProfileResponse
       type: object
     CreatedAt:
       description: ISO 8601 formatted date indicating when the resource was created.
@@ -12873,6 +13716,7 @@ components:
           - +e164
           - e164
           - national
+          - sip_username
           type: string
         codecs:
           default:
@@ -13061,6 +13905,14 @@ components:
       - value
       title: Custom SIP Header
       type: object
+    DeleteVerifyProfileResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/VerifyProfile'
+      required:
+      - data
+      title: DeleteVerifyProfileResponse
+      type: object
     DtmfType:
       default: RFC 2833
       description: Sets the type of DTMF digits sent from Telnyx to this Connection.
@@ -13153,10 +14005,10 @@ components:
         updated_at: 2018-02-02T22:25:27.521Z
       properties:
         id:
-          description: Identifies the resource.
+          description: Uniquely identifies the resource.
           example: "1293384261075731499"
           format: int64
-          readOnly: true
+          title: Int ID
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -13723,6 +14575,7 @@ components:
           - +e164
           - e164
           - national
+          - sip_username
           type: string
         codecs:
           default:
@@ -13858,6 +14711,7 @@ components:
           - +e164
           - e164
           - national
+          - sip_username
           type: string
         codecs:
           default:
@@ -14202,10 +15056,10 @@ components:
             $ref: '#/components/schemas/Error'
           type: array
     IntId:
-      description: Identifies the resource.
+      description: Uniquely identifies the resource.
       example: "1293384261075731499"
       format: int64
-      readOnly: true
+      title: Int ID
       type: string
     Ip:
       example:
@@ -14495,6 +15349,87 @@ components:
       - call_control_id
       title: Join Conference Request
       type: object
+    ListVerificationsResponse:
+      example:
+        data:
+        - verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          updated_at: 2020-09-14T17:03:32.965812
+          created_at: 2020-09-14T17:03:32.965812
+          phone_number: +13035551234
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          type: sms
+          record_type: verification
+          timeout_secs: 300
+          status: accepted
+        - verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          updated_at: 2020-09-14T17:03:32.965812
+          created_at: 2020-09-14T17:03:32.965812
+          phone_number: +13035551234
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          type: sms
+          record_type: verification
+          timeout_secs: 300
+          status: accepted
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Verification'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Meta'
+      required:
+      - data
+      - meta
+      title: ListVerificationsResponse
+      type: object
+    ListVerifyProfilesResponse:
+      description: A paginated list of Verify profiles
+      example:
+        data:
+        - messaging_enabled: true
+          updated_at: 2020-09-14T17:03:32.965812
+          vsms_enabled: true
+          name: Test Profile
+          default_timeout_secs: 300
+          created_at: 2020-09-14T17:03:32.965812
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          record_type: verify_profile
+          rcs_enabled: true
+        - messaging_enabled: true
+          updated_at: 2020-09-14T17:03:32.965812
+          vsms_enabled: true
+          name: Test Profile
+          default_timeout_secs: 300
+          created_at: 2020-09-14T17:03:32.965812
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          record_type: verify_profile
+          rcs_enabled: true
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/VerifyProfile'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Meta'
+      required:
+      - data
+      - meta
+      title: ListVerifyProfilesResponse
+      type: object
     Loopcount:
       oneOf:
       - type: string
@@ -14564,7 +15499,7 @@ components:
       example:
         id: 86f58db9-0fe3-4adc-9d1f-46e66e6e9323
         record_type: messaging_hosted_number_order
-        profile_id: dc8f39ac-953d-4520-b93b-786ae87db0da
+        messaging_profile_id: dc8f39ac-953d-4520-b93b-786ae87db0da
         status: pending
         phone_numbers:
         - record_type: messaging_hosted_number
@@ -14812,6 +15747,26 @@ components:
         use_case:
           type: string
       type: object
+    Meta:
+      example:
+        page_number: 2
+        total_pages: 3
+        total_results: 55
+        page_size: 25
+      properties:
+        total_pages:
+          example: 3
+          type: integer
+        total_results:
+          example: 55
+          type: integer
+        page_number:
+          example: 2
+          type: integer
+        page_size:
+          example: 25
+          type: integer
+      type: object
     NumberHealthMetrics:
       description: |
         High level health metrics about the number and it's messaging sending patterns.
@@ -14863,6 +15818,7 @@ components:
         record_type: number_order
         connection_id: "346789098765567"
         messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
+        billing_group_id: abc85f64-5717-4562-b3fc-2c9600
         phone_numbers_count: 1
         status: pending
         customer_reference: MY REF 001
@@ -14894,6 +15850,11 @@ components:
           example: "346789098765567"
           type: string
         messaging_profile_id:
+          description: Identifies the messaging profile associated with the phone
+            number.
+          example: abc85f64-5717-4562-b3fc-2c9600
+          type: string
+        billing_group_id:
           description: Identifies the messaging profile associated with the phone
             number.
           example: abc85f64-5717-4562-b3fc-2c9600
@@ -14995,6 +15956,7 @@ components:
           record_type: number_order
           connection_id: "346789098765567"
           messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
+          billing_group_id: abc85f64-5717-4562-b3fc-2c9600
           phone_numbers_count: 1
           status: pending
           customer_reference: MY REF 001
@@ -15048,6 +16010,7 @@ components:
             record_type: number_order
             connection_id: "346789098765567"
             messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
+            billing_group_id: abc85f64-5717-4562-b3fc-2c9600
             phone_numbers_count: 1
             status: pending
             customer_reference: MY REF 001
@@ -15596,9 +16559,9 @@ components:
           example: outbound_voice_profile
           type: string
         name:
-          default: ""
           description: A user-supplied name to help with organization.
           example: office
+          minLength: 3
           type: string
         connections_count:
           description: Amount of connections associated with this outbound voice profile.
@@ -15677,6 +16640,8 @@ components:
             updated.
           example: 2018-02-02T22:25:27.521Z
           type: string
+      required:
+      - name
       title: Outbound Voice Profile
       type: object
     OutboundVoiceProfileId:
@@ -15704,6 +16669,7 @@ components:
         page_size:
           example: 25
           type: integer
+      title: Pagination Meta
       type: object
     PaginationMetaSimple:
       properties:
@@ -15885,6 +16851,245 @@ components:
           - failure
           readOnly: true
           type: string
+    PhoneNumberBlocksJob:
+      example:
+        id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
+        record_type: phone_numbers_job
+        status: pending
+        type: delete_phone_number_block
+        etc: 2020-10-30T18:10:00.000Z
+        created_at: 2020-10-23T18:10:00.000Z
+        updated_at: 2020-10-23T18:10:01.000Z
+        successful_operations: []
+        failed_operations: []
+      properties:
+        id:
+          description: Identifies the resource.
+          example: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
+          format: uuid
+          readOnly: true
+          type: string
+        record_type:
+          description: Identifies the type of the resource.
+          example: phone_number_block_job
+          readOnly: true
+          type: string
+        status:
+          default: pending
+          description: Indicates the completion status of the background operation.
+          enum:
+          - pending
+          - in_progress
+          - completed
+          - failed
+          example: pending
+          readOnly: true
+          type: string
+        type:
+          description: Identifies the type of the background job.
+          enum:
+          - delete_phone_number_block
+          example: delete_phone_number_block
+          readOnly: true
+          type: string
+        etc:
+          description: ISO 8601 formatted date indicating when the estimated time
+            of completion of the background job.
+          format: date-time
+          readOnly: true
+          type: string
+        created_at:
+          description: ISO 8601 formatted date indicating when the resource was created.
+          readOnly: true
+          type: string
+        updated_at:
+          description: ISO 8601 formatted date indicating when the resource was updated.
+          readOnly: true
+          type: string
+        successful_operations:
+          items:
+            $ref: '#/components/schemas/PhoneNumberBlocksJobSuccessfulOperation'
+          readOnly: true
+          type: array
+        failed_operations:
+          items:
+            $ref: '#/components/schemas/PhoneNumberBlocksJobFailedOperation'
+          readOnly: true
+          type: array
+      type: object
+    PhoneNumberBlocksJobDeletePhoneNumberBlockRequest:
+      example:
+        phone_number_block_id: f3946371-7199-4261-9c3d-81a0d7935146
+      properties:
+        phone_number_block_id:
+          type: string
+      required:
+      - phone_number_block_id
+      type: object
+    PhoneNumberBlocksJobFailedOperation:
+      properties:
+        phone_number:
+          description: The phone number in e164 format.
+          format: e164
+          type: string
+        id:
+          description: The phone number's ID
+          format: int64
+          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+    PhoneNumberBlocksJobSuccessfulOperation:
+      properties:
+        phone_number:
+          description: The phone number in e164 format.
+          format: e164
+          type: string
+        id:
+          description: The phone number's ID
+          format: int64
+          type: string
+    PhoneNumberDeletedDetailed:
+      example:
+        id: "1293384261075731499"
+        record_type: phone_number
+        phone_number: +19705555098
+        status: deleted
+        tags:
+        - tag_1
+        - tag_2
+        external_pin: "1234"
+        connection_id: "1293384261075731499"
+        connection_name: connection-name
+        customer_reference: customer-reference
+        messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600000000
+        messaging_profile_name: regional-customers
+        billing_group_id: 86f58db9-0fe3-4adc-9d1f-46e66e6e9323
+        emergency_enabled: true
+        emergency_address_id: "1315261609962112019"
+        call_forwarding_enabled: true
+        cnam_listing_enabled: true
+        caller_id_name_enabled: true
+        call_recording_enabled: true
+        t38_fax_gateway_enabled: true
+        purchased_at: 2019-10-23T18:10:00.000Z
+        created_at: 2019-10-23T18:10:00.000Z
+        updated_at: 2019-10-24T18:10:00.000Z
+      properties:
+        id:
+          description: Uniquely identifies the resource.
+          example: "1293384261075731499"
+          format: int64
+          title: Int ID
+          type: string
+        record_type:
+          description: Identifies the type of the resource.
+          example: phone_number
+          readOnly: true
+          type: string
+        phone_number:
+          description: The +E.164-formatted phone number associated with this record.
+          readOnly: true
+          type: string
+        status:
+          description: The phone number's current status.
+          enum:
+          - purchase-pending
+          - purchase-failed
+          - port-pending
+          - port-failed
+          - active
+          - deleted
+          - emergency-only
+          - ported-out
+          - port-out-pending
+          readOnly: true
+          type: string
+        tags:
+          description: A list of user-assigned tags to help manage the phone number.
+          items:
+            type: string
+          type: array
+        external_pin:
+          description: If someone attempts to port your phone number away from Telnyx
+            and your phone number has an external PIN set, Telnyx will attempt to
+            verify that you provided the correct external PIN to the winning carrier.
+            Note that not all carriers cooperate with this security mechanism.
+          type: string
+        connection_name:
+          description: The user-assigned name of the connection to be associated with
+            this phone number.
+          readOnly: true
+          type: string
+        customer_reference:
+          description: A customer reference string for customer look ups.
+          example: MY REF 001
+          type: string
+        connection_id:
+          description: Identifies the connection associated with the phone number.
+          type: string
+        messaging_profile_id:
+          description: Identifies the messaging profile associated with the phone
+            number.
+          type: string
+        messaging_profile_name:
+          description: The name of the messaging profile associated with the phone
+            number.
+          example: regional-customers
+          type: string
+        billing_group_id:
+          description: Identifies the billing group associated with the phone number.
+          type: string
+        emergency_enabled:
+          description: Indicates whether emergency services are enabled for this number.
+          readOnly: true
+          type: boolean
+        emergency_address_id:
+          description: Identifies the emergency address associated with the phone
+            number.
+          format: int64
+          readOnly: true
+          type: string
+        call_forwarding_enabled:
+          default: true
+          description: Indicates if call forwarding will be enabled for this number
+            if forwards_to and forwarding_type are filled in. Defaults to true for
+            backwards compatibility with APIV1 use of numbers endpoints.
+          readOnly: true
+          type: boolean
+        cnam_listing_enabled:
+          description: Indicates whether a CNAM listing is enabled for this number.
+          readOnly: true
+          type: boolean
+        caller_id_name_enabled:
+          description: Indicates whether caller ID is enabled for this number.
+          readOnly: true
+          type: boolean
+        call_recording_enabled:
+          description: Indicates whether call recording is enabled for this number.
+          readOnly: true
+          type: boolean
+        t38_fax_gateway_enabled:
+          description: Indicates whether T38 Fax Gateway for inbound calls to this
+            number.
+          readOnly: true
+          type: boolean
+        purchased_at:
+          description: ISO 8601 formatted date indicating the time the request was
+            made to purchase the number.
+          readOnly: true
+          type: string
+        created_at:
+          description: ISO 8601 formatted date indicating when the time it took to
+            activate after the purchase.
+          readOnly: true
+          type: string
+        updated_at:
+          description: ISO 8601 formatted date indicating when the resource was updated.
+          readOnly: true
+          type: string
+      type: object
     PhoneNumberDetailed:
       example:
         id: "1293384261075731499"
@@ -15913,10 +17118,10 @@ components:
         updated_at: 2019-10-24T18:10:00.000Z
       properties:
         id:
-          description: Identifies the resource.
+          description: Uniquely identifies the resource.
           example: "1293384261075731499"
           format: int64
-          readOnly: true
+          title: Int ID
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -16016,10 +17221,6 @@ components:
           type: string
         created_at:
           description: ISO 8601 formatted date indicating when the resource was created.
-          readOnly: true
-          type: string
-        updated_at:
-          description: ISO 8601 formatted date indicating when the resource was updated.
           readOnly: true
           type: string
       type: object
@@ -16330,6 +17531,7 @@ components:
           enum:
           - update_emergency_settings
           - delete_phone_numbers
+          - update_phone_numbers
           example: update_emergency_settings
           readOnly: true
           type: string
@@ -16427,6 +17629,48 @@ components:
       required:
       - emergency_address_id
       - emergency_enabled
+      - phone_numbers
+      type: object
+    PhoneNumbersJobUpdatePhoneNumbersRequest:
+      example:
+        phone_numbers:
+        - "1583466971586889004"
+        - +13127367254
+        tags:
+        - tag
+        external_pin: "123456"
+        customer_reference: customer-reference
+        connection_id: dc8e4d67-33a0-4cbb-af74-7b58f05bd494
+        billing_group_id: dc8e4d67-33a0-4cbb-af74-7b58f05bd494
+      properties:
+        phone_numbers:
+          description: Array of phone number ids and/or phone numbers in E164 format
+            to update
+          items:
+            type: string
+          type: array
+        tags:
+          description: A list of user-assigned tags to help organize phone numbers.
+          items:
+            type: string
+          type: array
+        external_pin:
+          description: If someone attempts to port your phone number away from Telnyx
+            and your phone number has an external PIN set, we will attempt to verify
+            that you provided the correct external PIN to the winning carrier. Note
+            that not all carriers cooperate with this security mechanism.
+          type: string
+        customer_reference:
+          description: A customer reference string for customer look ups.
+          example: MY REF 001
+          type: string
+        connection_id:
+          description: Identifies the connection associated with the phone number.
+          type: string
+        billing_group_id:
+          description: Identifies the billing group associated with the phone number.
+          type: string
+      required:
       - phone_numbers
       type: object
     PlayAudioUrlRequest:
@@ -16856,6 +18100,25 @@ components:
           type: string
       title: Pause Recording Request
       type: object
+    RetrieveVerificationResponse:
+      example:
+        data:
+          verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          updated_at: 2020-09-14T17:03:32.965812
+          created_at: 2020-09-14T17:03:32.965812
+          phone_number: +13035551234
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          type: sms
+          record_type: verification
+          timeout_secs: 300
+          status: accepted
+      properties:
+        data:
+          $ref: '#/components/schemas/Verification'
+      required:
+      - data
+      title: RetrieveVerificationResponse
+      type: object
     SendDTMFRequest:
       example:
         digits: 1www2WABCDw9
@@ -17218,10 +18481,10 @@ components:
         updated_at: 2020-02-03T22:25:27.521Z
       properties:
         id:
-          description: Identifies the resource.
+          description: Uniquely identifies the resource.
           example: "1293384261075731499"
           format: int64
-          readOnly: true
+          title: Int ID
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -17322,10 +18585,121 @@ components:
       - short_duration
       example: conversational
       type: string
+    Transcription:
+      example:
+        record_type: event
+        event_type: call.transcription
+        id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+        occurred_at: 2018-02-02T22:25:27.521992Z
+        payload:
+          call_control_id: v2:7subYr8fLrXmaAXm8egeAMpoSJ72J3SGPUuome81-hQuaKRf9b7hKA
+          call_leg_id: 5ca81340-5beb-11eb-ae45-02420a0f8b69
+          call_session_id: 5ca81eee-5beb-11eb-ba6c-02420a0f8b69
+          client_state: null
+          connection_id: "1240401930086254526"
+          transcription_data:
+            confidence: 0.977219
+            transcript: hello this is a test speech
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - call.transcription
+          example: call.transcription
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        occurred_at:
+          description: ISO 8601 datetime of when the event occurred.
+          example: 2018-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        payload:
+          $ref: '#/components/schemas/Transcription_payload'
+      title: Transcription
+      type: object
+    TranscriptionEvent:
+      example:
+        data:
+          record_type: event
+          event_type: call.transcription
+          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          occurred_at: 2018-02-02T22:25:27.521992Z
+          payload:
+            call_control_id: v2:7subYr8fLrXmaAXm8egeAMpoSJ72J3SGPUuome81-hQuaKRf9b7hKA
+            call_leg_id: 5ca81340-5beb-11eb-ae45-02420a0f8b69
+            call_session_id: 5ca81eee-5beb-11eb-ba6c-02420a0f8b69
+            client_state: null
+            connection_id: "1240401930086254526"
+            transcription_data:
+              confidence: 0.977219
+              transcript: hello this is a test speech
+      properties:
+        data:
+          $ref: '#/components/schemas/Transcription'
+      title: Transcription Event
+      type: object
+    TranscriptionStartRequest:
+      example:
+        language: en
+        client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+        command_id: 891510ac-f3e4-11e8-af5b-de00688a4901
+      properties:
+        language:
+          default: en
+          description: Language to use for speech recognition
+          enum:
+          - de
+          - en
+          - es
+          - fr
+          - it
+          - pl
+          example: en
+          type: string
+        client_state:
+          description: Use this field to add state to every subsequent webhook. It
+            must be a valid Base-64 encoded string.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        command_id:
+          description: Use this field to avoid duplicate commands. Telnyx will ignore
+            commands with the same `command_id`.
+          example: 891510ac-f3e4-11e8-af5b-de00688a4901
+          type: string
+      title: Transcription start request
+      type: object
+    TranscriptionStopRequest:
+      example:
+        client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+        command_id: 891510ac-f3e4-11e8-af5b-de00688a4901
+      properties:
+        client_state:
+          description: Use this field to add state to every subsequent webhook. It
+            must be a valid Base-64 encoded string.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        command_id:
+          description: Use this field to avoid duplicate commands. Telnyx will ignore
+            commands with the same `command_id`.
+          example: 891510ac-f3e4-11e8-af5b-de00688a4901
+          type: string
+      title: Transcription stop request
+      type: object
     TransferCallRequest:
       example:
         to: +18005550100 or sip:username@sip.telnyx.com
         from: +18005550101
+        from_display_name: Company Name
         audio_url: http://www.example.com/sounds/greeting.wav
         timeout_secs: 60
         timeout_limit_secs: 60
@@ -17362,6 +18736,14 @@ components:
             the destination (`to` number). The number should be in +E164 format. This
             attribute will default to the `from` number of the original call if omitted.
           example: +18005550101
+          type: string
+        from_display_name:
+          description: The `from_display_name` string to be used as the caller id
+            name (SIP From Display Name) presented to the destination (`to` number).
+            The string should have a maximum of 128 characters, containing only letters,
+            numbers, spaces, and -_~!.+ special characters. If ommited, the display
+            name will be the same as the number in the `from` field.
+          example: Company Name
           type: string
         audio_url:
           description: Audio URL to be played back when the transfer destination answers
@@ -17423,6 +18805,11 @@ components:
             must be a valid Base-64 encoded string.
           example: aGF2ZSBhIG5pY2UgZGF5ID1d
           type: string
+        target_leg_client_state:
+          description: Use this field to add state to every subsequent webhook for
+            the new leg. It must be a valid Base-64 encoded string.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
         command_id:
           description: Use this field to avoid duplicate commands. Telnyx will ignore
             commands with the same `command_id`.
@@ -17438,7 +18825,7 @@ components:
           type: string
         webhook_url:
           description: Use this field to override the URL for which Telnyx will send
-            subsuqeunt webhooks to for this call.
+            subsequent webhooks to for this call.
           example: https://www.example.com/server-b/
           type: string
         webhook_url_method:
@@ -17553,6 +18940,53 @@ components:
       - application_name
       - webhook_event_url
       title: Update Call Control Application Request
+      type: object
+    UpdateConferenceRequest:
+      example:
+        call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+        command_id: 891510ac-f3e4-11e8-af5b-de00688a4901
+        supervisor_role: whisper
+        whisper_call_control_ids:
+        - v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ
+        - v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw
+      properties:
+        call_control_id:
+          description: Unique identifier and token for controlling the call
+          example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==
+          type: string
+        command_id:
+          description: Use this field to avoid execution of duplicate commands. Telnyx
+            will ignore subsequent commands with the same `command_id` as one that
+            has already been executed.
+          example: 891510ac-f3e4-11e8-af5b-de00688a4901
+          type: string
+        supervisor_role:
+          description: Sets the participant as a supervisor for the conference. A
+            conference can have multiple supervisors. "barge" means the supervisor
+            enters the conference as a normal participant. This is the same as "none".
+            "monitor" means the supervisor is muted but can hear all participants.
+            "whisper" means that only the specified "whisper_call_control_ids" can
+            hear the supervisor. Defaults to "none".
+          enum:
+          - barge
+          - monitor
+          - none
+          - whisper
+          example: whisper
+          type: string
+        whisper_call_control_ids:
+          description: Array of unique call_control_ids the supervisor can whisper
+            to. If none provided, the supervisor will join the conference as a monitoring
+            participant only.
+          example:
+          - v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ
+          - v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw
+          items:
+            type: string
+          type: array
+      required:
+      - call_control_id
+      title: Update Conference Request
       type: object
     UpdateCredentialConnectionRequest:
       example:
@@ -18261,9 +19695,9 @@ components:
         billing_group_id: 6a09cdc3-8948-47f0-aa62-74ac943d6c58
       properties:
         name:
-          default: ""
           description: A user-supplied name to help with organization.
           example: office
+          minLength: 3
           type: string
         traffic_type:
           $ref: '#/components/schemas/TrafficType'
@@ -18328,6 +19762,8 @@ components:
           format: uuid
           nullable: true
           type: string
+      required:
+      - name
       title: Outbound Voice Profile
       type: object
     UpdatePhoneNumberMessagingSettingsRequest:
@@ -18535,6 +19971,57 @@ components:
       - voice_url
       title: Update Texml Application Request
       type: object
+    UpdateVerifyProfileRequest:
+      description: The request body when updating a Verify profile.
+      example:
+        messaging_enabled: true
+        name: Test Profile
+        default_timeout_secs: 300
+        messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+          {code}.'
+        rcs_enabled: true
+      properties:
+        name:
+          description: The human readable label for the Verify profile.
+          example: Test Profile
+          type: string
+        messaging_enabled:
+          default: true
+          description: Enables SMS text messaging for the Verify profile.
+          example: true
+          type: boolean
+        rcs_enabled:
+          default: false
+          description: Enables RCS messaging for the Verify profile.
+          example: true
+          type: boolean
+        default_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        messaging_template:
+          default: "null"
+          description: Optionally sets a messaging text template when sending the
+            verification code. Uses `{code}` to template in the actual verification
+            code.
+          example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
+          nullable: true
+          type: string
+      required:
+      - name
+      title: UpdateVerifyProfileRequest
+      type: object
+    UpdateVerifyProfileResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/VerifyProfile'
+      required:
+      - data
+      title: UpdateVerifyProfileResponse
+      type: object
     UpdatedAt:
       description: ISO 8601 formatted date indicating when the resource was updated.
       example: 2020-02-03T22:25:27.521Z
@@ -18601,6 +20088,195 @@ components:
       - rate-deck
       example: tariff
       type: string
+    Verification:
+      example:
+        verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        updated_at: 2020-09-14T17:03:32.965812
+        created_at: 2020-09-14T17:03:32.965812
+        phone_number: +13035551234
+        id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        type: sms
+        record_type: verification
+        timeout_secs: 300
+        status: accepted
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        verify_profile_id:
+          description: The identifier of the associated Verify profile.
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        type:
+          $ref: '#/components/schemas/VerificationType'
+        timeout_secs:
+          description: 'This is the number of seconds before the code of the request
+            is expired. Once this request has expired, the code will no longer verify
+            the user. Note: this will override the `default_timeout_secs` on the Verify
+            profile.'
+          example: 300
+          type: integer
+        id:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        status:
+          $ref: '#/components/schemas/VerificationStatus'
+        record_type:
+          description: Identifies the type of the resource.
+          example: verification
+          type: string
+        created_at:
+          example: 2020-09-14T17:03:32.965812
+          type: string
+        updated_at:
+          example: 2020-09-14T17:03:32.965812
+          type: string
+      required:
+      - created_at
+      - id
+      - phone_number
+      - status
+      - type
+      - updated_at
+      - verify_profile_id
+      title: Verification
+      type: object
+    VerificationStatus:
+      description: The possible statuses of the verification request.
+      enum:
+      - pending
+      - sms_delivery_failed
+      - accepted
+      - expired
+      - not_enough_credit
+      - network_error
+      - number_unreachable
+      - internal_error
+      - invalid_destination
+      - timed_out
+      example: accepted
+      title: VerificationStatus
+      type: string
+    VerificationType:
+      description: The verification request type.
+      enum:
+      - sms
+      example: sms
+      title: VerificationType
+      type: string
+    VerifyProfile:
+      example:
+        messaging_enabled: true
+        updated_at: 2020-09-14T17:03:32.965812
+        vsms_enabled: true
+        name: Test Profile
+        default_timeout_secs: 300
+        created_at: 2020-09-14T17:03:32.965812
+        id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+          {code}.'
+        record_type: verify_profile
+        rcs_enabled: true
+      properties:
+        id:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        record_type:
+          description: Identifies the type of the resource.
+          example: verify_profile
+          type: string
+        name:
+          description: The name of the Verify profile.
+          example: Test Profile
+          type: string
+        created_at:
+          example: 2020-09-14T17:03:32.965812
+          type: string
+        updated_at:
+          example: 2020-09-14T17:03:32.965812
+          type: string
+        messaging_enabled:
+          description: Enables SMS text messaging for the Verify profile.
+          example: true
+          type: boolean
+        rcs_enabled:
+          description: Enables RCS messaging for the Verify profile.
+          example: true
+          type: boolean
+        messaging_template:
+          description: Optionally sets a messaging text template when sending the
+            verification code. Uses `{code}` to template in the actual verification
+            code.
+          example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
+          type: string
+        default_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        vsms_enabled:
+          description: Enables VSMS for the Verify profile.
+          example: true
+          type: boolean
+      required:
+      - created_at
+      - default_timeout_secs
+      - id
+      - name
+      - rcs_enabled
+      - updated_at
+      title: VerifyProfile
+      type: object
+    VerifyProfileResponse:
+      description: A Verify profile
+      example:
+        data:
+          messaging_enabled: true
+          updated_at: 2020-09-14T17:03:32.965812
+          vsms_enabled: true
+          name: Test Profile
+          default_timeout_secs: 300
+          created_at: 2020-09-14T17:03:32.965812
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          record_type: verify_profile
+          rcs_enabled: true
+      properties:
+        data:
+          $ref: '#/components/schemas/VerifyProfile'
+      title: VerifyProfilesResponse
+      type: object
+    VerifyVerificationCodeRequest:
+      example:
+        code: "17686"
+      properties:
+        code:
+          description: This is the code the user submits for verification.
+          example: "17686"
+          type: string
+      required:
+      - code
+      title: VerifyVerificationCodeRequest
+      type: object
+    VerifyVerificationCodeResponse:
+      example:
+        data:
+          response_code: accepted
+          phone_number: +13035551234
+      properties:
+        data:
+          $ref: '#/components/schemas/VerifyVerificationCodeResponse_data'
+      required:
+      - data
+      title: VerifyVerificationCodeResponse
+      type: object
     WebhookApiVersion:
       default: "1"
       description: Determines which webhook format will be used, Telnyx API v1 or
@@ -19707,7 +21383,7 @@ components:
         data:
         - id: 86f58db9-0fe3-4adc-9d1f-46e66e6e9323
           record_type: messaging_hosted_number_order
-          profile_id: dc8f39ac-953d-4520-b93b-786ae87db0da
+          messaging_profile_id: dc8f39ac-953d-4520-b93b-786ae87db0da
           status: pending
           phone_numbers:
           - record_type: messaging_hosted_number
@@ -19720,7 +21396,7 @@ components:
             status: pending
         - id: 86f58db9-0fe3-4adc-9d1f-46e66e6e9323
           record_type: messaging_hosted_number_order
-          profile_id: dc8f39ac-953d-4520-b93b-786ae87db0da
+          messaging_profile_id: dc8f39ac-953d-4520-b93b-786ae87db0da
           status: pending
           phone_numbers:
           - record_type: messaging_hosted_number
@@ -19750,7 +21426,7 @@ components:
         data:
           id: 86f58db9-0fe3-4adc-9d1f-46e66e6e9323
           record_type: messaging_hosted_number_order
-          profile_id: dc8f39ac-953d-4520-b93b-786ae87db0da
+          messaging_profile_id: dc8f39ac-953d-4520-b93b-786ae87db0da
           status: pending
           phone_numbers:
           - record_type: messaging_hosted_number
@@ -20117,6 +21793,7 @@ components:
           record_type: number_order
           connection_id: "346789098765567"
           messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
+          billing_group_id: abc85f64-5717-4562-b3fc-2c9600
           phone_numbers_count: 1
           status: pending
           customer_reference: MY REF 001
@@ -20139,6 +21816,7 @@ components:
           record_type: number_order
           connection_id: "346789098765567"
           messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
+          billing_group_id: abc85f64-5717-4562-b3fc-2c9600
           phone_numbers_count: 1
           status: pending
           customer_reference: MY REF 001
@@ -20178,6 +21856,7 @@ components:
           record_type: number_order
           connection_id: "346789098765567"
           messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600
+          billing_group_id: abc85f64-5717-4562-b3fc-2c9600
           phone_numbers_count: 1
           status: pending
           customer_reference: MY REF 001
@@ -20364,6 +22043,75 @@ components:
         data:
           $ref: '#/components/schemas/OutboundVoiceProfile'
       title: Outbound Voice Profile Response
+      type: object
+    List_Phone_Number_Blocks_Background_Jobs_Response:
+      example:
+        data:
+        - id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
+          record_type: phone_numbers_job
+          status: pending
+          type: delete_phone_number_block
+          etc: 2020-10-30T18:10:00.000Z
+          created_at: 2020-10-23T18:10:00.000Z
+          updated_at: 2020-10-23T18:10:01.000Z
+          successful_operations: []
+          failed_operations: []
+        - id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
+          record_type: phone_numbers_job
+          status: pending
+          type: delete_phone_number_block
+          etc: 2020-10-30T18:10:00.000Z
+          created_at: 2020-10-23T18:10:00.000Z
+          updated_at: 2020-10-23T18:10:01.000Z
+          successful_operations: []
+          failed_operations: []
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PhoneNumberBlocksJob'
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+      title: List Phone Number Blocks Background Jobs Response
+      type: object
+    Phone_Number_Blocks_Job_Delete_Phone_Number_Block:
+      example:
+        data:
+          id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
+          record_type: phone_numbers_job
+          status: pending
+          type: delete_phone_number_block
+          etc: 2020-10-30T18:10:00.000Z
+          created_at: 2020-10-23T18:10:00.000Z
+          updated_at: 2020-10-23T18:10:01.000Z
+          successful_operations: []
+          failed_operations: []
+      properties:
+        data:
+          $ref: '#/components/schemas/PhoneNumberBlocksJob'
+      title: Phone Number Blocks Job Delete Phone Number Block
+      type: object
+    Phone_Number_Blocks_Job:
+      example:
+        data:
+          id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
+          record_type: phone_numbers_job
+          status: pending
+          type: delete_phone_number_block
+          etc: 2020-10-30T18:10:00.000Z
+          created_at: 2020-10-23T18:10:00.000Z
+          updated_at: 2020-10-23T18:10:01.000Z
+          successful_operations: []
+          failed_operations: []
+      properties:
+        data:
+          $ref: '#/components/schemas/PhoneNumberBlocksJob'
+      title: Phone Number Blocks Job
       type: object
     List_Phone_Number_Regulatory_Requirements_Response:
       example:
@@ -20625,6 +22373,35 @@ components:
           $ref: '#/components/schemas/PhoneNumbersJob'
       title: Phone Numbers Enable Emergency
       type: object
+    Phone_Numbers_Job_Update_Phone_Numbers:
+      example:
+        data:
+          id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
+          record_type: phone_numbers_job
+          status: pending
+          type: update_emergency_settings
+          etc: 2020-10-30T18:10:00.000Z
+          created_at: 2020-10-23T18:10:00.000Z
+          updated_at: 2020-10-23T18:10:01.000Z
+          created_by: 015e81fc-11b7-4170-974d-5592ce987da7
+          successful_operations:
+          - id: "2637816387126861836"
+            phone_number: +19705555098
+          - id: "33081887126861836"
+            phone_number: +19715555098
+          failed_operations:
+          - id: "3388768018273"
+            phone_number: +19705551234
+            errors:
+            - code: "10015"
+              title: Bad Request
+              detail: The field is invalid.
+              source: /emergency_address_id
+      properties:
+        data:
+          $ref: '#/components/schemas/PhoneNumbersJob'
+      title: Phone Numbers Job Update Phone Numbers
+      type: object
     Phone_Numbers_Job:
       example:
         data:
@@ -20816,6 +22593,38 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/PhoneNumberDetailed'
+      title: Phone Number Response
+      type: object
+    Phone_Number_Response_1:
+      example:
+        data:
+          id: "1293384261075731499"
+          record_type: phone_number
+          phone_number: +19705555098
+          status: deleted
+          tags:
+          - tag_1
+          - tag_2
+          external_pin: "1234"
+          connection_id: "1293384261075731499"
+          connection_name: connection-name
+          customer_reference: customer-reference
+          messaging_profile_id: abc85f64-5717-4562-b3fc-2c9600000000
+          messaging_profile_name: regional-customers
+          billing_group_id: 86f58db9-0fe3-4adc-9d1f-46e66e6e9323
+          emergency_enabled: true
+          emergency_address_id: "1315261609962112019"
+          call_forwarding_enabled: true
+          cnam_listing_enabled: true
+          caller_id_name_enabled: true
+          call_recording_enabled: true
+          t38_fax_gateway_enabled: true
+          purchased_at: 2019-10-23T18:10:00.000Z
+          created_at: 2019-10-23T18:10:00.000Z
+          updated_at: 2019-10-24T18:10:00.000Z
+      properties:
+        data:
+          $ref: '#/components/schemas/PhoneNumberDeletedDetailed'
       title: Phone Number Response
       type: object
     Phone_Number_Enable_Emergency:
@@ -21169,7 +22978,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21208,7 +23018,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21280,7 +23091,8 @@ components:
     CallForkStarted_payload:
       properties:
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21301,7 +23113,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21348,7 +23161,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21372,6 +23186,11 @@ components:
         to:
           description: Destination number or SIP URI of the call.
           example: +13129457420
+          type: string
+        start_time:
+          description: ISO 8601 datetime of when the call started.
+          example: 2018-02-02T22:20:27.521992Z
+          format: date-time
           type: string
         state:
           description: State received from a command.
@@ -21416,7 +23235,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21463,7 +23283,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21504,7 +23325,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21544,7 +23366,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21586,7 +23409,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21659,7 +23483,8 @@ components:
           example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         client_state:
@@ -21705,7 +23530,8 @@ components:
           example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         client_state:
@@ -21742,7 +23568,8 @@ components:
           example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         client_state:
@@ -21779,7 +23606,8 @@ components:
           example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         client_state:
@@ -21878,7 +23706,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21910,7 +23739,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21948,7 +23778,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -21982,7 +23813,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -22023,7 +23855,8 @@ components:
           example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         call_leg_id:
@@ -22067,7 +23900,8 @@ components:
           example: aGF2ZSBhIG5pY2UgZGF5ID1d
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         creator_call_session_id:
@@ -22110,7 +23944,8 @@ components:
           example: aGF2ZSBhIG5pY2UgZGF5ID1d
           type: string
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         creator_call_session_id:
@@ -22130,7 +23965,8 @@ components:
     ConferencePlaybackEnded_payload:
       properties:
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         creator_call_session_id:
@@ -22154,7 +23990,8 @@ components:
     ConferenceSpeakEnded_payload:
       properties:
         connection_id:
-          description: Telnyx connection ID used in the call.
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
           example: 7267xxxxxxxxxxxxxx
           type: string
         creator_call_session_id:
@@ -22515,6 +24352,66 @@ components:
         wav:
           description: Link to download the recording in wav format
           type: string
+      type: object
+    Transcription_payload_transcription_data:
+      properties:
+        confidence:
+          description: Speech recognition confidence level.
+          example: 0.977219
+          format: double
+          type: number
+        transcript:
+          description: Recognized text.
+          example: hello this is a test speech
+          type: string
+      type: object
+    Transcription_payload:
+      properties:
+        call_control_id:
+          description: Unique identifier and token for controlling the call.
+          example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          type: string
+        call_leg_id:
+          description: ID that is unique to the call and can be used to correlate
+            webhook events.
+          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          type: string
+        call_session_id:
+          description: ID that is unique to the call session and can be used to correlate
+            webhook events.
+          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          type: string
+        client_state:
+          description: Use this field to add state to every subsequent webhook. It
+            must be a valid Base-64 encoded string.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        connection_id:
+          description: Telnyx connection ID used in the call.
+          example: 7267xxxxxxxxxxxxxx
+          type: string
+        transcription_data:
+          $ref: '#/components/schemas/Transcription_payload_transcription_data'
+      type: object
+    VerifyVerificationCodeResponse_data:
+      example:
+        response_code: accepted
+        phone_number: +13035551234
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        response_code:
+          description: Identifies if the verification code has been accepted or rejected.
+          enum:
+          - accepted
+          - rejected
+          example: accepted
+          type: string
+      required:
+      - phone_number
+      - response_code
       type: object
   securitySchemes:
     bearerAuth:

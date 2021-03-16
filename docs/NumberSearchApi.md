@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## listAvailablePhoneNumbers
 
-> ListAvailablePhoneNumbersResponse listAvailablePhoneNumbers().filterPhoneNumberStartsWith(filterPhoneNumberStartsWith).filterPhoneNumberEndsWith(filterPhoneNumberEndsWith).filterPhoneNumberContains(filterPhoneNumberContains).filterLocality(filterLocality).filterAdministrativeArea(filterAdministrativeArea).filterCountryCode(filterCountryCode).filterNationalDestinationCode(filterNationalDestinationCode).filterRateCenter(filterRateCenter).filterNumberType(filterNumberType).filterFeatures(filterFeatures).filterLimit(filterLimit).filterBestEffort(filterBestEffort).filterQuickship(filterQuickship).filterReservable(filterReservable).execute();
+> ListAvailablePhoneNumbersResponse listAvailablePhoneNumbers().filterPhoneNumberStartsWith(filterPhoneNumberStartsWith).filterPhoneNumberEndsWith(filterPhoneNumberEndsWith).filterPhoneNumberContains(filterPhoneNumberContains).filterLocality(filterLocality).filterAdministrativeArea(filterAdministrativeArea).filterCountryCode(filterCountryCode).filterNationalDestinationCode(filterNationalDestinationCode).filterRateCenter(filterRateCenter).filterNumberType(filterNumberType).filterFeatures(filterFeatures).filterLimit(filterLimit).filterBestEffort(filterBestEffort).filterQuickship(filterQuickship).filterReservable(filterReservable).filterExcludeHeldNumbers(filterExcludeHeldNumbers).execute();
 
 List available phone numbers
 
@@ -43,12 +43,13 @@ public class Example {
         String filterCountryCode = US; // String | Filter phone numbers by ISO alpha-2 country code.
         String filterNationalDestinationCode = 312; // String | Filter by the national destination code of the number. This filter is only applicable to North American numbers.
         String filterRateCenter = CHICAGO HEIGHTS; // String | Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers.
-        String filterNumberType = local; // String | Filter phone numbers by number type.
+        String filterNumberType = toll-free; // String | Filter phone numbers by number type.
         List<String> filterFeatures = voice,sms; // List<String> | Filter if the phone number should be used for voice, fax, mms, sms, emergency.
         Integer filterLimit = 100; // Integer | Limits the number of results.
         Boolean filterBestEffort = false; // Boolean | Filter to determine if best effort results should be included.
         Boolean filterQuickship = true; // Boolean | Filter to exclude phone numbers that need additional time after to purchase to receive phone calls.
         Boolean filterReservable = true; // Boolean | Filter to exclude phone numbers that cannot be reserved before purchase.
+        Boolean filterExcludeHeldNumbers = false; // Boolean | Filter to exclude phone numbers that are currently on hold for your account.
         try {
             ListAvailablePhoneNumbersResponse result = api.listAvailablePhoneNumbers()
                 .filterPhoneNumberStartsWith(filterPhoneNumberStartsWith)
@@ -65,6 +66,7 @@ public class Example {
                 .filterBestEffort(filterBestEffort)
                 .filterQuickship(filterQuickship)
                 .filterReservable(filterReservable)
+                .filterExcludeHeldNumbers(filterExcludeHeldNumbers)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -91,12 +93,13 @@ Name | Type | Description  | Notes
  **filterCountryCode** | **String**| Filter phone numbers by ISO alpha-2 country code. | [optional]
  **filterNationalDestinationCode** | **String**| Filter by the national destination code of the number. This filter is only applicable to North American numbers. | [optional]
  **filterRateCenter** | **String**| Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers. | [optional]
- **filterNumberType** | **String**| Filter phone numbers by number type. | [optional] [enum: toll-free, national, mobile, local]
+ **filterNumberType** | **String**| Filter phone numbers by number type. | [optional] [enum: toll-free]
  **filterFeatures** | [**List&lt;String&gt;**](String.md)| Filter if the phone number should be used for voice, fax, mms, sms, emergency. | [optional] [enum: sms, mms, voice, fax, emergency]
  **filterLimit** | **Integer**| Limits the number of results. | [optional]
  **filterBestEffort** | **Boolean**| Filter to determine if best effort results should be included. | [optional]
  **filterQuickship** | **Boolean**| Filter to exclude phone numbers that need additional time after to purchase to receive phone calls. | [optional]
  **filterReservable** | **Boolean**| Filter to exclude phone numbers that cannot be reserved before purchase. | [optional]
+ **filterExcludeHeldNumbers** | **Boolean**| Filter to exclude phone numbers that are currently on hold for your account. | [optional]
 
 ### Return type
 

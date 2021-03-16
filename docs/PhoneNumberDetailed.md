@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Identifies the resource. |  [optional] [readonly]
+**id** | **String** | Uniquely identifies the resource. |  [optional]
 **recordType** | **String** | Identifies the type of the resource. |  [optional] [readonly]
 **phoneNumber** | **String** | The +E.164-formatted phone number associated with this record. |  [optional] [readonly]
 **status** | [**StatusEnum**](#StatusEnum) | The phone number&#39;s current status. |  [optional] [readonly]
@@ -27,7 +27,6 @@ Name | Type | Description | Notes
 **t38FaxGatewayEnabled** | **Boolean** | Indicates whether T38 Fax Gateway for inbound calls to this number. |  [optional] [readonly]
 **purchasedAt** | **String** | ISO 8601 formatted date indicating when the resource was purchased. |  [optional] [readonly]
 **createdAt** | **String** | ISO 8601 formatted date indicating when the resource was created. |  [optional] [readonly]
-**updatedAt** | **String** | ISO 8601 formatted date indicating when the resource was updated. |  [optional] [readonly]
 
 
 

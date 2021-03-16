@@ -47,7 +47,7 @@ public class NumberSearchApi {
   }
 
 
-private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbersWithHttpInfo(String filterPhoneNumberStartsWith, String filterPhoneNumberEndsWith, String filterPhoneNumberContains, String filterLocality, String filterAdministrativeArea, String filterCountryCode, String filterNationalDestinationCode, String filterRateCenter, String filterNumberType, List<String> filterFeatures, Integer filterLimit, Boolean filterBestEffort, Boolean filterQuickship, Boolean filterReservable) throws ApiException {
+private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbersWithHttpInfo(String filterPhoneNumberStartsWith, String filterPhoneNumberEndsWith, String filterPhoneNumberContains, String filterLocality, String filterAdministrativeArea, String filterCountryCode, String filterNationalDestinationCode, String filterRateCenter, String filterNumberType, List<String> filterFeatures, Integer filterLimit, Boolean filterBestEffort, Boolean filterQuickship, Boolean filterReservable, Boolean filterExcludeHeldNumbers) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -73,6 +73,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[best_effort]", filterBestEffort));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[quickship]", filterQuickship));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[reservable]", filterReservable));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[exclude_held_numbers]", filterExcludeHeldNumbers));
 
     
     
@@ -111,6 +112,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
     private Boolean filterBestEffort;
     private Boolean filterQuickship;
     private Boolean filterReservable;
+    private Boolean filterExcludeHeldNumbers;
 
     private APIlistAvailablePhoneNumbersRequest() {
     }
@@ -256,6 +258,16 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
     }
 
     /**
+     * Set filterExcludeHeldNumbers
+     * @param filterExcludeHeldNumbers Filter to exclude phone numbers that are currently on hold for your account. (optional)
+     * @return APIlistAvailablePhoneNumbersRequest
+     */
+    public APIlistAvailablePhoneNumbersRequest filterExcludeHeldNumbers(Boolean filterExcludeHeldNumbers) {
+      this.filterExcludeHeldNumbers = filterExcludeHeldNumbers;
+      return this;
+    }
+
+    /**
      * Execute listAvailablePhoneNumbers request
      * @return ListAvailablePhoneNumbersResponse
      * @throws ApiException if fails to make API call
@@ -285,7 +297,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
      */
     public ApiResponse<ListAvailablePhoneNumbersResponse> executeWithHttpInfo() throws ApiException {
-      return listAvailablePhoneNumbersWithHttpInfo(filterPhoneNumberStartsWith, filterPhoneNumberEndsWith, filterPhoneNumberContains, filterLocality, filterAdministrativeArea, filterCountryCode, filterNationalDestinationCode, filterRateCenter, filterNumberType, filterFeatures, filterLimit, filterBestEffort, filterQuickship, filterReservable);
+      return listAvailablePhoneNumbersWithHttpInfo(filterPhoneNumberStartsWith, filterPhoneNumberEndsWith, filterPhoneNumberContains, filterLocality, filterAdministrativeArea, filterCountryCode, filterNationalDestinationCode, filterRateCenter, filterNumberType, filterFeatures, filterLimit, filterBestEffort, filterQuickship, filterReservable, filterExcludeHeldNumbers);
     }
   }
 

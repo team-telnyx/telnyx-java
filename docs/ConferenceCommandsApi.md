@@ -11,9 +11,11 @@ Method | HTTP request | Description
 [**conferencePlayAudio**](ConferenceCommandsApi.md#conferencePlayAudio) | **POST** /conferences/{id}/actions/play | Play audio to conference participants
 [**conferenceSpeakText**](ConferenceCommandsApi.md#conferenceSpeakText) | **POST** /conferences/{id}/actions/speak | Speak text to conference participants
 [**conferenceStartRecording**](ConferenceCommandsApi.md#conferenceStartRecording) | **POST** /conferences/{id}/actions/record_start | Conference recording start
+[**conferenceStopAudio**](ConferenceCommandsApi.md#conferenceStopAudio) | **POST** /conferences/{id}/actions/stop | Stop audio being played on the conference
 [**conferenceStopRecording**](ConferenceCommandsApi.md#conferenceStopRecording) | **POST** /conferences/{id}/actions/record_stop | Conference recording stop
 [**conferenceUnholdParticipants**](ConferenceCommandsApi.md#conferenceUnholdParticipants) | **POST** /conferences/{id}/actions/unhold | Unhold conference participants
 [**conferenceUnmuteParticipants**](ConferenceCommandsApi.md#conferenceUnmuteParticipants) | **POST** /conferences/{id}/actions/unmute | Unmute conference participants
+[**conferenceUpdate**](ConferenceCommandsApi.md#conferenceUpdate) | **POST** /conferences/{id}/actions/update | Update conference participant
 [**createConference**](ConferenceCommandsApi.md#createConference) | **POST** /conferences | Create conference
 [**listConferenceParticipants**](ConferenceCommandsApi.md#listConferenceParticipants) | **GET** /conferences/{conference_id}/participants | List conference participants
 [**listConferences**](ConferenceCommandsApi.md#listConferences) | **GET** /conferences | List conferences
@@ -563,6 +565,81 @@ Name | Type | Description  | Notes
 | **422** | Unprocessable entity |  -  |
 
 
+## conferenceStopAudio
+
+> ConferenceCommandResponse conferenceStopAudio(id, conferenceStopRequest)
+
+Stop audio being played on the conference
+
+Stop audio being played to all or some participants on a conference call.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        ConferenceStopRequest conferenceStopRequest = new ConferenceStopRequest(); // ConferenceStopRequest | 
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceStopAudio(id, conferenceStopRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceStopAudio");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Uniquely identifies the conference by id or name |
+ **conferenceStopRequest** | [**ConferenceStopRequest**](ConferenceStopRequest.md)|  |
+
+### Return type
+
+[**ConferenceCommandResponse**](ConferenceCommandResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Conference does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
+
+
 ## conferenceStopRecording
 
 > ConferenceCommandResponse conferenceStopRecording(id, stopRecordingRequest)
@@ -793,6 +870,80 @@ Name | Type | Description  | Notes
 | **422** | Unprocessable entity |  -  |
 
 
+## conferenceUpdate
+
+> ConferenceCommandResponse conferenceUpdate(id, updateConferenceRequest)
+
+Update conference participant
+
+Update conference participant supervisor_role
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ConferenceCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
+        String id = "id_example"; // String | Uniquely identifies the conference by id or name
+        UpdateConferenceRequest updateConferenceRequest = new UpdateConferenceRequest(); // UpdateConferenceRequest | Update Conference request object
+        try {
+            ConferenceCommandResponse result = apiInstance.conferenceUpdate(id, updateConferenceRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConferenceCommandsApi#conferenceUpdate");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Uniquely identifies the conference by id or name |
+ **updateConferenceRequest** | [**UpdateConferenceRequest**](UpdateConferenceRequest.md)| Update Conference request object |
+
+### Return type
+
+[**ConferenceCommandResponse**](ConferenceCommandResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response upon making a conference command. |  -  |
+| **401** | Unauthorized |  -  |
+| **422** | Unprocessable entity |  -  |
+
+
 ## createConference
 
 > ConferenceResponse createConference(createConferenceRequest)
@@ -907,8 +1058,8 @@ public class Example {
         Boolean filterMuted = true; // Boolean | If present, participants will be filtered to those who are/are not muted
         Boolean filterOnHold = true; // Boolean | If present, participants will be filtered to those who are/are not put on hold
         Boolean filterWhispering = true; // Boolean | If present, participants will be filtered to those who are whispering or are not
-        Integer pageNumber = 1; // Integer | The page number to load.
-        Integer pageSize = 20; // Integer | The size of the page.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 250; // Integer | The size of the page
         try {
             ListParticipantsResponse result = api.listConferenceParticipants(conferenceId)
                 .filterMuted(filterMuted)
@@ -938,8 +1089,8 @@ Name | Type | Description  | Notes
  **filterMuted** | **Boolean**| If present, participants will be filtered to those who are/are not muted | [optional]
  **filterOnHold** | **Boolean**| If present, participants will be filtered to those who are/are not put on hold | [optional]
  **filterWhispering** | **Boolean**| If present, participants will be filtered to those who are whispering or are not | [optional]
- **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
 
 ### Return type
 
@@ -993,8 +1144,8 @@ public class Example {
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String filterName = "filterName_example"; // String | If present, conferences will be filtered to those with a matching `name` attribute. Matching is case-sensitive
-        Integer pageNumber = 1; // Integer | The page number to load.
-        Integer pageSize = 20; // Integer | The size of the page.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 250; // Integer | The size of the page
         try {
             ListConferencesResponse result = api.listConferences()
                 .filterName(filterName)
@@ -1019,8 +1170,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filterName** | **String**| If present, conferences will be filtered to those with a matching &#x60;name&#x60; attribute. Matching is case-sensitive | [optional]
- **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
 
 ### Return type
 

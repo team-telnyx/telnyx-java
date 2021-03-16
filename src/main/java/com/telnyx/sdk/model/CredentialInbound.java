@@ -98,7 +98,9 @@ public class CredentialInbound {
     
     E164("e164"),
     
-    NATIONAL("national");
+    NATIONAL("national"),
+    
+    SIP_USERNAME("sip_username");
 
     private String value;
 
