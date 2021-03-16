@@ -15,6 +15,7 @@ import com.telnyx.sdk.model.ListPhoneNumbersWithVoiceSettingsResponse;
 import com.telnyx.sdk.model.PhoneNumberEnableEmergency;
 import com.telnyx.sdk.model.PhoneNumberEnableEmergencyRequest;
 import com.telnyx.sdk.model.PhoneNumberResponse;
+import com.telnyx.sdk.model.PhoneNumberResponse1;
 import com.telnyx.sdk.model.RetrieveMessagingSettingsResponse;
 import com.telnyx.sdk.model.RetrievePhoneNumberVoiceResponse;
 import com.telnyx.sdk.model.UpdatePhoneNumberMessagingSettingsRequest;
@@ -60,7 +61,7 @@ public class NumberConfigurationsApi {
    * Delete a phone number
    * 
    * @param id Identifies the resource. (required)
-   * @return PhoneNumberResponse
+   * @return PhoneNumberResponse1
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -69,7 +70,7 @@ public class NumberConfigurationsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public PhoneNumberResponse deletePhoneNumber(String id) throws ApiException {
+  public PhoneNumberResponse1 deletePhoneNumber(String id) throws ApiException {
     return deletePhoneNumberWithHttpInfo(id).getData();
   }
 
@@ -77,7 +78,7 @@ public class NumberConfigurationsApi {
    * Delete a phone number
    * 
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;PhoneNumberResponse&gt;
+   * @return ApiResponse&lt;PhoneNumberResponse1&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -86,7 +87,7 @@ public class NumberConfigurationsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PhoneNumberResponse> deletePhoneNumberWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<PhoneNumberResponse1> deletePhoneNumberWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -120,7 +121,7 @@ public class NumberConfigurationsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PhoneNumberResponse> localVarReturnType = new GenericType<PhoneNumberResponse>() {};
+    GenericType<PhoneNumberResponse1> localVarReturnType = new GenericType<PhoneNumberResponse1>() {};
 
     return apiClient.invokeAPI("NumberConfigurationsApi.deletePhoneNumber", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -276,7 +277,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageNumber(Integer pageNumber) {
@@ -286,7 +287,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 250)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageSize(Integer pageSize) {
@@ -506,7 +507,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageNumber(Integer pageNumber) {
@@ -516,7 +517,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 250)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageSize(Integer pageSize) {
@@ -626,7 +627,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageNumber(Integer pageNumber) {
@@ -636,7 +637,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 250)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageSize(Integer pageSize) {

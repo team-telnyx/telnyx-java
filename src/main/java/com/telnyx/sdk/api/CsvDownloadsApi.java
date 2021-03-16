@@ -156,7 +156,7 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistCsvDownloadsRequest
      */
     public APIlistCsvDownloadsRequest pageNumber(Integer pageNumber) {
@@ -166,7 +166,7 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 250)
      * @return APIlistCsvDownloadsRequest
      */
     public APIlistCsvDownloadsRequest pageSize(Integer pageSize) {

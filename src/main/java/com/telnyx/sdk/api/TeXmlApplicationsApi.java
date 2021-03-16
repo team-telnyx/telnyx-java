@@ -9,7 +9,7 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreateTexmlApplicationRequest;
-import com.telnyx.sdk.model.InlineResponse2001;
+import com.telnyx.sdk.model.InlineResponse2002;
 import com.telnyx.sdk.model.InlineResponse2011;
 import com.telnyx.sdk.model.UpdateTexmlApplicationRequest;
 
@@ -194,12 +194,12 @@ public class TeXmlApplicationsApi {
   /**
    * List all TeXML Applications
    * Returns a list of your TeXML Applications.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 250)
    * @param filterFriendlyNameContains If present, applications with &lt;code&gt;friendly_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
    * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
    * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return InlineResponse2001
+   * @return InlineResponse2002
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -210,19 +210,19 @@ public class TeXmlApplicationsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public InlineResponse2001 findTexmlApplications(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
+  public InlineResponse2002 findTexmlApplications(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
     return findTexmlApplicationsWithHttpInfo(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundVoiceProfileId, sort).getData();
   }
 
   /**
    * List all TeXML Applications
    * Returns a list of your TeXML Applications.
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 250)
    * @param filterFriendlyNameContains If present, applications with &lt;code&gt;friendly_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
    * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
    * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return ApiResponse&lt;InlineResponse2001&gt;
+   * @return ApiResponse&lt;InlineResponse2002&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -233,7 +233,7 @@ public class TeXmlApplicationsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<InlineResponse2001> findTexmlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
+  public ApiResponse<InlineResponse2002> findTexmlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -266,7 +266,7 @@ public class TeXmlApplicationsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<InlineResponse2001> localVarReturnType = new GenericType<InlineResponse2001>() {};
+    GenericType<InlineResponse2002> localVarReturnType = new GenericType<InlineResponse2002>() {};
 
     return apiClient.invokeAPI("TeXmlApplicationsApi.findTexmlApplications", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

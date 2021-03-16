@@ -22,8 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PaginationMeta;
-import com.telnyx.sdk.model.TexmlApplication;
+import com.telnyx.sdk.model.Fax;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -42,18 +41,18 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InlineResponse2001 {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<TexmlApplication> data = null;
+  private List<Fax> data = null;
 
   public static final String JSON_PROPERTY_META = "meta";
-  private PaginationMeta meta;
+  private Object meta;
 
 
-  public InlineResponse2001 data(List<TexmlApplication> data) {
+  public InlineResponse2001 data(List<Fax> data) {
     this.data = data;
     return this;
   }
 
-  public InlineResponse2001 addDataItem(TexmlApplication dataItem) {
+  public InlineResponse2001 addDataItem(Fax dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -70,17 +69,17 @@ public class InlineResponse2001 {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<TexmlApplication> getData() {
+  public List<Fax> getData() {
     return data;
   }
 
 
-  public void setData(List<TexmlApplication> data) {
+  public void setData(List<Fax> data) {
     this.data = data;
   }
 
 
-  public InlineResponse2001 meta(PaginationMeta meta) {
+  public InlineResponse2001 meta(Object meta) {
     this.meta = meta;
     return this;
   }
@@ -90,16 +89,16 @@ public class InlineResponse2001 {
    * @return meta
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "{\"page_number\":2,\"page_size\":1,\"total_pages\":3,\"total_results\":3}", value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public PaginationMeta getMeta() {
+  public Object getMeta() {
     return meta;
   }
 
 
-  public void setMeta(PaginationMeta meta) {
+  public void setMeta(Object meta) {
     this.meta = meta;
   }
 

@@ -54,8 +54,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDetailed.JSON_PROPERTY_CALL_RECORDING_ENABLED,
   PhoneNumberDetailed.JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED,
   PhoneNumberDetailed.JSON_PROPERTY_PURCHASED_AT,
-  PhoneNumberDetailed.JSON_PROPERTY_CREATED_AT,
-  PhoneNumberDetailed.JSON_PROPERTY_UPDATED_AT
+  PhoneNumberDetailed.JSON_PROPERTY_CREATED_AT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PhoneNumberDetailed {
@@ -171,16 +170,18 @@ public class PhoneNumberDetailed {
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
 
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private String updatedAt;
 
+  public PhoneNumberDetailed id(String id) {
+    this.id = id;
+    return this;
+  }
 
    /**
-   * Identifies the resource.
+   * Uniquely identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -189,6 +190,9 @@ public class PhoneNumberDetailed {
   }
 
 
+  public void setId(String id) {
+    this.id = id;
+  }
 
 
    /**
@@ -575,22 +579,6 @@ public class PhoneNumberDetailed {
 
 
 
-   /**
-   * ISO 8601 formatted date indicating when the resource was updated.
-   * @return updatedAt
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was updated.")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-
-
   /**
    * Return true if this PhoneNumberDetailed object is equal to o.
    */
@@ -623,13 +611,12 @@ public class PhoneNumberDetailed {
         Objects.equals(this.callRecordingEnabled, phoneNumberDetailed.callRecordingEnabled) &&
         Objects.equals(this.t38FaxGatewayEnabled, phoneNumberDetailed.t38FaxGatewayEnabled) &&
         Objects.equals(this.purchasedAt, phoneNumberDetailed.purchasedAt) &&
-        Objects.equals(this.createdAt, phoneNumberDetailed.createdAt) &&
-        Objects.equals(this.updatedAt, phoneNumberDetailed.updatedAt);
+        Objects.equals(this.createdAt, phoneNumberDetailed.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, customerReference, connectionId, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, updatedAt);
+    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, customerReference, connectionId, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt);
   }
 
 
@@ -658,7 +645,6 @@ public class PhoneNumberDetailed {
     sb.append("    t38FaxGatewayEnabled: ").append(toIndentedString(t38FaxGatewayEnabled)).append("\n");
     sb.append("    purchasedAt: ").append(toIndentedString(purchasedAt)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

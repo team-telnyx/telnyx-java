@@ -13,21 +13,18 @@
 
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.CreateFaxApplicationRequest;
-import com.telnyx.sdk.model.InlineResponse200;
-import com.telnyx.sdk.model.InlineResponse201;
-import com.telnyx.sdk.model.UpdateFaxApplicationRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.HttpBearerAuth;
+import com.telnyx.sdk.model.*;
+import org.junit.Before;
 import org.junit.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static org.junit.Assert.*;
 
 /**
  * API tests for ProgrammableFaxApplicationsApi
@@ -36,84 +33,234 @@ public class ProgrammableFaxApplicationsApiTest {
 
     private final ProgrammableFaxApplicationsApi api = new ProgrammableFaxApplicationsApi();
 
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+    }
+
     /**
      * Creates a Fax Application
-     *
+     * <p>
      * Creates a new Fax Application based on the parameters sent in the request. The application name and webhook URL are required. Once created, you can assign phone numbers to your application using the &#x60;/phone_numbers&#x60; endpoint.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createFaxApplicationTest() throws ApiException {
-        //CreateFaxApplicationRequest createFaxApplicationRequest = null;
-        //InlineResponse201 response = api.createFaxApplication(createFaxApplicationRequest);
-        // TODO: test validations
+    public void createFaxApplication_requestProvided_createsFaxApplication() throws ApiException {
+        //given
+        CreateFaxApplicationRequest request = prepareSampleCreateFaxApplicationRequest();
+
+        //when
+        InlineResponse201 response = api.createFaxApplication(request);
+
+
+        //then
+        assertNotNull(response);
+
+        FaxApplication actual = response.getData();
+        assertNotNull(actual);
+        assertNotNull(actual.getId());
+        assertEquals(request.getApplicationName(), actual.getApplicationName());
+        assertEquals(request.getActive(), actual.getActive());
+        assertEquals(request.getAnchorsiteOverride(), actual.getAnchorsiteOverride());
+        assertEquals(request.getInbound(), actual.getInbound());
+        assertEquals(request.getOutbound(), actual.getOutbound());
+        assertEquals(request.getWebhookEventFailoverUrl(), actual.getWebhookEventFailoverUrl());
+        assertEquals(request.getWebhookEventFailoverUrl_JsonNullable(), actual.getWebhookEventFailoverUrl_JsonNullable());
+        assertEquals(request.getWebhookEventUrl(), actual.getWebhookEventUrl());
+        assertEquals(request.getWebhookTimeoutSecs(), actual.getWebhookTimeoutSecs());
+        assertEquals(request.getWebhookTimeoutSecs_JsonNullable(), actual.getWebhookTimeoutSecs_JsonNullable());
     }
 
     /**
      * Deletes a Fax Application
-     *
+     * <p>
      * Permanently deletes a Fax Application. Deletion may be prevented if the application is in use by phone numbers.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteFaxApplicationTest() throws ApiException {
-        //String id = null;
-        //InlineResponse201 response = api.deleteFaxApplication(id);
-        // TODO: test validations
+    public void deleteFaxApplication_IdProvided_deletesFaxApplication() throws ApiException {
+        //given
+        String id = api.createFaxApplication(prepareSampleCreateFaxApplicationRequest()).getData().getId();
+
+        //When
+        InlineResponse201 response = api.deleteFaxApplication(id);
+
+        //then
+        assertNotNull(response);
+
+        FaxApplication actual = response.getData();
+        assertNotNull(actual);
+        assertEquals(id, actual.getId());
     }
 
     /**
      * Retrieve a Fax Application
-     *
+     * <p>
      * Return the details of an existing Fax Application inside the &#39;data&#39; attribute of the response.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getFaxApplicationTest() throws ApiException {
-        //String id = null;
-        //InlineResponse201 response = api.getFaxApplication(id);
-        // TODO: test validations
+    public void getFaxApplication_IdProvided_returnsFaxApplication() throws ApiException {
+        //given
+        CreateFaxApplicationRequest request = prepareSampleCreateFaxApplicationRequest();
+        String id = api.createFaxApplication(request).getData().getId();
+
+        //When
+        InlineResponse201 response = api.getFaxApplication(id);
+
+        //then
+        FaxApplication actual = response.getData();
+        assertNotNull(actual);
+        assertNotNull(actual.getId());
+        assertEquals(request.getApplicationName(), actual.getApplicationName());
+        assertEquals(request.getActive(), actual.getActive());
+        assertEquals(request.getAnchorsiteOverride(), actual.getAnchorsiteOverride());
+        assertEquals(request.getInbound(), actual.getInbound());
+        assertEquals(request.getOutbound(), actual.getOutbound());
+        assertEquals(request.getWebhookEventFailoverUrl(), actual.getWebhookEventFailoverUrl());
+        assertEquals(request.getWebhookEventFailoverUrl_JsonNullable(), actual.getWebhookEventFailoverUrl_JsonNullable());
+        assertEquals(request.getWebhookEventUrl(), actual.getWebhookEventUrl());
+        assertEquals(request.getWebhookTimeoutSecs(), actual.getWebhookTimeoutSecs());
+        assertEquals(request.getWebhookTimeoutSecs_JsonNullable(), actual.getWebhookTimeoutSecs_JsonNullable());
     }
 
     /**
      * List all Fax Applications
-     *
+     * <p>
      * This endpoint returns a list of your Fax Applications inside the &#39;data&#39; attribute of the response. You can adjust which applications are listed by using filters. Fax Applications are used to configure how you send and receive faxes using the Programmable Fax API with Telnyx.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listFaxApplicationsTest() throws ApiException {
-        //Integer pageNumber = null;
-        //Integer pageSize = null;
-        //String filterApplicationNameContains = null;
-        //String filterOutboundVoiceProfileId = null;
-        //String sort = null;
-        //InlineResponse200 response = api.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
-        // TODO: test validations
+    public void listFaxApplications_nullParams_returnsNotNullListOfConnections() throws ApiException {
+        //given
+        String id = api.createFaxApplication(prepareSampleCreateFaxApplicationRequest()).getData().getId();
+
+        Integer pageNumber = 1;
+        Integer pageSize = 20;
+        String filterApplicationNameContains = null;
+        String filterOutboundVoiceProfileId = null;
+        String sort = null;
+
+        //When
+        InlineResponse200 response = api.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
+
+        //then
+        List<FaxApplication> faxApplications = response.getData();
+        assertNotNull(faxApplications);
+        assertTrue(faxApplications.contains(api.getFaxApplication(id).getData()));
+    }
+
+    /**
+     * List all Fax Applications
+     * <p>
+     * This endpoint returns a list of your Fax Applications inside the &#39;data&#39; attribute of the response. You can adjust which applications are listed by using filters. Fax Applications are used to configure how you send and receive faxes using the Programmable Fax API with Telnyx.
+     *
+     * @throws ApiException if the Api call fails
+     */
+//    @Ignore
+    @Test
+    public void listFaxApplications_defaultParams_returnsNotNullListOfConnections() throws ApiException {
+        //given
+        String id = api.createFaxApplication(prepareSampleCreateFaxApplicationRequest()).getData().getId();
+
+        Integer pageNumber = 1;
+        Integer pageSize = 20;
+        String filterApplicationNameContains = "fax";
+//        String filterOutboundVoiceProfileId = "1293384261075731499";
+        String filterOutboundVoiceProfileId = null;
+        String sort = null;
+//        String sort = "application_name";
+
+        //When
+        InlineResponse200 response = api.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
+
+        //then
+        List<FaxApplication> faxApplications = response.getData();
+        assertNotNull(faxApplications);
+        assertTrue(faxApplications.contains(api.getFaxApplication(id).getData()));
     }
 
     /**
      * Update a Fax Application
-     *
+     * <p>
      * Updates settings of an existing Fax Application based on the parameters of the request.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateFaxApplicationTest() throws ApiException {
-        //String id = null;
-        //UpdateFaxApplicationRequest updateFaxApplicationRequest = null;
-        //InlineResponse201 response = api.updateFaxApplication(id, updateFaxApplicationRequest);
-        // TODO: test validations
+    public void updateFaxApplication_applicationNameChanged_returnFaxApplicationWithNewApplicationName() throws ApiException {
+        //given
+        CreateFaxApplicationRequest createFaxApplicationRequest = prepareSampleCreateFaxApplicationRequest();
+        String id = api.createFaxApplication(createFaxApplicationRequest).getData().getId();
+
+        UpdateFaxApplicationRequest updateFaxApplicationRequest = prepareSampleUpdateFaxApplicationRequest();
+
+        //when
+        InlineResponse201 response = api.updateFaxApplication(id, updateFaxApplicationRequest);
+
+        //then
+        assertNotNull(response);
+
+        FaxApplication actual = response.getData();
+        assertNotNull(actual);
+        assertEquals(updateFaxApplicationRequest.getApplicationName(), actual.getApplicationName());
     }
 
+    private CreateFaxApplicationRequest prepareSampleCreateFaxApplicationRequest() {
+        CreateFaxApplicationRequest request = new CreateFaxApplicationRequest();
+        request.setApplicationName("fax-router");
+        request.setActive(false);
+        request.setAnchorsiteOverride(AnchorsiteOverride.AMSTERDAM_NETHERLANDS);
+
+        CreateFaxApplicationRequestInbound inbound = new CreateFaxApplicationRequestInbound();
+        inbound.setChannelLimit(10);
+        inbound.setSipSubdomain("example");
+        inbound.setSipSubdomainReceiveSettings(CreateFaxApplicationRequestInbound.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS);
+        request.setInbound(inbound);
+
+        CreateFaxApplicationRequestOutbound outbound = new CreateFaxApplicationRequestOutbound();
+        outbound.setChannelLimit(10);
+        outbound.setOutboundVoiceProfileId("1293384261075731499");
+        request.setOutbound(outbound);
+
+        request.setWebhookEventFailoverUrl("https://failover.example.com");
+        request.setWebhookEventFailoverUrl_JsonNullable(JsonNullable.of("https://failover.example.com"));
+        request.setWebhookEventUrl("https://example.com");
+        request.setWebhookTimeoutSecs(25);
+        request.setWebhookTimeoutSecs_JsonNullable(JsonNullable.of(25));
+        return request;
+    }
+
+    private UpdateFaxApplicationRequest prepareSampleUpdateFaxApplicationRequest() {
+        UpdateFaxApplicationRequest request = new UpdateFaxApplicationRequest();
+        request.setApplicationName("fax-router2");
+        request.setActive(false);
+        request.setAnchorsiteOverride(AnchorsiteOverride.AMSTERDAM_NETHERLANDS);
+
+        CreateFaxApplicationRequestInbound inbound = new CreateFaxApplicationRequestInbound();
+        inbound.setChannelLimit(10);
+        inbound.setSipSubdomain("example");
+        inbound.setSipSubdomainReceiveSettings(CreateFaxApplicationRequestInbound.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS);
+        request.setInbound(inbound);
+
+        CreateFaxApplicationRequestOutbound outbound = new CreateFaxApplicationRequestOutbound();
+        outbound.setChannelLimit(10);
+        outbound.setOutboundVoiceProfileId("1293384261075731499");
+        request.setOutbound(outbound);
+
+        request.setWebhookEventFailoverUrl("https://failover.example.com");
+        request.setWebhookEventFailoverUrl_JsonNullable(JsonNullable.of("https://failover.example.com"));
+        request.setWebhookEventUrl("https://example.com");
+        request.setWebhookTimeoutSecs(25);
+        request.setWebhookTimeoutSecs_JsonNullable(JsonNullable.of(25));
+        return request;
+    }
 }

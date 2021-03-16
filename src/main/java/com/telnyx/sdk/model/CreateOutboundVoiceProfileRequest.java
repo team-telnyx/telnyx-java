@@ -60,7 +60,7 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateOutboundVoiceProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
-  private String name = "";
+  private String name;
 
   public static final String JSON_PROPERTY_TRAFFIC_TYPE = "traffic_type";
   private TrafficType trafficType = TrafficType.CONVERSATIONAL;
@@ -108,10 +108,9 @@ public class CreateOutboundVoiceProfileRequest {
    * A user-supplied name to help with organization.
    * @return name
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "office", value = "A user-supplied name to help with organization.")
+  @ApiModelProperty(example = "office", required = true, value = "A user-supplied name to help with organization.")
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;

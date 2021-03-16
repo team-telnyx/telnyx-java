@@ -38,6 +38,7 @@ Name | Value
 _E164 | &quot;+e164&quot;
 E164 | &quot;e164&quot;
 NATIONAL | &quot;national&quot;
+SIP_USERNAME | &quot;sip_username&quot;
 
 
 

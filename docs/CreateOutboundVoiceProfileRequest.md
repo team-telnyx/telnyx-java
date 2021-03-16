@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | A user-supplied name to help with organization. |  [optional]
+**name** | **String** | A user-supplied name to help with organization. | 
 **trafficType** | [**TrafficType**](TrafficType.md) |  |  [optional]
 **servicePlan** | [**ServicePlan**](ServicePlan.md) |  |  [optional]
 **concurrentCallLimit** | **Integer** | Must be no more than your global concurrent call limit. Null means no limit. |  [optional]

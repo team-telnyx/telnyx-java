@@ -71,7 +71,7 @@ public class OutboundVoiceProfile {
   private String recordType;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  private String name = "";
+  private String name;
 
   public static final String JSON_PROPERTY_CONNECTIONS_COUNT = "connections_count";
   private Integer connectionsCount;
@@ -176,10 +176,9 @@ public class OutboundVoiceProfile {
    * A user-supplied name to help with organization.
    * @return name
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "office", value = "A user-supplied name to help with organization.")
+  @ApiModelProperty(example = "office", required = true, value = "A user-supplied name to help with organization.")
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;

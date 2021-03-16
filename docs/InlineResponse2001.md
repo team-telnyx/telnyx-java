@@ -6,8 +6,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**List&lt;TexmlApplication&gt;**](TexmlApplication.md) |  |  [optional]
-**meta** | [**PaginationMeta**](PaginationMeta.md) |  |  [optional]
+**data** | [**List&lt;Fax&gt;**](Fax.md) |  |  [optional]
+**meta** | **Object** |  |  [optional]
 
 
 

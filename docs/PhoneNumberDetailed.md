@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Identifies the resource. |  [optional] [readonly]
+**id** | **String** | Uniquely identifies the resource. |  [optional]
 **recordType** | **String** | Identifies the type of the resource. |  [optional] [readonly]
 **phoneNumber** | **String** | The +E.164-formatted phone number associated with this record. |  [optional] [readonly]
 **status** | [**StatusEnum**](#StatusEnum) | The phone number&#39;s current status. |  [optional] [readonly]
@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **connectionName** | **String** | The user-assigned name of the connection to be associated with this phone number. |  [optional] [readonly]
 **customerReference** | **String** | A customer reference string for customer look ups. |  [optional]
 **connectionId** | **String** | Identifies the connection associated with the phone number. |  [optional]
-**customerReference** | **String** | A customer reference string for customer look ups. |  [optional]
 **messagingProfileId** | **String** | Identifies the messaging profile associated with the phone number. |  [optional]
 **messagingProfileName** | **String** | The name of the messaging profile associated with the phone number. |  [optional]
 **billingGroupId** | **String** | Identifies the billing group associated with the phone number. |  [optional]
@@ -28,7 +27,6 @@ Name | Type | Description | Notes
 **t38FaxGatewayEnabled** | **Boolean** | Indicates whether T38 Fax Gateway for inbound calls to this number. |  [optional] [readonly]
 **purchasedAt** | **String** | ISO 8601 formatted date indicating when the resource was purchased. |  [optional] [readonly]
 **createdAt** | **String** | ISO 8601 formatted date indicating when the resource was created. |  [optional] [readonly]
-**updatedAt** | **String** | ISO 8601 formatted date indicating when the resource was updated. |  [optional] [readonly]
 
 
 

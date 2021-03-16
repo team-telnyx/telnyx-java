@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Identifies the resource. |  [optional]
 **recordType** | **String** | Identifies the type of the resource. |  [optional]
-**name** | **String** | A user-supplied name to help with organization. |  [optional]
+**name** | **String** | A user-supplied name to help with organization. | 
 **connectionsCount** | **Integer** | Amount of connections associated with this outbound voice profile. |  [optional]
 **trafficType** | [**TrafficType**](TrafficType.md) |  |  [optional]
 **servicePlan** | [**ServicePlan**](ServicePlan.md) |  |  [optional]

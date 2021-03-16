@@ -117,8 +117,8 @@ public class Example {
         String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number orders having these phone numbers.
         String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number orders via the customer reference set.
         Boolean filterRequirementsMet = true; // Boolean | Filter number orders by requirements met.
-        Integer pageNumber = 1; // Integer | The page number to load.
-        Integer pageSize = 20; // Integer | The size of the page.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 250; // Integer | The size of the page
         try {
             ListNumberOrdersResponse result = api.listNumberOrders()
                 .filterStatus(filterStatus)
@@ -153,8 +153,8 @@ Name | Type | Description  | Notes
  **filterPhoneNumbersPhoneNumber** | **String**| Filter number orders having these phone numbers. | [optional]
  **filterCustomerReference** | **String**| Filter number orders via the customer reference set. | [optional]
  **filterRequirementsMet** | **Boolean**| Filter number orders by requirements met. | [optional]
- **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
 
 ### Return type
 

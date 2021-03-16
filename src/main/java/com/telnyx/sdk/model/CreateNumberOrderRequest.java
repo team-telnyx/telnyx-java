@@ -42,6 +42,7 @@ import com.telnyx.sdk.JSON;
   CreateNumberOrderRequest.JSON_PROPERTY_PHONE_NUMBERS_COUNT,
   CreateNumberOrderRequest.JSON_PROPERTY_CONNECTION_ID,
   CreateNumberOrderRequest.JSON_PROPERTY_MESSAGING_PROFILE_ID,
+  CreateNumberOrderRequest.JSON_PROPERTY_BILLING_GROUP_ID,
   CreateNumberOrderRequest.JSON_PROPERTY_STATUS,
   CreateNumberOrderRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
   CreateNumberOrderRequest.JSON_PROPERTY_CREATED_AT,
@@ -67,6 +68,9 @@ public class CreateNumberOrderRequest {
 
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
+
+  public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
+  private String billingGroupId;
 
   /**
    * The status of the order.
@@ -249,12 +253,36 @@ public class CreateNumberOrderRequest {
   }
 
 
+  public CreateNumberOrderRequest billingGroupId(String billingGroupId) {
+    this.billingGroupId = billingGroupId;
+    return this;
+  }
+
+   /**
+   * Identifies the billing group associated with the phone number.
+   * @return billingGroupId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "abc85f64-5717-4562-b3fc-2c9600", value = "Identifies the billing group associated with the phone number.")
+  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBillingGroupId() {
+    return billingGroupId;
+  }
+
+
+  public void setBillingGroupId(String billingGroupId) {
+    this.billingGroupId = billingGroupId;
+  }
+
+
    /**
    * The status of the order.
    * @return status
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "success", value = "The status of the order.")
+  @ApiModelProperty(value = "The status of the order.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -355,6 +383,7 @@ public class CreateNumberOrderRequest {
         Objects.equals(this.phoneNumbersCount, createNumberOrderRequest.phoneNumbersCount) &&
         Objects.equals(this.connectionId, createNumberOrderRequest.connectionId) &&
         Objects.equals(this.messagingProfileId, createNumberOrderRequest.messagingProfileId) &&
+        Objects.equals(this.billingGroupId, createNumberOrderRequest.billingGroupId) &&
         Objects.equals(this.status, createNumberOrderRequest.status) &&
         Objects.equals(this.customerReference, createNumberOrderRequest.customerReference) &&
         Objects.equals(this.createdAt, createNumberOrderRequest.createdAt) &&
@@ -364,7 +393,7 @@ public class CreateNumberOrderRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumbers, phoneNumbersCount, connectionId, messagingProfileId, status, customerReference, createdAt, updatedAt, requirementsMet);
+    return Objects.hash(id, recordType, phoneNumbers, phoneNumbersCount, connectionId, messagingProfileId, billingGroupId, status, customerReference, createdAt, updatedAt, requirementsMet);
   }
 
 
@@ -378,6 +407,7 @@ public class CreateNumberOrderRequest {
     sb.append("    phoneNumbersCount: ").append(toIndentedString(phoneNumbersCount)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
+    sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");

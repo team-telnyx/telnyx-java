@@ -19,9 +19,3 @@ hs_err_pid*
 target
 .gradle
 build
-
-# no longer needed RIP travis :(
-.travis.yml
-
-#Intellij files
-.idea/
