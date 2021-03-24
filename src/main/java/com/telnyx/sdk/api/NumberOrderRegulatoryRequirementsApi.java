@@ -131,7 +131,7 @@ private ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> listNumberOrd
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistNumberOrderRegulatoryRequirementsRequest
      */
     public APIlistNumberOrderRegulatoryRequirementsRequest pageNumber(Integer pageNumber) {
@@ -141,7 +141,7 @@ private ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> listNumberOrd
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 250)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistNumberOrderRegulatoryRequirementsRequest
      */
     public APIlistNumberOrderRegulatoryRequirementsRequest pageSize(Integer pageSize) {
@@ -157,7 +157,7 @@ private ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> listNumberOrd
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -174,7 +174,7 @@ private ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> listNumberOrd
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of number order regulatory requirements. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -253,7 +253,7 @@ private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumb
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistPhoneNumberRegulatoryRequirementsRequest
      */
     public APIlistPhoneNumberRegulatoryRequirementsRequest pageNumber(Integer pageNumber) {
@@ -263,7 +263,7 @@ private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumb
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 250)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistPhoneNumberRegulatoryRequirementsRequest
      */
     public APIlistPhoneNumberRegulatoryRequirementsRequest pageSize(Integer pageSize) {
@@ -279,7 +279,7 @@ private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumb
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -296,7 +296,7 @@ private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumb
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone number regulatory requirements. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -326,7 +326,7 @@ private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumb
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order regulatory requirement. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public NumberOrderRegulatoryRequirementResponse retrieveNumberOrderRegulatoryRequirement(String requirementId) throws ApiException {
@@ -343,7 +343,7 @@ private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumb
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order regulatory requirement. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberOrderRegulatoryRequirementResponse> retrieveNumberOrderRegulatoryRequirementWithHttpInfo(String requirementId) throws ApiException {

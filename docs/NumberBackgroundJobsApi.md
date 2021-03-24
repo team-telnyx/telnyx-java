@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers job delete phone numbers requested. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## createPhoneNumbersJobUpdateEmergencySettings
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers enable emergency requested. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## createPhoneNumbersJobUpdatePhoneNumber
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers job update phone numbers requested. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listPhoneNumbersJobs
@@ -257,8 +257,8 @@ public class Example {
 
         NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
         String filterType = update_emergency_settings; // String | Filter the phone number jobs by type.
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 250; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         String sort = created_at; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumbersBackgroundJobsResponse result = api.listPhoneNumbersJobs()
@@ -285,8 +285,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filterType** | **String**| Filter the phone number jobs by type. | [optional] [enum: update_emergency_settings, delete_phone_numbers]
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
  **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: created_at]
 
 ### Return type
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers background jobs. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrievePhoneNumbersJob
@@ -376,5 +376,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Phone numbers job details. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 

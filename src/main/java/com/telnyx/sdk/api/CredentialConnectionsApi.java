@@ -244,7 +244,7 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistCredentialConnectionsRequest
      */
     public APIlistCredentialConnectionsRequest pageNumber(Integer pageNumber) {
@@ -254,7 +254,7 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 250)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistCredentialConnectionsRequest
      */
     public APIlistCredentialConnectionsRequest pageSize(Integer pageSize) {

@@ -56,7 +56,7 @@ public class CsvDownloadsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CSVDownloadResponse createCsvDownload() throws ApiException {
@@ -72,7 +72,7 @@ public class CsvDownloadsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CSVDownloadResponse> createCsvDownloadWithHttpInfo() throws ApiException {
@@ -156,7 +156,7 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistCsvDownloadsRequest
      */
     public APIlistCsvDownloadsRequest pageNumber(Integer pageNumber) {
@@ -166,7 +166,7 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 250)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistCsvDownloadsRequest
      */
     public APIlistCsvDownloadsRequest pageSize(Integer pageSize) {
@@ -182,7 +182,7 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -199,7 +199,7 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of CSV downloads. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -229,7 +229,7 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CSVDownloadResponse retrieveCsvDownload(String id) throws ApiException {
@@ -246,7 +246,7 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CSVDownloadResponse> retrieveCsvDownloadWithHttpInfo(String id) throws ApiException {

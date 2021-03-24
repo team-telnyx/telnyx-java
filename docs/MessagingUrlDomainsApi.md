@@ -35,8 +35,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         MessagingUrlDomainsApi apiInstance = new MessagingUrlDomainsApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 250; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         try {
             ListMessagingProfileUrlDomainsResponse result = api.listMessagingUrlDomains()
                 .pageNumber(pageNumber)
@@ -59,8 +59,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
 
 ### Return type
 
@@ -79,5 +79,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a messaging URL domain. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 

@@ -59,7 +59,7 @@ public class NumberOrdersApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public NumberOrderResponse createNumberOrder(CreateNumberOrderRequest createNumberOrderRequest) throws ApiException {
@@ -76,7 +76,7 @@ public class NumberOrdersApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberOrderResponse> createNumberOrderWithHttpInfo(CreateNumberOrderRequest createNumberOrderRequest) throws ApiException {
@@ -237,7 +237,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistNumberOrdersRequest
      */
     public APIlistNumberOrdersRequest pageNumber(Integer pageNumber) {
@@ -247,7 +247,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 250)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistNumberOrdersRequest
      */
     public APIlistNumberOrdersRequest pageSize(Integer pageSize) {
@@ -263,7 +263,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -280,7 +280,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of number orders. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -310,7 +310,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public NumberOrderResponse retrieveNumberOrder(String numberOrderId) throws ApiException {
@@ -327,7 +327,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberOrderResponse> retrieveNumberOrderWithHttpInfo(String numberOrderId) throws ApiException {
@@ -381,7 +381,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public NumberOrderResponse updateNumberOrder(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest) throws ApiException {
@@ -399,7 +399,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberOrderResponse> updateNumberOrderWithHttpInfo(String numberOrderId, UpdateNumberOrderRequest updateNumberOrderRequest) throws ApiException {

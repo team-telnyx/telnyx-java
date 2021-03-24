@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## enableEmergencyPhoneNumber
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Phone number emergency enabled. |  -  |
 | **202** | Phone number emergency requested. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listPhoneNumbers
@@ -186,8 +186,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 250; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         String filterTag = "filterTag_example"; // String | Filter by phone number tags.
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
         String filterStatus = active; // String | Filter by phone number status.
@@ -234,8 +234,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
  **filterTag** | **String**| Filter by phone number tags. | [optional]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterStatus** | **String**| Filter by phone number status. | [optional] [enum: purchase_pending, purchase_failed, port_pending, active, deleted, port_failed, emergency_only, ported_out, port_out_pending]
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listPhoneNumbersWithMessagingSettings
@@ -296,8 +296,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 250; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         try {
             ListMessagingSettingsResponse result = api.listPhoneNumbersWithMessagingSettings()
                 .pageNumber(pageNumber)
@@ -320,8 +320,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
 
 ### Return type
 
@@ -340,7 +340,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers with messaging settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listPhoneNumbersWithVoiceSettings
@@ -370,8 +370,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 250; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
         String filterConnectionNameContains = test; // String | Filter contains connection name. Requires at least three characters.
         String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
@@ -404,8 +404,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters. | [optional]
  **filterCustomerReference** | **String**| Filter numbers via the customer_reference set. | [optional]
@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers with voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrievePhoneNumber
@@ -498,7 +498,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrievePhoneNumberWithMessagingSettings
@@ -567,7 +567,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number including voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrievePhoneNumberWithVoiceSettings
@@ -636,7 +636,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number including voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## updatePhoneNumber
@@ -707,7 +707,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## updatePhoneNumberWithMessagingSettings
@@ -778,7 +778,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number including voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## updatePhoneNumberWithVoiceSettings
@@ -849,5 +849,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number including voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 

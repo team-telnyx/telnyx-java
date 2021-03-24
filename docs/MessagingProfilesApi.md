@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a messaging profile. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## deleteMessagingProfile
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a messaging profile. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listMessagingProfileMetrics
@@ -181,8 +181,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 250; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         UUID id = new UUID(); // UUID | The id of the messaging profile(s) to retrieve
         String timeFrame = "24h"; // String | The timeframe for which you'd like to retrieve metrics.
         try {
@@ -209,8 +209,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
  **id** | [**UUID**](.md)| The id of the messaging profile(s) to retrieve | [optional]
  **timeFrame** | **String**| The timeframe for which you&#39;d like to retrieve metrics. | [optional] [default to 24h] [enum: 1h, 3h, 24h, 3d, 7d, 30d]
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of messaging profile metrics. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listMessagingProfilePhoneNumbers
@@ -262,8 +262,8 @@ public class Example {
 
         MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
         UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 250; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         try {
             ListMessagingProfilePhoneNumbersResponse result = api.listMessagingProfilePhoneNumbers(id)
                 .pageNumber(pageNumber)
@@ -287,8 +287,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)| The id of the messaging profile to retrieve |
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
 
 ### Return type
 
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of messaging profile phone numbers. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listMessagingProfileShortCodes
@@ -338,8 +338,8 @@ public class Example {
 
         MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
         UUID id = new UUID(); // UUID | The id of the messaging profile to retrieve
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 250; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         try {
             ListMessagingProfileShortCodesResponse result = api.listMessagingProfileShortCodes(id)
                 .pageNumber(pageNumber)
@@ -363,8 +363,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)| The id of the messaging profile to retrieve |
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
 
 ### Return type
 
@@ -383,7 +383,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of messaging profile short codes. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listMessagingProfiles
@@ -413,8 +413,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         MessagingProfilesApi apiInstance = new MessagingProfilesApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 250; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load.
+        Integer pageSize = 20; // Integer | The size of the page.
         try {
             ListMessagingProfilesResponse result = api.listMessagingProfiles()
                 .pageNumber(pageNumber)
@@ -437,8 +437,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
+ **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
 
 ### Return type
 
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of messaging profiles. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrieveMessagingProfile
@@ -526,7 +526,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a messaging profile. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrieveMessagingProfileDetailedMetrics
@@ -599,7 +599,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a messaging profile&#39;s metrics. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## updateMessagingProfile
@@ -670,5 +670,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a messaging profile. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 

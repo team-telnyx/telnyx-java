@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.3.1</version>
+  <version>2.4.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.3.1"
+compile "com.telnyx.sdk:telnyx:2.4.0"
 ```
 
 ### Others
@@ -57,7 +57,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.3.1.jar`
+- `target/telnyx-2.4.0.jar`
 - `target/lib/*.jar`
 
 ## JDK Support
@@ -226,9 +226,6 @@ Class | Method | HTTP request | Description
 *NumberBackgroundJobsApi* | [**createPhoneNumbersJobUpdatePhoneNumber**](docs/NumberBackgroundJobsApi.md#createPhoneNumbersJobUpdatePhoneNumber) | **POST** /phone_numbers/jobs/update_phone_numbers | Update a batch of numbers
 *NumberBackgroundJobsApi* | [**listPhoneNumbersJobs**](docs/NumberBackgroundJobsApi.md#listPhoneNumbersJobs) | **GET** /phone_numbers/jobs | Lists the phone numbers jobs
 *NumberBackgroundJobsApi* | [**retrievePhoneNumbersJob**](docs/NumberBackgroundJobsApi.md#retrievePhoneNumbersJob) | **GET** /phone_numbers/jobs/{id} | Retrieve a phone numbers job
-*NumberBlocksBackgroundJobsApi* | [**createPhoneNumberBlocksJobDeletePhoneNumberBlock**](docs/NumberBlocksBackgroundJobsApi.md#createPhoneNumberBlocksJobDeletePhoneNumberBlock) | **POST** /phone_number_blocks/jobs/delete_phone_number_block | Deletes all numbers associated with a phone number block
-*NumberBlocksBackgroundJobsApi* | [**listPhoneNumberBlocksJobs**](docs/NumberBlocksBackgroundJobsApi.md#listPhoneNumberBlocksJobs) | **GET** /phone_number_blocks/jobs | Lists the phone number blocks jobs
-*NumberBlocksBackgroundJobsApi* | [**retrievePhoneNumberBlocksJob**](docs/NumberBlocksBackgroundJobsApi.md#retrievePhoneNumberBlocksJob) | **GET** /phone_number_blocks/jobs/{id} | Retrieves a phone number blocks job
 *NumberConfigurationsApi* | [**deletePhoneNumber**](docs/NumberConfigurationsApi.md#deletePhoneNumber) | **DELETE** /phone_numbers/{id} | Delete a phone number
 *NumberConfigurationsApi* | [**enableEmergencyPhoneNumber**](docs/NumberConfigurationsApi.md#enableEmergencyPhoneNumber) | **POST** /phone_numbers/{id}/actions/enable_emergency | Enable emergency for a phone number
 *NumberConfigurationsApi* | [**listPhoneNumbers**](docs/NumberConfigurationsApi.md#listPhoneNumbers) | **GET** /phone_numbers | List phone numbers
@@ -507,7 +504,6 @@ Class | Method | HTTP request | Description
  - [ListNumberReservationsResponse](docs/ListNumberReservationsResponse.md)
  - [ListOutboundVoiceProfilesResponse](docs/ListOutboundVoiceProfilesResponse.md)
  - [ListParticipantsResponse](docs/ListParticipantsResponse.md)
- - [ListPhoneNumberBlocksBackgroundJobsResponse](docs/ListPhoneNumberBlocksBackgroundJobsResponse.md)
  - [ListPhoneNumberRegulatoryRequirementsResponse](docs/ListPhoneNumberRegulatoryRequirementsResponse.md)
  - [ListPhoneNumbersBackgroundJobsResponse](docs/ListPhoneNumbersBackgroundJobsResponse.md)
  - [ListPhoneNumbersResponse](docs/ListPhoneNumbersResponse.md)
@@ -558,11 +554,6 @@ Class | Method | HTTP request | Description
  - [ParticipantConference](docs/ParticipantConference.md)
  - [PauseRecordingRequest](docs/PauseRecordingRequest.md)
  - [PhoneNumber](docs/PhoneNumber.md)
- - [PhoneNumberBlocksJob](docs/PhoneNumberBlocksJob.md)
- - [PhoneNumberBlocksJobDeletePhoneNumberBlock](docs/PhoneNumberBlocksJobDeletePhoneNumberBlock.md)
- - [PhoneNumberBlocksJobDeletePhoneNumberBlockRequest](docs/PhoneNumberBlocksJobDeletePhoneNumberBlockRequest.md)
- - [PhoneNumberBlocksJobFailedOperation](docs/PhoneNumberBlocksJobFailedOperation.md)
- - [PhoneNumberBlocksJobSuccessfulOperation](docs/PhoneNumberBlocksJobSuccessfulOperation.md)
  - [PhoneNumberDeletedDetailed](docs/PhoneNumberDeletedDetailed.md)
  - [PhoneNumberDetailed](docs/PhoneNumberDetailed.md)
  - [PhoneNumberEnableEmergency](docs/PhoneNumberEnableEmergency.md)
