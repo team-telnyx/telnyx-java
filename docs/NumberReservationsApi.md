@@ -187,8 +187,8 @@ public class Example {
         String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number reservations earlier than this value.
         String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number reservations having these phone numbers.
         String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number reservations via the customer reference set.
-        Integer pageNumber = 1; // Integer | The page number to load.
-        Integer pageSize = 20; // Integer | The size of the page.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 250; // Integer | The size of the page
         try {
             ListNumberReservationsResponse result = api.listNumberReservations()
                 .filterStatus(filterStatus)
@@ -221,8 +221,8 @@ Name | Type | Description  | Notes
  **filterCreatedAtLt** | **String**| Filter number reservations earlier than this value. | [optional]
  **filterPhoneNumbersPhoneNumber** | **String**| Filter number reservations having these phone numbers. | [optional]
  **filterCustomerReference** | **String**| Filter number reservations via the customer reference set. | [optional]
- **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
 
 ### Return type
 

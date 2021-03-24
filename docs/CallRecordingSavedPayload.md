@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **callLegId** | **String** | ID that is unique to the call and can be used to correlate webhook events. |  [optional]
 **callSessionId** | **String** | ID that is unique to the call session and can be used to correlate webhook events. |  [optional]
-**connectionId** | **String** | Telnyx connection ID used in the call. |  [optional]
+**connectionId** | **String** | Call Control App ID (formerly Telnyx connection ID) used in the call. |  [optional]
 **clientState** | **String** | State received from a command. |  [optional]
 **recordingStartedAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 datetime of when recording started. |  [optional]
 **recordingEndedAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 datetime of when recording ended. |  [optional]

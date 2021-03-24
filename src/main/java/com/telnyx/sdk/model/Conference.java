@@ -431,11 +431,11 @@ public class Conference {
   }
 
    /**
-   * Identifies the connection associated with the conference
+   * Identifies the connection (Call Control App) associated with the conference
    * @return connectionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "3fa85f64-9191-4567-b3fc-2c963f66afa6", value = "Identifies the connection associated with the conference")
+  @ApiModelProperty(example = "3fa85f64-9191-4567-b3fc-2c963f66afa6", value = "Identifies the connection (Call Control App) associated with the conference")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

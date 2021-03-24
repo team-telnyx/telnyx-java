@@ -30,6 +30,8 @@ import com.telnyx.sdk.model.StartRecordingRequest;
 import com.telnyx.sdk.model.StopForkingRequest;
 import com.telnyx.sdk.model.StopGatherRequest;
 import com.telnyx.sdk.model.StopRecordingRequest;
+import com.telnyx.sdk.model.TranscriptionStartRequest;
+import com.telnyx.sdk.model.TranscriptionStopRequest;
 import com.telnyx.sdk.model.TransferCallRequest;
 
 import java.util.ArrayList;
@@ -1519,6 +1521,160 @@ public class CallCommandsApi {
     GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
 
     return apiClient.invokeAPI("CallCommandsApi.callSpeak", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Transcription start
+   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param transcriptionStartRequest Transcription start request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callTranscriptionStart(String callControlId, TranscriptionStartRequest transcriptionStartRequest) throws ApiException {
+    return callTranscriptionStartWithHttpInfo(callControlId, transcriptionStartRequest).getData();
+  }
+
+  /**
+   * Transcription start
+   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param transcriptionStartRequest Transcription start request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callTranscriptionStartWithHttpInfo(String callControlId, TranscriptionStartRequest transcriptionStartRequest) throws ApiException {
+    Object localVarPostBody = transcriptionStartRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callTranscriptionStart");
+    }
+    
+    // verify the required parameter 'transcriptionStartRequest' is set
+    if (transcriptionStartRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'transcriptionStartRequest' when calling callTranscriptionStart");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/transcription_start"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callTranscriptionStart", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Transcription stop
+   * Stop real-time transcription.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param transcriptionStopRequest Transcription stop request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callTranscriptionStop(String callControlId, TranscriptionStopRequest transcriptionStopRequest) throws ApiException {
+    return callTranscriptionStopWithHttpInfo(callControlId, transcriptionStopRequest).getData();
+  }
+
+  /**
+   * Transcription stop
+   * Stop real-time transcription.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param transcriptionStopRequest Transcription stop request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callTranscriptionStopWithHttpInfo(String callControlId, TranscriptionStopRequest transcriptionStopRequest) throws ApiException {
+    Object localVarPostBody = transcriptionStopRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callTranscriptionStop");
+    }
+    
+    // verify the required parameter 'transcriptionStopRequest' is set
+    if (transcriptionStopRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'transcriptionStopRequest' when calling callTranscriptionStop");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/transcription_stop"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callTranscriptionStop", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

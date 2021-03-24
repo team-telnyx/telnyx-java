@@ -15,6 +15,8 @@ import com.telnyx.sdk.model.PhoneNumbersJob;
 import com.telnyx.sdk.model.PhoneNumbersJobDeletePhoneNumbers;
 import com.telnyx.sdk.model.PhoneNumbersJobDeletePhoneNumbersRequest;
 import com.telnyx.sdk.model.PhoneNumbersJobUpdateEmergencySettingsRequest;
+import com.telnyx.sdk.model.PhoneNumbersJobUpdatePhoneNumbers;
+import com.telnyx.sdk.model.PhoneNumbersJobUpdatePhoneNumbersRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -223,6 +225,108 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJobDele
                                localVarAuthNames, localVarReturnType, false);
   }
 
+private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createPhoneNumbersJobUpdatePhoneNumberWithHttpInfo(PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest) throws ApiException {
+    Object localVarPostBody = phoneNumbersJobUpdatePhoneNumbersRequest;
+    
+    // verify the required parameter 'phoneNumbersJobUpdatePhoneNumbersRequest' is set
+    if (phoneNumbersJobUpdatePhoneNumbersRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'phoneNumbersJobUpdatePhoneNumbersRequest' when calling createPhoneNumbersJobUpdatePhoneNumber");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/phone_numbers/jobs/update_phone_numbers";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<PhoneNumbersJobUpdatePhoneNumbers> localVarReturnType = new GenericType<PhoneNumbersJobUpdatePhoneNumbers>() {};
+
+    return apiClient.invokeAPI("NumberBackgroundJobsApi.createPhoneNumbersJobUpdatePhoneNumber", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+
+  public class APIcreatePhoneNumbersJobUpdatePhoneNumberRequest {
+    private PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest;
+
+    private APIcreatePhoneNumbersJobUpdatePhoneNumberRequest() {
+    }
+
+    /**
+     * Set phoneNumbersJobUpdatePhoneNumbersRequest
+     * @param phoneNumbersJobUpdatePhoneNumbersRequest  (required)
+     * @return APIcreatePhoneNumbersJobUpdatePhoneNumberRequest
+     */
+    public APIcreatePhoneNumbersJobUpdatePhoneNumberRequest phoneNumbersJobUpdatePhoneNumbersRequest(PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest) {
+      this.phoneNumbersJobUpdatePhoneNumbersRequest = phoneNumbersJobUpdatePhoneNumbersRequest;
+      return this;
+    }
+
+    /**
+     * Execute createPhoneNumbersJobUpdatePhoneNumber request
+     * @return PhoneNumbersJobUpdatePhoneNumbers
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 202 </td><td> Phone numbers job update phone numbers requested. </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       </table>
+     
+     */
+    
+    public PhoneNumbersJobUpdatePhoneNumbers execute() throws ApiException {
+      return this.executeWithHttpInfo().getData();
+    }
+
+    /**
+     * Execute createPhoneNumbersJobUpdatePhoneNumber request with HTTP info returned
+     * @return ApiResponse&lt;PhoneNumbersJobUpdatePhoneNumbers&gt;
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 202 </td><td> Phone numbers job update phone numbers requested. </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       </table>
+
+     */
+    public ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> executeWithHttpInfo() throws ApiException {
+      return createPhoneNumbersJobUpdatePhoneNumberWithHttpInfo(phoneNumbersJobUpdatePhoneNumbersRequest);
+    }
+  }
+
+  /**
+   * Update a batch of numbers
+   * Creates a new background job to update a batch of numbers. At most one thousand numbers can be updated per API call. At least one of the updateable fields must be submitted
+   * @return createPhoneNumbersJobUpdatePhoneNumberRequest
+   * @throws ApiException if fails to make API call
+   
+   
+   */
+  public APIcreatePhoneNumbersJobUpdatePhoneNumberRequest createPhoneNumbersJobUpdatePhoneNumber() throws ApiException {
+    return new APIcreatePhoneNumbersJobUpdatePhoneNumberRequest();
+  }
+
 private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobsWithHttpInfo(String filterType, Integer pageNumber, Integer pageSize, String sort) throws ApiException {
     Object localVarPostBody = null;
     
@@ -283,7 +387,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistPhoneNumbersJobsRequest
      */
     public APIlistPhoneNumbersJobsRequest pageNumber(Integer pageNumber) {
@@ -293,7 +397,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 250)
      * @return APIlistPhoneNumbersJobsRequest
      */
     public APIlistPhoneNumbersJobsRequest pageSize(Integer pageSize) {

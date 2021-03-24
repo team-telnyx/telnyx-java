@@ -244,7 +244,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistCallControlApplicationsRequest
      */
     public APIlistCallControlApplicationsRequest pageNumber(Integer pageNumber) {
@@ -254,7 +254,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 250)
      * @return APIlistCallControlApplicationsRequest
      */
     public APIlistCallControlApplicationsRequest pageSize(Integer pageSize) {

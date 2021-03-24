@@ -170,11 +170,11 @@ public class AnswerRequest {
   }
 
    /**
-   * Use this field to override the URL for which Telnyx will send subsuqeunt webhooks to for this call.
+   * Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.
    * @return webhookUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL for which Telnyx will send subsuqeunt webhooks to for this call.")
+  @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
