@@ -202,7 +202,7 @@ private ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filt
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistCallEventsRequest
      */
     public APIlistCallEventsRequest pageNumber(Integer pageNumber) {
@@ -212,7 +212,7 @@ private ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filt
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 250)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistCallEventsRequest
      */
     public APIlistCallEventsRequest pageSize(Integer pageSize) {
@@ -228,7 +228,7 @@ private ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filt
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of call events. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -245,7 +245,7 @@ private ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filt
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of call events. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */

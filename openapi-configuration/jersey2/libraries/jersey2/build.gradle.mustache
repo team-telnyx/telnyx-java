@@ -111,6 +111,12 @@ if(hasProperty('target') && target == 'android') {
         }
     }
 
+    test {
+        testLogging {
+            events "PASSED", "SKIPPED", "FAILED"
+        }
+    }
+
     task execute(type:JavaExec) {
        main = System.getProperty('mainClass')
        classpath = sourceSets.main.runtimeClasspath

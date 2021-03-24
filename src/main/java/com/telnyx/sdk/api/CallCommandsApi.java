@@ -80,7 +80,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callAnswer(String callControlId, AnswerRequest answerRequest) throws ApiException {
@@ -98,7 +98,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callAnswerWithHttpInfo(String callControlId, AnswerRequest answerRequest) throws ApiException {
@@ -157,7 +157,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callBridge(String callControlId, BridgeRequest bridgeRequest) throws ApiException {
@@ -175,7 +175,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callBridgeWithHttpInfo(String callControlId, BridgeRequest bridgeRequest) throws ApiException {
@@ -233,7 +233,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveCallStatusResponse callDial(CallRequest callRequest) throws ApiException {
@@ -250,7 +250,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveCallStatusResponse> callDialWithHttpInfo(CallRequest callRequest) throws ApiException {
@@ -303,7 +303,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callForkStart(String callControlId, StartForkingRequest startForkingRequest) throws ApiException {
@@ -321,7 +321,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callForkStartWithHttpInfo(String callControlId, StartForkingRequest startForkingRequest) throws ApiException {
@@ -380,7 +380,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callForkStop(String callControlId, StopForkingRequest stopForkingRequest) throws ApiException {
@@ -398,7 +398,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callForkStopWithHttpInfo(String callControlId, StopForkingRequest stopForkingRequest) throws ApiException {
@@ -457,7 +457,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callGatherStop(String callControlId, StopGatherRequest stopGatherRequest) throws ApiException {
@@ -475,7 +475,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callGatherStopWithHttpInfo(String callControlId, StopGatherRequest stopGatherRequest) throws ApiException {
@@ -534,7 +534,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callGatherUsingAudio(String callControlId, GatherUsingAudioRequest gatherUsingAudioRequest) throws ApiException {
@@ -552,7 +552,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callGatherUsingAudioWithHttpInfo(String callControlId, GatherUsingAudioRequest gatherUsingAudioRequest) throws ApiException {
@@ -611,7 +611,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callGatherUsingSpeak(String callControlId, GatherUsingSpeakRequest gatherUsingSpeakRequest) throws ApiException {
@@ -629,7 +629,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callGatherUsingSpeakWithHttpInfo(String callControlId, GatherUsingSpeakRequest gatherUsingSpeakRequest) throws ApiException {
@@ -688,7 +688,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callHangup(String callControlId, HangupRequest hangupRequest) throws ApiException {
@@ -706,7 +706,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callHangupWithHttpInfo(String callControlId, HangupRequest hangupRequest) throws ApiException {
@@ -765,7 +765,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callPlaybackStart(String callControlId, PlayAudioUrlRequest playAudioUrlRequest) throws ApiException {
@@ -783,7 +783,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callPlaybackStartWithHttpInfo(String callControlId, PlayAudioUrlRequest playAudioUrlRequest) throws ApiException {
@@ -842,7 +842,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callPlaybackStop(String callControlId, PlaybackStopRequest playbackStopRequest) throws ApiException {
@@ -860,7 +860,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callPlaybackStopWithHttpInfo(String callControlId, PlaybackStopRequest playbackStopRequest) throws ApiException {
@@ -919,7 +919,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRecordPause(String callControlId, PauseRecordingRequest pauseRecordingRequest) throws ApiException {
@@ -937,7 +937,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRecordPauseWithHttpInfo(String callControlId, PauseRecordingRequest pauseRecordingRequest) throws ApiException {
@@ -996,7 +996,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRecordResume(String callControlId, ResumeRecordingRequest resumeRecordingRequest) throws ApiException {
@@ -1014,7 +1014,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRecordResumeWithHttpInfo(String callControlId, ResumeRecordingRequest resumeRecordingRequest) throws ApiException {
@@ -1073,7 +1073,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRecordStart(String callControlId, StartRecordingRequest startRecordingRequest) throws ApiException {
@@ -1091,7 +1091,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRecordStartWithHttpInfo(String callControlId, StartRecordingRequest startRecordingRequest) throws ApiException {
@@ -1150,7 +1150,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRecordStop(String callControlId, StopRecordingRequest stopRecordingRequest) throws ApiException {
@@ -1168,7 +1168,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRecordStopWithHttpInfo(String callControlId, StopRecordingRequest stopRecordingRequest) throws ApiException {
@@ -1227,7 +1227,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRefer(String callControlId, ReferRequest referRequest) throws ApiException {
@@ -1245,7 +1245,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callReferWithHttpInfo(String callControlId, ReferRequest referRequest) throws ApiException {
@@ -1304,7 +1304,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callReject(String callControlId, RejectRequest rejectRequest) throws ApiException {
@@ -1322,7 +1322,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRejectWithHttpInfo(String callControlId, RejectRequest rejectRequest) throws ApiException {
@@ -1381,7 +1381,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callSendDTMF(String callControlId, SendDTMFRequest sendDTMFRequest) throws ApiException {
@@ -1399,7 +1399,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callSendDTMFWithHttpInfo(String callControlId, SendDTMFRequest sendDTMFRequest) throws ApiException {
@@ -1458,7 +1458,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callSpeak(String callControlId, SpeakRequest speakRequest) throws ApiException {
@@ -1476,7 +1476,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callSpeakWithHttpInfo(String callControlId, SpeakRequest speakRequest) throws ApiException {
@@ -1535,7 +1535,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callTranscriptionStart(String callControlId, TranscriptionStartRequest transcriptionStartRequest) throws ApiException {
@@ -1553,7 +1553,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callTranscriptionStartWithHttpInfo(String callControlId, TranscriptionStartRequest transcriptionStartRequest) throws ApiException {
@@ -1612,7 +1612,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callTranscriptionStop(String callControlId, TranscriptionStopRequest transcriptionStopRequest) throws ApiException {
@@ -1630,7 +1630,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callTranscriptionStopWithHttpInfo(String callControlId, TranscriptionStopRequest transcriptionStopRequest) throws ApiException {
@@ -1689,7 +1689,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callTransfer(String callControlId, TransferCallRequest transferCallRequest) throws ApiException {
@@ -1707,7 +1707,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callTransferWithHttpInfo(String callControlId, TransferCallRequest transferCallRequest) throws ApiException {

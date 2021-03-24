@@ -59,7 +59,7 @@ public class NumberOrderDocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public NumberOrderDocumentResponse createNumberOrderDocument(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest) throws ApiException {
@@ -76,7 +76,7 @@ public class NumberOrderDocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberOrderDocumentResponse> createNumberOrderDocumentWithHttpInfo(CreateNumberOrderDocumentRequest createNumberOrderDocumentRequest) throws ApiException {
@@ -201,7 +201,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistNumberOrderDocumentsRequest
      */
     public APIlistNumberOrderDocumentsRequest pageNumber(Integer pageNumber) {
@@ -211,7 +211,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 250)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistNumberOrderDocumentsRequest
      */
     public APIlistNumberOrderDocumentsRequest pageSize(Integer pageSize) {
@@ -227,7 +227,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -244,7 +244,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of number order documents. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -274,7 +274,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public NumberOrderDocumentResponse retrieveNumberOrderDocument(String numberOrderDocumentId) throws ApiException {
@@ -291,7 +291,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberOrderDocumentResponse> retrieveNumberOrderDocumentWithHttpInfo(String numberOrderDocumentId) throws ApiException {
@@ -345,7 +345,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public NumberOrderDocumentResponse updateNumberOrderDocument(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest) throws ApiException {
@@ -363,7 +363,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number order document. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberOrderDocumentResponse> updateNumberOrderDocumentWithHttpInfo(String numberOrderDocumentId, UpdateNumberOrderDocumentRequest updateNumberOrderDocumentRequest) throws ApiException {

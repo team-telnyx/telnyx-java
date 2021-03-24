@@ -45,8 +45,6 @@ tags:
   name: Messaging URL Domains
 - description: Background jobs performed over a batch of phone numbers
   name: Number Background Jobs
-- description: Background jobs performed over a phone-numbers block's phone numbers
-  name: Number Blocks Background Jobs
 - description: Configure your phone numbers
   name: Number Configurations
 - description: Number order documents
@@ -261,7 +259,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List available phone numbers
       tags:
       - Number Search
@@ -273,7 +271,7 @@ paths:
       description: Return a list of call control applications.
       operationId: listCallControlApplications
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -283,13 +281,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -586,7 +584,7 @@ paths:
           example: 2019-03-29T11:10:00Z
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -596,13 +594,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -619,7 +617,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List call events
       tags:
       - Debugging
@@ -733,7 +731,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Dial
       tags:
       - Call Commands
@@ -766,7 +764,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a call status
       tags:
       - Call Information
@@ -825,7 +823,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Answer call
       tags:
       - Call Commands
@@ -886,7 +884,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Bridge calls
       tags:
       - Call Commands
@@ -1002,7 +1000,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Forking start
       tags:
       - Call Commands
@@ -1062,7 +1060,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Forking stop
       tags:
       - Call Commands
@@ -1122,7 +1120,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Gather stop
       tags:
       - Call Commands
@@ -1232,7 +1230,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Gather using audio
       tags:
       - Call Commands
@@ -1310,7 +1308,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Gather using speak
       tags:
       - Call Commands
@@ -1386,7 +1384,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Hangup call
       tags:
       - Call Commands
@@ -1468,7 +1466,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Play audio URL
       tags:
       - Call Commands
@@ -1543,7 +1541,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Stop audio playback
       tags:
       - Call Commands
@@ -1587,7 +1585,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Record pause
       tags:
       - Call Commands
@@ -1631,7 +1629,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Record resume
       tags:
       - Call Commands
@@ -1675,7 +1673,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Recording start
       tags:
       - Call Commands
@@ -1735,7 +1733,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Recording stop
       tags:
       - Call Commands
@@ -1827,7 +1825,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: SIP Refer a call
       tags:
       - Call Commands
@@ -1887,7 +1885,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Reject a call
       tags:
       - Call Commands
@@ -1931,7 +1929,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send DTMF
       tags:
       - Call Commands
@@ -2007,7 +2005,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Speak text
       tags:
       - Call Commands
@@ -2063,7 +2061,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Transcription start
       tags:
       - Call Commands
@@ -2102,7 +2100,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Transcription stop
       tags:
       - Call Commands
@@ -2211,7 +2209,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Transfer call
       tags:
       - Call Commands
@@ -2235,7 +2233,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -2245,13 +2243,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -2410,7 +2408,7 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -2420,13 +2418,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -3193,7 +3191,7 @@ paths:
       description: Returns a list of your connections irrespective of type.
       operationId: listConnections
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -3203,13 +3201,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -3318,7 +3316,7 @@ paths:
       description: Returns a list of your credential connections.
       operationId: listCredentialConnections
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -3328,13 +3326,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -3538,7 +3536,7 @@ paths:
         receive faxes using the Programmable Fax API with Telnyx.
       operationId: listFaxApplications
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -3548,13 +3546,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -3766,7 +3764,7 @@ paths:
       description: Returns a list of your FQDN connections.
       operationId: listFqdnConnections
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -3776,13 +3774,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -3973,7 +3971,7 @@ paths:
       description: Get all FQDNs belonging to the user that match the given filters.
       operationId: listFqdns
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -3983,13 +3981,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -4173,7 +4171,7 @@ paths:
       description: Returns a list of your IP connections.
       operationId: listIpConnections
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -4183,13 +4181,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -4390,7 +4388,7 @@ paths:
       description: Get all IPs belonging to the user that match the given filters.
       operationId: listIps
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -4400,13 +4398,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -4619,7 +4617,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send a message
       tags:
       - Messages
@@ -4663,7 +4661,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send a long code message
       tags:
       - Messages
@@ -4707,7 +4705,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send a message using number pool
       tags:
       - Messages
@@ -4751,7 +4749,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send a short code message
       tags:
       - Messages
@@ -4786,7 +4784,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a message
       tags:
       - Messages
@@ -4796,7 +4794,7 @@ paths:
     get:
       operationId: listMessagingHostedNumberOrder
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -4806,13 +4804,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -4830,7 +4828,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List messaging hosted number orders
       tags:
       - Messaging Hosted Number
@@ -4858,7 +4856,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a messaging hosted number order
       tags:
       - Messaging Hosted Number
@@ -4890,7 +4888,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a messaging hosted number order
       tags:
       - Messaging Hosted Number
@@ -4934,7 +4932,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Upload file required for a messaging hosted number order
       tags:
       - Messaging Hosted Number
@@ -4965,7 +4963,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a messaging hosted number
       tags:
       - Messaging Hosted Number
@@ -4975,7 +4973,7 @@ paths:
     get:
       operationId: listMessagingProfileMetrics
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -4985,13 +4983,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5033,7 +5031,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List messaging profile metrics
       tags:
       - Messaging Profiles
@@ -5044,7 +5042,7 @@ paths:
     get:
       operationId: listMessagingProfiles
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5054,13 +5052,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5077,7 +5075,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List messaging profiles
       tags:
       - Messaging Profiles
@@ -5151,7 +5149,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a messaging profile
       tags:
       - Messaging Profiles
@@ -5183,7 +5181,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a messaging profile
       tags:
       - Messaging Profiles
@@ -5213,7 +5211,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a messaging profile
       tags:
       - Messaging Profiles
@@ -5250,7 +5248,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a messaging profile
       tags:
       - Messaging Profiles
@@ -5299,7 +5297,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve messaging profile metrics
       tags:
       - Messaging Profiles
@@ -5310,7 +5308,7 @@ paths:
     get:
       operationId: listMessagingProfilePhoneNumbers
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5320,13 +5318,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5353,7 +5351,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List phone numbers associated with a messaging profile
       tags:
       - Messaging Profiles
@@ -5364,7 +5362,7 @@ paths:
     get:
       operationId: listMessagingProfileShortCodes
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5374,13 +5372,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5407,7 +5405,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List short codes associated with a messaging profile
       tags:
       - Messaging Profiles
@@ -5418,7 +5416,7 @@ paths:
     get:
       operationId: listMessagingUrlDomains
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5428,13 +5426,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5451,7 +5449,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List messaging URL domains
       tags:
       - Messaging URL Domains
@@ -5487,7 +5485,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5497,13 +5495,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5520,7 +5518,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List number order documents
       tags:
       - Number Order Documents
@@ -5548,7 +5546,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a number order document
       tags:
       - Number Order Documents
@@ -5580,7 +5578,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a number order document
       tags:
       - Number Order Documents
@@ -5616,7 +5614,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a number order document
       tags:
       - Number Order Documents
@@ -5676,7 +5674,7 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5686,13 +5684,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5709,7 +5707,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List number orders
       tags:
       - Number Orders
@@ -5753,7 +5751,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a number order
       tags:
       - Number Orders
@@ -5785,7 +5783,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a number order
       tags:
       - Number Orders
@@ -5821,7 +5819,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a number order
       tags:
       - Number Orders
@@ -5873,7 +5871,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5883,13 +5881,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5906,7 +5904,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List number reservations
       tags:
       - Number Reservations
@@ -5934,7 +5932,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a number reservation
       tags:
       - Number Reservations
@@ -5966,7 +5964,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a number reservation
       tags:
       - Number Reservations
@@ -5997,7 +5995,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Extend a number reservation
       tags:
       - Number Reservations
@@ -6009,7 +6007,7 @@ paths:
         the given filters.
       operationId: listOutboundVoiceProfiles
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6019,13 +6017,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6226,155 +6224,6 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
-  /phone_number_blocks/jobs:
-    get:
-      operationId: listPhoneNumberBlocksJobs
-      parameters:
-      - description: Filter the phone number blocks jobs by type.
-        explode: true
-        in: query
-        name: filter[type]
-        required: false
-        schema:
-          description: Identifies the type of the background job.
-          enum:
-          - delete_phone_number_block
-          example: delete_phone_number_block
-          type: string
-        style: form
-      - description: Filter the phone number blocks jobs by status.
-        explode: true
-        in: query
-        name: filter[status]
-        required: false
-        schema:
-          description: Identifies the status of the background job.
-          enum:
-          - pending
-          - in_progress
-          - completed
-          - failed
-          example: in_progress
-          type: string
-        style: form
-      - description: The page number to load
-        explode: true
-        in: query
-        name: page[number]
-        required: false
-        schema:
-          default: 1
-          minimum: 1
-          type: integer
-        style: form
-      - description: The size of the page
-        explode: true
-        in: query
-        name: page[size]
-        required: false
-        schema:
-          default: 250
-          maximum: 250
-          minimum: 1
-          type: integer
-        style: form
-      - description: Specifies the sort order for results. If not given, results are
-          sorted by created_at in descending order.
-        explode: true
-        in: query
-        name: sort
-        required: false
-        schema:
-          enum:
-          - created_at
-          example: created_at
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/List_Phone_Number_Blocks_Background_Jobs_Response'
-          description: Successful response with a list of phone number blocks background
-            jobs.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: Lists the phone number blocks jobs
-      tags:
-      - Number Blocks Background Jobs
-      x-group-parameters: "true"
-      x-latency-category: responsive
-      x-accepts: application/json
-  /phone_number_blocks/jobs/delete_phone_number_block:
-    post:
-      description: Creates a new background job to delete all the phone numbers associated
-        with the given block. We will only consider the phone number block as deleted
-        after all phone numbers associated with it are removed, so multiple executions
-        of this job may be necessary in case some of the phone numbers present errors
-        during the deletion process.
-      operationId: createPhoneNumberBlocksJobDeletePhoneNumberBlock
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PhoneNumberBlocksJobDeletePhoneNumberBlockRequest'
-        required: true
-      responses:
-        "202":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Phone_Number_Blocks_Job_Delete_Phone_Number_Block'
-          description: Phone number blocks job delete phone numbers requested.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: Deletes all numbers associated with a phone number block
-      tags:
-      - Number Blocks Background Jobs
-      x-latency-category: background
-      x-group-parameters: "true"
-      x-contentType: application/json
-      x-accepts: application/json
-  /phone_number_blocks/jobs/{id}:
-    get:
-      operationId: retrievePhoneNumberBlocksJob
-      parameters:
-      - description: Identifies the Phone Number Blocks Job.
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Phone_Number_Blocks_Job'
-          description: Phone number blocks job details.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: Retrieves a phone number blocks job
-      tags:
-      - Number Blocks Background Jobs
-      x-group-parameters: "true"
-      x-latency-category: responsive
-      x-accepts: application/json
   /phone_number_regulatory_requirements:
     get:
       description: Gets a paginated list of phone number regulatory requirements.
@@ -6391,7 +6240,7 @@ paths:
             type: string
           type: array
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6401,13 +6250,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6425,7 +6274,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List regulatory requirements per number
       tags:
       - Number Order Regulatory Requirements
@@ -6436,7 +6285,7 @@ paths:
     get:
       operationId: listPhoneNumbers
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6446,13 +6295,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6601,7 +6450,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List phone numbers
       tags:
       - Number Configurations
@@ -6612,7 +6461,7 @@ paths:
     get:
       operationId: listCsvDownloads
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6622,13 +6471,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6645,7 +6494,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List CSV downloads
       tags:
       - CSV Downloads
@@ -6666,7 +6515,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a CSV download
       tags:
       - CSV Downloads
@@ -6696,7 +6545,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a CSV download
       tags:
       - CSV Downloads
@@ -6719,7 +6568,7 @@ paths:
           example: update_emergency_settings
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6729,13 +6578,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6765,7 +6614,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Lists the phone numbers jobs
       tags:
       - Number Background Jobs
@@ -6795,7 +6644,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a batch of numbers
       tags:
       - Number Background Jobs
@@ -6827,7 +6676,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update the emergency settings from a batch of numbers
       tags:
       - Number Background Jobs
@@ -6858,7 +6707,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a batch of numbers
       tags:
       - Number Background Jobs
@@ -6890,7 +6739,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a phone numbers job
       tags:
       - Number Background Jobs
@@ -6901,7 +6750,7 @@ paths:
     get:
       operationId: listPhoneNumbersWithMessagingSettings
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6911,13 +6760,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6935,7 +6784,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List phone numbers with messaging settings
       tags:
       - Number Configurations
@@ -6946,7 +6795,7 @@ paths:
     get:
       operationId: listPhoneNumbersWithVoiceSettings
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6956,13 +6805,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7034,7 +6883,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List phone numbers with voice settings
       tags:
       - Number Configurations
@@ -7067,7 +6916,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a phone number
       tags:
       - Number Configurations
@@ -7098,7 +6947,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a phone number
       tags:
       - Number Configurations
@@ -7136,7 +6985,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a phone number
       tags:
       - Number Configurations
@@ -7181,7 +7030,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Enable emergency for a phone number
       tags:
       - Number Configurations
@@ -7213,7 +7062,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a phone number with messaging settings
       tags:
       - Number Configurations
@@ -7250,7 +7099,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a phone number with messaging settings
       tags:
       - Number Configurations
@@ -7284,7 +7133,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a phone number with voice settings
       tags:
       - Number Configurations
@@ -7323,7 +7172,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a phone number with voice settings
       tags:
       - Number Configurations
@@ -7364,7 +7213,7 @@ paths:
           example: 2019-03-29T11:10:00Z
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7374,13 +7223,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7460,7 +7309,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7470,13 +7319,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7494,7 +7343,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List number order regulatory requirements
       tags:
       - Number Order Regulatory Requirements
@@ -7527,7 +7376,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a number order regulatory requirement
       tags:
       - Number Order Regulatory Requirements
@@ -7537,7 +7386,7 @@ paths:
     get:
       operationId: listShortCodes
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7547,13 +7396,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7580,7 +7429,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List short codes
       tags:
       - Short Codes
@@ -7612,7 +7461,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a short code
       tags:
       - Short Codes
@@ -7652,7 +7501,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update short code
       tags:
       - Short Codes
@@ -7664,7 +7513,7 @@ paths:
       description: Returns a list of your TeXML Applications.
       operationId: findTexmlApplications
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7674,13 +7523,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7902,7 +7751,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Trigger a verification
       tags:
       - Verify
@@ -7935,7 +7784,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List verifications by phone number
       tags:
       - Verify
@@ -7974,7 +7823,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Submit a verification code
       tags:
       - Verify
@@ -8007,7 +7856,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a verification
       tags:
       - Verify
@@ -8057,7 +7906,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List all Verify profiles
       tags:
       - Verify
@@ -8085,7 +7934,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a Verify profile
       tags:
       - Verify
@@ -8118,7 +7967,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a Verify profile
       tags:
       - Verify
@@ -8150,7 +7999,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a Verify profile
       tags:
       - Verify
@@ -8187,7 +8036,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a Verify profile
       tags:
       - Verify
@@ -8443,7 +8292,7 @@ components:
         type: string
       style: form
     PageNumber:
-      description: The page number to load
+      description: The page number to load.
       explode: true
       in: query
       name: page[number]
@@ -8454,13 +8303,13 @@ components:
         type: integer
       style: form
     PageSize:
-      description: The size of the page
+      description: The size of the page.
       explode: true
       in: query
       name: page[size]
       required: false
       schema:
-        default: 250
+        default: 20
         maximum: 250
         minimum: 1
         type: integer
@@ -8622,7 +8471,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-      description: Unexpected error
+      description: Bad Request
     GetAllFaxApplicationsResponse:
       content:
         application/json:
@@ -8785,13 +8634,6 @@ components:
           schema:
             $ref: '#/components/schemas/List_Participants_Response'
       description: Successful response with a list of conference participants.
-    ListPhoneNumberBlocksJobsResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/List_Phone_Number_Blocks_Background_Jobs_Response'
-      description: Successful response with a list of phone number blocks background
-        jobs.
     ListPhoneNumberRegulatoryRequirementsResponse:
       content:
         application/json:
@@ -14005,10 +13847,10 @@ components:
         updated_at: 2018-02-02T22:25:27.521Z
       properties:
         id:
-          description: Uniquely identifies the resource.
+          description: Identifies the resource.
           example: "1293384261075731499"
           format: int64
-          title: Int ID
+          readOnly: true
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -15056,10 +14898,10 @@ components:
             $ref: '#/components/schemas/Error'
           type: array
     IntId:
-      description: Uniquely identifies the resource.
+      description: Identifies the resource.
       example: "1293384261075731499"
       format: int64
-      title: Int ID
+      readOnly: true
       type: string
     Ip:
       example:
@@ -16669,7 +16511,6 @@ components:
         page_size:
           example: 25
           type: integer
-      title: Pagination Meta
       type: object
     PaginationMetaSimple:
       properties:
@@ -16851,105 +16692,6 @@ components:
           - failure
           readOnly: true
           type: string
-    PhoneNumberBlocksJob:
-      example:
-        id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-        record_type: phone_numbers_job
-        status: pending
-        type: delete_phone_number_block
-        etc: 2020-10-30T18:10:00.000Z
-        created_at: 2020-10-23T18:10:00.000Z
-        updated_at: 2020-10-23T18:10:01.000Z
-        successful_operations: []
-        failed_operations: []
-      properties:
-        id:
-          description: Identifies the resource.
-          example: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          format: uuid
-          readOnly: true
-          type: string
-        record_type:
-          description: Identifies the type of the resource.
-          example: phone_number_block_job
-          readOnly: true
-          type: string
-        status:
-          default: pending
-          description: Indicates the completion status of the background operation.
-          enum:
-          - pending
-          - in_progress
-          - completed
-          - failed
-          example: pending
-          readOnly: true
-          type: string
-        type:
-          description: Identifies the type of the background job.
-          enum:
-          - delete_phone_number_block
-          example: delete_phone_number_block
-          readOnly: true
-          type: string
-        etc:
-          description: ISO 8601 formatted date indicating when the estimated time
-            of completion of the background job.
-          format: date-time
-          readOnly: true
-          type: string
-        created_at:
-          description: ISO 8601 formatted date indicating when the resource was created.
-          readOnly: true
-          type: string
-        updated_at:
-          description: ISO 8601 formatted date indicating when the resource was updated.
-          readOnly: true
-          type: string
-        successful_operations:
-          items:
-            $ref: '#/components/schemas/PhoneNumberBlocksJobSuccessfulOperation'
-          readOnly: true
-          type: array
-        failed_operations:
-          items:
-            $ref: '#/components/schemas/PhoneNumberBlocksJobFailedOperation'
-          readOnly: true
-          type: array
-      type: object
-    PhoneNumberBlocksJobDeletePhoneNumberBlockRequest:
-      example:
-        phone_number_block_id: f3946371-7199-4261-9c3d-81a0d7935146
-      properties:
-        phone_number_block_id:
-          type: string
-      required:
-      - phone_number_block_id
-      type: object
-    PhoneNumberBlocksJobFailedOperation:
-      properties:
-        phone_number:
-          description: The phone number in e164 format.
-          format: e164
-          type: string
-        id:
-          description: The phone number's ID
-          format: int64
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-    PhoneNumberBlocksJobSuccessfulOperation:
-      properties:
-        phone_number:
-          description: The phone number in e164 format.
-          format: e164
-          type: string
-        id:
-          description: The phone number's ID
-          format: int64
-          type: string
     PhoneNumberDeletedDetailed:
       example:
         id: "1293384261075731499"
@@ -16978,10 +16720,10 @@ components:
         updated_at: 2019-10-24T18:10:00.000Z
       properties:
         id:
-          description: Uniquely identifies the resource.
+          description: Identifies the resource.
           example: "1293384261075731499"
           format: int64
-          title: Int ID
+          readOnly: true
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -17118,10 +16860,10 @@ components:
         updated_at: 2019-10-24T18:10:00.000Z
       properties:
         id:
-          description: Uniquely identifies the resource.
+          description: Identifies the resource.
           example: "1293384261075731499"
           format: int64
-          title: Int ID
+          readOnly: true
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -18481,10 +18223,10 @@ components:
         updated_at: 2020-02-03T22:25:27.521Z
       properties:
         id:
-          description: Uniquely identifies the resource.
+          description: Identifies the resource.
           example: "1293384261075731499"
           format: int64
-          title: Int ID
+          readOnly: true
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -22043,75 +21785,6 @@ components:
         data:
           $ref: '#/components/schemas/OutboundVoiceProfile'
       title: Outbound Voice Profile Response
-      type: object
-    List_Phone_Number_Blocks_Background_Jobs_Response:
-      example:
-        data:
-        - id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          record_type: phone_numbers_job
-          status: pending
-          type: delete_phone_number_block
-          etc: 2020-10-30T18:10:00.000Z
-          created_at: 2020-10-23T18:10:00.000Z
-          updated_at: 2020-10-23T18:10:01.000Z
-          successful_operations: []
-          failed_operations: []
-        - id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          record_type: phone_numbers_job
-          status: pending
-          type: delete_phone_number_block
-          etc: 2020-10-30T18:10:00.000Z
-          created_at: 2020-10-23T18:10:00.000Z
-          updated_at: 2020-10-23T18:10:01.000Z
-          successful_operations: []
-          failed_operations: []
-        meta:
-          page_number: 2
-          total_pages: 3
-          total_results: 55
-          page_size: 25
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/PhoneNumberBlocksJob'
-          type: array
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-      title: List Phone Number Blocks Background Jobs Response
-      type: object
-    Phone_Number_Blocks_Job_Delete_Phone_Number_Block:
-      example:
-        data:
-          id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          record_type: phone_numbers_job
-          status: pending
-          type: delete_phone_number_block
-          etc: 2020-10-30T18:10:00.000Z
-          created_at: 2020-10-23T18:10:00.000Z
-          updated_at: 2020-10-23T18:10:01.000Z
-          successful_operations: []
-          failed_operations: []
-      properties:
-        data:
-          $ref: '#/components/schemas/PhoneNumberBlocksJob'
-      title: Phone Number Blocks Job Delete Phone Number Block
-      type: object
-    Phone_Number_Blocks_Job:
-      example:
-        data:
-          id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          record_type: phone_numbers_job
-          status: pending
-          type: delete_phone_number_block
-          etc: 2020-10-30T18:10:00.000Z
-          created_at: 2020-10-23T18:10:00.000Z
-          updated_at: 2020-10-23T18:10:01.000Z
-          successful_operations: []
-          failed_operations: []
-      properties:
-        data:
-          $ref: '#/components/schemas/PhoneNumberBlocksJob'
-      title: Phone Number Blocks Job
       type: object
     List_Phone_Number_Regulatory_Requirements_Response:
       example:

@@ -118,7 +118,7 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJobDele
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job delete phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -135,7 +135,7 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJobDele
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job delete phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -165,7 +165,7 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJobDele
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Phone numbers enable emergency requested. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public PhoneNumbersEnableEmergency createPhoneNumbersJobUpdateEmergencySettings(PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest) throws ApiException {
@@ -182,7 +182,7 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJobDele
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Phone numbers enable emergency requested. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<PhoneNumbersEnableEmergency> createPhoneNumbersJobUpdateEmergencySettingsWithHttpInfo(PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest) throws ApiException {
@@ -289,7 +289,7 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createPhoneNumbersJobUpda
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job update phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -306,7 +306,7 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createPhoneNumbersJobUpda
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job update phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -387,7 +387,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
+     * @param pageNumber The page number to load. (optional, default to 1)
      * @return APIlistPhoneNumbersJobsRequest
      */
     public APIlistPhoneNumbersJobsRequest pageNumber(Integer pageNumber) {
@@ -397,7 +397,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 250)
+     * @param pageSize The size of the page. (optional, default to 20)
      * @return APIlistPhoneNumbersJobsRequest
      */
     public APIlistPhoneNumbersJobsRequest pageSize(Integer pageSize) {
@@ -423,7 +423,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers background jobs. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -440,7 +440,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers background jobs. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -517,7 +517,7 @@ private ApiResponse<PhoneNumbersJob> retrievePhoneNumbersJobWithHttpInfo(String 
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Phone numbers job details. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -534,7 +534,7 @@ private ApiResponse<PhoneNumbersJob> retrievePhoneNumbersJobWithHttpInfo(String 
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Phone numbers job details. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */

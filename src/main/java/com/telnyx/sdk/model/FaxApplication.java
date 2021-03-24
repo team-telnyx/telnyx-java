@@ -90,17 +90,12 @@ public class FaxApplication {
   private String updatedAt;
 
 
-  public FaxApplication id(String id) {
-    this.id = id;
-    return this;
-  }
-
    /**
-   * Uniquely identifies the resource.
+   * Identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -109,9 +104,6 @@ public class FaxApplication {
   }
 
 
-  public void setId(String id) {
-    this.id = id;
-  }
 
 
   public FaxApplication recordType(String recordType) {
