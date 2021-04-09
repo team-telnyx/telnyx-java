@@ -15,27 +15,14 @@ package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.CreateVerificationRequest;
-import com.telnyx.sdk.model.CreateVerificationResponse;
-import com.telnyx.sdk.model.CreateVerifyProfileRequest;
-import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.ListVerificationsResponse;
-import com.telnyx.sdk.model.ListVerifyProfilesResponse;
-import com.telnyx.sdk.model.RetrieveVerificationResponse;
+import com.telnyx.sdk.model.*;
+
 import java.util.UUID;
-import com.telnyx.sdk.model.UpdateVerifyProfileRequest;
-import com.telnyx.sdk.model.VerifyProfileResponse;
-import com.telnyx.sdk.model.VerifyVerificationCodeRequest;
-import com.telnyx.sdk.model.VerifyVerificationCodeResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+
+import org.junit.*;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.*;
 
 /**
  * API tests for VerifyApi
@@ -43,148 +30,208 @@ import java.util.Map;
 public class VerifyApiTest {
 
     private final VerifyApi api = new VerifyApi();
+    private VerifyProfile existingVerifyProfile;
+    private Verification existingVerification;
+
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+
+        try {
+            CreateVerifyProfileRequest createVerifyProfileRequest = new CreateVerifyProfileRequest().name("test-verify-profile-" + System.currentTimeMillis());
+            existingVerifyProfile = api.createVerifyProfile(createVerifyProfileRequest).getData();
+
+            CreateVerificationRequest createVerificationRequest = new CreateVerificationRequest()
+                    .verifyProfileId(existingVerifyProfile.getId())
+                    .phoneNumber(TestConfiguration.TEST_TO_NUMBER)
+                    .type(VerificationType.SMS);
+
+            existingVerification = api.createVerification(createVerificationRequest).getData();
+        } catch (Exception e) {
+            fail("Test Setup Failure - Unable to create verify profile: " + e.getMessage());
+        }
+    }
+
+    @After
+    public void tearDown() throws InterruptedException {
+        try {
+            api.deleteVerifyProfile(existingVerifyProfile.getId());
+        } catch (ApiException e) {
+            //ignore
+        }
+
+        //todo: Find a better way to avoid rate limiting during integration testing against production system
+        //sleep(100);
+    }
 
     /**
      * Trigger a verification
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createVerificationTest() throws ApiException {
-        //CreateVerificationRequest createVerificationRequest = null;
-        //CreateVerificationResponse response = api.createVerification(createVerificationRequest);
-        // TODO: test validations
+    public void createVerification_whenRequestIsValid_returnsCreatedVerification() throws ApiException {
+        CreateVerificationRequest createVerificationRequest = new CreateVerificationRequest()
+                .verifyProfileId(existingVerifyProfile.getId())
+                .phoneNumber(TestConfiguration.TEST_TO_NUMBER)
+                .timeoutSecs(100)
+                .type(VerificationType.SMS);
+
+        CreateVerificationResponse actualCreateVerificationResponse = api.createVerification(createVerificationRequest);
+
+        assertNotNull(actualCreateVerificationResponse.getData().getId());
     }
 
     /**
      * Create a Verify profile
      *
-     * Creates a new Verify profile to associate verifications with.
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createVerifyProfileTest() throws ApiException {
-        //CreateVerifyProfileRequest createVerifyProfileRequest = null;
-        //VerifyProfileResponse response = api.createVerifyProfile(createVerifyProfileRequest);
-        // TODO: test validations
+    public void createVerifyProfile_whenRequestIsValid_returnsCreatedVerifyProfile() throws ApiException {
+        CreateVerifyProfileRequest createVerifyProfileRequest = new CreateVerifyProfileRequest()
+                .name("test-create-verify-profile-name")
+                .defaultTimeoutSecs(500)
+                .messagingEnabled(false)
+                .messagingTemplate("Hello, this is the Acme Inc verification code you requested: {code}.")
+                .rcsEnabled(true);
+
+        VerifyProfileResponse actualVerifyProfileResponse = api.createVerifyProfile(createVerifyProfileRequest);
+        UUID actualId = actualVerifyProfileResponse.getData().getId();
+
+        assertNotNull(actualId);
+
+        //Clean-up
+        try {
+            api.deleteVerifyProfile(actualId);
+        } catch (ApiException e) {
+            // ignore
+        }
+
     }
 
     /**
      * Delete a Verify profile
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteVerifyProfileTest() throws ApiException {
-        //UUID verifyProfileId = null;
-        //VerifyProfileResponse response = api.deleteVerifyProfile(verifyProfileId);
-        // TODO: test validations
-    }
+    public void deleteVerifyProfile_whenValidId_returnsDeletedVerifyProfile() throws ApiException {
+        UUID actualId = api.deleteVerifyProfile(existingVerifyProfile.getId())
+                .getData()
+                .getId();
 
-    /**
-     * List verifications by phone number
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void listVerificationsTest() throws ApiException {
-        //String phoneNumber = null;
-        //ListVerificationsResponse response = api.listVerifications(phoneNumber);
-        // TODO: test validations
+        assertEquals(existingVerifyProfile.getId(), actualId);
     }
 
     /**
      * List all Verify profiles
      *
-     * Gets a paginated list of Verify profiles.
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listVerifyProfilesTest() throws ApiException {
-        //String filterName = null;
-        //Integer pageSize = null;
-        //Integer pageNumber = null;
-        //ListVerifyProfilesResponse response = api.listVerifyProfiles()
-        //        .filterName(filterName)
-        //        .pageSize(pageSize)
-        //        .pageNumber(pageNumber)
-        //        .execute();
-        // TODO: test validations
+    @Ignore("Mock returns error message when passing filter, however this works as expected in production. Ignore until mock is fixed.")
+    public void listVerifyProfiles_whenVerifyProfilesExist_returnsVerifyProfiles() throws ApiException {
+        ListVerifyProfilesResponse listVerifyProfilesResponse = api.listVerifyProfiles()
+                .filterName(existingVerifyProfile.getName())
+                .pageNumber(1)
+                .pageSize(2)
+                .execute();
+
+        assertNotNull(listVerifyProfilesResponse.getData());
     }
 
     /**
      * Retrieve a verification
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveVerificationTest() throws ApiException {
-        //UUID verificationId = null;
-        //RetrieveVerificationResponse response = api.retrieveVerification(verificationId);
-        // TODO: test validations
+    public void retrieveVerification_whenVerificationExists_returnsVerification() throws ApiException {
+        Verification actualVerification = api.retrieveVerification(existingVerification.getId()).getData();
+
+        assertEquals(existingVerification.getId(), actualVerification.getId());
+    }
+
+    /**
+     * Retrieve a verification by phone number
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listVerifications_whenVerificationsExist_returnsVerifications() throws ApiException {
+        ListVerificationsResponse actualVerifications = api.listVerifications(existingVerification.getPhoneNumber());
+
+        assertNotNull(actualVerifications.getData());
     }
 
     /**
      * Retrieve a Verify profile
      *
-     * Gets a single Verify profile.
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void retrieveVerifyProfileTest() throws ApiException {
-        //UUID verifyProfileId = null;
-        //VerifyProfileResponse response = api.retrieveVerifyProfile(verifyProfileId);
-        // TODO: test validations
+    public void retrieveVerifyProfile_whenVerifyProfileExists_returnsVerifyProfile() throws ApiException {
+        VerifyProfile actualVerifyProfile = api.retrieveVerifyProfile(existingVerifyProfile.getId()).getData();
+
+        assertEquals(existingVerifyProfile.getId(), actualVerifyProfile.getId());
     }
 
     /**
      * Update a Verify profile
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateVerifyProfileTest() throws ApiException {
-        //UUID verifyProfileId = null;
-        //UpdateVerifyProfileRequest updateVerifyProfileRequest = null;
-        //VerifyProfileResponse response = api.updateVerifyProfile(verifyProfileId, updateVerifyProfileRequest);
-        // TODO: test validations
+    public void updateVerifyProfile_whenRequestIsValid_returnsUpdatedVerifyProfile() throws ApiException {
+        UpdateVerifyProfileRequest updateVerifyProfileRequest = new UpdateVerifyProfileRequest()
+                .name("test-verify-profile-update")
+                .defaultTimeoutSecs(900)
+                .messagingEnabled(true)
+                .messagingTemplate("Updated template. Your code is {code}.")
+                .rcsEnabled(false);
+
+        VerifyProfile actualVerifyProfile = api.updateVerifyProfile(existingVerifyProfile.getId(), updateVerifyProfileRequest).getData();
+
+        assertNotNull(actualVerifyProfile.getName());
+        assertNotNull(actualVerifyProfile.getDefaultTimeoutSecs());
+        assertNotNull(actualVerifyProfile.getMessagingEnabled());
+        assertNotNull(actualVerifyProfile.getMessagingTemplate());
+        assertNotNull(actualVerifyProfile.getRcsEnabled());
+    }
+
+    /**
+     * Update a Verify profile, setting messaging template to null
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    @Ignore("Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed.")
+    public void updateVerifyProfile_whenMessagingTemplateIsNull_returnsUpdatedVerifyProfile() throws ApiException {
+        UpdateVerifyProfileRequest updateVerifyProfileRequest = new UpdateVerifyProfileRequest()
+                .name("test-verify-profile-update")
+                .messagingTemplate(null);
+
+        VerifyProfile actualVerifyProfile = api.updateVerifyProfile(existingVerifyProfile.getId(), updateVerifyProfileRequest).getData();
+
+        assertNull(actualVerifyProfile.getMessagingTemplate());
     }
 
     /**
      * Submit a verification code
      *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
-    public void verifyVerificationCodeTest() throws ApiException {
-        //String phoneNumber = null;
-        //VerifyVerificationCodeRequest verifyVerificationCodeRequest = null;
-        //VerifyVerificationCodeResponse response = api.verifyVerificationCode(phoneNumber, verifyVerificationCodeRequest);
-        // TODO: test validations
+    public void verifyVerificationCode_whenRequestIsValid_returnsResponseToCodeVerification() throws ApiException {
+        VerifyVerificationCodeRequest verifyVerificationCodeRequest = new VerifyVerificationCodeRequest().code("test-code");
+        VerifyVerificationCodeResponse actualVerifyCodeResponse = api.verifyVerificationCode(existingVerification.getPhoneNumber(), verifyVerificationCodeRequest);
+
+        assertNotNull(actualVerifyCodeResponse.getData());
     }
 
 }

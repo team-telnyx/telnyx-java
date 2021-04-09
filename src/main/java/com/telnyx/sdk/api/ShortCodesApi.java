@@ -134,7 +134,7 @@ private ApiResponse<ListShortCodesResponse> listShortCodesWithHttpInfo(Integer p
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -151,7 +151,7 @@ private ApiResponse<ListShortCodesResponse> listShortCodesWithHttpInfo(Integer p
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of short codes. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -181,7 +181,7 @@ private ApiResponse<ListShortCodesResponse> listShortCodesWithHttpInfo(Integer p
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ShortCodeResponse retrieveShortCode(UUID id) throws ApiException {
@@ -198,7 +198,7 @@ private ApiResponse<ListShortCodesResponse> listShortCodesWithHttpInfo(Integer p
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ShortCodeResponse> retrieveShortCodeWithHttpInfo(UUID id) throws ApiException {
@@ -252,7 +252,7 @@ private ApiResponse<ListShortCodesResponse> listShortCodesWithHttpInfo(Integer p
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ShortCodeResponse updateShortCode(UUID id, UpdateShortCodeRequest updateShortCodeRequest) throws ApiException {
@@ -270,7 +270,7 @@ private ApiResponse<ListShortCodesResponse> listShortCodesWithHttpInfo(Integer p
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a short code. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ShortCodeResponse> updateShortCodeWithHttpInfo(UUID id, UpdateShortCodeRequest updateShortCodeRequest) throws ApiException {

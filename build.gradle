@@ -2,7 +2,7 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 
 group = 'com.telnyx.sdk'
-version = '2.3.1'
+version = '2.4.0'
 
 buildscript {
     repositories {
@@ -84,6 +84,12 @@ if(hasProperty('target') && target == 'android') {
     install {
         repositories.mavenInstaller {
             pom.artifactId = 'telnyx'
+        }
+    }
+
+    test {
+        testLogging {
+            events "PASSED", "SKIPPED", "FAILED"
         }
     }
 

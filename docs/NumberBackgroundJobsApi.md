@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers job delete phone numbers requested. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## createPhoneNumbersJobUpdateEmergencySettings
@@ -153,7 +153,80 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers enable emergency requested. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
+
+
+## createPhoneNumbersJobUpdatePhoneNumber
+
+> PhoneNumbersJobUpdatePhoneNumbers createPhoneNumbersJobUpdatePhoneNumber().phoneNumbersJobUpdatePhoneNumbersRequest(phoneNumbersJobUpdatePhoneNumbersRequest).execute();
+
+Update a batch of numbers
+
+Creates a new background job to update a batch of numbers. At most one thousand numbers can be updated per API call. At least one of the updateable fields must be submitted
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NumberBackgroundJobsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
+        PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest = new PhoneNumbersJobUpdatePhoneNumbersRequest(); // PhoneNumbersJobUpdatePhoneNumbersRequest | 
+        try {
+            PhoneNumbersJobUpdatePhoneNumbers result = api.createPhoneNumbersJobUpdatePhoneNumber()
+                .phoneNumbersJobUpdatePhoneNumbersRequest(phoneNumbersJobUpdatePhoneNumbersRequest)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NumberBackgroundJobsApi#createPhoneNumbersJobUpdatePhoneNumber");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **phoneNumbersJobUpdatePhoneNumbersRequest** | [**PhoneNumbersJobUpdatePhoneNumbersRequest**](PhoneNumbersJobUpdatePhoneNumbersRequest.md)|  |
+
+### Return type
+
+[**PhoneNumbersJobUpdatePhoneNumbers**](PhoneNumbersJobUpdatePhoneNumbers.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Phone numbers job update phone numbers requested. |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## createPhoneNumbersJobUpdatePhoneNumber
@@ -306,7 +379,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers background jobs. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrievePhoneNumbersJob
@@ -376,5 +449,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Phone numbers job details. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 

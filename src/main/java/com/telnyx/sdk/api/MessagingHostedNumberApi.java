@@ -60,7 +60,7 @@ public class MessagingHostedNumberApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveMessagingHostedNumberOrderResponse createMessagingHostedNumberOrder(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest) throws ApiException {
@@ -77,7 +77,7 @@ public class MessagingHostedNumberApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> createMessagingHostedNumberOrderWithHttpInfo(CreateMessagingHostedNumberOrderRequest createMessagingHostedNumberOrderRequest) throws ApiException {
@@ -124,7 +124,7 @@ public class MessagingHostedNumberApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveMessagingHostedNumberResponse deleteMessagingHostedNumber(String id) throws ApiException {
@@ -141,7 +141,7 @@ public class MessagingHostedNumberApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveMessagingHostedNumberResponse> deleteMessagingHostedNumberWithHttpInfo(String id) throws ApiException {
@@ -257,7 +257,7 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -274,7 +274,7 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of messaging hosted number orders. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -304,7 +304,7 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveMessagingHostedNumberOrderResponse retrieveMessagingHostedNumberOrder(String id) throws ApiException {
@@ -321,7 +321,7 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> retrieveMessagingHostedNumberOrderWithHttpInfo(String id) throws ApiException {
@@ -376,7 +376,7 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveMessagingHostedNumberOrderResponse uploadFileMessagingHostedNumberOrder(String id, File loa, File bill) throws ApiException {
@@ -395,7 +395,7 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> uploadFileMessagingHostedNumberOrderWithHttpInfo(String id, File loa, File bill) throws ApiException {

@@ -111,5 +111,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of call events. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 

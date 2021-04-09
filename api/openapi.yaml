@@ -45,8 +45,6 @@ tags:
   name: Messaging URL Domains
 - description: Background jobs performed over a batch of phone numbers
   name: Number Background Jobs
-- description: Background jobs performed over a phone-numbers block's phone numbers
-  name: Number Blocks Background Jobs
 - description: Configure your phone numbers
   name: Number Configurations
 - description: Number order documents
@@ -63,8 +61,6 @@ tags:
   name: Outbound Voice Profiles
 - description: Fax Applications operations
   name: Programmable Fax Applications
-- description: Programmable fax command operations
-  name: Programmable Fax Commands
 - description: Recordings commands operations
   name: Recordings Commands
 - description: Short codes
@@ -263,7 +259,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List available phone numbers
       tags:
       - Number Search
@@ -275,7 +271,7 @@ paths:
       description: Return a list of call control applications.
       operationId: listCallControlApplications
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -285,13 +281,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -588,7 +584,7 @@ paths:
           example: 2019-03-29T11:10:00Z
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -598,13 +594,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -621,7 +617,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List call events
       tags:
       - Debugging
@@ -735,7 +731,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Dial
       tags:
       - Call Commands
@@ -768,7 +764,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a call status
       tags:
       - Call Information
@@ -827,7 +823,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Answer call
       tags:
       - Call Commands
@@ -888,7 +884,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Bridge calls
       tags:
       - Call Commands
@@ -1004,7 +1000,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Forking start
       tags:
       - Call Commands
@@ -1064,7 +1060,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Forking stop
       tags:
       - Call Commands
@@ -1124,7 +1120,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Gather stop
       tags:
       - Call Commands
@@ -1234,7 +1230,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Gather using audio
       tags:
       - Call Commands
@@ -1312,7 +1308,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Gather using speak
       tags:
       - Call Commands
@@ -1388,7 +1384,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Hangup call
       tags:
       - Call Commands
@@ -1470,7 +1466,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Play audio URL
       tags:
       - Call Commands
@@ -1545,7 +1541,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Stop audio playback
       tags:
       - Call Commands
@@ -1589,7 +1585,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Record pause
       tags:
       - Call Commands
@@ -1633,7 +1629,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Record resume
       tags:
       - Call Commands
@@ -1677,7 +1673,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Recording start
       tags:
       - Call Commands
@@ -1737,7 +1733,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Recording stop
       tags:
       - Call Commands
@@ -1829,7 +1825,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: SIP Refer a call
       tags:
       - Call Commands
@@ -1889,7 +1885,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Reject a call
       tags:
       - Call Commands
@@ -1933,7 +1929,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send DTMF
       tags:
       - Call Commands
@@ -2009,7 +2005,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Speak text
       tags:
       - Call Commands
@@ -2065,7 +2061,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Transcription start
       tags:
       - Call Commands
@@ -2104,7 +2100,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Transcription stop
       tags:
       - Call Commands
@@ -2213,7 +2209,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Transfer call
       tags:
       - Call Commands
@@ -2237,7 +2233,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -2247,13 +2243,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -2412,7 +2408,7 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -2422,13 +2418,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -3195,7 +3191,7 @@ paths:
       description: Returns a list of your connections irrespective of type.
       operationId: listConnections
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -3205,13 +3201,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -3320,7 +3316,7 @@ paths:
       description: Returns a list of your credential connections.
       operationId: listCredentialConnections
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -3330,13 +3326,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -3540,7 +3536,7 @@ paths:
         receive faxes using the Programmable Fax API with Telnyx.
       operationId: listFaxApplications
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -3550,13 +3546,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -3763,270 +3759,12 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
-  /faxes:
-    get:
-      operationId: ListFaxes
-      parameters:
-      - description: ISO 8601 date time for filtering faxes created after or on that
-          date
-        explode: true
-        in: query
-        name: filter[created_at][gte]
-        required: false
-        schema:
-          example: 2020-02-02T22:25:27.521992Z
-          format: date-time
-          type: string
-        style: form
-      - description: ISO 8601 date time for filtering faxes created after that date
-        explode: true
-        in: query
-        name: filter[created_at][gt]
-        required: false
-        schema:
-          example: 2020-02-02T22:25:27.521992Z
-          format: date-time
-          type: string
-        style: form
-      - description: ISO 8601 formatted date time for filtering faxes created on or
-          before that date
-        explode: true
-        in: query
-        name: filter[created_at][lte]
-        required: false
-        schema:
-          example: 2020-02-02T22:25:27.521992Z
-          format: date-time
-          type: string
-        style: form
-      - description: ISO 8601 formatted date time for filtering faxes created before
-          that date
-        explode: true
-        in: query
-        name: filter[created_at][lt]
-        required: false
-        schema:
-          example: 2020-02-02T22:25:27.521992Z
-          format: date-time
-          type: string
-        style: form
-      - description: The direction, inbound or outbound, for filtering faxes sent
-          from this account
-        explode: true
-        in: query
-        name: filter[direction][eq]
-        required: false
-        schema:
-          example: inbound
-          type: string
-        style: form
-      - description: The phone number, in E.164 format for filtering faxes sent from
-          this number
-        explode: true
-        in: query
-        name: filter[from][eq]
-        required: false
-        schema:
-          example: +13127367276
-          type: string
-        style: form
-      - description: Number of fax resourcxes for the single page returned
-        explode: true
-        in: query
-        name: page[size]
-        required: false
-        schema:
-          example: 2
-          type: integer
-        style: form
-      - description: Number of the page to be retrieved
-        explode: true
-        in: query
-        name: page[number]
-        required: false
-        schema:
-          example: 2
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_200_1'
-          description: List faxes response
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: View a list of faxes
-      tags:
-      - Programmable Fax Commands
-      x-latency-category: background
-      x-accepts: application/json
-    post:
-      callbacks:
-        fax.queued:
-          '{$response.body#/data/webhook_url}':
-            post:
-              operationId: fax_queued_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/FaxQueued'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-        fax.media.processed:
-          '{$response.body#/data/webhook_url}':
-            post:
-              operationId: fax_media_processed_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/FaxMediaProcessed'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-        fax.sending.started:
-          '{$response.body#/data/webhook_url}':
-            post:
-              operationId: fax_sending_started_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/FaxSendingStarted'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-        fax.delivered:
-          '{$response.body#/data/webhook_url}':
-            post:
-              operationId: fax_delivered_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/FaxDelivered'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-        fax.failed:
-          '{$response.body#/data/webhook_url}':
-            post:
-              operationId: fax_failed_Post
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/FaxFailed'
-                required: true
-              responses:
-                "200":
-                  description: The server must return an HTTP 200, otherwise we will
-                    reattempt delivery at the failover webhook URL.
-              x-callback-request: true
-      operationId: SendFax
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SendFaxRequest'
-        description: Send fax request
-        required: true
-      responses:
-        "202":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_202'
-          description: Send fax response
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: Send a fax
-      tags:
-      - Programmable Fax Commands
-      x-latency-category: responsive
-      x-contentType: application/json
-      x-accepts: application/json
-  /faxes/{id}:
-    delete:
-      operationId: DeleteFax
-      parameters:
-      - description: The unique identifier of a fax.
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      responses:
-        "200":
-          description: The resource was deleted successfully.
-      summary: Delete a fax
-      tags:
-      - Programmable Fax Commands
-      x-latency-category: responsive
-      x-accepts: application/json
-    get:
-      operationId: ViewFax
-      parameters:
-      - description: The unique identifier of a fax.
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_202'
-          description: Get fax response
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: View a fax
-      tags:
-      - Programmable Fax Commands
-      x-latency-category: responsive
-      x-accepts: application/json
   /fqdn_connections:
     get:
       description: Returns a list of your FQDN connections.
       operationId: listFqdnConnections
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -4036,13 +3774,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -4233,7 +3971,7 @@ paths:
       description: Get all FQDNs belonging to the user that match the given filters.
       operationId: listFqdns
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -4243,13 +3981,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -4433,7 +4171,7 @@ paths:
       description: Returns a list of your IP connections.
       operationId: listIpConnections
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -4443,13 +4181,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -4650,7 +4388,7 @@ paths:
       description: Get all IPs belonging to the user that match the given filters.
       operationId: listIps
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -4660,13 +4398,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -4879,7 +4617,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send a message
       tags:
       - Messages
@@ -4923,7 +4661,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send a long code message
       tags:
       - Messages
@@ -4967,7 +4705,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send a message using number pool
       tags:
       - Messages
@@ -5011,7 +4749,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Send a short code message
       tags:
       - Messages
@@ -5046,7 +4784,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a message
       tags:
       - Messages
@@ -5056,7 +4794,7 @@ paths:
     get:
       operationId: listMessagingHostedNumberOrder
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5066,13 +4804,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5090,7 +4828,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List messaging hosted number orders
       tags:
       - Messaging Hosted Number
@@ -5118,7 +4856,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a messaging hosted number order
       tags:
       - Messaging Hosted Number
@@ -5150,7 +4888,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a messaging hosted number order
       tags:
       - Messaging Hosted Number
@@ -5194,7 +4932,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Upload file required for a messaging hosted number order
       tags:
       - Messaging Hosted Number
@@ -5225,7 +4963,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a messaging hosted number
       tags:
       - Messaging Hosted Number
@@ -5235,7 +4973,7 @@ paths:
     get:
       operationId: listMessagingProfileMetrics
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5245,13 +4983,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5293,7 +5031,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List messaging profile metrics
       tags:
       - Messaging Profiles
@@ -5304,7 +5042,7 @@ paths:
     get:
       operationId: listMessagingProfiles
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5314,13 +5052,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5337,7 +5075,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List messaging profiles
       tags:
       - Messaging Profiles
@@ -5411,7 +5149,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a messaging profile
       tags:
       - Messaging Profiles
@@ -5443,7 +5181,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a messaging profile
       tags:
       - Messaging Profiles
@@ -5473,7 +5211,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a messaging profile
       tags:
       - Messaging Profiles
@@ -5510,7 +5248,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a messaging profile
       tags:
       - Messaging Profiles
@@ -5559,7 +5297,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve messaging profile metrics
       tags:
       - Messaging Profiles
@@ -5570,7 +5308,7 @@ paths:
     get:
       operationId: listMessagingProfilePhoneNumbers
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5580,13 +5318,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5613,7 +5351,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List phone numbers associated with a messaging profile
       tags:
       - Messaging Profiles
@@ -5624,7 +5362,7 @@ paths:
     get:
       operationId: listMessagingProfileShortCodes
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5634,13 +5372,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5667,7 +5405,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List short codes associated with a messaging profile
       tags:
       - Messaging Profiles
@@ -5678,7 +5416,7 @@ paths:
     get:
       operationId: listMessagingUrlDomains
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5688,13 +5426,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5711,7 +5449,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List messaging URL domains
       tags:
       - Messaging URL Domains
@@ -5747,7 +5485,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5757,13 +5495,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5780,7 +5518,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List number order documents
       tags:
       - Number Order Documents
@@ -5808,7 +5546,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a number order document
       tags:
       - Number Order Documents
@@ -5840,7 +5578,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a number order document
       tags:
       - Number Order Documents
@@ -5876,7 +5614,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a number order document
       tags:
       - Number Order Documents
@@ -5936,7 +5674,7 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -5946,13 +5684,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -5969,7 +5707,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List number orders
       tags:
       - Number Orders
@@ -6013,7 +5751,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a number order
       tags:
       - Number Orders
@@ -6045,7 +5783,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a number order
       tags:
       - Number Orders
@@ -6081,7 +5819,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a number order
       tags:
       - Number Orders
@@ -6133,7 +5871,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6143,13 +5881,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6166,7 +5904,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List number reservations
       tags:
       - Number Reservations
@@ -6194,7 +5932,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a number reservation
       tags:
       - Number Reservations
@@ -6226,7 +5964,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a number reservation
       tags:
       - Number Reservations
@@ -6257,7 +5995,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Extend a number reservation
       tags:
       - Number Reservations
@@ -6269,7 +6007,7 @@ paths:
         the given filters.
       operationId: listOutboundVoiceProfiles
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6279,13 +6017,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6486,155 +6224,6 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
-  /phone_number_blocks/jobs:
-    get:
-      operationId: listPhoneNumberBlocksJobs
-      parameters:
-      - description: Filter the phone number blocks jobs by type.
-        explode: true
-        in: query
-        name: filter[type]
-        required: false
-        schema:
-          description: Identifies the type of the background job.
-          enum:
-          - delete_phone_number_block
-          example: delete_phone_number_block
-          type: string
-        style: form
-      - description: Filter the phone number blocks jobs by status.
-        explode: true
-        in: query
-        name: filter[status]
-        required: false
-        schema:
-          description: Identifies the status of the background job.
-          enum:
-          - pending
-          - in_progress
-          - completed
-          - failed
-          example: in_progress
-          type: string
-        style: form
-      - description: The page number to load
-        explode: true
-        in: query
-        name: page[number]
-        required: false
-        schema:
-          default: 1
-          minimum: 1
-          type: integer
-        style: form
-      - description: The size of the page
-        explode: true
-        in: query
-        name: page[size]
-        required: false
-        schema:
-          default: 250
-          maximum: 250
-          minimum: 1
-          type: integer
-        style: form
-      - description: Specifies the sort order for results. If not given, results are
-          sorted by created_at in descending order.
-        explode: true
-        in: query
-        name: sort
-        required: false
-        schema:
-          enum:
-          - created_at
-          example: created_at
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/List_Phone_Number_Blocks_Background_Jobs_Response'
-          description: Successful response with a list of phone number blocks background
-            jobs.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: Lists the phone number blocks jobs
-      tags:
-      - Number Blocks Background Jobs
-      x-group-parameters: "true"
-      x-latency-category: responsive
-      x-accepts: application/json
-  /phone_number_blocks/jobs/delete_phone_number_block:
-    post:
-      description: Creates a new background job to delete all the phone numbers associated
-        with the given block. We will only consider the phone number block as deleted
-        after all phone numbers associated with it are removed, so multiple executions
-        of this job may be necessary in case some of the phone numbers present errors
-        during the deletion process.
-      operationId: createPhoneNumberBlocksJobDeletePhoneNumberBlock
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PhoneNumberBlocksJobDeletePhoneNumberBlockRequest'
-        required: true
-      responses:
-        "202":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Phone_Number_Blocks_Job_Delete_Phone_Number_Block'
-          description: Phone number blocks job delete phone numbers requested.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: Deletes all numbers associated with a phone number block
-      tags:
-      - Number Blocks Background Jobs
-      x-latency-category: background
-      x-group-parameters: "true"
-      x-contentType: application/json
-      x-accepts: application/json
-  /phone_number_blocks/jobs/{id}:
-    get:
-      operationId: retrievePhoneNumberBlocksJob
-      parameters:
-      - description: Identifies the Phone Number Blocks Job.
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Phone_Number_Blocks_Job'
-          description: Phone number blocks job details.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Unexpected error
-      summary: Retrieves a phone number blocks job
-      tags:
-      - Number Blocks Background Jobs
-      x-group-parameters: "true"
-      x-latency-category: responsive
-      x-accepts: application/json
   /phone_number_regulatory_requirements:
     get:
       description: Gets a paginated list of phone number regulatory requirements.
@@ -6651,7 +6240,7 @@ paths:
             type: string
           type: array
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6661,13 +6250,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6685,7 +6274,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List regulatory requirements per number
       tags:
       - Number Order Regulatory Requirements
@@ -6696,7 +6285,7 @@ paths:
     get:
       operationId: listPhoneNumbers
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6706,13 +6295,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6861,7 +6450,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List phone numbers
       tags:
       - Number Configurations
@@ -6872,7 +6461,7 @@ paths:
     get:
       operationId: listCsvDownloads
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6882,13 +6471,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -6905,7 +6494,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List CSV downloads
       tags:
       - CSV Downloads
@@ -6926,7 +6515,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a CSV download
       tags:
       - CSV Downloads
@@ -6956,7 +6545,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a CSV download
       tags:
       - CSV Downloads
@@ -6979,7 +6568,7 @@ paths:
           example: update_emergency_settings
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -6989,13 +6578,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7025,7 +6614,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Lists the phone numbers jobs
       tags:
       - Number Background Jobs
@@ -7055,7 +6644,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a batch of numbers
       tags:
       - Number Background Jobs
@@ -7087,7 +6676,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update the emergency settings from a batch of numbers
       tags:
       - Number Background Jobs
@@ -7118,7 +6707,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a batch of numbers
       tags:
       - Number Background Jobs
@@ -7150,7 +6739,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a phone numbers job
       tags:
       - Number Background Jobs
@@ -7161,7 +6750,7 @@ paths:
     get:
       operationId: listPhoneNumbersWithMessagingSettings
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7171,13 +6760,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7195,7 +6784,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List phone numbers with messaging settings
       tags:
       - Number Configurations
@@ -7206,7 +6795,7 @@ paths:
     get:
       operationId: listPhoneNumbersWithVoiceSettings
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7216,13 +6805,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7294,7 +6883,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List phone numbers with voice settings
       tags:
       - Number Configurations
@@ -7327,7 +6916,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a phone number
       tags:
       - Number Configurations
@@ -7358,7 +6947,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a phone number
       tags:
       - Number Configurations
@@ -7396,7 +6985,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a phone number
       tags:
       - Number Configurations
@@ -7441,7 +7030,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Enable emergency for a phone number
       tags:
       - Number Configurations
@@ -7473,7 +7062,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a phone number with messaging settings
       tags:
       - Number Configurations
@@ -7510,7 +7099,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a phone number with messaging settings
       tags:
       - Number Configurations
@@ -7544,7 +7133,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a phone number with voice settings
       tags:
       - Number Configurations
@@ -7583,7 +7172,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a phone number with voice settings
       tags:
       - Number Configurations
@@ -7624,7 +7213,7 @@ paths:
           example: 2019-03-29T11:10:00Z
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7634,13 +7223,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7720,7 +7309,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7730,13 +7319,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7754,7 +7343,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List number order regulatory requirements
       tags:
       - Number Order Regulatory Requirements
@@ -7787,7 +7376,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a number order regulatory requirement
       tags:
       - Number Order Regulatory Requirements
@@ -7797,7 +7386,7 @@ paths:
     get:
       operationId: listShortCodes
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7807,13 +7396,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7840,7 +7429,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List short codes
       tags:
       - Short Codes
@@ -7872,7 +7461,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a short code
       tags:
       - Short Codes
@@ -7912,7 +7501,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update short code
       tags:
       - Short Codes
@@ -7924,7 +7513,7 @@ paths:
       description: Returns a list of your TeXML Applications.
       operationId: findTexmlApplications
       parameters:
-      - description: The page number to load
+      - description: The page number to load.
         explode: true
         in: query
         name: page[number]
@@ -7934,13 +7523,13 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page
+      - description: The size of the page.
         explode: true
         in: query
         name: page[size]
         required: false
         schema:
-          default: 250
+          default: 20
           maximum: 250
           minimum: 1
           type: integer
@@ -7997,7 +7586,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/inline_response_200_1'
           description: Successful response
         "400":
           description: Bad request
@@ -8162,7 +7751,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Trigger a verification
       tags:
       - Verify
@@ -8195,7 +7784,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List verifications by phone number
       tags:
       - Verify
@@ -8234,7 +7823,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Submit a verification code
       tags:
       - Verify
@@ -8267,7 +7856,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a verification
       tags:
       - Verify
@@ -8317,7 +7906,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: List all Verify profiles
       tags:
       - Verify
@@ -8345,7 +7934,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Create a Verify profile
       tags:
       - Verify
@@ -8378,7 +7967,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Delete a Verify profile
       tags:
       - Verify
@@ -8410,7 +7999,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Retrieve a Verify profile
       tags:
       - Verify
@@ -8447,7 +8036,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
-          description: Unexpected error
+          description: Bad Request
       summary: Update a Verify profile
       tags:
       - Verify
@@ -8703,7 +8292,7 @@ components:
         type: string
       style: form
     PageNumber:
-      description: The page number to load
+      description: The page number to load.
       explode: true
       in: query
       name: page[number]
@@ -8714,13 +8303,13 @@ components:
         type: integer
       style: form
     PageSize:
-      description: The size of the page
+      description: The size of the page.
       explode: true
       in: query
       name: page[size]
       required: false
       schema:
-        default: 250
+        default: 20
         maximum: 250
         minimum: 1
         type: integer
@@ -8882,7 +8471,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-      description: Unexpected error
+      description: Bad Request
     GetAllFaxApplicationsResponse:
       content:
         application/json:
@@ -8893,14 +8482,8 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200_2'
+            $ref: '#/components/schemas/inline_response_200_1'
       description: Successful response
-    GetFaxResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_202'
-      description: Get fax response
     IpConnectionResponse:
       content:
         application/json:
@@ -8955,12 +8538,6 @@ components:
           schema:
             $ref: '#/components/schemas/List_CSV_Downloads_Response'
       description: Successful response with a list of CSV downloads.
-    ListFaxesResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_200_1'
-      description: List faxes response
     ListFqdnConnectionsResponse:
       content:
         application/json:
@@ -9057,13 +8634,6 @@ components:
           schema:
             $ref: '#/components/schemas/List_Participants_Response'
       description: Successful response with a list of conference participants.
-    ListPhoneNumberBlocksJobsResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/List_Phone_Number_Blocks_Background_Jobs_Response'
-      description: Successful response with a list of phone number blocks background
-        jobs.
     ListPhoneNumberRegulatoryRequirementsResponse:
       content:
         application/json:
@@ -9203,12 +8773,6 @@ components:
           schema:
             $ref: '#/components/schemas/Retrieve_Messaging_Profile_Metrics_Response'
       description: Successful response with details about a messaging profile's metrics.
-    SendFaxResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_202'
-      description: Send fax response
     ShortCodeResponse:
       content:
         application/json:
@@ -14262,97 +13826,6 @@ components:
           items:
             $ref: '#/components/schemas/Error'
           type: array
-    Fax:
-      example:
-        record_type: fax
-        id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-        connection_id: c-1
-        direction: outbound
-        from: +123
-        to: +456
-        media_url: http://www.example.com/fax.pdf
-        store_media: true
-        stored_media_url: https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51
-        quality: high
-        webhook_url: http://www.example.com/webhooks
-        webhook_failover_url: ""
-        status: queued
-        created_at: 2020-05-05T09:59:12
-        updated_at: 2020-05-05T09:59:12
-      properties:
-        record_type:
-          description: Identifies the type of the resource.
-          enum:
-          - fax
-          example: fax
-          type: string
-        id:
-          description: Identifies the fax.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        connection_id:
-          description: The connection ID to send the fax with.
-          example: "234423"
-          type: string
-        direction:
-          description: The direction of the fax.
-          enum:
-          - inbound
-          - outbound
-          example: outbound
-          type: string
-        media_url:
-          description: The URL to the PDF used for the fax's media.
-          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-          type: string
-        to:
-          description: The phone number, in E.164 format, the fax will be sent to
-            or SIP URI
-          example: +13127367276
-          type: string
-        from:
-          description: The phone number, in E.164 format, the fax will be sent from.
-          example: +13125790015
-          type: string
-        quality:
-          default: high
-          description: The quality of the fax. Can be normal, high, very_high
-          example: high
-          type: string
-        status:
-          description: Status of the fax
-          enum:
-          - queued
-          - media.processed
-          - sending
-          - delivered
-          - failed
-          example: queued
-          type: string
-        webhook_url:
-          description: URL that will receive fax webhooks
-          type: string
-        webhook_failover_url:
-          description: Optional failover URL that will receive fax webhooks if `webhook_url`
-            doesn't return a 2XX response
-          type: string
-        store_media:
-          description: Should fax media be stored on temporary URL
-          type: boolean
-        stored_media_url:
-          description: If store_media was set to true, this is a link to temporary
-            location. Link expires after 2h.
-          type: string
-        created_at:
-          description: ISO 8601 timestamp when resource was created
-          format: datetime
-          type: string
-        updated_at:
-          description: ISO 8601 timestamp when resource was updated
-          format: datetime
-          type: string
-      type: object
     FaxApplication:
       example:
         id: "1293384261075731499"
@@ -14374,10 +13847,10 @@ components:
         updated_at: 2018-02-02T22:25:27.521Z
       properties:
         id:
-          description: Uniquely identifies the resource.
+          description: Identifies the resource.
           example: "1293384261075731499"
           format: int64
-          title: Int ID
+          readOnly: true
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -14434,194 +13907,6 @@ components:
           example: 2018-02-02T22:25:27.521Z
           type: string
       title: Fax Application
-      type: object
-    FaxDelivered:
-      example:
-        data:
-          event_type: fax.delivered
-          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
-          occurred_at: 2020-05-05T13:08:22.039204Z
-          payload:
-            call_duration_secs: 25
-            connection_id: "234423"
-            direction: outbound
-            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
-            from: +17733372107
-            original_media_url: http://www.example.com/fax.pdf
-            page_count: 2
-            status: delivered
-            to: +15107882622
-            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
-          record_type: event
-      properties:
-        record_type:
-          description: Identifies the type of the resource.
-          enum:
-          - event
-          example: event
-          type: string
-        id:
-          description: Identifies the type of resource.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        event_type:
-          description: The type of event being delivered.
-          enum:
-          - fax.delivered
-          example: fax.delivered
-          type: string
-        payload:
-          $ref: '#/components/schemas/FaxDelivered_payload'
-      type: object
-    FaxFailed:
-      example:
-        data:
-          event_type: fax.failed
-          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
-          occurred_at: 2020-05-05T13:08:22.039204Z
-          payload:
-            connection_id: "234423"
-            direction: outbound
-            failure_reason: rejected
-            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
-            from: +17733372107
-            original_media_url: http://www.example.com/fax.pdf
-            status: failed
-            to: +15107882622
-            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
-          record_type: event
-      properties:
-        record_type:
-          description: Identifies the type of the resource.
-          enum:
-          - event
-          example: event
-          type: string
-        id:
-          description: Identifies the type of resource.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        event_type:
-          description: The type of event being delivered.
-          enum:
-          - fax.failed
-          example: fax.failed
-          type: string
-        payload:
-          $ref: '#/components/schemas/FaxFailed_payload'
-      type: object
-    FaxMediaProcessed:
-      example:
-        data:
-          event_type: fax.media.processed
-          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
-          occurred_at: 2020-05-05T13:08:22.039204Z
-          payload:
-            connection_id: "234423"
-            direction: outbound
-            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
-            from: +17733372107
-            original_media_url: http://www.example.com/fax.pdf
-            status: media.processed
-            to: +15107882622
-            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
-          record_type: event
-      properties:
-        record_type:
-          description: Identifies the type of the resource.
-          enum:
-          - event
-          example: event
-          type: string
-        id:
-          description: Identifies the type of resource.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        event_type:
-          description: The type of event being delivered.
-          enum:
-          - fax.media.processed
-          example: fax.media.processed
-          type: string
-        payload:
-          $ref: '#/components/schemas/FaxMediaProcessed_payload'
-      type: object
-    FaxQueued:
-      example:
-        data:
-          event_type: fax.queued
-          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
-          occurred_at: 2020-05-05T13:08:22.039204Z
-          payload:
-            connection_id: "234423"
-            direction: outbound
-            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
-            from: +17733372107
-            original_media_url: http://www.example.com/fax.pdf
-            status: queued
-            to: +15107882622
-            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
-          record_type: event
-      properties:
-        record_type:
-          description: Identifies the type of the resource.
-          enum:
-          - event
-          example: event
-          type: string
-        id:
-          description: Identifies the type of resource.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        event_type:
-          description: The type of event being delivered.
-          enum:
-          - fax.queued
-          example: fax.queued
-          type: string
-        payload:
-          $ref: '#/components/schemas/FaxQueued_payload'
-      type: object
-    FaxSendingStarted:
-      example:
-        data:
-          event_type: fax.sending.started
-          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
-          occurred_at: 2020-05-05T13:08:22.039204Z
-          payload:
-            connection_id: "234423"
-            direction: outbound
-            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
-            from: +17733372107
-            original_media_url: http://www.example.com/fax.pdf
-            status: sending
-            to: +15107882622
-            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
-          record_type: event
-      properties:
-        record_type:
-          description: Identifies the type of the resource.
-          enum:
-          - event
-          example: event
-          type: string
-        id:
-          description: Identifies the type of resource.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        event_type:
-          description: The type of event being delivered.
-          enum:
-          - fax.sending.started
-          example: fax.sending.started
-          type: string
-        payload:
-          $ref: '#/components/schemas/FaxSendingStarted_payload'
       type: object
     FirstCommandTimeout:
       default: false
@@ -15613,10 +14898,10 @@ components:
             $ref: '#/components/schemas/Error'
           type: array
     IntId:
-      description: Uniquely identifies the resource.
+      description: Identifies the resource.
       example: "1293384261075731499"
       format: int64
-      title: Int ID
+      readOnly: true
       type: string
     Ip:
       example:
@@ -17226,7 +16511,6 @@ components:
         page_size:
           example: 25
           type: integer
-      title: Pagination Meta
       type: object
     PaginationMetaSimple:
       properties:
@@ -17408,105 +16692,6 @@ components:
           - failure
           readOnly: true
           type: string
-    PhoneNumberBlocksJob:
-      example:
-        id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-        record_type: phone_numbers_job
-        status: pending
-        type: delete_phone_number_block
-        etc: 2020-10-30T18:10:00.000Z
-        created_at: 2020-10-23T18:10:00.000Z
-        updated_at: 2020-10-23T18:10:01.000Z
-        successful_operations: []
-        failed_operations: []
-      properties:
-        id:
-          description: Identifies the resource.
-          example: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          format: uuid
-          readOnly: true
-          type: string
-        record_type:
-          description: Identifies the type of the resource.
-          example: phone_number_block_job
-          readOnly: true
-          type: string
-        status:
-          default: pending
-          description: Indicates the completion status of the background operation.
-          enum:
-          - pending
-          - in_progress
-          - completed
-          - failed
-          example: pending
-          readOnly: true
-          type: string
-        type:
-          description: Identifies the type of the background job.
-          enum:
-          - delete_phone_number_block
-          example: delete_phone_number_block
-          readOnly: true
-          type: string
-        etc:
-          description: ISO 8601 formatted date indicating when the estimated time
-            of completion of the background job.
-          format: date-time
-          readOnly: true
-          type: string
-        created_at:
-          description: ISO 8601 formatted date indicating when the resource was created.
-          readOnly: true
-          type: string
-        updated_at:
-          description: ISO 8601 formatted date indicating when the resource was updated.
-          readOnly: true
-          type: string
-        successful_operations:
-          items:
-            $ref: '#/components/schemas/PhoneNumberBlocksJobSuccessfulOperation'
-          readOnly: true
-          type: array
-        failed_operations:
-          items:
-            $ref: '#/components/schemas/PhoneNumberBlocksJobFailedOperation'
-          readOnly: true
-          type: array
-      type: object
-    PhoneNumberBlocksJobDeletePhoneNumberBlockRequest:
-      example:
-        phone_number_block_id: f3946371-7199-4261-9c3d-81a0d7935146
-      properties:
-        phone_number_block_id:
-          type: string
-      required:
-      - phone_number_block_id
-      type: object
-    PhoneNumberBlocksJobFailedOperation:
-      properties:
-        phone_number:
-          description: The phone number in e164 format.
-          format: e164
-          type: string
-        id:
-          description: The phone number's ID
-          format: int64
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-    PhoneNumberBlocksJobSuccessfulOperation:
-      properties:
-        phone_number:
-          description: The phone number in e164 format.
-          format: e164
-          type: string
-        id:
-          description: The phone number's ID
-          format: int64
-          type: string
     PhoneNumberDeletedDetailed:
       example:
         id: "1293384261075731499"
@@ -17535,10 +16720,10 @@ components:
         updated_at: 2019-10-24T18:10:00.000Z
       properties:
         id:
-          description: Uniquely identifies the resource.
+          description: Identifies the resource.
           example: "1293384261075731499"
           format: int64
-          title: Int ID
+          readOnly: true
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -17675,10 +16860,10 @@ components:
         updated_at: 2019-10-24T18:10:00.000Z
       properties:
         id:
-          description: Uniquely identifies the resource.
+          description: Identifies the resource.
           example: "1293384261075731499"
           format: int64
-          title: Int ID
+          readOnly: true
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -18709,42 +17894,6 @@ components:
       - digits
       title: Send DTMF Request
       type: object
-    SendFaxRequest:
-      example:
-        connection_id: "234423"
-        from: +13125790015
-        to: +13127367276
-        media_url: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-        quality: high
-      properties:
-        connection_id:
-          description: The connection ID to send the fax with.
-          example: "234423"
-          type: string
-        media_url:
-          description: The URL to the PDF used for the fax's media.
-          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-          type: string
-        to:
-          description: The phone number, in E.164 format, the fax will be sent to
-            or SIP URI
-          example: +13127367276
-          type: string
-        from:
-          description: The phone number, in E.164 format, the fax will be sent from.
-          example: +13125790015
-          type: string
-        quality:
-          default: high
-          description: The quality of the fax. Can be normal, high, very_high
-          example: high
-          type: string
-      required:
-      - connection_id
-      - media_url
-      - to
-      title: Send fax request
-      type: object
     ServicePlan:
       default: global
       description: Indicates the coverage of the termination regions. International
@@ -19074,10 +18223,10 @@ components:
         updated_at: 2020-02-03T22:25:27.521Z
       properties:
         id:
-          description: Uniquely identifies the resource.
+          description: Identifies the resource.
           example: "1293384261075731499"
           format: int64
-          title: Int ID
+          readOnly: true
           type: string
         record_type:
           description: Identifies the type of the resource.
@@ -21516,79 +20665,6 @@ components:
         data:
           $ref: '#/components/schemas/FaxApplication'
       type: object
-    inline_response_200_1:
-      example:
-        data:
-        - record_type: fax
-          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          connection_id: c-1
-          direction: outbound
-          from: +123
-          to: +456
-          media_url: http://www.example.com/fax.pdf
-          store_media: true
-          stored_media_url: https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51
-          quality: high
-          webhook_url: http://www.example.com/webhooks
-          webhook_failover_url: ""
-          status: queued
-          created_at: 2020-05-05T09:59:12
-          updated_at: 2020-05-05T09:59:12
-        - record_type: fax
-          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          connection_id: c-1
-          direction: outbound
-          from: +123
-          to: +456
-          media_url: http://www.example.com/fax.pdf
-          store_media: true
-          stored_media_url: https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51
-          quality: high
-          webhook_url: http://www.example.com/webhooks
-          webhook_failover_url: ""
-          status: queued
-          created_at: 2020-05-05T09:59:12
-          updated_at: 2020-05-05T09:59:12
-        meta:
-          page_number: 2
-          page_size: 1
-          total_pages: 3
-          total_results: 3
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Fax'
-          type: array
-        meta:
-          example:
-            page_number: 2
-            page_size: 1
-            total_pages: 3
-            total_results: 3
-          type: object
-      type: object
-    inline_response_202:
-      example:
-        data:
-          record_type: fax
-          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          connection_id: c-1
-          direction: outbound
-          from: +123
-          to: +456
-          media_url: http://www.example.com/fax.pdf
-          store_media: true
-          stored_media_url: https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51
-          quality: high
-          webhook_url: http://www.example.com/webhooks
-          webhook_failover_url: ""
-          status: queued
-          created_at: 2020-05-05T09:59:12
-          updated_at: 2020-05-05T09:59:12
-      properties:
-        data:
-          $ref: '#/components/schemas/Fax'
-      type: object
     List_Fqdn_Connections_Response:
       example:
         data:
@@ -22710,75 +21786,6 @@ components:
           $ref: '#/components/schemas/OutboundVoiceProfile'
       title: Outbound Voice Profile Response
       type: object
-    List_Phone_Number_Blocks_Background_Jobs_Response:
-      example:
-        data:
-        - id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          record_type: phone_numbers_job
-          status: pending
-          type: delete_phone_number_block
-          etc: 2020-10-30T18:10:00.000Z
-          created_at: 2020-10-23T18:10:00.000Z
-          updated_at: 2020-10-23T18:10:01.000Z
-          successful_operations: []
-          failed_operations: []
-        - id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          record_type: phone_numbers_job
-          status: pending
-          type: delete_phone_number_block
-          etc: 2020-10-30T18:10:00.000Z
-          created_at: 2020-10-23T18:10:00.000Z
-          updated_at: 2020-10-23T18:10:01.000Z
-          successful_operations: []
-          failed_operations: []
-        meta:
-          page_number: 2
-          total_pages: 3
-          total_results: 55
-          page_size: 25
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/PhoneNumberBlocksJob'
-          type: array
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-      title: List Phone Number Blocks Background Jobs Response
-      type: object
-    Phone_Number_Blocks_Job_Delete_Phone_Number_Block:
-      example:
-        data:
-          id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          record_type: phone_numbers_job
-          status: pending
-          type: delete_phone_number_block
-          etc: 2020-10-30T18:10:00.000Z
-          created_at: 2020-10-23T18:10:00.000Z
-          updated_at: 2020-10-23T18:10:01.000Z
-          successful_operations: []
-          failed_operations: []
-      properties:
-        data:
-          $ref: '#/components/schemas/PhoneNumberBlocksJob'
-      title: Phone Number Blocks Job Delete Phone Number Block
-      type: object
-    Phone_Number_Blocks_Job:
-      example:
-        data:
-          id: 42587e44-3a3e-46de-9255-0c9a7a1d1ec7
-          record_type: phone_numbers_job
-          status: pending
-          type: delete_phone_number_block
-          etc: 2020-10-30T18:10:00.000Z
-          created_at: 2020-10-23T18:10:00.000Z
-          updated_at: 2020-10-23T18:10:01.000Z
-          successful_operations: []
-          failed_operations: []
-      properties:
-        data:
-          $ref: '#/components/schemas/PhoneNumberBlocksJob'
-      title: Phone Number Blocks Job
-      type: object
     List_Phone_Number_Regulatory_Requirements_Response:
       example:
         data:
@@ -23548,7 +22555,7 @@ components:
           $ref: '#/components/schemas/ShortCode'
       title: Short Code Response
       type: object
-    inline_response_200_2:
+    inline_response_200_1:
       example:
         data:
         - id: "1293384261075731499"
@@ -24776,229 +23783,6 @@ components:
           example: https://developers.telnyx.com/docs/overview/errors/10015
           type: string
       type: object
-    FaxDelivered_payload:
-      properties:
-        call_duration_secs:
-          description: The duration of the call in seconds.
-          example: 25
-          type: integer
-        connection_id:
-          description: The ID of the connection that was used to send the fax.
-          example: "234423"
-          type: string
-        direction:
-          description: The direction of the fax.
-          enum:
-          - inbound
-          - outbound
-          example: outbound
-          type: string
-        fax_id:
-          description: Identifies the fax.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        original_media_url:
-          description: The original URL to the PDF used for the fax's media.
-          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-          type: string
-        to:
-          description: The phone number, in E.164 format, the fax will be sent to
-            or SIP URI
-          example: +13127367276
-          type: string
-        from:
-          description: The phone number, in E.164 format, the fax will be sent from.
-          example: +13125790015
-          type: string
-        user_id:
-          description: Identifier of the user to whom the fax belongs
-          format: uuid
-          type: string
-        page_count:
-          description: Number of transferred pages
-          example: 2
-          type: integer
-        status:
-          description: The status of the fax.
-          enum:
-          - delivered
-          example: delivered
-          type: string
-      type: object
-    FaxFailed_payload:
-      properties:
-        connection_id:
-          description: The ID of the connection that was used to send the fax.
-          example: "234423"
-          type: string
-        direction:
-          description: The direction of the fax.
-          enum:
-          - inbound
-          - outbound
-          example: outbound
-          type: string
-        fax_id:
-          description: Identifies the fax.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        original_media_url:
-          description: The original URL to the PDF used for the fax's media.
-          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-          type: string
-        to:
-          description: The phone number, in E.164 format, the fax will be sent to
-            or SIP URI
-          example: +13127367276
-          type: string
-        from:
-          description: The phone number, in E.164 format, the fax will be sent from.
-          example: +13125790015
-          type: string
-        user_id:
-          description: Identifier of the user to whom the fax belongs
-          format: uuid
-          type: string
-        failure_reason:
-          description: Cause of the sending failure
-          enum:
-          - rejected
-          type: string
-        status:
-          description: The status of the fax.
-          enum:
-          - failed
-          example: failed
-          type: string
-      type: object
-    FaxMediaProcessed_payload:
-      properties:
-        connection_id:
-          description: The ID of the connection that was used to send the fax.
-          example: "234423"
-          type: string
-        direction:
-          description: The direction of the fax.
-          enum:
-          - inbound
-          - outbound
-          example: outbound
-          type: string
-        fax_id:
-          description: Identifies the fax.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        original_media_url:
-          description: The original URL to the PDF used for the fax's media.
-          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-          type: string
-        to:
-          description: The phone number, in E.164 format, the fax will be sent to
-            or SIP URI
-          example: +13127367276
-          type: string
-        from:
-          description: The phone number, in E.164 format, the fax will be sent from.
-          example: +13125790015
-          type: string
-        user_id:
-          description: Identifier of the user to whom the fax belongs
-          format: uuid
-          type: string
-        status:
-          description: The status of the fax.
-          enum:
-          - media.processed
-          example: media.processed
-          type: string
-      type: object
-    FaxQueued_payload:
-      properties:
-        connection_id:
-          description: The ID of the connection that was used to send the fax.
-          example: "234423"
-          type: string
-        direction:
-          description: The direction of the fax.
-          enum:
-          - inbound
-          - outbound
-          example: outbound
-          type: string
-        fax_id:
-          description: Identifies the fax.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        original_media_url:
-          description: The original URL to the PDF used for the fax's media.
-          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-          type: string
-        to:
-          description: The phone number, in E.164 format, the fax will be sent to
-            or SIP URI
-          example: +13127367276
-          type: string
-        from:
-          description: The phone number, in E.164 format, the fax will be sent from.
-          example: +13125790015
-          type: string
-        user_id:
-          description: Identifier of the user to whom the fax belongs
-          format: uuid
-          type: string
-        status:
-          description: The status of the fax.
-          enum:
-          - queued
-          example: queued
-          type: string
-      type: object
-    FaxSendingStarted_payload:
-      properties:
-        connection_id:
-          description: The ID of the connection that was used to send the fax.
-          example: "234423"
-          type: string
-        direction:
-          description: The direction of the fax.
-          enum:
-          - inbound
-          - outbound
-          example: outbound
-          type: string
-        fax_id:
-          description: Identifies the fax.
-          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-          format: uuid
-          type: string
-        original_media_url:
-          description: The original URL to the PDF used for the fax's media.
-          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-          type: string
-        to:
-          description: The phone number, in E.164 format, the fax will be sent to
-            or SIP URI
-          example: +13127367276
-          type: string
-        from:
-          description: The phone number, in E.164 format, the fax will be sent from.
-          example: +13125790015
-          type: string
-        user_id:
-          description: Identifier of the user to whom the fax belongs
-          format: uuid
-          type: string
-        status:
-          description: The status of the fax.
-          enum:
-          - sending
-          example: sending
-          type: string
-      type: object
     InboundMessagePayload_to:
       properties:
         phone_number:
@@ -25303,9 +24087,6 @@ components:
       - response_code
       type: object
   securitySchemes:
-    BearerAuth:
-      scheme: bearer
-      type: http
     bearerAuth:
       scheme: bearer
       type: http

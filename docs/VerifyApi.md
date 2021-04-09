@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## createVerifyProfile
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## deleteVerifyProfile
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## listVerifications
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## listVerifyProfiles
@@ -370,7 +370,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## retrieveVerification
@@ -439,7 +439,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## retrieveVerifyProfile
@@ -510,7 +510,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## updateVerifyProfile
@@ -581,7 +581,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## verifyVerificationCode
@@ -652,5 +652,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verify response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 

@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of number order regulatory requirements. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listPhoneNumberRegulatoryRequirements
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone number regulatory requirements. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrieveNumberOrderRegulatoryRequirement
@@ -242,5 +242,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a number order regulatory requirement. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
