@@ -199,7 +199,7 @@ private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumb
     Object localVarPostBody = null;
     
     // create path and map variables
-    String localVarPath = "/phone_number_regulatory_requirements";
+    String localVarPath = "/phone_numbers_regulatory_requirements";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();

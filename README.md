@@ -242,7 +242,7 @@ Class | Method | HTTP request | Description
 *NumberOrderDocumentsApi* | [**retrieveNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#retrieveNumberOrderDocument) | **GET** /number_order_documents/{number_order_document_id} | Retrieve a number order document
 *NumberOrderDocumentsApi* | [**updateNumberOrderDocument**](docs/NumberOrderDocumentsApi.md#updateNumberOrderDocument) | **PATCH** /number_order_documents/{number_order_document_id} | Update a number order document
 *NumberOrderRegulatoryRequirementsApi* | [**listNumberOrderRegulatoryRequirements**](docs/NumberOrderRegulatoryRequirementsApi.md#listNumberOrderRegulatoryRequirements) | **GET** /regulatory_requirements | List number order regulatory requirements
-*NumberOrderRegulatoryRequirementsApi* | [**listPhoneNumberRegulatoryRequirements**](docs/NumberOrderRegulatoryRequirementsApi.md#listPhoneNumberRegulatoryRequirements) | **GET** /phone_number_regulatory_requirements | List regulatory requirements per number
+*NumberOrderRegulatoryRequirementsApi* | [**listPhoneNumberRegulatoryRequirements**](docs/NumberOrderRegulatoryRequirementsApi.md#listPhoneNumberRegulatoryRequirements) | **GET** /phone_numbers_regulatory_requirements | List regulatory requirements per number
 *NumberOrderRegulatoryRequirementsApi* | [**retrieveNumberOrderRegulatoryRequirement**](docs/NumberOrderRegulatoryRequirementsApi.md#retrieveNumberOrderRegulatoryRequirement) | **GET** /regulatory_requirements/{requirement_id} | Retrieve a number order regulatory requirement
 *NumberOrdersApi* | [**createNumberOrder**](docs/NumberOrdersApi.md#createNumberOrder) | **POST** /number_orders | Create a number order
 *NumberOrdersApi* | [**listNumberOrders**](docs/NumberOrdersApi.md#listNumberOrders) | **GET** /number_orders | List number orders
@@ -263,6 +263,10 @@ Class | Method | HTTP request | Description
 *ProgrammableFaxApplicationsApi* | [**getFaxApplication**](docs/ProgrammableFaxApplicationsApi.md#getFaxApplication) | **GET** /fax_applications/{id} | Retrieve a Fax Application
 *ProgrammableFaxApplicationsApi* | [**listFaxApplications**](docs/ProgrammableFaxApplicationsApi.md#listFaxApplications) | **GET** /fax_applications | List all Fax Applications
 *ProgrammableFaxApplicationsApi* | [**updateFaxApplication**](docs/ProgrammableFaxApplicationsApi.md#updateFaxApplication) | **PATCH** /fax_applications/{id} | Update a Fax Application
+*ProgrammableFaxCommandsApi* | [**deleteFax**](docs/ProgrammableFaxCommandsApi.md#deleteFax) | **DELETE** /faxes/{id} | Delete a fax
+*ProgrammableFaxCommandsApi* | [**listFaxes**](docs/ProgrammableFaxCommandsApi.md#listFaxes) | **GET** /faxes | View a list of faxes
+*ProgrammableFaxCommandsApi* | [**sendFax**](docs/ProgrammableFaxCommandsApi.md#sendFax) | **POST** /faxes | Send a fax
+*ProgrammableFaxCommandsApi* | [**viewFax**](docs/ProgrammableFaxCommandsApi.md#viewFax) | **GET** /faxes/{id} | View a fax
 *RecordingsCommandsApi* | [**listRecordings**](docs/RecordingsCommandsApi.md#listRecordings) | **GET** /recordings | List recordings
 *RecordingsCommandsApi* | [**retrieveRecording**](docs/RecordingsCommandsApi.md#retrieveRecording) | **GET** /recordings/{id} | Retrieve a recording
 *ShortCodesApi* | [**listShortCodes**](docs/ShortCodesApi.md#listShortCodes) | **GET** /short_codes | List short codes
@@ -450,7 +454,18 @@ Class | Method | HTTP request | Description
  - [ErrorMeta](docs/ErrorMeta.md)
  - [ErrorSource](docs/ErrorSource.md)
  - [Errors](docs/Errors.md)
+ - [Fax](docs/Fax.md)
  - [FaxApplication](docs/FaxApplication.md)
+ - [FaxDelivered](docs/FaxDelivered.md)
+ - [FaxDeliveredPayload](docs/FaxDeliveredPayload.md)
+ - [FaxFailed](docs/FaxFailed.md)
+ - [FaxFailedPayload](docs/FaxFailedPayload.md)
+ - [FaxMediaProcessed](docs/FaxMediaProcessed.md)
+ - [FaxMediaProcessedPayload](docs/FaxMediaProcessedPayload.md)
+ - [FaxQueued](docs/FaxQueued.md)
+ - [FaxQueuedPayload](docs/FaxQueuedPayload.md)
+ - [FaxSendingStarted](docs/FaxSendingStarted.md)
+ - [FaxSendingStartedPayload](docs/FaxSendingStartedPayload.md)
  - [Fqdn](docs/Fqdn.md)
  - [FqdnConnection](docs/FqdnConnection.md)
  - [FqdnConnectionResponse](docs/FqdnConnectionResponse.md)
@@ -458,6 +473,7 @@ Class | Method | HTTP request | Description
  - [FqdnResponse](docs/FqdnResponse.md)
  - [GatherUsingAudioRequest](docs/GatherUsingAudioRequest.md)
  - [GatherUsingSpeakRequest](docs/GatherUsingSpeakRequest.md)
+ - [GetFaxResponse](docs/GetFaxResponse.md)
  - [GetRecordingResponse](docs/GetRecordingResponse.md)
  - [HangupRequest](docs/HangupRequest.md)
  - [HostedNumber](docs/HostedNumber.md)
@@ -487,6 +503,7 @@ Class | Method | HTTP request | Description
  - [ListConferencesResponse](docs/ListConferencesResponse.md)
  - [ListConnectionsResponse](docs/ListConnectionsResponse.md)
  - [ListCredentialConnectionsResponse](docs/ListCredentialConnectionsResponse.md)
+ - [ListFaxesResponse](docs/ListFaxesResponse.md)
  - [ListFqdnConnectionsResponse](docs/ListFqdnConnectionsResponse.md)
  - [ListFqdnsResponse](docs/ListFqdnsResponse.md)
  - [ListIpConnectionsResponse](docs/ListIpConnectionsResponse.md)
@@ -595,6 +612,8 @@ Class | Method | HTTP request | Description
  - [RetrievePhoneNumberVoiceResponse](docs/RetrievePhoneNumberVoiceResponse.md)
  - [RetrieveVerificationResponse](docs/RetrieveVerificationResponse.md)
  - [SendDTMFRequest](docs/SendDTMFRequest.md)
+ - [SendFaxRequest](docs/SendFaxRequest.md)
+ - [SendFaxResponse](docs/SendFaxResponse.md)
  - [ServicePlan](docs/ServicePlan.md)
  - [ShortCode](docs/ShortCode.md)
  - [ShortCodeResponse](docs/ShortCodeResponse.md)
@@ -649,6 +668,11 @@ Class | Method | HTTP request | Description
 ## Documentation for Authorization
 
 Authentication schemes defined for the API:
+### BearerAuth
+
+
+- **Type**: HTTP basic authentication
+
 ### bearerAuth
 
 
