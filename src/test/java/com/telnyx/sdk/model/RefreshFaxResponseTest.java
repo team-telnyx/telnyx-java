@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.FaxApplication;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.junit.Assert;
@@ -27,25 +26,25 @@ import org.junit.Test;
 
 
 /**
- * Model tests for InlineResponse201
+ * Model tests for RefreshFaxResponse
  */
-public class InlineResponse201Test {
-    private final InlineResponse201 model = new InlineResponse201();
+public class RefreshFaxResponseTest {
+    private final RefreshFaxResponse model = new RefreshFaxResponse();
 
     /**
-     * Model tests for InlineResponse201
+     * Model tests for RefreshFaxResponse
      */
     @Test
-    public void testInlineResponse201() {
-        // TODO: test InlineResponse201
+    public void testRefreshFaxResponse() {
+        // TODO: test RefreshFaxResponse
     }
 
     /**
-     * Test the property 'data'
+     * Test the property 'result'
      */
     @Test
-    public void dataTest() {
-        // TODO: test data
+    public void resultTest() {
+        // TODO: test result
     }
 
 }

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## createTexmlApplication
 
-> InlineResponse2011 createTexmlApplication(createTexmlApplicationRequest)
+> TexmlApplicationResponse createTexmlApplication(createTexmlApplicationRequest)
 
 Creates a TeXML Application
 
@@ -43,7 +43,7 @@ public class Example {
         TeXmlApplicationsApi apiInstance = new TeXmlApplicationsApi(defaultClient);
         CreateTexmlApplicationRequest createTexmlApplicationRequest = new CreateTexmlApplicationRequest(); // CreateTexmlApplicationRequest | Parameters that can be set when creating a TeXML Application
         try {
-            InlineResponse2011 result = apiInstance.createTexmlApplication(createTexmlApplicationRequest);
+            TexmlApplicationResponse result = apiInstance.createTexmlApplication(createTexmlApplicationRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlApplicationsApi#createTexmlApplication");
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**TexmlApplicationResponse**](TexmlApplicationResponse.md)
 
 ### Authorization
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## deleteTexmlApplication
 
-> InlineResponse2011 deleteTexmlApplication(id)
+> TexmlApplicationResponse deleteTexmlApplication(id)
 
 Deletes a TeXML Application
 
@@ -114,7 +114,7 @@ public class Example {
         TeXmlApplicationsApi apiInstance = new TeXmlApplicationsApi(defaultClient);
         String id = 1293384261075731499; // String | Identifies the resource.
         try {
-            InlineResponse2011 result = apiInstance.deleteTexmlApplication(id);
+            TexmlApplicationResponse result = apiInstance.deleteTexmlApplication(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlApplicationsApi#deleteTexmlApplication");
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**TexmlApplicationResponse**](TexmlApplicationResponse.md)
 
 ### Authorization
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## findTexmlApplications
 
-> InlineResponse2001 findTexmlApplications(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundOutboundVoiceProfileId, sort)
+> GetAllTexmlApplicationsResponse findTexmlApplications(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundOutboundVoiceProfileId, sort)
 
 List all TeXML Applications
 
@@ -191,7 +191,7 @@ public class Example {
         String filterOutboundOutboundVoiceProfileId = 1293384261075731499; // String | Identifies the associated outbound voice profile.
         String sort = connection_name; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
         try {
-            InlineResponse2001 result = apiInstance.findTexmlApplications(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundOutboundVoiceProfileId, sort);
+            GetAllTexmlApplicationsResponse result = apiInstance.findTexmlApplications(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundOutboundVoiceProfileId, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlApplicationsApi#findTexmlApplications");
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**GetAllTexmlApplicationsResponse**](GetAllTexmlApplicationsResponse.md)
 
 ### Authorization
 
@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## getTexmlApplication
 
-> InlineResponse2011 getTexmlApplication(id)
+> TexmlApplicationResponse getTexmlApplication(id)
 
 Retrieve a TeXML Application
 
@@ -268,7 +268,7 @@ public class Example {
         TeXmlApplicationsApi apiInstance = new TeXmlApplicationsApi(defaultClient);
         String id = 1293384261075731499; // String | Identifies the resource.
         try {
-            InlineResponse2011 result = apiInstance.getTexmlApplication(id);
+            TexmlApplicationResponse result = apiInstance.getTexmlApplication(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlApplicationsApi#getTexmlApplication");
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**TexmlApplicationResponse**](TexmlApplicationResponse.md)
 
 ### Authorization
 
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 ## updateTexmlApplication
 
-> InlineResponse2011 updateTexmlApplication(id, updateTexmlApplicationRequest)
+> TexmlApplicationResponse updateTexmlApplication(id, updateTexmlApplicationRequest)
 
 Update a TeXML Application
 
@@ -342,7 +342,7 @@ public class Example {
         String id = 1293384261075731499; // String | Identifies the resource.
         UpdateTexmlApplicationRequest updateTexmlApplicationRequest = new UpdateTexmlApplicationRequest(); // UpdateTexmlApplicationRequest | Parameters that can be updated in a TeXML Application
         try {
-            InlineResponse2011 result = apiInstance.updateTexmlApplication(id, updateTexmlApplicationRequest);
+            TexmlApplicationResponse result = apiInstance.updateTexmlApplication(id, updateTexmlApplicationRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlApplicationsApi#updateTexmlApplication");
@@ -365,7 +365,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**TexmlApplicationResponse**](TexmlApplicationResponse.md)
 
 ### Authorization
 

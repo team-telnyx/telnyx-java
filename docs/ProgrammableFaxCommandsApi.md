@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteFax**](ProgrammableFaxCommandsApi.md#deleteFax) | **DELETE** /faxes/{id} | Delete a fax
 [**listFaxes**](ProgrammableFaxCommandsApi.md#listFaxes) | **GET** /faxes | View a list of faxes
+[**refreshFax**](ProgrammableFaxCommandsApi.md#refreshFax) | **POST** /faxes/{id}/actions/refresh | Refresh a fax
 [**sendFax**](ProgrammableFaxCommandsApi.md#sendFax) | **POST** /faxes | Send a fax
 [**viewFax**](ProgrammableFaxCommandsApi.md#viewFax) | **GET** /faxes/{id} | View a fax
 
@@ -159,6 +160,78 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | List faxes response |  -  |
+| **0** | Bad Request |  -  |
+
+
+## refreshFax
+
+> RefreshFaxResponse refreshFax(id)
+
+Refresh a fax
+
+This endpoint refreshes the media_url expiration for inbound faxes
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ProgrammableFaxCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        ProgrammableFaxCommandsApi apiInstance = new ProgrammableFaxCommandsApi(defaultClient);
+        UUID id = new UUID(); // UUID | The unique identifier of a fax.
+        try {
+            RefreshFaxResponse result = apiInstance.refreshFax(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProgrammableFaxCommandsApi#refreshFax");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)| The unique identifier of a fax. |
+
+### Return type
+
+[**RefreshFaxResponse**](RefreshFaxResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Refresh fax response |  -  |
+| **404** | Conference does not exist |  -  |
 | **0** | Bad Request |  -  |
 
 

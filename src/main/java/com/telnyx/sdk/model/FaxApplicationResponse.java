@@ -22,42 +22,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PaginationMeta;
-import com.telnyx.sdk.model.TexmlApplication;
+import com.telnyx.sdk.model.FaxApplication;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * InlineResponse2001
+ * FaxApplicationResponse
  */
 @JsonPropertyOrder({
-  InlineResponse2001.JSON_PROPERTY_DATA,
-  InlineResponse2001.JSON_PROPERTY_META
+  FaxApplicationResponse.JSON_PROPERTY_DATA
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class InlineResponse2001 {
+public class FaxApplicationResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<TexmlApplication> data = null;
-
-  public static final String JSON_PROPERTY_META = "meta";
-  private PaginationMeta meta;
+  private FaxApplication data;
 
 
-  public InlineResponse2001 data(List<TexmlApplication> data) {
+  public FaxApplicationResponse data(FaxApplication data) {
     this.data = data;
-    return this;
-  }
-
-  public InlineResponse2001 addDataItem(TexmlApplication dataItem) {
-    if (this.data == null) {
-      this.data = new ArrayList<>();
-    }
-    this.data.add(dataItem);
     return this;
   }
 
@@ -70,42 +55,18 @@ public class InlineResponse2001 {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<TexmlApplication> getData() {
+  public FaxApplication getData() {
     return data;
   }
 
 
-  public void setData(List<TexmlApplication> data) {
+  public void setData(FaxApplication data) {
     this.data = data;
   }
 
 
-  public InlineResponse2001 meta(PaginationMeta meta) {
-    this.meta = meta;
-    return this;
-  }
-
-   /**
-   * Get meta
-   * @return meta
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PaginationMeta getMeta() {
-    return meta;
-  }
-
-
-  public void setMeta(PaginationMeta meta) {
-    this.meta = meta;
-  }
-
-
   /**
-   * Return true if this inline_response_200_1 object is equal to o.
+   * Return true if this Fax_Application_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -115,23 +76,21 @@ public class InlineResponse2001 {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse2001 inlineResponse2001 = (InlineResponse2001) o;
-    return Objects.equals(this.data, inlineResponse2001.data) &&
-        Objects.equals(this.meta, inlineResponse2001.meta);
+    FaxApplicationResponse faxApplicationResponse = (FaxApplicationResponse) o;
+    return Objects.equals(this.data, faxApplicationResponse.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data, meta);
+    return Objects.hash(data);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse2001 {\n");
+    sb.append("class FaxApplicationResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.FaxApplication;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -30,43 +29,43 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * InlineResponse201
+ * RefreshFaxResponse
  */
 @JsonPropertyOrder({
-  InlineResponse201.JSON_PROPERTY_DATA
+  RefreshFaxResponse.JSON_PROPERTY_RESULT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class InlineResponse201 {
-  public static final String JSON_PROPERTY_DATA = "data";
-  private FaxApplication data;
+public class RefreshFaxResponse {
+  public static final String JSON_PROPERTY_RESULT = "result";
+  private String result;
 
 
-  public InlineResponse201 data(FaxApplication data) {
-    this.data = data;
+  public RefreshFaxResponse result(String result) {
+    this.result = result;
     return this;
   }
 
    /**
-   * Get data
-   * @return data
+   * Get result
+   * @return result
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATA)
+  @ApiModelProperty(example = "ok", value = "")
+  @JsonProperty(JSON_PROPERTY_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public FaxApplication getData() {
-    return data;
+  public String getResult() {
+    return result;
   }
 
 
-  public void setData(FaxApplication data) {
-    this.data = data;
+  public void setResult(String result) {
+    this.result = result;
   }
 
 
   /**
-   * Return true if this inline_response_201 object is equal to o.
+   * Return true if this Refresh_Fax_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -76,21 +75,21 @@ public class InlineResponse201 {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse201 inlineResponse201 = (InlineResponse201) o;
-    return Objects.equals(this.data, inlineResponse201.data);
+    RefreshFaxResponse refreshFaxResponse = (RefreshFaxResponse) o;
+    return Objects.equals(this.result, refreshFaxResponse.result);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(result);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse201 {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("class RefreshFaxResponse {\n");
+    sb.append("    result: ").append(toIndentedString(result)).append("\n");
     sb.append("}");
     return sb.toString();
   }

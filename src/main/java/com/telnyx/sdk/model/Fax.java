@@ -500,11 +500,11 @@ public class Fax {
   }
 
    /**
-   * If store_media was set to true, this is a link to temporary location. Link expires after 2h.
+   * If store_media was set to true, this is a link to temporary location. Link expires after 7 days.
    * @return storedMediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "If store_media was set to true, this is a link to temporary location. Link expires after 2h.")
+  @ApiModelProperty(value = "If store_media was set to true, this is a link to temporary location. Link expires after 7 days.")
   @JsonProperty(JSON_PROPERTY_STORED_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

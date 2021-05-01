@@ -1,6 +1,6 @@
 
 
-# InlineResponse201
+# TexmlApplicationResponse
 
 ## Properties
 

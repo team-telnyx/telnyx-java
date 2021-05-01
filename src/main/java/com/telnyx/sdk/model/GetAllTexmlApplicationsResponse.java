@@ -22,27 +22,42 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.Fax;
+import com.telnyx.sdk.model.PaginationMeta;
+import com.telnyx.sdk.model.TexmlApplication;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * InlineResponse202
+ * GetAllTexmlApplicationsResponse
  */
 @JsonPropertyOrder({
-  InlineResponse202.JSON_PROPERTY_DATA
+  GetAllTexmlApplicationsResponse.JSON_PROPERTY_DATA,
+  GetAllTexmlApplicationsResponse.JSON_PROPERTY_META
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class InlineResponse202 {
+public class GetAllTexmlApplicationsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private Fax data;
+  private List<TexmlApplication> data = null;
+
+  public static final String JSON_PROPERTY_META = "meta";
+  private PaginationMeta meta;
 
 
-  public InlineResponse202 data(Fax data) {
+  public GetAllTexmlApplicationsResponse data(List<TexmlApplication> data) {
     this.data = data;
+    return this;
+  }
+
+  public GetAllTexmlApplicationsResponse addDataItem(TexmlApplication dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<>();
+    }
+    this.data.add(dataItem);
     return this;
   }
 
@@ -55,18 +70,42 @@ public class InlineResponse202 {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Fax getData() {
+  public List<TexmlApplication> getData() {
     return data;
   }
 
 
-  public void setData(Fax data) {
+  public void setData(List<TexmlApplication> data) {
     this.data = data;
   }
 
 
+  public GetAllTexmlApplicationsResponse meta(PaginationMeta meta) {
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PaginationMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(PaginationMeta meta) {
+    this.meta = meta;
+  }
+
+
   /**
-   * Return true if this inline_response_202 object is equal to o.
+   * Return true if this Get_All_Texml_Applications_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -76,21 +115,23 @@ public class InlineResponse202 {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse202 inlineResponse202 = (InlineResponse202) o;
-    return Objects.equals(this.data, inlineResponse202.data);
+    GetAllTexmlApplicationsResponse getAllTexmlApplicationsResponse = (GetAllTexmlApplicationsResponse) o;
+    return Objects.equals(this.data, getAllTexmlApplicationsResponse.data) &&
+        Objects.equals(this.meta, getAllTexmlApplicationsResponse.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(data, meta);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse202 {\n");
+    sb.append("class GetAllTexmlApplicationsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

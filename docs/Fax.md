@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **webhookUrl** | **String** | URL that will receive fax webhooks |  [optional]
 **webhookFailoverUrl** | **String** | Optional failover URL that will receive fax webhooks if &#x60;webhook_url&#x60; doesn&#39;t return a 2XX response |  [optional]
 **storeMedia** | **Boolean** | Should fax media be stored on temporary URL |  [optional]
-**storedMediaUrl** | **String** | If store_media was set to true, this is a link to temporary location. Link expires after 2h. |  [optional]
+**storedMediaUrl** | **String** | If store_media was set to true, this is a link to temporary location. Link expires after 7 days. |  [optional]
 **createdAt** | **String** | ISO 8601 timestamp when resource was created |  [optional]
 **updatedAt** | **String** | ISO 8601 timestamp when resource was updated |  [optional]
 

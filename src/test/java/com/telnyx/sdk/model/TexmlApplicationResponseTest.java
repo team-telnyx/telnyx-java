@@ -18,29 +18,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PaginationMeta;
 import com.telnyx.sdk.model.TexmlApplication;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
 /**
- * Model tests for InlineResponse2002
+ * Model tests for TexmlApplicationResponse
  */
-public class InlineResponse2002Test {
-    private final InlineResponse2002 model = new InlineResponse2002();
+public class TexmlApplicationResponseTest {
+    private final TexmlApplicationResponse model = new TexmlApplicationResponse();
 
     /**
-     * Model tests for InlineResponse2002
+     * Model tests for TexmlApplicationResponse
      */
     @Test
-    public void testInlineResponse2002() {
-        // TODO: test InlineResponse2002
+    public void testTexmlApplicationResponse() {
+        // TODO: test TexmlApplicationResponse
     }
 
     /**
@@ -49,14 +46,6 @@ public class InlineResponse2002Test {
     @Test
     public void dataTest() {
         // TODO: test data
-    }
-
-    /**
-     * Test the property 'meta'
-     */
-    @Test
-    public void metaTest() {
-        // TODO: test meta
     }
 
 }

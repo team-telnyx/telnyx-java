@@ -12,6 +12,7 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetFaxResponse;
 import com.telnyx.sdk.model.ListFaxesResponse;
 import java.time.OffsetDateTime;
+import com.telnyx.sdk.model.RefreshFaxResponse;
 import com.telnyx.sdk.model.SendFaxRequest;
 import com.telnyx.sdk.model.SendFaxResponse;
 import java.util.UUID;
@@ -201,6 +202,78 @@ public class ProgrammableFaxCommandsApi {
     GenericType<ListFaxesResponse> localVarReturnType = new GenericType<ListFaxesResponse>() {};
 
     return apiClient.invokeAPI("ProgrammableFaxCommandsApi.listFaxes", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Refresh a fax
+   * This endpoint refreshes the media_url expiration for inbound faxes
+   * @param id The unique identifier of a fax. (required)
+   * @return RefreshFaxResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public RefreshFaxResponse refreshFax(UUID id) throws ApiException {
+    return refreshFaxWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Refresh a fax
+   * This endpoint refreshes the media_url expiration for inbound faxes
+   * @param id The unique identifier of a fax. (required)
+   * @return ApiResponse&lt;RefreshFaxResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<RefreshFaxResponse> refreshFaxWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling refreshFax");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/faxes/{id}/actions/refresh"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<RefreshFaxResponse> localVarReturnType = new GenericType<RefreshFaxResponse>() {};
+
+    return apiClient.invokeAPI("ProgrammableFaxCommandsApi.refreshFax", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

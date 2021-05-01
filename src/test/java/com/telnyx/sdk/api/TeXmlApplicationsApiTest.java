@@ -13,21 +13,8 @@
 
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.CreateTexmlApplicationRequest;
-import com.telnyx.sdk.model.InlineResponse2001;
-import com.telnyx.sdk.model.InlineResponse2011;
-import com.telnyx.sdk.model.UpdateTexmlApplicationRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
+import com.telnyx.sdk.ApiException;
 import org.junit.Test;
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * API tests for TeXmlApplicationsApi
@@ -38,11 +25,10 @@ public class TeXmlApplicationsApiTest {
 
     /**
      * Creates a TeXML Application
-     *
+     * <p>
      * Creates a TeXML Application.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createTexmlApplicationTest() throws ApiException {
@@ -53,11 +39,10 @@ public class TeXmlApplicationsApiTest {
 
     /**
      * Deletes a TeXML Application
-     *
+     * <p>
      * Deletes a TeXML Application.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteTexmlApplicationTest() throws ApiException {
@@ -68,11 +53,10 @@ public class TeXmlApplicationsApiTest {
 
     /**
      * List all TeXML Applications
-     *
+     * <p>
      * Returns a list of your TeXML Applications.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void findTexmlApplicationsTest() throws ApiException {
@@ -87,11 +71,10 @@ public class TeXmlApplicationsApiTest {
 
     /**
      * Retrieve a TeXML Application
-     *
+     * <p>
      * Retrieves the details of an existing TeXML Application.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getTexmlApplicationTest() throws ApiException {
@@ -102,11 +85,10 @@ public class TeXmlApplicationsApiTest {
 
     /**
      * Update a TeXML Application
-     *
+     * <p>
      * Updates settings of an existing TeXML Application.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateTexmlApplicationTest() throws ApiException {

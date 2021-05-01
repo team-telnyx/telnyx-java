@@ -2,6 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "version": "2.0.0",
+    "x-endpoint-cost": "light",
     "title": "Telnyx API",
     "description": "SIP trunking, SMS, MMS, Call Control and Telephony Data Services.",
     "license": {
@@ -149,6 +150,7 @@
           "Number Search"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "heavy",
         "parameters": [
           {
             "name": "filter[phone_number][starts_with]",
@@ -354,6 +356,7 @@
           "Call Control Applications"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -394,6 +397,7 @@
         "tags": [
           "Call Control Applications"
         ],
+        "x-endpoint-cost": "medium",
         "requestBody": {
           "description": "Create call control application request.",
           "required": true,
@@ -3282,6 +3286,7 @@
           "Connections"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3361,6 +3366,7 @@
           "Credential Connections"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3401,6 +3407,7 @@
         "tags": [
           "Credential Connections"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be defined during credential connection creation",
@@ -3547,6 +3554,7 @@
         "tags": [
           "Programmable Fax Applications"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3587,6 +3595,7 @@
         "tags": [
           "Programmable Fax Applications"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be set when creating a Fax Application",
@@ -3997,6 +4006,40 @@
         "x-latency-category": "responsive"
       }
     },
+    "/faxes/{id}/actions/refresh": {
+      "post": {
+        "summary": "Refresh a fax",
+        "description": "This endpoint refreshes the media_url expiration for inbound faxes",
+        "operationId": "RefreshFax",
+        "tags": [
+          "Programmable Fax Commands"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of a fax.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RefreshFaxResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
     "/fqdn_connections": {
       "get": {
         "description": "Returns a list of your FQDN connections.",
@@ -4006,6 +4049,7 @@
           "FQDN Connections"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -4043,6 +4087,7 @@
         "tags": [
           "FQDN Connections"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be defined during FQDN connection creation",
@@ -4190,6 +4235,7 @@
           "FQDNs"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -4253,6 +4299,7 @@
         "tags": [
           "FQDNs"
         ],
+        "x-endpoint-cost": "medium",
         "requestBody": {
           "content": {
             "application/json": {
@@ -4371,6 +4418,7 @@
           "IP Connections"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -4411,6 +4459,7 @@
         "tags": [
           "IP Connections"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be defined during IP connection creation",
@@ -4558,6 +4607,7 @@
           "IPs"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -4612,6 +4662,7 @@
         "tags": [
           "IPs"
         ],
+        "x-endpoint-cost": "medium",
         "requestBody": {
           "content": {
             "application/json": {
@@ -5156,6 +5207,7 @@
           "Messaging Profiles"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -5180,6 +5232,7 @@
         "tags": [
           "Messaging Profiles"
         ],
+        "x-endpoint-cost": "medium",
         "requestBody": {
           "description": "New Messaging Profile object",
           "required": true,
@@ -5613,6 +5666,7 @@
           "Number Orders"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "name": "filter[status]",
@@ -5686,6 +5740,7 @@
         "tags": [
           "Number Orders"
         ],
+        "x-endpoint-cost": "heavy",
         "requestBody": {
           "required": true,
           "content": {
@@ -5962,6 +6017,7 @@
           "Outbound Voice Profiles"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -6129,6 +6185,7 @@
           "Number Configurations"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -6295,6 +6352,7 @@
           "CSV Downloads"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -6320,6 +6378,7 @@
         "tags": [
           "CSV Downloads"
         ],
+        "x-endpoint-cost": "medium",
         "responses": {
           "200": {
             "$ref": "#/components/responses/CsvDownloadResponse"
@@ -6338,6 +6397,7 @@
         "tags": [
           "CSV Downloads"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "name": "id",
@@ -6367,6 +6427,7 @@
           "Number Background Jobs"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "name": "filter[type]",
@@ -6619,6 +6680,7 @@
           "Number Configurations"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -6702,6 +6764,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6723,6 +6786,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6744,6 +6808,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6778,6 +6843,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6907,6 +6973,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6928,6 +6995,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -7269,6 +7337,7 @@
         "tags": [
           "TeXML Applications"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -7315,6 +7384,7 @@
         "tags": [
           "TeXML Applications"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be set when creating a TeXML Application",
@@ -8272,6 +8342,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "title": "Fax Application Response",
               "properties": {
                 "data": {
                   "$ref": "#/components/schemas/FaxApplication"
@@ -8329,6 +8400,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "title": "Get All Fax Applications Response",
               "properties": {
                 "data": {
                   "type": "array",
@@ -8350,6 +8422,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "title": "Get All Texml Applications Response",
               "properties": {
                 "data": {
                   "type": "array",
@@ -9309,6 +9382,28 @@
           }
         }
       },
+      "RefreshFaxResponse": {
+        "description": "Refresh fax response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Refresh Fax Response",
+              "example": {
+                "data": {
+                  "result": "ok"
+                }
+              },
+              "properties": {
+                "result": {
+                  "type": "string",
+                  "example": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
       "RetrieveCallStatusResponse": {
         "description": "Successful response with details about a call status.",
         "content": {
@@ -9379,6 +9474,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "title": "Texml Application Response",
               "properties": {
                 "data": {
                   "$ref": "#/components/schemas/TexmlApplication"
@@ -16278,7 +16374,7 @@
             "type": "boolean"
           },
           "stored_media_url": {
-            "description": "If store_media was set to true, this is a link to temporary location. Link expires after 2h.",
+            "description": "If store_media was set to true, this is a link to temporary location. Link expires after 7 days.",
             "type": "string"
           },
           "created_at": {

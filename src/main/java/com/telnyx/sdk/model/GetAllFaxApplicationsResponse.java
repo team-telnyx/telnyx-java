@@ -33,14 +33,14 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * InlineResponse200
+ * GetAllFaxApplicationsResponse
  */
 @JsonPropertyOrder({
-  InlineResponse200.JSON_PROPERTY_DATA,
-  InlineResponse200.JSON_PROPERTY_META
+  GetAllFaxApplicationsResponse.JSON_PROPERTY_DATA,
+  GetAllFaxApplicationsResponse.JSON_PROPERTY_META
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class InlineResponse200 {
+public class GetAllFaxApplicationsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<FaxApplication> data = null;
 
@@ -48,12 +48,12 @@ public class InlineResponse200 {
   private PaginationMeta meta;
 
 
-  public InlineResponse200 data(List<FaxApplication> data) {
+  public GetAllFaxApplicationsResponse data(List<FaxApplication> data) {
     this.data = data;
     return this;
   }
 
-  public InlineResponse200 addDataItem(FaxApplication dataItem) {
+  public GetAllFaxApplicationsResponse addDataItem(FaxApplication dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -80,7 +80,7 @@ public class InlineResponse200 {
   }
 
 
-  public InlineResponse200 meta(PaginationMeta meta) {
+  public GetAllFaxApplicationsResponse meta(PaginationMeta meta) {
     this.meta = meta;
     return this;
   }
@@ -105,7 +105,7 @@ public class InlineResponse200 {
 
 
   /**
-   * Return true if this inline_response_200 object is equal to o.
+   * Return true if this Get_All_Fax_Applications_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -115,9 +115,9 @@ public class InlineResponse200 {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse200 inlineResponse200 = (InlineResponse200) o;
-    return Objects.equals(this.data, inlineResponse200.data) &&
-        Objects.equals(this.meta, inlineResponse200.meta);
+    GetAllFaxApplicationsResponse getAllFaxApplicationsResponse = (GetAllFaxApplicationsResponse) o;
+    return Objects.equals(this.data, getAllFaxApplicationsResponse.data) &&
+        Objects.equals(this.meta, getAllFaxApplicationsResponse.meta);
   }
 
   @Override
@@ -129,7 +129,7 @@ public class InlineResponse200 {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse200 {\n");
+    sb.append("class GetAllFaxApplicationsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");

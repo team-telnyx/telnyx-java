@@ -56,7 +56,7 @@ public class ProgrammableFaxApplicationsApiTest {
         CreateFaxApplicationRequest request = prepareSampleCreateFaxApplicationRequest();
 
         //when
-        InlineResponse201 response = api.createFaxApplication(request);
+        FaxApplicationResponse response = api.createFaxApplication(request);
 
 
         //then
@@ -90,7 +90,7 @@ public class ProgrammableFaxApplicationsApiTest {
         String id = api.createFaxApplication(prepareSampleCreateFaxApplicationRequest()).getData().getId();
 
         //When
-        InlineResponse201 response = api.deleteFaxApplication(id);
+        FaxApplicationResponse response = api.deleteFaxApplication(id);
 
         //then
         assertNotNull(response);
@@ -114,7 +114,7 @@ public class ProgrammableFaxApplicationsApiTest {
         String id = api.createFaxApplication(request).getData().getId();
 
         //When
-        InlineResponse201 response = api.getFaxApplication(id);
+        FaxApplicationResponse response = api.getFaxApplication(id);
 
         //then
         FaxApplication actual = response.getData();
@@ -151,7 +151,7 @@ public class ProgrammableFaxApplicationsApiTest {
         String sort = null;
 
         //When
-        InlineResponse200 response = api.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
+        GetAllFaxApplicationsResponse response = api.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
 
         //then
         List<FaxApplication> faxApplications = response.getData();
@@ -181,7 +181,7 @@ public class ProgrammableFaxApplicationsApiTest {
 //        String sort = "application_name";
 
         //When
-        InlineResponse200 response = api.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
+        GetAllFaxApplicationsResponse response = api.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
 
         //then
         List<FaxApplication> faxApplications = response.getData();
@@ -205,7 +205,7 @@ public class ProgrammableFaxApplicationsApiTest {
         UpdateFaxApplicationRequest updateFaxApplicationRequest = prepareSampleUpdateFaxApplicationRequest();
 
         //when
-        InlineResponse201 response = api.updateFaxApplication(id, updateFaxApplicationRequest);
+        FaxApplicationResponse response = api.updateFaxApplication(id, updateFaxApplicationRequest);
 
         //then
         assertNotNull(response);

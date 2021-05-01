@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## createFaxApplication
 
-> InlineResponse201 createFaxApplication(createFaxApplicationRequest)
+> FaxApplicationResponse createFaxApplication(createFaxApplicationRequest)
 
 Creates a Fax Application
 
@@ -43,7 +43,7 @@ public class Example {
         ProgrammableFaxApplicationsApi apiInstance = new ProgrammableFaxApplicationsApi(defaultClient);
         CreateFaxApplicationRequest createFaxApplicationRequest = new CreateFaxApplicationRequest(); // CreateFaxApplicationRequest | Parameters that can be set when creating a Fax Application
         try {
-            InlineResponse201 result = apiInstance.createFaxApplication(createFaxApplicationRequest);
+            FaxApplicationResponse result = apiInstance.createFaxApplication(createFaxApplicationRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProgrammableFaxApplicationsApi#createFaxApplication");
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse201**](InlineResponse201.md)
+[**FaxApplicationResponse**](FaxApplicationResponse.md)
 
 ### Authorization
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## deleteFaxApplication
 
-> InlineResponse201 deleteFaxApplication(id)
+> FaxApplicationResponse deleteFaxApplication(id)
 
 Deletes a Fax Application
 
@@ -114,7 +114,7 @@ public class Example {
         ProgrammableFaxApplicationsApi apiInstance = new ProgrammableFaxApplicationsApi(defaultClient);
         String id = 1293384261075731499; // String | Identifies the resource.
         try {
-            InlineResponse201 result = apiInstance.deleteFaxApplication(id);
+            FaxApplicationResponse result = apiInstance.deleteFaxApplication(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProgrammableFaxApplicationsApi#deleteFaxApplication");
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse201**](InlineResponse201.md)
+[**FaxApplicationResponse**](FaxApplicationResponse.md)
 
 ### Authorization
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## getFaxApplication
 
-> InlineResponse201 getFaxApplication(id)
+> FaxApplicationResponse getFaxApplication(id)
 
 Retrieve a Fax Application
 
@@ -187,7 +187,7 @@ public class Example {
         ProgrammableFaxApplicationsApi apiInstance = new ProgrammableFaxApplicationsApi(defaultClient);
         String id = 1293384261075731499; // String | Identifies the resource.
         try {
-            InlineResponse201 result = apiInstance.getFaxApplication(id);
+            FaxApplicationResponse result = apiInstance.getFaxApplication(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProgrammableFaxApplicationsApi#getFaxApplication");
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse201**](InlineResponse201.md)
+[**FaxApplicationResponse**](FaxApplicationResponse.md)
 
 ### Authorization
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ## listFaxApplications
 
-> InlineResponse200 listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort)
+> GetAllFaxApplicationsResponse listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort)
 
 List all Fax Applications
 
@@ -264,7 +264,7 @@ public class Example {
         String filterOutboundOutboundVoiceProfileId = 1293384261075731499; // String | Identifies the associated outbound voice profile.
         String sort = connection_name; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
         try {
-            InlineResponse200 result = apiInstance.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
+            GetAllFaxApplicationsResponse result = apiInstance.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProgrammableFaxApplicationsApi#listFaxApplications");
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**GetAllFaxApplicationsResponse**](GetAllFaxApplicationsResponse.md)
 
 ### Authorization
 
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 ## updateFaxApplication
 
-> InlineResponse201 updateFaxApplication(id, updateFaxApplicationRequest)
+> FaxApplicationResponse updateFaxApplication(id, updateFaxApplicationRequest)
 
 Update a Fax Application
 
@@ -342,7 +342,7 @@ public class Example {
         String id = 1293384261075731499; // String | Identifies the resource.
         UpdateFaxApplicationRequest updateFaxApplicationRequest = new UpdateFaxApplicationRequest(); // UpdateFaxApplicationRequest | Parameters to be updated for the Fax Application
         try {
-            InlineResponse201 result = apiInstance.updateFaxApplication(id, updateFaxApplicationRequest);
+            FaxApplicationResponse result = apiInstance.updateFaxApplication(id, updateFaxApplicationRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProgrammableFaxApplicationsApi#updateFaxApplication");
@@ -365,7 +365,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse201**](InlineResponse201.md)
+[**FaxApplicationResponse**](FaxApplicationResponse.md)
 
 ### Authorization
 

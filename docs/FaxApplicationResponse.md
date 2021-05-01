@@ -1,12 +1,12 @@
 
 
-# InlineResponse201
+# FaxApplicationResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**TexmlApplication**](TexmlApplication.md) |  |  [optional]
+**data** | [**FaxApplication**](FaxApplication.md) |  |  [optional]
 
 
 

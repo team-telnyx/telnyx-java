@@ -18,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.FaxApplication;
 import com.telnyx.sdk.model.PaginationMeta;
-import com.telnyx.sdk.model.TexmlApplication;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -30,17 +30,17 @@ import org.junit.Test;
 
 
 /**
- * Model tests for InlineResponse2001
+ * Model tests for GetAllFaxApplicationsResponse
  */
-public class InlineResponse2001Test {
-    private final InlineResponse2001 model = new InlineResponse2001();
+public class GetAllFaxApplicationsResponseTest {
+    private final GetAllFaxApplicationsResponse model = new GetAllFaxApplicationsResponse();
 
     /**
-     * Model tests for InlineResponse2001
+     * Model tests for GetAllFaxApplicationsResponse
      */
     @Test
-    public void testInlineResponse2001() {
-        // TODO: test InlineResponse2001
+    public void testGetAllFaxApplicationsResponse() {
+        // TODO: test GetAllFaxApplicationsResponse
     }
 
     /**

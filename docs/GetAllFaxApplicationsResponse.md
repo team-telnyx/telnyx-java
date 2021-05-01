@@ -1,12 +1,12 @@
 
 
-# InlineResponse200
+# GetAllFaxApplicationsResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**List&lt;TexmlApplication&gt;**](TexmlApplication.md) |  |  [optional]
+**data** | [**List&lt;FaxApplication&gt;**](FaxApplication.md) |  |  [optional]
 **meta** | [**PaginationMeta**](PaginationMeta.md) |  |  [optional]
 
 

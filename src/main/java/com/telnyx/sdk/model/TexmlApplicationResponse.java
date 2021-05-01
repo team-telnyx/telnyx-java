@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.Fax;
+import com.telnyx.sdk.model.TexmlApplication;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -30,18 +30,18 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * InlineResponse2002
+ * TexmlApplicationResponse
  */
 @JsonPropertyOrder({
-  InlineResponse2002.JSON_PROPERTY_DATA
+  TexmlApplicationResponse.JSON_PROPERTY_DATA
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class InlineResponse2002 {
+public class TexmlApplicationResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private Fax data;
+  private TexmlApplication data;
 
 
-  public InlineResponse2002 data(Fax data) {
+  public TexmlApplicationResponse data(TexmlApplication data) {
     this.data = data;
     return this;
   }
@@ -55,18 +55,18 @@ public class InlineResponse2002 {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Fax getData() {
+  public TexmlApplication getData() {
     return data;
   }
 
 
-  public void setData(Fax data) {
+  public void setData(TexmlApplication data) {
     this.data = data;
   }
 
 
   /**
-   * Return true if this inline_response_200_2 object is equal to o.
+   * Return true if this Texml_Application_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -76,8 +76,8 @@ public class InlineResponse2002 {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse2002 inlineResponse2002 = (InlineResponse2002) o;
-    return Objects.equals(this.data, inlineResponse2002.data);
+    TexmlApplicationResponse texmlApplicationResponse = (TexmlApplicationResponse) o;
+    return Objects.equals(this.data, texmlApplicationResponse.data);
   }
 
   @Override
@@ -89,7 +89,7 @@ public class InlineResponse2002 {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse2002 {\n");
+    sb.append("class TexmlApplicationResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();

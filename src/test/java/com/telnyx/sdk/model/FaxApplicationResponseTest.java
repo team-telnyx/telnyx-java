@@ -19,28 +19,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.FaxApplication;
-import com.telnyx.sdk.model.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
 /**
- * Model tests for InlineResponse200
+ * Model tests for FaxApplicationResponse
  */
-public class InlineResponse200Test {
-    private final InlineResponse200 model = new InlineResponse200();
+public class FaxApplicationResponseTest {
+    private final FaxApplicationResponse model = new FaxApplicationResponse();
 
     /**
-     * Model tests for InlineResponse200
+     * Model tests for FaxApplicationResponse
      */
     @Test
-    public void testInlineResponse200() {
-        // TODO: test InlineResponse200
+    public void testFaxApplicationResponse() {
+        // TODO: test FaxApplicationResponse
     }
 
     /**
@@ -49,14 +46,6 @@ public class InlineResponse200Test {
     @Test
     public void dataTest() {
         // TODO: test data
-    }
-
-    /**
-     * Test the property 'meta'
-     */
-    @Test
-    public void metaTest() {
-        // TODO: test meta
     }
 
 }

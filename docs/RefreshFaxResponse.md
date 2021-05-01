@@ -1,12 +1,12 @@
 
 
-# InlineResponse201
+# RefreshFaxResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**TexmlApplication**](TexmlApplication.md) |  |  [optional]
+**result** | **String** |  |  [optional]
 
 
 

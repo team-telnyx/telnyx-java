@@ -7,6 +7,7 @@ info:
     name: MIT
   title: Telnyx API
   version: 2.0.0
+  x-endpoint-cost: light
 servers:
 - description: Version 2.0.0 of the Telnyx API
   url: https://api.telnyx.com/v2
@@ -266,6 +267,7 @@ paths:
       tags:
       - Number Search
       x-group-parameters: "true"
+      x-endpoint-cost: heavy
       x-latency-category: responsive
       x-accepts: application/json
   /call_control_applications:
@@ -358,6 +360,7 @@ paths:
       tags:
       - Call Control Applications
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: interactive
       x-accepts: application/json
     post:
@@ -382,6 +385,7 @@ paths:
       summary: Create a call control application
       tags:
       - Call Control Applications
+      x-endpoint-cost: medium
       x-latency-category: interactive
       x-contentType: application/json
       x-accepts: application/json
@@ -3278,6 +3282,7 @@ paths:
       tags:
       - Connections
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
   /connections/{id}:
@@ -3403,6 +3408,7 @@ paths:
       tags:
       - Credential Connections
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -3428,6 +3434,7 @@ paths:
       summary: Create a credential connection
       tags:
       - Credential Connections
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -3611,7 +3618,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200'
+                $ref: '#/components/schemas/Get_All_Fax_Applications_Response'
           description: Successful response
         "400":
           description: Bad request
@@ -3622,6 +3629,7 @@ paths:
       summary: List all Fax Applications
       tags:
       - Programmable Fax Applications
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -3643,13 +3651,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201'
+                $ref: '#/components/schemas/Fax_Application_Response'
           description: Successful response
         "422":
           description: Bad request
       summary: Creates a Fax Application
       tags:
       - Programmable Fax Applications
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -3674,7 +3683,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201'
+                $ref: '#/components/schemas/Fax_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -3707,7 +3716,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201'
+                $ref: '#/components/schemas/Fax_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -3747,7 +3756,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201'
+                $ref: '#/components/schemas/Fax_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -4025,6 +4034,40 @@ paths:
       - Programmable Fax Commands
       x-latency-category: responsive
       x-accepts: application/json
+  /faxes/{id}/actions/refresh:
+    post:
+      description: This endpoint refreshes the media_url expiration for inbound faxes
+      operationId: RefreshFax
+      parameters:
+      - description: The unique identifier of a fax.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refresh_Fax_Response'
+          description: Refresh fax response
+        "404":
+          description: Conference does not exist
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Refresh a fax
+      tags:
+      - Programmable Fax Commands
+      x-latency-category: responsive
+      x-accepts: application/json
   /fqdn_connections:
     get:
       description: Returns a list of your FQDN connections.
@@ -4105,6 +4148,7 @@ paths:
       tags:
       - FQDN Connections
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4130,6 +4174,7 @@ paths:
       summary: Create an Fqdn connection
       tags:
       - FQDN Connections
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -4308,6 +4353,7 @@ paths:
       tags:
       - FQDNs
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4332,6 +4378,7 @@ paths:
       summary: Create an Fqdn
       tags:
       - FQDNs
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -4522,6 +4569,7 @@ paths:
       tags:
       - IP Connections
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4547,6 +4595,7 @@ paths:
       summary: Create an Ip connection
       tags:
       - IP Connections
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -4716,6 +4765,7 @@ paths:
       tags:
       - IPs
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4740,6 +4790,7 @@ paths:
       summary: Create an Ip
       tags:
       - IPs
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -5346,6 +5397,7 @@ paths:
       tags:
       - Messaging Profiles
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -5419,6 +5471,7 @@ paths:
       summary: Create a messaging profile
       tags:
       - Messaging Profiles
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -5978,6 +6031,7 @@ paths:
       tags:
       - Number Orders
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -6021,6 +6075,7 @@ paths:
       summary: Create a number order
       tags:
       - Number Orders
+      x-endpoint-cost: heavy
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -6353,6 +6408,7 @@ paths:
       tags:
       - Outbound Voice Profiles
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -6664,6 +6720,7 @@ paths:
       tags:
       - Number Configurations
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/csv_downloads:
@@ -6708,6 +6765,7 @@ paths:
       tags:
       - CSV Downloads
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -6729,6 +6787,7 @@ paths:
       tags:
       - CSV Downloads
       x-latency-category: background
+      x-endpoint-cost: medium
       x-accepts: application/json
   /phone_numbers/csv_downloads/{id}:
     get:
@@ -6759,6 +6818,7 @@ paths:
       tags:
       - CSV Downloads
       x-latency-category: background
+      x-endpoint-cost: medium
       x-accepts: application/json
   /phone_numbers/jobs:
     get:
@@ -6828,6 +6888,7 @@ paths:
       tags:
       - Number Background Jobs
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/jobs/delete_phone_numbers:
@@ -7097,6 +7158,7 @@ paths:
       tags:
       - Number Configurations
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/{id}:
@@ -7129,6 +7191,7 @@ paths:
       summary: Delete a phone number
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     get:
@@ -7160,6 +7223,7 @@ paths:
       summary: Retrieve a phone number
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     patch:
@@ -7198,6 +7262,7 @@ paths:
       summary: Update a phone number
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -7243,6 +7308,7 @@ paths:
       summary: Enable emergency for a phone number
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -7346,6 +7412,7 @@ paths:
       summary: Retrieve a phone number with voice settings
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     patch:
@@ -7385,6 +7452,7 @@ paths:
       summary: Update a phone number with voice settings
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -7852,7 +7920,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/Get_All_Texml_Applications_Response'
           description: Successful response
         "400":
           description: Bad request
@@ -7863,6 +7931,7 @@ paths:
       summary: List all TeXML Applications
       tags:
       - TeXML Applications
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -7881,13 +7950,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_1'
+                $ref: '#/components/schemas/Texml_Application_Response'
           description: Successful response
         "422":
           description: Bad request
       summary: Creates a TeXML Application
       tags:
       - TeXML Applications
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -7911,7 +7981,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_1'
+                $ref: '#/components/schemas/Texml_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -7943,7 +8013,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_1'
+                $ref: '#/components/schemas/Texml_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -7982,7 +8052,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_1'
+                $ref: '#/components/schemas/Texml_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -8718,7 +8788,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_201'
+            $ref: '#/components/schemas/Fax_Application_Response'
       description: Successful response
     FqdnConnectionResponse:
       content:
@@ -8742,13 +8812,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200'
+            $ref: '#/components/schemas/Get_All_Fax_Applications_Response'
       description: Successful response
     GetAllTexmlApplicationsResponse:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200_1'
+            $ref: '#/components/schemas/Get_All_Texml_Applications_Response'
       description: Successful response
     GetFaxResponse:
       content:
@@ -9039,6 +9109,12 @@ components:
           schema:
             $ref: '#/components/schemas/Get_Recording_Response'
       description: Successful response with details about a recording.
+    RefreshFaxResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Refresh_Fax_Response'
+      description: Refresh fax response
     RetrieveCallStatusResponse:
       content:
         application/json:
@@ -9067,7 +9143,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_201_1'
+            $ref: '#/components/schemas/Texml_Application_Response'
       description: Successful response
     UnauthorizedResponse:
       description: Unauthorized
@@ -14190,7 +14266,7 @@ components:
           type: boolean
         stored_media_url:
           description: If store_media was set to true, this is a link to temporary
-            location. Link expires after 2h.
+            location. Link expires after 7 days.
           type: string
         created_at:
           description: ISO 8601 timestamp when resource was created
@@ -21190,7 +21266,7 @@ components:
           $ref: '#/components/schemas/CredentialConnection'
       title: Credential Connection Response
       type: object
-    inline_response_200:
+    Get_All_Fax_Applications_Response:
       example:
         data:
         - id: "1293384261075731499"
@@ -21239,8 +21315,9 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/PaginationMeta'
+      title: Get All Fax Applications Response
       type: object
-    inline_response_201:
+    Fax_Application_Response:
       example:
         data:
           id: "1293384261075731499"
@@ -21263,6 +21340,7 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/FaxApplication'
+      title: Fax Application Response
       type: object
     List_Faxes_Response:
       example:
@@ -21361,6 +21439,16 @@ components:
         data:
           $ref: '#/components/schemas/Fax'
       title: Get Fax Response
+      type: object
+    Refresh_Fax_Response:
+      example:
+        data:
+          result: ok
+      properties:
+        result:
+          example: ok
+          type: string
+      title: Refresh Fax Response
       type: object
     List_Fqdn_Connections_Response:
       example:
@@ -23252,7 +23340,7 @@ components:
           $ref: '#/components/schemas/ShortCode'
       title: Short Code Response
       type: object
-    inline_response_200_1:
+    Get_All_Texml_Applications_Response:
       example:
         data:
         - id: "1293384261075731499"
@@ -23311,8 +23399,9 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/PaginationMeta'
+      title: Get All Texml Applications Response
       type: object
-    inline_response_201_1:
+    Texml_Application_Response:
       example:
         data:
           id: "1293384261075731499"
@@ -23340,6 +23429,7 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/TexmlApplication'
+      title: Texml Application Response
       type: object
     CallAnswered_payload:
       properties:

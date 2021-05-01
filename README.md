@@ -265,6 +265,7 @@ Class | Method | HTTP request | Description
 *ProgrammableFaxApplicationsApi* | [**updateFaxApplication**](docs/ProgrammableFaxApplicationsApi.md#updateFaxApplication) | **PATCH** /fax_applications/{id} | Update a Fax Application
 *ProgrammableFaxCommandsApi* | [**deleteFax**](docs/ProgrammableFaxCommandsApi.md#deleteFax) | **DELETE** /faxes/{id} | Delete a fax
 *ProgrammableFaxCommandsApi* | [**listFaxes**](docs/ProgrammableFaxCommandsApi.md#listFaxes) | **GET** /faxes | View a list of faxes
+*ProgrammableFaxCommandsApi* | [**refreshFax**](docs/ProgrammableFaxCommandsApi.md#refreshFax) | **POST** /faxes/{id}/actions/refresh | Refresh a fax
 *ProgrammableFaxCommandsApi* | [**sendFax**](docs/ProgrammableFaxCommandsApi.md#sendFax) | **POST** /faxes | Send a fax
 *ProgrammableFaxCommandsApi* | [**viewFax**](docs/ProgrammableFaxCommandsApi.md#viewFax) | **GET** /faxes/{id} | View a fax
 *RecordingsCommandsApi* | [**listRecordings**](docs/RecordingsCommandsApi.md#listRecordings) | **GET** /recordings | List recordings
@@ -456,6 +457,7 @@ Class | Method | HTTP request | Description
  - [Errors](docs/Errors.md)
  - [Fax](docs/Fax.md)
  - [FaxApplication](docs/FaxApplication.md)
+ - [FaxApplicationResponse](docs/FaxApplicationResponse.md)
  - [FaxDelivered](docs/FaxDelivered.md)
  - [FaxDeliveredPayload](docs/FaxDeliveredPayload.md)
  - [FaxFailed](docs/FaxFailed.md)
@@ -473,6 +475,8 @@ Class | Method | HTTP request | Description
  - [FqdnResponse](docs/FqdnResponse.md)
  - [GatherUsingAudioRequest](docs/GatherUsingAudioRequest.md)
  - [GatherUsingSpeakRequest](docs/GatherUsingSpeakRequest.md)
+ - [GetAllFaxApplicationsResponse](docs/GetAllFaxApplicationsResponse.md)
+ - [GetAllTexmlApplicationsResponse](docs/GetAllTexmlApplicationsResponse.md)
  - [GetFaxResponse](docs/GetFaxResponse.md)
  - [GetRecordingResponse](docs/GetRecordingResponse.md)
  - [HangupRequest](docs/HangupRequest.md)
@@ -487,10 +491,6 @@ Class | Method | HTTP request | Description
  - [InboundMessagePayloadFrom](docs/InboundMessagePayloadFrom.md)
  - [InboundMessagePayloadMedia](docs/InboundMessagePayloadMedia.md)
  - [InboundMessagePayloadTo](docs/InboundMessagePayloadTo.md)
- - [InlineResponse200](docs/InlineResponse200.md)
- - [InlineResponse2001](docs/InlineResponse2001.md)
- - [InlineResponse201](docs/InlineResponse201.md)
- - [InlineResponse2011](docs/InlineResponse2011.md)
  - [Ip](docs/Ip.md)
  - [IpConnection](docs/IpConnection.md)
  - [IpConnectionResponse](docs/IpConnectionResponse.md)
@@ -596,6 +596,7 @@ Class | Method | HTTP request | Description
  - [Recording](docs/Recording.md)
  - [RecordingDownloadUrls](docs/RecordingDownloadUrls.md)
  - [ReferRequest](docs/ReferRequest.md)
+ - [RefreshFaxResponse](docs/RefreshFaxResponse.md)
  - [RegionInformation](docs/RegionInformation.md)
  - [RegulatoryRequirement](docs/RegulatoryRequirement.md)
  - [RegulatoryRequirementCriteria](docs/RegulatoryRequirementCriteria.md)
@@ -624,6 +625,7 @@ Class | Method | HTTP request | Description
  - [StopGatherRequest](docs/StopGatherRequest.md)
  - [StopRecordingRequest](docs/StopRecordingRequest.md)
  - [TexmlApplication](docs/TexmlApplication.md)
+ - [TexmlApplicationResponse](docs/TexmlApplicationResponse.md)
  - [TrafficType](docs/TrafficType.md)
  - [Transcription](docs/Transcription.md)
  - [TranscriptionEvent](docs/TranscriptionEvent.md)
