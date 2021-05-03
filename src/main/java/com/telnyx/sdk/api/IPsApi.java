@@ -240,7 +240,7 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistIpsRequest
      */
     public APIlistIpsRequest pageNumber(Integer pageNumber) {
@@ -250,7 +250,7 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistIpsRequest
      */
     public APIlistIpsRequest pageSize(Integer pageSize) {

@@ -242,7 +242,7 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistFqdnConnectionsRequest
      */
     public APIlistFqdnConnectionsRequest pageNumber(Integer pageNumber) {
@@ -252,7 +252,7 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistFqdnConnectionsRequest
      */
     public APIlistFqdnConnectionsRequest pageSize(Integer pageSize) {

@@ -246,7 +246,7 @@ private ApiResponse<ListOutboundVoiceProfilesResponse> listOutboundVoiceProfiles
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistOutboundVoiceProfilesRequest
      */
     public APIlistOutboundVoiceProfilesRequest pageNumber(Integer pageNumber) {
@@ -256,7 +256,7 @@ private ApiResponse<ListOutboundVoiceProfilesResponse> listOutboundVoiceProfiles
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistOutboundVoiceProfilesRequest
      */
     public APIlistOutboundVoiceProfilesRequest pageSize(Integer pageSize) {
