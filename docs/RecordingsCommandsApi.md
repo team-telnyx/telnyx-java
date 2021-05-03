@@ -41,8 +41,8 @@ public class Example {
         String filterConferenceId = 428c31b6-7af4-4bcb-b7f5-5013ef9657c1; // String | Return only recordings associated with a given conference
         String filterCreatedAtGte = 2019-03-29T11:10:00Z; // String | Return only recordings created later than or at given ISO 8601 datetime
         String filterCreatedAtLte = 2019-03-29T11:10:00Z; // String | Return only recordings created earlier than or at given ISO 8601 datetime
-        Integer pageNumber = 1; // Integer | The page number to load.
-        Integer pageSize = 20; // Integer | The size of the page.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
         try {
             ListRecordingsResponse result = api.listRecordings()
                 .filterConferenceId(filterConferenceId)
@@ -71,8 +71,8 @@ Name | Type | Description  | Notes
  **filterConferenceId** | **String**| Return only recordings associated with a given conference | [optional]
  **filterCreatedAtGte** | **String**| Return only recordings created later than or at given ISO 8601 datetime | [optional]
  **filterCreatedAtLte** | **String**| Return only recordings created earlier than or at given ISO 8601 datetime | [optional]
- **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

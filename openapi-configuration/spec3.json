@@ -3,6 +3,7 @@
   "info": {
     "version": "2.0.0",
     "title": "Telnyx API",
+    "x-endpoint-cost": "light",
     "description": "SIP trunking, SMS, MMS, Call Control and Telephony Data Services.",
     "license": {
       "name": "MIT"
@@ -92,6 +93,10 @@
       "description": "Configure your phone numbers"
     },
     {
+      "name": "Number Lookup",
+      "description": "Look up phone number data"
+    },
+    {
       "name": "Number Order Documents",
       "description": "Number order documents"
     },
@@ -120,6 +125,10 @@
       "description": "Fax Applications operations"
     },
     {
+      "name": "Programmable Fax Commands",
+      "description": "Programmable fax command operations"
+    },
+    {
       "name": "Recordings Commands",
       "description": "Recordings commands operations"
     },
@@ -145,6 +154,7 @@
           "Number Search"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "heavy",
         "parameters": [
           {
             "name": "filter[phone_number][starts_with]",
@@ -350,6 +360,7 @@
           "Call Control Applications"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -390,6 +401,7 @@
         "tags": [
           "Call Control Applications"
         ],
+        "x-endpoint-cost": "medium",
         "requestBody": {
           "description": "Create call control application request.",
           "required": true,
@@ -3278,6 +3290,7 @@
           "Connections"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3357,6 +3370,7 @@
           "Credential Connections"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3397,6 +3411,7 @@
         "tags": [
           "Credential Connections"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be defined during credential connection creation",
@@ -3543,6 +3558,7 @@
         "tags": [
           "Programmable Fax Applications"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3583,6 +3599,7 @@
         "tags": [
           "Programmable Fax Applications"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be set when creating a Fax Application",
@@ -3703,6 +3720,330 @@
         "x-latency-category": "responsive"
       }
     },
+    "/faxes": {
+      "get": {
+        "summary": "View a list of faxes",
+        "description": "",
+        "operationId": "ListFaxes",
+        "x-latency-category": "background",
+        "tags": [
+          "Programmable Fax Commands"
+        ],
+        "parameters": [
+          {
+            "name": "filter[created_at][gte]",
+            "in": "query",
+            "description": "ISO 8601 date time for filtering faxes created after or on that date",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2020-02-02T22:25:27.521992Z"
+            }
+          },
+          {
+            "name": "filter[created_at][gt]",
+            "in": "query",
+            "description": "ISO 8601 date time for filtering faxes created after that date",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2020-02-02T22:25:27.521992Z"
+            }
+          },
+          {
+            "name": "filter[created_at][lte]",
+            "in": "query",
+            "description": "ISO 8601 formatted date time for filtering faxes created on or before that date",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2020-02-02T22:25:27.521992Z"
+            }
+          },
+          {
+            "name": "filter[created_at][lt]",
+            "in": "query",
+            "description": "ISO 8601 formatted date time for filtering faxes created before that date",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2020-02-02T22:25:27.521992Z"
+            }
+          },
+          {
+            "name": "filter[direction][eq]",
+            "in": "query",
+            "description": "The direction, inbound or outbound, for filtering faxes sent from this account",
+            "schema": {
+              "type": "string",
+              "example": "inbound"
+            }
+          },
+          {
+            "name": "filter[from][eq]",
+            "in": "query",
+            "description": "The phone number, in E.164 format for filtering faxes sent from this number",
+            "schema": {
+              "type": "string",
+              "example": "+13127367276"
+            }
+          },
+          {
+            "name": "page[size]",
+            "in": "query",
+            "description": "Number of fax resourcxes for the single page returned",
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          },
+          {
+            "name": "page[number]",
+            "in": "query",
+            "description": "Number of the page to be retrieved",
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListFaxesResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "summary": "Send a fax",
+        "operationId": "SendFax",
+        "description": "",
+        "tags": [
+          "Programmable Fax Commands"
+        ],
+        "requestBody": {
+          "description": "Send fax request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendFaxRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "$ref": "#/components/responses/SendFaxResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "callbacks": {
+          "fax.queued": {
+            "{$response.body#/data/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/FaxQueued"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "fax.media.processed": {
+            "{$response.body#/data/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/FaxMediaProcessed"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "fax.sending.started": {
+            "{$response.body#/data/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/FaxSendingStarted"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "fax.delivered": {
+            "{$response.body#/data/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/FaxDelivered"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "fax.failed": {
+            "{$response.body#/data/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/FaxFailed"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/faxes/{id}": {
+      "delete": {
+        "summary": "Delete a fax",
+        "operationId": "DeleteFax",
+        "tags": [
+          "Programmable Fax Commands"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of a fax.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The resource was deleted successfully."
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      },
+      "get": {
+        "summary": "View a fax",
+        "operationId": "ViewFax",
+        "tags": [
+          "Programmable Fax Commands"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of a fax.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetFaxResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/faxes/{id}/actions/refresh": {
+      "post": {
+        "summary": "Refresh a fax",
+        "description": "This endpoint refreshes the media_url expiration for inbound faxes",
+        "operationId": "RefreshFax",
+        "tags": [
+          "Programmable Fax Commands"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of a fax.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RefreshFaxResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
     "/fqdn_connections": {
       "get": {
         "description": "Returns a list of your FQDN connections.",
@@ -3712,6 +4053,7 @@
           "FQDN Connections"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3749,6 +4091,7 @@
         "tags": [
           "FQDN Connections"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be defined during FQDN connection creation",
@@ -3896,6 +4239,7 @@
           "FQDNs"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -3959,6 +4303,7 @@
         "tags": [
           "FQDNs"
         ],
+        "x-endpoint-cost": "medium",
         "requestBody": {
           "content": {
             "application/json": {
@@ -4077,6 +4422,7 @@
           "IP Connections"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -4117,6 +4463,7 @@
         "tags": [
           "IP Connections"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be defined during IP connection creation",
@@ -4264,6 +4611,7 @@
           "IPs"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -4318,6 +4666,7 @@
         "tags": [
           "IPs"
         ],
+        "x-endpoint-cost": "medium",
         "requestBody": {
           "content": {
             "application/json": {
@@ -4862,6 +5211,7 @@
           "Messaging Profiles"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -4886,6 +5236,7 @@
         "tags": [
           "Messaging Profiles"
         ],
+        "x-endpoint-cost": "medium",
         "requestBody": {
           "description": "New Messaging Profile object",
           "required": true,
@@ -5163,6 +5514,36 @@
         "x-latency-category": "responsive"
       }
     },
+    "/number_lookup/{phone_number}": {
+      "get": {
+        "summary": "Lookup phone number data",
+        "description": "Returns information about the provided phone number.",
+        "operationId": "NumberLookup",
+        "tags": [
+          "Number Lookup"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PhoneNumber"
+          },
+          {
+            "$ref": "#/components/parameters/NumberLookupType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/NumberLookupResponse"
+          },
+          "422": {
+            "$ref": "#/components/responses/UnprocessableEntity"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
     "/number_order_documents": {
       "get": {
         "summary": "List number order documents",
@@ -5319,6 +5700,7 @@
           "Number Orders"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "name": "filter[status]",
@@ -5392,6 +5774,7 @@
         "tags": [
           "Number Orders"
         ],
+        "x-endpoint-cost": "heavy",
         "requestBody": {
           "required": true,
           "content": {
@@ -5668,6 +6051,7 @@
           "Outbound Voice Profiles"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -5827,45 +6211,6 @@
         "x-latency-category": "responsive"
       }
     },
-    "/phone_number_regulatory_requirements": {
-      "get": {
-        "summary": "List regulatory requirements per number",
-        "description": "Gets a paginated list of phone number regulatory requirements.",
-        "operationId": "listPhoneNumberRegulatoryRequirements",
-        "tags": [
-          "Number Order Regulatory Requirements"
-        ],
-        "x-group-parameters": "true",
-        "parameters": [
-          {
-            "name": "filter[phone_number]",
-            "in": "query",
-            "description": "The list of phone numbers to retrieve regulatory requirements for.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "$ref": "#/components/parameters/PageNumber"
-          },
-          {
-            "$ref": "#/components/parameters/PageSize"
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/ListPhoneNumberRegulatoryRequirementsResponse"
-          },
-          "default": {
-            "$ref": "#/components/responses/GenericErrorResponse"
-          }
-        },
-        "x-latency-category": "responsive"
-      }
-    },
     "/phone_numbers": {
       "get": {
         "summary": "List phone numbers",
@@ -5874,6 +6219,7 @@
           "Number Configurations"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -6040,6 +6386,7 @@
           "CSV Downloads"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -6065,6 +6412,7 @@
         "tags": [
           "CSV Downloads"
         ],
+        "x-endpoint-cost": "medium",
         "responses": {
           "200": {
             "$ref": "#/components/responses/CsvDownloadResponse"
@@ -6083,6 +6431,7 @@
         "tags": [
           "CSV Downloads"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "name": "id",
@@ -6112,6 +6461,7 @@
           "Number Background Jobs"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "name": "filter[type]",
@@ -6364,6 +6714,7 @@
           "Number Configurations"
         ],
         "x-group-parameters": "true",
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -6447,6 +6798,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6468,6 +6820,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6489,6 +6842,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6523,6 +6877,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6652,6 +7007,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6673,6 +7029,7 @@
         "tags": [
           "Number Configurations"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/IntId"
@@ -6692,6 +7049,45 @@
         "responses": {
           "200": {
             "$ref": "#/components/responses/PhoneNumberWithVoiceSettingsResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/GenericErrorResponse"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/phone_numbers_regulatory_requirements": {
+      "get": {
+        "summary": "List regulatory requirements per number",
+        "description": "Gets a paginated list of phone number regulatory requirements.",
+        "operationId": "listPhoneNumberRegulatoryRequirements",
+        "tags": [
+          "Number Order Regulatory Requirements"
+        ],
+        "x-group-parameters": "true",
+        "parameters": [
+          {
+            "name": "filter[phone_number]",
+            "in": "query",
+            "description": "The list of phone numbers to retrieve regulatory requirements for.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/parameters/PageNumber"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListPhoneNumberRegulatoryRequirementsResponse"
           },
           "default": {
             "$ref": "#/components/responses/GenericErrorResponse"
@@ -6975,6 +7371,7 @@
         "tags": [
           "TeXML Applications"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [
           {
             "$ref": "#/components/parameters/PageNumber"
@@ -7021,6 +7418,7 @@
         "tags": [
           "TeXML Applications"
         ],
+        "x-endpoint-cost": "medium",
         "parameters": [],
         "requestBody": {
           "description": "Parameters that can be set when creating a TeXML Application",
@@ -7754,10 +8152,23 @@
           "example": "office-profile"
         }
       },
+      "NumberLookupType": {
+        "name": "type",
+        "in": "query",
+        "required": false,
+        "description": "Specifies the type of number lookup to be performed",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "carrier",
+            "caller-name"
+          ]
+        }
+      },
       "PageNumber": {
         "name": "page[number]",
         "in": "query",
-        "description": "The page number to load.",
+        "description": "The page number to load",
         "schema": {
           "type": "integer",
           "minimum": 1,
@@ -7767,12 +8178,22 @@
       "PageSize": {
         "name": "page[size]",
         "in": "query",
-        "description": "The size of the page.",
+        "description": "The size of the page",
         "schema": {
           "type": "integer",
           "minimum": 1,
           "maximum": 250,
           "default": 20
+        }
+      },
+      "PhoneNumber": {
+        "name": "phone_number",
+        "description": "The phone number to be looked up",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "\"+18665552368\""
         }
       },
       "ShortCodeId": {
@@ -7975,6 +8396,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "title": "Fax Application Response",
               "properties": {
                 "data": {
                   "$ref": "#/components/schemas/FaxApplication"
@@ -8032,6 +8454,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "title": "Get All Fax Applications Response",
               "properties": {
                 "data": {
                   "type": "array",
@@ -8053,6 +8476,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "title": "Get All Texml Applications Response",
               "properties": {
                 "data": {
                   "type": "array",
@@ -8062,6 +8486,22 @@
                 },
                 "meta": {
                   "$ref": "#/components/schemas/PaginationMeta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetFaxResponse": {
+        "description": "Get fax response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Get Fax Response",
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/Fax"
                 }
               }
             }
@@ -8248,6 +8688,34 @@
                 },
                 "meta": {
                   "$ref": "#/components/schemas/PaginationMeta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ListFaxesResponse": {
+        "description": "List faxes response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "List Faxes Response",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Fax"
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "example": {
+                    "page_number": 2,
+                    "page_size": 1,
+                    "total_pages": 3,
+                    "total_results": 3
+                  }
                 }
               }
             }
@@ -8824,6 +9292,22 @@
       "NotFoundResponse": {
         "description": "Conference does not exist"
       },
+      "NumberLookupResponse": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Number Lookup Response",
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/NumberLookupRecord"
+                }
+              }
+            }
+          }
+        }
+      },
       "NumberOrderDocumentResponse": {
         "description": "Successful response with details about a number order document.",
         "content": {
@@ -8968,6 +9452,28 @@
           }
         }
       },
+      "RefreshFaxResponse": {
+        "description": "Refresh fax response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Refresh Fax Response",
+              "example": {
+                "data": {
+                  "result": "ok"
+                }
+              },
+              "properties": {
+                "result": {
+                  "type": "string",
+                  "example": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
       "RetrieveCallStatusResponse": {
         "description": "Successful response with details about a call status.",
         "content": {
@@ -9000,6 +9506,22 @@
           }
         }
       },
+      "SendFaxResponse": {
+        "description": "Send fax response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Send Fax Response",
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/Fax"
+                }
+              }
+            }
+          }
+        }
+      },
       "ShortCodeResponse": {
         "description": "Successful response with details about a short code.",
         "content": {
@@ -9022,6 +9544,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "title": "Texml Application Response",
               "properties": {
                 "data": {
                   "$ref": "#/components/schemas/TexmlApplication"
@@ -9033,6 +9556,16 @@
       },
       "UnauthorizedResponse": {
         "description": "Unauthorized"
+      },
+      "UnprocessableEntity": {
+        "description": "Unprocessable entity. Check the 'detail' field in response for details.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Errors"
+            }
+          }
+        }
       },
       "UnprocessableEntityResponse": {
         "description": "Unprocessable entity"
@@ -11750,6 +12283,65 @@
         "properties": {
           "data": {
             "$ref": "#/components/schemas/CallSpeakStarted"
+          }
+        }
+      },
+      "CallerName": {
+        "type": "object",
+        "properties": {
+          "caller_name": {
+            "type": "string",
+            "description": "The name of the requested phone number's owner as per the CNAM database",
+            "example": "TELNYX LLC"
+          },
+          "error_code": {
+            "type": "string",
+            "description": "A caller-name lookup specific error code, expressed as a stringified 5-digit integer",
+            "example": "10001"
+          }
+        }
+      },
+      "Carrier": {
+        "type": "object",
+        "properties": {
+          "mobile_country_code": {
+            "type": "string",
+            "description": "Region code that matches the specific country calling code if the requested phone number type is mobile",
+            "example": "US"
+          },
+          "mobile_network_code": {
+            "type": "string",
+            "description": "National destination code (NDC), with a 0 prefix, if an NDC is found and the requested phone number type is mobile",
+            "example": "0866"
+          },
+          "name": {
+            "type": "string",
+            "description": "SPID (Service Provider ID) name, if the requested phone number has been ported; otherwise, the name of carrier who owns the phone number block",
+            "example": "Telnyx/4"
+          },
+          "type": {
+            "type": "string",
+            "description": "A phone number type that identifies the type of service associated with the requested phone number",
+            "enum": [
+              "fixed line",
+              "mobile",
+              "voip",
+              "fixed line or mobile",
+              "toll free",
+              "premium rate",
+              "shared cost",
+              "personal number",
+              "pager",
+              "uan",
+              "voicemail",
+              "unknown"
+            ],
+            "example": "voip"
+          },
+          "error_code": {
+            "type": "string",
+            "description": "Unused",
+            "example": null
           }
         }
       },
@@ -15844,6 +16436,115 @@
           }
         }
       },
+      "Fax": {
+        "type": "object",
+        "properties": {
+          "record_type": {
+            "description": "Identifies the type of the resource.",
+            "type": "string",
+            "example": "fax",
+            "enum": [
+              "fax"
+            ]
+          },
+          "id": {
+            "description": "Identifies the fax.",
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+          },
+          "connection_id": {
+            "description": "The connection ID to send the fax with.",
+            "type": "string",
+            "example": "234423"
+          },
+          "direction": {
+            "description": "The direction of the fax.",
+            "type": "string",
+            "example": "outbound",
+            "enum": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "media_url": {
+            "description": "The URL to the PDF used for the fax's media.",
+            "type": "string",
+            "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+          },
+          "to": {
+            "description": "The phone number, in E.164 format, the fax will be sent to or SIP URI",
+            "type": "string",
+            "example": "+13127367276"
+          },
+          "from": {
+            "description": "The phone number, in E.164 format, the fax will be sent from.",
+            "type": "string",
+            "example": "+13125790015"
+          },
+          "quality": {
+            "description": "The quality of the fax. Can be normal, high, very_high",
+            "type": "string",
+            "example": "high",
+            "default": "high"
+          },
+          "status": {
+            "description": "Status of the fax",
+            "type": "string",
+            "example": "queued",
+            "enum": [
+              "queued",
+              "media.processed",
+              "sending",
+              "delivered",
+              "failed"
+            ]
+          },
+          "webhook_url": {
+            "description": "URL that will receive fax webhooks",
+            "type": "string"
+          },
+          "webhook_failover_url": {
+            "description": "Optional failover URL that will receive fax webhooks if `webhook_url` doesn't return a 2XX response",
+            "type": "string"
+          },
+          "store_media": {
+            "description": "Should fax media be stored on temporary URL",
+            "type": "boolean"
+          },
+          "stored_media_url": {
+            "description": "If store_media was set to true, this is a link to temporary location. Link expires after 7 days.",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "ISO 8601 timestamp when resource was created",
+            "type": "string",
+            "format": "datetime"
+          },
+          "updated_at": {
+            "description": "ISO 8601 timestamp when resource was updated",
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "example": {
+          "record_type": "fax",
+          "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+          "connection_id": "c-1",
+          "direction": "outbound",
+          "from": "+123",
+          "to": "+456",
+          "media_url": "http://www.example.com/fax.pdf",
+          "store_media": true,
+          "stored_media_url": "https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51",
+          "quality": "high",
+          "webhook_url": "http://www.example.com/webhooks",
+          "webhook_failover_url": "",
+          "status": "queued",
+          "created_at": "2020-05-05T09:59:12",
+          "updated_at": "2020-05-05T09:59:12"
+        }
+      },
       "FaxApplication": {
         "type": "object",
         "title": "Fax Application",
@@ -15946,6 +16647,521 @@
           },
           "created_at": "2018-02-02T22:25:27.521Z",
           "updated_at": "2018-02-02T22:25:27.521Z"
+        }
+      },
+      "FaxDelivered": {
+        "type": "object",
+        "example": {
+          "data": {
+            "event_type": "fax.delivered",
+            "id": "95479a2e-b947-470a-a88f-2da6dd07ae0f",
+            "occurred_at": "2020-05-05T13:08:22.039204Z",
+            "payload": {
+              "call_duration_secs": 25,
+              "connection_id": "234423",
+              "direction": "outbound",
+              "fax_id": "f8338808-3dc6-4f2b-942a-5d1f39255784",
+              "from": "+17733372107",
+              "original_media_url": "http://www.example.com/fax.pdf",
+              "page_count": 2,
+              "status": "delivered",
+              "to": "+15107882622",
+              "user_id": "19a75cea-02c6-4b9a-84fa-c9bc8341feb8"
+            },
+            "record_type": "event"
+          }
+        },
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "fax.delivered",
+            "enum": [
+              "fax.delivered"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "call_duration_secs": {
+                "description": "The duration of the call in seconds.",
+                "type": "integer",
+                "example": 25
+              },
+              "connection_id": {
+                "description": "The ID of the connection that was used to send the fax.",
+                "type": "string",
+                "example": "234423"
+              },
+              "direction": {
+                "description": "The direction of the fax.",
+                "type": "string",
+                "example": "outbound",
+                "enum": [
+                  "inbound",
+                  "outbound"
+                ]
+              },
+              "fax_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+                "description": "Identifies the fax."
+              },
+              "original_media_url": {
+                "description": "The original URL to the PDF used for the fax's media.",
+                "type": "string",
+                "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+              },
+              "to": {
+                "description": "The phone number, in E.164 format, the fax will be sent to or SIP URI",
+                "type": "string",
+                "example": "+13127367276"
+              },
+              "from": {
+                "description": "The phone number, in E.164 format, the fax will be sent from.",
+                "type": "string",
+                "example": "+13125790015"
+              },
+              "user_id": {
+                "description": "Identifier of the user to whom the fax belongs",
+                "type": "string",
+                "format": "uuid",
+                "example": "yfff7c54-4df3-4bca-a65a-3da1ecc777f0"
+              },
+              "page_count": {
+                "description": "Number of transferred pages",
+                "type": "integer",
+                "example": 2
+              },
+              "status": {
+                "type": "string",
+                "example": "delivered",
+                "enum": [
+                  "delivered"
+                ],
+                "description": "The status of the fax."
+              }
+            }
+          }
+        }
+      },
+      "FaxFailed": {
+        "type": "object",
+        "example": {
+          "data": {
+            "event_type": "fax.failed",
+            "id": "95479a2e-b947-470a-a88f-2da6dd07ae0f",
+            "occurred_at": "2020-05-05T13:08:22.039204Z",
+            "payload": {
+              "connection_id": "234423",
+              "direction": "outbound",
+              "failure_reason": "rejected",
+              "fax_id": "f8338808-3dc6-4f2b-942a-5d1f39255784",
+              "from": "+17733372107",
+              "original_media_url": "http://www.example.com/fax.pdf",
+              "status": "failed",
+              "to": "+15107882622",
+              "user_id": "19a75cea-02c6-4b9a-84fa-c9bc8341feb8"
+            },
+            "record_type": "event"
+          }
+        },
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "fax.failed",
+            "enum": [
+              "fax.failed"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "connection_id": {
+                "description": "The ID of the connection that was used to send the fax.",
+                "type": "string",
+                "example": "234423"
+              },
+              "direction": {
+                "description": "The direction of the fax.",
+                "type": "string",
+                "example": "outbound",
+                "enum": [
+                  "inbound",
+                  "outbound"
+                ]
+              },
+              "fax_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+                "description": "Identifies the fax."
+              },
+              "original_media_url": {
+                "description": "The original URL to the PDF used for the fax's media.",
+                "type": "string",
+                "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+              },
+              "to": {
+                "description": "The phone number, in E.164 format, the fax will be sent to or SIP URI",
+                "type": "string",
+                "example": "+13127367276"
+              },
+              "from": {
+                "description": "The phone number, in E.164 format, the fax will be sent from.",
+                "type": "string",
+                "example": "+13125790015"
+              },
+              "user_id": {
+                "description": "Identifier of the user to whom the fax belongs",
+                "type": "string",
+                "format": "uuid",
+                "example": "yfff7c54-4df3-4bca-a65a-3da1ecc777f0"
+              },
+              "failure_reason": {
+                "type": "string",
+                "enum": [
+                  "rejected"
+                ],
+                "description": "Cause of the sending failure"
+              },
+              "status": {
+                "type": "string",
+                "example": "failed",
+                "enum": [
+                  "failed"
+                ],
+                "description": "The status of the fax."
+              }
+            }
+          }
+        }
+      },
+      "FaxMediaProcessed": {
+        "type": "object",
+        "example": {
+          "data": {
+            "event_type": "fax.media.processed",
+            "id": "95479a2e-b947-470a-a88f-2da6dd07ae0f",
+            "occurred_at": "2020-05-05T13:08:22.039204Z",
+            "payload": {
+              "connection_id": "234423",
+              "direction": "outbound",
+              "fax_id": "f8338808-3dc6-4f2b-942a-5d1f39255784",
+              "from": "+17733372107",
+              "original_media_url": "http://www.example.com/fax.pdf",
+              "status": "media.processed",
+              "to": "+15107882622",
+              "user_id": "19a75cea-02c6-4b9a-84fa-c9bc8341feb8"
+            },
+            "record_type": "event"
+          }
+        },
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "fax.media.processed",
+            "enum": [
+              "fax.media.processed"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "connection_id": {
+                "description": "The ID of the connection that was used to send the fax.",
+                "type": "string",
+                "example": "234423"
+              },
+              "direction": {
+                "description": "The direction of the fax.",
+                "type": "string",
+                "example": "outbound",
+                "enum": [
+                  "inbound",
+                  "outbound"
+                ]
+              },
+              "fax_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+                "description": "Identifies the fax."
+              },
+              "original_media_url": {
+                "description": "The original URL to the PDF used for the fax's media.",
+                "type": "string",
+                "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+              },
+              "to": {
+                "description": "The phone number, in E.164 format, the fax will be sent to or SIP URI",
+                "type": "string",
+                "example": "+13127367276"
+              },
+              "from": {
+                "description": "The phone number, in E.164 format, the fax will be sent from.",
+                "type": "string",
+                "example": "+13125790015"
+              },
+              "user_id": {
+                "description": "Identifier of the user to whom the fax belongs",
+                "type": "string",
+                "format": "uuid",
+                "example": "yfff7c54-4df3-4bca-a65a-3da1ecc777f0"
+              },
+              "status": {
+                "type": "string",
+                "example": "media.processed",
+                "enum": [
+                  "media.processed"
+                ],
+                "description": "The status of the fax."
+              }
+            }
+          }
+        }
+      },
+      "FaxQueued": {
+        "type": "object",
+        "example": {
+          "data": {
+            "event_type": "fax.queued",
+            "id": "95479a2e-b947-470a-a88f-2da6dd07ae0f",
+            "occurred_at": "2020-05-05T13:08:22.039204Z",
+            "payload": {
+              "connection_id": "234423",
+              "direction": "outbound",
+              "fax_id": "f8338808-3dc6-4f2b-942a-5d1f39255784",
+              "from": "+17733372107",
+              "original_media_url": "http://www.example.com/fax.pdf",
+              "status": "queued",
+              "to": "+15107882622",
+              "user_id": "19a75cea-02c6-4b9a-84fa-c9bc8341feb8"
+            },
+            "record_type": "event"
+          }
+        },
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "fax.queued",
+            "enum": [
+              "fax.queued"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "connection_id": {
+                "description": "The ID of the connection that was used to send the fax.",
+                "type": "string",
+                "example": "234423"
+              },
+              "direction": {
+                "description": "The direction of the fax.",
+                "type": "string",
+                "example": "outbound",
+                "enum": [
+                  "inbound",
+                  "outbound"
+                ]
+              },
+              "fax_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+                "description": "Identifies the fax."
+              },
+              "original_media_url": {
+                "description": "The original URL to the PDF used for the fax's media.",
+                "type": "string",
+                "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+              },
+              "to": {
+                "description": "The phone number, in E.164 format, the fax will be sent to or SIP URI",
+                "type": "string",
+                "example": "+13127367276"
+              },
+              "from": {
+                "description": "The phone number, in E.164 format, the fax will be sent from.",
+                "type": "string",
+                "example": "+13125790015"
+              },
+              "user_id": {
+                "description": "Identifier of the user to whom the fax belongs",
+                "type": "string",
+                "format": "uuid",
+                "example": "yfff7c54-4df3-4bca-a65a-3da1ecc777f0"
+              },
+              "status": {
+                "type": "string",
+                "example": "queued",
+                "enum": [
+                  "queued"
+                ],
+                "description": "The status of the fax."
+              }
+            }
+          }
+        }
+      },
+      "FaxSendingStarted": {
+        "type": "object",
+        "example": {
+          "data": {
+            "event_type": "fax.sending.started",
+            "id": "95479a2e-b947-470a-a88f-2da6dd07ae0f",
+            "occurred_at": "2020-05-05T13:08:22.039204Z",
+            "payload": {
+              "connection_id": "234423",
+              "direction": "outbound",
+              "fax_id": "f8338808-3dc6-4f2b-942a-5d1f39255784",
+              "from": "+17733372107",
+              "original_media_url": "http://www.example.com/fax.pdf",
+              "status": "sending",
+              "to": "+15107882622",
+              "user_id": "19a75cea-02c6-4b9a-84fa-c9bc8341feb8"
+            },
+            "record_type": "event"
+          }
+        },
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "fax.sending.started",
+            "enum": [
+              "fax.sending.started"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "connection_id": {
+                "description": "The ID of the connection that was used to send the fax.",
+                "type": "string",
+                "example": "234423"
+              },
+              "direction": {
+                "description": "The direction of the fax.",
+                "type": "string",
+                "example": "outbound",
+                "enum": [
+                  "inbound",
+                  "outbound"
+                ]
+              },
+              "fax_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+                "description": "Identifies the fax."
+              },
+              "original_media_url": {
+                "description": "The original URL to the PDF used for the fax's media.",
+                "type": "string",
+                "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+              },
+              "to": {
+                "description": "The phone number, in E.164 format, the fax will be sent to or SIP URI",
+                "type": "string",
+                "example": "+13127367276"
+              },
+              "from": {
+                "description": "The phone number, in E.164 format, the fax will be sent from.",
+                "type": "string",
+                "example": "+13125790015"
+              },
+              "user_id": {
+                "description": "Identifier of the user to whom the fax belongs",
+                "type": "string",
+                "format": "uuid",
+                "example": "yfff7c54-4df3-4bca-a65a-3da1ecc777f0"
+              },
+              "status": {
+                "type": "string",
+                "example": "sending",
+                "enum": [
+                  "sending"
+                ],
+                "description": "The status of the fax."
+              }
+            }
+          }
         }
       },
       "FirstCommandTimeout": {
@@ -17998,6 +19214,46 @@
           "spam_ratio": 10
         }
       },
+      "NumberLookupRecord": {
+        "type": "object",
+        "title": "NumberLookup",
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "description": "Identifies the type of record",
+            "example": "number_lookup"
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Region code that matches the specific country calling code",
+            "example": "US"
+          },
+          "national_format": {
+            "type": "string",
+            "description": "Hyphen-separated national number, preceded by the national destination code (NDC), with a 0 prefix, if an NDC is found",
+            "example": "(0312) 945-7420"
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "E164-formatted phone number",
+            "example": "+13129457420"
+          },
+          "fraud": {
+            "type": "string",
+            "description": "Unused",
+            "example": null
+          },
+          "carrier": {
+            "$ref": "#/components/schemas/Carrier"
+          },
+          "caller_name": {
+            "$ref": "#/components/schemas/CallerName"
+          },
+          "portability": {
+            "$ref": "#/components/schemas/Portability"
+          }
+        }
+      },
       "NumberOrder": {
         "properties": {
           "id": {
@@ -18971,14 +20227,6 @@
       "PaginationMeta": {
         "type": "object",
         "properties": {
-          "total_pages": {
-            "type": "integer",
-            "example": 3
-          },
-          "total_results": {
-            "type": "integer",
-            "example": 55
-          },
           "page_number": {
             "type": "integer",
             "example": 2
@@ -18986,6 +20234,14 @@
           "page_size": {
             "type": "integer",
             "example": 25
+          },
+          "total_pages": {
+            "type": "integer",
+            "example": 3
+          },
+          "total_results": {
+            "type": "integer",
+            "example": 55
           }
         }
       },
@@ -20187,6 +21443,80 @@
           "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
         }
       },
+      "Portability": {
+        "type": "object",
+        "properties": {
+          "lrn": {
+            "type": "string",
+            "description": "Local Routing Number, if assigned to the requested phone number",
+            "example": "2245701999"
+          },
+          "ported_status": {
+            "type": "string",
+            "description": "Indicates whether or not the requested phone number has been ported",
+            "enum": [
+              "Y",
+              "N",
+              ""
+            ],
+            "example": "Y"
+          },
+          "ported_date": {
+            "type": "string",
+            "description": "ISO-formatted date when the requested phone number has been ported",
+            "example": "2017-10-20"
+          },
+          "ocn": {
+            "type": "string",
+            "description": "Operating Company Name (OCN) as per the Local Exchange Routing Guide (LERG) database",
+            "example": "073H"
+          },
+          "line_type": {
+            "type": "string",
+            "description": "Type of number",
+            "example": "voip"
+          },
+          "spid": {
+            "type": "string",
+            "description": "SPID (Service Provider ID)",
+            "example": "073H"
+          },
+          "spid_carrier_name": {
+            "type": "string",
+            "description": "Service provider name",
+            "example": "Telnyx/4"
+          },
+          "spid_carrier_type": {
+            "type": "string",
+            "description": "Service provider type",
+            "example": "3"
+          },
+          "altspid": {
+            "type": "string",
+            "description": "Alternative SPID (Service Provider ID). Often used when a carrier is using a number from another carrier",
+            "example": "073H"
+          },
+          "altspid_carrier_name": {
+            "type": "string",
+            "description": "Alternative service provider name",
+            "example": "Telnyx/4"
+          },
+          "altspid_carrier_type": {
+            "type": "string",
+            "description": "Alternative service provider type",
+            "example": "3"
+          },
+          "city": {
+            "type": "string",
+            "description": "City name extracted from the locality in the Local Exchange Routing Guide (LERG) database",
+            "example": "WAUKEGAN"
+          },
+          "state": {
+            "type": "string",
+            "example": "Illinois"
+          }
+        }
+      },
       "Recording": {
         "type": "object",
         "title": "Recording",
@@ -20667,6 +21997,43 @@
           "duration_millis": 500,
           "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
           "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+        }
+      },
+      "SendFaxRequest": {
+        "type": "object",
+        "title": "Send fax request",
+        "required": [
+          "connection_id",
+          "media_url",
+          "to"
+        ],
+        "properties": {
+          "connection_id": {
+            "description": "The connection ID to send the fax with.",
+            "type": "string",
+            "example": "234423"
+          },
+          "media_url": {
+            "description": "The URL to the PDF used for the fax's media.",
+            "type": "string",
+            "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+          },
+          "to": {
+            "description": "The phone number, in E.164 format, the fax will be sent to or SIP URI",
+            "type": "string",
+            "example": "+13127367276"
+          },
+          "from": {
+            "description": "The phone number, in E.164 format, the fax will be sent from.",
+            "type": "string",
+            "example": "+13125790015"
+          },
+          "quality": {
+            "description": "The quality of the fax. Can be normal, high, very_high",
+            "type": "string",
+            "example": "high",
+            "default": "high"
+          }
         }
       },
       "ServicePlan": {
@@ -23257,6 +24624,10 @@
       }
     },
     "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer"

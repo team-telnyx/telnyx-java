@@ -244,7 +244,7 @@ private ApiResponse<ListMessagingProfileMetricsResponse> listMessagingProfileMet
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistMessagingProfileMetricsRequest
      */
     public APIlistMessagingProfileMetricsRequest pageNumber(Integer pageNumber) {
@@ -254,7 +254,7 @@ private ApiResponse<ListMessagingProfileMetricsResponse> listMessagingProfileMet
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistMessagingProfileMetricsRequest
      */
     public APIlistMessagingProfileMetricsRequest pageSize(Integer pageSize) {
@@ -382,7 +382,7 @@ private ApiResponse<ListMessagingProfilePhoneNumbersResponse> listMessagingProfi
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistMessagingProfilePhoneNumbersRequest
      */
     public APIlistMessagingProfilePhoneNumbersRequest pageNumber(Integer pageNumber) {
@@ -392,7 +392,7 @@ private ApiResponse<ListMessagingProfilePhoneNumbersResponse> listMessagingProfi
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistMessagingProfilePhoneNumbersRequest
      */
     public APIlistMessagingProfilePhoneNumbersRequest pageSize(Integer pageSize) {
@@ -501,7 +501,7 @@ private ApiResponse<ListMessagingProfileShortCodesResponse> listMessagingProfile
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistMessagingProfileShortCodesRequest
      */
     public APIlistMessagingProfileShortCodesRequest pageNumber(Integer pageNumber) {
@@ -511,7 +511,7 @@ private ApiResponse<ListMessagingProfileShortCodesResponse> listMessagingProfile
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistMessagingProfileShortCodesRequest
      */
     public APIlistMessagingProfileShortCodesRequest pageSize(Integer pageSize) {
@@ -612,7 +612,7 @@ private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttp
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistMessagingProfilesRequest
      */
     public APIlistMessagingProfilesRequest pageNumber(Integer pageNumber) {
@@ -622,7 +622,7 @@ private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttp
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistMessagingProfilesRequest
      */
     public APIlistMessagingProfilesRequest pageSize(Integer pageSize) {

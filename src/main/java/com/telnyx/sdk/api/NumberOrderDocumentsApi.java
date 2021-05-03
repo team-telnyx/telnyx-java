@@ -201,7 +201,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistNumberOrderDocumentsRequest
      */
     public APIlistNumberOrderDocumentsRequest pageNumber(Integer pageNumber) {
@@ -211,7 +211,7 @@ private ApiResponse<ListNumberOrderDocumentsResponse> listNumberOrderDocumentsWi
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistNumberOrderDocumentsRequest
      */
     public APIlistNumberOrderDocumentsRequest pageSize(Integer pageSize) {

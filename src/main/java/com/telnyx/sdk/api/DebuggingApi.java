@@ -202,7 +202,7 @@ private ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filt
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistCallEventsRequest
      */
     public APIlistCallEventsRequest pageNumber(Integer pageNumber) {
@@ -212,7 +212,7 @@ private ApiResponse<ListCallEventsResponse> listCallEventsWithHttpInfo(UUID filt
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistCallEventsRequest
      */
     public APIlistCallEventsRequest pageSize(Integer pageSize) {

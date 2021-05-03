@@ -277,7 +277,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageNumber(Integer pageNumber) {
@@ -287,7 +287,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageSize(Integer pageSize) {
@@ -507,7 +507,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageNumber(Integer pageNumber) {
@@ -517,7 +517,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageSize(Integer pageSize) {
@@ -627,7 +627,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageNumber
-     * @param pageNumber The page number to load. (optional, default to 1)
+     * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageNumber(Integer pageNumber) {
@@ -637,7 +637,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page. (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageSize(Integer pageSize) {

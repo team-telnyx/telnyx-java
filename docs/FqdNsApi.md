@@ -185,8 +185,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         FqdNsApi apiInstance = new FqdNsApi(defaultClient);
-        Integer pageNumber = 1; // Integer | The page number to load.
-        Integer pageSize = 20; // Integer | The size of the page.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
         String filterConnectionId = "filterConnectionId_example"; // String | ID of the FQDN connection to which the FQDN belongs.
         String filterFqdn = example.com; // String | FQDN represented by the resource.
         Integer filterPort = 5060; // Integer | Port to use when connecting to the FQDN.
@@ -217,8 +217,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **filterConnectionId** | **String**| ID of the FQDN connection to which the FQDN belongs. | [optional]
  **filterFqdn** | **String**| FQDN represented by the resource. | [optional]
  **filterPort** | **Integer**| Port to use when connecting to the FQDN. | [optional]

@@ -7,6 +7,7 @@ info:
     name: MIT
   title: Telnyx API
   version: 2.0.0
+  x-endpoint-cost: light
 servers:
 - description: Version 2.0.0 of the Telnyx API
   url: https://api.telnyx.com/v2
@@ -47,6 +48,8 @@ tags:
   name: Number Background Jobs
 - description: Configure your phone numbers
   name: Number Configurations
+- description: Look up phone number data
+  name: Number Lookup
 - description: Number order documents
   name: Number Order Documents
 - description: Number order regulatory requirements
@@ -61,6 +64,8 @@ tags:
   name: Outbound Voice Profiles
 - description: Fax Applications operations
   name: Programmable Fax Applications
+- description: Programmable fax command operations
+  name: Programmable Fax Commands
 - description: Recordings commands operations
   name: Recordings Commands
 - description: Short codes
@@ -264,6 +269,7 @@ paths:
       tags:
       - Number Search
       x-group-parameters: "true"
+      x-endpoint-cost: heavy
       x-latency-category: responsive
       x-accepts: application/json
   /call_control_applications:
@@ -271,7 +277,7 @@ paths:
       description: Return a list of call control applications.
       operationId: listCallControlApplications
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -281,7 +287,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -356,6 +362,7 @@ paths:
       tags:
       - Call Control Applications
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: interactive
       x-accepts: application/json
     post:
@@ -380,6 +387,7 @@ paths:
       summary: Create a call control application
       tags:
       - Call Control Applications
+      x-endpoint-cost: medium
       x-latency-category: interactive
       x-contentType: application/json
       x-accepts: application/json
@@ -584,7 +592,7 @@ paths:
           example: 2019-03-29T11:10:00Z
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -594,7 +602,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -2233,7 +2241,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -2243,7 +2251,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -2408,7 +2416,7 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -2418,7 +2426,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -3191,7 +3199,7 @@ paths:
       description: Returns a list of your connections irrespective of type.
       operationId: listConnections
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3201,7 +3209,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -3276,6 +3284,7 @@ paths:
       tags:
       - Connections
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
   /connections/{id}:
@@ -3316,7 +3325,7 @@ paths:
       description: Returns a list of your credential connections.
       operationId: listCredentialConnections
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3326,7 +3335,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -3401,6 +3410,7 @@ paths:
       tags:
       - Credential Connections
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -3426,6 +3436,7 @@ paths:
       summary: Create a credential connection
       tags:
       - Credential Connections
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -3536,7 +3547,7 @@ paths:
         receive faxes using the Programmable Fax API with Telnyx.
       operationId: listFaxApplications
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3546,7 +3557,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -3609,7 +3620,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200'
+                $ref: '#/components/schemas/Get_All_Fax_Applications_Response'
           description: Successful response
         "400":
           description: Bad request
@@ -3620,6 +3631,7 @@ paths:
       summary: List all Fax Applications
       tags:
       - Programmable Fax Applications
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -3641,13 +3653,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201'
+                $ref: '#/components/schemas/Fax_Application_Response'
           description: Successful response
         "422":
           description: Bad request
       summary: Creates a Fax Application
       tags:
       - Programmable Fax Applications
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -3672,7 +3685,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201'
+                $ref: '#/components/schemas/Fax_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -3705,7 +3718,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201'
+                $ref: '#/components/schemas/Fax_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -3745,7 +3758,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201'
+                $ref: '#/components/schemas/Fax_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -3759,12 +3772,310 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
+  /faxes:
+    get:
+      operationId: ListFaxes
+      parameters:
+      - description: ISO 8601 date time for filtering faxes created after or on that
+          date
+        explode: true
+        in: query
+        name: filter[created_at][gte]
+        required: false
+        schema:
+          example: 2020-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        style: form
+      - description: ISO 8601 date time for filtering faxes created after that date
+        explode: true
+        in: query
+        name: filter[created_at][gt]
+        required: false
+        schema:
+          example: 2020-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        style: form
+      - description: ISO 8601 formatted date time for filtering faxes created on or
+          before that date
+        explode: true
+        in: query
+        name: filter[created_at][lte]
+        required: false
+        schema:
+          example: 2020-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        style: form
+      - description: ISO 8601 formatted date time for filtering faxes created before
+          that date
+        explode: true
+        in: query
+        name: filter[created_at][lt]
+        required: false
+        schema:
+          example: 2020-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        style: form
+      - description: The direction, inbound or outbound, for filtering faxes sent
+          from this account
+        explode: true
+        in: query
+        name: filter[direction][eq]
+        required: false
+        schema:
+          example: inbound
+          type: string
+        style: form
+      - description: The phone number, in E.164 format for filtering faxes sent from
+          this number
+        explode: true
+        in: query
+        name: filter[from][eq]
+        required: false
+        schema:
+          example: +13127367276
+          type: string
+        style: form
+      - description: Number of fax resourcxes for the single page returned
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          example: 2
+          type: integer
+        style: form
+      - description: Number of the page to be retrieved
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          example: 2
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List_Faxes_Response'
+          description: List faxes response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: View a list of faxes
+      tags:
+      - Programmable Fax Commands
+      x-latency-category: background
+      x-accepts: application/json
+    post:
+      callbacks:
+        fax.queued:
+          '{$response.body#/data/webhook_url}':
+            post:
+              operationId: fax_queued_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/FaxQueued'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+        fax.media.processed:
+          '{$response.body#/data/webhook_url}':
+            post:
+              operationId: fax_media_processed_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/FaxMediaProcessed'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+        fax.sending.started:
+          '{$response.body#/data/webhook_url}':
+            post:
+              operationId: fax_sending_started_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/FaxSendingStarted'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+        fax.delivered:
+          '{$response.body#/data/webhook_url}':
+            post:
+              operationId: fax_delivered_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/FaxDelivered'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+        fax.failed:
+          '{$response.body#/data/webhook_url}':
+            post:
+              operationId: fax_failed_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/FaxFailed'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+      operationId: SendFax
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendFaxRequest'
+        description: Send fax request
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Send_Fax_Response'
+          description: Send fax response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Send a fax
+      tags:
+      - Programmable Fax Commands
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /faxes/{id}:
+    delete:
+      operationId: DeleteFax
+      parameters:
+      - description: The unique identifier of a fax.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: The resource was deleted successfully.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Delete a fax
+      tags:
+      - Programmable Fax Commands
+      x-latency-category: responsive
+      x-accepts: application/json
+    get:
+      operationId: ViewFax
+      parameters:
+      - description: The unique identifier of a fax.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Get_Fax_Response'
+          description: Get fax response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: View a fax
+      tags:
+      - Programmable Fax Commands
+      x-latency-category: responsive
+      x-accepts: application/json
+  /faxes/{id}/actions/refresh:
+    post:
+      description: This endpoint refreshes the media_url expiration for inbound faxes
+      operationId: RefreshFax
+      parameters:
+      - description: The unique identifier of a fax.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refresh_Fax_Response'
+          description: Refresh fax response
+        "404":
+          description: Conference does not exist
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Refresh a fax
+      tags:
+      - Programmable Fax Commands
+      x-latency-category: responsive
+      x-accepts: application/json
   /fqdn_connections:
     get:
       description: Returns a list of your FQDN connections.
       operationId: listFqdnConnections
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3774,7 +4085,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -3839,6 +4150,7 @@ paths:
       tags:
       - FQDN Connections
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -3864,6 +4176,7 @@ paths:
       summary: Create an Fqdn connection
       tags:
       - FQDN Connections
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -3971,7 +4284,7 @@ paths:
       description: Get all FQDNs belonging to the user that match the given filters.
       operationId: listFqdns
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -3981,7 +4294,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -4042,6 +4355,7 @@ paths:
       tags:
       - FQDNs
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4066,6 +4380,7 @@ paths:
       summary: Create an Fqdn
       tags:
       - FQDNs
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -4171,7 +4486,7 @@ paths:
       description: Returns a list of your IP connections.
       operationId: listIpConnections
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -4181,7 +4496,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -4256,6 +4571,7 @@ paths:
       tags:
       - IP Connections
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4281,6 +4597,7 @@ paths:
       summary: Create an Ip connection
       tags:
       - IP Connections
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -4388,7 +4705,7 @@ paths:
       description: Get all IPs belonging to the user that match the given filters.
       operationId: listIps
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -4398,7 +4715,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -4450,6 +4767,7 @@ paths:
       tags:
       - IPs
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -4474,6 +4792,7 @@ paths:
       summary: Create an Ip
       tags:
       - IPs
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -4794,7 +5113,7 @@ paths:
     get:
       operationId: listMessagingHostedNumberOrder
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -4804,7 +5123,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -4973,7 +5292,7 @@ paths:
     get:
       operationId: listMessagingProfileMetrics
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -4983,7 +5302,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -5042,7 +5361,7 @@ paths:
     get:
       operationId: listMessagingProfiles
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5052,7 +5371,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -5080,6 +5399,7 @@ paths:
       tags:
       - Messaging Profiles
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -5153,6 +5473,7 @@ paths:
       summary: Create a messaging profile
       tags:
       - Messaging Profiles
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -5308,7 +5629,7 @@ paths:
     get:
       operationId: listMessagingProfilePhoneNumbers
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5318,7 +5639,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -5362,7 +5683,7 @@ paths:
     get:
       operationId: listMessagingProfileShortCodes
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5372,7 +5693,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -5416,7 +5737,7 @@ paths:
     get:
       operationId: listMessagingUrlDomains
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5426,7 +5747,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -5454,6 +5775,56 @@ paths:
       tags:
       - Messaging URL Domains
       x-group-parameters: "true"
+      x-latency-category: responsive
+      x-accepts: application/json
+  /number_lookup/{phone_number}:
+    get:
+      description: Returns information about the provided phone number.
+      operationId: NumberLookup
+      parameters:
+      - description: The phone number to be looked up
+        explode: false
+        in: path
+        name: phone_number
+        required: true
+        schema:
+          example: '"+18665552368"'
+          type: string
+        style: simple
+      - description: Specifies the type of number lookup to be performed
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          enum:
+          - carrier
+          - caller-name
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Number_Lookup_Response'
+          description: Successful response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Unprocessable entity. Check the 'detail' field in response
+            for details.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Lookup phone number data
+      tags:
+      - Number Lookup
       x-latency-category: responsive
       x-accepts: application/json
   /number_order_documents:
@@ -5485,7 +5856,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5495,7 +5866,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -5674,7 +6045,7 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5684,7 +6055,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -5712,6 +6083,7 @@ paths:
       tags:
       - Number Orders
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -5755,6 +6127,7 @@ paths:
       summary: Create a number order
       tags:
       - Number Orders
+      x-endpoint-cost: heavy
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -5871,7 +6244,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -5881,7 +6254,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -6007,7 +6380,7 @@ paths:
         the given filters.
       operationId: listOutboundVoiceProfiles
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6017,7 +6390,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -6087,6 +6460,7 @@ paths:
       tags:
       - Outbound Voice Profiles
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -6224,68 +6598,11 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
-  /phone_number_regulatory_requirements:
-    get:
-      description: Gets a paginated list of phone number regulatory requirements.
-      operationId: listPhoneNumberRegulatoryRequirements
-      parameters:
-      - description: The list of phone numbers to retrieve regulatory requirements
-          for.
-        explode: true
-        in: query
-        name: filter[phone_number]
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: The page number to load.
-        explode: true
-        in: query
-        name: page[number]
-        required: false
-        schema:
-          default: 1
-          minimum: 1
-          type: integer
-        style: form
-      - description: The size of the page.
-        explode: true
-        in: query
-        name: page[size]
-        required: false
-        schema:
-          default: 20
-          maximum: 250
-          minimum: 1
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/List_Phone_Number_Regulatory_Requirements_Response'
-          description: Successful response with a list of phone number regulatory
-            requirements.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Bad Request
-      summary: List regulatory requirements per number
-      tags:
-      - Number Order Regulatory Requirements
-      x-group-parameters: "true"
-      x-latency-category: responsive
-      x-accepts: application/json
   /phone_numbers:
     get:
       operationId: listPhoneNumbers
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6295,7 +6612,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -6455,13 +6772,14 @@ paths:
       tags:
       - Number Configurations
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/csv_downloads:
     get:
       operationId: listCsvDownloads
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6471,7 +6789,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -6499,6 +6817,7 @@ paths:
       tags:
       - CSV Downloads
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -6520,6 +6839,7 @@ paths:
       tags:
       - CSV Downloads
       x-latency-category: background
+      x-endpoint-cost: medium
       x-accepts: application/json
   /phone_numbers/csv_downloads/{id}:
     get:
@@ -6550,6 +6870,7 @@ paths:
       tags:
       - CSV Downloads
       x-latency-category: background
+      x-endpoint-cost: medium
       x-accepts: application/json
   /phone_numbers/jobs:
     get:
@@ -6568,7 +6889,7 @@ paths:
           example: update_emergency_settings
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6578,7 +6899,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -6619,6 +6940,7 @@ paths:
       tags:
       - Number Background Jobs
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/jobs/delete_phone_numbers:
@@ -6750,7 +7072,7 @@ paths:
     get:
       operationId: listPhoneNumbersWithMessagingSettings
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6760,7 +7082,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -6795,7 +7117,7 @@ paths:
     get:
       operationId: listPhoneNumbersWithVoiceSettings
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -6805,7 +7127,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -6888,6 +7210,7 @@ paths:
       tags:
       - Number Configurations
       x-group-parameters: "true"
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
   /phone_numbers/{id}:
@@ -6920,6 +7243,7 @@ paths:
       summary: Delete a phone number
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     get:
@@ -6951,6 +7275,7 @@ paths:
       summary: Retrieve a phone number
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     patch:
@@ -6989,6 +7314,7 @@ paths:
       summary: Update a phone number
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -7034,6 +7360,7 @@ paths:
       summary: Enable emergency for a phone number
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -7137,6 +7464,7 @@ paths:
       summary: Retrieve a phone number with voice settings
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     patch:
@@ -7176,8 +7504,66 @@ paths:
       summary: Update a phone number with voice settings
       tags:
       - Number Configurations
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
+      x-accepts: application/json
+  /phone_numbers_regulatory_requirements:
+    get:
+      description: Gets a paginated list of phone number regulatory requirements.
+      operationId: listPhoneNumberRegulatoryRequirements
+      parameters:
+      - description: The list of phone numbers to retrieve regulatory requirements
+          for.
+        explode: true
+        in: query
+        name: filter[phone_number]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List_Phone_Number_Regulatory_Requirements_Response'
+          description: Successful response with a list of phone number regulatory
+            requirements.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: List regulatory requirements per number
+      tags:
+      - Number Order Regulatory Requirements
+      x-group-parameters: "true"
+      x-latency-category: responsive
       x-accepts: application/json
   /recordings:
     get:
@@ -7213,7 +7599,7 @@ paths:
           example: 2019-03-29T11:10:00Z
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -7223,7 +7609,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -7309,7 +7695,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -7319,7 +7705,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -7386,7 +7772,7 @@ paths:
     get:
       operationId: listShortCodes
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -7396,7 +7782,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -7513,7 +7899,7 @@ paths:
       description: Returns a list of your TeXML Applications.
       operationId: findTexmlApplications
       parameters:
-      - description: The page number to load.
+      - description: The page number to load
         explode: true
         in: query
         name: page[number]
@@ -7523,7 +7909,7 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: The size of the page.
+      - description: The size of the page
         explode: true
         in: query
         name: page[size]
@@ -7586,7 +7972,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/Get_All_Texml_Applications_Response'
           description: Successful response
         "400":
           description: Bad request
@@ -7597,6 +7983,7 @@ paths:
       summary: List all TeXML Applications
       tags:
       - TeXML Applications
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-accepts: application/json
     post:
@@ -7615,13 +8002,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_1'
+                $ref: '#/components/schemas/Texml_Application_Response'
           description: Successful response
         "422":
           description: Bad request
       summary: Creates a TeXML Application
       tags:
       - TeXML Applications
+      x-endpoint-cost: medium
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
@@ -7645,7 +8033,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_1'
+                $ref: '#/components/schemas/Texml_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -7677,7 +8065,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_1'
+                $ref: '#/components/schemas/Texml_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -7716,7 +8104,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_1'
+                $ref: '#/components/schemas/Texml_Application_Response'
           description: Successful response
         "401":
           description: Unauthorized
@@ -8291,8 +8679,20 @@ components:
         example: office-profile
         type: string
       style: form
+    NumberLookupType:
+      description: Specifies the type of number lookup to be performed
+      explode: true
+      in: query
+      name: type
+      required: false
+      schema:
+        enum:
+        - carrier
+        - caller-name
+        type: string
+      style: form
     PageNumber:
-      description: The page number to load.
+      description: The page number to load
       explode: true
       in: query
       name: page[number]
@@ -8303,7 +8703,7 @@ components:
         type: integer
       style: form
     PageSize:
-      description: The size of the page.
+      description: The size of the page
       explode: true
       in: query
       name: page[size]
@@ -8314,6 +8714,16 @@ components:
         minimum: 1
         type: integer
       style: form
+    PhoneNumber:
+      description: The phone number to be looked up
+      explode: false
+      in: path
+      name: phone_number
+      required: true
+      schema:
+        example: '"+18665552368"'
+        type: string
+      style: simple
     ShortCodeId:
       description: The id of the short code
       explode: false
@@ -8452,7 +8862,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_201'
+            $ref: '#/components/schemas/Fax_Application_Response'
       description: Successful response
     FqdnConnectionResponse:
       content:
@@ -8476,14 +8886,20 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200'
+            $ref: '#/components/schemas/Get_All_Fax_Applications_Response'
       description: Successful response
     GetAllTexmlApplicationsResponse:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200_1'
+            $ref: '#/components/schemas/Get_All_Texml_Applications_Response'
       description: Successful response
+    GetFaxResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Get_Fax_Response'
+      description: Get fax response
     IpConnectionResponse:
       content:
         application/json:
@@ -8538,6 +8954,12 @@ components:
           schema:
             $ref: '#/components/schemas/List_CSV_Downloads_Response'
       description: Successful response with a list of CSV downloads.
+    ListFaxesResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/List_Faxes_Response'
+      description: List faxes response
     ListFqdnConnectionsResponse:
       content:
         application/json:
@@ -8704,6 +9126,12 @@ components:
       description: Successful response with details about a messaging profile.
     NotFoundResponse:
       description: Conference does not exist
+    NumberLookupResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Number_Lookup_Response'
+      description: Successful response
     NumberOrderDocumentResponse:
       content:
         application/json:
@@ -8761,6 +9189,12 @@ components:
           schema:
             $ref: '#/components/schemas/Get_Recording_Response'
       description: Successful response with details about a recording.
+    RefreshFaxResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Refresh_Fax_Response'
+      description: Refresh fax response
     RetrieveCallStatusResponse:
       content:
         application/json:
@@ -8773,6 +9207,12 @@ components:
           schema:
             $ref: '#/components/schemas/Retrieve_Messaging_Profile_Metrics_Response'
       description: Successful response with details about a messaging profile's metrics.
+    SendFaxResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Send_Fax_Response'
+      description: Send fax response
     ShortCodeResponse:
       content:
         application/json:
@@ -8783,10 +9223,17 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_201_1'
+            $ref: '#/components/schemas/Texml_Application_Response'
       description: Successful response
     UnauthorizedResponse:
       description: Unauthorized
+    UnprocessableEntity:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+      description: Unprocessable entity. Check the 'detail' field in response for
+        details.
     UnprocessableEntityResponse:
       description: Unprocessable entity
   schemas:
@@ -10548,6 +10995,68 @@ components:
         data:
           $ref: '#/components/schemas/CallSpeakStarted'
       title: Call Speak Started Event
+      type: object
+    CallerName:
+      example:
+        caller_name: TELNYX LLC
+        error_code: "10001"
+      properties:
+        caller_name:
+          description: The name of the requested phone number's owner as per the CNAM
+            database
+          example: TELNYX LLC
+          type: string
+        error_code:
+          description: A caller-name lookup specific error code, expressed as a stringified
+            5-digit integer
+          example: "10001"
+          type: string
+      type: object
+    Carrier:
+      example:
+        name: Telnyx/4
+        error_code: error_code
+        mobile_country_code: US
+        mobile_network_code: "0866"
+        type: voip
+      properties:
+        mobile_country_code:
+          description: Region code that matches the specific country calling code
+            if the requested phone number type is mobile
+          example: US
+          type: string
+        mobile_network_code:
+          description: National destination code (NDC), with a 0 prefix, if an NDC
+            is found and the requested phone number type is mobile
+          example: "0866"
+          type: string
+        name:
+          description: SPID (Service Provider ID) name, if the requested phone number
+            has been ported; otherwise, the name of carrier who owns the phone number
+            block
+          example: Telnyx/4
+          type: string
+        type:
+          description: A phone number type that identifies the type of service associated
+            with the requested phone number
+          enum:
+          - fixed line
+          - mobile
+          - voip
+          - fixed line or mobile
+          - toll free
+          - premium rate
+          - shared cost
+          - personal number
+          - pager
+          - uan
+          - voicemail
+          - unknown
+          example: voip
+          type: string
+        error_code:
+          description: Unused
+          type: string
       type: object
     CnamListing:
       description: The CNAM listing settings for a phone number.
@@ -13826,6 +14335,97 @@ components:
           items:
             $ref: '#/components/schemas/Error'
           type: array
+    Fax:
+      example:
+        record_type: fax
+        id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+        connection_id: c-1
+        direction: outbound
+        from: +123
+        to: +456
+        media_url: http://www.example.com/fax.pdf
+        store_media: true
+        stored_media_url: https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51
+        quality: high
+        webhook_url: http://www.example.com/webhooks
+        webhook_failover_url: ""
+        status: queued
+        created_at: 2020-05-05T09:59:12
+        updated_at: 2020-05-05T09:59:12
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - fax
+          example: fax
+          type: string
+        id:
+          description: Identifies the fax.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        connection_id:
+          description: The connection ID to send the fax with.
+          example: "234423"
+          type: string
+        direction:
+          description: The direction of the fax.
+          enum:
+          - inbound
+          - outbound
+          example: outbound
+          type: string
+        media_url:
+          description: The URL to the PDF used for the fax's media.
+          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+          type: string
+        to:
+          description: The phone number, in E.164 format, the fax will be sent to
+            or SIP URI
+          example: +13127367276
+          type: string
+        from:
+          description: The phone number, in E.164 format, the fax will be sent from.
+          example: +13125790015
+          type: string
+        quality:
+          default: high
+          description: The quality of the fax. Can be normal, high, very_high
+          example: high
+          type: string
+        status:
+          description: Status of the fax
+          enum:
+          - queued
+          - media.processed
+          - sending
+          - delivered
+          - failed
+          example: queued
+          type: string
+        webhook_url:
+          description: URL that will receive fax webhooks
+          type: string
+        webhook_failover_url:
+          description: Optional failover URL that will receive fax webhooks if `webhook_url`
+            doesn't return a 2XX response
+          type: string
+        store_media:
+          description: Should fax media be stored on temporary URL
+          type: boolean
+        stored_media_url:
+          description: If store_media was set to true, this is a link to temporary
+            location. Link expires after 7 days.
+          type: string
+        created_at:
+          description: ISO 8601 timestamp when resource was created
+          format: datetime
+          type: string
+        updated_at:
+          description: ISO 8601 timestamp when resource was updated
+          format: datetime
+          type: string
+      type: object
     FaxApplication:
       example:
         id: "1293384261075731499"
@@ -13907,6 +14507,194 @@ components:
           example: 2018-02-02T22:25:27.521Z
           type: string
       title: Fax Application
+      type: object
+    FaxDelivered:
+      example:
+        data:
+          event_type: fax.delivered
+          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
+          occurred_at: 2020-05-05T13:08:22.039204Z
+          payload:
+            call_duration_secs: 25
+            connection_id: "234423"
+            direction: outbound
+            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
+            from: +17733372107
+            original_media_url: http://www.example.com/fax.pdf
+            page_count: 2
+            status: delivered
+            to: +15107882622
+            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
+          record_type: event
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - fax.delivered
+          example: fax.delivered
+          type: string
+        payload:
+          $ref: '#/components/schemas/FaxDelivered_payload'
+      type: object
+    FaxFailed:
+      example:
+        data:
+          event_type: fax.failed
+          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
+          occurred_at: 2020-05-05T13:08:22.039204Z
+          payload:
+            connection_id: "234423"
+            direction: outbound
+            failure_reason: rejected
+            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
+            from: +17733372107
+            original_media_url: http://www.example.com/fax.pdf
+            status: failed
+            to: +15107882622
+            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
+          record_type: event
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - fax.failed
+          example: fax.failed
+          type: string
+        payload:
+          $ref: '#/components/schemas/FaxFailed_payload'
+      type: object
+    FaxMediaProcessed:
+      example:
+        data:
+          event_type: fax.media.processed
+          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
+          occurred_at: 2020-05-05T13:08:22.039204Z
+          payload:
+            connection_id: "234423"
+            direction: outbound
+            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
+            from: +17733372107
+            original_media_url: http://www.example.com/fax.pdf
+            status: media.processed
+            to: +15107882622
+            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
+          record_type: event
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - fax.media.processed
+          example: fax.media.processed
+          type: string
+        payload:
+          $ref: '#/components/schemas/FaxMediaProcessed_payload'
+      type: object
+    FaxQueued:
+      example:
+        data:
+          event_type: fax.queued
+          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
+          occurred_at: 2020-05-05T13:08:22.039204Z
+          payload:
+            connection_id: "234423"
+            direction: outbound
+            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
+            from: +17733372107
+            original_media_url: http://www.example.com/fax.pdf
+            status: queued
+            to: +15107882622
+            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
+          record_type: event
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - fax.queued
+          example: fax.queued
+          type: string
+        payload:
+          $ref: '#/components/schemas/FaxQueued_payload'
+      type: object
+    FaxSendingStarted:
+      example:
+        data:
+          event_type: fax.sending.started
+          id: 95479a2e-b947-470a-a88f-2da6dd07ae0f
+          occurred_at: 2020-05-05T13:08:22.039204Z
+          payload:
+            connection_id: "234423"
+            direction: outbound
+            fax_id: f8338808-3dc6-4f2b-942a-5d1f39255784
+            from: +17733372107
+            original_media_url: http://www.example.com/fax.pdf
+            status: sending
+            to: +15107882622
+            user_id: 19a75cea-02c6-4b9a-84fa-c9bc8341feb8
+          record_type: event
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - fax.sending.started
+          example: fax.sending.started
+          type: string
+        payload:
+          $ref: '#/components/schemas/FaxSendingStarted_payload'
       type: object
     FirstCommandTimeout:
       default: false
@@ -15642,6 +16430,65 @@ components:
       - spam_ratio
       - success_ratio
       type: object
+    NumberLookupRecord:
+      example:
+        portability:
+          altspid: 073H
+          city: WAUKEGAN
+          ported_date: 2017-10-20
+          lrn: "2245701999"
+          spid_carrier_name: Telnyx/4
+          spid: 073H
+          altspid_carrier_name: Telnyx/4
+          line_type: voip
+          ported_status: "Y"
+          ocn: 073H
+          spid_carrier_type: "3"
+          state: Illinois
+          altspid_carrier_type: "3"
+        country_code: US
+        caller_name:
+          caller_name: TELNYX LLC
+          error_code: "10001"
+        carrier:
+          name: Telnyx/4
+          error_code: error_code
+          mobile_country_code: US
+          mobile_network_code: "0866"
+          type: voip
+        national_format: (0312) 945-7420
+        fraud: fraud
+        phone_number: +13129457420
+        record_type: number_lookup
+      properties:
+        record_type:
+          description: Identifies the type of record
+          example: number_lookup
+          type: string
+        country_code:
+          description: Region code that matches the specific country calling code
+          example: US
+          type: string
+        national_format:
+          description: Hyphen-separated national number, preceded by the national
+            destination code (NDC), with a 0 prefix, if an NDC is found
+          example: (0312) 945-7420
+          type: string
+        phone_number:
+          description: E164-formatted phone number
+          example: +13129457420
+          type: string
+        fraud:
+          description: Unused
+          type: string
+        carrier:
+          $ref: '#/components/schemas/Carrier'
+        caller_name:
+          $ref: '#/components/schemas/CallerName'
+        portability:
+          $ref: '#/components/schemas/Portability'
+      title: NumberLookup
+      type: object
     NumberOrder:
       example:
         id: 12ade33a-21c0-473b-b055-b3c836e1c292
@@ -16496,20 +17343,20 @@ components:
       example:
         page_number: 2
         total_pages: 3
-        total_results: 55
         page_size: 25
+        total_results: 55
       properties:
-        total_pages:
-          example: 3
-          type: integer
-        total_results:
-          example: 55
-          type: integer
         page_number:
           example: 2
           type: integer
         page_size:
           example: 25
+          type: integer
+        total_pages:
+          example: 3
+          type: integer
+        total_results:
+          example: 55
           type: integer
       type: object
     PaginationMetaSimple:
@@ -17490,6 +18337,83 @@ components:
           type: string
       title: Playback Stop Request
       type: object
+    Portability:
+      example:
+        altspid: 073H
+        city: WAUKEGAN
+        ported_date: 2017-10-20
+        lrn: "2245701999"
+        spid_carrier_name: Telnyx/4
+        spid: 073H
+        altspid_carrier_name: Telnyx/4
+        line_type: voip
+        ported_status: "Y"
+        ocn: 073H
+        spid_carrier_type: "3"
+        state: Illinois
+        altspid_carrier_type: "3"
+      properties:
+        lrn:
+          description: Local Routing Number, if assigned to the requested phone number
+          example: "2245701999"
+          type: string
+        ported_status:
+          description: Indicates whether or not the requested phone number has been
+            ported
+          enum:
+          - "Y"
+          - "N"
+          - ""
+          example: "Y"
+          type: string
+        ported_date:
+          description: ISO-formatted date when the requested phone number has been
+            ported
+          example: 2017-10-20
+          type: string
+        ocn:
+          description: Operating Company Name (OCN) as per the Local Exchange Routing
+            Guide (LERG) database
+          example: 073H
+          type: string
+        line_type:
+          description: Type of number
+          example: voip
+          type: string
+        spid:
+          description: SPID (Service Provider ID)
+          example: 073H
+          type: string
+        spid_carrier_name:
+          description: Service provider name
+          example: Telnyx/4
+          type: string
+        spid_carrier_type:
+          description: Service provider type
+          example: "3"
+          type: string
+        altspid:
+          description: Alternative SPID (Service Provider ID). Often used when a carrier
+            is using a number from another carrier
+          example: 073H
+          type: string
+        altspid_carrier_name:
+          description: Alternative service provider name
+          example: Telnyx/4
+          type: string
+        altspid_carrier_type:
+          description: Alternative service provider type
+          example: "3"
+          type: string
+        city:
+          description: City name extracted from the locality in the Local Exchange
+            Routing Guide (LERG) database
+          example: WAUKEGAN
+          type: string
+        state:
+          example: Illinois
+          type: string
+      type: object
     Recording:
       example:
         record_type: recording
@@ -17893,6 +18817,42 @@ components:
       required:
       - digits
       title: Send DTMF Request
+      type: object
+    SendFaxRequest:
+      example:
+        connection_id: "234423"
+        from: +13125790015
+        to: +13127367276
+        media_url: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+        quality: high
+      properties:
+        connection_id:
+          description: The connection ID to send the fax with.
+          example: "234423"
+          type: string
+        media_url:
+          description: The URL to the PDF used for the fax's media.
+          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+          type: string
+        to:
+          description: The phone number, in E.164 format, the fax will be sent to
+            or SIP URI
+          example: +13127367276
+          type: string
+        from:
+          description: The phone number, in E.164 format, the fax will be sent from.
+          example: +13125790015
+          type: string
+        quality:
+          default: high
+          description: The quality of the fax. Can be normal, high, very_high
+          example: high
+          type: string
+      required:
+      - connection_id
+      - media_url
+      - to
+      title: Send fax request
       type: object
     ServicePlan:
       default: global
@@ -20153,8 +21113,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -20213,8 +21173,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -20278,8 +21238,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -20350,8 +21310,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -20398,8 +21358,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -20526,8 +21486,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -20591,7 +21551,7 @@ components:
           $ref: '#/components/schemas/CredentialConnection'
       title: Credential Connection Response
       type: object
-    inline_response_200:
+    Get_All_Fax_Applications_Response:
       example:
         data:
         - id: "1293384261075731499"
@@ -20631,8 +21591,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -20640,8 +21600,9 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/PaginationMeta'
+      title: Get All Fax Applications Response
       type: object
-    inline_response_201:
+    Fax_Application_Response:
       example:
         data:
           id: "1293384261075731499"
@@ -20664,6 +21625,115 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/FaxApplication'
+      title: Fax Application Response
+      type: object
+    List_Faxes_Response:
+      example:
+        data:
+        - record_type: fax
+          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          connection_id: c-1
+          direction: outbound
+          from: +123
+          to: +456
+          media_url: http://www.example.com/fax.pdf
+          store_media: true
+          stored_media_url: https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51
+          quality: high
+          webhook_url: http://www.example.com/webhooks
+          webhook_failover_url: ""
+          status: queued
+          created_at: 2020-05-05T09:59:12
+          updated_at: 2020-05-05T09:59:12
+        - record_type: fax
+          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          connection_id: c-1
+          direction: outbound
+          from: +123
+          to: +456
+          media_url: http://www.example.com/fax.pdf
+          store_media: true
+          stored_media_url: https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51
+          quality: high
+          webhook_url: http://www.example.com/webhooks
+          webhook_failover_url: ""
+          status: queued
+          created_at: 2020-05-05T09:59:12
+          updated_at: 2020-05-05T09:59:12
+        meta:
+          page_number: 2
+          page_size: 1
+          total_pages: 3
+          total_results: 3
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Fax'
+          type: array
+        meta:
+          example:
+            page_number: 2
+            page_size: 1
+            total_pages: 3
+            total_results: 3
+          type: object
+      title: List Faxes Response
+      type: object
+    Send_Fax_Response:
+      example:
+        data:
+          record_type: fax
+          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          connection_id: c-1
+          direction: outbound
+          from: +123
+          to: +456
+          media_url: http://www.example.com/fax.pdf
+          store_media: true
+          stored_media_url: https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51
+          quality: high
+          webhook_url: http://www.example.com/webhooks
+          webhook_failover_url: ""
+          status: queued
+          created_at: 2020-05-05T09:59:12
+          updated_at: 2020-05-05T09:59:12
+      properties:
+        data:
+          $ref: '#/components/schemas/Fax'
+      title: Send Fax Response
+      type: object
+    Get_Fax_Response:
+      example:
+        data:
+          record_type: fax
+          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          connection_id: c-1
+          direction: outbound
+          from: +123
+          to: +456
+          media_url: http://www.example.com/fax.pdf
+          store_media: true
+          stored_media_url: https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51
+          quality: high
+          webhook_url: http://www.example.com/webhooks
+          webhook_failover_url: ""
+          status: queued
+          created_at: 2020-05-05T09:59:12
+          updated_at: 2020-05-05T09:59:12
+      properties:
+        data:
+          $ref: '#/components/schemas/Fax'
+      title: Get Fax Response
+      type: object
+    Refresh_Fax_Response:
+      example:
+        data:
+          result: ok
+      properties:
+        result:
+          example: ok
+          type: string
+      title: Refresh Fax Response
       type: object
     List_Fqdn_Connections_Response:
       example:
@@ -20747,8 +21817,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -20826,8 +21896,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -20967,8 +22037,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21152,8 +22222,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21220,8 +22290,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21283,8 +22353,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21403,8 +22473,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21434,8 +22504,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21459,8 +22529,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21469,6 +22539,42 @@ components:
         meta:
           $ref: '#/components/schemas/PaginationMeta'
       title: List Messaging Profile Url Domains Response
+      type: object
+    Number_Lookup_Response:
+      example:
+        data:
+          portability:
+            altspid: 073H
+            city: WAUKEGAN
+            ported_date: 2017-10-20
+            lrn: "2245701999"
+            spid_carrier_name: Telnyx/4
+            spid: 073H
+            altspid_carrier_name: Telnyx/4
+            line_type: voip
+            ported_status: "Y"
+            ocn: 073H
+            spid_carrier_type: "3"
+            state: Illinois
+            altspid_carrier_type: "3"
+          country_code: US
+          caller_name:
+            caller_name: TELNYX LLC
+            error_code: "10001"
+          carrier:
+            name: Telnyx/4
+            error_code: error_code
+            mobile_country_code: US
+            mobile_network_code: "0866"
+            type: voip
+          national_format: (0312) 945-7420
+          fraud: fraud
+          phone_number: +13129457420
+          record_type: number_lookup
+      properties:
+        data:
+          $ref: '#/components/schemas/NumberLookupRecord'
+      title: Number Lookup Response
       type: object
     List_Number_Order_Documents_Response:
       example:
@@ -21490,8 +22596,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21568,8 +22674,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21646,8 +22752,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21740,8 +22846,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21785,41 +22891,6 @@ components:
         data:
           $ref: '#/components/schemas/OutboundVoiceProfile'
       title: Outbound Voice Profile Response
-      type: object
-    List_Phone_Number_Regulatory_Requirements_Response:
-      example:
-        data:
-        - record_type: phone_number_regulatory_requirement
-          phone_number: +19705555098
-          regulatory_group_id: d70873cd-7c98-401a-81b6-b1ae08246995
-          regulatory_requirements:
-          - record_type: regulatory_requirement
-            requirement_type: end user proof of address
-            label: Proof of Address
-            field_type: address
-            description: Requirement for providing Proof of Address.
-        - record_type: phone_number_regulatory_requirement
-          phone_number: +19705555098
-          regulatory_group_id: d70873cd-7c98-401a-81b6-b1ae08246995
-          regulatory_requirements:
-          - record_type: regulatory_requirement
-            requirement_type: end user proof of address
-            label: Proof of Address
-            field_type: address
-            description: Requirement for providing Proof of Address.
-        meta:
-          page_number: 2
-          total_pages: 3
-          total_results: 55
-          page_size: 25
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/PhoneNumberRegulatoryGroup'
-          type: array
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-      title: List Phone Number Regulatory Requirements Response
       type: object
     List_Phone_Numbers_Response:
       example:
@@ -21875,8 +22946,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21900,8 +22971,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -21977,8 +23048,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -22156,8 +23227,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -22225,8 +23296,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -22399,6 +23470,41 @@ components:
           $ref: '#/components/schemas/PhoneNumberWithVoiceSettings'
       title: Retrieve Phone Number Voice Response
       type: object
+    List_Phone_Number_Regulatory_Requirements_Response:
+      example:
+        data:
+        - record_type: phone_number_regulatory_requirement
+          phone_number: +19705555098
+          regulatory_group_id: d70873cd-7c98-401a-81b6-b1ae08246995
+          regulatory_requirements:
+          - record_type: regulatory_requirement
+            requirement_type: end user proof of address
+            label: Proof of Address
+            field_type: address
+            description: Requirement for providing Proof of Address.
+        - record_type: phone_number_regulatory_requirement
+          phone_number: +19705555098
+          regulatory_group_id: d70873cd-7c98-401a-81b6-b1ae08246995
+          regulatory_requirements:
+          - record_type: regulatory_requirement
+            requirement_type: end user proof of address
+            label: Proof of Address
+            field_type: address
+            description: Requirement for providing Proof of Address.
+        meta:
+          page_number: 2
+          total_pages: 3
+          page_size: 25
+          total_results: 55
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PhoneNumberRegulatoryGroup'
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+      title: List Phone Number Regulatory Requirements Response
+      type: object
     List_Recordings_Response:
       example:
         data:
@@ -22435,8 +23541,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -22485,8 +23591,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -22529,8 +23635,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -22555,7 +23661,7 @@ components:
           $ref: '#/components/schemas/ShortCode'
       title: Short Code Response
       type: object
-    inline_response_200_1:
+    Get_All_Texml_Applications_Response:
       example:
         data:
         - id: "1293384261075731499"
@@ -22605,8 +23711,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          total_results: 55
           page_size: 25
+          total_results: 55
       properties:
         data:
           items:
@@ -22614,8 +23720,9 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/PaginationMeta'
+      title: Get All Texml Applications Response
       type: object
-    inline_response_201_1:
+    Texml_Application_Response:
       example:
         data:
           id: "1293384261075731499"
@@ -22643,6 +23750,7 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/TexmlApplication'
+      title: Texml Application Response
       type: object
     CallAnswered_payload:
       properties:
@@ -23783,6 +24891,229 @@ components:
           example: https://developers.telnyx.com/docs/overview/errors/10015
           type: string
       type: object
+    FaxDelivered_payload:
+      properties:
+        call_duration_secs:
+          description: The duration of the call in seconds.
+          example: 25
+          type: integer
+        connection_id:
+          description: The ID of the connection that was used to send the fax.
+          example: "234423"
+          type: string
+        direction:
+          description: The direction of the fax.
+          enum:
+          - inbound
+          - outbound
+          example: outbound
+          type: string
+        fax_id:
+          description: Identifies the fax.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        original_media_url:
+          description: The original URL to the PDF used for the fax's media.
+          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+          type: string
+        to:
+          description: The phone number, in E.164 format, the fax will be sent to
+            or SIP URI
+          example: +13127367276
+          type: string
+        from:
+          description: The phone number, in E.164 format, the fax will be sent from.
+          example: +13125790015
+          type: string
+        user_id:
+          description: Identifier of the user to whom the fax belongs
+          format: uuid
+          type: string
+        page_count:
+          description: Number of transferred pages
+          example: 2
+          type: integer
+        status:
+          description: The status of the fax.
+          enum:
+          - delivered
+          example: delivered
+          type: string
+      type: object
+    FaxFailed_payload:
+      properties:
+        connection_id:
+          description: The ID of the connection that was used to send the fax.
+          example: "234423"
+          type: string
+        direction:
+          description: The direction of the fax.
+          enum:
+          - inbound
+          - outbound
+          example: outbound
+          type: string
+        fax_id:
+          description: Identifies the fax.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        original_media_url:
+          description: The original URL to the PDF used for the fax's media.
+          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+          type: string
+        to:
+          description: The phone number, in E.164 format, the fax will be sent to
+            or SIP URI
+          example: +13127367276
+          type: string
+        from:
+          description: The phone number, in E.164 format, the fax will be sent from.
+          example: +13125790015
+          type: string
+        user_id:
+          description: Identifier of the user to whom the fax belongs
+          format: uuid
+          type: string
+        failure_reason:
+          description: Cause of the sending failure
+          enum:
+          - rejected
+          type: string
+        status:
+          description: The status of the fax.
+          enum:
+          - failed
+          example: failed
+          type: string
+      type: object
+    FaxMediaProcessed_payload:
+      properties:
+        connection_id:
+          description: The ID of the connection that was used to send the fax.
+          example: "234423"
+          type: string
+        direction:
+          description: The direction of the fax.
+          enum:
+          - inbound
+          - outbound
+          example: outbound
+          type: string
+        fax_id:
+          description: Identifies the fax.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        original_media_url:
+          description: The original URL to the PDF used for the fax's media.
+          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+          type: string
+        to:
+          description: The phone number, in E.164 format, the fax will be sent to
+            or SIP URI
+          example: +13127367276
+          type: string
+        from:
+          description: The phone number, in E.164 format, the fax will be sent from.
+          example: +13125790015
+          type: string
+        user_id:
+          description: Identifier of the user to whom the fax belongs
+          format: uuid
+          type: string
+        status:
+          description: The status of the fax.
+          enum:
+          - media.processed
+          example: media.processed
+          type: string
+      type: object
+    FaxQueued_payload:
+      properties:
+        connection_id:
+          description: The ID of the connection that was used to send the fax.
+          example: "234423"
+          type: string
+        direction:
+          description: The direction of the fax.
+          enum:
+          - inbound
+          - outbound
+          example: outbound
+          type: string
+        fax_id:
+          description: Identifies the fax.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        original_media_url:
+          description: The original URL to the PDF used for the fax's media.
+          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+          type: string
+        to:
+          description: The phone number, in E.164 format, the fax will be sent to
+            or SIP URI
+          example: +13127367276
+          type: string
+        from:
+          description: The phone number, in E.164 format, the fax will be sent from.
+          example: +13125790015
+          type: string
+        user_id:
+          description: Identifier of the user to whom the fax belongs
+          format: uuid
+          type: string
+        status:
+          description: The status of the fax.
+          enum:
+          - queued
+          example: queued
+          type: string
+      type: object
+    FaxSendingStarted_payload:
+      properties:
+        connection_id:
+          description: The ID of the connection that was used to send the fax.
+          example: "234423"
+          type: string
+        direction:
+          description: The direction of the fax.
+          enum:
+          - inbound
+          - outbound
+          example: outbound
+          type: string
+        fax_id:
+          description: Identifies the fax.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        original_media_url:
+          description: The original URL to the PDF used for the fax's media.
+          example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+          type: string
+        to:
+          description: The phone number, in E.164 format, the fax will be sent to
+            or SIP URI
+          example: +13127367276
+          type: string
+        from:
+          description: The phone number, in E.164 format, the fax will be sent from.
+          example: +13125790015
+          type: string
+        user_id:
+          description: Identifier of the user to whom the fax belongs
+          format: uuid
+          type: string
+        status:
+          description: The status of the fax.
+          enum:
+          - sending
+          example: sending
+          type: string
+      type: object
     InboundMessagePayload_to:
       properties:
         phone_number:
@@ -24087,6 +25418,9 @@ components:
       - response_code
       type: object
   securitySchemes:
+    BearerAuth:
+      scheme: bearer
+      type: http
     bearerAuth:
       scheme: bearer
       type: http

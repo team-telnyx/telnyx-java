@@ -32,72 +32,24 @@ import com.telnyx.sdk.JSON;
  * PaginationMeta
  */
 @JsonPropertyOrder({
-  PaginationMeta.JSON_PROPERTY_TOTAL_PAGES,
-  PaginationMeta.JSON_PROPERTY_TOTAL_RESULTS,
   PaginationMeta.JSON_PROPERTY_PAGE_NUMBER,
-  PaginationMeta.JSON_PROPERTY_PAGE_SIZE
+  PaginationMeta.JSON_PROPERTY_PAGE_SIZE,
+  PaginationMeta.JSON_PROPERTY_TOTAL_PAGES,
+  PaginationMeta.JSON_PROPERTY_TOTAL_RESULTS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PaginationMeta {
-  public static final String JSON_PROPERTY_TOTAL_PAGES = "total_pages";
-  private Integer totalPages;
-
-  public static final String JSON_PROPERTY_TOTAL_RESULTS = "total_results";
-  private Integer totalResults;
-
   public static final String JSON_PROPERTY_PAGE_NUMBER = "page_number";
   private Integer pageNumber;
 
   public static final String JSON_PROPERTY_PAGE_SIZE = "page_size";
   private Integer pageSize;
 
+  public static final String JSON_PROPERTY_TOTAL_PAGES = "total_pages";
+  private Integer totalPages;
 
-  public PaginationMeta totalPages(Integer totalPages) {
-    this.totalPages = totalPages;
-    return this;
-  }
-
-   /**
-   * Get totalPages
-   * @return totalPages
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "3", value = "")
-  @JsonProperty(JSON_PROPERTY_TOTAL_PAGES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTotalPages() {
-    return totalPages;
-  }
-
-
-  public void setTotalPages(Integer totalPages) {
-    this.totalPages = totalPages;
-  }
-
-
-  public PaginationMeta totalResults(Integer totalResults) {
-    this.totalResults = totalResults;
-    return this;
-  }
-
-   /**
-   * Get totalResults
-   * @return totalResults
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "55", value = "")
-  @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTotalResults() {
-    return totalResults;
-  }
-
-
-  public void setTotalResults(Integer totalResults) {
-    this.totalResults = totalResults;
-  }
+  public static final String JSON_PROPERTY_TOTAL_RESULTS = "total_results";
+  private Integer totalResults;
 
 
   public PaginationMeta pageNumber(Integer pageNumber) {
@@ -148,6 +100,54 @@ public class PaginationMeta {
   }
 
 
+  public PaginationMeta totalPages(Integer totalPages) {
+    this.totalPages = totalPages;
+    return this;
+  }
+
+   /**
+   * Get totalPages
+   * @return totalPages
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "3", value = "")
+  @JsonProperty(JSON_PROPERTY_TOTAL_PAGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTotalPages() {
+    return totalPages;
+  }
+
+
+  public void setTotalPages(Integer totalPages) {
+    this.totalPages = totalPages;
+  }
+
+
+  public PaginationMeta totalResults(Integer totalResults) {
+    this.totalResults = totalResults;
+    return this;
+  }
+
+   /**
+   * Get totalResults
+   * @return totalResults
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "55", value = "")
+  @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTotalResults() {
+    return totalResults;
+  }
+
+
+  public void setTotalResults(Integer totalResults) {
+    this.totalResults = totalResults;
+  }
+
+
   /**
    * Return true if this PaginationMeta object is equal to o.
    */
@@ -160,15 +160,15 @@ public class PaginationMeta {
       return false;
     }
     PaginationMeta paginationMeta = (PaginationMeta) o;
-    return Objects.equals(this.totalPages, paginationMeta.totalPages) &&
-        Objects.equals(this.totalResults, paginationMeta.totalResults) &&
-        Objects.equals(this.pageNumber, paginationMeta.pageNumber) &&
-        Objects.equals(this.pageSize, paginationMeta.pageSize);
+    return Objects.equals(this.pageNumber, paginationMeta.pageNumber) &&
+        Objects.equals(this.pageSize, paginationMeta.pageSize) &&
+        Objects.equals(this.totalPages, paginationMeta.totalPages) &&
+        Objects.equals(this.totalResults, paginationMeta.totalResults);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(totalPages, totalResults, pageNumber, pageSize);
+    return Objects.hash(pageNumber, pageSize, totalPages, totalResults);
   }
 
 
@@ -176,10 +176,10 @@ public class PaginationMeta {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PaginationMeta {\n");
-    sb.append("    totalPages: ").append(toIndentedString(totalPages)).append("\n");
-    sb.append("    totalResults: ").append(toIndentedString(totalResults)).append("\n");
     sb.append("    pageNumber: ").append(toIndentedString(pageNumber)).append("\n");
     sb.append("    pageSize: ").append(toIndentedString(pageSize)).append("\n");
+    sb.append("    totalPages: ").append(toIndentedString(totalPages)).append("\n");
+    sb.append("    totalResults: ").append(toIndentedString(totalResults)).append("\n");
     sb.append("}");
     return sb.toString();
   }
