@@ -186,7 +186,7 @@ public class Example {
 
         IPsApi apiInstance = new IPsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         String filterConnectionId = "filterConnectionId_example"; // String | ID of the IP Connection to which this IP should be attached.
         String filterIpAddress = 192.168.0.0; // String | IP adddress represented by this resource.
         Integer filterPort = 5060; // Integer | Port to use when connecting to this IP.
@@ -216,7 +216,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
  **filterConnectionId** | **String**| ID of the IP Connection to which this IP should be attached. | [optional]
  **filterIpAddress** | **String**| IP adddress represented by this resource. | [optional]
  **filterPort** | **Integer**| Port to use when connecting to this IP. | [optional]

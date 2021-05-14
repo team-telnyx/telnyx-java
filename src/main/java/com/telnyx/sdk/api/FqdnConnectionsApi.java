@@ -252,7 +252,7 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistFqdnConnectionsRequest
      */
     public APIlistFqdnConnectionsRequest pageSize(Integer pageSize) {

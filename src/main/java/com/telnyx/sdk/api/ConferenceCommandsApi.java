@@ -1201,7 +1201,7 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistConferenceParticipantsRequest
      */
     public APIlistConferenceParticipantsRequest pageSize(Integer pageSize) {
@@ -1328,7 +1328,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistConferencesRequest
      */
     public APIlistConferencesRequest pageSize(Integer pageSize) {

@@ -195,7 +195,7 @@ public class TeXmlApplicationsApi {
    * List all TeXML Applications
    * Returns a list of your TeXML Applications.
    * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageSize The size of the page (optional, default to 50)
    * @param filterFriendlyNameContains If present, applications with &lt;code&gt;friendly_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
    * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
    * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
@@ -218,7 +218,7 @@ public class TeXmlApplicationsApi {
    * List all TeXML Applications
    * Returns a list of your TeXML Applications.
    * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageSize The size of the page (optional, default to 50)
    * @param filterFriendlyNameContains If present, applications with &lt;code&gt;friendly_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
    * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
    * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)

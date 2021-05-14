@@ -14,6 +14,10 @@ servers:
 security:
 - bearerAuth: []
 tags:
+- description: Access Tokens creation
+  name: Access Tokens
+- description: Bulk operations over Credentials
+  name: Bulk Credentials
 - description: Call Control command operations
   name: Call Commands
 - description: Call Control applications operations
@@ -26,6 +30,8 @@ tags:
   name: Connections
 - description: Credential connection operations
   name: Credential Connections
+- description: Credentials operations
+  name: Credentials
 - description: Call Control debugging
   name: Debugging
 - description: FQDN connection operations
@@ -75,6 +81,140 @@ tags:
 - description: Two factor authentication API
   name: Verify
 paths:
+  /actions/bulk/telephony_credentials:
+    delete:
+      description: Delete several credentials in bulk.
+      operationId: DeleteBulkTelephonyCredential
+      parameters:
+      - description: Filter by tag, required by bulk operations.
+        explode: true
+        in: query
+        name: filter[tag]
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bulk_Credential_Response'
+          description: Successful response for Bulk credential requests
+        "422":
+          description: Bad request
+      summary: Delete several credentials
+      tags:
+      - Bulk Credentials
+      x-latency-category: responsive
+      x-accepts: application/json
+    patch:
+      description: Update several credentials in bulk.
+      operationId: UpdateBulkTelephonyCredential
+      parameters:
+      - description: Filter by tag, required by bulk operations.
+        explode: true
+        in: query
+        name: filter[tag]
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkCredentialRequest'
+        description: Parameters to update credentials on bulk
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bulk_Credential_Response'
+          description: Successful response for Bulk credential requests
+        "422":
+          description: Bad request
+      summary: Update several credentials
+      tags:
+      - Bulk Credentials
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+    post:
+      description: Creates several credentials in bulk.
+      operationId: CreateBulkTelephonyCredential
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkCredentialRequest'
+        description: Requested parameters to create credentials on bulk
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bulk_Credential_Response'
+          description: Successful response for Bulk credential requests
+        "422":
+          description: Bad request
+      summary: Creates several credentials
+      tags:
+      - Bulk Credentials
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /actions/{action}/telephony_credentials:
+    post:
+      description: Perform activate or deactivate action on all credentials filtered
+        by the provided tag. Activate action will change the status to active, making
+        it possible to connect calls with the credential. Deactivate action will change
+        the status to inactive, making it impossible to connect calls with the credential.
+      operationId: BulkCredentialAction
+      parameters:
+      - description: Identifies the action to be taken. Activate will change the status
+          to active. Deactivate will change the status to inactive.
+        explode: false
+        in: path
+        name: action
+        required: true
+        schema:
+          enum:
+          - activate
+          - deactivate
+          type: string
+        style: simple
+      - description: Filter by tag, required by bulk operations.
+        explode: true
+        in: query
+        name: filter[tag]
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bulk_Credential_Response'
+          description: Successful response for Bulk credential requests
+        "401":
+          description: Unauthorized
+        "404":
+          description: Resource not found
+        "422":
+          description: Bad request
+      summary: Perform activate or deactivate action on all credentials filtered by
+        the provided tag.
+      tags:
+      - Bulk Credentials
+      x-latency-category: responsive
+      x-accepts: application/json
   /available_phone_numbers:
     get:
       operationId: listAvailablePhoneNumbers
@@ -293,7 +433,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -608,7 +748,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -2257,7 +2397,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -2432,7 +2572,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -3231,7 +3371,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -3357,7 +3497,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -3579,7 +3719,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -4107,7 +4247,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -4316,7 +4456,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -4518,7 +4658,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -4737,7 +4877,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -5145,7 +5285,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -5324,7 +5464,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -5393,7 +5533,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -5661,7 +5801,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -5715,7 +5855,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -5769,7 +5909,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -5888,7 +6028,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -6077,7 +6217,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -6276,7 +6416,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -6412,7 +6552,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -6634,7 +6774,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -6811,7 +6951,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -6921,7 +7061,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -7104,7 +7244,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -7149,7 +7289,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -7556,7 +7696,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -7631,7 +7771,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -7727,7 +7867,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -7804,7 +7944,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -7910,6 +8050,333 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
+  /telephony_credentials:
+    get:
+      description: List all On-demand Credentials.
+      operationId: findTelephonyCredentials
+      parameters:
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 50
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
+      - description: Filter by tag
+        explode: true
+        in: query
+        name: filter[tag]
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by name
+        explode: true
+        in: query
+        name: filter[name]
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by status
+        explode: true
+        in: query
+        name: filter[status]
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by resource_id
+        explode: true
+        in: query
+        name: filter[resource_id]
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by sip_username
+        explode: true
+        in: query
+        name: filter[sip_username]
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Get_All_Telephony_Credential_Response'
+          description: Successful response with multiple credentials
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Resource not found
+      summary: List all credentials
+      tags:
+      - Credentials
+      x-group-parameters: "true"
+      x-latency-category: responsive
+      x-accepts: application/json
+    post:
+      description: Create a credential.
+      operationId: CreateTelephonyCredential
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelephonyCredentialCreateRequest'
+        description: Parameters that can be defined during credential creation
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telephony_Credential_Response'
+          description: Successful response with details about a credential
+        "422":
+          description: Bad request
+      summary: Create a credential
+      tags:
+      - Credentials
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /telephony_credentials/tags:
+    get:
+      description: Returns a list of tags used on Credentials
+      operationId: listTags
+      parameters:
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 50
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List_Tags_Response'
+          description: Successful response with multiple tags
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Resource not found
+      summary: List all tags
+      tags:
+      - Credentials
+      x-latency-category: responsive
+      x-accepts: application/json
+  /telephony_credentials/{id}:
+    delete:
+      description: Delete an existing credential.
+      operationId: DeleteTelephonyCredential
+      parameters:
+      - description: Identifies the resource.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telephony_Credential_Response'
+          description: Successful response with details about a credential
+        "401":
+          description: Unauthorized
+        "404":
+          description: Resource not found
+        "422":
+          description: Bad request
+      summary: Delete a credential
+      tags:
+      - Credentials
+      x-latency-category: responsive
+      x-accepts: application/json
+    get:
+      description: Get the details of an existing On-demand Credential.
+      operationId: getTelephonyCredential
+      parameters:
+      - description: Identifies the resource.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telephony_Credential_Response'
+          description: Successful response with details about a credential
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Resource not found
+      summary: Get a credential
+      tags:
+      - Credentials
+      x-latency-category: responsive
+      x-accepts: application/json
+    patch:
+      description: Update an existing credential.
+      operationId: UpdateTelephonyCredential
+      parameters:
+      - description: Identifies the resource.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelephonyCredentialUpdateRequest'
+        description: Parameters that can be updated in a credential
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telephony_Credential_Response'
+          description: Successful response with details about a credential
+        "401":
+          description: Unauthorized
+        "404":
+          description: Resource not found
+        "422":
+          description: Bad request
+      summary: Update a credential
+      tags:
+      - Credentials
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /telephony_credentials/{id}/actions/{action}:
+    post:
+      description: Perform activate or deactivate action on provided Credential. Activate
+        action will change the status to active, making it possible to connect calls
+        with the credential. Deactivate action will change the status to inactive,
+        making it impossible to connect calls with the credential.
+      operationId: telephonyCredentialAction
+      parameters:
+      - description: Identifies the resource.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Identifies the action to be taken.
+        explode: false
+        in: path
+        name: action
+        required: true
+        schema:
+          enum:
+          - activate
+          - deactivate
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telephony_Credential_Response'
+          description: Successful response with details about a credential
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Resource not found
+      summary: Perform activate or deactivate action on provided Credential
+      tags:
+      - Credentials
+      x-latency-category: responsive
+      x-accepts: application/json
+  /telephony_credentials/{id}/token:
+    post:
+      description: Create an Access Token (JWT) for the credential.
+      operationId: CreateTelephonyCredentialToken
+      parameters:
+      - description: Identifies the resource.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                example: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ
+                type: string
+          description: JWT
+        "404":
+          description: Resource not Found
+      summary: Create an Access Token.
+      tags:
+      - Access Tokens
+      x-latency-category: responsive
+      x-accepts: text/plain
   /texml_applications:
     get:
       description: Returns a list of your TeXML Applications.
@@ -7931,7 +8398,7 @@ paths:
         name: page[size]
         required: false
         schema:
-          default: 20
+          default: 50
           maximum: 250
           minimum: 1
           type: integer
@@ -8604,6 +9071,15 @@ components:
         format: int64
         type: string
       style: form
+    FilterName:
+      description: Filter by name
+      explode: true
+      in: query
+      name: filter[name]
+      required: false
+      schema:
+        type: string
+      style: form
     FilterOutboundVoiceProfileId:
       description: Identifies the associated outbound voice profile.
       explode: true
@@ -8613,6 +9089,33 @@ components:
       schema:
         example: "1293384261075731499"
         format: int64
+        type: string
+      style: form
+    FilterResourceId:
+      description: Filter by resource_id
+      explode: true
+      in: query
+      name: filter[resource_id]
+      required: false
+      schema:
+        type: string
+      style: form
+    FilterSipUsername:
+      description: Filter by sip_username
+      explode: true
+      in: query
+      name: filter[sip_username]
+      required: false
+      schema:
+        type: string
+      style: form
+    FilterStatus:
+      description: Filter by status
+      explode: true
+      in: query
+      name: filter[status]
+      required: false
+      schema:
         type: string
       style: form
     FqdnId:
@@ -8707,6 +9210,15 @@ components:
         - caller-name
         type: string
       style: form
+    OptionalTag:
+      description: Filter by tag
+      explode: true
+      in: query
+      name: filter[tag]
+      required: false
+      schema:
+        type: string
+      style: form
     PageNumber:
       description: The page number to load
       explode: true
@@ -8725,7 +9237,7 @@ components:
       name: page[size]
       required: false
       schema:
-        default: 20
+        default: 50
         maximum: 250
         minimum: 1
         type: integer
@@ -8740,6 +9252,15 @@ components:
         example: +18665552368
         type: string
       style: simple
+    RequiredTag:
+      description: Filter by tag, required by bulk operations.
+      explode: true
+      in: query
+      name: filter[tag]
+      required: true
+      schema:
+        type: string
+      style: form
     ShortCodeId:
       description: The id of the short code
       explode: false
@@ -8826,6 +9347,12 @@ components:
       style: simple
   requestBodies: {}
   responses:
+    BulkCredentialResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Bulk_Credential_Response'
+      description: Successful response for Bulk credential requests
     CallControlApplicationResponse:
       content:
         application/json:
@@ -8904,6 +9431,12 @@ components:
           schema:
             $ref: '#/components/schemas/Get_All_Fax_Applications_Response'
       description: Successful response
+    GetAllTelephonyCredentialResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Get_All_Telephony_Credential_Response'
+      description: Successful response with multiple credentials
     GetAllTexmlApplicationsResponse:
       content:
         application/json:
@@ -9115,6 +9648,12 @@ components:
           schema:
             $ref: '#/components/schemas/List_Short_Codes_Response'
       description: Successful response with a list of short codes.
+    ListTagsResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/List_Tags_Response'
+      description: Successful response with multiple tags
     MessageResponse:
       content:
         application/json:
@@ -9235,6 +9774,12 @@ components:
           schema:
             $ref: '#/components/schemas/Short_Code_Response'
       description: Successful response with details about a short code.
+    TelephonyCredentialResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Telephony_Credential_Response'
+      description: Successful response with details about a credential
     TexmlApplicationResponse:
       content:
         application/json:
@@ -9416,6 +9961,35 @@ components:
       required:
       - call_control_id
       title: Bridge Request
+      type: object
+    BulkCredentialRequest:
+      example:
+        name: Default Name
+        tag: My Credentials
+        connection_id: "804252963366242252"
+      properties:
+        name:
+          description: A default name for all credentials.
+          example: Default Credentials
+          type: string
+        tag:
+          description: Tags a credential for bulk operations. A single tag can hold
+            at maximum 1000 credentials.
+          example: My Credentials
+          type: string
+        amount:
+          description: Amount of credentials to be created. A single tag can hold
+            at maximum 1000 credentials
+          example: 100
+          type: integer
+        connection_id:
+          description: Identifies the connection this credential is associated with.
+          example: "1234567890"
+          type: string
+      required:
+      - connection_id
+      - tag
+      title: Bulk Credential Request
       type: object
     Call:
       example:
@@ -17429,20 +18003,20 @@ components:
       example:
         page_number: 2
         total_pages: 3
-        page_size: 25
         total_results: 55
+        page_size: 25
       properties:
-        page_number:
-          example: 2
-          type: integer
-        page_size:
-          example: 25
-          type: integer
         total_pages:
           example: 3
           type: integer
         total_results:
           example: 55
+          type: integer
+        page_number:
+          example: 2
+          type: integer
+        page_size:
+          example: 25
           type: integer
       type: object
     PaginationMetaSimple:
@@ -19242,6 +19816,110 @@ components:
           example: 891510ac-f3e4-11e8-af5b-de00688a4901
           type: string
       title: Stop Recording Request
+      type: object
+    TelephonyCredential:
+      example:
+        id: c215ade3-0d39-418e-94be-c5f780760199
+        record_type: credential
+        name: 2020-06-18 21:32:38.917732Z
+        expired: "false"
+        user_id: user-id
+        resource_id: connection:804252963366242252
+        sip_password: a92dbcfb60184a8cb330b0acb2f7617b
+        sip_username: gencrednCvHU5IYpSBPPsXI2iQsDX
+        created_at: 2020-06-18T21:32:38
+        expires_at: 2042-06-18T21:32:38
+        updated_at: 2020-06-18T21:32:38.000Z
+      properties:
+        id:
+          description: Identifies the resource.
+          example: c215ade3-0d39-418e-94be-c5f780760199
+          format: string
+          type: string
+        record_type:
+          description: Identifies the type of the resource.
+          example: credential
+          type: string
+        name:
+          type: string
+        resource_id:
+          description: Identifies the resource this credential is associated with.
+          example: connection:1234567890
+          type: string
+        expired:
+          description: Defaults to false
+          type: boolean
+        sip_username:
+          description: The randomly generated SIP username for the credential.
+          example: gencrednCvHU5IYpSBPPsXI2iQsDX
+          type: string
+        sip_password:
+          description: The randomly generated SIP password for the credential.
+          example: a92dbcfb60184a8cb330b0acb2f7617b
+          type: string
+        created_at:
+          description: ISO-8601 formatted date indicating when the resource was created.
+          example: 2018-02-02T22:25:27.521Z
+          type: string
+        updated_at:
+          description: ISO-8601 formatted date indicating when the resource was updated.
+          example: 2018-02-02T22:25:27.521Z
+          type: string
+        expires_at:
+          description: ISO-8601 formatted date indicating when the resource will expire.
+          example: 2018-02-02T22:25:27.521Z
+          type: string
+      title: On-demand Credential
+      type: object
+    TelephonyCredentialCreateRequest:
+      example:
+        name: My-new-credential
+        connection_id: "1234567890"
+      properties:
+        name:
+          type: string
+        tag:
+          description: Tags a credential to filter for bulk operations. A single tag
+            can hold at maximum 1000 credentials.
+          example: some_tag
+          type: string
+        connection_id:
+          description: Identifies the Credential Connection this credential is associated
+            with.
+          example: "1234567890"
+          type: string
+        expires_at:
+          description: ISO-8601 formatted date indicating when the credential will
+            expire.
+          example: 2018-02-02T22:25:27.521Z
+          type: string
+      required:
+      - connection_id
+      title: TelephonyCredentialCreateRequest
+      type: object
+    TelephonyCredentialUpdateRequest:
+      example:
+        name: My-new-updated-credential
+        connection_id: "987654321"
+      properties:
+        name:
+          type: string
+        tag:
+          description: Tags a credential to filter for bulk operations. A single tag
+            can hold at maximum 1000 credentials.
+          example: some_tag
+          type: string
+        connection_id:
+          description: Identifies the Credential Connection this credential is associated
+            with.
+          example: "987654321"
+          type: string
+        expires_at:
+          description: ISO-8601 formatted date indicating when the credential will
+            expire.
+          example: 2018-02-02T22:25:27.521Z
+          type: string
+      title: TelephonyCredentialUpdateRequest
       type: object
     TexmlApplication:
       example:
@@ -21100,6 +21778,24 @@ components:
       nullable: true
       title: Webhook Timeout Secs
       type: integer
+    Bulk_Credential_Response_data:
+      example:
+        credentials: 0
+      properties:
+        credentials:
+          description: Amount of credentials affected
+          example: 0
+          type: integer
+      type: object
+    Bulk_Credential_Response:
+      example:
+        data:
+          credentials: 0
+      properties:
+        data:
+          $ref: '#/components/schemas/Bulk_Credential_Response_data'
+      title: Bulk Credential Response
+      type: object
     List_Available_Phone_Numbers_Response:
       example:
         data:
@@ -21199,8 +21895,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -21259,8 +21955,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -21324,8 +22020,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -21396,8 +22092,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -21444,8 +22140,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -21572,8 +22268,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -21677,8 +22373,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -21903,8 +22599,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -21982,8 +22678,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22123,8 +22819,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22308,8 +23004,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22376,8 +23072,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22439,8 +23135,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22559,8 +23255,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22590,8 +23286,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22615,8 +23311,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22682,8 +23378,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22760,8 +23456,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22838,8 +23534,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -22932,8 +23628,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23032,8 +23728,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23057,8 +23753,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23134,8 +23830,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23313,8 +24009,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23382,8 +24078,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23580,8 +24276,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23627,8 +24323,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23677,8 +24373,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23721,8 +24417,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:
@@ -23746,6 +24442,97 @@ components:
         data:
           $ref: '#/components/schemas/ShortCode'
       title: Short Code Response
+      type: object
+    Get_All_Telephony_Credential_Response:
+      example:
+        data:
+        - id: c215ade3-0d39-418e-94be-c5f780760199
+          record_type: credential
+          name: 2020-06-18 21:32:38.917732Z
+          expired: "false"
+          user_id: user-id
+          resource_id: connection:804252963366242252
+          sip_password: a92dbcfb60184a8cb330b0acb2f7617b
+          sip_username: gencrednCvHU5IYpSBPPsXI2iQsDX
+          created_at: 2020-06-18T21:32:38
+          expires_at: 2042-06-18T21:32:38
+          updated_at: 2020-06-18T21:32:38.000Z
+        - id: c215ade3-0d39-418e-94be-c5f780760199
+          record_type: credential
+          name: 2020-06-18 21:32:38.917732Z
+          expired: "false"
+          user_id: user-id
+          resource_id: connection:804252963366242252
+          sip_password: a92dbcfb60184a8cb330b0acb2f7617b
+          sip_username: gencrednCvHU5IYpSBPPsXI2iQsDX
+          created_at: 2020-06-18T21:32:38
+          expires_at: 2042-06-18T21:32:38
+          updated_at: 2020-06-18T21:32:38.000Z
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/TelephonyCredential'
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+      title: Get All Telephony Credential Response
+      type: object
+    Telephony_Credential_Response:
+      example:
+        data:
+          id: c215ade3-0d39-418e-94be-c5f780760199
+          record_type: credential
+          name: 2020-06-18 21:32:38.917732Z
+          expired: "false"
+          user_id: user-id
+          resource_id: connection:804252963366242252
+          sip_password: a92dbcfb60184a8cb330b0acb2f7617b
+          sip_username: gencrednCvHU5IYpSBPPsXI2iQsDX
+          created_at: 2020-06-18T21:32:38
+          expires_at: 2042-06-18T21:32:38
+          updated_at: 2020-06-18T21:32:38.000Z
+      properties:
+        data:
+          $ref: '#/components/schemas/TelephonyCredential'
+      title: Telephony Credential Response
+      type: object
+    List_Tags_Response_data:
+      example:
+        amount: 1
+        tag: a_tag
+      properties:
+        tag:
+          example: a_tag
+          type: string
+        amount:
+          example: 1
+          type: integer
+      type: object
+    List_Tags_Response:
+      example:
+        data:
+        - amount: 1
+          tag: a_tag
+        - amount: 1
+          tag: a_tag
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/List_Tags_Response_data'
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+      title: List Tags Response
       type: object
     Get_All_Texml_Applications_Response:
       example:
@@ -23797,8 +24584,8 @@ components:
         meta:
           page_number: 2
           total_pages: 3
-          page_size: 25
           total_results: 55
+          page_size: 25
       properties:
         data:
           items:

@@ -254,7 +254,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistCallControlApplicationsRequest
      */
     public APIlistCallControlApplicationsRequest pageSize(Integer pageSize) {

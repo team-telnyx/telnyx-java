@@ -166,7 +166,7 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistCsvDownloadsRequest
      */
     public APIlistCsvDownloadsRequest pageSize(Integer pageSize) {

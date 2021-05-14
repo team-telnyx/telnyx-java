@@ -38,7 +38,7 @@ public class Example {
 
         ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         String filterMessagingProfileId = "filterMessagingProfileId_example"; // String | Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile.
         try {
             ListShortCodesResponse result = api.listShortCodes()
@@ -64,7 +64,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
  **filterMessagingProfileId** | **String**| Filter by Messaging Profile ID. Use the string &#x60;null&#x60; for phone numbers without assigned profiles. A synonym for the &#x60;/messaging_profiles/{id}/short_codes&#x60; endpoint when querying about an extant profile. | [optional]
 
 ### Return type

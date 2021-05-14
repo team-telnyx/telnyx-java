@@ -50,7 +50,7 @@ public class Example {
         String filterEventTimestampLte = 2019-03-29T11:10:00Z; // String | Event timestamp: lower than or equal
         String filterEventTimestampEq = 2019-03-29T11:10:00Z; // String | Event timestamp: equal
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListCallEventsResponse result = api.listCallEvents()
                 .filterCallLegId(filterCallLegId)
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
  **filterEventTimestampLte** | **String**| Event timestamp: lower than or equal | [optional]
  **filterEventTimestampEq** | **String**| Event timestamp: equal | [optional]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 

@@ -178,7 +178,7 @@ public class Example {
 
         MessagingHostedNumberApi apiInstance = new MessagingHostedNumberApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListMessagingHostedNumberOrderResponse result = api.listMessagingHostedNumberOrder()
                 .pageNumber(pageNumber)
@@ -202,7 +202,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 

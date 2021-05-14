@@ -188,7 +188,7 @@ public class Example {
         String filterPhoneNumbersPhoneNumber = "filterPhoneNumbersPhoneNumber_example"; // String | Filter number reservations having these phone numbers.
         String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number reservations via the customer reference set.
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListNumberReservationsResponse result = api.listNumberReservations()
                 .filterStatus(filterStatus)
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
  **filterPhoneNumbersPhoneNumber** | **String**| Filter number reservations having these phone numbers. | [optional]
  **filterCustomerReference** | **String**| Filter number reservations via the customer reference set. | [optional]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 

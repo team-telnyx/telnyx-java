@@ -241,7 +241,7 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistMessagingHostedNumberOrderRequest
      */
     public APIlistMessagingHostedNumberOrderRequest pageSize(Integer pageSize) {

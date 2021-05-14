@@ -187,7 +187,7 @@ public class Example {
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         String filterTag = "filterTag_example"; // String | Filter by phone number tags.
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
         String filterStatus = active; // String | Filter by phone number status.
@@ -235,7 +235,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
  **filterTag** | **String**| Filter by phone number tags. | [optional]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterStatus** | **String**| Filter by phone number status. | [optional] [enum: purchase_pending, purchase_failed, port_pending, active, deleted, port_failed, emergency_only, ported_out, port_out_pending]
@@ -297,7 +297,7 @@ public class Example {
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListMessagingSettingsResponse result = api.listPhoneNumbersWithMessagingSettings()
                 .pageNumber(pageNumber)
@@ -321,7 +321,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 
@@ -371,7 +371,7 @@ public class Example {
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
         String filterConnectionNameContains = test; // String | Filter contains connection name. Requires at least three characters.
         String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
@@ -405,7 +405,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters. | [optional]
  **filterCustomerReference** | **String**| Filter numbers via the customer_reference set. | [optional]

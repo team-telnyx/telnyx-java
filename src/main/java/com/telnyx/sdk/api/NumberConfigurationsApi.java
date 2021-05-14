@@ -287,7 +287,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageSize(Integer pageSize) {
@@ -517,7 +517,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageSize(Integer pageSize) {
@@ -637,7 +637,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageSize(Integer pageSize) {

@@ -118,7 +118,7 @@ public class Example {
         String filterCustomerReference = "filterCustomerReference_example"; // String | Filter number orders via the customer reference set.
         Boolean filterRequirementsMet = true; // Boolean | Filter number orders by requirements met.
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListNumberOrdersResponse result = api.listNumberOrders()
                 .filterStatus(filterStatus)
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
  **filterCustomerReference** | **String**| Filter number orders via the customer reference set. | [optional]
  **filterRequirementsMet** | **Boolean**| Filter number orders by requirements met. | [optional]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 

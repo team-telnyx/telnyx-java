@@ -43,7 +43,7 @@ public class Example {
         String filterFieldType = "filterFieldType_example"; // String | Filter number order regulatory requirements by `field_type`.
         String filterRequirementType = "filterRequirementType_example"; // String | Filter number order regulatory requirements by `requirement_type`.
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListNumberOrderRegulatoryRequirementsResponse result = api.listNumberOrderRegulatoryRequirements()
                 .filterRequirementId(filterRequirementId)
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
  **filterFieldType** | **String**| Filter number order regulatory requirements by &#x60;field_type&#x60;. | [optional]
  **filterRequirementType** | **String**| Filter number order regulatory requirements by &#x60;requirement_type&#x60;. | [optional]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 
@@ -126,7 +126,7 @@ public class Example {
         NumberOrderRegulatoryRequirementsApi apiInstance = new NumberOrderRegulatoryRequirementsApi(defaultClient);
         List<String> filterPhoneNumber = Arrays.asList(); // List<String> | The list of phone numbers to retrieve regulatory requirements for.
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListPhoneNumberRegulatoryRequirementsResponse result = api.listPhoneNumberRegulatoryRequirements()
                 .filterPhoneNumber(filterPhoneNumber)
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filterPhoneNumber** | [**List&lt;String&gt;**](String.md)| The list of phone numbers to retrieve regulatory requirements for. | [optional]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 

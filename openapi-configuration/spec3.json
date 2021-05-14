@@ -25,6 +25,14 @@
   ],
   "tags": [
     {
+      "name": "Access Tokens",
+      "description": "Access Tokens creation"
+    },
+    {
+      "name": "Bulk Credentials",
+      "description": "Bulk operations over Credentials"
+    },
+    {
       "name": "Call Commands",
       "description": "Call Control command operations"
     },
@@ -47,6 +55,10 @@
     {
       "name": "Credential Connections",
       "description": "Credential connection operations"
+    },
+    {
+      "name": "Credentials",
+      "description": "Credentials operations"
     },
     {
       "name": "Debugging",
@@ -146,6 +158,135 @@
     }
   ],
   "paths": {
+    "/actions/bulk/telephony_credentials": {
+      "delete": {
+        "description": "Delete several credentials in bulk.",
+        "summary": "Delete several credentials",
+        "operationId": "DeleteBulkTelephonyCredential",
+        "tags": [
+          "Bulk Credentials"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/RequiredTag"
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/BulkCredentialResponse"
+          },
+          "422": {
+            "description": "Bad request"
+          }
+        },
+        "x-latency-category": "responsive"
+      },
+      "patch": {
+        "description": "Update several credentials in bulk.",
+        "summary": "Update several credentials",
+        "operationId": "UpdateBulkTelephonyCredential",
+        "tags": [
+          "Bulk Credentials"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/RequiredTag"
+          }
+        ],
+        "requestBody": {
+          "description": "Parameters to update credentials on bulk",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkCredentialRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/BulkCredentialResponse"
+          },
+          "422": {
+            "description": "Bad request"
+          }
+        },
+        "x-latency-category": "responsive"
+      },
+      "post": {
+        "description": "Creates several credentials in bulk.",
+        "summary": "Creates several credentials",
+        "operationId": "CreateBulkTelephonyCredential",
+        "tags": [
+          "Bulk Credentials"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Requested parameters to create credentials on bulk",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkCredentialRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/BulkCredentialResponse"
+          },
+          "422": {
+            "description": "Bad request"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/actions/{action}/telephony_credentials": {
+      "post": {
+        "description": "Perform activate or deactivate action on all credentials filtered by the provided tag. Activate action will change the status to active, making it possible to connect calls with the credential. Deactivate action will change the status to inactive, making it impossible to connect calls with the credential.",
+        "summary": "Perform activate or deactivate action on all credentials filtered by the provided tag.",
+        "operationId": "BulkCredentialAction",
+        "tags": [
+          "Bulk Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "action",
+            "in": "path",
+            "description": "Identifies the action to be taken. Activate will change the status to active. Deactivate will change the status to inactive.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "activate",
+                "deactivate"
+              ]
+            }
+          },
+          {
+            "$ref": "#/components/parameters/RequiredTag"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/BulkCredentialResponse"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "422": {
+            "description": "Bad request"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
     "/available_phone_numbers": {
       "get": {
         "summary": "List available phone numbers",
@@ -7386,6 +7527,319 @@
         "x-latency-category": "responsive"
       }
     },
+    "/telephony_credentials": {
+      "get": {
+        "description": "List all On-demand Credentials.",
+        "summary": "List all credentials",
+        "operationId": "findTelephonyCredentials",
+        "tags": [
+          "Credentials"
+        ],
+        "x-group-parameters": "true",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageNumber"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          },
+          {
+            "$ref": "#/components/parameters/OptionalTag"
+          },
+          {
+            "$ref": "#/components/parameters/FilterName"
+          },
+          {
+            "$ref": "#/components/parameters/FilterStatus"
+          },
+          {
+            "$ref": "#/components/parameters/FilterResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/FilterSipUsername"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetAllTelephonyCredentialResponse"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "x-latency-category": "responsive"
+      },
+      "post": {
+        "description": "Create a credential.",
+        "summary": "Create a credential",
+        "operationId": "CreateTelephonyCredential",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Parameters that can be defined during credential creation",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TelephonyCredentialCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/TelephonyCredentialResponse"
+          },
+          "422": {
+            "description": "Bad request"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/telephony_credentials/tags": {
+      "get": {
+        "description": "Returns a list of tags used on Credentials",
+        "summary": "List all tags",
+        "operationId": "listTags",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageNumber"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListTagsResponse"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/telephony_credentials/{id}": {
+      "delete": {
+        "description": "Delete an existing credential.",
+        "summary": "Delete a credential",
+        "operationId": "DeleteTelephonyCredential",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifies the resource.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TelephonyCredentialResponse"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "422": {
+            "description": "Bad request"
+          }
+        },
+        "x-latency-category": "responsive"
+      },
+      "get": {
+        "description": "Get the details of an existing On-demand Credential.",
+        "summary": "Get a credential",
+        "operationId": "getTelephonyCredential",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifies the resource.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TelephonyCredentialResponse"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "x-latency-category": "responsive"
+      },
+      "patch": {
+        "description": "Update an existing credential.",
+        "summary": "Update a credential",
+        "operationId": "UpdateTelephonyCredential",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifies the resource.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Parameters that can be updated in a credential",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TelephonyCredentialUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TelephonyCredentialResponse"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "422": {
+            "description": "Bad request"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/telephony_credentials/{id}/actions/{action}": {
+      "post": {
+        "description": "Perform activate or deactivate action on provided Credential. Activate action will change the status to active, making it possible to connect calls with the credential. Deactivate action will change the status to inactive, making it impossible to connect calls with the credential.",
+        "summary": "Perform activate or deactivate action on provided Credential",
+        "operationId": "telephonyCredentialAction",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifies the resource.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "action",
+            "in": "path",
+            "description": "Identifies the action to be taken.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "activate",
+                "deactivate"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TelephonyCredentialResponse"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
+    "/telephony_credentials/{id}/token": {
+      "post": {
+        "description": "Create an Access Token (JWT) for the credential.",
+        "summary": "Create an Access Token.",
+        "operationId": "CreateTelephonyCredentialToken",
+        "tags": [
+          "Access Tokens"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifies the resource.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "JWT",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not Found"
+          }
+        },
+        "x-latency-category": "responsive"
+      }
+    },
     "/texml_applications": {
       "get": {
         "description": "Returns a list of your TeXML Applications.",
@@ -8085,6 +8539,14 @@
           "example": "1293384261075731499"
         }
       },
+      "FilterName": {
+        "name": "filter[name]",
+        "in": "query",
+        "description": "Filter by name",
+        "schema": {
+          "type": "string"
+        }
+      },
       "FilterOutboundVoiceProfileId": {
         "name": "filter[outbound_voice_profile_id]",
         "in": "query",
@@ -8093,6 +8555,30 @@
           "type": "string",
           "format": "int64",
           "example": "1293384261075731499"
+        }
+      },
+      "FilterResourceId": {
+        "name": "filter[resource_id]",
+        "in": "query",
+        "description": "Filter by resource_id",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "FilterSipUsername": {
+        "name": "filter[sip_username]",
+        "in": "query",
+        "description": "Filter by sip_username",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "FilterStatus": {
+        "name": "filter[status]",
+        "in": "query",
+        "description": "Filter by status",
+        "schema": {
+          "type": "string"
         }
       },
       "FqdnId": {
@@ -8188,6 +8674,14 @@
           ]
         }
       },
+      "OptionalTag": {
+        "name": "filter[tag]",
+        "in": "query",
+        "description": "Filter by tag",
+        "schema": {
+          "type": "string"
+        }
+      },
       "PageNumber": {
         "name": "page[number]",
         "in": "query",
@@ -8206,7 +8700,7 @@
           "type": "integer",
           "minimum": 1,
           "maximum": 250,
-          "default": 20
+          "default": 50
         }
       },
       "PhoneNumber": {
@@ -8217,6 +8711,15 @@
         "schema": {
           "type": "string",
           "example": "+18665552368"
+        }
+      },
+      "RequiredTag": {
+        "name": "filter[tag]",
+        "required": true,
+        "in": "query",
+        "description": "Filter by tag, required by bulk operations.",
+        "schema": {
+          "type": "string"
         }
       },
       "ShortCodeId": {
@@ -8282,6 +8785,29 @@
     },
     "requestBodies": {},
     "responses": {
+      "BulkCredentialResponse": {
+        "description": "Successful response for Bulk credential requests",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Bulk Credential Response",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "credentials": {
+                      "type": "integer",
+                      "description": "Amount of credentials affected",
+                      "example": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "CallControlApplicationResponse": {
         "description": "Successful response with details about a call control application.",
         "content": {
@@ -8483,6 +9009,28 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/FaxApplication"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/PaginationMeta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetAllTelephonyCredentialResponse": {
+        "description": "Successful response with multiple credentials",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Get All Telephony Credential Response",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TelephonyCredential"
                   }
                 },
                 "meta": {
@@ -9248,6 +9796,38 @@
           }
         }
       },
+      "ListTagsResponse": {
+        "description": "Successful response with multiple tags",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "List Tags Response",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "tag": {
+                        "type": "string",
+                        "example": "a_tag"
+                      },
+                      "amount": {
+                        "type": "integer",
+                        "example": 1
+                      }
+                    }
+                  }
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/PaginationMeta"
+                }
+              }
+            }
+          }
+        }
+      },
       "MessageResponse": {
         "description": "Successful response with details about a message.",
         "content": {
@@ -9561,6 +10141,22 @@
           }
         }
       },
+      "TelephonyCredentialResponse": {
+        "description": "Successful response with details about a credential",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Telephony Credential Response",
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/TelephonyCredential"
+                }
+              }
+            }
+          }
+        }
+      },
       "TexmlApplicationResponse": {
         "description": "Successful response",
         "content": {
@@ -9789,6 +10385,41 @@
           "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
           "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
           "park_after_unbridge": "self"
+        }
+      },
+      "BulkCredentialRequest": {
+        "type": "object",
+        "title": "Bulk Credential Request",
+        "required": [
+          "tag",
+          "connection_id"
+        ],
+        "properties": {
+          "name": {
+            "description": "A default name for all credentials.",
+            "type": "string",
+            "example": "Default Credentials"
+          },
+          "tag": {
+            "description": "Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials.",
+            "type": "string",
+            "example": "My Credentials"
+          },
+          "amount": {
+            "description": "Amount of credentials to be created. A single tag can hold at maximum 1000 credentials",
+            "type": "integer",
+            "example": 100
+          },
+          "connection_id": {
+            "type": "string",
+            "description": "Identifies the connection this credential is associated with.",
+            "example": "1234567890"
+          }
+        },
+        "example": {
+          "name": "Default Name",
+          "tag": "My Credentials",
+          "connection_id": "804252963366242252"
         }
       },
       "Call": {
@@ -20404,14 +21035,6 @@
       "PaginationMeta": {
         "type": "object",
         "properties": {
-          "page_number": {
-            "type": "integer",
-            "example": 2
-          },
-          "page_size": {
-            "type": "integer",
-            "example": 25
-          },
           "total_pages": {
             "type": "integer",
             "example": 3
@@ -20419,6 +21042,14 @@
           "total_results": {
             "type": "integer",
             "example": 55
+          },
+          "page_number": {
+            "type": "integer",
+            "example": 2
+          },
+          "page_size": {
+            "type": "integer",
+            "example": 25
           }
         }
       },
@@ -22548,6 +23179,132 @@
         "example": {
           "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
           "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+        }
+      },
+      "TelephonyCredential": {
+        "type": "object",
+        "title": "On-demand Credential",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "string",
+            "description": "Identifies the resource.",
+            "example": "c215ade3-0d39-418e-94be-c5f780760199"
+          },
+          "record_type": {
+            "type": "string",
+            "description": "Identifies the type of the resource.",
+            "example": "credential"
+          },
+          "name": {
+            "type": "string"
+          },
+          "resource_id": {
+            "type": "string",
+            "description": "Identifies the resource this credential is associated with.",
+            "example": "connection:1234567890"
+          },
+          "expired": {
+            "type": "boolean",
+            "description": "Defaults to false"
+          },
+          "sip_username": {
+            "type": "string",
+            "description": "The randomly generated SIP username for the credential.",
+            "example": "gencrednCvHU5IYpSBPPsXI2iQsDX"
+          },
+          "sip_password": {
+            "type": "string",
+            "description": "The randomly generated SIP password for the credential.",
+            "example": "a92dbcfb60184a8cb330b0acb2f7617b"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "ISO-8601 formatted date indicating when the resource was created.",
+            "example": "2018-02-02T22:25:27.521Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "ISO-8601 formatted date indicating when the resource was updated.",
+            "example": "2018-02-02T22:25:27.521Z"
+          },
+          "expires_at": {
+            "type": "string",
+            "description": "ISO-8601 formatted date indicating when the resource will expire.",
+            "example": "2018-02-02T22:25:27.521Z"
+          }
+        },
+        "example": {
+          "id": "c215ade3-0d39-418e-94be-c5f780760199",
+          "record_type": "credential",
+          "name": "2020-06-18 21:32:38.917732Z",
+          "expired": "false",
+          "user_id": "user-id",
+          "resource_id": "connection:804252963366242252",
+          "sip_password": "a92dbcfb60184a8cb330b0acb2f7617b",
+          "sip_username": "gencrednCvHU5IYpSBPPsXI2iQsDX",
+          "created_at": "2020-06-18T21:32:38",
+          "expires_at": "2042-06-18T21:32:38",
+          "updated_at": "2020-06-18T21:32:38.000Z"
+        }
+      },
+      "TelephonyCredentialCreateRequest": {
+        "type": "object",
+        "title": "TelephonyCredentialCreateRequest",
+        "required": [
+          "connection_id"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string",
+            "description": "Tags a credential to filter for bulk operations. A single tag can hold at maximum 1000 credentials.",
+            "example": "some_tag"
+          },
+          "connection_id": {
+            "type": "string",
+            "description": "Identifies the Credential Connection this credential is associated with.",
+            "example": "1234567890"
+          },
+          "expires_at": {
+            "type": "string",
+            "description": "ISO-8601 formatted date indicating when the credential will expire.",
+            "example": "2018-02-02T22:25:27.521Z"
+          }
+        },
+        "example": {
+          "name": "My-new-credential",
+          "connection_id": "1234567890"
+        }
+      },
+      "TelephonyCredentialUpdateRequest": {
+        "type": "object",
+        "title": "TelephonyCredentialUpdateRequest",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string",
+            "description": "Tags a credential to filter for bulk operations. A single tag can hold at maximum 1000 credentials.",
+            "example": "some_tag"
+          },
+          "connection_id": {
+            "type": "string",
+            "description": "Identifies the Credential Connection this credential is associated with.",
+            "example": "987654321"
+          },
+          "expires_at": {
+            "type": "string",
+            "description": "ISO-8601 formatted date indicating when the credential will expire.",
+            "example": "2018-02-02T22:25:27.521Z"
+          }
+        },
+        "example": {
+          "name": "My-new-updated-credential",
+          "connection_id": "987654321"
         }
       },
       "TexmlApplication": {
