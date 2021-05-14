@@ -1,6 +1,6 @@
 
 
-# ListFqdnConnectionsResponse
+# ListFQDNConnectionsResponse
 
 ## Properties
 

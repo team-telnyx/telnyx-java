@@ -42,7 +42,7 @@ public class Example {
         String filterCreatedAtGte = 2019-03-29T11:10:00Z; // String | Return only recordings created later than or at given ISO 8601 datetime
         String filterCreatedAtLte = 2019-03-29T11:10:00Z; // String | Return only recordings created earlier than or at given ISO 8601 datetime
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListRecordingsResponse result = api.listRecordings()
                 .filterConferenceId(filterConferenceId)
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
  **filterCreatedAtGte** | **String**| Return only recordings created later than or at given ISO 8601 datetime | [optional]
  **filterCreatedAtLte** | **String**| Return only recordings created earlier than or at given ISO 8601 datetime | [optional]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 

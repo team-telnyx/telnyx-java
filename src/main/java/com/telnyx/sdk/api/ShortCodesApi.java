@@ -108,7 +108,7 @@ private ApiResponse<ListShortCodesResponse> listShortCodesWithHttpInfo(Integer p
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistShortCodesRequest
      */
     public APIlistShortCodesRequest pageSize(Integer pageSize) {

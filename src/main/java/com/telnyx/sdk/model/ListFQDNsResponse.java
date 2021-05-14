@@ -23,26 +23,41 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Fqdn;
+import com.telnyx.sdk.model.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * FqdnResponse
+ * ListFQDNsResponse
  */
 @JsonPropertyOrder({
-  FqdnResponse.JSON_PROPERTY_DATA
+  ListFQDNsResponse.JSON_PROPERTY_DATA,
+  ListFQDNsResponse.JSON_PROPERTY_META
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class FqdnResponse {
+public class ListFQDNsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private Fqdn data;
+  private List<Fqdn> data = null;
+
+  public static final String JSON_PROPERTY_META = "meta";
+  private PaginationMeta meta;
 
 
-  public FqdnResponse data(Fqdn data) {
+  public ListFQDNsResponse data(List<Fqdn> data) {
     this.data = data;
+    return this;
+  }
+
+  public ListFQDNsResponse addDataItem(Fqdn dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<>();
+    }
+    this.data.add(dataItem);
     return this;
   }
 
@@ -55,18 +70,42 @@ public class FqdnResponse {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Fqdn getData() {
+  public List<Fqdn> getData() {
     return data;
   }
 
 
-  public void setData(Fqdn data) {
+  public void setData(List<Fqdn> data) {
     this.data = data;
   }
 
 
+  public ListFQDNsResponse meta(PaginationMeta meta) {
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PaginationMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(PaginationMeta meta) {
+    this.meta = meta;
+  }
+
+
   /**
-   * Return true if this Fqdn_Response object is equal to o.
+   * Return true if this List_FQDNs_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -76,21 +115,23 @@ public class FqdnResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FqdnResponse fqdnResponse = (FqdnResponse) o;
-    return Objects.equals(this.data, fqdnResponse.data);
+    ListFQDNsResponse listFQDNsResponse = (ListFQDNsResponse) o;
+    return Objects.equals(this.data, listFQDNsResponse.data) &&
+        Objects.equals(this.meta, listFQDNsResponse.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(data, meta);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FqdnResponse {\n");
+    sb.append("class ListFQDNsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

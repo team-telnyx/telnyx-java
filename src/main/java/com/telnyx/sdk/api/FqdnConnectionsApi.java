@@ -9,8 +9,8 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreateFqdnConnectionRequest;
-import com.telnyx.sdk.model.FqdnConnectionResponse;
-import com.telnyx.sdk.model.ListFqdnConnectionsResponse;
+import com.telnyx.sdk.model.FQDNConnectionResponse;
+import com.telnyx.sdk.model.ListFQDNConnectionsResponse;
 import com.telnyx.sdk.model.UpdateFqdnConnectionRequest;
 
 import java.util.ArrayList;
@@ -49,10 +49,10 @@ public class FqdnConnectionsApi {
   }
 
   /**
-   * Create an Fqdn connection
+   * Create an FQDN connection
    * Creates a FQDN connection.
    * @param createFqdnConnectionRequest Parameters that can be defined during FQDN connection creation (required)
-   * @return FqdnConnectionResponse
+   * @return FQDNConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -61,15 +61,15 @@ public class FqdnConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public FqdnConnectionResponse createFqdnConnection(CreateFqdnConnectionRequest createFqdnConnectionRequest) throws ApiException {
+  public FQDNConnectionResponse createFqdnConnection(CreateFqdnConnectionRequest createFqdnConnectionRequest) throws ApiException {
     return createFqdnConnectionWithHttpInfo(createFqdnConnectionRequest).getData();
   }
 
   /**
-   * Create an Fqdn connection
+   * Create an FQDN connection
    * Creates a FQDN connection.
    * @param createFqdnConnectionRequest Parameters that can be defined during FQDN connection creation (required)
-   * @return ApiResponse&lt;FqdnConnectionResponse&gt;
+   * @return ApiResponse&lt;FQDNConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -78,7 +78,7 @@ public class FqdnConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FqdnConnectionResponse> createFqdnConnectionWithHttpInfo(CreateFqdnConnectionRequest createFqdnConnectionRequest) throws ApiException {
+  public ApiResponse<FQDNConnectionResponse> createFqdnConnectionWithHttpInfo(CreateFqdnConnectionRequest createFqdnConnectionRequest) throws ApiException {
     Object localVarPostBody = createFqdnConnectionRequest;
     
     // verify the required parameter 'createFqdnConnectionRequest' is set
@@ -111,17 +111,17 @@ public class FqdnConnectionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<FqdnConnectionResponse> localVarReturnType = new GenericType<FqdnConnectionResponse>() {};
+    GenericType<FQDNConnectionResponse> localVarReturnType = new GenericType<FQDNConnectionResponse>() {};
 
     return apiClient.invokeAPI("FqdnConnectionsApi.createFqdnConnection", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Delete an Fqdn connection
+   * Delete an FQDN connection
    * Deletes an FQDN connection.
    * @param id FQDN Connection ID (required)
-   * @return FqdnConnectionResponse
+   * @return FQDNConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -132,15 +132,15 @@ public class FqdnConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public FqdnConnectionResponse deleteFqdnConnection(String id) throws ApiException {
+  public FQDNConnectionResponse deleteFqdnConnection(String id) throws ApiException {
     return deleteFqdnConnectionWithHttpInfo(id).getData();
   }
 
   /**
-   * Delete an Fqdn connection
+   * Delete an FQDN connection
    * Deletes an FQDN connection.
    * @param id FQDN Connection ID (required)
-   * @return ApiResponse&lt;FqdnConnectionResponse&gt;
+   * @return ApiResponse&lt;FQDNConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -151,7 +151,7 @@ public class FqdnConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FqdnConnectionResponse> deleteFqdnConnectionWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<FQDNConnectionResponse> deleteFqdnConnectionWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -185,14 +185,14 @@ public class FqdnConnectionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<FqdnConnectionResponse> localVarReturnType = new GenericType<FqdnConnectionResponse>() {};
+    GenericType<FQDNConnectionResponse> localVarReturnType = new GenericType<FQDNConnectionResponse>() {};
 
     return apiClient.invokeAPI("FqdnConnectionsApi.deleteFqdnConnection", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String sort) throws ApiException {
+private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -224,7 +224,7 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListFqdnConnectionsResponse> localVarReturnType = new GenericType<ListFqdnConnectionsResponse>() {};
+    GenericType<ListFQDNConnectionsResponse> localVarReturnType = new GenericType<ListFQDNConnectionsResponse>() {};
 
     return apiClient.invokeAPI("FqdnConnectionsApi.listFqdnConnections", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -252,7 +252,7 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistFqdnConnectionsRequest
      */
     public APIlistFqdnConnectionsRequest pageSize(Integer pageSize) {
@@ -282,7 +282,7 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     /**
      * Execute listFqdnConnections request
-     * @return ListFqdnConnectionsResponse
+     * @return ListFQDNConnectionsResponse
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -295,13 +295,13 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
      
      */
     
-    public ListFqdnConnectionsResponse execute() throws ApiException {
+    public ListFQDNConnectionsResponse execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
      * Execute listFqdnConnections request with HTTP info returned
-     * @return ApiResponse&lt;ListFqdnConnectionsResponse&gt;
+     * @return ApiResponse&lt;ListFQDNConnectionsResponse&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -313,13 +313,13 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
        </table>
 
      */
-    public ApiResponse<ListFqdnConnectionsResponse> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<ListFQDNConnectionsResponse> executeWithHttpInfo() throws ApiException {
       return listFqdnConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, sort);
     }
   }
 
   /**
-   * List Fqdn connections
+   * List FQDN connections
    * Returns a list of your FQDN connections.
    * @return listFqdnConnectionsRequest
    * @throws ApiException if fails to make API call
@@ -330,10 +330,10 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
     return new APIlistFqdnConnectionsRequest();
   }
   /**
-   * Retrieve an Fqdn connection
+   * Retrieve an FQDN connection
    * Retrieves the details of an existing FQDN connection.
    * @param id FQDN Connection ID (required)
-   * @return FqdnConnectionResponse
+   * @return FQDNConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -344,15 +344,15 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public FqdnConnectionResponse retrieveFqdnConnection(String id) throws ApiException {
+  public FQDNConnectionResponse retrieveFqdnConnection(String id) throws ApiException {
     return retrieveFqdnConnectionWithHttpInfo(id).getData();
   }
 
   /**
-   * Retrieve an Fqdn connection
+   * Retrieve an FQDN connection
    * Retrieves the details of an existing FQDN connection.
    * @param id FQDN Connection ID (required)
-   * @return ApiResponse&lt;FqdnConnectionResponse&gt;
+   * @return ApiResponse&lt;FQDNConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -363,7 +363,7 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FqdnConnectionResponse> retrieveFqdnConnectionWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<FQDNConnectionResponse> retrieveFqdnConnectionWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -397,18 +397,18 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<FqdnConnectionResponse> localVarReturnType = new GenericType<FqdnConnectionResponse>() {};
+    GenericType<FQDNConnectionResponse> localVarReturnType = new GenericType<FQDNConnectionResponse>() {};
 
     return apiClient.invokeAPI("FqdnConnectionsApi.retrieveFqdnConnection", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Update an Fqdn connection
+   * Update an FQDN connection
    * Updates settings of an existing FQDN connection.
    * @param id FQDN Connection ID (required)
    * @param updateFqdnConnectionRequest Parameters that can be updated in a FQDN connection (required)
-   * @return FqdnConnectionResponse
+   * @return FQDNConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -419,16 +419,16 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public FqdnConnectionResponse updateFqdnConnection(String id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {
+  public FQDNConnectionResponse updateFqdnConnection(String id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {
     return updateFqdnConnectionWithHttpInfo(id, updateFqdnConnectionRequest).getData();
   }
 
   /**
-   * Update an Fqdn connection
+   * Update an FQDN connection
    * Updates settings of an existing FQDN connection.
    * @param id FQDN Connection ID (required)
    * @param updateFqdnConnectionRequest Parameters that can be updated in a FQDN connection (required)
-   * @return ApiResponse&lt;FqdnConnectionResponse&gt;
+   * @return ApiResponse&lt;FQDNConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -439,7 +439,7 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FqdnConnectionResponse> updateFqdnConnectionWithHttpInfo(String id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {
+  public ApiResponse<FQDNConnectionResponse> updateFqdnConnectionWithHttpInfo(String id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {
     Object localVarPostBody = updateFqdnConnectionRequest;
     
     // verify the required parameter 'id' is set
@@ -478,7 +478,7 @@ private ApiResponse<ListFqdnConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<FqdnConnectionResponse> localVarReturnType = new GenericType<FqdnConnectionResponse>() {};
+    GenericType<FQDNConnectionResponse> localVarReturnType = new GenericType<FQDNConnectionResponse>() {};
 
     return apiClient.invokeAPI("FqdnConnectionsApi.updateFqdnConnection", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.5.0</version>
+  <version>2.6.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.5.0"
+compile "com.telnyx.sdk:telnyx:2.6.0"
 ```
 
 ### Others
@@ -57,7 +57,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.5.0.jar`
+- `target/telnyx-2.6.0.jar`
 - `target/lib/*.jar`
 
 ## JDK Support
@@ -126,6 +126,11 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AccessTokensApi* | [**createTelephonyCredentialToken**](docs/AccessTokensApi.md#createTelephonyCredentialToken) | **POST** /telephony_credentials/{id}/token | Create an Access Token.
+*BulkCredentialsApi* | [**bulkCredentialAction**](docs/BulkCredentialsApi.md#bulkCredentialAction) | **POST** /actions/{action}/telephony_credentials | Perform activate or deactivate action on all credentials filtered by the provided tag.
+*BulkCredentialsApi* | [**createBulkTelephonyCredential**](docs/BulkCredentialsApi.md#createBulkTelephonyCredential) | **POST** /actions/bulk/telephony_credentials | Creates several credentials
+*BulkCredentialsApi* | [**deleteBulkTelephonyCredential**](docs/BulkCredentialsApi.md#deleteBulkTelephonyCredential) | **DELETE** /actions/bulk/telephony_credentials | Delete several credentials
+*BulkCredentialsApi* | [**updateBulkTelephonyCredential**](docs/BulkCredentialsApi.md#updateBulkTelephonyCredential) | **PATCH** /actions/bulk/telephony_credentials | Update several credentials
 *CallCommandsApi* | [**callAnswer**](docs/CallCommandsApi.md#callAnswer) | **POST** /calls/{call_control_id}/actions/answer | Answer call
 *CallCommandsApi* | [**callBridge**](docs/CallCommandsApi.md#callBridge) | **POST** /calls/{call_control_id}/actions/bridge | Bridge calls
 *CallCommandsApi* | [**callDial**](docs/CallCommandsApi.md#callDial) | **POST** /calls | Dial
@@ -177,20 +182,27 @@ Class | Method | HTTP request | Description
 *CredentialConnectionsApi* | [**listCredentialConnections**](docs/CredentialConnectionsApi.md#listCredentialConnections) | **GET** /credential_connections | List credential connections
 *CredentialConnectionsApi* | [**retrieveCredentialConnection**](docs/CredentialConnectionsApi.md#retrieveCredentialConnection) | **GET** /credential_connections/{id} | Retrieve a credential connection
 *CredentialConnectionsApi* | [**updateCredentialConnection**](docs/CredentialConnectionsApi.md#updateCredentialConnection) | **PATCH** /credential_connections/{id} | Update a credential connection
+*CredentialsApi* | [**createTelephonyCredential**](docs/CredentialsApi.md#createTelephonyCredential) | **POST** /telephony_credentials | Create a credential
+*CredentialsApi* | [**deleteTelephonyCredential**](docs/CredentialsApi.md#deleteTelephonyCredential) | **DELETE** /telephony_credentials/{id} | Delete a credential
+*CredentialsApi* | [**findTelephonyCredentials**](docs/CredentialsApi.md#findTelephonyCredentials) | **GET** /telephony_credentials | List all credentials
+*CredentialsApi* | [**getTelephonyCredential**](docs/CredentialsApi.md#getTelephonyCredential) | **GET** /telephony_credentials/{id} | Get a credential
+*CredentialsApi* | [**listTags**](docs/CredentialsApi.md#listTags) | **GET** /telephony_credentials/tags | List all tags
+*CredentialsApi* | [**telephonyCredentialAction**](docs/CredentialsApi.md#telephonyCredentialAction) | **POST** /telephony_credentials/{id}/actions/{action} | Perform activate or deactivate action on provided Credential
+*CredentialsApi* | [**updateTelephonyCredential**](docs/CredentialsApi.md#updateTelephonyCredential) | **PATCH** /telephony_credentials/{id} | Update a credential
 *CsvDownloadsApi* | [**createCsvDownload**](docs/CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | Create a CSV download
 *CsvDownloadsApi* | [**listCsvDownloads**](docs/CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List CSV downloads
 *CsvDownloadsApi* | [**retrieveCsvDownload**](docs/CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a CSV download
 *DebuggingApi* | [**listCallEvents**](docs/DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
-*FqdNsApi* | [**createFqdn**](docs/FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an Fqdn
-*FqdNsApi* | [**deleteFqdn**](docs/FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an Fqdn
-*FqdNsApi* | [**listFqdns**](docs/FqdNsApi.md#listFqdns) | **GET** /fqdns | List Fqdns
-*FqdNsApi* | [**retrieveFqdn**](docs/FqdNsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an Fqdn
-*FqdNsApi* | [**updateFqdn**](docs/FqdNsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an Fqdn
-*FqdnConnectionsApi* | [**createFqdnConnection**](docs/FqdnConnectionsApi.md#createFqdnConnection) | **POST** /fqdn_connections | Create an Fqdn connection
-*FqdnConnectionsApi* | [**deleteFqdnConnection**](docs/FqdnConnectionsApi.md#deleteFqdnConnection) | **DELETE** /fqdn_connections/{id} | Delete an Fqdn connection
-*FqdnConnectionsApi* | [**listFqdnConnections**](docs/FqdnConnectionsApi.md#listFqdnConnections) | **GET** /fqdn_connections | List Fqdn connections
-*FqdnConnectionsApi* | [**retrieveFqdnConnection**](docs/FqdnConnectionsApi.md#retrieveFqdnConnection) | **GET** /fqdn_connections/{id} | Retrieve an Fqdn connection
-*FqdnConnectionsApi* | [**updateFqdnConnection**](docs/FqdnConnectionsApi.md#updateFqdnConnection) | **PATCH** /fqdn_connections/{id} | Update an Fqdn connection
+*FqdNsApi* | [**createFqdn**](docs/FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an FQDN
+*FqdNsApi* | [**deleteFqdn**](docs/FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an FQDN
+*FqdNsApi* | [**listFqdns**](docs/FqdNsApi.md#listFqdns) | **GET** /fqdns | List FQDNs
+*FqdNsApi* | [**retrieveFqdn**](docs/FqdNsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an FQDN
+*FqdNsApi* | [**updateFqdn**](docs/FqdNsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an FQDN
+*FqdnConnectionsApi* | [**createFqdnConnection**](docs/FqdnConnectionsApi.md#createFqdnConnection) | **POST** /fqdn_connections | Create an FQDN connection
+*FqdnConnectionsApi* | [**deleteFqdnConnection**](docs/FqdnConnectionsApi.md#deleteFqdnConnection) | **DELETE** /fqdn_connections/{id} | Delete an FQDN connection
+*FqdnConnectionsApi* | [**listFqdnConnections**](docs/FqdnConnectionsApi.md#listFqdnConnections) | **GET** /fqdn_connections | List FQDN connections
+*FqdnConnectionsApi* | [**retrieveFqdnConnection**](docs/FqdnConnectionsApi.md#retrieveFqdnConnection) | **GET** /fqdn_connections/{id} | Retrieve an FQDN connection
+*FqdnConnectionsApi* | [**updateFqdnConnection**](docs/FqdnConnectionsApi.md#updateFqdnConnection) | **PATCH** /fqdn_connections/{id} | Update an FQDN connection
 *IPsApi* | [**createIp**](docs/IPsApi.md#createIp) | **POST** /ips | Create an Ip
 *IPsApi* | [**deleteIp**](docs/IPsApi.md#deleteIp) | **DELETE** /ips/{id} | Delete an Ip
 *IPsApi* | [**listIps**](docs/IPsApi.md#listIps) | **GET** /ips | List Ips
@@ -297,6 +309,9 @@ Class | Method | HTTP request | Description
  - [AvailablePhoneNumber](docs/AvailablePhoneNumber.md)
  - [AvailablePhoneNumbersMetadata](docs/AvailablePhoneNumbersMetadata.md)
  - [BridgeRequest](docs/BridgeRequest.md)
+ - [BulkCredentialRequest](docs/BulkCredentialRequest.md)
+ - [BulkCredentialResponse](docs/BulkCredentialResponse.md)
+ - [BulkCredentialResponseData](docs/BulkCredentialResponseData.md)
  - [CSVDownloadResponse](docs/CSVDownloadResponse.md)
  - [Call](docs/Call.md)
  - [CallAnswered](docs/CallAnswered.md)
@@ -402,6 +417,9 @@ Class | Method | HTTP request | Description
  - [ConferencePlaybackEndedPayload](docs/ConferencePlaybackEndedPayload.md)
  - [ConferencePlaybackStarted](docs/ConferencePlaybackStarted.md)
  - [ConferencePlaybackStartedEvent](docs/ConferencePlaybackStartedEvent.md)
+ - [ConferenceRecordingSaved](docs/ConferenceRecordingSaved.md)
+ - [ConferenceRecordingSavedEvent](docs/ConferenceRecordingSavedEvent.md)
+ - [ConferenceRecordingSavedPayload](docs/ConferenceRecordingSavedPayload.md)
  - [ConferenceResponse](docs/ConferenceResponse.md)
  - [ConferenceSpeakEnded](docs/ConferenceSpeakEnded.md)
  - [ConferenceSpeakEndedEvent](docs/ConferenceSpeakEndedEvent.md)
@@ -458,6 +476,8 @@ Class | Method | HTTP request | Description
  - [ErrorMeta](docs/ErrorMeta.md)
  - [ErrorSource](docs/ErrorSource.md)
  - [Errors](docs/Errors.md)
+ - [FQDNConnectionResponse](docs/FQDNConnectionResponse.md)
+ - [FQDNResponse](docs/FQDNResponse.md)
  - [Fax](docs/Fax.md)
  - [FaxApplication](docs/FaxApplication.md)
  - [FaxApplicationResponse](docs/FaxApplicationResponse.md)
@@ -473,12 +493,11 @@ Class | Method | HTTP request | Description
  - [FaxSendingStartedPayload](docs/FaxSendingStartedPayload.md)
  - [Fqdn](docs/Fqdn.md)
  - [FqdnConnection](docs/FqdnConnection.md)
- - [FqdnConnectionResponse](docs/FqdnConnectionResponse.md)
  - [FqdnConnectionTransportProtocol](docs/FqdnConnectionTransportProtocol.md)
- - [FqdnResponse](docs/FqdnResponse.md)
  - [GatherUsingAudioRequest](docs/GatherUsingAudioRequest.md)
  - [GatherUsingSpeakRequest](docs/GatherUsingSpeakRequest.md)
  - [GetAllFaxApplicationsResponse](docs/GetAllFaxApplicationsResponse.md)
+ - [GetAllTelephonyCredentialResponse](docs/GetAllTelephonyCredentialResponse.md)
  - [GetAllTexmlApplicationsResponse](docs/GetAllTexmlApplicationsResponse.md)
  - [GetFaxResponse](docs/GetFaxResponse.md)
  - [GetRecordingResponse](docs/GetRecordingResponse.md)
@@ -506,9 +525,9 @@ Class | Method | HTTP request | Description
  - [ListConferencesResponse](docs/ListConferencesResponse.md)
  - [ListConnectionsResponse](docs/ListConnectionsResponse.md)
  - [ListCredentialConnectionsResponse](docs/ListCredentialConnectionsResponse.md)
+ - [ListFQDNConnectionsResponse](docs/ListFQDNConnectionsResponse.md)
+ - [ListFQDNsResponse](docs/ListFQDNsResponse.md)
  - [ListFaxesResponse](docs/ListFaxesResponse.md)
- - [ListFqdnConnectionsResponse](docs/ListFqdnConnectionsResponse.md)
- - [ListFqdnsResponse](docs/ListFqdnsResponse.md)
  - [ListIpConnectionsResponse](docs/ListIpConnectionsResponse.md)
  - [ListIpsResponse](docs/ListIpsResponse.md)
  - [ListMessagingHostedNumberOrderResponse](docs/ListMessagingHostedNumberOrderResponse.md)
@@ -530,6 +549,8 @@ Class | Method | HTTP request | Description
  - [ListPhoneNumbersWithVoiceSettingsResponse](docs/ListPhoneNumbersWithVoiceSettingsResponse.md)
  - [ListRecordingsResponse](docs/ListRecordingsResponse.md)
  - [ListShortCodesResponse](docs/ListShortCodesResponse.md)
+ - [ListTagsResponse](docs/ListTagsResponse.md)
+ - [ListTagsResponseData](docs/ListTagsResponseData.md)
  - [ListVerificationsResponse](docs/ListVerificationsResponse.md)
  - [ListVerifyProfilesResponse](docs/ListVerifyProfilesResponse.md)
  - [Loopcount](docs/Loopcount.md)
@@ -630,6 +651,10 @@ Class | Method | HTTP request | Description
  - [StopForkingRequest](docs/StopForkingRequest.md)
  - [StopGatherRequest](docs/StopGatherRequest.md)
  - [StopRecordingRequest](docs/StopRecordingRequest.md)
+ - [TelephonyCredential](docs/TelephonyCredential.md)
+ - [TelephonyCredentialCreateRequest](docs/TelephonyCredentialCreateRequest.md)
+ - [TelephonyCredentialResponse](docs/TelephonyCredentialResponse.md)
+ - [TelephonyCredentialUpdateRequest](docs/TelephonyCredentialUpdateRequest.md)
  - [TexmlApplication](docs/TexmlApplication.md)
  - [TexmlApplicationResponse](docs/TexmlApplicationResponse.md)
  - [TrafficType](docs/TrafficType.md)

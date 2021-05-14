@@ -139,7 +139,7 @@ private ApiResponse<ListRecordingsResponse> listRecordingsWithHttpInfo(String fi
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistRecordingsRequest
      */
     public APIlistRecordingsRequest pageSize(Integer pageSize) {

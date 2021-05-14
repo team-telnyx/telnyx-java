@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.Fqdn;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.junit.Assert;
@@ -27,25 +26,49 @@ import org.junit.Test;
 
 
 /**
- * Model tests for FqdnResponse
+ * Model tests for BulkCredentialRequest
  */
-public class FqdnResponseTest {
-    private final FqdnResponse model = new FqdnResponse();
+public class BulkCredentialRequestTest {
+    private final BulkCredentialRequest model = new BulkCredentialRequest();
 
     /**
-     * Model tests for FqdnResponse
+     * Model tests for BulkCredentialRequest
      */
     @Test
-    public void testFqdnResponse() {
-        // TODO: test FqdnResponse
+    public void testBulkCredentialRequest() {
+        // TODO: test BulkCredentialRequest
     }
 
     /**
-     * Test the property 'data'
+     * Test the property 'name'
      */
     @Test
-    public void dataTest() {
-        // TODO: test data
+    public void nameTest() {
+        // TODO: test name
+    }
+
+    /**
+     * Test the property 'tag'
+     */
+    @Test
+    public void tagTest() {
+        // TODO: test tag
+    }
+
+    /**
+     * Test the property 'amount'
+     */
+    @Test
+    public void amountTest() {
+        // TODO: test amount
+    }
+
+    /**
+     * Test the property 'connectionId'
+     */
+    @Test
+    public void connectionIdTest() {
+        // TODO: test connectionId
     }
 
 }

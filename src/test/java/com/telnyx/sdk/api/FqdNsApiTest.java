@@ -81,7 +81,7 @@ public class FqdNsApiTest {
                 .port(8080)
                 .connectionId(existingFqdnConnection.getId());
 
-        FqdnResponse actualFqdnResponse = api.createFqdn(createFqdnRequest);
+        FQDNResponse actualFqdnResponse = api.createFqdn(createFqdnRequest);
         String actualId = actualFqdnResponse.getData().getId();
 
         assertNotNull(actualId);
@@ -116,7 +116,7 @@ public class FqdNsApiTest {
     @Test
     @Ignore("Mock returns error message when filtering by any field, however all filters work as expected in production. Ignore until mock is fixed.")
     public void listFqdns_whenFqdnsExist_returnsFqdns() throws ApiException {
-        ListFqdnsResponse listFqdnsResponse = api.listFqdns()
+        ListFQDNsResponse listFqdnsResponse = api.listFqdns()
                 .pageNumber(1)
                 .pageSize(10)
                 .filterConnectionId(existingFqdnConnection.getId())

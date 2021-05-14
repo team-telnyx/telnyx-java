@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.FqdnConnection;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -30,43 +29,71 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * FqdnConnectionResponse
+ * ListTagsResponseData
  */
 @JsonPropertyOrder({
-  FqdnConnectionResponse.JSON_PROPERTY_DATA
+  ListTagsResponseData.JSON_PROPERTY_TAG,
+  ListTagsResponseData.JSON_PROPERTY_AMOUNT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class FqdnConnectionResponse {
-  public static final String JSON_PROPERTY_DATA = "data";
-  private FqdnConnection data;
+public class ListTagsResponseData {
+  public static final String JSON_PROPERTY_TAG = "tag";
+  private String tag;
+
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
+  private Integer amount;
 
 
-  public FqdnConnectionResponse data(FqdnConnection data) {
-    this.data = data;
+  public ListTagsResponseData tag(String tag) {
+    this.tag = tag;
     return this;
   }
 
    /**
-   * Get data
-   * @return data
+   * Get tag
+   * @return tag
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATA)
+  @ApiModelProperty(example = "a_tag", value = "")
+  @JsonProperty(JSON_PROPERTY_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public FqdnConnection getData() {
-    return data;
+  public String getTag() {
+    return tag;
   }
 
 
-  public void setData(FqdnConnection data) {
-    this.data = data;
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
+
+
+  public ListTagsResponseData amount(Integer amount) {
+    this.amount = amount;
+    return this;
+  }
+
+   /**
+   * Get amount
+   * @return amount
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "1", value = "")
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getAmount() {
+    return amount;
+  }
+
+
+  public void setAmount(Integer amount) {
+    this.amount = amount;
   }
 
 
   /**
-   * Return true if this Fqdn_Connection_Response object is equal to o.
+   * Return true if this List_Tags_Response_data object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -76,21 +103,23 @@ public class FqdnConnectionResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FqdnConnectionResponse fqdnConnectionResponse = (FqdnConnectionResponse) o;
-    return Objects.equals(this.data, fqdnConnectionResponse.data);
+    ListTagsResponseData listTagsResponseData = (ListTagsResponseData) o;
+    return Objects.equals(this.tag, listTagsResponseData.tag) &&
+        Objects.equals(this.amount, listTagsResponseData.amount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(tag, amount);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FqdnConnectionResponse {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("class ListTagsResponseData {\n");
+    sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

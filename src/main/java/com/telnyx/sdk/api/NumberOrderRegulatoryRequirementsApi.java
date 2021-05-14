@@ -141,7 +141,7 @@ private ApiResponse<ListNumberOrderRegulatoryRequirementsResponse> listNumberOrd
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistNumberOrderRegulatoryRequirementsRequest
      */
     public APIlistNumberOrderRegulatoryRequirementsRequest pageSize(Integer pageSize) {
@@ -263,7 +263,7 @@ private ApiResponse<ListPhoneNumberRegulatoryRequirementsResponse> listPhoneNumb
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistPhoneNumberRegulatoryRequirementsRequest
      */
     public APIlistPhoneNumberRegulatoryRequirementsRequest pageSize(Integer pageSize) {

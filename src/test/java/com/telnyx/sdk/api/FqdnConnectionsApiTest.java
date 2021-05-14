@@ -102,7 +102,7 @@ public class FqdnConnectionsApiTest {
                 .rtcpSettings(connectionRtcpSettings)
                 .transportProtocol(FqdnConnectionTransportProtocol.TCP);
 
-        FqdnConnectionResponse actualFqdnConnectionResponse = api.createFqdnConnection(createFqdnConnectionRequest);
+        FQDNConnectionResponse actualFqdnConnectionResponse = api.createFqdnConnection(createFqdnConnectionRequest);
         String actualId = actualFqdnConnectionResponse.getData().getId();
 
         assertNotNull(actualId);
@@ -137,7 +137,7 @@ public class FqdnConnectionsApiTest {
     @Test
     @Ignore("Mock returns error message when trying to sort, however sort works as expected in production. Ignore until mock is fixed.")
     public void listFqdnConnections_whenFqdnConnectionsExist_returnsFqdnConnections() throws ApiException {
-        ListFqdnConnectionsResponse listFqdnConnectionsResponse = api.listFqdnConnections()
+        ListFQDNConnectionsResponse listFqdnConnectionsResponse = api.listFqdnConnections()
                 .pageNumber(1)
                 .pageSize(2)
                 .sort("-active")

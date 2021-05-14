@@ -304,7 +304,7 @@ private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHt
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistNumberReservationsRequest
      */
     public APIlistNumberReservationsRequest pageSize(Integer pageSize) {

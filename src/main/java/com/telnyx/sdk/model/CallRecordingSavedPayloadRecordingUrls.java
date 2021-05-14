@@ -32,9 +32,9 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * Recording URLs in requested format valid for 10 minutes. After 10 minutes, you may retrieve recordings via API using Reports -&gt; Call Recordings documentation, or via Mission Control under Reporting -&gt; Recordings.
+ * Recording URLs in requested format. These URLs are valid for 10 minutes. After 10 minutes, you may retrieve recordings via API using Reports -&gt; Call Recordings documentation, or via Mission Control under Reporting -&gt; Recordings.
  */
-@ApiModel(description = "Recording URLs in requested format valid for 10 minutes. After 10 minutes, you may retrieve recordings via API using Reports -> Call Recordings documentation, or via Mission Control under Reporting -> Recordings.")
+@ApiModel(description = "Recording URLs in requested format. These URLs are valid for 10 minutes. After 10 minutes, you may retrieve recordings via API using Reports -> Call Recordings documentation, or via Mission Control under Reporting -> Recordings.")
 @JsonPropertyOrder({
   CallRecordingSavedPayloadRecordingUrls.JSON_PROPERTY_MP3,
   CallRecordingSavedPayloadRecordingUrls.JSON_PROPERTY_WAV

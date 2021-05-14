@@ -397,7 +397,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistPhoneNumbersJobsRequest
      */
     public APIlistPhoneNumbersJobsRequest pageSize(Integer pageSize) {

@@ -32,72 +32,24 @@ import com.telnyx.sdk.JSON;
  * PaginationMeta
  */
 @JsonPropertyOrder({
-  PaginationMeta.JSON_PROPERTY_PAGE_NUMBER,
-  PaginationMeta.JSON_PROPERTY_PAGE_SIZE,
   PaginationMeta.JSON_PROPERTY_TOTAL_PAGES,
-  PaginationMeta.JSON_PROPERTY_TOTAL_RESULTS
+  PaginationMeta.JSON_PROPERTY_TOTAL_RESULTS,
+  PaginationMeta.JSON_PROPERTY_PAGE_NUMBER,
+  PaginationMeta.JSON_PROPERTY_PAGE_SIZE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PaginationMeta {
-  public static final String JSON_PROPERTY_PAGE_NUMBER = "page_number";
-  private Integer pageNumber;
-
-  public static final String JSON_PROPERTY_PAGE_SIZE = "page_size";
-  private Integer pageSize;
-
   public static final String JSON_PROPERTY_TOTAL_PAGES = "total_pages";
   private Integer totalPages;
 
   public static final String JSON_PROPERTY_TOTAL_RESULTS = "total_results";
   private Integer totalResults;
 
+  public static final String JSON_PROPERTY_PAGE_NUMBER = "page_number";
+  private Integer pageNumber;
 
-  public PaginationMeta pageNumber(Integer pageNumber) {
-    this.pageNumber = pageNumber;
-    return this;
-  }
-
-   /**
-   * Get pageNumber
-   * @return pageNumber
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "2", value = "")
-  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getPageNumber() {
-    return pageNumber;
-  }
-
-
-  public void setPageNumber(Integer pageNumber) {
-    this.pageNumber = pageNumber;
-  }
-
-
-  public PaginationMeta pageSize(Integer pageSize) {
-    this.pageSize = pageSize;
-    return this;
-  }
-
-   /**
-   * Get pageSize
-   * @return pageSize
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "25", value = "")
-  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getPageSize() {
-    return pageSize;
-  }
-
-
-  public void setPageSize(Integer pageSize) {
-    this.pageSize = pageSize;
-  }
+  public static final String JSON_PROPERTY_PAGE_SIZE = "page_size";
+  private Integer pageSize;
 
 
   public PaginationMeta totalPages(Integer totalPages) {
@@ -148,6 +100,54 @@ public class PaginationMeta {
   }
 
 
+  public PaginationMeta pageNumber(Integer pageNumber) {
+    this.pageNumber = pageNumber;
+    return this;
+  }
+
+   /**
+   * Get pageNumber
+   * @return pageNumber
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2", value = "")
+  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getPageNumber() {
+    return pageNumber;
+  }
+
+
+  public void setPageNumber(Integer pageNumber) {
+    this.pageNumber = pageNumber;
+  }
+
+
+  public PaginationMeta pageSize(Integer pageSize) {
+    this.pageSize = pageSize;
+    return this;
+  }
+
+   /**
+   * Get pageSize
+   * @return pageSize
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "25", value = "")
+  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getPageSize() {
+    return pageSize;
+  }
+
+
+  public void setPageSize(Integer pageSize) {
+    this.pageSize = pageSize;
+  }
+
+
   /**
    * Return true if this PaginationMeta object is equal to o.
    */
@@ -160,15 +160,15 @@ public class PaginationMeta {
       return false;
     }
     PaginationMeta paginationMeta = (PaginationMeta) o;
-    return Objects.equals(this.pageNumber, paginationMeta.pageNumber) &&
-        Objects.equals(this.pageSize, paginationMeta.pageSize) &&
-        Objects.equals(this.totalPages, paginationMeta.totalPages) &&
-        Objects.equals(this.totalResults, paginationMeta.totalResults);
+    return Objects.equals(this.totalPages, paginationMeta.totalPages) &&
+        Objects.equals(this.totalResults, paginationMeta.totalResults) &&
+        Objects.equals(this.pageNumber, paginationMeta.pageNumber) &&
+        Objects.equals(this.pageSize, paginationMeta.pageSize);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageNumber, pageSize, totalPages, totalResults);
+    return Objects.hash(totalPages, totalResults, pageNumber, pageSize);
   }
 
 
@@ -176,10 +176,10 @@ public class PaginationMeta {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PaginationMeta {\n");
-    sb.append("    pageNumber: ").append(toIndentedString(pageNumber)).append("\n");
-    sb.append("    pageSize: ").append(toIndentedString(pageSize)).append("\n");
     sb.append("    totalPages: ").append(toIndentedString(totalPages)).append("\n");
     sb.append("    totalResults: ").append(toIndentedString(totalResults)).append("\n");
+    sb.append("    pageNumber: ").append(toIndentedString(pageNumber)).append("\n");
+    sb.append("    pageSize: ").append(toIndentedString(pageSize)).append("\n");
     sb.append("}");
     return sb.toString();
   }

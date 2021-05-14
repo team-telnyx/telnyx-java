@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.Fqdn;
+import com.telnyx.sdk.model.FqdnConnection;
 import com.telnyx.sdk.model.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,17 +30,17 @@ import org.junit.Test;
 
 
 /**
- * Model tests for ListFqdnsResponse
+ * Model tests for ListFQDNConnectionsResponse
  */
-public class ListFqdnsResponseTest {
-    private final ListFqdnsResponse model = new ListFqdnsResponse();
+public class ListFQDNConnectionsResponseTest {
+    private final ListFQDNConnectionsResponse model = new ListFQDNConnectionsResponse();
 
     /**
-     * Model tests for ListFqdnsResponse
+     * Model tests for ListFQDNConnectionsResponse
      */
     @Test
-    public void testListFqdnsResponse() {
-        // TODO: test ListFqdnsResponse
+    public void testListFQDNConnectionsResponse() {
+        // TODO: test ListFQDNConnectionsResponse
     }
 
     /**

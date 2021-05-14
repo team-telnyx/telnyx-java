@@ -1,6 +1,6 @@
 
 
-# FqdnConnectionResponse
+# FQDNConnectionResponse
 
 ## Properties
 

@@ -254,7 +254,7 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistCredentialConnectionsRequest
      */
     public APIlistCredentialConnectionsRequest pageSize(Integer pageSize) {

@@ -23,41 +23,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Fqdn;
-import com.telnyx.sdk.model.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * ListFqdnsResponse
+ * FQDNResponse
  */
 @JsonPropertyOrder({
-  ListFqdnsResponse.JSON_PROPERTY_DATA,
-  ListFqdnsResponse.JSON_PROPERTY_META
+  FQDNResponse.JSON_PROPERTY_DATA
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ListFqdnsResponse {
+public class FQDNResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<Fqdn> data = null;
-
-  public static final String JSON_PROPERTY_META = "meta";
-  private PaginationMeta meta;
+  private Fqdn data;
 
 
-  public ListFqdnsResponse data(List<Fqdn> data) {
+  public FQDNResponse data(Fqdn data) {
     this.data = data;
-    return this;
-  }
-
-  public ListFqdnsResponse addDataItem(Fqdn dataItem) {
-    if (this.data == null) {
-      this.data = new ArrayList<>();
-    }
-    this.data.add(dataItem);
     return this;
   }
 
@@ -70,42 +55,18 @@ public class ListFqdnsResponse {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Fqdn> getData() {
+  public Fqdn getData() {
     return data;
   }
 
 
-  public void setData(List<Fqdn> data) {
+  public void setData(Fqdn data) {
     this.data = data;
   }
 
 
-  public ListFqdnsResponse meta(PaginationMeta meta) {
-    this.meta = meta;
-    return this;
-  }
-
-   /**
-   * Get meta
-   * @return meta
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PaginationMeta getMeta() {
-    return meta;
-  }
-
-
-  public void setMeta(PaginationMeta meta) {
-    this.meta = meta;
-  }
-
-
   /**
-   * Return true if this List_Fqdns_Response object is equal to o.
+   * Return true if this FQDN_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -115,23 +76,21 @@ public class ListFqdnsResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ListFqdnsResponse listFqdnsResponse = (ListFqdnsResponse) o;
-    return Objects.equals(this.data, listFqdnsResponse.data) &&
-        Objects.equals(this.meta, listFqdnsResponse.meta);
+    FQDNResponse fqDNResponse = (FQDNResponse) o;
+    return Objects.equals(this.data, fqDNResponse.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data, meta);
+    return Objects.hash(data);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ListFqdnsResponse {\n");
+    sb.append("class FQDNResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }
