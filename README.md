@@ -181,16 +181,16 @@ Class | Method | HTTP request | Description
 *CsvDownloadsApi* | [**listCsvDownloads**](docs/CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List CSV downloads
 *CsvDownloadsApi* | [**retrieveCsvDownload**](docs/CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a CSV download
 *DebuggingApi* | [**listCallEvents**](docs/DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
-*FqdNsApi* | [**createFqdn**](docs/FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an Fqdn
-*FqdNsApi* | [**deleteFqdn**](docs/FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an Fqdn
-*FqdNsApi* | [**listFqdns**](docs/FqdNsApi.md#listFqdns) | **GET** /fqdns | List Fqdns
-*FqdNsApi* | [**retrieveFqdn**](docs/FqdNsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an Fqdn
-*FqdNsApi* | [**updateFqdn**](docs/FqdNsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an Fqdn
-*FqdnConnectionsApi* | [**createFqdnConnection**](docs/FqdnConnectionsApi.md#createFqdnConnection) | **POST** /fqdn_connections | Create an Fqdn connection
-*FqdnConnectionsApi* | [**deleteFqdnConnection**](docs/FqdnConnectionsApi.md#deleteFqdnConnection) | **DELETE** /fqdn_connections/{id} | Delete an Fqdn connection
-*FqdnConnectionsApi* | [**listFqdnConnections**](docs/FqdnConnectionsApi.md#listFqdnConnections) | **GET** /fqdn_connections | List Fqdn connections
-*FqdnConnectionsApi* | [**retrieveFqdnConnection**](docs/FqdnConnectionsApi.md#retrieveFqdnConnection) | **GET** /fqdn_connections/{id} | Retrieve an Fqdn connection
-*FqdnConnectionsApi* | [**updateFqdnConnection**](docs/FqdnConnectionsApi.md#updateFqdnConnection) | **PATCH** /fqdn_connections/{id} | Update an Fqdn connection
+*FqdNsApi* | [**createFqdn**](docs/FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an FQDN
+*FqdNsApi* | [**deleteFqdn**](docs/FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an FQDN
+*FqdNsApi* | [**listFqdns**](docs/FqdNsApi.md#listFqdns) | **GET** /fqdns | List FQDNs
+*FqdNsApi* | [**retrieveFqdn**](docs/FqdNsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an FQDN
+*FqdNsApi* | [**updateFqdn**](docs/FqdNsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an FQDN
+*FqdnConnectionsApi* | [**createFqdnConnection**](docs/FqdnConnectionsApi.md#createFqdnConnection) | **POST** /fqdn_connections | Create an FQDN connection
+*FqdnConnectionsApi* | [**deleteFqdnConnection**](docs/FqdnConnectionsApi.md#deleteFqdnConnection) | **DELETE** /fqdn_connections/{id} | Delete an FQDN connection
+*FqdnConnectionsApi* | [**listFqdnConnections**](docs/FqdnConnectionsApi.md#listFqdnConnections) | **GET** /fqdn_connections | List FQDN connections
+*FqdnConnectionsApi* | [**retrieveFqdnConnection**](docs/FqdnConnectionsApi.md#retrieveFqdnConnection) | **GET** /fqdn_connections/{id} | Retrieve an FQDN connection
+*FqdnConnectionsApi* | [**updateFqdnConnection**](docs/FqdnConnectionsApi.md#updateFqdnConnection) | **PATCH** /fqdn_connections/{id} | Update an FQDN connection
 *IPsApi* | [**createIp**](docs/IPsApi.md#createIp) | **POST** /ips | Create an Ip
 *IPsApi* | [**deleteIp**](docs/IPsApi.md#deleteIp) | **DELETE** /ips/{id} | Delete an Ip
 *IPsApi* | [**listIps**](docs/IPsApi.md#listIps) | **GET** /ips | List Ips
@@ -402,6 +402,9 @@ Class | Method | HTTP request | Description
  - [ConferencePlaybackEndedPayload](docs/ConferencePlaybackEndedPayload.md)
  - [ConferencePlaybackStarted](docs/ConferencePlaybackStarted.md)
  - [ConferencePlaybackStartedEvent](docs/ConferencePlaybackStartedEvent.md)
+ - [ConferenceRecordingSaved](docs/ConferenceRecordingSaved.md)
+ - [ConferenceRecordingSavedEvent](docs/ConferenceRecordingSavedEvent.md)
+ - [ConferenceRecordingSavedPayload](docs/ConferenceRecordingSavedPayload.md)
  - [ConferenceResponse](docs/ConferenceResponse.md)
  - [ConferenceSpeakEnded](docs/ConferenceSpeakEnded.md)
  - [ConferenceSpeakEndedEvent](docs/ConferenceSpeakEndedEvent.md)
@@ -458,6 +461,8 @@ Class | Method | HTTP request | Description
  - [ErrorMeta](docs/ErrorMeta.md)
  - [ErrorSource](docs/ErrorSource.md)
  - [Errors](docs/Errors.md)
+ - [FQDNConnectionResponse](docs/FQDNConnectionResponse.md)
+ - [FQDNResponse](docs/FQDNResponse.md)
  - [Fax](docs/Fax.md)
  - [FaxApplication](docs/FaxApplication.md)
  - [FaxApplicationResponse](docs/FaxApplicationResponse.md)
@@ -473,9 +478,7 @@ Class | Method | HTTP request | Description
  - [FaxSendingStartedPayload](docs/FaxSendingStartedPayload.md)
  - [Fqdn](docs/Fqdn.md)
  - [FqdnConnection](docs/FqdnConnection.md)
- - [FqdnConnectionResponse](docs/FqdnConnectionResponse.md)
  - [FqdnConnectionTransportProtocol](docs/FqdnConnectionTransportProtocol.md)
- - [FqdnResponse](docs/FqdnResponse.md)
  - [GatherUsingAudioRequest](docs/GatherUsingAudioRequest.md)
  - [GatherUsingSpeakRequest](docs/GatherUsingSpeakRequest.md)
  - [GetAllFaxApplicationsResponse](docs/GetAllFaxApplicationsResponse.md)
@@ -506,9 +509,9 @@ Class | Method | HTTP request | Description
  - [ListConferencesResponse](docs/ListConferencesResponse.md)
  - [ListConnectionsResponse](docs/ListConnectionsResponse.md)
  - [ListCredentialConnectionsResponse](docs/ListCredentialConnectionsResponse.md)
+ - [ListFQDNConnectionsResponse](docs/ListFQDNConnectionsResponse.md)
+ - [ListFQDNsResponse](docs/ListFQDNsResponse.md)
  - [ListFaxesResponse](docs/ListFaxesResponse.md)
- - [ListFqdnConnectionsResponse](docs/ListFqdnConnectionsResponse.md)
- - [ListFqdnsResponse](docs/ListFqdnsResponse.md)
  - [ListIpConnectionsResponse](docs/ListIpConnectionsResponse.md)
  - [ListIpsResponse](docs/ListIpsResponse.md)
  - [ListMessagingHostedNumberOrderResponse](docs/ListMessagingHostedNumberOrderResponse.md)

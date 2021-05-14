@@ -2885,6 +2885,22 @@ paths:
       x-accepts: application/json
   /conferences/{id}/actions/record_stop:
     post:
+      callbacks:
+        conferenceRecordingSaved:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: conferenceRecordingSaved_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ConferenceRecordingSavedEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
       description: |
         Stop recording the conference.
 
@@ -4138,7 +4154,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/List_Fqdn_Connections_Response'
+                $ref: '#/components/schemas/List_FQDN_Connections_Response'
           description: Successful response with a list of FQDN connections.
         "400":
           description: Bad request
@@ -4146,7 +4162,7 @@ paths:
           description: Unauthorized
         "404":
           description: Resource not found
-      summary: List Fqdn connections
+      summary: List FQDN connections
       tags:
       - FQDN Connections
       x-group-parameters: "true"
@@ -4169,11 +4185,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Fqdn_Connection_Response'
+                $ref: '#/components/schemas/FQDN_Connection_Response'
           description: Successful response with details about an FQDN connection.
         "422":
           description: Bad request
-      summary: Create an Fqdn connection
+      summary: Create an FQDN connection
       tags:
       - FQDN Connections
       x-endpoint-cost: medium
@@ -4198,7 +4214,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Fqdn_Connection_Response'
+                $ref: '#/components/schemas/FQDN_Connection_Response'
           description: Successful response with details about an FQDN connection.
         "401":
           description: Unauthorized
@@ -4206,7 +4222,7 @@ paths:
           description: Resource not found
         "422":
           description: Bad request
-      summary: Delete an Fqdn connection
+      summary: Delete an FQDN connection
       tags:
       - FQDN Connections
       x-latency-category: responsive
@@ -4228,7 +4244,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Fqdn_Connection_Response'
+                $ref: '#/components/schemas/FQDN_Connection_Response'
           description: Successful response with details about an FQDN connection.
         "401":
           description: Unauthorized
@@ -4236,7 +4252,7 @@ paths:
           description: Resource not found
         "422":
           description: Bad request
-      summary: Retrieve an Fqdn connection
+      summary: Retrieve an FQDN connection
       tags:
       - FQDN Connections
       x-latency-category: responsive
@@ -4265,7 +4281,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Fqdn_Connection_Response'
+                $ref: '#/components/schemas/FQDN_Connection_Response'
           description: Successful response with details about an FQDN connection.
         "401":
           description: Unauthorized
@@ -4273,7 +4289,7 @@ paths:
           description: Resource not found
         "422":
           description: Bad request
-      summary: Update an Fqdn connection
+      summary: Update an FQDN connection
       tags:
       - FQDN Connections
       x-latency-category: responsive
@@ -4345,13 +4361,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/List_Fqdns_Response'
+                $ref: '#/components/schemas/List_FQDNs_Response'
           description: Successful response with a list of FQDN connections.
         "400":
           description: Bad request
         "401":
           description: Unauthorized
-      summary: List Fqdns
+      summary: List FQDNs
       tags:
       - FQDNs
       x-group-parameters: "true"
@@ -4371,13 +4387,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Fqdn_Response'
+                $ref: '#/components/schemas/FQDN_Response'
           description: Successful response with details about an FQDN connection.
         "400":
           description: Bad request
         "401":
           description: Unauthorized
-      summary: Create an Fqdn
+      summary: Create an FQDN
       tags:
       - FQDNs
       x-endpoint-cost: medium
@@ -4404,13 +4420,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Fqdn_Response'
+                $ref: '#/components/schemas/FQDN_Response'
           description: Successful response with details about an FQDN connection.
         "400":
           description: Bad request
         "401":
           description: Unauthorized
-      summary: Delete an Fqdn
+      summary: Delete an FQDN
       tags:
       - FQDNs
       x-latency-category: responsive
@@ -4434,13 +4450,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Fqdn_Response'
+                $ref: '#/components/schemas/FQDN_Response'
           description: Successful response with details about an FQDN connection.
         "400":
           description: Bad request
         "401":
           description: Unauthorized
-      summary: Retrieve an Fqdn
+      summary: Retrieve an FQDN
       tags:
       - FQDNs
       x-latency-category: responsive
@@ -4469,13 +4485,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Fqdn_Response'
+                $ref: '#/components/schemas/FQDN_Response'
           description: Successful response with details about an FQDN connection.
         "400":
           description: Bad request
         "401":
           description: Unauthorized
-      summary: Update an Fqdn
+      summary: Update an FQDN
       tags:
       - FQDNs
       x-latency-category: responsive
@@ -5788,7 +5804,7 @@ paths:
         name: phone_number
         required: true
         schema:
-          example: '"+18665552368"'
+          example: +18665552368
           type: string
         style: simple
       - description: Specifies the type of number lookup to be performed
@@ -8721,7 +8737,7 @@ components:
       name: phone_number
       required: true
       schema:
-        example: '"+18665552368"'
+        example: +18665552368
         type: string
       style: simple
     ShortCodeId:
@@ -8868,13 +8884,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Fqdn_Connection_Response'
+            $ref: '#/components/schemas/FQDN_Connection_Response'
       description: Successful response with details about an FQDN connection.
     FqdnResponse:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Fqdn_Response'
+            $ref: '#/components/schemas/FQDN_Response'
       description: Successful response with details about an FQDN connection.
     GenericErrorResponse:
       content:
@@ -8964,13 +8980,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/List_Fqdn_Connections_Response'
+            $ref: '#/components/schemas/List_FQDN_Connections_Response'
       description: Successful response with a list of FQDN connections.
     ListFqdnsResponse:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/List_Fqdns_Response'
+            $ref: '#/components/schemas/List_FQDNs_Response'
       description: Successful response with a list of FQDN connections.
     ListIpConnectionsResponse:
       content:
@@ -11883,6 +11899,76 @@ components:
           $ref: '#/components/schemas/ConferencePlaybackStarted'
       title: Conference Playback Started Event
       type: object
+    ConferenceRecordingSaved:
+      example:
+        record_type: event
+        event_type: conference.recording.saved
+        id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+        occurred_at: 2018-02-02T22:25:27.521992Z
+        payload:
+          call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          channels: single
+          conference_id: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          connection_id: 7267xxxxxxxxxxxxxx
+          format: mp3
+          public_recording_urls:
+            mp3: http://example.com/recording.mp3
+            wav: http://example.com/recording.wav
+          recording_ended_at: 2018-02-02T22:20:27.521992Z
+          recording_id: 4577f9a2-cf0e-44f3-ac57-9f95fb03fa47
+          recording_started_at: 2021-05-11T10:17:03.692107Z
+          recording_urls:
+            mp3: http://example.com/recording.mp3
+            wav: http://example.com/recording.wav
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - conference.recording.saved
+          example: conference.recording.saved
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        payload:
+          $ref: '#/components/schemas/ConferenceRecordingSaved_payload'
+      title: Conference Recording Saved
+      type: object
+    ConferenceRecordingSavedEvent:
+      example:
+        data:
+          record_type: event
+          event_type: conference.recording.saved
+          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          occurred_at: 2018-02-02T22:25:27.521992Z
+          payload:
+            call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+            channels: single
+            conference_id: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+            connection_id: 7267xxxxxxxxxxxxxx
+            format: mp3
+            public_recording_urls:
+              mp3: http://example.com/recording.mp3
+              wav: http://example.com/recording.wav
+            recording_ended_at: 2018-02-02T22:20:27.521992Z
+            recording_id: 4577f9a2-cf0e-44f3-ac57-9f95fb03fa47
+            recording_started_at: 2021-05-11T10:17:03.692107Z
+            recording_urls:
+              mp3: http://example.com/recording.mp3
+              wav: http://example.com/recording.wav
+      properties:
+        data:
+          $ref: '#/components/schemas/ConferenceRecordingSaved'
+      title: Conference Recording Saved Event
+      type: object
     ConferenceSpeakEnded:
       example:
         record_type: event
@@ -12713,7 +12799,7 @@ components:
           $ref: '#/components/schemas/InboundFqdn'
       required:
       - connection_name
-      title: Create Fqdn Connection Request
+      title: Create FQDN Connection Request
     CreateFqdnRequest:
       example:
         connection_id: "1516447646313612565"
@@ -12745,7 +12831,7 @@ components:
       - connection_id
       - dns_record_type
       - fqdn
-      title: Create Fqdn Request
+      title: Create FQDN Request
       type: object
     CreateInboundIpRequest:
       example:
@@ -14884,7 +14970,7 @@ components:
           $ref: '#/components/schemas/InboundFqdn'
       required:
       - connection_name
-      title: Fqdn Connection
+      title: FQDN Connection
       type: object
     FqdnConnectionTransportProtocol:
       default: UDP
@@ -15302,7 +15388,7 @@ components:
           description: 'Time(sec) before aborting if call is unanswered (min: 1, max:
             600).'
           type: integer
-      title: Inbound Fqdn
+      title: Inbound FQDN
       type: object
     InboundIp:
       example:
@@ -19991,7 +20077,7 @@ components:
           $ref: '#/components/schemas/ConnectionRtcpSettings'
         inbound:
           $ref: '#/components/schemas/InboundFqdn'
-      title: Update Fqdn Connection Request
+      title: Update FQDN Connection Request
     UpdateFqdnRequest:
       example:
         connection_id: "1516447646313612565"
@@ -20019,7 +20105,7 @@ components:
             a port is not specified, 5060 will be used.
           example: a
           type: string
-      title: Update Fqdn Request
+      title: Update FQDN Request
       type: object
     UpdateIpConnectionRequest:
       example:
@@ -21735,7 +21821,7 @@ components:
           type: string
       title: Refresh Fax Response
       type: object
-    List_Fqdn_Connections_Response:
+    List_FQDN_Connections_Response:
       example:
         data:
         - id: "1293384261075731499"
@@ -21826,9 +21912,9 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/PaginationMeta'
-      title: List Fqdn Connections Response
+      title: List FQDN Connections Response
       type: object
-    Fqdn_Connection_Response:
+    FQDN_Connection_Response:
       example:
         data:
           id: "1293384261075731499"
@@ -21872,9 +21958,9 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/FqdnConnection'
-      title: Fqdn Connection Response
+      title: FQDN Connection Response
       type: object
-    List_Fqdns_Response:
+    List_FQDNs_Response:
       example:
         data:
         - id: "1293384261075731499"
@@ -21905,9 +21991,9 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/PaginationMeta'
-      title: List Fqdns Response
+      title: List FQDNs Response
       type: object
-    Fqdn_Response:
+    FQDN_Response:
       example:
         data:
           id: "1293384261075731499"
@@ -21921,7 +22007,7 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/Fqdn'
-      title: Fqdn Response
+      title: FQDN Response
       type: object
     List_Ip_Connections_Response:
       example:
@@ -24219,9 +24305,10 @@ components:
           type: boolean
       type: object
     CallRecordingSaved_payload_recording_urls:
-      description: Recording URLs in requested format valid for 10 minutes. After
-        10 minutes, you may retrieve recordings via API using Reports -> Call Recordings
-        documentation, or via Mission Control under Reporting -> Recordings.
+      description: Recording URLs in requested format. These URLs are valid for 10
+        minutes. After 10 minutes, you may retrieve recordings via API using Reports
+        -> Call Recordings documentation, or via Mission Control under Reporting ->
+        Recordings.
       properties:
         mp3:
           description: Recording URL in requested `mp3` format.
@@ -24767,6 +24854,58 @@ components:
           example: 2018-02-02T22:25:27.521Z
           format: date-time
           type: string
+      type: object
+    ConferenceRecordingSaved_payload:
+      properties:
+        call_control_id:
+          description: Participant's call ID used to issue commands via Call Control
+            API.
+          example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          type: string
+        channels:
+          description: Whether recording was recorded in `single` or `dual` channel.
+          enum:
+          - single
+          - dual
+          example: single
+          type: string
+        conference_id:
+          description: ID of the conference that is being recorded.
+          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          format: uuid
+          type: string
+        connection_id:
+          description: Call Control App ID (formerly Telnyx connection ID) used in
+            the call.
+          example: 7267xxxxxxxxxxxxxx
+          type: string
+        format:
+          description: The audio file format used when storing the call recording.
+            Can be either `mp3` or `wav`.
+          enum:
+          - wav
+          - mp3
+          example: mp3
+          type: string
+        public_recording_urls:
+          $ref: '#/components/schemas/CallRecordingSaved_payload_public_recording_urls'
+        recording_ended_at:
+          description: ISO 8601 datetime of when recording ended.
+          example: 2018-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        recording_id:
+          description: ID of the conference recording.
+          example: 4577f9a2-cf0e-44f3-ac57-9f95fb03fa47
+          format: uuid
+          type: string
+        recording_started_at:
+          description: ISO 8601 datetime of when recording started.
+          example: 2018-02-02T22:20:27.521992Z
+          format: date-time
+          type: string
+        recording_urls:
+          $ref: '#/components/schemas/CallRecordingSaved_payload_recording_urls'
       type: object
     ConferenceSpeakEnded_payload:
       properties:

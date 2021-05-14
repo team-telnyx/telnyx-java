@@ -30,18 +30,18 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * FqdnResponse
+ * FQDNResponse
  */
 @JsonPropertyOrder({
-  FqdnResponse.JSON_PROPERTY_DATA
+  FQDNResponse.JSON_PROPERTY_DATA
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class FqdnResponse {
+public class FQDNResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private Fqdn data;
 
 
-  public FqdnResponse data(Fqdn data) {
+  public FQDNResponse data(Fqdn data) {
     this.data = data;
     return this;
   }
@@ -66,7 +66,7 @@ public class FqdnResponse {
 
 
   /**
-   * Return true if this Fqdn_Response object is equal to o.
+   * Return true if this FQDN_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -76,8 +76,8 @@ public class FqdnResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FqdnResponse fqdnResponse = (FqdnResponse) o;
-    return Objects.equals(this.data, fqdnResponse.data);
+    FQDNResponse fqDNResponse = (FQDNResponse) o;
+    return Objects.equals(this.data, fqDNResponse.data);
   }
 
   @Override
@@ -89,7 +89,7 @@ public class FqdnResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FqdnResponse {\n");
+    sb.append("class FQDNResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();

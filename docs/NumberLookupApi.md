@@ -37,7 +37,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberLookupApi apiInstance = new NumberLookupApi(defaultClient);
-        String phoneNumber = "+18665552368"; // String | The phone number to be looked up
+        String phoneNumber = +18665552368; // String | The phone number to be looked up
         String type = "type_example"; // String | Specifies the type of number lookup to be performed
         try {
             NumberLookupResponse result = apiInstance.numberLookup(phoneNumber, type);

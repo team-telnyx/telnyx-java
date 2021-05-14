@@ -2941,6 +2941,29 @@
             "$ref": "#/components/responses/UnprocessableEntityResponse"
           }
         },
+        "callbacks": {
+          "conferenceRecordingSaved": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/ConferenceRecordingSavedEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          }
+        },
         "x-latency-category": "interactive"
       }
     },
@@ -4047,7 +4070,7 @@
     "/fqdn_connections": {
       "get": {
         "description": "Returns a list of your FQDN connections.",
-        "summary": "List Fqdn connections",
+        "summary": "List FQDN connections",
         "operationId": "listFqdnConnections",
         "tags": [
           "FQDN Connections"
@@ -4086,7 +4109,7 @@
       },
       "post": {
         "description": "Creates a FQDN connection.",
-        "summary": "Create an Fqdn connection",
+        "summary": "Create an FQDN connection",
         "operationId": "createFqdnConnection",
         "tags": [
           "FQDN Connections"
@@ -4118,7 +4141,7 @@
     "/fqdn_connections/{id}": {
       "delete": {
         "description": "Deletes an FQDN connection.",
-        "summary": "Delete an Fqdn connection",
+        "summary": "Delete an FQDN connection",
         "operationId": "deleteFqdnConnection",
         "tags": [
           "FQDN Connections"
@@ -4152,7 +4175,7 @@
       },
       "get": {
         "description": "Retrieves the details of an existing FQDN connection.",
-        "summary": "Retrieve an Fqdn connection",
+        "summary": "Retrieve an FQDN connection",
         "operationId": "retrieveFqdnConnection",
         "tags": [
           "FQDN Connections"
@@ -4186,7 +4209,7 @@
       },
       "patch": {
         "description": "Updates settings of an existing FQDN connection.",
-        "summary": "Update an Fqdn connection",
+        "summary": "Update an FQDN connection",
         "operationId": "updateFqdnConnection",
         "tags": [
           "FQDN Connections"
@@ -4232,7 +4255,7 @@
     },
     "/fqdns": {
       "get": {
-        "summary": "List Fqdns",
+        "summary": "List FQDNs",
         "description": "Get all FQDNs belonging to the user that match the given filters.",
         "operationId": "listFqdns",
         "tags": [
@@ -4298,7 +4321,7 @@
       },
       "post": {
         "description": "Create a new FQDN object.",
-        "summary": "Create an Fqdn",
+        "summary": "Create an FQDN",
         "operationId": "createFqdn",
         "tags": [
           "FQDNs"
@@ -4330,7 +4353,7 @@
     "/fqdns/{id}": {
       "delete": {
         "description": "Delete an FQDN.",
-        "summary": "Delete an Fqdn",
+        "summary": "Delete an FQDN",
         "operationId": "deleteFqdn",
         "tags": [
           "FQDNs"
@@ -4355,7 +4378,7 @@
       },
       "get": {
         "description": "Return the details regarding a specific FQDN.",
-        "summary": "Retrieve an Fqdn",
+        "summary": "Retrieve an FQDN",
         "operationId": "retrieveFqdn",
         "tags": [
           "FQDNs"
@@ -4380,7 +4403,7 @@
       },
       "patch": {
         "description": "Update the details of a specific FQDN.",
-        "summary": "Update an Fqdn",
+        "summary": "Update an FQDN",
         "operationId": "updateFqdn",
         "tags": [
           "FQDNs"
@@ -8193,7 +8216,7 @@
         "required": true,
         "schema": {
           "type": "string",
-          "example": "\"+18665552368\""
+          "example": "+18665552368"
         }
       },
       "ShortCodeId": {
@@ -8412,7 +8435,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "title": "Fqdn Connection Response",
+              "title": "FQDN Connection Response",
               "properties": {
                 "data": {
                   "$ref": "#/components/schemas/FqdnConnection"
@@ -8428,7 +8451,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "title": "Fqdn Response",
+              "title": "FQDN Response",
               "properties": {
                 "data": {
                   "$ref": "#/components/schemas/Fqdn"
@@ -8728,7 +8751,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "title": "List Fqdn Connections Response",
+              "title": "List FQDN Connections Response",
               "properties": {
                 "data": {
                   "type": "array",
@@ -8750,7 +8773,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "title": "List Fqdns Response",
+              "title": "List FQDNs Response",
               "properties": {
                 "data": {
                   "type": "array",
@@ -11486,7 +11509,7 @@
               },
               "recording_urls": {
                 "type": "object",
-                "description": "Recording URLs in requested format valid for 10 minutes. After 10 minutes, you may retrieve recordings via API using Reports -> Call Recordings documentation, or via Mission Control under Reporting -> Recordings.",
+                "description": "Recording URLs in requested format. These URLs are valid for 10 minutes. After 10 minutes, you may retrieve recordings via API using Reports -> Call Recordings documentation, or via Mission Control under Reporting -> Recordings.",
                 "properties": {
                   "mp3": {
                     "type": "string",
@@ -13607,6 +13630,160 @@
           }
         }
       },
+      "ConferenceRecordingSaved": {
+        "type": "object",
+        "title": "Conference Recording Saved",
+        "example": {
+          "record_type": "event",
+          "event_type": "conference.recording.saved",
+          "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+          "occurred_at": "2018-02-02T22:25:27.521992Z",
+          "payload": {
+            "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
+            "channels": "single",
+            "conference_id": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+            "connection_id": "7267xxxxxxxxxxxxxx",
+            "format": "mp3",
+            "public_recording_urls": {
+              "mp3": "http://example.com/recording.mp3",
+              "wav": "http://example.com/recording.wav"
+            },
+            "recording_ended_at": "2018-02-02T22:20:27.521992Z",
+            "recording_id": "4577f9a2-cf0e-44f3-ac57-9f95fb03fa47",
+            "recording_started_at": "2021-05-11T10:17:03.692107Z",
+            "recording_urls": {
+              "mp3": "http://example.com/recording.mp3",
+              "wav": "http://example.com/recording.wav"
+            }
+          }
+        },
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "conference.recording.saved",
+            "enum": [
+              "conference.recording.saved"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "call_control_id": {
+                "type": "string",
+                "example": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
+                "description": "Participant's call ID used to issue commands via Call Control API."
+              },
+              "channels": {
+                "type": "string",
+                "example": "single",
+                "enum": [
+                  "single",
+                  "dual"
+                ],
+                "description": "Whether recording was recorded in `single` or `dual` channel."
+              },
+              "conference_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+                "description": "ID of the conference that is being recorded."
+              },
+              "connection_id": {
+                "type": "string",
+                "example": "7267xxxxxxxxxxxxxx",
+                "description": "Call Control App ID (formerly Telnyx connection ID) used in the call."
+              },
+              "format": {
+                "description": "The audio file format used when storing the call recording. Can be either `mp3` or `wav`.",
+                "type": "string",
+                "enum": [
+                  "wav",
+                  "mp3"
+                ],
+                "example": "mp3"
+              },
+              "public_recording_urls": {
+                "type": "object",
+                "description": "Recording URLs in requested format. The URL is valid for as long as the file exists. For security purposes, this feature is activated on a per request basis.  Please contact customer support with your Account ID to request activation.",
+                "properties": {
+                  "mp3": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "http://example.com/recording.mp3",
+                    "description": "Recording URL in requested `mp3` format."
+                  },
+                  "wav": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "http://example.com/recording.wav",
+                    "description": "Recording URL in requested `wav` format."
+                  }
+                }
+              },
+              "recording_ended_at": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-02T22:25:27.521992Z",
+                "description": "ISO 8601 datetime of when recording ended."
+              },
+              "recording_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "4577f9a2-cf0e-44f3-ac57-9f95fb03fa47",
+                "description": "ID of the conference recording."
+              },
+              "recording_started_at": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-02T22:20:27.521992Z",
+                "description": "ISO 8601 datetime of when recording started."
+              },
+              "recording_urls": {
+                "type": "object",
+                "description": "Recording URLs in requested format. These URLs are valid for 10 minutes. After 10 minutes, you may retrieve recordings via API using Reports -> Call Recordings documentation, or via Mission Control under Reporting -> Recordings.",
+                "properties": {
+                  "mp3": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "http://example.com/recording.mp3",
+                    "description": "Recording URL in requested `mp3` format."
+                  },
+                  "wav": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "http://example.com/recording.wav",
+                    "description": "Recording URL in requested `wav` format."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ConferenceRecordingSavedEvent": {
+        "type": "object",
+        "title": "Conference Recording Saved Event",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ConferenceRecordingSaved"
+          }
+        }
+      },
       "ConferenceSpeakEnded": {
         "type": "object",
         "title": "Conference Speak Ended",
@@ -14475,7 +14652,7 @@
         }
       },
       "CreateFqdnConnectionRequest": {
-        "title": "Create Fqdn Connection Request",
+        "title": "Create FQDN Connection Request",
         "required": [
           "connection_name"
         ],
@@ -14596,7 +14773,7 @@
         }
       },
       "CreateFqdnRequest": {
-        "title": "Create Fqdn Request",
+        "title": "Create FQDN Request",
         "type": "object",
         "required": [
           "fqdn",
@@ -17237,7 +17414,7 @@
       },
       "FqdnConnection": {
         "type": "object",
-        "title": "Fqdn Connection",
+        "title": "FQDN Connection",
         "required": [
           "connection_name"
         ],
@@ -17696,7 +17873,7 @@
       },
       "InboundFqdn": {
         "type": "object",
-        "title": "Inbound Fqdn",
+        "title": "Inbound FQDN",
         "properties": {
           "ani_number_format": {
             "type": "string",
@@ -23317,7 +23494,7 @@
         }
       },
       "UpdateFqdnConnectionRequest": {
-        "title": "Update Fqdn Connection Request",
+        "title": "Update FQDN Connection Request",
         "properties": {
           "active": {
             "type": "boolean",
@@ -23434,7 +23611,7 @@
         }
       },
       "UpdateFqdnRequest": {
-        "title": "Update Fqdn Request",
+        "title": "Update FQDN Request",
         "type": "object",
         "properties": {
           "connection_id": {

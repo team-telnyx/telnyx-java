@@ -19,25 +19,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.FqdnConnection;
+import com.telnyx.sdk.model.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
 /**
- * Model tests for FqdnConnectionResponse
+ * Model tests for ListFQDNConnectionsResponse
  */
-public class FqdnConnectionResponseTest {
-    private final FqdnConnectionResponse model = new FqdnConnectionResponse();
+public class ListFQDNConnectionsResponseTest {
+    private final ListFQDNConnectionsResponse model = new ListFQDNConnectionsResponse();
 
     /**
-     * Model tests for FqdnConnectionResponse
+     * Model tests for ListFQDNConnectionsResponse
      */
     @Test
-    public void testFqdnConnectionResponse() {
-        // TODO: test FqdnConnectionResponse
+    public void testListFQDNConnectionsResponse() {
+        // TODO: test ListFQDNConnectionsResponse
     }
 
     /**
@@ -46,6 +49,14 @@ public class FqdnConnectionResponseTest {
     @Test
     public void dataTest() {
         // TODO: test data
+    }
+
+    /**
+     * Test the property 'meta'
+     */
+    @Test
+    public void metaTest() {
+        // TODO: test meta
     }
 
 }

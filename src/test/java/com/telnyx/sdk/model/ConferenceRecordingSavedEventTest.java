@@ -18,29 +18,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.FqdnConnection;
-import com.telnyx.sdk.model.PaginationMeta;
+import com.telnyx.sdk.model.ConferenceRecordingSaved;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
 /**
- * Model tests for ListFqdnConnectionsResponse
+ * Model tests for ConferenceRecordingSavedEvent
  */
-public class ListFqdnConnectionsResponseTest {
-    private final ListFqdnConnectionsResponse model = new ListFqdnConnectionsResponse();
+public class ConferenceRecordingSavedEventTest {
+    private final ConferenceRecordingSavedEvent model = new ConferenceRecordingSavedEvent();
 
     /**
-     * Model tests for ListFqdnConnectionsResponse
+     * Model tests for ConferenceRecordingSavedEvent
      */
     @Test
-    public void testListFqdnConnectionsResponse() {
-        // TODO: test ListFqdnConnectionsResponse
+    public void testConferenceRecordingSavedEvent() {
+        // TODO: test ConferenceRecordingSavedEvent
     }
 
     /**
@@ -49,14 +46,6 @@ public class ListFqdnConnectionsResponseTest {
     @Test
     public void dataTest() {
         // TODO: test data
-    }
-
-    /**
-     * Test the property 'meta'
-     */
-    @Test
-    public void metaTest() {
-        // TODO: test meta
     }
 
 }

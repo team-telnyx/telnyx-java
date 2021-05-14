@@ -18,45 +18,59 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.Fqdn;
-import com.telnyx.sdk.model.PaginationMeta;
+import com.telnyx.sdk.model.ConferenceRecordingSavedPayload;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
 /**
- * Model tests for ListFqdnsResponse
+ * Model tests for ConferenceRecordingSaved
  */
-public class ListFqdnsResponseTest {
-    private final ListFqdnsResponse model = new ListFqdnsResponse();
+public class ConferenceRecordingSavedTest {
+    private final ConferenceRecordingSaved model = new ConferenceRecordingSaved();
 
     /**
-     * Model tests for ListFqdnsResponse
+     * Model tests for ConferenceRecordingSaved
      */
     @Test
-    public void testListFqdnsResponse() {
-        // TODO: test ListFqdnsResponse
+    public void testConferenceRecordingSaved() {
+        // TODO: test ConferenceRecordingSaved
     }
 
     /**
-     * Test the property 'data'
+     * Test the property 'recordType'
      */
     @Test
-    public void dataTest() {
-        // TODO: test data
+    public void recordTypeTest() {
+        // TODO: test recordType
     }
 
     /**
-     * Test the property 'meta'
+     * Test the property 'eventType'
      */
     @Test
-    public void metaTest() {
-        // TODO: test meta
+    public void eventTypeTest() {
+        // TODO: test eventType
+    }
+
+    /**
+     * Test the property 'id'
+     */
+    @Test
+    public void idTest() {
+        // TODO: test id
+    }
+
+    /**
+     * Test the property 'payload'
+     */
+    @Test
+    public void payloadTest() {
+        // TODO: test payload
     }
 
 }

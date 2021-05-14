@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.Fqdn;
+import com.telnyx.sdk.model.FqdnConnection;
 import com.telnyx.sdk.model.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,27 +33,27 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * ListFqdnsResponse
+ * ListFQDNConnectionsResponse
  */
 @JsonPropertyOrder({
-  ListFqdnsResponse.JSON_PROPERTY_DATA,
-  ListFqdnsResponse.JSON_PROPERTY_META
+  ListFQDNConnectionsResponse.JSON_PROPERTY_DATA,
+  ListFQDNConnectionsResponse.JSON_PROPERTY_META
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ListFqdnsResponse {
+public class ListFQDNConnectionsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<Fqdn> data = null;
+  private List<FqdnConnection> data = null;
 
   public static final String JSON_PROPERTY_META = "meta";
   private PaginationMeta meta;
 
 
-  public ListFqdnsResponse data(List<Fqdn> data) {
+  public ListFQDNConnectionsResponse data(List<FqdnConnection> data) {
     this.data = data;
     return this;
   }
 
-  public ListFqdnsResponse addDataItem(Fqdn dataItem) {
+  public ListFQDNConnectionsResponse addDataItem(FqdnConnection dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -70,17 +70,17 @@ public class ListFqdnsResponse {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Fqdn> getData() {
+  public List<FqdnConnection> getData() {
     return data;
   }
 
 
-  public void setData(List<Fqdn> data) {
+  public void setData(List<FqdnConnection> data) {
     this.data = data;
   }
 
 
-  public ListFqdnsResponse meta(PaginationMeta meta) {
+  public ListFQDNConnectionsResponse meta(PaginationMeta meta) {
     this.meta = meta;
     return this;
   }
@@ -105,7 +105,7 @@ public class ListFqdnsResponse {
 
 
   /**
-   * Return true if this List_Fqdns_Response object is equal to o.
+   * Return true if this List_FQDN_Connections_Response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -115,9 +115,9 @@ public class ListFqdnsResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ListFqdnsResponse listFqdnsResponse = (ListFqdnsResponse) o;
-    return Objects.equals(this.data, listFqdnsResponse.data) &&
-        Objects.equals(this.meta, listFqdnsResponse.meta);
+    ListFQDNConnectionsResponse listFQDNConnectionsResponse = (ListFQDNConnectionsResponse) o;
+    return Objects.equals(this.data, listFQDNConnectionsResponse.data) &&
+        Objects.equals(this.meta, listFQDNConnectionsResponse.meta);
   }
 
   @Override
@@ -129,7 +129,7 @@ public class ListFqdnsResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ListFqdnsResponse {\n");
+    sb.append("class ListFQDNConnectionsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");

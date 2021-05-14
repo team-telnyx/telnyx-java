@@ -22,42 +22,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.FqdnConnection;
-import com.telnyx.sdk.model.PaginationMeta;
+import com.telnyx.sdk.model.ConferenceRecordingSaved;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * ListFqdnConnectionsResponse
+ * ConferenceRecordingSavedEvent
  */
 @JsonPropertyOrder({
-  ListFqdnConnectionsResponse.JSON_PROPERTY_DATA,
-  ListFqdnConnectionsResponse.JSON_PROPERTY_META
+  ConferenceRecordingSavedEvent.JSON_PROPERTY_DATA
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ListFqdnConnectionsResponse {
+public class ConferenceRecordingSavedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<FqdnConnection> data = null;
-
-  public static final String JSON_PROPERTY_META = "meta";
-  private PaginationMeta meta;
+  private ConferenceRecordingSaved data;
 
 
-  public ListFqdnConnectionsResponse data(List<FqdnConnection> data) {
+  public ConferenceRecordingSavedEvent data(ConferenceRecordingSaved data) {
     this.data = data;
-    return this;
-  }
-
-  public ListFqdnConnectionsResponse addDataItem(FqdnConnection dataItem) {
-    if (this.data == null) {
-      this.data = new ArrayList<>();
-    }
-    this.data.add(dataItem);
     return this;
   }
 
@@ -70,42 +55,18 @@ public class ListFqdnConnectionsResponse {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<FqdnConnection> getData() {
+  public ConferenceRecordingSaved getData() {
     return data;
   }
 
 
-  public void setData(List<FqdnConnection> data) {
+  public void setData(ConferenceRecordingSaved data) {
     this.data = data;
   }
 
 
-  public ListFqdnConnectionsResponse meta(PaginationMeta meta) {
-    this.meta = meta;
-    return this;
-  }
-
-   /**
-   * Get meta
-   * @return meta
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PaginationMeta getMeta() {
-    return meta;
-  }
-
-
-  public void setMeta(PaginationMeta meta) {
-    this.meta = meta;
-  }
-
-
   /**
-   * Return true if this List_Fqdn_Connections_Response object is equal to o.
+   * Return true if this ConferenceRecordingSavedEvent object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -115,23 +76,21 @@ public class ListFqdnConnectionsResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ListFqdnConnectionsResponse listFqdnConnectionsResponse = (ListFqdnConnectionsResponse) o;
-    return Objects.equals(this.data, listFqdnConnectionsResponse.data) &&
-        Objects.equals(this.meta, listFqdnConnectionsResponse.meta);
+    ConferenceRecordingSavedEvent conferenceRecordingSavedEvent = (ConferenceRecordingSavedEvent) o;
+    return Objects.equals(this.data, conferenceRecordingSavedEvent.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data, meta);
+    return Objects.hash(data);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ListFqdnConnectionsResponse {\n");
+    sb.append("class ConferenceRecordingSavedEvent {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

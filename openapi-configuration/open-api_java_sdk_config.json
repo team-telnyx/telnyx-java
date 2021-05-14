@@ -1,5 +1,5 @@
 {
-  "artifactVersion"          : "2.5.0",
+  "artifactVersion"          : "2.6.0",
   "java8"                    : true,
   "dateLibrary"              : "java8",
   "groupId"                  : "com.telnyx.sdk",

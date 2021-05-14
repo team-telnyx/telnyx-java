@@ -4,19 +4,19 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createFqdn**](FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an Fqdn
-[**deleteFqdn**](FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an Fqdn
-[**listFqdns**](FqdNsApi.md#listFqdns) | **GET** /fqdns | List Fqdns
-[**retrieveFqdn**](FqdNsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an Fqdn
-[**updateFqdn**](FqdNsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an Fqdn
+[**createFqdn**](FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an FQDN
+[**deleteFqdn**](FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an FQDN
+[**listFqdns**](FqdNsApi.md#listFqdns) | **GET** /fqdns | List FQDNs
+[**retrieveFqdn**](FqdNsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an FQDN
+[**updateFqdn**](FqdNsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an FQDN
 
 
 
 ## createFqdn
 
-> FqdnResponse createFqdn(createFqdnRequest)
+> FQDNResponse createFqdn(createFqdnRequest)
 
-Create an Fqdn
+Create an FQDN
 
 Create a new FQDN object.
 
@@ -43,7 +43,7 @@ public class Example {
         FqdNsApi apiInstance = new FqdNsApi(defaultClient);
         CreateFqdnRequest createFqdnRequest = new CreateFqdnRequest(); // CreateFqdnRequest | 
         try {
-            FqdnResponse result = apiInstance.createFqdn(createFqdnRequest);
+            FQDNResponse result = apiInstance.createFqdn(createFqdnRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FqdNsApi#createFqdn");
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FqdnResponse**](FqdnResponse.md)
+[**FQDNResponse**](FQDNResponse.md)
 
 ### Authorization
 
@@ -86,9 +86,9 @@ Name | Type | Description  | Notes
 
 ## deleteFqdn
 
-> FqdnResponse deleteFqdn(id)
+> FQDNResponse deleteFqdn(id)
 
-Delete an Fqdn
+Delete an FQDN
 
 Delete an FQDN.
 
@@ -115,7 +115,7 @@ public class Example {
         FqdNsApi apiInstance = new FqdNsApi(defaultClient);
         String id = 1517907029795014409; // String | Identifies the resource.
         try {
-            FqdnResponse result = apiInstance.deleteFqdn(id);
+            FQDNResponse result = apiInstance.deleteFqdn(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FqdNsApi#deleteFqdn");
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FqdnResponse**](FqdnResponse.md)
+[**FQDNResponse**](FQDNResponse.md)
 
 ### Authorization
 
@@ -158,9 +158,9 @@ Name | Type | Description  | Notes
 
 ## listFqdns
 
-> ListFqdnsResponse listFqdns().pageNumber(pageNumber).pageSize(pageSize).filterConnectionId(filterConnectionId).filterFqdn(filterFqdn).filterPort(filterPort).filterDnsRecordType(filterDnsRecordType).execute();
+> ListFQDNsResponse listFqdns().pageNumber(pageNumber).pageSize(pageSize).filterConnectionId(filterConnectionId).filterFqdn(filterFqdn).filterPort(filterPort).filterDnsRecordType(filterDnsRecordType).execute();
 
-List Fqdns
+List FQDNs
 
 Get all FQDNs belonging to the user that match the given filters.
 
@@ -192,7 +192,7 @@ public class Example {
         Integer filterPort = 5060; // Integer | Port to use when connecting to the FQDN.
         String filterDnsRecordType = a; // String | DNS record type used by the FQDN.
         try {
-            ListFqdnsResponse result = api.listFqdns()
+            ListFQDNsResponse result = api.listFqdns()
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
                 .filterConnectionId(filterConnectionId)
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListFqdnsResponse**](ListFqdnsResponse.md)
+[**ListFQDNsResponse**](ListFQDNsResponse.md)
 
 ### Authorization
 
@@ -247,9 +247,9 @@ Name | Type | Description  | Notes
 
 ## retrieveFqdn
 
-> FqdnResponse retrieveFqdn(id)
+> FQDNResponse retrieveFqdn(id)
 
-Retrieve an Fqdn
+Retrieve an FQDN
 
 Return the details regarding a specific FQDN.
 
@@ -276,7 +276,7 @@ public class Example {
         FqdNsApi apiInstance = new FqdNsApi(defaultClient);
         String id = 1517907029795014409; // String | Identifies the resource.
         try {
-            FqdnResponse result = apiInstance.retrieveFqdn(id);
+            FQDNResponse result = apiInstance.retrieveFqdn(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FqdNsApi#retrieveFqdn");
@@ -298,7 +298,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FqdnResponse**](FqdnResponse.md)
+[**FQDNResponse**](FQDNResponse.md)
 
 ### Authorization
 
@@ -319,9 +319,9 @@ Name | Type | Description  | Notes
 
 ## updateFqdn
 
-> FqdnResponse updateFqdn(id, updateFqdnRequest)
+> FQDNResponse updateFqdn(id, updateFqdnRequest)
 
-Update an Fqdn
+Update an FQDN
 
 Update the details of a specific FQDN.
 
@@ -349,7 +349,7 @@ public class Example {
         String id = 1517907029795014409; // String | Identifies the resource.
         UpdateFqdnRequest updateFqdnRequest = new UpdateFqdnRequest(); // UpdateFqdnRequest | 
         try {
-            FqdnResponse result = apiInstance.updateFqdn(id, updateFqdnRequest);
+            FQDNResponse result = apiInstance.updateFqdn(id, updateFqdnRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FqdNsApi#updateFqdn");
@@ -372,7 +372,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FqdnResponse**](FqdnResponse.md)
+[**FQDNResponse**](FQDNResponse.md)
 
 ### Authorization
 
