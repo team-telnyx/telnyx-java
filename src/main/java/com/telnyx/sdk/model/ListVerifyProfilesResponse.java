@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Meta;
-import com.telnyx.sdk.model.VerifyProfile;
+import com.telnyx.sdk.model.VerifyProfileResponse;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -43,18 +43,18 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ListVerifyProfilesResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<VerifyProfile> data = new ArrayList<>();
+  private List<VerifyProfileResponse> data = new ArrayList<>();
 
   public static final String JSON_PROPERTY_META = "meta";
   private Meta meta;
 
 
-  public ListVerifyProfilesResponse data(List<VerifyProfile> data) {
+  public ListVerifyProfilesResponse data(List<VerifyProfileResponse> data) {
     this.data = data;
     return this;
   }
 
-  public ListVerifyProfilesResponse addDataItem(VerifyProfile dataItem) {
+  public ListVerifyProfilesResponse addDataItem(VerifyProfileResponse dataItem) {
     this.data.add(dataItem);
     return this;
   }
@@ -67,12 +67,12 @@ public class ListVerifyProfilesResponse {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public List<VerifyProfile> getData() {
+  public List<VerifyProfileResponse> getData() {
     return data;
   }
 
 
-  public void setData(List<VerifyProfile> data) {
+  public void setData(List<VerifyProfileResponse> data) {
     this.data = data;
   }
 

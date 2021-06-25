@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.VerificationRecordType;
 import com.telnyx.sdk.model.VerificationStatus;
 import com.telnyx.sdk.model.VerificationType;
 import io.swagger.annotations.ApiModel;
@@ -35,44 +36,120 @@ import com.telnyx.sdk.JSON;
  * Verification
  */
 @JsonPropertyOrder({
+  Verification.JSON_PROPERTY_ID,
+  Verification.JSON_PROPERTY_VERIFICATION_TYPE,
+  Verification.JSON_PROPERTY_RECORD_TYPE,
   Verification.JSON_PROPERTY_PHONE_NUMBER,
   Verification.JSON_PROPERTY_VERIFY_PROFILE_ID,
-  Verification.JSON_PROPERTY_TYPE,
   Verification.JSON_PROPERTY_TIMEOUT_SECS,
-  Verification.JSON_PROPERTY_ID,
+  Verification.JSON_PROPERTY_CALL_TIMEOUT_SECS,
   Verification.JSON_PROPERTY_STATUS,
-  Verification.JSON_PROPERTY_RECORD_TYPE,
   Verification.JSON_PROPERTY_CREATED_AT,
   Verification.JSON_PROPERTY_UPDATED_AT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Verification {
+  public static final String JSON_PROPERTY_ID = "id";
+  private UUID id;
+
+  public static final String JSON_PROPERTY_VERIFICATION_TYPE = "verification_type";
+  private VerificationType verificationType;
+
+  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+  private VerificationRecordType recordType;
+
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
 
   public static final String JSON_PROPERTY_VERIFY_PROFILE_ID = "verify_profile_id";
   private UUID verifyProfileId;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private VerificationType type;
-
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
+  public static final String JSON_PROPERTY_CALL_TIMEOUT_SECS = "call_timeout_secs";
+  private Integer callTimeoutSecs;
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private VerificationStatus status;
-
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
 
   public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
   private String updatedAt;
+
+
+  public Verification id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Get id
+   * @return id
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "")
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getId() {
+    return id;
+  }
+
+
+  public void setId(UUID id) {
+    this.id = id;
+  }
+
+
+  public Verification verificationType(VerificationType verificationType) {
+    this.verificationType = verificationType;
+    return this;
+  }
+
+   /**
+   * Get verificationType
+   * @return verificationType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_VERIFICATION_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public VerificationType getVerificationType() {
+    return verificationType;
+  }
+
+
+  public void setVerificationType(VerificationType verificationType) {
+    this.verificationType = verificationType;
+  }
+
+
+  public Verification recordType(VerificationRecordType recordType) {
+    this.recordType = recordType;
+    return this;
+  }
+
+   /**
+   * Get recordType
+   * @return recordType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public VerificationRecordType getRecordType() {
+    return recordType;
+  }
+
+
+  public void setRecordType(VerificationRecordType recordType) {
+    this.recordType = recordType;
+  }
 
 
   public Verification phoneNumber(String phoneNumber) {
@@ -84,9 +161,10 @@ public class Verification {
    * +E164 formatted phone number.
    * @return phoneNumber
   **/
-  @ApiModelProperty(example = "+13035551234", required = true, value = "+E164 formatted phone number.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "+13035551234", value = "+E164 formatted phone number.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPhoneNumber() {
     return phoneNumber;
@@ -107,9 +185,10 @@ public class Verification {
    * The identifier of the associated Verify profile.
    * @return verifyProfileId
   **/
-  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "The identifier of the associated Verify profile.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "The identifier of the associated Verify profile.")
   @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UUID getVerifyProfileId() {
     return verifyProfileId;
@@ -121,40 +200,17 @@ public class Verification {
   }
 
 
-  public Verification type(VerificationType type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Get type
-   * @return type
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public VerificationType getType() {
-    return type;
-  }
-
-
-  public void setType(VerificationType type) {
-    this.type = type;
-  }
-
-
   public Verification timeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
     return this;
   }
 
    /**
-   * This is the number of seconds before the code of the request is expired. Once this request has expired, the code will no longer verify the user. Note: this will override the &#x60;default_timeout_secs&#x60; on the Verify profile.
+   * This is the number of seconds before the code of the request is expired. Once this request has expired, the code will no longer verify the user. Note: this will override the &#x60;default_verification_timeout_secs&#x60; on the Verify profile.
    * @return timeoutSecs
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "300", value = "This is the number of seconds before the code of the request is expired. Once this request has expired, the code will no longer verify the user. Note: this will override the `default_timeout_secs` on the Verify profile.")
+  @ApiModelProperty(example = "300", value = "This is the number of seconds before the code of the request is expired. Once this request has expired, the code will no longer verify the user. Note: this will override the `default_verification_timeout_secs` on the Verify profile.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -168,26 +224,27 @@ public class Verification {
   }
 
 
-  public Verification id(UUID id) {
-    this.id = id;
+  public Verification callTimeoutSecs(Integer callTimeoutSecs) {
+    this.callTimeoutSecs = callTimeoutSecs;
     return this;
   }
 
    /**
-   * Get id
-   * @return id
+   * This is the number of seconds before the call ends, if the verification makes a call. Note: this will override the &#x60;default_call_timeout_secs&#x60; on the Verify profile.
+   * @return callTimeoutSecs
   **/
-  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "299", value = "This is the number of seconds before the call ends, if the verification makes a call. Note: this will override the `default_call_timeout_secs` on the Verify profile.")
+  @JsonProperty(JSON_PROPERTY_CALL_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public UUID getId() {
-    return id;
+  public Integer getCallTimeoutSecs() {
+    return callTimeoutSecs;
   }
 
 
-  public void setId(UUID id) {
-    this.id = id;
+  public void setCallTimeoutSecs(Integer callTimeoutSecs) {
+    this.callTimeoutSecs = callTimeoutSecs;
   }
 
 
@@ -200,9 +257,10 @@ public class Verification {
    * Get status
    * @return status
   **/
-  @ApiModelProperty(required = true, value = "")
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public VerificationStatus getStatus() {
     return status;
@@ -211,30 +269,6 @@ public class Verification {
 
   public void setStatus(VerificationStatus status) {
     this.status = status;
-  }
-
-
-  public Verification recordType(String recordType) {
-    this.recordType = recordType;
-    return this;
-  }
-
-   /**
-   * Identifies the type of the resource.
-   * @return recordType
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "verification", value = "Identifies the type of the resource.")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-  public void setRecordType(String recordType) {
-    this.recordType = recordType;
   }
 
 
@@ -247,9 +281,10 @@ public class Verification {
    * Get createdAt
    * @return createdAt
   **/
-  @ApiModelProperty(example = "2020-09-14T17:03:32.965812", required = true, value = "")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2020-09-14T17:03:32.965812", value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedAt() {
     return createdAt;
@@ -270,9 +305,10 @@ public class Verification {
    * Get updatedAt
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "2020-09-14T17:03:32.965812", required = true, value = "")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2020-09-14T17:03:32.965812", value = "")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUpdatedAt() {
     return updatedAt;
@@ -296,20 +332,21 @@ public class Verification {
       return false;
     }
     Verification verification = (Verification) o;
-    return Objects.equals(this.phoneNumber, verification.phoneNumber) &&
-        Objects.equals(this.verifyProfileId, verification.verifyProfileId) &&
-        Objects.equals(this.type, verification.type) &&
-        Objects.equals(this.timeoutSecs, verification.timeoutSecs) &&
-        Objects.equals(this.id, verification.id) &&
-        Objects.equals(this.status, verification.status) &&
+    return Objects.equals(this.id, verification.id) &&
+        Objects.equals(this.verificationType, verification.verificationType) &&
         Objects.equals(this.recordType, verification.recordType) &&
+        Objects.equals(this.phoneNumber, verification.phoneNumber) &&
+        Objects.equals(this.verifyProfileId, verification.verifyProfileId) &&
+        Objects.equals(this.timeoutSecs, verification.timeoutSecs) &&
+        Objects.equals(this.callTimeoutSecs, verification.callTimeoutSecs) &&
+        Objects.equals(this.status, verification.status) &&
         Objects.equals(this.createdAt, verification.createdAt) &&
         Objects.equals(this.updatedAt, verification.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, verifyProfileId, type, timeoutSecs, id, status, recordType, createdAt, updatedAt);
+    return Objects.hash(id, verificationType, recordType, phoneNumber, verifyProfileId, timeoutSecs, callTimeoutSecs, status, createdAt, updatedAt);
   }
 
 
@@ -317,13 +354,14 @@ public class Verification {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Verification {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    verificationType: ").append(toIndentedString(verificationType)).append("\n");
+    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    verifyProfileId: ").append(toIndentedString(verifyProfileId)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    callTimeoutSecs: ").append(toIndentedString(callTimeoutSecs)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");

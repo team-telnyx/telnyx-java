@@ -35,6 +35,7 @@ import com.telnyx.sdk.JSON;
   BridgeRequest.JSON_PROPERTY_CALL_CONTROL_ID,
   BridgeRequest.JSON_PROPERTY_CLIENT_STATE,
   BridgeRequest.JSON_PROPERTY_COMMAND_ID,
+  BridgeRequest.JSON_PROPERTY_QUEUE,
   BridgeRequest.JSON_PROPERTY_PARK_AFTER_UNBRIDGE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -47,6 +48,9 @@ public class BridgeRequest {
 
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
+
+  public static final String JSON_PROPERTY_QUEUE = "queue";
+  private String queue;
 
   public static final String JSON_PROPERTY_PARK_AFTER_UNBRIDGE = "park_after_unbridge";
   private String parkAfterUnbridge;
@@ -123,6 +127,30 @@ public class BridgeRequest {
   }
 
 
+  public BridgeRequest queue(String queue) {
+    this.queue = queue;
+    return this;
+  }
+
+   /**
+   * The name of the queue you want to bridge with, can&#39;t be used together with call_control_id parameter. Bridging with a queue means bridging with the first call in the queue. The call will always be removed from the queue regardless of whether bridging succeeds. Returns an error when the queue is empty.
+   * @return queue
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "support", value = "The name of the queue you want to bridge with, can't be used together with call_control_id parameter. Bridging with a queue means bridging with the first call in the queue. The call will always be removed from the queue regardless of whether bridging succeeds. Returns an error when the queue is empty.")
+  @JsonProperty(JSON_PROPERTY_QUEUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getQueue() {
+    return queue;
+  }
+
+
+  public void setQueue(String queue) {
+    this.queue = queue;
+  }
+
+
   public BridgeRequest parkAfterUnbridge(String parkAfterUnbridge) {
     this.parkAfterUnbridge = parkAfterUnbridge;
     return this;
@@ -162,12 +190,13 @@ public class BridgeRequest {
     return Objects.equals(this.callControlId, bridgeRequest.callControlId) &&
         Objects.equals(this.clientState, bridgeRequest.clientState) &&
         Objects.equals(this.commandId, bridgeRequest.commandId) &&
+        Objects.equals(this.queue, bridgeRequest.queue) &&
         Objects.equals(this.parkAfterUnbridge, bridgeRequest.parkAfterUnbridge);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, clientState, commandId, parkAfterUnbridge);
+    return Objects.hash(callControlId, clientState, commandId, queue, parkAfterUnbridge);
   }
 
 
@@ -178,6 +207,7 @@ public class BridgeRequest {
     sb.append("    callControlId: ").append(toIndentedString(callControlId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
+    sb.append("    queue: ").append(toIndentedString(queue)).append("\n");
     sb.append("    parkAfterUnbridge: ").append(toIndentedString(parkAfterUnbridge)).append("\n");
     sb.append("}");
     return sb.toString();
