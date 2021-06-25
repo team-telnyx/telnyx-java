@@ -12,10 +12,12 @@ import com.telnyx.sdk.model.AnswerRequest;
 import com.telnyx.sdk.model.BridgeRequest;
 import com.telnyx.sdk.model.CallControlCommandResponse;
 import com.telnyx.sdk.model.CallRequest;
+import com.telnyx.sdk.model.EnqueueRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GatherUsingAudioRequest;
 import com.telnyx.sdk.model.GatherUsingSpeakRequest;
 import com.telnyx.sdk.model.HangupRequest;
+import com.telnyx.sdk.model.LeaveQueueRequest;
 import com.telnyx.sdk.model.PauseRecordingRequest;
 import com.telnyx.sdk.model.PlayAudioUrlRequest;
 import com.telnyx.sdk.model.PlaybackStopRequest;
@@ -289,6 +291,83 @@ public class CallCommandsApi {
     GenericType<RetrieveCallStatusResponse> localVarReturnType = new GenericType<RetrieveCallStatusResponse>() {};
 
     return apiClient.invokeAPI("CallCommandsApi.callDial", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Enqueue call
+   * Put the call in a queue.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param enqueueRequest Enqueue call request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callEnqueue(String callControlId, EnqueueRequest enqueueRequest) throws ApiException {
+    return callEnqueueWithHttpInfo(callControlId, enqueueRequest).getData();
+  }
+
+  /**
+   * Enqueue call
+   * Put the call in a queue.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param enqueueRequest Enqueue call request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callEnqueueWithHttpInfo(String callControlId, EnqueueRequest enqueueRequest) throws ApiException {
+    Object localVarPostBody = enqueueRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callEnqueue");
+    }
+    
+    // verify the required parameter 'enqueueRequest' is set
+    if (enqueueRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'enqueueRequest' when calling callEnqueue");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/enqueue"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callEnqueue", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -1752,6 +1831,83 @@ public class CallCommandsApi {
     GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
 
     return apiClient.invokeAPI("CallCommandsApi.callTransfer", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Remove call from a queue
+   * Removes the call from a queue.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param leaveQueueRequest Removes the call from the queue, the call currently is enqueued in. (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse leaveQueue(String callControlId, LeaveQueueRequest leaveQueueRequest) throws ApiException {
+    return leaveQueueWithHttpInfo(callControlId, leaveQueueRequest).getData();
+  }
+
+  /**
+   * Remove call from a queue
+   * Removes the call from a queue.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param leaveQueueRequest Removes the call from the queue, the call currently is enqueued in. (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> leaveQueueWithHttpInfo(String callControlId, LeaveQueueRequest leaveQueueRequest) throws ApiException {
+    Object localVarPostBody = leaveQueueRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling leaveQueue");
+    }
+    
+    // verify the required parameter 'leaveQueueRequest' is set
+    if (leaveQueueRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'leaveQueueRequest' when calling leaveQueue");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/leave_queue"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.leaveQueue", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

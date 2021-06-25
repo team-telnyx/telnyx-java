@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**callAnswer**](CallCommandsApi.md#callAnswer) | **POST** /calls/{call_control_id}/actions/answer | Answer call
 [**callBridge**](CallCommandsApi.md#callBridge) | **POST** /calls/{call_control_id}/actions/bridge | Bridge calls
 [**callDial**](CallCommandsApi.md#callDial) | **POST** /calls | Dial
+[**callEnqueue**](CallCommandsApi.md#callEnqueue) | **POST** /calls/{call_control_id}/actions/enqueue | Enqueue call
 [**callForkStart**](CallCommandsApi.md#callForkStart) | **POST** /calls/{call_control_id}/actions/fork_start | Forking start
 [**callForkStop**](CallCommandsApi.md#callForkStop) | **POST** /calls/{call_control_id}/actions/fork_stop | Forking stop
 [**callGatherStop**](CallCommandsApi.md#callGatherStop) | **POST** /calls/{call_control_id}/actions/gather_stop | Gather stop
@@ -26,6 +27,7 @@ Method | HTTP request | Description
 [**callTranscriptionStart**](CallCommandsApi.md#callTranscriptionStart) | **POST** /calls/{call_control_id}/actions/transcription_start | Transcription start
 [**callTranscriptionStop**](CallCommandsApi.md#callTranscriptionStop) | **POST** /calls/{call_control_id}/actions/transcription_stop | Transcription stop
 [**callTransfer**](CallCommandsApi.md#callTransfer) | **POST** /calls/{call_control_id}/actions/transfer | Transfer call
+[**leaveQueue**](CallCommandsApi.md#leaveQueue) | **POST** /calls/{call_control_id}/actions/leave_queue | Remove call from a queue
 
 
 
@@ -261,6 +263,79 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a call status. |  -  |
+| **0** | Bad Request |  -  |
+
+
+## callEnqueue
+
+> CallControlCommandResponse callEnqueue(callControlId, enqueueRequest)
+
+Enqueue call
+
+Put the call in a queue.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        EnqueueRequest enqueueRequest = new EnqueueRequest(); // EnqueueRequest | Enqueue call request
+        try {
+            CallControlCommandResponse result = apiInstance.callEnqueue(callControlId, enqueueRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callEnqueue");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **callControlId** | **String**| Unique identifier and token for controlling the call |
+ **enqueueRequest** | [**EnqueueRequest**](EnqueueRequest.md)| Enqueue call request |
+
+### Return type
+
+[**CallControlCommandResponse**](CallControlCommandResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response upon making a call control command. |  -  |
 | **0** | Bad Request |  -  |
 
 
@@ -1813,6 +1888,79 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **callControlId** | **String**| Unique identifier and token for controlling the call |
  **transferCallRequest** | [**TransferCallRequest**](TransferCallRequest.md)| Transfer call request |
+
+### Return type
+
+[**CallControlCommandResponse**](CallControlCommandResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response upon making a call control command. |  -  |
+| **0** | Bad Request |  -  |
+
+
+## leaveQueue
+
+> CallControlCommandResponse leaveQueue(callControlId, leaveQueueRequest)
+
+Remove call from a queue
+
+Removes the call from a queue.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        LeaveQueueRequest leaveQueueRequest = new LeaveQueueRequest(); // LeaveQueueRequest | Removes the call from the queue, the call currently is enqueued in.
+        try {
+            CallControlCommandResponse result = apiInstance.leaveQueue(callControlId, leaveQueueRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#leaveQueue");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **callControlId** | **String**| Unique identifier and token for controlling the call |
+ **leaveQueueRequest** | [**LeaveQueueRequest**](LeaveQueueRequest.md)| Removes the call from the queue, the call currently is enqueued in. |
 
 ### Return type
 

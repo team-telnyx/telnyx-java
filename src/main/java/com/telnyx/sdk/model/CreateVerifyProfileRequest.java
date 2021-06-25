@@ -22,42 +22,55 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.CreateVerifyProfileCallRequest;
+import com.telnyx.sdk.model.CreateVerifyProfileFlashcallRequest;
+import com.telnyx.sdk.model.CreateVerifyProfilePSD2Request;
+import com.telnyx.sdk.model.CreateVerifyProfileSMSRequest;
+import com.telnyx.sdk.model.CreateVerifyProfileWhatsappRequest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * The request body when creating a Verify profile.
+ * CreateVerifyProfileRequest
  */
-@ApiModel(description = "The request body when creating a Verify profile.")
 @JsonPropertyOrder({
   CreateVerifyProfileRequest.JSON_PROPERTY_NAME,
-  CreateVerifyProfileRequest.JSON_PROPERTY_MESSAGING_ENABLED,
-  CreateVerifyProfileRequest.JSON_PROPERTY_RCS_ENABLED,
-  CreateVerifyProfileRequest.JSON_PROPERTY_DEFAULT_TIMEOUT_SECS,
-  CreateVerifyProfileRequest.JSON_PROPERTY_MESSAGING_TEMPLATE
+  CreateVerifyProfileRequest.JSON_PROPERTY_WEBHOOK_URL,
+  CreateVerifyProfileRequest.JSON_PROPERTY_WEBHOOK_FAILOVER_URL,
+  CreateVerifyProfileRequest.JSON_PROPERTY_SMS,
+  CreateVerifyProfileRequest.JSON_PROPERTY_PSD2,
+  CreateVerifyProfileRequest.JSON_PROPERTY_WHATSAPP,
+  CreateVerifyProfileRequest.JSON_PROPERTY_CALL,
+  CreateVerifyProfileRequest.JSON_PROPERTY_FLASHCALL
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateVerifyProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String JSON_PROPERTY_MESSAGING_ENABLED = "messaging_enabled";
-  private Boolean messagingEnabled = true;
+  public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
+  private String webhookUrl;
 
-  public static final String JSON_PROPERTY_RCS_ENABLED = "rcs_enabled";
-  private Boolean rcsEnabled = false;
+  public static final String JSON_PROPERTY_WEBHOOK_FAILOVER_URL = "webhook_failover_url";
+  private String webhookFailoverUrl;
 
-  public static final String JSON_PROPERTY_DEFAULT_TIMEOUT_SECS = "default_timeout_secs";
-  private Integer defaultTimeoutSecs;
+  public static final String JSON_PROPERTY_SMS = "sms";
+  private CreateVerifyProfileSMSRequest sms;
 
-  public static final String JSON_PROPERTY_MESSAGING_TEMPLATE = "messaging_template";
-  private JsonNullable<String> messagingTemplate = JsonNullable.<String>of("null");
+  public static final String JSON_PROPERTY_PSD2 = "psd2";
+  private CreateVerifyProfilePSD2Request psd2;
+
+  public static final String JSON_PROPERTY_WHATSAPP = "whatsapp";
+  private CreateVerifyProfileWhatsappRequest whatsapp;
+
+  public static final String JSON_PROPERTY_CALL = "call";
+  private CreateVerifyProfileCallRequest call;
+
+  public static final String JSON_PROPERTY_FLASHCALL = "flashcall";
+  private CreateVerifyProfileFlashcallRequest flashcall;
 
 
   public CreateVerifyProfileRequest name(String name) {
@@ -66,10 +79,10 @@ public class CreateVerifyProfileRequest {
   }
 
    /**
-   * The human readable label for the Verify profile.
+   * Get name
    * @return name
   **/
-  @ApiModelProperty(example = "Test Profile", required = true, value = "The human readable label for the Verify profile.")
+  @ApiModelProperty(example = "Test Profile", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -83,114 +96,176 @@ public class CreateVerifyProfileRequest {
   }
 
 
-  public CreateVerifyProfileRequest messagingEnabled(Boolean messagingEnabled) {
-    this.messagingEnabled = messagingEnabled;
+  public CreateVerifyProfileRequest webhookUrl(String webhookUrl) {
+    this.webhookUrl = webhookUrl;
     return this;
   }
 
    /**
-   * Enables SMS text messaging for the Verify profile.
-   * @return messagingEnabled
+   * Get webhookUrl
+   * @return webhookUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Enables SMS text messaging for the Verify profile.")
-  @JsonProperty(JSON_PROPERTY_MESSAGING_ENABLED)
+  @ApiModelProperty(example = "http://example.com/webhook", value = "")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getMessagingEnabled() {
-    return messagingEnabled;
+  public String getWebhookUrl() {
+    return webhookUrl;
   }
 
 
-  public void setMessagingEnabled(Boolean messagingEnabled) {
-    this.messagingEnabled = messagingEnabled;
+  public void setWebhookUrl(String webhookUrl) {
+    this.webhookUrl = webhookUrl;
   }
 
 
-  public CreateVerifyProfileRequest rcsEnabled(Boolean rcsEnabled) {
-    this.rcsEnabled = rcsEnabled;
+  public CreateVerifyProfileRequest webhookFailoverUrl(String webhookFailoverUrl) {
+    this.webhookFailoverUrl = webhookFailoverUrl;
     return this;
   }
 
    /**
-   * Enables RCS messaging for the Verify profile.
-   * @return rcsEnabled
+   * Get webhookFailoverUrl
+   * @return webhookFailoverUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Enables RCS messaging for the Verify profile.")
-  @JsonProperty(JSON_PROPERTY_RCS_ENABLED)
+  @ApiModelProperty(example = "http://example.com/webhook/failover", value = "")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getRcsEnabled() {
-    return rcsEnabled;
+  public String getWebhookFailoverUrl() {
+    return webhookFailoverUrl;
   }
 
 
-  public void setRcsEnabled(Boolean rcsEnabled) {
-    this.rcsEnabled = rcsEnabled;
+  public void setWebhookFailoverUrl(String webhookFailoverUrl) {
+    this.webhookFailoverUrl = webhookFailoverUrl;
   }
 
 
-  public CreateVerifyProfileRequest defaultTimeoutSecs(Integer defaultTimeoutSecs) {
-    this.defaultTimeoutSecs = defaultTimeoutSecs;
+  public CreateVerifyProfileRequest sms(CreateVerifyProfileSMSRequest sms) {
+    this.sms = sms;
     return this;
   }
 
    /**
-   * For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.
-   * @return defaultTimeoutSecs
+   * Get sms
+   * @return sms
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "300", value = "For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.")
-  @JsonProperty(JSON_PROPERTY_DEFAULT_TIMEOUT_SECS)
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getDefaultTimeoutSecs() {
-    return defaultTimeoutSecs;
+  public CreateVerifyProfileSMSRequest getSms() {
+    return sms;
   }
 
 
-  public void setDefaultTimeoutSecs(Integer defaultTimeoutSecs) {
-    this.defaultTimeoutSecs = defaultTimeoutSecs;
+  public void setSms(CreateVerifyProfileSMSRequest sms) {
+    this.sms = sms;
   }
 
 
-  public CreateVerifyProfileRequest messagingTemplate(String messagingTemplate) {
-    this.messagingTemplate = JsonNullable.<String>of(messagingTemplate);
+  public CreateVerifyProfileRequest psd2(CreateVerifyProfilePSD2Request psd2) {
+    this.psd2 = psd2;
     return this;
   }
 
    /**
-   * Optionally sets a messaging text template when sending the verification code. Uses &#x60;{code}&#x60; to template in the actual verification code.
-   * @return messagingTemplate
+   * Get psd2
+   * @return psd2
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Hello, this is the Acme Inc verification code you requested: {code}.", value = "Optionally sets a messaging text template when sending the verification code. Uses `{code}` to template in the actual verification code.")
-  @JsonIgnore
-
-  public String getMessagingTemplate() {
-        return messagingTemplate.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE)
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PSD2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<String> getMessagingTemplate_JsonNullable() {
-    return messagingTemplate;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE)
-  public void setMessagingTemplate_JsonNullable(JsonNullable<String> messagingTemplate) {
-    this.messagingTemplate = messagingTemplate;
+  public CreateVerifyProfilePSD2Request getPsd2() {
+    return psd2;
   }
 
-  public void setMessagingTemplate(String messagingTemplate) {
-    this.messagingTemplate = JsonNullable.<String>of(messagingTemplate);
+
+  public void setPsd2(CreateVerifyProfilePSD2Request psd2) {
+    this.psd2 = psd2;
+  }
+
+
+  public CreateVerifyProfileRequest whatsapp(CreateVerifyProfileWhatsappRequest whatsapp) {
+    this.whatsapp = whatsapp;
+    return this;
+  }
+
+   /**
+   * Get whatsapp
+   * @return whatsapp
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_WHATSAPP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public CreateVerifyProfileWhatsappRequest getWhatsapp() {
+    return whatsapp;
+  }
+
+
+  public void setWhatsapp(CreateVerifyProfileWhatsappRequest whatsapp) {
+    this.whatsapp = whatsapp;
+  }
+
+
+  public CreateVerifyProfileRequest call(CreateVerifyProfileCallRequest call) {
+    this.call = call;
+    return this;
+  }
+
+   /**
+   * Get call
+   * @return call
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CALL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public CreateVerifyProfileCallRequest getCall() {
+    return call;
+  }
+
+
+  public void setCall(CreateVerifyProfileCallRequest call) {
+    this.call = call;
+  }
+
+
+  public CreateVerifyProfileRequest flashcall(CreateVerifyProfileFlashcallRequest flashcall) {
+    this.flashcall = flashcall;
+    return this;
+  }
+
+   /**
+   * Get flashcall
+   * @return flashcall
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FLASHCALL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public CreateVerifyProfileFlashcallRequest getFlashcall() {
+    return flashcall;
+  }
+
+
+  public void setFlashcall(CreateVerifyProfileFlashcallRequest flashcall) {
+    this.flashcall = flashcall;
   }
 
 
   /**
-   * Return true if this CreateVerifyProfileRequest object is equal to o.
+   * Return true if this Create_Verify_Profile_Request object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -202,15 +277,18 @@ public class CreateVerifyProfileRequest {
     }
     CreateVerifyProfileRequest createVerifyProfileRequest = (CreateVerifyProfileRequest) o;
     return Objects.equals(this.name, createVerifyProfileRequest.name) &&
-        Objects.equals(this.messagingEnabled, createVerifyProfileRequest.messagingEnabled) &&
-        Objects.equals(this.rcsEnabled, createVerifyProfileRequest.rcsEnabled) &&
-        Objects.equals(this.defaultTimeoutSecs, createVerifyProfileRequest.defaultTimeoutSecs) &&
-        Objects.equals(this.messagingTemplate, createVerifyProfileRequest.messagingTemplate);
+        Objects.equals(this.webhookUrl, createVerifyProfileRequest.webhookUrl) &&
+        Objects.equals(this.webhookFailoverUrl, createVerifyProfileRequest.webhookFailoverUrl) &&
+        Objects.equals(this.sms, createVerifyProfileRequest.sms) &&
+        Objects.equals(this.psd2, createVerifyProfileRequest.psd2) &&
+        Objects.equals(this.whatsapp, createVerifyProfileRequest.whatsapp) &&
+        Objects.equals(this.call, createVerifyProfileRequest.call) &&
+        Objects.equals(this.flashcall, createVerifyProfileRequest.flashcall);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, messagingEnabled, rcsEnabled, defaultTimeoutSecs, messagingTemplate);
+    return Objects.hash(name, webhookUrl, webhookFailoverUrl, sms, psd2, whatsapp, call, flashcall);
   }
 
 
@@ -219,10 +297,13 @@ public class CreateVerifyProfileRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateVerifyProfileRequest {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    messagingEnabled: ").append(toIndentedString(messagingEnabled)).append("\n");
-    sb.append("    rcsEnabled: ").append(toIndentedString(rcsEnabled)).append("\n");
-    sb.append("    defaultTimeoutSecs: ").append(toIndentedString(defaultTimeoutSecs)).append("\n");
-    sb.append("    messagingTemplate: ").append(toIndentedString(messagingTemplate)).append("\n");
+    sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
+    sb.append("    webhookFailoverUrl: ").append(toIndentedString(webhookFailoverUrl)).append("\n");
+    sb.append("    sms: ").append(toIndentedString(sms)).append("\n");
+    sb.append("    psd2: ").append(toIndentedString(psd2)).append("\n");
+    sb.append("    whatsapp: ").append(toIndentedString(whatsapp)).append("\n");
+    sb.append("    call: ").append(toIndentedString(call)).append("\n");
+    sb.append("    flashcall: ").append(toIndentedString(flashcall)).append("\n");
     sb.append("}");
     return sb.toString();
   }

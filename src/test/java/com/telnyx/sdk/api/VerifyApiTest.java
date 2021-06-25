@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
 public class VerifyApiTest {
 
     private final VerifyApi api = new VerifyApi();
-    private VerifyProfile existingVerifyProfile;
+    private VerifyProfileResponse existingVerifyProfile;
     private Verification existingVerification;
 
     @Before
@@ -43,14 +43,14 @@ public class VerifyApiTest {
 
         try {
             CreateVerifyProfileRequest createVerifyProfileRequest = new CreateVerifyProfileRequest().name("test-verify-profile-" + System.currentTimeMillis());
-            existingVerifyProfile = api.createVerifyProfile(createVerifyProfileRequest).getData();
+            VerifyProfileResponseDataWrapper verifyProfile = api.createVerifyProfile(createVerifyProfileRequest);
+            existingVerifyProfile = verifyProfile.getData();
 
-            CreateVerificationRequest createVerificationRequest = new CreateVerificationRequest()
+            CreateVerificationRequestSMS createVerificationRequestSMS = new CreateVerificationRequestSMS()
                     .verifyProfileId(existingVerifyProfile.getId())
-                    .phoneNumber(TestConfiguration.TEST_TO_NUMBER)
-                    .type(VerificationType.SMS);
+                    .phoneNumber(TestConfiguration.TEST_TO_NUMBER);
 
-            existingVerification = api.createVerification(createVerificationRequest).getData();
+            existingVerification = api.createVerificationSMS(createVerificationRequestSMS).getData();
         } catch (Exception e) {
             fail("Test Setup Failure - Unable to create verify profile: " + e.getMessage());
         }
@@ -75,13 +75,12 @@ public class VerifyApiTest {
      */
     @Test
     public void createVerification_whenRequestIsValid_returnsCreatedVerification() throws ApiException {
-        CreateVerificationRequest createVerificationRequest = new CreateVerificationRequest()
+        CreateVerificationRequestSMS createVerificationRequestSMS = new CreateVerificationRequestSMS()
                 .verifyProfileId(existingVerifyProfile.getId())
                 .phoneNumber(TestConfiguration.TEST_TO_NUMBER)
-                .timeoutSecs(100)
-                .type(VerificationType.SMS);
+                .timeoutSecs(100);
 
-        CreateVerificationResponse actualCreateVerificationResponse = api.createVerification(createVerificationRequest);
+        CreateVerificationResponse actualCreateVerificationResponse = api.createVerificationSMS(createVerificationRequestSMS);
 
         assertNotNull(actualCreateVerificationResponse.getData().getId());
     }
@@ -93,14 +92,16 @@ public class VerifyApiTest {
      */
     @Test
     public void createVerifyProfile_whenRequestIsValid_returnsCreatedVerifyProfile() throws ApiException {
+        CreateVerifyProfileSMSRequest createVerifyProfileSMSRequest = new CreateVerifyProfileSMSRequest()
+                .messagingEnabled(false)
+                .rcsEnabled(true)
+                .defaultVerificationTimeoutSecs(5000)
+                .messagingTemplate("Hello, this is the Acme Inc verification code you requested: {code}.");
         CreateVerifyProfileRequest createVerifyProfileRequest = new CreateVerifyProfileRequest()
                 .name("test-create-verify-profile-name")
-                .defaultTimeoutSecs(500)
-                .messagingEnabled(false)
-                .messagingTemplate("Hello, this is the Acme Inc verification code you requested: {code}.")
-                .rcsEnabled(true);
+                .sms(createVerifyProfileSMSRequest);
+        VerifyProfileResponseDataWrapper actualVerifyProfileResponse = api.createVerifyProfile(createVerifyProfileRequest);
 
-        VerifyProfileResponse actualVerifyProfileResponse = api.createVerifyProfile(createVerifyProfileRequest);
         UUID actualId = actualVerifyProfileResponse.getData().getId();
 
         assertNotNull(actualId);
@@ -176,7 +177,7 @@ public class VerifyApiTest {
      */
     @Test
     public void retrieveVerifyProfile_whenVerifyProfileExists_returnsVerifyProfile() throws ApiException {
-        VerifyProfile actualVerifyProfile = api.retrieveVerifyProfile(existingVerifyProfile.getId()).getData();
+        VerifyProfileResponse actualVerifyProfile = api.retrieveVerifyProfile(existingVerifyProfile.getId()).getData();
 
         assertEquals(existingVerifyProfile.getId(), actualVerifyProfile.getId());
     }
@@ -188,20 +189,23 @@ public class VerifyApiTest {
      */
     @Test
     public void updateVerifyProfile_whenRequestIsValid_returnsUpdatedVerifyProfile() throws ApiException {
-        UpdateVerifyProfileRequest updateVerifyProfileRequest = new UpdateVerifyProfileRequest()
-                .name("test-verify-profile-update")
-                .defaultTimeoutSecs(900)
+        UpdateVerifyProfileSMSRequest updateVerifyProfileSMSRequest = new UpdateVerifyProfileSMSRequest()
+                .defaultVerificationTimeoutSecs(900)
                 .messagingEnabled(true)
                 .messagingTemplate("Updated template. Your code is {code}.")
                 .rcsEnabled(false);
 
-        VerifyProfile actualVerifyProfile = api.updateVerifyProfile(existingVerifyProfile.getId(), updateVerifyProfileRequest).getData();
+        UpdateVerifyProfileRequest updateVerifyProfileRequest = new UpdateVerifyProfileRequest()
+                .name("test-verify-profile-update")
+                .sms(updateVerifyProfileSMSRequest);
+
+        VerifyProfileResponse actualVerifyProfile = api.updateVerifyProfile(existingVerifyProfile.getId(), updateVerifyProfileRequest).getData();
 
         assertNotNull(actualVerifyProfile.getName());
-        assertNotNull(actualVerifyProfile.getDefaultTimeoutSecs());
-        assertNotNull(actualVerifyProfile.getMessagingEnabled());
-        assertNotNull(actualVerifyProfile.getMessagingTemplate());
-        assertNotNull(actualVerifyProfile.getRcsEnabled());
+        assertNotNull(actualVerifyProfile.getSms().getDefaultVerificationTimeoutSecs());
+        assertNotNull(actualVerifyProfile.getSms().getMessagingEnabled());
+        assertNotNull(actualVerifyProfile.getSms().getMessagingTemplate());
+        assertNotNull(actualVerifyProfile.getSms().getRcsEnabled());
     }
 
     /**
@@ -212,13 +216,15 @@ public class VerifyApiTest {
     @Test
     @Ignore("Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed.")
     public void updateVerifyProfile_whenMessagingTemplateIsNull_returnsUpdatedVerifyProfile() throws ApiException {
+        UpdateVerifyProfileSMSRequest updateVerifyProfileSMSRequest = new UpdateVerifyProfileSMSRequest()
+                .messagingTemplate(null);
         UpdateVerifyProfileRequest updateVerifyProfileRequest = new UpdateVerifyProfileRequest()
                 .name("test-verify-profile-update")
-                .messagingTemplate(null);
+                .sms(updateVerifyProfileSMSRequest);
 
-        VerifyProfile actualVerifyProfile = api.updateVerifyProfile(existingVerifyProfile.getId(), updateVerifyProfileRequest).getData();
+        VerifyProfileResponse actualVerifyProfile = api.updateVerifyProfile(existingVerifyProfile.getId(), updateVerifyProfileRequest).getData();
 
-        assertNull(actualVerifyProfile.getMessagingTemplate());
+        assertNull(actualVerifyProfile.getSms().getMessagingTemplate());
     }
 
     /**

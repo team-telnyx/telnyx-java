@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.6.0</version>
+  <version>2.7.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.6.0"
+compile "com.telnyx.sdk:telnyx:2.7.0"
 ```
 
 ### Others
@@ -57,7 +57,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.6.0.jar`
+- `target/telnyx-2.7.0.jar`
 - `target/lib/*.jar`
 
 ## JDK Support
@@ -134,6 +134,7 @@ Class | Method | HTTP request | Description
 *CallCommandsApi* | [**callAnswer**](docs/CallCommandsApi.md#callAnswer) | **POST** /calls/{call_control_id}/actions/answer | Answer call
 *CallCommandsApi* | [**callBridge**](docs/CallCommandsApi.md#callBridge) | **POST** /calls/{call_control_id}/actions/bridge | Bridge calls
 *CallCommandsApi* | [**callDial**](docs/CallCommandsApi.md#callDial) | **POST** /calls | Dial
+*CallCommandsApi* | [**callEnqueue**](docs/CallCommandsApi.md#callEnqueue) | **POST** /calls/{call_control_id}/actions/enqueue | Enqueue call
 *CallCommandsApi* | [**callForkStart**](docs/CallCommandsApi.md#callForkStart) | **POST** /calls/{call_control_id}/actions/fork_start | Forking start
 *CallCommandsApi* | [**callForkStop**](docs/CallCommandsApi.md#callForkStop) | **POST** /calls/{call_control_id}/actions/fork_stop | Forking stop
 *CallCommandsApi* | [**callGatherStop**](docs/CallCommandsApi.md#callGatherStop) | **POST** /calls/{call_control_id}/actions/gather_stop | Gather stop
@@ -153,6 +154,7 @@ Class | Method | HTTP request | Description
 *CallCommandsApi* | [**callTranscriptionStart**](docs/CallCommandsApi.md#callTranscriptionStart) | **POST** /calls/{call_control_id}/actions/transcription_start | Transcription start
 *CallCommandsApi* | [**callTranscriptionStop**](docs/CallCommandsApi.md#callTranscriptionStop) | **POST** /calls/{call_control_id}/actions/transcription_stop | Transcription stop
 *CallCommandsApi* | [**callTransfer**](docs/CallCommandsApi.md#callTransfer) | **POST** /calls/{call_control_id}/actions/transfer | Transfer call
+*CallCommandsApi* | [**leaveQueue**](docs/CallCommandsApi.md#leaveQueue) | **POST** /calls/{call_control_id}/actions/leave_queue | Remove call from a queue
 *CallControlApplicationsApi* | [**createCallControlApplication**](docs/CallControlApplicationsApi.md#createCallControlApplication) | **POST** /call_control_applications | Create a call control application
 *CallControlApplicationsApi* | [**deleteCallControlApplication**](docs/CallControlApplicationsApi.md#deleteCallControlApplication) | **DELETE** /call_control_applications/{id} | Delete a call control application
 *CallControlApplicationsApi* | [**listCallControlApplications**](docs/CallControlApplicationsApi.md#listCallControlApplications) | **GET** /call_control_applications | List call control applications
@@ -281,6 +283,9 @@ Class | Method | HTTP request | Description
 *ProgrammableFaxCommandsApi* | [**refreshFax**](docs/ProgrammableFaxCommandsApi.md#refreshFax) | **POST** /faxes/{id}/actions/refresh | Refresh a fax
 *ProgrammableFaxCommandsApi* | [**sendFax**](docs/ProgrammableFaxCommandsApi.md#sendFax) | **POST** /faxes | Send a fax
 *ProgrammableFaxCommandsApi* | [**viewFax**](docs/ProgrammableFaxCommandsApi.md#viewFax) | **GET** /faxes/{id} | View a fax
+*QueueCommandsApi* | [**listQueueCalls**](docs/QueueCommandsApi.md#listQueueCalls) | **GET** /queues/{queue_name}/calls | Retrieve calls from a queue
+*QueueCommandsApi* | [**retrieveCallFromQueue**](docs/QueueCommandsApi.md#retrieveCallFromQueue) | **GET** /queues/{queue_name}/calls/{call_control_id} | Retrieve a call from a queue
+*QueueCommandsApi* | [**retrieveCallQueue**](docs/QueueCommandsApi.md#retrieveCallQueue) | **GET** /queues/{queue_name} | Retrieve a call queue
 *RecordingsCommandsApi* | [**listRecordings**](docs/RecordingsCommandsApi.md#listRecordings) | **GET** /recordings | List recordings
 *RecordingsCommandsApi* | [**retrieveRecording**](docs/RecordingsCommandsApi.md#retrieveRecording) | **GET** /recordings/{id} | Retrieve a recording
 *ShortCodesApi* | [**listShortCodes**](docs/ShortCodesApi.md#listShortCodes) | **GET** /short_codes | List short codes
@@ -291,7 +296,11 @@ Class | Method | HTTP request | Description
 *TeXmlApplicationsApi* | [**findTexmlApplications**](docs/TeXmlApplicationsApi.md#findTexmlApplications) | **GET** /texml_applications | List all TeXML Applications
 *TeXmlApplicationsApi* | [**getTexmlApplication**](docs/TeXmlApplicationsApi.md#getTexmlApplication) | **GET** /texml_applications/{id} | Retrieve a TeXML Application
 *TeXmlApplicationsApi* | [**updateTexmlApplication**](docs/TeXmlApplicationsApi.md#updateTexmlApplication) | **PATCH** /texml_applications/{id} | Update a TeXML Application
-*VerifyApi* | [**createVerification**](docs/VerifyApi.md#createVerification) | **POST** /verifications | Trigger a verification
+*VerifyApi* | [**createVerificationCall**](docs/VerifyApi.md#createVerificationCall) | **POST** /verifications/call | Trigger a Call verification
+*VerifyApi* | [**createVerificationFlashcall**](docs/VerifyApi.md#createVerificationFlashcall) | **POST** /verifications/flashcall | Trigger a flash call verification
+*VerifyApi* | [**createVerificationPSD2**](docs/VerifyApi.md#createVerificationPSD2) | **POST** /verifications/psd2 | Trigger a PSD2 verification
+*VerifyApi* | [**createVerificationSMS**](docs/VerifyApi.md#createVerificationSMS) | **POST** /verifications/sms | Trigger an SMS verification
+*VerifyApi* | [**createVerificationWhatsapp**](docs/VerifyApi.md#createVerificationWhatsapp) | **POST** /verifications/whatsapp | Trigger a Whatsapp verification
 *VerifyApi* | [**createVerifyProfile**](docs/VerifyApi.md#createVerifyProfile) | **POST** /verify_profiles | Create a Verify profile
 *VerifyApi* | [**deleteVerifyProfile**](docs/VerifyApi.md#deleteVerifyProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete a Verify profile
 *VerifyApi* | [**listVerifications**](docs/VerifyApi.md#listVerifications) | **GET** /verifications/by_phone_number/{phone_number} | List verifications by phone number
@@ -329,6 +338,9 @@ Class | Method | HTTP request | Description
  - [CallDtmfReceived](docs/CallDtmfReceived.md)
  - [CallDtmfReceivedEvent](docs/CallDtmfReceivedEvent.md)
  - [CallDtmfReceivedPayload](docs/CallDtmfReceivedPayload.md)
+ - [CallEnqueued](docs/CallEnqueued.md)
+ - [CallEnqueuedEvent](docs/CallEnqueuedEvent.md)
+ - [CallEnqueuedPayload](docs/CallEnqueuedPayload.md)
  - [CallEvent](docs/CallEvent.md)
  - [CallForkStarted](docs/CallForkStarted.md)
  - [CallForkStartedEvent](docs/CallForkStartedEvent.md)
@@ -345,6 +357,9 @@ Class | Method | HTTP request | Description
  - [CallInitiated](docs/CallInitiated.md)
  - [CallInitiatedEvent](docs/CallInitiatedEvent.md)
  - [CallInitiatedPayload](docs/CallInitiatedPayload.md)
+ - [CallLeftQueue](docs/CallLeftQueue.md)
+ - [CallLeftQueueEvent](docs/CallLeftQueueEvent.md)
+ - [CallLeftQueuePayload](docs/CallLeftQueuePayload.md)
  - [CallMachineDetectionEnded](docs/CallMachineDetectionEnded.md)
  - [CallMachineDetectionEndedEvent](docs/CallMachineDetectionEndedEvent.md)
  - [CallMachineDetectionEndedPayload](docs/CallMachineDetectionEndedPayload.md)
@@ -458,20 +473,29 @@ Class | Method | HTTP request | Description
  - [CreateTexmlApplicationRequest](docs/CreateTexmlApplicationRequest.md)
  - [CreateTexmlApplicationRequestInbound](docs/CreateTexmlApplicationRequestInbound.md)
  - [CreateTexmlApplicationRequestOutbound](docs/CreateTexmlApplicationRequestOutbound.md)
- - [CreateVerificationRequest](docs/CreateVerificationRequest.md)
+ - [CreateVerificationRequestCall](docs/CreateVerificationRequestCall.md)
+ - [CreateVerificationRequestFlashcall](docs/CreateVerificationRequestFlashcall.md)
+ - [CreateVerificationRequestPSD2](docs/CreateVerificationRequestPSD2.md)
+ - [CreateVerificationRequestSMS](docs/CreateVerificationRequestSMS.md)
+ - [CreateVerificationRequestWhatsapp](docs/CreateVerificationRequestWhatsapp.md)
  - [CreateVerificationResponse](docs/CreateVerificationResponse.md)
+ - [CreateVerifyProfileCallRequest](docs/CreateVerifyProfileCallRequest.md)
+ - [CreateVerifyProfileFlashcallRequest](docs/CreateVerifyProfileFlashcallRequest.md)
+ - [CreateVerifyProfilePSD2Request](docs/CreateVerifyProfilePSD2Request.md)
  - [CreateVerifyProfileRequest](docs/CreateVerifyProfileRequest.md)
- - [CreateVerifyProfileResponse](docs/CreateVerifyProfileResponse.md)
+ - [CreateVerifyProfileSMSRequest](docs/CreateVerifyProfileSMSRequest.md)
+ - [CreateVerifyProfileWhatsappRequest](docs/CreateVerifyProfileWhatsappRequest.md)
  - [CredentialConnection](docs/CredentialConnection.md)
  - [CredentialConnectionResponse](docs/CredentialConnectionResponse.md)
  - [CredentialInbound](docs/CredentialInbound.md)
  - [CredentialOutbound](docs/CredentialOutbound.md)
  - [CsvDownload](docs/CsvDownload.md)
+ - [Currencies](docs/Currencies.md)
  - [CustomSipHeader](docs/CustomSipHeader.md)
- - [DeleteVerifyProfileResponse](docs/DeleteVerifyProfileResponse.md)
  - [DtmfType](docs/DtmfType.md)
  - [EmergencySettings](docs/EmergencySettings.md)
  - [EncryptedMedia](docs/EncryptedMedia.md)
+ - [EnqueueRequest](docs/EnqueueRequest.md)
  - [Error](docs/Error.md)
  - [ErrorMeta](docs/ErrorMeta.md)
  - [ErrorSource](docs/ErrorSource.md)
@@ -518,6 +542,7 @@ Class | Method | HTTP request | Description
  - [IpConnectionResponse](docs/IpConnectionResponse.md)
  - [IpResponse](docs/IpResponse.md)
  - [JoinConferenceRequest](docs/JoinConferenceRequest.md)
+ - [LeaveQueueRequest](docs/LeaveQueueRequest.md)
  - [ListAvailablePhoneNumbersResponse](docs/ListAvailablePhoneNumbersResponse.md)
  - [ListCSVDownloadsResponse](docs/ListCSVDownloadsResponse.md)
  - [ListCallControlApplicationsResponse](docs/ListCallControlApplicationsResponse.md)
@@ -547,6 +572,7 @@ Class | Method | HTTP request | Description
  - [ListPhoneNumbersBackgroundJobsResponse](docs/ListPhoneNumbersBackgroundJobsResponse.md)
  - [ListPhoneNumbersResponse](docs/ListPhoneNumbersResponse.md)
  - [ListPhoneNumbersWithVoiceSettingsResponse](docs/ListPhoneNumbersWithVoiceSettingsResponse.md)
+ - [ListQueueCallsResponse](docs/ListQueueCallsResponse.md)
  - [ListRecordingsResponse](docs/ListRecordingsResponse.md)
  - [ListShortCodesResponse](docs/ListShortCodesResponse.md)
  - [ListTagsResponse](docs/ListTagsResponse.md)
@@ -620,6 +646,10 @@ Class | Method | HTTP request | Description
  - [PlayAudioUrlRequest](docs/PlayAudioUrlRequest.md)
  - [PlaybackStopRequest](docs/PlaybackStopRequest.md)
  - [Portability](docs/Portability.md)
+ - [Queue](docs/Queue.md)
+ - [QueueCall](docs/QueueCall.md)
+ - [QueueCallResponse](docs/QueueCallResponse.md)
+ - [QueueResponse](docs/QueueResponse.md)
  - [Recording](docs/Recording.md)
  - [RecordingDownloadUrls](docs/RecordingDownloadUrls.md)
  - [ReferRequest](docs/ReferRequest.md)
@@ -682,16 +712,27 @@ Class | Method | HTTP request | Description
  - [UpdatePhoneNumberVoiceSettingsRequest](docs/UpdatePhoneNumberVoiceSettingsRequest.md)
  - [UpdateShortCodeRequest](docs/UpdateShortCodeRequest.md)
  - [UpdateTexmlApplicationRequest](docs/UpdateTexmlApplicationRequest.md)
+ - [UpdateVerifyProfileCallRequest](docs/UpdateVerifyProfileCallRequest.md)
+ - [UpdateVerifyProfileFlashcallRequest](docs/UpdateVerifyProfileFlashcallRequest.md)
+ - [UpdateVerifyProfilePSD2Request](docs/UpdateVerifyProfilePSD2Request.md)
  - [UpdateVerifyProfileRequest](docs/UpdateVerifyProfileRequest.md)
- - [UpdateVerifyProfileResponse](docs/UpdateVerifyProfileResponse.md)
+ - [UpdateVerifyProfileSMSRequest](docs/UpdateVerifyProfileSMSRequest.md)
+ - [UpdateVerifyProfileWhatsappRequest](docs/UpdateVerifyProfileWhatsappRequest.md)
  - [UploadFileMessagingHostedNumberOrderRequest](docs/UploadFileMessagingHostedNumberOrderRequest.md)
  - [UrlShortenerSettings](docs/UrlShortenerSettings.md)
  - [UsagePaymentMethod](docs/UsagePaymentMethod.md)
  - [Verification](docs/Verification.md)
+ - [VerificationProfileRecordType](docs/VerificationProfileRecordType.md)
+ - [VerificationRecordType](docs/VerificationRecordType.md)
  - [VerificationStatus](docs/VerificationStatus.md)
  - [VerificationType](docs/VerificationType.md)
- - [VerifyProfile](docs/VerifyProfile.md)
+ - [VerifyProfileCallResponse](docs/VerifyProfileCallResponse.md)
+ - [VerifyProfileFlashcallResponse](docs/VerifyProfileFlashcallResponse.md)
+ - [VerifyProfilePSD2Response](docs/VerifyProfilePSD2Response.md)
  - [VerifyProfileResponse](docs/VerifyProfileResponse.md)
+ - [VerifyProfileResponseDataWrapper](docs/VerifyProfileResponseDataWrapper.md)
+ - [VerifyProfileSMSResponse](docs/VerifyProfileSMSResponse.md)
+ - [VerifyProfileWhatsappResponse](docs/VerifyProfileWhatsappResponse.md)
  - [VerifyVerificationCodeRequest](docs/VerifyVerificationCodeRequest.md)
  - [VerifyVerificationCodeResponse](docs/VerifyVerificationCodeResponse.md)
  - [VerifyVerificationCodeResponseData](docs/VerifyVerificationCodeResponseData.md)

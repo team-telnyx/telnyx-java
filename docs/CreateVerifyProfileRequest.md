@@ -2,16 +2,18 @@
 
 # CreateVerifyProfileRequest
 
-The request body when creating a Verify profile.
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | The human readable label for the Verify profile. | 
-**messagingEnabled** | **Boolean** | Enables SMS text messaging for the Verify profile. |  [optional]
-**rcsEnabled** | **Boolean** | Enables RCS messaging for the Verify profile. |  [optional]
-**defaultTimeoutSecs** | **Integer** | For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity. |  [optional]
-**messagingTemplate** | **String** | Optionally sets a messaging text template when sending the verification code. Uses &#x60;{code}&#x60; to template in the actual verification code. |  [optional]
+**name** | **String** |  | 
+**webhookUrl** | **String** |  |  [optional]
+**webhookFailoverUrl** | **String** |  |  [optional]
+**sms** | [**CreateVerifyProfileSMSRequest**](.md) |  |  [optional]
+**psd2** | [**CreateVerifyProfilePSD2Request**](.md) |  |  [optional]
+**whatsapp** | [**CreateVerifyProfileWhatsappRequest**](.md) |  |  [optional]
+**call** | [**CreateVerifyProfileCallRequest**](.md) |  |  [optional]
+**flashcall** | [**CreateVerifyProfileFlashcallRequest**](.md) |  |  [optional]
 
 
 

@@ -7,7 +7,7 @@ A paginated list of Verify profiles
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**List&lt;VerifyProfile&gt;**](VerifyProfile.md) |  | 
+**data** | [**List&lt;VerifyProfileResponse&gt;**](VerifyProfileResponse.md) |  | 
 **meta** | [**Meta**](Meta.md) |  | 
 
 
