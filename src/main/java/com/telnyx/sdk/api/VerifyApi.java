@@ -8,7 +8,11 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreateVerificationRequest;
+import com.telnyx.sdk.model.CreateVerificationRequestCall;
+import com.telnyx.sdk.model.CreateVerificationRequestFlashcall;
+import com.telnyx.sdk.model.CreateVerificationRequestPSD2;
+import com.telnyx.sdk.model.CreateVerificationRequestSMS;
+import com.telnyx.sdk.model.CreateVerificationRequestWhatsapp;
 import com.telnyx.sdk.model.CreateVerificationResponse;
 import com.telnyx.sdk.model.CreateVerifyProfileRequest;
 import com.telnyx.sdk.model.Errors;
@@ -17,7 +21,7 @@ import com.telnyx.sdk.model.ListVerifyProfilesResponse;
 import com.telnyx.sdk.model.RetrieveVerificationResponse;
 import java.util.UUID;
 import com.telnyx.sdk.model.UpdateVerifyProfileRequest;
-import com.telnyx.sdk.model.VerifyProfileResponse;
+import com.telnyx.sdk.model.VerifyProfileResponseDataWrapper;
 import com.telnyx.sdk.model.VerifyVerificationCodeRequest;
 import com.telnyx.sdk.model.VerifyVerificationCodeResponse;
 
@@ -57,9 +61,9 @@ public class VerifyApi {
   }
 
   /**
-   * Trigger a verification
+   * Trigger a Call verification
    * 
-   * @param createVerificationRequest  (required)
+   * @param createVerificationRequestCall  (required)
    * @return CreateVerificationResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -69,14 +73,14 @@ public class VerifyApi {
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public CreateVerificationResponse createVerification(CreateVerificationRequest createVerificationRequest) throws ApiException {
-    return createVerificationWithHttpInfo(createVerificationRequest).getData();
+  public CreateVerificationResponse createVerificationCall(CreateVerificationRequestCall createVerificationRequestCall) throws ApiException {
+    return createVerificationCallWithHttpInfo(createVerificationRequestCall).getData();
   }
 
   /**
-   * Trigger a verification
+   * Trigger a Call verification
    * 
-   * @param createVerificationRequest  (required)
+   * @param createVerificationRequestCall  (required)
    * @return ApiResponse&lt;CreateVerificationResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -86,16 +90,16 @@ public class VerifyApi {
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateVerificationResponse> createVerificationWithHttpInfo(CreateVerificationRequest createVerificationRequest) throws ApiException {
-    Object localVarPostBody = createVerificationRequest;
+  public ApiResponse<CreateVerificationResponse> createVerificationCallWithHttpInfo(CreateVerificationRequestCall createVerificationRequestCall) throws ApiException {
+    Object localVarPostBody = createVerificationRequestCall;
     
-    // verify the required parameter 'createVerificationRequest' is set
-    if (createVerificationRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createVerificationRequest' when calling createVerification");
+    // verify the required parameter 'createVerificationRequestCall' is set
+    if (createVerificationRequestCall == null) {
+      throw new ApiException(400, "Missing the required parameter 'createVerificationRequestCall' when calling createVerificationCall");
     }
     
     // create path and map variables
-    String localVarPath = "/verifications";
+    String localVarPath = "/verifications/call";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -121,7 +125,283 @@ public class VerifyApi {
 
     GenericType<CreateVerificationResponse> localVarReturnType = new GenericType<CreateVerificationResponse>() {};
 
-    return apiClient.invokeAPI("VerifyApi.createVerification", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("VerifyApi.createVerificationCall", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Trigger a flash call verification
+   * 
+   * @param createVerificationRequestFlashcall  (required)
+   * @return CreateVerificationResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateVerificationResponse createVerificationFlashcall(CreateVerificationRequestFlashcall createVerificationRequestFlashcall) throws ApiException {
+    return createVerificationFlashcallWithHttpInfo(createVerificationRequestFlashcall).getData();
+  }
+
+  /**
+   * Trigger a flash call verification
+   * 
+   * @param createVerificationRequestFlashcall  (required)
+   * @return ApiResponse&lt;CreateVerificationResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateVerificationResponse> createVerificationFlashcallWithHttpInfo(CreateVerificationRequestFlashcall createVerificationRequestFlashcall) throws ApiException {
+    Object localVarPostBody = createVerificationRequestFlashcall;
+    
+    // verify the required parameter 'createVerificationRequestFlashcall' is set
+    if (createVerificationRequestFlashcall == null) {
+      throw new ApiException(400, "Missing the required parameter 'createVerificationRequestFlashcall' when calling createVerificationFlashcall");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/verifications/flashcall";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateVerificationResponse> localVarReturnType = new GenericType<CreateVerificationResponse>() {};
+
+    return apiClient.invokeAPI("VerifyApi.createVerificationFlashcall", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Trigger a PSD2 verification
+   * 
+   * @param createVerificationRequestPSD2  (required)
+   * @return CreateVerificationResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateVerificationResponse createVerificationPSD2(CreateVerificationRequestPSD2 createVerificationRequestPSD2) throws ApiException {
+    return createVerificationPSD2WithHttpInfo(createVerificationRequestPSD2).getData();
+  }
+
+  /**
+   * Trigger a PSD2 verification
+   * 
+   * @param createVerificationRequestPSD2  (required)
+   * @return ApiResponse&lt;CreateVerificationResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateVerificationResponse> createVerificationPSD2WithHttpInfo(CreateVerificationRequestPSD2 createVerificationRequestPSD2) throws ApiException {
+    Object localVarPostBody = createVerificationRequestPSD2;
+    
+    // verify the required parameter 'createVerificationRequestPSD2' is set
+    if (createVerificationRequestPSD2 == null) {
+      throw new ApiException(400, "Missing the required parameter 'createVerificationRequestPSD2' when calling createVerificationPSD2");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/verifications/psd2";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateVerificationResponse> localVarReturnType = new GenericType<CreateVerificationResponse>() {};
+
+    return apiClient.invokeAPI("VerifyApi.createVerificationPSD2", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Trigger an SMS verification
+   * 
+   * @param createVerificationRequestSMS  (required)
+   * @return CreateVerificationResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateVerificationResponse createVerificationSMS(CreateVerificationRequestSMS createVerificationRequestSMS) throws ApiException {
+    return createVerificationSMSWithHttpInfo(createVerificationRequestSMS).getData();
+  }
+
+  /**
+   * Trigger an SMS verification
+   * 
+   * @param createVerificationRequestSMS  (required)
+   * @return ApiResponse&lt;CreateVerificationResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateVerificationResponse> createVerificationSMSWithHttpInfo(CreateVerificationRequestSMS createVerificationRequestSMS) throws ApiException {
+    Object localVarPostBody = createVerificationRequestSMS;
+    
+    // verify the required parameter 'createVerificationRequestSMS' is set
+    if (createVerificationRequestSMS == null) {
+      throw new ApiException(400, "Missing the required parameter 'createVerificationRequestSMS' when calling createVerificationSMS");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/verifications/sms";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateVerificationResponse> localVarReturnType = new GenericType<CreateVerificationResponse>() {};
+
+    return apiClient.invokeAPI("VerifyApi.createVerificationSMS", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Trigger a Whatsapp verification
+   * 
+   * @param createVerificationRequestWhatsapp  (required)
+   * @return CreateVerificationResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateVerificationResponse createVerificationWhatsapp(CreateVerificationRequestWhatsapp createVerificationRequestWhatsapp) throws ApiException {
+    return createVerificationWhatsappWithHttpInfo(createVerificationRequestWhatsapp).getData();
+  }
+
+  /**
+   * Trigger a Whatsapp verification
+   * 
+   * @param createVerificationRequestWhatsapp  (required)
+   * @return ApiResponse&lt;CreateVerificationResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateVerificationResponse> createVerificationWhatsappWithHttpInfo(CreateVerificationRequestWhatsapp createVerificationRequestWhatsapp) throws ApiException {
+    Object localVarPostBody = createVerificationRequestWhatsapp;
+    
+    // verify the required parameter 'createVerificationRequestWhatsapp' is set
+    if (createVerificationRequestWhatsapp == null) {
+      throw new ApiException(400, "Missing the required parameter 'createVerificationRequestWhatsapp' when calling createVerificationWhatsapp");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/verifications/whatsapp";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateVerificationResponse> localVarReturnType = new GenericType<CreateVerificationResponse>() {};
+
+    return apiClient.invokeAPI("VerifyApi.createVerificationWhatsapp", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -129,7 +409,7 @@ public class VerifyApi {
    * Create a Verify profile
    * Creates a new Verify profile to associate verifications with.
    * @param createVerifyProfileRequest  (required)
-   * @return VerifyProfileResponse
+   * @return VerifyProfileResponseDataWrapper
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -138,7 +418,7 @@ public class VerifyApi {
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public VerifyProfileResponse createVerifyProfile(CreateVerifyProfileRequest createVerifyProfileRequest) throws ApiException {
+  public VerifyProfileResponseDataWrapper createVerifyProfile(CreateVerifyProfileRequest createVerifyProfileRequest) throws ApiException {
     return createVerifyProfileWithHttpInfo(createVerifyProfileRequest).getData();
   }
 
@@ -146,7 +426,7 @@ public class VerifyApi {
    * Create a Verify profile
    * Creates a new Verify profile to associate verifications with.
    * @param createVerifyProfileRequest  (required)
-   * @return ApiResponse&lt;VerifyProfileResponse&gt;
+   * @return ApiResponse&lt;VerifyProfileResponseDataWrapper&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -155,7 +435,7 @@ public class VerifyApi {
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<VerifyProfileResponse> createVerifyProfileWithHttpInfo(CreateVerifyProfileRequest createVerifyProfileRequest) throws ApiException {
+  public ApiResponse<VerifyProfileResponseDataWrapper> createVerifyProfileWithHttpInfo(CreateVerifyProfileRequest createVerifyProfileRequest) throws ApiException {
     Object localVarPostBody = createVerifyProfileRequest;
     
     // verify the required parameter 'createVerifyProfileRequest' is set
@@ -188,7 +468,7 @@ public class VerifyApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<VerifyProfileResponse> localVarReturnType = new GenericType<VerifyProfileResponse>() {};
+    GenericType<VerifyProfileResponseDataWrapper> localVarReturnType = new GenericType<VerifyProfileResponseDataWrapper>() {};
 
     return apiClient.invokeAPI("VerifyApi.createVerifyProfile", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -198,7 +478,7 @@ public class VerifyApi {
    * Delete a Verify profile
    * 
    * @param verifyProfileId The identifier of the Verify profile to delete. (required)
-   * @return VerifyProfileResponse
+   * @return VerifyProfileResponseDataWrapper
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -207,7 +487,7 @@ public class VerifyApi {
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public VerifyProfileResponse deleteVerifyProfile(UUID verifyProfileId) throws ApiException {
+  public VerifyProfileResponseDataWrapper deleteVerifyProfile(UUID verifyProfileId) throws ApiException {
     return deleteVerifyProfileWithHttpInfo(verifyProfileId).getData();
   }
 
@@ -215,7 +495,7 @@ public class VerifyApi {
    * Delete a Verify profile
    * 
    * @param verifyProfileId The identifier of the Verify profile to delete. (required)
-   * @return ApiResponse&lt;VerifyProfileResponse&gt;
+   * @return ApiResponse&lt;VerifyProfileResponseDataWrapper&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -224,7 +504,7 @@ public class VerifyApi {
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<VerifyProfileResponse> deleteVerifyProfileWithHttpInfo(UUID verifyProfileId) throws ApiException {
+  public ApiResponse<VerifyProfileResponseDataWrapper> deleteVerifyProfileWithHttpInfo(UUID verifyProfileId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'verifyProfileId' is set
@@ -258,7 +538,7 @@ public class VerifyApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<VerifyProfileResponse> localVarReturnType = new GenericType<VerifyProfileResponse>() {};
+    GenericType<VerifyProfileResponseDataWrapper> localVarReturnType = new GenericType<VerifyProfileResponseDataWrapper>() {};
 
     return apiClient.invokeAPI("VerifyApi.deleteVerifyProfile", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -530,7 +810,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
    * Retrieve a Verify profile
    * Gets a single Verify profile.
    * @param verifyProfileId The identifier of the Verify profile to retrieve. (required)
-   * @return VerifyProfileResponse
+   * @return VerifyProfileResponseDataWrapper
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -539,7 +819,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public VerifyProfileResponse retrieveVerifyProfile(UUID verifyProfileId) throws ApiException {
+  public VerifyProfileResponseDataWrapper retrieveVerifyProfile(UUID verifyProfileId) throws ApiException {
     return retrieveVerifyProfileWithHttpInfo(verifyProfileId).getData();
   }
 
@@ -547,7 +827,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
    * Retrieve a Verify profile
    * Gets a single Verify profile.
    * @param verifyProfileId The identifier of the Verify profile to retrieve. (required)
-   * @return ApiResponse&lt;VerifyProfileResponse&gt;
+   * @return ApiResponse&lt;VerifyProfileResponseDataWrapper&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -556,7 +836,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<VerifyProfileResponse> retrieveVerifyProfileWithHttpInfo(UUID verifyProfileId) throws ApiException {
+  public ApiResponse<VerifyProfileResponseDataWrapper> retrieveVerifyProfileWithHttpInfo(UUID verifyProfileId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'verifyProfileId' is set
@@ -590,7 +870,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<VerifyProfileResponse> localVarReturnType = new GenericType<VerifyProfileResponse>() {};
+    GenericType<VerifyProfileResponseDataWrapper> localVarReturnType = new GenericType<VerifyProfileResponseDataWrapper>() {};
 
     return apiClient.invokeAPI("VerifyApi.retrieveVerifyProfile", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -601,7 +881,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
    * 
    * @param verifyProfileId The identifier of the Verify profile to update. (required)
    * @param updateVerifyProfileRequest  (required)
-   * @return VerifyProfileResponse
+   * @return VerifyProfileResponseDataWrapper
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -610,7 +890,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public VerifyProfileResponse updateVerifyProfile(UUID verifyProfileId, UpdateVerifyProfileRequest updateVerifyProfileRequest) throws ApiException {
+  public VerifyProfileResponseDataWrapper updateVerifyProfile(UUID verifyProfileId, UpdateVerifyProfileRequest updateVerifyProfileRequest) throws ApiException {
     return updateVerifyProfileWithHttpInfo(verifyProfileId, updateVerifyProfileRequest).getData();
   }
 
@@ -619,7 +899,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
    * 
    * @param verifyProfileId The identifier of the Verify profile to update. (required)
    * @param updateVerifyProfileRequest  (required)
-   * @return ApiResponse&lt;VerifyProfileResponse&gt;
+   * @return ApiResponse&lt;VerifyProfileResponseDataWrapper&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -628,7 +908,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<VerifyProfileResponse> updateVerifyProfileWithHttpInfo(UUID verifyProfileId, UpdateVerifyProfileRequest updateVerifyProfileRequest) throws ApiException {
+  public ApiResponse<VerifyProfileResponseDataWrapper> updateVerifyProfileWithHttpInfo(UUID verifyProfileId, UpdateVerifyProfileRequest updateVerifyProfileRequest) throws ApiException {
     Object localVarPostBody = updateVerifyProfileRequest;
     
     // verify the required parameter 'verifyProfileId' is set
@@ -667,7 +947,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<VerifyProfileResponse> localVarReturnType = new GenericType<VerifyProfileResponse>() {};
+    GenericType<VerifyProfileResponseDataWrapper> localVarReturnType = new GenericType<VerifyProfileResponseDataWrapper>() {};
 
     return apiClient.invokeAPI("VerifyApi.updateVerifyProfile", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

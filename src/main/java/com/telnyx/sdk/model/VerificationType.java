@@ -26,11 +26,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * The verification request type.
+ * The possible types of verification.
  */
 public enum VerificationType {
   
-  SMS("sms");
+  SMS_VERIFICATION("sms_verification"),
+  
+  PSD2_VERIFICATION("psd2_verification"),
+  
+  WHATSAPP_VERIFICATION("whatsapp_verification"),
+  
+  CALL_VERIFICATION("call_verification"),
+  
+  FLASHCALL_VERIFICATION("flashcall_verification");
 
   private String value;
 

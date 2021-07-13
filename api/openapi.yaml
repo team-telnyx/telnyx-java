@@ -72,6 +72,8 @@ tags:
   name: Programmable Fax Applications
 - description: Programmable fax command operations
   name: Programmable Fax Commands
+- description: Queue commands operations
+  name: Queue Commands
 - description: Recordings commands operations
   name: Recordings Commands
 - description: Short codes
@@ -1039,6 +1041,76 @@ paths:
       x-latency-category: interactive
       x-contentType: application/json
       x-accepts: application/json
+  /calls/{call_control_id}/actions/enqueue:
+    post:
+      callbacks:
+        callEnqueued:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: callEnqueued_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CallEnqueuedEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+        callLeftQueue:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: callLeftQueue_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CallLeftQueueEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+      description: Put the call in a queue.
+      operationId: callEnqueue
+      parameters:
+      - description: Unique identifier and token for controlling the call
+        explode: false
+        in: path
+        name: call_control_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnqueueRequest'
+        description: Enqueue call request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call_Control_Command_Response'
+          description: Successful response upon making a call control command.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Enqueue call
+      tags:
+      - Call Commands
+      x-latency-category: interactive
+      x-contentType: application/json
+      x-accepts: application/json
   /calls/{call_control_id}/actions/fork_start:
     post:
       callbacks:
@@ -1534,6 +1606,62 @@ paths:
                 $ref: '#/components/schemas/Errors'
           description: Bad Request
       summary: Hangup call
+      tags:
+      - Call Commands
+      x-latency-category: interactive
+      x-contentType: application/json
+      x-accepts: application/json
+  /calls/{call_control_id}/actions/leave_queue:
+    post:
+      callbacks:
+        callLeftQueue:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: callLeftQueue_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CallLeftQueueEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
+      description: Removes the call from a queue.
+      operationId: leaveQueue
+      parameters:
+      - description: Unique identifier and token for controlling the call
+        explode: false
+        in: path
+        name: call_control_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveQueueRequest'
+        description: Removes the call from the queue, the call currently is enqueued
+          in.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call_Control_Command_Response'
+          description: Successful response upon making a call control command.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Remove call from a queue
       tags:
       - Call Commands
       x-latency-category: interactive
@@ -7721,6 +7849,116 @@ paths:
       x-group-parameters: "true"
       x-latency-category: responsive
       x-accepts: application/json
+  /queues/{queue_name}:
+    get:
+      description: Retrieve an existing call queue
+      operationId: retrieveCallQueue
+      parameters:
+      - description: Uniquely identifies the queue by name
+        explode: false
+        in: path
+        name: queue_name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Queue_Response'
+          description: Successful response with details about a queue.
+        "404":
+          description: Conference does not exist
+      summary: Retrieve a call queue
+      tags:
+      - Queue Commands
+      x-latency-category: interactive
+      x-accepts: application/json
+  /queues/{queue_name}/calls:
+    get:
+      description: Retrieve the list of calls in an existing queue
+      operationId: listQueueCalls
+      parameters:
+      - description: Uniquely identifies the queue by name
+        explode: false
+        in: path
+        name: queue_name
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The page number to load
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The size of the page
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 50
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List_Queue_Calls_Response'
+          description: Successful response with a list of calls in a queue.
+        "404":
+          description: Conference does not exist
+      summary: Retrieve calls from a queue
+      tags:
+      - Queue Commands
+      x-latency-category: interactive
+      x-accepts: application/json
+  /queues/{queue_name}/calls/{call_control_id}:
+    get:
+      description: Retrieve an existing call from an existing queue
+      operationId: retrieveCallFromQueue
+      parameters:
+      - description: Uniquely identifies the queue by name
+        explode: false
+        in: path
+        name: queue_name
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Unique identifier and token for controlling the call
+        explode: false
+        in: path
+        name: call_control_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Queue_Call_Response'
+          description: Successful response with details about a call in a queue.
+        "404":
+          description: Conference does not exist
+      summary: Retrieve a call from a queue
+      tags:
+      - Queue Commands
+      x-latency-category: interactive
+      x-accepts: application/json
   /recordings:
     get:
       description: Lists recordings for the authenticated user
@@ -8601,34 +8839,6 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
-  /verifications:
-    post:
-      operationId: createVerification
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateVerificationRequest'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateVerificationResponse'
-          description: Expected verifications response to a valid request.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
-          description: Bad Request
-      summary: Trigger a verification
-      tags:
-      - Verify
-      x-latency-category: responsive
-      x-contentType: application/json
-      x-accepts: application/json
   /verifications/by_phone_number/{phone_number}:
     get:
       operationId: listVerifications
@@ -8696,6 +8906,146 @@ paths:
                 $ref: '#/components/schemas/Errors'
           description: Bad Request
       summary: Submit a verification code
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications/call:
+    post:
+      operationId: createVerificationCall
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVerificationRequestCall'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVerificationResponse'
+          description: Expected verifications response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Trigger a Call verification
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications/flashcall:
+    post:
+      operationId: createVerificationFlashcall
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVerificationRequestFlashcall'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVerificationResponse'
+          description: Expected verifications response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Trigger a flash call verification
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications/psd2:
+    post:
+      operationId: createVerificationPSD2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVerificationRequestPSD2'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVerificationResponse'
+          description: Expected verifications response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Trigger a PSD2 verification
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications/sms:
+    post:
+      operationId: createVerificationSMS
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVerificationRequestSMS'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVerificationResponse'
+          description: Expected verifications response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Trigger an SMS verification
+      tags:
+      - Verify
+      x-latency-category: responsive
+      x-contentType: application/json
+      x-accepts: application/json
+  /verifications/whatsapp:
+    post:
+      operationId: createVerificationWhatsapp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVerificationRequestWhatsapp'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVerificationResponse'
+          description: Expected verifications response to a valid request.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad Request
+      summary: Trigger a Whatsapp verification
       tags:
       - Verify
       x-latency-category: responsive
@@ -8788,17 +9138,41 @@ paths:
       description: Creates a new Verify profile to associate verifications with.
       operationId: createVerifyProfile
       requestBody:
+        $ref: '#/components/requestBodies/Create_Verify_Profile_Request'
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateVerifyProfileRequest'
+              properties:
+                name:
+                  example: Test Profile
+                  type: string
+                webhook_url:
+                  example: http://example.com/webhook
+                  type: string
+                webhook_failover_url:
+                  example: http://example.com/webhook/failover
+                  type: string
+                sms:
+                  $ref: '#/components/schemas/CreateVerifyProfileSMSRequest'
+                psd2:
+                  $ref: '#/components/schemas/CreateVerifyProfilePSD2Request'
+                whatsapp:
+                  $ref: '#/components/schemas/CreateVerifyProfileWhatsappRequest'
+                call:
+                  $ref: '#/components/schemas/CreateVerifyProfileCallRequest'
+                flashcall:
+                  $ref: '#/components/schemas/CreateVerifyProfileFlashcallRequest'
+              required:
+              - name
+              title: Create Verify Profile Request
+              type: object
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VerifyProfileResponse'
+                $ref: '#/components/schemas/VerifyProfileResponseDataWrapper'
           description: Expected Verify profile response to a valid request.
         "400":
           content:
@@ -8831,7 +9205,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VerifyProfileResponse'
+                $ref: '#/components/schemas/VerifyProfileResponseDataWrapper'
           description: Expected Verify profile response to a valid request.
         "400":
           content:
@@ -8863,7 +9237,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VerifyProfileResponse'
+                $ref: '#/components/schemas/VerifyProfileResponseDataWrapper'
           description: Expected Verify profile response to a valid request.
         "400":
           content:
@@ -8890,17 +9264,39 @@ paths:
           type: string
         style: simple
       requestBody:
+        $ref: '#/components/requestBodies/Update_Verify_Profile_Request'
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateVerifyProfileRequest'
+              properties:
+                name:
+                  example: Test Profile
+                  type: string
+                webhook_url:
+                  example: http://example.com/webhook
+                  type: string
+                webhook_failover_url:
+                  example: http://example.com/webhook/failover
+                  type: string
+                sms:
+                  $ref: '#/components/schemas/UpdateVerifyProfileSMSRequest'
+                psd2:
+                  $ref: '#/components/schemas/UpdateVerifyProfilePSD2Request'
+                whatsapp:
+                  $ref: '#/components/schemas/UpdateVerifyProfileWhatsappRequest'
+                call:
+                  $ref: '#/components/schemas/UpdateVerifyProfileCallRequest'
+                flashcall:
+                  $ref: '#/components/schemas/UpdateVerifyProfileFlashcallRequest'
+              title: Update Verify Profile Request
+              type: object
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VerifyProfileResponse'
+                $ref: '#/components/schemas/VerifyProfileResponseDataWrapper'
           description: Expected Verify profile response to a valid request.
         "400":
           content:
@@ -9345,7 +9741,19 @@ components:
         format: int64
         type: string
       style: simple
-  requestBodies: {}
+  requestBodies:
+    Create_Verify_Profile_Request:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Create_Verify_Profile_Request'
+      required: true
+    Update_Verify_Profile_Request:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Update_Verify_Profile_Request'
+      required: true
   responses:
     BulkCredentialResponse:
       content:
@@ -9636,6 +10044,12 @@ components:
           schema:
             $ref: '#/components/schemas/List_Phone_Numbers_With_Voice_Settings_Response'
       description: Successful response with a list of phone numbers with voice settings.
+    ListQueueCallsResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/List_Queue_Calls_Response'
+      description: Successful response with a list of calls in a queue.
     ListRecordingsResponse:
       content:
         application/json:
@@ -9738,6 +10152,18 @@ components:
             $ref: '#/components/schemas/Retrieve_Phone_Number_Voice_Response'
       description: Successful response with details about a phone number including
         voice settings.
+    QueueCallResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Queue_Call_Response'
+      description: Successful response with details about a call in a queue.
+    QueueResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Queue_Response'
+      description: Successful response with details about a queue.
     RecordingResponse:
       content:
         application/json:
@@ -9950,6 +10376,14 @@ components:
           description: Use this field to avoid duplicate commands. Telnyx will ignore
             commands with the same `command_id`.
           example: 891510ac-f3e4-11e8-af5b-de00688a4901
+          type: string
+        queue:
+          description: The name of the queue you want to bridge with, can't be used
+            together with call_control_id parameter. Bridging with a queue means bridging
+            with the first call in the queue. The call will always be removed from
+            the queue regardless of whether bridging succeeds. Returns an error when
+            the queue is empty.
+          example: support
           type: string
         park_after_unbridge:
           description: Specifies behavior after the bridge ends (i.e. the opposite
@@ -10390,6 +10824,67 @@ components:
           $ref: '#/components/schemas/CallDtmfReceived'
       title: Call DTMF Received Event
       type: object
+    CallEnqueued:
+      example:
+        record_type: event
+        event_type: call.enqueued
+        id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+        occurred_at: 2018-02-02T22:25:27.521992Z
+        payload:
+          call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          connection_id: 7267xxxxxxxxxxxxxx
+          call_leg_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          call_session_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+          queue: support
+          current_position: 5
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - call.enqueued
+          example: call.enqueued
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        occurred_at:
+          description: ISO 8601 datetime of when the event occurred.
+          example: 2018-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        payload:
+          $ref: '#/components/schemas/CallEnqueued_payload'
+      title: Call Enqueued
+      type: object
+    CallEnqueuedEvent:
+      example:
+        data:
+          record_type: event
+          event_type: call.enqueued
+          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          occurred_at: 2018-02-02T22:25:27.521992Z
+          payload:
+            call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+            connection_id: 7267xxxxxxxxxxxxxx
+            call_leg_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+            call_session_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+            client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+            queue: support
+            current_position: 5
+      properties:
+        data:
+          $ref: '#/components/schemas/CallEnqueued'
+      title: Call Enqueued Event
+      type: object
     CallEvent:
       example:
         record_type: call_event
@@ -10777,6 +11272,67 @@ components:
         data:
           $ref: '#/components/schemas/CallInitiated'
       title: Call Initiated Event
+      type: object
+    CallLeftQueue:
+      example:
+        record_type: event
+        event_type: call.left.queue
+        id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+        occurred_at: 2018-02-02T22:25:27.521992Z
+        payload:
+          call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          connection_id: 7267xxxxxxxxxxxxxx
+          call_leg_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          call_session_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+          queue: support
+          reason: leave
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - call.left.queue
+          example: call.left.queue
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        occurred_at:
+          description: ISO 8601 datetime of when the event occurred.
+          example: 2018-02-02T22:25:27.521992Z
+          format: date-time
+          type: string
+        payload:
+          $ref: '#/components/schemas/CallLeftQueue_payload'
+      title: Call Left Queue
+      type: object
+    CallLeftQueueEvent:
+      example:
+        data:
+          record_type: event
+          event_type: call.left.queue
+          id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          occurred_at: 2018-02-02T22:25:27.521992Z
+          payload:
+            call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+            connection_id: 7267xxxxxxxxxxxxxx
+            call_leg_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+            call_session_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+            client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+            queue: support
+            reason: leave
+      properties:
+        data:
+          $ref: '#/components/schemas/CallLeftQueue'
+      title: Call Left Queue Event
       type: object
     CallMachineDetectionEnded:
       example:
@@ -14431,12 +14987,12 @@ components:
       - voice_url
       title: Create Texml Application Request
       type: object
-    CreateVerificationRequest:
+    CreateVerificationRequestCall:
       description: The request body when creating a verification.
       example:
         verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        call_timeout_secs: 30
         phone_number: +13035551234
-        type: sms
         timeout_secs: 300
       properties:
         phone_number:
@@ -14448,30 +15004,150 @@ components:
           example: 12ade33a-21c0-473b-b055-b3c836e1c292
           format: uuid
           type: string
-        type:
-          $ref: '#/components/schemas/VerificationType'
         timeout_secs:
-          description: 'This is the number of seconds before the code of the request
-            is expired. Once this request has expired, the code will no longer verify
-            the user. Note: this will override the `default_timeout_secs` on the Verify
-            profile.'
+          description: The number of seconds the verification code is valid for.
+          example: 300
+          type: integer
+        call_timeout_secs:
+          description: Must be less than the profile's default_verification_timeout_secs
+            or timeout_secs, whichever is lesser.
+          example: 30
+          type: integer
+      required:
+      - phone_number
+      - verify_profile_id
+      title: CreateVerificationRequestCall
+      type: object
+    CreateVerificationRequestFlashcall:
+      description: The request body when creating a verification.
+      example:
+        verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        phone_number: +13035551234
+        timeout_secs: 300
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        verify_profile_id:
+          description: The identifier of the associated Verify profile.
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        timeout_secs:
+          description: The number of seconds the verification code is valid for.
           example: 300
           type: integer
       required:
       - phone_number
-      - type
       - verify_profile_id
-      title: CreateVerificationRequest
+      title: CreateVerificationRequestFlashcall
+      type: object
+    CreateVerificationRequestPSD2:
+      description: The request body when creating a verification.
+      example:
+        verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        payee: Acme Corp Inc. LTD
+        amount: "99.99"
+        phone_number: +13035551234
+        currency: USD
+        timeout_secs: 300
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        verify_profile_id:
+          description: The identifier of the associated Verify profile.
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        currency:
+          $ref: '#/components/schemas/Currencies'
+        amount:
+          example: "99.99"
+          type: string
+        payee:
+          example: Acme Corp Inc. LTD
+          type: string
+        timeout_secs:
+          description: The number of seconds the verification code is valid for.
+          example: 300
+          type: integer
+      required:
+      - amount
+      - currency
+      - payee
+      - phone_number
+      - verify_profile_id
+      title: CreateVerificationRequestPSD2
+      type: object
+    CreateVerificationRequestSMS:
+      description: The request body when creating a verification.
+      example:
+        verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        phone_number: +13035551234
+        timeout_secs: 300
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        verify_profile_id:
+          description: The identifier of the associated Verify profile.
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        timeout_secs:
+          description: The number of seconds the verification code is valid for.
+          example: 300
+          type: integer
+      required:
+      - phone_number
+      - verify_profile_id
+      title: CreateVerificationRequestSMS
+      type: object
+    CreateVerificationRequestWhatsapp:
+      description: The request body when creating a verification.
+      example:
+        verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        app_name: Example Secure App
+        phone_number: +13035551234
+        timeout_secs: 300
+      properties:
+        phone_number:
+          description: +E164 formatted phone number.
+          example: +13035551234
+          type: string
+        verify_profile_id:
+          description: The identifier of the associated Verify profile.
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        timeout_secs:
+          description: The number of seconds the verification code is valid for.
+          example: 300
+          type: integer
+        app_name:
+          description: The name that identifies the application requesting 2fa in
+            the verification message.
+          example: Example Secure App
+          type: string
+      required:
+      - phone_number
+      - verify_profile_id
+      title: CreateVerificationRequestWhatsapp
       type: object
     CreateVerificationResponse:
       example:
         data:
           verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
           updated_at: 2020-09-14T17:03:32.965812
+          call_timeout_secs: 299
           created_at: 2020-09-14T17:03:32.965812
+          verification_type: sms_verification
           phone_number: +13035551234
           id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          type: sms
           record_type: verification
           timeout_secs: 300
           status: accepted
@@ -14482,56 +15158,97 @@ components:
       - data
       title: CreateVerifyVerificationResponse
       type: object
-    CreateVerifyProfileRequest:
-      description: The request body when creating a Verify profile.
-      example:
-        messaging_enabled: true
-        name: Test Profile
-        default_timeout_secs: 300
-        messaging_template: 'Hello, this is the Acme Inc verification code you requested:
-          {code}.'
-        rcs_enabled: true
+    CreateVerifyProfileCallRequest:
       properties:
-        name:
-          description: The human readable label for the Verify profile.
-          example: Test Profile
+        speech_template:
+          description: Optionally sets a speech text template when sending the verification
+            code. Uses `{code}` to template in the actual verification code.
+          example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
           type: string
-        messaging_enabled:
-          default: true
-          description: Enables SMS text messaging for the Verify profile.
-          example: true
-          type: boolean
-        rcs_enabled:
-          default: false
-          description: Enables RCS messaging for the Verify profile.
-          example: true
-          type: boolean
-        default_timeout_secs:
+        default_verification_timeout_secs:
           description: For every request that is initiated via this Verify profile,
             this sets the number of seconds before a verification request code expires.
             Once the verification request expires, the user cannot use the code to
             verify their identity.
           example: 300
           type: integer
+        default_call_timeout_secs:
+          default: 45
+          description: Must be less than default_verification_timeout_secs
+          example: 30
+          type: integer
+      required:
+      - name
+      title: CreateVerifyProfileCallRequest
+      type: object
+    CreateVerifyProfileFlashcallRequest:
+      properties:
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+      required:
+      - name
+      title: CreateVerifyProfileFlashcallRequest
+      type: object
+    CreateVerifyProfilePSD2Request:
+      properties:
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+      title: CreateVerifyProfilePSD2Request
+      type: object
+    CreateVerifyProfileSMSRequest:
+      properties:
+        messaging_enabled:
+          description: Enables SMS text messaging for the Verify profile.
+          example: true
+          type: boolean
+        rcs_enabled:
+          description: Enables RCS messaging for the Verify profile.
+          example: true
+          type: boolean
         messaging_template:
-          default: "null"
           description: Optionally sets a messaging text template when sending the
             verification code. Uses `{code}` to template in the actual verification
             code.
           example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
-          nullable: true
           type: string
-      required:
-      - name
-      title: CreateVerifyProfileRequest
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        vsms_enabled:
+          description: Enables VSMS for the Verify profile.
+          example: true
+          type: boolean
+      title: CreateVerifyProfileSMSRequest
       type: object
-    CreateVerifyProfileResponse:
+    CreateVerifyProfileWhatsappRequest:
       properties:
-        data:
-          $ref: '#/components/schemas/VerifyProfile'
-      required:
-      - data
-      title: CreateVerifyProfileResponse
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        app_name:
+          description: The name that identifies the application requesting 2fa in
+            the verification message.
+          example: Example Secure App
+          type: string
+      title: CreateVerifyProfileWhatsappRequest
       type: object
     CreatedAt:
       description: ISO 8601 formatted date indicating when the resource was created.
@@ -14898,6 +15615,17 @@ components:
           example: pending
           type: string
       type: object
+    Currencies:
+      description: The supported currencies.
+      enum:
+      - USD
+      - EUR
+      - GBP
+      - AUD
+      - CAD
+      example: USD
+      title: Currencies
+      type: string
     CustomSipHeader:
       example:
         name: head_1
@@ -14915,14 +15643,6 @@ components:
       - name
       - value
       title: Custom SIP Header
-      type: object
-    DeleteVerifyProfileResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/VerifyProfile'
-      required:
-      - data
-      title: DeleteVerifyProfileResponse
       type: object
     DtmfType:
       default: RFC 2833
@@ -14969,6 +15689,42 @@ components:
       example: SRTP
       nullable: true
       type: string
+    EnqueueRequest:
+      example:
+        queue: support
+        max_wait_time_secs: 600
+        max_size: 20
+        client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+        command_id: 891510ac-f3e4-11e8-af5b-de00688a4901
+      properties:
+        queue_name:
+          description: The name of the queue the call should be put in. If a queue
+            with a given name doesn't exist yet it will be created.
+          example: tier_1_support
+          type: string
+        client_state:
+          description: Use this field to add state to every subsequent webhook. It
+            must be a valid Base-64 encoded string.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        command_id:
+          description: Use this field to avoid duplicate commands. Telnyx will ignore
+            commands with the same `command_id`.
+          example: 891510ac-f3e4-11e8-af5b-de00688a4901
+          type: string
+        max_wait_time_secs:
+          description: The number of seconds after which the call will be removed
+            from the queue.
+          example: 600
+          type: integer
+        max_size:
+          default: 100
+          description: The maximum number of calls allowed in the queue at a given
+            time. Can't be modified for an existing queue.
+          example: 200
+          type: integer
+      title: Enqueue Request
+      type: object
     Error:
       properties:
         code:
@@ -16639,24 +17395,43 @@ components:
       - call_control_id
       title: Join Conference Request
       type: object
+    LeaveQueueRequest:
+      example:
+        client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+        command_id: 891510ac-f3e4-11e8-af5b-de00688a4901
+      properties:
+        client_state:
+          description: Use this field to add state to every subsequent webhook. It
+            must be a valid Base-64 encoded string.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        command_id:
+          description: Use this field to avoid duplicate commands. Telnyx will ignore
+            commands with the same `command_id`.
+          example: 891510ac-f3e4-11e8-af5b-de00688a4901
+          type: string
+      title: Leave Queue Request
+      type: object
     ListVerificationsResponse:
       example:
         data:
         - verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
           updated_at: 2020-09-14T17:03:32.965812
+          call_timeout_secs: 299
           created_at: 2020-09-14T17:03:32.965812
+          verification_type: sms_verification
           phone_number: +13035551234
           id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          type: sms
           record_type: verification
           timeout_secs: 300
           status: accepted
         - verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
           updated_at: 2020-09-14T17:03:32.965812
+          call_timeout_secs: 299
           created_at: 2020-09-14T17:03:32.965812
+          verification_type: sms_verification
           phone_number: +13035551234
           id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          type: sms
           record_type: verification
           timeout_secs: 300
           status: accepted
@@ -16681,28 +17456,58 @@ components:
       description: A paginated list of Verify profiles
       example:
         data:
-        - messaging_enabled: true
+        - whatsapp:
+            app_name: Example Secure App
+            default_verification_timeout_secs: 300
+          call:
+            speech_template: 'Hello, this is the Acme Inc verification code you requested:
+              {code}.'
+            default_call_timeout_secs: 30
+            default_verification_timeout_secs: 300
+          webhook_url: http://example.com/webhook
           updated_at: 2020-09-14T17:03:32.965812
-          vsms_enabled: true
+          webhook_failover_url: http://example.com/webhook/failover
+          psd2:
+            default_verification_timeout_secs: 300
           name: Test Profile
-          default_timeout_secs: 300
+          sms:
+            messaging_enabled: true
+            vsms_enabled: true
+            messaging_template: 'Hello, this is the Acme Inc verification code you
+              requested: {code}.'
+            default_verification_timeout_secs: 300
+            rcs_enabled: true
           created_at: 2020-09-14T17:03:32.965812
+          flashcall:
+            default_verification_timeout_secs: 300
           id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
-            {code}.'
-          record_type: verify_profile
-          rcs_enabled: true
-        - messaging_enabled: true
+          record_type: verification_profile
+        - whatsapp:
+            app_name: Example Secure App
+            default_verification_timeout_secs: 300
+          call:
+            speech_template: 'Hello, this is the Acme Inc verification code you requested:
+              {code}.'
+            default_call_timeout_secs: 30
+            default_verification_timeout_secs: 300
+          webhook_url: http://example.com/webhook
           updated_at: 2020-09-14T17:03:32.965812
-          vsms_enabled: true
+          webhook_failover_url: http://example.com/webhook/failover
+          psd2:
+            default_verification_timeout_secs: 300
           name: Test Profile
-          default_timeout_secs: 300
+          sms:
+            messaging_enabled: true
+            vsms_enabled: true
+            messaging_template: 'Hello, this is the Acme Inc verification code you
+              requested: {code}.'
+            default_verification_timeout_secs: 300
+            rcs_enabled: true
           created_at: 2020-09-14T17:03:32.965812
+          flashcall:
+            default_verification_timeout_secs: 300
           id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
-            {code}.'
-          record_type: verify_profile
-          rcs_enabled: true
+          record_type: verification_profile
         meta:
           page_number: 2
           total_pages: 3
@@ -16711,7 +17516,7 @@ components:
       properties:
         data:
           items:
-            $ref: '#/components/schemas/VerifyProfile'
+            $ref: '#/components/schemas/VerifyProfileResponse'
           type: array
         meta:
           $ref: '#/components/schemas/Meta'
@@ -19074,6 +19879,138 @@ components:
           example: Illinois
           type: string
       type: object
+    Queue:
+      example:
+        record_type: queue
+        id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        name: support
+        created_at: 2019-01-23T18:10:02.574Z
+        updated_at: 2019-01-23T18:10:02.574Z
+        current_size: 20
+        max_size: 50
+        average_wait_time_secs: 175
+      properties:
+        record_type:
+          enum:
+          - queue
+          example: queue
+          type: string
+        id:
+          description: Uniquely identifies the queue
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          type: string
+        name:
+          description: Name of the queue
+          example: support
+          type: string
+        created_at:
+          description: ISO 8601 formatted date of when the queue was created
+          example: 2019-01-23T18:10:02.574Z
+          type: string
+        updated_at:
+          description: ISO 8601 formatted date of when the queue was last updated
+          example: 2019-01-23T18:10:02.574Z
+          type: string
+        current_size:
+          description: The number of calls currently in the queue
+          example: 20
+          type: integer
+        max_size:
+          description: The maximum number of calls allowed in the queue
+          example: 50
+          type: integer
+        average_wait_time_secs:
+          description: The average time that the calls currently in the queue have
+            spent waiting, given in seconds.
+          example: 175
+          type: integer
+      required:
+      - average_wait_time_secs
+      - created_at
+      - current_size
+      - id
+      - max_size
+      - name
+      - record_type
+      - updated_at
+      title: Queue
+      type: object
+    QueueCall:
+      example:
+        call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+        call_leg_id: 2dc6fc34-f9e0-11ea-b68e-02420a0f7768
+        call_session_id: 2dc1b3c8-f9e0-11ea-bc5a-02420a0f7768
+        record_type: queue_call
+        connection_id: 7267xxxxxxxxxxxxxx
+        from: +18005550101
+        to: +18005550102
+        enqueued_at: 2019-01-23T18:10:02.574Z
+        wait_time_secs: 145
+        queue_position: 3
+        queue_id: ae1626cc-6f42-11ea-becd-02420a0f8b69
+      properties:
+        record_type:
+          enum:
+          - queue_call
+          example: queue_call
+          type: string
+        call_session_id:
+          description: ID that is unique to the call session and can be used to correlate
+            webhook events
+          example: 428c31b6-7af4-4bcb-b68e-5013ef9657c1
+          type: string
+        call_leg_id:
+          description: ID that is unique to the call and can be used to correlate
+            webhook events
+          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          type: string
+        call_control_id:
+          description: Unique identifier and token for controlling the call.
+          example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          type: string
+        connection_id:
+          description: Telnyx connection ID used in the call.
+          example: 7267xxxxxxxxxxxxxx
+          type: string
+        from:
+          description: Number or SIP URI placing the call.
+          example: +35319605860
+          type: string
+        to:
+          description: Destination number or SIP URI of the call.
+          example: +13129457420
+          type: string
+        enqueued_at:
+          description: ISO 8601 formatted date of when the call was put in the queue
+          example: 2019-01-23T18:10:02.574Z
+          type: string
+        wait_time_secs:
+          description: The time the call has been waiting in the queue, given in seconds
+          example: 272
+          type: integer
+        queue_position:
+          description: Current position of the call in the queue
+          example: 3
+          type: integer
+        queue_id:
+          description: Unique identifier of the queue the call is in.
+          example: ae1626cc-6f42-11ea-becd-02420a0f8b69
+          type: string
+      required:
+      - call_control_id
+      - call_leg_id
+      - call_session_id
+      - connection_id
+      - enqueued_at
+      - from
+      - is_alive
+      - queue_id
+      - queue_position
+      - record_type
+      - to
+      - wait_time_secs
+      title: QueueCall
+      type: object
     Recording:
       example:
         record_type: recording
@@ -19431,10 +20368,11 @@ components:
         data:
           verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
           updated_at: 2020-09-14T17:03:32.965812
+          call_timeout_secs: 299
           created_at: 2020-09-14T17:03:32.965812
+          verification_type: sms_verification
           phone_number: +13035551234
           id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          type: sms
           record_type: verification
           timeout_secs: 300
           status: accepted
@@ -20452,6 +21390,7 @@ components:
           type: array
       required:
       - call_control_id
+      - supervisor_role
       title: Update Conference Request
       type: object
     UpdateCredentialConnectionRequest:
@@ -21437,56 +22376,93 @@ components:
       - voice_url
       title: Update Texml Application Request
       type: object
-    UpdateVerifyProfileRequest:
-      description: The request body when updating a Verify profile.
-      example:
-        messaging_enabled: true
-        name: Test Profile
-        default_timeout_secs: 300
-        messaging_template: 'Hello, this is the Acme Inc verification code you requested:
-          {code}.'
-        rcs_enabled: true
+    UpdateVerifyProfileCallRequest:
       properties:
-        name:
-          description: The human readable label for the Verify profile.
-          example: Test Profile
+        speech_template:
+          description: Optionally sets a speech text template when sending the verification
+            code. Uses `{code}` to template in the actual verification code.
+          example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
           type: string
-        messaging_enabled:
-          default: true
-          description: Enables SMS text messaging for the Verify profile.
-          example: true
-          type: boolean
-        rcs_enabled:
-          default: false
-          description: Enables RCS messaging for the Verify profile.
-          example: true
-          type: boolean
-        default_timeout_secs:
+        default_verification_timeout_secs:
           description: For every request that is initiated via this Verify profile,
             this sets the number of seconds before a verification request code expires.
             Once the verification request expires, the user cannot use the code to
             verify their identity.
           example: 300
           type: integer
+        default_call_timeout_secs:
+          default: 45
+          description: Must be less than default_verification_timeout_secs
+          example: 30
+          type: integer
+      title: UpdateVerifyProfileCallRequest
+      type: object
+    UpdateVerifyProfileFlashcallRequest:
+      properties:
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+      title: UpdateVerifyProfileFlashcallRequest
+      type: object
+    UpdateVerifyProfilePSD2Request:
+      properties:
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+      title: UpdateVerifyProfilePSD2Request
+      type: object
+    UpdateVerifyProfileSMSRequest:
+      properties:
+        messaging_enabled:
+          description: Enables SMS text messaging for the Verify profile.
+          example: true
+          type: boolean
+        rcs_enabled:
+          description: Enables RCS messaging for the Verify profile.
+          example: true
+          type: boolean
         messaging_template:
-          default: "null"
           description: Optionally sets a messaging text template when sending the
             verification code. Uses `{code}` to template in the actual verification
             code.
           example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
-          nullable: true
           type: string
-      required:
-      - name
-      title: UpdateVerifyProfileRequest
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        vsms_enabled:
+          description: Enables VSMS for the Verify profile.
+          example: true
+          type: boolean
+      title: UpdateVerifyProfileSMSRequest
       type: object
-    UpdateVerifyProfileResponse:
+    UpdateVerifyProfileWhatsappRequest:
       properties:
-        data:
-          $ref: '#/components/schemas/VerifyProfile'
-      required:
-      - data
-      title: UpdateVerifyProfileResponse
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        app_name:
+          description: The name that identifies the application requesting 2fa in
+            the verification message.
+          example: Example Secure App
+          type: string
+      title: UpdateVerifyProfileWhatsappRequest
       type: object
     UpdatedAt:
       description: ISO 8601 formatted date indicating when the resource was updated.
@@ -21558,14 +22534,23 @@ components:
       example:
         verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
         updated_at: 2020-09-14T17:03:32.965812
+        call_timeout_secs: 299
         created_at: 2020-09-14T17:03:32.965812
+        verification_type: sms_verification
         phone_number: +13035551234
         id: 12ade33a-21c0-473b-b055-b3c836e1c292
-        type: sms
         record_type: verification
         timeout_secs: 300
         status: accepted
       properties:
+        id:
+          example: 12ade33a-21c0-473b-b055-b3c836e1c292
+          format: uuid
+          type: string
+        verification_type:
+          $ref: '#/components/schemas/VerificationType'
+        record_type:
+          $ref: '#/components/schemas/VerificationRecordType'
         phone_number:
           description: +E164 formatted phone number.
           example: +13035551234
@@ -21575,41 +22560,43 @@ components:
           example: 12ade33a-21c0-473b-b055-b3c836e1c292
           format: uuid
           type: string
-        type:
-          $ref: '#/components/schemas/VerificationType'
         timeout_secs:
           description: 'This is the number of seconds before the code of the request
             is expired. Once this request has expired, the code will no longer verify
-            the user. Note: this will override the `default_timeout_secs` on the Verify
-            profile.'
+            the user. Note: this will override the `default_verification_timeout_secs`
+            on the Verify profile.'
           example: 300
           type: integer
-        id:
-          example: 12ade33a-21c0-473b-b055-b3c836e1c292
-          format: uuid
-          type: string
+        call_timeout_secs:
+          description: 'This is the number of seconds before the call ends, if the
+            verification makes a call. Note: this will override the `default_call_timeout_secs`
+            on the Verify profile.'
+          example: 299
+          type: integer
         status:
           $ref: '#/components/schemas/VerificationStatus'
-        record_type:
-          description: Identifies the type of the resource.
-          example: verification
-          type: string
         created_at:
           example: 2020-09-14T17:03:32.965812
           type: string
         updated_at:
           example: 2020-09-14T17:03:32.965812
           type: string
-      required:
-      - created_at
-      - id
-      - phone_number
-      - status
-      - type
-      - updated_at
-      - verify_profile_id
       title: Verification
       type: object
+    VerificationProfileRecordType:
+      description: The possible verification profile record types.
+      enum:
+      - verification_profile
+      example: verification_profile
+      title: VerificationProfileRecordType
+      type: string
+    VerificationRecordType:
+      description: The possible verification record types.
+      enum:
+      - verification
+      example: verification
+      title: VerificationRecordType
+      type: string
     VerificationStatus:
       description: The possible statuses of the verification request.
       enum:
@@ -21627,44 +22614,173 @@ components:
       title: VerificationStatus
       type: string
     VerificationType:
-      description: The verification request type.
+      description: The possible types of verification.
       enum:
-      - sms
-      example: sms
+      - sms_verification
+      - psd2_verification
+      - whatsapp_verification
+      - call_verification
+      - flashcall_verification
+      example: sms_verification
       title: VerificationType
       type: string
-    VerifyProfile:
+    VerifyProfileCallResponse:
       example:
-        messaging_enabled: true
-        updated_at: 2020-09-14T17:03:32.965812
-        vsms_enabled: true
-        name: Test Profile
-        default_timeout_secs: 300
-        created_at: 2020-09-14T17:03:32.965812
-        id: 12ade33a-21c0-473b-b055-b3c836e1c292
-        messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+        speech_template: 'Hello, this is the Acme Inc verification code you requested:
           {code}.'
-        record_type: verify_profile
-        rcs_enabled: true
+        default_call_timeout_secs: 30
+        default_verification_timeout_secs: 300
+      properties:
+        speech_template:
+          description: Optionally sets a speech text template when sending the verification
+            code. Uses `{code}` to template in the actual verification code.
+          example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
+          type: string
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        default_call_timeout_secs:
+          default: 45
+          description: Must be less than default_verification_timeout_secs
+          example: 30
+          type: integer
+      title: VerifyProfileCallResponse
+      type: object
+    VerifyProfileFlashcallResponse:
+      example:
+        default_verification_timeout_secs: 300
+      properties:
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+      title: VerifyProfileFlashcallResponse
+      type: object
+    VerifyProfilePSD2Response:
+      example:
+        default_verification_timeout_secs: 300
+      properties:
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+      title: VerifyProfilePSD2Response
+      type: object
+    VerifyProfileResponse:
+      example:
+        whatsapp:
+          app_name: Example Secure App
+          default_verification_timeout_secs: 300
+        call:
+          speech_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          default_call_timeout_secs: 30
+          default_verification_timeout_secs: 300
+        webhook_url: http://example.com/webhook
+        updated_at: 2020-09-14T17:03:32.965812
+        webhook_failover_url: http://example.com/webhook/failover
+        psd2:
+          default_verification_timeout_secs: 300
+        name: Test Profile
+        sms:
+          messaging_enabled: true
+          vsms_enabled: true
+          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+            {code}.'
+          default_verification_timeout_secs: 300
+          rcs_enabled: true
+        created_at: 2020-09-14T17:03:32.965812
+        flashcall:
+          default_verification_timeout_secs: 300
+        id: 12ade33a-21c0-473b-b055-b3c836e1c292
+        record_type: verification_profile
       properties:
         id:
           example: 12ade33a-21c0-473b-b055-b3c836e1c292
           format: uuid
           type: string
-        record_type:
-          description: Identifies the type of the resource.
-          example: verify_profile
-          type: string
         name:
-          description: The name of the Verify profile.
           example: Test Profile
           type: string
+        webhook_url:
+          example: http://example.com/webhook
+          type: string
+        webhook_failover_url:
+          example: http://example.com/webhook/failover
+          type: string
+        record_type:
+          $ref: '#/components/schemas/VerificationProfileRecordType'
         created_at:
           example: 2020-09-14T17:03:32.965812
           type: string
         updated_at:
           example: 2020-09-14T17:03:32.965812
           type: string
+        sms:
+          $ref: '#/components/schemas/VerifyProfileSMSResponse'
+        psd2:
+          $ref: '#/components/schemas/VerifyProfilePSD2Response'
+        whatsapp:
+          $ref: '#/components/schemas/VerifyProfileWhatsappResponse'
+        call:
+          $ref: '#/components/schemas/VerifyProfileCallResponse'
+        flashcall:
+          $ref: '#/components/schemas/VerifyProfileFlashcallResponse'
+      title: VerifyProfileResponse
+      type: object
+    VerifyProfileResponseDataWrapper:
+      example:
+        data:
+          whatsapp:
+            app_name: Example Secure App
+            default_verification_timeout_secs: 300
+          call:
+            speech_template: 'Hello, this is the Acme Inc verification code you requested:
+              {code}.'
+            default_call_timeout_secs: 30
+            default_verification_timeout_secs: 300
+          webhook_url: http://example.com/webhook
+          updated_at: 2020-09-14T17:03:32.965812
+          webhook_failover_url: http://example.com/webhook/failover
+          psd2:
+            default_verification_timeout_secs: 300
+          name: Test Profile
+          sms:
+            messaging_enabled: true
+            vsms_enabled: true
+            messaging_template: 'Hello, this is the Acme Inc verification code you
+              requested: {code}.'
+            default_verification_timeout_secs: 300
+            rcs_enabled: true
+          created_at: 2020-09-14T17:03:32.965812
+          flashcall:
+            default_verification_timeout_secs: 300
+          id: 12ade33a-21c0-473b-b055-b3c836e1c292
+          record_type: verification_profile
+      properties:
+        data:
+          $ref: '#/components/schemas/VerifyProfileResponse'
+      title: VerifyProfileResponseDataWrapper
+      type: object
+    VerifyProfileSMSResponse:
+      example:
+        messaging_enabled: true
+        vsms_enabled: true
+        messaging_template: 'Hello, this is the Acme Inc verification code you requested:
+          {code}.'
+        default_verification_timeout_secs: 300
+        rcs_enabled: true
+      properties:
         messaging_enabled:
           description: Enables SMS text messaging for the Verify profile.
           example: true
@@ -21679,7 +22795,7 @@ components:
             code.
           example: 'Hello, this is the Acme Inc verification code you requested: {code}.'
           type: string
-        default_timeout_secs:
+        default_verification_timeout_secs:
           description: For every request that is initiated via this Verify profile,
             this sets the number of seconds before a verification request code expires.
             Once the verification request expires, the user cannot use the code to
@@ -21690,34 +22806,26 @@ components:
           description: Enables VSMS for the Verify profile.
           example: true
           type: boolean
-      required:
-      - created_at
-      - default_timeout_secs
-      - id
-      - name
-      - rcs_enabled
-      - updated_at
-      title: VerifyProfile
+      title: VerifyProfileSMSResponse
       type: object
-    VerifyProfileResponse:
-      description: A Verify profile
+    VerifyProfileWhatsappResponse:
       example:
-        data:
-          messaging_enabled: true
-          updated_at: 2020-09-14T17:03:32.965812
-          vsms_enabled: true
-          name: Test Profile
-          default_timeout_secs: 300
-          created_at: 2020-09-14T17:03:32.965812
-          id: 12ade33a-21c0-473b-b055-b3c836e1c292
-          messaging_template: 'Hello, this is the Acme Inc verification code you requested:
-            {code}.'
-          record_type: verify_profile
-          rcs_enabled: true
+        app_name: Example Secure App
+        default_verification_timeout_secs: 300
       properties:
-        data:
-          $ref: '#/components/schemas/VerifyProfile'
-      title: VerifyProfilesResponse
+        default_verification_timeout_secs:
+          description: For every request that is initiated via this Verify profile,
+            this sets the number of seconds before a verification request code expires.
+            Once the verification request expires, the user cannot use the code to
+            verify their identity.
+          example: 300
+          type: integer
+        app_name:
+          description: The name that identifies the application requesting 2fa in
+            the verification message.
+          example: Example Secure App
+          type: string
+      title: VerifyProfileWhatsappResponse
       type: object
     VerifyVerificationCodeRequest:
       example:
@@ -24287,6 +25395,80 @@ components:
           $ref: '#/components/schemas/PaginationMeta'
       title: List Phone Number Regulatory Requirements Response
       type: object
+    Queue_Response:
+      example:
+        data:
+          record_type: queue
+          id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          name: support
+          created_at: 2019-01-23T18:10:02.574Z
+          updated_at: 2019-01-23T18:10:02.574Z
+          current_size: 20
+          max_size: 50
+          average_wait_time_secs: 175
+      properties:
+        data:
+          $ref: '#/components/schemas/Queue'
+      title: Queue Response
+      type: object
+    List_Queue_Calls_Response:
+      example:
+        data:
+        - call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          call_leg_id: 2dc6fc34-f9e0-11ea-b68e-02420a0f7768
+          call_session_id: 2dc1b3c8-f9e0-11ea-bc5a-02420a0f7768
+          record_type: queue_call
+          connection_id: 7267xxxxxxxxxxxxxx
+          from: +18005550101
+          to: +18005550102
+          enqueued_at: 2019-01-23T18:10:02.574Z
+          wait_time_secs: 145
+          queue_position: 3
+          queue_id: ae1626cc-6f42-11ea-becd-02420a0f8b69
+        - call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          call_leg_id: 2dc6fc34-f9e0-11ea-b68e-02420a0f7768
+          call_session_id: 2dc1b3c8-f9e0-11ea-bc5a-02420a0f7768
+          record_type: queue_call
+          connection_id: 7267xxxxxxxxxxxxxx
+          from: +18005550101
+          to: +18005550102
+          enqueued_at: 2019-01-23T18:10:02.574Z
+          wait_time_secs: 145
+          queue_position: 3
+          queue_id: ae1626cc-6f42-11ea-becd-02420a0f8b69
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/QueueCall'
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+      title: List Queue Calls Response
+      type: object
+    Queue_Call_Response:
+      example:
+        data:
+          call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          call_leg_id: 2dc6fc34-f9e0-11ea-b68e-02420a0f7768
+          call_session_id: 2dc1b3c8-f9e0-11ea-bc5a-02420a0f7768
+          record_type: queue_call
+          connection_id: 7267xxxxxxxxxxxxxx
+          from: +18005550101
+          to: +18005550102
+          enqueued_at: 2019-01-23T18:10:02.574Z
+          wait_time_secs: 145
+          queue_position: 3
+          queue_id: ae1626cc-6f42-11ea-becd-02420a0f8b69
+      properties:
+        data:
+          $ref: '#/components/schemas/QueueCall'
+      title: Queue Call Response
+      type: object
     List_Recordings_Response:
       example:
         data:
@@ -24625,6 +25807,54 @@ components:
           $ref: '#/components/schemas/TexmlApplication'
       title: Texml Application Response
       type: object
+    Create_Verify_Profile_Request:
+      properties:
+        name:
+          example: Test Profile
+          type: string
+        webhook_url:
+          example: http://example.com/webhook
+          type: string
+        webhook_failover_url:
+          example: http://example.com/webhook/failover
+          type: string
+        sms:
+          $ref: '#/components/schemas/CreateVerifyProfileSMSRequest'
+        psd2:
+          $ref: '#/components/schemas/CreateVerifyProfilePSD2Request'
+        whatsapp:
+          $ref: '#/components/schemas/CreateVerifyProfileWhatsappRequest'
+        call:
+          $ref: '#/components/schemas/CreateVerifyProfileCallRequest'
+        flashcall:
+          $ref: '#/components/schemas/CreateVerifyProfileFlashcallRequest'
+      required:
+      - name
+      title: Create Verify Profile Request
+      type: object
+    Update_Verify_Profile_Request:
+      properties:
+        name:
+          example: Test Profile
+          type: string
+        webhook_url:
+          example: http://example.com/webhook
+          type: string
+        webhook_failover_url:
+          example: http://example.com/webhook/failover
+          type: string
+        sms:
+          $ref: '#/components/schemas/UpdateVerifyProfileSMSRequest'
+        psd2:
+          $ref: '#/components/schemas/UpdateVerifyProfilePSD2Request'
+        whatsapp:
+          $ref: '#/components/schemas/UpdateVerifyProfileWhatsappRequest'
+        call:
+          $ref: '#/components/schemas/UpdateVerifyProfileCallRequest'
+        flashcall:
+          $ref: '#/components/schemas/UpdateVerifyProfileFlashcallRequest'
+      title: Update Verify Profile Request
+      type: object
     CallAnswered_payload:
       properties:
         call_control_id:
@@ -24741,6 +25971,39 @@ components:
           description: The received DTMF digit or symbol.
           example: '#'
           type: string
+      type: object
+    CallEnqueued_payload:
+      properties:
+        call_control_id:
+          description: Call ID used to issue commands via Call Control API.
+          example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          type: string
+        connection_id:
+          description: Telnyx connection ID used in the call.
+          example: 7267xxxxxxxxxxxxxx
+          type: string
+        call_leg_id:
+          description: ID that is unique to the call and can be used to correlate
+            webhook events.
+          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          type: string
+        call_session_id:
+          description: ID that is unique to the call session and can be used to correlate
+            webhook events.
+          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          type: string
+        client_state:
+          description: State received from a command.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        queue:
+          description: The name of the queue
+          example: support
+          type: string
+        current_position:
+          description: Current position of the call in the queue.
+          example: 7
+          type: integer
       type: object
     CallForkStarted_payload:
       properties:
@@ -24928,6 +26191,45 @@ components:
           - parked
           - bridging
           example: parked
+          type: string
+      type: object
+    CallLeftQueue_payload:
+      properties:
+        call_control_id:
+          description: Call ID used to issue commands via Call Control API.
+          example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          type: string
+        connection_id:
+          description: Telnyx connection ID used in the call.
+          example: 7267xxxxxxxxxxxxxx
+          type: string
+        call_leg_id:
+          description: ID that is unique to the call and can be used to correlate
+            webhook events.
+          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          type: string
+        call_session_id:
+          description: ID that is unique to the call session and can be used to correlate
+            webhook events.
+          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          type: string
+        client_state:
+          description: State received from a command.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        queue:
+          description: The name of the queue
+          example: support
+          type: string
+        reason:
+          description: The reason for leaving the queue
+          enum:
+          - bridged
+          - bridging-in-process
+          - hangup
+          - leave
+          - timeout
+          example: bridged
           type: string
       type: object
     CallMachineDetectionEnded_payload:
