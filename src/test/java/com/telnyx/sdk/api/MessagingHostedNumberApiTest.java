@@ -15,21 +15,17 @@ package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.CreateMessagingHostedNumberOrderRequest;
-import com.telnyx.sdk.model.Errors;
+import com.telnyx.sdk.model.*;
+
 import java.io.File;
-import com.telnyx.sdk.model.ListMessagingHostedNumberOrderResponse;
-import com.telnyx.sdk.model.RetrieveMessagingHostedNumberOrderResponse;
-import com.telnyx.sdk.model.RetrieveMessagingHostedNumberResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static java.util.Arrays.asList;
+import static org.junit.Assert.*;
 
 /**
  * API tests for MessagingHostedNumberApi
@@ -37,6 +33,15 @@ import java.util.Map;
 public class MessagingHostedNumberApiTest {
 
     private final MessagingHostedNumberApi api = new MessagingHostedNumberApi();
+
+    @Before
+    public void setup() {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
+
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+    }
 
     /**
      * Create a messaging hosted number order
@@ -111,12 +116,35 @@ public class MessagingHostedNumberApiTest {
      *          if the Api call fails
      */
     @Test
-    public void uploadFileMessagingHostedNumberOrderTest() throws ApiException {
-        //String id = null;
-        //File loa = null;
-        //File bill = null;
-        //RetrieveMessagingHostedNumberOrderResponse response = api.uploadFileMessagingHostedNumberOrder(id, loa, bill);
-        // TODO: test validations
+    public void uploadFileMessagingHostedNumberOrderTest_whenUploadingValidFiles_returnsSuccess() throws ApiException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file1 = new File(classLoader.getResource("dummy1.pdf").getFile());
+        File file2 = new File(classLoader.getResource("dummy2.pdf").getFile());
+
+        String messagingHostedNumberOrderId = "80017a9e-8d6d-4497-a14e-dd89ec2d6db8";
+
+        RetrieveMessagingHostedNumberOrderResponse result = api.uploadFileMessagingHostedNumberOrder(messagingHostedNumberOrderId, file1, file2);
+
+        assertNotNull(result.getData().getId());
+    }
+
+    /**
+     * Upload files must be pdfs
+     *
+     */
+    @Test
+    public void uploadFileMessagingHostedNumberOrderTest_whenUploadingNonPDFFile_throwsException() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File pdfFile = new File(classLoader.getResource("dummy1.pdf").getFile());
+        File nonPdfFile = new File(classLoader.getResource("dummy.txt").getFile());
+
+        String messagingHostedNumberOrderId = "80017a9e-8d6d-4497-a14e-dd89ec2d6db8";
+
+        Exception exception = assertThrows(ApiException.class, () -> {
+            api.uploadFileMessagingHostedNumberOrder(messagingHostedNumberOrderId, pdfFile, nonPdfFile);
+        });
+
+        assertEquals("file type check for " + nonPdfFile.getName() + " failed. uploading is only supported for pdf file types", exception.getMessage());
     }
 
 }
