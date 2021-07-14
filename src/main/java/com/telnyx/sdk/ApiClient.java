@@ -673,9 +673,16 @@ public class ApiClient extends JavaTimeFormatter {
       for (Entry<String, Object> param: formParams.entrySet()) {
         if (param.getValue() instanceof File) {
           File file = (File) param.getValue();
-          FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey())
-              .fileName(file.getName()).size(file.length()).build();
-          multiPart.bodyPart(new FormDataBodyPart(contentDisp, file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+          String filename = file.getName();
+          if(filename.contains(".") && filename.substring(filename.lastIndexOf(".") + 1).equals("pdf")) {
+            FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey())
+                    .fileName(file.getName()).size(file.length()).build();
+            final MediaType APPLICATION_PDF = new MediaType("application", "pdf");
+            multiPart.bodyPart(new FormDataBodyPart(contentDisp, file, APPLICATION_PDF));
+          }
+          else {
+            throw new ApiException("file type check for " + filename + " failed. uploading is only supported for pdf file types");
+          }
         } else {
           FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey()).build();
           multiPart.bodyPart(new FormDataBodyPart(contentDisp, parameterToString(param.getValue())));
@@ -720,7 +727,10 @@ public class ApiClient extends JavaTimeFormatter {
   public String serializeToString(Object obj, Map<String, Object> formParams, String contentType, boolean isBodyNullable) throws ApiException {
     try {
       if (contentType.startsWith("multipart/form-data")) {
-        throw new ApiException("multipart/form-data not yet supported for serializeToString (http signature authentication)");
+        //  todo: find a better solution to allow for serializing large binary data to support http signature authorization
+        //        this workaround should suffice because the Telnyx api doesn't support http signature authorization,
+        //        so this serialized value doesn't get used
+        return json.getMapper().writeValueAsString(formParams);
       } else if (contentType.startsWith("application/x-www-form-urlencoded")) {
         String formString = "";
         for (Entry<String, Object> param : formParams.entrySet()) {
