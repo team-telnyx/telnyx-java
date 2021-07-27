@@ -44,7 +44,8 @@ import com.telnyx.sdk.JSON;
   JoinConferenceRequest.JSON_PROPERTY_MUTE,
   JoinConferenceRequest.JSON_PROPERTY_START_CONFERENCE_ON_ENTER,
   JoinConferenceRequest.JSON_PROPERTY_SUPERVISOR_ROLE,
-  JoinConferenceRequest.JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS
+  JoinConferenceRequest.JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS,
+  JoinConferenceRequest.JSON_PROPERTY_BEEP_ENABLED
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class JoinConferenceRequest {
@@ -119,6 +120,48 @@ public class JoinConferenceRequest {
 
   public static final String JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS = "whisper_call_control_ids";
   private List<String> whisperCallControlIds = null;
+
+  /**
+   * Whether a beep sound should be played when the participant joins and/or leaves the conference. Can be used to override the conference-level setting.
+   */
+  public enum BeepEnabledEnum {
+    ALWAYS("always"),
+    
+    NEVER("never"),
+    
+    ON_ENTER("on_enter"),
+    
+    ON_EXIT("on_exit");
+
+    private String value;
+
+    BeepEnabledEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static BeepEnabledEnum fromValue(String value) {
+      for (BeepEnabledEnum b : BeepEnabledEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_BEEP_ENABLED = "beep_enabled";
+  private BeepEnabledEnum beepEnabled;
 
 
   public JoinConferenceRequest callControlId(String callControlId) {
@@ -392,6 +435,30 @@ public class JoinConferenceRequest {
   }
 
 
+  public JoinConferenceRequest beepEnabled(BeepEnabledEnum beepEnabled) {
+    this.beepEnabled = beepEnabled;
+    return this;
+  }
+
+   /**
+   * Whether a beep sound should be played when the participant joins and/or leaves the conference. Can be used to override the conference-level setting.
+   * @return beepEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "on_exit", value = "Whether a beep sound should be played when the participant joins and/or leaves the conference. Can be used to override the conference-level setting.")
+  @JsonProperty(JSON_PROPERTY_BEEP_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BeepEnabledEnum getBeepEnabled() {
+    return beepEnabled;
+  }
+
+
+  public void setBeepEnabled(BeepEnabledEnum beepEnabled) {
+    this.beepEnabled = beepEnabled;
+  }
+
+
   /**
    * Return true if this JoinConferenceRequest object is equal to o.
    */
@@ -414,12 +481,13 @@ public class JoinConferenceRequest {
         Objects.equals(this.mute, joinConferenceRequest.mute) &&
         Objects.equals(this.startConferenceOnEnter, joinConferenceRequest.startConferenceOnEnter) &&
         Objects.equals(this.supervisorRole, joinConferenceRequest.supervisorRole) &&
-        Objects.equals(this.whisperCallControlIds, joinConferenceRequest.whisperCallControlIds);
+        Objects.equals(this.whisperCallControlIds, joinConferenceRequest.whisperCallControlIds) &&
+        Objects.equals(this.beepEnabled, joinConferenceRequest.beepEnabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, clientState, commandId, endConferenceOnExit, softEndConferenceOnExit, hold, holdAudioUrl, mute, startConferenceOnEnter, supervisorRole, whisperCallControlIds);
+    return Objects.hash(callControlId, clientState, commandId, endConferenceOnExit, softEndConferenceOnExit, hold, holdAudioUrl, mute, startConferenceOnEnter, supervisorRole, whisperCallControlIds, beepEnabled);
   }
 
 
@@ -438,6 +506,7 @@ public class JoinConferenceRequest {
     sb.append("    startConferenceOnEnter: ").append(toIndentedString(startConferenceOnEnter)).append("\n");
     sb.append("    supervisorRole: ").append(toIndentedString(supervisorRole)).append("\n");
     sb.append("    whisperCallControlIds: ").append(toIndentedString(whisperCallControlIds)).append("\n");
+    sb.append("    beepEnabled: ").append(toIndentedString(beepEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

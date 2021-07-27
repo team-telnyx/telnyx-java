@@ -34,6 +34,8 @@ tags:
   name: Credentials
 - description: Call Control debugging
   name: Debugging
+- description: Detail Records operations
+  name: Detail Records
 - description: FQDN connection operations
   name: FQDN Connections
 - description: FQDN operations
@@ -1706,7 +1708,7 @@ paths:
 
         *Notes:*
 
-        - When `overlay` is enabled, `loop` is limited to 1, and `target_legs` is limited to `self`.
+        - When `overlay` is enabled, `target_legs` is limited to `self`.
         - A customer cannot Play Audio with `overlay=true` unless there is a Play Audio with `overlay=false` actively playing.
 
         **Expected Webhooks:**
@@ -2609,6 +2611,21 @@ paths:
                   description: The server must return an HTTP 200, otherwise we will
                     reattempt delivery at the failover webhook URL.
               x-callback-request: true
+        conferenceFloorChanged:
+          '{$request.body#/webhook_url}':
+            post:
+              operationId: conferenceFloorChanged_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ConferenceFloorChangedEvent'
+                required: true
+              responses:
+                "200":
+                  description: The server must return an HTTP 200, otherwise we will
+                    reattempt delivery at the failover webhook URL.
+              x-callback-request: true
       description: |
         Create a conference from an existing call leg using a `call_control_id` and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.
 
@@ -2619,6 +2636,7 @@ paths:
         - `conference.participant.left`
         - `conference.ended`
         - `conference.recording.saved`
+        - `conference.floor.changed`
       operationId: createConference
       requestBody:
         content:
@@ -3823,6 +3841,127 @@ paths:
       x-latency-category: responsive
       x-contentType: application/json
       x-accepts: application/json
+  /detail_records:
+    get:
+      description: Search for any detail record across the Telnyx Platform
+      operationId: DetailRecordsSearch
+      parameters:
+      - description: Filter by the given record type
+        examples:
+          filter[record_type]=messaging:
+            summary: Searches for messaging detail records
+            value: messaging
+        explode: true
+        in: query
+        name: filter[record_type]
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Filter by the given user-friendly date range
+        examples:
+          filter[date_range]=today:
+            summary: Searches for records with timestamp starting at `00:00:00` of
+              the current day
+            value: today
+          filter[date_range]=last_3_days:
+            summary: Searches for records with timestamp starting at `00:00:00` since
+              3 days ago
+            value: last_3_days
+        explode: true
+        in: query
+        name: filter[date_range]
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter records
+        examples:
+          filter[created_at][gte]=2021-06-22:
+            summary: Searches for records with `created_at` starting at `2021-06-22`
+            value: 2021-06-22
+          filter[created_at][lt]=2021-06-23:
+            summary: Searches for records with `created_at` ending at `2021-06-22`
+            value: 2021-06-23
+          filter[direction]=inbound:
+            summary: Searches for records which have the property `direction` equal
+              to `inbound`
+            value: inbound
+          filter[cld][starts_with]=123:
+            summary: Searches for records which have the property `cld` starting with
+              the prefix `123`
+            value: "123"
+          filter[cld][ends_with]=789:
+            summary: Searches for records which have the property `cld` ending with
+              the suffix `789`
+            value: "789"
+          filter[cld][contains]=456:
+            summary: Searches for records which have the property `cld` containing
+              the pattern `456`
+            value: "456"
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          additionalProperties: true
+          type: object
+        style: form
+      - description: Page number
+        explode: true
+        in: query
+        name: page[number]
+        required: false
+        schema:
+          default: 1
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: Page size
+        explode: true
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 20
+          format: int32
+          maximum: 50
+          minimum: 1
+          type: integer
+        style: form
+      - description: Specifies the sort order for results
+        examples:
+          sort=created_at:
+            summary: Sorts search results using the `created_at` date-time in ascending
+              order
+            value: created_at
+          sort=-created_at:
+            summary: Sorts search results using the `created_at` date-time in descending
+              order
+            value: created_at
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailRecordsSearchResponse'
+          description: Successful
+      security:
+      - bearerAuth: []
+      tags:
+      - Detail Records
+      x-latency-category: interactive
+      x-accepts: application/json
   /fax_applications:
     get:
       description: This endpoint returns a list of your Fax Applications inside the
@@ -4322,7 +4461,7 @@ paths:
       x-accepts: application/json
   /faxes/{id}/actions/refresh:
     post:
-      description: This endpoint refreshes the media_url expiration for inbound faxes
+      description: Refreshes the inbound fax's media_url when it has expired
       operationId: RefreshFax
       parameters:
       - description: The unique identifier of a fax.
@@ -8961,7 +9100,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
           description: Bad Request
-      summary: Trigger a flash call verification
+      summary: Trigger a Flash call verification
       tags:
       - Verify
       x-latency-category: responsive
@@ -9017,7 +9156,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
           description: Bad Request
-      summary: Trigger an SMS verification
+      summary: Trigger a SMS verification
       tags:
       - Verify
       x-latency-category: responsive
@@ -12459,6 +12598,75 @@ components:
           $ref: '#/components/schemas/ConferenceCreated'
       title: Conference Created Event
       type: object
+    ConferenceDetailRecord:
+      properties:
+        id:
+          description: Conference id
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        name:
+          description: Conference name
+          example: My Conference
+          type: string
+        user_id:
+          description: User id
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        started_at:
+          description: Conference start time
+          example: 2020-07-01T00:00:00-06:00
+          format: date-time
+          type: string
+        ended_at:
+          description: Conference end time
+          example: 2020-07-01T00:00:00-06:00
+          format: date-time
+          type: string
+        expires_at:
+          description: Conference expiry time
+          example: 2020-07-01T00:00:00-06:00
+          format: date-time
+          type: string
+        region:
+          description: Region where the conference is hosted
+          example: ch1
+          type: string
+        call_leg_id:
+          description: Telnyx UUID that identifies the conference call leg
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        call_session_id:
+          description: Telnyx UUID that identifies with conference call session
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        connection_id:
+          description: Connection id
+          example: "1583941447772537867"
+          type: string
+        call_sec:
+          description: Duration of the conference call in seconds
+          example: 100
+          type: integer
+        participant_count:
+          description: Number of participants that joined the conference call
+          example: 5
+          type: integer
+        participant_call_sec:
+          description: Sum of the conference call duration for all participants in
+            seconds
+          example: 100
+          type: integer
+        is_telnyx_billable:
+          description: Indicates whether Telnyx billing charges might be applicable
+          example: false
+          type: boolean
+        record_type:
+          default: conference_detail_record
+          example: conference_detail_record
+          type: string
+      required:
+      - record_type
+      type: object
     ConferenceEnded:
       example:
         record_type: event
@@ -12517,6 +12725,42 @@ components:
           $ref: '#/components/schemas/ConferenceEnded'
       title: Conference Ended Event
       type: object
+    ConferenceFloorChangedEvent:
+      example:
+        record_type: event
+        event_type: conference.floor.changed
+        id: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+        occurred_at: 2018-02-02T22:25:27.521992Z
+        payload:
+          call_control_id: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          connection_id: 7267xxxxxxxxxxxxxx
+          call_leg_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          call_session_id: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          client_state: aGF2ZSBhIG5pY2UgZGF5ID1d
+          conference_id: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          occured_at: 2018-02-02T22:25:27.521Z
+      properties:
+        record_type:
+          description: Identifies the type of the resource.
+          enum:
+          - event
+          example: event
+          type: string
+        event_type:
+          description: The type of event being delivered.
+          enum:
+          - conference.floor.changed
+          example: conference.floor.changed
+          type: string
+        id:
+          description: Identifies the type of resource.
+          example: 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+          format: uuid
+          type: string
+        payload:
+          $ref: '#/components/schemas/ConferenceFloorChangedEvent_payload'
+      title: Conference Floor Changed
+      type: object
     ConferenceHoldRequest:
       example:
         call_control_ids:
@@ -12548,6 +12792,83 @@ components:
             type: string
           type: array
       title: Conference Mute Request
+      type: object
+    ConferenceParticipantDetailRecord:
+      properties:
+        id:
+          description: Participant id
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        user_id:
+          description: User id
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        conference_id:
+          description: Conference id
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        joined_at:
+          description: Participant join time
+          example: 2020-07-01T00:00:00-06:00
+          format: date-time
+          type: string
+        left_at:
+          description: Participant leave time
+          example: 2020-07-01T00:00:00-06:00
+          format: date-time
+          type: string
+        destination_number:
+          description: Number called by the participant to join the conference
+          example: +18005550199
+          type: string
+        originating_number:
+          description: Participant origin number used in the conference call
+          example: +18005550199
+          type: string
+        call_leg_id:
+          description: Telnyx UUID that identifies the conference call leg
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        call_session_id:
+          description: Telnyx UUID that identifies with conference call session
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        call_sec:
+          description: Duration of the conference call in seconds
+          example: 100
+          type: integer
+        billed_sec:
+          description: Duration of the conference call for billing purposes
+          example: 120
+          type: integer
+        is_telnyx_billable:
+          description: Indicates whether Telnyx billing charges might be applicable
+          example: true
+          type: boolean
+        rate:
+          description: Currency amount per billing unit used to calculate the Telnyx
+            billing cost
+          example: "0.002"
+          type: string
+        rate_measured_in:
+          description: Billing unit used to calculate the Telnyx billing cost
+          example: minutes
+          type: string
+        cost:
+          description: Currency amount for Telnyx billing cost
+          example: "0.004"
+          type: string
+        currency:
+          description: Telnyx account currency used to describe monetary values, including
+            billing cost
+          example: USD
+          type: string
+        record_type:
+          default: conference_participant_detail_record
+          example: conference_participant_detail_record
+          type: string
+      required:
+      - record_type
       type: object
     ConferenceParticipantJoined:
       example:
@@ -15111,7 +15432,6 @@ components:
       description: The request body when creating a verification.
       example:
         verify_profile_id: 12ade33a-21c0-473b-b055-b3c836e1c292
-        app_name: Example Secure App
         phone_number: +13035551234
         timeout_secs: 300
       properties:
@@ -15128,11 +15448,6 @@ components:
           description: The number of seconds the verification code is valid for.
           example: 300
           type: integer
-        app_name:
-          description: The name that identifies the application requesting 2fa in
-            the verification message.
-          example: Example Secure App
-          type: string
       required:
       - phone_number
       - verify_profile_id
@@ -15626,6 +15941,16 @@ components:
       example: USD
       title: Currencies
       type: string
+    Currency:
+      description: User currency
+      enum:
+      - AUD
+      - CAD
+      - EUR
+      - GBP
+      - USD
+      example: USD
+      type: string
     CustomSipHeader:
       example:
         name: head_1
@@ -15644,6 +15969,40 @@ components:
       - value
       title: Custom SIP Header
       type: object
+    DetailRecord:
+      description: An object following one of the schemas published in https://developers.telnyx.com/docs/api/v2/detail-records
+      discriminator:
+        propertyName: record_type
+      oneOf:
+      - $ref: '#/components/schemas/MessageDetailRecord'
+      - $ref: '#/components/schemas/ConferenceDetailRecord'
+      - $ref: '#/components/schemas/ConferenceParticipantDetailRecord'
+      required:
+      - record_type
+      type: object
+    DetailRecordsSearchResponse:
+      example:
+        data:
+        - null
+        - null
+        meta:
+          page_number: 2
+          total_pages: 3
+          total_results: 55
+          page_size: 25
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/DetailRecord'
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+      type: object
+    Direction:
+      enum:
+      - INBOUND
+      - OUTBOUND
+      type: string
     DtmfType:
       default: RFC 2833
       description: Sets the type of DTMF digits sent from Telnyx to this Connection.
@@ -15817,13 +16176,17 @@ components:
           - sending
           - delivered
           - failed
+          - initiated
+          - receiving
+          - media.processing
+          - received
           example: queued
           type: string
         webhook_url:
           description: URL that will receive fax webhooks
           type: string
         webhook_failover_url:
-          description: Optional failover URL that will receive fax webhooks if `webhook_url`
+          description: Optional failover URL that will receive fax webhooks if webhook_url
             doesn't return a 2XX response
           type: string
         store_media:
@@ -16881,6 +17244,7 @@ components:
           id: 7ee4241c-f127-47e5-9c34-3aac291f8058
           type: SMS
           messaging_profile_id: 0f512bda-ae1e-4597-8e11-e5f5686b97d3
+          organization_id: b448f9cc-a842-4784-98e9-03c1a5872950
           from:
             phone_number: +18665550001
             carrier: T-MOBILE USA, INC.
@@ -16942,6 +17306,7 @@ components:
             id: 7ee4241c-f127-47e5-9c34-3aac291f8058
             type: SMS
             messaging_profile_id: 0f512bda-ae1e-4597-8e11-e5f5686b97d3
+            organization_id: b448f9cc-a842-4784-98e9-03c1a5872950
             from:
               phone_number: +18665550001
               carrier: T-MOBILE USA, INC.
@@ -16977,6 +17342,7 @@ components:
         id: 7ee4241c-f127-47e5-9c34-3aac291f8058
         type: SMS
         messaging_profile_id: 0f512bda-ae1e-4597-8e11-e5f5686b97d3
+        organization_id: b448f9cc-a842-4784-98e9-03c1a5872950
         from:
           phone_number: +18665550001
           status: delivered
@@ -17319,6 +17685,7 @@ components:
         whisper_call_control_ids:
         - v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ
         - v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw
+        beep_enabled: always
       properties:
         call_control_id:
           description: Unique identifier and token for controlling the call
@@ -17391,6 +17758,17 @@ components:
           items:
             type: string
           type: array
+        beep_enabled:
+          description: Whether a beep sound should be played when the participant
+            joins and/or leaves the conference. Can be used to override the conference-level
+            setting.
+          enum:
+          - always
+          - never
+          - on_enter
+          - on_exit
+          example: on_exit
+          type: string
       required:
       - call_control_id
       title: Join Conference Request
@@ -17564,6 +17942,136 @@ components:
             only controls whether one will be accepted.
           type: boolean
       type: object
+    MessageCost:
+      properties:
+        amount:
+          description: Final cost. Cost is calculated as rate * parts
+          example: 0.1
+          type: number
+        currency:
+          $ref: '#/components/schemas/Currency'
+      type: object
+    MessageDetailRecord:
+      properties:
+        id:
+          description: Message id
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+        created_at:
+          description: Message sent time
+          example: 2020-07-01T00:00:00-06:00
+          format: date-time
+          type: string
+        outbound_profile_name:
+          description: Configured profile name. New profiles can be created and configured
+            on Telnyx portal
+          example: configured-profile-name
+          type: string
+        outbound_profile_id:
+          description: Configured profile id. New profiles can be created and configured
+            on Telnyx portal
+          example: 30ef55db-c4a2-4c4a-9804-a68077973d07
+          type: string
+        direction:
+          $ref: '#/components/schemas/Direction'
+        parts:
+          description: Number of parts this message has. Max number of character is
+            160. If message contains more characters then that it will be broken down
+            in multiple parts
+          example: 2
+          type: integer
+        status:
+          $ref: '#/components/schemas/MessageStatus'
+        cld:
+          description: The destination number for a call, or the callee
+          example: +1555123456
+          type: string
+        cli:
+          description: The number associated with the person initiating the call,
+            or the caller
+          example: +1555123456
+          type: string
+        rate:
+          $ref: '#/components/schemas/MessageRate'
+        cost:
+          $ref: '#/components/schemas/MessageCost'
+        country_iso:
+          description: Cld number ISO country code.
+          example: US
+          type: string
+        message_type:
+          $ref: '#/components/schemas/MessageType'
+        errors:
+          description: Error returned by the gateway in case sending of message failed.
+          example: US
+          items:
+            description: Error returned by the gateway in case sending of message
+              failed.
+            example: "40001"
+            type: string
+          properties:
+            empty:
+              type: boolean
+          type: array
+        normalized_carrier:
+          description: Cld carrier.
+          example: T-Mobile
+          type: string
+        pass_through_fee:
+          $ref: '#/components/schemas/PassThroughFee'
+        tags:
+          description: User tag.
+          example: tag1
+          type: string
+        mcc:
+          description: Mobile country code.
+          example: "204"
+          type: string
+        mnc:
+          description: Mobile network code.
+          example: "01"
+          type: string
+        product:
+          $ref: '#/components/schemas/Product'
+        record_type:
+          default: message_detail_record
+          example: message_detail_record
+          type: string
+        user_id:
+          description: User id
+          example: 3ca7bd3d-7d82-4e07-9df4-009123068320
+          type: string
+      required:
+      - record_type
+      type: object
+    MessageRate:
+      properties:
+        amount:
+          description: Rate applied to the message
+          example: 0.1
+          type: number
+        currency:
+          $ref: '#/components/schemas/Currency'
+      type: object
+    MessageStatus:
+      description: Message status
+      enum:
+      - GW_TIMEOUT
+      - DELIVERED
+      - DLR_UNCONFIRMED
+      - DLR_TIMEOUT
+      - RECEIVED
+      - GW_REJECT
+      - FAILED
+      example: DELIVERED
+      type: string
+    MessageType:
+      description: Type of message
+      enum:
+      - SMS
+      - MMS
+      example: SMS
+      type: string
     MessagingFeatureSet:
       description: |
         The set of features available for a specific messaging use case (SMS or MMS). Features
@@ -18438,9 +18946,10 @@ components:
         payload:
           record_type: message
           direction: outbound
-          id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          id: 40385f64-5717-4562-b3fc-2c963f66afa6
           type: MMS
-          messaging_profile_id: dd50eba1-a0c0-4563-9925-b25e842a7cb6
+          messaging_profile_id: 4000eba1-a0c0-4563-9925-b25e842a7cb6
+          organization_id: b448f9cc-a842-4784-98e9-03c1a5872950
           from:
             phone_number: +18445550001
             carrier: TELNYX LLC
@@ -18503,9 +19012,10 @@ components:
           payload:
             record_type: message
             direction: outbound
-            id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+            id: 40385f64-5717-4562-b3fc-2c963f66afa6
             type: MMS
-            messaging_profile_id: dd50eba1-a0c0-4563-9925-b25e842a7cb6
+            messaging_profile_id: 4000eba1-a0c0-4563-9925-b25e842a7cb6
+            organization_id: b448f9cc-a842-4784-98e9-03c1a5872950
             from:
               phone_number: +18445550001
               carrier: TELNYX LLC
@@ -18534,17 +19044,23 @@ components:
             completed_at: null
             valid_until: null
             errors: []
+        meta:
+          delivered_to: https://www.example.com/hooks
+          attempt: 1
       properties:
         data:
           $ref: '#/components/schemas/OutboundMessage'
+        meta:
+          $ref: '#/components/schemas/OutboundMessageEvent_meta'
       type: object
     OutboundMessagePayload:
       example:
         record_type: message
         direction: outbound
-        id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        id: 40385f64-5717-4562-b3fc-2c963f66afa6
         type: MMS
-        messaging_profile_id: dd50eba1-a0c0-4563-9925-b25e842a7cb6
+        messaging_profile_id: 4000eba1-a0c0-4563-9925-b25e842a7cb6
+        organization_id: b448f9cc-a842-4784-98e9-03c1a5872950
         from:
           phone_number: +18445550001
           carrier: TELNYX LLC
@@ -18599,6 +19115,10 @@ components:
           type: string
         messaging_profile_id:
           description: Unique identifier for a messaging profile.
+          type: string
+        organization_id:
+          description: The id of the organization the messaging profile belongs to.
+          format: uuid
           type: string
         from:
           $ref: '#/components/schemas/OutboundMessagePayload_from'
@@ -18938,6 +19458,15 @@ components:
       - whisper_call_control_ids
       title: Participant
       type: object
+    PassThroughFee:
+      properties:
+        amount:
+          description: Normalized carrier pass through fee
+          example: 0.1
+          type: number
+        currency:
+          $ref: '#/components/schemas/Currency'
+      type: object
     PauseRecordingRequest:
       example:
         command_id: 891510ac-f3e4-11e8-af5b-de00688a4901
@@ -19027,6 +19556,7 @@ components:
         caller_id_name_enabled: true
         call_recording_enabled: true
         t38_fax_gateway_enabled: true
+        phone_number_type: longcode
         purchased_at: 2019-10-23T18:10:00.000Z
         created_at: 2019-10-23T18:10:00.000Z
         updated_at: 2019-10-24T18:10:00.000Z
@@ -19129,6 +19659,13 @@ components:
             number.
           readOnly: true
           type: boolean
+        phone_number_type:
+          description: The phone number's type.
+          enum:
+          - longcode
+          - tollfree
+          readOnly: true
+          type: string
         purchased_at:
           description: ISO 8601 formatted date indicating the time the request was
             made to purchase the number.
@@ -19167,6 +19704,7 @@ components:
         caller_id_name_enabled: true
         call_recording_enabled: true
         t38_fax_gateway_enabled: true
+        phone_number_type: longcode
         purchased_at: 2019-10-23T18:10:00.000Z
         created_at: 2019-10-23T18:10:00.000Z
         updated_at: 2019-10-24T18:10:00.000Z
@@ -19269,6 +19807,13 @@ components:
             number.
           readOnly: true
           type: boolean
+        phone_number_type:
+          description: The phone number's type.
+          enum:
+          - longcode
+          - tollfree
+          readOnly: true
+          type: string
         purchased_at:
           description: ISO 8601 formatted date indicating when the resource was purchased.
           readOnly: true
@@ -19752,6 +20297,7 @@ components:
           example: true
           type: boolean
         stop:
+          default: all
           description: When specified, it stops the current audio being played.  Specify
             `current` to stop the current audio being played, and to play the next
             file in the queue. Specify `all` to stop the current audio file being
@@ -19879,6 +20425,17 @@ components:
           example: Illinois
           type: string
       type: object
+    Product:
+      description: Used product
+      enum:
+      - LONG_CODE
+      - SHORT_CODE
+      - SHORT_CODE_FTEU
+      - TOLL_FREE
+      - ALPHANUMERIC_ID
+      - RCS
+      example: LONG_CODE
+      type: string
     Queue:
       example:
         record_type: queue
@@ -24044,9 +24601,10 @@ components:
         data:
           record_type: message
           direction: outbound
-          id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          id: 40385f64-5717-4562-b3fc-2c963f66afa6
           type: MMS
-          messaging_profile_id: dd50eba1-a0c0-4563-9925-b25e842a7cb6
+          messaging_profile_id: 4000eba1-a0c0-4563-9925-b25e842a7cb6
+          organization_id: b448f9cc-a842-4784-98e9-03c1a5872950
           from:
             phone_number: +18445550001
             carrier: TELNYX LLC
@@ -24806,6 +25364,7 @@ components:
           caller_id_name_enabled: true
           call_recording_enabled: true
           t38_fax_gateway_enabled: true
+          phone_number_type: longcode
           purchased_at: 2019-10-23T18:10:00.000Z
           created_at: 2019-10-23T18:10:00.000Z
           updated_at: 2019-10-24T18:10:00.000Z
@@ -24830,6 +25389,7 @@ components:
           caller_id_name_enabled: true
           call_recording_enabled: true
           t38_fax_gateway_enabled: true
+          phone_number_type: longcode
           purchased_at: 2019-10-23T18:10:00.000Z
           created_at: 2019-10-23T18:10:00.000Z
           updated_at: 2019-10-24T18:10:00.000Z
@@ -25221,6 +25781,7 @@ components:
           caller_id_name_enabled: true
           call_recording_enabled: true
           t38_fax_gateway_enabled: true
+          phone_number_type: longcode
           purchased_at: 2019-10-23T18:10:00.000Z
           created_at: 2019-10-23T18:10:00.000Z
           updated_at: 2019-10-24T18:10:00.000Z
@@ -25253,6 +25814,7 @@ components:
           caller_id_name_enabled: true
           call_recording_enabled: true
           t38_fax_gateway_enabled: true
+          phone_number_type: longcode
           purchased_at: 2019-10-23T18:10:00.000Z
           created_at: 2019-10-23T18:10:00.000Z
           updated_at: 2019-10-24T18:10:00.000Z
@@ -26805,6 +27367,38 @@ components:
           - time_exceeded
           type: string
       type: object
+    ConferenceFloorChangedEvent_payload:
+      properties:
+        call_control_id:
+          description: Call Control ID of the new speaker.
+          example: v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+          type: string
+        connection_id:
+          description: Telnyx connection ID used in the call.
+          example: 7267xxxxxxxxxxxxxx
+          type: string
+        call_leg_id:
+          description: Call Leg ID of the new speaker.
+          example: 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+          type: string
+        call_session_id:
+          description: Call Session ID of the new speaker.
+          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          type: string
+        client_state:
+          description: State received from a command.
+          example: aGF2ZSBhIG5pY2UgZGF5ID1d
+          type: string
+        conference_id:
+          description: Conference ID that had a speaker change event.
+          example: 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+          type: string
+        occurred_at:
+          description: ISO 8601 datetime of when the event occurred.
+          example: 2018-02-02T22:25:27.521Z
+          format: date-time
+          type: string
+      type: object
     ConferenceParticipantJoined_payload:
       properties:
         call_control_id:
@@ -27481,6 +28075,21 @@ components:
           description: The number of inbound messages received.
           readOnly: true
           type: number
+      type: object
+    OutboundMessageEvent_meta:
+      example:
+        delivered_to: https://www.example.com/hooks
+        attempt: 1
+      properties:
+        attempt:
+          description: Number of attempts to deliver the webhook event.
+          example: 1
+          type: integer
+        delivered_to:
+          description: The webhook URL the event was delivered to.
+          example: https://www.example.com/hooks
+          format: url
+          type: string
       type: object
     OutboundMessagePayload_from:
       properties:

@@ -155,7 +155,15 @@ public class Fax {
     
     DELIVERED("delivered"),
     
-    FAILED("failed");
+    FAILED("failed"),
+    
+    INITIATED("initiated"),
+    
+    RECEIVING("receiving"),
+    
+    MEDIA_PROCESSING("media.processing"),
+    
+    RECEIVED("received");
 
     private String value;
 
@@ -452,11 +460,11 @@ public class Fax {
   }
 
    /**
-   * Optional failover URL that will receive fax webhooks if &#x60;webhook_url&#x60; doesn&#39;t return a 2XX response
+   * Optional failover URL that will receive fax webhooks if webhook_url doesn&#39;t return a 2XX response
    * @return webhookFailoverUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Optional failover URL that will receive fax webhooks if `webhook_url` doesn't return a 2XX response")
+  @ApiModelProperty(value = "Optional failover URL that will receive fax webhooks if webhook_url doesn't return a 2XX response")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

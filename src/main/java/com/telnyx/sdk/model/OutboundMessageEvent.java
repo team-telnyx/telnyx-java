@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.OutboundMessage;
+import com.telnyx.sdk.model.OutboundMessageEventMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -33,12 +34,16 @@ import com.telnyx.sdk.JSON;
  * OutboundMessageEvent
  */
 @JsonPropertyOrder({
-  OutboundMessageEvent.JSON_PROPERTY_DATA
+  OutboundMessageEvent.JSON_PROPERTY_DATA,
+  OutboundMessageEvent.JSON_PROPERTY_META
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class OutboundMessageEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private OutboundMessage data;
+
+  public static final String JSON_PROPERTY_META = "meta";
+  private OutboundMessageEventMeta meta;
 
 
   public OutboundMessageEvent data(OutboundMessage data) {
@@ -65,6 +70,30 @@ public class OutboundMessageEvent {
   }
 
 
+  public OutboundMessageEvent meta(OutboundMessageEventMeta meta) {
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OutboundMessageEventMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(OutboundMessageEventMeta meta) {
+    this.meta = meta;
+  }
+
+
   /**
    * Return true if this OutboundMessageEvent object is equal to o.
    */
@@ -77,12 +106,13 @@ public class OutboundMessageEvent {
       return false;
     }
     OutboundMessageEvent outboundMessageEvent = (OutboundMessageEvent) o;
-    return Objects.equals(this.data, outboundMessageEvent.data);
+    return Objects.equals(this.data, outboundMessageEvent.data) &&
+        Objects.equals(this.meta, outboundMessageEvent.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(data, meta);
   }
 
 
@@ -91,6 +121,7 @@ public class OutboundMessageEvent {
     StringBuilder sb = new StringBuilder();
     sb.append("class OutboundMessageEvent {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

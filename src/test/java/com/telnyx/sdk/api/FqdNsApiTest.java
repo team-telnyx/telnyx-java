@@ -61,6 +61,7 @@ public class FqdNsApiTest {
             api.deleteFqdn(existingFqdn.getId());
             fqdnConnectionsApi.deleteFqdnConnection(existingFqdnConnection.getId());
         } catch (ApiException e) {
+            e.printStackTrace();
             //ignore
         }
 

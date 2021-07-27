@@ -2,7 +2,7 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 
 group = 'com.telnyx.sdk'
-version = '2.7.1'
+version = '2.8.0'
 
 buildscript {
     repositories {
@@ -101,8 +101,8 @@ if(hasProperty('target') && target == 'android') {
 
 ext {
     swagger_annotations_version = "1.5.22"
-    jackson_version = "2.10.3"
-    jackson_databind_version = "2.10.4"
+    jackson_version = "2.12.4"
+    jackson_databind_version = "2.12.4"
     jackson_databind_nullable_version = "0.2.1"
     jersey_version = "2.27"
     junit_version = "4.13"

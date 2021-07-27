@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **callerIdNameEnabled** | **Boolean** | Indicates whether caller ID is enabled for this number. |  [optional] [readonly]
 **callRecordingEnabled** | **Boolean** | Indicates whether call recording is enabled for this number. |  [optional] [readonly]
 **t38FaxGatewayEnabled** | **Boolean** | Indicates whether T38 Fax Gateway for inbound calls to this number. |  [optional] [readonly]
+**phoneNumberType** | [**PhoneNumberTypeEnum**](#PhoneNumberTypeEnum) | The phone number&#39;s type. |  [optional] [readonly]
 **purchasedAt** | **String** | ISO 8601 formatted date indicating when the resource was purchased. |  [optional] [readonly]
 **createdAt** | **String** | ISO 8601 formatted date indicating when the resource was created. |  [optional] [readonly]
 
@@ -43,6 +44,15 @@ DELETED | &quot;deleted&quot;
 EMERGENCY_ONLY | &quot;emergency-only&quot;
 PORTED_OUT | &quot;ported-out&quot;
 PORT_OUT_PENDING | &quot;port-out-pending&quot;
+
+
+
+## Enum: PhoneNumberTypeEnum
+
+Name | Value
+---- | -----
+LONGCODE | &quot;longcode&quot;
+TOLLFREE | &quot;tollfree&quot;
 
 
 

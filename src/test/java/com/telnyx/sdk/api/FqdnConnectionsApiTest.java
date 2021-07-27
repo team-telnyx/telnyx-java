@@ -41,9 +41,10 @@ public class FqdnConnectionsApiTest {
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
 
         try {
-            CreateFqdnConnectionRequest createFqdnConnectionRequest = new CreateFqdnConnectionRequest().connectionName("test-fqdn-connection-" + System.currentTimeMillis());
+            CreateFqdnConnectionRequest createFqdnConnectionRequest = new CreateFqdnConnectionRequest().connectionName("test-existing-fqdn-connection-" + System.currentTimeMillis());
             existingFqdnConnection = api.createFqdnConnection(createFqdnConnectionRequest).getData();
         } catch (Exception e) {
+            e.printStackTrace();
             fail("Test Setup Failure - Unable to create fqdn connection: " + e.getMessage());
         }
     }
@@ -53,6 +54,7 @@ public class FqdnConnectionsApiTest {
         try {
             api.deleteFqdnConnection(existingFqdnConnection.getId());
         } catch (ApiException e) {
+            e.printStackTrace();
             //ignore
         }
 
@@ -79,7 +81,7 @@ public class FqdnConnectionsApiTest {
                 .privacyZoneEnabled(true)
                 .sipCompactHeadersEnabled(false)
                 .sipRegion(InboundFqdn.SipRegionEnum.EUROPE)
-                .sipSubdomain("example.sip.telnyx.com")
+                .sipSubdomain("example2.sip.telnyx.com")
                 .sipSubdomainReceiveSettings(InboundFqdn.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS)
                 .timeout1xxSecs(1)
                 .timeout2xxSecs(2);
@@ -190,7 +192,7 @@ public class FqdnConnectionsApiTest {
         UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
                 .active(false)
                 .anchorsiteOverride(AnchorsiteOverride.AMSTERDAM_NETHERLANDS)
-                .connectionName("test-fqdn-connection")
+                .connectionName("test-update-fqdn-connection")
                 .defaultOnHoldComfortNoiseEnabled(false)
                 .dtmfType(DtmfType.INBAND)
                 .encodeContactHeaderEnabled(true)
@@ -224,7 +226,7 @@ public class FqdnConnectionsApiTest {
     @Ignore("Ignoring this test until we clean up the spec to remove default values on update request objects")
     public void updateFqdnConnection_whenNullableFieldNotIncluded_doesNotUpdateNullableFieldToDefaultValue() throws ApiException {
         CreateFqdnConnectionRequest createFqdnConnectionRequest = new CreateFqdnConnectionRequest()
-                .connectionName("test-fqdn-connection-" + System.currentTimeMillis())
+                .connectionName("test-update-fqdn-connection-" + System.currentTimeMillis())
                 .transportProtocol(FqdnConnectionTransportProtocol.TLS);
 
         FqdnConnection existingTLSConnectionRequest = api.createFqdnConnection(createFqdnConnectionRequest).getData();

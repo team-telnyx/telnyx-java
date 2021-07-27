@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>2.7.1</version>
+  <version>2.8.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.telnyx.sdk:telnyx:2.7.1"
+compile "com.telnyx.sdk:telnyx:2.8.0"
 ```
 
 ### Others
@@ -57,7 +57,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-2.7.1.jar`
+- `target/telnyx-2.8.0.jar`
 - `target/lib/*.jar`
 
 ## JDK Support
@@ -195,6 +195,7 @@ Class | Method | HTTP request | Description
 *CsvDownloadsApi* | [**listCsvDownloads**](docs/CsvDownloadsApi.md#listCsvDownloads) | **GET** /phone_numbers/csv_downloads | List CSV downloads
 *CsvDownloadsApi* | [**retrieveCsvDownload**](docs/CsvDownloadsApi.md#retrieveCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a CSV download
 *DebuggingApi* | [**listCallEvents**](docs/DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
+*DetailRecordsApi* | [**detailRecordsSearch**](docs/DetailRecordsApi.md#detailRecordsSearch) | **GET** /detail_records | 
 *FqdNsApi* | [**createFqdn**](docs/FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an FQDN
 *FqdNsApi* | [**deleteFqdn**](docs/FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an FQDN
 *FqdNsApi* | [**listFqdns**](docs/FqdNsApi.md#listFqdns) | **GET** /fqdns | List FQDNs
@@ -297,9 +298,9 @@ Class | Method | HTTP request | Description
 *TeXmlApplicationsApi* | [**getTexmlApplication**](docs/TeXmlApplicationsApi.md#getTexmlApplication) | **GET** /texml_applications/{id} | Retrieve a TeXML Application
 *TeXmlApplicationsApi* | [**updateTexmlApplication**](docs/TeXmlApplicationsApi.md#updateTexmlApplication) | **PATCH** /texml_applications/{id} | Update a TeXML Application
 *VerifyApi* | [**createVerificationCall**](docs/VerifyApi.md#createVerificationCall) | **POST** /verifications/call | Trigger a Call verification
-*VerifyApi* | [**createVerificationFlashcall**](docs/VerifyApi.md#createVerificationFlashcall) | **POST** /verifications/flashcall | Trigger a flash call verification
+*VerifyApi* | [**createVerificationFlashcall**](docs/VerifyApi.md#createVerificationFlashcall) | **POST** /verifications/flashcall | Trigger a Flash call verification
 *VerifyApi* | [**createVerificationPSD2**](docs/VerifyApi.md#createVerificationPSD2) | **POST** /verifications/psd2 | Trigger a PSD2 verification
-*VerifyApi* | [**createVerificationSMS**](docs/VerifyApi.md#createVerificationSMS) | **POST** /verifications/sms | Trigger an SMS verification
+*VerifyApi* | [**createVerificationSMS**](docs/VerifyApi.md#createVerificationSMS) | **POST** /verifications/sms | Trigger a SMS verification
 *VerifyApi* | [**createVerificationWhatsapp**](docs/VerifyApi.md#createVerificationWhatsapp) | **POST** /verifications/whatsapp | Trigger a Whatsapp verification
 *VerifyApi* | [**createVerifyProfile**](docs/VerifyApi.md#createVerifyProfile) | **POST** /verify_profiles | Create a Verify profile
 *VerifyApi* | [**deleteVerifyProfile**](docs/VerifyApi.md#deleteVerifyProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete a Verify profile
@@ -405,12 +406,16 @@ Class | Method | HTTP request | Description
  - [ConferenceCreated](docs/ConferenceCreated.md)
  - [ConferenceCreatedEvent](docs/ConferenceCreatedEvent.md)
  - [ConferenceCreatedPayload](docs/ConferenceCreatedPayload.md)
+ - [ConferenceDetailRecord](docs/ConferenceDetailRecord.md)
  - [ConferenceEnded](docs/ConferenceEnded.md)
  - [ConferenceEndedBy](docs/ConferenceEndedBy.md)
  - [ConferenceEndedEvent](docs/ConferenceEndedEvent.md)
  - [ConferenceEndedPayload](docs/ConferenceEndedPayload.md)
+ - [ConferenceFloorChangedEvent](docs/ConferenceFloorChangedEvent.md)
+ - [ConferenceFloorChangedEventPayload](docs/ConferenceFloorChangedEventPayload.md)
  - [ConferenceHoldRequest](docs/ConferenceHoldRequest.md)
  - [ConferenceMuteRequest](docs/ConferenceMuteRequest.md)
+ - [ConferenceParticipantDetailRecord](docs/ConferenceParticipantDetailRecord.md)
  - [ConferenceParticipantJoined](docs/ConferenceParticipantJoined.md)
  - [ConferenceParticipantJoinedEvent](docs/ConferenceParticipantJoinedEvent.md)
  - [ConferenceParticipantJoinedPayload](docs/ConferenceParticipantJoinedPayload.md)
@@ -491,7 +496,11 @@ Class | Method | HTTP request | Description
  - [CredentialOutbound](docs/CredentialOutbound.md)
  - [CsvDownload](docs/CsvDownload.md)
  - [Currencies](docs/Currencies.md)
+ - [Currency](docs/Currency.md)
  - [CustomSipHeader](docs/CustomSipHeader.md)
+ - [DetailRecord](docs/DetailRecord.md)
+ - [DetailRecordsSearchResponse](docs/DetailRecordsSearchResponse.md)
+ - [Direction](docs/Direction.md)
  - [DtmfType](docs/DtmfType.md)
  - [EmergencySettings](docs/EmergencySettings.md)
  - [EncryptedMedia](docs/EncryptedMedia.md)
@@ -581,7 +590,12 @@ Class | Method | HTTP request | Description
  - [ListVerifyProfilesResponse](docs/ListVerifyProfilesResponse.md)
  - [Loopcount](docs/Loopcount.md)
  - [MediaFeatures](docs/MediaFeatures.md)
+ - [MessageCost](docs/MessageCost.md)
+ - [MessageDetailRecord](docs/MessageDetailRecord.md)
+ - [MessageRate](docs/MessageRate.md)
  - [MessageResponse](docs/MessageResponse.md)
+ - [MessageStatus](docs/MessageStatus.md)
+ - [MessageType](docs/MessageType.md)
  - [MessagingFeatureSet](docs/MessagingFeatureSet.md)
  - [MessagingHostedNumberOrder](docs/MessagingHostedNumberOrder.md)
  - [MessagingProfile](docs/MessagingProfile.md)
@@ -611,6 +625,7 @@ Class | Method | HTTP request | Description
  - [OutboundIp](docs/OutboundIp.md)
  - [OutboundMessage](docs/OutboundMessage.md)
  - [OutboundMessageEvent](docs/OutboundMessageEvent.md)
+ - [OutboundMessageEventMeta](docs/OutboundMessageEventMeta.md)
  - [OutboundMessagePayload](docs/OutboundMessagePayload.md)
  - [OutboundMessagePayloadFrom](docs/OutboundMessagePayloadFrom.md)
  - [OutboundMessagePayloadMedia](docs/OutboundMessagePayloadMedia.md)
@@ -621,6 +636,7 @@ Class | Method | HTTP request | Description
  - [PaginationMetaSimple](docs/PaginationMetaSimple.md)
  - [Participant](docs/Participant.md)
  - [ParticipantConference](docs/ParticipantConference.md)
+ - [PassThroughFee](docs/PassThroughFee.md)
  - [PauseRecordingRequest](docs/PauseRecordingRequest.md)
  - [PhoneNumber](docs/PhoneNumber.md)
  - [PhoneNumberDeletedDetailed](docs/PhoneNumberDeletedDetailed.md)
@@ -646,6 +662,7 @@ Class | Method | HTTP request | Description
  - [PlayAudioUrlRequest](docs/PlayAudioUrlRequest.md)
  - [PlaybackStopRequest](docs/PlaybackStopRequest.md)
  - [Portability](docs/Portability.md)
+ - [Product](docs/Product.md)
  - [Queue](docs/Queue.md)
  - [QueueCall](docs/QueueCall.md)
  - [QueueCallResponse](docs/QueueCallResponse.md)

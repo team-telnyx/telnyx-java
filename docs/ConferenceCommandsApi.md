@@ -959,6 +959,7 @@ Create a conference from an existing call leg using a `call_control_id` and a co
 - `conference.participant.left`
 - `conference.ended`
 - `conference.recording.saved`
+- `conference.floor.changed`
 
 
 ### Example

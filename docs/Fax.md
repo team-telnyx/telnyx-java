@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **quality** | **String** | The quality of the fax. Can be normal, high, very_high |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | Status of the fax |  [optional]
 **webhookUrl** | **String** | URL that will receive fax webhooks |  [optional]
-**webhookFailoverUrl** | **String** | Optional failover URL that will receive fax webhooks if &#x60;webhook_url&#x60; doesn&#39;t return a 2XX response |  [optional]
+**webhookFailoverUrl** | **String** | Optional failover URL that will receive fax webhooks if webhook_url doesn&#39;t return a 2XX response |  [optional]
 **storeMedia** | **Boolean** | Should fax media be stored on temporary URL |  [optional]
 **storedMediaUrl** | **String** | If store_media was set to true, this is a link to temporary location. Link expires after 7 days. |  [optional]
 **createdAt** | **String** | ISO 8601 timestamp when resource was created |  [optional]
@@ -50,6 +50,10 @@ MEDIA_PROCESSED | &quot;media.processed&quot;
 SENDING | &quot;sending&quot;
 DELIVERED | &quot;delivered&quot;
 FAILED | &quot;failed&quot;
+INITIATED | &quot;initiated&quot;
+RECEIVING | &quot;receiving&quot;
+MEDIA_PROCESSING | &quot;media.processing&quot;
+RECEIVED | &quot;received&quot;
 
 
 

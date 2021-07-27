@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 Refresh a fax
 
-This endpoint refreshes the media_url expiration for inbound faxes
+Refreshes the inbound fax's media_url when it has expired
 
 ### Example
 

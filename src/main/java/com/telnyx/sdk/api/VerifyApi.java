@@ -130,7 +130,7 @@ public class VerifyApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Trigger a flash call verification
+   * Trigger a Flash call verification
    * 
    * @param createVerificationRequestFlashcall  (required)
    * @return CreateVerificationResponse
@@ -147,7 +147,7 @@ public class VerifyApi {
   }
 
   /**
-   * Trigger a flash call verification
+   * Trigger a Flash call verification
    * 
    * @param createVerificationRequestFlashcall  (required)
    * @return ApiResponse&lt;CreateVerificationResponse&gt;
@@ -268,7 +268,7 @@ public class VerifyApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Trigger an SMS verification
+   * Trigger a SMS verification
    * 
    * @param createVerificationRequestSMS  (required)
    * @return CreateVerificationResponse
@@ -285,7 +285,7 @@ public class VerifyApi {
   }
 
   /**
-   * Trigger an SMS verification
+   * Trigger a SMS verification
    * 
    * @param createVerificationRequestSMS  (required)
    * @return ApiResponse&lt;CreateVerificationResponse&gt;

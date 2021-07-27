@@ -903,7 +903,7 @@ the audio files will be placed in a queue awaiting playback.
 
 *Notes:*
 
-- When `overlay` is enabled, `loop` is limited to 1, and `target_legs` is limited to `self`.
+- When `overlay` is enabled, `target_legs` is limited to `self`.
 - A customer cannot Play Audio with `overlay=true` unless there is a Play Audio with `overlay=false` actively playing.
 
 **Expected Webhooks:**
