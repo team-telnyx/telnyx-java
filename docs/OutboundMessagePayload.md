@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **id** | [**UUID**](UUID.md) | Identifies the type of resource. |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) | The type of message. |  [optional]
 **messagingProfileId** | **String** | Unique identifier for a messaging profile. |  [optional]
+**organizationId** | [**UUID**](UUID.md) | The id of the organization the messaging profile belongs to. |  [optional]
 **from** | [**OutboundMessagePayloadFrom**](OutboundMessagePayloadFrom.md) |  |  [optional]
 **to** | [**List&lt;OutboundMessagePayloadTo&gt;**](OutboundMessagePayloadTo.md) |  |  [optional]
 **text** | **String** | Message body (i.e., content) as a non-empty string.  **Required for SMS** |  [optional]

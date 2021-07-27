@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **startConferenceOnEnter** | **Boolean** | Whether the conference should be started after the participant joins the conference. Defaults to \&quot;false\&quot;. |  [optional]
 **supervisorRole** | [**SupervisorRoleEnum**](#SupervisorRoleEnum) | Sets the joining participant as a supervisor for the conference. A conference can have multiple supervisors. \&quot;barge\&quot; means the supervisor enters the conference as a normal participant. This is the same as \&quot;none\&quot;. \&quot;monitor\&quot; means the supervisor is muted but can hear all participants. \&quot;whisper\&quot; means that only the specified \&quot;whisper_call_control_ids\&quot; can hear the supervisor. Defaults to \&quot;none\&quot;. |  [optional]
 **whisperCallControlIds** | **List&lt;String&gt;** | Array of unique call_control_ids the joining supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only. |  [optional]
+**beepEnabled** | [**BeepEnabledEnum**](#BeepEnabledEnum) | Whether a beep sound should be played when the participant joins and/or leaves the conference. Can be used to override the conference-level setting. |  [optional]
 
 
 
@@ -28,6 +29,17 @@ BARGE | &quot;barge&quot;
 MONITOR | &quot;monitor&quot;
 NONE | &quot;none&quot;
 WHISPER | &quot;whisper&quot;
+
+
+
+## Enum: BeepEnabledEnum
+
+Name | Value
+---- | -----
+ALWAYS | &quot;always&quot;
+NEVER | &quot;never&quot;
+ON_ENTER | &quot;on_enter&quot;
+ON_EXIT | &quot;on_exit&quot;
 
 
 

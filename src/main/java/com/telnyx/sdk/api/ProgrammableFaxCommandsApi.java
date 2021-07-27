@@ -207,7 +207,7 @@ public class ProgrammableFaxCommandsApi {
   }
   /**
    * Refresh a fax
-   * This endpoint refreshes the media_url expiration for inbound faxes
+   * Refreshes the inbound fax&#39;s media_url when it has expired
    * @param id The unique identifier of a fax. (required)
    * @return RefreshFaxResponse
    * @throws ApiException if fails to make API call
@@ -225,7 +225,7 @@ public class ProgrammableFaxCommandsApi {
 
   /**
    * Refresh a fax
-   * This endpoint refreshes the media_url expiration for inbound faxes
+   * Refreshes the inbound fax&#39;s media_url when it has expired
    * @param id The unique identifier of a fax. (required)
    * @return ApiResponse&lt;RefreshFaxResponse&gt;
    * @throws ApiException if fails to make API call

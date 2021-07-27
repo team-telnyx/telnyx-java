@@ -53,6 +53,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDetailed.JSON_PROPERTY_CALLER_ID_NAME_ENABLED,
   PhoneNumberDetailed.JSON_PROPERTY_CALL_RECORDING_ENABLED,
   PhoneNumberDetailed.JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED,
+  PhoneNumberDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE,
   PhoneNumberDetailed.JSON_PROPERTY_PURCHASED_AT,
   PhoneNumberDetailed.JSON_PROPERTY_CREATED_AT
 })
@@ -163,6 +164,44 @@ public class PhoneNumberDetailed {
 
   public static final String JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED = "t38_fax_gateway_enabled";
   private Boolean t38FaxGatewayEnabled;
+
+  /**
+   * The phone number&#39;s type.
+   */
+  public enum PhoneNumberTypeEnum {
+    LONGCODE("longcode"),
+    
+    TOLLFREE("tollfree");
+
+    private String value;
+
+    PhoneNumberTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PhoneNumberTypeEnum fromValue(String value) {
+      for (PhoneNumberTypeEnum b : PhoneNumberTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_PHONE_NUMBER_TYPE = "phone_number_type";
+  private PhoneNumberTypeEnum phoneNumberType;
 
   public static final String JSON_PROPERTY_PURCHASED_AT = "purchased_at";
   private String purchasedAt;
@@ -540,6 +579,22 @@ public class PhoneNumberDetailed {
 
 
    /**
+   * The phone number&#39;s type.
+   * @return phoneNumberType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The phone number's type.")
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PhoneNumberTypeEnum getPhoneNumberType() {
+    return phoneNumberType;
+  }
+
+
+
+
+   /**
    * ISO 8601 formatted date indicating when the resource was purchased.
    * @return purchasedAt
   **/
@@ -602,13 +657,14 @@ public class PhoneNumberDetailed {
         Objects.equals(this.callerIdNameEnabled, phoneNumberDetailed.callerIdNameEnabled) &&
         Objects.equals(this.callRecordingEnabled, phoneNumberDetailed.callRecordingEnabled) &&
         Objects.equals(this.t38FaxGatewayEnabled, phoneNumberDetailed.t38FaxGatewayEnabled) &&
+        Objects.equals(this.phoneNumberType, phoneNumberDetailed.phoneNumberType) &&
         Objects.equals(this.purchasedAt, phoneNumberDetailed.purchasedAt) &&
         Objects.equals(this.createdAt, phoneNumberDetailed.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, customerReference, connectionId, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt);
+    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, customerReference, connectionId, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, phoneNumberType, purchasedAt, createdAt);
   }
 
 
@@ -635,6 +691,7 @@ public class PhoneNumberDetailed {
     sb.append("    callerIdNameEnabled: ").append(toIndentedString(callerIdNameEnabled)).append("\n");
     sb.append("    callRecordingEnabled: ").append(toIndentedString(callRecordingEnabled)).append("\n");
     sb.append("    t38FaxGatewayEnabled: ").append(toIndentedString(t38FaxGatewayEnabled)).append("\n");
+    sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
     sb.append("    purchasedAt: ").append(toIndentedString(purchasedAt)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");

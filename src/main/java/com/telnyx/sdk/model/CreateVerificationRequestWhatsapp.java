@@ -36,8 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreateVerificationRequestWhatsapp.JSON_PROPERTY_PHONE_NUMBER,
   CreateVerificationRequestWhatsapp.JSON_PROPERTY_VERIFY_PROFILE_ID,
-  CreateVerificationRequestWhatsapp.JSON_PROPERTY_TIMEOUT_SECS,
-  CreateVerificationRequestWhatsapp.JSON_PROPERTY_APP_NAME
+  CreateVerificationRequestWhatsapp.JSON_PROPERTY_TIMEOUT_SECS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateVerificationRequestWhatsapp {
@@ -49,9 +48,6 @@ public class CreateVerificationRequestWhatsapp {
 
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs;
-
-  public static final String JSON_PROPERTY_APP_NAME = "app_name";
-  private String appName;
 
 
   public CreateVerificationRequestWhatsapp phoneNumber(String phoneNumber) {
@@ -124,30 +120,6 @@ public class CreateVerificationRequestWhatsapp {
   }
 
 
-  public CreateVerificationRequestWhatsapp appName(String appName) {
-    this.appName = appName;
-    return this;
-  }
-
-   /**
-   * The name that identifies the application requesting 2fa in the verification message.
-   * @return appName
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "Example Secure App", value = "The name that identifies the application requesting 2fa in the verification message.")
-  @JsonProperty(JSON_PROPERTY_APP_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAppName() {
-    return appName;
-  }
-
-
-  public void setAppName(String appName) {
-    this.appName = appName;
-  }
-
-
   /**
    * Return true if this CreateVerificationRequestWhatsapp object is equal to o.
    */
@@ -162,13 +134,12 @@ public class CreateVerificationRequestWhatsapp {
     CreateVerificationRequestWhatsapp createVerificationRequestWhatsapp = (CreateVerificationRequestWhatsapp) o;
     return Objects.equals(this.phoneNumber, createVerificationRequestWhatsapp.phoneNumber) &&
         Objects.equals(this.verifyProfileId, createVerificationRequestWhatsapp.verifyProfileId) &&
-        Objects.equals(this.timeoutSecs, createVerificationRequestWhatsapp.timeoutSecs) &&
-        Objects.equals(this.appName, createVerificationRequestWhatsapp.appName);
+        Objects.equals(this.timeoutSecs, createVerificationRequestWhatsapp.timeoutSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, verifyProfileId, timeoutSecs, appName);
+    return Objects.hash(phoneNumber, verifyProfileId, timeoutSecs);
   }
 
 
@@ -179,7 +150,6 @@ public class CreateVerificationRequestWhatsapp {
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    verifyProfileId: ").append(toIndentedString(verifyProfileId)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
-    sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -65,6 +65,10 @@
       "description": "Call Control debugging"
     },
     {
+      "name": "Detail Records",
+      "description": "Detail Records operations"
+    },
+    {
       "name": "FQDN Connections",
       "description": "FQDN connection operations"
     },
@@ -1636,7 +1640,7 @@
     "/calls/{call_control_id}/actions/playback_start": {
       "post": {
         "summary": "Play audio URL",
-        "description": "Play an audio file on the call. If multiple play audio commands are issued consecutively,\nthe audio files will be placed in a queue awaiting playback.\n\n*Notes:*\n\n- When `overlay` is enabled, `loop` is limited to 1, and `target_legs` is limited to `self`.\n- A customer cannot Play Audio with `overlay=true` unless there is a Play Audio with `overlay=false` actively playing.\n\n**Expected Webhooks:**\n\n- `call.playback.started`\n- `call.playback.ended`\n",
+        "description": "Play an audio file on the call. If multiple play audio commands are issued consecutively,\nthe audio files will be placed in a queue awaiting playback.\n\n*Notes:*\n\n- When `overlay` is enabled, `target_legs` is limited to `self`.\n- A customer cannot Play Audio with `overlay=true` unless there is a Play Audio with `overlay=false` actively playing.\n\n**Expected Webhooks:**\n\n- `call.playback.started`\n- `call.playback.ended`\n",
         "operationId": "callPlaybackStart",
         "tags": [
           "Call Commands"
@@ -2475,7 +2479,7 @@
       },
       "post": {
         "summary": "Create conference",
-        "description": "Create a conference from an existing call leg using a `call_control_id` and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.\n\n**Expected Webhooks:**\n\n- `conference.created`\n- `conference.participant.joined`\n- `conference.participant.left`\n- `conference.ended`\n- `conference.recording.saved`\n",
+        "description": "Create a conference from an existing call leg using a `call_control_id` and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.\n\n**Expected Webhooks:**\n\n- `conference.created`\n- `conference.participant.joined`\n- `conference.participant.left`\n- `conference.ended`\n- `conference.recording.saved`\n- `conference.floor.changed`\n",
         "operationId": "createConference",
         "tags": [
           "Conference Commands"
@@ -2575,6 +2579,27 @@
                     "application/json": {
                       "schema": {
                         "$ref": "#/components/schemas/ConferenceParticipantLeftEvent"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+                  }
+                }
+              }
+            }
+          },
+          "conferenceFloorChanged": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/ConferenceFloorChangedEvent"
                       }
                     }
                   }
@@ -3855,6 +3880,149 @@
         "x-latency-category": "responsive"
       }
     },
+    "/detail_records": {
+      "get": {
+        "tags": [
+          "Detail Records"
+        ],
+        "description": "Search for any detail record across the Telnyx Platform",
+        "operationId": "DetailRecordsSearch",
+        "parameters": [
+          {
+            "name": "filter[record_type]",
+            "in": "query",
+            "description": "Filter by the given record type",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "filter[record_type]=messaging": {
+                "value": "messaging",
+                "summary": "Searches for messaging detail records"
+              }
+            }
+          },
+          {
+            "name": "filter[date_range]",
+            "in": "query",
+            "description": "Filter by the given user-friendly date range",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "filter[date_range]=today": {
+                "value": "today",
+                "summary": "Searches for records with timestamp starting at `00:00:00` of the current day"
+              },
+              "filter[date_range]=last_3_days": {
+                "value": "last_3_days",
+                "summary": "Searches for records with timestamp starting at `00:00:00` since 3 days ago"
+              }
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter records",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "examples": {
+              "filter[created_at][gte]=2021-06-22": {
+                "value": "2021-06-22",
+                "summary": "Searches for records with `created_at` starting at `2021-06-22`"
+              },
+              "filter[created_at][lt]=2021-06-23": {
+                "value": "2021-06-23",
+                "summary": "Searches for records with `created_at` ending at `2021-06-22`"
+              },
+              "filter[direction]=inbound": {
+                "value": "inbound",
+                "summary": "Searches for records which have the property `direction` equal to `inbound`"
+              },
+              "filter[cld][starts_with]=123": {
+                "value": "123",
+                "summary": "Searches for records which have the property `cld` starting with the prefix `123`"
+              },
+              "filter[cld][ends_with]=789": {
+                "value": "789",
+                "summary": "Searches for records which have the property `cld` ending with the suffix `789`"
+              },
+              "filter[cld][contains]=456": {
+                "value": "456",
+                "summary": "Searches for records which have the property `cld` containing the pattern `456`"
+              }
+            }
+          },
+          {
+            "name": "page[number]",
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "page[size]",
+            "in": "query",
+            "description": "Page size",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20,
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          {
+            "name": "sort",
+            "description": "Specifies the sort order for results",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "examples": {
+              "sort=created_at": {
+                "value": "created_at",
+                "summary": "Sorts search results using the `created_at` date-time in ascending order"
+              },
+              "sort=-created_at": {
+                "value": "created_at",
+                "summary": "Sorts search results using the `created_at` date-time in descending order"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DetailRecordsSearchResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-latency-category": "interactive"
+      }
+    },
     "/fax_applications": {
       "get": {
         "description": "This endpoint returns a list of your Fax Applications inside the 'data' attribute of the response. You can adjust which applications are listed by using filters. Fax Applications are used to configure how you send and receive faxes using the Programmable Fax API with Telnyx.",
@@ -4318,7 +4486,7 @@
     "/faxes/{id}/actions/refresh": {
       "post": {
         "summary": "Refresh a fax",
-        "description": "This endpoint refreshes the media_url expiration for inbound faxes",
+        "description": "Refreshes the inbound fax's media_url when it has expired",
         "operationId": "RefreshFax",
         "tags": [
           "Programmable Fax Commands"
@@ -8382,7 +8550,7 @@
         "tags": [
           "Verify"
         ],
-        "summary": "Trigger a flash call verification",
+        "summary": "Trigger a Flash call verification",
         "operationId": "createVerificationFlashcall",
         "requestBody": {
           "content": {
@@ -8452,7 +8620,7 @@
         "tags": [
           "Verify"
         ],
-        "summary": "Trigger an SMS verification",
+        "summary": "Trigger a SMS verification",
         "operationId": "createVerificationSMS",
         "requestBody": {
           "content": {
@@ -14047,6 +14215,92 @@
           }
         }
       },
+      "ConferenceDetailRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Conference id",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "name": {
+            "type": "string",
+            "description": "Conference name",
+            "example": "My Conference"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "User id",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "started_at": {
+            "type": "string",
+            "description": "Conference start time",
+            "format": "date-time",
+            "example": "2020-07-01T00:00:00-06:00"
+          },
+          "ended_at": {
+            "type": "string",
+            "description": "Conference end time",
+            "format": "date-time",
+            "example": "2020-07-01T00:00:00-06:00"
+          },
+          "expires_at": {
+            "type": "string",
+            "description": "Conference expiry time",
+            "format": "date-time",
+            "example": "2020-07-01T00:00:00-06:00"
+          },
+          "region": {
+            "type": "string",
+            "description": "Region where the conference is hosted",
+            "example": "ch1"
+          },
+          "call_leg_id": {
+            "type": "string",
+            "description": "Telnyx UUID that identifies the conference call leg",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "call_session_id": {
+            "type": "string",
+            "description": "Telnyx UUID that identifies with conference call session",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "connection_id": {
+            "type": "string",
+            "description": "Connection id",
+            "example": "1583941447772537867"
+          },
+          "call_sec": {
+            "type": "integer",
+            "description": "Duration of the conference call in seconds",
+            "example": 100
+          },
+          "participant_count": {
+            "type": "integer",
+            "description": "Number of participants that joined the conference call",
+            "example": 5
+          },
+          "participant_call_sec": {
+            "type": "integer",
+            "description": "Sum of the conference call duration for all participants in seconds",
+            "example": 100
+          },
+          "is_telnyx_billable": {
+            "type": "boolean",
+            "description": "Indicates whether Telnyx billing charges might be applicable",
+            "example": false
+          },
+          "record_type": {
+            "type": "string",
+            "example": "conference_detail_record",
+            "default": "conference_detail_record"
+          }
+        },
+        "required": [
+          "record_type"
+        ]
+      },
       "ConferenceEnded": {
         "type": "object",
         "title": "Conference Ended",
@@ -14150,6 +14404,90 @@
           }
         }
       },
+      "ConferenceFloorChangedEvent": {
+        "type": "object",
+        "title": "Conference Floor Changed",
+        "example": {
+          "record_type": "event",
+          "event_type": "conference.floor.changed",
+          "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+          "occurred_at": "2018-02-02T22:25:27.521992Z",
+          "payload": {
+            "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
+            "connection_id": "7267xxxxxxxxxxxxxx",
+            "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+            "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+            "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+            "conference_id": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+            "occured_at": "2018-02-02T22:25:27.521Z"
+          }
+        },
+        "properties": {
+          "record_type": {
+            "type": "string",
+            "example": "event",
+            "enum": [
+              "event"
+            ],
+            "description": "Identifies the type of the resource."
+          },
+          "event_type": {
+            "type": "string",
+            "example": "conference.floor.changed",
+            "enum": [
+              "conference.floor.changed"
+            ],
+            "description": "The type of event being delivered."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+            "description": "Identifies the type of resource."
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "call_control_id": {
+                "type": "string",
+                "example": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
+                "description": "Call Control ID of the new speaker."
+              },
+              "connection_id": {
+                "type": "string",
+                "example": "7267xxxxxxxxxxxxxx",
+                "description": "Telnyx connection ID used in the call."
+              },
+              "call_leg_id": {
+                "type": "string",
+                "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+                "description": "Call Leg ID of the new speaker."
+              },
+              "call_session_id": {
+                "type": "string",
+                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+                "description": "Call Session ID of the new speaker."
+              },
+              "client_state": {
+                "type": "string",
+                "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+                "description": "State received from a command."
+              },
+              "conference_id": {
+                "type": "string",
+                "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+                "description": "Conference ID that had a speaker change event."
+              },
+              "occurred_at": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-02T22:25:27.521Z",
+                "description": "ISO 8601 datetime of when the event occurred."
+              }
+            }
+          }
+        }
+      },
       "ConferenceHoldRequest": {
         "type": "object",
         "title": "Conference Hold Request",
@@ -14191,6 +14529,101 @@
             "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
           ]
         }
+      },
+      "ConferenceParticipantDetailRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Participant id",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "User id",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "conference_id": {
+            "type": "string",
+            "description": "Conference id",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "joined_at": {
+            "type": "string",
+            "description": "Participant join time",
+            "format": "date-time",
+            "example": "2020-07-01T00:00:00-06:00"
+          },
+          "left_at": {
+            "type": "string",
+            "description": "Participant leave time",
+            "format": "date-time",
+            "example": "2020-07-01T00:00:00-06:00"
+          },
+          "destination_number": {
+            "type": "string",
+            "description": "Number called by the participant to join the conference",
+            "example": "+18005550199"
+          },
+          "originating_number": {
+            "type": "string",
+            "description": "Participant origin number used in the conference call",
+            "example": "+18005550199"
+          },
+          "call_leg_id": {
+            "type": "string",
+            "description": "Telnyx UUID that identifies the conference call leg",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "call_session_id": {
+            "type": "string",
+            "description": "Telnyx UUID that identifies with conference call session",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "call_sec": {
+            "type": "integer",
+            "description": "Duration of the conference call in seconds",
+            "example": 100
+          },
+          "billed_sec": {
+            "type": "integer",
+            "description": "Duration of the conference call for billing purposes",
+            "example": 120
+          },
+          "is_telnyx_billable": {
+            "type": "boolean",
+            "description": "Indicates whether Telnyx billing charges might be applicable",
+            "example": true
+          },
+          "rate": {
+            "type": "string",
+            "description": "Currency amount per billing unit used to calculate the Telnyx billing cost",
+            "example": "0.002"
+          },
+          "rate_measured_in": {
+            "type": "string",
+            "description": "Billing unit used to calculate the Telnyx billing cost",
+            "example": "minutes"
+          },
+          "cost": {
+            "type": "string",
+            "description": "Currency amount for Telnyx billing cost",
+            "example": "0.004"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Telnyx account currency used to describe monetary values, including billing cost",
+            "example": "USD"
+          },
+          "record_type": {
+            "type": "string",
+            "example": "conference_participant_detail_record",
+            "default": "conference_participant_detail_record"
+          }
+        },
+        "required": [
+          "record_type"
+        ]
       },
       "ConferenceParticipantJoined": {
         "type": "object",
@@ -17479,11 +17912,6 @@
             "type": "integer",
             "example": 300,
             "description": "The number of seconds the verification code is valid for."
-          },
-          "app_name": {
-            "example": "Example Secure App",
-            "description": "The name that identifies the application requesting 2fa in the verification message.",
-            "type": "string"
           }
         }
       },
@@ -18001,6 +18429,18 @@
         "example": "USD",
         "description": "The supported currencies."
       },
+      "Currency": {
+        "type": "string",
+        "description": "User currency",
+        "example": "USD",
+        "enum": [
+          "AUD",
+          "CAD",
+          "EUR",
+          "GBP",
+          "USD"
+        ]
+      },
       "CustomSipHeader": {
         "type": "object",
         "title": "Custom SIP Header",
@@ -18024,6 +18464,48 @@
           "name": "head_1",
           "value": "val_1"
         }
+      },
+      "DetailRecord": {
+        "type": "object",
+        "description": "An object following one of the schemas published in https://developers.telnyx.com/docs/api/v2/detail-records",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/MessageDetailRecord"
+          },
+          {
+            "$ref": "#/components/schemas/ConferenceDetailRecord"
+          },
+          {
+            "$ref": "#/components/schemas/ConferenceParticipantDetailRecord"
+          }
+        ],
+        "required": [
+          "record_type"
+        ],
+        "discriminator": {
+          "propertyName": "record_type"
+        }
+      },
+      "DetailRecordsSearchResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetailRecord"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          }
+        }
+      },
+      "Direction": {
+        "type": "string",
+        "enum": [
+          "INBOUND",
+          "OUTBOUND"
+        ]
       },
       "DtmfType": {
         "title": "DTMF Type",
@@ -18234,7 +18716,11 @@
               "media.processed",
               "sending",
               "delivered",
-              "failed"
+              "failed",
+              "initiated",
+              "receiving",
+              "media.processing",
+              "received"
             ]
           },
           "webhook_url": {
@@ -18242,7 +18728,7 @@
             "type": "string"
           },
           "webhook_failover_url": {
-            "description": "Optional failover URL that will receive fax webhooks if `webhook_url` doesn't return a 2XX response",
+            "description": "Optional failover URL that will receive fax webhooks if webhook_url doesn't return a 2XX response",
             "type": "string"
           },
           "store_media": {
@@ -19764,6 +20250,7 @@
             "id": "7ee4241c-f127-47e5-9c34-3aac291f8058",
             "type": "SMS",
             "messaging_profile_id": "0f512bda-ae1e-4597-8e11-e5f5686b97d3",
+            "organization_id": "b448f9cc-a842-4784-98e9-03c1a5872950",
             "from": {
               "phone_number": "+18665550001",
               "carrier": "T-MOBILE USA, INC.",
@@ -20069,6 +20556,7 @@
           "id": "7ee4241c-f127-47e5-9c34-3aac291f8058",
           "type": "SMS",
           "messaging_profile_id": "0f512bda-ae1e-4597-8e11-e5f5686b97d3",
+          "organization_id": "b448f9cc-a842-4784-98e9-03c1a5872950",
           "from": {
             "phone_number": "+18665550001",
             "status": "delivered",
@@ -20408,6 +20896,17 @@
             "items": {
               "type": "string"
             }
+          },
+          "beep_enabled": {
+            "description": "Whether a beep sound should be played when the participant joins and/or leaves the conference. Can be used to override the conference-level setting.",
+            "enum": [
+              "always",
+              "never",
+              "on_enter",
+              "on_exit"
+            ],
+            "example": "on_exit",
+            "type": "string"
           }
         },
         "example": {
@@ -20423,7 +20922,8 @@
           "whisper_call_control_ids": [
             "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ",
             "v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw"
-          ]
+          ],
+          "beep_enabled": "always"
         }
       },
       "LeaveQueueRequest": {
@@ -20530,6 +21030,170 @@
           "accept_any_rtp_packets_enabled": true,
           "t38_fax_gateway_enabled": true
         }
+      },
+      "MessageCost": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Final cost. Cost is calculated as rate * parts",
+            "example": 0.1
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          }
+        }
+      },
+      "MessageDetailRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Message id",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Message sent time",
+            "format": "date-time",
+            "example": "2020-07-01T00:00:00-06:00"
+          },
+          "outbound_profile_name": {
+            "type": "string",
+            "description": "Configured profile name. New profiles can be created and configured on Telnyx portal",
+            "example": "configured-profile-name"
+          },
+          "outbound_profile_id": {
+            "type": "string",
+            "description": "Configured profile id. New profiles can be created and configured on Telnyx portal",
+            "example": "30ef55db-c4a2-4c4a-9804-a68077973d07"
+          },
+          "direction": {
+            "$ref": "#/components/schemas/Direction"
+          },
+          "parts": {
+            "type": "integer",
+            "description": "Number of parts this message has. Max number of character is 160. If message contains more characters then that it will be broken down in multiple parts",
+            "example": 2
+          },
+          "status": {
+            "$ref": "#/components/schemas/MessageStatus"
+          },
+          "cld": {
+            "type": "string",
+            "description": "The destination number for a call, or the callee",
+            "example": "+1555123456"
+          },
+          "cli": {
+            "type": "string",
+            "description": "The number associated with the person initiating the call, or the caller",
+            "example": "+1555123456"
+          },
+          "rate": {
+            "$ref": "#/components/schemas/MessageRate"
+          },
+          "cost": {
+            "$ref": "#/components/schemas/MessageCost"
+          },
+          "country_iso": {
+            "type": "string",
+            "description": "Cld number ISO country code.",
+            "example": "US"
+          },
+          "message_type": {
+            "$ref": "#/components/schemas/MessageType"
+          },
+          "errors": {
+            "type": "array",
+            "properties": {
+              "empty": {
+                "type": "boolean"
+              }
+            },
+            "description": "Error returned by the gateway in case sending of message failed.",
+            "example": "US",
+            "items": {
+              "type": "string",
+              "description": "Error returned by the gateway in case sending of message failed.",
+              "example": "40001"
+            }
+          },
+          "normalized_carrier": {
+            "type": "string",
+            "description": "Cld carrier.",
+            "example": "T-Mobile"
+          },
+          "pass_through_fee": {
+            "$ref": "#/components/schemas/PassThroughFee"
+          },
+          "tags": {
+            "type": "string",
+            "description": "User tag.",
+            "example": "tag1"
+          },
+          "mcc": {
+            "type": "string",
+            "description": "Mobile country code.",
+            "example": "204"
+          },
+          "mnc": {
+            "type": "string",
+            "description": "Mobile network code.",
+            "example": "01"
+          },
+          "product": {
+            "$ref": "#/components/schemas/Product"
+          },
+          "record_type": {
+            "type": "string",
+            "example": "message_detail_record",
+            "default": "message_detail_record"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "User id",
+            "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+          }
+        },
+        "required": [
+          "record_type"
+        ]
+      },
+      "MessageRate": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Rate applied to the message",
+            "example": 0.1
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          }
+        }
+      },
+      "MessageStatus": {
+        "type": "string",
+        "description": "Message status",
+        "example": "DELIVERED",
+        "enum": [
+          "GW_TIMEOUT",
+          "DELIVERED",
+          "DLR_UNCONFIRMED",
+          "DLR_TIMEOUT",
+          "RECEIVED",
+          "GW_REJECT",
+          "FAILED"
+        ]
+      },
+      "MessageType": {
+        "type": "string",
+        "description": "Type of message",
+        "example": "SMS",
+        "enum": [
+          "SMS",
+          "MMS"
+        ]
       },
       "MessagingFeatureSet": {
         "type": "object",
@@ -21517,9 +22181,10 @@
           "payload": {
             "record_type": "message",
             "direction": "outbound",
-            "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "id": "40385f64-5717-4562-b3fc-2c963f66afa6",
             "type": "MMS",
-            "messaging_profile_id": "dd50eba1-a0c0-4563-9925-b25e842a7cb6",
+            "messaging_profile_id": "4000eba1-a0c0-4563-9925-b25e842a7cb6",
+            "organization_id": "b448f9cc-a842-4784-98e9-03c1a5872950",
             "from": {
               "phone_number": "+18445550001",
               "carrier": "TELNYX LLC",
@@ -21564,6 +22229,22 @@
         "properties": {
           "data": {
             "$ref": "#/components/schemas/OutboundMessage"
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "attempt": {
+                "type": "integer",
+                "example": 1,
+                "description": "Number of attempts to deliver the webhook event."
+              },
+              "delivered_to": {
+                "type": "string",
+                "format": "url",
+                "example": "https://www.example.com/hooks",
+                "description": "The webhook URL the event was delivered to."
+              }
+            }
           }
         }
       },
@@ -21602,6 +22283,11 @@
           "messaging_profile_id": {
             "type": "string",
             "description": "Unique identifier for a messaging profile."
+          },
+          "organization_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The id of the organization the messaging profile belongs to."
           },
           "from": {
             "type": "object",
@@ -21787,9 +22473,10 @@
         "example": {
           "record_type": "message",
           "direction": "outbound",
-          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "id": "40385f64-5717-4562-b3fc-2c963f66afa6",
           "type": "MMS",
-          "messaging_profile_id": "dd50eba1-a0c0-4563-9925-b25e842a7cb6",
+          "messaging_profile_id": "4000eba1-a0c0-4563-9925-b25e842a7cb6",
+          "organization_id": "b448f9cc-a842-4784-98e9-03c1a5872950",
           "from": {
             "phone_number": "+18445550001",
             "carrier": "TELNYX LLC",
@@ -22154,6 +22841,19 @@
           }
         }
       },
+      "PassThroughFee": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Normalized carrier pass through fee",
+            "example": 0.1
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          }
+        }
+      },
       "PauseRecordingRequest": {
         "type": "object",
         "title": "Pause Recording Request",
@@ -22258,6 +22958,7 @@
           "caller_id_name_enabled": true,
           "call_recording_enabled": true,
           "t38_fax_gateway_enabled": true,
+          "phone_number_type": "longcode",
           "purchased_at": "2019-10-23T18:10:00.000Z",
           "created_at": "2019-10-23T18:10:00.000Z",
           "updated_at": "2019-10-24T18:10:00.000Z"
@@ -22366,6 +23067,15 @@
           "t38_fax_gateway_enabled": {
             "type": "boolean",
             "description": "Indicates whether T38 Fax Gateway for inbound calls to this number.",
+            "readOnly": true
+          },
+          "phone_number_type": {
+            "type": "string",
+            "description": "The phone number's type.",
+            "enum": [
+              "longcode",
+              "tollfree"
+            ],
             "readOnly": true
           },
           "purchased_at": {
@@ -22410,6 +23120,7 @@
           "caller_id_name_enabled": true,
           "call_recording_enabled": true,
           "t38_fax_gateway_enabled": true,
+          "phone_number_type": "longcode",
           "purchased_at": "2019-10-23T18:10:00.000Z",
           "created_at": "2019-10-23T18:10:00.000Z",
           "updated_at": "2019-10-24T18:10:00.000Z"
@@ -22518,6 +23229,15 @@
           "t38_fax_gateway_enabled": {
             "type": "boolean",
             "description": "Indicates whether T38 Fax Gateway for inbound calls to this number.",
+            "readOnly": true
+          },
+          "phone_number_type": {
+            "type": "string",
+            "description": "The phone number's type.",
+            "enum": [
+              "longcode",
+              "tollfree"
+            ],
             "readOnly": true
           },
           "purchased_at": {
@@ -23144,7 +23864,8 @@
           "stop": {
             "description": "When specified, it stops the current audio being played.  Specify `current` to stop the current audio being played, and to play the next file in the queue. Specify `all` to stop the current audio file being played and to also clear all audio files from the queue.",
             "type": "string",
-            "example": "current"
+            "example": "current",
+            "default": "all"
           },
           "target_legs": {
             "description": "Specifies the leg or legs on which audio will be played. If supplied, the value must be either `self`, `opposite` or `both`.",
@@ -23273,6 +23994,19 @@
             "example": "Illinois"
           }
         }
+      },
+      "Product": {
+        "type": "string",
+        "description": "Used product",
+        "example": "LONG_CODE",
+        "enum": [
+          "LONG_CODE",
+          "SHORT_CODE",
+          "SHORT_CODE_FTEU",
+          "TOLL_FREE",
+          "ALPHANUMERIC_ID",
+          "RCS"
+        ]
       },
       "Queue": {
         "type": "object",

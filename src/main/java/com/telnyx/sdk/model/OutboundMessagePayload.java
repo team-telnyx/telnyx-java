@@ -49,6 +49,7 @@ import com.telnyx.sdk.JSON;
   OutboundMessagePayload.JSON_PROPERTY_ID,
   OutboundMessagePayload.JSON_PROPERTY_TYPE,
   OutboundMessagePayload.JSON_PROPERTY_MESSAGING_PROFILE_ID,
+  OutboundMessagePayload.JSON_PROPERTY_ORGANIZATION_ID,
   OutboundMessagePayload.JSON_PROPERTY_FROM,
   OutboundMessagePayload.JSON_PROPERTY_TO,
   OutboundMessagePayload.JSON_PROPERTY_TEXT,
@@ -183,6 +184,9 @@ public class OutboundMessagePayload {
 
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
+
+  public static final String JSON_PROPERTY_ORGANIZATION_ID = "organization_id";
+  private UUID organizationId;
 
   public static final String JSON_PROPERTY_FROM = "from";
   private OutboundMessagePayloadFrom from;
@@ -350,6 +354,30 @@ public class OutboundMessagePayload {
 
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
+  }
+
+
+  public OutboundMessagePayload organizationId(UUID organizationId) {
+    this.organizationId = organizationId;
+    return this;
+  }
+
+   /**
+   * The id of the organization the messaging profile belongs to.
+   * @return organizationId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The id of the organization the messaging profile belongs to.")
+  @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getOrganizationId() {
+    return organizationId;
+  }
+
+
+  public void setOrganizationId(UUID organizationId) {
+    this.organizationId = organizationId;
   }
 
 
@@ -838,6 +866,7 @@ public class OutboundMessagePayload {
         Objects.equals(this.id, outboundMessagePayload.id) &&
         Objects.equals(this.type, outboundMessagePayload.type) &&
         Objects.equals(this.messagingProfileId, outboundMessagePayload.messagingProfileId) &&
+        Objects.equals(this.organizationId, outboundMessagePayload.organizationId) &&
         Objects.equals(this.from, outboundMessagePayload.from) &&
         Objects.equals(this.to, outboundMessagePayload.to) &&
         Objects.equals(this.text, outboundMessagePayload.text) &&
@@ -858,7 +887,7 @@ public class OutboundMessagePayload {
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, direction, id, type, messagingProfileId, from, to, text, subject, media, webhookUrl, webhookFailoverUrl, encoding, parts, tags, cost, receivedAt, sentAt, completedAt, validUntil, errors);
+    return Objects.hash(recordType, direction, id, type, messagingProfileId, organizationId, from, to, text, subject, media, webhookUrl, webhookFailoverUrl, encoding, parts, tags, cost, receivedAt, sentAt, completedAt, validUntil, errors);
   }
 
 
@@ -871,6 +900,7 @@ public class OutboundMessagePayload {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
+    sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    text: ").append(toIndentedString(text)).append("\n");

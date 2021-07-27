@@ -5,9 +5,9 @@ All URIs are relative to *https://api.telnyx.com/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createVerificationCall**](VerifyApi.md#createVerificationCall) | **POST** /verifications/call | Trigger a Call verification
-[**createVerificationFlashcall**](VerifyApi.md#createVerificationFlashcall) | **POST** /verifications/flashcall | Trigger a flash call verification
+[**createVerificationFlashcall**](VerifyApi.md#createVerificationFlashcall) | **POST** /verifications/flashcall | Trigger a Flash call verification
 [**createVerificationPSD2**](VerifyApi.md#createVerificationPSD2) | **POST** /verifications/psd2 | Trigger a PSD2 verification
-[**createVerificationSMS**](VerifyApi.md#createVerificationSMS) | **POST** /verifications/sms | Trigger an SMS verification
+[**createVerificationSMS**](VerifyApi.md#createVerificationSMS) | **POST** /verifications/sms | Trigger a SMS verification
 [**createVerificationWhatsapp**](VerifyApi.md#createVerificationWhatsapp) | **POST** /verifications/whatsapp | Trigger a Whatsapp verification
 [**createVerifyProfile**](VerifyApi.md#createVerifyProfile) | **POST** /verify_profiles | Create a Verify profile
 [**deleteVerifyProfile**](VerifyApi.md#deleteVerifyProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete a Verify profile
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 > CreateVerificationResponse createVerificationFlashcall(createVerificationRequestFlashcall)
 
-Trigger a flash call verification
+Trigger a Flash call verification
 
 ### Example
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 > CreateVerificationResponse createVerificationSMS(createVerificationRequestSMS)
 
-Trigger an SMS verification
+Trigger a SMS verification
 
 ### Example
 

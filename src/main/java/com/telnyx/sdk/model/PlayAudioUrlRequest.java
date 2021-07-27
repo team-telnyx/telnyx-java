@@ -53,7 +53,7 @@ public class PlayAudioUrlRequest {
   private Boolean overlay = false;
 
   public static final String JSON_PROPERTY_STOP = "stop";
-  private String stop;
+  private String stop = "all";
 
   public static final String JSON_PROPERTY_TARGET_LEGS = "target_legs";
   private String targetLegs = "self";
