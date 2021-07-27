@@ -17,22 +17,15 @@ import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.HttpBearerAuth;
-import com.telnyx.sdk.model.AnchorsiteOverride;
-import com.telnyx.sdk.model.ConnectionRtcpSettings;
-import com.telnyx.sdk.model.CreateCredentialConnectionRequest;
-import com.telnyx.sdk.model.CredentialConnectionResponse;
-import com.telnyx.sdk.model.CredentialInbound;
-import com.telnyx.sdk.model.CredentialOutbound;
-import com.telnyx.sdk.model.DtmfType;
-import com.telnyx.sdk.model.EncryptedMedia;
-import com.telnyx.sdk.model.ListCredentialConnectionsResponse;
-import com.telnyx.sdk.model.UpdateCredentialConnectionRequest;
+import com.telnyx.sdk.model.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
 
+import static java.lang.Thread.sleep;
 import static org.junit.Assert.*;
 
 /**
@@ -41,6 +34,9 @@ import static org.junit.Assert.*;
 public class CredentialConnectionsApiTest {
 
     private final CredentialConnectionsApi api = new CredentialConnectionsApi();
+    private OutboundVoiceProfilesApi outboundVoiceProfilesApi;
+    private CredentialConnection existingCredentialConnection;
+    private String existingOutboundVoiceProfileId;
 
     @Before
     public void setup() {
@@ -49,6 +45,30 @@ public class CredentialConnectionsApiTest {
 
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
+
+        try {
+            outboundVoiceProfilesApi = new OutboundVoiceProfilesApi();
+            CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest = new CreateOutboundVoiceProfileRequest().name("test-name-" + System.currentTimeMillis());
+            existingOutboundVoiceProfileId = outboundVoiceProfilesApi.createOutboundVoiceProfile(createOutboundVoiceProfileRequest).getData().getId();
+            existingCredentialConnection = api.createCredentialConnection(prepareSampleCreateCredentialConnectionRequest("existing_credential_connection_test")).getData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Setup Failure - Unable to create existing connection: " + e.getMessage());
+        }
+    }
+
+    @After
+    public void tearDown() throws InterruptedException {
+        try {
+            outboundVoiceProfilesApi.deleteOutboundVoiceProfile(existingOutboundVoiceProfileId);
+            api.deleteCredentialConnection(existingCredentialConnection.getId());
+        } catch (ApiException e) {
+            e.printStackTrace();
+            //ignore
+        }
+
+        //todo: Find a better way to avoid rate limiting during integration testing against production system
+        //sleep(100);
     }
 
     /**
@@ -61,13 +81,24 @@ public class CredentialConnectionsApiTest {
     @Test
     public void createCredentialConnection_defaultParams_returnsCreatedCredentialConnection() throws ApiException {
         //given
-        CreateCredentialConnectionRequest createCredentialConnectionRequest = prepareSampleCreateCredentialConnectionRequest();
+        CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest = new CreateOutboundVoiceProfileRequest().name("ovp_create_credential_connections_test_" + System.currentTimeMillis());
+        String ovpId = outboundVoiceProfilesApi.createOutboundVoiceProfile(createOutboundVoiceProfileRequest).getData().getId();
+        CreateCredentialConnectionRequest createCredentialConnectionRequest = prepareSampleCreateCredentialConnectionRequest("create_credential_connection_test_" + System.currentTimeMillis());
 
         //when
         CredentialConnectionResponse response = api.createCredentialConnection(createCredentialConnectionRequest);
 
         //then
         assertNotNull(response);
+
+        //clean up
+        try {
+            outboundVoiceProfilesApi.deleteOutboundVoiceProfile(ovpId);
+            api.deleteCredentialConnection(response.getData().getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            //ignore
+        }
     }
 
     /**
@@ -80,16 +111,13 @@ public class CredentialConnectionsApiTest {
     @Test
     @Ignore
     public void deleteCredentialConnection_credentialConnectionIdProvided_credentialConnectionWouldNotReturnAnymore() throws ApiException {
-        //given
-        String id = api.createCredentialConnection(prepareSampleCreateCredentialConnectionRequest()).getData().getId();
-
         //when
-        CredentialConnectionResponse response = api.deleteCredentialConnection(id);
+        CredentialConnectionResponse response = api.deleteCredentialConnection(existingCredentialConnection.getId());
 
         //then
         assertNotNull(response);
 
-        CredentialConnectionResponse retrievedCredentialConnection = api.retrieveCredentialConnection(id);
+        CredentialConnectionResponse retrievedCredentialConnection = api.retrieveCredentialConnection(existingCredentialConnection.getId());
         assertNull(retrievedCredentialConnection);
     }
 
@@ -128,11 +156,8 @@ public class CredentialConnectionsApiTest {
      */
     @Test
     public void retrieveCredentialConnection_credentialConnectionIdProvided_returnsCredentialConnection() throws ApiException {
-        //given
-        String id = api.createCredentialConnection(prepareSampleCreateCredentialConnectionRequest()).getData().getId();
-
         //when
-        CredentialConnectionResponse response = api.retrieveCredentialConnection(id);
+        CredentialConnectionResponse response = api.retrieveCredentialConnection(existingCredentialConnection.getId());
 
         //then
         assertNotNull(response);
@@ -148,11 +173,10 @@ public class CredentialConnectionsApiTest {
     @Test
     public void updateCredentialConnection_changedParams_returnsUpdatedCredentialConnection() throws ApiException {
         //given
-        String id = api.createCredentialConnection(prepareSampleCreateCredentialConnectionRequest()).getData().getId();
         UpdateCredentialConnectionRequest updateCredentialConnectionRequest = prepareSampleUpdateCredentialConnectionRequest();
 
         //when
-        CredentialConnectionResponse response = api.updateCredentialConnection(id, updateCredentialConnectionRequest);
+        CredentialConnectionResponse response = api.updateCredentialConnection(existingCredentialConnection.getId(), updateCredentialConnectionRequest);
 
         //then
         assertNotNull(response);
@@ -161,13 +185,13 @@ public class CredentialConnectionsApiTest {
         assertEquals(updateCredentialConnectionRequest.getOutbound().getLocalization(), response.getData().getOutbound().getLocalization());
     }
 
-    private CreateCredentialConnectionRequest prepareSampleCreateCredentialConnectionRequest() {
+    private CreateCredentialConnectionRequest prepareSampleCreateCredentialConnectionRequest(String connectionName) {
         return new CreateCredentialConnectionRequest()
-                .userName("MyUser")
+                .userName("MyUser" + System.currentTimeMillis())
                 .password("my123secure456password789")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
-                .connectionName("some_connection")
+                .connectionName(connectionName)
                 .defaultOnHoldComfortNoiseEnabled(true)
                 .dtmfType(DtmfType.RFC_2833)
                 .encodeContactHeaderEnabled(false)
@@ -187,14 +211,14 @@ public class CredentialConnectionsApiTest {
                 )
                 .onnetT38PassthroughEnabled(false)
                 .outbound(new CredentialOutbound()
-                        .aniOverride("test")
+                        .aniOverride("+15555551234")
                         .aniOverrideType(CredentialOutbound.AniOverrideTypeEnum.ALWAYS)
                         .callParkingEnabled(true)
                         .channelLimit(10)
                         .generateRingbackTone(true)
                         .instantRingbackEnabled(true)
-                        .localization("test")
-                        .outboundVoiceProfileId("123")
+                        .localization("US")
+                        .outboundVoiceProfileId(existingOutboundVoiceProfileId)
                         .t38ReinviteSource(CredentialOutbound.T38ReinviteSourceEnum.TELNYX)
                 )
                 .rtcpSettings(new ConnectionRtcpSettings()
@@ -209,11 +233,11 @@ public class CredentialConnectionsApiTest {
 
     private UpdateCredentialConnectionRequest prepareSampleUpdateCredentialConnectionRequest() {
         return new UpdateCredentialConnectionRequest()
-                .userName("MyUser")
+                .userName("MyUser" + System.currentTimeMillis())
                 .password("my123secure456password789")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.SAN_JOSE_CA)
-                .connectionName("another_connection")
+                .connectionName("credential_connections_update_test")
                 .defaultOnHoldComfortNoiseEnabled(true)
                 .dtmfType(DtmfType.RFC_2833)
                 .encodeContactHeaderEnabled(false)
@@ -233,14 +257,14 @@ public class CredentialConnectionsApiTest {
                 )
                 .onnetT38PassthroughEnabled(false)
                 .outbound(new CredentialOutbound()
-                        .aniOverride("test2")
+                        .aniOverride("+15555551234")
                         .aniOverrideType(CredentialOutbound.AniOverrideTypeEnum.ALWAYS)
                         .callParkingEnabled(true)
                         .channelLimit(10)
                         .generateRingbackTone(true)
                         .instantRingbackEnabled(true)
-                        .localization("test2")
-                        .outboundVoiceProfileId("123")
+                        .localization("US")
+                        .outboundVoiceProfileId(existingOutboundVoiceProfileId)
                         .t38ReinviteSource(CredentialOutbound.T38ReinviteSourceEnum.TELNYX)
                 )
                 .rtcpSettings(new ConnectionRtcpSettings()

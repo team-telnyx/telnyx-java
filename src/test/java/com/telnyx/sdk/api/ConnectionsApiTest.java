@@ -17,22 +17,17 @@ import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.HttpBearerAuth;
-import com.telnyx.sdk.model.AnchorsiteOverride;
-import com.telnyx.sdk.model.ConnectionResponse;
-import com.telnyx.sdk.model.ConnectionRtcpSettings;
-import com.telnyx.sdk.model.CreateInboundIpRequest;
-import com.telnyx.sdk.model.CreateIpConnectionRequest;
-import com.telnyx.sdk.model.DtmfType;
-import com.telnyx.sdk.model.EncryptedMedia;
-import com.telnyx.sdk.model.ListConnectionsResponse;
-import com.telnyx.sdk.model.OutboundIp;
+import com.telnyx.sdk.model.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
 
+import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 /**
  * API tests for ConnectionsApi
@@ -40,6 +35,7 @@ import static org.junit.Assert.assertNotNull;
 public class ConnectionsApiTest {
 
     private final ConnectionsApi api = new ConnectionsApi();
+    private IpConnection existingConnection;
 
     @Before
     public void setup() {
@@ -49,6 +45,24 @@ public class ConnectionsApiTest {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
 
+        try {
+            existingConnection = new IpConnectionsApi().createIpConnection(prepareSampleCreateIpConnectionRequest()).getData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Setup Failure - Unable to create existing connection: " + e.getMessage());
+        }
+    }
+
+    @After
+    public void tearDown() throws InterruptedException {
+        try {
+            new IpConnectionsApi().deleteIpConnection(existingConnection.getId());
+        } catch (ApiException e) {
+            //ignore;
+        }
+
+        //todo: Find a better way to avoid rate limiting during integration testing against production system
+        //sleep(100);
     }
 
     /**
@@ -92,11 +106,8 @@ public class ConnectionsApiTest {
      */
     @Test
     public void retrieveConnection_connectionIdProvided_returnsConnection() throws ApiException {
-        //given
-        String id = new IpConnectionsApi().createIpConnection(prepareSampleCreateIpConnectionRequest()).getData().getId();
-
         //when
-        ConnectionResponse response = api.retrieveConnection(id);
+        ConnectionResponse response = api.retrieveConnection(existingConnection.getId());
 
         //then
         assertNotNull(response);
@@ -106,7 +117,7 @@ public class ConnectionsApiTest {
         return new CreateIpConnectionRequest()
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
-                .connectionName("some_connection")
+                .connectionName("connections_api_test_" + System.currentTimeMillis())
                 .defaultOnHoldComfortNoiseEnabled(true)
                 .dtmfType(DtmfType.RFC_2833)
                 .encodeContactHeaderEnabled(false)
@@ -123,25 +134,25 @@ public class ConnectionsApiTest {
                         .privacyZoneEnabled(true)
                         .sipCompactHeadersEnabled(true)
                         .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
-                        .sipSubdomain("test")
+                        .sipSubdomain("example.sip.telnyx.com" + System.currentTimeMillis())
                         .sipSubdomainReceiveSettings(CreateInboundIpRequest.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS)
                         .timeout1xxSecs(10)
                         .timeout2xxSecs(20)
                 )
                 .onnetT38PassthroughEnabled(false)
                 .outbound(new OutboundIp()
-                        .aniOverride("test")
+                        .aniOverride("+15555551234")
                         .aniOverrideType(OutboundIp.AniOverrideTypeEnum.ALWAYS)
                         .callParkingEnabled(true)
                         .channelLimit(10)
                         .generateRingbackTone(true)
                         .instantRingbackEnabled(true)
                         .ipAuthenticationMethod(OutboundIp.IpAuthenticationMethodEnum.TOKEN)
-                        .ipAuthenticationToken("test")
-                        .localization("test")
-                        .outboundVoiceProfileId("123")
+                        .ipAuthenticationToken("token" + System.currentTimeMillis())
+                        .localization("GB")
+                        .outboundVoiceProfileId(TestConfiguration.EXISTING_OUTBOUND_VOICE_PROFILE_ID)
                         .t38ReinviteSource(OutboundIp.T38ReinviteSourceEnum.TELNYX)
-                        .techPrefix("test")
+                        .techPrefix("7777")
                 )
                 .rtcpSettings(new ConnectionRtcpSettings()
                         .captureEnabled(true)

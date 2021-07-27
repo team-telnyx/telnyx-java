@@ -4,6 +4,7 @@ public class TestConfiguration {
     public static final String TEST_FROM_NUMBER = "+15555551234";
     public static final String TEST_TO_NUMBER = "+15555551234";
     public static final String EXISTING_MESSAGING_PROFILE_ID = "400174d8-9abf-4cd0-af88-8f5715f5f78e";
+    public static final String EXISTING_OUTBOUND_VOICE_PROFILE_ID = "1471498194310399320";
     public static final String EXISTING_CONNECTION_ID = "6a09cdc3-8948-47f0-aa62-74ac943d6c58";
     public static final String EMERGENCY_ADDRESS_ID = "1315261609962112019";
     public static final String API_KEY = "KEYSUPERSECRET";
