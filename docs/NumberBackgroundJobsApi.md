@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## createPhoneNumbersJobDeletePhoneNumbers
 
-> PhoneNumbersJobDeletePhoneNumbers createPhoneNumbersJobDeletePhoneNumbers().phoneNumbersJobDeletePhoneNumbersRequest(phoneNumbersJobDeletePhoneNumbersRequest).execute();
+> CreatePhoneNumbersJobDeletePhoneNumbers createPhoneNumbersJobDeletePhoneNumbers().phoneNumbersJobDeletePhoneNumbersRequest(phoneNumbersJobDeletePhoneNumbersRequest).execute();
 
 Delete a batch of numbers
 
@@ -43,7 +43,7 @@ public class Example {
         NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
         PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbersJobDeletePhoneNumbersRequest = new PhoneNumbersJobDeletePhoneNumbersRequest(); // PhoneNumbersJobDeletePhoneNumbersRequest | 
         try {
-            PhoneNumbersJobDeletePhoneNumbers result = api.createPhoneNumbersJobDeletePhoneNumbers()
+            CreatePhoneNumbersJobDeletePhoneNumbers result = api.createPhoneNumbersJobDeletePhoneNumbers()
                 .phoneNumbersJobDeletePhoneNumbersRequest(phoneNumbersJobDeletePhoneNumbersRequest)
                 .execute();
             System.out.println(result);
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PhoneNumbersJobDeletePhoneNumbers**](PhoneNumbersJobDeletePhoneNumbers.md)
+[**CreatePhoneNumbersJobDeletePhoneNumbers**](CreatePhoneNumbersJobDeletePhoneNumbers.md)
 
 ### Authorization
 
@@ -82,12 +82,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers job delete phone numbers requested. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## createPhoneNumbersJobUpdateEmergencySettings
 
-> PhoneNumbersEnableEmergency createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest)
+> CreatePhoneNumbersEnableEmergency createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest)
 
 Update the emergency settings from a batch of numbers
 
@@ -116,7 +116,7 @@ public class Example {
         NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
         PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest = new PhoneNumbersJobUpdateEmergencySettingsRequest(); // PhoneNumbersJobUpdateEmergencySettingsRequest | 
         try {
-            PhoneNumbersEnableEmergency result = apiInstance.createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest);
+            CreatePhoneNumbersEnableEmergency result = apiInstance.createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberBackgroundJobsApi#createPhoneNumbersJobUpdateEmergencySettings");
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PhoneNumbersEnableEmergency**](PhoneNumbersEnableEmergency.md)
+[**CreatePhoneNumbersEnableEmergency**](CreatePhoneNumbersEnableEmergency.md)
 
 ### Authorization
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers enable emergency requested. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## createPhoneNumbersJobUpdatePhoneNumber
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 Update a batch of numbers
 
-Creates a new background job to update a batch of numbers. At most one thousand numbers can be updated per API call. At least one of the updateable fields must be submitted
+Creates a new background job to update a batch of numbers. At most one thousand numbers can be updated per API call. At least one of the updateable fields must be submitted.
 
 ### Example
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers job update phone numbers requested. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## listPhoneNumbersJobs
@@ -256,10 +256,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
-        String filterType = update_emergency_settings; // String | Filter the phone number jobs by type.
+        String filterType = "update_emergency_settings"; // String | Filter the phone number jobs by type.
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 50; // Integer | The size of the page
-        String sort = created_at; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+        Integer pageSize = 20; // Integer | The size of the page
+        String sort = "created_at"; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumbersBackgroundJobsResponse result = api.listPhoneNumbersJobs()
                 .filterType(filterType)
@@ -284,9 +284,9 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filterType** | **String**| Filter the phone number jobs by type. | [optional] [enum: update_emergency_settings, delete_phone_numbers]
+ **filterType** | **String**| Filter the phone number jobs by type. | [optional] [enum: update_emergency_settings, delete_phone_numbers, update_phone_numbers]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: created_at]
 
 ### Return type
@@ -306,12 +306,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers background jobs. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## retrievePhoneNumbersJob
 
-> PhoneNumbersJob retrievePhoneNumbersJob(id).execute();
+> RetrievePhoneNumbersJob retrievePhoneNumbersJob(id).execute();
 
 Retrieve a phone numbers job
 
@@ -338,7 +338,7 @@ public class Example {
         NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
         String id = "id_example"; // String | Identifies the Phone Numbers Job.
         try {
-            PhoneNumbersJob result = api.retrievePhoneNumbersJob(id)
+            RetrievePhoneNumbersJob result = api.retrievePhoneNumbersJob(id)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PhoneNumbersJob**](PhoneNumbersJob.md)
+[**RetrievePhoneNumbersJob**](RetrievePhoneNumbersJob.md)
 
 ### Authorization
 
@@ -376,5 +376,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Phone numbers job details. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 

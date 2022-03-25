@@ -60,6 +60,8 @@ public class TranscriptionPayload {
   public static final String JSON_PROPERTY_TRANSCRIPTION_DATA = "transcription_data";
   private TranscriptionPayloadTranscriptionData transcriptionData;
 
+  public TranscriptionPayload() { 
+  }
 
   public TranscriptionPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -80,6 +82,8 @@ public class TranscriptionPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -104,6 +108,8 @@ public class TranscriptionPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -115,11 +121,11 @@ public class TranscriptionPayload {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events.
+   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
    * @return callSessionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events.")
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -128,6 +134,8 @@ public class TranscriptionPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -152,6 +160,8 @@ public class TranscriptionPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -176,6 +186,8 @@ public class TranscriptionPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -200,6 +212,8 @@ public class TranscriptionPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTranscriptionData(TranscriptionPayloadTranscriptionData transcriptionData) {
     this.transcriptionData = transcriptionData;
   }
@@ -229,7 +243,6 @@ public class TranscriptionPayload {
   public int hashCode() {
     return Objects.hash(callControlId, callLegId, callSessionId, clientState, connectionId, transcriptionData);
   }
-
 
   @Override
   public String toString() {

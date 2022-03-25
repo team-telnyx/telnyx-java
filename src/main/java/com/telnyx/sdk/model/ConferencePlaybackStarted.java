@@ -119,6 +119,8 @@ public class ConferencePlaybackStarted {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private ConferencePlaybackEndedPayload payload;
 
+  public ConferencePlaybackStarted() { 
+  }
 
   public ConferencePlaybackStarted recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -139,6 +141,8 @@ public class ConferencePlaybackStarted {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -163,6 +167,8 @@ public class ConferencePlaybackStarted {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEventType(EventTypeEnum eventType) {
     this.eventType = eventType;
   }
@@ -187,6 +193,8 @@ public class ConferencePlaybackStarted {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -211,6 +219,8 @@ public class ConferencePlaybackStarted {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAYLOAD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPayload(ConferencePlaybackEndedPayload payload) {
     this.payload = payload;
   }
@@ -238,7 +248,6 @@ public class ConferencePlaybackStarted {
   public int hashCode() {
     return Objects.hash(recordType, eventType, id, payload);
   }
-
 
   @Override
   public String toString() {

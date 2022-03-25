@@ -78,6 +78,8 @@ public class VerifyVerificationCodeResponseData {
   public static final String JSON_PROPERTY_RESPONSE_CODE = "response_code";
   private ResponseCodeEnum responseCode;
 
+  public VerifyVerificationCodeResponseData() { 
+  }
 
   public VerifyVerificationCodeResponseData phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -88,6 +90,7 @@ public class VerifyVerificationCodeResponseData {
    * +E164 formatted phone number.
    * @return phoneNumber
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+13035551234", required = true, value = "+E164 formatted phone number.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -97,6 +100,8 @@ public class VerifyVerificationCodeResponseData {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -111,6 +116,7 @@ public class VerifyVerificationCodeResponseData {
    * Identifies if the verification code has been accepted or rejected.
    * @return responseCode
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "accepted", required = true, value = "Identifies if the verification code has been accepted or rejected.")
   @JsonProperty(JSON_PROPERTY_RESPONSE_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -120,6 +126,8 @@ public class VerifyVerificationCodeResponseData {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RESPONSE_CODE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setResponseCode(ResponseCodeEnum responseCode) {
     this.responseCode = responseCode;
   }
@@ -145,7 +153,6 @@ public class VerifyVerificationCodeResponseData {
   public int hashCode() {
     return Objects.hash(phoneNumber, responseCode);
   }
-
 
   @Override
   public String toString() {

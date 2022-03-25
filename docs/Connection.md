@@ -2,6 +2,7 @@
 
 # Connection
 
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -9,7 +10,7 @@ Name | Type | Description | Notes
 **id** | **String** | Identifies the specific resource. |  [optional]
 **recordType** | **String** | Identifies the type of the resource. |  [optional]
 **active** | **Boolean** | Defaults to true |  [optional]
-**anchorsiteOverride** | [**AnchorsiteOverride**](AnchorsiteOverride.md) |  |  [optional]
+**anchorsiteOverride** | **AnchorsiteOverride** |  |  [optional]
 **connectionName** | **String** |  |  [optional]
 **createdAt** | **String** | ISO 8601 formatted date indicating when the resource was created. |  [optional]
 **updatedAt** | **String** | ISO 8601 formatted date indicating when the resource was updated. |  [optional]

@@ -3,6 +3,7 @@
 # ParticipantConference
 
 Info about the conference that the participant is in
+
 ## Properties
 
 Name | Type | Description | Notes

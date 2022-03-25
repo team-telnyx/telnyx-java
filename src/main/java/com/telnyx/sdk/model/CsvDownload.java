@@ -90,6 +90,8 @@ public class CsvDownload {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status = StatusEnum.PENDING;
 
+  public CsvDownload() { 
+  }
 
    /**
    * Identifies the resource.
@@ -142,6 +144,8 @@ public class CsvDownload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrl(String url) {
     this.url = url;
   }
@@ -166,6 +170,8 @@ public class CsvDownload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -193,7 +199,6 @@ public class CsvDownload {
   public int hashCode() {
     return Objects.hash(id, recordType, url, status);
   }
-
 
   @Override
   public String toString() {

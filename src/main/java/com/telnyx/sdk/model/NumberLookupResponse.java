@@ -40,6 +40,8 @@ public class NumberLookupResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private NumberLookupRecord data;
 
+  public NumberLookupResponse() { 
+  }
 
   public NumberLookupResponse data(NumberLookupRecord data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class NumberLookupResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(NumberLookupRecord data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class NumberLookupResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

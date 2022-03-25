@@ -48,6 +48,8 @@ public class ListVerifyProfilesResponse {
   public static final String JSON_PROPERTY_META = "meta";
   private Meta meta;
 
+  public ListVerifyProfilesResponse() { 
+  }
 
   public ListVerifyProfilesResponse data(List<VerifyProfileResponse> data) {
     this.data = data;
@@ -63,6 +65,7 @@ public class ListVerifyProfilesResponse {
    * Get data
    * @return data
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -72,6 +75,8 @@ public class ListVerifyProfilesResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setData(List<VerifyProfileResponse> data) {
     this.data = data;
   }
@@ -86,6 +91,7 @@ public class ListVerifyProfilesResponse {
    * Get meta
    * @return meta
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -95,6 +101,8 @@ public class ListVerifyProfilesResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMeta(Meta meta) {
     this.meta = meta;
   }
@@ -120,7 +128,6 @@ public class ListVerifyProfilesResponse {
   public int hashCode() {
     return Objects.hash(data, meta);
   }
-
 
   @Override
   public String toString() {

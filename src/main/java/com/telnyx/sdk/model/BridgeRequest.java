@@ -55,6 +55,8 @@ public class BridgeRequest {
   public static final String JSON_PROPERTY_PARK_AFTER_UNBRIDGE = "park_after_unbridge";
   private String parkAfterUnbridge;
 
+  public BridgeRequest() { 
+  }
 
   public BridgeRequest callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -65,6 +67,7 @@ public class BridgeRequest {
    * The Call Control ID of the call you want to bridge with.
    * @return callControlId
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", required = true, value = "The Call Control ID of the call you want to bridge with.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -74,6 +77,8 @@ public class BridgeRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -98,6 +103,8 @@ public class BridgeRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -109,11 +116,11 @@ public class BridgeRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -122,6 +129,8 @@ public class BridgeRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -146,6 +155,8 @@ public class BridgeRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_QUEUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setQueue(String queue) {
     this.queue = queue;
   }
@@ -170,6 +181,8 @@ public class BridgeRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PARK_AFTER_UNBRIDGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setParkAfterUnbridge(String parkAfterUnbridge) {
     this.parkAfterUnbridge = parkAfterUnbridge;
   }
@@ -198,7 +211,6 @@ public class BridgeRequest {
   public int hashCode() {
     return Objects.hash(callControlId, clientState, commandId, queue, parkAfterUnbridge);
   }
-
 
   @Override
   public String toString() {

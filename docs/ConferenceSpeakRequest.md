@@ -2,12 +2,13 @@
 
 # ConferenceSpeakRequest
 
+
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **callControlIds** | **List&lt;String&gt;** | Call Control IDs of participants who will hear the spoken text. When empty all participants will hear the spoken text. |  [optional]
-**payload** | **String** | The text or SSML to be converted into speech. There is a 5,000 character limit. | 
+**payload** | **String** | The text or SSML to be converted into speech. There is a 3,000 character limit. | 
 **payloadType** | [**PayloadTypeEnum**](#PayloadTypeEnum) | The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML). |  [optional]
 **voice** | [**VoiceEnum**](#VoiceEnum) | The gender of the voice used to speak the text. | 
 **language** | [**LanguageEnum**](#LanguageEnum) | The language used to speak the text. | 

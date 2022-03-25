@@ -2,11 +2,12 @@
 
 # CreateNumberBlockOrderRequest
 
+
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**UUID**](UUID.md) |  |  [optional] [readonly]
+**id** | **UUID** |  |  [optional] [readonly]
 **recordType** | **String** |  |  [optional] [readonly]
 **startingNumber** | **String** | Starting phone number block | 
 **range** | **Integer** | The phone number range included in the block. | 

@@ -110,6 +110,8 @@ public class Carrier {
   public static final String JSON_PROPERTY_ERROR_CODE = "error_code";
   private String errorCode;
 
+  public Carrier() { 
+  }
 
   public Carrier mobileCountryCode(String mobileCountryCode) {
     this.mobileCountryCode = mobileCountryCode;
@@ -130,6 +132,8 @@ public class Carrier {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MOBILE_COUNTRY_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMobileCountryCode(String mobileCountryCode) {
     this.mobileCountryCode = mobileCountryCode;
   }
@@ -154,6 +158,8 @@ public class Carrier {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MOBILE_NETWORK_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMobileNetworkCode(String mobileNetworkCode) {
     this.mobileNetworkCode = mobileNetworkCode;
   }
@@ -178,6 +184,8 @@ public class Carrier {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -202,6 +210,8 @@ public class Carrier {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -226,6 +236,8 @@ public class Carrier {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ERROR_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setErrorCode(String errorCode) {
     this.errorCode = errorCode;
   }
@@ -254,7 +266,6 @@ public class Carrier {
   public int hashCode() {
     return Objects.hash(mobileCountryCode, mobileNetworkCode, name, type, errorCode);
   }
-
 
   @Override
   public String toString() {

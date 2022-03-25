@@ -2,6 +2,7 @@
 
 # CostInformation
 
+
 ## Properties
 
 Name | Type | Description | Notes

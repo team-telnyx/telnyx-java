@@ -91,6 +91,8 @@ public class HostedNumber {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
+  public HostedNumber() { 
+  }
 
   public HostedNumber recordType(String recordType) {
     this.recordType = recordType;
@@ -111,6 +113,8 @@ public class HostedNumber {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -151,6 +155,8 @@ public class HostedNumber {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -175,6 +181,8 @@ public class HostedNumber {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -202,7 +210,6 @@ public class HostedNumber {
   public int hashCode() {
     return Objects.hash(recordType, id, phoneNumber, status);
   }
-
 
   @Override
   public String toString() {

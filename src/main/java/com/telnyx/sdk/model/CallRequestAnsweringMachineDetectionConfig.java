@@ -76,6 +76,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   public static final String JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS = "greeting_silence_duration_millis";
   private Integer greetingSilenceDurationMillis = 1500;
 
+  public CallRequestAnsweringMachineDetectionConfig() { 
+  }
 
   public CallRequestAnsweringMachineDetectionConfig totalAnalysisTimeMillis(Integer totalAnalysisTimeMillis) {
     this.totalAnalysisTimeMillis = totalAnalysisTimeMillis;
@@ -96,6 +98,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTotalAnalysisTimeMillis(Integer totalAnalysisTimeMillis) {
     this.totalAnalysisTimeMillis = totalAnalysisTimeMillis;
   }
@@ -120,6 +124,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAfterGreetingSilenceMillis(Integer afterGreetingSilenceMillis) {
     this.afterGreetingSilenceMillis = afterGreetingSilenceMillis;
   }
@@ -144,6 +150,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBetweenWordsSilenceMillis(Integer betweenWordsSilenceMillis) {
     this.betweenWordsSilenceMillis = betweenWordsSilenceMillis;
   }
@@ -168,6 +176,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_GREETING_DURATION_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGreetingDurationMillis(Integer greetingDurationMillis) {
     this.greetingDurationMillis = greetingDurationMillis;
   }
@@ -192,6 +202,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INITIAL_SILENCE_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInitialSilenceMillis(Integer initialSilenceMillis) {
     this.initialSilenceMillis = initialSilenceMillis;
   }
@@ -216,6 +228,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaximumNumberOfWords(Integer maximumNumberOfWords) {
     this.maximumNumberOfWords = maximumNumberOfWords;
   }
@@ -240,6 +254,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaximumWordLengthMillis(Integer maximumWordLengthMillis) {
     this.maximumWordLengthMillis = maximumWordLengthMillis;
   }
@@ -264,6 +280,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SILENCE_THRESHOLD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSilenceThreshold(Integer silenceThreshold) {
     this.silenceThreshold = silenceThreshold;
   }
@@ -288,6 +306,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGreetingTotalAnalysisTimeMillis(Integer greetingTotalAnalysisTimeMillis) {
     this.greetingTotalAnalysisTimeMillis = greetingTotalAnalysisTimeMillis;
   }
@@ -312,6 +332,8 @@ public class CallRequestAnsweringMachineDetectionConfig {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGreetingSilenceDurationMillis(Integer greetingSilenceDurationMillis) {
     this.greetingSilenceDurationMillis = greetingSilenceDurationMillis;
   }
@@ -345,7 +367,6 @@ public class CallRequestAnsweringMachineDetectionConfig {
   public int hashCode() {
     return Objects.hash(totalAnalysisTimeMillis, afterGreetingSilenceMillis, betweenWordsSilenceMillis, greetingDurationMillis, initialSilenceMillis, maximumNumberOfWords, maximumWordLengthMillis, silenceThreshold, greetingTotalAnalysisTimeMillis, greetingSilenceDurationMillis);
   }
-
 
   @Override
   public String toString() {

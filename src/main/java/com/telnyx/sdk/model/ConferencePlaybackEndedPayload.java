@@ -37,6 +37,7 @@ import com.telnyx.sdk.JSON;
   ConferencePlaybackEndedPayload.JSON_PROPERTY_CREATOR_CALL_SESSION_ID,
   ConferencePlaybackEndedPayload.JSON_PROPERTY_CONFERENCE_ID,
   ConferencePlaybackEndedPayload.JSON_PROPERTY_MEDIA_URL,
+  ConferencePlaybackEndedPayload.JSON_PROPERTY_MEDIA_NAME,
   ConferencePlaybackEndedPayload.JSON_PROPERTY_OCCURRED_AT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -53,9 +54,14 @@ public class ConferencePlaybackEndedPayload {
   public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
   private String mediaUrl;
 
+  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
+  private String mediaName;
+
   public static final String JSON_PROPERTY_OCCURRED_AT = "occurred_at";
   private OffsetDateTime occurredAt;
 
+  public ConferencePlaybackEndedPayload() { 
+  }
 
   public ConferencePlaybackEndedPayload connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -76,6 +82,8 @@ public class ConferencePlaybackEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -100,6 +108,8 @@ public class ConferencePlaybackEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREATOR_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatorCallSessionId(String creatorCallSessionId) {
     this.creatorCallSessionId = creatorCallSessionId;
   }
@@ -124,6 +134,8 @@ public class ConferencePlaybackEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConferenceId(String conferenceId) {
     this.conferenceId = conferenceId;
   }
@@ -135,11 +147,11 @@ public class ConferencePlaybackEndedPayload {
   }
 
    /**
-   * The URL to the audio file being played.
+   * The audio URL being played back, if audio_url has been used to start.
    * @return mediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.example.com/audio.mp3", value = "The URL to the audio file being played.")
+  @ApiModelProperty(example = "http://example.com/audio.wav", value = "The audio URL being played back, if audio_url has been used to start.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -148,8 +160,36 @@ public class ConferencePlaybackEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MEDIA_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMediaUrl(String mediaUrl) {
     this.mediaUrl = mediaUrl;
+  }
+
+
+  public ConferencePlaybackEndedPayload mediaName(String mediaName) {
+    this.mediaName = mediaName;
+    return this;
+  }
+
+   /**
+   * The name of the audio media file being played back, if media_name has been used to start.
+   * @return mediaName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The name of the audio media file being played back, if media_name has been used to start.")
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMediaName() {
+    return mediaName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMediaName(String mediaName) {
+    this.mediaName = mediaName;
   }
 
 
@@ -172,6 +212,8 @@ public class ConferencePlaybackEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOccurredAt(OffsetDateTime occurredAt) {
     this.occurredAt = occurredAt;
   }
@@ -193,14 +235,14 @@ public class ConferencePlaybackEndedPayload {
         Objects.equals(this.creatorCallSessionId, conferencePlaybackEndedPayload.creatorCallSessionId) &&
         Objects.equals(this.conferenceId, conferencePlaybackEndedPayload.conferenceId) &&
         Objects.equals(this.mediaUrl, conferencePlaybackEndedPayload.mediaUrl) &&
+        Objects.equals(this.mediaName, conferencePlaybackEndedPayload.mediaName) &&
         Objects.equals(this.occurredAt, conferencePlaybackEndedPayload.occurredAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, creatorCallSessionId, conferenceId, mediaUrl, occurredAt);
+    return Objects.hash(connectionId, creatorCallSessionId, conferenceId, mediaUrl, mediaName, occurredAt);
   }
-
 
   @Override
   public String toString() {
@@ -210,6 +252,7 @@ public class ConferencePlaybackEndedPayload {
     sb.append("    creatorCallSessionId: ").append(toIndentedString(creatorCallSessionId)).append("\n");
     sb.append("    conferenceId: ").append(toIndentedString(conferenceId)).append("\n");
     sb.append("    mediaUrl: ").append(toIndentedString(mediaUrl)).append("\n");
+    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    occurredAt: ").append(toIndentedString(occurredAt)).append("\n");
     sb.append("}");
     return sb.toString();

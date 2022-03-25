@@ -2,15 +2,16 @@
 
 # FaxApplication
 
+
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Identifies the resource. |  [optional] [readonly]
+**id** | **String** | Uniquely identifies the resource. |  [optional]
 **recordType** | **String** | Identifies the type of the resource. |  [optional]
 **applicationName** | **String** | A user-assigned name to help manage the application. |  [optional]
 **active** | **Boolean** | Specifies whether the connection can be used. |  [optional]
-**anchorsiteOverride** | [**AnchorsiteOverride**](AnchorsiteOverride.md) |  |  [optional]
+**anchorsiteOverride** | **AnchorsiteOverride** |  |  [optional]
 **webhookEventUrl** | **String** | The URL where webhooks related to this connection will be sent. Must include a scheme, such as &#39;https&#39;. |  [optional]
 **webhookEventFailoverUrl** | **String** | The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as &#39;https&#39;. |  [optional]
 **webhookTimeoutSecs** | **Integer** | Specifies how many seconds to wait before timing out a webhook. |  [optional]

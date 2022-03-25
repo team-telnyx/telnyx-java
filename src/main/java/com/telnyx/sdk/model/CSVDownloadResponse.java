@@ -42,6 +42,8 @@ public class CSVDownloadResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<CsvDownload> data = null;
 
+  public CSVDownloadResponse() { 
+  }
 
   public CSVDownloadResponse data(List<CsvDownload> data) {
     this.data = data;
@@ -70,6 +72,8 @@ public class CSVDownloadResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(List<CsvDownload> data) {
     this.data = data;
   }
@@ -94,7 +98,6 @@ public class CSVDownloadResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

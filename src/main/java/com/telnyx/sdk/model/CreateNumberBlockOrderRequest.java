@@ -125,6 +125,8 @@ public class CreateNumberBlockOrderRequest {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private String errors;
 
+  public CreateNumberBlockOrderRequest() { 
+  }
 
    /**
    * Get id
@@ -167,6 +169,7 @@ public class CreateNumberBlockOrderRequest {
    * Starting phone number block
    * @return startingNumber
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+19705555000", required = true, value = "Starting phone number block")
   @JsonProperty(JSON_PROPERTY_STARTING_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -176,6 +179,8 @@ public class CreateNumberBlockOrderRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STARTING_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStartingNumber(String startingNumber) {
     this.startingNumber = startingNumber;
   }
@@ -190,6 +195,7 @@ public class CreateNumberBlockOrderRequest {
    * The phone number range included in the block.
    * @return range
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "10", required = true, value = "The phone number range included in the block.")
   @JsonProperty(JSON_PROPERTY_RANGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -199,6 +205,8 @@ public class CreateNumberBlockOrderRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RANGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRange(Integer range) {
     this.range = range;
   }
@@ -239,6 +247,8 @@ public class CreateNumberBlockOrderRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -263,6 +273,8 @@ public class CreateNumberBlockOrderRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -303,6 +315,8 @@ public class CreateNumberBlockOrderRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
   }
@@ -403,7 +417,6 @@ public class CreateNumberBlockOrderRequest {
   public int hashCode() {
     return Objects.hash(id, recordType, startingNumber, range, phoneNumbersCount, connectionId, messagingProfileId, status, customerReference, createdAt, updatedAt, requirementsMet, errors);
   }
-
 
   @Override
   public String toString() {

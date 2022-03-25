@@ -2,6 +2,7 @@
 
 # NumberLookupRecord
 
+
 ## Properties
 
 Name | Type | Description | Notes

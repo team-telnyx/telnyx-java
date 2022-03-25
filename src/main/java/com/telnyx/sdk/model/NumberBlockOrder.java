@@ -121,6 +121,8 @@ public class NumberBlockOrder {
   public static final String JSON_PROPERTY_REQUIREMENTS_MET = "requirements_met";
   private Boolean requirementsMet;
 
+  public NumberBlockOrder() { 
+  }
 
    /**
    * Get id
@@ -173,6 +175,8 @@ public class NumberBlockOrder {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STARTING_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStartingNumber(String startingNumber) {
     this.startingNumber = startingNumber;
   }
@@ -197,6 +201,8 @@ public class NumberBlockOrder {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RANGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRange(Integer range) {
     this.range = range;
   }
@@ -237,6 +243,8 @@ public class NumberBlockOrder {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -261,6 +269,8 @@ public class NumberBlockOrder {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -301,6 +311,8 @@ public class NumberBlockOrder {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
   }
@@ -384,7 +396,6 @@ public class NumberBlockOrder {
   public int hashCode() {
     return Objects.hash(id, recordType, startingNumber, range, phoneNumbersCount, connectionId, messagingProfileId, status, customerReference, createdAt, updatedAt, requirementsMet);
   }
-
 
   @Override
   public String toString() {

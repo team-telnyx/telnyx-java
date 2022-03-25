@@ -40,6 +40,8 @@ public class QueueCallResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private QueueCall data;
 
+  public QueueCallResponse() { 
+  }
 
   public QueueCallResponse data(QueueCall data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class QueueCallResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(QueueCall data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class QueueCallResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

@@ -55,6 +55,8 @@ public class EnqueueRequest {
   public static final String JSON_PROPERTY_MAX_SIZE = "max_size";
   private Integer maxSize = 100;
 
+  public EnqueueRequest() { 
+  }
 
   public EnqueueRequest queueName(String queueName) {
     this.queueName = queueName;
@@ -75,6 +77,8 @@ public class EnqueueRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_QUEUE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setQueueName(String queueName) {
     this.queueName = queueName;
   }
@@ -99,6 +103,8 @@ public class EnqueueRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -110,11 +116,11 @@ public class EnqueueRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -123,6 +129,8 @@ public class EnqueueRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -147,6 +155,8 @@ public class EnqueueRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAX_WAIT_TIME_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxWaitTimeSecs(Integer maxWaitTimeSecs) {
     this.maxWaitTimeSecs = maxWaitTimeSecs;
   }
@@ -171,6 +181,8 @@ public class EnqueueRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAX_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxSize(Integer maxSize) {
     this.maxSize = maxSize;
   }
@@ -199,7 +211,6 @@ public class EnqueueRequest {
   public int hashCode() {
     return Objects.hash(queueName, clientState, commandId, maxWaitTimeSecs, maxSize);
   }
-
 
   @Override
   public String toString() {

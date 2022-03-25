@@ -2,6 +2,7 @@
 
 # IpConnectionResponse
 
+
 ## Properties
 
 Name | Type | Description | Notes

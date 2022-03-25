@@ -3,6 +3,7 @@
 # EmergencySettings
 
 The emergency services settings for a phone number.
+
 ## Properties
 
 Name | Type | Description | Notes

@@ -48,7 +48,7 @@ public class StartForkingRequest {
   private String rx;
 
   /**
-   * Optionally specify a media type to stream. If &#x60;decrpyted&#x60; selected, Telnyx will decrypt incoming SIP media before forking to the target. &#x60;rx&#x60; and &#x60;tx&#x60; are required fields if &#x60;decrypted&#x60; selected.
+   * Optionally specify a media type to stream. If &#x60;decrypted&#x60; selected, Telnyx will decrypt incoming SIP media before forking to the target. &#x60;rx&#x60; and &#x60;tx&#x60; are required fields if &#x60;decrypted&#x60; selected.
    */
   public enum StreamTypeEnum {
     RAW("raw"),
@@ -94,6 +94,8 @@ public class StartForkingRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
+  public StartForkingRequest() { 
+  }
 
   public StartForkingRequest target(String target) {
     this.target = target;
@@ -114,6 +116,8 @@ public class StartForkingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TARGET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTarget(String target) {
     this.target = target;
   }
@@ -129,7 +133,7 @@ public class StartForkingRequest {
    * @return rx
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "192.0.2.1:9000", value = "The network target, <udp:ip_address:port>, where the call's incoming RTP media packets should be forwarded.")
+  @ApiModelProperty(example = "udp:192.0.2.1:9000", value = "The network target, <udp:ip_address:port>, where the call's incoming RTP media packets should be forwarded.")
   @JsonProperty(JSON_PROPERTY_RX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -138,6 +142,8 @@ public class StartForkingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRx(String rx) {
     this.rx = rx;
   }
@@ -149,11 +155,11 @@ public class StartForkingRequest {
   }
 
    /**
-   * Optionally specify a media type to stream. If &#x60;decrpyted&#x60; selected, Telnyx will decrypt incoming SIP media before forking to the target. &#x60;rx&#x60; and &#x60;tx&#x60; are required fields if &#x60;decrypted&#x60; selected.
+   * Optionally specify a media type to stream. If &#x60;decrypted&#x60; selected, Telnyx will decrypt incoming SIP media before forking to the target. &#x60;rx&#x60; and &#x60;tx&#x60; are required fields if &#x60;decrypted&#x60; selected.
    * @return streamType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "decrypted", value = "Optionally specify a media type to stream. If `decrpyted` selected, Telnyx will decrypt incoming SIP media before forking to the target. `rx` and `tx` are required fields if `decrypted` selected.")
+  @ApiModelProperty(example = "decrypted", value = "Optionally specify a media type to stream. If `decrypted` selected, Telnyx will decrypt incoming SIP media before forking to the target. `rx` and `tx` are required fields if `decrypted` selected.")
   @JsonProperty(JSON_PROPERTY_STREAM_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -162,6 +168,8 @@ public class StartForkingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STREAM_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStreamType(StreamTypeEnum streamType) {
     this.streamType = streamType;
   }
@@ -177,7 +185,7 @@ public class StartForkingRequest {
    * @return tx
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "192.0.2.1:9001", value = "The network target, <udp:ip_address:port>, where the call's outgoing RTP media packets should be forwarded.")
+  @ApiModelProperty(example = "udp:192.0.2.1:9001", value = "The network target, <udp:ip_address:port>, where the call's outgoing RTP media packets should be forwarded.")
   @JsonProperty(JSON_PROPERTY_TX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -186,6 +194,8 @@ public class StartForkingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTx(String tx) {
     this.tx = tx;
   }
@@ -210,6 +220,8 @@ public class StartForkingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -221,11 +233,11 @@ public class StartForkingRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -234,6 +246,8 @@ public class StartForkingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -263,7 +277,6 @@ public class StartForkingRequest {
   public int hashCode() {
     return Objects.hash(target, rx, streamType, tx, clientState, commandId);
   }
-
 
   @Override
   public String toString() {

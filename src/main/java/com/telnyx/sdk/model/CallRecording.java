@@ -118,6 +118,8 @@ public class CallRecording {
   public static final String JSON_PROPERTY_INBOUND_CALL_RECORDING_CHANNELS = "inbound_call_recording_channels";
   private InboundCallRecordingChannelsEnum inboundCallRecordingChannels = InboundCallRecordingChannelsEnum.SINGLE;
 
+  public CallRecording() { 
+  }
 
   public CallRecording inboundCallRecordingEnabled(Boolean inboundCallRecordingEnabled) {
     this.inboundCallRecordingEnabled = inboundCallRecordingEnabled;
@@ -138,6 +140,8 @@ public class CallRecording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INBOUND_CALL_RECORDING_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInboundCallRecordingEnabled(Boolean inboundCallRecordingEnabled) {
     this.inboundCallRecordingEnabled = inboundCallRecordingEnabled;
   }
@@ -162,6 +166,8 @@ public class CallRecording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INBOUND_CALL_RECORDING_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInboundCallRecordingFormat(InboundCallRecordingFormatEnum inboundCallRecordingFormat) {
     this.inboundCallRecordingFormat = inboundCallRecordingFormat;
   }
@@ -186,6 +192,8 @@ public class CallRecording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INBOUND_CALL_RECORDING_CHANNELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInboundCallRecordingChannels(InboundCallRecordingChannelsEnum inboundCallRecordingChannels) {
     this.inboundCallRecordingChannels = inboundCallRecordingChannels;
   }
@@ -212,7 +220,6 @@ public class CallRecording {
   public int hashCode() {
     return Objects.hash(inboundCallRecordingEnabled, inboundCallRecordingFormat, inboundCallRecordingChannels);
   }
-
 
   @Override
   public String toString() {

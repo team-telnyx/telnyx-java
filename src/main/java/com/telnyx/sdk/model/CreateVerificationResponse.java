@@ -40,6 +40,8 @@ public class CreateVerificationResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private Verification data;
 
+  public CreateVerificationResponse() { 
+  }
 
   public CreateVerificationResponse data(Verification data) {
     this.data = data;
@@ -50,6 +52,7 @@ public class CreateVerificationResponse {
    * Get data
    * @return data
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -59,6 +62,8 @@ public class CreateVerificationResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setData(Verification data) {
     this.data = data;
   }
@@ -83,7 +88,6 @@ public class CreateVerificationResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

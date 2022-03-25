@@ -40,6 +40,8 @@ public class GetRecordingResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private Recording data;
 
+  public GetRecordingResponse() { 
+  }
 
   public GetRecordingResponse data(Recording data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class GetRecordingResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(Recording data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class GetRecordingResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

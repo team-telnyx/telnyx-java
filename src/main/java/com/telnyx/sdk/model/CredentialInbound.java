@@ -159,6 +159,8 @@ public class CredentialInbound {
   public static final String JSON_PROPERTY_TIMEOUT2XX_SECS = "timeout_2xx_secs";
   private String timeout2xxSecs = "90";
 
+  public CredentialInbound() { 
+  }
 
   public CredentialInbound aniNumberFormat(AniNumberFormatEnum aniNumberFormat) {
     this.aniNumberFormat = aniNumberFormat;
@@ -179,6 +181,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ANI_NUMBER_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAniNumberFormat(AniNumberFormatEnum aniNumberFormat) {
     this.aniNumberFormat = aniNumberFormat;
   }
@@ -203,6 +207,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DNIS_NUMBER_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDnisNumberFormat(DnisNumberFormatEnum dnisNumberFormat) {
     this.dnisNumberFormat = dnisNumberFormat;
   }
@@ -235,6 +241,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CODECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCodecs(List<String> codecs) {
     this.codecs = codecs;
   }
@@ -259,6 +267,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChannelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
   }
@@ -283,6 +293,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_GENERATE_RINGBACK_TONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGenerateRingbackTone(Boolean generateRingbackTone) {
     this.generateRingbackTone = generateRingbackTone;
   }
@@ -307,6 +319,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ISUP_HEADERS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsupHeadersEnabled(Boolean isupHeadersEnabled) {
     this.isupHeadersEnabled = isupHeadersEnabled;
   }
@@ -331,6 +345,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PRACK_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrackEnabled(Boolean prackEnabled) {
     this.prackEnabled = prackEnabled;
   }
@@ -355,6 +371,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrivacyZoneEnabled(Boolean privacyZoneEnabled) {
     this.privacyZoneEnabled = privacyZoneEnabled;
   }
@@ -379,6 +397,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipCompactHeadersEnabled(Boolean sipCompactHeadersEnabled) {
     this.sipCompactHeadersEnabled = sipCompactHeadersEnabled;
   }
@@ -405,6 +425,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TIMEOUT1XX_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeout1xxSecs(Integer timeout1xxSecs) {
     this.timeout1xxSecs = timeout1xxSecs;
   }
@@ -417,8 +439,6 @@ public class CredentialInbound {
 
    /**
    * Time(sec) before aborting if call is unanswered (min: 1, max: 600).
-   * minimum: 1
-   * maximum: 600
    * @return timeout2xxSecs
   **/
   @javax.annotation.Nullable
@@ -431,6 +451,8 @@ public class CredentialInbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TIMEOUT2XX_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeout2xxSecs(String timeout2xxSecs) {
     this.timeout2xxSecs = timeout2xxSecs;
   }
@@ -465,7 +487,6 @@ public class CredentialInbound {
   public int hashCode() {
     return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, timeout1xxSecs, timeout2xxSecs);
   }
-
 
   @Override
   public String toString() {

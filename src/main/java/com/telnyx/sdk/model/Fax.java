@@ -38,6 +38,7 @@ import com.telnyx.sdk.JSON;
   Fax.JSON_PROPERTY_CONNECTION_ID,
   Fax.JSON_PROPERTY_DIRECTION,
   Fax.JSON_PROPERTY_MEDIA_URL,
+  Fax.JSON_PROPERTY_MEDIA_NAME,
   Fax.JSON_PROPERTY_TO,
   Fax.JSON_PROPERTY_FROM,
   Fax.JSON_PROPERTY_QUALITY,
@@ -134,6 +135,9 @@ public class Fax {
   public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
   private String mediaUrl;
 
+  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
+  private String mediaName;
+
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
 
@@ -213,6 +217,8 @@ public class Fax {
   public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
   private String updatedAt;
 
+  public Fax() { 
+  }
 
   public Fax recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -233,6 +239,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -257,6 +265,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -281,6 +291,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -305,6 +317,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DIRECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDirection(DirectionEnum direction) {
     this.direction = direction;
   }
@@ -316,11 +330,11 @@ public class Fax {
   }
 
    /**
-   * The URL to the PDF used for the fax&#39;s media.
+   * The URL to the PDF used for the fax&#39;s media. If media_name was supplied, this is omitted.
    * @return mediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL to the PDF used for the fax's media.")
+  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL to the PDF used for the fax's media. If media_name was supplied, this is omitted.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -329,8 +343,36 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MEDIA_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMediaUrl(String mediaUrl) {
     this.mediaUrl = mediaUrl;
+  }
+
+
+  public Fax mediaName(String mediaName) {
+    this.mediaName = mediaName;
+    return this;
+  }
+
+   /**
+   * The media_name of a file used for the fax&#39;s media.
+   * @return mediaName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file used for the fax's media.")
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMediaName() {
+    return mediaName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMediaName(String mediaName) {
+    this.mediaName = mediaName;
   }
 
 
@@ -353,6 +395,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -377,6 +421,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FROM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -401,6 +447,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_QUALITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setQuality(String quality) {
     this.quality = quality;
   }
@@ -425,6 +473,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -449,6 +499,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
   }
@@ -473,6 +525,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookFailoverUrl(String webhookFailoverUrl) {
     this.webhookFailoverUrl = webhookFailoverUrl;
   }
@@ -484,11 +538,11 @@ public class Fax {
   }
 
    /**
-   * Should fax media be stored on temporary URL
+   * Should fax media be stored on temporary URL.
    * @return storeMedia
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Should fax media be stored on temporary URL")
+  @ApiModelProperty(value = "Should fax media be stored on temporary URL.")
   @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -497,6 +551,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStoreMedia(Boolean storeMedia) {
     this.storeMedia = storeMedia;
   }
@@ -508,11 +564,11 @@ public class Fax {
   }
 
    /**
-   * If store_media was set to true, this is a link to temporary location. Link expires after 7 days.
+   * If store_media was set to true, this is a link to temporary location. Link expires after 10 minutes.
    * @return storedMediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "If store_media was set to true, this is a link to temporary location. Link expires after 7 days.")
+  @ApiModelProperty(value = "If store_media was set to true, this is a link to temporary location. Link expires after 10 minutes.")
   @JsonProperty(JSON_PROPERTY_STORED_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -521,6 +577,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STORED_MEDIA_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStoredMediaUrl(String storedMediaUrl) {
     this.storedMediaUrl = storedMediaUrl;
   }
@@ -545,6 +603,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -569,6 +629,8 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -591,6 +653,7 @@ public class Fax {
         Objects.equals(this.connectionId, fax.connectionId) &&
         Objects.equals(this.direction, fax.direction) &&
         Objects.equals(this.mediaUrl, fax.mediaUrl) &&
+        Objects.equals(this.mediaName, fax.mediaName) &&
         Objects.equals(this.to, fax.to) &&
         Objects.equals(this.from, fax.from) &&
         Objects.equals(this.quality, fax.quality) &&
@@ -605,9 +668,8 @@ public class Fax {
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, connectionId, direction, mediaUrl, to, from, quality, status, webhookUrl, webhookFailoverUrl, storeMedia, storedMediaUrl, createdAt, updatedAt);
+    return Objects.hash(recordType, id, connectionId, direction, mediaUrl, mediaName, to, from, quality, status, webhookUrl, webhookFailoverUrl, storeMedia, storedMediaUrl, createdAt, updatedAt);
   }
-
 
   @Override
   public String toString() {
@@ -618,6 +680,7 @@ public class Fax {
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
     sb.append("    mediaUrl: ").append(toIndentedString(mediaUrl)).append("\n");
+    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    quality: ").append(toIndentedString(quality)).append("\n");

@@ -282,6 +282,8 @@ public class CreateInboundIpRequest {
   public static final String JSON_PROPERTY_TIMEOUT2XX_SECS = "timeout_2xx_secs";
   private Integer timeout2xxSecs = 90;
 
+  public CreateInboundIpRequest() { 
+  }
 
   public CreateInboundIpRequest aniNumberFormat(AniNumberFormatEnum aniNumberFormat) {
     this.aniNumberFormat = aniNumberFormat;
@@ -302,6 +304,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ANI_NUMBER_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAniNumberFormat(AniNumberFormatEnum aniNumberFormat) {
     this.aniNumberFormat = aniNumberFormat;
   }
@@ -326,6 +330,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DNIS_NUMBER_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDnisNumberFormat(DnisNumberFormatEnum dnisNumberFormat) {
     this.dnisNumberFormat = dnisNumberFormat;
   }
@@ -358,6 +364,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CODECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCodecs(List<String> codecs) {
     this.codecs = codecs;
   }
@@ -382,6 +390,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DEFAULT_ROUTING_METHOD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultRoutingMethod(DefaultRoutingMethodEnum defaultRoutingMethod) {
     this.defaultRoutingMethod = defaultRoutingMethod;
   }
@@ -406,6 +416,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChannelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
   }
@@ -430,6 +442,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_GENERATE_RINGBACK_TONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGenerateRingbackTone(Boolean generateRingbackTone) {
     this.generateRingbackTone = generateRingbackTone;
   }
@@ -454,6 +468,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ISUP_HEADERS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsupHeadersEnabled(Boolean isupHeadersEnabled) {
     this.isupHeadersEnabled = isupHeadersEnabled;
   }
@@ -478,6 +494,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PRACK_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrackEnabled(Boolean prackEnabled) {
     this.prackEnabled = prackEnabled;
   }
@@ -502,6 +520,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrivacyZoneEnabled(Boolean privacyZoneEnabled) {
     this.privacyZoneEnabled = privacyZoneEnabled;
   }
@@ -526,6 +546,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipCompactHeadersEnabled(Boolean sipCompactHeadersEnabled) {
     this.sipCompactHeadersEnabled = sipCompactHeadersEnabled;
   }
@@ -550,6 +572,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SIP_REGION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipRegion(SipRegionEnum sipRegion) {
     this.sipRegion = sipRegion;
   }
@@ -574,6 +598,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipSubdomain(String sipSubdomain) {
     this.sipSubdomain = sipSubdomain;
   }
@@ -598,6 +624,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipSubdomainReceiveSettings(SipSubdomainReceiveSettingsEnum sipSubdomainReceiveSettings) {
     this.sipSubdomainReceiveSettings = sipSubdomainReceiveSettings;
   }
@@ -624,6 +652,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TIMEOUT1XX_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeout1xxSecs(Integer timeout1xxSecs) {
     this.timeout1xxSecs = timeout1xxSecs;
   }
@@ -648,6 +678,8 @@ public class CreateInboundIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TIMEOUT2XX_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeout2xxSecs(Integer timeout2xxSecs) {
     this.timeout2xxSecs = timeout2xxSecs;
   }
@@ -686,7 +718,6 @@ public class CreateInboundIpRequest {
   public int hashCode() {
     return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, defaultRoutingMethod, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, sipRegion, sipSubdomain, sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs);
   }
-
 
   @Override
   public String toString() {

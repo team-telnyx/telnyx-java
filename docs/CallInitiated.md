@@ -2,14 +2,15 @@
 
 # CallInitiated
 
+
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional]
 **eventType** | [**EventTypeEnum**](#EventTypeEnum) | The type of event being delivered. |  [optional]
-**id** | [**UUID**](UUID.md) | Identifies the type of resource. |  [optional]
-**occurredAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 datetime of when the event occurred. |  [optional]
+**id** | **UUID** | Identifies the type of resource. |  [optional]
+**occurredAt** | **OffsetDateTime** | ISO 8601 datetime of when the event occurred. |  [optional]
 **payload** | [**CallInitiatedPayload**](CallInitiatedPayload.md) |  |  [optional]
 
 
