@@ -92,6 +92,8 @@ public class MessagingProfileHighLevelMetrics {
   public static final String JSON_PROPERTY_INBOUND = "inbound";
   private MessagingProfileHighLevelMetricsInbound inbound;
 
+  public MessagingProfileHighLevelMetrics() { 
+  }
 
    /**
    * Identifies the type of the resource.
@@ -160,6 +162,8 @@ public class MessagingProfileHighLevelMetrics {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OUTBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutbound(MessagingProfileHighLevelMetricsOutbound outbound) {
     this.outbound = outbound;
   }
@@ -184,6 +188,8 @@ public class MessagingProfileHighLevelMetrics {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInbound(MessagingProfileHighLevelMetricsInbound inbound) {
     this.inbound = inbound;
   }
@@ -212,7 +218,6 @@ public class MessagingProfileHighLevelMetrics {
   public int hashCode() {
     return Objects.hash(recordType, messagingProfileId, phoneNumbers, outbound, inbound);
   }
-
 
   @Override
   public String toString() {

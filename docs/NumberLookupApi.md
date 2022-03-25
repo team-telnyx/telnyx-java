@@ -37,8 +37,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberLookupApi apiInstance = new NumberLookupApi(defaultClient);
-        String phoneNumber = +18665552368; // String | The phone number to be looked up
-        String type = "type_example"; // String | Specifies the type of number lookup to be performed
+        String phoneNumber = "+18665552368"; // String | The phone number to be looked up
+        String type = "carrier"; // String | Specifies the type of number lookup to be performed
         try {
             NumberLookupResponse result = apiInstance.numberLookup(phoneNumber, type);
             System.out.println(result);
@@ -79,5 +79,5 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 

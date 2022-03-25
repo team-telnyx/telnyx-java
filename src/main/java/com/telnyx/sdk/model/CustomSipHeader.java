@@ -43,6 +43,8 @@ public class CustomSipHeader {
   public static final String JSON_PROPERTY_VALUE = "value";
   private String value;
 
+  public CustomSipHeader() { 
+  }
 
   public CustomSipHeader name(String name) {
     this.name = name;
@@ -53,6 +55,7 @@ public class CustomSipHeader {
    * The name of the header to add.
    * @return name
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "head_1", required = true, value = "The name of the header to add.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -62,6 +65,8 @@ public class CustomSipHeader {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(String name) {
     this.name = name;
   }
@@ -76,6 +81,7 @@ public class CustomSipHeader {
    * The value of the header.
    * @return value
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "val_1", required = true, value = "The value of the header.")
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -85,6 +91,8 @@ public class CustomSipHeader {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setValue(String value) {
     this.value = value;
   }
@@ -110,7 +118,6 @@ public class CustomSipHeader {
   public int hashCode() {
     return Objects.hash(name, value);
   }
-
 
   @Override
   public String toString() {

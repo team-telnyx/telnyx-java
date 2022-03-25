@@ -88,6 +88,8 @@ public class Call {
   public static final String JSON_PROPERTY_IS_ALIVE = "is_alive";
   private Boolean isAlive;
 
+  public Call() { 
+  }
 
   public Call recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -98,6 +100,7 @@ public class Call {
    * Get recordType
    * @return recordType
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "call", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -107,6 +110,8 @@ public class Call {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -118,10 +123,11 @@ public class Call {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events
+   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call
    * @return callSessionId
   **/
-  @ApiModelProperty(example = "428c31b6-7af4-4bcb-b68e-5013ef9657c1", required = true, value = "ID that is unique to the call session and can be used to correlate webhook events")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(example = "428c31b6-7af4-4bcb-b68e-5013ef9657c1", required = true, value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -130,6 +136,8 @@ public class Call {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -144,6 +152,7 @@ public class Call {
    * ID that is unique to the call and can be used to correlate webhook events
    * @return callLegId
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "428c31b6-7af4-4bcb-b7f5-5013ef9657c1", required = true, value = "ID that is unique to the call and can be used to correlate webhook events")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -153,6 +162,8 @@ public class Call {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -167,6 +178,7 @@ public class Call {
    * Unique identifier and token for controlling the call.
    * @return callControlId
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", required = true, value = "Unique identifier and token for controlling the call.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -176,6 +188,8 @@ public class Call {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -190,6 +204,7 @@ public class Call {
    * Indicates whether the call is alive or not. For Dial command it will always be &#x60;false&#x60; (dialing is asynchronous).
    * @return isAlive
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "Indicates whether the call is alive or not. For Dial command it will always be `false` (dialing is asynchronous).")
   @JsonProperty(JSON_PROPERTY_IS_ALIVE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -199,6 +214,8 @@ public class Call {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_IS_ALIVE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIsAlive(Boolean isAlive) {
     this.isAlive = isAlive;
   }
@@ -227,7 +244,6 @@ public class Call {
   public int hashCode() {
     return Objects.hash(recordType, callSessionId, callLegId, callControlId, isAlive);
   }
-
 
   @Override
   public String toString() {

@@ -37,6 +37,8 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   ConferenceRecordingSavedPayload.JSON_PROPERTY_CALL_CONTROL_ID,
+  ConferenceRecordingSavedPayload.JSON_PROPERTY_CALL_SESSION_ID,
+  ConferenceRecordingSavedPayload.JSON_PROPERTY_CLIENT_STATE,
   ConferenceRecordingSavedPayload.JSON_PROPERTY_CHANNELS,
   ConferenceRecordingSavedPayload.JSON_PROPERTY_CONFERENCE_ID,
   ConferenceRecordingSavedPayload.JSON_PROPERTY_CONNECTION_ID,
@@ -51,6 +53,12 @@ import com.telnyx.sdk.JSON;
 public class ConferenceRecordingSavedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
+
+  public static final String JSON_PROPERTY_CALL_SESSION_ID = "call_session_id";
+  private String callSessionId;
+
+  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+  private String clientState;
 
   /**
    * Whether recording was recorded in &#x60;single&#x60; or &#x60;dual&#x60; channel.
@@ -149,6 +157,8 @@ public class ConferenceRecordingSavedPayload {
   public static final String JSON_PROPERTY_RECORDING_URLS = "recording_urls";
   private CallRecordingSavedPayloadRecordingUrls recordingUrls;
 
+  public ConferenceRecordingSavedPayload() { 
+  }
 
   public ConferenceRecordingSavedPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -169,8 +179,62 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
+  }
+
+
+  public ConferenceRecordingSavedPayload callSessionId(String callSessionId) {
+    this.callSessionId = callSessionId;
+    return this;
+  }
+
+   /**
+   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+   * @return callSessionId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCallSessionId() {
+    return callSessionId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCallSessionId(String callSessionId) {
+    this.callSessionId = callSessionId;
+  }
+
+
+  public ConferenceRecordingSavedPayload clientState(String clientState) {
+    this.clientState = clientState;
+    return this;
+  }
+
+   /**
+   * State received from a command.
+   * @return clientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClientState() {
+    return clientState;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClientState(String clientState) {
+    this.clientState = clientState;
   }
 
 
@@ -193,6 +257,8 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANNELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChannels(ChannelsEnum channels) {
     this.channels = channels;
   }
@@ -217,6 +283,8 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConferenceId(UUID conferenceId) {
     this.conferenceId = conferenceId;
   }
@@ -241,6 +309,8 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -265,6 +335,8 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFormat(FormatEnum format) {
     this.format = format;
   }
@@ -289,6 +361,8 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PUBLIC_RECORDING_URLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPublicRecordingUrls(CallRecordingSavedPayloadPublicRecordingUrls publicRecordingUrls) {
     this.publicRecordingUrls = publicRecordingUrls;
   }
@@ -313,6 +387,8 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordingEndedAt(OffsetDateTime recordingEndedAt) {
     this.recordingEndedAt = recordingEndedAt;
   }
@@ -337,6 +413,8 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORDING_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordingId(UUID recordingId) {
     this.recordingId = recordingId;
   }
@@ -361,6 +439,8 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordingStartedAt(OffsetDateTime recordingStartedAt) {
     this.recordingStartedAt = recordingStartedAt;
   }
@@ -385,6 +465,8 @@ public class ConferenceRecordingSavedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORDING_URLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordingUrls(CallRecordingSavedPayloadRecordingUrls recordingUrls) {
     this.recordingUrls = recordingUrls;
   }
@@ -403,6 +485,8 @@ public class ConferenceRecordingSavedPayload {
     }
     ConferenceRecordingSavedPayload conferenceRecordingSavedPayload = (ConferenceRecordingSavedPayload) o;
     return Objects.equals(this.callControlId, conferenceRecordingSavedPayload.callControlId) &&
+        Objects.equals(this.callSessionId, conferenceRecordingSavedPayload.callSessionId) &&
+        Objects.equals(this.clientState, conferenceRecordingSavedPayload.clientState) &&
         Objects.equals(this.channels, conferenceRecordingSavedPayload.channels) &&
         Objects.equals(this.conferenceId, conferenceRecordingSavedPayload.conferenceId) &&
         Objects.equals(this.connectionId, conferenceRecordingSavedPayload.connectionId) &&
@@ -416,15 +500,16 @@ public class ConferenceRecordingSavedPayload {
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, channels, conferenceId, connectionId, format, publicRecordingUrls, recordingEndedAt, recordingId, recordingStartedAt, recordingUrls);
+    return Objects.hash(callControlId, callSessionId, clientState, channels, conferenceId, connectionId, format, publicRecordingUrls, recordingEndedAt, recordingId, recordingStartedAt, recordingUrls);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConferenceRecordingSavedPayload {\n");
     sb.append("    callControlId: ").append(toIndentedString(callControlId)).append("\n");
+    sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
+    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    channels: ").append(toIndentedString(channels)).append("\n");
     sb.append("    conferenceId: ").append(toIndentedString(conferenceId)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");

@@ -19,19 +19,19 @@ import java.util.List;
 import java.util.Map;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class FqdNsApi {
+public class FqdnsApi {
   private ApiClient apiClient;
 
-  public FqdNsApi() {
+  public FqdnsApi() {
     this(Configuration.getDefaultApiClient());
   }
 
-  public FqdNsApi(ApiClient apiClient) {
+  public FqdnsApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -40,7 +40,7 @@ public class FqdNsApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -110,7 +110,7 @@ public class FqdNsApi {
 
     GenericType<FQDNResponse> localVarReturnType = new GenericType<FQDNResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.createFqdn", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.createFqdn", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -182,7 +182,7 @@ public class FqdNsApi {
 
     GenericType<FQDNResponse> localVarReturnType = new GenericType<FQDNResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.deleteFqdn", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.deleteFqdn", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -223,7 +223,7 @@ private ApiResponse<ListFQDNsResponse> listFqdnsWithHttpInfo(Integer pageNumber,
 
     GenericType<ListFQDNsResponse> localVarReturnType = new GenericType<ListFQDNsResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.listFqdns", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.listFqdns", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -251,7 +251,7 @@ private ApiResponse<ListFQDNsResponse> listFqdnsWithHttpInfo(Integer pageNumber,
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 50)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistFqdnsRequest
      */
     public APIlistFqdnsRequest pageSize(Integer pageSize) {
@@ -414,7 +414,7 @@ private ApiResponse<ListFQDNsResponse> listFqdnsWithHttpInfo(Integer pageNumber,
 
     GenericType<FQDNResponse> localVarReturnType = new GenericType<FQDNResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.retrieveFqdn", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.retrieveFqdn", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -488,7 +488,7 @@ private ApiResponse<ListFQDNsResponse> listFqdnsWithHttpInfo(Integer pageNumber,
 
     GenericType<FQDNResponse> localVarReturnType = new GenericType<FQDNResponse>() {};
 
-    return apiClient.invokeAPI("FqdNsApi.updateFqdn", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("FqdnsApi.updateFqdn", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

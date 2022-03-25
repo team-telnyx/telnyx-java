@@ -40,6 +40,8 @@ public class CallLeftQueueEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallLeftQueue data;
 
+  public CallLeftQueueEvent() { 
+  }
 
   public CallLeftQueueEvent data(CallLeftQueue data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class CallLeftQueueEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallLeftQueue data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class CallLeftQueueEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

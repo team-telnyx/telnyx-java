@@ -40,6 +40,8 @@ public class NumberOrderRegulatoryRequirementResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private RegulatoryRequirement data;
 
+  public NumberOrderRegulatoryRequirementResponse() { 
+  }
 
   public NumberOrderRegulatoryRequirementResponse data(RegulatoryRequirement data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class NumberOrderRegulatoryRequirementResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(RegulatoryRequirement data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class NumberOrderRegulatoryRequirementResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

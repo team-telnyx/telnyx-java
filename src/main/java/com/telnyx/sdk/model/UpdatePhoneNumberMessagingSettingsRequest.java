@@ -43,6 +43,8 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
   public static final String JSON_PROPERTY_MESSAGING_PRODUCT = "messaging_product";
   private String messagingProduct;
 
+  public UpdatePhoneNumberMessagingSettingsRequest() { 
+  }
 
   public UpdatePhoneNumberMessagingSettingsRequest messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
@@ -63,6 +65,8 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -87,6 +91,8 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_PRODUCT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProduct(String messagingProduct) {
     this.messagingProduct = messagingProduct;
   }
@@ -112,7 +118,6 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
   public int hashCode() {
     return Objects.hash(messagingProfileId, messagingProduct);
   }
-
 
   @Override
   public String toString() {

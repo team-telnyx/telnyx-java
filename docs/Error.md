@@ -2,15 +2,14 @@
 
 # Error
 
+
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**code** | **Integer** |  | 
-**title** | **String** |  | 
+**code** | **Integer** |  |  [optional]
+**title** | **String** |  |  [optional]
 **detail** | **String** |  |  [optional]
-**source** | [**ErrorSource**](ErrorSource.md) |  |  [optional]
-**meta** | [**ErrorMeta**](ErrorMeta.md) |  |  [optional]
 
 
 

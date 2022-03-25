@@ -31,7 +31,7 @@ public class NumberReservationsApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -40,7 +40,7 @@ public class NumberReservationsApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -58,7 +58,7 @@ public class NumberReservationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public NumberReservationResponse createNumberReservation(CreateNumberReservationRequest createNumberReservationRequest) throws ApiException {
@@ -75,7 +75,7 @@ public class NumberReservationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberReservationResponse> createNumberReservationWithHttpInfo(CreateNumberReservationRequest createNumberReservationRequest) throws ApiException {
@@ -127,7 +127,7 @@ public class NumberReservationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public NumberReservationResponse extendNumberReservationExpiryTime(String numberReservationId) throws ApiException {
@@ -144,7 +144,7 @@ public class NumberReservationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberReservationResponse> extendNumberReservationExpiryTimeWithHttpInfo(String numberReservationId) throws ApiException {
@@ -304,7 +304,7 @@ private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHt
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 50)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistNumberReservationsRequest
      */
     public APIlistNumberReservationsRequest pageSize(Integer pageSize) {
@@ -320,7 +320,7 @@ private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHt
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>
      
      */
@@ -337,7 +337,7 @@ private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHt
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of number reservations. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>
 
      */
@@ -367,7 +367,7 @@ private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHt
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public NumberReservationResponse retrieveNumberReservation(String numberReservationId) throws ApiException {
@@ -384,7 +384,7 @@ private ApiResponse<ListNumberReservationsResponse> listNumberReservationsWithHt
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a number reservation. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<NumberReservationResponse> retrieveNumberReservationWithHttpInfo(String numberReservationId) throws ApiException {

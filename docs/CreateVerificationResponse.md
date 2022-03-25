@@ -2,6 +2,7 @@
 
 # CreateVerificationResponse
 
+
 ## Properties
 
 Name | Type | Description | Notes

@@ -40,6 +40,8 @@ public class ReplacedLinkClickEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private ReplacedLinkClick data;
 
+  public ReplacedLinkClickEvent() { 
+  }
 
   public ReplacedLinkClickEvent data(ReplacedLinkClick data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class ReplacedLinkClickEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(ReplacedLinkClick data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class ReplacedLinkClickEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

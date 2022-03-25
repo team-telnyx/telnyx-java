@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.MessagingFeatureSet;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -47,6 +48,8 @@ public class PhoneNumberWithMessagingSettingsFeatures {
   public static final String JSON_PROPERTY_MMS = "mms";
   private JsonNullable<MessagingFeatureSet> mms = JsonNullable.<MessagingFeatureSet>undefined();
 
+  public PhoneNumberWithMessagingSettingsFeatures() { 
+  }
 
   public PhoneNumberWithMessagingSettingsFeatures sms(MessagingFeatureSet sms) {
     this.sms = JsonNullable.<MessagingFeatureSet>of(sms);
@@ -128,15 +131,25 @@ public class PhoneNumberWithMessagingSettingsFeatures {
       return false;
     }
     PhoneNumberWithMessagingSettingsFeatures phoneNumberWithMessagingSettingsFeatures = (PhoneNumberWithMessagingSettingsFeatures) o;
-    return Objects.equals(this.sms, phoneNumberWithMessagingSettingsFeatures.sms) &&
-        Objects.equals(this.mms, phoneNumberWithMessagingSettingsFeatures.mms);
+    return equalsNullable(this.sms, phoneNumberWithMessagingSettingsFeatures.sms) &&
+        equalsNullable(this.mms, phoneNumberWithMessagingSettingsFeatures.mms);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sms, mms);
+    return Objects.hash(hashCodeNullable(sms), hashCodeNullable(mms));
   }
 
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
 
   @Override
   public String toString() {

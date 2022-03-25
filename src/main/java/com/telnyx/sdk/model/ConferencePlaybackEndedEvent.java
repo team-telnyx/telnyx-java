@@ -40,6 +40,8 @@ public class ConferencePlaybackEndedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private ConferencePlaybackEnded data;
 
+  public ConferencePlaybackEndedEvent() { 
+  }
 
   public ConferencePlaybackEndedEvent data(ConferencePlaybackEnded data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class ConferencePlaybackEndedEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(ConferencePlaybackEnded data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class ConferencePlaybackEndedEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

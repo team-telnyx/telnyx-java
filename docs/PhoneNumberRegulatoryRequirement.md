@@ -2,14 +2,15 @@
 
 # PhoneNumberRegulatoryRequirement
 
+
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | **String** |  |  [optional] [readonly]
-**requirementId** | [**UUID**](UUID.md) | Unique id for a requirement. |  [optional]
-**fieldValue** | **String** | The value of the requirement, this could be an id to a resource or a string value. |  [optional]
+**requirementId** | **UUID** | Unique id for a requirement. |  [optional]
 **fieldType** | [**FieldTypeEnum**](#FieldTypeEnum) |  |  [optional] [readonly]
+**fieldValue** | **String** | The value of the requirement, this could be an id to a resource or a string value. |  [optional]
 
 
 
@@ -17,10 +18,10 @@ Name | Type | Description | Notes
 
 Name | Value
 ---- | -----
-STRING | &quot;string&quot;
+TEXTUAL | &quot;textual&quot;
 DATETIME | &quot;datetime&quot;
-ADDRESS_ID | &quot;address_id&quot;
-NUMBER_ORDER_DOCUMENT_ID | &quot;number_order_document_id&quot;
+ADDRESS | &quot;address&quot;
+DOCUMENT | &quot;document&quot;
 
 
 

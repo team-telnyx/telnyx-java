@@ -61,6 +61,8 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private String billingGroupId;
 
+  public PhoneNumbersJobUpdatePhoneNumbersRequest() { 
+  }
 
   public PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbers(List<String> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
@@ -76,6 +78,7 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
    * Array of phone number ids and/or phone numbers in E164 format to update
    * @return phoneNumbers
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Array of phone number ids and/or phone numbers in E164 format to update")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -85,6 +88,8 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhoneNumbers(List<String> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
@@ -117,6 +122,8 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTags(List<String> tags) {
     this.tags = tags;
   }
@@ -141,6 +148,8 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExternalPin(String externalPin) {
     this.externalPin = externalPin;
   }
@@ -165,6 +174,8 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
   }
@@ -189,6 +200,8 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -213,6 +226,8 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBillingGroupId(String billingGroupId) {
     this.billingGroupId = billingGroupId;
   }
@@ -242,7 +257,6 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   public int hashCode() {
     return Objects.hash(phoneNumbers, tags, externalPin, customerReference, connectionId, billingGroupId);
   }
-
 
   @Override
   public String toString() {

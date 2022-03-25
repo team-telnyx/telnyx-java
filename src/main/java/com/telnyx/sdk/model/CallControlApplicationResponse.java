@@ -40,6 +40,8 @@ public class CallControlApplicationResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallControlApplication data;
 
+  public CallControlApplicationResponse() { 
+  }
 
   public CallControlApplicationResponse data(CallControlApplication data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class CallControlApplicationResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallControlApplication data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class CallControlApplicationResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

@@ -40,6 +40,8 @@ public class CallInitiatedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallInitiated data;
 
+  public CallInitiatedEvent() { 
+  }
 
   public CallInitiatedEvent data(CallInitiated data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class CallInitiatedEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallInitiated data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class CallInitiatedEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

@@ -47,6 +47,8 @@ public class CallForkStartedPayload {
   public static final String JSON_PROPERTY_CALL_SESSION_ID = "call_session_id";
   private String callSessionId;
 
+  public CallForkStartedPayload() { 
+  }
 
   public CallForkStartedPayload connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -67,6 +69,8 @@ public class CallForkStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -91,6 +95,8 @@ public class CallForkStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -102,11 +108,11 @@ public class CallForkStartedPayload {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events.
+   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
    * @return callSessionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events.")
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -115,6 +121,8 @@ public class CallForkStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -141,7 +149,6 @@ public class CallForkStartedPayload {
   public int hashCode() {
     return Objects.hash(connectionId, callLegId, callSessionId);
   }
-
 
   @Override
   public String toString() {

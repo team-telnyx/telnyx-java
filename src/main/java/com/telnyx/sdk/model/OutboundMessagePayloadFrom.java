@@ -90,6 +90,8 @@ public class OutboundMessagePayloadFrom {
   public static final String JSON_PROPERTY_LINE_TYPE = "line_type";
   private LineTypeEnum lineType;
 
+  public OutboundMessagePayloadFrom() { 
+  }
 
   public OutboundMessagePayloadFrom phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -110,6 +112,8 @@ public class OutboundMessagePayloadFrom {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -134,6 +138,8 @@ public class OutboundMessagePayloadFrom {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CARRIER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCarrier(String carrier) {
     this.carrier = carrier;
   }
@@ -158,6 +164,8 @@ public class OutboundMessagePayloadFrom {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LINE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLineType(LineTypeEnum lineType) {
     this.lineType = lineType;
   }
@@ -184,7 +192,6 @@ public class OutboundMessagePayloadFrom {
   public int hashCode() {
     return Objects.hash(phoneNumber, carrier, lineType);
   }
-
 
   @Override
   public String toString() {

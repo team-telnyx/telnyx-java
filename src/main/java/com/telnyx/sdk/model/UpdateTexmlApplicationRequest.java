@@ -161,6 +161,8 @@ public class UpdateTexmlApplicationRequest {
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
   private CreateTexmlApplicationRequestOutbound outbound;
 
+  public UpdateTexmlApplicationRequest() { 
+  }
 
   public UpdateTexmlApplicationRequest friendlyName(String friendlyName) {
     this.friendlyName = friendlyName;
@@ -171,6 +173,7 @@ public class UpdateTexmlApplicationRequest {
    * A user-assigned name to help manage the application.
    * @return friendlyName
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "call-router", required = true, value = "A user-assigned name to help manage the application.")
   @JsonProperty(JSON_PROPERTY_FRIENDLY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -180,6 +183,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FRIENDLY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFriendlyName(String friendlyName) {
     this.friendlyName = friendlyName;
   }
@@ -204,6 +209,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(Boolean active) {
     this.active = active;
   }
@@ -228,6 +235,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
@@ -252,6 +261,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDtmfType(DtmfType dtmfType) {
     this.dtmfType = dtmfType;
   }
@@ -276,6 +287,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FIRST_COMMAND_TIMEOUT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFirstCommandTimeout(Boolean firstCommandTimeout) {
     this.firstCommandTimeout = firstCommandTimeout;
   }
@@ -300,6 +313,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FIRST_COMMAND_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFirstCommandTimeoutSecs(Integer firstCommandTimeoutSecs) {
     this.firstCommandTimeoutSecs = firstCommandTimeoutSecs;
   }
@@ -314,6 +329,7 @@ public class UpdateTexmlApplicationRequest {
    * URL to which Telnyx will deliver your XML Translator webhooks.
    * @return voiceUrl
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "https://example.com", required = true, value = "URL to which Telnyx will deliver your XML Translator webhooks.")
   @JsonProperty(JSON_PROPERTY_VOICE_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -323,6 +339,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VOICE_URL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVoiceUrl(String voiceUrl) {
     this.voiceUrl = voiceUrl;
   }
@@ -347,6 +365,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VOICE_FALLBACK_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVoiceFallbackUrl(String voiceFallbackUrl) {
     this.voiceFallbackUrl = voiceFallbackUrl;
   }
@@ -371,6 +391,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VOICE_METHOD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVoiceMethod(VoiceMethodEnum voiceMethod) {
     this.voiceMethod = voiceMethod;
   }
@@ -395,6 +417,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATUS_CALLBACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatusCallback(String statusCallback) {
     this.statusCallback = statusCallback;
   }
@@ -419,6 +443,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATUS_CALLBACK_METHOD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatusCallbackMethod(StatusCallbackMethodEnum statusCallbackMethod) {
     this.statusCallbackMethod = statusCallbackMethod;
   }
@@ -443,6 +469,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInbound(CreateTexmlApplicationRequestInbound inbound) {
     this.inbound = inbound;
   }
@@ -467,6 +495,8 @@ public class UpdateTexmlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OUTBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutbound(CreateTexmlApplicationRequestOutbound outbound) {
     this.outbound = outbound;
   }
@@ -503,7 +533,6 @@ public class UpdateTexmlApplicationRequest {
   public int hashCode() {
     return Objects.hash(friendlyName, active, anchorsiteOverride, dtmfType, firstCommandTimeout, firstCommandTimeoutSecs, voiceUrl, voiceFallbackUrl, voiceMethod, statusCallback, statusCallbackMethod, inbound, outbound);
   }
-
 
   @Override
   public String toString() {

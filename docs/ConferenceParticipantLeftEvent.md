@@ -2,6 +2,7 @@
 
 # ConferenceParticipantLeftEvent
 
+
 ## Properties
 
 Name | Type | Description | Notes

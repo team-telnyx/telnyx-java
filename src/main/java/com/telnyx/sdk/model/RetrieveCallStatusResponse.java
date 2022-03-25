@@ -40,6 +40,8 @@ public class RetrieveCallStatusResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private Call data;
 
+  public RetrieveCallStatusResponse() { 
+  }
 
   public RetrieveCallStatusResponse data(Call data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class RetrieveCallStatusResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(Call data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class RetrieveCallStatusResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

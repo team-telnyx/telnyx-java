@@ -3,6 +3,7 @@
 # MessagingFeatureSet
 
 The set of features available for a specific messaging use case (SMS or MMS). Features can vary depending on the characteristics the phone number, as well as its current product configuration. 
+
 ## Properties
 
 Name | Type | Description | Notes

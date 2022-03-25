@@ -40,6 +40,8 @@ public class PhoneNumberBlocksJobDeletePhoneNumberBlock {
   public static final String JSON_PROPERTY_DATA = "data";
   private PhoneNumberBlocksJob data;
 
+  public PhoneNumberBlocksJobDeletePhoneNumberBlock() { 
+  }
 
   public PhoneNumberBlocksJobDeletePhoneNumberBlock data(PhoneNumberBlocksJob data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class PhoneNumberBlocksJobDeletePhoneNumberBlock {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(PhoneNumberBlocksJob data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class PhoneNumberBlocksJobDeletePhoneNumberBlock {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

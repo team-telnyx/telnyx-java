@@ -123,7 +123,7 @@ public class SpeakRequest {
   private ServiceLevelEnum serviceLevel = ServiceLevelEnum.PREMIUM;
 
   public static final String JSON_PROPERTY_STOP = "stop";
-  private String stop = "null";
+  private String stop;
 
   /**
    * The gender of the voice used to speak back the text.
@@ -261,6 +261,8 @@ public class SpeakRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
+  public SpeakRequest() { 
+  }
 
   public SpeakRequest payload(String payload) {
     this.payload = payload;
@@ -268,10 +270,11 @@ public class SpeakRequest {
   }
 
    /**
-   * The text or SSML to be converted into speech. There is a 5,000 character limit.
+   * The text or SSML to be converted into speech. There is a 3,000 character limit.
    * @return payload
   **/
-  @ApiModelProperty(example = "Say this on the call", required = true, value = "The text or SSML to be converted into speech. There is a 5,000 character limit.")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(example = "Say this on the call", required = true, value = "The text or SSML to be converted into speech. There is a 3,000 character limit.")
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -280,6 +283,8 @@ public class SpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAYLOAD)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPayload(String payload) {
     this.payload = payload;
   }
@@ -304,6 +309,8 @@ public class SpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAYLOAD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPayloadType(PayloadTypeEnum payloadType) {
     this.payloadType = payloadType;
   }
@@ -328,6 +335,8 @@ public class SpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SERVICE_LEVEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setServiceLevel(ServiceLevelEnum serviceLevel) {
     this.serviceLevel = serviceLevel;
   }
@@ -339,11 +348,11 @@ public class SpeakRequest {
   }
 
    /**
-   * When specified, it stops the current audio being played.  Specify &#x60;current&#x60; to stop the current audio being played, and to play the next file in the queue. Specify &#x60;all&#x60; to stop the current audio file being played and to also clear all audio files from the queue.
+   * When specified, it stops the current audio being played. Specify &#x60;current&#x60; to stop the current audio being played, and to play the next file in the queue. Specify &#x60;all&#x60; to stop the current audio file being played and to also clear all audio files from the queue.
    * @return stop
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "current", value = "When specified, it stops the current audio being played.  Specify `current` to stop the current audio being played, and to play the next file in the queue. Specify `all` to stop the current audio file being played and to also clear all audio files from the queue.")
+  @ApiModelProperty(example = "current", value = "When specified, it stops the current audio being played. Specify `current` to stop the current audio being played, and to play the next file in the queue. Specify `all` to stop the current audio file being played and to also clear all audio files from the queue.")
   @JsonProperty(JSON_PROPERTY_STOP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -352,6 +361,8 @@ public class SpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STOP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStop(String stop) {
     this.stop = stop;
   }
@@ -366,6 +377,7 @@ public class SpeakRequest {
    * The gender of the voice used to speak back the text.
    * @return voice
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "female", required = true, value = "The gender of the voice used to speak back the text.")
   @JsonProperty(JSON_PROPERTY_VOICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -375,6 +387,8 @@ public class SpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VOICE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVoice(VoiceEnum voice) {
     this.voice = voice;
   }
@@ -389,6 +403,7 @@ public class SpeakRequest {
    * The language you want spoken.
    * @return language
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "en-US", required = true, value = "The language you want spoken.")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -398,6 +413,8 @@ public class SpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LANGUAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLanguage(LanguageEnum language) {
     this.language = language;
   }
@@ -422,6 +439,8 @@ public class SpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -433,11 +452,11 @@ public class SpeakRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -446,6 +465,8 @@ public class SpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -477,7 +498,6 @@ public class SpeakRequest {
   public int hashCode() {
     return Objects.hash(payload, payloadType, serviceLevel, stop, voice, language, clientState, commandId);
   }
-
 
   @Override
   public String toString() {

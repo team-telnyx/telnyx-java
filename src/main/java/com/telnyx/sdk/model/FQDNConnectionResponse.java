@@ -40,6 +40,8 @@ public class FQDNConnectionResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private FqdnConnection data;
 
+  public FQDNConnectionResponse() { 
+  }
 
   public FQDNConnectionResponse data(FqdnConnection data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class FQDNConnectionResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(FqdnConnection data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class FQDNConnectionResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

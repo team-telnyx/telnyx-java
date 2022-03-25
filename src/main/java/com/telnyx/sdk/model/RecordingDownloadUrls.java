@@ -44,6 +44,8 @@ public class RecordingDownloadUrls {
   public static final String JSON_PROPERTY_WAV = "wav";
   private String wav;
 
+  public RecordingDownloadUrls() { 
+  }
 
   public RecordingDownloadUrls mp3(String mp3) {
     this.mp3 = mp3;
@@ -64,6 +66,8 @@ public class RecordingDownloadUrls {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MP3)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMp3(String mp3) {
     this.mp3 = mp3;
   }
@@ -88,6 +92,8 @@ public class RecordingDownloadUrls {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WAV)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWav(String wav) {
     this.wav = wav;
   }
@@ -113,7 +119,6 @@ public class RecordingDownloadUrls {
   public int hashCode() {
     return Objects.hash(mp3, wav);
   }
-
 
   @Override
   public String toString() {

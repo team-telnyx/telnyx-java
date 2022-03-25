@@ -43,6 +43,8 @@ public class CallerName {
   public static final String JSON_PROPERTY_ERROR_CODE = "error_code";
   private String errorCode;
 
+  public CallerName() { 
+  }
 
   public CallerName callerName(String callerName) {
     this.callerName = callerName;
@@ -63,6 +65,8 @@ public class CallerName {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALLER_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallerName(String callerName) {
     this.callerName = callerName;
   }
@@ -87,6 +91,8 @@ public class CallerName {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ERROR_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setErrorCode(String errorCode) {
     this.errorCode = errorCode;
   }
@@ -112,7 +118,6 @@ public class CallerName {
   public int hashCode() {
     return Objects.hash(callerName, errorCode);
   }
-
 
   @Override
   public String toString() {

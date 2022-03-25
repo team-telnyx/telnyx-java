@@ -51,6 +51,8 @@ public class Meta {
   public static final String JSON_PROPERTY_PAGE_SIZE = "page_size";
   private Integer pageSize;
 
+  public Meta() { 
+  }
 
   public Meta totalPages(Integer totalPages) {
     this.totalPages = totalPages;
@@ -71,6 +73,8 @@ public class Meta {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TOTAL_PAGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTotalPages(Integer totalPages) {
     this.totalPages = totalPages;
   }
@@ -95,6 +99,8 @@ public class Meta {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTotalResults(Integer totalResults) {
     this.totalResults = totalResults;
   }
@@ -119,6 +125,8 @@ public class Meta {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageNumber(Integer pageNumber) {
     this.pageNumber = pageNumber;
   }
@@ -143,6 +151,8 @@ public class Meta {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageSize(Integer pageSize) {
     this.pageSize = pageSize;
   }
@@ -170,7 +180,6 @@ public class Meta {
   public int hashCode() {
     return Objects.hash(totalPages, totalResults, pageNumber, pageSize);
   }
-
 
   @Override
   public String toString() {

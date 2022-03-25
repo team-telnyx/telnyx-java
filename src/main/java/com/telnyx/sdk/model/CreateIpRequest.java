@@ -47,6 +47,8 @@ public class CreateIpRequest {
   public static final String JSON_PROPERTY_PORT = "port";
   private Integer port = 5060;
 
+  public CreateIpRequest() { 
+  }
 
   public CreateIpRequest connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -67,6 +69,8 @@ public class CreateIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -81,6 +85,7 @@ public class CreateIpRequest {
    * IP adddress represented by this resource.
    * @return ipAddress
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "192.168.0.0", required = true, value = "IP adddress represented by this resource.")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -90,6 +95,8 @@ public class CreateIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIpAddress(String ipAddress) {
     this.ipAddress = ipAddress;
   }
@@ -114,6 +121,8 @@ public class CreateIpRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPort(Integer port) {
     this.port = port;
   }
@@ -140,7 +149,6 @@ public class CreateIpRequest {
   public int hashCode() {
     return Objects.hash(connectionId, ipAddress, port);
   }
-
 
   @Override
   public String toString() {

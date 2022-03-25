@@ -40,6 +40,8 @@ public class CredentialConnectionResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private CredentialConnection data;
 
+  public CredentialConnectionResponse() { 
+  }
 
   public CredentialConnectionResponse data(CredentialConnection data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class CredentialConnectionResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CredentialConnection data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class CredentialConnectionResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

@@ -2,6 +2,7 @@
 
 # GetRecordingResponse
 
+
 ## Properties
 
 Name | Type | Description | Notes

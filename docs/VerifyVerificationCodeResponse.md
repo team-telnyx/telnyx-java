@@ -2,6 +2,7 @@
 
 # VerifyVerificationCodeResponse
 
+
 ## Properties
 
 Name | Type | Description | Notes

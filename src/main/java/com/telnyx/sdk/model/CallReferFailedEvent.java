@@ -40,6 +40,8 @@ public class CallReferFailedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallReferFailed data;
 
+  public CallReferFailedEvent() { 
+  }
 
   public CallReferFailedEvent data(CallReferFailed data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class CallReferFailedEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallReferFailed data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class CallReferFailedEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

@@ -3,6 +3,7 @@
 # ConferenceEndedBy
 
 IDs related to who ended the conference. It is expected for them to all be there or all be null
+
 ## Properties
 
 Name | Type | Description | Notes

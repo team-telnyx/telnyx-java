@@ -102,6 +102,8 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   public static final String JSON_PROPERTY_CALL_RECORDING = "call_recording";
   private CallRecording callRecording;
 
+  public UpdatePhoneNumberVoiceSettingsRequest() { 
+  }
 
   public UpdatePhoneNumberVoiceSettingsRequest techPrefixEnabled(Boolean techPrefixEnabled) {
     this.techPrefixEnabled = techPrefixEnabled;
@@ -122,6 +124,8 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TECH_PREFIX_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTechPrefixEnabled(Boolean techPrefixEnabled) {
     this.techPrefixEnabled = techPrefixEnabled;
   }
@@ -146,6 +150,8 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TRANSLATED_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTranslatedNumber(String translatedNumber) {
     this.translatedNumber = translatedNumber;
   }
@@ -170,6 +176,8 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_FORWARDING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallForwarding(CallForwarding callForwarding) {
     this.callForwarding = callForwarding;
   }
@@ -194,6 +202,8 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CNAM_LISTING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCnamListing(CnamListing cnamListing) {
     this.cnamListing = cnamListing;
   }
@@ -218,6 +228,8 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_USAGE_PAYMENT_METHOD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUsagePaymentMethod(UsagePaymentMethodEnum usagePaymentMethod) {
     this.usagePaymentMethod = usagePaymentMethod;
   }
@@ -242,6 +254,8 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MEDIA_FEATURES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMediaFeatures(MediaFeatures mediaFeatures) {
     this.mediaFeatures = mediaFeatures;
   }
@@ -266,6 +280,8 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_RECORDING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallRecording(CallRecording callRecording) {
     this.callRecording = callRecording;
   }
@@ -296,7 +312,6 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   public int hashCode() {
     return Objects.hash(techPrefixEnabled, translatedNumber, callForwarding, cnamListing, usagePaymentMethod, mediaFeatures, callRecording);
   }
-
 
   @Override
   public String toString() {

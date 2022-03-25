@@ -29,7 +29,7 @@ public class RecordingsCommandsApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -38,7 +38,7 @@ public class RecordingsCommandsApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -139,7 +139,7 @@ private ApiResponse<ListRecordingsResponse> listRecordingsWithHttpInfo(String fi
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 50)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistRecordingsRequest
      */
     public APIlistRecordingsRequest pageSize(Integer pageSize) {

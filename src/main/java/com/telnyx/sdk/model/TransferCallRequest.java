@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallRequestAnsweringMachineDetectionConfig;
 import com.telnyx.sdk.model.CustomSipHeader;
+import com.telnyx.sdk.model.SipHeader;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ import com.telnyx.sdk.JSON;
   TransferCallRequest.JSON_PROPERTY_FROM,
   TransferCallRequest.JSON_PROPERTY_FROM_DISPLAY_NAME,
   TransferCallRequest.JSON_PROPERTY_AUDIO_URL,
+  TransferCallRequest.JSON_PROPERTY_MEDIA_NAME,
   TransferCallRequest.JSON_PROPERTY_TIMEOUT_SECS,
   TransferCallRequest.JSON_PROPERTY_TIME_LIMIT_SECS,
   TransferCallRequest.JSON_PROPERTY_ANSWERING_MACHINE_DETECTION,
@@ -50,6 +52,7 @@ import com.telnyx.sdk.JSON;
   TransferCallRequest.JSON_PROPERTY_COMMAND_ID,
   TransferCallRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
   TransferCallRequest.JSON_PROPERTY_SIP_AUTH_PASSWORD,
+  TransferCallRequest.JSON_PROPERTY_SIP_HEADERS,
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL,
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
 })
@@ -66,6 +69,9 @@ public class TransferCallRequest {
 
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
+
+  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
+  private String mediaName;
 
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs = 30;
@@ -138,6 +144,9 @@ public class TransferCallRequest {
   public static final String JSON_PROPERTY_SIP_AUTH_PASSWORD = "sip_auth_password";
   private String sipAuthPassword;
 
+  public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
+  private List<SipHeader> sipHeaders = null;
+
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private String webhookUrl;
 
@@ -179,6 +188,8 @@ public class TransferCallRequest {
   public static final String JSON_PROPERTY_WEBHOOK_URL_METHOD = "webhook_url_method";
   private WebhookUrlMethodEnum webhookUrlMethod = WebhookUrlMethodEnum.POST;
 
+  public TransferCallRequest() { 
+  }
 
   public TransferCallRequest to(String to) {
     this.to = to;
@@ -189,6 +200,7 @@ public class TransferCallRequest {
    * The DID or SIP URI to dial out and bridge to the given call.
    * @return to
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+18005550100 or sip:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out and bridge to the given call.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -198,6 +210,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TO)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -222,6 +236,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FROM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -246,6 +262,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFromDisplayName(String fromDisplayName) {
     this.fromDisplayName = fromDisplayName;
   }
@@ -257,11 +275,11 @@ public class TransferCallRequest {
   }
 
    /**
-   * Audio URL to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file.
+   * The URL of a file to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.
    * @return audioUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://www.example.com/sounds/greeting.wav", value = "Audio URL to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file.")
+  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.")
   @JsonProperty(JSON_PROPERTY_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -270,8 +288,36 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_AUDIO_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAudioUrl(String audioUrl) {
     this.audioUrl = audioUrl;
+  }
+
+
+  public TransferCallRequest mediaName(String mediaName) {
+    this.mediaName = mediaName;
+    return this;
+  }
+
+   /**
+   * The media_name of a file to be played back when the transfer destination answers before bridging the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
+   * @return mediaName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played back when the transfer destination answers before bridging the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMediaName() {
+    return mediaName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMediaName(String mediaName) {
+    this.mediaName = mediaName;
   }
 
 
@@ -294,6 +340,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
   }
@@ -318,6 +366,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TIME_LIMIT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeLimitSecs(Integer timeLimitSecs) {
     this.timeLimitSecs = timeLimitSecs;
   }
@@ -342,6 +392,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ANSWERING_MACHINE_DETECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnsweringMachineDetection(AnsweringMachineDetectionEnum answeringMachineDetection) {
     this.answeringMachineDetection = answeringMachineDetection;
   }
@@ -366,6 +418,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ANSWERING_MACHINE_DETECTION_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnsweringMachineDetectionConfig(CallRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
     this.answeringMachineDetectionConfig = answeringMachineDetectionConfig;
   }
@@ -398,6 +452,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomHeaders(List<CustomSipHeader> customHeaders) {
     this.customHeaders = customHeaders;
   }
@@ -422,6 +478,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -446,6 +504,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TARGET_LEG_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTargetLegClientState(String targetLegClientState) {
     this.targetLegClientState = targetLegClientState;
   }
@@ -457,11 +517,11 @@ public class TransferCallRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -470,6 +530,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -494,6 +556,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SIP_AUTH_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipAuthUsername(String sipAuthUsername) {
     this.sipAuthUsername = sipAuthUsername;
   }
@@ -518,8 +582,44 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SIP_AUTH_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipAuthPassword(String sipAuthPassword) {
     this.sipAuthPassword = sipAuthPassword;
+  }
+
+
+  public TransferCallRequest sipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+    return this;
+  }
+
+  public TransferCallRequest addSipHeadersItem(SipHeader sipHeadersItem) {
+    if (this.sipHeaders == null) {
+      this.sipHeaders = new ArrayList<>();
+    }
+    this.sipHeaders.add(sipHeadersItem);
+    return this;
+  }
+
+   /**
+   * SIP headers to be added to the SIP INVITE. Currently only User-to-User header is supported.
+   * @return sipHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"user-to-user\",\"value\":\"value\"}]", value = "SIP headers to be added to the SIP INVITE. Currently only User-to-User header is supported.")
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SipHeader> getSipHeaders() {
+    return sipHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
   }
 
 
@@ -542,6 +642,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
   }
@@ -566,6 +668,8 @@ public class TransferCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL_METHOD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrlMethod(WebhookUrlMethodEnum webhookUrlMethod) {
     this.webhookUrlMethod = webhookUrlMethod;
   }
@@ -587,6 +691,7 @@ public class TransferCallRequest {
         Objects.equals(this.from, transferCallRequest.from) &&
         Objects.equals(this.fromDisplayName, transferCallRequest.fromDisplayName) &&
         Objects.equals(this.audioUrl, transferCallRequest.audioUrl) &&
+        Objects.equals(this.mediaName, transferCallRequest.mediaName) &&
         Objects.equals(this.timeoutSecs, transferCallRequest.timeoutSecs) &&
         Objects.equals(this.timeLimitSecs, transferCallRequest.timeLimitSecs) &&
         Objects.equals(this.answeringMachineDetection, transferCallRequest.answeringMachineDetection) &&
@@ -597,15 +702,15 @@ public class TransferCallRequest {
         Objects.equals(this.commandId, transferCallRequest.commandId) &&
         Objects.equals(this.sipAuthUsername, transferCallRequest.sipAuthUsername) &&
         Objects.equals(this.sipAuthPassword, transferCallRequest.sipAuthPassword) &&
+        Objects.equals(this.sipHeaders, transferCallRequest.sipHeaders) &&
         Objects.equals(this.webhookUrl, transferCallRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, transferCallRequest.webhookUrlMethod);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, fromDisplayName, audioUrl, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, targetLegClientState, commandId, sipAuthUsername, sipAuthPassword, webhookUrl, webhookUrlMethod);
+    return Objects.hash(to, from, fromDisplayName, audioUrl, mediaName, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, targetLegClientState, commandId, sipAuthUsername, sipAuthPassword, sipHeaders, webhookUrl, webhookUrlMethod);
   }
-
 
   @Override
   public String toString() {
@@ -615,6 +720,7 @@ public class TransferCallRequest {
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    fromDisplayName: ").append(toIndentedString(fromDisplayName)).append("\n");
     sb.append("    audioUrl: ").append(toIndentedString(audioUrl)).append("\n");
+    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
     sb.append("    timeLimitSecs: ").append(toIndentedString(timeLimitSecs)).append("\n");
     sb.append("    answeringMachineDetection: ").append(toIndentedString(answeringMachineDetection)).append("\n");
@@ -625,6 +731,7 @@ public class TransferCallRequest {
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    sipAuthUsername: ").append(toIndentedString(sipAuthUsername)).append("\n");
     sb.append("    sipAuthPassword: ").append(toIndentedString(sipAuthPassword)).append("\n");
+    sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");
     sb.append("}");

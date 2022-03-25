@@ -31,7 +31,7 @@ public class OutboundVoiceProfilesApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -40,7 +40,7 @@ public class OutboundVoiceProfilesApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -256,7 +256,7 @@ private ApiResponse<ListOutboundVoiceProfilesResponse> listOutboundVoiceProfiles
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 50)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistOutboundVoiceProfilesRequest
      */
     public APIlistOutboundVoiceProfilesRequest pageSize(Integer pageSize) {

@@ -38,7 +38,7 @@ public class Example {
 
         ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 50; // Integer | The size of the page
+        Integer pageSize = 20; // Integer | The size of the page
         String filterMessagingProfileId = "filterMessagingProfileId_example"; // String | Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile.
         try {
             ListShortCodesResponse result = api.listShortCodes()
@@ -64,7 +64,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **filterMessagingProfileId** | **String**| Filter by Messaging Profile ID. Use the string &#x60;null&#x60; for phone numbers without assigned profiles. A synonym for the &#x60;/messaging_profiles/{id}/short_codes&#x60; endpoint when querying about an extant profile. | [optional]
 
 ### Return type
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of short codes. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## retrieveShortCode
@@ -96,6 +96,7 @@ Retrieve a short code
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -114,7 +115,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
-        UUID id = new UUID(); // UUID | The id of the short code
+        UUID id = UUID.randomUUID(); // UUID | The id of the short code
         try {
             ShortCodeResponse result = apiInstance.retrieveShortCode(id);
             System.out.println(result);
@@ -134,7 +135,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| The id of the short code |
+ **id** | **UUID**| The id of the short code |
 
 ### Return type
 
@@ -153,7 +154,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a short code. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## updateShortCode
@@ -167,6 +168,7 @@ Update the settings for a specific short code. To unbind a short code from a pro
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -185,7 +187,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ShortCodesApi apiInstance = new ShortCodesApi(defaultClient);
-        UUID id = new UUID(); // UUID | The id of the short code
+        UUID id = UUID.randomUUID(); // UUID | The id of the short code
         UpdateShortCodeRequest updateShortCodeRequest = new UpdateShortCodeRequest(); // UpdateShortCodeRequest | Short code update
         try {
             ShortCodeResponse result = apiInstance.updateShortCode(id, updateShortCodeRequest);
@@ -206,7 +208,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| The id of the short code |
+ **id** | **UUID**| The id of the short code |
  **updateShortCodeRequest** | [**UpdateShortCodeRequest**](UpdateShortCodeRequest.md)| Short code update |
 
 ### Return type
@@ -226,5 +228,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a short code. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 

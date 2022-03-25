@@ -2,6 +2,7 @@
 
 # RetrieveMessagingHostedNumberResponse
 
+
 ## Properties
 
 Name | Type | Description | Notes

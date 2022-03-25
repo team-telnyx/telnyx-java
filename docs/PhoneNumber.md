@@ -2,11 +2,12 @@
 
 # PhoneNumber
 
+
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**UUID**](UUID.md) |  |  [optional] [readonly]
+**id** | **UUID** |  |  [optional] [readonly]
 **recordType** | **String** |  |  [optional] [readonly]
 **phoneNumber** | **String** |  |  [optional]
 **regulatoryGroupId** | **String** |  |  [optional] [readonly]

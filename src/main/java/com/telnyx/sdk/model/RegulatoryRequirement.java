@@ -131,6 +131,8 @@ public class RegulatoryRequirement {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
+  public RegulatoryRequirement() { 
+  }
 
    /**
    * Identifies the type of the resource.
@@ -167,6 +169,8 @@ public class RegulatoryRequirement {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRequirementType(RequirementTypeEnum requirementType) {
     this.requirementType = requirementType;
   }
@@ -191,6 +195,8 @@ public class RegulatoryRequirement {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LABEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLabel(String label) {
     this.label = label;
   }
@@ -215,6 +221,8 @@ public class RegulatoryRequirement {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFieldType(FieldTypeEnum fieldType) {
     this.fieldType = fieldType;
   }
@@ -239,6 +247,8 @@ public class RegulatoryRequirement {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(String description) {
     this.description = description;
   }
@@ -267,7 +277,6 @@ public class RegulatoryRequirement {
   public int hashCode() {
     return Objects.hash(recordType, requirementType, label, fieldType, description);
   }
-
 
   @Override
   public String toString() {

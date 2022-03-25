@@ -154,7 +154,7 @@ public class Loopcount extends AbstractOpenApiSchema {
     }
 
     // store a list of schema names defined in oneOf
-    public final static Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
 
     public Loopcount() {
         super("oneOf", Boolean.FALSE);
@@ -218,7 +218,7 @@ public class Loopcount extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `Integer`. If the actual instanct is not `Integer`,
+     * Get the actual instance of `Integer`. If the actual instance is not `Integer`,
      * the ClassCastException will be thrown.
      *
      * @return The actual instance of `Integer`
@@ -229,7 +229,7 @@ public class Loopcount extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `String`. If the actual instanct is not `String`,
+     * Get the actual instance of `String`. If the actual instance is not `String`,
      * the ClassCastException will be thrown.
      *
      * @return The actual instance of `String`

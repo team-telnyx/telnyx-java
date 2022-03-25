@@ -67,6 +67,8 @@ public class Fqdn {
   public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
   private String updatedAt;
 
+  public Fqdn() { 
+  }
 
   public Fqdn id(String id) {
     this.id = id;
@@ -87,6 +89,8 @@ public class Fqdn {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -111,6 +115,8 @@ public class Fqdn {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -135,6 +141,8 @@ public class Fqdn {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -159,6 +167,8 @@ public class Fqdn {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FQDN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFqdn(String fqdn) {
     this.fqdn = fqdn;
   }
@@ -183,6 +193,8 @@ public class Fqdn {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPort(Integer port) {
     this.port = port;
   }
@@ -207,6 +219,8 @@ public class Fqdn {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DNS_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDnsRecordType(String dnsRecordType) {
     this.dnsRecordType = dnsRecordType;
   }
@@ -231,6 +245,8 @@ public class Fqdn {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -255,6 +271,8 @@ public class Fqdn {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -286,7 +304,6 @@ public class Fqdn {
   public int hashCode() {
     return Objects.hash(id, recordType, connectionId, fqdn, port, dnsRecordType, createdAt, updatedAt);
   }
-
 
   @Override
   public String toString() {

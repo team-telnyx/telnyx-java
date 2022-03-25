@@ -26,6 +26,7 @@ import com.telnyx.sdk.model.NumberPoolSettings;
 import com.telnyx.sdk.model.UrlShortenerSettings;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -105,6 +106,8 @@ public class CreateMessagingProfileRequest {
   public static final String JSON_PROPERTY_URL_SHORTENER_SETTINGS = "url_shortener_settings";
   private JsonNullable<UrlShortenerSettings> urlShortenerSettings = JsonNullable.<UrlShortenerSettings>undefined();
 
+  public CreateMessagingProfileRequest() { 
+  }
 
   public CreateMessagingProfileRequest name(String name) {
     this.name = name;
@@ -115,6 +118,7 @@ public class CreateMessagingProfileRequest {
    * A user friendly name for the messaging profile.
    * @return name
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "A user friendly name for the messaging profile.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -124,6 +128,8 @@ public class CreateMessagingProfileRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(String name) {
     this.name = name;
   }
@@ -148,6 +154,8 @@ public class CreateMessagingProfileRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEnabled(Boolean enabled) {
     this.enabled = enabled;
   }
@@ -240,6 +248,8 @@ public class CreateMessagingProfileRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
@@ -327,18 +337,28 @@ public class CreateMessagingProfileRequest {
     CreateMessagingProfileRequest createMessagingProfileRequest = (CreateMessagingProfileRequest) o;
     return Objects.equals(this.name, createMessagingProfileRequest.name) &&
         Objects.equals(this.enabled, createMessagingProfileRequest.enabled) &&
-        Objects.equals(this.webhookUrl, createMessagingProfileRequest.webhookUrl) &&
-        Objects.equals(this.webhookFailoverUrl, createMessagingProfileRequest.webhookFailoverUrl) &&
+        equalsNullable(this.webhookUrl, createMessagingProfileRequest.webhookUrl) &&
+        equalsNullable(this.webhookFailoverUrl, createMessagingProfileRequest.webhookFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, createMessagingProfileRequest.webhookApiVersion) &&
-        Objects.equals(this.numberPoolSettings, createMessagingProfileRequest.numberPoolSettings) &&
-        Objects.equals(this.urlShortenerSettings, createMessagingProfileRequest.urlShortenerSettings);
+        equalsNullable(this.numberPoolSettings, createMessagingProfileRequest.numberPoolSettings) &&
+        equalsNullable(this.urlShortenerSettings, createMessagingProfileRequest.urlShortenerSettings);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, enabled, webhookUrl, webhookFailoverUrl, webhookApiVersion, numberPoolSettings, urlShortenerSettings);
+    return Objects.hash(name, enabled, hashCodeNullable(webhookUrl), hashCodeNullable(webhookFailoverUrl), webhookApiVersion, hashCodeNullable(numberPoolSettings), hashCodeNullable(urlShortenerSettings));
   }
 
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
 
   @Override
   public String toString() {

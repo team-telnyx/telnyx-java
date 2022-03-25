@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a message. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## createMessage
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a message. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## createNumberPoolMessage
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a message. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## createShortCodeMessage
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a message. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## retrieveMessage
@@ -306,6 +306,7 @@ Note: This API endpoint can only retrieve messages that are no older than 10 day
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -324,7 +325,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         MessagesApi apiInstance = new MessagesApi(defaultClient);
-        UUID id = new UUID(); // UUID | The id of the message
+        UUID id = UUID.randomUUID(); // UUID | The id of the message
         try {
             MessageResponse result = apiInstance.retrieveMessage(id);
             System.out.println(result);
@@ -344,7 +345,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| The id of the message |
+ **id** | **UUID**| The id of the message |
 
 ### Return type
 
@@ -363,5 +364,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a message. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 

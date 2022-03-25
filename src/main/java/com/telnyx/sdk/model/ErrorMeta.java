@@ -39,6 +39,8 @@ public class ErrorMeta {
   public static final String JSON_PROPERTY_URL = "url";
   private String url;
 
+  public ErrorMeta() { 
+  }
 
   public ErrorMeta url(String url) {
     this.url = url;
@@ -59,6 +61,8 @@ public class ErrorMeta {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrl(String url) {
     this.url = url;
   }
@@ -83,7 +87,6 @@ public class ErrorMeta {
   public int hashCode() {
     return Objects.hash(url);
   }
-
 
   @Override
   public String toString() {

@@ -47,6 +47,8 @@ public class MessagingProfileDetailedMetrics {
   public static final String JSON_PROPERTY_DETAILED = "detailed";
   private List<MessagingProfileDetailedMetric> detailed = null;
 
+  public MessagingProfileDetailedMetrics() { 
+  }
 
   public MessagingProfileDetailedMetrics overview(MessagingProfileHighLevelMetrics overview) {
     this.overview = overview;
@@ -67,6 +69,8 @@ public class MessagingProfileDetailedMetrics {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OVERVIEW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOverview(MessagingProfileHighLevelMetrics overview) {
     this.overview = overview;
   }
@@ -99,6 +103,8 @@ public class MessagingProfileDetailedMetrics {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DETAILED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDetailed(List<MessagingProfileDetailedMetric> detailed) {
     this.detailed = detailed;
   }
@@ -124,7 +130,6 @@ public class MessagingProfileDetailedMetrics {
   public int hashCode() {
     return Objects.hash(overview, detailed);
   }
-
 
   @Override
   public String toString() {

@@ -43,7 +43,7 @@ public class VerifyApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -52,7 +52,7 @@ public class VerifyApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -70,7 +70,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateVerificationResponse createVerificationCall(CreateVerificationRequestCall createVerificationRequestCall) throws ApiException {
@@ -87,7 +87,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateVerificationResponse> createVerificationCallWithHttpInfo(CreateVerificationRequestCall createVerificationRequestCall) throws ApiException {
@@ -139,7 +139,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateVerificationResponse createVerificationFlashcall(CreateVerificationRequestFlashcall createVerificationRequestFlashcall) throws ApiException {
@@ -156,7 +156,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateVerificationResponse> createVerificationFlashcallWithHttpInfo(CreateVerificationRequestFlashcall createVerificationRequestFlashcall) throws ApiException {
@@ -208,7 +208,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateVerificationResponse createVerificationPSD2(CreateVerificationRequestPSD2 createVerificationRequestPSD2) throws ApiException {
@@ -225,7 +225,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateVerificationResponse> createVerificationPSD2WithHttpInfo(CreateVerificationRequestPSD2 createVerificationRequestPSD2) throws ApiException {
@@ -277,7 +277,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateVerificationResponse createVerificationSMS(CreateVerificationRequestSMS createVerificationRequestSMS) throws ApiException {
@@ -294,7 +294,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateVerificationResponse> createVerificationSMSWithHttpInfo(CreateVerificationRequestSMS createVerificationRequestSMS) throws ApiException {
@@ -346,7 +346,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateVerificationResponse createVerificationWhatsapp(CreateVerificationRequestWhatsapp createVerificationRequestWhatsapp) throws ApiException {
@@ -363,7 +363,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateVerificationResponse> createVerificationWhatsappWithHttpInfo(CreateVerificationRequestWhatsapp createVerificationRequestWhatsapp) throws ApiException {
@@ -415,7 +415,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public VerifyProfileResponseDataWrapper createVerifyProfile(CreateVerifyProfileRequest createVerifyProfileRequest) throws ApiException {
@@ -432,7 +432,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<VerifyProfileResponseDataWrapper> createVerifyProfileWithHttpInfo(CreateVerifyProfileRequest createVerifyProfileRequest) throws ApiException {
@@ -484,7 +484,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public VerifyProfileResponseDataWrapper deleteVerifyProfile(UUID verifyProfileId) throws ApiException {
@@ -501,7 +501,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<VerifyProfileResponseDataWrapper> deleteVerifyProfileWithHttpInfo(UUID verifyProfileId) throws ApiException {
@@ -554,7 +554,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ListVerificationsResponse listVerifications(String phoneNumber) throws ApiException {
@@ -571,7 +571,7 @@ public class VerifyApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListVerificationsResponse> listVerificationsWithHttpInfo(String phoneNumber) throws ApiException {
@@ -699,7 +699,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>
      
      */
@@ -716,7 +716,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>
 
      */
@@ -746,7 +746,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveVerificationResponse retrieveVerification(UUID verificationId) throws ApiException {
@@ -763,7 +763,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verifications response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveVerificationResponse> retrieveVerificationWithHttpInfo(UUID verificationId) throws ApiException {
@@ -816,7 +816,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public VerifyProfileResponseDataWrapper retrieveVerifyProfile(UUID verifyProfileId) throws ApiException {
@@ -833,7 +833,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<VerifyProfileResponseDataWrapper> retrieveVerifyProfileWithHttpInfo(UUID verifyProfileId) throws ApiException {
@@ -887,7 +887,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public VerifyProfileResponseDataWrapper updateVerifyProfile(UUID verifyProfileId, UpdateVerifyProfileRequest updateVerifyProfileRequest) throws ApiException {
@@ -905,7 +905,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected Verify profile response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<VerifyProfileResponseDataWrapper> updateVerifyProfileWithHttpInfo(UUID verifyProfileId, UpdateVerifyProfileRequest updateVerifyProfileRequest) throws ApiException {
@@ -954,7 +954,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Submit a verification code
+   * Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
    * 
    * @param phoneNumber The phone number associated with the verification code being verified. (required)
    * @param verifyVerificationCodeRequest  (required)
@@ -964,7 +964,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verify response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public VerifyVerificationCodeResponse verifyVerificationCode(String phoneNumber, VerifyVerificationCodeRequest verifyVerificationCodeRequest) throws ApiException {
@@ -972,7 +972,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
   }
 
   /**
-   * Submit a verification code
+   * Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
    * 
    * @param phoneNumber The phone number associated with the verification code being verified. (required)
    * @param verifyVerificationCodeRequest  (required)
@@ -982,7 +982,7 @@ private ApiResponse<ListVerifyProfilesResponse> listVerifyProfilesWithHttpInfo(S
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected verify response to a valid request. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<VerifyVerificationCodeResponse> verifyVerificationCodeWithHttpInfo(String phoneNumber, VerifyVerificationCodeRequest verifyVerificationCodeRequest) throws ApiException {

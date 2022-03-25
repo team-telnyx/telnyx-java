@@ -139,6 +139,8 @@ public class InboundMessagePayloadCc {
   public static final String JSON_PROPERTY_LINE_TYPE = "line_type";
   private LineTypeEnum lineType;
 
+  public InboundMessagePayloadCc() { 
+  }
 
   public InboundMessagePayloadCc phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -159,6 +161,8 @@ public class InboundMessagePayloadCc {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -183,6 +187,8 @@ public class InboundMessagePayloadCc {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -207,6 +213,8 @@ public class InboundMessagePayloadCc {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CARRIER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCarrier(String carrier) {
     this.carrier = carrier;
   }
@@ -231,6 +239,8 @@ public class InboundMessagePayloadCc {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LINE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLineType(LineTypeEnum lineType) {
     this.lineType = lineType;
   }
@@ -258,7 +268,6 @@ public class InboundMessagePayloadCc {
   public int hashCode() {
     return Objects.hash(phoneNumber, status, carrier, lineType);
   }
-
 
   @Override
   public String toString() {

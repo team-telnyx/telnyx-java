@@ -41,7 +41,7 @@ public class Example {
         QueueCommandsApi apiInstance = new QueueCommandsApi(defaultClient);
         String queueName = "queueName_example"; // String | Uniquely identifies the queue by name
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 50; // Integer | The size of the page
+        Integer pageSize = 20; // Integer | The size of the page
         try {
             ListQueueCallsResponse result = apiInstance.listQueueCalls(queueName, pageNumber, pageSize);
             System.out.println(result);
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **queueName** | **String**| Uniquely identifies the queue by name |
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

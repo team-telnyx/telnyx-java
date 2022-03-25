@@ -29,7 +29,7 @@ public class ConnectionsApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -38,7 +38,7 @@ public class ConnectionsApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -47,7 +47,7 @@ public class ConnectionsApi {
   }
 
 
-private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
+private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -62,7 +62,7 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_name][contains]", filterConnectionNameContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound_voice_profile_id]", filterOutboundVoiceProfileId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound.outbound_voice_profile_id]", filterOutboundOutboundVoiceProfileId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -91,7 +91,7 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
     private Integer pageNumber;
     private Integer pageSize;
     private String filterConnectionNameContains;
-    private String filterOutboundVoiceProfileId;
+    private String filterOutboundOutboundVoiceProfileId;
     private String sort;
 
     private APIlistConnectionsRequest() {
@@ -109,7 +109,7 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 50)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistConnectionsRequest
      */
     public APIlistConnectionsRequest pageSize(Integer pageSize) {
@@ -119,7 +119,7 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
 
     /**
      * Set filterConnectionNameContains
-     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
+     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
      * @return APIlistConnectionsRequest
      */
     public APIlistConnectionsRequest filterConnectionNameContains(String filterConnectionNameContains) {
@@ -128,12 +128,12 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
     }
 
     /**
-     * Set filterOutboundVoiceProfileId
-     * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+     * Set filterOutboundOutboundVoiceProfileId
+     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
      * @return APIlistConnectionsRequest
      */
-    public APIlistConnectionsRequest filterOutboundVoiceProfileId(String filterOutboundVoiceProfileId) {
-      this.filterOutboundVoiceProfileId = filterOutboundVoiceProfileId;
+    public APIlistConnectionsRequest filterOutboundOutboundVoiceProfileId(String filterOutboundOutboundVoiceProfileId) {
+      this.filterOutboundOutboundVoiceProfileId = filterOutboundOutboundVoiceProfileId;
       return this;
     }
 
@@ -181,7 +181,7 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
 
      */
     public ApiResponse<ListConnectionsResponse> executeWithHttpInfo() throws ApiException {
-      return listConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterOutboundVoiceProfileId, sort);
+      return listConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort);
     }
   }
 

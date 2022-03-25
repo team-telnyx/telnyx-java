@@ -3,6 +3,7 @@
 # MediaFeatures
 
 The media features settings for a phone number.
+
 ## Properties
 
 Name | Type | Description | Notes

@@ -48,6 +48,8 @@ public class MessagingProfileHighLevelMetricsOutbound {
   public static final String JSON_PROPERTY_ERROR_RATIO = "error_ratio";
   private BigDecimal errorRatio;
 
+  public MessagingProfileHighLevelMetricsOutbound() { 
+  }
 
    /**
    * The number of outbound messages sent.
@@ -118,7 +120,6 @@ public class MessagingProfileHighLevelMetricsOutbound {
   public int hashCode() {
     return Objects.hash(sent, delivered, errorRatio);
   }
-
 
   @Override
   public String toString() {

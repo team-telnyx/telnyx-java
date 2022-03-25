@@ -98,6 +98,8 @@ public class ShortCode {
   public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
   private OffsetDateTime updatedAt;
 
+  public ShortCode() { 
+  }
 
    /**
    * Identifies the type of the resource.
@@ -182,6 +184,8 @@ public class ShortCode {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -244,7 +248,6 @@ public class ShortCode {
   public int hashCode() {
     return Objects.hash(recordType, id, shortCode, countryCode, messagingProfileId, createdAt, updatedAt);
   }
-
 
   @Override
   public String toString() {

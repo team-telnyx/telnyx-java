@@ -34,7 +34,7 @@ public class MessagesApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -43,7 +43,7 @@ public class MessagesApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -61,7 +61,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public MessageResponse createLongCodeMessage(CreateLongCodeMessageRequest createLongCodeMessageRequest) throws ApiException {
@@ -78,7 +78,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<MessageResponse> createLongCodeMessageWithHttpInfo(CreateLongCodeMessageRequest createLongCodeMessageRequest) throws ApiException {
@@ -125,7 +125,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public MessageResponse createMessage(CreateMessageRequest createMessageRequest) throws ApiException {
@@ -142,7 +142,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<MessageResponse> createMessageWithHttpInfo(CreateMessageRequest createMessageRequest) throws ApiException {
@@ -189,7 +189,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public MessageResponse createNumberPoolMessage(CreateNumberPoolMessageRequest createNumberPoolMessageRequest) throws ApiException {
@@ -206,7 +206,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<MessageResponse> createNumberPoolMessageWithHttpInfo(CreateNumberPoolMessageRequest createNumberPoolMessageRequest) throws ApiException {
@@ -253,7 +253,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public MessageResponse createShortCodeMessage(CreateShortCodeMessageRequest createShortCodeMessageRequest) throws ApiException {
@@ -270,7 +270,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<MessageResponse> createShortCodeMessageWithHttpInfo(CreateShortCodeMessageRequest createShortCodeMessageRequest) throws ApiException {
@@ -317,7 +317,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public MessageResponse retrieveMessage(UUID id) throws ApiException {
@@ -334,7 +334,7 @@ public class MessagesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<MessageResponse> retrieveMessageWithHttpInfo(UUID id) throws ApiException {
