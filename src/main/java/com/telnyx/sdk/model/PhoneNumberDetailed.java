@@ -41,8 +41,8 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDetailed.JSON_PROPERTY_TAGS,
   PhoneNumberDetailed.JSON_PROPERTY_EXTERNAL_PIN,
   PhoneNumberDetailed.JSON_PROPERTY_CONNECTION_NAME,
-  PhoneNumberDetailed.JSON_PROPERTY_CONNECTION_ID,
   PhoneNumberDetailed.JSON_PROPERTY_CUSTOMER_REFERENCE,
+  PhoneNumberDetailed.JSON_PROPERTY_CONNECTION_ID,
   PhoneNumberDetailed.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   PhoneNumberDetailed.JSON_PROPERTY_MESSAGING_PROFILE_NAME,
   PhoneNumberDetailed.JSON_PROPERTY_BILLING_GROUP_ID,
@@ -53,10 +53,9 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDetailed.JSON_PROPERTY_CALLER_ID_NAME_ENABLED,
   PhoneNumberDetailed.JSON_PROPERTY_CALL_RECORDING_ENABLED,
   PhoneNumberDetailed.JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED,
+  PhoneNumberDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE,
   PhoneNumberDetailed.JSON_PROPERTY_PURCHASED_AT,
-  PhoneNumberDetailed.JSON_PROPERTY_CREATED_AT,
-  PhoneNumberDetailed.JSON_PROPERTY_NUMBER_LEVEL_ROUTING,
-  PhoneNumberDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE
+  PhoneNumberDetailed.JSON_PROPERTY_CREATED_AT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PhoneNumberDetailed {
@@ -130,11 +129,11 @@ public class PhoneNumberDetailed {
   public static final String JSON_PROPERTY_CONNECTION_NAME = "connection_name";
   private String connectionName;
 
-  public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
-  private String connectionId;
-
   public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
   private String customerReference;
+
+  public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
+  private String connectionId;
 
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
@@ -166,65 +165,13 @@ public class PhoneNumberDetailed {
   public static final String JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED = "t38_fax_gateway_enabled";
   private Boolean t38FaxGatewayEnabled;
 
-  public static final String JSON_PROPERTY_PURCHASED_AT = "purchased_at";
-  private String purchasedAt;
-
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private String createdAt;
-
-  /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.
-   */
-  public enum NumberLevelRoutingEnum {
-    ENABLED("enabled"),
-    
-    DISABLED("disabled");
-
-    private String value;
-
-    NumberLevelRoutingEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static NumberLevelRoutingEnum fromValue(String value) {
-      for (NumberLevelRoutingEnum b : NumberLevelRoutingEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_NUMBER_LEVEL_ROUTING = "number_level_routing";
-  private NumberLevelRoutingEnum numberLevelRouting = NumberLevelRoutingEnum.ENABLED;
-
   /**
    * The phone number&#39;s type.
    */
   public enum PhoneNumberTypeEnum {
-    LOCAL("local"),
+    LONGCODE("longcode"),
     
-    TOLL_FREE("toll_free"),
-    
-    MOBILE("mobile"),
-    
-    NATIONAL("national"),
-    
-    SHARED_COST("shared_cost"),
-    
-    LANDLINE("landline");
+    TOLLFREE("tollfree");
 
     private String value;
 
@@ -256,20 +203,19 @@ public class PhoneNumberDetailed {
   public static final String JSON_PROPERTY_PHONE_NUMBER_TYPE = "phone_number_type";
   private PhoneNumberTypeEnum phoneNumberType;
 
-  public PhoneNumberDetailed() { 
-  }
+  public static final String JSON_PROPERTY_PURCHASED_AT = "purchased_at";
+  private String purchasedAt;
 
-  public PhoneNumberDetailed id(String id) {
-    this.id = id;
-    return this;
-  }
+  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+  private String createdAt;
+
 
    /**
-   * Uniquely identifies the resource.
+   * Identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -278,11 +224,6 @@ public class PhoneNumberDetailed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
 
 
    /**
@@ -360,8 +301,6 @@ public class PhoneNumberDetailed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTags(List<String> tags) {
     this.tags = tags;
   }
@@ -386,8 +325,6 @@ public class PhoneNumberDetailed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExternalPin(String externalPin) {
     this.externalPin = externalPin;
   }
@@ -409,32 +346,6 @@ public class PhoneNumberDetailed {
 
 
 
-  public PhoneNumberDetailed connectionId(String connectionId) {
-    this.connectionId = connectionId;
-    return this;
-  }
-
-   /**
-   * Identifies the connection associated with the phone number.
-   * @return connectionId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Identifies the connection associated with the phone number.")
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getConnectionId() {
-    return connectionId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConnectionId(String connectionId) {
-    this.connectionId = connectionId;
-  }
-
-
   public PhoneNumberDetailed customerReference(String customerReference) {
     this.customerReference = customerReference;
     return this;
@@ -454,10 +365,32 @@ public class PhoneNumberDetailed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
+  }
+
+
+  public PhoneNumberDetailed connectionId(String connectionId) {
+    this.connectionId = connectionId;
+    return this;
+  }
+
+   /**
+   * Identifies the connection associated with the phone number.
+   * @return connectionId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Identifies the connection associated with the phone number.")
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getConnectionId() {
+    return connectionId;
+  }
+
+
+  public void setConnectionId(String connectionId) {
+    this.connectionId = connectionId;
   }
 
 
@@ -480,8 +413,6 @@ public class PhoneNumberDetailed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -506,8 +437,6 @@ public class PhoneNumberDetailed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileName(String messagingProfileName) {
     this.messagingProfileName = messagingProfileName;
   }
@@ -532,8 +461,6 @@ public class PhoneNumberDetailed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBillingGroupId(String billingGroupId) {
     this.billingGroupId = billingGroupId;
   }
@@ -652,6 +579,22 @@ public class PhoneNumberDetailed {
 
 
    /**
+   * The phone number&#39;s type.
+   * @return phoneNumberType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The phone number's type.")
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PhoneNumberTypeEnum getPhoneNumberType() {
+    return phoneNumberType;
+  }
+
+
+
+
+   /**
    * ISO 8601 formatted date indicating when the resource was purchased.
    * @return purchasedAt
   **/
@@ -683,48 +626,6 @@ public class PhoneNumberDetailed {
 
 
 
-  public PhoneNumberDetailed numberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-    return this;
-  }
-
-   /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.
-   * @return numberLevelRouting
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.")
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public NumberLevelRoutingEnum getNumberLevelRouting() {
-    return numberLevelRouting;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNumberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-  }
-
-
-   /**
-   * The phone number&#39;s type.
-   * @return phoneNumberType
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "The phone number's type.")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PhoneNumberTypeEnum getPhoneNumberType() {
-    return phoneNumberType;
-  }
-
-
-
-
   /**
    * Return true if this PhoneNumberDetailed object is equal to o.
    */
@@ -744,8 +645,8 @@ public class PhoneNumberDetailed {
         Objects.equals(this.tags, phoneNumberDetailed.tags) &&
         Objects.equals(this.externalPin, phoneNumberDetailed.externalPin) &&
         Objects.equals(this.connectionName, phoneNumberDetailed.connectionName) &&
-        Objects.equals(this.connectionId, phoneNumberDetailed.connectionId) &&
         Objects.equals(this.customerReference, phoneNumberDetailed.customerReference) &&
+        Objects.equals(this.connectionId, phoneNumberDetailed.connectionId) &&
         Objects.equals(this.messagingProfileId, phoneNumberDetailed.messagingProfileId) &&
         Objects.equals(this.messagingProfileName, phoneNumberDetailed.messagingProfileName) &&
         Objects.equals(this.billingGroupId, phoneNumberDetailed.billingGroupId) &&
@@ -756,16 +657,16 @@ public class PhoneNumberDetailed {
         Objects.equals(this.callerIdNameEnabled, phoneNumberDetailed.callerIdNameEnabled) &&
         Objects.equals(this.callRecordingEnabled, phoneNumberDetailed.callRecordingEnabled) &&
         Objects.equals(this.t38FaxGatewayEnabled, phoneNumberDetailed.t38FaxGatewayEnabled) &&
+        Objects.equals(this.phoneNumberType, phoneNumberDetailed.phoneNumberType) &&
         Objects.equals(this.purchasedAt, phoneNumberDetailed.purchasedAt) &&
-        Objects.equals(this.createdAt, phoneNumberDetailed.createdAt) &&
-        Objects.equals(this.numberLevelRouting, phoneNumberDetailed.numberLevelRouting) &&
-        Objects.equals(this.phoneNumberType, phoneNumberDetailed.phoneNumberType);
+        Objects.equals(this.createdAt, phoneNumberDetailed.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, connectionId, customerReference, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, numberLevelRouting, phoneNumberType);
+    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, customerReference, connectionId, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, phoneNumberType, purchasedAt, createdAt);
   }
+
 
   @Override
   public String toString() {
@@ -778,8 +679,8 @@ public class PhoneNumberDetailed {
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    externalPin: ").append(toIndentedString(externalPin)).append("\n");
     sb.append("    connectionName: ").append(toIndentedString(connectionName)).append("\n");
-    sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
+    sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
     sb.append("    messagingProfileName: ").append(toIndentedString(messagingProfileName)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
@@ -790,10 +691,9 @@ public class PhoneNumberDetailed {
     sb.append("    callerIdNameEnabled: ").append(toIndentedString(callerIdNameEnabled)).append("\n");
     sb.append("    callRecordingEnabled: ").append(toIndentedString(callRecordingEnabled)).append("\n");
     sb.append("    t38FaxGatewayEnabled: ").append(toIndentedString(t38FaxGatewayEnabled)).append("\n");
+    sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
     sb.append("    purchasedAt: ").append(toIndentedString(purchasedAt)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    numberLevelRouting: ").append(toIndentedString(numberLevelRouting)).append("\n");
-    sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

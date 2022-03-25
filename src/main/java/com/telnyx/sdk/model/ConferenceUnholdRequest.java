@@ -41,8 +41,6 @@ public class ConferenceUnholdRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_IDS = "call_control_ids";
   private List<String> callControlIds = new ArrayList<>();
 
-  public ConferenceUnholdRequest() { 
-  }
 
   public ConferenceUnholdRequest callControlIds(List<String> callControlIds) {
     this.callControlIds = callControlIds;
@@ -58,7 +56,6 @@ public class ConferenceUnholdRequest {
    * List of unique identifiers and tokens for controlling the call. Enter each call control ID to be unheld.
    * @return callControlIds
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "List of unique identifiers and tokens for controlling the call. Enter each call control ID to be unheld.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -68,8 +65,6 @@ public class ConferenceUnholdRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallControlIds(List<String> callControlIds) {
     this.callControlIds = callControlIds;
   }
@@ -94,6 +89,7 @@ public class ConferenceUnholdRequest {
   public int hashCode() {
     return Objects.hash(callControlIds);
   }
+
 
   @Override
   public String toString() {

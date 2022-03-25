@@ -34,12 +34,10 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   PlayAudioUrlRequest.JSON_PROPERTY_AUDIO_URL,
-  PlayAudioUrlRequest.JSON_PROPERTY_MEDIA_NAME,
   PlayAudioUrlRequest.JSON_PROPERTY_LOOP,
   PlayAudioUrlRequest.JSON_PROPERTY_OVERLAY,
   PlayAudioUrlRequest.JSON_PROPERTY_STOP,
   PlayAudioUrlRequest.JSON_PROPERTY_TARGET_LEGS,
-  PlayAudioUrlRequest.JSON_PROPERTY_CACHE_AUDIO,
   PlayAudioUrlRequest.JSON_PROPERTY_CLIENT_STATE,
   PlayAudioUrlRequest.JSON_PROPERTY_COMMAND_ID
 })
@@ -48,23 +46,17 @@ public class PlayAudioUrlRequest {
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
 
-  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
-  private String mediaName;
-
   public static final String JSON_PROPERTY_LOOP = "loop";
-  private Loopcount loop;
+  private Loopcount loop = null;
 
   public static final String JSON_PROPERTY_OVERLAY = "overlay";
   private Boolean overlay = false;
 
   public static final String JSON_PROPERTY_STOP = "stop";
-  private String stop;
+  private String stop = "all";
 
   public static final String JSON_PROPERTY_TARGET_LEGS = "target_legs";
   private String targetLegs = "self";
-
-  public static final String JSON_PROPERTY_CACHE_AUDIO = "cache_audio";
-  private Boolean cacheAudio = true;
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
@@ -72,8 +64,6 @@ public class PlayAudioUrlRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
-  public PlayAudioUrlRequest() { 
-  }
 
   public PlayAudioUrlRequest audioUrl(String audioUrl) {
     this.audioUrl = audioUrl;
@@ -81,49 +71,20 @@ public class PlayAudioUrlRequest {
   }
 
    /**
-   * The URL of a file to be played back on the call. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.
+   * The URL of the file to be played back on the call. The URL can point to either a WAV or MP3 file.
    * @return audioUrl
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back on the call. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.")
+  @ApiModelProperty(example = "http://www.example.com/sounds/greeting.wav", required = true, value = "The URL of the file to be played back on the call. The URL can point to either a WAV or MP3 file.")
   @JsonProperty(JSON_PROPERTY_AUDIO_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getAudioUrl() {
     return audioUrl;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AUDIO_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAudioUrl(String audioUrl) {
     this.audioUrl = audioUrl;
-  }
-
-
-  public PlayAudioUrlRequest mediaName(String mediaName) {
-    this.mediaName = mediaName;
-    return this;
-  }
-
-   /**
-   * The media_name of a file to be played back on the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
-   * @return mediaName
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played back on the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMediaName() {
-    return mediaName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaName(String mediaName) {
-    this.mediaName = mediaName;
   }
 
 
@@ -146,8 +107,6 @@ public class PlayAudioUrlRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOOP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLoop(Loopcount loop) {
     this.loop = loop;
   }
@@ -172,8 +131,6 @@ public class PlayAudioUrlRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OVERLAY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOverlay(Boolean overlay) {
     this.overlay = overlay;
   }
@@ -185,11 +142,11 @@ public class PlayAudioUrlRequest {
   }
 
    /**
-   * When specified, it stops the current audio being played. Specify &#x60;current&#x60; to stop the current audio being played, and to play the next file in the queue. Specify &#x60;all&#x60; to stop the current audio file being played and to also clear all audio files from the queue.
+   * When specified, it stops the current audio being played.  Specify &#x60;current&#x60; to stop the current audio being played, and to play the next file in the queue. Specify &#x60;all&#x60; to stop the current audio file being played and to also clear all audio files from the queue.
    * @return stop
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "current", value = "When specified, it stops the current audio being played. Specify `current` to stop the current audio being played, and to play the next file in the queue. Specify `all` to stop the current audio file being played and to also clear all audio files from the queue.")
+  @ApiModelProperty(example = "current", value = "When specified, it stops the current audio being played.  Specify `current` to stop the current audio being played, and to play the next file in the queue. Specify `all` to stop the current audio file being played and to also clear all audio files from the queue.")
   @JsonProperty(JSON_PROPERTY_STOP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -198,8 +155,6 @@ public class PlayAudioUrlRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STOP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStop(String stop) {
     this.stop = stop;
   }
@@ -224,36 +179,8 @@ public class PlayAudioUrlRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TARGET_LEGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTargetLegs(String targetLegs) {
     this.targetLegs = targetLegs;
-  }
-
-
-  public PlayAudioUrlRequest cacheAudio(Boolean cacheAudio) {
-    this.cacheAudio = cacheAudio;
-    return this;
-  }
-
-   /**
-   * Fetches the audio file for caching prior to playing on the call. Useful when an audio file is queued.
-   * @return cacheAudio
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Fetches the audio file for caching prior to playing on the call. Useful when an audio file is queued.")
-  @JsonProperty(JSON_PROPERTY_CACHE_AUDIO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getCacheAudio() {
-    return cacheAudio;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CACHE_AUDIO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCacheAudio(Boolean cacheAudio) {
-    this.cacheAudio = cacheAudio;
   }
 
 
@@ -276,8 +203,6 @@ public class PlayAudioUrlRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -289,11 +214,11 @@ public class PlayAudioUrlRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -302,8 +227,6 @@ public class PlayAudioUrlRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -322,32 +245,29 @@ public class PlayAudioUrlRequest {
     }
     PlayAudioUrlRequest playAudioUrlRequest = (PlayAudioUrlRequest) o;
     return Objects.equals(this.audioUrl, playAudioUrlRequest.audioUrl) &&
-        Objects.equals(this.mediaName, playAudioUrlRequest.mediaName) &&
         Objects.equals(this.loop, playAudioUrlRequest.loop) &&
         Objects.equals(this.overlay, playAudioUrlRequest.overlay) &&
         Objects.equals(this.stop, playAudioUrlRequest.stop) &&
         Objects.equals(this.targetLegs, playAudioUrlRequest.targetLegs) &&
-        Objects.equals(this.cacheAudio, playAudioUrlRequest.cacheAudio) &&
         Objects.equals(this.clientState, playAudioUrlRequest.clientState) &&
         Objects.equals(this.commandId, playAudioUrlRequest.commandId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(audioUrl, mediaName, loop, overlay, stop, targetLegs, cacheAudio, clientState, commandId);
+    return Objects.hash(audioUrl, loop, overlay, stop, targetLegs, clientState, commandId);
   }
+
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PlayAudioUrlRequest {\n");
     sb.append("    audioUrl: ").append(toIndentedString(audioUrl)).append("\n");
-    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    loop: ").append(toIndentedString(loop)).append("\n");
     sb.append("    overlay: ").append(toIndentedString(overlay)).append("\n");
     sb.append("    stop: ").append(toIndentedString(stop)).append("\n");
     sb.append("    targetLegs: ").append(toIndentedString(targetLegs)).append("\n");
-    sb.append("    cacheAudio: ").append(toIndentedString(cacheAudio)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("}");

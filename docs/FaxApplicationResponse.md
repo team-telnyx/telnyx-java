@@ -2,7 +2,6 @@
 
 # FaxApplicationResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

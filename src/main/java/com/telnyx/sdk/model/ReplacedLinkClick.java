@@ -57,8 +57,6 @@ public class ReplacedLinkClick {
   public static final String JSON_PROPERTY_TIME_CLICKED = "time_clicked";
   private OffsetDateTime timeClicked;
 
-  public ReplacedLinkClick() { 
-  }
 
   public ReplacedLinkClick recordType(String recordType) {
     this.recordType = recordType;
@@ -79,8 +77,6 @@ public class ReplacedLinkClick {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -105,8 +101,6 @@ public class ReplacedLinkClick {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrl(String url) {
     this.url = url;
   }
@@ -131,8 +125,6 @@ public class ReplacedLinkClick {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -157,8 +149,6 @@ public class ReplacedLinkClick {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessageId(UUID messageId) {
     this.messageId = messageId;
   }
@@ -183,8 +173,6 @@ public class ReplacedLinkClick {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIME_CLICKED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeClicked(OffsetDateTime timeClicked) {
     this.timeClicked = timeClicked;
   }
@@ -213,6 +201,7 @@ public class ReplacedLinkClick {
   public int hashCode() {
     return Objects.hash(recordType, url, to, messageId, timeClicked);
   }
+
 
   @Override
   public String toString() {

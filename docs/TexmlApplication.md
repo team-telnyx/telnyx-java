@@ -2,17 +2,16 @@
 
 # TexmlApplication
 
-
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Uniquely identifies the resource. |  [optional]
+**id** | **String** | Identifies the resource. |  [optional] [readonly]
 **recordType** | **String** | Identifies the type of the resource. |  [optional]
 **friendlyName** | **String** | A user-assigned name to help manage the application. |  [optional]
 **active** | **Boolean** | Specifies whether the connection can be used. |  [optional]
-**anchorsiteOverride** | **AnchorsiteOverride** |  |  [optional]
-**dtmfType** | **DtmfType** |  |  [optional]
+**anchorsiteOverride** | [**AnchorsiteOverride**](AnchorsiteOverride.md) |  |  [optional]
+**dtmfType** | [**DtmfType**](DtmfType.md) |  |  [optional]
 **firstCommandTimeout** | **Boolean** | Specifies whether calls to phone numbers associated with this connection should hangup after timing out. |  [optional]
 **firstCommandTimeoutSecs** | **Integer** | Specifies how many seconds to wait before timing out a dial command. |  [optional]
 **voiceUrl** | **String** | URL to which Telnyx will deliver your XML Translator webhooks. |  [optional]

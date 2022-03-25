@@ -34,7 +34,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -234,8 +233,6 @@ public class InboundMessagePayload {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private List<Error> errors = null;
 
-  public InboundMessagePayload() { 
-  }
 
   public InboundMessagePayload recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -256,8 +253,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -282,8 +277,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDirection(DirectionEnum direction) {
     this.direction = direction;
   }
@@ -308,8 +301,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -334,8 +325,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -360,8 +349,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -394,8 +381,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTo(List<InboundMessagePayloadTo> to) {
     this.to = to;
   }
@@ -428,8 +413,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCc(List<InboundMessagePayloadCc> cc) {
     this.cc = cc;
   }
@@ -454,8 +437,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFrom(InboundMessagePayloadFrom from) {
     this.from = from;
   }
@@ -480,8 +461,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setText(String text) {
     this.text = text;
   }
@@ -514,8 +493,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MEDIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMedia(List<InboundMessagePayloadMedia> media) {
     this.media = media;
   }
@@ -608,8 +585,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENCODING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEncoding(String encoding) {
     this.encoding = encoding;
   }
@@ -636,8 +611,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PARTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setParts(Integer parts) {
     this.parts = parts;
   }
@@ -670,8 +643,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTags(List<String> tags) {
     this.tags = tags;
   }
@@ -730,8 +701,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECEIVED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReceivedAt(OffsetDateTime receivedAt) {
     this.receivedAt = receivedAt;
   }
@@ -866,8 +835,6 @@ public class InboundMessagePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setErrors(List<Error> errors) {
     this.errors = errors;
   }
@@ -895,34 +862,24 @@ public class InboundMessagePayload {
         Objects.equals(this.from, inboundMessagePayload.from) &&
         Objects.equals(this.text, inboundMessagePayload.text) &&
         Objects.equals(this.media, inboundMessagePayload.media) &&
-        equalsNullable(this.webhookUrl, inboundMessagePayload.webhookUrl) &&
-        equalsNullable(this.webhookFailoverUrl, inboundMessagePayload.webhookFailoverUrl) &&
+        Objects.equals(this.webhookUrl, inboundMessagePayload.webhookUrl) &&
+        Objects.equals(this.webhookFailoverUrl, inboundMessagePayload.webhookFailoverUrl) &&
         Objects.equals(this.encoding, inboundMessagePayload.encoding) &&
         Objects.equals(this.parts, inboundMessagePayload.parts) &&
         Objects.equals(this.tags, inboundMessagePayload.tags) &&
-        equalsNullable(this.cost, inboundMessagePayload.cost) &&
+        Objects.equals(this.cost, inboundMessagePayload.cost) &&
         Objects.equals(this.receivedAt, inboundMessagePayload.receivedAt) &&
-        equalsNullable(this.sentAt, inboundMessagePayload.sentAt) &&
-        equalsNullable(this.completedAt, inboundMessagePayload.completedAt) &&
-        equalsNullable(this.validUntil, inboundMessagePayload.validUntil) &&
+        Objects.equals(this.sentAt, inboundMessagePayload.sentAt) &&
+        Objects.equals(this.completedAt, inboundMessagePayload.completedAt) &&
+        Objects.equals(this.validUntil, inboundMessagePayload.validUntil) &&
         Objects.equals(this.errors, inboundMessagePayload.errors);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, direction, id, type, messagingProfileId, to, cc, from, text, media, hashCodeNullable(webhookUrl), hashCodeNullable(webhookFailoverUrl), encoding, parts, tags, hashCodeNullable(cost), receivedAt, hashCodeNullable(sentAt), hashCodeNullable(completedAt), hashCodeNullable(validUntil), errors);
+    return Objects.hash(recordType, direction, id, type, messagingProfileId, to, cc, from, text, media, webhookUrl, webhookFailoverUrl, encoding, parts, tags, cost, receivedAt, sentAt, completedAt, validUntil, errors);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

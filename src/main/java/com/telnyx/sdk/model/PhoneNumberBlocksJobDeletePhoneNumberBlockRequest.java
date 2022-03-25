@@ -39,8 +39,6 @@ public class PhoneNumberBlocksJobDeletePhoneNumberBlockRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBER_BLOCK_ID = "phone_number_block_id";
   private String phoneNumberBlockId;
 
-  public PhoneNumberBlocksJobDeletePhoneNumberBlockRequest() { 
-  }
 
   public PhoneNumberBlocksJobDeletePhoneNumberBlockRequest phoneNumberBlockId(String phoneNumberBlockId) {
     this.phoneNumberBlockId = phoneNumberBlockId;
@@ -51,7 +49,6 @@ public class PhoneNumberBlocksJobDeletePhoneNumberBlockRequest {
    * Get phoneNumberBlockId
    * @return phoneNumberBlockId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_BLOCK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -61,8 +58,6 @@ public class PhoneNumberBlocksJobDeletePhoneNumberBlockRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_BLOCK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhoneNumberBlockId(String phoneNumberBlockId) {
     this.phoneNumberBlockId = phoneNumberBlockId;
   }
@@ -87,6 +82,7 @@ public class PhoneNumberBlocksJobDeletePhoneNumberBlockRequest {
   public int hashCode() {
     return Objects.hash(phoneNumberBlockId);
   }
+
 
   @Override
   public String toString() {

@@ -28,7 +28,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -100,8 +99,6 @@ public class MessagingHostedNumberOrder {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<HostedNumber> phoneNumbers = null;
 
-  public MessagingHostedNumberOrder() { 
-  }
 
    /**
    * Identifies the type of the resource.
@@ -188,8 +185,6 @@ public class MessagingHostedNumberOrder {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -222,8 +217,6 @@ public class MessagingHostedNumberOrder {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumbers(List<HostedNumber> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
@@ -243,26 +236,16 @@ public class MessagingHostedNumberOrder {
     MessagingHostedNumberOrder messagingHostedNumberOrder = (MessagingHostedNumberOrder) o;
     return Objects.equals(this.recordType, messagingHostedNumberOrder.recordType) &&
         Objects.equals(this.id, messagingHostedNumberOrder.id) &&
-        equalsNullable(this.messagingProfileId, messagingHostedNumberOrder.messagingProfileId) &&
+        Objects.equals(this.messagingProfileId, messagingHostedNumberOrder.messagingProfileId) &&
         Objects.equals(this.status, messagingHostedNumberOrder.status) &&
         Objects.equals(this.phoneNumbers, messagingHostedNumberOrder.phoneNumbers);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, hashCodeNullable(messagingProfileId), status, phoneNumbers);
+    return Objects.hash(recordType, id, messagingProfileId, status, phoneNumbers);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

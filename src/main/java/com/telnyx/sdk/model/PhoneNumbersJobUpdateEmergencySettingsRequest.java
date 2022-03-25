@@ -49,8 +49,6 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
   public static final String JSON_PROPERTY_EMERGENCY_ADDRESS_ID = "emergency_address_id";
   private String emergencyAddressId;
 
-  public PhoneNumbersJobUpdateEmergencySettingsRequest() { 
-  }
 
   public PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbers(List<String> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
@@ -66,7 +64,6 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -76,8 +73,6 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhoneNumbers(List<String> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
@@ -92,7 +87,6 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
    * Indicates whether to enable emergency services on this number.
    * @return emergencyEnabled
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Indicates whether to enable emergency services on this number.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -102,8 +96,6 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEmergencyEnabled(Boolean emergencyEnabled) {
     this.emergencyEnabled = emergencyEnabled;
   }
@@ -118,7 +110,6 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
    * Identifies the address to be used with emergency services.
    * @return emergencyAddressId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Identifies the address to be used with emergency services.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -128,8 +119,6 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEmergencyAddressId(String emergencyAddressId) {
     this.emergencyAddressId = emergencyAddressId;
   }
@@ -156,6 +145,7 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
   public int hashCode() {
     return Objects.hash(phoneNumbers, emergencyEnabled, emergencyAddressId);
   }
+
 
   @Override
   public String toString() {

@@ -2,13 +2,12 @@
 
 # MessageRate
 
-
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amount** | **BigDecimal** | Rate applied to the message |  [optional]
-**currency** | **Currency** |  |  [optional]
+**amount** | [**BigDecimal**](BigDecimal.md) | Rate applied to the message |  [optional]
+**currency** | [**Currency**](Currency.md) |  |  [optional]
 
 
 

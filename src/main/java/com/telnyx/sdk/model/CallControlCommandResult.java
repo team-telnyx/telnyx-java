@@ -39,8 +39,6 @@ public class CallControlCommandResult {
   public static final String JSON_PROPERTY_RESULT = "result";
   private String result;
 
-  public CallControlCommandResult() { 
-  }
 
   public CallControlCommandResult result(String result) {
     this.result = result;
@@ -61,8 +59,6 @@ public class CallControlCommandResult {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESULT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResult(String result) {
     this.result = result;
   }
@@ -87,6 +83,7 @@ public class CallControlCommandResult {
   public int hashCode() {
     return Objects.hash(result);
   }
+
 
   @Override
   public String toString() {

@@ -2,7 +2,6 @@
 
 # CallControlApplication
 
-
 ## Properties
 
 Name | Type | Description | Notes

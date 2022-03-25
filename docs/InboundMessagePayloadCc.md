@@ -2,7 +2,6 @@
 
 # InboundMessagePayloadCc
 
-
 ## Properties
 
 Name | Type | Description | Notes

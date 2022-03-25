@@ -2,7 +2,6 @@
 
 # UpdateShortCodeRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

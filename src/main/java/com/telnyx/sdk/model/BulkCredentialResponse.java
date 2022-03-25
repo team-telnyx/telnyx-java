@@ -40,8 +40,6 @@ public class BulkCredentialResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private BulkCredentialResponseData data;
 
-  public BulkCredentialResponse() { 
-  }
 
   public BulkCredentialResponse data(BulkCredentialResponseData data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class BulkCredentialResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(BulkCredentialResponseData data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class BulkCredentialResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

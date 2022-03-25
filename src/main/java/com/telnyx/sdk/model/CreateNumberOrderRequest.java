@@ -124,8 +124,6 @@ public class CreateNumberOrderRequest {
   public static final String JSON_PROPERTY_REQUIREMENTS_MET = "requirements_met";
   private Boolean requirementsMet;
 
-  public CreateNumberOrderRequest() { 
-  }
 
    /**
    * Get id
@@ -186,8 +184,6 @@ public class CreateNumberOrderRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
@@ -228,8 +224,6 @@ public class CreateNumberOrderRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -254,8 +248,6 @@ public class CreateNumberOrderRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -280,8 +272,6 @@ public class CreateNumberOrderRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBillingGroupId(String billingGroupId) {
     this.billingGroupId = billingGroupId;
   }
@@ -292,7 +282,7 @@ public class CreateNumberOrderRequest {
    * @return status
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "success", value = "The status of the order.")
+  @ApiModelProperty(value = "The status of the order.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -322,8 +312,6 @@ public class CreateNumberOrderRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
   }
@@ -407,6 +395,7 @@ public class CreateNumberOrderRequest {
   public int hashCode() {
     return Objects.hash(id, recordType, phoneNumbers, phoneNumbersCount, connectionId, messagingProfileId, billingGroupId, status, customerReference, createdAt, updatedAt, requirementsMet);
   }
+
 
   @Override
   public String toString() {

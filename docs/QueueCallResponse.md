@@ -2,7 +2,6 @@
 
 # QueueCallResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

@@ -2,7 +2,6 @@
 
 # RegulatoryRequirement
 
-
 ## Properties
 
 Name | Type | Description | Notes

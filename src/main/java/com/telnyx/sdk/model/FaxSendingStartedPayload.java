@@ -37,7 +37,6 @@ import com.telnyx.sdk.JSON;
   FaxSendingStartedPayload.JSON_PROPERTY_DIRECTION,
   FaxSendingStartedPayload.JSON_PROPERTY_FAX_ID,
   FaxSendingStartedPayload.JSON_PROPERTY_ORIGINAL_MEDIA_URL,
-  FaxSendingStartedPayload.JSON_PROPERTY_MEDIA_NAME,
   FaxSendingStartedPayload.JSON_PROPERTY_TO,
   FaxSendingStartedPayload.JSON_PROPERTY_FROM,
   FaxSendingStartedPayload.JSON_PROPERTY_USER_ID,
@@ -92,9 +91,6 @@ public class FaxSendingStartedPayload {
   public static final String JSON_PROPERTY_ORIGINAL_MEDIA_URL = "original_media_url";
   private String originalMediaUrl;
 
-  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
-  private String mediaName;
-
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
 
@@ -140,8 +136,6 @@ public class FaxSendingStartedPayload {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
-  public FaxSendingStartedPayload() { 
-  }
 
   public FaxSendingStartedPayload connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -162,8 +156,6 @@ public class FaxSendingStartedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -188,8 +180,6 @@ public class FaxSendingStartedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDirection(DirectionEnum direction) {
     this.direction = direction;
   }
@@ -214,8 +204,6 @@ public class FaxSendingStartedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FAX_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFaxId(UUID faxId) {
     this.faxId = faxId;
   }
@@ -227,11 +215,11 @@ public class FaxSendingStartedPayload {
   }
 
    /**
-   * The original URL to the PDF used for the fax&#39;s media. If media_name was supplied, this is omitted
+   * The original URL to the PDF used for the fax&#39;s media.
    * @return originalMediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The original URL to the PDF used for the fax's media. If media_name was supplied, this is omitted")
+  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The original URL to the PDF used for the fax's media.")
   @JsonProperty(JSON_PROPERTY_ORIGINAL_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -240,36 +228,8 @@ public class FaxSendingStartedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ORIGINAL_MEDIA_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOriginalMediaUrl(String originalMediaUrl) {
     this.originalMediaUrl = originalMediaUrl;
-  }
-
-
-  public FaxSendingStartedPayload mediaName(String mediaName) {
-    this.mediaName = mediaName;
-    return this;
-  }
-
-   /**
-   * The media_name used for the fax&#39;s media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization
-   * @return mediaName
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name used for the fax's media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization")
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMediaName() {
-    return mediaName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaName(String mediaName) {
-    this.mediaName = mediaName;
   }
 
 
@@ -292,8 +252,6 @@ public class FaxSendingStartedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -318,8 +276,6 @@ public class FaxSendingStartedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -344,8 +300,6 @@ public class FaxSendingStartedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUserId(UUID userId) {
     this.userId = userId;
   }
@@ -370,8 +324,6 @@ public class FaxSendingStartedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -393,7 +345,6 @@ public class FaxSendingStartedPayload {
         Objects.equals(this.direction, faxSendingStartedPayload.direction) &&
         Objects.equals(this.faxId, faxSendingStartedPayload.faxId) &&
         Objects.equals(this.originalMediaUrl, faxSendingStartedPayload.originalMediaUrl) &&
-        Objects.equals(this.mediaName, faxSendingStartedPayload.mediaName) &&
         Objects.equals(this.to, faxSendingStartedPayload.to) &&
         Objects.equals(this.from, faxSendingStartedPayload.from) &&
         Objects.equals(this.userId, faxSendingStartedPayload.userId) &&
@@ -402,8 +353,9 @@ public class FaxSendingStartedPayload {
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, direction, faxId, originalMediaUrl, mediaName, to, from, userId, status);
+    return Objects.hash(connectionId, direction, faxId, originalMediaUrl, to, from, userId, status);
   }
+
 
   @Override
   public String toString() {
@@ -413,7 +365,6 @@ public class FaxSendingStartedPayload {
     sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
     sb.append("    faxId: ").append(toIndentedString(faxId)).append("\n");
     sb.append("    originalMediaUrl: ").append(toIndentedString(originalMediaUrl)).append("\n");
-    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");

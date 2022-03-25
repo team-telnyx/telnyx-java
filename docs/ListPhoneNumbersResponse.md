@@ -2,7 +2,6 @@
 
 # ListPhoneNumbersResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

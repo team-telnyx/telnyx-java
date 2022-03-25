@@ -44,8 +44,6 @@ public class CnamListing {
   public static final String JSON_PROPERTY_CNAM_LISTING_DETAILS = "cnam_listing_details";
   private String cnamListingDetails;
 
-  public CnamListing() { 
-  }
 
   public CnamListing cnamListingEnabled(Boolean cnamListingEnabled) {
     this.cnamListingEnabled = cnamListingEnabled;
@@ -66,8 +64,6 @@ public class CnamListing {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CNAM_LISTING_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCnamListingEnabled(Boolean cnamListingEnabled) {
     this.cnamListingEnabled = cnamListingEnabled;
   }
@@ -92,8 +88,6 @@ public class CnamListing {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CNAM_LISTING_DETAILS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCnamListingDetails(String cnamListingDetails) {
     this.cnamListingDetails = cnamListingDetails;
   }
@@ -119,6 +113,7 @@ public class CnamListing {
   public int hashCode() {
     return Objects.hash(cnamListingEnabled, cnamListingDetails);
   }
+
 
   @Override
   public String toString() {

@@ -2,7 +2,6 @@
 
 # ListMessagingProfilePhoneNumbersResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

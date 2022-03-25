@@ -46,8 +46,6 @@ public class MessagingProfileDetailedMetric {
   public static final String JSON_PROPERTY_METRICS = "metrics";
   private List<MessagingProfileMessageTypeMetrics> metrics = null;
 
-  public MessagingProfileDetailedMetric() { 
-  }
 
    /**
    * The timestamp of the aggregated data.
@@ -92,8 +90,6 @@ public class MessagingProfileDetailedMetric {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_METRICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetrics(List<MessagingProfileMessageTypeMetrics> metrics) {
     this.metrics = metrics;
   }
@@ -119,6 +115,7 @@ public class MessagingProfileDetailedMetric {
   public int hashCode() {
     return Objects.hash(timestamp, metrics);
   }
+
 
   @Override
   public String toString() {

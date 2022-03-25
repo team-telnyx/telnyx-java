@@ -8,12 +8,11 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreatePhoneNumberEmergencyEnable;
-import com.telnyx.sdk.model.CreatePhoneNumberEmergencyRequested;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListMessagingSettingsResponse;
 import com.telnyx.sdk.model.ListPhoneNumbersResponse;
 import com.telnyx.sdk.model.ListPhoneNumbersWithVoiceSettingsResponse;
+import com.telnyx.sdk.model.PhoneNumberEnableEmergency;
 import com.telnyx.sdk.model.PhoneNumberEnableEmergencyRequest;
 import com.telnyx.sdk.model.PhoneNumberResponse;
 import com.telnyx.sdk.model.PhoneNumberResponse1;
@@ -41,7 +40,7 @@ public class NumberConfigurationsApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -50,7 +49,7 @@ public class NumberConfigurationsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -68,7 +67,7 @@ public class NumberConfigurationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public PhoneNumberResponse1 deletePhoneNumber(String id) throws ApiException {
@@ -85,7 +84,7 @@ public class NumberConfigurationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<PhoneNumberResponse1> deletePhoneNumberWithHttpInfo(String id) throws ApiException {
@@ -133,17 +132,17 @@ public class NumberConfigurationsApi {
    * 
    * @param id Identifies the resource. (required)
    * @param phoneNumberEnableEmergencyRequest  (required)
-   * @return CreatePhoneNumberEmergencyEnable
+   * @return PhoneNumberEnableEmergency
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
        <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePhoneNumberEmergencyEnable enableEmergencyPhoneNumber(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
+  public PhoneNumberEnableEmergency enableEmergencyPhoneNumber(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
     return enableEmergencyPhoneNumberWithHttpInfo(id, phoneNumberEnableEmergencyRequest).getData();
   }
 
@@ -152,17 +151,17 @@ public class NumberConfigurationsApi {
    * 
    * @param id Identifies the resource. (required)
    * @param phoneNumberEnableEmergencyRequest  (required)
-   * @return ApiResponse&lt;CreatePhoneNumberEmergencyEnable&gt;
+   * @return ApiResponse&lt;PhoneNumberEnableEmergency&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Phone number emergency enabled. </td><td>  -  </td></tr>
        <tr><td> 202 </td><td> Phone number emergency requested. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePhoneNumberEmergencyEnable> enableEmergencyPhoneNumberWithHttpInfo(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
+  public ApiResponse<PhoneNumberEnableEmergency> enableEmergencyPhoneNumberWithHttpInfo(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
     Object localVarPostBody = phoneNumberEnableEmergencyRequest;
     
     // verify the required parameter 'id' is set
@@ -201,14 +200,14 @@ public class NumberConfigurationsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreatePhoneNumberEmergencyEnable> localVarReturnType = new GenericType<CreatePhoneNumberEmergencyEnable>() {};
+    GenericType<PhoneNumberEnableEmergency> localVarReturnType = new GenericType<PhoneNumberEnableEmergency>() {};
 
     return apiClient.invokeAPI("NumberConfigurationsApi.enableEmergencyPhoneNumber", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterConnectionId, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String filterCustomerReference, String sort) throws ApiException {
+private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String filterCustomerReference, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -225,7 +224,6 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[tag]", filterTag));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_id]", filterConnectionId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.connection_name][contains]", filterVoiceConnectionNameContains));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.connection_name][starts_with]", filterVoiceConnectionNameStartsWith));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.connection_name][ends_with]", filterVoiceConnectionNameEndsWith));
@@ -264,7 +262,6 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     private String filterTag;
     private String filterPhoneNumber;
     private String filterStatus;
-    private String filterConnectionId;
     private String filterVoiceConnectionNameContains;
     private String filterVoiceConnectionNameStartsWith;
     private String filterVoiceConnectionNameEndsWith;
@@ -290,7 +287,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistPhoneNumbersRequest
      */
     public APIlistPhoneNumbersRequest pageSize(Integer pageSize) {
@@ -325,16 +322,6 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
      */
     public APIlistPhoneNumbersRequest filterStatus(String filterStatus) {
       this.filterStatus = filterStatus;
-      return this;
-    }
-
-    /**
-     * Set filterConnectionId
-     * @param filterConnectionId Filter by connection_id. (optional)
-     * @return APIlistPhoneNumbersRequest
-     */
-    public APIlistPhoneNumbersRequest filterConnectionId(String filterConnectionId) {
-      this.filterConnectionId = filterConnectionId;
       return this;
     }
 
@@ -436,7 +423,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -453,12 +440,12 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
     public ApiResponse<ListPhoneNumbersResponse> executeWithHttpInfo() throws ApiException {
-      return listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterConnectionId, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, filterCustomerReference, sort);
+      return listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, filterCustomerReference, sort);
     }
   }
 
@@ -530,7 +517,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistPhoneNumbersWithMessagingSettingsRequest
      */
     public APIlistPhoneNumbersWithMessagingSettingsRequest pageSize(Integer pageSize) {
@@ -546,7 +533,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -563,7 +550,7 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers with messaging settings. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -650,7 +637,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistPhoneNumbersWithVoiceSettingsRequest
      */
     public APIlistPhoneNumbersWithVoiceSettingsRequest pageSize(Integer pageSize) {
@@ -716,7 +703,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -733,7 +720,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers with voice settings. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -763,7 +750,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public PhoneNumberResponse retrievePhoneNumber(String id) throws ApiException {
@@ -780,7 +767,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<PhoneNumberResponse> retrievePhoneNumberWithHttpInfo(String id) throws ApiException {
@@ -833,7 +820,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveMessagingSettingsResponse retrievePhoneNumberWithMessagingSettings(String id) throws ApiException {
@@ -850,7 +837,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveMessagingSettingsResponse> retrievePhoneNumberWithMessagingSettingsWithHttpInfo(String id) throws ApiException {
@@ -903,7 +890,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrievePhoneNumberVoiceResponse retrievePhoneNumberWithVoiceSettings(String id) throws ApiException {
@@ -920,7 +907,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrievePhoneNumberVoiceResponse> retrievePhoneNumberWithVoiceSettingsWithHttpInfo(String id) throws ApiException {
@@ -974,7 +961,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public PhoneNumberResponse updatePhoneNumber(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest) throws ApiException {
@@ -992,7 +979,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<PhoneNumberResponse> updatePhoneNumberWithHttpInfo(String id, UpdatePhoneNumberRequest updatePhoneNumberRequest) throws ApiException {
@@ -1051,7 +1038,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveMessagingSettingsResponse updatePhoneNumberWithMessagingSettings(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest) throws ApiException {
@@ -1069,7 +1056,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveMessagingSettingsResponse> updatePhoneNumberWithMessagingSettingsWithHttpInfo(String id, UpdatePhoneNumberMessagingSettingsRequest updatePhoneNumberMessagingSettingsRequest) throws ApiException {
@@ -1128,7 +1115,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrievePhoneNumberVoiceResponse updatePhoneNumberWithVoiceSettings(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest) throws ApiException {
@@ -1146,7 +1133,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrievePhoneNumberVoiceResponse> updatePhoneNumberWithVoiceSettingsWithHttpInfo(String id, UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest) throws ApiException {

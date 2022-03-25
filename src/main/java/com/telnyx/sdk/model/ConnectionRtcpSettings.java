@@ -82,8 +82,6 @@ public class ConnectionRtcpSettings {
   public static final String JSON_PROPERTY_REPORT_FREQUENCY_SECS = "report_frequency_secs";
   private Integer reportFrequencySecs = 5;
 
-  public ConnectionRtcpSettings() { 
-  }
 
   public ConnectionRtcpSettings port(PortEnum port) {
     this.port = port;
@@ -104,8 +102,6 @@ public class ConnectionRtcpSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PORT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPort(PortEnum port) {
     this.port = port;
   }
@@ -130,8 +126,6 @@ public class ConnectionRtcpSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CAPTURE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCaptureEnabled(Boolean captureEnabled) {
     this.captureEnabled = captureEnabled;
   }
@@ -156,8 +150,6 @@ public class ConnectionRtcpSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REPORT_FREQUENCY_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReportFrequencySecs(Integer reportFrequencySecs) {
     this.reportFrequencySecs = reportFrequencySecs;
   }
@@ -184,6 +176,7 @@ public class ConnectionRtcpSettings {
   public int hashCode() {
     return Objects.hash(port, captureEnabled, reportFrequencySecs);
   }
+
 
   @Override
   public String toString() {

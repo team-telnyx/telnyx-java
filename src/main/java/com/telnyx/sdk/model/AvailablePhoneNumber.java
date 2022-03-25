@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CostInformation;
-import com.telnyx.sdk.model.Feature;
 import com.telnyx.sdk.model.RegionInformation;
+import com.telnyx.sdk.model.RegulatoryRequirement;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   AvailablePhoneNumber.JSON_PROPERTY_RESERVABLE,
   AvailablePhoneNumber.JSON_PROPERTY_REGION_INFORMATION,
   AvailablePhoneNumber.JSON_PROPERTY_COST_INFORMATION,
-  AvailablePhoneNumber.JSON_PROPERTY_FEATURES
+  AvailablePhoneNumber.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AvailablePhoneNumber {
@@ -106,11 +106,9 @@ public class AvailablePhoneNumber {
   public static final String JSON_PROPERTY_COST_INFORMATION = "cost_information";
   private CostInformation costInformation;
 
-  public static final String JSON_PROPERTY_FEATURES = "features";
-  private List<Feature> features = null;
+  public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
+  private List<RegulatoryRequirement> regulatoryRequirements = null;
 
-  public AvailablePhoneNumber() { 
-  }
 
   public AvailablePhoneNumber recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -131,8 +129,6 @@ public class AvailablePhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -157,8 +153,6 @@ public class AvailablePhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -183,8 +177,6 @@ public class AvailablePhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VANITY_FORMAT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVanityFormat(String vanityFormat) {
     this.vanityFormat = vanityFormat;
   }
@@ -209,8 +201,6 @@ public class AvailablePhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BEST_EFFORT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBestEffort(Boolean bestEffort) {
     this.bestEffort = bestEffort;
   }
@@ -235,8 +225,6 @@ public class AvailablePhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_QUICKSHIP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setQuickship(Boolean quickship) {
     this.quickship = quickship;
   }
@@ -261,8 +249,6 @@ public class AvailablePhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESERVABLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReservable(Boolean reservable) {
     this.reservable = reservable;
   }
@@ -295,8 +281,6 @@ public class AvailablePhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REGION_INFORMATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegionInformation(List<RegionInformation> regionInformation) {
     this.regionInformation = regionInformation;
   }
@@ -321,44 +305,40 @@ public class AvailablePhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COST_INFORMATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCostInformation(CostInformation costInformation) {
     this.costInformation = costInformation;
   }
 
 
-  public AvailablePhoneNumber features(List<Feature> features) {
-    this.features = features;
+  public AvailablePhoneNumber regulatoryRequirements(List<RegulatoryRequirement> regulatoryRequirements) {
+    this.regulatoryRequirements = regulatoryRequirements;
     return this;
   }
 
-  public AvailablePhoneNumber addFeaturesItem(Feature featuresItem) {
-    if (this.features == null) {
-      this.features = new ArrayList<>();
+  public AvailablePhoneNumber addRegulatoryRequirementsItem(RegulatoryRequirement regulatoryRequirementsItem) {
+    if (this.regulatoryRequirements == null) {
+      this.regulatoryRequirements = new ArrayList<>();
     }
-    this.features.add(featuresItem);
+    this.regulatoryRequirements.add(regulatoryRequirementsItem);
     return this;
   }
 
    /**
-   * Get features
-   * @return features
+   * Get regulatoryRequirements
+   * @return regulatoryRequirements
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_FEATURES)
+  @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Feature> getFeatures() {
-    return features;
+  public List<RegulatoryRequirement> getRegulatoryRequirements() {
+    return regulatoryRequirements;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FEATURES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFeatures(List<Feature> features) {
-    this.features = features;
+  public void setRegulatoryRequirements(List<RegulatoryRequirement> regulatoryRequirements) {
+    this.regulatoryRequirements = regulatoryRequirements;
   }
 
 
@@ -382,13 +362,14 @@ public class AvailablePhoneNumber {
         Objects.equals(this.reservable, availablePhoneNumber.reservable) &&
         Objects.equals(this.regionInformation, availablePhoneNumber.regionInformation) &&
         Objects.equals(this.costInformation, availablePhoneNumber.costInformation) &&
-        Objects.equals(this.features, availablePhoneNumber.features);
+        Objects.equals(this.regulatoryRequirements, availablePhoneNumber.regulatoryRequirements);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, phoneNumber, vanityFormat, bestEffort, quickship, reservable, regionInformation, costInformation, features);
+    return Objects.hash(recordType, phoneNumber, vanityFormat, bestEffort, quickship, reservable, regionInformation, costInformation, regulatoryRequirements);
   }
+
 
   @Override
   public String toString() {
@@ -402,7 +383,7 @@ public class AvailablePhoneNumber {
     sb.append("    reservable: ").append(toIndentedString(reservable)).append("\n");
     sb.append("    regionInformation: ").append(toIndentedString(regionInformation)).append("\n");
     sb.append("    costInformation: ").append(toIndentedString(costInformation)).append("\n");
-    sb.append("    features: ").append(toIndentedString(features)).append("\n");
+    sb.append("    regulatoryRequirements: ").append(toIndentedString(regulatoryRequirements)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -22,8 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PhoneNumberRegulatoryRequirementAllOf;
-import com.telnyx.sdk.model.SubNumberOrderRegulatoryRequirement;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -37,8 +35,8 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PhoneNumberRegulatoryRequirement.JSON_PROPERTY_RECORD_TYPE,
   PhoneNumberRegulatoryRequirement.JSON_PROPERTY_REQUIREMENT_ID,
-  PhoneNumberRegulatoryRequirement.JSON_PROPERTY_FIELD_TYPE,
-  PhoneNumberRegulatoryRequirement.JSON_PROPERTY_FIELD_VALUE
+  PhoneNumberRegulatoryRequirement.JSON_PROPERTY_FIELD_VALUE,
+  PhoneNumberRegulatoryRequirement.JSON_PROPERTY_FIELD_TYPE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PhoneNumberRegulatoryRequirement {
@@ -48,17 +46,20 @@ public class PhoneNumberRegulatoryRequirement {
   public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
   private UUID requirementId;
 
+  public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
+  private String fieldValue;
+
   /**
    * Gets or Sets fieldType
    */
   public enum FieldTypeEnum {
-    TEXTUAL("textual"),
+    STRING("string"),
     
     DATETIME("datetime"),
     
-    ADDRESS("address"),
+    ADDRESS_ID("address_id"),
     
-    DOCUMENT("document");
+    NUMBER_ORDER_DOCUMENT_ID("number_order_document_id");
 
     private String value;
 
@@ -90,11 +91,6 @@ public class PhoneNumberRegulatoryRequirement {
   public static final String JSON_PROPERTY_FIELD_TYPE = "field_type";
   private FieldTypeEnum fieldType;
 
-  public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
-  private String fieldValue;
-
-  public PhoneNumberRegulatoryRequirement() { 
-  }
 
    /**
    * Get recordType
@@ -131,27 +127,9 @@ public class PhoneNumberRegulatoryRequirement {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRequirementId(UUID requirementId) {
     this.requirementId = requirementId;
   }
-
-
-   /**
-   * Get fieldType
-   * @return fieldType
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "address", value = "")
-  @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public FieldTypeEnum getFieldType() {
-    return fieldType;
-  }
-
-
 
 
   public PhoneNumberRegulatoryRequirement fieldValue(String fieldValue) {
@@ -173,11 +151,25 @@ public class PhoneNumberRegulatoryRequirement {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFieldValue(String fieldValue) {
     this.fieldValue = fieldValue;
   }
+
+
+   /**
+   * Get fieldType
+   * @return fieldType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "address_id", value = "")
+  @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public FieldTypeEnum getFieldType() {
+    return fieldType;
+  }
+
+
 
 
   /**
@@ -194,14 +186,15 @@ public class PhoneNumberRegulatoryRequirement {
     PhoneNumberRegulatoryRequirement phoneNumberRegulatoryRequirement = (PhoneNumberRegulatoryRequirement) o;
     return Objects.equals(this.recordType, phoneNumberRegulatoryRequirement.recordType) &&
         Objects.equals(this.requirementId, phoneNumberRegulatoryRequirement.requirementId) &&
-        Objects.equals(this.fieldType, phoneNumberRegulatoryRequirement.fieldType) &&
-        Objects.equals(this.fieldValue, phoneNumberRegulatoryRequirement.fieldValue);
+        Objects.equals(this.fieldValue, phoneNumberRegulatoryRequirement.fieldValue) &&
+        Objects.equals(this.fieldType, phoneNumberRegulatoryRequirement.fieldType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, requirementId, fieldType, fieldValue);
+    return Objects.hash(recordType, requirementId, fieldValue, fieldType);
   }
+
 
   @Override
   public String toString() {
@@ -209,8 +202,8 @@ public class PhoneNumberRegulatoryRequirement {
     sb.append("class PhoneNumberRegulatoryRequirement {\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    requirementId: ").append(toIndentedString(requirementId)).append("\n");
-    sb.append("    fieldType: ").append(toIndentedString(fieldType)).append("\n");
     sb.append("    fieldValue: ").append(toIndentedString(fieldValue)).append("\n");
+    sb.append("    fieldType: ").append(toIndentedString(fieldType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

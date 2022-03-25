@@ -44,8 +44,6 @@ public class ParticipantConference {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public ParticipantConference() { 
-  }
 
   public ParticipantConference id(String id) {
     this.id = id;
@@ -66,8 +64,6 @@ public class ParticipantConference {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -92,8 +88,6 @@ public class ParticipantConference {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -119,6 +113,7 @@ public class ParticipantConference {
   public int hashCode() {
     return Objects.hash(id, name);
   }
+
 
   @Override
   public String toString() {

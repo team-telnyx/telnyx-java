@@ -2,7 +2,6 @@
 
 # ConferenceParticipantSpeakEndedEvent
 
-
 ## Properties
 
 Name | Type | Description | Notes

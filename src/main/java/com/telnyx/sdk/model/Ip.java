@@ -63,8 +63,6 @@ public class Ip {
   public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
   private String updatedAt;
 
-  public Ip() { 
-  }
 
   public Ip id(String id) {
     this.id = id;
@@ -85,8 +83,6 @@ public class Ip {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -111,8 +107,6 @@ public class Ip {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -137,8 +131,6 @@ public class Ip {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -163,8 +155,6 @@ public class Ip {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIpAddress(String ipAddress) {
     this.ipAddress = ipAddress;
   }
@@ -189,8 +179,6 @@ public class Ip {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PORT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPort(Integer port) {
     this.port = port;
   }
@@ -215,8 +203,6 @@ public class Ip {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -241,8 +227,6 @@ public class Ip {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -273,6 +257,7 @@ public class Ip {
   public int hashCode() {
     return Objects.hash(id, recordType, connectionId, ipAddress, port, createdAt, updatedAt);
   }
+
 
   @Override
   public String toString() {

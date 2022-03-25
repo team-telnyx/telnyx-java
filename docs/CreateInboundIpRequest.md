@@ -2,7 +2,6 @@
 
 # CreateInboundIpRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

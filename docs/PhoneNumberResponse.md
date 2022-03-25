@@ -2,7 +2,6 @@
 
 # PhoneNumberResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

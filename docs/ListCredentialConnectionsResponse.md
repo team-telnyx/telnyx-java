@@ -2,7 +2,6 @@
 
 # ListCredentialConnectionsResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

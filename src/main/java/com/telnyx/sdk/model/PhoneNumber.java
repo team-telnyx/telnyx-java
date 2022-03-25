@@ -104,8 +104,6 @@ public class PhoneNumber {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
-  public PhoneNumber() { 
-  }
 
    /**
    * Get id
@@ -158,8 +156,6 @@ public class PhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -208,8 +204,6 @@ public class PhoneNumber {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegulatoryRequirements(List<PhoneNumberRegulatoryRequirement> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
   }
@@ -272,6 +266,7 @@ public class PhoneNumber {
   public int hashCode() {
     return Objects.hash(id, recordType, phoneNumber, regulatoryGroupId, regulatoryRequirements, requirementsMet, status);
   }
+
 
   @Override
   public String toString() {

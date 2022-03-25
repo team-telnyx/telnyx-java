@@ -41,8 +41,6 @@ public class PhoneNumbersJobDeletePhoneNumbersRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = new ArrayList<>();
 
-  public PhoneNumbersJobDeletePhoneNumbersRequest() { 
-  }
 
   public PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbers(List<String> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
@@ -58,7 +56,6 @@ public class PhoneNumbersJobDeletePhoneNumbersRequest {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -68,8 +65,6 @@ public class PhoneNumbersJobDeletePhoneNumbersRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhoneNumbers(List<String> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
@@ -94,6 +89,7 @@ public class PhoneNumbersJobDeletePhoneNumbersRequest {
   public int hashCode() {
     return Objects.hash(phoneNumbers);
   }
+
 
   @Override
   public String toString() {

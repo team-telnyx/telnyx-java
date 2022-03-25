@@ -53,8 +53,6 @@ public class CreateVerificationRequestCall {
   public static final String JSON_PROPERTY_CALL_TIMEOUT_SECS = "call_timeout_secs";
   private Integer callTimeoutSecs;
 
-  public CreateVerificationRequestCall() { 
-  }
 
   public CreateVerificationRequestCall phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -65,7 +63,6 @@ public class CreateVerificationRequestCall {
    * +E164 formatted phone number.
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+13035551234", required = true, value = "+E164 formatted phone number.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -75,8 +72,6 @@ public class CreateVerificationRequestCall {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -91,7 +86,6 @@ public class CreateVerificationRequestCall {
    * The identifier of the associated Verify profile.
    * @return verifyProfileId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "The identifier of the associated Verify profile.")
   @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -101,8 +95,6 @@ public class CreateVerificationRequestCall {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVerifyProfileId(UUID verifyProfileId) {
     this.verifyProfileId = verifyProfileId;
   }
@@ -127,8 +119,6 @@ public class CreateVerificationRequestCall {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
   }
@@ -153,8 +143,6 @@ public class CreateVerificationRequestCall {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallTimeoutSecs(Integer callTimeoutSecs) {
     this.callTimeoutSecs = callTimeoutSecs;
   }
@@ -182,6 +170,7 @@ public class CreateVerificationRequestCall {
   public int hashCode() {
     return Objects.hash(phoneNumber, verifyProfileId, timeoutSecs, callTimeoutSecs);
   }
+
 
   @Override
   public String toString() {

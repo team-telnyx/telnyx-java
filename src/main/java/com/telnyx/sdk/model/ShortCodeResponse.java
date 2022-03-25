@@ -40,8 +40,6 @@ public class ShortCodeResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private ShortCode data;
 
-  public ShortCodeResponse() { 
-  }
 
   public ShortCodeResponse data(ShortCode data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class ShortCodeResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(ShortCode data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class ShortCodeResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

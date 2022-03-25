@@ -51,8 +51,6 @@ public class BulkCredentialRequest {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
 
-  public BulkCredentialRequest() { 
-  }
 
   public BulkCredentialRequest name(String name) {
     this.name = name;
@@ -73,8 +71,6 @@ public class BulkCredentialRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -89,7 +85,6 @@ public class BulkCredentialRequest {
    * Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials.
    * @return tag
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "My Credentials", required = true, value = "Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials.")
   @JsonProperty(JSON_PROPERTY_TAG)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -99,8 +94,6 @@ public class BulkCredentialRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAG)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTag(String tag) {
     this.tag = tag;
   }
@@ -125,8 +118,6 @@ public class BulkCredentialRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAmount(Integer amount) {
     this.amount = amount;
   }
@@ -141,7 +132,6 @@ public class BulkCredentialRequest {
    * Identifies the connection this credential is associated with.
    * @return connectionId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "1234567890", required = true, value = "Identifies the connection this credential is associated with.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -151,8 +141,6 @@ public class BulkCredentialRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -180,6 +168,7 @@ public class BulkCredentialRequest {
   public int hashCode() {
     return Objects.hash(name, tag, amount, connectionId);
   }
+
 
   @Override
   public String toString() {

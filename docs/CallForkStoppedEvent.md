@@ -2,7 +2,6 @@
 
 # CallForkStoppedEvent
 
-
 ## Properties
 
 Name | Type | Description | Notes

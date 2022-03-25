@@ -62,8 +62,6 @@ public class ReferRequest {
   public static final String JSON_PROPERTY_SIP_AUTH_PASSWORD = "sip_auth_password";
   private String sipAuthPassword;
 
-  public ReferRequest() { 
-  }
 
   public ReferRequest sipAddress(String sipAddress) {
     this.sipAddress = sipAddress;
@@ -74,7 +72,6 @@ public class ReferRequest {
    * The SIP URI to which the call will be referred to.
    * @return sipAddress
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "sip:username@sip.non-telnyx-address.com", required = true, value = "The SIP URI to which the call will be referred to.")
   @JsonProperty(JSON_PROPERTY_SIP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,8 +81,6 @@ public class ReferRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSipAddress(String sipAddress) {
     this.sipAddress = sipAddress;
   }
@@ -110,8 +105,6 @@ public class ReferRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -136,8 +129,6 @@ public class ReferRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -170,8 +161,6 @@ public class ReferRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomHeaders(List<CustomSipHeader> customHeaders) {
     this.customHeaders = customHeaders;
   }
@@ -196,8 +185,6 @@ public class ReferRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_AUTH_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipAuthUsername(String sipAuthUsername) {
     this.sipAuthUsername = sipAuthUsername;
   }
@@ -222,8 +209,6 @@ public class ReferRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_AUTH_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipAuthPassword(String sipAuthPassword) {
     this.sipAuthPassword = sipAuthPassword;
   }
@@ -253,6 +238,7 @@ public class ReferRequest {
   public int hashCode() {
     return Objects.hash(sipAddress, clientState, commandId, customHeaders, sipAuthUsername, sipAuthPassword);
   }
+
 
   @Override
   public String toString() {

@@ -2,12 +2,11 @@
 
 # NumberOrderDocument
 
-
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** |  |  [optional] [readonly]
+**id** | [**UUID**](UUID.md) |  |  [optional] [readonly]
 **recordType** | **String** |  |  [optional] [readonly]
 **fileId** | **String** | The id of the file to associate as a number order document. |  [optional]
 **requirementsId** | **String** | Unique id for a requirement. |  [optional]

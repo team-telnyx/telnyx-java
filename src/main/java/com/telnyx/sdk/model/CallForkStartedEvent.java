@@ -40,8 +40,6 @@ public class CallForkStartedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallForkStarted data;
 
-  public CallForkStartedEvent() { 
-  }
 
   public CallForkStartedEvent data(CallForkStarted data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class CallForkStartedEvent {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallForkStarted data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class CallForkStartedEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

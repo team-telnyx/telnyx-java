@@ -30,7 +30,6 @@ import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -205,8 +204,6 @@ public class CredentialConnection {
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
   private CredentialOutbound outbound;
 
-  public CredentialConnection() { 
-  }
 
   public CredentialConnection id(String id) {
     this.id = id;
@@ -227,8 +224,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -253,8 +248,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -279,8 +272,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACTIVE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(Boolean active) {
     this.active = active;
   }
@@ -305,8 +296,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USER_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUserName(String userName) {
     this.userName = userName;
   }
@@ -331,8 +320,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPassword(String password) {
     this.password = password;
   }
@@ -357,8 +344,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -383,8 +368,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -409,8 +392,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
@@ -435,8 +416,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionName(String connectionName) {
     this.connectionName = connectionName;
   }
@@ -461,8 +440,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_URI_CALLING_PREFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipUriCallingPreference(SipUriCallingPreferenceEnum sipUriCallingPreference) {
     this.sipUriCallingPreference = sipUriCallingPreference;
   }
@@ -487,8 +464,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultOnHoldComfortNoiseEnabled(Boolean defaultOnHoldComfortNoiseEnabled) {
     this.defaultOnHoldComfortNoiseEnabled = defaultOnHoldComfortNoiseEnabled;
   }
@@ -513,8 +488,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDtmfType(DtmfType dtmfType) {
     this.dtmfType = dtmfType;
   }
@@ -539,8 +512,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEncodeContactHeaderEnabled(Boolean encodeContactHeaderEnabled) {
     this.encodeContactHeaderEnabled = encodeContactHeaderEnabled;
   }
@@ -599,8 +570,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOnnetT38PassthroughEnabled(Boolean onnetT38PassthroughEnabled) {
     this.onnetT38PassthroughEnabled = onnetT38PassthroughEnabled;
   }
@@ -625,8 +594,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookEventUrl(String webhookEventUrl) {
     this.webhookEventUrl = webhookEventUrl;
   }
@@ -685,8 +652,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
@@ -747,8 +712,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RTCP_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRtcpSettings(ConnectionRtcpSettings rtcpSettings) {
     this.rtcpSettings = rtcpSettings;
   }
@@ -773,8 +736,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INBOUND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInbound(CredentialInbound inbound) {
     this.inbound = inbound;
   }
@@ -799,8 +760,6 @@ public class CredentialConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OUTBOUND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutbound(CredentialOutbound outbound) {
     this.outbound = outbound;
   }
@@ -831,32 +790,22 @@ public class CredentialConnection {
         Objects.equals(this.defaultOnHoldComfortNoiseEnabled, credentialConnection.defaultOnHoldComfortNoiseEnabled) &&
         Objects.equals(this.dtmfType, credentialConnection.dtmfType) &&
         Objects.equals(this.encodeContactHeaderEnabled, credentialConnection.encodeContactHeaderEnabled) &&
-        equalsNullable(this.encryptedMedia, credentialConnection.encryptedMedia) &&
+        Objects.equals(this.encryptedMedia, credentialConnection.encryptedMedia) &&
         Objects.equals(this.onnetT38PassthroughEnabled, credentialConnection.onnetT38PassthroughEnabled) &&
         Objects.equals(this.webhookEventUrl, credentialConnection.webhookEventUrl) &&
-        equalsNullable(this.webhookEventFailoverUrl, credentialConnection.webhookEventFailoverUrl) &&
+        Objects.equals(this.webhookEventFailoverUrl, credentialConnection.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, credentialConnection.webhookApiVersion) &&
-        equalsNullable(this.webhookTimeoutSecs, credentialConnection.webhookTimeoutSecs) &&
+        Objects.equals(this.webhookTimeoutSecs, credentialConnection.webhookTimeoutSecs) &&
         Objects.equals(this.rtcpSettings, credentialConnection.rtcpSettings) &&
         Objects.equals(this.inbound, credentialConnection.inbound) &&
         Objects.equals(this.outbound, credentialConnection.outbound);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, active, userName, password, createdAt, updatedAt, anchorsiteOverride, connectionName, sipUriCallingPreference, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, inbound, outbound);
+    return Objects.hash(id, recordType, active, userName, password, createdAt, updatedAt, anchorsiteOverride, connectionName, sipUriCallingPreference, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, encryptedMedia, onnetT38PassthroughEnabled, webhookEventUrl, webhookEventFailoverUrl, webhookApiVersion, webhookTimeoutSecs, rtcpSettings, inbound, outbound);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

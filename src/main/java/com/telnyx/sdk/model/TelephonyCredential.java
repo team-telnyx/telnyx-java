@@ -75,8 +75,6 @@ public class TelephonyCredential {
   public static final String JSON_PROPERTY_EXPIRES_AT = "expires_at";
   private String expiresAt;
 
-  public TelephonyCredential() { 
-  }
 
   public TelephonyCredential id(String id) {
     this.id = id;
@@ -97,8 +95,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -123,8 +119,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -149,8 +143,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -175,8 +167,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESOURCE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResourceId(String resourceId) {
     this.resourceId = resourceId;
   }
@@ -201,8 +191,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXPIRED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpired(Boolean expired) {
     this.expired = expired;
   }
@@ -227,8 +215,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipUsername(String sipUsername) {
     this.sipUsername = sipUsername;
   }
@@ -253,8 +239,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipPassword(String sipPassword) {
     this.sipPassword = sipPassword;
   }
@@ -279,8 +263,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -305,8 +287,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -331,8 +311,6 @@ public class TelephonyCredential {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpiresAt(String expiresAt) {
     this.expiresAt = expiresAt;
   }
@@ -366,6 +344,7 @@ public class TelephonyCredential {
   public int hashCode() {
     return Objects.hash(id, recordType, name, resourceId, expired, sipUsername, sipPassword, createdAt, updatedAt, expiresAt);
   }
+
 
   @Override
   public String toString() {

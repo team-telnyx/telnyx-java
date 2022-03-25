@@ -2,7 +2,6 @@
 
 # CallPlaybackEndedEvent
 
-
 ## Properties
 
 Name | Type | Description | Notes

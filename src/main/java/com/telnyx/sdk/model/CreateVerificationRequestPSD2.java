@@ -62,8 +62,6 @@ public class CreateVerificationRequestPSD2 {
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs;
 
-  public CreateVerificationRequestPSD2() { 
-  }
 
   public CreateVerificationRequestPSD2 phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -74,7 +72,6 @@ public class CreateVerificationRequestPSD2 {
    * +E164 formatted phone number.
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+13035551234", required = true, value = "+E164 formatted phone number.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,8 +81,6 @@ public class CreateVerificationRequestPSD2 {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -100,7 +95,6 @@ public class CreateVerificationRequestPSD2 {
    * The identifier of the associated Verify profile.
    * @return verifyProfileId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "The identifier of the associated Verify profile.")
   @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -110,8 +104,6 @@ public class CreateVerificationRequestPSD2 {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVerifyProfileId(UUID verifyProfileId) {
     this.verifyProfileId = verifyProfileId;
   }
@@ -126,7 +118,6 @@ public class CreateVerificationRequestPSD2 {
    * Get currency
    * @return currency
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -136,8 +127,6 @@ public class CreateVerificationRequestPSD2 {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCurrency(Currencies currency) {
     this.currency = currency;
   }
@@ -152,7 +141,6 @@ public class CreateVerificationRequestPSD2 {
    * Get amount
    * @return amount
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "99.99", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -162,8 +150,6 @@ public class CreateVerificationRequestPSD2 {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setAmount(String amount) {
     this.amount = amount;
   }
@@ -178,7 +164,6 @@ public class CreateVerificationRequestPSD2 {
    * Get payee
    * @return payee
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "Acme Corp Inc. LTD", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PAYEE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -188,8 +173,6 @@ public class CreateVerificationRequestPSD2 {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PAYEE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPayee(String payee) {
     this.payee = payee;
   }
@@ -214,8 +197,6 @@ public class CreateVerificationRequestPSD2 {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
   }
@@ -245,6 +226,7 @@ public class CreateVerificationRequestPSD2 {
   public int hashCode() {
     return Objects.hash(phoneNumber, verifyProfileId, currency, amount, payee, timeoutSecs);
   }
+
 
   @Override
   public String toString() {

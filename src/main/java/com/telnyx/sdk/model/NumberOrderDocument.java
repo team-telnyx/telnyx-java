@@ -101,8 +101,6 @@ public class NumberOrderDocument {
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
 
-  public NumberOrderDocument() { 
-  }
 
    /**
    * Get id
@@ -155,8 +153,6 @@ public class NumberOrderDocument {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFileId(String fileId) {
     this.fileId = fileId;
   }
@@ -181,8 +177,6 @@ public class NumberOrderDocument {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REQUIREMENTS_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRequirementsId(String requirementsId) {
     this.requirementsId = requirementsId;
   }
@@ -207,8 +201,6 @@ public class NumberOrderDocument {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
   }
@@ -271,6 +263,7 @@ public class NumberOrderDocument {
   public int hashCode() {
     return Objects.hash(id, recordType, fileId, requirementsId, customerReference, requirementType, createdAt);
   }
+
 
   @Override
   public String toString() {

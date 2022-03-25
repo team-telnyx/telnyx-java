@@ -70,8 +70,6 @@ public class NumberLookupRecord {
   public static final String JSON_PROPERTY_PORTABILITY = "portability";
   private Portability portability;
 
-  public NumberLookupRecord() { 
-  }
 
   public NumberLookupRecord recordType(String recordType) {
     this.recordType = recordType;
@@ -92,8 +90,6 @@ public class NumberLookupRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -118,8 +114,6 @@ public class NumberLookupRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCountryCode(String countryCode) {
     this.countryCode = countryCode;
   }
@@ -144,8 +138,6 @@ public class NumberLookupRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NATIONAL_FORMAT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNationalFormat(String nationalFormat) {
     this.nationalFormat = nationalFormat;
   }
@@ -170,8 +162,6 @@ public class NumberLookupRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -196,8 +186,6 @@ public class NumberLookupRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FRAUD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFraud(String fraud) {
     this.fraud = fraud;
   }
@@ -222,8 +210,6 @@ public class NumberLookupRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CARRIER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCarrier(Carrier carrier) {
     this.carrier = carrier;
   }
@@ -248,8 +234,6 @@ public class NumberLookupRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALLER_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallerName(CallerName callerName) {
     this.callerName = callerName;
   }
@@ -274,8 +258,6 @@ public class NumberLookupRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PORTABILITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPortability(Portability portability) {
     this.portability = portability;
   }
@@ -307,6 +289,7 @@ public class NumberLookupRecord {
   public int hashCode() {
     return Objects.hash(recordType, countryCode, nationalFormat, phoneNumber, fraud, carrier, callerName, portability);
   }
+
 
   @Override
   public String toString() {

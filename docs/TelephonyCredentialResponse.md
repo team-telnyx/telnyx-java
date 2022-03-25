@@ -2,7 +2,6 @@
 
 # TelephonyCredentialResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

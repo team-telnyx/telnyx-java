@@ -27,7 +27,6 @@ import com.telnyx.sdk.model.CreateFaxApplicationRequestInbound;
 import com.telnyx.sdk.model.CreateFaxApplicationRequestOutbound;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -74,8 +73,6 @@ public class CreateFaxApplicationRequest {
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
   private CreateFaxApplicationRequestOutbound outbound;
 
-  public CreateFaxApplicationRequest() { 
-  }
 
   public CreateFaxApplicationRequest applicationName(String applicationName) {
     this.applicationName = applicationName;
@@ -86,7 +83,6 @@ public class CreateFaxApplicationRequest {
    * A user-assigned name to help manage the application.
    * @return applicationName
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "call-router", required = true, value = "A user-assigned name to help manage the application.")
   @JsonProperty(JSON_PROPERTY_APPLICATION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -96,8 +92,6 @@ public class CreateFaxApplicationRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_APPLICATION_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setApplicationName(String applicationName) {
     this.applicationName = applicationName;
   }
@@ -122,8 +116,6 @@ public class CreateFaxApplicationRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACTIVE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(Boolean active) {
     this.active = active;
   }
@@ -148,8 +140,6 @@ public class CreateFaxApplicationRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
@@ -164,7 +154,6 @@ public class CreateFaxApplicationRequest {
    * The URL where webhooks related to this connection will be sent. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventUrl
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "https://example.com", required = true, value = "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -174,8 +163,6 @@ public class CreateFaxApplicationRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setWebhookEventUrl(String webhookEventUrl) {
     this.webhookEventUrl = webhookEventUrl;
   }
@@ -270,8 +257,6 @@ public class CreateFaxApplicationRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INBOUND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInbound(CreateFaxApplicationRequestInbound inbound) {
     this.inbound = inbound;
   }
@@ -296,8 +281,6 @@ public class CreateFaxApplicationRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OUTBOUND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutbound(CreateFaxApplicationRequestOutbound outbound) {
     this.outbound = outbound;
   }
@@ -319,27 +302,17 @@ public class CreateFaxApplicationRequest {
         Objects.equals(this.active, createFaxApplicationRequest.active) &&
         Objects.equals(this.anchorsiteOverride, createFaxApplicationRequest.anchorsiteOverride) &&
         Objects.equals(this.webhookEventUrl, createFaxApplicationRequest.webhookEventUrl) &&
-        equalsNullable(this.webhookEventFailoverUrl, createFaxApplicationRequest.webhookEventFailoverUrl) &&
-        equalsNullable(this.webhookTimeoutSecs, createFaxApplicationRequest.webhookTimeoutSecs) &&
+        Objects.equals(this.webhookEventFailoverUrl, createFaxApplicationRequest.webhookEventFailoverUrl) &&
+        Objects.equals(this.webhookTimeoutSecs, createFaxApplicationRequest.webhookTimeoutSecs) &&
         Objects.equals(this.inbound, createFaxApplicationRequest.inbound) &&
         Objects.equals(this.outbound, createFaxApplicationRequest.outbound);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(applicationName, active, anchorsiteOverride, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), hashCodeNullable(webhookTimeoutSecs), inbound, outbound);
+    return Objects.hash(applicationName, active, anchorsiteOverride, webhookEventUrl, webhookEventFailoverUrl, webhookTimeoutSecs, inbound, outbound);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

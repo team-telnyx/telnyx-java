@@ -2,7 +2,6 @@
 
 # ConferenceMuteRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

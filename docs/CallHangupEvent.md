@@ -2,7 +2,6 @@
 
 # CallHangupEvent
 
-
 ## Properties
 
 Name | Type | Description | Notes

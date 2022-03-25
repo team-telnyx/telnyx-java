@@ -2,7 +2,6 @@
 
 # Portability
 
-
 ## Properties
 
 Name | Type | Description | Notes

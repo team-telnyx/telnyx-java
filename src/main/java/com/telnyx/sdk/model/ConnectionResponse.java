@@ -40,8 +40,6 @@ public class ConnectionResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private Connection data;
 
-  public ConnectionResponse() { 
-  }
 
   public ConnectionResponse data(Connection data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class ConnectionResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(Connection data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class ConnectionResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

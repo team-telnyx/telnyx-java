@@ -2,7 +2,6 @@
 
 # CreateShortCodeMessageRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

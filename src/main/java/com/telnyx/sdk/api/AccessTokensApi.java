@@ -27,7 +27,7 @@ public class AccessTokensApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -36,7 +36,7 @@ public class AccessTokensApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */

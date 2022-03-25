@@ -39,8 +39,6 @@ public class UpdateShortCodeRequest {
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
 
-  public UpdateShortCodeRequest() { 
-  }
 
   public UpdateShortCodeRequest messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
@@ -51,7 +49,6 @@ public class UpdateShortCodeRequest {
    * Unique identifier for a messaging profile.
    * @return messagingProfileId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Unique identifier for a messaging profile.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -61,8 +58,6 @@ public class UpdateShortCodeRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -87,6 +82,7 @@ public class UpdateShortCodeRequest {
   public int hashCode() {
     return Objects.hash(messagingProfileId);
   }
+
 
   @Override
   public String toString() {

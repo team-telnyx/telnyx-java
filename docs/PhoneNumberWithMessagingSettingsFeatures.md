@@ -2,7 +2,6 @@
 
 # PhoneNumberWithMessagingSettingsFeatures
 
-
 ## Properties
 
 Name | Type | Description | Notes

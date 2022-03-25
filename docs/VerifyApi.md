@@ -16,7 +16,7 @@ Method | HTTP request | Description
 [**retrieveVerification**](VerifyApi.md#retrieveVerification) | **GET** /verifications/{verification_id} | Retrieve a verification
 [**retrieveVerifyProfile**](VerifyApi.md#retrieveVerifyProfile) | **GET** /verify_profiles/{verify_profile_id} | Retrieve a Verify profile
 [**updateVerifyProfile**](VerifyApi.md#updateVerifyProfile) | **PATCH** /verify_profiles/{verify_profile_id} | Update a Verify profile
-[**verifyVerificationCode**](VerifyApi.md#verifyVerificationCode) | **POST** /verifications/by_phone_number/{phone_number}/actions/verify | Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
+[**verifyVerificationCode**](VerifyApi.md#verifyVerificationCode) | **POST** /verifications/by_phone_number/{phone_number}/actions/verify | Submit a verification code
 
 
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## createVerificationFlashcall
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## createVerificationPSD2
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## createVerificationSMS
@@ -293,7 +293,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## createVerificationWhatsapp
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## createVerifyProfile
@@ -433,7 +433,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## deleteVerifyProfile
@@ -445,7 +445,6 @@ Delete a Verify profile
 ### Example
 
 ```java
-import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -464,7 +463,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         VerifyApi apiInstance = new VerifyApi(defaultClient);
-        UUID verifyProfileId = UUID.fromString("12ade33a-21c0-473b-b055-b3c836e1c292"); // UUID | The identifier of the Verify profile to delete.
+        UUID verifyProfileId = 12ade33a-21c0-473b-b055-b3c836e1c292; // UUID | The identifier of the Verify profile to delete.
         try {
             VerifyProfileResponseDataWrapper result = apiInstance.deleteVerifyProfile(verifyProfileId);
             System.out.println(result);
@@ -484,7 +483,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **verifyProfileId** | **UUID**| The identifier of the Verify profile to delete. |
+ **verifyProfileId** | [**UUID**](.md)| The identifier of the Verify profile to delete. |
 
 ### Return type
 
@@ -503,7 +502,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## listVerifications
@@ -533,7 +532,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         VerifyApi apiInstance = new VerifyApi(defaultClient);
-        String phoneNumber = "+13035551234"; // String | The phone number associated with the verifications to retrieve.
+        String phoneNumber = +13035551234; // String | The phone number associated with the verifications to retrieve.
         try {
             ListVerificationsResponse result = apiInstance.listVerifications(phoneNumber);
             System.out.println(result);
@@ -572,7 +571,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## listVerifyProfiles
@@ -651,7 +650,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## retrieveVerification
@@ -663,7 +662,6 @@ Retrieve a verification
 ### Example
 
 ```java
-import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -682,7 +680,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         VerifyApi apiInstance = new VerifyApi(defaultClient);
-        UUID verificationId = UUID.fromString("12ade33a-21c0-473b-b055-b3c836e1c292"); // UUID | The identifier of the verification to retrieve.
+        UUID verificationId = 12ade33a-21c0-473b-b055-b3c836e1c292; // UUID | The identifier of the verification to retrieve.
         try {
             RetrieveVerificationResponse result = apiInstance.retrieveVerification(verificationId);
             System.out.println(result);
@@ -702,7 +700,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **verificationId** | **UUID**| The identifier of the verification to retrieve. |
+ **verificationId** | [**UUID**](.md)| The identifier of the verification to retrieve. |
 
 ### Return type
 
@@ -721,7 +719,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## retrieveVerifyProfile
@@ -735,7 +733,6 @@ Gets a single Verify profile.
 ### Example
 
 ```java
-import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -754,7 +751,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         VerifyApi apiInstance = new VerifyApi(defaultClient);
-        UUID verifyProfileId = UUID.fromString("12ade33a-21c0-473b-b055-b3c836e1c292"); // UUID | The identifier of the Verify profile to retrieve.
+        UUID verifyProfileId = 12ade33a-21c0-473b-b055-b3c836e1c292; // UUID | The identifier of the Verify profile to retrieve.
         try {
             VerifyProfileResponseDataWrapper result = apiInstance.retrieveVerifyProfile(verifyProfileId);
             System.out.println(result);
@@ -774,7 +771,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **verifyProfileId** | **UUID**| The identifier of the Verify profile to retrieve. |
+ **verifyProfileId** | [**UUID**](.md)| The identifier of the Verify profile to retrieve. |
 
 ### Return type
 
@@ -793,7 +790,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## updateVerifyProfile
@@ -805,7 +802,6 @@ Update a Verify profile
 ### Example
 
 ```java
-import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -824,7 +820,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         VerifyApi apiInstance = new VerifyApi(defaultClient);
-        UUID verifyProfileId = UUID.fromString("12ade33a-21c0-473b-b055-b3c836e1c292"); // UUID | The identifier of the Verify profile to update.
+        UUID verifyProfileId = 12ade33a-21c0-473b-b055-b3c836e1c292; // UUID | The identifier of the Verify profile to update.
         UpdateVerifyProfileRequest updateVerifyProfileRequest = new UpdateVerifyProfileRequest(); // UpdateVerifyProfileRequest | 
         try {
             VerifyProfileResponseDataWrapper result = apiInstance.updateVerifyProfile(verifyProfileId, updateVerifyProfileRequest);
@@ -845,7 +841,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **verifyProfileId** | **UUID**| The identifier of the Verify profile to update. |
+ **verifyProfileId** | [**UUID**](.md)| The identifier of the Verify profile to update. |
  **updateVerifyProfileRequest** | [**UpdateVerifyProfileRequest**](UpdateVerifyProfileRequest.md)|  |
 
 ### Return type
@@ -865,14 +861,14 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 
 
 ## verifyVerificationCode
 
 > VerifyVerificationCodeResponse verifyVerificationCode(phoneNumber, verifyVerificationCodeRequest)
 
-Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
+Submit a verification code
 
 ### Example
 
@@ -895,7 +891,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         VerifyApi apiInstance = new VerifyApi(defaultClient);
-        String phoneNumber = "+13035551234"; // String | The phone number associated with the verification code being verified.
+        String phoneNumber = +13035551234; // String | The phone number associated with the verification code being verified.
         VerifyVerificationCodeRequest verifyVerificationCodeRequest = new VerifyVerificationCodeRequest(); // VerifyVerificationCodeRequest | 
         try {
             VerifyVerificationCodeResponse result = apiInstance.verifyVerificationCode(phoneNumber, verifyVerificationCodeRequest);
@@ -936,5 +932,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verify response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
+| **400** | Bad Request |  -  |
 

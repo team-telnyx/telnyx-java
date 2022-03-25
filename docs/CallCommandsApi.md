@@ -24,12 +24,9 @@ Method | HTTP request | Description
 [**callReject**](CallCommandsApi.md#callReject) | **POST** /calls/{call_control_id}/actions/reject | Reject a call
 [**callSendDTMF**](CallCommandsApi.md#callSendDTMF) | **POST** /calls/{call_control_id}/actions/send_dtmf | Send DTMF
 [**callSpeak**](CallCommandsApi.md#callSpeak) | **POST** /calls/{call_control_id}/actions/speak | Speak text
-[**callStreamingStart**](CallCommandsApi.md#callStreamingStart) | **POST** /calls/{call_control_id}/actions/streaming_start | Streaming start
-[**callStreamingStop**](CallCommandsApi.md#callStreamingStop) | **POST** /calls/{call_control_id}/actions/streaming_stop | Streaming stop
 [**callTranscriptionStart**](CallCommandsApi.md#callTranscriptionStart) | **POST** /calls/{call_control_id}/actions/transcription_start | Transcription start
 [**callTranscriptionStop**](CallCommandsApi.md#callTranscriptionStop) | **POST** /calls/{call_control_id}/actions/transcription_stop | Transcription stop
 [**callTransfer**](CallCommandsApi.md#callTransfer) | **POST** /calls/{call_control_id}/actions/transfer | Transfer call
-[**clientStateUpdate**](CallCommandsApi.md#clientStateUpdate) | **PUT** /calls/{call_control_id}/actions/client_state_update | Update client state
 [**leaveQueue**](CallCommandsApi.md#leaveQueue) | **POST** /calls/{call_control_id}/actions/leave_queue | Remove call from a queue
 
 
@@ -45,7 +42,7 @@ Answer an incoming call. You must issue this command before executing subsequent
 **Expected Webhooks:**
 
 - `call.answered`
-- `streaming.started` and `streaming.stopped` if `stream_url` was set
+
 
 ### Example
 
@@ -109,7 +106,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callBridge
@@ -188,7 +185,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callDial
@@ -205,8 +202,6 @@ Dial a number or SIP URI from a given connection. A successful response will inc
 - `call.answered` or `call.hangup`
 - `call.machine.detection.ended` if `answering_machine_detection` was requested
 - `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`
-- `streaming.started` and `streaming.stopped` if `stream_url` was set
-
 
 ### Example
 
@@ -268,7 +263,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a call status. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callEnqueue
@@ -341,7 +336,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callForkStart
@@ -495,7 +490,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callForkStop
@@ -573,7 +568,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callGatherStop
@@ -651,7 +646,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callGatherUsingAudio
@@ -734,7 +729,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callGatherUsingSpeak
@@ -815,7 +810,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callHangup
@@ -894,7 +889,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callPlaybackStart
@@ -979,7 +974,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callPlaybackStop
@@ -1057,7 +1052,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callRecordPause
@@ -1135,7 +1130,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callRecordResume
@@ -1213,7 +1208,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callRecordStart
@@ -1291,7 +1286,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callRecordStop
@@ -1369,7 +1364,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callRefer
@@ -1449,7 +1444,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callReject
@@ -1527,7 +1522,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callSendDTMF
@@ -1605,7 +1600,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callSpeak
@@ -1684,220 +1679,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## callStreamingStart
-
-> CallControlCommandResponse callStreamingStart(callControlId, startStreamingRequest)
-
-Streaming start
-
-Start streaming the media from a call to a specific WebSocket address in near-realtime. 
-Audio will be delivered as base64-encoded RTP packets, wrapped in JSON payloads. 
-
-**Expected Webhooks:**
-
-- `streaming.started`
-- `streaming.stopped`
-
-**WebSocket events**
-
-When the WebSocket connection is established, the following event is being sent over it:
-```
-{
-  "event": "connected",
-  "version": "1.0.0"
-}
-```
-And when the call is started, an event which contains information about the encoding and `stream_id` that identifies a particular stream:
-```
-{
-  "event": "start",
-  "sequence_number": "1",
-  "start": {
-    "user_id": "3E6F995F-85F7-4705-9741-53B116D28237",
-    "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
-    "media_format": {
-      "encoding": "audio/x-mulaw",
-      "sample_rate": 8000,
-      "channels": 1
-    }
-  },
-  "stream_id": "32DE0DEA-53CB-4B21-89A4-9E1819C043BC"
-}
-```
-The start event is followed by the following media events that contain base64-encoded RTP packets as their payloads:
-```
-{ 
-  "event": "media",
-  "sequence_number": "4",
-  "media": { 
-    "track": "inbound/outbound", 
-    "chunk": "2",
-    "timestamp": "5",
-    "payload": "no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic"                        
-  },
-  "stream_id": "32DE0DEA-53CB-4B21-89A4-9E1819C043BC" 
-}
-```
-Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.
-
-When the call ends, the stop event over WebSockets connection is sent:
-```
-{ 
-  "event": "stop",
-  "sequence_number": "5",
-  "stop": {
-    "user_id": "3E6F995F-85F7-4705-9741-53B116D28237",
-    "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
-   },
-    "stream_id": "32DE0DEA-53CB-4B21-89A4-9E1819C043BC" 
- }
-```
-
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.CallCommandsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
-        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
-        StartStreamingRequest startStreamingRequest = new StartStreamingRequest(); // StartStreamingRequest | Start streaming media request
-        try {
-            CallControlCommandResponse result = apiInstance.callStreamingStart(callControlId, startStreamingRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callStreamingStart");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **callControlId** | **String**| Unique identifier and token for controlling the call |
- **startStreamingRequest** | [**StartStreamingRequest**](StartStreamingRequest.md)| Start streaming media request |
-
-### Return type
-
-[**CallControlCommandResponse**](CallControlCommandResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## callStreamingStop
-
-> CallControlCommandResponse callStreamingStop(callControlId, stopStreamingRequest)
-
-Streaming stop
-
-Stop streaming a call to a WebSocket.
-
-**Expected Webhooks:**
-
-- `streaming.stopped`
-
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.CallCommandsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
-        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
-        StopStreamingRequest stopStreamingRequest = new StopStreamingRequest(); // StopStreamingRequest | Stop streaming media request
-        try {
-            CallControlCommandResponse result = apiInstance.callStreamingStop(callControlId, stopStreamingRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callStreamingStop");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **callControlId** | **String**| Unique identifier and token for controlling the call |
- **stopStreamingRequest** | [**StopStreamingRequest**](StopStreamingRequest.md)| Stop streaming media request |
-
-### Return type
-
-[**CallControlCommandResponse**](CallControlCommandResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callTranscriptionStart
@@ -1907,11 +1689,6 @@ Name | Type | Description  | Notes
 Transcription start
 
 Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.
-
-**Expected Webhooks:**
-
-- `call.transcription`
-
 
 ### Example
 
@@ -1975,7 +1752,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callTranscriptionStop
@@ -2048,7 +1825,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## callTransfer
@@ -2129,80 +1906,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## clientStateUpdate
-
-> CallControlCommandResponse clientStateUpdate(callControlId, clientStateUpdateRequest)
-
-Update client state
-
-Updates client state
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.CallCommandsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
-        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
-        ClientStateUpdateRequest clientStateUpdateRequest = new ClientStateUpdateRequest(); // ClientStateUpdateRequest | Updates client state for every subsequent webhook
-        try {
-            CallControlCommandResponse result = apiInstance.clientStateUpdate(callControlId, clientStateUpdateRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#clientStateUpdate");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **callControlId** | **String**| Unique identifier and token for controlling the call |
- **clientStateUpdateRequest** | [**ClientStateUpdateRequest**](ClientStateUpdateRequest.md)| Updates client state for every subsequent webhook |
-
-### Return type
-
-[**CallControlCommandResponse**](CallControlCommandResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## leaveQueue
@@ -2275,5 +1979,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 

@@ -38,7 +38,6 @@ import com.telnyx.sdk.JSON;
   CallLeftQueuePayload.JSON_PROPERTY_CALL_SESSION_ID,
   CallLeftQueuePayload.JSON_PROPERTY_CLIENT_STATE,
   CallLeftQueuePayload.JSON_PROPERTY_QUEUE,
-  CallLeftQueuePayload.JSON_PROPERTY_QUEUE_POSITION,
   CallLeftQueuePayload.JSON_PROPERTY_REASON
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -60,9 +59,6 @@ public class CallLeftQueuePayload {
 
   public static final String JSON_PROPERTY_QUEUE = "queue";
   private String queue;
-
-  public static final String JSON_PROPERTY_QUEUE_POSITION = "queue_position";
-  private Integer queuePosition;
 
   /**
    * The reason for leaving the queue
@@ -108,8 +104,6 @@ public class CallLeftQueuePayload {
   public static final String JSON_PROPERTY_REASON = "reason";
   private ReasonEnum reason;
 
-  public CallLeftQueuePayload() { 
-  }
 
   public CallLeftQueuePayload callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -130,8 +124,6 @@ public class CallLeftQueuePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -156,8 +148,6 @@ public class CallLeftQueuePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -182,8 +172,6 @@ public class CallLeftQueuePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -195,11 +183,11 @@ public class CallLeftQueuePayload {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+   * ID that is unique to the call session and can be used to correlate webhook events.
    * @return callSessionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -208,8 +196,6 @@ public class CallLeftQueuePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -234,8 +220,6 @@ public class CallLeftQueuePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -260,36 +244,8 @@ public class CallLeftQueuePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_QUEUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setQueue(String queue) {
     this.queue = queue;
-  }
-
-
-  public CallLeftQueuePayload queuePosition(Integer queuePosition) {
-    this.queuePosition = queuePosition;
-    return this;
-  }
-
-   /**
-   * Last position of the call in the queue.
-   * @return queuePosition
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "7", value = "Last position of the call in the queue.")
-  @JsonProperty(JSON_PROPERTY_QUEUE_POSITION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getQueuePosition() {
-    return queuePosition;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_QUEUE_POSITION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setQueuePosition(Integer queuePosition) {
-    this.queuePosition = queuePosition;
   }
 
 
@@ -312,8 +268,6 @@ public class CallLeftQueuePayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REASON)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReason(ReasonEnum reason) {
     this.reason = reason;
   }
@@ -337,14 +291,14 @@ public class CallLeftQueuePayload {
         Objects.equals(this.callSessionId, callLeftQueuePayload.callSessionId) &&
         Objects.equals(this.clientState, callLeftQueuePayload.clientState) &&
         Objects.equals(this.queue, callLeftQueuePayload.queue) &&
-        Objects.equals(this.queuePosition, callLeftQueuePayload.queuePosition) &&
         Objects.equals(this.reason, callLeftQueuePayload.reason);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, queue, queuePosition, reason);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, queue, reason);
   }
+
 
   @Override
   public String toString() {
@@ -356,7 +310,6 @@ public class CallLeftQueuePayload {
     sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    queue: ").append(toIndentedString(queue)).append("\n");
-    sb.append("    queuePosition: ").append(toIndentedString(queuePosition)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("}");
     return sb.toString();

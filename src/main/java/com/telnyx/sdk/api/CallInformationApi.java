@@ -29,7 +29,7 @@ public class CallInformationApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -38,7 +38,7 @@ public class CallInformationApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -56,7 +56,7 @@ public class CallInformationApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveCallStatusResponse retrieveCallStatus(String callControlId) throws ApiException {
@@ -73,7 +73,7 @@ public class CallInformationApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveCallStatusResponse> retrieveCallStatusWithHttpInfo(String callControlId) throws ApiException {

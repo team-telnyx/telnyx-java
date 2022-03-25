@@ -2,7 +2,6 @@
 
 # UpdateFqdnRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

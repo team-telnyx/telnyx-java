@@ -2,7 +2,6 @@
 
 # ListShortCodesResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

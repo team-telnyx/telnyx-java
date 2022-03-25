@@ -41,7 +41,6 @@ import com.telnyx.sdk.JSON;
   JoinConferenceRequest.JSON_PROPERTY_SOFT_END_CONFERENCE_ON_EXIT,
   JoinConferenceRequest.JSON_PROPERTY_HOLD,
   JoinConferenceRequest.JSON_PROPERTY_HOLD_AUDIO_URL,
-  JoinConferenceRequest.JSON_PROPERTY_HOLD_MEDIA_NAME,
   JoinConferenceRequest.JSON_PROPERTY_MUTE,
   JoinConferenceRequest.JSON_PROPERTY_START_CONFERENCE_ON_ENTER,
   JoinConferenceRequest.JSON_PROPERTY_SUPERVISOR_ROLE,
@@ -70,9 +69,6 @@ public class JoinConferenceRequest {
 
   public static final String JSON_PROPERTY_HOLD_AUDIO_URL = "hold_audio_url";
   private String holdAudioUrl;
-
-  public static final String JSON_PROPERTY_HOLD_MEDIA_NAME = "hold_media_name";
-  private String holdMediaName;
 
   public static final String JSON_PROPERTY_MUTE = "mute";
   private Boolean mute;
@@ -167,8 +163,6 @@ public class JoinConferenceRequest {
   public static final String JSON_PROPERTY_BEEP_ENABLED = "beep_enabled";
   private BeepEnabledEnum beepEnabled;
 
-  public JoinConferenceRequest() { 
-  }
 
   public JoinConferenceRequest callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -179,7 +173,6 @@ public class JoinConferenceRequest {
    * Unique identifier and token for controlling the call
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==", required = true, value = "Unique identifier and token for controlling the call")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -189,8 +182,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -202,11 +193,11 @@ public class JoinConferenceRequest {
   }
 
    /**
-   * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. Please note that the client_state will be updated for the participient call leg and the change will not affect conferencing webhooks unless the participient is the owner of the conference.
+   * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. Please note that the client_state will be updated for the participient call leg and the change will not affect conferencing webhooks unless the participient is the owner of the conference.")
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -215,8 +206,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -241,8 +230,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -267,8 +254,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_END_CONFERENCE_ON_EXIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEndConferenceOnExit(Boolean endConferenceOnExit) {
     this.endConferenceOnExit = endConferenceOnExit;
   }
@@ -293,8 +278,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SOFT_END_CONFERENCE_ON_EXIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSoftEndConferenceOnExit(Boolean softEndConferenceOnExit) {
     this.softEndConferenceOnExit = softEndConferenceOnExit;
   }
@@ -319,8 +302,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_HOLD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHold(Boolean hold) {
     this.hold = hold;
   }
@@ -332,11 +313,11 @@ public class JoinConferenceRequest {
   }
 
    /**
-   * The URL of a file to be played to the participant when they are put on hold after joining the conference. hold_media_name and hold_audio_url cannot be used together in one request. Takes effect only when \&quot;start_conference_on_create\&quot; is set to \&quot;false\&quot;. This property takes effect only if \&quot;hold\&quot; is set to \&quot;true\&quot;.
+   * The URL of an audio file to be played to the participant when they are put on hold after joining the conference. This property takes effect only if \&quot;hold\&quot; is set to \&quot;true\&quot;.
    * @return holdAudioUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played to the participant when they are put on hold after joining the conference. hold_media_name and hold_audio_url cannot be used together in one request. Takes effect only when \"start_conference_on_create\" is set to \"false\". This property takes effect only if \"hold\" is set to \"true\".")
+  @ApiModelProperty(example = "http://www.example.com/audio.wav", value = "The URL of an audio file to be played to the participant when they are put on hold after joining the conference. This property takes effect only if \"hold\" is set to \"true\".")
   @JsonProperty(JSON_PROPERTY_HOLD_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -345,36 +326,8 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_HOLD_AUDIO_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHoldAudioUrl(String holdAudioUrl) {
     this.holdAudioUrl = holdAudioUrl;
-  }
-
-
-  public JoinConferenceRequest holdMediaName(String holdMediaName) {
-    this.holdMediaName = holdMediaName;
-    return this;
-  }
-
-   /**
-   * The media_name of a file to be played to the participant when they are put on hold after joining the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. Takes effect only when \&quot;start_conference_on_create\&quot; is set to \&quot;false\&quot;. This property takes effect only if \&quot;hold\&quot; is set to \&quot;true\&quot;.
-   * @return holdMediaName
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played to the participant when they are put on hold after joining the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. Takes effect only when \"start_conference_on_create\" is set to \"false\". This property takes effect only if \"hold\" is set to \"true\".")
-  @JsonProperty(JSON_PROPERTY_HOLD_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getHoldMediaName() {
-    return holdMediaName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HOLD_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHoldMediaName(String holdMediaName) {
-    this.holdMediaName = holdMediaName;
   }
 
 
@@ -397,8 +350,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MUTE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMute(Boolean mute) {
     this.mute = mute;
   }
@@ -423,8 +374,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_START_CONFERENCE_ON_ENTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStartConferenceOnEnter(Boolean startConferenceOnEnter) {
     this.startConferenceOnEnter = startConferenceOnEnter;
   }
@@ -449,8 +398,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSupervisorRole(SupervisorRoleEnum supervisorRole) {
     this.supervisorRole = supervisorRole;
   }
@@ -483,8 +430,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhisperCallControlIds(List<String> whisperCallControlIds) {
     this.whisperCallControlIds = whisperCallControlIds;
   }
@@ -509,8 +454,6 @@ public class JoinConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BEEP_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBeepEnabled(BeepEnabledEnum beepEnabled) {
     this.beepEnabled = beepEnabled;
   }
@@ -535,7 +478,6 @@ public class JoinConferenceRequest {
         Objects.equals(this.softEndConferenceOnExit, joinConferenceRequest.softEndConferenceOnExit) &&
         Objects.equals(this.hold, joinConferenceRequest.hold) &&
         Objects.equals(this.holdAudioUrl, joinConferenceRequest.holdAudioUrl) &&
-        Objects.equals(this.holdMediaName, joinConferenceRequest.holdMediaName) &&
         Objects.equals(this.mute, joinConferenceRequest.mute) &&
         Objects.equals(this.startConferenceOnEnter, joinConferenceRequest.startConferenceOnEnter) &&
         Objects.equals(this.supervisorRole, joinConferenceRequest.supervisorRole) &&
@@ -545,8 +487,9 @@ public class JoinConferenceRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, clientState, commandId, endConferenceOnExit, softEndConferenceOnExit, hold, holdAudioUrl, holdMediaName, mute, startConferenceOnEnter, supervisorRole, whisperCallControlIds, beepEnabled);
+    return Objects.hash(callControlId, clientState, commandId, endConferenceOnExit, softEndConferenceOnExit, hold, holdAudioUrl, mute, startConferenceOnEnter, supervisorRole, whisperCallControlIds, beepEnabled);
   }
+
 
   @Override
   public String toString() {
@@ -559,7 +502,6 @@ public class JoinConferenceRequest {
     sb.append("    softEndConferenceOnExit: ").append(toIndentedString(softEndConferenceOnExit)).append("\n");
     sb.append("    hold: ").append(toIndentedString(hold)).append("\n");
     sb.append("    holdAudioUrl: ").append(toIndentedString(holdAudioUrl)).append("\n");
-    sb.append("    holdMediaName: ").append(toIndentedString(holdMediaName)).append("\n");
     sb.append("    mute: ").append(toIndentedString(mute)).append("\n");
     sb.append("    startConferenceOnEnter: ").append(toIndentedString(startConferenceOnEnter)).append("\n");
     sb.append("    supervisorRole: ").append(toIndentedString(supervisorRole)).append("\n");

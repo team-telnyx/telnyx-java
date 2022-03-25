@@ -2,7 +2,6 @@
 
 # CallInitiatedEvent
 
-
 ## Properties
 
 Name | Type | Description | Notes

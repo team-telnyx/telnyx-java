@@ -2,13 +2,12 @@
 
 # HostedNumber
 
-
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | **String** |  |  [optional]
-**id** | **UUID** | Identifies the type of resource. |  [optional] [readonly]
+**id** | [**UUID**](UUID.md) | Identifies the type of resource. |  [optional] [readonly]
 **phoneNumber** | **String** | The messaging hosted phone number (+E.164 format) |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 

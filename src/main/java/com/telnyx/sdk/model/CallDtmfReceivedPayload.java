@@ -67,8 +67,6 @@ public class CallDtmfReceivedPayload {
   public static final String JSON_PROPERTY_DIGIT = "digit";
   private String digit;
 
-  public CallDtmfReceivedPayload() { 
-  }
 
   public CallDtmfReceivedPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -89,8 +87,6 @@ public class CallDtmfReceivedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -115,8 +111,6 @@ public class CallDtmfReceivedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -141,8 +135,6 @@ public class CallDtmfReceivedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -154,11 +146,11 @@ public class CallDtmfReceivedPayload {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+   * ID that is unique to the call session and can be used to correlate webhook events.
    * @return callSessionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -167,8 +159,6 @@ public class CallDtmfReceivedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -193,8 +183,6 @@ public class CallDtmfReceivedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -219,8 +207,6 @@ public class CallDtmfReceivedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -245,8 +231,6 @@ public class CallDtmfReceivedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -271,8 +255,6 @@ public class CallDtmfReceivedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DIGIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDigit(String digit) {
     this.digit = digit;
   }
@@ -304,6 +286,7 @@ public class CallDtmfReceivedPayload {
   public int hashCode() {
     return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to, digit);
   }
+
 
   @Override
   public String toString() {

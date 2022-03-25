@@ -2,7 +2,6 @@
 
 # ConferenceParticipantDetailRecord
 
-
 ## Properties
 
 Name | Type | Description | Notes
@@ -10,8 +9,8 @@ Name | Type | Description | Notes
 **id** | **String** | Participant id |  [optional]
 **userId** | **String** | User id |  [optional]
 **conferenceId** | **String** | Conference id |  [optional]
-**joinedAt** | **OffsetDateTime** | Participant join time |  [optional]
-**leftAt** | **OffsetDateTime** | Participant leave time |  [optional]
+**joinedAt** | [**OffsetDateTime**](OffsetDateTime.md) | Participant join time |  [optional]
+**leftAt** | [**OffsetDateTime**](OffsetDateTime.md) | Participant leave time |  [optional]
 **destinationNumber** | **String** | Number called by the participant to join the conference |  [optional]
 **originatingNumber** | **String** | Participant origin number used in the conference call |  [optional]
 **callLegId** | **String** | Telnyx UUID that identifies the conference call leg |  [optional]

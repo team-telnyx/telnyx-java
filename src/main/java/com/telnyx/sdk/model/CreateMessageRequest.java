@@ -116,8 +116,6 @@ public class CreateMessageRequest {
   public static final String JSON_PROPERTY_AUTO_DETECT = "auto_detect";
   private Boolean autoDetect = false;
 
-  public CreateMessageRequest() { 
-  }
 
   public CreateMessageRequest from(String from) {
     this.from = from;
@@ -138,8 +136,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -164,8 +160,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -180,7 +174,6 @@ public class CreateMessageRequest {
    * Receiving address (+E.164 formatted phone number or short code).
    * @return to
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+E.164", required = true, value = "Receiving address (+E.164 formatted phone number or short code).")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -190,8 +183,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -216,8 +207,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setText(String text) {
     this.text = text;
   }
@@ -242,8 +231,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUBJECT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSubject(String subject) {
     this.subject = subject;
   }
@@ -276,8 +263,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MEDIA_URLS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMediaUrls(List<String> mediaUrls) {
     this.mediaUrls = mediaUrls;
   }
@@ -302,8 +287,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
   }
@@ -328,8 +311,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookFailoverUrl(String webhookFailoverUrl) {
     this.webhookFailoverUrl = webhookFailoverUrl;
   }
@@ -354,8 +335,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USE_PROFILE_WEBHOOKS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUseProfileWebhooks(Boolean useProfileWebhooks) {
     this.useProfileWebhooks = useProfileWebhooks;
   }
@@ -380,8 +359,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -406,8 +383,6 @@ public class CreateMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AUTO_DETECT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAutoDetect(Boolean autoDetect) {
     this.autoDetect = autoDetect;
   }
@@ -442,6 +417,7 @@ public class CreateMessageRequest {
   public int hashCode() {
     return Objects.hash(from, messagingProfileId, to, text, subject, mediaUrls, webhookUrl, webhookFailoverUrl, useProfileWebhooks, type, autoDetect);
   }
+
 
   @Override
   public String toString() {

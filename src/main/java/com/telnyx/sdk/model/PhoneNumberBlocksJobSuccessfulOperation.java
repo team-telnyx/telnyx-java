@@ -43,8 +43,6 @@ public class PhoneNumberBlocksJobSuccessfulOperation {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
-  public PhoneNumberBlocksJobSuccessfulOperation() { 
-  }
 
   public PhoneNumberBlocksJobSuccessfulOperation phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -65,8 +63,6 @@ public class PhoneNumberBlocksJobSuccessfulOperation {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -91,8 +87,6 @@ public class PhoneNumberBlocksJobSuccessfulOperation {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -118,6 +112,7 @@ public class PhoneNumberBlocksJobSuccessfulOperation {
   public int hashCode() {
     return Objects.hash(phoneNumber, id);
   }
+
 
   @Override
   public String toString() {

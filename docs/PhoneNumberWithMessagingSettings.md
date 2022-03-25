@@ -2,7 +2,6 @@
 
 # PhoneNumberWithMessagingSettings
 
-
 ## Properties
 
 Name | Type | Description | Notes
@@ -11,8 +10,8 @@ Name | Type | Description | Notes
 **id** | **String** | Identifies the type of resource. |  [optional] [readonly]
 **phoneNumber** | **String** | +E.164 formatted phone number. |  [optional] [readonly]
 **messagingProfileId** | **String** | Unique identifier for a messaging profile. |  [optional]
-**createdAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the resource was created. |  [optional] [readonly]
-**updatedAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the resource was updated. |  [optional] [readonly]
+**createdAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 formatted date indicating when the resource was created. |  [optional] [readonly]
+**updatedAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 formatted date indicating when the resource was updated. |  [optional] [readonly]
 **countryCode** | **String** | ISO 3166-1 alpha-2 country code. |  [optional] [readonly]
 **type** | [**TypeEnum**](#TypeEnum) | The type of the phone number |  [optional] [readonly]
 **health** | [**NumberHealthMetrics**](NumberHealthMetrics.md) |  |  [optional]

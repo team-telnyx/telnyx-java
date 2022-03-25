@@ -2,7 +2,6 @@
 
 # ListAvailablePhoneNumbersBlocksResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

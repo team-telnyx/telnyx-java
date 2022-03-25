@@ -2,7 +2,6 @@
 
 # RetrieveMessagingSettingsResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

@@ -2,7 +2,6 @@
 
 # InboundMessagePayloadTo
 
-
 ## Properties
 
 Name | Type | Description | Notes

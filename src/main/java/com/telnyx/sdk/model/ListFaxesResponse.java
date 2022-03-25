@@ -46,8 +46,6 @@ public class ListFaxesResponse {
   public static final String JSON_PROPERTY_META = "meta";
   private Object meta;
 
-  public ListFaxesResponse() { 
-  }
 
   public ListFaxesResponse data(List<Fax> data) {
     this.data = data;
@@ -76,8 +74,6 @@ public class ListFaxesResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(List<Fax> data) {
     this.data = data;
   }
@@ -102,8 +98,6 @@ public class ListFaxesResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMeta(Object meta) {
     this.meta = meta;
   }
@@ -129,6 +123,7 @@ public class ListFaxesResponse {
   public int hashCode() {
     return Objects.hash(data, meta);
   }
+
 
   @Override
   public String toString() {

@@ -160,8 +160,6 @@ public class OutboundCallRecording {
   public static final String JSON_PROPERTY_CALL_RECORDING_FORMAT = "call_recording_format";
   private CallRecordingFormatEnum callRecordingFormat = CallRecordingFormatEnum.WAV;
 
-  public OutboundCallRecording() { 
-  }
 
   public OutboundCallRecording callRecordingType(CallRecordingTypeEnum callRecordingType) {
     this.callRecordingType = callRecordingType;
@@ -182,8 +180,6 @@ public class OutboundCallRecording {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_RECORDING_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallRecordingType(CallRecordingTypeEnum callRecordingType) {
     this.callRecordingType = callRecordingType;
   }
@@ -216,8 +212,6 @@ public class OutboundCallRecording {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_RECORDING_CALLER_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallRecordingCallerPhoneNumbers(List<String> callRecordingCallerPhoneNumbers) {
     this.callRecordingCallerPhoneNumbers = callRecordingCallerPhoneNumbers;
   }
@@ -242,8 +236,6 @@ public class OutboundCallRecording {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_RECORDING_CHANNELS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallRecordingChannels(CallRecordingChannelsEnum callRecordingChannels) {
     this.callRecordingChannels = callRecordingChannels;
   }
@@ -268,8 +260,6 @@ public class OutboundCallRecording {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_RECORDING_FORMAT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallRecordingFormat(CallRecordingFormatEnum callRecordingFormat) {
     this.callRecordingFormat = callRecordingFormat;
   }
@@ -297,6 +287,7 @@ public class OutboundCallRecording {
   public int hashCode() {
     return Objects.hash(callRecordingType, callRecordingCallerPhoneNumbers, callRecordingChannels, callRecordingFormat);
   }
+
 
   @Override
   public String toString() {

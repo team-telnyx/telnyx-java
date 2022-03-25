@@ -2,7 +2,6 @@
 
 # CreateVerifyProfileSMSRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

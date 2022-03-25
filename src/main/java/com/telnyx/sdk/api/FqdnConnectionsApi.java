@@ -31,7 +31,7 @@ public class FqdnConnectionsApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -40,7 +40,7 @@ public class FqdnConnectionsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -252,7 +252,7 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistFqdnConnectionsRequest
      */
     public APIlistFqdnConnectionsRequest pageSize(Integer pageSize) {
@@ -262,7 +262,7 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     /**
      * Set filterConnectionNameContains
-     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
+     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
      * @return APIlistFqdnConnectionsRequest
      */
     public APIlistFqdnConnectionsRequest filterConnectionNameContains(String filterConnectionNameContains) {

@@ -3,7 +3,6 @@
 # NumberHealthMetrics
 
 High level health metrics about the number and it's messaging sending patterns. 
-
 ## Properties
 
 Name | Type | Description | Notes

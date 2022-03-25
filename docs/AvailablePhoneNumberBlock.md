@@ -2,7 +2,6 @@
 
 # AvailablePhoneNumberBlock
 
-
 ## Properties
 
 Name | Type | Description | Notes

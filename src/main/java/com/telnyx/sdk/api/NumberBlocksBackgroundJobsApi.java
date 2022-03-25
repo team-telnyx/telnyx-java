@@ -10,9 +10,9 @@ import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListPhoneNumberBlocksBackgroundJobsResponse;
+import com.telnyx.sdk.model.PhoneNumberBlocksJob;
 import com.telnyx.sdk.model.PhoneNumberBlocksJobDeletePhoneNumberBlock;
 import com.telnyx.sdk.model.PhoneNumberBlocksJobDeletePhoneNumberBlockRequest;
-import com.telnyx.sdk.model.RetrievePhoneNumberBlocksJob;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class NumberBlocksBackgroundJobsApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -41,7 +41,7 @@ public class NumberBlocksBackgroundJobsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -234,7 +234,7 @@ private ApiResponse<ListPhoneNumberBlocksBackgroundJobsResponse> listPhoneNumber
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 250)
      * @return APIlistPhoneNumberBlocksJobsRequest
      */
     public APIlistPhoneNumberBlocksJobsRequest pageSize(Integer pageSize) {
@@ -298,7 +298,7 @@ private ApiResponse<ListPhoneNumberBlocksBackgroundJobsResponse> listPhoneNumber
     return new APIlistPhoneNumberBlocksJobsRequest();
   }
 
-private ApiResponse<RetrievePhoneNumberBlocksJob> retrievePhoneNumberBlocksJobWithHttpInfo(String id) throws ApiException {
+private ApiResponse<PhoneNumberBlocksJob> retrievePhoneNumberBlocksJobWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -332,7 +332,7 @@ private ApiResponse<RetrievePhoneNumberBlocksJob> retrievePhoneNumberBlocksJobWi
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<RetrievePhoneNumberBlocksJob> localVarReturnType = new GenericType<RetrievePhoneNumberBlocksJob>() {};
+    GenericType<PhoneNumberBlocksJob> localVarReturnType = new GenericType<PhoneNumberBlocksJob>() {};
 
     return apiClient.invokeAPI("NumberBlocksBackgroundJobsApi.retrievePhoneNumberBlocksJob", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -348,7 +348,7 @@ private ApiResponse<RetrievePhoneNumberBlocksJob> retrievePhoneNumberBlocksJobWi
 
     /**
      * Execute retrievePhoneNumberBlocksJob request
-     * @return RetrievePhoneNumberBlocksJob
+     * @return PhoneNumberBlocksJob
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -359,13 +359,13 @@ private ApiResponse<RetrievePhoneNumberBlocksJob> retrievePhoneNumberBlocksJobWi
      
      */
     
-    public RetrievePhoneNumberBlocksJob execute() throws ApiException {
+    public PhoneNumberBlocksJob execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
      * Execute retrievePhoneNumberBlocksJob request with HTTP info returned
-     * @return ApiResponse&lt;RetrievePhoneNumberBlocksJob&gt;
+     * @return ApiResponse&lt;PhoneNumberBlocksJob&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -375,7 +375,7 @@ private ApiResponse<RetrievePhoneNumberBlocksJob> retrievePhoneNumberBlocksJobWi
        </table>
 
      */
-    public ApiResponse<RetrievePhoneNumberBlocksJob> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<PhoneNumberBlocksJob> executeWithHttpInfo() throws ApiException {
       return retrievePhoneNumberBlocksJobWithHttpInfo(id);
     }
   }

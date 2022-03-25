@@ -2,14 +2,13 @@
 
 # InboundMessagePayload
 
-
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional]
 **direction** | [**DirectionEnum**](#DirectionEnum) | The direction of the message. Inbound messages are sent to you whereas outbound messages are sent from you. |  [optional]
-**id** | **UUID** | Identifies the type of resource. |  [optional]
+**id** | [**UUID**](UUID.md) | Identifies the type of resource. |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) | The type of message. This value can be either &#39;sms&#39; or &#39;mms&#39;. |  [optional]
 **messagingProfileId** | **String** | Unique identifier for a messaging profile. |  [optional]
 **to** | [**List&lt;InboundMessagePayloadTo&gt;**](InboundMessagePayloadTo.md) |  |  [optional]
@@ -23,10 +22,10 @@ Name | Type | Description | Notes
 **parts** | **Integer** | Number of parts into which the message&#39;s body must be split. |  [optional]
 **tags** | **List&lt;String&gt;** | Tags associated with the resource. |  [optional]
 **cost** | [**InboundMessagePayloadCost**](InboundMessagePayloadCost.md) |  |  [optional]
-**receivedAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the message request was received. |  [optional]
-**sentAt** | **OffsetDateTime** | Not used for inbound messages. |  [optional]
-**completedAt** | **OffsetDateTime** | Not used for inbound messages. |  [optional]
-**validUntil** | **OffsetDateTime** | Not used for inbound messages. |  [optional]
+**receivedAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 formatted date indicating when the message request was received. |  [optional]
+**sentAt** | [**OffsetDateTime**](OffsetDateTime.md) | Not used for inbound messages. |  [optional]
+**completedAt** | [**OffsetDateTime**](OffsetDateTime.md) | Not used for inbound messages. |  [optional]
+**validUntil** | [**OffsetDateTime**](OffsetDateTime.md) | Not used for inbound messages. |  [optional]
 **errors** | [**List&lt;Error&gt;**](Error.md) | These errors may point at addressees when referring to unsuccessful/unconfirmed delivery statuses. |  [optional]
 
 

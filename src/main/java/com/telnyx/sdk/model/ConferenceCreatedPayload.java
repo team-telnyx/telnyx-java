@@ -64,8 +64,6 @@ public class ConferenceCreatedPayload {
   public static final String JSON_PROPERTY_OCCURRED_AT = "occurred_at";
   private OffsetDateTime occurredAt;
 
-  public ConferenceCreatedPayload() { 
-  }
 
   public ConferenceCreatedPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -86,8 +84,6 @@ public class ConferenceCreatedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -112,8 +108,6 @@ public class ConferenceCreatedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -138,8 +132,6 @@ public class ConferenceCreatedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -151,11 +143,11 @@ public class ConferenceCreatedPayload {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+   * ID that is unique to the call session and can be used to correlate webhook events.
    * @return callSessionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -164,8 +156,6 @@ public class ConferenceCreatedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -190,8 +180,6 @@ public class ConferenceCreatedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -216,8 +204,6 @@ public class ConferenceCreatedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConferenceId(String conferenceId) {
     this.conferenceId = conferenceId;
   }
@@ -242,8 +228,6 @@ public class ConferenceCreatedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOccurredAt(OffsetDateTime occurredAt) {
     this.occurredAt = occurredAt;
   }
@@ -274,6 +258,7 @@ public class ConferenceCreatedPayload {
   public int hashCode() {
     return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, conferenceId, occurredAt);
   }
+
 
   @Override
   public String toString() {

@@ -32,7 +32,7 @@ public class CredentialsApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -41,7 +41,7 @@ public class CredentialsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -259,7 +259,7 @@ private ApiResponse<GetAllTelephonyCredentialResponse> findTelephonyCredentialsW
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIfindTelephonyCredentialsRequest
      */
     public APIfindTelephonyCredentialsRequest pageSize(Integer pageSize) {
@@ -444,7 +444,7 @@ private ApiResponse<GetAllTelephonyCredentialResponse> findTelephonyCredentialsW
    * List all tags
    * Returns a list of tags used on Credentials
    * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageSize The size of the page (optional, default to 50)
    * @return ListTagsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -464,7 +464,7 @@ private ApiResponse<GetAllTelephonyCredentialResponse> findTelephonyCredentialsW
    * List all tags
    * Returns a list of tags used on Credentials
    * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageSize The size of the page (optional, default to 50)
    * @return ApiResponse&lt;ListTagsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details

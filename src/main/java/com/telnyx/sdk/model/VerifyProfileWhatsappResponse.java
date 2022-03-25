@@ -43,8 +43,6 @@ public class VerifyProfileWhatsappResponse {
   public static final String JSON_PROPERTY_APP_NAME = "app_name";
   private String appName;
 
-  public VerifyProfileWhatsappResponse() { 
-  }
 
   public VerifyProfileWhatsappResponse defaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
@@ -65,8 +63,6 @@ public class VerifyProfileWhatsappResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
   }
@@ -91,8 +87,6 @@ public class VerifyProfileWhatsappResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_APP_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAppName(String appName) {
     this.appName = appName;
   }
@@ -118,6 +112,7 @@ public class VerifyProfileWhatsappResponse {
   public int hashCode() {
     return Objects.hash(defaultVerificationTimeoutSecs, appName);
   }
+
 
   @Override
   public String toString() {

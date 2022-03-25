@@ -52,8 +52,6 @@ public class UrlShortenerSettings {
   public static final String JSON_PROPERTY_SEND_WEBHOOKS = "send_webhooks";
   private Boolean sendWebhooks;
 
-  public UrlShortenerSettings() { 
-  }
 
   public UrlShortenerSettings domain(String domain) {
     this.domain = domain;
@@ -64,7 +62,6 @@ public class UrlShortenerSettings {
    * One of the domains provided by the Telnyx URL shortener service. 
    * @return domain
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "acct.fyi", required = true, value = "One of the domains provided by the Telnyx URL shortener service. ")
   @JsonProperty(JSON_PROPERTY_DOMAIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -74,8 +71,6 @@ public class UrlShortenerSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DOMAIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDomain(String domain) {
     this.domain = domain;
   }
@@ -91,7 +86,7 @@ public class UrlShortenerSettings {
    * @return prefix
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "", value = "Optional prefix that can be used to identify your brand, and will appear in the Telnyx generated URLs after the domain name. ")
+  @ApiModelProperty(value = "Optional prefix that can be used to identify your brand, and will appear in the Telnyx generated URLs after the domain name. ")
   @JsonProperty(JSON_PROPERTY_PREFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -100,8 +95,6 @@ public class UrlShortenerSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PREFIX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrefix(String prefix) {
     this.prefix = prefix;
   }
@@ -126,8 +119,6 @@ public class UrlShortenerSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REPLACE_BLACKLIST_ONLY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReplaceBlacklistOnly(Boolean replaceBlacklistOnly) {
     this.replaceBlacklistOnly = replaceBlacklistOnly;
   }
@@ -152,8 +143,6 @@ public class UrlShortenerSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SEND_WEBHOOKS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSendWebhooks(Boolean sendWebhooks) {
     this.sendWebhooks = sendWebhooks;
   }
@@ -181,6 +170,7 @@ public class UrlShortenerSettings {
   public int hashCode() {
     return Objects.hash(domain, prefix, replaceBlacklistOnly, sendWebhooks);
   }
+
 
   @Override
   public String toString() {

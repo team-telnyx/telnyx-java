@@ -26,7 +26,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -286,8 +285,6 @@ public class InboundFqdn {
   public static final String JSON_PROPERTY_TIMEOUT2XX_SECS = "timeout_2xx_secs";
   private Integer timeout2xxSecs = 90;
 
-  public InboundFqdn() { 
-  }
 
   public InboundFqdn aniNumberFormat(AniNumberFormatEnum aniNumberFormat) {
     this.aniNumberFormat = aniNumberFormat;
@@ -308,8 +305,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANI_NUMBER_FORMAT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAniNumberFormat(AniNumberFormatEnum aniNumberFormat) {
     this.aniNumberFormat = aniNumberFormat;
   }
@@ -334,8 +329,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DNIS_NUMBER_FORMAT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDnisNumberFormat(DnisNumberFormatEnum dnisNumberFormat) {
     this.dnisNumberFormat = dnisNumberFormat;
   }
@@ -368,8 +361,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CODECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCodecs(List<String> codecs) {
     this.codecs = codecs;
   }
@@ -462,8 +453,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GENERATE_RINGBACK_TONE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGenerateRingbackTone(Boolean generateRingbackTone) {
     this.generateRingbackTone = generateRingbackTone;
   }
@@ -488,8 +477,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ISUP_HEADERS_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsupHeadersEnabled(Boolean isupHeadersEnabled) {
     this.isupHeadersEnabled = isupHeadersEnabled;
   }
@@ -514,8 +501,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PRACK_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrackEnabled(Boolean prackEnabled) {
     this.prackEnabled = prackEnabled;
   }
@@ -540,8 +525,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrivacyZoneEnabled(Boolean privacyZoneEnabled) {
     this.privacyZoneEnabled = privacyZoneEnabled;
   }
@@ -566,8 +549,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipCompactHeadersEnabled(Boolean sipCompactHeadersEnabled) {
     this.sipCompactHeadersEnabled = sipCompactHeadersEnabled;
   }
@@ -592,8 +573,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_REGION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipRegion(SipRegionEnum sipRegion) {
     this.sipRegion = sipRegion;
   }
@@ -652,8 +631,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipSubdomainReceiveSettings(SipSubdomainReceiveSettingsEnum sipSubdomainReceiveSettings) {
     this.sipSubdomainReceiveSettings = sipSubdomainReceiveSettings;
   }
@@ -680,8 +657,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT1XX_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeout1xxSecs(Integer timeout1xxSecs) {
     this.timeout1xxSecs = timeout1xxSecs;
   }
@@ -706,8 +681,6 @@ public class InboundFqdn {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT2XX_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeout2xxSecs(Integer timeout2xxSecs) {
     this.timeout2xxSecs = timeout2xxSecs;
   }
@@ -728,35 +701,25 @@ public class InboundFqdn {
     return Objects.equals(this.aniNumberFormat, inboundFqdn.aniNumberFormat) &&
         Objects.equals(this.dnisNumberFormat, inboundFqdn.dnisNumberFormat) &&
         Objects.equals(this.codecs, inboundFqdn.codecs) &&
-        equalsNullable(this.defaultRoutingMethod, inboundFqdn.defaultRoutingMethod) &&
-        equalsNullable(this.channelLimit, inboundFqdn.channelLimit) &&
+        Objects.equals(this.defaultRoutingMethod, inboundFqdn.defaultRoutingMethod) &&
+        Objects.equals(this.channelLimit, inboundFqdn.channelLimit) &&
         Objects.equals(this.generateRingbackTone, inboundFqdn.generateRingbackTone) &&
         Objects.equals(this.isupHeadersEnabled, inboundFqdn.isupHeadersEnabled) &&
         Objects.equals(this.prackEnabled, inboundFqdn.prackEnabled) &&
         Objects.equals(this.privacyZoneEnabled, inboundFqdn.privacyZoneEnabled) &&
         Objects.equals(this.sipCompactHeadersEnabled, inboundFqdn.sipCompactHeadersEnabled) &&
         Objects.equals(this.sipRegion, inboundFqdn.sipRegion) &&
-        equalsNullable(this.sipSubdomain, inboundFqdn.sipSubdomain) &&
+        Objects.equals(this.sipSubdomain, inboundFqdn.sipSubdomain) &&
         Objects.equals(this.sipSubdomainReceiveSettings, inboundFqdn.sipSubdomainReceiveSettings) &&
         Objects.equals(this.timeout1xxSecs, inboundFqdn.timeout1xxSecs) &&
         Objects.equals(this.timeout2xxSecs, inboundFqdn.timeout2xxSecs);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, hashCodeNullable(defaultRoutingMethod), hashCodeNullable(channelLimit), generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, sipRegion, hashCodeNullable(sipSubdomain), sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs);
+    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, defaultRoutingMethod, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, sipRegion, sipSubdomain, sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

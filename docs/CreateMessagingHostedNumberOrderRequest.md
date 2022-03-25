@@ -2,7 +2,6 @@
 
 # CreateMessagingHostedNumberOrderRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

@@ -40,8 +40,6 @@ public class CallBridgedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallBridged data;
 
-  public CallBridgedEvent() { 
-  }
 
   public CallBridgedEvent data(CallBridged data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class CallBridgedEvent {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallBridged data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class CallBridgedEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

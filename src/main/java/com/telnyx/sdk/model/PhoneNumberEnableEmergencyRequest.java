@@ -43,8 +43,6 @@ public class PhoneNumberEnableEmergencyRequest {
   public static final String JSON_PROPERTY_EMERGENCY_ADDRESS_ID = "emergency_address_id";
   private String emergencyAddressId;
 
-  public PhoneNumberEnableEmergencyRequest() { 
-  }
 
   public PhoneNumberEnableEmergencyRequest emergencyEnabled(Boolean emergencyEnabled) {
     this.emergencyEnabled = emergencyEnabled;
@@ -55,7 +53,6 @@ public class PhoneNumberEnableEmergencyRequest {
    * Indicates whether to enable emergency services on this number.
    * @return emergencyEnabled
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Indicates whether to enable emergency services on this number.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -65,8 +62,6 @@ public class PhoneNumberEnableEmergencyRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEmergencyEnabled(Boolean emergencyEnabled) {
     this.emergencyEnabled = emergencyEnabled;
   }
@@ -81,7 +76,6 @@ public class PhoneNumberEnableEmergencyRequest {
    * Identifies the address to be used with emergency services.
    * @return emergencyAddressId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Identifies the address to be used with emergency services.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,8 +85,6 @@ public class PhoneNumberEnableEmergencyRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEmergencyAddressId(String emergencyAddressId) {
     this.emergencyAddressId = emergencyAddressId;
   }
@@ -118,6 +110,7 @@ public class PhoneNumberEnableEmergencyRequest {
   public int hashCode() {
     return Objects.hash(emergencyEnabled, emergencyAddressId);
   }
+
 
   @Override
   public String toString() {

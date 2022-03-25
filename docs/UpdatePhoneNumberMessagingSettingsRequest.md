@@ -2,7 +2,6 @@
 
 # UpdatePhoneNumberMessagingSettingsRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

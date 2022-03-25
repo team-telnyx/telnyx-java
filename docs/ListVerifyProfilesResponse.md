@@ -3,7 +3,6 @@
 # ListVerifyProfilesResponse
 
 A paginated list of Verify profiles
-
 ## Properties
 
 Name | Type | Description | Notes

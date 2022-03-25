@@ -40,8 +40,6 @@ public class IpConnectionResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private IpConnection data;
 
-  public IpConnectionResponse() { 
-  }
 
   public IpConnectionResponse data(IpConnection data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class IpConnectionResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(IpConnection data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class IpConnectionResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

@@ -188,7 +188,7 @@ public class Example {
 
         CredentialsApi apiInstance = new CredentialsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         String filterTag = "filterTag_example"; // String | Filter by tag
         String filterName = "filterName_example"; // String | Filter by name
         String filterStatus = "filterStatus_example"; // String | Filter by status
@@ -222,7 +222,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
  **filterTag** | **String**| Filter by tag | [optional]
  **filterName** | **String**| Filter by name | [optional]
  **filterStatus** | **String**| Filter by status | [optional]
@@ -354,7 +354,7 @@ public class Example {
 
         CredentialsApi apiInstance = new CredentialsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListTagsResponse result = apiInstance.listTags(pageNumber, pageSize);
             System.out.println(result);
@@ -375,7 +375,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 
@@ -429,7 +429,7 @@ public class Example {
 
         CredentialsApi apiInstance = new CredentialsApi(defaultClient);
         String id = "id_example"; // String | Identifies the resource.
-        String action = "activate"; // String | Identifies the action to be taken.
+        String action = "action_example"; // String | Identifies the action to be taken.
         try {
             TelephonyCredentialResponse result = apiInstance.telephonyCredentialAction(id, action);
             System.out.println(result);

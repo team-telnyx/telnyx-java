@@ -50,8 +50,7 @@ import com.telnyx.sdk.JSON;
   VerifyProfileResponse.JSON_PROPERTY_PSD2,
   VerifyProfileResponse.JSON_PROPERTY_WHATSAPP,
   VerifyProfileResponse.JSON_PROPERTY_CALL,
-  VerifyProfileResponse.JSON_PROPERTY_FLASHCALL,
-  VerifyProfileResponse.JSON_PROPERTY_LANGUAGE
+  VerifyProfileResponse.JSON_PROPERTY_FLASHCALL
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class VerifyProfileResponse {
@@ -91,11 +90,6 @@ public class VerifyProfileResponse {
   public static final String JSON_PROPERTY_FLASHCALL = "flashcall";
   private VerifyProfileFlashcallResponse flashcall;
 
-  public static final String JSON_PROPERTY_LANGUAGE = "language";
-  private String language;
-
-  public VerifyProfileResponse() { 
-  }
 
   public VerifyProfileResponse id(UUID id) {
     this.id = id;
@@ -116,8 +110,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -142,8 +134,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -168,8 +158,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
   }
@@ -194,8 +182,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookFailoverUrl(String webhookFailoverUrl) {
     this.webhookFailoverUrl = webhookFailoverUrl;
   }
@@ -220,8 +206,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(VerificationProfileRecordType recordType) {
     this.recordType = recordType;
   }
@@ -246,8 +230,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -272,8 +254,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -298,8 +278,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SMS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSms(VerifyProfileSMSResponse sms) {
     this.sms = sms;
   }
@@ -324,8 +302,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PSD2)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPsd2(VerifyProfilePSD2Response psd2) {
     this.psd2 = psd2;
   }
@@ -350,8 +326,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WHATSAPP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhatsapp(VerifyProfileWhatsappResponse whatsapp) {
     this.whatsapp = whatsapp;
   }
@@ -376,8 +350,6 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCall(VerifyProfileCallResponse call) {
     this.call = call;
   }
@@ -402,36 +374,8 @@ public class VerifyProfileResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLASHCALL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFlashcall(VerifyProfileFlashcallResponse flashcall) {
     this.flashcall = flashcall;
-  }
-
-
-  public VerifyProfileResponse language(String language) {
-    this.language = language;
-    return this;
-  }
-
-   /**
-   * Get language
-   * @return language
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "en-US", value = "")
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getLanguage() {
-    return language;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLanguage(String language) {
-    this.language = language;
   }
 
 
@@ -458,14 +402,14 @@ public class VerifyProfileResponse {
         Objects.equals(this.psd2, verifyProfileResponse.psd2) &&
         Objects.equals(this.whatsapp, verifyProfileResponse.whatsapp) &&
         Objects.equals(this.call, verifyProfileResponse.call) &&
-        Objects.equals(this.flashcall, verifyProfileResponse.flashcall) &&
-        Objects.equals(this.language, verifyProfileResponse.language);
+        Objects.equals(this.flashcall, verifyProfileResponse.flashcall);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, webhookUrl, webhookFailoverUrl, recordType, createdAt, updatedAt, sms, psd2, whatsapp, call, flashcall, language);
+    return Objects.hash(id, name, webhookUrl, webhookFailoverUrl, recordType, createdAt, updatedAt, sms, psd2, whatsapp, call, flashcall);
   }
+
 
   @Override
   public String toString() {
@@ -483,7 +427,6 @@ public class VerifyProfileResponse {
     sb.append("    whatsapp: ").append(toIndentedString(whatsapp)).append("\n");
     sb.append("    call: ").append(toIndentedString(call)).append("\n");
     sb.append("    flashcall: ").append(toIndentedString(flashcall)).append("\n");
-    sb.append("    language: ").append(toIndentedString(language)).append("\n");
     sb.append("}");
     return sb.toString();
   }

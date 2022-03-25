@@ -22,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.ErrorMeta;
+import com.telnyx.sdk.model.ErrorSource;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -34,7 +36,9 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   Error.JSON_PROPERTY_CODE,
   Error.JSON_PROPERTY_TITLE,
-  Error.JSON_PROPERTY_DETAIL
+  Error.JSON_PROPERTY_DETAIL,
+  Error.JSON_PROPERTY_SOURCE,
+  Error.JSON_PROPERTY_META
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Error {
@@ -47,8 +51,12 @@ public class Error {
   public static final String JSON_PROPERTY_DETAIL = "detail";
   private String detail;
 
-  public Error() { 
-  }
+  public static final String JSON_PROPERTY_SOURCE = "source";
+  private ErrorSource source;
+
+  public static final String JSON_PROPERTY_META = "meta";
+  private ErrorMeta meta;
+
 
   public Error code(Integer code) {
     this.code = code;
@@ -59,18 +67,15 @@ public class Error {
    * Get code
    * @return code
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "10015", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getCode() {
     return code;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCode(Integer code) {
     this.code = code;
   }
@@ -85,18 +90,15 @@ public class Error {
    * Get title
    * @return title
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "Invalid sorting value", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTitle() {
     return title;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTitle(String title) {
     this.title = title;
   }
@@ -112,7 +114,7 @@ public class Error {
    * @return detail
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "The value provided for sorting is not valid. Check the value used and try again.", value = "")
   @JsonProperty(JSON_PROPERTY_DETAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -121,15 +123,61 @@ public class Error {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDetail(String detail) {
     this.detail = detail;
   }
 
 
+  public Error source(ErrorSource source) {
+    this.source = source;
+    return this;
+  }
+
+   /**
+   * Get source
+   * @return source
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ErrorSource getSource() {
+    return source;
+  }
+
+
+  public void setSource(ErrorSource source) {
+    this.source = source;
+  }
+
+
+  public Error meta(ErrorMeta meta) {
+    this.meta = meta;
+    return this;
+  }
+
+   /**
+   * Get meta
+   * @return meta
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ErrorMeta getMeta() {
+    return meta;
+  }
+
+
+  public void setMeta(ErrorMeta meta) {
+    this.meta = meta;
+  }
+
+
   /**
-   * Return true if this error object is equal to o.
+   * Return true if this Error object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -142,13 +190,16 @@ public class Error {
     Error error = (Error) o;
     return Objects.equals(this.code, error.code) &&
         Objects.equals(this.title, error.title) &&
-        Objects.equals(this.detail, error.detail);
+        Objects.equals(this.detail, error.detail) &&
+        Objects.equals(this.source, error.source) &&
+        Objects.equals(this.meta, error.meta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, title, detail);
+    return Objects.hash(code, title, detail, source, meta);
   }
+
 
   @Override
   public String toString() {
@@ -157,6 +208,8 @@ public class Error {
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
+    sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

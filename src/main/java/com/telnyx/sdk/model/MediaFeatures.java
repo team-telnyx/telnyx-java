@@ -87,8 +87,6 @@ public class MediaFeatures {
   public static final String JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED = "t38_fax_gateway_enabled";
   private Boolean t38FaxGatewayEnabled = false;
 
-  public MediaFeatures() { 
-  }
 
   public MediaFeatures rtpAutoAdjustEnabled(Boolean rtpAutoAdjustEnabled) {
     this.rtpAutoAdjustEnabled = rtpAutoAdjustEnabled;
@@ -109,8 +107,6 @@ public class MediaFeatures {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RTP_AUTO_ADJUST_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRtpAutoAdjustEnabled(Boolean rtpAutoAdjustEnabled) {
     this.rtpAutoAdjustEnabled = rtpAutoAdjustEnabled;
   }
@@ -135,8 +131,6 @@ public class MediaFeatures {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MEDIA_HANDLING_MODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMediaHandlingMode(MediaHandlingModeEnum mediaHandlingMode) {
     this.mediaHandlingMode = mediaHandlingMode;
   }
@@ -161,8 +155,6 @@ public class MediaFeatures {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACCEPT_ANY_RTP_PACKETS_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAcceptAnyRtpPacketsEnabled(Boolean acceptAnyRtpPacketsEnabled) {
     this.acceptAnyRtpPacketsEnabled = acceptAnyRtpPacketsEnabled;
   }
@@ -187,8 +179,6 @@ public class MediaFeatures {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setT38FaxGatewayEnabled(Boolean t38FaxGatewayEnabled) {
     this.t38FaxGatewayEnabled = t38FaxGatewayEnabled;
   }
@@ -216,6 +206,7 @@ public class MediaFeatures {
   public int hashCode() {
     return Objects.hash(rtpAutoAdjustEnabled, mediaHandlingMode, acceptAnyRtpPacketsEnabled, t38FaxGatewayEnabled);
   }
+
 
   @Override
   public String toString() {

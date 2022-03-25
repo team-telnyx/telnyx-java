@@ -2,7 +2,6 @@
 
 # ConferenceUnmuteRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

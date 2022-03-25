@@ -22,16 +22,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PhoneNumbersJobFailedOperation;
-import com.telnyx.sdk.model.PhoneNumbersJobPendingOperation;
-import com.telnyx.sdk.model.PhoneNumbersJobPhoneNumber;
-import com.telnyx.sdk.model.PhoneNumbersJobSuccessfulOperation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,330 +32,40 @@ import com.telnyx.sdk.JSON;
  * PhoneNumbersJob
  */
 @JsonPropertyOrder({
-  PhoneNumbersJob.JSON_PROPERTY_ID,
-  PhoneNumbersJob.JSON_PROPERTY_RECORD_TYPE,
-  PhoneNumbersJob.JSON_PROPERTY_STATUS,
-  PhoneNumbersJob.JSON_PROPERTY_TYPE,
-  PhoneNumbersJob.JSON_PROPERTY_ETC,
-  PhoneNumbersJob.JSON_PROPERTY_CREATED_AT,
-  PhoneNumbersJob.JSON_PROPERTY_UPDATED_AT,
-  PhoneNumbersJob.JSON_PROPERTY_PHONE_NUMBERS,
-  PhoneNumbersJob.JSON_PROPERTY_SUCCESSFUL_OPERATIONS,
-  PhoneNumbersJob.JSON_PROPERTY_PENDING_OPERATIONS,
-  PhoneNumbersJob.JSON_PROPERTY_FAILED_OPERATIONS
+  PhoneNumbersJob.JSON_PROPERTY_DATA
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PhoneNumbersJob {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
-
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
-
-  /**
-   * Indicates the completion status of the background update.
-   */
-  public enum StatusEnum {
-    PENDING("pending"),
-    
-    IN_PROGRESS("in_progress"),
-    
-    COMPLETED("completed"),
-    
-    FAILED("failed"),
-    
-    EXPIRED("expired");
-
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StatusEnum fromValue(String value) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private StatusEnum status = StatusEnum.PENDING;
-
-  /**
-   * Identifies the type of the background job.
-   */
-  public enum TypeEnum {
-    UPDATE_EMERGENCY_SETTINGS("update_emergency_settings"),
-    
-    DELETE_PHONE_NUMBERS("delete_phone_numbers"),
-    
-    UPDATE_PHONE_NUMBERS("update_phone_numbers");
-
-    private String value;
-
-    TypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private TypeEnum type;
-
-  public static final String JSON_PROPERTY_ETC = "etc";
-  private OffsetDateTime etc;
-
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private String createdAt;
-
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private String updatedAt;
-
-  public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
-  private List<PhoneNumbersJobPhoneNumber> phoneNumbers = null;
-
-  public static final String JSON_PROPERTY_SUCCESSFUL_OPERATIONS = "successful_operations";
-  private List<PhoneNumbersJobSuccessfulOperation> successfulOperations = null;
-
-  public static final String JSON_PROPERTY_PENDING_OPERATIONS = "pending_operations";
-  private List<PhoneNumbersJobPendingOperation> pendingOperations = null;
-
-  public static final String JSON_PROPERTY_FAILED_OPERATIONS = "failed_operations";
-  private List<PhoneNumbersJobFailedOperation> failedOperations = null;
-
-  public PhoneNumbersJob() { 
-  }
-
-   /**
-   * Identifies the resource.
-   * @return id
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "42587e44-3a3e-46de-9255-0c9a7a1d1ec7", value = "Identifies the resource.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
+  public static final String JSON_PROPERTY_DATA = "data";
+  private PhoneNumbersJob data;
 
 
-
-
-   /**
-   * Identifies the type of the resource.
-   * @return recordType
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "phone_numbers_job", value = "Identifies the type of the resource.")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
-   /**
-   * Indicates the completion status of the background update.
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "pending", value = "Indicates the completion status of the background update.")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-
-
-
-   /**
-   * Identifies the type of the background job.
-   * @return type
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "update_emergency_settings", value = "Identifies the type of the background job.")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public TypeEnum getType() {
-    return type;
-  }
-
-
-
-
-   /**
-   * ISO 8601 formatted date indicating when the estimated time of completion of the background job.
-   * @return etc
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "ISO 8601 formatted date indicating when the estimated time of completion of the background job.")
-  @JsonProperty(JSON_PROPERTY_ETC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getEtc() {
-    return etc;
-  }
-
-
-
-
-   /**
-   * ISO 8601 formatted date indicating when the resource was created.
-   * @return createdAt
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was created.")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
-
-
-
-   /**
-   * ISO 8601 formatted date indicating when the resource was updated.
-   * @return updatedAt
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was updated.")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-
-
-  public PhoneNumbersJob phoneNumbers(List<PhoneNumbersJobPhoneNumber> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
-    return this;
-  }
-
-  public PhoneNumbersJob addPhoneNumbersItem(PhoneNumbersJobPhoneNumber phoneNumbersItem) {
-    if (this.phoneNumbers == null) {
-      this.phoneNumbers = new ArrayList<>();
-    }
-    this.phoneNumbers.add(phoneNumbersItem);
+  public PhoneNumbersJob data(PhoneNumbersJob data) {
+    this.data = data;
     return this;
   }
 
    /**
-   * Get phoneNumbers
-   * @return phoneNumbers
+   * Get data
+   * @return data
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+  @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<PhoneNumbersJobPhoneNumber> getPhoneNumbers() {
-    return phoneNumbers;
+  public PhoneNumbersJob getData() {
+    return data;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumbers(List<PhoneNumbersJobPhoneNumber> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
+  public void setData(PhoneNumbersJob data) {
+    this.data = data;
   }
-
-
-   /**
-   * Get successfulOperations
-   * @return successfulOperations
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_SUCCESSFUL_OPERATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PhoneNumbersJobSuccessfulOperation> getSuccessfulOperations() {
-    return successfulOperations;
-  }
-
-
-
-
-   /**
-   * Get pendingOperations
-   * @return pendingOperations
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PENDING_OPERATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PhoneNumbersJobPendingOperation> getPendingOperations() {
-    return pendingOperations;
-  }
-
-
-
-
-   /**
-   * Get failedOperations
-   * @return failedOperations
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_FAILED_OPERATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PhoneNumbersJobFailedOperation> getFailedOperations() {
-    return failedOperations;
-  }
-
-
 
 
   /**
-   * Return true if this PhoneNumbersJob object is equal to o.
+   * Return true if this Phone_Numbers_Job object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -374,39 +76,20 @@ public class PhoneNumbersJob {
       return false;
     }
     PhoneNumbersJob phoneNumbersJob = (PhoneNumbersJob) o;
-    return Objects.equals(this.id, phoneNumbersJob.id) &&
-        Objects.equals(this.recordType, phoneNumbersJob.recordType) &&
-        Objects.equals(this.status, phoneNumbersJob.status) &&
-        Objects.equals(this.type, phoneNumbersJob.type) &&
-        Objects.equals(this.etc, phoneNumbersJob.etc) &&
-        Objects.equals(this.createdAt, phoneNumbersJob.createdAt) &&
-        Objects.equals(this.updatedAt, phoneNumbersJob.updatedAt) &&
-        Objects.equals(this.phoneNumbers, phoneNumbersJob.phoneNumbers) &&
-        Objects.equals(this.successfulOperations, phoneNumbersJob.successfulOperations) &&
-        Objects.equals(this.pendingOperations, phoneNumbersJob.pendingOperations) &&
-        Objects.equals(this.failedOperations, phoneNumbersJob.failedOperations);
+    return Objects.equals(this.data, phoneNumbersJob.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, status, type, etc, createdAt, updatedAt, phoneNumbers, successfulOperations, pendingOperations, failedOperations);
+    return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PhoneNumbersJob {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    etc: ").append(toIndentedString(etc)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    phoneNumbers: ").append(toIndentedString(phoneNumbers)).append("\n");
-    sb.append("    successfulOperations: ").append(toIndentedString(successfulOperations)).append("\n");
-    sb.append("    pendingOperations: ").append(toIndentedString(pendingOperations)).append("\n");
-    sb.append("    failedOperations: ").append(toIndentedString(failedOperations)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
   }

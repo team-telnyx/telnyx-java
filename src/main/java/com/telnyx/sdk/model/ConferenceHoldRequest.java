@@ -35,8 +35,7 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   ConferenceHoldRequest.JSON_PROPERTY_CALL_CONTROL_IDS,
-  ConferenceHoldRequest.JSON_PROPERTY_AUDIO_URL,
-  ConferenceHoldRequest.JSON_PROPERTY_MEDIA_NAME
+  ConferenceHoldRequest.JSON_PROPERTY_AUDIO_URL
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ConferenceHoldRequest {
@@ -46,11 +45,6 @@ public class ConferenceHoldRequest {
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
 
-  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
-  private String mediaName;
-
-  public ConferenceHoldRequest() { 
-  }
 
   public ConferenceHoldRequest callControlIds(List<String> callControlIds) {
     this.callControlIds = callControlIds;
@@ -79,8 +73,6 @@ public class ConferenceHoldRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlIds(List<String> callControlIds) {
     this.callControlIds = callControlIds;
   }
@@ -92,11 +84,11 @@ public class ConferenceHoldRequest {
   }
 
    /**
-   * The URL of a file to be played to the participants when they are put on hold. media_name and audio_url cannot be used together in one request.
+   * The URL of a file to be played back at the beginning of each prompt. The URL can point to either a WAV or MP3 file.
    * @return audioUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played to the participants when they are put on hold. media_name and audio_url cannot be used together in one request.")
+  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back at the beginning of each prompt. The URL can point to either a WAV or MP3 file.")
   @JsonProperty(JSON_PROPERTY_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -105,36 +97,8 @@ public class ConferenceHoldRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AUDIO_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAudioUrl(String audioUrl) {
     this.audioUrl = audioUrl;
-  }
-
-
-  public ConferenceHoldRequest mediaName(String mediaName) {
-    this.mediaName = mediaName;
-    return this;
-  }
-
-   /**
-   * The media_name of a file to be played to the participants when they are put on hold. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
-   * @return mediaName
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played to the participants when they are put on hold. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMediaName() {
-    return mediaName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaName(String mediaName) {
-    this.mediaName = mediaName;
   }
 
 
@@ -151,14 +115,14 @@ public class ConferenceHoldRequest {
     }
     ConferenceHoldRequest conferenceHoldRequest = (ConferenceHoldRequest) o;
     return Objects.equals(this.callControlIds, conferenceHoldRequest.callControlIds) &&
-        Objects.equals(this.audioUrl, conferenceHoldRequest.audioUrl) &&
-        Objects.equals(this.mediaName, conferenceHoldRequest.mediaName);
+        Objects.equals(this.audioUrl, conferenceHoldRequest.audioUrl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlIds, audioUrl, mediaName);
+    return Objects.hash(callControlIds, audioUrl);
   }
+
 
   @Override
   public String toString() {
@@ -166,7 +130,6 @@ public class ConferenceHoldRequest {
     sb.append("class ConferenceHoldRequest {\n");
     sb.append("    callControlIds: ").append(toIndentedString(callControlIds)).append("\n");
     sb.append("    audioUrl: ").append(toIndentedString(audioUrl)).append("\n");
-    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -40,8 +40,6 @@ public class TelephonyCredentialResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private TelephonyCredential data;
 
-  public TelephonyCredentialResponse() { 
-  }
 
   public TelephonyCredentialResponse data(TelephonyCredential data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class TelephonyCredentialResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(TelephonyCredential data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class TelephonyCredentialResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

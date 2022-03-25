@@ -40,8 +40,6 @@ public class SendFaxResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private Fax data;
 
-  public SendFaxResponse() { 
-  }
 
   public SendFaxResponse data(Fax data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class SendFaxResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(Fax data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class SendFaxResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

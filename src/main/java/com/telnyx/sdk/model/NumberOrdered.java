@@ -91,8 +91,6 @@ public class NumberOrdered {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private NumberOrder payload;
 
-  public NumberOrdered() { 
-  }
 
   public NumberOrdered recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -113,8 +111,6 @@ public class NumberOrdered {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -139,8 +135,6 @@ public class NumberOrdered {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -165,8 +159,6 @@ public class NumberOrdered {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEventType(String eventType) {
     this.eventType = eventType;
   }
@@ -191,8 +183,6 @@ public class NumberOrdered {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOccurredAt(OffsetDateTime occurredAt) {
     this.occurredAt = occurredAt;
   }
@@ -217,8 +207,6 @@ public class NumberOrdered {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PAYLOAD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPayload(NumberOrder payload) {
     this.payload = payload;
   }
@@ -247,6 +235,7 @@ public class NumberOrdered {
   public int hashCode() {
     return Objects.hash(recordType, id, eventType, occurredAt, payload);
   }
+
 
   @Override
   public String toString() {

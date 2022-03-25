@@ -87,8 +87,6 @@ public class EmergencySettings {
   public static final String JSON_PROPERTY_EMERGENCY_STATUS = "emergency_status";
   private EmergencyStatusEnum emergencyStatus = EmergencyStatusEnum.DISABLED;
 
-  public EmergencySettings() { 
-  }
 
   public EmergencySettings emergencyEnabled(Boolean emergencyEnabled) {
     this.emergencyEnabled = emergencyEnabled;
@@ -109,8 +107,6 @@ public class EmergencySettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEmergencyEnabled(Boolean emergencyEnabled) {
     this.emergencyEnabled = emergencyEnabled;
   }
@@ -135,8 +131,6 @@ public class EmergencySettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEmergencyAddressId(String emergencyAddressId) {
     this.emergencyAddressId = emergencyAddressId;
   }
@@ -161,8 +155,6 @@ public class EmergencySettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMERGENCY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEmergencyStatus(EmergencyStatusEnum emergencyStatus) {
     this.emergencyStatus = emergencyStatus;
   }
@@ -189,6 +181,7 @@ public class EmergencySettings {
   public int hashCode() {
     return Objects.hash(emergencyEnabled, emergencyAddressId, emergencyStatus);
   }
+
 
   @Override
   public String toString() {

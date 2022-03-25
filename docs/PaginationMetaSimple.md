@@ -2,7 +2,6 @@
 
 # PaginationMetaSimple
 
-
 ## Properties
 
 Name | Type | Description | Notes

@@ -40,8 +40,6 @@ public class TranscriptionEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private Transcription data;
 
-  public TranscriptionEvent() { 
-  }
 
   public TranscriptionEvent data(Transcription data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class TranscriptionEvent {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(Transcription data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class TranscriptionEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

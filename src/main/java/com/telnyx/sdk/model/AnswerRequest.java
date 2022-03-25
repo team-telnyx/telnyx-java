@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.SoundModifications;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -37,9 +36,6 @@ import com.telnyx.sdk.JSON;
   AnswerRequest.JSON_PROPERTY_BILLING_GROUP_ID,
   AnswerRequest.JSON_PROPERTY_CLIENT_STATE,
   AnswerRequest.JSON_PROPERTY_COMMAND_ID,
-  AnswerRequest.JSON_PROPERTY_STREAM_URL,
-  AnswerRequest.JSON_PROPERTY_SOUND_MODIFICATIONS,
-  AnswerRequest.JSON_PROPERTY_STREAM_TRACK,
   AnswerRequest.JSON_PROPERTY_WEBHOOK_URL,
   AnswerRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
 })
@@ -53,52 +49,6 @@ public class AnswerRequest {
 
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
-
-  public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
-  private String streamUrl;
-
-  public static final String JSON_PROPERTY_SOUND_MODIFICATIONS = "sound_modifications";
-  private SoundModifications soundModifications;
-
-  /**
-   * Specifies which track should be streamed.
-   */
-  public enum StreamTrackEnum {
-    INBOUND_TRACK("inbound_track"),
-    
-    OUTBOUND_TRACK("outbound_track"),
-    
-    BOTH_TRACKS("both_tracks");
-
-    private String value;
-
-    StreamTrackEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StreamTrackEnum fromValue(String value) {
-      for (StreamTrackEnum b : StreamTrackEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
-  private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
 
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private String webhookUrl;
@@ -141,8 +91,6 @@ public class AnswerRequest {
   public static final String JSON_PROPERTY_WEBHOOK_URL_METHOD = "webhook_url_method";
   private WebhookUrlMethodEnum webhookUrlMethod = WebhookUrlMethodEnum.POST;
 
-  public AnswerRequest() { 
-  }
 
   public AnswerRequest billingGroupId(UUID billingGroupId) {
     this.billingGroupId = billingGroupId;
@@ -163,8 +111,6 @@ public class AnswerRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBillingGroupId(UUID billingGroupId) {
     this.billingGroupId = billingGroupId;
   }
@@ -189,8 +135,6 @@ public class AnswerRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -202,11 +146,11 @@ public class AnswerRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -215,88 +159,8 @@ public class AnswerRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
-  }
-
-
-  public AnswerRequest streamUrl(String streamUrl) {
-    this.streamUrl = streamUrl;
-    return this;
-  }
-
-   /**
-   * The destination WebSocket address where the stream is going to be delivered.
-   * @return streamUrl
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "wss://www.example.com/websocket", value = "The destination WebSocket address where the stream is going to be delivered.")
-  @JsonProperty(JSON_PROPERTY_STREAM_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getStreamUrl() {
-    return streamUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamUrl(String streamUrl) {
-    this.streamUrl = streamUrl;
-  }
-
-
-  public AnswerRequest soundModifications(SoundModifications soundModifications) {
-    this.soundModifications = soundModifications;
-    return this;
-  }
-
-   /**
-   * Get soundModifications
-   * @return soundModifications
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_SOUND_MODIFICATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public SoundModifications getSoundModifications() {
-    return soundModifications;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SOUND_MODIFICATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSoundModifications(SoundModifications soundModifications) {
-    this.soundModifications = soundModifications;
-  }
-
-
-  public AnswerRequest streamTrack(StreamTrackEnum streamTrack) {
-    this.streamTrack = streamTrack;
-    return this;
-  }
-
-   /**
-   * Specifies which track should be streamed.
-   * @return streamTrack
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "both_tracks", value = "Specifies which track should be streamed.")
-  @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StreamTrackEnum getStreamTrack() {
-    return streamTrack;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamTrack(StreamTrackEnum streamTrack) {
-    this.streamTrack = streamTrack;
   }
 
 
@@ -319,8 +183,6 @@ public class AnswerRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
   }
@@ -345,8 +207,6 @@ public class AnswerRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL_METHOD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrlMethod(WebhookUrlMethodEnum webhookUrlMethod) {
     this.webhookUrlMethod = webhookUrlMethod;
   }
@@ -367,17 +227,15 @@ public class AnswerRequest {
     return Objects.equals(this.billingGroupId, answerRequest.billingGroupId) &&
         Objects.equals(this.clientState, answerRequest.clientState) &&
         Objects.equals(this.commandId, answerRequest.commandId) &&
-        Objects.equals(this.streamUrl, answerRequest.streamUrl) &&
-        Objects.equals(this.soundModifications, answerRequest.soundModifications) &&
-        Objects.equals(this.streamTrack, answerRequest.streamTrack) &&
         Objects.equals(this.webhookUrl, answerRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, answerRequest.webhookUrlMethod);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(billingGroupId, clientState, commandId, streamUrl, soundModifications, streamTrack, webhookUrl, webhookUrlMethod);
+    return Objects.hash(billingGroupId, clientState, commandId, webhookUrl, webhookUrlMethod);
   }
+
 
   @Override
   public String toString() {
@@ -386,9 +244,6 @@ public class AnswerRequest {
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
-    sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
-    sb.append("    soundModifications: ").append(toIndentedString(soundModifications)).append("\n");
-    sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");
     sb.append("}");

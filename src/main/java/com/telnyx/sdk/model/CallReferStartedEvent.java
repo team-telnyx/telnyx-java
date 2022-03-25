@@ -40,8 +40,6 @@ public class CallReferStartedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallReferStarted data;
 
-  public CallReferStartedEvent() { 
-  }
 
   public CallReferStartedEvent data(CallReferStarted data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class CallReferStartedEvent {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallReferStarted data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class CallReferStartedEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

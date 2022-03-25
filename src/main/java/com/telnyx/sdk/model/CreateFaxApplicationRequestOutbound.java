@@ -43,8 +43,6 @@ public class CreateFaxApplicationRequestOutbound {
   public static final String JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID = "outbound_voice_profile_id";
   private String outboundVoiceProfileId;
 
-  public CreateFaxApplicationRequestOutbound() { 
-  }
 
   public CreateFaxApplicationRequestOutbound channelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
@@ -65,8 +63,6 @@ public class CreateFaxApplicationRequestOutbound {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChannelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
   }
@@ -91,8 +87,6 @@ public class CreateFaxApplicationRequestOutbound {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutboundVoiceProfileId(String outboundVoiceProfileId) {
     this.outboundVoiceProfileId = outboundVoiceProfileId;
   }
@@ -118,6 +112,7 @@ public class CreateFaxApplicationRequestOutbound {
   public int hashCode() {
     return Objects.hash(channelLimit, outboundVoiceProfileId);
   }
+
 
   @Override
   public String toString() {

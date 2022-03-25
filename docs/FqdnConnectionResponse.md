@@ -2,7 +2,6 @@
 
 # FQDNConnectionResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

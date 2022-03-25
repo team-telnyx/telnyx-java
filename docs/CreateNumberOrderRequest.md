@@ -2,12 +2,11 @@
 
 # CreateNumberOrderRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** |  |  [optional] [readonly]
+**id** | [**UUID**](UUID.md) |  |  [optional] [readonly]
 **recordType** | **String** |  |  [optional] [readonly]
 **phoneNumbers** | [**List&lt;PhoneNumber&gt;**](PhoneNumber.md) |  |  [optional]
 **phoneNumbersCount** | **Integer** | The count of phone numbers in the number order. |  [optional] [readonly]

@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a number order document. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listNumberOrderDocuments
@@ -115,7 +115,7 @@ public class Example {
         String filterCreatedAtGt = "filterCreatedAtGt_example"; // String | Filter number order documents after this datetime.
         String filterCreatedAtLt = "filterCreatedAtLt_example"; // String | Filter number order documents from before this datetime.
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListNumberOrderDocumentsResponse result = api.listNumberOrderDocuments()
                 .filterRequirementId(filterRequirementId)
@@ -145,7 +145,7 @@ Name | Type | Description  | Notes
  **filterCreatedAtGt** | **String**| Filter number order documents after this datetime. | [optional]
  **filterCreatedAtLt** | **String**| Filter number order documents from before this datetime. | [optional]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of number order documents. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrieveNumberOrderDocument
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a number order document. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## updateNumberOrderDocument
@@ -308,5 +308,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a number order document. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 

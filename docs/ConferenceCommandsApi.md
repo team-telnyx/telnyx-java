@@ -7,7 +7,6 @@ Method | HTTP request | Description
 [**conferenceDialParticipantIn**](ConferenceCommandsApi.md#conferenceDialParticipantIn) | **POST** /conferences/{id}/actions/dial_participant | Dial a new participant into a conference
 [**conferenceHoldParticipants**](ConferenceCommandsApi.md#conferenceHoldParticipants) | **POST** /conferences/{id}/actions/hold | Hold conference participants
 [**conferenceJoin**](ConferenceCommandsApi.md#conferenceJoin) | **POST** /conferences/{id}/actions/join | Join a conference
-[**conferenceLeave**](ConferenceCommandsApi.md#conferenceLeave) | **POST** /conferences/{id}/actions/leave | Leave a conference
 [**conferenceMuteParticipants**](ConferenceCommandsApi.md#conferenceMuteParticipants) | **POST** /conferences/{id}/actions/mute | Mute conference participants
 [**conferencePlayAudio**](ConferenceCommandsApi.md#conferencePlayAudio) | **POST** /conferences/{id}/actions/play | Play audio to conference participants
 [**conferenceSpeakText**](ConferenceCommandsApi.md#conferenceSpeakText) | **POST** /conferences/{id}/actions/speak | Speak text to conference participants
@@ -188,7 +187,7 @@ Name | Type | Description  | Notes
 
 Join a conference
 
-Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the `call_control_id` of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the `max_participants` parameter in conference creation request. 
+Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the `call_control_id` of the leg you wish to join to the conference as an attribute.
 
 **Expected Webhooks:**
 
@@ -240,83 +239,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Uniquely identifies the conference by id or name |
  **joinConferenceRequest** | [**JoinConferenceRequest**](JoinConferenceRequest.md)| Join Conference request object |
-
-### Return type
-
-[**ConferenceCommandResponse**](ConferenceCommandResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **422** | Unprocessable entity |  -  |
-
-
-## conferenceLeave
-
-> ConferenceCommandResponse conferenceLeave(id, leaveConferenceRequest)
-
-Leave a conference
-
-Removes a call leg from a conference and moves it back to parked state. **Expected Webhooks:**
-
-- `conference.participant.left`
-
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.ConferenceCommandsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
-        String id = "id_example"; // String | Uniquely identifies the conference by id or name
-        LeaveConferenceRequest leaveConferenceRequest = new LeaveConferenceRequest(); // LeaveConferenceRequest | Leave Conference request object
-        try {
-            ConferenceCommandResponse result = apiInstance.conferenceLeave(id, leaveConferenceRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ConferenceCommandsApi#conferenceLeave");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Uniquely identifies the conference by id or name |
- **leaveConferenceRequest** | [**LeaveConferenceRequest**](LeaveConferenceRequest.md)| Leave Conference request object |
 
 ### Return type
 
@@ -1138,7 +1060,7 @@ public class Example {
         Boolean filterOnHold = true; // Boolean | If present, participants will be filtered to those who are/are not put on hold
         Boolean filterWhispering = true; // Boolean | If present, participants will be filtered to those who are whispering or are not
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListParticipantsResponse result = api.listConferenceParticipants(conferenceId)
                 .filterMuted(filterMuted)
@@ -1169,7 +1091,7 @@ Name | Type | Description  | Notes
  **filterOnHold** | **Boolean**| If present, participants will be filtered to those who are/are not put on hold | [optional]
  **filterWhispering** | **Boolean**| If present, participants will be filtered to those who are whispering or are not | [optional]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 
@@ -1195,7 +1117,7 @@ Name | Type | Description  | Notes
 
 ## listConferences
 
-> ListConferencesResponse listConferences().filterName(filterName).filterStatus(filterStatus).pageNumber(pageNumber).pageSize(pageSize).execute();
+> ListConferencesResponse listConferences().filterName(filterName).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List conferences
 
@@ -1223,13 +1145,11 @@ public class Example {
 
         ConferenceCommandsApi apiInstance = new ConferenceCommandsApi(defaultClient);
         String filterName = "filterName_example"; // String | If present, conferences will be filtered to those with a matching `name` attribute. Matching is case-sensitive
-        String filterStatus = "init"; // String | If present, conferences will be filtered by status.
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListConferencesResponse result = api.listConferences()
                 .filterName(filterName)
-                .filterStatus(filterStatus)
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
                 .execute();
@@ -1251,9 +1171,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filterName** | **String**| If present, conferences will be filtered to those with a matching &#x60;name&#x60; attribute. Matching is case-sensitive | [optional]
- **filterStatus** | **String**| If present, conferences will be filtered by status. | [optional] [enum: init, in_progress, completed]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 
