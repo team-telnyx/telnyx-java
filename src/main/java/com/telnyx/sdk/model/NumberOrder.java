@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PhoneNumber;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -38,8 +37,8 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   NumberOrder.JSON_PROPERTY_ID,
   NumberOrder.JSON_PROPERTY_RECORD_TYPE,
-  NumberOrder.JSON_PROPERTY_PHONE_NUMBERS,
   NumberOrder.JSON_PROPERTY_PHONE_NUMBERS_COUNT,
+  NumberOrder.JSON_PROPERTY_SUB_NUMBER_ORDER_IDS,
   NumberOrder.JSON_PROPERTY_CONNECTION_ID,
   NumberOrder.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   NumberOrder.JSON_PROPERTY_BILLING_GROUP_ID,
@@ -57,11 +56,11 @@ public class NumberOrder {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
 
-  public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
-  private List<PhoneNumber> phoneNumbers = null;
-
   public static final String JSON_PROPERTY_PHONE_NUMBERS_COUNT = "phone_numbers_count";
   private Integer phoneNumbersCount;
+
+  public static final String JSON_PROPERTY_SUB_NUMBER_ORDER_IDS = "sub_number_order_ids";
+  private List<String> subNumberOrderIds = null;
 
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -124,6 +123,8 @@ public class NumberOrder {
   public static final String JSON_PROPERTY_REQUIREMENTS_MET = "requirements_met";
   private Boolean requirementsMet;
 
+  public NumberOrder() { 
+  }
 
    /**
    * Get id
@@ -157,38 +158,6 @@ public class NumberOrder {
 
 
 
-  public NumberOrder phoneNumbers(List<PhoneNumber> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
-    return this;
-  }
-
-  public NumberOrder addPhoneNumbersItem(PhoneNumber phoneNumbersItem) {
-    if (this.phoneNumbers == null) {
-      this.phoneNumbers = new ArrayList<>();
-    }
-    this.phoneNumbers.add(phoneNumbersItem);
-    return this;
-  }
-
-   /**
-   * Get phoneNumbers
-   * @return phoneNumbers
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PhoneNumber> getPhoneNumbers() {
-    return phoneNumbers;
-  }
-
-
-  public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
-  }
-
-
    /**
    * The count of phone numbers in the number order.
    * @return phoneNumbersCount
@@ -203,6 +172,40 @@ public class NumberOrder {
   }
 
 
+
+
+  public NumberOrder subNumberOrderIds(List<String> subNumberOrderIds) {
+    this.subNumberOrderIds = subNumberOrderIds;
+    return this;
+  }
+
+  public NumberOrder addSubNumberOrderIdsItem(String subNumberOrderIdsItem) {
+    if (this.subNumberOrderIds == null) {
+      this.subNumberOrderIds = new ArrayList<>();
+    }
+    this.subNumberOrderIds.add(subNumberOrderIdsItem);
+    return this;
+  }
+
+   /**
+   * Get subNumberOrderIds
+   * @return subNumberOrderIds
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SUB_NUMBER_ORDER_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSubNumberOrderIds() {
+    return subNumberOrderIds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUB_NUMBER_ORDER_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSubNumberOrderIds(List<String> subNumberOrderIds) {
+    this.subNumberOrderIds = subNumberOrderIds;
+  }
 
 
   public NumberOrder connectionId(String connectionId) {
@@ -224,6 +227,8 @@ public class NumberOrder {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -248,6 +253,8 @@ public class NumberOrder {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -272,6 +279,8 @@ public class NumberOrder {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBillingGroupId(String billingGroupId) {
     this.billingGroupId = billingGroupId;
   }
@@ -312,6 +321,8 @@ public class NumberOrder {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
   }
@@ -379,8 +390,8 @@ public class NumberOrder {
     NumberOrder numberOrder = (NumberOrder) o;
     return Objects.equals(this.id, numberOrder.id) &&
         Objects.equals(this.recordType, numberOrder.recordType) &&
-        Objects.equals(this.phoneNumbers, numberOrder.phoneNumbers) &&
         Objects.equals(this.phoneNumbersCount, numberOrder.phoneNumbersCount) &&
+        Objects.equals(this.subNumberOrderIds, numberOrder.subNumberOrderIds) &&
         Objects.equals(this.connectionId, numberOrder.connectionId) &&
         Objects.equals(this.messagingProfileId, numberOrder.messagingProfileId) &&
         Objects.equals(this.billingGroupId, numberOrder.billingGroupId) &&
@@ -393,9 +404,8 @@ public class NumberOrder {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumbers, phoneNumbersCount, connectionId, messagingProfileId, billingGroupId, status, customerReference, createdAt, updatedAt, requirementsMet);
+    return Objects.hash(id, recordType, phoneNumbersCount, subNumberOrderIds, connectionId, messagingProfileId, billingGroupId, status, customerReference, createdAt, updatedAt, requirementsMet);
   }
-
 
   @Override
   public String toString() {
@@ -403,8 +413,8 @@ public class NumberOrder {
     sb.append("class NumberOrder {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    phoneNumbers: ").append(toIndentedString(phoneNumbers)).append("\n");
     sb.append("    phoneNumbersCount: ").append(toIndentedString(phoneNumbersCount)).append("\n");
+    sb.append("    subNumberOrderIds: ").append(toIndentedString(subNumberOrderIds)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");

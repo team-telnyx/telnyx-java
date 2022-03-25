@@ -40,6 +40,8 @@ import com.telnyx.sdk.JSON;
   CreateConferenceRequest.JSON_PROPERTY_COMMAND_ID,
   CreateConferenceRequest.JSON_PROPERTY_DURATION_MINUTES,
   CreateConferenceRequest.JSON_PROPERTY_HOLD_AUDIO_URL,
+  CreateConferenceRequest.JSON_PROPERTY_HOLD_MEDIA_NAME,
+  CreateConferenceRequest.JSON_PROPERTY_MAX_PARTICIPANTS,
   CreateConferenceRequest.JSON_PROPERTY_START_CONFERENCE_ON_CREATE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -107,9 +109,17 @@ public class CreateConferenceRequest {
   public static final String JSON_PROPERTY_HOLD_AUDIO_URL = "hold_audio_url";
   private String holdAudioUrl;
 
+  public static final String JSON_PROPERTY_HOLD_MEDIA_NAME = "hold_media_name";
+  private String holdMediaName;
+
+  public static final String JSON_PROPERTY_MAX_PARTICIPANTS = "max_participants";
+  private Integer maxParticipants;
+
   public static final String JSON_PROPERTY_START_CONFERENCE_ON_CREATE = "start_conference_on_create";
   private Boolean startConferenceOnCreate;
 
+  public CreateConferenceRequest() { 
+  }
 
   public CreateConferenceRequest callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -120,6 +130,7 @@ public class CreateConferenceRequest {
    * Unique identifier and token for controlling the call
    * @return callControlId
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==", required = true, value = "Unique identifier and token for controlling the call")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -129,6 +140,8 @@ public class CreateConferenceRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -143,6 +156,7 @@ public class CreateConferenceRequest {
    * Name of the conference
    * @return name
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "Business", required = true, value = "Name of the conference")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -152,6 +166,8 @@ public class CreateConferenceRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(String name) {
     this.name = name;
   }
@@ -176,6 +192,8 @@ public class CreateConferenceRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BEEP_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBeepEnabled(BeepEnabledEnum beepEnabled) {
     this.beepEnabled = beepEnabled;
   }
@@ -187,11 +205,11 @@ public class CreateConferenceRequest {
   }
 
    /**
-   * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
+   * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. The client_state will be updated for the creator call leg and will be used for all webhooks related to the created conference.
    * @return clientState
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. The client_state will be updated for the creator call leg and will be used for all webhooks related to the created conference.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -200,6 +218,8 @@ public class CreateConferenceRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -224,6 +244,8 @@ public class CreateConferenceRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMFORT_NOISE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setComfortNoise(Boolean comfortNoise) {
     this.comfortNoise = comfortNoise;
   }
@@ -248,6 +270,8 @@ public class CreateConferenceRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -272,6 +296,8 @@ public class CreateConferenceRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DURATION_MINUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDurationMinutes(Integer durationMinutes) {
     this.durationMinutes = durationMinutes;
   }
@@ -283,11 +309,11 @@ public class CreateConferenceRequest {
   }
 
    /**
-   * The URL to an audio file to be played to participants joining the conference. Takes effect only when \&quot;start_conference_on_create\&quot; is set to \&quot;false\&quot;.
+   * The URL of a file to be played to participants joining the conference. The URL can point to either a WAV or MP3 file. hold_media_name and hold_audio_url cannot be used together in one request. Takes effect only when \&quot;start_conference_on_create\&quot; is set to \&quot;false\&quot;.
    * @return holdAudioUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://www.example.com/audio.wav", value = "The URL to an audio file to be played to participants joining the conference. Takes effect only when \"start_conference_on_create\" is set to \"false\".")
+  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played to participants joining the conference. The URL can point to either a WAV or MP3 file. hold_media_name and hold_audio_url cannot be used together in one request. Takes effect only when \"start_conference_on_create\" is set to \"false\".")
   @JsonProperty(JSON_PROPERTY_HOLD_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -296,8 +322,62 @@ public class CreateConferenceRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_HOLD_AUDIO_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHoldAudioUrl(String holdAudioUrl) {
     this.holdAudioUrl = holdAudioUrl;
+  }
+
+
+  public CreateConferenceRequest holdMediaName(String holdMediaName) {
+    this.holdMediaName = holdMediaName;
+    return this;
+  }
+
+   /**
+   * The media_name of a file to be played to participants joining the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. Takes effect only when \&quot;start_conference_on_create\&quot; is set to \&quot;false\&quot;.
+   * @return holdMediaName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played to participants joining the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. Takes effect only when \"start_conference_on_create\" is set to \"false\".")
+  @JsonProperty(JSON_PROPERTY_HOLD_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getHoldMediaName() {
+    return holdMediaName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HOLD_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHoldMediaName(String holdMediaName) {
+    this.holdMediaName = holdMediaName;
+  }
+
+
+  public CreateConferenceRequest maxParticipants(Integer maxParticipants) {
+    this.maxParticipants = maxParticipants;
+    return this;
+  }
+
+   /**
+   * The maximum number of active conference participants to allow. Must be between 2 and 800. Defaults to 250
+   * @return maxParticipants
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "3", value = "The maximum number of active conference participants to allow. Must be between 2 and 800. Defaults to 250")
+  @JsonProperty(JSON_PROPERTY_MAX_PARTICIPANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMaxParticipants() {
+    return maxParticipants;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_PARTICIPANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxParticipants(Integer maxParticipants) {
+    this.maxParticipants = maxParticipants;
   }
 
 
@@ -320,6 +400,8 @@ public class CreateConferenceRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_START_CONFERENCE_ON_CREATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStartConferenceOnCreate(Boolean startConferenceOnCreate) {
     this.startConferenceOnCreate = startConferenceOnCreate;
   }
@@ -345,14 +427,15 @@ public class CreateConferenceRequest {
         Objects.equals(this.commandId, createConferenceRequest.commandId) &&
         Objects.equals(this.durationMinutes, createConferenceRequest.durationMinutes) &&
         Objects.equals(this.holdAudioUrl, createConferenceRequest.holdAudioUrl) &&
+        Objects.equals(this.holdMediaName, createConferenceRequest.holdMediaName) &&
+        Objects.equals(this.maxParticipants, createConferenceRequest.maxParticipants) &&
         Objects.equals(this.startConferenceOnCreate, createConferenceRequest.startConferenceOnCreate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, name, beepEnabled, clientState, comfortNoise, commandId, durationMinutes, holdAudioUrl, startConferenceOnCreate);
+    return Objects.hash(callControlId, name, beepEnabled, clientState, comfortNoise, commandId, durationMinutes, holdAudioUrl, holdMediaName, maxParticipants, startConferenceOnCreate);
   }
-
 
   @Override
   public String toString() {
@@ -366,6 +449,8 @@ public class CreateConferenceRequest {
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    durationMinutes: ").append(toIndentedString(durationMinutes)).append("\n");
     sb.append("    holdAudioUrl: ").append(toIndentedString(holdAudioUrl)).append("\n");
+    sb.append("    holdMediaName: ").append(toIndentedString(holdMediaName)).append("\n");
+    sb.append("    maxParticipants: ").append(toIndentedString(maxParticipants)).append("\n");
     sb.append("    startConferenceOnCreate: ").append(toIndentedString(startConferenceOnCreate)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -42,6 +42,8 @@ public class Errors {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private List<Error> errors = null;
 
+  public Errors() { 
+  }
 
   public Errors errors(List<Error> errors) {
     this.errors = errors;
@@ -70,6 +72,8 @@ public class Errors {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setErrors(List<Error> errors) {
     this.errors = errors;
   }
@@ -94,7 +98,6 @@ public class Errors {
   public int hashCode() {
     return Objects.hash(errors);
   }
-
 
   @Override
   public String toString() {

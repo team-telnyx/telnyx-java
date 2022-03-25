@@ -228,6 +228,8 @@ public class Recording {
   public static final String JSON_PROPERTY_DOWNLOAD_URLS = "download_urls";
   private RecordingDownloadUrls downloadUrls;
 
+  public Recording() { 
+  }
 
   public Recording recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -238,6 +240,7 @@ public class Recording {
    * Get recordType
    * @return recordType
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "recording", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -247,6 +250,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -261,6 +266,7 @@ public class Recording {
    * Uniquely identifies the recording
    * @return id
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", required = true, value = "Uniquely identifies the recording")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -270,6 +276,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(String id) {
     this.id = id;
   }
@@ -284,6 +292,7 @@ public class Recording {
    * ISO 8601 formatted date of when the recording was created
    * @return createdAt
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -293,6 +302,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -307,6 +318,7 @@ public class Recording {
    * ISO 8601 formatted date of when the recording was last updated
    * @return updatedAt
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -316,6 +328,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -330,6 +344,7 @@ public class Recording {
    * ISO 8601 formatted date of when the recording started
    * @return recordingStartedAt
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording started")
   @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -339,6 +354,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordingStartedAt(String recordingStartedAt) {
     this.recordingStartedAt = recordingStartedAt;
   }
@@ -353,6 +370,7 @@ public class Recording {
    * ISO 8601 formatted date of when the recording ended
    * @return recordingEndedAt
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording ended")
   @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -362,6 +380,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordingEndedAt(String recordingEndedAt) {
     this.recordingEndedAt = recordingEndedAt;
   }
@@ -376,6 +396,7 @@ public class Recording {
    * The duration of the recording in milliseconds
    * @return durationMillis
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "60000", required = true, value = "The duration of the recording in milliseconds")
   @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -385,6 +406,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDurationMillis(Integer durationMillis) {
     this.durationMillis = durationMillis;
   }
@@ -399,6 +422,7 @@ public class Recording {
    * The status of the recording. Only resources for &#x60;completed&#x60; recordings are currently supported
    * @return status
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "completed", required = true, value = "The status of the recording. Only resources for `completed` recordings are currently supported")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -408,6 +432,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -422,6 +448,7 @@ public class Recording {
    * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B.
    * @return channels
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "single", required = true, value = "When `dual`, final audio file has the first leg on channel A, and the rest on channel B.")
   @JsonProperty(JSON_PROPERTY_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -431,6 +458,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANNELS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setChannels(ChannelsEnum channels) {
     this.channels = channels;
   }
@@ -445,6 +474,7 @@ public class Recording {
    * The kind of event that led to this recording being created
    * @return source
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "conference", required = true, value = "The kind of event that led to this recording being created")
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -454,6 +484,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSource(SourceEnum source) {
     this.source = source;
   }
@@ -478,6 +510,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConferenceId(String conferenceId) {
     this.conferenceId = conferenceId;
   }
@@ -502,6 +536,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -526,6 +562,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -540,6 +578,7 @@ public class Recording {
    * Get downloadUrls
    * @return downloadUrls
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_DOWNLOAD_URLS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -549,6 +588,8 @@ public class Recording {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DOWNLOAD_URLS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDownloadUrls(RecordingDownloadUrls downloadUrls) {
     this.downloadUrls = downloadUrls;
   }
@@ -586,7 +627,6 @@ public class Recording {
   public int hashCode() {
     return Objects.hash(recordType, id, createdAt, updatedAt, recordingStartedAt, recordingEndedAt, durationMillis, status, channels, source, conferenceId, callLegId, callSessionId, downloadUrls);
   }
-
 
   @Override
   public String toString() {

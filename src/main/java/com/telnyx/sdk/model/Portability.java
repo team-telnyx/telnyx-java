@@ -124,6 +124,8 @@ public class Portability {
   public static final String JSON_PROPERTY_STATE = "state";
   private String state;
 
+  public Portability() { 
+  }
 
   public Portability lrn(String lrn) {
     this.lrn = lrn;
@@ -144,6 +146,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LRN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLrn(String lrn) {
     this.lrn = lrn;
   }
@@ -168,6 +172,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PORTED_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPortedStatus(PortedStatusEnum portedStatus) {
     this.portedStatus = portedStatus;
   }
@@ -192,6 +198,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PORTED_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPortedDate(String portedDate) {
     this.portedDate = portedDate;
   }
@@ -216,6 +224,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OCN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOcn(String ocn) {
     this.ocn = ocn;
   }
@@ -240,6 +250,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LINE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLineType(String lineType) {
     this.lineType = lineType;
   }
@@ -264,6 +276,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SPID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSpid(String spid) {
     this.spid = spid;
   }
@@ -288,6 +302,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SPID_CARRIER_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSpidCarrierName(String spidCarrierName) {
     this.spidCarrierName = spidCarrierName;
   }
@@ -312,6 +328,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SPID_CARRIER_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSpidCarrierType(String spidCarrierType) {
     this.spidCarrierType = spidCarrierType;
   }
@@ -336,6 +354,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALTSPID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAltspid(String altspid) {
     this.altspid = altspid;
   }
@@ -360,6 +380,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALTSPID_CARRIER_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAltspidCarrierName(String altspidCarrierName) {
     this.altspidCarrierName = altspidCarrierName;
   }
@@ -384,6 +406,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALTSPID_CARRIER_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAltspidCarrierType(String altspidCarrierType) {
     this.altspidCarrierType = altspidCarrierType;
   }
@@ -408,6 +432,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCity(String city) {
     this.city = city;
   }
@@ -432,6 +458,8 @@ public class Portability {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setState(String state) {
     this.state = state;
   }
@@ -468,7 +496,6 @@ public class Portability {
   public int hashCode() {
     return Objects.hash(lrn, portedStatus, portedDate, ocn, lineType, spid, spidCarrierName, spidCarrierType, altspid, altspidCarrierName, altspidCarrierType, city, state);
   }
-
 
   @Override
   public String toString() {

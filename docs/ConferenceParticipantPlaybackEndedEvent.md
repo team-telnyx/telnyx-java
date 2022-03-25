@@ -2,6 +2,7 @@
 
 # ConferenceParticipantPlaybackEndedEvent
 
+
 ## Properties
 
 Name | Type | Description | Notes

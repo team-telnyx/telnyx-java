@@ -43,6 +43,8 @@ public class OutboundMessageEventMeta {
   public static final String JSON_PROPERTY_DELIVERED_TO = "delivered_to";
   private String deliveredTo;
 
+  public OutboundMessageEventMeta() { 
+  }
 
   public OutboundMessageEventMeta attempt(Integer attempt) {
     this.attempt = attempt;
@@ -63,6 +65,8 @@ public class OutboundMessageEventMeta {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ATTEMPT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAttempt(Integer attempt) {
     this.attempt = attempt;
   }
@@ -87,6 +91,8 @@ public class OutboundMessageEventMeta {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DELIVERED_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeliveredTo(String deliveredTo) {
     this.deliveredTo = deliveredTo;
   }
@@ -112,7 +118,6 @@ public class OutboundMessageEventMeta {
   public int hashCode() {
     return Objects.hash(attempt, deliveredTo);
   }
-
 
   @Override
   public String toString() {

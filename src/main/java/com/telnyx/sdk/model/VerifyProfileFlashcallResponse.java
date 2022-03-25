@@ -39,6 +39,8 @@ public class VerifyProfileFlashcallResponse {
   public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
   private Integer defaultVerificationTimeoutSecs;
 
+  public VerifyProfileFlashcallResponse() { 
+  }
 
   public VerifyProfileFlashcallResponse defaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
@@ -59,6 +61,8 @@ public class VerifyProfileFlashcallResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
   }
@@ -83,7 +87,6 @@ public class VerifyProfileFlashcallResponse {
   public int hashCode() {
     return Objects.hash(defaultVerificationTimeoutSecs);
   }
-
 
   @Override
   public String toString() {

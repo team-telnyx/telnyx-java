@@ -45,6 +45,8 @@ public class OutboundMessageEvent {
   public static final String JSON_PROPERTY_META = "meta";
   private OutboundMessageEventMeta meta;
 
+  public OutboundMessageEvent() { 
+  }
 
   public OutboundMessageEvent data(OutboundMessage data) {
     this.data = data;
@@ -65,6 +67,8 @@ public class OutboundMessageEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(OutboundMessage data) {
     this.data = data;
   }
@@ -89,6 +93,8 @@ public class OutboundMessageEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMeta(OutboundMessageEventMeta meta) {
     this.meta = meta;
   }
@@ -114,7 +120,6 @@ public class OutboundMessageEvent {
   public int hashCode() {
     return Objects.hash(data, meta);
   }
-
 
   @Override
   public String toString() {

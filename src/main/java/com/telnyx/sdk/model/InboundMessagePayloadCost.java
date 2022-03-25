@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -38,13 +39,15 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InboundMessagePayloadCost {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private String amount;
+  private BigDecimal amount;
 
   public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
+  public InboundMessagePayloadCost() { 
+  }
 
-  public InboundMessagePayloadCost amount(String amount) {
+  public InboundMessagePayloadCost amount(BigDecimal amount) {
     this.amount = amount;
     return this;
   }
@@ -58,12 +61,14 @@ public class InboundMessagePayloadCost {
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getAmount() {
+  public BigDecimal getAmount() {
     return amount;
   }
 
 
-  public void setAmount(String amount) {
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmount(BigDecimal amount) {
     this.amount = amount;
   }
 
@@ -87,6 +92,8 @@ public class InboundMessagePayloadCost {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCurrency(String currency) {
     this.currency = currency;
   }
@@ -112,7 +119,6 @@ public class InboundMessagePayloadCost {
   public int hashCode() {
     return Objects.hash(amount, currency);
   }
-
 
   @Override
   public String toString() {

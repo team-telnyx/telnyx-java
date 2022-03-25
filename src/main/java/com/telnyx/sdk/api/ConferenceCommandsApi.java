@@ -20,6 +20,7 @@ import com.telnyx.sdk.model.ConferenceUnholdRequest;
 import com.telnyx.sdk.model.ConferenceUnmuteRequest;
 import com.telnyx.sdk.model.CreateConferenceRequest;
 import com.telnyx.sdk.model.JoinConferenceRequest;
+import com.telnyx.sdk.model.LeaveConferenceRequest;
 import com.telnyx.sdk.model.ListConferencesResponse;
 import com.telnyx.sdk.model.ListParticipantsResponse;
 import com.telnyx.sdk.model.StartRecordingRequest;
@@ -44,7 +45,7 @@ public class ConferenceCommandsApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -53,7 +54,7 @@ public class ConferenceCommandsApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -225,7 +226,7 @@ public class ConferenceCommandsApi {
   }
   /**
    * Join a conference
-   * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute.  **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
+   * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the &#x60;max_participants&#x60; parameter in conference creation request.   **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
    * @param id Uniquely identifies the conference by id or name (required)
    * @param joinConferenceRequest Join Conference request object (required)
    * @return ConferenceCommandResponse
@@ -244,7 +245,7 @@ public class ConferenceCommandsApi {
 
   /**
    * Join a conference
-   * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute.  **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
+   * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the &#x60;max_participants&#x60; parameter in conference creation request.   **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
    * @param id Uniquely identifies the conference by id or name (required)
    * @param joinConferenceRequest Join Conference request object (required)
    * @return ApiResponse&lt;ConferenceCommandResponse&gt;
@@ -299,6 +300,85 @@ public class ConferenceCommandsApi {
     GenericType<ConferenceCommandResponse> localVarReturnType = new GenericType<ConferenceCommandResponse>() {};
 
     return apiClient.invokeAPI("ConferenceCommandsApi.conferenceJoin", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Leave a conference
+   * Removes a call leg from a conference and moves it back to parked state. **Expected Webhooks:**  - &#x60;conference.participant.left&#x60; 
+   * @param id Uniquely identifies the conference by id or name (required)
+   * @param leaveConferenceRequest Leave Conference request object (required)
+   * @return ConferenceCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+     </table>
+   */
+  public ConferenceCommandResponse conferenceLeave(String id, LeaveConferenceRequest leaveConferenceRequest) throws ApiException {
+    return conferenceLeaveWithHttpInfo(id, leaveConferenceRequest).getData();
+  }
+
+  /**
+   * Leave a conference
+   * Removes a call leg from a conference and moves it back to parked state. **Expected Webhooks:**  - &#x60;conference.participant.left&#x60; 
+   * @param id Uniquely identifies the conference by id or name (required)
+   * @param leaveConferenceRequest Leave Conference request object (required)
+   * @return ApiResponse&lt;ConferenceCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<ConferenceCommandResponse> conferenceLeaveWithHttpInfo(String id, LeaveConferenceRequest leaveConferenceRequest) throws ApiException {
+    Object localVarPostBody = leaveConferenceRequest;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling conferenceLeave");
+    }
+    
+    // verify the required parameter 'leaveConferenceRequest' is set
+    if (leaveConferenceRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'leaveConferenceRequest' when calling conferenceLeave");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/conferences/{id}/actions/leave"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ConferenceCommandResponse> localVarReturnType = new GenericType<ConferenceCommandResponse>() {};
+
+    return apiClient.invokeAPI("ConferenceCommandsApi.conferenceLeave", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -1201,7 +1281,7 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 50)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistConferenceParticipantsRequest
      */
     public APIlistConferenceParticipantsRequest pageSize(Integer pageSize) {
@@ -1260,7 +1340,7 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
     return new APIlistConferenceParticipantsRequest(conferenceId);
   }
 
-private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String filterName, Integer pageNumber, Integer pageSize) throws ApiException {
+private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String filterName, String filterStatus, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -1273,6 +1353,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[name]", filterName));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
 
@@ -1300,6 +1381,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
   public class APIlistConferencesRequest {
     private String filterName;
+    private String filterStatus;
     private Integer pageNumber;
     private Integer pageSize;
 
@@ -1317,6 +1399,16 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
     }
 
     /**
+     * Set filterStatus
+     * @param filterStatus If present, conferences will be filtered by status. (optional)
+     * @return APIlistConferencesRequest
+     */
+    public APIlistConferencesRequest filterStatus(String filterStatus) {
+      this.filterStatus = filterStatus;
+      return this;
+    }
+
+    /**
      * Set pageNumber
      * @param pageNumber The page number to load (optional, default to 1)
      * @return APIlistConferencesRequest
@@ -1328,7 +1420,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 50)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistConferencesRequest
      */
     public APIlistConferencesRequest pageSize(Integer pageSize) {
@@ -1368,7 +1460,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
      */
     public ApiResponse<ListConferencesResponse> executeWithHttpInfo() throws ApiException {
-      return listConferencesWithHttpInfo(filterName, pageNumber, pageSize);
+      return listConferencesWithHttpInfo(filterName, filterStatus, pageNumber, pageSize);
     }
   }
 

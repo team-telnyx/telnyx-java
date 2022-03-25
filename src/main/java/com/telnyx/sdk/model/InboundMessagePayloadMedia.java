@@ -51,6 +51,8 @@ public class InboundMessagePayloadMedia {
   public static final String JSON_PROPERTY_HASH_SHA256 = "hash_sha256";
   private String hashSha256;
 
+  public InboundMessagePayloadMedia() { 
+  }
 
   public InboundMessagePayloadMedia url(String url) {
     this.url = url;
@@ -71,6 +73,8 @@ public class InboundMessagePayloadMedia {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrl(String url) {
     this.url = url;
   }
@@ -95,6 +99,8 @@ public class InboundMessagePayloadMedia {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONTENT_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContentType(String contentType) {
     this.contentType = contentType;
   }
@@ -119,6 +125,8 @@ public class InboundMessagePayloadMedia {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSize(Integer size) {
     this.size = size;
   }
@@ -143,6 +151,8 @@ public class InboundMessagePayloadMedia {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_HASH_SHA256)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHashSha256(String hashSha256) {
     this.hashSha256 = hashSha256;
   }
@@ -170,7 +180,6 @@ public class InboundMessagePayloadMedia {
   public int hashCode() {
     return Objects.hash(url, contentType, size, hashSha256);
   }
-
 
   @Override
   public String toString() {

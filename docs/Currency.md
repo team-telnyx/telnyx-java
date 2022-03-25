@@ -2,18 +2,14 @@
 
 # Currency
 
-## Enum
 
+## Properties
 
-* `AUD` (value: `"AUD"`)
-
-* `CAD` (value: `"CAD"`)
-
-* `EUR` (value: `"EUR"`)
-
-* `GBP` (value: `"GBP"`)
-
-* `USD` (value: `"USD"`)
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**currencyCode** | **String** |  | 
+**amount1000** | **Integer** |  | 
+**fallbackValue** | **String** |  |  [optional]
 
 
 

@@ -39,7 +39,8 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberRequest.JSON_PROPERTY_EXTERNAL_PIN,
   UpdatePhoneNumberRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
   UpdatePhoneNumberRequest.JSON_PROPERTY_CONNECTION_ID,
-  UpdatePhoneNumberRequest.JSON_PROPERTY_BILLING_GROUP_ID
+  UpdatePhoneNumberRequest.JSON_PROPERTY_BILLING_GROUP_ID,
+  UpdatePhoneNumberRequest.JSON_PROPERTY_NUMBER_LEVEL_ROUTING
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdatePhoneNumberRequest {
@@ -61,6 +62,46 @@ public class UpdatePhoneNumberRequest {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private String billingGroupId;
 
+  /**
+   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.
+   */
+  public enum NumberLevelRoutingEnum {
+    ENABLED("enabled"),
+    
+    DISABLED("disabled");
+
+    private String value;
+
+    NumberLevelRoutingEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static NumberLevelRoutingEnum fromValue(String value) {
+      for (NumberLevelRoutingEnum b : NumberLevelRoutingEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_NUMBER_LEVEL_ROUTING = "number_level_routing";
+  private NumberLevelRoutingEnum numberLevelRouting = NumberLevelRoutingEnum.ENABLED;
+
+  public UpdatePhoneNumberRequest() { 
+  }
 
    /**
    * Identifies the type of resource.
@@ -105,6 +146,8 @@ public class UpdatePhoneNumberRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTags(List<String> tags) {
     this.tags = tags;
   }
@@ -129,6 +172,8 @@ public class UpdatePhoneNumberRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExternalPin(String externalPin) {
     this.externalPin = externalPin;
   }
@@ -153,6 +198,8 @@ public class UpdatePhoneNumberRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
   }
@@ -177,6 +224,8 @@ public class UpdatePhoneNumberRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -201,8 +250,36 @@ public class UpdatePhoneNumberRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBillingGroupId(String billingGroupId) {
     this.billingGroupId = billingGroupId;
+  }
+
+
+  public UpdatePhoneNumberRequest numberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
+    this.numberLevelRouting = numberLevelRouting;
+    return this;
+  }
+
+   /**
+   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.
+   * @return numberLevelRouting
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.")
+  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public NumberLevelRoutingEnum getNumberLevelRouting() {
+    return numberLevelRouting;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNumberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
+    this.numberLevelRouting = numberLevelRouting;
   }
 
 
@@ -223,14 +300,14 @@ public class UpdatePhoneNumberRequest {
         Objects.equals(this.externalPin, updatePhoneNumberRequest.externalPin) &&
         Objects.equals(this.customerReference, updatePhoneNumberRequest.customerReference) &&
         Objects.equals(this.connectionId, updatePhoneNumberRequest.connectionId) &&
-        Objects.equals(this.billingGroupId, updatePhoneNumberRequest.billingGroupId);
+        Objects.equals(this.billingGroupId, updatePhoneNumberRequest.billingGroupId) &&
+        Objects.equals(this.numberLevelRouting, updatePhoneNumberRequest.numberLevelRouting);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, tags, externalPin, customerReference, connectionId, billingGroupId);
+    return Objects.hash(id, tags, externalPin, customerReference, connectionId, billingGroupId, numberLevelRouting);
   }
-
 
   @Override
   public String toString() {
@@ -242,6 +319,7 @@ public class UpdatePhoneNumberRequest {
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
+    sb.append("    numberLevelRouting: ").append(toIndentedString(numberLevelRouting)).append("\n");
     sb.append("}");
     return sb.toString();
   }

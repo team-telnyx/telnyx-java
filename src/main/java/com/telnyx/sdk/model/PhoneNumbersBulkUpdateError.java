@@ -46,6 +46,8 @@ public class PhoneNumbersBulkUpdateError {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private List<Error> errors = null;
 
+  public PhoneNumbersBulkUpdateError() { 
+  }
 
   public PhoneNumbersBulkUpdateError phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -66,6 +68,8 @@ public class PhoneNumbersBulkUpdateError {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -98,6 +102,8 @@ public class PhoneNumbersBulkUpdateError {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setErrors(List<Error> errors) {
     this.errors = errors;
   }
@@ -123,7 +129,6 @@ public class PhoneNumbersBulkUpdateError {
   public int hashCode() {
     return Objects.hash(phoneNumber, errors);
   }
-
 
   @Override
   public String toString() {

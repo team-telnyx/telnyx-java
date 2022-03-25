@@ -21,6 +21,7 @@ Delete a fax
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -39,7 +40,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ProgrammableFaxCommandsApi apiInstance = new ProgrammableFaxCommandsApi(defaultClient);
-        UUID id = new UUID(); // UUID | The unique identifier of a fax.
+        UUID id = UUID.randomUUID(); // UUID | The unique identifier of a fax.
         try {
             apiInstance.deleteFax(id);
         } catch (ApiException e) {
@@ -58,7 +59,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| The unique identifier of a fax. |
+ **id** | **UUID**| The unique identifier of a fax. |
 
 ### Return type
 
@@ -77,7 +78,7 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | The resource was deleted successfully. |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## listFaxes
@@ -89,6 +90,7 @@ View a list of faxes
 ### Example
 
 ```java
+import java.time.OffsetDateTime;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -107,12 +109,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ProgrammableFaxCommandsApi apiInstance = new ProgrammableFaxCommandsApi(defaultClient);
-        OffsetDateTime filterCreatedAtGte = 2020-02-02T22:25:27.521992Z; // OffsetDateTime | ISO 8601 date time for filtering faxes created after or on that date
-        OffsetDateTime filterCreatedAtGt = 2020-02-02T22:25:27.521992Z; // OffsetDateTime | ISO 8601 date time for filtering faxes created after that date
-        OffsetDateTime filterCreatedAtLte = 2020-02-02T22:25:27.521992Z; // OffsetDateTime | ISO 8601 formatted date time for filtering faxes created on or before that date
-        OffsetDateTime filterCreatedAtLt = 2020-02-02T22:25:27.521992Z; // OffsetDateTime | ISO 8601 formatted date time for filtering faxes created before that date
-        String filterDirectionEq = inbound; // String | The direction, inbound or outbound, for filtering faxes sent from this account
-        String filterFromEq = +13127367276; // String | The phone number, in E.164 format for filtering faxes sent from this number
+        OffsetDateTime filterCreatedAtGte = OffsetDateTime.parse("2020-02-02T22:25:27.521992Z"); // OffsetDateTime | ISO 8601 date time for filtering faxes created after or on that date
+        OffsetDateTime filterCreatedAtGt = OffsetDateTime.parse("2020-02-02T22:25:27.521992Z"); // OffsetDateTime | ISO 8601 date time for filtering faxes created after that date
+        OffsetDateTime filterCreatedAtLte = OffsetDateTime.parse("2020-02-02T22:25:27.521992Z"); // OffsetDateTime | ISO 8601 formatted date time for filtering faxes created on or before that date
+        OffsetDateTime filterCreatedAtLt = OffsetDateTime.parse("2020-02-02T22:25:27.521992Z"); // OffsetDateTime | ISO 8601 formatted date time for filtering faxes created before that date
+        String filterDirectionEq = "inbound"; // String | The direction, inbound or outbound, for filtering faxes sent from this account
+        String filterFromEq = "+13127367276"; // String | The phone number, in E.164 format for filtering faxes sent from this number
         Integer pageSize = 2; // Integer | Number of fax resourcxes for the single page returned
         Integer pageNumber = 2; // Integer | Number of the page to be retrieved
         try {
@@ -160,7 +162,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | List faxes response |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## refreshFax
@@ -174,6 +176,7 @@ Refreshes the inbound fax's media_url when it has expired
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -192,7 +195,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ProgrammableFaxCommandsApi apiInstance = new ProgrammableFaxCommandsApi(defaultClient);
-        UUID id = new UUID(); // UUID | The unique identifier of a fax.
+        UUID id = UUID.randomUUID(); // UUID | The unique identifier of a fax.
         try {
             RefreshFaxResponse result = apiInstance.refreshFax(id);
             System.out.println(result);
@@ -212,7 +215,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| The unique identifier of a fax. |
+ **id** | **UUID**| The unique identifier of a fax. |
 
 ### Return type
 
@@ -232,7 +235,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Refresh fax response |  -  |
 | **404** | Conference does not exist |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## sendFax
@@ -294,14 +297,14 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: application/json, multipart/form-data
 - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Send fax response |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## viewFax
@@ -313,6 +316,7 @@ View a fax
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -331,7 +335,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ProgrammableFaxCommandsApi apiInstance = new ProgrammableFaxCommandsApi(defaultClient);
-        UUID id = new UUID(); // UUID | The unique identifier of a fax.
+        UUID id = UUID.randomUUID(); // UUID | The unique identifier of a fax.
         try {
             GetFaxResponse result = apiInstance.viewFax(id);
             System.out.println(result);
@@ -351,7 +355,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| The unique identifier of a fax. |
+ **id** | **UUID**| The unique identifier of a fax. |
 
 ### Return type
 
@@ -370,5 +374,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Get fax response |  -  |
-| **0** | Bad Request |  -  |
+| **0** | Unexpected error |  -  |
 

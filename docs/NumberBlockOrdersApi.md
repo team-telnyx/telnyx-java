@@ -110,12 +110,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberBlockOrdersApi apiInstance = new NumberBlockOrdersApi(defaultClient);
-        String filterStatus = pending; // String | Filter number block orders by status.
-        String filterCreatedAtGt = 2018-01-01T00:00:00.000000Z; // String | Filter number block orders later than this value.
-        String filterCreatedAtLt = 2018-01-01T00:00:00.000000Z; // String | Filter number block orders earlier than this value.
-        String filterPhoneNumbersStartingNumber = +19705555000; // String | Filter number block  orders having these phone numbers.
-        Integer pageNumber = 1; // Integer | The page number to load.
-        Integer pageSize = 20; // Integer | The size of the page.
+        String filterStatus = "pending"; // String | Filter number block orders by status.
+        String filterCreatedAtGt = "2018-01-01T00:00:00.000000Z"; // String | Filter number block orders later than this value.
+        String filterCreatedAtLt = "2018-01-01T00:00:00.000000Z"; // String | Filter number block orders earlier than this value.
+        String filterPhoneNumbersStartingNumber = "+19705555000"; // String | Filter number block  orders having these phone numbers.
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
         try {
             ListNumberBlockOrdersResponse result = apiInstance.listNumberBlockOrders(filterStatus, filterCreatedAtGt, filterCreatedAtLt, filterPhoneNumbersStartingNumber, pageNumber, pageSize);
             System.out.println(result);
@@ -139,8 +139,8 @@ Name | Type | Description  | Notes
  **filterCreatedAtGt** | **String**| Filter number block orders later than this value. | [optional]
  **filterCreatedAtLt** | **String**| Filter number block orders earlier than this value. | [optional]
  **filterPhoneNumbersStartingNumber** | **String**| Filter number block  orders having these phone numbers. | [optional]
- **pageNumber** | **Integer**| The page number to load. | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page. | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
 ### Return type
 

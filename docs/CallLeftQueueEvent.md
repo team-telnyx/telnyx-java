@@ -2,6 +2,7 @@
 
 # CallLeftQueueEvent
 
+
 ## Properties
 
 Name | Type | Description | Notes

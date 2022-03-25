@@ -32,12 +32,16 @@ import com.telnyx.sdk.JSON;
  * PlaybackStopRequest
  */
 @JsonPropertyOrder({
+  PlaybackStopRequest.JSON_PROPERTY_OVERLAY,
   PlaybackStopRequest.JSON_PROPERTY_STOP,
   PlaybackStopRequest.JSON_PROPERTY_CLIENT_STATE,
   PlaybackStopRequest.JSON_PROPERTY_COMMAND_ID
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PlaybackStopRequest {
+  public static final String JSON_PROPERTY_OVERLAY = "overlay";
+  private Boolean overlay = false;
+
   public static final String JSON_PROPERTY_STOP = "stop";
   private String stop = "all";
 
@@ -47,6 +51,34 @@ public class PlaybackStopRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
+  public PlaybackStopRequest() { 
+  }
+
+  public PlaybackStopRequest overlay(Boolean overlay) {
+    this.overlay = overlay;
+    return this;
+  }
+
+   /**
+   * When enabled, it stops the audio being played in the overlay queue.
+   * @return overlay
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "When enabled, it stops the audio being played in the overlay queue.")
+  @JsonProperty(JSON_PROPERTY_OVERLAY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getOverlay() {
+    return overlay;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OVERLAY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOverlay(Boolean overlay) {
+    this.overlay = overlay;
+  }
+
 
   public PlaybackStopRequest stop(String stop) {
     this.stop = stop;
@@ -54,11 +86,11 @@ public class PlaybackStopRequest {
   }
 
    /**
-   * Use &#x60;current&#x60; to stop only the current audio or &#x60;all&#x60; to stop all audios in the queue.
+   * Use &#x60;current&#x60; to stop the current audio being played. Use &#x60;all&#x60; to stop the current audio file being played and clear all audio files from the queue.
    * @return stop
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "current", value = "Use `current` to stop only the current audio or `all` to stop all audios in the queue.")
+  @ApiModelProperty(example = "current", value = "Use `current` to stop the current audio being played. Use `all` to stop the current audio file being played and clear all audio files from the queue.")
   @JsonProperty(JSON_PROPERTY_STOP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -67,6 +99,8 @@ public class PlaybackStopRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STOP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStop(String stop) {
     this.stop = stop;
   }
@@ -91,6 +125,8 @@ public class PlaybackStopRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -102,11 +138,11 @@ public class PlaybackStopRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -115,6 +151,8 @@ public class PlaybackStopRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -132,21 +170,22 @@ public class PlaybackStopRequest {
       return false;
     }
     PlaybackStopRequest playbackStopRequest = (PlaybackStopRequest) o;
-    return Objects.equals(this.stop, playbackStopRequest.stop) &&
+    return Objects.equals(this.overlay, playbackStopRequest.overlay) &&
+        Objects.equals(this.stop, playbackStopRequest.stop) &&
         Objects.equals(this.clientState, playbackStopRequest.clientState) &&
         Objects.equals(this.commandId, playbackStopRequest.commandId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(stop, clientState, commandId);
+    return Objects.hash(overlay, stop, clientState, commandId);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PlaybackStopRequest {\n");
+    sb.append("    overlay: ").append(toIndentedString(overlay)).append("\n");
     sb.append("    stop: ").append(toIndentedString(stop)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");

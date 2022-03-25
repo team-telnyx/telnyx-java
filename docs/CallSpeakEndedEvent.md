@@ -2,6 +2,7 @@
 
 # CallSpeakEndedEvent
 
+
 ## Properties
 
 Name | Type | Description | Notes

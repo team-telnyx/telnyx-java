@@ -39,6 +39,8 @@ public class ConferenceCommandResult {
   public static final String JSON_PROPERTY_RESULT = "result";
   private String result;
 
+  public ConferenceCommandResult() { 
+  }
 
   public ConferenceCommandResult result(String result) {
     this.result = result;
@@ -49,6 +51,7 @@ public class ConferenceCommandResult {
    * Get result
    * @return result
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "ok", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RESULT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -58,6 +61,8 @@ public class ConferenceCommandResult {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RESULT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setResult(String result) {
     this.result = result;
   }
@@ -82,7 +87,6 @@ public class ConferenceCommandResult {
   public int hashCode() {
     return Objects.hash(result);
   }
-
 
   @Override
   public String toString() {

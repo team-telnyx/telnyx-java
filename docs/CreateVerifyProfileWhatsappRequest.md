@@ -2,6 +2,7 @@
 
 # CreateVerifyProfileWhatsappRequest
 
+
 ## Properties
 
 Name | Type | Description | Notes

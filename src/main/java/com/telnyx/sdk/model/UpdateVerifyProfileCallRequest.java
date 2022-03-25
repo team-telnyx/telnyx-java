@@ -47,6 +47,8 @@ public class UpdateVerifyProfileCallRequest {
   public static final String JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS = "default_call_timeout_secs";
   private Integer defaultCallTimeoutSecs = 45;
 
+  public UpdateVerifyProfileCallRequest() { 
+  }
 
   public UpdateVerifyProfileCallRequest speechTemplate(String speechTemplate) {
     this.speechTemplate = speechTemplate;
@@ -67,6 +69,8 @@ public class UpdateVerifyProfileCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SPEECH_TEMPLATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSpeechTemplate(String speechTemplate) {
     this.speechTemplate = speechTemplate;
   }
@@ -91,6 +95,8 @@ public class UpdateVerifyProfileCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
   }
@@ -115,6 +121,8 @@ public class UpdateVerifyProfileCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultCallTimeoutSecs(Integer defaultCallTimeoutSecs) {
     this.defaultCallTimeoutSecs = defaultCallTimeoutSecs;
   }
@@ -141,7 +149,6 @@ public class UpdateVerifyProfileCallRequest {
   public int hashCode() {
     return Objects.hash(speechTemplate, defaultVerificationTimeoutSecs, defaultCallTimeoutSecs);
   }
-
 
   @Override
   public String toString() {

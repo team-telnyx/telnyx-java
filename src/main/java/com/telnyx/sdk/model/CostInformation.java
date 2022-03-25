@@ -47,6 +47,8 @@ public class CostInformation {
   public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
+  public CostInformation() { 
+  }
 
   public CostInformation upfrontCost(String upfrontCost) {
     this.upfrontCost = upfrontCost;
@@ -67,6 +69,8 @@ public class CostInformation {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UPFRONT_COST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpfrontCost(String upfrontCost) {
     this.upfrontCost = upfrontCost;
   }
@@ -91,6 +95,8 @@ public class CostInformation {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MONTHLY_COST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMonthlyCost(String monthlyCost) {
     this.monthlyCost = monthlyCost;
   }
@@ -115,6 +121,8 @@ public class CostInformation {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCurrency(String currency) {
     this.currency = currency;
   }
@@ -141,7 +149,6 @@ public class CostInformation {
   public int hashCode() {
     return Objects.hash(upfrontCost, monthlyCost, currency);
   }
-
 
   @Override
   public String toString() {

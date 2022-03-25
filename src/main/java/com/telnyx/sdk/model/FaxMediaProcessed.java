@@ -119,6 +119,8 @@ public class FaxMediaProcessed {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private FaxMediaProcessedPayload payload;
 
+  public FaxMediaProcessed() { 
+  }
 
   public FaxMediaProcessed recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -139,6 +141,8 @@ public class FaxMediaProcessed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -163,6 +167,8 @@ public class FaxMediaProcessed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -187,6 +193,8 @@ public class FaxMediaProcessed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEventType(EventTypeEnum eventType) {
     this.eventType = eventType;
   }
@@ -211,6 +219,8 @@ public class FaxMediaProcessed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAYLOAD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPayload(FaxMediaProcessedPayload payload) {
     this.payload = payload;
   }
@@ -238,7 +248,6 @@ public class FaxMediaProcessed {
   public int hashCode() {
     return Objects.hash(recordType, id, eventType, payload);
   }
-
 
   @Override
   public String toString() {

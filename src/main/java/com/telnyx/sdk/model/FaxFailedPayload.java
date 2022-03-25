@@ -37,6 +37,7 @@ import com.telnyx.sdk.JSON;
   FaxFailedPayload.JSON_PROPERTY_DIRECTION,
   FaxFailedPayload.JSON_PROPERTY_FAX_ID,
   FaxFailedPayload.JSON_PROPERTY_ORIGINAL_MEDIA_URL,
+  FaxFailedPayload.JSON_PROPERTY_MEDIA_NAME,
   FaxFailedPayload.JSON_PROPERTY_TO,
   FaxFailedPayload.JSON_PROPERTY_FROM,
   FaxFailedPayload.JSON_PROPERTY_USER_ID,
@@ -91,6 +92,9 @@ public class FaxFailedPayload {
 
   public static final String JSON_PROPERTY_ORIGINAL_MEDIA_URL = "original_media_url";
   private String originalMediaUrl;
+
+  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
+  private String mediaName;
 
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
@@ -173,6 +177,8 @@ public class FaxFailedPayload {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
+  public FaxFailedPayload() { 
+  }
 
   public FaxFailedPayload connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -193,6 +199,8 @@ public class FaxFailedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -217,6 +225,8 @@ public class FaxFailedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DIRECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDirection(DirectionEnum direction) {
     this.direction = direction;
   }
@@ -241,6 +251,8 @@ public class FaxFailedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FAX_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFaxId(UUID faxId) {
     this.faxId = faxId;
   }
@@ -252,11 +264,11 @@ public class FaxFailedPayload {
   }
 
    /**
-   * The original URL to the PDF used for the fax&#39;s media.
+   * The original URL to the PDF used for the fax&#39;s media. If media_name was supplied, this is omitted
    * @return originalMediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The original URL to the PDF used for the fax's media.")
+  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The original URL to the PDF used for the fax's media. If media_name was supplied, this is omitted")
   @JsonProperty(JSON_PROPERTY_ORIGINAL_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -265,8 +277,36 @@ public class FaxFailedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ORIGINAL_MEDIA_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOriginalMediaUrl(String originalMediaUrl) {
     this.originalMediaUrl = originalMediaUrl;
+  }
+
+
+  public FaxFailedPayload mediaName(String mediaName) {
+    this.mediaName = mediaName;
+    return this;
+  }
+
+   /**
+   * The media_name used for the fax&#39;s media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization
+   * @return mediaName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name used for the fax's media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization")
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMediaName() {
+    return mediaName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMediaName(String mediaName) {
+    this.mediaName = mediaName;
   }
 
 
@@ -289,6 +329,8 @@ public class FaxFailedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -313,6 +355,8 @@ public class FaxFailedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FROM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -337,6 +381,8 @@ public class FaxFailedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUserId(UUID userId) {
     this.userId = userId;
   }
@@ -361,6 +407,8 @@ public class FaxFailedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FAILURE_REASON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFailureReason(FailureReasonEnum failureReason) {
     this.failureReason = failureReason;
   }
@@ -385,6 +433,8 @@ public class FaxFailedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -406,6 +456,7 @@ public class FaxFailedPayload {
         Objects.equals(this.direction, faxFailedPayload.direction) &&
         Objects.equals(this.faxId, faxFailedPayload.faxId) &&
         Objects.equals(this.originalMediaUrl, faxFailedPayload.originalMediaUrl) &&
+        Objects.equals(this.mediaName, faxFailedPayload.mediaName) &&
         Objects.equals(this.to, faxFailedPayload.to) &&
         Objects.equals(this.from, faxFailedPayload.from) &&
         Objects.equals(this.userId, faxFailedPayload.userId) &&
@@ -415,9 +466,8 @@ public class FaxFailedPayload {
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, direction, faxId, originalMediaUrl, to, from, userId, failureReason, status);
+    return Objects.hash(connectionId, direction, faxId, originalMediaUrl, mediaName, to, from, userId, failureReason, status);
   }
-
 
   @Override
   public String toString() {
@@ -427,6 +477,7 @@ public class FaxFailedPayload {
     sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
     sb.append("    faxId: ").append(toIndentedString(faxId)).append("\n");
     sb.append("    originalMediaUrl: ").append(toIndentedString(originalMediaUrl)).append("\n");
+    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");

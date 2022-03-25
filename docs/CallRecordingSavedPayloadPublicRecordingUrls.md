@@ -3,6 +3,7 @@
 # CallRecordingSavedPayloadPublicRecordingUrls
 
 Recording URLs in requested format. The URL is valid for as long as the file exists. For security purposes, this feature is activated on a per request basis.  Please contact customer support with your Account ID to request activation.
+
 ## Properties
 
 Name | Type | Description | Notes

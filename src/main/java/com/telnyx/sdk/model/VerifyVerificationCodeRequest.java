@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -32,13 +33,19 @@ import com.telnyx.sdk.JSON;
  * VerifyVerificationCodeRequest
  */
 @JsonPropertyOrder({
-  VerifyVerificationCodeRequest.JSON_PROPERTY_CODE
+  VerifyVerificationCodeRequest.JSON_PROPERTY_CODE,
+  VerifyVerificationCodeRequest.JSON_PROPERTY_VERIFY_PROFILE_ID
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class VerifyVerificationCodeRequest {
   public static final String JSON_PROPERTY_CODE = "code";
   private String code;
 
+  public static final String JSON_PROPERTY_VERIFY_PROFILE_ID = "verify_profile_id";
+  private UUID verifyProfileId;
+
+  public VerifyVerificationCodeRequest() { 
+  }
 
   public VerifyVerificationCodeRequest code(String code) {
     this.code = code;
@@ -49,6 +56,7 @@ public class VerifyVerificationCodeRequest {
    * This is the code the user submits for verification.
    * @return code
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "17686", required = true, value = "This is the code the user submits for verification.")
   @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -58,8 +66,36 @@ public class VerifyVerificationCodeRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CODE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCode(String code) {
     this.code = code;
+  }
+
+
+  public VerifyVerificationCodeRequest verifyProfileId(UUID verifyProfileId) {
+    this.verifyProfileId = verifyProfileId;
+    return this;
+  }
+
+   /**
+   * The identifier of the associated Verify profile.
+   * @return verifyProfileId
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "The identifier of the associated Verify profile.")
+  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public UUID getVerifyProfileId() {
+    return verifyProfileId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVerifyProfileId(UUID verifyProfileId) {
+    this.verifyProfileId = verifyProfileId;
   }
 
 
@@ -75,20 +111,21 @@ public class VerifyVerificationCodeRequest {
       return false;
     }
     VerifyVerificationCodeRequest verifyVerificationCodeRequest = (VerifyVerificationCodeRequest) o;
-    return Objects.equals(this.code, verifyVerificationCodeRequest.code);
+    return Objects.equals(this.code, verifyVerificationCodeRequest.code) &&
+        Objects.equals(this.verifyProfileId, verifyVerificationCodeRequest.verifyProfileId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code);
+    return Objects.hash(code, verifyProfileId);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class VerifyVerificationCodeRequest {\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    verifyProfileId: ").append(toIndentedString(verifyProfileId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

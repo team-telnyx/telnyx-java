@@ -33,6 +33,7 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   TranscriptionPayloadTranscriptionData.JSON_PROPERTY_CONFIDENCE,
+  TranscriptionPayloadTranscriptionData.JSON_PROPERTY_IS_FINAL,
   TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -40,9 +41,14 @@ public class TranscriptionPayloadTranscriptionData {
   public static final String JSON_PROPERTY_CONFIDENCE = "confidence";
   private Double confidence;
 
+  public static final String JSON_PROPERTY_IS_FINAL = "is_final";
+  private Boolean isFinal;
+
   public static final String JSON_PROPERTY_TRANSCRIPT = "transcript";
   private String transcript;
 
+  public TranscriptionPayloadTranscriptionData() { 
+  }
 
   public TranscriptionPayloadTranscriptionData confidence(Double confidence) {
     this.confidence = confidence;
@@ -63,8 +69,36 @@ public class TranscriptionPayloadTranscriptionData {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONFIDENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConfidence(Double confidence) {
     this.confidence = confidence;
+  }
+
+
+  public TranscriptionPayloadTranscriptionData isFinal(Boolean isFinal) {
+    this.isFinal = isFinal;
+    return this;
+  }
+
+   /**
+   * When false, it means that this is an interim result.
+   * @return isFinal
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "When false, it means that this is an interim result.")
+  @JsonProperty(JSON_PROPERTY_IS_FINAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsFinal() {
+    return isFinal;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_FINAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsFinal(Boolean isFinal) {
+    this.isFinal = isFinal;
   }
 
 
@@ -87,6 +121,8 @@ public class TranscriptionPayloadTranscriptionData {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTranscript(String transcript) {
     this.transcript = transcript;
   }
@@ -105,20 +141,21 @@ public class TranscriptionPayloadTranscriptionData {
     }
     TranscriptionPayloadTranscriptionData transcriptionPayloadTranscriptionData = (TranscriptionPayloadTranscriptionData) o;
     return Objects.equals(this.confidence, transcriptionPayloadTranscriptionData.confidence) &&
+        Objects.equals(this.isFinal, transcriptionPayloadTranscriptionData.isFinal) &&
         Objects.equals(this.transcript, transcriptionPayloadTranscriptionData.transcript);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(confidence, transcript);
+    return Objects.hash(confidence, isFinal, transcript);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TranscriptionPayloadTranscriptionData {\n");
     sb.append("    confidence: ").append(toIndentedString(confidence)).append("\n");
+    sb.append("    isFinal: ").append(toIndentedString(isFinal)).append("\n");
     sb.append("    transcript: ").append(toIndentedString(transcript)).append("\n");
     sb.append("}");
     return sb.toString();

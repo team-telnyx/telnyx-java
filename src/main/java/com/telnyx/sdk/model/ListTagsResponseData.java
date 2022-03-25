@@ -43,6 +43,8 @@ public class ListTagsResponseData {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private Integer amount;
 
+  public ListTagsResponseData() { 
+  }
 
   public ListTagsResponseData tag(String tag) {
     this.tag = tag;
@@ -63,6 +65,8 @@ public class ListTagsResponseData {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTag(String tag) {
     this.tag = tag;
   }
@@ -87,6 +91,8 @@ public class ListTagsResponseData {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAmount(Integer amount) {
     this.amount = amount;
   }
@@ -112,7 +118,6 @@ public class ListTagsResponseData {
   public int hashCode() {
     return Objects.hash(tag, amount);
   }
-
 
   @Override
   public String toString() {

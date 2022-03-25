@@ -102,6 +102,8 @@ public class CallMachineGreetingEndedPayload {
   public static final String JSON_PROPERTY_RESULT = "result";
   private ResultEnum result;
 
+  public CallMachineGreetingEndedPayload() { 
+  }
 
   public CallMachineGreetingEndedPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -122,6 +124,8 @@ public class CallMachineGreetingEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -146,6 +150,8 @@ public class CallMachineGreetingEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -170,6 +176,8 @@ public class CallMachineGreetingEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -181,11 +189,11 @@ public class CallMachineGreetingEndedPayload {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events.
+   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
    * @return callSessionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events.")
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -194,6 +202,8 @@ public class CallMachineGreetingEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -218,6 +228,8 @@ public class CallMachineGreetingEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -242,6 +254,8 @@ public class CallMachineGreetingEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FROM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -266,6 +280,8 @@ public class CallMachineGreetingEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -290,6 +306,8 @@ public class CallMachineGreetingEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RESULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResult(ResultEnum result) {
     this.result = result;
   }
@@ -321,7 +339,6 @@ public class CallMachineGreetingEndedPayload {
   public int hashCode() {
     return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to, result);
   }
-
 
   @Override
   public String toString() {

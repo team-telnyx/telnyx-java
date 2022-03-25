@@ -40,6 +40,7 @@ import com.telnyx.sdk.JSON;
   ConferenceCallRequest.JSON_PROPERTY_FROM,
   ConferenceCallRequest.JSON_PROPERTY_HOLD,
   ConferenceCallRequest.JSON_PROPERTY_HOLD_AUDIO_URL,
+  ConferenceCallRequest.JSON_PROPERTY_HOLD_MEDIA_NAME,
   ConferenceCallRequest.JSON_PROPERTY_MUTE,
   ConferenceCallRequest.JSON_PROPERTY_START_CONFERENCE_ON_ENTER,
   ConferenceCallRequest.JSON_PROPERTY_SUPERVISOR_ROLE,
@@ -65,6 +66,9 @@ public class ConferenceCallRequest {
 
   public static final String JSON_PROPERTY_HOLD_AUDIO_URL = "hold_audio_url";
   private String holdAudioUrl;
+
+  public static final String JSON_PROPERTY_HOLD_MEDIA_NAME = "hold_media_name";
+  private String holdMediaName;
 
   public static final String JSON_PROPERTY_MUTE = "mute";
   private Boolean mute = false;
@@ -120,6 +124,8 @@ public class ConferenceCallRequest {
   public static final String JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS = "whisper_call_control_ids";
   private List<String> whisperCallControlIds = null;
 
+  public ConferenceCallRequest() { 
+  }
 
   public ConferenceCallRequest callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -130,6 +136,7 @@ public class ConferenceCallRequest {
    * Unique identifier and token for controlling the call
    * @return callControlId
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==", required = true, value = "Unique identifier and token for controlling the call")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -139,6 +146,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -163,6 +172,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -187,6 +198,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -201,6 +214,7 @@ public class ConferenceCallRequest {
    * The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number).
    * @return from
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+18005550101", required = true, value = "The `from` number to be used as the caller id presented to the destination (`to` number).")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -210,6 +224,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FROM)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -234,6 +250,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_HOLD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHold(Boolean hold) {
     this.hold = hold;
   }
@@ -245,11 +263,11 @@ public class ConferenceCallRequest {
   }
 
    /**
-   * The URL of an audio file to be played to the participant when they are put on hold after joining the conference. This property takes effect only if \&quot;hold\&quot; is set to \&quot;true\&quot;.
+   * The URL of a file to be played to the participant when they are put on hold after joining the conference. If media_name is also supplied, this is currently ignored. Takes effect only when \&quot;start_conference_on_create\&quot; is set to \&quot;false\&quot;. This property takes effect only if \&quot;hold\&quot; is set to \&quot;true\&quot;.
    * @return holdAudioUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://www.example.com/audio.wav", value = "The URL of an audio file to be played to the participant when they are put on hold after joining the conference. This property takes effect only if \"hold\" is set to \"true\".")
+  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played to the participant when they are put on hold after joining the conference. If media_name is also supplied, this is currently ignored. Takes effect only when \"start_conference_on_create\" is set to \"false\". This property takes effect only if \"hold\" is set to \"true\".")
   @JsonProperty(JSON_PROPERTY_HOLD_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -258,8 +276,36 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_HOLD_AUDIO_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHoldAudioUrl(String holdAudioUrl) {
     this.holdAudioUrl = holdAudioUrl;
+  }
+
+
+  public ConferenceCallRequest holdMediaName(String holdMediaName) {
+    this.holdMediaName = holdMediaName;
+    return this;
+  }
+
+   /**
+   * The media_name of a file to be played to the participant when they are put on hold after joining the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. Takes effect only when \&quot;start_conference_on_create\&quot; is set to \&quot;false\&quot;. This property takes effect only if \&quot;hold\&quot; is set to \&quot;true\&quot;.
+   * @return holdMediaName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played to the participant when they are put on hold after joining the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. Takes effect only when \"start_conference_on_create\" is set to \"false\". This property takes effect only if \"hold\" is set to \"true\".")
+  @JsonProperty(JSON_PROPERTY_HOLD_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getHoldMediaName() {
+    return holdMediaName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HOLD_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHoldMediaName(String holdMediaName) {
+    this.holdMediaName = holdMediaName;
   }
 
 
@@ -282,6 +328,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MUTE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMute(Boolean mute) {
     this.mute = mute;
   }
@@ -306,6 +354,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_START_CONFERENCE_ON_ENTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStartConferenceOnEnter(Boolean startConferenceOnEnter) {
     this.startConferenceOnEnter = startConferenceOnEnter;
   }
@@ -330,6 +380,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSupervisorRole(SupervisorRoleEnum supervisorRole) {
     this.supervisorRole = supervisorRole;
   }
@@ -344,6 +396,7 @@ public class ConferenceCallRequest {
    * The DID or SIP URI to dial out and bridge to the given call.
    * @return to
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+18005550100 or sip:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out and bridge to the given call.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -353,6 +406,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TO)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -385,6 +440,8 @@ public class ConferenceCallRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhisperCallControlIds(List<String> whisperCallControlIds) {
     this.whisperCallControlIds = whisperCallControlIds;
   }
@@ -408,6 +465,7 @@ public class ConferenceCallRequest {
         Objects.equals(this.from, conferenceCallRequest.from) &&
         Objects.equals(this.hold, conferenceCallRequest.hold) &&
         Objects.equals(this.holdAudioUrl, conferenceCallRequest.holdAudioUrl) &&
+        Objects.equals(this.holdMediaName, conferenceCallRequest.holdMediaName) &&
         Objects.equals(this.mute, conferenceCallRequest.mute) &&
         Objects.equals(this.startConferenceOnEnter, conferenceCallRequest.startConferenceOnEnter) &&
         Objects.equals(this.supervisorRole, conferenceCallRequest.supervisorRole) &&
@@ -417,9 +475,8 @@ public class ConferenceCallRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, clientState, commandId, from, hold, holdAudioUrl, mute, startConferenceOnEnter, supervisorRole, to, whisperCallControlIds);
+    return Objects.hash(callControlId, clientState, commandId, from, hold, holdAudioUrl, holdMediaName, mute, startConferenceOnEnter, supervisorRole, to, whisperCallControlIds);
   }
-
 
   @Override
   public String toString() {
@@ -431,6 +488,7 @@ public class ConferenceCallRequest {
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    hold: ").append(toIndentedString(hold)).append("\n");
     sb.append("    holdAudioUrl: ").append(toIndentedString(holdAudioUrl)).append("\n");
+    sb.append("    holdMediaName: ").append(toIndentedString(holdMediaName)).append("\n");
     sb.append("    mute: ").append(toIndentedString(mute)).append("\n");
     sb.append("    startConferenceOnEnter: ").append(toIndentedString(startConferenceOnEnter)).append("\n");
     sb.append("    supervisorRole: ").append(toIndentedString(supervisorRole)).append("\n");

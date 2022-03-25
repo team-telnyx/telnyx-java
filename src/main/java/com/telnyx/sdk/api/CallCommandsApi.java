@@ -12,6 +12,7 @@ import com.telnyx.sdk.model.AnswerRequest;
 import com.telnyx.sdk.model.BridgeRequest;
 import com.telnyx.sdk.model.CallControlCommandResponse;
 import com.telnyx.sdk.model.CallRequest;
+import com.telnyx.sdk.model.ClientStateUpdateRequest;
 import com.telnyx.sdk.model.EnqueueRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GatherUsingAudioRequest;
@@ -29,9 +30,11 @@ import com.telnyx.sdk.model.SendDTMFRequest;
 import com.telnyx.sdk.model.SpeakRequest;
 import com.telnyx.sdk.model.StartForkingRequest;
 import com.telnyx.sdk.model.StartRecordingRequest;
+import com.telnyx.sdk.model.StartStreamingRequest;
 import com.telnyx.sdk.model.StopForkingRequest;
 import com.telnyx.sdk.model.StopGatherRequest;
 import com.telnyx.sdk.model.StopRecordingRequest;
+import com.telnyx.sdk.model.StopStreamingRequest;
 import com.telnyx.sdk.model.TranscriptionStartRequest;
 import com.telnyx.sdk.model.TranscriptionStopRequest;
 import com.telnyx.sdk.model.TransferCallRequest;
@@ -54,7 +57,7 @@ public class CallCommandsApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -63,7 +66,7 @@ public class CallCommandsApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -73,7 +76,7 @@ public class CallCommandsApi {
 
   /**
    * Answer call
-   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; 
+   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60; and &#x60;streaming.stopped&#x60; if &#x60;stream_url&#x60; was set
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param answerRequest Answer call request (required)
    * @return CallControlCommandResponse
@@ -82,7 +85,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callAnswer(String callControlId, AnswerRequest answerRequest) throws ApiException {
@@ -91,7 +94,7 @@ public class CallCommandsApi {
 
   /**
    * Answer call
-   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; 
+   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60; and &#x60;streaming.stopped&#x60; if &#x60;stream_url&#x60; was set
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param answerRequest Answer call request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -100,7 +103,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callAnswerWithHttpInfo(String callControlId, AnswerRequest answerRequest) throws ApiException {
@@ -159,7 +162,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callBridge(String callControlId, BridgeRequest bridgeRequest) throws ApiException {
@@ -177,7 +180,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callBridgeWithHttpInfo(String callControlId, BridgeRequest bridgeRequest) throws ApiException {
@@ -227,7 +230,7 @@ public class CallCommandsApi {
   }
   /**
    * Dial
-   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was set to &#x60;detect_beep&#x60;, &#x60;greeting_end&#x60; or &#x60;detect_words&#x60;
+   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was set to &#x60;detect_beep&#x60;, &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; - &#x60;streaming.started&#x60; and &#x60;streaming.stopped&#x60; if &#x60;stream_url&#x60; was set 
    * @param callRequest Call request (required)
    * @return RetrieveCallStatusResponse
    * @throws ApiException if fails to make API call
@@ -235,7 +238,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveCallStatusResponse callDial(CallRequest callRequest) throws ApiException {
@@ -244,7 +247,7 @@ public class CallCommandsApi {
 
   /**
    * Dial
-   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was set to &#x60;detect_beep&#x60;, &#x60;greeting_end&#x60; or &#x60;detect_words&#x60;
+   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was set to &#x60;detect_beep&#x60;, &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; - &#x60;streaming.started&#x60; and &#x60;streaming.stopped&#x60; if &#x60;stream_url&#x60; was set 
    * @param callRequest Call request (required)
    * @return ApiResponse&lt;RetrieveCallStatusResponse&gt;
    * @throws ApiException if fails to make API call
@@ -252,7 +255,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call status. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveCallStatusResponse> callDialWithHttpInfo(CallRequest callRequest) throws ApiException {
@@ -305,7 +308,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callEnqueue(String callControlId, EnqueueRequest enqueueRequest) throws ApiException {
@@ -323,7 +326,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callEnqueueWithHttpInfo(String callControlId, EnqueueRequest enqueueRequest) throws ApiException {
@@ -382,7 +385,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callForkStart(String callControlId, StartForkingRequest startForkingRequest) throws ApiException {
@@ -400,7 +403,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callForkStartWithHttpInfo(String callControlId, StartForkingRequest startForkingRequest) throws ApiException {
@@ -459,7 +462,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callForkStop(String callControlId, StopForkingRequest stopForkingRequest) throws ApiException {
@@ -477,7 +480,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callForkStopWithHttpInfo(String callControlId, StopForkingRequest stopForkingRequest) throws ApiException {
@@ -536,7 +539,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callGatherStop(String callControlId, StopGatherRequest stopGatherRequest) throws ApiException {
@@ -554,7 +557,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callGatherStopWithHttpInfo(String callControlId, StopGatherRequest stopGatherRequest) throws ApiException {
@@ -613,7 +616,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callGatherUsingAudio(String callControlId, GatherUsingAudioRequest gatherUsingAudioRequest) throws ApiException {
@@ -631,7 +634,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callGatherUsingAudioWithHttpInfo(String callControlId, GatherUsingAudioRequest gatherUsingAudioRequest) throws ApiException {
@@ -690,7 +693,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callGatherUsingSpeak(String callControlId, GatherUsingSpeakRequest gatherUsingSpeakRequest) throws ApiException {
@@ -708,7 +711,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callGatherUsingSpeakWithHttpInfo(String callControlId, GatherUsingSpeakRequest gatherUsingSpeakRequest) throws ApiException {
@@ -767,7 +770,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callHangup(String callControlId, HangupRequest hangupRequest) throws ApiException {
@@ -785,7 +788,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callHangupWithHttpInfo(String callControlId, HangupRequest hangupRequest) throws ApiException {
@@ -844,7 +847,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callPlaybackStart(String callControlId, PlayAudioUrlRequest playAudioUrlRequest) throws ApiException {
@@ -862,7 +865,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callPlaybackStartWithHttpInfo(String callControlId, PlayAudioUrlRequest playAudioUrlRequest) throws ApiException {
@@ -921,7 +924,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callPlaybackStop(String callControlId, PlaybackStopRequest playbackStopRequest) throws ApiException {
@@ -939,7 +942,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callPlaybackStopWithHttpInfo(String callControlId, PlaybackStopRequest playbackStopRequest) throws ApiException {
@@ -998,7 +1001,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRecordPause(String callControlId, PauseRecordingRequest pauseRecordingRequest) throws ApiException {
@@ -1016,7 +1019,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRecordPauseWithHttpInfo(String callControlId, PauseRecordingRequest pauseRecordingRequest) throws ApiException {
@@ -1075,7 +1078,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRecordResume(String callControlId, ResumeRecordingRequest resumeRecordingRequest) throws ApiException {
@@ -1093,7 +1096,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRecordResumeWithHttpInfo(String callControlId, ResumeRecordingRequest resumeRecordingRequest) throws ApiException {
@@ -1152,7 +1155,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRecordStart(String callControlId, StartRecordingRequest startRecordingRequest) throws ApiException {
@@ -1170,7 +1173,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRecordStartWithHttpInfo(String callControlId, StartRecordingRequest startRecordingRequest) throws ApiException {
@@ -1229,7 +1232,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRecordStop(String callControlId, StopRecordingRequest stopRecordingRequest) throws ApiException {
@@ -1247,7 +1250,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRecordStopWithHttpInfo(String callControlId, StopRecordingRequest stopRecordingRequest) throws ApiException {
@@ -1306,7 +1309,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callRefer(String callControlId, ReferRequest referRequest) throws ApiException {
@@ -1324,7 +1327,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callReferWithHttpInfo(String callControlId, ReferRequest referRequest) throws ApiException {
@@ -1383,7 +1386,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callReject(String callControlId, RejectRequest rejectRequest) throws ApiException {
@@ -1401,7 +1404,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callRejectWithHttpInfo(String callControlId, RejectRequest rejectRequest) throws ApiException {
@@ -1460,7 +1463,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callSendDTMF(String callControlId, SendDTMFRequest sendDTMFRequest) throws ApiException {
@@ -1478,7 +1481,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callSendDTMFWithHttpInfo(String callControlId, SendDTMFRequest sendDTMFRequest) throws ApiException {
@@ -1537,7 +1540,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callSpeak(String callControlId, SpeakRequest speakRequest) throws ApiException {
@@ -1555,7 +1558,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callSpeakWithHttpInfo(String callControlId, SpeakRequest speakRequest) throws ApiException {
@@ -1604,8 +1607,162 @@ public class CallCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Streaming start
+   * Start streaming the media from a call to a specific WebSocket address in near-realtime.  Audio will be delivered as base64-encoded RTP packets, wrapped in JSON payloads.   **Expected Webhooks:**  - &#x60;streaming.started&#x60; - &#x60;streaming.stopped&#x60;  **WebSocket events**  When the WebSocket connection is established, the following event is being sent over it: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;connected\&quot;,   \&quot;version\&quot;: \&quot;1.0.0\&quot; } &#x60;&#x60;&#x60; And when the call is started, an event which contains information about the encoding and &#x60;stream_id&#x60; that identifies a particular stream: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;start\&quot;,   \&quot;sequence_number\&quot;: \&quot;1\&quot;,   \&quot;start\&quot;: {     \&quot;user_id\&quot;: \&quot;3E6F995F-85F7-4705-9741-53B116D28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;,     \&quot;media_format\&quot;: {       \&quot;encoding\&quot;: \&quot;audio/x-mulaw\&quot;,       \&quot;sample_rate\&quot;: 8000,       \&quot;channels\&quot;: 1     }   },   \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot; } &#x60;&#x60;&#x60; The start event is followed by the following media events that contain base64-encoded RTP packets as their payloads: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;sequence_number\&quot;: \&quot;4\&quot;,   \&quot;media\&quot;: {      \&quot;track\&quot;: \&quot;inbound/outbound\&quot;,      \&quot;chunk\&quot;: \&quot;2\&quot;,     \&quot;timestamp\&quot;: \&quot;5\&quot;,     \&quot;payload\&quot;: \&quot;no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic\&quot;                           },   \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot;  } &#x60;&#x60;&#x60; Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.  When the call ends, the stop event over WebSockets connection is sent: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;stop\&quot;,   \&quot;sequence_number\&quot;: \&quot;5\&quot;,   \&quot;stop\&quot;: {     \&quot;user_id\&quot;: \&quot;3E6F995F-85F7-4705-9741-53B116D28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;    },     \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot;   } &#x60;&#x60;&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param startStreamingRequest Start streaming media request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callStreamingStart(String callControlId, StartStreamingRequest startStreamingRequest) throws ApiException {
+    return callStreamingStartWithHttpInfo(callControlId, startStreamingRequest).getData();
+  }
+
+  /**
+   * Streaming start
+   * Start streaming the media from a call to a specific WebSocket address in near-realtime.  Audio will be delivered as base64-encoded RTP packets, wrapped in JSON payloads.   **Expected Webhooks:**  - &#x60;streaming.started&#x60; - &#x60;streaming.stopped&#x60;  **WebSocket events**  When the WebSocket connection is established, the following event is being sent over it: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;connected\&quot;,   \&quot;version\&quot;: \&quot;1.0.0\&quot; } &#x60;&#x60;&#x60; And when the call is started, an event which contains information about the encoding and &#x60;stream_id&#x60; that identifies a particular stream: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;start\&quot;,   \&quot;sequence_number\&quot;: \&quot;1\&quot;,   \&quot;start\&quot;: {     \&quot;user_id\&quot;: \&quot;3E6F995F-85F7-4705-9741-53B116D28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;,     \&quot;media_format\&quot;: {       \&quot;encoding\&quot;: \&quot;audio/x-mulaw\&quot;,       \&quot;sample_rate\&quot;: 8000,       \&quot;channels\&quot;: 1     }   },   \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot; } &#x60;&#x60;&#x60; The start event is followed by the following media events that contain base64-encoded RTP packets as their payloads: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;sequence_number\&quot;: \&quot;4\&quot;,   \&quot;media\&quot;: {      \&quot;track\&quot;: \&quot;inbound/outbound\&quot;,      \&quot;chunk\&quot;: \&quot;2\&quot;,     \&quot;timestamp\&quot;: \&quot;5\&quot;,     \&quot;payload\&quot;: \&quot;no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic\&quot;                           },   \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot;  } &#x60;&#x60;&#x60; Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.  When the call ends, the stop event over WebSockets connection is sent: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;stop\&quot;,   \&quot;sequence_number\&quot;: \&quot;5\&quot;,   \&quot;stop\&quot;: {     \&quot;user_id\&quot;: \&quot;3E6F995F-85F7-4705-9741-53B116D28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;    },     \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot;   } &#x60;&#x60;&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param startStreamingRequest Start streaming media request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callStreamingStartWithHttpInfo(String callControlId, StartStreamingRequest startStreamingRequest) throws ApiException {
+    Object localVarPostBody = startStreamingRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callStreamingStart");
+    }
+    
+    // verify the required parameter 'startStreamingRequest' is set
+    if (startStreamingRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'startStreamingRequest' when calling callStreamingStart");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/streaming_start"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callStreamingStart", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Streaming stop
+   * Stop streaming a call to a WebSocket.  **Expected Webhooks:**  - &#x60;streaming.stopped&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param stopStreamingRequest Stop streaming media request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callStreamingStop(String callControlId, StopStreamingRequest stopStreamingRequest) throws ApiException {
+    return callStreamingStopWithHttpInfo(callControlId, stopStreamingRequest).getData();
+  }
+
+  /**
+   * Streaming stop
+   * Stop streaming a call to a WebSocket.  **Expected Webhooks:**  - &#x60;streaming.stopped&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param stopStreamingRequest Stop streaming media request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callStreamingStopWithHttpInfo(String callControlId, StopStreamingRequest stopStreamingRequest) throws ApiException {
+    Object localVarPostBody = stopStreamingRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callStreamingStop");
+    }
+    
+    // verify the required parameter 'stopStreamingRequest' is set
+    if (stopStreamingRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'stopStreamingRequest' when calling callStreamingStop");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/streaming_stop"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callStreamingStop", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Transcription start
-   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.
+   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.  **Expected Webhooks:**  - &#x60;call.transcription&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param transcriptionStartRequest Transcription start request (required)
    * @return CallControlCommandResponse
@@ -1614,7 +1771,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callTranscriptionStart(String callControlId, TranscriptionStartRequest transcriptionStartRequest) throws ApiException {
@@ -1623,7 +1780,7 @@ public class CallCommandsApi {
 
   /**
    * Transcription start
-   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.
+   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.  **Expected Webhooks:**  - &#x60;call.transcription&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param transcriptionStartRequest Transcription start request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1632,7 +1789,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callTranscriptionStartWithHttpInfo(String callControlId, TranscriptionStartRequest transcriptionStartRequest) throws ApiException {
@@ -1691,7 +1848,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callTranscriptionStop(String callControlId, TranscriptionStopRequest transcriptionStopRequest) throws ApiException {
@@ -1709,7 +1866,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callTranscriptionStopWithHttpInfo(String callControlId, TranscriptionStopRequest transcriptionStopRequest) throws ApiException {
@@ -1768,7 +1925,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse callTransfer(String callControlId, TransferCallRequest transferCallRequest) throws ApiException {
@@ -1786,7 +1943,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> callTransferWithHttpInfo(String callControlId, TransferCallRequest transferCallRequest) throws ApiException {
@@ -1835,6 +1992,83 @@ public class CallCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Update client state
+   * Updates client state
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param clientStateUpdateRequest Updates client state for every subsequent webhook (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse clientStateUpdate(String callControlId, ClientStateUpdateRequest clientStateUpdateRequest) throws ApiException {
+    return clientStateUpdateWithHttpInfo(callControlId, clientStateUpdateRequest).getData();
+  }
+
+  /**
+   * Update client state
+   * Updates client state
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param clientStateUpdateRequest Updates client state for every subsequent webhook (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> clientStateUpdateWithHttpInfo(String callControlId, ClientStateUpdateRequest clientStateUpdateRequest) throws ApiException {
+    Object localVarPostBody = clientStateUpdateRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling clientStateUpdate");
+    }
+    
+    // verify the required parameter 'clientStateUpdateRequest' is set
+    if (clientStateUpdateRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'clientStateUpdateRequest' when calling clientStateUpdate");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/client_state_update"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.clientStateUpdate", localVarPath, "PUT", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Remove call from a queue
    * Removes the call from a queue.
    * @param callControlId Unique identifier and token for controlling the call (required)
@@ -1845,7 +2079,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CallControlCommandResponse leaveQueue(String callControlId, LeaveQueueRequest leaveQueueRequest) throws ApiException {
@@ -1863,7 +2097,7 @@ public class CallCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CallControlCommandResponse> leaveQueueWithHttpInfo(String callControlId, LeaveQueueRequest leaveQueueRequest) throws ApiException {

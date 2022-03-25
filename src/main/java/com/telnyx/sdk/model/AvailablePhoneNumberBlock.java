@@ -97,6 +97,8 @@ public class AvailablePhoneNumberBlock {
   public static final String JSON_PROPERTY_FEATURES = "features";
   private List<Feature> features = null;
 
+  public AvailablePhoneNumberBlock() { 
+  }
 
   public AvailablePhoneNumberBlock recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -117,6 +119,8 @@ public class AvailablePhoneNumberBlock {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -141,6 +145,8 @@ public class AvailablePhoneNumberBlock {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STARTING_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStartingNumber(String startingNumber) {
     this.startingNumber = startingNumber;
   }
@@ -165,6 +171,8 @@ public class AvailablePhoneNumberBlock {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RANGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRange(Integer range) {
     this.range = range;
   }
@@ -197,6 +205,8 @@ public class AvailablePhoneNumberBlock {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REGION_INFORMATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegionInformation(List<RegionInformation> regionInformation) {
     this.regionInformation = regionInformation;
   }
@@ -221,6 +231,8 @@ public class AvailablePhoneNumberBlock {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COST_INFORMATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCostInformation(CostInformation costInformation) {
     this.costInformation = costInformation;
   }
@@ -253,6 +265,8 @@ public class AvailablePhoneNumberBlock {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FEATURES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFeatures(List<Feature> features) {
     this.features = features;
   }
@@ -282,7 +296,6 @@ public class AvailablePhoneNumberBlock {
   public int hashCode() {
     return Objects.hash(recordType, startingNumber, range, regionInformation, costInformation, features);
   }
-
 
   @Override
   public String toString() {

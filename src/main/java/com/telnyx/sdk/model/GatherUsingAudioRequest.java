@@ -33,7 +33,9 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   GatherUsingAudioRequest.JSON_PROPERTY_AUDIO_URL,
+  GatherUsingAudioRequest.JSON_PROPERTY_MEDIA_NAME,
   GatherUsingAudioRequest.JSON_PROPERTY_INVALID_AUDIO_URL,
+  GatherUsingAudioRequest.JSON_PROPERTY_INVALID_MEDIA_NAME,
   GatherUsingAudioRequest.JSON_PROPERTY_MINIMUM_DIGITS,
   GatherUsingAudioRequest.JSON_PROPERTY_MAXIMUM_DIGITS,
   GatherUsingAudioRequest.JSON_PROPERTY_MAXIMUM_TRIES,
@@ -49,8 +51,14 @@ public class GatherUsingAudioRequest {
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
 
+  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
+  private String mediaName;
+
   public static final String JSON_PROPERTY_INVALID_AUDIO_URL = "invalid_audio_url";
   private String invalidAudioUrl;
+
+  public static final String JSON_PROPERTY_INVALID_MEDIA_NAME = "invalid_media_name";
+  private String invalidMediaName;
 
   public static final String JSON_PROPERTY_MINIMUM_DIGITS = "minimum_digits";
   private Integer minimumDigits = 1;
@@ -79,6 +87,8 @@ public class GatherUsingAudioRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
+  public GatherUsingAudioRequest() { 
+  }
 
   public GatherUsingAudioRequest audioUrl(String audioUrl) {
     this.audioUrl = audioUrl;
@@ -86,20 +96,49 @@ public class GatherUsingAudioRequest {
   }
 
    /**
-   * The URL of a file to be played back at the beginning of each prompt. The URL can point to either a WAV or MP3 file.
+   * The URL of a file to be played back at the beginning of each prompt. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.
    * @return audioUrl
   **/
-  @ApiModelProperty(example = "http://example.com/message.wav", required = true, value = "The URL of a file to be played back at the beginning of each prompt. The URL can point to either a WAV or MP3 file.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back at the beginning of each prompt. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.")
   @JsonProperty(JSON_PROPERTY_AUDIO_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAudioUrl() {
     return audioUrl;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_AUDIO_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAudioUrl(String audioUrl) {
     this.audioUrl = audioUrl;
+  }
+
+
+  public GatherUsingAudioRequest mediaName(String mediaName) {
+    this.mediaName = mediaName;
+    return this;
+  }
+
+   /**
+   * The media_name of a file to be played back at the beginning of each prompt. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
+   * @return mediaName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played back at the beginning of each prompt. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMediaName() {
+    return mediaName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMediaName(String mediaName) {
+    this.mediaName = mediaName;
   }
 
 
@@ -109,11 +148,11 @@ public class GatherUsingAudioRequest {
   }
 
    /**
-   * The URL of a file to play when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. The URL can point to either a WAV or MP3 file.
+   * The URL of a file to play when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. The URL can point to either a WAV or MP3 file. invalid_media_name and invalid_audio_url cannot be used together in one request.
    * @return invalidAudioUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://example.com/invalid.wav", value = "The URL of a file to play when digits don't match the `valid_digits` parameter or the number of digits is not between `min` and `max`. The URL can point to either a WAV or MP3 file.")
+  @ApiModelProperty(example = "http://example.com/invalid.wav", value = "The URL of a file to play when digits don't match the `valid_digits` parameter or the number of digits is not between `min` and `max`. The URL can point to either a WAV or MP3 file. invalid_media_name and invalid_audio_url cannot be used together in one request.")
   @JsonProperty(JSON_PROPERTY_INVALID_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -122,8 +161,36 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INVALID_AUDIO_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInvalidAudioUrl(String invalidAudioUrl) {
     this.invalidAudioUrl = invalidAudioUrl;
+  }
+
+
+  public GatherUsingAudioRequest invalidMediaName(String invalidMediaName) {
+    this.invalidMediaName = invalidMediaName;
+    return this;
+  }
+
+   /**
+   * The media_name of a file to be played back when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
+   * @return invalidMediaName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played back when digits don't match the `valid_digits` parameter or the number of digits is not between `min` and `max`. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
+  @JsonProperty(JSON_PROPERTY_INVALID_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getInvalidMediaName() {
+    return invalidMediaName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INVALID_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInvalidMediaName(String invalidMediaName) {
+    this.invalidMediaName = invalidMediaName;
   }
 
 
@@ -146,6 +213,8 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MINIMUM_DIGITS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMinimumDigits(Integer minimumDigits) {
     this.minimumDigits = minimumDigits;
   }
@@ -170,6 +239,8 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAXIMUM_DIGITS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaximumDigits(Integer maximumDigits) {
     this.maximumDigits = maximumDigits;
   }
@@ -194,6 +265,8 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAXIMUM_TRIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaximumTries(Integer maximumTries) {
     this.maximumTries = maximumTries;
   }
@@ -218,6 +291,8 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TIMEOUT_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutMillis(Integer timeoutMillis) {
     this.timeoutMillis = timeoutMillis;
   }
@@ -242,6 +317,8 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TERMINATING_DIGIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTerminatingDigit(String terminatingDigit) {
     this.terminatingDigit = terminatingDigit;
   }
@@ -266,6 +343,8 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VALID_DIGITS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setValidDigits(String validDigits) {
     this.validDigits = validDigits;
   }
@@ -290,6 +369,8 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INTER_DIGIT_TIMEOUT_MILLIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInterDigitTimeoutMillis(Integer interDigitTimeoutMillis) {
     this.interDigitTimeoutMillis = interDigitTimeoutMillis;
   }
@@ -314,6 +395,8 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -325,11 +408,11 @@ public class GatherUsingAudioRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -338,6 +421,8 @@ public class GatherUsingAudioRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -356,7 +441,9 @@ public class GatherUsingAudioRequest {
     }
     GatherUsingAudioRequest gatherUsingAudioRequest = (GatherUsingAudioRequest) o;
     return Objects.equals(this.audioUrl, gatherUsingAudioRequest.audioUrl) &&
+        Objects.equals(this.mediaName, gatherUsingAudioRequest.mediaName) &&
         Objects.equals(this.invalidAudioUrl, gatherUsingAudioRequest.invalidAudioUrl) &&
+        Objects.equals(this.invalidMediaName, gatherUsingAudioRequest.invalidMediaName) &&
         Objects.equals(this.minimumDigits, gatherUsingAudioRequest.minimumDigits) &&
         Objects.equals(this.maximumDigits, gatherUsingAudioRequest.maximumDigits) &&
         Objects.equals(this.maximumTries, gatherUsingAudioRequest.maximumTries) &&
@@ -370,16 +457,17 @@ public class GatherUsingAudioRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(audioUrl, invalidAudioUrl, minimumDigits, maximumDigits, maximumTries, timeoutMillis, terminatingDigit, validDigits, interDigitTimeoutMillis, clientState, commandId);
+    return Objects.hash(audioUrl, mediaName, invalidAudioUrl, invalidMediaName, minimumDigits, maximumDigits, maximumTries, timeoutMillis, terminatingDigit, validDigits, interDigitTimeoutMillis, clientState, commandId);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GatherUsingAudioRequest {\n");
     sb.append("    audioUrl: ").append(toIndentedString(audioUrl)).append("\n");
+    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    invalidAudioUrl: ").append(toIndentedString(invalidAudioUrl)).append("\n");
+    sb.append("    invalidMediaName: ").append(toIndentedString(invalidMediaName)).append("\n");
     sb.append("    minimumDigits: ").append(toIndentedString(minimumDigits)).append("\n");
     sb.append("    maximumDigits: ").append(toIndentedString(maximumDigits)).append("\n");
     sb.append("    maximumTries: ").append(toIndentedString(maximumTries)).append("\n");

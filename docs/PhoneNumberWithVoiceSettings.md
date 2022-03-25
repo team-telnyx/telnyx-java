@@ -2,6 +2,7 @@
 
 # PhoneNumberWithVoiceSettings
 
+
 ## Properties
 
 Name | Type | Description | Notes

@@ -30,6 +30,7 @@ import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -188,6 +189,8 @@ public class UpdateCredentialConnectionRequest {
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
   private CredentialOutbound outbound;
 
+  public UpdateCredentialConnectionRequest() { 
+  }
 
   public UpdateCredentialConnectionRequest active(Boolean active) {
     this.active = active;
@@ -208,6 +211,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(Boolean active) {
     this.active = active;
   }
@@ -232,6 +237,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_USER_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUserName(String userName) {
     this.userName = userName;
   }
@@ -256,6 +263,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPassword(String password) {
     this.password = password;
   }
@@ -280,6 +289,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
@@ -304,6 +315,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionName(String connectionName) {
     this.connectionName = connectionName;
   }
@@ -328,6 +341,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SIP_URI_CALLING_PREFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipUriCallingPreference(SipUriCallingPreferenceEnum sipUriCallingPreference) {
     this.sipUriCallingPreference = sipUriCallingPreference;
   }
@@ -352,6 +367,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultOnHoldComfortNoiseEnabled(Boolean defaultOnHoldComfortNoiseEnabled) {
     this.defaultOnHoldComfortNoiseEnabled = defaultOnHoldComfortNoiseEnabled;
   }
@@ -376,6 +393,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDtmfType(DtmfType dtmfType) {
     this.dtmfType = dtmfType;
   }
@@ -400,6 +419,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEncodeContactHeaderEnabled(Boolean encodeContactHeaderEnabled) {
     this.encodeContactHeaderEnabled = encodeContactHeaderEnabled;
   }
@@ -458,6 +479,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOnnetT38PassthroughEnabled(Boolean onnetT38PassthroughEnabled) {
     this.onnetT38PassthroughEnabled = onnetT38PassthroughEnabled;
   }
@@ -482,6 +505,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookEventUrl(String webhookEventUrl) {
     this.webhookEventUrl = webhookEventUrl;
   }
@@ -540,6 +565,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
@@ -600,6 +627,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RTCP_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRtcpSettings(ConnectionRtcpSettings rtcpSettings) {
     this.rtcpSettings = rtcpSettings;
   }
@@ -624,6 +653,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInbound(CredentialInbound inbound) {
     this.inbound = inbound;
   }
@@ -648,6 +679,8 @@ public class UpdateCredentialConnectionRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OUTBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutbound(CredentialOutbound outbound) {
     this.outbound = outbound;
   }
@@ -674,22 +707,32 @@ public class UpdateCredentialConnectionRequest {
         Objects.equals(this.defaultOnHoldComfortNoiseEnabled, updateCredentialConnectionRequest.defaultOnHoldComfortNoiseEnabled) &&
         Objects.equals(this.dtmfType, updateCredentialConnectionRequest.dtmfType) &&
         Objects.equals(this.encodeContactHeaderEnabled, updateCredentialConnectionRequest.encodeContactHeaderEnabled) &&
-        Objects.equals(this.encryptedMedia, updateCredentialConnectionRequest.encryptedMedia) &&
+        equalsNullable(this.encryptedMedia, updateCredentialConnectionRequest.encryptedMedia) &&
         Objects.equals(this.onnetT38PassthroughEnabled, updateCredentialConnectionRequest.onnetT38PassthroughEnabled) &&
         Objects.equals(this.webhookEventUrl, updateCredentialConnectionRequest.webhookEventUrl) &&
-        Objects.equals(this.webhookEventFailoverUrl, updateCredentialConnectionRequest.webhookEventFailoverUrl) &&
+        equalsNullable(this.webhookEventFailoverUrl, updateCredentialConnectionRequest.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, updateCredentialConnectionRequest.webhookApiVersion) &&
-        Objects.equals(this.webhookTimeoutSecs, updateCredentialConnectionRequest.webhookTimeoutSecs) &&
+        equalsNullable(this.webhookTimeoutSecs, updateCredentialConnectionRequest.webhookTimeoutSecs) &&
         Objects.equals(this.rtcpSettings, updateCredentialConnectionRequest.rtcpSettings) &&
         Objects.equals(this.inbound, updateCredentialConnectionRequest.inbound) &&
         Objects.equals(this.outbound, updateCredentialConnectionRequest.outbound);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(active, userName, password, anchorsiteOverride, connectionName, sipUriCallingPreference, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, encryptedMedia, onnetT38PassthroughEnabled, webhookEventUrl, webhookEventFailoverUrl, webhookApiVersion, webhookTimeoutSecs, rtcpSettings, inbound, outbound);
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(active, userName, password, anchorsiteOverride, connectionName, sipUriCallingPreference, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, inbound, outbound);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
 
   @Override
   public String toString() {

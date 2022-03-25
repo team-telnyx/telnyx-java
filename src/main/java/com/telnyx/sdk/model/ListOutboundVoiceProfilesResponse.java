@@ -47,6 +47,8 @@ public class ListOutboundVoiceProfilesResponse {
   public static final String JSON_PROPERTY_META = "meta";
   private PaginationMeta meta;
 
+  public ListOutboundVoiceProfilesResponse() { 
+  }
 
   public ListOutboundVoiceProfilesResponse data(List<OutboundVoiceProfile> data) {
     this.data = data;
@@ -75,6 +77,8 @@ public class ListOutboundVoiceProfilesResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(List<OutboundVoiceProfile> data) {
     this.data = data;
   }
@@ -99,6 +103,8 @@ public class ListOutboundVoiceProfilesResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMeta(PaginationMeta meta) {
     this.meta = meta;
   }
@@ -124,7 +130,6 @@ public class ListOutboundVoiceProfilesResponse {
   public int hashCode() {
     return Objects.hash(data, meta);
   }
-
 
   @Override
   public String toString() {

@@ -96,6 +96,8 @@ public class ConferenceDetailRecord {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType = "conference_detail_record";
 
+  public ConferenceDetailRecord() { 
+  }
 
   public ConferenceDetailRecord id(String id) {
     this.id = id;
@@ -116,6 +118,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -140,6 +144,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -164,6 +170,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUserId(String userId) {
     this.userId = userId;
   }
@@ -188,6 +196,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STARTED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStartedAt(OffsetDateTime startedAt) {
     this.startedAt = startedAt;
   }
@@ -212,6 +222,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ENDED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEndedAt(OffsetDateTime endedAt) {
     this.endedAt = endedAt;
   }
@@ -236,6 +248,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpiresAt(OffsetDateTime expiresAt) {
     this.expiresAt = expiresAt;
   }
@@ -260,6 +274,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REGION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegion(String region) {
     this.region = region;
   }
@@ -284,6 +300,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -308,6 +326,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -332,6 +352,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -356,6 +378,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SEC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSec(Integer callSec) {
     this.callSec = callSec;
   }
@@ -380,6 +404,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PARTICIPANT_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setParticipantCount(Integer participantCount) {
     this.participantCount = participantCount;
   }
@@ -404,6 +430,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PARTICIPANT_CALL_SEC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setParticipantCallSec(Integer participantCallSec) {
     this.participantCallSec = participantCallSec;
   }
@@ -428,6 +456,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_IS_TELNYX_BILLABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsTelnyxBillable(Boolean isTelnyxBillable) {
     this.isTelnyxBillable = isTelnyxBillable;
   }
@@ -442,6 +472,7 @@ public class ConferenceDetailRecord {
    * Get recordType
    * @return recordType
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "conference_detail_record", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -451,6 +482,8 @@ public class ConferenceDetailRecord {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -489,7 +522,6 @@ public class ConferenceDetailRecord {
   public int hashCode() {
     return Objects.hash(id, name, userId, startedAt, endedAt, expiresAt, region, callLegId, callSessionId, connectionId, callSec, participantCount, participantCallSec, isTelnyxBillable, recordType);
   }
-
 
   @Override
   public String toString() {

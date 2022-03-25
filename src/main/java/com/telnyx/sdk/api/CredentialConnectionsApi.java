@@ -31,7 +31,7 @@ public class CredentialConnectionsApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -40,7 +40,7 @@ public class CredentialConnectionsApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -254,7 +254,7 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 50)
+     * @param pageSize The size of the page (optional, default to 20)
      * @return APIlistCredentialConnectionsRequest
      */
     public APIlistCredentialConnectionsRequest pageSize(Integer pageSize) {
@@ -264,7 +264,7 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
 
     /**
      * Set filterConnectionNameContains
-     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to &quot;null&quot;)
+     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
      * @return APIlistCredentialConnectionsRequest
      */
     public APIlistCredentialConnectionsRequest filterConnectionNameContains(String filterConnectionNameContains) {

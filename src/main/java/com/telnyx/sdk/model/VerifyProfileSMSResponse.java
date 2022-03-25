@@ -55,6 +55,8 @@ public class VerifyProfileSMSResponse {
   public static final String JSON_PROPERTY_VSMS_ENABLED = "vsms_enabled";
   private Boolean vsmsEnabled;
 
+  public VerifyProfileSMSResponse() { 
+  }
 
   public VerifyProfileSMSResponse messagingEnabled(Boolean messagingEnabled) {
     this.messagingEnabled = messagingEnabled;
@@ -75,6 +77,8 @@ public class VerifyProfileSMSResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingEnabled(Boolean messagingEnabled) {
     this.messagingEnabled = messagingEnabled;
   }
@@ -99,6 +103,8 @@ public class VerifyProfileSMSResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RCS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRcsEnabled(Boolean rcsEnabled) {
     this.rcsEnabled = rcsEnabled;
   }
@@ -123,6 +129,8 @@ public class VerifyProfileSMSResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingTemplate(String messagingTemplate) {
     this.messagingTemplate = messagingTemplate;
   }
@@ -147,6 +155,8 @@ public class VerifyProfileSMSResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
   }
@@ -171,6 +181,8 @@ public class VerifyProfileSMSResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VSMS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVsmsEnabled(Boolean vsmsEnabled) {
     this.vsmsEnabled = vsmsEnabled;
   }
@@ -199,7 +211,6 @@ public class VerifyProfileSMSResponse {
   public int hashCode() {
     return Objects.hash(messagingEnabled, rcsEnabled, messagingTemplate, defaultVerificationTimeoutSecs, vsmsEnabled);
   }
-
 
   @Override
   public String toString() {

@@ -26,6 +26,7 @@ import com.telnyx.sdk.model.CallControlApplicationInbound;
 import com.telnyx.sdk.model.CallControlApplicationOutbound;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -199,6 +200,8 @@ public class CreateCallControlApplicationRequest {
   public static final String JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS = "webhook_timeout_secs";
   private JsonNullable<Integer> webhookTimeoutSecs = JsonNullable.<Integer>undefined();
 
+  public CreateCallControlApplicationRequest() { 
+  }
 
   public CreateCallControlApplicationRequest applicationName(String applicationName) {
     this.applicationName = applicationName;
@@ -209,6 +212,7 @@ public class CreateCallControlApplicationRequest {
    * A user-assigned name to help manage the application.
    * @return applicationName
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "call-router", required = true, value = "A user-assigned name to help manage the application.")
   @JsonProperty(JSON_PROPERTY_APPLICATION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -218,6 +222,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_APPLICATION_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setApplicationName(String applicationName) {
     this.applicationName = applicationName;
   }
@@ -232,6 +238,7 @@ public class CreateCallControlApplicationRequest {
    * The URL where webhooks related to this connection will be sent. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventUrl
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "https://example.com", required = true, value = "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -241,6 +248,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setWebhookEventUrl(String webhookEventUrl) {
     this.webhookEventUrl = webhookEventUrl;
   }
@@ -265,6 +274,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(Boolean active) {
     this.active = active;
   }
@@ -289,6 +300,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnchorsiteOverride(AnchorsiteOverrideEnum anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
@@ -313,6 +326,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDtmfType(DtmfTypeEnum dtmfType) {
     this.dtmfType = dtmfType;
   }
@@ -337,6 +352,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FIRST_COMMAND_TIMEOUT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFirstCommandTimeout(Boolean firstCommandTimeout) {
     this.firstCommandTimeout = firstCommandTimeout;
   }
@@ -361,6 +378,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FIRST_COMMAND_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFirstCommandTimeoutSecs(Integer firstCommandTimeoutSecs) {
     this.firstCommandTimeoutSecs = firstCommandTimeoutSecs;
   }
@@ -385,6 +404,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInbound(CallControlApplicationInbound inbound) {
     this.inbound = inbound;
   }
@@ -409,6 +430,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OUTBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutbound(CallControlApplicationOutbound outbound) {
     this.outbound = outbound;
   }
@@ -433,6 +456,8 @@ public class CreateCallControlApplicationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
@@ -530,15 +555,25 @@ public class CreateCallControlApplicationRequest {
         Objects.equals(this.inbound, createCallControlApplicationRequest.inbound) &&
         Objects.equals(this.outbound, createCallControlApplicationRequest.outbound) &&
         Objects.equals(this.webhookApiVersion, createCallControlApplicationRequest.webhookApiVersion) &&
-        Objects.equals(this.webhookEventFailoverUrl, createCallControlApplicationRequest.webhookEventFailoverUrl) &&
-        Objects.equals(this.webhookTimeoutSecs, createCallControlApplicationRequest.webhookTimeoutSecs);
+        equalsNullable(this.webhookEventFailoverUrl, createCallControlApplicationRequest.webhookEventFailoverUrl) &&
+        equalsNullable(this.webhookTimeoutSecs, createCallControlApplicationRequest.webhookTimeoutSecs);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicationName, webhookEventUrl, active, anchorsiteOverride, dtmfType, firstCommandTimeout, firstCommandTimeoutSecs, inbound, outbound, webhookApiVersion, webhookEventFailoverUrl, webhookTimeoutSecs);
+    return Objects.hash(applicationName, webhookEventUrl, active, anchorsiteOverride, dtmfType, firstCommandTimeout, firstCommandTimeoutSecs, inbound, outbound, webhookApiVersion, hashCodeNullable(webhookEventFailoverUrl), hashCodeNullable(webhookTimeoutSecs));
   }
 
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
 
   @Override
   public String toString() {

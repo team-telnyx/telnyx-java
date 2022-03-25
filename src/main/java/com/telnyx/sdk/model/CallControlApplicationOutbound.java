@@ -43,6 +43,8 @@ public class CallControlApplicationOutbound {
   public static final String JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID = "outbound_voice_profile_id";
   private String outboundVoiceProfileId;
 
+  public CallControlApplicationOutbound() { 
+  }
 
   public CallControlApplicationOutbound channelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
@@ -63,6 +65,8 @@ public class CallControlApplicationOutbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChannelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
   }
@@ -87,6 +91,8 @@ public class CallControlApplicationOutbound {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutboundVoiceProfileId(String outboundVoiceProfileId) {
     this.outboundVoiceProfileId = outboundVoiceProfileId;
   }
@@ -112,7 +118,6 @@ public class CallControlApplicationOutbound {
   public int hashCode() {
     return Objects.hash(channelLimit, outboundVoiceProfileId);
   }
-
 
   @Override
   public String toString() {
