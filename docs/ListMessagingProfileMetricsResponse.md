@@ -2,7 +2,6 @@
 
 # ListMessagingProfileMetricsResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

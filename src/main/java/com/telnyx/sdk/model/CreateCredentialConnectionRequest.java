@@ -30,7 +30,6 @@ import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -189,8 +188,6 @@ public class CreateCredentialConnectionRequest {
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
   private CredentialOutbound outbound;
 
-  public CreateCredentialConnectionRequest() { 
-  }
 
   public CreateCredentialConnectionRequest active(Boolean active) {
     this.active = active;
@@ -211,8 +208,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACTIVE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(Boolean active) {
     this.active = active;
   }
@@ -227,7 +222,6 @@ public class CreateCredentialConnectionRequest {
    * The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters).
    * @return userName
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "myusername123", required = true, value = "The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters).")
   @JsonProperty(JSON_PROPERTY_USER_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -237,8 +231,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USER_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUserName(String userName) {
     this.userName = userName;
   }
@@ -253,7 +245,6 @@ public class CreateCredentialConnectionRequest {
    * The password to be used as part of the credentials. Must be 8 to 128 characters long.
    * @return password
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "my123secure456password789", required = true, value = "The password to be used as part of the credentials. Must be 8 to 128 characters long.")
   @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -263,8 +254,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPassword(String password) {
     this.password = password;
   }
@@ -289,8 +278,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
@@ -305,7 +292,6 @@ public class CreateCredentialConnectionRequest {
    * Get connectionName
    * @return connectionName
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -315,8 +301,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConnectionName(String connectionName) {
     this.connectionName = connectionName;
   }
@@ -341,8 +325,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_URI_CALLING_PREFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipUriCallingPreference(SipUriCallingPreferenceEnum sipUriCallingPreference) {
     this.sipUriCallingPreference = sipUriCallingPreference;
   }
@@ -367,8 +349,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultOnHoldComfortNoiseEnabled(Boolean defaultOnHoldComfortNoiseEnabled) {
     this.defaultOnHoldComfortNoiseEnabled = defaultOnHoldComfortNoiseEnabled;
   }
@@ -393,8 +373,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDtmfType(DtmfType dtmfType) {
     this.dtmfType = dtmfType;
   }
@@ -419,8 +397,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEncodeContactHeaderEnabled(Boolean encodeContactHeaderEnabled) {
     this.encodeContactHeaderEnabled = encodeContactHeaderEnabled;
   }
@@ -479,8 +455,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOnnetT38PassthroughEnabled(Boolean onnetT38PassthroughEnabled) {
     this.onnetT38PassthroughEnabled = onnetT38PassthroughEnabled;
   }
@@ -505,8 +479,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookEventUrl(String webhookEventUrl) {
     this.webhookEventUrl = webhookEventUrl;
   }
@@ -565,8 +537,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
@@ -627,8 +597,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RTCP_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRtcpSettings(ConnectionRtcpSettings rtcpSettings) {
     this.rtcpSettings = rtcpSettings;
   }
@@ -653,8 +621,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INBOUND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInbound(CredentialInbound inbound) {
     this.inbound = inbound;
   }
@@ -679,8 +645,6 @@ public class CreateCredentialConnectionRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OUTBOUND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutbound(CredentialOutbound outbound) {
     this.outbound = outbound;
   }
@@ -707,32 +671,22 @@ public class CreateCredentialConnectionRequest {
         Objects.equals(this.defaultOnHoldComfortNoiseEnabled, createCredentialConnectionRequest.defaultOnHoldComfortNoiseEnabled) &&
         Objects.equals(this.dtmfType, createCredentialConnectionRequest.dtmfType) &&
         Objects.equals(this.encodeContactHeaderEnabled, createCredentialConnectionRequest.encodeContactHeaderEnabled) &&
-        equalsNullable(this.encryptedMedia, createCredentialConnectionRequest.encryptedMedia) &&
+        Objects.equals(this.encryptedMedia, createCredentialConnectionRequest.encryptedMedia) &&
         Objects.equals(this.onnetT38PassthroughEnabled, createCredentialConnectionRequest.onnetT38PassthroughEnabled) &&
         Objects.equals(this.webhookEventUrl, createCredentialConnectionRequest.webhookEventUrl) &&
-        equalsNullable(this.webhookEventFailoverUrl, createCredentialConnectionRequest.webhookEventFailoverUrl) &&
+        Objects.equals(this.webhookEventFailoverUrl, createCredentialConnectionRequest.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, createCredentialConnectionRequest.webhookApiVersion) &&
-        equalsNullable(this.webhookTimeoutSecs, createCredentialConnectionRequest.webhookTimeoutSecs) &&
+        Objects.equals(this.webhookTimeoutSecs, createCredentialConnectionRequest.webhookTimeoutSecs) &&
         Objects.equals(this.rtcpSettings, createCredentialConnectionRequest.rtcpSettings) &&
         Objects.equals(this.inbound, createCredentialConnectionRequest.inbound) &&
         Objects.equals(this.outbound, createCredentialConnectionRequest.outbound);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(active, userName, password, anchorsiteOverride, connectionName, sipUriCallingPreference, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, inbound, outbound);
+    return Objects.hash(active, userName, password, anchorsiteOverride, connectionName, sipUriCallingPreference, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, encryptedMedia, onnetT38PassthroughEnabled, webhookEventUrl, webhookEventFailoverUrl, webhookApiVersion, webhookTimeoutSecs, rtcpSettings, inbound, outbound);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

@@ -35,7 +35,7 @@ public class ProgrammableFaxCommandsApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -44,7 +44,7 @@ public class ProgrammableFaxCommandsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -61,7 +61,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 204 </td><td> The resource was deleted successfully. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public void deleteFax(UUID id) throws ApiException {
@@ -78,7 +78,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 204 </td><td> The resource was deleted successfully. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<Void> deleteFaxWithHttpInfo(UUID id) throws ApiException {
@@ -136,7 +136,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> List faxes response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ListFaxesResponse listFaxes(OffsetDateTime filterCreatedAtGte, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLte, OffsetDateTime filterCreatedAtLt, String filterDirectionEq, String filterFromEq, Integer pageSize, Integer pageNumber) throws ApiException {
@@ -160,7 +160,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> List faxes response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListFaxesResponse> listFaxesWithHttpInfo(OffsetDateTime filterCreatedAtGte, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLte, OffsetDateTime filterCreatedAtLt, String filterDirectionEq, String filterFromEq, Integer pageSize, Integer pageNumber) throws ApiException {
@@ -216,7 +216,7 @@ public class ProgrammableFaxCommandsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public RefreshFaxResponse refreshFax(UUID id) throws ApiException {
@@ -234,7 +234,7 @@ public class ProgrammableFaxCommandsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RefreshFaxResponse> refreshFaxWithHttpInfo(UUID id) throws ApiException {
@@ -287,7 +287,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Send fax response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public SendFaxResponse sendFax(SendFaxRequest sendFaxRequest) throws ApiException {
@@ -304,7 +304,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Send fax response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<SendFaxResponse> sendFaxWithHttpInfo(SendFaxRequest sendFaxRequest) throws ApiException {
@@ -334,7 +334,7 @@ public class ProgrammableFaxCommandsApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json", "multipart/form-data"
+      "application/json"
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -356,7 +356,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Get fax response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public GetFaxResponse viewFax(UUID id) throws ApiException {
@@ -373,7 +373,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Get fax response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<GetFaxResponse> viewFaxWithHttpInfo(UUID id) throws ApiException {

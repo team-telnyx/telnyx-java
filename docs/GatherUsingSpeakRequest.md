@@ -2,13 +2,12 @@
 
 # GatherUsingSpeakRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**payload** | **String** | The text or SSML to be converted into speech. There is a 3,000 character limit. | 
-**invalidPayload** | **String** | The text or SSML to be converted into speech when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. There is a 3,000 character limit. |  [optional]
+**payload** | **String** | The text or SSML to be converted into speech. There is a 5,000 character limit. | 
+**invalidPayload** | **String** | The text or SSML to be converted into speech when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. There is a 5,000 character limit. |  [optional]
 **payloadType** | [**PayloadTypeEnum**](#PayloadTypeEnum) | The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML). |  [optional]
 **serviceLevel** | [**ServiceLevelEnum**](#ServiceLevelEnum) | This parameter impacts speech quality, language options and payload types. When using &#x60;basic&#x60;, only the &#x60;en-US&#x60; language and payload type &#x60;text&#x60; are allowed. |  [optional]
 **voice** | [**VoiceEnum**](#VoiceEnum) | The gender of the voice used to speak back the text. | 
@@ -21,7 +20,7 @@ Name | Type | Description | Notes
 **validDigits** | **String** | A list of all digits accepted as valid. |  [optional]
 **interDigitTimeoutMillis** | **Integer** | The number of milliseconds to wait for input between digits. |  [optional]
 **clientState** | **String** | Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. |  [optional]
-**commandId** | **String** | Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;. |  [optional]
+**commandId** | **String** | Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;. |  [optional]
 
 
 

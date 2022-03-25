@@ -2,7 +2,6 @@
 
 # ConferenceRecordingSavedEvent
 
-
 ## Properties
 
 Name | Type | Description | Notes

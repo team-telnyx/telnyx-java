@@ -40,8 +40,6 @@ public class RetrieveMessagingProfileMetricsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private MessagingProfileDetailedMetrics data;
 
-  public RetrieveMessagingProfileMetricsResponse() { 
-  }
 
   public RetrieveMessagingProfileMetricsResponse data(MessagingProfileDetailedMetrics data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class RetrieveMessagingProfileMetricsResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(MessagingProfileDetailedMetrics data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class RetrieveMessagingProfileMetricsResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

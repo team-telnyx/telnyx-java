@@ -44,8 +44,6 @@ public class ConferenceEndedBy {
   public static final String JSON_PROPERTY_CALL_SESSION_ID = "call_session_id";
   private String callSessionId;
 
-  public ConferenceEndedBy() { 
-  }
 
   public ConferenceEndedBy callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -66,8 +64,6 @@ public class ConferenceEndedBy {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -92,8 +88,6 @@ public class ConferenceEndedBy {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -119,6 +113,7 @@ public class ConferenceEndedBy {
   public int hashCode() {
     return Objects.hash(callControlId, callSessionId);
   }
+
 
   @Override
   public String toString() {

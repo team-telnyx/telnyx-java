@@ -112,8 +112,6 @@ public class UpdateNumberOrderRequest {
   public static final String JSON_PROPERTY_REQUIREMENTS_MET = "requirements_met";
   private Boolean requirementsMet;
 
-  public UpdateNumberOrderRequest() { 
-  }
 
    /**
    * Get id
@@ -174,8 +172,6 @@ public class UpdateNumberOrderRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
@@ -232,8 +228,6 @@ public class UpdateNumberOrderRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
   }
@@ -314,6 +308,7 @@ public class UpdateNumberOrderRequest {
   public int hashCode() {
     return Objects.hash(id, recordType, phoneNumbers, phoneNumbersCount, status, customerReference, createdAt, updatedAt, requirementsMet);
   }
+
 
   @Override
   public String toString() {

@@ -40,8 +40,6 @@ public class PhoneNumberResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private PhoneNumberDetailed data;
 
-  public PhoneNumberResponse() { 
-  }
 
   public PhoneNumberResponse data(PhoneNumberDetailed data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class PhoneNumberResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(PhoneNumberDetailed data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class PhoneNumberResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

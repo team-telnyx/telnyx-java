@@ -44,8 +44,7 @@ import com.telnyx.sdk.JSON;
   UpdateVerifyProfileRequest.JSON_PROPERTY_PSD2,
   UpdateVerifyProfileRequest.JSON_PROPERTY_WHATSAPP,
   UpdateVerifyProfileRequest.JSON_PROPERTY_CALL,
-  UpdateVerifyProfileRequest.JSON_PROPERTY_FLASHCALL,
-  UpdateVerifyProfileRequest.JSON_PROPERTY_LANGUAGE
+  UpdateVerifyProfileRequest.JSON_PROPERTY_FLASHCALL
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateVerifyProfileRequest {
@@ -73,11 +72,6 @@ public class UpdateVerifyProfileRequest {
   public static final String JSON_PROPERTY_FLASHCALL = "flashcall";
   private UpdateVerifyProfileFlashcallRequest flashcall;
 
-  public static final String JSON_PROPERTY_LANGUAGE = "language";
-  private String language;
-
-  public UpdateVerifyProfileRequest() { 
-  }
 
   public UpdateVerifyProfileRequest name(String name) {
     this.name = name;
@@ -98,8 +92,6 @@ public class UpdateVerifyProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -124,8 +116,6 @@ public class UpdateVerifyProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
   }
@@ -150,8 +140,6 @@ public class UpdateVerifyProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookFailoverUrl(String webhookFailoverUrl) {
     this.webhookFailoverUrl = webhookFailoverUrl;
   }
@@ -176,8 +164,6 @@ public class UpdateVerifyProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SMS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSms(UpdateVerifyProfileSMSRequest sms) {
     this.sms = sms;
   }
@@ -202,8 +188,6 @@ public class UpdateVerifyProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PSD2)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPsd2(UpdateVerifyProfilePSD2Request psd2) {
     this.psd2 = psd2;
   }
@@ -228,8 +212,6 @@ public class UpdateVerifyProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WHATSAPP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhatsapp(UpdateVerifyProfileWhatsappRequest whatsapp) {
     this.whatsapp = whatsapp;
   }
@@ -254,8 +236,6 @@ public class UpdateVerifyProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCall(UpdateVerifyProfileCallRequest call) {
     this.call = call;
   }
@@ -280,36 +260,8 @@ public class UpdateVerifyProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLASHCALL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFlashcall(UpdateVerifyProfileFlashcallRequest flashcall) {
     this.flashcall = flashcall;
-  }
-
-
-  public UpdateVerifyProfileRequest language(String language) {
-    this.language = language;
-    return this;
-  }
-
-   /**
-   * Get language
-   * @return language
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "en-US", value = "")
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getLanguage() {
-    return language;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLanguage(String language) {
-    this.language = language;
   }
 
 
@@ -332,14 +284,14 @@ public class UpdateVerifyProfileRequest {
         Objects.equals(this.psd2, updateVerifyProfileRequest.psd2) &&
         Objects.equals(this.whatsapp, updateVerifyProfileRequest.whatsapp) &&
         Objects.equals(this.call, updateVerifyProfileRequest.call) &&
-        Objects.equals(this.flashcall, updateVerifyProfileRequest.flashcall) &&
-        Objects.equals(this.language, updateVerifyProfileRequest.language);
+        Objects.equals(this.flashcall, updateVerifyProfileRequest.flashcall);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, webhookUrl, webhookFailoverUrl, sms, psd2, whatsapp, call, flashcall, language);
+    return Objects.hash(name, webhookUrl, webhookFailoverUrl, sms, psd2, whatsapp, call, flashcall);
   }
+
 
   @Override
   public String toString() {
@@ -353,7 +305,6 @@ public class UpdateVerifyProfileRequest {
     sb.append("    whatsapp: ").append(toIndentedString(whatsapp)).append("\n");
     sb.append("    call: ").append(toIndentedString(call)).append("\n");
     sb.append("    flashcall: ").append(toIndentedString(flashcall)).append("\n");
-    sb.append("    language: ").append(toIndentedString(language)).append("\n");
     sb.append("}");
     return sb.toString();
   }

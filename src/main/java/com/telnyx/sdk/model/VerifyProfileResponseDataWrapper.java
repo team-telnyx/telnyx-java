@@ -40,8 +40,6 @@ public class VerifyProfileResponseDataWrapper {
   public static final String JSON_PROPERTY_DATA = "data";
   private VerifyProfileResponse data;
 
-  public VerifyProfileResponseDataWrapper() { 
-  }
 
   public VerifyProfileResponseDataWrapper data(VerifyProfileResponse data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class VerifyProfileResponseDataWrapper {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(VerifyProfileResponse data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class VerifyProfileResponseDataWrapper {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

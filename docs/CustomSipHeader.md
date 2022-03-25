@@ -2,7 +2,6 @@
 
 # CustomSipHeader
 
-
 ## Properties
 
 Name | Type | Description | Notes

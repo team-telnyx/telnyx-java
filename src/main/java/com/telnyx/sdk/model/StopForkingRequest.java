@@ -33,8 +33,7 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   StopForkingRequest.JSON_PROPERTY_CLIENT_STATE,
-  StopForkingRequest.JSON_PROPERTY_COMMAND_ID,
-  StopForkingRequest.JSON_PROPERTY_STREAM_TYPE
+  StopForkingRequest.JSON_PROPERTY_COMMAND_ID
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class StopForkingRequest {
@@ -44,46 +43,6 @@ public class StopForkingRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
-  /**
-   * Optionally specify a &#x60;stream_type&#x60;. This should match the &#x60;stream_type&#x60; that was used in &#x60;fork_start&#x60; command to properly stop the fork.
-   */
-  public enum StreamTypeEnum {
-    RAW("raw"),
-    
-    DECRYPTED("decrypted");
-
-    private String value;
-
-    StreamTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StreamTypeEnum fromValue(String value) {
-      for (StreamTypeEnum b : StreamTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_STREAM_TYPE = "stream_type";
-  private StreamTypeEnum streamType = StreamTypeEnum.RAW;
-
-  public StopForkingRequest() { 
-  }
 
   public StopForkingRequest clientState(String clientState) {
     this.clientState = clientState;
@@ -104,8 +63,6 @@ public class StopForkingRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -117,11 +74,11 @@ public class StopForkingRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -130,36 +87,8 @@ public class StopForkingRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
-  }
-
-
-  public StopForkingRequest streamType(StreamTypeEnum streamType) {
-    this.streamType = streamType;
-    return this;
-  }
-
-   /**
-   * Optionally specify a &#x60;stream_type&#x60;. This should match the &#x60;stream_type&#x60; that was used in &#x60;fork_start&#x60; command to properly stop the fork.
-   * @return streamType
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "decrypted", value = "Optionally specify a `stream_type`. This should match the `stream_type` that was used in `fork_start` command to properly stop the fork.")
-  @JsonProperty(JSON_PROPERTY_STREAM_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StreamTypeEnum getStreamType() {
-    return streamType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamType(StreamTypeEnum streamType) {
-    this.streamType = streamType;
   }
 
 
@@ -176,14 +105,14 @@ public class StopForkingRequest {
     }
     StopForkingRequest stopForkingRequest = (StopForkingRequest) o;
     return Objects.equals(this.clientState, stopForkingRequest.clientState) &&
-        Objects.equals(this.commandId, stopForkingRequest.commandId) &&
-        Objects.equals(this.streamType, stopForkingRequest.streamType);
+        Objects.equals(this.commandId, stopForkingRequest.commandId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(clientState, commandId, streamType);
+    return Objects.hash(clientState, commandId);
   }
+
 
   @Override
   public String toString() {
@@ -191,7 +120,6 @@ public class StopForkingRequest {
     sb.append("class StopForkingRequest {\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
-    sb.append("    streamType: ").append(toIndentedString(streamType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

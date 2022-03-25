@@ -109,8 +109,6 @@ public class CallRecordingSavedPayload {
   public static final String JSON_PROPERTY_PUBLIC_RECORDING_URLS = "public_recording_urls";
   private CallRecordingSavedPayloadPublicRecordingUrls publicRecordingUrls;
 
-  public CallRecordingSavedPayload() { 
-  }
 
   public CallRecordingSavedPayload callLegId(String callLegId) {
     this.callLegId = callLegId;
@@ -131,8 +129,6 @@ public class CallRecordingSavedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -144,11 +140,11 @@ public class CallRecordingSavedPayload {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+   * ID that is unique to the call session and can be used to correlate webhook events.
    * @return callSessionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -157,8 +153,6 @@ public class CallRecordingSavedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -183,8 +177,6 @@ public class CallRecordingSavedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -209,8 +201,6 @@ public class CallRecordingSavedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -235,8 +225,6 @@ public class CallRecordingSavedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordingStartedAt(OffsetDateTime recordingStartedAt) {
     this.recordingStartedAt = recordingStartedAt;
   }
@@ -261,8 +249,6 @@ public class CallRecordingSavedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordingEndedAt(OffsetDateTime recordingEndedAt) {
     this.recordingEndedAt = recordingEndedAt;
   }
@@ -287,8 +273,6 @@ public class CallRecordingSavedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CHANNELS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChannels(ChannelsEnum channels) {
     this.channels = channels;
   }
@@ -313,8 +297,6 @@ public class CallRecordingSavedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORDING_URLS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordingUrls(CallRecordingSavedPayloadRecordingUrls recordingUrls) {
     this.recordingUrls = recordingUrls;
   }
@@ -339,8 +321,6 @@ public class CallRecordingSavedPayload {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PUBLIC_RECORDING_URLS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPublicRecordingUrls(CallRecordingSavedPayloadPublicRecordingUrls publicRecordingUrls) {
     this.publicRecordingUrls = publicRecordingUrls;
   }
@@ -373,6 +353,7 @@ public class CallRecordingSavedPayload {
   public int hashCode() {
     return Objects.hash(callLegId, callSessionId, connectionId, clientState, recordingStartedAt, recordingEndedAt, channels, recordingUrls, publicRecordingUrls);
   }
+
 
   @Override
   public String toString() {

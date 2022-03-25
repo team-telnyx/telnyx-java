@@ -24,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -55,8 +54,6 @@ public class OutboundMessagePayloadMedia {
   public static final String JSON_PROPERTY_SIZE = "size";
   private JsonNullable<Integer> size = JsonNullable.<Integer>undefined();
 
-  public OutboundMessagePayloadMedia() { 
-  }
 
   public OutboundMessagePayloadMedia url(String url) {
     this.url = url;
@@ -77,8 +74,6 @@ public class OutboundMessagePayloadMedia {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrl(String url) {
     this.url = url;
   }
@@ -199,26 +194,16 @@ public class OutboundMessagePayloadMedia {
     }
     OutboundMessagePayloadMedia outboundMessagePayloadMedia = (OutboundMessagePayloadMedia) o;
     return Objects.equals(this.url, outboundMessagePayloadMedia.url) &&
-        equalsNullable(this.contentType, outboundMessagePayloadMedia.contentType) &&
-        equalsNullable(this.sha256, outboundMessagePayloadMedia.sha256) &&
-        equalsNullable(this.size, outboundMessagePayloadMedia.size);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+        Objects.equals(this.contentType, outboundMessagePayloadMedia.contentType) &&
+        Objects.equals(this.sha256, outboundMessagePayloadMedia.sha256) &&
+        Objects.equals(this.size, outboundMessagePayloadMedia.size);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url, hashCodeNullable(contentType), hashCodeNullable(sha256), hashCodeNullable(size));
+    return Objects.hash(url, contentType, sha256, size);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

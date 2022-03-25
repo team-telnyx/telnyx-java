@@ -289,8 +289,6 @@ public class GatherUsingSpeakRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
-  public GatherUsingSpeakRequest() { 
-  }
 
   public GatherUsingSpeakRequest payload(String payload) {
     this.payload = payload;
@@ -298,11 +296,10 @@ public class GatherUsingSpeakRequest {
   }
 
    /**
-   * The text or SSML to be converted into speech. There is a 3,000 character limit.
+   * The text or SSML to be converted into speech. There is a 5,000 character limit.
    * @return payload
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(example = "Say this on the call", required = true, value = "The text or SSML to be converted into speech. There is a 3,000 character limit.")
+  @ApiModelProperty(example = "Say this on the call", required = true, value = "The text or SSML to be converted into speech. There is a 5,000 character limit.")
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -311,8 +308,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PAYLOAD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPayload(String payload) {
     this.payload = payload;
   }
@@ -324,11 +319,11 @@ public class GatherUsingSpeakRequest {
   }
 
    /**
-   * The text or SSML to be converted into speech when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. There is a 3,000 character limit.
+   * The text or SSML to be converted into speech when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. There is a 5,000 character limit.
    * @return invalidPayload
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Say this on the call", value = "The text or SSML to be converted into speech when digits don't match the `valid_digits` parameter or the number of digits is not between `min` and `max`. There is a 3,000 character limit.")
+  @ApiModelProperty(example = "Say this on the call", value = "The text or SSML to be converted into speech when digits don't match the `valid_digits` parameter or the number of digits is not between `min` and `max`. There is a 5,000 character limit.")
   @JsonProperty(JSON_PROPERTY_INVALID_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -337,8 +332,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INVALID_PAYLOAD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInvalidPayload(String invalidPayload) {
     this.invalidPayload = invalidPayload;
   }
@@ -363,8 +356,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PAYLOAD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPayloadType(PayloadTypeEnum payloadType) {
     this.payloadType = payloadType;
   }
@@ -389,8 +380,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SERVICE_LEVEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setServiceLevel(ServiceLevelEnum serviceLevel) {
     this.serviceLevel = serviceLevel;
   }
@@ -405,7 +394,6 @@ public class GatherUsingSpeakRequest {
    * The gender of the voice used to speak back the text.
    * @return voice
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "female", required = true, value = "The gender of the voice used to speak back the text.")
   @JsonProperty(JSON_PROPERTY_VOICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -415,8 +403,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VOICE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVoice(VoiceEnum voice) {
     this.voice = voice;
   }
@@ -431,7 +417,6 @@ public class GatherUsingSpeakRequest {
    * The language you want spoken.
    * @return language
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "en-US", required = true, value = "The language you want spoken.")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -441,8 +426,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLanguage(LanguageEnum language) {
     this.language = language;
   }
@@ -467,8 +450,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MINIMUM_DIGITS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMinimumDigits(Integer minimumDigits) {
     this.minimumDigits = minimumDigits;
   }
@@ -493,8 +474,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MAXIMUM_DIGITS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaximumDigits(Integer maximumDigits) {
     this.maximumDigits = maximumDigits;
   }
@@ -519,8 +498,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MAXIMUM_TRIES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaximumTries(Integer maximumTries) {
     this.maximumTries = maximumTries;
   }
@@ -545,8 +522,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutMillis(Integer timeoutMillis) {
     this.timeoutMillis = timeoutMillis;
   }
@@ -571,8 +546,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TERMINATING_DIGIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTerminatingDigit(String terminatingDigit) {
     this.terminatingDigit = terminatingDigit;
   }
@@ -597,8 +570,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALID_DIGITS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setValidDigits(String validDigits) {
     this.validDigits = validDigits;
   }
@@ -623,8 +594,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INTER_DIGIT_TIMEOUT_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInterDigitTimeoutMillis(Integer interDigitTimeoutMillis) {
     this.interDigitTimeoutMillis = interDigitTimeoutMillis;
   }
@@ -649,8 +618,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -662,11 +629,11 @@ public class GatherUsingSpeakRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -675,8 +642,6 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -715,6 +680,7 @@ public class GatherUsingSpeakRequest {
   public int hashCode() {
     return Objects.hash(payload, invalidPayload, payloadType, serviceLevel, voice, language, minimumDigits, maximumDigits, maximumTries, timeoutMillis, terminatingDigit, validDigits, interDigitTimeoutMillis, clientState, commandId);
   }
+
 
   @Override
   public String toString() {

@@ -30,7 +30,7 @@ public class QueueCommandsApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -39,7 +39,7 @@ public class QueueCommandsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -52,7 +52,7 @@ public class QueueCommandsApi {
    * Retrieve the list of calls in an existing queue
    * @param queueName Uniquely identifies the queue by name (required)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageSize The size of the page (optional, default to 50)
    * @return ListQueueCallsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -71,7 +71,7 @@ public class QueueCommandsApi {
    * Retrieve the list of calls in an existing queue
    * @param queueName Uniquely identifies the queue by name (required)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageSize The size of the page (optional, default to 50)
    * @return ApiResponse&lt;ListQueueCallsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details

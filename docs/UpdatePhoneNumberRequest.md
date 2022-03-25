@@ -2,7 +2,6 @@
 
 # UpdatePhoneNumberRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes
@@ -13,16 +12,6 @@ Name | Type | Description | Notes
 **customerReference** | **String** | A customer reference string for customer look ups. |  [optional]
 **connectionId** | **String** | Identifies the connection associated with the phone number. |  [optional]
 **billingGroupId** | **String** | Identifies the billing group associated with the phone number. |  [optional]
-**numberLevelRouting** | [**NumberLevelRoutingEnum**](#NumberLevelRoutingEnum) | Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level. |  [optional]
-
-
-
-## Enum: NumberLevelRoutingEnum
-
-Name | Value
----- | -----
-ENABLED | &quot;enabled&quot;
-DISABLED | &quot;disabled&quot;
 
 
 

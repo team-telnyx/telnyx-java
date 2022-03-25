@@ -33,7 +33,6 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   TranscriptionStartRequest.JSON_PROPERTY_LANGUAGE,
-  TranscriptionStartRequest.JSON_PROPERTY_INTERIM_RESULTS,
   TranscriptionStartRequest.JSON_PROPERTY_CLIENT_STATE,
   TranscriptionStartRequest.JSON_PROPERTY_COMMAND_ID
 })
@@ -85,17 +84,12 @@ public class TranscriptionStartRequest {
   public static final String JSON_PROPERTY_LANGUAGE = "language";
   private LanguageEnum language = LanguageEnum.EN;
 
-  public static final String JSON_PROPERTY_INTERIM_RESULTS = "interim_results";
-  private Boolean interimResults = false;
-
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
 
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
-  public TranscriptionStartRequest() { 
-  }
 
   public TranscriptionStartRequest language(LanguageEnum language) {
     this.language = language;
@@ -116,36 +110,8 @@ public class TranscriptionStartRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLanguage(LanguageEnum language) {
     this.language = language;
-  }
-
-
-  public TranscriptionStartRequest interimResults(Boolean interimResults) {
-    this.interimResults = interimResults;
-    return this;
-  }
-
-   /**
-   * Whether to send also interim results. If set to false, only final results will be sent.
-   * @return interimResults
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Whether to send also interim results. If set to false, only final results will be sent.")
-  @JsonProperty(JSON_PROPERTY_INTERIM_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getInterimResults() {
-    return interimResults;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_INTERIM_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInterimResults(Boolean interimResults) {
-    this.interimResults = interimResults;
   }
 
 
@@ -168,8 +134,6 @@ public class TranscriptionStartRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -181,11 +145,11 @@ public class TranscriptionStartRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -194,8 +158,6 @@ public class TranscriptionStartRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -214,22 +176,21 @@ public class TranscriptionStartRequest {
     }
     TranscriptionStartRequest transcriptionStartRequest = (TranscriptionStartRequest) o;
     return Objects.equals(this.language, transcriptionStartRequest.language) &&
-        Objects.equals(this.interimResults, transcriptionStartRequest.interimResults) &&
         Objects.equals(this.clientState, transcriptionStartRequest.clientState) &&
         Objects.equals(this.commandId, transcriptionStartRequest.commandId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(language, interimResults, clientState, commandId);
+    return Objects.hash(language, clientState, commandId);
   }
+
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TranscriptionStartRequest {\n");
     sb.append("    language: ").append(toIndentedString(language)).append("\n");
-    sb.append("    interimResults: ").append(toIndentedString(interimResults)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("}");

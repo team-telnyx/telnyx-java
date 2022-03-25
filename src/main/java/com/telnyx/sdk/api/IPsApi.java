@@ -20,19 +20,19 @@ import java.util.List;
 import java.util.Map;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class IpsApi {
+public class IPsApi {
   private ApiClient apiClient;
 
-  public IpsApi() {
+  public IPsApi() {
     this(Configuration.getDefaultApiClient());
   }
 
-  public IpsApi(ApiClient apiClient) {
+  public IPsApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -41,7 +41,7 @@ public class IpsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -111,7 +111,7 @@ public class IpsApi {
 
     GenericType<IpResponse> localVarReturnType = new GenericType<IpResponse>() {};
 
-    return apiClient.invokeAPI("IpsApi.createIp", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("IPsApi.createIp", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -183,7 +183,7 @@ public class IpsApi {
 
     GenericType<IpResponse> localVarReturnType = new GenericType<IpResponse>() {};
 
-    return apiClient.invokeAPI("IpsApi.deleteIp", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("IPsApi.deleteIp", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -223,7 +223,7 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
 
     GenericType<ListIpsResponse> localVarReturnType = new GenericType<ListIpsResponse>() {};
 
-    return apiClient.invokeAPI("IpsApi.listIps", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("IPsApi.listIps", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -250,7 +250,7 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistIpsRequest
      */
     public APIlistIpsRequest pageSize(Integer pageSize) {
@@ -403,7 +403,7 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
 
     GenericType<IpResponse> localVarReturnType = new GenericType<IpResponse>() {};
 
-    return apiClient.invokeAPI("IpsApi.retrieveIp", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("IPsApi.retrieveIp", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -477,7 +477,7 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
 
     GenericType<IpResponse> localVarReturnType = new GenericType<IpResponse>() {};
 
-    return apiClient.invokeAPI("IpsApi.updateIp", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("IPsApi.updateIp", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

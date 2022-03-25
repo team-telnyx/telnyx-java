@@ -8,15 +8,15 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreatePhoneNumbersEnableEmergency;
-import com.telnyx.sdk.model.CreatePhoneNumbersJobDeletePhoneNumbers;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListPhoneNumbersBackgroundJobsResponse;
+import com.telnyx.sdk.model.PhoneNumbersEnableEmergency;
+import com.telnyx.sdk.model.PhoneNumbersJob;
+import com.telnyx.sdk.model.PhoneNumbersJobDeletePhoneNumbers;
 import com.telnyx.sdk.model.PhoneNumbersJobDeletePhoneNumbersRequest;
 import com.telnyx.sdk.model.PhoneNumbersJobUpdateEmergencySettingsRequest;
 import com.telnyx.sdk.model.PhoneNumbersJobUpdatePhoneNumbers;
 import com.telnyx.sdk.model.PhoneNumbersJobUpdatePhoneNumbersRequest;
-import com.telnyx.sdk.model.RetrievePhoneNumbersJob;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public class NumberBackgroundJobsApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -45,7 +45,7 @@ public class NumberBackgroundJobsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -54,7 +54,7 @@ public class NumberBackgroundJobsApi {
   }
 
 
-private ApiResponse<CreatePhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJobDeletePhoneNumbersWithHttpInfo(PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbersJobDeletePhoneNumbersRequest) throws ApiException {
+private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJobDeletePhoneNumbersWithHttpInfo(PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbersJobDeletePhoneNumbersRequest) throws ApiException {
     Object localVarPostBody = phoneNumbersJobDeletePhoneNumbersRequest;
     
     // verify the required parameter 'phoneNumbersJobDeletePhoneNumbersRequest' is set
@@ -87,7 +87,7 @@ private ApiResponse<CreatePhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJ
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreatePhoneNumbersJobDeletePhoneNumbers> localVarReturnType = new GenericType<CreatePhoneNumbersJobDeletePhoneNumbers>() {};
+    GenericType<PhoneNumbersJobDeletePhoneNumbers> localVarReturnType = new GenericType<PhoneNumbersJobDeletePhoneNumbers>() {};
 
     return apiClient.invokeAPI("NumberBackgroundJobsApi.createPhoneNumbersJobDeletePhoneNumbers", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -112,34 +112,34 @@ private ApiResponse<CreatePhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJ
 
     /**
      * Execute createPhoneNumbersJobDeletePhoneNumbers request
-     * @return CreatePhoneNumbersJobDeletePhoneNumbers
+     * @return PhoneNumbersJobDeletePhoneNumbers
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job delete phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
     
-    public CreatePhoneNumbersJobDeletePhoneNumbers execute() throws ApiException {
+    public PhoneNumbersJobDeletePhoneNumbers execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
      * Execute createPhoneNumbersJobDeletePhoneNumbers request with HTTP info returned
-     * @return ApiResponse&lt;CreatePhoneNumbersJobDeletePhoneNumbers&gt;
+     * @return ApiResponse&lt;PhoneNumbersJobDeletePhoneNumbers&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job delete phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
-    public ApiResponse<CreatePhoneNumbersJobDeletePhoneNumbers> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<PhoneNumbersJobDeletePhoneNumbers> executeWithHttpInfo() throws ApiException {
       return createPhoneNumbersJobDeletePhoneNumbersWithHttpInfo(phoneNumbersJobDeletePhoneNumbersRequest);
     }
   }
@@ -159,16 +159,16 @@ private ApiResponse<CreatePhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJ
    * Update the emergency settings from a batch of numbers
    * Creates a background job to update the emergency settings of a collection of phone numbers. At most one thousand numbers can be updated per API call.
    * @param phoneNumbersJobUpdateEmergencySettingsRequest  (required)
-   * @return CreatePhoneNumbersEnableEmergency
+   * @return PhoneNumbersEnableEmergency
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Phone numbers enable emergency requested. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePhoneNumbersEnableEmergency createPhoneNumbersJobUpdateEmergencySettings(PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest) throws ApiException {
+  public PhoneNumbersEnableEmergency createPhoneNumbersJobUpdateEmergencySettings(PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest) throws ApiException {
     return createPhoneNumbersJobUpdateEmergencySettingsWithHttpInfo(phoneNumbersJobUpdateEmergencySettingsRequest).getData();
   }
 
@@ -176,16 +176,16 @@ private ApiResponse<CreatePhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJ
    * Update the emergency settings from a batch of numbers
    * Creates a background job to update the emergency settings of a collection of phone numbers. At most one thousand numbers can be updated per API call.
    * @param phoneNumbersJobUpdateEmergencySettingsRequest  (required)
-   * @return ApiResponse&lt;CreatePhoneNumbersEnableEmergency&gt;
+   * @return ApiResponse&lt;PhoneNumbersEnableEmergency&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Phone numbers enable emergency requested. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePhoneNumbersEnableEmergency> createPhoneNumbersJobUpdateEmergencySettingsWithHttpInfo(PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest) throws ApiException {
+  public ApiResponse<PhoneNumbersEnableEmergency> createPhoneNumbersJobUpdateEmergencySettingsWithHttpInfo(PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest) throws ApiException {
     Object localVarPostBody = phoneNumbersJobUpdateEmergencySettingsRequest;
     
     // verify the required parameter 'phoneNumbersJobUpdateEmergencySettingsRequest' is set
@@ -218,7 +218,7 @@ private ApiResponse<CreatePhoneNumbersJobDeletePhoneNumbers> createPhoneNumbersJ
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreatePhoneNumbersEnableEmergency> localVarReturnType = new GenericType<CreatePhoneNumbersEnableEmergency>() {};
+    GenericType<PhoneNumbersEnableEmergency> localVarReturnType = new GenericType<PhoneNumbersEnableEmergency>() {};
 
     return apiClient.invokeAPI("NumberBackgroundJobsApi.createPhoneNumbersJobUpdateEmergencySettings", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -289,7 +289,7 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createPhoneNumbersJobUpda
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job update phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -306,7 +306,7 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createPhoneNumbersJobUpda
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job update phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -317,7 +317,7 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createPhoneNumbersJobUpda
 
   /**
    * Update a batch of numbers
-   * Creates a new background job to update a batch of numbers. At most one thousand numbers can be updated per API call. At least one of the updateable fields must be submitted.
+   * Creates a new background job to update a batch of numbers. At most one thousand numbers can be updated per API call. At least one of the updateable fields must be submitted
    * @return createPhoneNumbersJobUpdatePhoneNumberRequest
    * @throws ApiException if fails to make API call
    
@@ -397,7 +397,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistPhoneNumbersJobsRequest
      */
     public APIlistPhoneNumbersJobsRequest pageSize(Integer pageSize) {
@@ -423,7 +423,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers background jobs. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -440,7 +440,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers background jobs. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
@@ -461,7 +461,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
     return new APIlistPhoneNumbersJobsRequest();
   }
 
-private ApiResponse<RetrievePhoneNumbersJob> retrievePhoneNumbersJobWithHttpInfo(String id) throws ApiException {
+private ApiResponse<PhoneNumbersJob> retrievePhoneNumbersJobWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -495,7 +495,7 @@ private ApiResponse<RetrievePhoneNumbersJob> retrievePhoneNumbersJobWithHttpInfo
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<RetrievePhoneNumbersJob> localVarReturnType = new GenericType<RetrievePhoneNumbersJob>() {};
+    GenericType<PhoneNumbersJob> localVarReturnType = new GenericType<PhoneNumbersJob>() {};
 
     return apiClient.invokeAPI("NumberBackgroundJobsApi.retrievePhoneNumbersJob", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -511,34 +511,34 @@ private ApiResponse<RetrievePhoneNumbersJob> retrievePhoneNumbersJobWithHttpInfo
 
     /**
      * Execute retrievePhoneNumbersJob request
-     * @return RetrievePhoneNumbersJob
+     * @return PhoneNumbersJob
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Phone numbers job details. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
     
-    public RetrievePhoneNumbersJob execute() throws ApiException {
+    public PhoneNumbersJob execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
      * Execute retrievePhoneNumbersJob request with HTTP info returned
-     * @return ApiResponse&lt;RetrievePhoneNumbersJob&gt;
+     * @return ApiResponse&lt;PhoneNumbersJob&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Phone numbers job details. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */
-    public ApiResponse<RetrievePhoneNumbersJob> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<PhoneNumbersJob> executeWithHttpInfo() throws ApiException {
       return retrievePhoneNumbersJobWithHttpInfo(id);
     }
   }

@@ -50,8 +50,6 @@ public class PhoneNumberBlocksJobFailedOperation {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private List<Error> errors = null;
 
-  public PhoneNumberBlocksJobFailedOperation() { 
-  }
 
   public PhoneNumberBlocksJobFailedOperation phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -72,8 +70,6 @@ public class PhoneNumberBlocksJobFailedOperation {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -98,8 +94,6 @@ public class PhoneNumberBlocksJobFailedOperation {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -132,8 +126,6 @@ public class PhoneNumberBlocksJobFailedOperation {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setErrors(List<Error> errors) {
     this.errors = errors;
   }
@@ -160,6 +152,7 @@ public class PhoneNumberBlocksJobFailedOperation {
   public int hashCode() {
     return Objects.hash(phoneNumber, id, errors);
   }
+
 
   @Override
   public String toString() {

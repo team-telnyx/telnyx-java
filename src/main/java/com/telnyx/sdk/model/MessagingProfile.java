@@ -30,7 +30,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -167,8 +166,6 @@ public class MessagingProfile {
   public static final String JSON_PROPERTY_URL_SHORTENER_SETTINGS = "url_shortener_settings";
   private JsonNullable<UrlShortenerSettings> urlShortenerSettings = JsonNullable.<UrlShortenerSettings>undefined();
 
-  public MessagingProfile() { 
-  }
 
    /**
    * Identifies the type of the resource.
@@ -221,8 +218,6 @@ public class MessagingProfile {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -247,8 +242,6 @@ public class MessagingProfile {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEnabled(Boolean enabled) {
     this.enabled = enabled;
   }
@@ -341,8 +334,6 @@ public class MessagingProfile {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
@@ -445,8 +436,6 @@ public class MessagingProfile {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_V1_SECRET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setV1Secret(String v1Secret) {
     this.v1Secret = v1Secret;
   }
@@ -536,32 +525,22 @@ public class MessagingProfile {
         Objects.equals(this.id, messagingProfile.id) &&
         Objects.equals(this.name, messagingProfile.name) &&
         Objects.equals(this.enabled, messagingProfile.enabled) &&
-        equalsNullable(this.webhookUrl, messagingProfile.webhookUrl) &&
-        equalsNullable(this.webhookFailoverUrl, messagingProfile.webhookFailoverUrl) &&
+        Objects.equals(this.webhookUrl, messagingProfile.webhookUrl) &&
+        Objects.equals(this.webhookFailoverUrl, messagingProfile.webhookFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, messagingProfile.webhookApiVersion) &&
-        equalsNullable(this.whitelistedDestinations, messagingProfile.whitelistedDestinations) &&
+        Objects.equals(this.whitelistedDestinations, messagingProfile.whitelistedDestinations) &&
         Objects.equals(this.createdAt, messagingProfile.createdAt) &&
         Objects.equals(this.updatedAt, messagingProfile.updatedAt) &&
         Objects.equals(this.v1Secret, messagingProfile.v1Secret) &&
-        equalsNullable(this.numberPoolSettings, messagingProfile.numberPoolSettings) &&
-        equalsNullable(this.urlShortenerSettings, messagingProfile.urlShortenerSettings);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+        Objects.equals(this.numberPoolSettings, messagingProfile.numberPoolSettings) &&
+        Objects.equals(this.urlShortenerSettings, messagingProfile.urlShortenerSettings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, name, enabled, hashCodeNullable(webhookUrl), hashCodeNullable(webhookFailoverUrl), webhookApiVersion, hashCodeNullable(whitelistedDestinations), createdAt, updatedAt, v1Secret, hashCodeNullable(numberPoolSettings), hashCodeNullable(urlShortenerSettings));
+    return Objects.hash(recordType, id, name, enabled, webhookUrl, webhookFailoverUrl, webhookApiVersion, whitelistedDestinations, createdAt, updatedAt, v1Secret, numberPoolSettings, urlShortenerSettings);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

@@ -83,7 +83,7 @@ public class CallLeftQueue {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    CALL_DEQUEUED("call.dequeued");
+    CALL_LEFT_QUEUE("call.left.queue");
 
     private String value;
 
@@ -124,8 +124,6 @@ public class CallLeftQueue {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private CallLeftQueuePayload payload;
 
-  public CallLeftQueue() { 
-  }
 
   public CallLeftQueue recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -146,8 +144,6 @@ public class CallLeftQueue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -163,7 +159,7 @@ public class CallLeftQueue {
    * @return eventType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "call.dequeued", value = "The type of event being delivered.")
+  @ApiModelProperty(example = "call.left.queue", value = "The type of event being delivered.")
   @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -172,8 +168,6 @@ public class CallLeftQueue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEventType(EventTypeEnum eventType) {
     this.eventType = eventType;
   }
@@ -198,8 +192,6 @@ public class CallLeftQueue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -224,8 +216,6 @@ public class CallLeftQueue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOccurredAt(OffsetDateTime occurredAt) {
     this.occurredAt = occurredAt;
   }
@@ -250,8 +240,6 @@ public class CallLeftQueue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PAYLOAD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPayload(CallLeftQueuePayload payload) {
     this.payload = payload;
   }
@@ -280,6 +268,7 @@ public class CallLeftQueue {
   public int hashCode() {
     return Objects.hash(recordType, eventType, id, occurredAt, payload);
   }
+
 
   @Override
   public String toString() {

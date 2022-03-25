@@ -40,8 +40,6 @@ public class InboundMessageEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private InboundMessage data;
 
-  public InboundMessageEvent() { 
-  }
 
   public InboundMessageEvent data(InboundMessage data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class InboundMessageEvent {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(InboundMessage data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class InboundMessageEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

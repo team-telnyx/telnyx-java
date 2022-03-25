@@ -30,7 +30,6 @@ import com.telnyx.sdk.model.FqdnConnectionTransportProtocol;
 import com.telnyx.sdk.model.InboundFqdn;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -156,8 +155,6 @@ public class FqdnConnection {
   public static final String JSON_PROPERTY_INBOUND = "inbound";
   private InboundFqdn inbound;
 
-  public FqdnConnection() { 
-  }
 
   public FqdnConnection id(String id) {
     this.id = id;
@@ -178,8 +175,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -204,8 +199,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -230,8 +223,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACTIVE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(Boolean active) {
     this.active = active;
   }
@@ -256,8 +247,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
@@ -272,7 +261,6 @@ public class FqdnConnection {
    * Get connectionName
    * @return connectionName
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -282,8 +270,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConnectionName(String connectionName) {
     this.connectionName = connectionName;
   }
@@ -308,8 +294,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRANSPORT_PROTOCOL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransportProtocol(FqdnConnectionTransportProtocol transportProtocol) {
     this.transportProtocol = transportProtocol;
   }
@@ -334,8 +318,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultOnHoldComfortNoiseEnabled(Boolean defaultOnHoldComfortNoiseEnabled) {
     this.defaultOnHoldComfortNoiseEnabled = defaultOnHoldComfortNoiseEnabled;
   }
@@ -360,8 +342,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDtmfType(DtmfType dtmfType) {
     this.dtmfType = dtmfType;
   }
@@ -386,8 +366,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEncodeContactHeaderEnabled(Boolean encodeContactHeaderEnabled) {
     this.encodeContactHeaderEnabled = encodeContactHeaderEnabled;
   }
@@ -446,8 +424,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOnnetT38PassthroughEnabled(Boolean onnetT38PassthroughEnabled) {
     this.onnetT38PassthroughEnabled = onnetT38PassthroughEnabled;
   }
@@ -472,8 +448,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookEventUrl(String webhookEventUrl) {
     this.webhookEventUrl = webhookEventUrl;
   }
@@ -532,8 +506,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
@@ -594,8 +566,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RTCP_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRtcpSettings(ConnectionRtcpSettings rtcpSettings) {
     this.rtcpSettings = rtcpSettings;
   }
@@ -620,8 +590,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -646,8 +614,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -672,8 +638,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INBOUND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInbound(InboundFqdn inbound) {
     this.inbound = inbound;
   }
@@ -700,33 +664,23 @@ public class FqdnConnection {
         Objects.equals(this.defaultOnHoldComfortNoiseEnabled, fqdnConnection.defaultOnHoldComfortNoiseEnabled) &&
         Objects.equals(this.dtmfType, fqdnConnection.dtmfType) &&
         Objects.equals(this.encodeContactHeaderEnabled, fqdnConnection.encodeContactHeaderEnabled) &&
-        equalsNullable(this.encryptedMedia, fqdnConnection.encryptedMedia) &&
+        Objects.equals(this.encryptedMedia, fqdnConnection.encryptedMedia) &&
         Objects.equals(this.onnetT38PassthroughEnabled, fqdnConnection.onnetT38PassthroughEnabled) &&
         Objects.equals(this.webhookEventUrl, fqdnConnection.webhookEventUrl) &&
-        equalsNullable(this.webhookEventFailoverUrl, fqdnConnection.webhookEventFailoverUrl) &&
+        Objects.equals(this.webhookEventFailoverUrl, fqdnConnection.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, fqdnConnection.webhookApiVersion) &&
-        equalsNullable(this.webhookTimeoutSecs, fqdnConnection.webhookTimeoutSecs) &&
+        Objects.equals(this.webhookTimeoutSecs, fqdnConnection.webhookTimeoutSecs) &&
         Objects.equals(this.rtcpSettings, fqdnConnection.rtcpSettings) &&
         Objects.equals(this.createdAt, fqdnConnection.createdAt) &&
         Objects.equals(this.updatedAt, fqdnConnection.updatedAt) &&
         Objects.equals(this.inbound, fqdnConnection.inbound);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, createdAt, updatedAt, inbound);
+    return Objects.hash(id, recordType, active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, encryptedMedia, onnetT38PassthroughEnabled, webhookEventUrl, webhookEventFailoverUrl, webhookApiVersion, webhookTimeoutSecs, rtcpSettings, createdAt, updatedAt, inbound);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

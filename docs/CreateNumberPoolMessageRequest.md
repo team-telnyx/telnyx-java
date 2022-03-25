@@ -2,7 +2,6 @@
 
 # CreateNumberPoolMessageRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

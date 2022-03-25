@@ -40,8 +40,6 @@ public class MessagingProfileHighLevelMetricsInbound {
   public static final String JSON_PROPERTY_RECEIVED = "received";
   private BigDecimal received;
 
-  public MessagingProfileHighLevelMetricsInbound() { 
-  }
 
    /**
    * The number of inbound messages received.
@@ -78,6 +76,7 @@ public class MessagingProfileHighLevelMetricsInbound {
   public int hashCode() {
     return Objects.hash(received);
   }
+
 
   @Override
   public String toString() {

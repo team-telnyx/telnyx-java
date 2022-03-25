@@ -26,31 +26,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * type of the message
+ * Type of message
  */
 public enum MessageType {
   
-  AUDIO("audio"),
+  SMS("SMS"),
   
-  CONTACTS("contacts"),
-  
-  DOCUMENT("document"),
-  
-  HSM("hsm"),
-  
-  IMAGE("image"),
-  
-  LOCATION("location"),
-  
-  TEMPLATE("template"),
-  
-  TEXT("text"),
-  
-  VIDEO("video"),
-  
-  VOICE("voice"),
-  
-  UNKNOWN("unknown");
+  MMS("MMS");
 
   private String value;
 

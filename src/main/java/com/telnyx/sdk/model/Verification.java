@@ -79,8 +79,6 @@ public class Verification {
   public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
   private String updatedAt;
 
-  public Verification() { 
-  }
 
   public Verification id(UUID id) {
     this.id = id;
@@ -101,8 +99,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -127,8 +123,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERIFICATION_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVerificationType(VerificationType verificationType) {
     this.verificationType = verificationType;
   }
@@ -153,8 +147,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(VerificationRecordType recordType) {
     this.recordType = recordType;
   }
@@ -179,8 +171,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -205,8 +195,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVerifyProfileId(UUID verifyProfileId) {
     this.verifyProfileId = verifyProfileId;
   }
@@ -231,8 +219,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
   }
@@ -257,8 +243,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallTimeoutSecs(Integer callTimeoutSecs) {
     this.callTimeoutSecs = callTimeoutSecs;
   }
@@ -283,8 +267,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(VerificationStatus status) {
     this.status = status;
   }
@@ -309,8 +291,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -335,8 +315,6 @@ public class Verification {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -370,6 +348,7 @@ public class Verification {
   public int hashCode() {
     return Objects.hash(id, verificationType, recordType, phoneNumber, verifyProfileId, timeoutSecs, callTimeoutSecs, status, createdAt, updatedAt);
   }
+
 
   @Override
   public String toString() {

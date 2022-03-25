@@ -40,8 +40,6 @@ public class CallEnqueuedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallEnqueued data;
 
-  public CallEnqueuedEvent() { 
-  }
 
   public CallEnqueuedEvent data(CallEnqueued data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class CallEnqueuedEvent {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallEnqueued data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class CallEnqueuedEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

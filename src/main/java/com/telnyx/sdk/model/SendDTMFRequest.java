@@ -51,8 +51,6 @@ public class SendDTMFRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
-  public SendDTMFRequest() { 
-  }
 
   public SendDTMFRequest digits(String digits) {
     this.digits = digits;
@@ -63,7 +61,6 @@ public class SendDTMFRequest {
    * DTMF digits to send. Valid digits are 0-9, A-D, *, and #. Pauses can be added using w (0.5s) and W (1s).
    * @return digits
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "1www2WABCDw9", required = true, value = "DTMF digits to send. Valid digits are 0-9, A-D, *, and #. Pauses can be added using w (0.5s) and W (1s).")
   @JsonProperty(JSON_PROPERTY_DIGITS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -73,8 +70,6 @@ public class SendDTMFRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DIGITS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDigits(String digits) {
     this.digits = digits;
   }
@@ -99,8 +94,6 @@ public class SendDTMFRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDurationMillis(Integer durationMillis) {
     this.durationMillis = durationMillis;
   }
@@ -125,8 +118,6 @@ public class SendDTMFRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -138,11 +129,11 @@ public class SendDTMFRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -151,8 +142,6 @@ public class SendDTMFRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -180,6 +169,7 @@ public class SendDTMFRequest {
   public int hashCode() {
     return Objects.hash(digits, durationMillis, clientState, commandId);
   }
+
 
   @Override
   public String toString() {

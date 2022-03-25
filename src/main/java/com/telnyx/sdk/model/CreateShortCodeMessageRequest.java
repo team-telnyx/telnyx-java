@@ -112,8 +112,6 @@ public class CreateShortCodeMessageRequest {
   public static final String JSON_PROPERTY_AUTO_DETECT = "auto_detect";
   private Boolean autoDetect = false;
 
-  public CreateShortCodeMessageRequest() { 
-  }
 
   public CreateShortCodeMessageRequest from(String from) {
     this.from = from;
@@ -124,7 +122,6 @@ public class CreateShortCodeMessageRequest {
    * Phone number, in +E.164 format, used to send the message.
    * @return from
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Phone number, in +E.164 format, used to send the message.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -134,8 +131,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -150,7 +145,6 @@ public class CreateShortCodeMessageRequest {
    * Receiving address (+E.164 formatted phone number or short code).
    * @return to
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+E.164", required = true, value = "Receiving address (+E.164 formatted phone number or short code).")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -160,8 +154,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -186,8 +178,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setText(String text) {
     this.text = text;
   }
@@ -212,8 +202,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUBJECT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSubject(String subject) {
     this.subject = subject;
   }
@@ -246,8 +234,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MEDIA_URLS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMediaUrls(List<String> mediaUrls) {
     this.mediaUrls = mediaUrls;
   }
@@ -272,8 +258,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
   }
@@ -298,8 +282,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookFailoverUrl(String webhookFailoverUrl) {
     this.webhookFailoverUrl = webhookFailoverUrl;
   }
@@ -324,8 +306,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USE_PROFILE_WEBHOOKS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUseProfileWebhooks(Boolean useProfileWebhooks) {
     this.useProfileWebhooks = useProfileWebhooks;
   }
@@ -350,8 +330,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -376,8 +354,6 @@ public class CreateShortCodeMessageRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AUTO_DETECT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAutoDetect(Boolean autoDetect) {
     this.autoDetect = autoDetect;
   }
@@ -411,6 +387,7 @@ public class CreateShortCodeMessageRequest {
   public int hashCode() {
     return Objects.hash(from, to, text, subject, mediaUrls, webhookUrl, webhookFailoverUrl, useProfileWebhooks, type, autoDetect);
   }
+
 
   @Override
   public String toString() {

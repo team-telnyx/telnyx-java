@@ -2,7 +2,6 @@
 
 # TelephonyCredentialUpdateRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

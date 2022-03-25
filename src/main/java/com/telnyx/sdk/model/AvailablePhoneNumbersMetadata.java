@@ -43,8 +43,6 @@ public class AvailablePhoneNumbersMetadata {
   public static final String JSON_PROPERTY_BEST_EFFORT_RESULTS = "best_effort_results";
   private Integer bestEffortResults;
 
-  public AvailablePhoneNumbersMetadata() { 
-  }
 
   public AvailablePhoneNumbersMetadata totalResults(Integer totalResults) {
     this.totalResults = totalResults;
@@ -65,8 +63,6 @@ public class AvailablePhoneNumbersMetadata {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTotalResults(Integer totalResults) {
     this.totalResults = totalResults;
   }
@@ -91,8 +87,6 @@ public class AvailablePhoneNumbersMetadata {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BEST_EFFORT_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBestEffortResults(Integer bestEffortResults) {
     this.bestEffortResults = bestEffortResults;
   }
@@ -118,6 +112,7 @@ public class AvailablePhoneNumbersMetadata {
   public int hashCode() {
     return Objects.hash(totalResults, bestEffortResults);
   }
+
 
   @Override
   public String toString() {

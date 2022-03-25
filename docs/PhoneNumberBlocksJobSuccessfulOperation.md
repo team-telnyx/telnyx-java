@@ -2,7 +2,6 @@
 
 # PhoneNumberBlocksJobSuccessfulOperation
 
-
 ## Properties
 
 Name | Type | Description | Notes

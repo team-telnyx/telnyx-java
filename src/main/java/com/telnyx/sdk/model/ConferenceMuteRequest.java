@@ -41,8 +41,6 @@ public class ConferenceMuteRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_IDS = "call_control_ids";
   private List<String> callControlIds = null;
 
-  public ConferenceMuteRequest() { 
-  }
 
   public ConferenceMuteRequest callControlIds(List<String> callControlIds) {
     this.callControlIds = callControlIds;
@@ -71,8 +69,6 @@ public class ConferenceMuteRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlIds(List<String> callControlIds) {
     this.callControlIds = callControlIds;
   }
@@ -97,6 +93,7 @@ public class ConferenceMuteRequest {
   public int hashCode() {
     return Objects.hash(callControlIds);
   }
+
 
   @Override
   public String toString() {

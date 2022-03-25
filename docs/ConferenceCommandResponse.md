@@ -2,7 +2,6 @@
 
 # ConferenceCommandResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

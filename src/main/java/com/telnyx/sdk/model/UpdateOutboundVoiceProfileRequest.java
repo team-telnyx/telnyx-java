@@ -32,7 +32,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -99,8 +98,6 @@ public class UpdateOutboundVoiceProfileRequest {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private JsonNullable<UUID> billingGroupId = JsonNullable.<UUID>undefined();
 
-  public UpdateOutboundVoiceProfileRequest() { 
-  }
 
   public UpdateOutboundVoiceProfileRequest name(String name) {
     this.name = name;
@@ -111,7 +108,6 @@ public class UpdateOutboundVoiceProfileRequest {
    * A user-supplied name to help with organization.
    * @return name
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "office", required = true, value = "A user-supplied name to help with organization.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -121,8 +117,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(String name) {
     this.name = name;
   }
@@ -147,8 +141,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRAFFIC_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTrafficType(TrafficType trafficType) {
     this.trafficType = trafficType;
   }
@@ -173,8 +165,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SERVICE_PLAN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setServicePlan(ServicePlan servicePlan) {
     this.servicePlan = servicePlan;
   }
@@ -233,8 +223,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEnabled(Boolean enabled) {
     this.enabled = enabled;
   }
@@ -267,8 +255,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTags(List<String> tags) {
     this.tags = tags;
   }
@@ -293,8 +279,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USAGE_PAYMENT_METHOD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUsagePaymentMethod(UsagePaymentMethod usagePaymentMethod) {
     this.usagePaymentMethod = usagePaymentMethod;
   }
@@ -327,8 +311,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhitelistedDestinations(List<String> whitelistedDestinations) {
     this.whitelistedDestinations = whitelistedDestinations;
   }
@@ -353,8 +335,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MAX_DESTINATION_RATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxDestinationRate(BigDecimal maxDestinationRate) {
     this.maxDestinationRate = maxDestinationRate;
   }
@@ -379,8 +359,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDailySpendLimit(String dailySpendLimit) {
     this.dailySpendLimit = dailySpendLimit;
   }
@@ -405,8 +383,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDailySpendLimitEnabled(Boolean dailySpendLimitEnabled) {
     this.dailySpendLimitEnabled = dailySpendLimitEnabled;
   }
@@ -431,8 +407,6 @@ public class UpdateOutboundVoiceProfileRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_RECORDING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallRecording(OutboundCallRecording callRecording) {
     this.callRecording = callRecording;
   }
@@ -487,7 +461,7 @@ public class UpdateOutboundVoiceProfileRequest {
     return Objects.equals(this.name, updateOutboundVoiceProfileRequest.name) &&
         Objects.equals(this.trafficType, updateOutboundVoiceProfileRequest.trafficType) &&
         Objects.equals(this.servicePlan, updateOutboundVoiceProfileRequest.servicePlan) &&
-        equalsNullable(this.concurrentCallLimit, updateOutboundVoiceProfileRequest.concurrentCallLimit) &&
+        Objects.equals(this.concurrentCallLimit, updateOutboundVoiceProfileRequest.concurrentCallLimit) &&
         Objects.equals(this.enabled, updateOutboundVoiceProfileRequest.enabled) &&
         Objects.equals(this.tags, updateOutboundVoiceProfileRequest.tags) &&
         Objects.equals(this.usagePaymentMethod, updateOutboundVoiceProfileRequest.usagePaymentMethod) &&
@@ -496,24 +470,14 @@ public class UpdateOutboundVoiceProfileRequest {
         Objects.equals(this.dailySpendLimit, updateOutboundVoiceProfileRequest.dailySpendLimit) &&
         Objects.equals(this.dailySpendLimitEnabled, updateOutboundVoiceProfileRequest.dailySpendLimitEnabled) &&
         Objects.equals(this.callRecording, updateOutboundVoiceProfileRequest.callRecording) &&
-        equalsNullable(this.billingGroupId, updateOutboundVoiceProfileRequest.billingGroupId);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+        Objects.equals(this.billingGroupId, updateOutboundVoiceProfileRequest.billingGroupId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, trafficType, servicePlan, hashCodeNullable(concurrentCallLimit), enabled, tags, usagePaymentMethod, whitelistedDestinations, maxDestinationRate, dailySpendLimit, dailySpendLimitEnabled, callRecording, hashCodeNullable(billingGroupId));
+    return Objects.hash(name, trafficType, servicePlan, concurrentCallLimit, enabled, tags, usagePaymentMethod, whitelistedDestinations, maxDestinationRate, dailySpendLimit, dailySpendLimitEnabled, callRecording, billingGroupId);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

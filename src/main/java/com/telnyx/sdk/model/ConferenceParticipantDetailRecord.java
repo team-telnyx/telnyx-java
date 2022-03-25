@@ -104,8 +104,6 @@ public class ConferenceParticipantDetailRecord {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType = "conference_participant_detail_record";
 
-  public ConferenceParticipantDetailRecord() { 
-  }
 
   public ConferenceParticipantDetailRecord id(String id) {
     this.id = id;
@@ -126,8 +124,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -152,8 +148,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUserId(String userId) {
     this.userId = userId;
   }
@@ -178,8 +172,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConferenceId(String conferenceId) {
     this.conferenceId = conferenceId;
   }
@@ -204,8 +196,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_JOINED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setJoinedAt(OffsetDateTime joinedAt) {
     this.joinedAt = joinedAt;
   }
@@ -230,8 +220,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LEFT_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLeftAt(OffsetDateTime leftAt) {
     this.leftAt = leftAt;
   }
@@ -256,8 +244,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESTINATION_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDestinationNumber(String destinationNumber) {
     this.destinationNumber = destinationNumber;
   }
@@ -282,8 +268,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ORIGINATING_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOriginatingNumber(String originatingNumber) {
     this.originatingNumber = originatingNumber;
   }
@@ -308,8 +292,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -334,8 +316,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -360,8 +340,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_SEC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSec(Integer callSec) {
     this.callSec = callSec;
   }
@@ -386,8 +364,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BILLED_SEC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBilledSec(Integer billedSec) {
     this.billedSec = billedSec;
   }
@@ -412,8 +388,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_IS_TELNYX_BILLABLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsTelnyxBillable(Boolean isTelnyxBillable) {
     this.isTelnyxBillable = isTelnyxBillable;
   }
@@ -438,8 +412,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRate(String rate) {
     this.rate = rate;
   }
@@ -464,8 +436,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RATE_MEASURED_IN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRateMeasuredIn(String rateMeasuredIn) {
     this.rateMeasuredIn = rateMeasuredIn;
   }
@@ -490,8 +460,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCost(String cost) {
     this.cost = cost;
   }
@@ -516,8 +484,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCurrency(String currency) {
     this.currency = currency;
   }
@@ -532,7 +498,6 @@ public class ConferenceParticipantDetailRecord {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "conference_participant_detail_record", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -542,8 +507,6 @@ public class ConferenceParticipantDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -584,6 +547,7 @@ public class ConferenceParticipantDetailRecord {
   public int hashCode() {
     return Objects.hash(id, userId, conferenceId, joinedAt, leftAt, destinationNumber, originatingNumber, callLegId, callSessionId, callSec, billedSec, isTelnyxBillable, rate, rateMeasuredIn, cost, currency, recordType);
   }
+
 
   @Override
   public String toString() {

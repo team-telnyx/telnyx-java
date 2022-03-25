@@ -47,8 +47,6 @@ public class ListPhoneNumbersWithVoiceSettingsResponse {
   public static final String JSON_PROPERTY_META = "meta";
   private PaginationMeta meta;
 
-  public ListPhoneNumbersWithVoiceSettingsResponse() { 
-  }
 
   public ListPhoneNumbersWithVoiceSettingsResponse data(List<PhoneNumberWithVoiceSettings> data) {
     this.data = data;
@@ -77,8 +75,6 @@ public class ListPhoneNumbersWithVoiceSettingsResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(List<PhoneNumberWithVoiceSettings> data) {
     this.data = data;
   }
@@ -103,8 +99,6 @@ public class ListPhoneNumbersWithVoiceSettingsResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMeta(PaginationMeta meta) {
     this.meta = meta;
   }
@@ -130,6 +124,7 @@ public class ListPhoneNumbersWithVoiceSettingsResponse {
   public int hashCode() {
     return Objects.hash(data, meta);
   }
+
 
   @Override
   public String toString() {

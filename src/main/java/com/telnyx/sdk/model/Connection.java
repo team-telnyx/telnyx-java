@@ -25,7 +25,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AnchorsiteOverride;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -119,8 +118,6 @@ public class Connection {
   public static final String JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID = "outbound_voice_profile_id";
   private String outboundVoiceProfileId;
 
-  public Connection() { 
-  }
 
   public Connection id(String id) {
     this.id = id;
@@ -141,8 +138,6 @@ public class Connection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -167,8 +162,6 @@ public class Connection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -193,8 +186,6 @@ public class Connection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACTIVE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(Boolean active) {
     this.active = active;
   }
@@ -219,8 +210,6 @@ public class Connection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
@@ -245,8 +234,6 @@ public class Connection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionName(String connectionName) {
     this.connectionName = connectionName;
   }
@@ -271,8 +258,6 @@ public class Connection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -297,8 +282,6 @@ public class Connection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -391,8 +374,6 @@ public class Connection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
@@ -417,8 +398,6 @@ public class Connection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutboundVoiceProfileId(String outboundVoiceProfileId) {
     this.outboundVoiceProfileId = outboundVoiceProfileId;
   }
@@ -443,27 +422,17 @@ public class Connection {
         Objects.equals(this.connectionName, connection.connectionName) &&
         Objects.equals(this.createdAt, connection.createdAt) &&
         Objects.equals(this.updatedAt, connection.updatedAt) &&
-        equalsNullable(this.webhookEventUrl, connection.webhookEventUrl) &&
-        equalsNullable(this.webhookEventFailoverUrl, connection.webhookEventFailoverUrl) &&
+        Objects.equals(this.webhookEventUrl, connection.webhookEventUrl) &&
+        Objects.equals(this.webhookEventFailoverUrl, connection.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, connection.webhookApiVersion) &&
         Objects.equals(this.outboundVoiceProfileId, connection.outboundVoiceProfileId);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, active, anchorsiteOverride, connectionName, createdAt, updatedAt, hashCodeNullable(webhookEventUrl), hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, outboundVoiceProfileId);
+    return Objects.hash(id, recordType, active, anchorsiteOverride, connectionName, createdAt, updatedAt, webhookEventUrl, webhookEventFailoverUrl, webhookApiVersion, outboundVoiceProfileId);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

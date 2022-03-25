@@ -82,8 +82,6 @@ public class RegionInformation {
   public static final String JSON_PROPERTY_REGION_NAME = "region_name";
   private String regionName;
 
-  public RegionInformation() { 
-  }
 
   public RegionInformation regionType(RegionTypeEnum regionType) {
     this.regionType = regionType;
@@ -104,8 +102,6 @@ public class RegionInformation {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REGION_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegionType(RegionTypeEnum regionType) {
     this.regionType = regionType;
   }
@@ -130,8 +126,6 @@ public class RegionInformation {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REGION_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegionName(String regionName) {
     this.regionName = regionName;
   }
@@ -157,6 +151,7 @@ public class RegionInformation {
   public int hashCode() {
     return Objects.hash(regionType, regionName);
   }
+
 
   @Override
   public String toString() {

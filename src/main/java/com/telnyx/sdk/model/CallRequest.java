@@ -24,8 +24,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallRequestAnsweringMachineDetectionConfig;
 import com.telnyx.sdk.model.CustomSipHeader;
-import com.telnyx.sdk.model.OneOfstringarray;
-import com.telnyx.sdk.model.SoundModifications;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -44,8 +42,6 @@ import com.telnyx.sdk.JSON;
   CallRequest.JSON_PROPERTY_FROM_DISPLAY_NAME,
   CallRequest.JSON_PROPERTY_CONNECTION_ID,
   CallRequest.JSON_PROPERTY_AUDIO_URL,
-  CallRequest.JSON_PROPERTY_MEDIA_NAME,
-  CallRequest.JSON_PROPERTY_PREFERRED_CODECS,
   CallRequest.JSON_PROPERTY_TIMEOUT_SECS,
   CallRequest.JSON_PROPERTY_TIME_LIMIT_SECS,
   CallRequest.JSON_PROPERTY_ANSWERING_MACHINE_DETECTION,
@@ -57,16 +53,13 @@ import com.telnyx.sdk.JSON;
   CallRequest.JSON_PROPERTY_LINK_TO,
   CallRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
   CallRequest.JSON_PROPERTY_SIP_AUTH_PASSWORD,
-  CallRequest.JSON_PROPERTY_SOUND_MODIFICATIONS,
-  CallRequest.JSON_PROPERTY_STREAM_URL,
-  CallRequest.JSON_PROPERTY_STREAM_TRACK,
   CallRequest.JSON_PROPERTY_WEBHOOK_URL,
   CallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CallRequest {
   public static final String JSON_PROPERTY_TO = "to";
-  private OneOfstringarray to;
+  private String to;
 
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -79,12 +72,6 @@ public class CallRequest {
 
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
-
-  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
-  private String mediaName;
-
-  public static final String JSON_PROPERTY_PREFERRED_CODECS = "preferred_codecs";
-  private String preferredCodecs;
 
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs = 30;
@@ -160,52 +147,6 @@ public class CallRequest {
   public static final String JSON_PROPERTY_SIP_AUTH_PASSWORD = "sip_auth_password";
   private String sipAuthPassword;
 
-  public static final String JSON_PROPERTY_SOUND_MODIFICATIONS = "sound_modifications";
-  private SoundModifications soundModifications;
-
-  public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
-  private String streamUrl;
-
-  /**
-   * Specifies which track should be streamed.
-   */
-  public enum StreamTrackEnum {
-    INBOUND_TRACK("inbound_track"),
-    
-    OUTBOUND_TRACK("outbound_track"),
-    
-    BOTH_TRACKS("both_tracks");
-
-    private String value;
-
-    StreamTrackEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StreamTrackEnum fromValue(String value) {
-      for (StreamTrackEnum b : StreamTrackEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
-  private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
-
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private String webhookUrl;
 
@@ -247,31 +188,26 @@ public class CallRequest {
   public static final String JSON_PROPERTY_WEBHOOK_URL_METHOD = "webhook_url_method";
   private WebhookUrlMethodEnum webhookUrlMethod = WebhookUrlMethodEnum.POST;
 
-  public CallRequest() { 
-  }
 
-  public CallRequest to(OneOfstringarray to) {
+  public CallRequest to(String to) {
     this.to = to;
     return this;
   }
 
    /**
-   * The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an array of strings
+   * The DID or SIP URI to dial out to.
    * @return to
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(required = true, value = "The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an array of strings")
+  @ApiModelProperty(example = "+18005550100 or sip:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out to.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public OneOfstringarray getTo() {
+  public String getTo() {
     return to;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTo(OneOfstringarray to) {
+  public void setTo(String to) {
     this.to = to;
   }
 
@@ -285,7 +221,6 @@ public class CallRequest {
    * The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number). The number should be in +E164 format. This attribute will default to the &#x60;from&#x60; number of the original call if omitted.
    * @return from
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+18005550101", required = true, value = "The `from` number to be used as the caller id presented to the destination (`to` number). The number should be in +E164 format. This attribute will default to the `from` number of the original call if omitted.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -295,8 +230,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -321,8 +254,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFromDisplayName(String fromDisplayName) {
     this.fromDisplayName = fromDisplayName;
   }
@@ -337,7 +268,6 @@ public class CallRequest {
    * The ID of the Call Control App (formerly ID of the connection) to be used when dialing the destination.
    * @return connectionId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The ID of the Call Control App (formerly ID of the connection) to be used when dialing the destination.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -347,8 +277,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -360,11 +288,11 @@ public class CallRequest {
   }
 
    /**
-   * The URL of a file to be played back to the callee when the call is answered. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.
+   * The URL of a file to be played back to the callee when the call is answered. The URL can point to either a WAV or MP3 file.
    * @return audioUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back to the callee when the call is answered. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.")
+  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back to the callee when the call is answered. The URL can point to either a WAV or MP3 file.")
   @JsonProperty(JSON_PROPERTY_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -373,62 +301,8 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AUDIO_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAudioUrl(String audioUrl) {
     this.audioUrl = audioUrl;
-  }
-
-
-  public CallRequest mediaName(String mediaName) {
-    this.mediaName = mediaName;
-    return this;
-  }
-
-   /**
-   * The media_name of a file to be played back to the callee when the call is answered. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
-   * @return mediaName
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played back to the callee when the call is answered. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMediaName() {
-    return mediaName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaName(String mediaName) {
-    this.mediaName = mediaName;
-  }
-
-
-  public CallRequest preferredCodecs(String preferredCodecs) {
-    this.preferredCodecs = preferredCodecs;
-    return this;
-  }
-
-   /**
-   * The list of comma-separated codecs in a preferred order for the forked media to be received.
-   * @return preferredCodecs
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "G722,PCMU,PCMA,G729,OPUS,VP8,H264", value = "The list of comma-separated codecs in a preferred order for the forked media to be received.")
-  @JsonProperty(JSON_PROPERTY_PREFERRED_CODECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPreferredCodecs() {
-    return preferredCodecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PREFERRED_CODECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPreferredCodecs(String preferredCodecs) {
-    this.preferredCodecs = preferredCodecs;
   }
 
 
@@ -451,8 +325,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
   }
@@ -477,8 +349,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIME_LIMIT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeLimitSecs(Integer timeLimitSecs) {
     this.timeLimitSecs = timeLimitSecs;
   }
@@ -503,8 +373,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANSWERING_MACHINE_DETECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnsweringMachineDetection(AnsweringMachineDetectionEnum answeringMachineDetection) {
     this.answeringMachineDetection = answeringMachineDetection;
   }
@@ -529,8 +397,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANSWERING_MACHINE_DETECTION_CONFIG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnsweringMachineDetectionConfig(CallRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig) {
     this.answeringMachineDetectionConfig = answeringMachineDetectionConfig;
   }
@@ -563,8 +429,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomHeaders(List<CustomSipHeader> customHeaders) {
     this.customHeaders = customHeaders;
   }
@@ -589,8 +453,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBillingGroupId(UUID billingGroupId) {
     this.billingGroupId = billingGroupId;
   }
@@ -615,8 +477,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -628,11 +488,11 @@ public class CallRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore others Dial commands with the same &#x60;command_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore others Dial commands with the same `command_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -641,8 +501,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -667,8 +525,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LINK_TO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLinkTo(String linkTo) {
     this.linkTo = linkTo;
   }
@@ -693,8 +549,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_AUTH_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipAuthUsername(String sipAuthUsername) {
     this.sipAuthUsername = sipAuthUsername;
   }
@@ -719,88 +573,8 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_AUTH_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipAuthPassword(String sipAuthPassword) {
     this.sipAuthPassword = sipAuthPassword;
-  }
-
-
-  public CallRequest soundModifications(SoundModifications soundModifications) {
-    this.soundModifications = soundModifications;
-    return this;
-  }
-
-   /**
-   * Get soundModifications
-   * @return soundModifications
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_SOUND_MODIFICATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public SoundModifications getSoundModifications() {
-    return soundModifications;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SOUND_MODIFICATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSoundModifications(SoundModifications soundModifications) {
-    this.soundModifications = soundModifications;
-  }
-
-
-  public CallRequest streamUrl(String streamUrl) {
-    this.streamUrl = streamUrl;
-    return this;
-  }
-
-   /**
-   * The destination WebSocket address where the stream is going to be delivered.
-   * @return streamUrl
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "wss://www.example.com/websocket", value = "The destination WebSocket address where the stream is going to be delivered.")
-  @JsonProperty(JSON_PROPERTY_STREAM_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getStreamUrl() {
-    return streamUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamUrl(String streamUrl) {
-    this.streamUrl = streamUrl;
-  }
-
-
-  public CallRequest streamTrack(StreamTrackEnum streamTrack) {
-    this.streamTrack = streamTrack;
-    return this;
-  }
-
-   /**
-   * Specifies which track should be streamed.
-   * @return streamTrack
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "both_tracks", value = "Specifies which track should be streamed.")
-  @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StreamTrackEnum getStreamTrack() {
-    return streamTrack;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamTrack(StreamTrackEnum streamTrack) {
-    this.streamTrack = streamTrack;
   }
 
 
@@ -823,8 +597,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
   }
@@ -849,8 +621,6 @@ public class CallRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL_METHOD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrlMethod(WebhookUrlMethodEnum webhookUrlMethod) {
     this.webhookUrlMethod = webhookUrlMethod;
   }
@@ -873,8 +643,6 @@ public class CallRequest {
         Objects.equals(this.fromDisplayName, callRequest.fromDisplayName) &&
         Objects.equals(this.connectionId, callRequest.connectionId) &&
         Objects.equals(this.audioUrl, callRequest.audioUrl) &&
-        Objects.equals(this.mediaName, callRequest.mediaName) &&
-        Objects.equals(this.preferredCodecs, callRequest.preferredCodecs) &&
         Objects.equals(this.timeoutSecs, callRequest.timeoutSecs) &&
         Objects.equals(this.timeLimitSecs, callRequest.timeLimitSecs) &&
         Objects.equals(this.answeringMachineDetection, callRequest.answeringMachineDetection) &&
@@ -886,17 +654,15 @@ public class CallRequest {
         Objects.equals(this.linkTo, callRequest.linkTo) &&
         Objects.equals(this.sipAuthUsername, callRequest.sipAuthUsername) &&
         Objects.equals(this.sipAuthPassword, callRequest.sipAuthPassword) &&
-        Objects.equals(this.soundModifications, callRequest.soundModifications) &&
-        Objects.equals(this.streamUrl, callRequest.streamUrl) &&
-        Objects.equals(this.streamTrack, callRequest.streamTrack) &&
         Objects.equals(this.webhookUrl, callRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, callRequest.webhookUrlMethod);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, fromDisplayName, connectionId, audioUrl, mediaName, preferredCodecs, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, sipAuthUsername, sipAuthPassword, soundModifications, streamUrl, streamTrack, webhookUrl, webhookUrlMethod);
+    return Objects.hash(to, from, fromDisplayName, connectionId, audioUrl, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, sipAuthUsername, sipAuthPassword, webhookUrl, webhookUrlMethod);
   }
+
 
   @Override
   public String toString() {
@@ -907,8 +673,6 @@ public class CallRequest {
     sb.append("    fromDisplayName: ").append(toIndentedString(fromDisplayName)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    audioUrl: ").append(toIndentedString(audioUrl)).append("\n");
-    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
-    sb.append("    preferredCodecs: ").append(toIndentedString(preferredCodecs)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
     sb.append("    timeLimitSecs: ").append(toIndentedString(timeLimitSecs)).append("\n");
     sb.append("    answeringMachineDetection: ").append(toIndentedString(answeringMachineDetection)).append("\n");
@@ -920,9 +684,6 @@ public class CallRequest {
     sb.append("    linkTo: ").append(toIndentedString(linkTo)).append("\n");
     sb.append("    sipAuthUsername: ").append(toIndentedString(sipAuthUsername)).append("\n");
     sb.append("    sipAuthPassword: ").append(toIndentedString(sipAuthPassword)).append("\n");
-    sb.append("    soundModifications: ").append(toIndentedString(soundModifications)).append("\n");
-    sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
-    sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");
     sb.append("}");

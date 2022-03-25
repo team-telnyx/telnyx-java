@@ -24,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -55,8 +54,6 @@ public class UpdateFqdnRequest {
   public static final String JSON_PROPERTY_DNS_RECORD_TYPE = "dns_record_type";
   private String dnsRecordType;
 
-  public UpdateFqdnRequest() { 
-  }
 
   public UpdateFqdnRequest connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -77,8 +74,6 @@ public class UpdateFqdnRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -103,8 +98,6 @@ public class UpdateFqdnRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FQDN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFqdn(String fqdn) {
     this.fqdn = fqdn;
   }
@@ -163,8 +156,6 @@ public class UpdateFqdnRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DNS_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDnsRecordType(String dnsRecordType) {
     this.dnsRecordType = dnsRecordType;
   }
@@ -184,25 +175,15 @@ public class UpdateFqdnRequest {
     UpdateFqdnRequest updateFqdnRequest = (UpdateFqdnRequest) o;
     return Objects.equals(this.connectionId, updateFqdnRequest.connectionId) &&
         Objects.equals(this.fqdn, updateFqdnRequest.fqdn) &&
-        equalsNullable(this.port, updateFqdnRequest.port) &&
+        Objects.equals(this.port, updateFqdnRequest.port) &&
         Objects.equals(this.dnsRecordType, updateFqdnRequest.dnsRecordType);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, fqdn, hashCodeNullable(port), dnsRecordType);
+    return Objects.hash(connectionId, fqdn, port, dnsRecordType);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

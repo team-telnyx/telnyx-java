@@ -92,8 +92,6 @@ public class UpdateConferenceRequest {
   public static final String JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS = "whisper_call_control_ids";
   private List<String> whisperCallControlIds = null;
 
-  public UpdateConferenceRequest() { 
-  }
 
   public UpdateConferenceRequest callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -104,7 +102,6 @@ public class UpdateConferenceRequest {
    * Unique identifier and token for controlling the call
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==", required = true, value = "Unique identifier and token for controlling the call")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -114,8 +111,6 @@ public class UpdateConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -140,8 +135,6 @@ public class UpdateConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -156,7 +149,6 @@ public class UpdateConferenceRequest {
    * Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \&quot;barge\&quot; means the supervisor enters the conference as a normal participant. This is the same as \&quot;none\&quot;. \&quot;monitor\&quot; means the supervisor is muted but can hear all participants. \&quot;whisper\&quot; means that only the specified \&quot;whisper_call_control_ids\&quot; can hear the supervisor. Defaults to \&quot;none\&quot;.
    * @return supervisorRole
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "whisper", required = true, value = "Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \"barge\" means the supervisor enters the conference as a normal participant. This is the same as \"none\". \"monitor\" means the supervisor is muted but can hear all participants. \"whisper\" means that only the specified \"whisper_call_control_ids\" can hear the supervisor. Defaults to \"none\".")
   @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -166,8 +158,6 @@ public class UpdateConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSupervisorRole(SupervisorRoleEnum supervisorRole) {
     this.supervisorRole = supervisorRole;
   }
@@ -200,8 +190,6 @@ public class UpdateConferenceRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhisperCallControlIds(List<String> whisperCallControlIds) {
     this.whisperCallControlIds = whisperCallControlIds;
   }
@@ -229,6 +217,7 @@ public class UpdateConferenceRequest {
   public int hashCode() {
     return Objects.hash(callControlId, commandId, supervisorRole, whisperCallControlIds);
   }
+
 
   @Override
   public String toString() {

@@ -82,8 +82,6 @@ public class CreateFaxApplicationRequestInbound {
   public static final String JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS = "sip_subdomain_receive_settings";
   private SipSubdomainReceiveSettingsEnum sipSubdomainReceiveSettings = SipSubdomainReceiveSettingsEnum.FROM_ANYONE;
 
-  public CreateFaxApplicationRequestInbound() { 
-  }
 
   public CreateFaxApplicationRequestInbound channelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
@@ -104,8 +102,6 @@ public class CreateFaxApplicationRequestInbound {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChannelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
   }
@@ -130,8 +126,6 @@ public class CreateFaxApplicationRequestInbound {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipSubdomain(String sipSubdomain) {
     this.sipSubdomain = sipSubdomain;
   }
@@ -156,8 +150,6 @@ public class CreateFaxApplicationRequestInbound {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipSubdomainReceiveSettings(SipSubdomainReceiveSettingsEnum sipSubdomainReceiveSettings) {
     this.sipSubdomainReceiveSettings = sipSubdomainReceiveSettings;
   }
@@ -184,6 +176,7 @@ public class CreateFaxApplicationRequestInbound {
   public int hashCode() {
     return Objects.hash(channelLimit, sipSubdomain, sipSubdomainReceiveSettings);
   }
+
 
   @Override
   public String toString() {

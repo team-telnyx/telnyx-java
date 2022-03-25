@@ -100,8 +100,6 @@ public class Queue {
   public static final String JSON_PROPERTY_AVERAGE_WAIT_TIME_SECS = "average_wait_time_secs";
   private Integer averageWaitTimeSecs;
 
-  public Queue() { 
-  }
 
   public Queue recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -112,7 +110,6 @@ public class Queue {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "queue", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -122,8 +119,6 @@ public class Queue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -138,7 +133,6 @@ public class Queue {
    * Uniquely identifies the queue
    * @return id
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", required = true, value = "Uniquely identifies the queue")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -148,8 +142,6 @@ public class Queue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(String id) {
     this.id = id;
   }
@@ -164,7 +156,6 @@ public class Queue {
    * Name of the queue
    * @return name
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "support", required = true, value = "Name of the queue")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -174,8 +165,6 @@ public class Queue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(String name) {
     this.name = name;
   }
@@ -190,7 +179,6 @@ public class Queue {
    * ISO 8601 formatted date of when the queue was created
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the queue was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -200,8 +188,6 @@ public class Queue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -216,7 +202,6 @@ public class Queue {
    * ISO 8601 formatted date of when the queue was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the queue was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -226,8 +211,6 @@ public class Queue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -242,7 +225,6 @@ public class Queue {
    * The number of calls currently in the queue
    * @return currentSize
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "20", required = true, value = "The number of calls currently in the queue")
   @JsonProperty(JSON_PROPERTY_CURRENT_SIZE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -252,8 +234,6 @@ public class Queue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CURRENT_SIZE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCurrentSize(Integer currentSize) {
     this.currentSize = currentSize;
   }
@@ -268,7 +248,6 @@ public class Queue {
    * The maximum number of calls allowed in the queue
    * @return maxSize
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "50", required = true, value = "The maximum number of calls allowed in the queue")
   @JsonProperty(JSON_PROPERTY_MAX_SIZE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -278,8 +257,6 @@ public class Queue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MAX_SIZE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMaxSize(Integer maxSize) {
     this.maxSize = maxSize;
   }
@@ -294,7 +271,6 @@ public class Queue {
    * The average time that the calls currently in the queue have spent waiting, given in seconds.
    * @return averageWaitTimeSecs
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "175", required = true, value = "The average time that the calls currently in the queue have spent waiting, given in seconds.")
   @JsonProperty(JSON_PROPERTY_AVERAGE_WAIT_TIME_SECS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -304,8 +280,6 @@ public class Queue {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AVERAGE_WAIT_TIME_SECS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setAverageWaitTimeSecs(Integer averageWaitTimeSecs) {
     this.averageWaitTimeSecs = averageWaitTimeSecs;
   }
@@ -337,6 +311,7 @@ public class Queue {
   public int hashCode() {
     return Objects.hash(recordType, id, name, createdAt, updatedAt, currentSize, maxSize, averageWaitTimeSecs);
   }
+
 
   @Override
   public String toString() {

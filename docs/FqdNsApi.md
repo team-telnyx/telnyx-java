@@ -1,14 +1,14 @@
-# FqdnsApi
+# FqdNsApi
 
 All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createFqdn**](FqdnsApi.md#createFqdn) | **POST** /fqdns | Create an FQDN
-[**deleteFqdn**](FqdnsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an FQDN
-[**listFqdns**](FqdnsApi.md#listFqdns) | **GET** /fqdns | List FQDNs
-[**retrieveFqdn**](FqdnsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an FQDN
-[**updateFqdn**](FqdnsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an FQDN
+[**createFqdn**](FqdNsApi.md#createFqdn) | **POST** /fqdns | Create an FQDN
+[**deleteFqdn**](FqdNsApi.md#deleteFqdn) | **DELETE** /fqdns/{id} | Delete an FQDN
+[**listFqdns**](FqdNsApi.md#listFqdns) | **GET** /fqdns | List FQDNs
+[**retrieveFqdn**](FqdNsApi.md#retrieveFqdn) | **GET** /fqdns/{id} | Retrieve an FQDN
+[**updateFqdn**](FqdNsApi.md#updateFqdn) | **PATCH** /fqdns/{id} | Update an FQDN
 
 
 
@@ -29,7 +29,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdnsApi;
+import com.telnyx.sdk.api.FqdNsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -40,13 +40,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
+        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
         CreateFqdnRequest createFqdnRequest = new CreateFqdnRequest(); // CreateFqdnRequest | 
         try {
             FQDNResponse result = apiInstance.createFqdn(createFqdnRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdnsApi#createFqdn");
+            System.err.println("Exception when calling FqdNsApi#createFqdn");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -101,7 +101,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdnsApi;
+import com.telnyx.sdk.api.FqdNsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -112,13 +112,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
-        String id = "1517907029795014409"; // String | Identifies the resource.
+        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
+        String id = 1517907029795014409; // String | Identifies the resource.
         try {
             FQDNResponse result = apiInstance.deleteFqdn(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdnsApi#deleteFqdn");
+            System.err.println("Exception when calling FqdNsApi#deleteFqdn");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -173,7 +173,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdnsApi;
+import com.telnyx.sdk.api.FqdNsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -184,13 +184,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
+        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         String filterConnectionId = "filterConnectionId_example"; // String | ID of the FQDN connection to which the FQDN belongs.
-        String filterFqdn = "example.com"; // String | FQDN represented by the resource.
+        String filterFqdn = example.com; // String | FQDN represented by the resource.
         Integer filterPort = 5060; // Integer | Port to use when connecting to the FQDN.
-        String filterDnsRecordType = "a"; // String | DNS record type used by the FQDN.
+        String filterDnsRecordType = a; // String | DNS record type used by the FQDN.
         try {
             ListFQDNsResponse result = api.listFqdns()
                 .pageNumber(pageNumber)
@@ -202,7 +202,7 @@ public class Example {
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdnsApi#listFqdns");
+            System.err.println("Exception when calling FqdNsApi#listFqdns");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -218,7 +218,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
  **filterConnectionId** | **String**| ID of the FQDN connection to which the FQDN belongs. | [optional]
  **filterFqdn** | **String**| FQDN represented by the resource. | [optional]
  **filterPort** | **Integer**| Port to use when connecting to the FQDN. | [optional]
@@ -262,7 +262,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdnsApi;
+import com.telnyx.sdk.api.FqdNsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -273,13 +273,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
-        String id = "1517907029795014409"; // String | Identifies the resource.
+        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
+        String id = 1517907029795014409; // String | Identifies the resource.
         try {
             FQDNResponse result = apiInstance.retrieveFqdn(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdnsApi#retrieveFqdn");
+            System.err.println("Exception when calling FqdNsApi#retrieveFqdn");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -334,7 +334,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.FqdnsApi;
+import com.telnyx.sdk.api.FqdNsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -345,14 +345,14 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        FqdnsApi apiInstance = new FqdnsApi(defaultClient);
-        String id = "1517907029795014409"; // String | Identifies the resource.
+        FqdNsApi apiInstance = new FqdNsApi(defaultClient);
+        String id = 1517907029795014409; // String | Identifies the resource.
         UpdateFqdnRequest updateFqdnRequest = new UpdateFqdnRequest(); // UpdateFqdnRequest | 
         try {
             FQDNResponse result = apiInstance.updateFqdn(id, updateFqdnRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling FqdnsApi#updateFqdn");
+            System.err.println("Exception when calling FqdNsApi#updateFqdn");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

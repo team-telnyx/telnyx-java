@@ -43,8 +43,6 @@ public class ErrorSource {
   public static final String JSON_PROPERTY_PARAMETER = "parameter";
   private String parameter;
 
-  public ErrorSource() { 
-  }
 
   public ErrorSource pointer(String pointer) {
     this.pointer = pointer;
@@ -56,7 +54,7 @@ public class ErrorSource {
    * @return pointer
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "JSON pointer (RFC6901) to the offending entity.")
+  @ApiModelProperty(example = "/sort", value = "JSON pointer (RFC6901) to the offending entity.")
   @JsonProperty(JSON_PROPERTY_POINTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -65,8 +63,6 @@ public class ErrorSource {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_POINTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPointer(String pointer) {
     this.pointer = pointer;
   }
@@ -91,8 +87,6 @@ public class ErrorSource {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PARAMETER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setParameter(String parameter) {
     this.parameter = parameter;
   }
@@ -118,6 +112,7 @@ public class ErrorSource {
   public int hashCode() {
     return Objects.hash(pointer, parameter);
   }
+
 
   @Override
   public String toString() {

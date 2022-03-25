@@ -49,8 +49,6 @@ public class CreateVerificationRequestSMS {
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs;
 
-  public CreateVerificationRequestSMS() { 
-  }
 
   public CreateVerificationRequestSMS phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -61,7 +59,6 @@ public class CreateVerificationRequestSMS {
    * +E164 formatted phone number.
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+13035551234", required = true, value = "+E164 formatted phone number.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -71,8 +68,6 @@ public class CreateVerificationRequestSMS {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -87,7 +82,6 @@ public class CreateVerificationRequestSMS {
    * The identifier of the associated Verify profile.
    * @return verifyProfileId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "The identifier of the associated Verify profile.")
   @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -97,8 +91,6 @@ public class CreateVerificationRequestSMS {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVerifyProfileId(UUID verifyProfileId) {
     this.verifyProfileId = verifyProfileId;
   }
@@ -123,8 +115,6 @@ public class CreateVerificationRequestSMS {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
   }
@@ -151,6 +141,7 @@ public class CreateVerificationRequestSMS {
   public int hashCode() {
     return Objects.hash(phoneNumber, verifyProfileId, timeoutSecs);
   }
+
 
   @Override
   public String toString() {

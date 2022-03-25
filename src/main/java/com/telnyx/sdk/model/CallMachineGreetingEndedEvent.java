@@ -40,8 +40,6 @@ public class CallMachineGreetingEndedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallMachineGreetingEnded data;
 
-  public CallMachineGreetingEndedEvent() { 
-  }
 
   public CallMachineGreetingEndedEvent data(CallMachineGreetingEnded data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class CallMachineGreetingEndedEvent {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallMachineGreetingEnded data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class CallMachineGreetingEndedEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

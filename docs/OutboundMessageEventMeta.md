@@ -2,7 +2,6 @@
 
 # OutboundMessageEventMeta
 
-
 ## Properties
 
 Name | Type | Description | Notes

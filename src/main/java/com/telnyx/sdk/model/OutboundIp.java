@@ -198,8 +198,6 @@ public class OutboundIp {
   public static final String JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID = "outbound_voice_profile_id";
   private String outboundVoiceProfileId;
 
-  public OutboundIp() { 
-  }
 
   public OutboundIp callParkingEnabled(Boolean callParkingEnabled) {
     this.callParkingEnabled = callParkingEnabled;
@@ -220,8 +218,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_PARKING_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallParkingEnabled(Boolean callParkingEnabled) {
     this.callParkingEnabled = callParkingEnabled;
   }
@@ -246,8 +242,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANI_OVERRIDE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAniOverride(String aniOverride) {
     this.aniOverride = aniOverride;
   }
@@ -272,8 +266,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANI_OVERRIDE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAniOverrideType(AniOverrideTypeEnum aniOverrideType) {
     this.aniOverrideType = aniOverrideType;
   }
@@ -298,8 +290,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChannelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
   }
@@ -324,8 +314,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INSTANT_RINGBACK_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInstantRingbackEnabled(Boolean instantRingbackEnabled) {
     this.instantRingbackEnabled = instantRingbackEnabled;
   }
@@ -350,8 +338,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GENERATE_RINGBACK_TONE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGenerateRingbackTone(Boolean generateRingbackTone) {
     this.generateRingbackTone = generateRingbackTone;
   }
@@ -376,8 +362,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOCALIZATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLocalization(String localization) {
     this.localization = localization;
   }
@@ -402,8 +386,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_T38_REINVITE_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setT38ReinviteSource(T38ReinviteSourceEnum t38ReinviteSource) {
     this.t38ReinviteSource = t38ReinviteSource;
   }
@@ -428,8 +410,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TECH_PREFIX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTechPrefix(String techPrefix) {
     this.techPrefix = techPrefix;
   }
@@ -454,8 +434,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_IP_AUTHENTICATION_METHOD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIpAuthenticationMethod(IpAuthenticationMethodEnum ipAuthenticationMethod) {
     this.ipAuthenticationMethod = ipAuthenticationMethod;
   }
@@ -480,8 +458,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_IP_AUTHENTICATION_TOKEN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIpAuthenticationToken(String ipAuthenticationToken) {
     this.ipAuthenticationToken = ipAuthenticationToken;
   }
@@ -506,8 +482,6 @@ public class OutboundIp {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutboundVoiceProfileId(String outboundVoiceProfileId) {
     this.outboundVoiceProfileId = outboundVoiceProfileId;
   }
@@ -543,6 +517,7 @@ public class OutboundIp {
   public int hashCode() {
     return Objects.hash(callParkingEnabled, aniOverride, aniOverrideType, channelLimit, instantRingbackEnabled, generateRingbackTone, localization, t38ReinviteSource, techPrefix, ipAuthenticationMethod, ipAuthenticationToken, outboundVoiceProfileId);
   }
+
 
   @Override
   public String toString() {

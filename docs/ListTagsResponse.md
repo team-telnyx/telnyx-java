@@ -2,7 +2,6 @@
 
 # ListTagsResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

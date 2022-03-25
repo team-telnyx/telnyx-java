@@ -45,7 +45,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        String id = 1293384261075731499; // String | Identifies the resource.
         try {
             PhoneNumberResponse1 result = apiInstance.deletePhoneNumber(id);
             System.out.println(result);
@@ -84,12 +84,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## enableEmergencyPhoneNumber
 
-> CreatePhoneNumberEmergencyEnable enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest)
+> PhoneNumberEnableEmergency enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest)
 
 Enable emergency for a phone number
 
@@ -114,10 +114,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        String id = 1293384261075731499; // String | Identifies the resource.
         PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest = new PhoneNumberEnableEmergencyRequest(); // PhoneNumberEnableEmergencyRequest | 
         try {
-            CreatePhoneNumberEmergencyEnable result = apiInstance.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest);
+            PhoneNumberEnableEmergency result = apiInstance.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberConfigurationsApi#enableEmergencyPhoneNumber");
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreatePhoneNumberEmergencyEnable**](CreatePhoneNumberEmergencyEnable.md)
+[**PhoneNumberEnableEmergency**](PhoneNumberEnableEmergency.md)
 
 ### Authorization
 
@@ -156,12 +156,12 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Phone number emergency enabled. |  -  |
 | **202** | Phone number emergency requested. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listPhoneNumbers
 
-> ListPhoneNumbersResponse listPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterConnectionId(filterConnectionId).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionNameEq(filterVoiceConnectionNameEq).filterUsagePaymentMethod(filterUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).filterCustomerReference(filterCustomerReference).sort(sort).execute();
+> ListPhoneNumbersResponse listPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionNameEq(filterVoiceConnectionNameEq).filterUsagePaymentMethod(filterUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).filterCustomerReference(filterCustomerReference).sort(sort).execute();
 
 List phone numbers
 
@@ -187,20 +187,19 @@ public class Example {
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         String filterTag = "filterTag_example"; // String | Filter by phone number tags.
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
-        String filterStatus = "purchase_pending"; // String | Filter by phone number status.
-        String filterConnectionId = "1521916448077776306"; // String | Filter by connection_id.
-        String filterVoiceConnectionNameContains = "test"; // String | Filter contains connection name. Requires at least three characters.
-        String filterVoiceConnectionNameStartsWith = "test"; // String | Filter starts with connection name. Requires at least three characters.
-        String filterVoiceConnectionNameEndsWith = "test"; // String | Filter ends with connection name. Requires at least three characters.
-        String filterVoiceConnectionNameEq = "test"; // String | Filter by connection name.
-        String filterUsagePaymentMethod = "pay-per-minute"; // String | Filter by usage_payment_method.
-        String filterBillingGroupId = "62e4bf2e-c278-4282-b524-488d9c9c43b2"; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
-        String filterEmergencyAddressId = "9102160989215728032"; // String | Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
-        String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
-        String sort = "purchased_at"; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+        String filterStatus = active; // String | Filter by phone number status.
+        String filterVoiceConnectionNameContains = test; // String | Filter contains connection name. Requires at least three characters.
+        String filterVoiceConnectionNameStartsWith = test; // String | Filter starts with connection name. Requires at least three characters.
+        String filterVoiceConnectionNameEndsWith = test; // String | Filter ends with connection name. Requires at least three characters.
+        String filterVoiceConnectionNameEq = test; // String | Filter by connection name.
+        String filterUsagePaymentMethod = channel; // String | Filter by usage_payment_method.
+        String filterBillingGroupId = 62e4bf2e-c278-4282-b524-488d9c9c43b2; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
+        String filterEmergencyAddressId = 9102160989215728032; // String | Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
+        String filterCustomerReference = MY REF 001; // String | Filter numbers via the customer_reference set.
+        String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumbersResponse result = api.listPhoneNumbers()
                 .pageNumber(pageNumber)
@@ -208,7 +207,6 @@ public class Example {
                 .filterTag(filterTag)
                 .filterPhoneNumber(filterPhoneNumber)
                 .filterStatus(filterStatus)
-                .filterConnectionId(filterConnectionId)
                 .filterVoiceConnectionNameContains(filterVoiceConnectionNameContains)
                 .filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith)
                 .filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith)
@@ -237,11 +235,10 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
  **filterTag** | **String**| Filter by phone number tags. | [optional]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterStatus** | **String**| Filter by phone number status. | [optional] [enum: purchase_pending, purchase_failed, port_pending, active, deleted, port_failed, emergency_only, ported_out, port_out_pending]
- **filterConnectionId** | **String**| Filter by connection_id. | [optional]
  **filterVoiceConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters. | [optional]
  **filterVoiceConnectionNameStartsWith** | **String**| Filter starts with connection name. Requires at least three characters. | [optional]
  **filterVoiceConnectionNameEndsWith** | **String**| Filter ends with connection name. Requires at least three characters. | [optional]
@@ -269,7 +266,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listPhoneNumbersWithMessagingSettings
@@ -300,7 +297,7 @@ public class Example {
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         try {
             ListMessagingSettingsResponse result = api.listPhoneNumbersWithMessagingSettings()
                 .pageNumber(pageNumber)
@@ -324,7 +321,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
 
 ### Return type
 
@@ -343,7 +340,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers with messaging settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## listPhoneNumbersWithVoiceSettings
@@ -374,12 +371,12 @@ public class Example {
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
-        String filterConnectionNameContains = "test"; // String | Filter contains connection name. Requires at least three characters.
+        String filterConnectionNameContains = test; // String | Filter contains connection name. Requires at least three characters.
         String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
-        String filterUsagePaymentMethod = "pay-per-minute"; // String | Filter by usage_payment_method.
-        String sort = "purchased_at"; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+        String filterUsagePaymentMethod = channel; // String | Filter by usage_payment_method.
+        String sort = connection_name; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumbersWithVoiceSettingsResponse result = api.listPhoneNumbersWithVoiceSettings()
                 .pageNumber(pageNumber)
@@ -408,7 +405,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters. | [optional]
  **filterCustomerReference** | **String**| Filter numbers via the customer_reference set. | [optional]
@@ -432,7 +429,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers with voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrievePhoneNumber
@@ -462,7 +459,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        String id = 1293384261075731499; // String | Identifies the resource.
         try {
             PhoneNumberResponse result = apiInstance.retrievePhoneNumber(id);
             System.out.println(result);
@@ -501,7 +498,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrievePhoneNumberWithMessagingSettings
@@ -570,7 +567,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number including voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## retrievePhoneNumberWithVoiceSettings
@@ -600,7 +597,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        String id = 1293384261075731499; // String | Identifies the resource.
         try {
             RetrievePhoneNumberVoiceResponse result = apiInstance.retrievePhoneNumberWithVoiceSettings(id);
             System.out.println(result);
@@ -639,7 +636,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number including voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## updatePhoneNumber
@@ -669,7 +666,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        String id = 1293384261075731499; // String | Identifies the resource.
         UpdatePhoneNumberRequest updatePhoneNumberRequest = new UpdatePhoneNumberRequest(); // UpdatePhoneNumberRequest | Updated settings for the phone number.
         try {
             PhoneNumberResponse result = apiInstance.updatePhoneNumber(id, updatePhoneNumberRequest);
@@ -710,7 +707,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## updatePhoneNumberWithMessagingSettings
@@ -781,7 +778,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number including voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 
 
 ## updatePhoneNumberWithVoiceSettings
@@ -811,7 +808,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberConfigurationsApi apiInstance = new NumberConfigurationsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        String id = 1293384261075731499; // String | Identifies the resource.
         UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest = new UpdatePhoneNumberVoiceSettingsRequest(); // UpdatePhoneNumberVoiceSettingsRequest | Updated voice settings for the phone number.
         try {
             RetrievePhoneNumberVoiceResponse result = apiInstance.updatePhoneNumberWithVoiceSettings(id, updatePhoneNumberVoiceSettingsRequest);
@@ -852,5 +849,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a phone number including voice settings. |  -  |
-| **0** | Unexpected error |  -  |
+| **0** | Bad Request |  -  |
 

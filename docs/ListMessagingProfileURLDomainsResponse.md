@@ -2,7 +2,6 @@
 
 # ListMessagingProfileUrlDomainsResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

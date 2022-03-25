@@ -29,7 +29,7 @@ public class BulkCredentialsApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -38,7 +38,7 @@ public class BulkCredentialsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */

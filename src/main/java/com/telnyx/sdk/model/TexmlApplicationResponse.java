@@ -40,8 +40,6 @@ public class TexmlApplicationResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private TexmlApplication data;
 
-  public TexmlApplicationResponse() { 
-  }
 
   public TexmlApplicationResponse data(TexmlApplication data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class TexmlApplicationResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(TexmlApplication data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class TexmlApplicationResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

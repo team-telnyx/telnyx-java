@@ -2,7 +2,6 @@
 
 # ListIpConnectionsResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

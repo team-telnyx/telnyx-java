@@ -2,7 +2,6 @@
 
 # UpdateVerifyProfileWhatsappRequest
 
-
 ## Properties
 
 Name | Type | Description | Notes

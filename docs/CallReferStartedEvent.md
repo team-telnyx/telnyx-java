@@ -2,7 +2,6 @@
 
 # CallReferStartedEvent
 
-
 ## Properties
 
 Name | Type | Description | Notes

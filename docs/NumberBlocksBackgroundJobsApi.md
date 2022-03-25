@@ -110,11 +110,11 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NumberBlocksBackgroundJobsApi apiInstance = new NumberBlocksBackgroundJobsApi(defaultClient);
-        String filterType = "delete_phone_number_block"; // String | Filter the phone number blocks jobs by type.
-        String filterStatus = "pending"; // String | Filter the phone number blocks jobs by status.
+        String filterType = delete_phone_number_block; // String | Filter the phone number blocks jobs by type.
+        String filterStatus = in_progress; // String | Filter the phone number blocks jobs by status.
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
-        String sort = "created_at"; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+        Integer pageSize = 250; // Integer | The size of the page
+        String sort = created_at; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumberBlocksBackgroundJobsResponse result = api.listPhoneNumberBlocksJobs()
                 .filterType(filterType)
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
  **filterType** | **String**| Filter the phone number blocks jobs by type. | [optional] [enum: delete_phone_number_block]
  **filterStatus** | **String**| Filter the phone number blocks jobs by status. | [optional] [enum: pending, in_progress, completed, failed]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 250]
  **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: created_at]
 
 ### Return type
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## retrievePhoneNumberBlocksJob
 
-> RetrievePhoneNumberBlocksJob retrievePhoneNumberBlocksJob(id).execute();
+> PhoneNumberBlocksJob retrievePhoneNumberBlocksJob(id).execute();
 
 Retrieves a phone number blocks job
 
@@ -195,7 +195,7 @@ public class Example {
         NumberBlocksBackgroundJobsApi apiInstance = new NumberBlocksBackgroundJobsApi(defaultClient);
         String id = "id_example"; // String | Identifies the Phone Number Blocks Job.
         try {
-            RetrievePhoneNumberBlocksJob result = api.retrievePhoneNumberBlocksJob(id)
+            PhoneNumberBlocksJob result = api.retrievePhoneNumberBlocksJob(id)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrievePhoneNumberBlocksJob**](RetrievePhoneNumberBlocksJob.md)
+[**PhoneNumberBlocksJob**](PhoneNumberBlocksJob.md)
 
 ### Authorization
 

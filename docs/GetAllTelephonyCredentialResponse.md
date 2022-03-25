@@ -2,7 +2,6 @@
 
 # GetAllTelephonyCredentialResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

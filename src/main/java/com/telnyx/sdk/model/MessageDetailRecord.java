@@ -22,6 +22,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.Direction;
+import com.telnyx.sdk.model.MessageCost;
+import com.telnyx.sdk.model.MessageRate;
+import com.telnyx.sdk.model.MessageStatus;
+import com.telnyx.sdk.model.MessageType;
+import com.telnyx.sdk.model.PassThroughFee;
+import com.telnyx.sdk.model.Product;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
@@ -35,63 +42,51 @@ import com.telnyx.sdk.JSON;
  * MessageDetailRecord
  */
 @JsonPropertyOrder({
-  MessageDetailRecord.JSON_PROPERTY_UUID,
-  MessageDetailRecord.JSON_PROPERTY_USER_ID,
-  MessageDetailRecord.JSON_PROPERTY_COMPLETED_AT,
+  MessageDetailRecord.JSON_PROPERTY_ID,
   MessageDetailRecord.JSON_PROPERTY_CREATED_AT,
-  MessageDetailRecord.JSON_PROPERTY_UPDATED_AT,
-  MessageDetailRecord.JSON_PROPERTY_SENT_AT,
-  MessageDetailRecord.JSON_PROPERTY_CARRIER,
-  MessageDetailRecord.JSON_PROPERTY_CARRIER_FEE,
+  MessageDetailRecord.JSON_PROPERTY_OUTBOUND_PROFILE_NAME,
+  MessageDetailRecord.JSON_PROPERTY_OUTBOUND_PROFILE_ID,
+  MessageDetailRecord.JSON_PROPERTY_DIRECTION,
+  MessageDetailRecord.JSON_PROPERTY_PARTS,
+  MessageDetailRecord.JSON_PROPERTY_STATUS,
   MessageDetailRecord.JSON_PROPERTY_CLD,
   MessageDetailRecord.JSON_PROPERTY_CLI,
-  MessageDetailRecord.JSON_PROPERTY_COUNTRY_CODE,
-  MessageDetailRecord.JSON_PROPERTY_DELIVERY_STATUS,
-  MessageDetailRecord.JSON_PROPERTY_DELIVERY_STATUS_FAILOVER_URL,
-  MessageDetailRecord.JSON_PROPERTY_DELIVERY_STATUS_WEBHOOK_URL,
-  MessageDetailRecord.JSON_PROPERTY_DIRECTION,
-  MessageDetailRecord.JSON_PROPERTY_FTEU,
+  MessageDetailRecord.JSON_PROPERTY_RATE,
+  MessageDetailRecord.JSON_PROPERTY_COST,
+  MessageDetailRecord.JSON_PROPERTY_COUNTRY_ISO,
+  MessageDetailRecord.JSON_PROPERTY_MESSAGE_TYPE,
+  MessageDetailRecord.JSON_PROPERTY_ERRORS,
+  MessageDetailRecord.JSON_PROPERTY_NORMALIZED_CARRIER,
+  MessageDetailRecord.JSON_PROPERTY_PASS_THROUGH_FEE,
+  MessageDetailRecord.JSON_PROPERTY_TAGS,
   MessageDetailRecord.JSON_PROPERTY_MCC,
   MessageDetailRecord.JSON_PROPERTY_MNC,
-  MessageDetailRecord.JSON_PROPERTY_MESSAGE_TYPE,
-  MessageDetailRecord.JSON_PROPERTY_ON_NET,
-  MessageDetailRecord.JSON_PROPERTY_PROFILE_ID,
-  MessageDetailRecord.JSON_PROPERTY_PROFILE_NAME,
-  MessageDetailRecord.JSON_PROPERTY_SOURCE_COUNTRY_CODE,
-  MessageDetailRecord.JSON_PROPERTY_STATUS,
-  MessageDetailRecord.JSON_PROPERTY_TAGS,
-  MessageDetailRecord.JSON_PROPERTY_RATE,
-  MessageDetailRecord.JSON_PROPERTY_CURRENCY,
-  MessageDetailRecord.JSON_PROPERTY_COST,
-  MessageDetailRecord.JSON_PROPERTY_ERRORS,
-  MessageDetailRecord.JSON_PROPERTY_PARTS,
-  MessageDetailRecord.JSON_PROPERTY_RECORD_TYPE
+  MessageDetailRecord.JSON_PROPERTY_PRODUCT,
+  MessageDetailRecord.JSON_PROPERTY_RECORD_TYPE,
+  MessageDetailRecord.JSON_PROPERTY_USER_ID
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MessageDetailRecord {
-  public static final String JSON_PROPERTY_UUID = "uuid";
-  private String uuid;
-
-  public static final String JSON_PROPERTY_USER_ID = "user_id";
-  private String userId;
-
-  public static final String JSON_PROPERTY_COMPLETED_AT = "completed_at";
-  private OffsetDateTime completedAt;
+  public static final String JSON_PROPERTY_ID = "id";
+  private String id;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private OffsetDateTime createdAt;
 
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private OffsetDateTime updatedAt;
+  public static final String JSON_PROPERTY_OUTBOUND_PROFILE_NAME = "outbound_profile_name";
+  private String outboundProfileName;
 
-  public static final String JSON_PROPERTY_SENT_AT = "sent_at";
-  private OffsetDateTime sentAt;
+  public static final String JSON_PROPERTY_OUTBOUND_PROFILE_ID = "outbound_profile_id";
+  private String outboundProfileId;
 
-  public static final String JSON_PROPERTY_CARRIER = "carrier";
-  private String carrier;
+  public static final String JSON_PROPERTY_DIRECTION = "direction";
+  private Direction direction;
 
-  public static final String JSON_PROPERTY_CARRIER_FEE = "carrier_fee";
-  private String carrierFee;
+  public static final String JSON_PROPERTY_PARTS = "parts";
+  private Integer parts;
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  private MessageStatus status;
 
   public static final String JSON_PROPERTY_CLD = "cld";
   private String cld;
@@ -99,58 +94,29 @@ public class MessageDetailRecord {
   public static final String JSON_PROPERTY_CLI = "cli";
   private String cli;
 
-  public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
-  private String countryCode;
+  public static final String JSON_PROPERTY_RATE = "rate";
+  private MessageRate rate;
 
-  public static final String JSON_PROPERTY_DELIVERY_STATUS = "delivery_status";
-  private String deliveryStatus;
+  public static final String JSON_PROPERTY_COST = "cost";
+  private MessageCost cost;
 
-  public static final String JSON_PROPERTY_DELIVERY_STATUS_FAILOVER_URL = "delivery_status_failover_url";
-  private String deliveryStatusFailoverUrl;
+  public static final String JSON_PROPERTY_COUNTRY_ISO = "country_iso";
+  private String countryIso;
 
-  public static final String JSON_PROPERTY_DELIVERY_STATUS_WEBHOOK_URL = "delivery_status_webhook_url";
-  private String deliveryStatusWebhookUrl;
+  public static final String JSON_PROPERTY_MESSAGE_TYPE = "message_type";
+  private MessageType messageType;
 
-  /**
-   * Logical direction of the message from the Telnyx customer&#39;s perspective. It&#39;s inbound when the Telnyx customer receives the message, or outbound otherwise
-   */
-  public enum DirectionEnum {
-    INBOUND("inbound"),
-    
-    OUTBOUND("outbound");
+  public static final String JSON_PROPERTY_ERRORS = "errors";
+  private List<String> errors = null;
 
-    private String value;
+  public static final String JSON_PROPERTY_NORMALIZED_CARRIER = "normalized_carrier";
+  private String normalizedCarrier;
 
-    DirectionEnum(String value) {
-      this.value = value;
-    }
+  public static final String JSON_PROPERTY_PASS_THROUGH_FEE = "pass_through_fee";
+  private PassThroughFee passThroughFee;
 
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static DirectionEnum fromValue(String value) {
-      for (DirectionEnum b : DirectionEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_DIRECTION = "direction";
-  private DirectionEnum direction;
-
-  public static final String JSON_PROPERTY_FTEU = "fteu";
-  private Boolean fteu;
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  private String tags;
 
   public static final String JSON_PROPERTY_MCC = "mcc";
   private String mcc;
@@ -158,205 +124,37 @@ public class MessageDetailRecord {
   public static final String JSON_PROPERTY_MNC = "mnc";
   private String mnc;
 
-  /**
-   * Describes the Messaging service used to send the message. Available services are: Short Message Service (SMS), Multimedia Messaging Service (MMS), and Rich Communication Services (RCS)
-   */
-  public enum MessageTypeEnum {
-    SMS("SMS"),
-    
-    MMS("MMS"),
-    
-    RCS("RCS");
-
-    private String value;
-
-    MessageTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static MessageTypeEnum fromValue(String value) {
-      for (MessageTypeEnum b : MessageTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_MESSAGE_TYPE = "message_type";
-  private MessageTypeEnum messageType;
-
-  public static final String JSON_PROPERTY_ON_NET = "on_net";
-  private Boolean onNet;
-
-  public static final String JSON_PROPERTY_PROFILE_ID = "profile_id";
-  private String profileId;
-
-  public static final String JSON_PROPERTY_PROFILE_NAME = "profile_name";
-  private String profileName;
-
-  public static final String JSON_PROPERTY_SOURCE_COUNTRY_CODE = "source_country_code";
-  private String sourceCountryCode;
-
-  /**
-   * Final status of the message after the delivery attempt
-   */
-  public enum StatusEnum {
-    GW_TIMEOUT("gw_timeout"),
-    
-    DELIVERED("delivered"),
-    
-    DLR_UNCONFIRMED("dlr_unconfirmed"),
-    
-    DLR_TIMEOUT("dlr_timeout"),
-    
-    RECEIVED("received"),
-    
-    GW_REJECT("gw_reject"),
-    
-    FAILED("failed");
-
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StatusEnum fromValue(String value) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private StatusEnum status;
-
-  public static final String JSON_PROPERTY_TAGS = "tags";
-  private String tags;
-
-  public static final String JSON_PROPERTY_RATE = "rate";
-  private String rate;
-
-  public static final String JSON_PROPERTY_CURRENCY = "currency";
-  private String currency;
-
-  public static final String JSON_PROPERTY_COST = "cost";
-  private String cost;
-
-  public static final String JSON_PROPERTY_ERRORS = "errors";
-  private List<String> errors = null;
-
-  public static final String JSON_PROPERTY_PARTS = "parts";
-  private Integer parts;
+  public static final String JSON_PROPERTY_PRODUCT = "product";
+  private Product product;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType = "message_detail_record";
 
-  public MessageDetailRecord() { 
-  }
+  public static final String JSON_PROPERTY_USER_ID = "user_id";
+  private String userId;
 
-  public MessageDetailRecord uuid(String uuid) {
-    this.uuid = uuid;
+
+  public MessageDetailRecord id(String id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Unique identifier of the message
-   * @return uuid
+   * Message id
+   * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Unique identifier of the message")
-  @JsonProperty(JSON_PROPERTY_UUID)
+  @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Message id")
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getUuid() {
-    return uuid;
+  public String getId() {
+    return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UUID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
-  }
-
-
-  public MessageDetailRecord userId(String userId) {
-    this.userId = userId;
-    return this;
-  }
-
-   /**
-   * Identifier of the Telnyx account who owns the message
-   * @return userId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Identifier of the Telnyx account who owns the message")
-  @JsonProperty(JSON_PROPERTY_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUserId() {
-    return userId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUserId(String userId) {
-    this.userId = userId;
-  }
-
-
-  public MessageDetailRecord completedAt(OffsetDateTime completedAt) {
-    this.completedAt = completedAt;
-    return this;
-  }
-
-   /**
-   * Message completion time
-   * @return completedAt
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Message completion time")
-  @JsonProperty(JSON_PROPERTY_COMPLETED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getCompletedAt() {
-    return completedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COMPLETED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCompletedAt(OffsetDateTime completedAt) {
-    this.completedAt = completedAt;
+  public void setId(String id) {
+    this.id = id;
   }
 
 
@@ -366,11 +164,11 @@ public class MessageDetailRecord {
   }
 
    /**
-   * Message creation time
+   * Message sent time
    * @return createdAt
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Message creation time")
+  @ApiModelProperty(example = "2020-07-01T00:00-06:00", value = "Message sent time")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -379,114 +177,128 @@ public class MessageDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public MessageDetailRecord updatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
+  public MessageDetailRecord outboundProfileName(String outboundProfileName) {
+    this.outboundProfileName = outboundProfileName;
     return this;
   }
 
    /**
-   * Message updated time
-   * @return updatedAt
+   * Configured profile name. New profiles can be created and configured on Telnyx portal
+   * @return outboundProfileName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Message updated time")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @ApiModelProperty(example = "configured-profile-name", value = "Configured profile name. New profiles can be created and configured on Telnyx portal")
+  @JsonProperty(JSON_PROPERTY_OUTBOUND_PROFILE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public OffsetDateTime getUpdatedAt() {
-    return updatedAt;
+  public String getOutboundProfileName() {
+    return outboundProfileName;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setOutboundProfileName(String outboundProfileName) {
+    this.outboundProfileName = outboundProfileName;
   }
 
 
-  public MessageDetailRecord sentAt(OffsetDateTime sentAt) {
-    this.sentAt = sentAt;
+  public MessageDetailRecord outboundProfileId(String outboundProfileId) {
+    this.outboundProfileId = outboundProfileId;
     return this;
   }
 
    /**
-   * Time when the message was sent
-   * @return sentAt
+   * Configured profile id. New profiles can be created and configured on Telnyx portal
+   * @return outboundProfileId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Time when the message was sent")
-  @JsonProperty(JSON_PROPERTY_SENT_AT)
+  @ApiModelProperty(example = "30ef55db-c4a2-4c4a-9804-a68077973d07", value = "Configured profile id. New profiles can be created and configured on Telnyx portal")
+  @JsonProperty(JSON_PROPERTY_OUTBOUND_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public OffsetDateTime getSentAt() {
-    return sentAt;
+  public String getOutboundProfileId() {
+    return outboundProfileId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SENT_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSentAt(OffsetDateTime sentAt) {
-    this.sentAt = sentAt;
+  public void setOutboundProfileId(String outboundProfileId) {
+    this.outboundProfileId = outboundProfileId;
   }
 
 
-  public MessageDetailRecord carrier(String carrier) {
-    this.carrier = carrier;
+  public MessageDetailRecord direction(Direction direction) {
+    this.direction = direction;
     return this;
   }
 
    /**
-   * Country-specific carrier used to send or receive the message
-   * @return carrier
+   * Get direction
+   * @return direction
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "T-Mobile USA", value = "Country-specific carrier used to send or receive the message")
-  @JsonProperty(JSON_PROPERTY_CARRIER)
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getCarrier() {
-    return carrier;
+  public Direction getDirection() {
+    return direction;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CARRIER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCarrier(String carrier) {
-    this.carrier = carrier;
+  public void setDirection(Direction direction) {
+    this.direction = direction;
   }
 
 
-  public MessageDetailRecord carrierFee(String carrierFee) {
-    this.carrierFee = carrierFee;
+  public MessageDetailRecord parts(Integer parts) {
+    this.parts = parts;
     return this;
   }
 
    /**
-   * Fee charged by certain carriers in order to deliver certain message types. Telnyx passes this fee on to the customer according to our pricing table
-   * @return carrierFee
+   * Number of parts this message has. Max number of character is 160. If message contains more characters then that it will be broken down in multiple parts
+   * @return parts
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "0.003", value = "Fee charged by certain carriers in order to deliver certain message types. Telnyx passes this fee on to the customer according to our pricing table")
-  @JsonProperty(JSON_PROPERTY_CARRIER_FEE)
+  @ApiModelProperty(example = "2", value = "Number of parts this message has. Max number of character is 160. If message contains more characters then that it will be broken down in multiple parts")
+  @JsonProperty(JSON_PROPERTY_PARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getCarrierFee() {
-    return carrierFee;
+  public Integer getParts() {
+    return parts;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CARRIER_FEE)
+  public void setParts(Integer parts) {
+    this.parts = parts;
+  }
+
+
+  public MessageDetailRecord status(MessageStatus status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCarrierFee(String carrierFee) {
-    this.carrierFee = carrierFee;
+
+  public MessageStatus getStatus() {
+    return status;
+  }
+
+
+  public void setStatus(MessageStatus status) {
+    this.status = status;
   }
 
 
@@ -496,11 +308,11 @@ public class MessageDetailRecord {
   }
 
    /**
-   * The recipient of the message (to parameter in the Messaging API)
+   * The destination number for a call, or the callee
    * @return cld
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "+1555123456", value = "The recipient of the message (to parameter in the Messaging API)")
+  @ApiModelProperty(example = "+1555123456", value = "The destination number for a call, or the callee")
   @JsonProperty(JSON_PROPERTY_CLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -509,8 +321,6 @@ public class MessageDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCld(String cld) {
     this.cld = cld;
   }
@@ -522,11 +332,11 @@ public class MessageDetailRecord {
   }
 
    /**
-   * The sender of the message (from parameter in the Messaging API). For Alphanumeric ID messages, this is the sender ID value
+   * The number associated with the person initiating the call, or the caller
    * @return cli
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "+1555123456", value = "The sender of the message (from parameter in the Messaging API). For Alphanumeric ID messages, this is the sender ID value")
+  @ApiModelProperty(example = "+1555123456", value = "The number associated with the person initiating the call, or the caller")
   @JsonProperty(JSON_PROPERTY_CLI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -535,478 +345,104 @@ public class MessageDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLI)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCli(String cli) {
     this.cli = cli;
   }
 
 
-  public MessageDetailRecord countryCode(String countryCode) {
-    this.countryCode = countryCode;
-    return this;
-  }
-
-   /**
-   * Two-letter representation of the country of the cld property using the ISO 3166-1 alpha-2 format
-   * @return countryCode
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "US", value = "Two-letter representation of the country of the cld property using the ISO 3166-1 alpha-2 format")
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCountryCode() {
-    return countryCode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCountryCode(String countryCode) {
-    this.countryCode = countryCode;
-  }
-
-
-  public MessageDetailRecord deliveryStatus(String deliveryStatus) {
-    this.deliveryStatus = deliveryStatus;
-    return this;
-  }
-
-   /**
-   * Final webhook delivery status
-   * @return deliveryStatus
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "success: webhook succeeded", value = "Final webhook delivery status")
-  @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDeliveryStatus() {
-    return deliveryStatus;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeliveryStatus(String deliveryStatus) {
-    this.deliveryStatus = deliveryStatus;
-  }
-
-
-  public MessageDetailRecord deliveryStatusFailoverUrl(String deliveryStatusFailoverUrl) {
-    this.deliveryStatusFailoverUrl = deliveryStatusFailoverUrl;
-    return this;
-  }
-
-   /**
-   * Failover customer-provided URL which Telnyx posts delivery status webhooks to
-   * @return deliveryStatusFailoverUrl
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://api.example.com/sms/telnyx/inbound", value = "Failover customer-provided URL which Telnyx posts delivery status webhooks to")
-  @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS_FAILOVER_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDeliveryStatusFailoverUrl() {
-    return deliveryStatusFailoverUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS_FAILOVER_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeliveryStatusFailoverUrl(String deliveryStatusFailoverUrl) {
-    this.deliveryStatusFailoverUrl = deliveryStatusFailoverUrl;
-  }
-
-
-  public MessageDetailRecord deliveryStatusWebhookUrl(String deliveryStatusWebhookUrl) {
-    this.deliveryStatusWebhookUrl = deliveryStatusWebhookUrl;
-    return this;
-  }
-
-   /**
-   * Primary customer-provided URL which Telnyx posts delivery status webhooks to
-   * @return deliveryStatusWebhookUrl
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://api.example.com/sms/telnyx/inbound", value = "Primary customer-provided URL which Telnyx posts delivery status webhooks to")
-  @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDeliveryStatusWebhookUrl() {
-    return deliveryStatusWebhookUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeliveryStatusWebhookUrl(String deliveryStatusWebhookUrl) {
-    this.deliveryStatusWebhookUrl = deliveryStatusWebhookUrl;
-  }
-
-
-  public MessageDetailRecord direction(DirectionEnum direction) {
-    this.direction = direction;
-    return this;
-  }
-
-   /**
-   * Logical direction of the message from the Telnyx customer&#39;s perspective. It&#39;s inbound when the Telnyx customer receives the message, or outbound otherwise
-   * @return direction
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "outbound", value = "Logical direction of the message from the Telnyx customer's perspective. It's inbound when the Telnyx customer receives the message, or outbound otherwise")
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public DirectionEnum getDirection() {
-    return direction;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDirection(DirectionEnum direction) {
-    this.direction = direction;
-  }
-
-
-  public MessageDetailRecord fteu(Boolean fteu) {
-    this.fteu = fteu;
-    return this;
-  }
-
-   /**
-   * Indicates whether this is a Free-To-End-User (FTEU) short code message
-   * @return fteu
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "false", value = "Indicates whether this is a Free-To-End-User (FTEU) short code message")
-  @JsonProperty(JSON_PROPERTY_FTEU)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getFteu() {
-    return fteu;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FTEU)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFteu(Boolean fteu) {
-    this.fteu = fteu;
-  }
-
-
-  public MessageDetailRecord mcc(String mcc) {
-    this.mcc = mcc;
-    return this;
-  }
-
-   /**
-   * Mobile country code. Only available for certain products, such as Global Outbound-Only from Alphanumeric Sender ID
-   * @return mcc
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "204", value = "Mobile country code. Only available for certain products, such as Global Outbound-Only from Alphanumeric Sender ID")
-  @JsonProperty(JSON_PROPERTY_MCC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMcc() {
-    return mcc;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MCC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMcc(String mcc) {
-    this.mcc = mcc;
-  }
-
-
-  public MessageDetailRecord mnc(String mnc) {
-    this.mnc = mnc;
-    return this;
-  }
-
-   /**
-   * Mobile network code. Only available for certain products, such as Global Outbound-Only from Alphanumeric Sender ID
-   * @return mnc
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "01", value = "Mobile network code. Only available for certain products, such as Global Outbound-Only from Alphanumeric Sender ID")
-  @JsonProperty(JSON_PROPERTY_MNC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMnc() {
-    return mnc;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MNC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMnc(String mnc) {
-    this.mnc = mnc;
-  }
-
-
-  public MessageDetailRecord messageType(MessageTypeEnum messageType) {
-    this.messageType = messageType;
-    return this;
-  }
-
-   /**
-   * Describes the Messaging service used to send the message. Available services are: Short Message Service (SMS), Multimedia Messaging Service (MMS), and Rich Communication Services (RCS)
-   * @return messageType
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "SMS", value = "Describes the Messaging service used to send the message. Available services are: Short Message Service (SMS), Multimedia Messaging Service (MMS), and Rich Communication Services (RCS)")
-  @JsonProperty(JSON_PROPERTY_MESSAGE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public MessageTypeEnum getMessageType() {
-    return messageType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MESSAGE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessageType(MessageTypeEnum messageType) {
-    this.messageType = messageType;
-  }
-
-
-  public MessageDetailRecord onNet(Boolean onNet) {
-    this.onNet = onNet;
-    return this;
-  }
-
-   /**
-   * Indicates whether both sender and recipient numbers are Telnyx-managed
-   * @return onNet
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Indicates whether both sender and recipient numbers are Telnyx-managed")
-  @JsonProperty(JSON_PROPERTY_ON_NET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getOnNet() {
-    return onNet;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ON_NET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOnNet(Boolean onNet) {
-    this.onNet = onNet;
-  }
-
-
-  public MessageDetailRecord profileId(String profileId) {
-    this.profileId = profileId;
-    return this;
-  }
-
-   /**
-   * Unique identifier of the Messaging Profile used to send or receive the message
-   * @return profileId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "30ef55db-c4a2-4c4a-9804-a68077973d07", value = "Unique identifier of the Messaging Profile used to send or receive the message")
-  @JsonProperty(JSON_PROPERTY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getProfileId() {
-    return profileId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProfileId(String profileId) {
-    this.profileId = profileId;
-  }
-
-
-  public MessageDetailRecord profileName(String profileName) {
-    this.profileName = profileName;
-    return this;
-  }
-
-   /**
-   * Name of the Messaging Profile used to send or receive the message
-   * @return profileName
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "My Messaging Profile", value = "Name of the Messaging Profile used to send or receive the message")
-  @JsonProperty(JSON_PROPERTY_PROFILE_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getProfileName() {
-    return profileName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PROFILE_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProfileName(String profileName) {
-    this.profileName = profileName;
-  }
-
-
-  public MessageDetailRecord sourceCountryCode(String sourceCountryCode) {
-    this.sourceCountryCode = sourceCountryCode;
-    return this;
-  }
-
-   /**
-   * Two-letter representation of the country of the cli property using the ISO 3166-1 alpha-2 format
-   * @return sourceCountryCode
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "US", value = "Two-letter representation of the country of the cli property using the ISO 3166-1 alpha-2 format")
-  @JsonProperty(JSON_PROPERTY_SOURCE_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getSourceCountryCode() {
-    return sourceCountryCode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SOURCE_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSourceCountryCode(String sourceCountryCode) {
-    this.sourceCountryCode = sourceCountryCode;
-  }
-
-
-  public MessageDetailRecord status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Final status of the message after the delivery attempt
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "delivered", value = "Final status of the message after the delivery attempt")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-
-  public MessageDetailRecord tags(String tags) {
-    this.tags = tags;
-    return this;
-  }
-
-   /**
-   * Comma-separated tags assigned to the Telnyx number associated with the message
-   * @return tags
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "tag1,tag2,tag3", value = "Comma-separated tags assigned to the Telnyx number associated with the message")
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTags() {
-    return tags;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTags(String tags) {
-    this.tags = tags;
-  }
-
-
-  public MessageDetailRecord rate(String rate) {
+  public MessageDetailRecord rate(MessageRate rate) {
     this.rate = rate;
     return this;
   }
 
    /**
-   * Currency amount per billing unit used to calculate the Telnyx billing cost
+   * Get rate
    * @return rate
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "0.003", value = "Currency amount per billing unit used to calculate the Telnyx billing cost")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getRate() {
+  public MessageRate getRate() {
     return rate;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRate(String rate) {
+  public void setRate(MessageRate rate) {
     this.rate = rate;
   }
 
 
-  public MessageDetailRecord currency(String currency) {
-    this.currency = currency;
-    return this;
-  }
-
-   /**
-   * Telnyx account currency used to describe monetary values, including billing cost
-   * @return currency
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "USD", value = "Telnyx account currency used to describe monetary values, including billing cost")
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCurrency() {
-    return currency;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCurrency(String currency) {
-    this.currency = currency;
-  }
-
-
-  public MessageDetailRecord cost(String cost) {
+  public MessageDetailRecord cost(MessageCost cost) {
     this.cost = cost;
     return this;
   }
 
    /**
-   * Amount, in the user currency, for the Telnyx billing cost
+   * Get cost
    * @return cost
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "0.003", value = "Amount, in the user currency, for the Telnyx billing cost")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getCost() {
+  public MessageCost getCost() {
     return cost;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCost(String cost) {
+  public void setCost(MessageCost cost) {
     this.cost = cost;
+  }
+
+
+  public MessageDetailRecord countryIso(String countryIso) {
+    this.countryIso = countryIso;
+    return this;
+  }
+
+   /**
+   * Cld number ISO country code.
+   * @return countryIso
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "US", value = "Cld number ISO country code.")
+  @JsonProperty(JSON_PROPERTY_COUNTRY_ISO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCountryIso() {
+    return countryIso;
+  }
+
+
+  public void setCountryIso(String countryIso) {
+    this.countryIso = countryIso;
+  }
+
+
+  public MessageDetailRecord messageType(MessageType messageType) {
+    this.messageType = messageType;
+    return this;
+  }
+
+   /**
+   * Get messageType
+   * @return messageType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_MESSAGE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MessageType getMessageType() {
+    return messageType;
+  }
+
+
+  public void setMessageType(MessageType messageType) {
+    this.messageType = messageType;
   }
 
 
@@ -1024,11 +460,11 @@ public class MessageDetailRecord {
   }
 
    /**
-   * Telnyx API error codes returned by the Telnyx gateway
+   * Error returned by the gateway in case sending of message failed.
    * @return errors
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Telnyx API error codes returned by the Telnyx gateway")
+  @ApiModelProperty(example = "US", value = "Error returned by the gateway in case sending of message failed.")
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1037,36 +473,152 @@ public class MessageDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setErrors(List<String> errors) {
     this.errors = errors;
   }
 
 
-  public MessageDetailRecord parts(Integer parts) {
-    this.parts = parts;
+  public MessageDetailRecord normalizedCarrier(String normalizedCarrier) {
+    this.normalizedCarrier = normalizedCarrier;
     return this;
   }
 
    /**
-   * Number of message parts. The message is broken down in multiple parts when its length surpasses the limit of 160 characters
-   * @return parts
+   * Cld carrier.
+   * @return normalizedCarrier
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2", value = "Number of message parts. The message is broken down in multiple parts when its length surpasses the limit of 160 characters")
-  @JsonProperty(JSON_PROPERTY_PARTS)
+  @ApiModelProperty(example = "T-Mobile", value = "Cld carrier.")
+  @JsonProperty(JSON_PROPERTY_NORMALIZED_CARRIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getParts() {
-    return parts;
+  public String getNormalizedCarrier() {
+    return normalizedCarrier;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PARTS)
+  public void setNormalizedCarrier(String normalizedCarrier) {
+    this.normalizedCarrier = normalizedCarrier;
+  }
+
+
+  public MessageDetailRecord passThroughFee(PassThroughFee passThroughFee) {
+    this.passThroughFee = passThroughFee;
+    return this;
+  }
+
+   /**
+   * Get passThroughFee
+   * @return passThroughFee
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PASS_THROUGH_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParts(Integer parts) {
-    this.parts = parts;
+
+  public PassThroughFee getPassThroughFee() {
+    return passThroughFee;
+  }
+
+
+  public void setPassThroughFee(PassThroughFee passThroughFee) {
+    this.passThroughFee = passThroughFee;
+  }
+
+
+  public MessageDetailRecord tags(String tags) {
+    this.tags = tags;
+    return this;
+  }
+
+   /**
+   * User tag.
+   * @return tags
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "tag1", value = "User tag.")
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTags() {
+    return tags;
+  }
+
+
+  public void setTags(String tags) {
+    this.tags = tags;
+  }
+
+
+  public MessageDetailRecord mcc(String mcc) {
+    this.mcc = mcc;
+    return this;
+  }
+
+   /**
+   * Mobile country code.
+   * @return mcc
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "204", value = "Mobile country code.")
+  @JsonProperty(JSON_PROPERTY_MCC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMcc() {
+    return mcc;
+  }
+
+
+  public void setMcc(String mcc) {
+    this.mcc = mcc;
+  }
+
+
+  public MessageDetailRecord mnc(String mnc) {
+    this.mnc = mnc;
+    return this;
+  }
+
+   /**
+   * Mobile network code.
+   * @return mnc
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "01", value = "Mobile network code.")
+  @JsonProperty(JSON_PROPERTY_MNC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMnc() {
+    return mnc;
+  }
+
+
+  public void setMnc(String mnc) {
+    this.mnc = mnc;
+  }
+
+
+  public MessageDetailRecord product(Product product) {
+    this.product = product;
+    return this;
+  }
+
+   /**
+   * Get product
+   * @return product
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PRODUCT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Product getProduct() {
+    return product;
+  }
+
+
+  public void setProduct(Product product) {
+    this.product = product;
   }
 
 
@@ -1076,11 +628,10 @@ public class MessageDetailRecord {
   }
 
    /**
-   * Identifies the record schema
+   * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(example = "message_detail_record", required = true, value = "Identifies the record schema")
+  @ApiModelProperty(example = "message_detail_record", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1089,10 +640,32 @@ public class MessageDetailRecord {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
+  }
+
+
+  public MessageDetailRecord userId(String userId) {
+    this.userId = userId;
+    return this;
+  }
+
+   /**
+   * User id
+   * @return userId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "User id")
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUserId() {
+    return userId;
+  }
+
+
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
 
@@ -1108,79 +681,62 @@ public class MessageDetailRecord {
       return false;
     }
     MessageDetailRecord messageDetailRecord = (MessageDetailRecord) o;
-    return Objects.equals(this.uuid, messageDetailRecord.uuid) &&
-        Objects.equals(this.userId, messageDetailRecord.userId) &&
-        Objects.equals(this.completedAt, messageDetailRecord.completedAt) &&
+    return Objects.equals(this.id, messageDetailRecord.id) &&
         Objects.equals(this.createdAt, messageDetailRecord.createdAt) &&
-        Objects.equals(this.updatedAt, messageDetailRecord.updatedAt) &&
-        Objects.equals(this.sentAt, messageDetailRecord.sentAt) &&
-        Objects.equals(this.carrier, messageDetailRecord.carrier) &&
-        Objects.equals(this.carrierFee, messageDetailRecord.carrierFee) &&
+        Objects.equals(this.outboundProfileName, messageDetailRecord.outboundProfileName) &&
+        Objects.equals(this.outboundProfileId, messageDetailRecord.outboundProfileId) &&
+        Objects.equals(this.direction, messageDetailRecord.direction) &&
+        Objects.equals(this.parts, messageDetailRecord.parts) &&
+        Objects.equals(this.status, messageDetailRecord.status) &&
         Objects.equals(this.cld, messageDetailRecord.cld) &&
         Objects.equals(this.cli, messageDetailRecord.cli) &&
-        Objects.equals(this.countryCode, messageDetailRecord.countryCode) &&
-        Objects.equals(this.deliveryStatus, messageDetailRecord.deliveryStatus) &&
-        Objects.equals(this.deliveryStatusFailoverUrl, messageDetailRecord.deliveryStatusFailoverUrl) &&
-        Objects.equals(this.deliveryStatusWebhookUrl, messageDetailRecord.deliveryStatusWebhookUrl) &&
-        Objects.equals(this.direction, messageDetailRecord.direction) &&
-        Objects.equals(this.fteu, messageDetailRecord.fteu) &&
+        Objects.equals(this.rate, messageDetailRecord.rate) &&
+        Objects.equals(this.cost, messageDetailRecord.cost) &&
+        Objects.equals(this.countryIso, messageDetailRecord.countryIso) &&
+        Objects.equals(this.messageType, messageDetailRecord.messageType) &&
+        Objects.equals(this.errors, messageDetailRecord.errors) &&
+        Objects.equals(this.normalizedCarrier, messageDetailRecord.normalizedCarrier) &&
+        Objects.equals(this.passThroughFee, messageDetailRecord.passThroughFee) &&
+        Objects.equals(this.tags, messageDetailRecord.tags) &&
         Objects.equals(this.mcc, messageDetailRecord.mcc) &&
         Objects.equals(this.mnc, messageDetailRecord.mnc) &&
-        Objects.equals(this.messageType, messageDetailRecord.messageType) &&
-        Objects.equals(this.onNet, messageDetailRecord.onNet) &&
-        Objects.equals(this.profileId, messageDetailRecord.profileId) &&
-        Objects.equals(this.profileName, messageDetailRecord.profileName) &&
-        Objects.equals(this.sourceCountryCode, messageDetailRecord.sourceCountryCode) &&
-        Objects.equals(this.status, messageDetailRecord.status) &&
-        Objects.equals(this.tags, messageDetailRecord.tags) &&
-        Objects.equals(this.rate, messageDetailRecord.rate) &&
-        Objects.equals(this.currency, messageDetailRecord.currency) &&
-        Objects.equals(this.cost, messageDetailRecord.cost) &&
-        Objects.equals(this.errors, messageDetailRecord.errors) &&
-        Objects.equals(this.parts, messageDetailRecord.parts) &&
-        Objects.equals(this.recordType, messageDetailRecord.recordType);
+        Objects.equals(this.product, messageDetailRecord.product) &&
+        Objects.equals(this.recordType, messageDetailRecord.recordType) &&
+        Objects.equals(this.userId, messageDetailRecord.userId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, userId, completedAt, createdAt, updatedAt, sentAt, carrier, carrierFee, cld, cli, countryCode, deliveryStatus, deliveryStatusFailoverUrl, deliveryStatusWebhookUrl, direction, fteu, mcc, mnc, messageType, onNet, profileId, profileName, sourceCountryCode, status, tags, rate, currency, cost, errors, parts, recordType);
+    return Objects.hash(id, createdAt, outboundProfileName, outboundProfileId, direction, parts, status, cld, cli, rate, cost, countryIso, messageType, errors, normalizedCarrier, passThroughFee, tags, mcc, mnc, product, recordType, userId);
   }
+
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class MessageDetailRecord {\n");
-    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
-    sb.append("    completedAt: ").append(toIndentedString(completedAt)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    sentAt: ").append(toIndentedString(sentAt)).append("\n");
-    sb.append("    carrier: ").append(toIndentedString(carrier)).append("\n");
-    sb.append("    carrierFee: ").append(toIndentedString(carrierFee)).append("\n");
+    sb.append("    outboundProfileName: ").append(toIndentedString(outboundProfileName)).append("\n");
+    sb.append("    outboundProfileId: ").append(toIndentedString(outboundProfileId)).append("\n");
+    sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
+    sb.append("    parts: ").append(toIndentedString(parts)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    cld: ").append(toIndentedString(cld)).append("\n");
     sb.append("    cli: ").append(toIndentedString(cli)).append("\n");
-    sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
-    sb.append("    deliveryStatus: ").append(toIndentedString(deliveryStatus)).append("\n");
-    sb.append("    deliveryStatusFailoverUrl: ").append(toIndentedString(deliveryStatusFailoverUrl)).append("\n");
-    sb.append("    deliveryStatusWebhookUrl: ").append(toIndentedString(deliveryStatusWebhookUrl)).append("\n");
-    sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
-    sb.append("    fteu: ").append(toIndentedString(fteu)).append("\n");
+    sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
+    sb.append("    cost: ").append(toIndentedString(cost)).append("\n");
+    sb.append("    countryIso: ").append(toIndentedString(countryIso)).append("\n");
+    sb.append("    messageType: ").append(toIndentedString(messageType)).append("\n");
+    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
+    sb.append("    normalizedCarrier: ").append(toIndentedString(normalizedCarrier)).append("\n");
+    sb.append("    passThroughFee: ").append(toIndentedString(passThroughFee)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    mcc: ").append(toIndentedString(mcc)).append("\n");
     sb.append("    mnc: ").append(toIndentedString(mnc)).append("\n");
-    sb.append("    messageType: ").append(toIndentedString(messageType)).append("\n");
-    sb.append("    onNet: ").append(toIndentedString(onNet)).append("\n");
-    sb.append("    profileId: ").append(toIndentedString(profileId)).append("\n");
-    sb.append("    profileName: ").append(toIndentedString(profileName)).append("\n");
-    sb.append("    sourceCountryCode: ").append(toIndentedString(sourceCountryCode)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
-    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    cost: ").append(toIndentedString(cost)).append("\n");
-    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
-    sb.append("    parts: ").append(toIndentedString(parts)).append("\n");
+    sb.append("    product: ").append(toIndentedString(product)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

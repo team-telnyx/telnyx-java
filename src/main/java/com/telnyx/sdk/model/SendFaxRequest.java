@@ -34,13 +34,9 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   SendFaxRequest.JSON_PROPERTY_CONNECTION_ID,
   SendFaxRequest.JSON_PROPERTY_MEDIA_URL,
-  SendFaxRequest.JSON_PROPERTY_MEDIA_NAME,
   SendFaxRequest.JSON_PROPERTY_TO,
   SendFaxRequest.JSON_PROPERTY_FROM,
-  SendFaxRequest.JSON_PROPERTY_QUALITY,
-  SendFaxRequest.JSON_PROPERTY_T38_ENABLED,
-  SendFaxRequest.JSON_PROPERTY_MONOCHROME,
-  SendFaxRequest.JSON_PROPERTY_STORE_MEDIA
+  SendFaxRequest.JSON_PROPERTY_QUALITY
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SendFaxRequest {
@@ -49,9 +45,6 @@ public class SendFaxRequest {
 
   public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
   private String mediaUrl;
-
-  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
-  private String mediaName;
 
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
@@ -62,17 +55,6 @@ public class SendFaxRequest {
   public static final String JSON_PROPERTY_QUALITY = "quality";
   private String quality = "high";
 
-  public static final String JSON_PROPERTY_T38_ENABLED = "t38_enabled";
-  private Boolean t38Enabled = true;
-
-  public static final String JSON_PROPERTY_MONOCHROME = "monochrome";
-  private Boolean monochrome = false;
-
-  public static final String JSON_PROPERTY_STORE_MEDIA = "store_media";
-  private Boolean storeMedia = false;
-
-  public SendFaxRequest() { 
-  }
 
   public SendFaxRequest connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -83,7 +65,6 @@ public class SendFaxRequest {
    * The connection ID to send the fax with.
    * @return connectionId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "234423", required = true, value = "The connection ID to send the fax with.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -93,8 +74,6 @@ public class SendFaxRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -106,49 +85,20 @@ public class SendFaxRequest {
   }
 
    /**
-   * The URL to the PDF used for the fax&#39;s media. media_url and media_name can&#39;t be submitted together.
+   * The URL to the PDF used for the fax&#39;s media.
    * @return mediaUrl
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL to the PDF used for the fax's media. media_url and media_name can't be submitted together.")
+  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", required = true, value = "The URL to the PDF used for the fax's media.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMediaUrl() {
     return mediaUrl;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MEDIA_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMediaUrl(String mediaUrl) {
     this.mediaUrl = mediaUrl;
-  }
-
-
-  public SendFaxRequest mediaName(String mediaName) {
-    this.mediaName = mediaName;
-    return this;
-  }
-
-   /**
-   * The media_name of a file to be used for the fax&#39;s media. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_url and media_name can&#39;t be submitted together.
-   * @return mediaName
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be used for the fax's media. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_url and media_name can't be submitted together.")
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMediaName() {
-    return mediaName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaName(String mediaName) {
-    this.mediaName = mediaName;
   }
 
 
@@ -158,11 +108,10 @@ public class SendFaxRequest {
   }
 
    /**
-   * The phone number, in E.164 format, the fax will be sent to or SIP URI.
+   * The phone number, in E.164 format, the fax will be sent to or SIP URI
    * @return to
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(example = "+13127367276", required = true, value = "The phone number, in E.164 format, the fax will be sent to or SIP URI.")
+  @ApiModelProperty(example = "+13127367276", required = true, value = "The phone number, in E.164 format, the fax will be sent to or SIP URI")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -171,8 +120,6 @@ public class SendFaxRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -187,18 +134,16 @@ public class SendFaxRequest {
    * The phone number, in E.164 format, the fax will be sent from.
    * @return from
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(example = "+13125790015", required = true, value = "The phone number, in E.164 format, the fax will be sent from.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "+13125790015", value = "The phone number, in E.164 format, the fax will be sent from.")
   @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFrom() {
     return from;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFrom(String from) {
     this.from = from;
   }
@@ -210,11 +155,11 @@ public class SendFaxRequest {
   }
 
    /**
-   * The quality of the fax. Can be normal, high, very_high.
+   * The quality of the fax. Can be normal, high, very_high
    * @return quality
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "high", value = "The quality of the fax. Can be normal, high, very_high.")
+  @ApiModelProperty(example = "high", value = "The quality of the fax. Can be normal, high, very_high")
   @JsonProperty(JSON_PROPERTY_QUALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -223,88 +168,8 @@ public class SendFaxRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_QUALITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setQuality(String quality) {
     this.quality = quality;
-  }
-
-
-  public SendFaxRequest t38Enabled(Boolean t38Enabled) {
-    this.t38Enabled = t38Enabled;
-    return this;
-  }
-
-   /**
-   * The flag to disable the T.38 protocol.
-   * @return t38Enabled
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "The flag to disable the T.38 protocol.")
-  @JsonProperty(JSON_PROPERTY_T38_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getT38Enabled() {
-    return t38Enabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_T38_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setT38Enabled(Boolean t38Enabled) {
-    this.t38Enabled = t38Enabled;
-  }
-
-
-  public SendFaxRequest monochrome(Boolean monochrome) {
-    this.monochrome = monochrome;
-    return this;
-  }
-
-   /**
-   * The flag to enable monochrome, true black and white fax results.
-   * @return monochrome
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "The flag to enable monochrome, true black and white fax results.")
-  @JsonProperty(JSON_PROPERTY_MONOCHROME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getMonochrome() {
-    return monochrome;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MONOCHROME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMonochrome(Boolean monochrome) {
-    this.monochrome = monochrome;
-  }
-
-
-  public SendFaxRequest storeMedia(Boolean storeMedia) {
-    this.storeMedia = storeMedia;
-    return this;
-  }
-
-   /**
-   * Should fax media be stored on temporary URL. It does not support media_name, they can&#39;t be submitted together.
-   * @return storeMedia
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Should fax media be stored on temporary URL. It does not support media_name, they can't be submitted together.")
-  @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getStoreMedia() {
-    return storeMedia;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStoreMedia(Boolean storeMedia) {
-    this.storeMedia = storeMedia;
   }
 
 
@@ -322,19 +187,16 @@ public class SendFaxRequest {
     SendFaxRequest sendFaxRequest = (SendFaxRequest) o;
     return Objects.equals(this.connectionId, sendFaxRequest.connectionId) &&
         Objects.equals(this.mediaUrl, sendFaxRequest.mediaUrl) &&
-        Objects.equals(this.mediaName, sendFaxRequest.mediaName) &&
         Objects.equals(this.to, sendFaxRequest.to) &&
         Objects.equals(this.from, sendFaxRequest.from) &&
-        Objects.equals(this.quality, sendFaxRequest.quality) &&
-        Objects.equals(this.t38Enabled, sendFaxRequest.t38Enabled) &&
-        Objects.equals(this.monochrome, sendFaxRequest.monochrome) &&
-        Objects.equals(this.storeMedia, sendFaxRequest.storeMedia);
+        Objects.equals(this.quality, sendFaxRequest.quality);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, mediaUrl, mediaName, to, from, quality, t38Enabled, monochrome, storeMedia);
+    return Objects.hash(connectionId, mediaUrl, to, from, quality);
   }
+
 
   @Override
   public String toString() {
@@ -342,13 +204,9 @@ public class SendFaxRequest {
     sb.append("class SendFaxRequest {\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    mediaUrl: ").append(toIndentedString(mediaUrl)).append("\n");
-    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    quality: ").append(toIndentedString(quality)).append("\n");
-    sb.append("    t38Enabled: ").append(toIndentedString(t38Enabled)).append("\n");
-    sb.append("    monochrome: ").append(toIndentedString(monochrome)).append("\n");
-    sb.append("    storeMedia: ").append(toIndentedString(storeMedia)).append("\n");
     sb.append("}");
     return sb.toString();
   }

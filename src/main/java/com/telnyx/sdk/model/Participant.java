@@ -160,8 +160,6 @@ public class Participant {
   public static final String JSON_PROPERTY_ON_HOLD = "on_hold";
   private Boolean onHold;
 
-  public Participant() { 
-  }
 
   public Participant recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -172,7 +170,6 @@ public class Participant {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "participant", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -182,8 +179,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -198,7 +193,6 @@ public class Participant {
    * Uniquely identifies the participant
    * @return id
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", required = true, value = "Uniquely identifies the participant")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -208,8 +202,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(String id) {
     this.id = id;
   }
@@ -224,7 +216,6 @@ public class Participant {
    * Uniquely identifies the call leg associated with the participant
    * @return callLegId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", required = true, value = "Uniquely identifies the call leg associated with the participant")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -234,8 +225,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -250,7 +239,6 @@ public class Participant {
    * Call Control ID associated with the partiipant of the conference
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "v2:v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ", required = true, value = "Call Control ID associated with the partiipant of the conference")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -260,8 +248,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -276,7 +262,6 @@ public class Participant {
    * Get conference
    * @return conference
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CONFERENCE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -286,8 +271,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONFERENCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConference(ParticipantConference conference) {
     this.conference = conference;
   }
@@ -307,7 +290,6 @@ public class Participant {
    * Array of unique call_control_ids the participant can whisper to..
    * @return whisperCallControlIds
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "[\"v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ\",\"v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw\"]", required = true, value = "Array of unique call_control_ids the participant can whisper to..")
   @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -317,8 +299,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setWhisperCallControlIds(List<String> whisperCallControlIds) {
     this.whisperCallControlIds = whisperCallControlIds;
   }
@@ -333,7 +313,6 @@ public class Participant {
    * ISO 8601 formatted date of when the participant was created
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the participant was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -343,8 +322,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -359,7 +336,6 @@ public class Participant {
    * ISO 8601 formatted date of when the participant was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the participant was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -369,8 +345,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -385,7 +359,6 @@ public class Participant {
    * Whether the conference will end and all remaining participants be hung up after the participant leaves the conference.
    * @return endConferenceOnExit
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "Whether the conference will end and all remaining participants be hung up after the participant leaves the conference.")
   @JsonProperty(JSON_PROPERTY_END_CONFERENCE_ON_EXIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -395,8 +368,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_END_CONFERENCE_ON_EXIT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEndConferenceOnExit(Boolean endConferenceOnExit) {
     this.endConferenceOnExit = endConferenceOnExit;
   }
@@ -411,7 +382,6 @@ public class Participant {
    * Whether the conference will end after the participant leaves the conference.
    * @return softEndConferenceOnExit
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "Whether the conference will end after the participant leaves the conference.")
   @JsonProperty(JSON_PROPERTY_SOFT_END_CONFERENCE_ON_EXIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -421,8 +391,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SOFT_END_CONFERENCE_ON_EXIT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSoftEndConferenceOnExit(Boolean softEndConferenceOnExit) {
     this.softEndConferenceOnExit = softEndConferenceOnExit;
   }
@@ -437,7 +405,6 @@ public class Participant {
    * The status of the participant with respect to the lifecycle within the conference
    * @return status
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "joining", required = true, value = "The status of the participant with respect to the lifecycle within the conference")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -447,8 +414,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -463,7 +428,6 @@ public class Participant {
    * Whether the participant is muted.
    * @return muted
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "Whether the participant is muted.")
   @JsonProperty(JSON_PROPERTY_MUTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -473,8 +437,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MUTED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMuted(Boolean muted) {
     this.muted = muted;
   }
@@ -489,7 +451,6 @@ public class Participant {
    * Whether the participant is put on_hold.
    * @return onHold
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "Whether the participant is put on_hold.")
   @JsonProperty(JSON_PROPERTY_ON_HOLD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -499,8 +460,6 @@ public class Participant {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ON_HOLD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setOnHold(Boolean onHold) {
     this.onHold = onHold;
   }
@@ -537,6 +496,7 @@ public class Participant {
   public int hashCode() {
     return Objects.hash(recordType, id, callLegId, callControlId, conference, whisperCallControlIds, createdAt, updatedAt, endConferenceOnExit, softEndConferenceOnExit, status, muted, onHold);
   }
+
 
   @Override
   public String toString() {

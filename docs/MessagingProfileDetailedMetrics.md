@@ -2,7 +2,6 @@
 
 # MessagingProfileDetailedMetrics
 
-
 ## Properties
 
 Name | Type | Description | Notes

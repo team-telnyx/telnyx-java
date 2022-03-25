@@ -2,7 +2,6 @@
 
 # OutboundVoiceProfileResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

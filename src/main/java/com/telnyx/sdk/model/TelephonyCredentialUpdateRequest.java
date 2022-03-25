@@ -51,8 +51,6 @@ public class TelephonyCredentialUpdateRequest {
   public static final String JSON_PROPERTY_EXPIRES_AT = "expires_at";
   private String expiresAt;
 
-  public TelephonyCredentialUpdateRequest() { 
-  }
 
   public TelephonyCredentialUpdateRequest name(String name) {
     this.name = name;
@@ -73,8 +71,6 @@ public class TelephonyCredentialUpdateRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -99,8 +95,6 @@ public class TelephonyCredentialUpdateRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTag(String tag) {
     this.tag = tag;
   }
@@ -125,8 +119,6 @@ public class TelephonyCredentialUpdateRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -151,8 +143,6 @@ public class TelephonyCredentialUpdateRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpiresAt(String expiresAt) {
     this.expiresAt = expiresAt;
   }
@@ -180,6 +170,7 @@ public class TelephonyCredentialUpdateRequest {
   public int hashCode() {
     return Objects.hash(name, tag, connectionId, expiresAt);
   }
+
 
   @Override
   public String toString() {

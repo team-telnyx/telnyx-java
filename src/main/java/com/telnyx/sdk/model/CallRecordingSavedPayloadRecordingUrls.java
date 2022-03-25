@@ -24,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -48,8 +47,6 @@ public class CallRecordingSavedPayloadRecordingUrls {
   public static final String JSON_PROPERTY_WAV = "wav";
   private JsonNullable<String> wav = JsonNullable.<String>undefined();
 
-  public CallRecordingSavedPayloadRecordingUrls() { 
-  }
 
   public CallRecordingSavedPayloadRecordingUrls mp3(String mp3) {
     this.mp3 = JsonNullable.<String>of(mp3);
@@ -131,25 +128,15 @@ public class CallRecordingSavedPayloadRecordingUrls {
       return false;
     }
     CallRecordingSavedPayloadRecordingUrls callRecordingSavedPayloadRecordingUrls = (CallRecordingSavedPayloadRecordingUrls) o;
-    return equalsNullable(this.mp3, callRecordingSavedPayloadRecordingUrls.mp3) &&
-        equalsNullable(this.wav, callRecordingSavedPayloadRecordingUrls.wav);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+    return Objects.equals(this.mp3, callRecordingSavedPayloadRecordingUrls.mp3) &&
+        Objects.equals(this.wav, callRecordingSavedPayloadRecordingUrls.wav);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(mp3), hashCodeNullable(wav));
+    return Objects.hash(mp3, wav);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

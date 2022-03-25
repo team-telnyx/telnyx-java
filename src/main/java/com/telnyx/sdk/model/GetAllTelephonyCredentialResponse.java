@@ -47,8 +47,6 @@ public class GetAllTelephonyCredentialResponse {
   public static final String JSON_PROPERTY_META = "meta";
   private PaginationMeta meta;
 
-  public GetAllTelephonyCredentialResponse() { 
-  }
 
   public GetAllTelephonyCredentialResponse data(List<TelephonyCredential> data) {
     this.data = data;
@@ -77,8 +75,6 @@ public class GetAllTelephonyCredentialResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(List<TelephonyCredential> data) {
     this.data = data;
   }
@@ -103,8 +99,6 @@ public class GetAllTelephonyCredentialResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMeta(PaginationMeta meta) {
     this.meta = meta;
   }
@@ -130,6 +124,7 @@ public class GetAllTelephonyCredentialResponse {
   public int hashCode() {
     return Objects.hash(data, meta);
   }
+
 
   @Override
   public String toString() {

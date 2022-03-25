@@ -2,7 +2,6 @@
 
 # ConferenceParticipantJoinedEvent
 
-
 ## Properties
 
 Name | Type | Description | Notes

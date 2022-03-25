@@ -29,7 +29,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -174,8 +173,6 @@ public class PhoneNumberWithMessagingSettings {
   public static final String JSON_PROPERTY_FEATURES = "features";
   private PhoneNumberWithMessagingSettingsFeatures features;
 
-  public PhoneNumberWithMessagingSettings() { 
-  }
 
    /**
    * Identifies the type of the resource.
@@ -342,8 +339,6 @@ public class PhoneNumberWithMessagingSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_HEALTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHealth(NumberHealthMetrics health) {
     this.health = health;
   }
@@ -400,8 +395,6 @@ public class PhoneNumberWithMessagingSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PRODUCT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProduct(String messagingProduct) {
     this.messagingProduct = messagingProduct;
   }
@@ -426,8 +419,6 @@ public class PhoneNumberWithMessagingSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FEATURES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFeatures(PhoneNumberWithMessagingSettingsFeatures features) {
     this.features = features;
   }
@@ -448,7 +439,7 @@ public class PhoneNumberWithMessagingSettings {
     return Objects.equals(this.recordType, phoneNumberWithMessagingSettings.recordType) &&
         Objects.equals(this.id, phoneNumberWithMessagingSettings.id) &&
         Objects.equals(this.phoneNumber, phoneNumberWithMessagingSettings.phoneNumber) &&
-        equalsNullable(this.messagingProfileId, phoneNumberWithMessagingSettings.messagingProfileId) &&
+        Objects.equals(this.messagingProfileId, phoneNumberWithMessagingSettings.messagingProfileId) &&
         Objects.equals(this.createdAt, phoneNumberWithMessagingSettings.createdAt) &&
         Objects.equals(this.updatedAt, phoneNumberWithMessagingSettings.updatedAt) &&
         Objects.equals(this.countryCode, phoneNumberWithMessagingSettings.countryCode) &&
@@ -460,21 +451,11 @@ public class PhoneNumberWithMessagingSettings {
         Objects.equals(this.features, phoneNumberWithMessagingSettings.features);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, phoneNumber, hashCodeNullable(messagingProfileId), createdAt, updatedAt, countryCode, type, health, eligibleMessagingProducts, trafficType, messagingProduct, features);
+    return Objects.hash(recordType, id, phoneNumber, messagingProfileId, createdAt, updatedAt, countryCode, type, health, eligibleMessagingProducts, trafficType, messagingProduct, features);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {

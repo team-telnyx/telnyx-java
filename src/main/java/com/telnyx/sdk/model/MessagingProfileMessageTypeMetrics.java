@@ -56,8 +56,6 @@ public class MessagingProfileMessageTypeMetrics {
   public static final String JSON_PROPERTY_RECEIVED = "received";
   private BigDecimal received;
 
-  public MessagingProfileMessageTypeMetrics() { 
-  }
 
    /**
    * The metric type.
@@ -162,6 +160,7 @@ public class MessagingProfileMessageTypeMetrics {
   public int hashCode() {
     return Objects.hash(label, sent, delivered, outboundErrorRatio, received);
   }
+
 
   @Override
   public String toString() {

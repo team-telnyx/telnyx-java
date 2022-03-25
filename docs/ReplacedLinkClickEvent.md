@@ -2,7 +2,6 @@
 
 # ReplacedLinkClickEvent
 
-
 ## Properties
 
 Name | Type | Description | Notes

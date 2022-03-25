@@ -29,7 +29,7 @@ public class MessagingUrlDomainsApi {
   }
 
   /**
-   * Get the API client
+   * Get the API cilent
    *
    * @return API client
    */
@@ -38,7 +38,7 @@ public class MessagingUrlDomainsApi {
   }
 
   /**
-   * Set the API client
+   * Set the API cilent
    *
    * @param apiClient an instance of API client
    */
@@ -103,7 +103,7 @@ private ApiResponse<ListMessagingProfileUrlDomainsResponse> listMessagingUrlDoma
 
     /**
      * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
+     * @param pageSize The size of the page (optional, default to 50)
      * @return APIlistMessagingUrlDomainsRequest
      */
     public APIlistMessagingUrlDomainsRequest pageSize(Integer pageSize) {
@@ -119,7 +119,7 @@ private ApiResponse<ListMessagingProfileUrlDomainsResponse> listMessagingUrlDoma
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with details about a messaging URL domain. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
      
      */
@@ -136,7 +136,7 @@ private ApiResponse<ListMessagingProfileUrlDomainsResponse> listMessagingUrlDoma
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with details about a messaging URL domain. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Bad Request </td><td>  -  </td></tr>
        </table>
 
      */

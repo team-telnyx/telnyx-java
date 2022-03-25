@@ -2,7 +2,6 @@
 
 # RefreshFaxResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

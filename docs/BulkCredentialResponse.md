@@ -2,7 +2,6 @@
 
 # BulkCredentialResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

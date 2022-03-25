@@ -3,7 +3,6 @@
 # CnamListing
 
 The CNAM listing settings for a phone number.
-
 ## Properties
 
 Name | Type | Description | Notes

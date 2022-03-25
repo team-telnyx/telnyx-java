@@ -1,14 +1,14 @@
-# IpsApi
+# IPsApi
 
 All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createIp**](IpsApi.md#createIp) | **POST** /ips | Create an Ip
-[**deleteIp**](IpsApi.md#deleteIp) | **DELETE** /ips/{id} | Delete an Ip
-[**listIps**](IpsApi.md#listIps) | **GET** /ips | List Ips
-[**retrieveIp**](IpsApi.md#retrieveIp) | **GET** /ips/{id} | Retrieve an Ip
-[**updateIp**](IpsApi.md#updateIp) | **PATCH** /ips/{id} | Update an Ip
+[**createIp**](IPsApi.md#createIp) | **POST** /ips | Create an Ip
+[**deleteIp**](IPsApi.md#deleteIp) | **DELETE** /ips/{id} | Delete an Ip
+[**listIps**](IPsApi.md#listIps) | **GET** /ips | List Ips
+[**retrieveIp**](IPsApi.md#retrieveIp) | **GET** /ips/{id} | Retrieve an Ip
+[**updateIp**](IPsApi.md#updateIp) | **PATCH** /ips/{id} | Update an Ip
 
 
 
@@ -29,7 +29,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IpsApi;
+import com.telnyx.sdk.api.IPsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -40,13 +40,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        IpsApi apiInstance = new IpsApi(defaultClient);
+        IPsApi apiInstance = new IPsApi(defaultClient);
         CreateIpRequest createIpRequest = new CreateIpRequest(); // CreateIpRequest | 
         try {
             IpResponse result = apiInstance.createIp(createIpRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IpsApi#createIp");
+            System.err.println("Exception when calling IPsApi#createIp");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -95,14 +95,13 @@ Delete an IP.
 ### Example
 
 ```java
-import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IpsApi;
+import com.telnyx.sdk.api.IPsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -113,13 +112,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        IpsApi apiInstance = new IpsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the type of resource.
+        IPsApi apiInstance = new IPsApi(defaultClient);
+        UUID id = 6a09cdc3-8948-47f0-aa62-74ac943d6c58; // UUID | Identifies the type of resource.
         try {
             IpResponse result = apiInstance.deleteIp(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IpsApi#deleteIp");
+            System.err.println("Exception when calling IPsApi#deleteIp");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -134,7 +133,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the type of resource. |
+ **id** | [**UUID**](.md)| Identifies the type of resource. |
 
 ### Return type
 
@@ -174,7 +173,7 @@ import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IpsApi;
+import com.telnyx.sdk.api.IPsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -185,11 +184,11 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        IpsApi apiInstance = new IpsApi(defaultClient);
+        IPsApi apiInstance = new IPsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageSize = 50; // Integer | The size of the page
         String filterConnectionId = "filterConnectionId_example"; // String | ID of the IP Connection to which this IP should be attached.
-        String filterIpAddress = "192.168.0.0"; // String | IP adddress represented by this resource.
+        String filterIpAddress = 192.168.0.0; // String | IP adddress represented by this resource.
         Integer filterPort = 5060; // Integer | Port to use when connecting to this IP.
         try {
             ListIpsResponse result = api.listIps()
@@ -201,7 +200,7 @@ public class Example {
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IpsApi#listIps");
+            System.err.println("Exception when calling IPsApi#listIps");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -217,7 +216,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 50]
  **filterConnectionId** | **String**| ID of the IP Connection to which this IP should be attached. | [optional]
  **filterIpAddress** | **String**| IP adddress represented by this resource. | [optional]
  **filterPort** | **Integer**| Port to use when connecting to this IP. | [optional]
@@ -254,14 +253,13 @@ Return the details regarding a specific IP.
 ### Example
 
 ```java
-import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IpsApi;
+import com.telnyx.sdk.api.IPsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -272,13 +270,13 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        IpsApi apiInstance = new IpsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the type of resource.
+        IPsApi apiInstance = new IPsApi(defaultClient);
+        UUID id = 6a09cdc3-8948-47f0-aa62-74ac943d6c58; // UUID | Identifies the type of resource.
         try {
             IpResponse result = apiInstance.retrieveIp(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IpsApi#retrieveIp");
+            System.err.println("Exception when calling IPsApi#retrieveIp");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -293,7 +291,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the type of resource. |
+ **id** | [**UUID**](.md)| Identifies the type of resource. |
 
 ### Return type
 
@@ -327,14 +325,13 @@ Update the details of a specific IP.
 ### Example
 
 ```java
-import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IpsApi;
+import com.telnyx.sdk.api.IPsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -345,14 +342,14 @@ public class Example {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        IpsApi apiInstance = new IpsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the type of resource.
+        IPsApi apiInstance = new IPsApi(defaultClient);
+        UUID id = 6a09cdc3-8948-47f0-aa62-74ac943d6c58; // UUID | Identifies the type of resource.
         UpdateIpRequest updateIpRequest = new UpdateIpRequest(); // UpdateIpRequest | 
         try {
             IpResponse result = apiInstance.updateIp(id, updateIpRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IpsApi#updateIp");
+            System.err.println("Exception when calling IPsApi#updateIp");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -367,7 +364,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the type of resource. |
+ **id** | [**UUID**](.md)| Identifies the type of resource. |
  **updateIpRequest** | [**UpdateIpRequest**](UpdateIpRequest.md)|  | [optional]
 
 ### Return type

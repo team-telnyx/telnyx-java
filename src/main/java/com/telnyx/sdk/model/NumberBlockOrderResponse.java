@@ -40,8 +40,6 @@ public class NumberBlockOrderResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private NumberBlockOrder data;
 
-  public NumberBlockOrderResponse() { 
-  }
 
   public NumberBlockOrderResponse data(NumberBlockOrder data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class NumberBlockOrderResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(NumberBlockOrder data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class NumberBlockOrderResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

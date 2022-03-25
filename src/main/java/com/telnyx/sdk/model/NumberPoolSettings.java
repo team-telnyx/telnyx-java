@@ -57,8 +57,6 @@ public class NumberPoolSettings {
   public static final String JSON_PROPERTY_GEOMATCH = "geomatch";
   private Boolean geomatch = false;
 
-  public NumberPoolSettings() { 
-  }
 
   public NumberPoolSettings tollFreeWeight(BigDecimal tollFreeWeight) {
     this.tollFreeWeight = tollFreeWeight;
@@ -69,7 +67,6 @@ public class NumberPoolSettings {
    * Defines the probability weight for a Toll Free number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100. Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. 
    * @return tollFreeWeight
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "10", required = true, value = "Defines the probability weight for a Toll Free number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100. Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. ")
   @JsonProperty(JSON_PROPERTY_TOLL_FREE_WEIGHT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -79,8 +76,6 @@ public class NumberPoolSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TOLL_FREE_WEIGHT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTollFreeWeight(BigDecimal tollFreeWeight) {
     this.tollFreeWeight = tollFreeWeight;
   }
@@ -95,7 +90,6 @@ public class NumberPoolSettings {
    * Defines the probability weight for a Long Code number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100.  Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. 
    * @return longCodeWeight
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "1", required = true, value = "Defines the probability weight for a Long Code number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100.  Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. ")
   @JsonProperty(JSON_PROPERTY_LONG_CODE_WEIGHT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -105,8 +99,6 @@ public class NumberPoolSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LONG_CODE_WEIGHT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLongCodeWeight(BigDecimal longCodeWeight) {
     this.longCodeWeight = longCodeWeight;
   }
@@ -121,7 +113,6 @@ public class NumberPoolSettings {
    * If set to true all unhealthy numbers will be automatically excluded from the pool. Health metrics per number are calculated on a regular basis, taking into account the deliverability rate and the amount of messages marked as spam by upstream carriers. Numbers with a deliverability rate below 25% or spam ratio over 75% will be considered unhealthy. 
    * @return skipUnhealthy
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "If set to true all unhealthy numbers will be automatically excluded from the pool. Health metrics per number are calculated on a regular basis, taking into account the deliverability rate and the amount of messages marked as spam by upstream carriers. Numbers with a deliverability rate below 25% or spam ratio over 75% will be considered unhealthy. ")
   @JsonProperty(JSON_PROPERTY_SKIP_UNHEALTHY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -131,8 +122,6 @@ public class NumberPoolSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SKIP_UNHEALTHY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSkipUnhealthy(Boolean skipUnhealthy) {
     this.skipUnhealthy = skipUnhealthy;
   }
@@ -157,8 +146,6 @@ public class NumberPoolSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STICKY_SENDER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStickySender(Boolean stickySender) {
     this.stickySender = stickySender;
   }
@@ -183,8 +170,6 @@ public class NumberPoolSettings {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GEOMATCH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGeomatch(Boolean geomatch) {
     this.geomatch = geomatch;
   }
@@ -213,6 +198,7 @@ public class NumberPoolSettings {
   public int hashCode() {
     return Objects.hash(tollFreeWeight, longCodeWeight, skipUnhealthy, stickySender, geomatch);
   }
+
 
   @Override
   public String toString() {

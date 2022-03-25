@@ -51,8 +51,6 @@ public class TelephonyCredentialCreateRequest {
   public static final String JSON_PROPERTY_EXPIRES_AT = "expires_at";
   private String expiresAt;
 
-  public TelephonyCredentialCreateRequest() { 
-  }
 
   public TelephonyCredentialCreateRequest name(String name) {
     this.name = name;
@@ -73,8 +71,6 @@ public class TelephonyCredentialCreateRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -99,8 +95,6 @@ public class TelephonyCredentialCreateRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTag(String tag) {
     this.tag = tag;
   }
@@ -115,7 +109,6 @@ public class TelephonyCredentialCreateRequest {
    * Identifies the Credential Connection this credential is associated with.
    * @return connectionId
   **/
-  @javax.annotation.Nonnull
   @ApiModelProperty(example = "1234567890", required = true, value = "Identifies the Credential Connection this credential is associated with.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -125,8 +118,6 @@ public class TelephonyCredentialCreateRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -151,8 +142,6 @@ public class TelephonyCredentialCreateRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpiresAt(String expiresAt) {
     this.expiresAt = expiresAt;
   }
@@ -180,6 +169,7 @@ public class TelephonyCredentialCreateRequest {
   public int hashCode() {
     return Objects.hash(name, tag, connectionId, expiresAt);
   }
+
 
   @Override
   public String toString() {

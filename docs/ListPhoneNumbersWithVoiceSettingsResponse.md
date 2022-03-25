@@ -2,7 +2,6 @@
 
 # ListPhoneNumbersWithVoiceSettingsResponse
 
-
 ## Properties
 
 Name | Type | Description | Notes

@@ -82,8 +82,6 @@ public class RegulatoryRequirementCriteria {
   public static final String JSON_PROPERTY_CRITERIA_VALUE = "criteria_value";
   private String criteriaValue;
 
-  public RegulatoryRequirementCriteria() { 
-  }
 
    /**
    * Get recordType
@@ -154,6 +152,7 @@ public class RegulatoryRequirementCriteria {
   public int hashCode() {
     return Objects.hash(recordType, criteriaType, criteriaValue);
   }
+
 
   @Override
   public String toString() {

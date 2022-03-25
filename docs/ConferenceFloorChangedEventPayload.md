@@ -2,7 +2,6 @@
 
 # ConferenceFloorChangedEventPayload
 
-
 ## Properties
 
 Name | Type | Description | Notes
@@ -13,7 +12,7 @@ Name | Type | Description | Notes
 **callSessionId** | **String** | Call Session ID of the new speaker. |  [optional]
 **clientState** | **String** | State received from a command. |  [optional]
 **conferenceId** | **String** | Conference ID that had a speaker change event. |  [optional]
-**occurredAt** | **OffsetDateTime** | ISO 8601 datetime of when the event occurred. |  [optional]
+**occurredAt** | [**OffsetDateTime**](OffsetDateTime.md) | ISO 8601 datetime of when the event occurred. |  [optional]
 
 
 

@@ -2,7 +2,6 @@
 
 # CreateFaxApplicationRequestOutbound
 
-
 ## Properties
 
 Name | Type | Description | Notes

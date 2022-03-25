@@ -40,8 +40,6 @@ public class RetrieveMessagingSettingsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private PhoneNumberWithMessagingSettings data;
 
-  public RetrieveMessagingSettingsResponse() { 
-  }
 
   public RetrieveMessagingSettingsResponse data(PhoneNumberWithMessagingSettings data) {
     this.data = data;
@@ -62,8 +60,6 @@ public class RetrieveMessagingSettingsResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(PhoneNumberWithMessagingSettings data) {
     this.data = data;
   }
@@ -88,6 +84,7 @@ public class RetrieveMessagingSettingsResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
+
 
   @Override
   public String toString() {

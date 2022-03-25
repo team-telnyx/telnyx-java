@@ -30,7 +30,6 @@ import com.telnyx.sdk.model.InboundIp;
 import com.telnyx.sdk.model.OutboundIp;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -197,8 +196,6 @@ public class IpConnection {
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
   private OutboundIp outbound;
 
-  public IpConnection() { 
-  }
 
   public IpConnection id(String id) {
     this.id = id;
@@ -219,8 +216,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -245,8 +240,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -271,8 +264,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACTIVE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(Boolean active) {
     this.active = active;
   }
@@ -297,8 +288,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAnchorsiteOverride(AnchorsiteOverride anchorsiteOverride) {
     this.anchorsiteOverride = anchorsiteOverride;
   }
@@ -323,8 +312,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionName(String connectionName) {
     this.connectionName = connectionName;
   }
@@ -349,8 +336,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRANSPORT_PROTOCOL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransportProtocol(TransportProtocolEnum transportProtocol) {
     this.transportProtocol = transportProtocol;
   }
@@ -375,8 +360,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultOnHoldComfortNoiseEnabled(Boolean defaultOnHoldComfortNoiseEnabled) {
     this.defaultOnHoldComfortNoiseEnabled = defaultOnHoldComfortNoiseEnabled;
   }
@@ -401,8 +384,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDtmfType(DtmfType dtmfType) {
     this.dtmfType = dtmfType;
   }
@@ -427,8 +408,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEncodeContactHeaderEnabled(Boolean encodeContactHeaderEnabled) {
     this.encodeContactHeaderEnabled = encodeContactHeaderEnabled;
   }
@@ -487,8 +466,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOnnetT38PassthroughEnabled(Boolean onnetT38PassthroughEnabled) {
     this.onnetT38PassthroughEnabled = onnetT38PassthroughEnabled;
   }
@@ -513,8 +490,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookEventUrl(String webhookEventUrl) {
     this.webhookEventUrl = webhookEventUrl;
   }
@@ -573,8 +548,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
@@ -635,8 +608,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RTCP_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRtcpSettings(ConnectionRtcpSettings rtcpSettings) {
     this.rtcpSettings = rtcpSettings;
   }
@@ -661,8 +632,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -687,8 +656,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
@@ -713,8 +680,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INBOUND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInbound(InboundIp inbound) {
     this.inbound = inbound;
   }
@@ -739,8 +704,6 @@ public class IpConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OUTBOUND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutbound(OutboundIp outbound) {
     this.outbound = outbound;
   }
@@ -767,12 +730,12 @@ public class IpConnection {
         Objects.equals(this.defaultOnHoldComfortNoiseEnabled, ipConnection.defaultOnHoldComfortNoiseEnabled) &&
         Objects.equals(this.dtmfType, ipConnection.dtmfType) &&
         Objects.equals(this.encodeContactHeaderEnabled, ipConnection.encodeContactHeaderEnabled) &&
-        equalsNullable(this.encryptedMedia, ipConnection.encryptedMedia) &&
+        Objects.equals(this.encryptedMedia, ipConnection.encryptedMedia) &&
         Objects.equals(this.onnetT38PassthroughEnabled, ipConnection.onnetT38PassthroughEnabled) &&
         Objects.equals(this.webhookEventUrl, ipConnection.webhookEventUrl) &&
-        equalsNullable(this.webhookEventFailoverUrl, ipConnection.webhookEventFailoverUrl) &&
+        Objects.equals(this.webhookEventFailoverUrl, ipConnection.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, ipConnection.webhookApiVersion) &&
-        equalsNullable(this.webhookTimeoutSecs, ipConnection.webhookTimeoutSecs) &&
+        Objects.equals(this.webhookTimeoutSecs, ipConnection.webhookTimeoutSecs) &&
         Objects.equals(this.rtcpSettings, ipConnection.rtcpSettings) &&
         Objects.equals(this.createdAt, ipConnection.createdAt) &&
         Objects.equals(this.updatedAt, ipConnection.updatedAt) &&
@@ -780,21 +743,11 @@ public class IpConnection {
         Objects.equals(this.outbound, ipConnection.outbound);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, createdAt, updatedAt, inbound, outbound);
+    return Objects.hash(id, recordType, active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, encryptedMedia, onnetT38PassthroughEnabled, webhookEventUrl, webhookEventFailoverUrl, webhookApiVersion, webhookTimeoutSecs, rtcpSettings, createdAt, updatedAt, inbound, outbound);
   }
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
   @Override
   public String toString() {
