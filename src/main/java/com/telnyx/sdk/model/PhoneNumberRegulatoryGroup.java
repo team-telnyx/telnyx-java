@@ -55,6 +55,8 @@ public class PhoneNumberRegulatoryGroup {
   public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
   private List<RegulatoryRequirement> regulatoryRequirements = null;
 
+  public PhoneNumberRegulatoryGroup() { 
+  }
 
    /**
    * Get recordType
@@ -91,6 +93,8 @@ public class PhoneNumberRegulatoryGroup {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
@@ -115,6 +119,8 @@ public class PhoneNumberRegulatoryGroup {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REGULATORY_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegulatoryGroupId(UUID regulatoryGroupId) {
     this.regulatoryGroupId = regulatoryGroupId;
   }
@@ -147,6 +153,8 @@ public class PhoneNumberRegulatoryGroup {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegulatoryRequirements(List<RegulatoryRequirement> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
   }
@@ -174,7 +182,6 @@ public class PhoneNumberRegulatoryGroup {
   public int hashCode() {
     return Objects.hash(recordType, phoneNumber, regulatoryGroupId, regulatoryRequirements);
   }
-
 
   @Override
   public String toString() {

@@ -2,11 +2,12 @@
 
 # NumberReservation
 
+
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**UUID**](UUID.md) |  |  [optional] [readonly]
+**id** | **UUID** |  |  [optional] [readonly]
 **recordType** | **String** |  |  [optional] [readonly]
 **phoneNumbers** | [**List&lt;ReservedPhoneNumber&gt;**](ReservedPhoneNumber.md) |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | The status of the entire reservation. |  [optional] [readonly]

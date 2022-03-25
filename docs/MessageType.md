@@ -5,9 +5,27 @@
 ## Enum
 
 
-* `SMS` (value: `"SMS"`)
+* `AUDIO` (value: `"audio"`)
 
-* `MMS` (value: `"MMS"`)
+* `CONTACTS` (value: `"contacts"`)
+
+* `DOCUMENT` (value: `"document"`)
+
+* `HSM` (value: `"hsm"`)
+
+* `IMAGE` (value: `"image"`)
+
+* `LOCATION` (value: `"location"`)
+
+* `TEMPLATE` (value: `"template"`)
+
+* `TEXT` (value: `"text"`)
+
+* `VIDEO` (value: `"video"`)
+
+* `VOICE` (value: `"voice"`)
+
+* `UNKNOWN` (value: `"unknown"`)
 
 
 

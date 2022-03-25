@@ -39,6 +39,8 @@ public class Feature {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
+  public Feature() { 
+  }
 
   public Feature name(String name) {
     this.name = name;
@@ -59,6 +61,8 @@ public class Feature {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -83,7 +87,6 @@ public class Feature {
   public int hashCode() {
     return Objects.hash(name);
   }
-
 
   @Override
   public String toString() {

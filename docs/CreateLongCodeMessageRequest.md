@@ -2,6 +2,7 @@
 
 # CreateLongCodeMessageRequest
 
+
 ## Properties
 
 Name | Type | Description | Notes

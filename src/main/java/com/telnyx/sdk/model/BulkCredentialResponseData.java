@@ -39,6 +39,8 @@ public class BulkCredentialResponseData {
   public static final String JSON_PROPERTY_CREDENTIALS = "credentials";
   private Integer credentials;
 
+  public BulkCredentialResponseData() { 
+  }
 
   public BulkCredentialResponseData credentials(Integer credentials) {
     this.credentials = credentials;
@@ -59,6 +61,8 @@ public class BulkCredentialResponseData {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREDENTIALS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCredentials(Integer credentials) {
     this.credentials = credentials;
   }
@@ -83,7 +87,6 @@ public class BulkCredentialResponseData {
   public int hashCode() {
     return Objects.hash(credentials);
   }
-
 
   @Override
   public String toString() {

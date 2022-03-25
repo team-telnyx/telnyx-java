@@ -45,6 +45,8 @@ public class MessageRate {
   public static final String JSON_PROPERTY_CURRENCY = "currency";
   private Currency currency;
 
+  public MessageRate() { 
+  }
 
   public MessageRate amount(BigDecimal amount) {
     this.amount = amount;
@@ -65,6 +67,8 @@ public class MessageRate {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAmount(BigDecimal amount) {
     this.amount = amount;
   }
@@ -89,6 +93,8 @@ public class MessageRate {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCurrency(Currency currency) {
     this.currency = currency;
   }
@@ -114,7 +120,6 @@ public class MessageRate {
   public int hashCode() {
     return Objects.hash(amount, currency);
   }
-
 
   @Override
   public String toString() {

@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -54,6 +55,8 @@ public class CreateFqdnRequest {
   public static final String JSON_PROPERTY_DNS_RECORD_TYPE = "dns_record_type";
   private String dnsRecordType;
 
+  public CreateFqdnRequest() { 
+  }
 
   public CreateFqdnRequest connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -64,6 +67,7 @@ public class CreateFqdnRequest {
    * ID of the FQDN connection to which this IP should be attached.
    * @return connectionId
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "ID of the FQDN connection to which this IP should be attached.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -73,6 +77,8 @@ public class CreateFqdnRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -87,6 +93,7 @@ public class CreateFqdnRequest {
    * FQDN represented by this resource.
    * @return fqdn
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "example.com", required = true, value = "FQDN represented by this resource.")
   @JsonProperty(JSON_PROPERTY_FQDN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -96,6 +103,8 @@ public class CreateFqdnRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FQDN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFqdn(String fqdn) {
     this.fqdn = fqdn;
   }
@@ -144,6 +153,7 @@ public class CreateFqdnRequest {
    * The DNS record type for the FQDN. For cases where a port is not set, the DNS record type must be &#39;srv&#39;. For cases where a port is set, the DNS record type must be &#39;a&#39;. If the DNS record type is &#39;a&#39; and a port is not specified, 5060 will be used.
    * @return dnsRecordType
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "a", required = true, value = "The DNS record type for the FQDN. For cases where a port is not set, the DNS record type must be 'srv'. For cases where a port is set, the DNS record type must be 'a'. If the DNS record type is 'a' and a port is not specified, 5060 will be used.")
   @JsonProperty(JSON_PROPERTY_DNS_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -153,6 +163,8 @@ public class CreateFqdnRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DNS_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDnsRecordType(String dnsRecordType) {
     this.dnsRecordType = dnsRecordType;
   }
@@ -172,15 +184,25 @@ public class CreateFqdnRequest {
     CreateFqdnRequest createFqdnRequest = (CreateFqdnRequest) o;
     return Objects.equals(this.connectionId, createFqdnRequest.connectionId) &&
         Objects.equals(this.fqdn, createFqdnRequest.fqdn) &&
-        Objects.equals(this.port, createFqdnRequest.port) &&
+        equalsNullable(this.port, createFqdnRequest.port) &&
         Objects.equals(this.dnsRecordType, createFqdnRequest.dnsRecordType);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, fqdn, port, dnsRecordType);
+    return Objects.hash(connectionId, fqdn, hashCodeNullable(port), dnsRecordType);
   }
 
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
 
   @Override
   public String toString() {

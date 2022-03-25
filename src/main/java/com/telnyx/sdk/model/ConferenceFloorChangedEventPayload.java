@@ -64,6 +64,8 @@ public class ConferenceFloorChangedEventPayload {
   public static final String JSON_PROPERTY_OCCURRED_AT = "occurred_at";
   private OffsetDateTime occurredAt;
 
+  public ConferenceFloorChangedEventPayload() { 
+  }
 
   public ConferenceFloorChangedEventPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -84,6 +86,8 @@ public class ConferenceFloorChangedEventPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -108,6 +112,8 @@ public class ConferenceFloorChangedEventPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -132,6 +138,8 @@ public class ConferenceFloorChangedEventPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -156,6 +164,8 @@ public class ConferenceFloorChangedEventPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -180,6 +190,8 @@ public class ConferenceFloorChangedEventPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -204,6 +216,8 @@ public class ConferenceFloorChangedEventPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConferenceId(String conferenceId) {
     this.conferenceId = conferenceId;
   }
@@ -228,6 +242,8 @@ public class ConferenceFloorChangedEventPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOccurredAt(OffsetDateTime occurredAt) {
     this.occurredAt = occurredAt;
   }
@@ -258,7 +274,6 @@ public class ConferenceFloorChangedEventPayload {
   public int hashCode() {
     return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, conferenceId, occurredAt);
   }
-
 
   @Override
   public String toString() {

@@ -83,6 +83,8 @@ public class CallForwarding {
   public static final String JSON_PROPERTY_FORWARDING_TYPE = "forwarding_type";
   private ForwardingTypeEnum forwardingType;
 
+  public CallForwarding() { 
+  }
 
   public CallForwarding callForwardingEnabled(Boolean callForwardingEnabled) {
     this.callForwardingEnabled = callForwardingEnabled;
@@ -103,6 +105,8 @@ public class CallForwarding {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_FORWARDING_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallForwardingEnabled(Boolean callForwardingEnabled) {
     this.callForwardingEnabled = callForwardingEnabled;
   }
@@ -127,6 +131,8 @@ public class CallForwarding {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FORWARDS_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setForwardsTo(String forwardsTo) {
     this.forwardsTo = forwardsTo;
   }
@@ -151,6 +157,8 @@ public class CallForwarding {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FORWARDING_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setForwardingType(ForwardingTypeEnum forwardingType) {
     this.forwardingType = forwardingType;
   }
@@ -177,7 +185,6 @@ public class CallForwarding {
   public int hashCode() {
     return Objects.hash(callForwardingEnabled, forwardsTo, forwardingType);
   }
-
 
   @Override
   public String toString() {

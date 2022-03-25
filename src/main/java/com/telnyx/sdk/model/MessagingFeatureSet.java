@@ -48,6 +48,8 @@ public class MessagingFeatureSet {
   public static final String JSON_PROPERTY_INTERNATIONAL_OUTBOUND = "international_outbound";
   private Boolean internationalOutbound;
 
+  public MessagingFeatureSet() { 
+  }
 
   public MessagingFeatureSet domesticTwoWay(Boolean domesticTwoWay) {
     this.domesticTwoWay = domesticTwoWay;
@@ -58,6 +60,7 @@ public class MessagingFeatureSet {
    * Send messages to and receive messages from numbers in the same country.
    * @return domesticTwoWay
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Send messages to and receive messages from numbers in the same country.")
   @JsonProperty(JSON_PROPERTY_DOMESTIC_TWO_WAY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -67,6 +70,8 @@ public class MessagingFeatureSet {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DOMESTIC_TWO_WAY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDomesticTwoWay(Boolean domesticTwoWay) {
     this.domesticTwoWay = domesticTwoWay;
   }
@@ -81,6 +86,7 @@ public class MessagingFeatureSet {
    * Receive messages from numbers in other countries.
    * @return internationalInbound
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Receive messages from numbers in other countries.")
   @JsonProperty(JSON_PROPERTY_INTERNATIONAL_INBOUND)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -90,6 +96,8 @@ public class MessagingFeatureSet {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INTERNATIONAL_INBOUND)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setInternationalInbound(Boolean internationalInbound) {
     this.internationalInbound = internationalInbound;
   }
@@ -104,6 +112,7 @@ public class MessagingFeatureSet {
    * Send messages to numbers in other countries.
    * @return internationalOutbound
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Send messages to numbers in other countries.")
   @JsonProperty(JSON_PROPERTY_INTERNATIONAL_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -113,6 +122,8 @@ public class MessagingFeatureSet {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INTERNATIONAL_OUTBOUND)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setInternationalOutbound(Boolean internationalOutbound) {
     this.internationalOutbound = internationalOutbound;
   }
@@ -139,7 +150,6 @@ public class MessagingFeatureSet {
   public int hashCode() {
     return Objects.hash(domesticTwoWay, internationalInbound, internationalOutbound);
   }
-
 
   @Override
   public String toString() {

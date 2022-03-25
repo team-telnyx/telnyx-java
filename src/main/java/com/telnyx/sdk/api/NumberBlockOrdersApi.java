@@ -31,7 +31,7 @@ public class NumberBlockOrdersApi {
   }
 
   /**
-   * Get the API cilent
+   * Get the API client
    *
    * @return API client
    */
@@ -40,7 +40,7 @@ public class NumberBlockOrdersApi {
   }
 
   /**
-   * Set the API cilent
+   * Set the API client
    *
    * @param apiClient an instance of API client
    */
@@ -124,8 +124,8 @@ public class NumberBlockOrdersApi {
    * @param filterCreatedAtGt Filter number block orders later than this value. (optional)
    * @param filterCreatedAtLt Filter number block orders earlier than this value. (optional)
    * @param filterPhoneNumbersStartingNumber Filter number block  orders having these phone numbers. (optional)
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 20)
    * @return ListNumberBlockOrdersResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -146,8 +146,8 @@ public class NumberBlockOrdersApi {
    * @param filterCreatedAtGt Filter number block orders later than this value. (optional)
    * @param filterCreatedAtLt Filter number block orders earlier than this value. (optional)
    * @param filterPhoneNumbersStartingNumber Filter number block  orders having these phone numbers. (optional)
-   * @param pageNumber The page number to load. (optional, default to 1)
-   * @param pageSize The size of the page. (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 20)
    * @return ApiResponse&lt;ListNumberBlockOrdersResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details

@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.NumberOrder;
+import com.telnyx.sdk.model.NumberOrderWithPhoneNumbers;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -38,10 +38,12 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NumberOrderResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private NumberOrder data;
+  private NumberOrderWithPhoneNumbers data;
 
+  public NumberOrderResponse() { 
+  }
 
-  public NumberOrderResponse data(NumberOrder data) {
+  public NumberOrderResponse data(NumberOrderWithPhoneNumbers data) {
     this.data = data;
     return this;
   }
@@ -55,12 +57,14 @@ public class NumberOrderResponse {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public NumberOrder getData() {
+  public NumberOrderWithPhoneNumbers getData() {
     return data;
   }
 
 
-  public void setData(NumberOrder data) {
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setData(NumberOrderWithPhoneNumbers data) {
     this.data = data;
   }
 
@@ -84,7 +88,6 @@ public class NumberOrderResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

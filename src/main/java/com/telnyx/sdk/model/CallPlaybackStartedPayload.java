@@ -38,6 +38,7 @@ import com.telnyx.sdk.JSON;
   CallPlaybackStartedPayload.JSON_PROPERTY_CALL_SESSION_ID,
   CallPlaybackStartedPayload.JSON_PROPERTY_CLIENT_STATE,
   CallPlaybackStartedPayload.JSON_PROPERTY_MEDIA_URL,
+  CallPlaybackStartedPayload.JSON_PROPERTY_MEDIA_NAME,
   CallPlaybackStartedPayload.JSON_PROPERTY_OVERLAY
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -60,9 +61,14 @@ public class CallPlaybackStartedPayload {
   public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
   private String mediaUrl;
 
+  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
+  private String mediaName;
+
   public static final String JSON_PROPERTY_OVERLAY = "overlay";
   private Boolean overlay;
 
+  public CallPlaybackStartedPayload() { 
+  }
 
   public CallPlaybackStartedPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -83,6 +89,8 @@ public class CallPlaybackStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -107,6 +115,8 @@ public class CallPlaybackStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -131,6 +141,8 @@ public class CallPlaybackStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -142,11 +154,11 @@ public class CallPlaybackStartedPayload {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events.
+   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
    * @return callSessionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events.")
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -155,6 +167,8 @@ public class CallPlaybackStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -179,6 +193,8 @@ public class CallPlaybackStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -190,11 +206,11 @@ public class CallPlaybackStartedPayload {
   }
 
    /**
-   * The audio URL being played back.
+   * The audio URL being played back, if audio_url has been used to start.
    * @return mediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "http://example.com/audio.wav", value = "The audio URL being played back.")
+  @ApiModelProperty(example = "http://example.com/audio.wav", value = "The audio URL being played back, if audio_url has been used to start.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -203,8 +219,36 @@ public class CallPlaybackStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MEDIA_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMediaUrl(String mediaUrl) {
     this.mediaUrl = mediaUrl;
+  }
+
+
+  public CallPlaybackStartedPayload mediaName(String mediaName) {
+    this.mediaName = mediaName;
+    return this;
+  }
+
+   /**
+   * The name of the audio media file being played back, if media_name has been used to start.
+   * @return mediaName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The name of the audio media file being played back, if media_name has been used to start.")
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMediaName() {
+    return mediaName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMediaName(String mediaName) {
+    this.mediaName = mediaName;
   }
 
 
@@ -227,6 +271,8 @@ public class CallPlaybackStartedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OVERLAY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOverlay(Boolean overlay) {
     this.overlay = overlay;
   }
@@ -250,14 +296,14 @@ public class CallPlaybackStartedPayload {
         Objects.equals(this.callSessionId, callPlaybackStartedPayload.callSessionId) &&
         Objects.equals(this.clientState, callPlaybackStartedPayload.clientState) &&
         Objects.equals(this.mediaUrl, callPlaybackStartedPayload.mediaUrl) &&
+        Objects.equals(this.mediaName, callPlaybackStartedPayload.mediaName) &&
         Objects.equals(this.overlay, callPlaybackStartedPayload.overlay);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, mediaUrl, overlay);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, mediaUrl, mediaName, overlay);
   }
-
 
   @Override
   public String toString() {
@@ -269,6 +315,7 @@ public class CallPlaybackStartedPayload {
     sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    mediaUrl: ").append(toIndentedString(mediaUrl)).append("\n");
+    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    overlay: ").append(toIndentedString(overlay)).append("\n");
     sb.append("}");
     return sb.toString();

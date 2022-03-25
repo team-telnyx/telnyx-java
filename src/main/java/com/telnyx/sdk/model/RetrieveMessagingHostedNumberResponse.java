@@ -40,6 +40,8 @@ public class RetrieveMessagingHostedNumberResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private HostedNumber data;
 
+  public RetrieveMessagingHostedNumberResponse() { 
+  }
 
   public RetrieveMessagingHostedNumberResponse data(HostedNumber data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class RetrieveMessagingHostedNumberResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(HostedNumber data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class RetrieveMessagingHostedNumberResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

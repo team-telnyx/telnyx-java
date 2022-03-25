@@ -36,7 +36,8 @@ import com.telnyx.sdk.JSON;
   StartRecordingRequest.JSON_PROPERTY_CHANNELS,
   StartRecordingRequest.JSON_PROPERTY_CLIENT_STATE,
   StartRecordingRequest.JSON_PROPERTY_COMMAND_ID,
-  StartRecordingRequest.JSON_PROPERTY_PLAY_BEEP
+  StartRecordingRequest.JSON_PROPERTY_PLAY_BEEP,
+  StartRecordingRequest.JSON_PROPERTY_MAX_LENGTH
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class StartRecordingRequest {
@@ -125,6 +126,11 @@ public class StartRecordingRequest {
   public static final String JSON_PROPERTY_PLAY_BEEP = "play_beep";
   private Boolean playBeep;
 
+  public static final String JSON_PROPERTY_MAX_LENGTH = "max_length";
+  private Integer maxLength = 0;
+
+  public StartRecordingRequest() { 
+  }
 
   public StartRecordingRequest format(FormatEnum format) {
     this.format = format;
@@ -135,6 +141,7 @@ public class StartRecordingRequest {
    * The audio file format used when storing the call recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;.
    * @return format
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "mp3", required = true, value = "The audio file format used when storing the call recording. Can be either `mp3` or `wav`.")
   @JsonProperty(JSON_PROPERTY_FORMAT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -144,6 +151,8 @@ public class StartRecordingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFormat(FormatEnum format) {
     this.format = format;
   }
@@ -158,6 +167,7 @@ public class StartRecordingRequest {
    * When &#x60;dual&#x60;, final audio file will be stereo recorded with the first leg on channel A, and the rest on channel B.
    * @return channels
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "single", required = true, value = "When `dual`, final audio file will be stereo recorded with the first leg on channel A, and the rest on channel B.")
   @JsonProperty(JSON_PROPERTY_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -167,6 +177,8 @@ public class StartRecordingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANNELS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setChannels(ChannelsEnum channels) {
     this.channels = channels;
   }
@@ -191,6 +203,8 @@ public class StartRecordingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -202,11 +216,11 @@ public class StartRecordingRequest {
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore commands with the same &#x60;command_id&#x60;.
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore commands with the same `command_id`.")
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -215,6 +229,8 @@ public class StartRecordingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -239,8 +255,36 @@ public class StartRecordingRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PLAY_BEEP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPlayBeep(Boolean playBeep) {
     this.playBeep = playBeep;
+  }
+
+
+  public StartRecordingRequest maxLength(Integer maxLength) {
+    this.maxLength = maxLength;
+    return this;
+  }
+
+   /**
+   * Defines the maximum length for the recording in seconds. Minimum value is 0. Maximum value is 14400. Default is 0 (infinite)
+   * @return maxLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "100", value = "Defines the maximum length for the recording in seconds. Minimum value is 0. Maximum value is 14400. Default is 0 (infinite)")
+  @JsonProperty(JSON_PROPERTY_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMaxLength() {
+    return maxLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxLength(Integer maxLength) {
+    this.maxLength = maxLength;
   }
 
 
@@ -260,14 +304,14 @@ public class StartRecordingRequest {
         Objects.equals(this.channels, startRecordingRequest.channels) &&
         Objects.equals(this.clientState, startRecordingRequest.clientState) &&
         Objects.equals(this.commandId, startRecordingRequest.commandId) &&
-        Objects.equals(this.playBeep, startRecordingRequest.playBeep);
+        Objects.equals(this.playBeep, startRecordingRequest.playBeep) &&
+        Objects.equals(this.maxLength, startRecordingRequest.maxLength);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(format, channels, clientState, commandId, playBeep);
+    return Objects.hash(format, channels, clientState, commandId, playBeep, maxLength);
   }
-
 
   @Override
   public String toString() {
@@ -278,6 +322,7 @@ public class StartRecordingRequest {
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    playBeep: ").append(toIndentedString(playBeep)).append("\n");
+    sb.append("    maxLength: ").append(toIndentedString(maxLength)).append("\n");
     sb.append("}");
     return sb.toString();
   }

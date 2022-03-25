@@ -40,7 +40,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         BulkCredentialsApi apiInstance = new BulkCredentialsApi(defaultClient);
-        String action = "action_example"; // String | Identifies the action to be taken. Activate will change the status to active. Deactivate will change the status to inactive.
+        String action = "activate"; // String | Identifies the action to be taken. Activate will change the status to active. Deactivate will change the status to inactive.
         String filterTag = "filterTag_example"; // String | Filter by tag, required by bulk operations.
         try {
             BulkCredentialResponse result = apiInstance.bulkCredentialAction(action, filterTag);

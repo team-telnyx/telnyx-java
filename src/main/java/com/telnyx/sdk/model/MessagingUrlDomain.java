@@ -51,6 +51,8 @@ public class MessagingUrlDomain {
   public static final String JSON_PROPERTY_USE_CASE = "use_case";
   private String useCase;
 
+  public MessagingUrlDomain() { 
+  }
 
   public MessagingUrlDomain recordType(String recordType) {
     this.recordType = recordType;
@@ -71,6 +73,8 @@ public class MessagingUrlDomain {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
@@ -95,6 +99,8 @@ public class MessagingUrlDomain {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
   }
@@ -119,6 +125,8 @@ public class MessagingUrlDomain {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_URL_DOMAIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrlDomain(String urlDomain) {
     this.urlDomain = urlDomain;
   }
@@ -143,6 +151,8 @@ public class MessagingUrlDomain {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_USE_CASE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUseCase(String useCase) {
     this.useCase = useCase;
   }
@@ -170,7 +180,6 @@ public class MessagingUrlDomain {
   public int hashCode() {
     return Objects.hash(recordType, id, urlDomain, useCase);
   }
-
 
   @Override
   public String toString() {

@@ -57,12 +57,14 @@ public class CallSpeakEndedPayload {
   private String clientState;
 
   /**
-   * Reflects how &#x60;speak&#x60; ended.
+   * Reflects how the command ended.
    */
   public enum StatusEnum {
     COMPLETED("completed"),
     
-    CALL_HANGUP("call_hangup");
+    CALL_HANGUP("call_hangup"),
+    
+    CANCELLED_AMD("cancelled_amd");
 
     private String value;
 
@@ -94,6 +96,8 @@ public class CallSpeakEndedPayload {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
+  public CallSpeakEndedPayload() { 
+  }
 
   public CallSpeakEndedPayload callControlId(String callControlId) {
     this.callControlId = callControlId;
@@ -114,6 +118,8 @@ public class CallSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlId(String callControlId) {
     this.callControlId = callControlId;
   }
@@ -138,6 +144,8 @@ public class CallSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -162,6 +170,8 @@ public class CallSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -173,11 +183,11 @@ public class CallSpeakEndedPayload {
   }
 
    /**
-   * ID that is unique to the call session and can be used to correlate webhook events.
+   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
    * @return callSessionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events.")
+  @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -186,6 +196,8 @@ public class CallSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -210,6 +222,8 @@ public class CallSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
   }
@@ -221,11 +235,11 @@ public class CallSpeakEndedPayload {
   }
 
    /**
-   * Reflects how &#x60;speak&#x60; ended.
+   * Reflects how the command ended.
    * @return status
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "completed", value = "Reflects how `speak` ended.")
+  @ApiModelProperty(example = "completed", value = "Reflects how the command ended.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -234,6 +248,8 @@ public class CallSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -263,7 +279,6 @@ public class CallSpeakEndedPayload {
   public int hashCode() {
     return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, status);
   }
-
 
   @Override
   public String toString() {

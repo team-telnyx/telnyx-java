@@ -40,6 +40,8 @@ public class OutboundVoiceProfileResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private OutboundVoiceProfile data;
 
+  public OutboundVoiceProfileResponse() { 
+  }
 
   public OutboundVoiceProfileResponse data(OutboundVoiceProfile data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class OutboundVoiceProfileResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(OutboundVoiceProfile data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class OutboundVoiceProfileResponse {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

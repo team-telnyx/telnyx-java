@@ -51,6 +51,8 @@ public class PaginationMetaSimple {
   public static final String JSON_PROPERTY_TOTAL_RESULTS = "total_results";
   private Integer totalResults;
 
+  public PaginationMetaSimple() { 
+  }
 
   public PaginationMetaSimple pageNumber(Integer pageNumber) {
     this.pageNumber = pageNumber;
@@ -71,6 +73,8 @@ public class PaginationMetaSimple {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageNumber(Integer pageNumber) {
     this.pageNumber = pageNumber;
   }
@@ -95,6 +99,8 @@ public class PaginationMetaSimple {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageSize(Integer pageSize) {
     this.pageSize = pageSize;
   }
@@ -119,6 +125,8 @@ public class PaginationMetaSimple {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TOTAL_PAGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTotalPages(Integer totalPages) {
     this.totalPages = totalPages;
   }
@@ -143,6 +151,8 @@ public class PaginationMetaSimple {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTotalResults(Integer totalResults) {
     this.totalResults = totalResults;
   }
@@ -170,7 +180,6 @@ public class PaginationMetaSimple {
   public int hashCode() {
     return Objects.hash(pageNumber, pageSize, totalPages, totalResults);
   }
-
 
   @Override
   public String toString() {

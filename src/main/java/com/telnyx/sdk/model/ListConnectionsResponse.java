@@ -47,6 +47,8 @@ public class ListConnectionsResponse {
   public static final String JSON_PROPERTY_META = "meta";
   private PaginationMeta meta;
 
+  public ListConnectionsResponse() { 
+  }
 
   public ListConnectionsResponse data(List<Connection> data) {
     this.data = data;
@@ -75,6 +77,8 @@ public class ListConnectionsResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(List<Connection> data) {
     this.data = data;
   }
@@ -99,6 +103,8 @@ public class ListConnectionsResponse {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMeta(PaginationMeta meta) {
     this.meta = meta;
   }
@@ -124,7 +130,6 @@ public class ListConnectionsResponse {
   public int hashCode() {
     return Objects.hash(data, meta);
   }
-
 
   @Override
   public String toString() {

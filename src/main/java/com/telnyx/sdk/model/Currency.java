@@ -17,53 +17,160 @@ import java.util.Objects;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /**
- * User currency
+ * Currency
  */
-public enum Currency {
-  
-  AUD("AUD"),
-  
-  CAD("CAD"),
-  
-  EUR("EUR"),
-  
-  GBP("GBP"),
-  
-  USD("USD");
+@JsonPropertyOrder({
+  Currency.JSON_PROPERTY_CURRENCY_CODE,
+  Currency.JSON_PROPERTY_AMOUNT1000,
+  Currency.JSON_PROPERTY_FALLBACK_VALUE
+})
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+public class Currency {
+  public static final String JSON_PROPERTY_CURRENCY_CODE = "currency_code";
+  private String currencyCode;
 
-  private String value;
+  public static final String JSON_PROPERTY_AMOUNT1000 = "amount_1000";
+  private Integer amount1000;
 
-  Currency(String value) {
-    this.value = value;
+  public static final String JSON_PROPERTY_FALLBACK_VALUE = "fallback_value";
+  private String fallbackValue;
+
+  public Currency() { 
   }
 
-  @JsonValue
-  public String getValue() {
-    return value;
+  public Currency currencyCode(String currencyCode) {
+    this.currencyCode = currencyCode;
+    return this;
+  }
+
+   /**
+   * Get currencyCode
+   * @return currencyCode
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY_CODE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getCurrencyCode() {
+    return currencyCode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CURRENCY_CODE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCurrencyCode(String currencyCode) {
+    this.currencyCode = currencyCode;
+  }
+
+
+  public Currency amount1000(Integer amount1000) {
+    this.amount1000 = amount1000;
+    return this;
+  }
+
+   /**
+   * Get amount1000
+   * @return amount1000
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_AMOUNT1000)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Integer getAmount1000() {
+    return amount1000;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT1000)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAmount1000(Integer amount1000) {
+    this.amount1000 = amount1000;
+  }
+
+
+  public Currency fallbackValue(String fallbackValue) {
+    this.fallbackValue = fallbackValue;
+    return this;
+  }
+
+   /**
+   * Get fallbackValue
+   * @return fallbackValue
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FALLBACK_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFallbackValue() {
+    return fallbackValue;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FALLBACK_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFallbackValue(String fallbackValue) {
+    this.fallbackValue = fallbackValue;
+  }
+
+
+  /**
+   * Return true if this Currency object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Currency currency = (Currency) o;
+    return Objects.equals(this.currencyCode, currency.currencyCode) &&
+        Objects.equals(this.amount1000, currency.amount1000) &&
+        Objects.equals(this.fallbackValue, currency.fallbackValue);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(currencyCode, amount1000, fallbackValue);
   }
 
   @Override
   public String toString() {
-    return String.valueOf(value);
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Currency {\n");
+    sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
+    sb.append("    amount1000: ").append(toIndentedString(amount1000)).append("\n");
+    sb.append("    fallbackValue: ").append(toIndentedString(fallbackValue)).append("\n");
+    sb.append("}");
+    return sb.toString();
   }
 
-  @JsonCreator
-  public static Currency fromValue(String value) {
-    for (Currency b : Currency.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return o.toString().replace("\n", "\n    ");
   }
+
 }
 

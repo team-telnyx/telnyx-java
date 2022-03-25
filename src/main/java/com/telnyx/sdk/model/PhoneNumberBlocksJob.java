@@ -22,8 +22,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.PhoneNumberBlocksJobFailedOperation;
+import com.telnyx.sdk.model.PhoneNumberBlocksJobSuccessfulOperation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -32,40 +38,266 @@ import com.telnyx.sdk.JSON;
  * PhoneNumberBlocksJob
  */
 @JsonPropertyOrder({
-  PhoneNumberBlocksJob.JSON_PROPERTY_DATA
+  PhoneNumberBlocksJob.JSON_PROPERTY_ID,
+  PhoneNumberBlocksJob.JSON_PROPERTY_RECORD_TYPE,
+  PhoneNumberBlocksJob.JSON_PROPERTY_STATUS,
+  PhoneNumberBlocksJob.JSON_PROPERTY_TYPE,
+  PhoneNumberBlocksJob.JSON_PROPERTY_ETC,
+  PhoneNumberBlocksJob.JSON_PROPERTY_CREATED_AT,
+  PhoneNumberBlocksJob.JSON_PROPERTY_UPDATED_AT,
+  PhoneNumberBlocksJob.JSON_PROPERTY_SUCCESSFUL_OPERATIONS,
+  PhoneNumberBlocksJob.JSON_PROPERTY_FAILED_OPERATIONS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PhoneNumberBlocksJob {
-  public static final String JSON_PROPERTY_DATA = "data";
-  private PhoneNumberBlocksJob data;
+  public static final String JSON_PROPERTY_ID = "id";
+  private UUID id;
 
+  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+  private String recordType;
 
-  public PhoneNumberBlocksJob data(PhoneNumberBlocksJob data) {
-    this.data = data;
-    return this;
+  /**
+   * Indicates the completion status of the background operation.
+   */
+  public enum StatusEnum {
+    PENDING("pending"),
+    
+    IN_PROGRESS("in_progress"),
+    
+    COMPLETED("completed"),
+    
+    FAILED("failed");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  private StatusEnum status = StatusEnum.PENDING;
+
+  /**
+   * Identifies the type of the background job.
+   */
+  public enum TypeEnum {
+    DELETE_PHONE_NUMBER_BLOCK("delete_phone_number_block");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
+
+  public static final String JSON_PROPERTY_ETC = "etc";
+  private OffsetDateTime etc;
+
+  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+  private String createdAt;
+
+  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+  private String updatedAt;
+
+  public static final String JSON_PROPERTY_SUCCESSFUL_OPERATIONS = "successful_operations";
+  private List<PhoneNumberBlocksJobSuccessfulOperation> successfulOperations = null;
+
+  public static final String JSON_PROPERTY_FAILED_OPERATIONS = "failed_operations";
+  private List<PhoneNumberBlocksJobFailedOperation> failedOperations = null;
+
+  public PhoneNumberBlocksJob() { 
   }
 
    /**
-   * Get data
-   * @return data
+   * Identifies the resource.
+   * @return id
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "42587e44-3a3e-46de-9255-0c9a7a1d1ec7", value = "Identifies the resource.")
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getId() {
+    return id;
+  }
+
+
+
+
+   /**
+   * Identifies the type of the resource.
+   * @return recordType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "phone_number_block_job", value = "Identifies the type of the resource.")
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRecordType() {
+    return recordType;
+  }
+
+
+
+
+   /**
+   * Indicates the completion status of the background operation.
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "pending", value = "Indicates the completion status of the background operation.")
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+
+
+   /**
+   * Identifies the type of the background job.
+   * @return type
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "delete_phone_number_block", value = "Identifies the type of the background job.")
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+
+
+   /**
+   * ISO 8601 formatted date indicating when the estimated time of completion of the background job.
+   * @return etc
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO 8601 formatted date indicating when the estimated time of completion of the background job.")
+  @JsonProperty(JSON_PROPERTY_ETC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getEtc() {
+    return etc;
+  }
+
+
+
+
+   /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was created.")
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCreatedAt() {
+    return createdAt;
+  }
+
+
+
+
+   /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   * @return updatedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was updated.")
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+
+
+   /**
+   * Get successfulOperations
+   * @return successfulOperations
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonProperty(JSON_PROPERTY_SUCCESSFUL_OPERATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public PhoneNumberBlocksJob getData() {
-    return data;
+  public List<PhoneNumberBlocksJobSuccessfulOperation> getSuccessfulOperations() {
+    return successfulOperations;
   }
 
 
-  public void setData(PhoneNumberBlocksJob data) {
-    this.data = data;
+
+
+   /**
+   * Get failedOperations
+   * @return failedOperations
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FAILED_OPERATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PhoneNumberBlocksJobFailedOperation> getFailedOperations() {
+    return failedOperations;
   }
+
+
 
 
   /**
-   * Return true if this Phone_Number_Blocks_Job object is equal to o.
+   * Return true if this PhoneNumberBlocksJob object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -76,20 +308,35 @@ public class PhoneNumberBlocksJob {
       return false;
     }
     PhoneNumberBlocksJob phoneNumberBlocksJob = (PhoneNumberBlocksJob) o;
-    return Objects.equals(this.data, phoneNumberBlocksJob.data);
+    return Objects.equals(this.id, phoneNumberBlocksJob.id) &&
+        Objects.equals(this.recordType, phoneNumberBlocksJob.recordType) &&
+        Objects.equals(this.status, phoneNumberBlocksJob.status) &&
+        Objects.equals(this.type, phoneNumberBlocksJob.type) &&
+        Objects.equals(this.etc, phoneNumberBlocksJob.etc) &&
+        Objects.equals(this.createdAt, phoneNumberBlocksJob.createdAt) &&
+        Objects.equals(this.updatedAt, phoneNumberBlocksJob.updatedAt) &&
+        Objects.equals(this.successfulOperations, phoneNumberBlocksJob.successfulOperations) &&
+        Objects.equals(this.failedOperations, phoneNumberBlocksJob.failedOperations);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(id, recordType, status, type, etc, createdAt, updatedAt, successfulOperations, failedOperations);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PhoneNumberBlocksJob {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    etc: ").append(toIndentedString(etc)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    successfulOperations: ").append(toIndentedString(successfulOperations)).append("\n");
+    sb.append("    failedOperations: ").append(toIndentedString(failedOperations)).append("\n");
     sb.append("}");
     return sb.toString();
   }

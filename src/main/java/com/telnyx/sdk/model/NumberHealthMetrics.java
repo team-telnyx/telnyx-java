@@ -52,6 +52,8 @@ public class NumberHealthMetrics {
   public static final String JSON_PROPERTY_SPAM_RATIO = "spam_ratio";
   private Float spamRatio;
 
+  public NumberHealthMetrics() { 
+  }
 
   public NumberHealthMetrics messageCount(Integer messageCount) {
     this.messageCount = messageCount;
@@ -62,6 +64,7 @@ public class NumberHealthMetrics {
    * The number of messages analyzed for the health metrics.
    * @return messageCount
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The number of messages analyzed for the health metrics.")
   @JsonProperty(JSON_PROPERTY_MESSAGE_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -71,6 +74,8 @@ public class NumberHealthMetrics {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGE_COUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMessageCount(Integer messageCount) {
     this.messageCount = messageCount;
   }
@@ -85,6 +90,7 @@ public class NumberHealthMetrics {
    * The ratio of messages received to the number of messages sent.
    * @return inboundOutboundRatio
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The ratio of messages received to the number of messages sent.")
   @JsonProperty(JSON_PROPERTY_INBOUND_OUTBOUND_RATIO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -94,6 +100,8 @@ public class NumberHealthMetrics {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INBOUND_OUTBOUND_RATIO)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setInboundOutboundRatio(Float inboundOutboundRatio) {
     this.inboundOutboundRatio = inboundOutboundRatio;
   }
@@ -108,6 +116,7 @@ public class NumberHealthMetrics {
    * The ratio of messages sucessfully delivered to the number of messages attempted.
    * @return successRatio
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The ratio of messages sucessfully delivered to the number of messages attempted.")
   @JsonProperty(JSON_PROPERTY_SUCCESS_RATIO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -117,6 +126,8 @@ public class NumberHealthMetrics {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SUCCESS_RATIO)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSuccessRatio(Float successRatio) {
     this.successRatio = successRatio;
   }
@@ -131,6 +142,7 @@ public class NumberHealthMetrics {
    * The ratio of messages blocked for spam to the number of messages attempted.
    * @return spamRatio
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The ratio of messages blocked for spam to the number of messages attempted.")
   @JsonProperty(JSON_PROPERTY_SPAM_RATIO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -140,6 +152,8 @@ public class NumberHealthMetrics {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SPAM_RATIO)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSpamRatio(Float spamRatio) {
     this.spamRatio = spamRatio;
   }
@@ -167,7 +181,6 @@ public class NumberHealthMetrics {
   public int hashCode() {
     return Objects.hash(messageCount, inboundOutboundRatio, successRatio, spamRatio);
   }
-
 
   @Override
   public String toString() {

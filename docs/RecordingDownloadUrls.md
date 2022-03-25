@@ -3,6 +3,7 @@
 # RecordingDownloadUrls
 
 The links to download the recording files
+
 ## Properties
 
 Name | Type | Description | Notes

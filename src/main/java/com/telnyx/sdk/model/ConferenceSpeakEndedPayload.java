@@ -52,6 +52,8 @@ public class ConferenceSpeakEndedPayload {
   public static final String JSON_PROPERTY_OCCURRED_AT = "occurred_at";
   private OffsetDateTime occurredAt;
 
+  public ConferenceSpeakEndedPayload() { 
+  }
 
   public ConferenceSpeakEndedPayload connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -72,6 +74,8 @@ public class ConferenceSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
@@ -96,6 +100,8 @@ public class ConferenceSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREATOR_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatorCallSessionId(String creatorCallSessionId) {
     this.creatorCallSessionId = creatorCallSessionId;
   }
@@ -120,6 +126,8 @@ public class ConferenceSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConferenceId(String conferenceId) {
     this.conferenceId = conferenceId;
   }
@@ -144,6 +152,8 @@ public class ConferenceSpeakEndedPayload {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOccurredAt(OffsetDateTime occurredAt) {
     this.occurredAt = occurredAt;
   }
@@ -171,7 +181,6 @@ public class ConferenceSpeakEndedPayload {
   public int hashCode() {
     return Objects.hash(connectionId, creatorCallSessionId, conferenceId, occurredAt);
   }
-
 
   @Override
   public String toString() {

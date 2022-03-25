@@ -40,6 +40,8 @@ public class CallHangupEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallHangup data;
 
+  public CallHangupEvent() { 
+  }
 
   public CallHangupEvent data(CallHangup data) {
     this.data = data;
@@ -60,6 +62,8 @@ public class CallHangupEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallHangup data) {
     this.data = data;
   }
@@ -84,7 +88,6 @@ public class CallHangupEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

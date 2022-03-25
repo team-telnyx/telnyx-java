@@ -112,6 +112,8 @@ public class CreateNumberPoolMessageRequest {
   public static final String JSON_PROPERTY_AUTO_DETECT = "auto_detect";
   private Boolean autoDetect = false;
 
+  public CreateNumberPoolMessageRequest() { 
+  }
 
   public CreateNumberPoolMessageRequest messagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
@@ -122,6 +124,7 @@ public class CreateNumberPoolMessageRequest {
    * Unique identifier for a messaging profile.
    * @return messagingProfileId
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Unique identifier for a messaging profile.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -131,6 +134,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -145,6 +150,7 @@ public class CreateNumberPoolMessageRequest {
    * Receiving address (+E.164 formatted phone number or short code).
    * @return to
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "+E.164", required = true, value = "Receiving address (+E.164 formatted phone number or short code).")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -154,6 +160,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TO)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTo(String to) {
     this.to = to;
   }
@@ -178,6 +186,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TEXT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setText(String text) {
     this.text = text;
   }
@@ -202,6 +212,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SUBJECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSubject(String subject) {
     this.subject = subject;
   }
@@ -234,6 +246,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MEDIA_URLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMediaUrls(List<String> mediaUrls) {
     this.mediaUrls = mediaUrls;
   }
@@ -258,6 +272,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
   }
@@ -282,6 +298,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookFailoverUrl(String webhookFailoverUrl) {
     this.webhookFailoverUrl = webhookFailoverUrl;
   }
@@ -306,6 +324,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_USE_PROFILE_WEBHOOKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUseProfileWebhooks(Boolean useProfileWebhooks) {
     this.useProfileWebhooks = useProfileWebhooks;
   }
@@ -330,6 +350,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -354,6 +376,8 @@ public class CreateNumberPoolMessageRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_AUTO_DETECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAutoDetect(Boolean autoDetect) {
     this.autoDetect = autoDetect;
   }
@@ -387,7 +411,6 @@ public class CreateNumberPoolMessageRequest {
   public int hashCode() {
     return Objects.hash(messagingProfileId, to, text, subject, mediaUrls, webhookUrl, webhookFailoverUrl, useProfileWebhooks, type, autoDetect);
   }
-
 
   @Override
   public String toString() {

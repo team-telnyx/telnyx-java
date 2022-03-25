@@ -45,6 +45,8 @@ public class CreateMessagingHostedNumberOrderRequest {
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
 
+  public CreateMessagingHostedNumberOrderRequest() { 
+  }
 
   public CreateMessagingHostedNumberOrderRequest phoneNumbers(List<String> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
@@ -73,6 +75,8 @@ public class CreateMessagingHostedNumberOrderRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumbers(List<String> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
@@ -97,6 +101,8 @@ public class CreateMessagingHostedNumberOrderRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessagingProfileId(String messagingProfileId) {
     this.messagingProfileId = messagingProfileId;
   }
@@ -122,7 +128,6 @@ public class CreateMessagingHostedNumberOrderRequest {
   public int hashCode() {
     return Objects.hash(phoneNumbers, messagingProfileId);
   }
-
 
   @Override
   public String toString() {

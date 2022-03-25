@@ -2,6 +2,7 @@
 
 # ListCallControlApplicationsResponse
 
+
 ## Properties
 
 Name | Type | Description | Notes

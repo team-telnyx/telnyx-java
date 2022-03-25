@@ -131,6 +131,8 @@ public class CallEvent {
   public static final String JSON_PROPERTY_METADATA = "metadata";
   private Object metadata;
 
+  public CallEvent() { 
+  }
 
   public CallEvent recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -141,6 +143,7 @@ public class CallEvent {
    * Get recordType
    * @return recordType
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "call_event", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -150,6 +153,8 @@ public class CallEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -164,6 +169,7 @@ public class CallEvent {
    * Uniquely identifies an individual call leg.
    * @return callLegId
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "308fe500-5213-11e9-ace7-02420a0f0668", required = true, value = "Uniquely identifies an individual call leg.")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -173,6 +179,8 @@ public class CallEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
   }
@@ -187,6 +195,7 @@ public class CallEvent {
    * Uniquely identifies the call control session. A session may include multiple call leg events.
    * @return callSessionId
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "308fec30-5213-11e9-9d3f-02420a0f0668", required = true, value = "Uniquely identifies the call control session. A session may include multiple call leg events.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -196,6 +205,8 @@ public class CallEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCallSessionId(String callSessionId) {
     this.callSessionId = callSessionId;
   }
@@ -210,6 +221,7 @@ public class CallEvent {
    * Event timestamp
    * @return eventTimestamp
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "2019-03-29T11:10:19.127783Z", required = true, value = "Event timestamp")
   @JsonProperty(JSON_PROPERTY_EVENT_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -219,6 +231,8 @@ public class CallEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EVENT_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEventTimestamp(String eventTimestamp) {
     this.eventTimestamp = eventTimestamp;
   }
@@ -233,6 +247,7 @@ public class CallEvent {
    * Event name
    * @return name
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "call.hangup", required = true, value = "Event name")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -242,6 +257,8 @@ public class CallEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(String name) {
     this.name = name;
   }
@@ -256,6 +273,7 @@ public class CallEvent {
    * Event type
    * @return type
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "webhook", required = true, value = "Event type")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -265,6 +283,8 @@ public class CallEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -279,6 +299,7 @@ public class CallEvent {
    * Event metadata, which includes raw event, and extra information based on event type
    * @return metadata
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Event metadata, which includes raw event, and extra information based on event type")
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -288,6 +309,8 @@ public class CallEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMetadata(Object metadata) {
     this.metadata = metadata;
   }
@@ -318,7 +341,6 @@ public class CallEvent {
   public int hashCode() {
     return Objects.hash(recordType, callLegId, callSessionId, eventTimestamp, name, type, metadata);
   }
-
 
   @Override
   public String toString() {

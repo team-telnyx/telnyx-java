@@ -220,6 +220,8 @@ public class ConferenceSpeakRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
+  public ConferenceSpeakRequest() { 
+  }
 
   public ConferenceSpeakRequest callControlIds(List<String> callControlIds) {
     this.callControlIds = callControlIds;
@@ -248,6 +250,8 @@ public class ConferenceSpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallControlIds(List<String> callControlIds) {
     this.callControlIds = callControlIds;
   }
@@ -259,10 +263,11 @@ public class ConferenceSpeakRequest {
   }
 
    /**
-   * The text or SSML to be converted into speech. There is a 5,000 character limit.
+   * The text or SSML to be converted into speech. There is a 3,000 character limit.
    * @return payload
   **/
-  @ApiModelProperty(example = "Say this to participants", required = true, value = "The text or SSML to be converted into speech. There is a 5,000 character limit.")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(example = "Say this to participants", required = true, value = "The text or SSML to be converted into speech. There is a 3,000 character limit.")
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -271,6 +276,8 @@ public class ConferenceSpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAYLOAD)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPayload(String payload) {
     this.payload = payload;
   }
@@ -295,6 +302,8 @@ public class ConferenceSpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAYLOAD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPayloadType(PayloadTypeEnum payloadType) {
     this.payloadType = payloadType;
   }
@@ -309,6 +318,7 @@ public class ConferenceSpeakRequest {
    * The gender of the voice used to speak the text.
    * @return voice
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "female", required = true, value = "The gender of the voice used to speak the text.")
   @JsonProperty(JSON_PROPERTY_VOICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -318,6 +328,8 @@ public class ConferenceSpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VOICE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVoice(VoiceEnum voice) {
     this.voice = voice;
   }
@@ -332,6 +344,7 @@ public class ConferenceSpeakRequest {
    * The language used to speak the text.
    * @return language
   **/
+  @javax.annotation.Nonnull
   @ApiModelProperty(example = "en-US", required = true, value = "The language used to speak the text.")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -341,6 +354,8 @@ public class ConferenceSpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LANGUAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLanguage(LanguageEnum language) {
     this.language = language;
   }
@@ -365,6 +380,8 @@ public class ConferenceSpeakRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCommandId(String commandId) {
     this.commandId = commandId;
   }
@@ -394,7 +411,6 @@ public class ConferenceSpeakRequest {
   public int hashCode() {
     return Objects.hash(callControlIds, payload, payloadType, voice, language, commandId);
   }
-
 
   @Override
   public String toString() {

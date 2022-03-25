@@ -104,6 +104,8 @@ public class CreateNumberReservationRequest {
   public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
   private String updatedAt;
 
+  public CreateNumberReservationRequest() { 
+  }
 
    /**
    * Get id
@@ -164,6 +166,8 @@ public class CreateNumberReservationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhoneNumbers(List<ReservedPhoneNumber> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
@@ -204,6 +208,8 @@ public class CreateNumberReservationRequest {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerReference(String customerReference) {
     this.customerReference = customerReference;
   }
@@ -266,7 +272,6 @@ public class CreateNumberReservationRequest {
   public int hashCode() {
     return Objects.hash(id, recordType, phoneNumbers, status, customerReference, createdAt, updatedAt);
   }
-
 
   @Override
   public String toString() {
