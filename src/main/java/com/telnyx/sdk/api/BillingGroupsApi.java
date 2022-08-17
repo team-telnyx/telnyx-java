@@ -8,15 +8,12 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreateBillingGroupResponse;
-import com.telnyx.sdk.model.DeleteBillingGroupResponse;
+import com.telnyx.sdk.model.CreateBillingGroup200Response;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.ListBillingGroupsResponse;
+import com.telnyx.sdk.model.ListBillingGroups200Response;
 import com.telnyx.sdk.model.NewBillingGroup;
-import com.telnyx.sdk.model.RetrieveBillingGroupResponse;
 import java.util.UUID;
 import com.telnyx.sdk.model.UpdateBillingGroup;
-import com.telnyx.sdk.model.UpdateBillingGroupResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +54,7 @@ public class BillingGroupsApi {
    * Create a billing group
    * 
    * @param newBillingGroup New billing group object (required)
-   * @return CreateBillingGroupResponse
+   * @return CreateBillingGroup200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -66,7 +63,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateBillingGroupResponse createBillingGroup(NewBillingGroup newBillingGroup) throws ApiException {
+  public CreateBillingGroup200Response createBillingGroup(NewBillingGroup newBillingGroup) throws ApiException {
     return createBillingGroupWithHttpInfo(newBillingGroup).getData();
   }
 
@@ -74,7 +71,7 @@ public class BillingGroupsApi {
    * Create a billing group
    * 
    * @param newBillingGroup New billing group object (required)
-   * @return ApiResponse&lt;CreateBillingGroupResponse&gt;
+   * @return ApiResponse&lt;CreateBillingGroup200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -83,7 +80,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateBillingGroupResponse> createBillingGroupWithHttpInfo(NewBillingGroup newBillingGroup) throws ApiException {
+  public ApiResponse<CreateBillingGroup200Response> createBillingGroupWithHttpInfo(NewBillingGroup newBillingGroup) throws ApiException {
     Object localVarPostBody = newBillingGroup;
     
     // verify the required parameter 'newBillingGroup' is set
@@ -116,7 +113,7 @@ public class BillingGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateBillingGroupResponse> localVarReturnType = new GenericType<CreateBillingGroupResponse>() {};
+    GenericType<CreateBillingGroup200Response> localVarReturnType = new GenericType<CreateBillingGroup200Response>() {};
 
     return apiClient.invokeAPI("BillingGroupsApi.createBillingGroup", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -126,7 +123,7 @@ public class BillingGroupsApi {
    * Delete a billing group
    * 
    * @param id The id of the billing group (required)
-   * @return DeleteBillingGroupResponse
+   * @return CreateBillingGroup200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -135,7 +132,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DeleteBillingGroupResponse deleteBillingGroup(UUID id) throws ApiException {
+  public CreateBillingGroup200Response deleteBillingGroup(UUID id) throws ApiException {
     return deleteBillingGroupWithHttpInfo(id).getData();
   }
 
@@ -143,7 +140,7 @@ public class BillingGroupsApi {
    * Delete a billing group
    * 
    * @param id The id of the billing group (required)
-   * @return ApiResponse&lt;DeleteBillingGroupResponse&gt;
+   * @return ApiResponse&lt;CreateBillingGroup200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -152,7 +149,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DeleteBillingGroupResponse> deleteBillingGroupWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreateBillingGroup200Response> deleteBillingGroupWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -186,7 +183,7 @@ public class BillingGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DeleteBillingGroupResponse> localVarReturnType = new GenericType<DeleteBillingGroupResponse>() {};
+    GenericType<CreateBillingGroup200Response> localVarReturnType = new GenericType<CreateBillingGroup200Response>() {};
 
     return apiClient.invokeAPI("BillingGroupsApi.deleteBillingGroup", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -197,7 +194,7 @@ public class BillingGroupsApi {
    * 
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ListBillingGroupsResponse
+   * @return ListBillingGroups200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -206,7 +203,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListBillingGroupsResponse listBillingGroups(Integer pageNumber, Integer pageSize) throws ApiException {
+  public ListBillingGroups200Response listBillingGroups(Integer pageNumber, Integer pageSize) throws ApiException {
     return listBillingGroupsWithHttpInfo(pageNumber, pageSize).getData();
   }
 
@@ -215,7 +212,7 @@ public class BillingGroupsApi {
    * 
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;ListBillingGroupsResponse&gt;
+   * @return ApiResponse&lt;ListBillingGroups200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -224,7 +221,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListBillingGroupsResponse> listBillingGroupsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<ListBillingGroups200Response> listBillingGroupsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -254,7 +251,7 @@ public class BillingGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListBillingGroupsResponse> localVarReturnType = new GenericType<ListBillingGroupsResponse>() {};
+    GenericType<ListBillingGroups200Response> localVarReturnType = new GenericType<ListBillingGroups200Response>() {};
 
     return apiClient.invokeAPI("BillingGroupsApi.listBillingGroups", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -264,7 +261,7 @@ public class BillingGroupsApi {
    * Retrieve a billing group
    * 
    * @param id The id of the billing group (required)
-   * @return RetrieveBillingGroupResponse
+   * @return CreateBillingGroup200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -273,7 +270,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public RetrieveBillingGroupResponse retrieveBillingGroup(UUID id) throws ApiException {
+  public CreateBillingGroup200Response retrieveBillingGroup(UUID id) throws ApiException {
     return retrieveBillingGroupWithHttpInfo(id).getData();
   }
 
@@ -281,7 +278,7 @@ public class BillingGroupsApi {
    * Retrieve a billing group
    * 
    * @param id The id of the billing group (required)
-   * @return ApiResponse&lt;RetrieveBillingGroupResponse&gt;
+   * @return ApiResponse&lt;CreateBillingGroup200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -290,7 +287,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RetrieveBillingGroupResponse> retrieveBillingGroupWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreateBillingGroup200Response> retrieveBillingGroupWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -324,7 +321,7 @@ public class BillingGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<RetrieveBillingGroupResponse> localVarReturnType = new GenericType<RetrieveBillingGroupResponse>() {};
+    GenericType<CreateBillingGroup200Response> localVarReturnType = new GenericType<CreateBillingGroup200Response>() {};
 
     return apiClient.invokeAPI("BillingGroupsApi.retrieveBillingGroup", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -335,7 +332,7 @@ public class BillingGroupsApi {
    * 
    * @param id The id of the billing group (required)
    * @param updateBillingGroup Update billing group object (required)
-   * @return UpdateBillingGroupResponse
+   * @return CreateBillingGroup200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -344,7 +341,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public UpdateBillingGroupResponse updateBillingGroup(UUID id, UpdateBillingGroup updateBillingGroup) throws ApiException {
+  public CreateBillingGroup200Response updateBillingGroup(UUID id, UpdateBillingGroup updateBillingGroup) throws ApiException {
     return updateBillingGroupWithHttpInfo(id, updateBillingGroup).getData();
   }
 
@@ -353,7 +350,7 @@ public class BillingGroupsApi {
    * 
    * @param id The id of the billing group (required)
    * @param updateBillingGroup Update billing group object (required)
-   * @return ApiResponse&lt;UpdateBillingGroupResponse&gt;
+   * @return ApiResponse&lt;CreateBillingGroup200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -362,7 +359,7 @@ public class BillingGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<UpdateBillingGroupResponse> updateBillingGroupWithHttpInfo(UUID id, UpdateBillingGroup updateBillingGroup) throws ApiException {
+  public ApiResponse<CreateBillingGroup200Response> updateBillingGroupWithHttpInfo(UUID id, UpdateBillingGroup updateBillingGroup) throws ApiException {
     Object localVarPostBody = updateBillingGroup;
     
     // verify the required parameter 'id' is set
@@ -401,7 +398,7 @@ public class BillingGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<UpdateBillingGroupResponse> localVarReturnType = new GenericType<UpdateBillingGroupResponse>() {};
+    GenericType<CreateBillingGroup200Response> localVarReturnType = new GenericType<CreateBillingGroup200Response>() {};
 
     return apiClient.invokeAPI("BillingGroupsApi.updateBillingGroup", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

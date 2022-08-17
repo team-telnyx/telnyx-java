@@ -29,8 +29,9 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * Currency
+ * 
  */
+@ApiModel(description = "")
 @JsonPropertyOrder({
   Currency.JSON_PROPERTY_CURRENCY_CODE,
   Currency.JSON_PROPERTY_AMOUNT1000,

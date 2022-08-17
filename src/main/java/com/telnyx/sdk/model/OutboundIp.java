@@ -103,7 +103,7 @@ public class OutboundIp {
   private Boolean generateRingbackTone = false;
 
   public static final String JSON_PROPERTY_LOCALIZATION = "localization";
-  private String localization = "null";
+  private String localization;
 
   /**
    * This setting only affects connections with Fax-type Outbound Voice Profiles. The setting dictates whether or not Telnyx sends a t.38 reinvite.&lt;br/&gt;&lt;br/&gt; By default, Telnyx will send the re-invite. If set to &#x60;customer&#x60;, the caller is expected to send the t.38 reinvite.
@@ -193,7 +193,7 @@ public class OutboundIp {
   private IpAuthenticationMethodEnum ipAuthenticationMethod = IpAuthenticationMethodEnum.TECH_PREFIXP_CHARGE_INFO;
 
   public static final String JSON_PROPERTY_IP_AUTHENTICATION_TOKEN = "ip_authentication_token";
-  private String ipAuthenticationToken = "null";
+  private String ipAuthenticationToken;
 
   public static final String JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID = "outbound_voice_profile_id";
   private String outboundVoiceProfileId;

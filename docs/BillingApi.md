@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## getUserBalance
 
-> UserBalanceResponse getUserBalance()
+> GetUserBalance200Response getUserBalance()
 
 Retrieve user balance details
 
@@ -36,7 +36,7 @@ public class Example {
 
         BillingApi apiInstance = new BillingApi(defaultClient);
         try {
-            UserBalanceResponse result = apiInstance.getUserBalance();
+            GetUserBalance200Response result = apiInstance.getUserBalance();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BillingApi#getUserBalance");
@@ -55,7 +55,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**UserBalanceResponse**](UserBalanceResponse.md)
+[**GetUserBalance200Response**](GetUserBalance200Response.md)
 
 ### Authorization
 

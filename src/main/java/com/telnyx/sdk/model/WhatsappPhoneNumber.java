@@ -22,13 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.WhatsappPhoneNumberWhatsappSettings;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -70,7 +67,9 @@ public class WhatsappPhoneNumber {
   public enum StatusEnum {
     PENDING("pending"),
     
-    READY("ready");
+    READY("ready"),
+    
+    DISCONNECTED("disconnected");
 
     private String value;
 
@@ -115,7 +114,7 @@ public class WhatsappPhoneNumber {
   private String whatsappUserId;
 
   public static final String JSON_PROPERTY_WHATSAPP_SETTINGS = "whatsapp_settings";
-  private JsonNullable<Object> whatsappSettings = JsonNullable.<Object>undefined();
+  private WhatsappPhoneNumberWhatsappSettings whatsappSettings;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -360,37 +359,29 @@ public class WhatsappPhoneNumber {
   }
 
 
-  public WhatsappPhoneNumber whatsappSettings(Object whatsappSettings) {
-    this.whatsappSettings = JsonNullable.<Object>of(whatsappSettings);
+  public WhatsappPhoneNumber whatsappSettings(WhatsappPhoneNumberWhatsappSettings whatsappSettings) {
+    this.whatsappSettings = whatsappSettings;
     return this;
   }
 
    /**
-   * The WhatsApp settings associated with the business account
+   * Get whatsappSettings
    * @return whatsappSettings
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The WhatsApp settings associated with the business account")
-  @JsonIgnore
-
-  public Object getWhatsappSettings() {
-        return whatsappSettings.orElse(null);
-  }
-
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getWhatsappSettings_JsonNullable() {
+  public WhatsappPhoneNumberWhatsappSettings getWhatsappSettings() {
     return whatsappSettings;
   }
-  
-  @JsonProperty(JSON_PROPERTY_WHATSAPP_SETTINGS)
-  public void setWhatsappSettings_JsonNullable(JsonNullable<Object> whatsappSettings) {
-    this.whatsappSettings = whatsappSettings;
-  }
 
-  public void setWhatsappSettings(Object whatsappSettings) {
-    this.whatsappSettings = JsonNullable.<Object>of(whatsappSettings);
+
+  @JsonProperty(JSON_PROPERTY_WHATSAPP_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWhatsappSettings(WhatsappPhoneNumberWhatsappSettings whatsappSettings) {
+    this.whatsappSettings = whatsappSettings;
   }
 
 
@@ -467,25 +458,14 @@ public class WhatsappPhoneNumber {
         Objects.equals(this.about, whatsappPhoneNumber.about) &&
         Objects.equals(this.phoneNumber, whatsappPhoneNumber.phoneNumber) &&
         Objects.equals(this.whatsappUserId, whatsappPhoneNumber.whatsappUserId) &&
-        equalsNullable(this.whatsappSettings, whatsappPhoneNumber.whatsappSettings) &&
+        Objects.equals(this.whatsappSettings, whatsappPhoneNumber.whatsappSettings) &&
         Objects.equals(this.createdAt, whatsappPhoneNumber.createdAt) &&
         Objects.equals(this.updatedAt, whatsappPhoneNumber.updatedAt);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, organizationId, whatsappBusinessAccountId, status, webhookUrl, about, phoneNumber, whatsappUserId, hashCodeNullable(whatsappSettings), createdAt, updatedAt);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(recordType, id, organizationId, whatsappBusinessAccountId, status, webhookUrl, about, phoneNumber, whatsappUserId, whatsappSettings, createdAt, updatedAt);
   }
 
   @Override

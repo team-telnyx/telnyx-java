@@ -5,10 +5,10 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**startDate** | **OffsetDateTime** |  | 
-**endDate** | **OffsetDateTime** |  | 
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**startDate** | **OffsetDateTime** |  |  |
+|**endDate** | **OffsetDateTime** |  |  |
 
 
 

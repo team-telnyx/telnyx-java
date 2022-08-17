@@ -48,6 +48,9 @@ import com.telnyx.sdk.JSON;
   WhatsAppDetailRecord.JSON_PROPERTY_WEBHOOK_ID,
   WhatsAppDetailRecord.JSON_PROPERTY_TELNYX_FEE,
   WhatsAppDetailRecord.JSON_PROPERTY_WHATSAPP_FEE,
+  WhatsAppDetailRecord.JSON_PROPERTY_CONVERSATION_ID,
+  WhatsAppDetailRecord.JSON_PROPERTY_CONVERSATION_ORIGIN,
+  WhatsAppDetailRecord.JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID,
   WhatsAppDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -207,6 +210,52 @@ public class WhatsAppDetailRecord {
 
   public static final String JSON_PROPERTY_WHATSAPP_FEE = "whatsapp_fee";
   private String whatsappFee;
+
+  public static final String JSON_PROPERTY_CONVERSATION_ID = "conversation_id";
+  private String conversationId;
+
+  /**
+   * Whatsapp Conversation Origin
+   */
+  public enum ConversationOriginEnum {
+    BUSINESS_INITIATED("business_initiated"),
+    
+    USER_INITIATED("user_initiated"),
+    
+    REFERRAL_CONVERSION("referral_conversion");
+
+    private String value;
+
+    ConversationOriginEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ConversationOriginEnum fromValue(String value) {
+      for (ConversationOriginEnum b : ConversationOriginEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_CONVERSATION_ORIGIN = "conversation_origin";
+  private ConversationOriginEnum conversationOrigin;
+
+  public static final String JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID = "whatsapp_business_account_id";
+  private String whatsappBusinessAccountId;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType = "whatsapp_detail_record";
@@ -604,6 +653,84 @@ public class WhatsAppDetailRecord {
   }
 
 
+  public WhatsAppDetailRecord conversationId(String conversationId) {
+    this.conversationId = conversationId;
+    return this;
+  }
+
+   /**
+   * Whatsapp Conversation ID
+   * @return conversationId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "f44ae083-c800-4433-baac-b439e5270aa4", value = "Whatsapp Conversation ID")
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getConversationId() {
+    return conversationId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConversationId(String conversationId) {
+    this.conversationId = conversationId;
+  }
+
+
+  public WhatsAppDetailRecord conversationOrigin(ConversationOriginEnum conversationOrigin) {
+    this.conversationOrigin = conversationOrigin;
+    return this;
+  }
+
+   /**
+   * Whatsapp Conversation Origin
+   * @return conversationOrigin
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Whatsapp Conversation Origin")
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ORIGIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ConversationOriginEnum getConversationOrigin() {
+    return conversationOrigin;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ORIGIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConversationOrigin(ConversationOriginEnum conversationOrigin) {
+    this.conversationOrigin = conversationOrigin;
+  }
+
+
+  public WhatsAppDetailRecord whatsappBusinessAccountId(String whatsappBusinessAccountId) {
+    this.whatsappBusinessAccountId = whatsappBusinessAccountId;
+    return this;
+  }
+
+   /**
+   * Whatsapp Business Account ID
+   * @return whatsappBusinessAccountId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "421452453", value = "Whatsapp Business Account ID")
+  @JsonProperty(JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWhatsappBusinessAccountId() {
+    return whatsappBusinessAccountId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWhatsappBusinessAccountId(String whatsappBusinessAccountId) {
+    this.whatsappBusinessAccountId = whatsappBusinessAccountId;
+  }
+
+
   public WhatsAppDetailRecord recordType(String recordType) {
     this.recordType = recordType;
     return this;
@@ -657,12 +784,15 @@ public class WhatsAppDetailRecord {
         Objects.equals(this.webhookId, whatsAppDetailRecord.webhookId) &&
         Objects.equals(this.telnyxFee, whatsAppDetailRecord.telnyxFee) &&
         Objects.equals(this.whatsappFee, whatsAppDetailRecord.whatsappFee) &&
+        Objects.equals(this.conversationId, whatsAppDetailRecord.conversationId) &&
+        Objects.equals(this.conversationOrigin, whatsAppDetailRecord.conversationOrigin) &&
+        Objects.equals(this.whatsappBusinessAccountId, whatsAppDetailRecord.whatsappBusinessAccountId) &&
         Objects.equals(this.recordType, whatsAppDetailRecord.recordType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, version, senderId, recipientId, messageType, messageStatus, direction, recipientRegionCode, currency, whatsappErrorCode, createdAt, webhookReceivedAt, webhookId, telnyxFee, whatsappFee, recordType);
+    return Objects.hash(id, version, senderId, recipientId, messageType, messageStatus, direction, recipientRegionCode, currency, whatsappErrorCode, createdAt, webhookReceivedAt, webhookId, telnyxFee, whatsappFee, conversationId, conversationOrigin, whatsappBusinessAccountId, recordType);
   }
 
   @Override
@@ -684,6 +814,9 @@ public class WhatsAppDetailRecord {
     sb.append("    webhookId: ").append(toIndentedString(webhookId)).append("\n");
     sb.append("    telnyxFee: ").append(toIndentedString(telnyxFee)).append("\n");
     sb.append("    whatsappFee: ").append(toIndentedString(whatsappFee)).append("\n");
+    sb.append("    conversationId: ").append(toIndentedString(conversationId)).append("\n");
+    sb.append("    conversationOrigin: ").append(toIndentedString(conversationOrigin)).append("\n");
+    sb.append("    whatsappBusinessAccountId: ").append(toIndentedString(whatsappBusinessAccountId)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("}");
     return sb.toString();

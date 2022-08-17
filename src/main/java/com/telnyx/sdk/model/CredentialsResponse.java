@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ConnectionId;
 import com.telnyx.sdk.model.GCSConfiguration;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -44,7 +43,7 @@ public class CredentialsResponse {
   private GCSConfiguration data;
 
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
-  private ConnectionId connectionId = null;
+  private String connectionId;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -78,28 +77,28 @@ public class CredentialsResponse {
   }
 
 
-  public CredentialsResponse connectionId(ConnectionId connectionId) {
+  public CredentialsResponse connectionId(String connectionId) {
     this.connectionId = connectionId;
     return this;
   }
 
    /**
-   * Get connectionId
+   * The ID of the connection used to send the fax.
    * @return connectionId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "234423", required = true, value = "The ID of the connection used to send the fax.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public ConnectionId getConnectionId() {
+  public String getConnectionId() {
     return connectionId;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setConnectionId(ConnectionId connectionId) {
+  public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
   }
 

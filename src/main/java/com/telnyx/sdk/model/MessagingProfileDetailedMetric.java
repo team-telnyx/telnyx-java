@@ -49,6 +49,14 @@ public class MessagingProfileDetailedMetric {
   public MessagingProfileDetailedMetric() { 
   }
 
+  @JsonCreator
+  public MessagingProfileDetailedMetric(
+    @JsonProperty(JSON_PROPERTY_TIMESTAMP) String timestamp
+  ) {
+    this();
+    this.timestamp = timestamp;
+  }
+
    /**
    * The timestamp of the aggregated data.
    * @return timestamp

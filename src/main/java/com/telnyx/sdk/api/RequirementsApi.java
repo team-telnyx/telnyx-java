@@ -8,9 +8,9 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.DocReqsRequirementResponse;
+import com.telnyx.sdk.model.DocReqsRetrieveDocumentRequirements200Response;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.ListRequirementsResponse;
+import com.telnyx.sdk.model.ListRequirements200Response;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class RequirementsApi {
    * Retrieve a document requirement
    * Retrieve a document requirement record
    * @param id Uniquely identifies the requirement_type record (required)
-   * @return DocReqsRequirementResponse
+   * @return DocReqsRetrieveDocumentRequirements200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -61,7 +61,7 @@ public class RequirementsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DocReqsRequirementResponse docReqsRetrieveDocumentRequirements(UUID id) throws ApiException {
+  public DocReqsRetrieveDocumentRequirements200Response docReqsRetrieveDocumentRequirements(UUID id) throws ApiException {
     return docReqsRetrieveDocumentRequirementsWithHttpInfo(id).getData();
   }
 
@@ -69,7 +69,7 @@ public class RequirementsApi {
    * Retrieve a document requirement
    * Retrieve a document requirement record
    * @param id Uniquely identifies the requirement_type record (required)
-   * @return ApiResponse&lt;DocReqsRequirementResponse&gt;
+   * @return ApiResponse&lt;DocReqsRetrieveDocumentRequirements200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -78,7 +78,7 @@ public class RequirementsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DocReqsRequirementResponse> docReqsRetrieveDocumentRequirementsWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<DocReqsRetrieveDocumentRequirements200Response> docReqsRetrieveDocumentRequirementsWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -112,7 +112,7 @@ public class RequirementsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DocReqsRequirementResponse> localVarReturnType = new GenericType<DocReqsRequirementResponse>() {};
+    GenericType<DocReqsRetrieveDocumentRequirements200Response> localVarReturnType = new GenericType<DocReqsRetrieveDocumentRequirements200Response>() {};
 
     return apiClient.invokeAPI("RequirementsApi.docReqsRetrieveDocumentRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -127,7 +127,7 @@ public class RequirementsApi {
    * @param sort Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a &#x60;-&#x60; in front of the field name. (optional)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ListRequirementsResponse
+   * @return ListRequirements200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -136,7 +136,7 @@ public class RequirementsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListRequirementsResponse listRequirements(String filterCountryCode, String filterPhoneNumberType, String filterAction, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ListRequirements200Response listRequirements(String filterCountryCode, String filterPhoneNumberType, String filterAction, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
     return listRequirementsWithHttpInfo(filterCountryCode, filterPhoneNumberType, filterAction, sort, pageNumber, pageSize).getData();
   }
 
@@ -149,7 +149,7 @@ public class RequirementsApi {
    * @param sort Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a &#x60;-&#x60; in front of the field name. (optional)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;ListRequirementsResponse&gt;
+   * @return ApiResponse&lt;ListRequirements200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -158,7 +158,7 @@ public class RequirementsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRequirementsResponse> listRequirementsWithHttpInfo(String filterCountryCode, String filterPhoneNumberType, String filterAction, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<ListRequirements200Response> listRequirementsWithHttpInfo(String filterCountryCode, String filterPhoneNumberType, String filterAction, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -192,7 +192,7 @@ public class RequirementsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListRequirementsResponse> localVarReturnType = new GenericType<ListRequirementsResponse>() {};
+    GenericType<ListRequirements200Response> localVarReturnType = new GenericType<ListRequirements200Response>() {};
 
     return apiClient.invokeAPI("RequirementsApi.listRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

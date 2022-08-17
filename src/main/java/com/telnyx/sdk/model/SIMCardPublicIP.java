@@ -85,7 +85,7 @@ public class SIMCardPublicIP {
   private TypeEnum type = TypeEnum.IPV4;
 
   public static final String JSON_PROPERTY_IP = "ip";
-  private String ip = "null";
+  private String ip;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -94,6 +94,22 @@ public class SIMCardPublicIP {
   private String updatedAt;
 
   public SIMCardPublicIP() { 
+  }
+
+  @JsonCreator
+  public SIMCardPublicIP(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_TYPE) TypeEnum type, 
+    @JsonProperty(JSON_PROPERTY_IP) String ip, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.recordType = recordType;
+    this.type = type;
+    this.ip = ip;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
    /**

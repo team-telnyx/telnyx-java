@@ -104,6 +104,24 @@ public class ReservedPhoneNumber {
   public ReservedPhoneNumber() { 
   }
 
+  @JsonCreator
+  public ReservedPhoneNumber(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt, 
+    @JsonProperty(JSON_PROPERTY_EXPIRED_AT) String expiredAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.status = status;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.expiredAt = expiredAt;
+  }
+
    /**
    * Get id
    * @return id

@@ -51,7 +51,7 @@ public class PortoutComment {
   private String body;
 
   public static final String JSON_PROPERTY_PORTOUT_ID = "portout_id";
-  private String portoutId = "null";
+  private String portoutId;
 
   public static final String JSON_PROPERTY_USER_ID = "user_id";
   private String userId;
@@ -60,6 +60,14 @@ public class PortoutComment {
   private String createdAt;
 
   public PortoutComment() { 
+  }
+
+  @JsonCreator
+  public PortoutComment(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.recordType = recordType;
   }
 
   public PortoutComment id(String id) {

@@ -36,8 +36,6 @@ public enum MessageType {
   
   DOCUMENT("document"),
   
-  HSM("hsm"),
-  
   IMAGE("image"),
   
   LOCATION("location"),

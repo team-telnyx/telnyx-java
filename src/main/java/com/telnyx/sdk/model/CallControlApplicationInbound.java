@@ -42,7 +42,7 @@ public class CallControlApplicationInbound {
   private Integer channelLimit;
 
   public static final String JSON_PROPERTY_SIP_SUBDOMAIN = "sip_subdomain";
-  private String sipSubdomain = "null";
+  private String sipSubdomain;
 
   /**
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).

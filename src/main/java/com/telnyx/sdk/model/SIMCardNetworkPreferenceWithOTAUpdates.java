@@ -67,6 +67,18 @@ public class SIMCardNetworkPreferenceWithOTAUpdates {
   public SIMCardNetworkPreferenceWithOTAUpdates() { 
   }
 
+  @JsonCreator
+  public SIMCardNetworkPreferenceWithOTAUpdates(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.recordType = recordType;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Get recordType
    * @return recordType

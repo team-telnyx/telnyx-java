@@ -33,19 +33,66 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   CallForkStartedPayload.JSON_PROPERTY_CONNECTION_ID,
+  CallForkStartedPayload.JSON_PROPERTY_CALL_CONTROL_ID,
   CallForkStartedPayload.JSON_PROPERTY_CALL_LEG_ID,
-  CallForkStartedPayload.JSON_PROPERTY_CALL_SESSION_ID
+  CallForkStartedPayload.JSON_PROPERTY_CALL_SESSION_ID,
+  CallForkStartedPayload.JSON_PROPERTY_CLIENT_STATE,
+  CallForkStartedPayload.JSON_PROPERTY_STREAM_TYPE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CallForkStartedPayload {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
 
+  public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
+  private String callControlId;
+
   public static final String JSON_PROPERTY_CALL_LEG_ID = "call_leg_id";
   private String callLegId;
 
   public static final String JSON_PROPERTY_CALL_SESSION_ID = "call_session_id";
   private String callSessionId;
+
+  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+  private String clientState;
+
+  /**
+   * Type of media streamed. It can be either &#39;raw&#39; or &#39;decrypted&#39;.
+   */
+  public enum StreamTypeEnum {
+    RAW("raw"),
+    
+    DECRYPTED("decrypted");
+
+    private String value;
+
+    StreamTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StreamTypeEnum fromValue(String value) {
+      for (StreamTypeEnum b : StreamTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STREAM_TYPE = "stream_type";
+  private StreamTypeEnum streamType;
 
   public CallForkStartedPayload() { 
   }
@@ -73,6 +120,32 @@ public class CallForkStartedPayload {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionId(String connectionId) {
     this.connectionId = connectionId;
+  }
+
+
+  public CallForkStartedPayload callControlId(String callControlId) {
+    this.callControlId = callControlId;
+    return this;
+  }
+
+   /**
+   * Unique ID for controlling the call.
+   * @return callControlId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA", value = "Unique ID for controlling the call.")
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCallControlId() {
+    return callControlId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCallControlId(String callControlId) {
+    this.callControlId = callControlId;
   }
 
 
@@ -128,6 +201,58 @@ public class CallForkStartedPayload {
   }
 
 
+  public CallForkStartedPayload clientState(String clientState) {
+    this.clientState = clientState;
+    return this;
+  }
+
+   /**
+   * State received from a command.
+   * @return clientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClientState() {
+    return clientState;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClientState(String clientState) {
+    this.clientState = clientState;
+  }
+
+
+  public CallForkStartedPayload streamType(StreamTypeEnum streamType) {
+    this.streamType = streamType;
+    return this;
+  }
+
+   /**
+   * Type of media streamed. It can be either &#39;raw&#39; or &#39;decrypted&#39;.
+   * @return streamType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "raw", value = "Type of media streamed. It can be either 'raw' or 'decrypted'.")
+  @JsonProperty(JSON_PROPERTY_STREAM_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamTypeEnum getStreamType() {
+    return streamType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamType(StreamTypeEnum streamType) {
+    this.streamType = streamType;
+  }
+
+
   /**
    * Return true if this CallForkStarted_payload object is equal to o.
    */
@@ -141,13 +266,16 @@ public class CallForkStartedPayload {
     }
     CallForkStartedPayload callForkStartedPayload = (CallForkStartedPayload) o;
     return Objects.equals(this.connectionId, callForkStartedPayload.connectionId) &&
+        Objects.equals(this.callControlId, callForkStartedPayload.callControlId) &&
         Objects.equals(this.callLegId, callForkStartedPayload.callLegId) &&
-        Objects.equals(this.callSessionId, callForkStartedPayload.callSessionId);
+        Objects.equals(this.callSessionId, callForkStartedPayload.callSessionId) &&
+        Objects.equals(this.clientState, callForkStartedPayload.clientState) &&
+        Objects.equals(this.streamType, callForkStartedPayload.streamType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, callLegId, callSessionId);
+    return Objects.hash(connectionId, callControlId, callLegId, callSessionId, clientState, streamType);
   }
 
   @Override
@@ -155,8 +283,11 @@ public class CallForkStartedPayload {
     StringBuilder sb = new StringBuilder();
     sb.append("class CallForkStartedPayload {\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
+    sb.append("    callControlId: ").append(toIndentedString(callControlId)).append("\n");
     sb.append("    callLegId: ").append(toIndentedString(callLegId)).append("\n");
     sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
+    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
+    sb.append("    streamType: ").append(toIndentedString(streamType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

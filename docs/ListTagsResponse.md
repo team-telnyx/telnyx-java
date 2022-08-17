@@ -5,10 +5,10 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**List&lt;ListTagsResponseData&gt;**](ListTagsResponseData.md) |  |  [optional]
-**meta** | [**PaginationMeta**](PaginationMeta.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**List&lt;ListTagsResponseDataInner&gt;**](ListTagsResponseDataInner.md) |  |  [optional] |
+|**meta** | [**PaginationMeta**](PaginationMeta.md) |  |  [optional] |
 
 
 

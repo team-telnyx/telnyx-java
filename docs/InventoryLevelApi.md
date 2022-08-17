@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## createInventoryCoverageRequest
 
-> InventoryCoverageResponse createInventoryCoverageRequest(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount)
+> CreateInventoryCoverageRequest200Response createInventoryCoverageRequest(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount)
 
 Create an inventory coverage request
 
@@ -45,7 +45,7 @@ public class Example {
         String filterCountryCode = "US"; // String | 
         Boolean filterCount = true; // Boolean | 
         try {
-            InventoryCoverageResponse result = apiInstance.createInventoryCoverageRequest(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount);
+            CreateInventoryCoverageRequest200Response result = apiInstance.createInventoryCoverageRequest(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling InventoryLevelApi#createInventoryCoverageRequest");
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InventoryCoverageResponse**](InventoryCoverageResponse.md)
+[**CreateInventoryCoverageRequest200Response**](CreateInventoryCoverageRequest200Response.md)
 
 ### Authorization
 

@@ -15,6 +15,7 @@ import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.RefreshFaxResponse;
 import com.telnyx.sdk.model.SendFaxRequest;
 import com.telnyx.sdk.model.SendFaxResponse;
+import com.telnyx.sdk.model.SuccessfulResponseUponAcceptingCancelFaxCommand;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -52,6 +53,80 @@ public class ProgrammableFaxCommandsApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Cancel a fax
+   * Cancel the outbound fax that is in one of the following states: &#x60;queued&#x60;, &#x60;media.processed&#x60;, &#x60;originated&#x60; or &#x60;sending&#x60; 
+   * @param id The unique identifier of a fax. (required)
+   * @return SuccessfulResponseUponAcceptingCancelFaxCommand
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful response upon accepting cancel fax command </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public SuccessfulResponseUponAcceptingCancelFaxCommand cancelFax(UUID id) throws ApiException {
+    return cancelFaxWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Cancel a fax
+   * Cancel the outbound fax that is in one of the following states: &#x60;queued&#x60;, &#x60;media.processed&#x60;, &#x60;originated&#x60; or &#x60;sending&#x60; 
+   * @param id The unique identifier of a fax. (required)
+   * @return ApiResponse&lt;SuccessfulResponseUponAcceptingCancelFaxCommand&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful response upon accepting cancel fax command </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<SuccessfulResponseUponAcceptingCancelFaxCommand> cancelFaxWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling cancelFax");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/faxes/{id}/actions/cancel"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<SuccessfulResponseUponAcceptingCancelFaxCommand> localVarReturnType = new GenericType<SuccessfulResponseUponAcceptingCancelFaxCommand>() {};
+
+    return apiClient.invokeAPI("ProgrammableFaxCommandsApi.cancelFax", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
   /**
    * Delete a fax
    * 
@@ -215,7 +290,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -233,7 +308,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -279,7 +354,7 @@ public class ProgrammableFaxCommandsApi {
   }
   /**
    * Send a fax
-   * 
+   * Send a fax. Files have size limits and page count limit validations. If a file is bigger than 50MB or has more than 350 pages it will fail with &#x60;file_size_limit_exceeded&#x60; and &#x60;page_count_limit_exceeded&#x60; respectively.   **Expected Webhooks:**  - &#x60;fax.queued&#x60; - &#x60;fax.media.processed&#x60; - &#x60;fax.sending.started&#x60; - &#x60;fax.delivered&#x60; - &#x60;fax.failed&#x60; 
    * @param sendFaxRequest Send fax request (required)
    * @return SendFaxResponse
    * @throws ApiException if fails to make API call
@@ -296,7 +371,7 @@ public class ProgrammableFaxCommandsApi {
 
   /**
    * Send a fax
-   * 
+   * Send a fax. Files have size limits and page count limit validations. If a file is bigger than 50MB or has more than 350 pages it will fail with &#x60;file_size_limit_exceeded&#x60; and &#x60;page_count_limit_exceeded&#x60; respectively.   **Expected Webhooks:**  - &#x60;fax.queued&#x60; - &#x60;fax.media.processed&#x60; - &#x60;fax.sending.started&#x60; - &#x60;fax.delivered&#x60; - &#x60;fax.failed&#x60; 
    * @param sendFaxRequest Send fax request (required)
    * @return ApiResponse&lt;SendFaxResponse&gt;
    * @throws ApiException if fails to make API call

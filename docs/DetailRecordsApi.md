@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 Search detail records
 
-Search for any detail record across the Telnyx Platform
+Search for any detail record across the Telnyx Platform. Examples and additional information found [here](/docs/v2/debugging/detail-record-search).
 
 ### Example
 
@@ -37,12 +37,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DetailRecordsApi apiInstance = new DetailRecordsApi(defaultClient);
-        String filterRecordType = "messaging"; // String | Filter by the given record type
-        String filterDateRange = "today"; // String | Filter by the given user-friendly date range
-        Map<String, Object> filter = new HashMap(); // Map<String, Object> | Filter records
+        String filterRecordType = "amd"; // String | Filter by the given record type.
+        String filterDateRange = "yesterday"; // String | Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days.
+        Map<String, Object> filter = new HashMap(); // Map<String, Object> | Filter records on a given record attribute and value. <br/>Example: filter[status]=delivered
         Integer pageNumber = 1; // Integer | Page number
         Integer pageSize = 20; // Integer | Page size
-        List<String> sort = Arrays.asList(); // List<String> | Specifies the sort order for results
+        List<String> sort = Arrays.asList(); // List<String> | Specifies the sort order for results. <br/>Example: sort=-created_at
         try {
             DetailRecordsSearchResponse result = apiInstance.detailRecordsSearch(filterRecordType, filterDateRange, filter, pageNumber, pageSize, sort);
             System.out.println(result);
@@ -62,12 +62,12 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filterRecordType** | **String**| Filter by the given record type |
- **filterDateRange** | **String**| Filter by the given user-friendly date range | [optional]
- **filter** | **Map&lt;String,Object&gt;**| Filter records | [optional]
+ **filterRecordType** | **String**| Filter by the given record type. | [enum: amd, conference, conference-participant, media_storage, messaging, verify, whatsapp, whatsapp-conversation, wireless]
+ **filterDateRange** | **String**| Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days. | [optional] [enum: yesterday, today, tomorrow, last_week, this_week, next_week, last_month, this_month, next_month]
+ **filter** | **Map&lt;String,Object&gt;**| Filter records on a given record attribute and value. &lt;br/&gt;Example: filter[status]&#x3D;delivered | [optional]
  **pageNumber** | **Integer**| Page number | [optional] [default to 1]
  **pageSize** | **Integer**| Page size | [optional] [default to 20]
- **sort** | **List&lt;String&gt;**| Specifies the sort order for results | [optional]
+ **sort** | **List&lt;String&gt;**| Specifies the sort order for results. &lt;br/&gt;Example: sort&#x3D;-created_at | [optional]
 
 ### Return type
 

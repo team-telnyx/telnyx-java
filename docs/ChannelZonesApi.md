@@ -43,7 +43,7 @@ public class Example {
 
         ChannelZonesApi apiInstance = new ChannelZonesApi(defaultClient);
         String channelZoneId = "channelZoneId_example"; // String | Channel zone identifier
-        ListChannelZonesByPhoneNumber body = new ListChannelZonesByPhoneNumber(); // ListChannelZonesByPhoneNumber | 
+        AssignPhoneNumberRequest body = new AssignPhoneNumberRequest(); // AssignPhoneNumberRequest | Phone number to assign to the channel zone. The phone number should be in E.164 format.
         try {
             GcbPhoneNumber result = apiInstance.assignPhoneNumber(channelZoneId, body);
             System.out.println(result);
@@ -64,7 +64,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **channelZoneId** | **String**| Channel zone identifier |
- **body** | [**ListChannelZonesByPhoneNumber**](ListChannelZonesByPhoneNumber.md)|  |
+ **body** | [**AssignPhoneNumberRequest**](AssignPhoneNumberRequest.md)| Phone number to assign to the channel zone. The phone number should be in E.164 format. |
 
 ### Return type
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 ## getChannelZones
 
-> GetGcbChannelZonesRequestResponse getChannelZones(pageNumber, pageSize)
+> GetChannelZones200Response getChannelZones(pageNumber, pageSize)
 
 Get list of channel zones
 
@@ -189,7 +189,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            GetGcbChannelZonesRequestResponse result = apiInstance.getChannelZones(pageNumber, pageSize);
+            GetChannelZones200Response result = apiInstance.getChannelZones(pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ChannelZonesApi#getChannelZones");
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetGcbChannelZonesRequestResponse**](GetGcbChannelZonesRequestResponse.md)
+[**GetChannelZones200Response**](GetChannelZones200Response.md)
 
 ### Authorization
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ## getPhoneNumbers
 
-> GetGcbPhoneNumbersRequestResponse getPhoneNumbers(channelZoneId, pageNumber, pageSize)
+> GetPhoneNumbers200Response getPhoneNumbers(channelZoneId, pageNumber, pageSize)
 
 Get the list of phone numbers assigned to a channel zone
 
@@ -262,7 +262,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            GetGcbPhoneNumbersRequestResponse result = apiInstance.getPhoneNumbers(channelZoneId, pageNumber, pageSize);
+            GetPhoneNumbers200Response result = apiInstance.getPhoneNumbers(channelZoneId, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ChannelZonesApi#getPhoneNumbers");
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetGcbPhoneNumbersRequestResponse**](GetGcbPhoneNumbersRequestResponse.md)
+[**GetPhoneNumbers200Response**](GetPhoneNumbers200Response.md)
 
 ### Authorization
 
@@ -333,7 +333,7 @@ public class Example {
 
         ChannelZonesApi apiInstance = new ChannelZonesApi(defaultClient);
         String channelZoneId = "channelZoneId_example"; // String | Channel zone identifier
-        UpdateChannelZone body = new UpdateChannelZone(); // UpdateChannelZone | 
+        PatchGroupRequest body = new PatchGroupRequest(); // PatchGroupRequest | Quantity of reserved channels
         try {
             GcbChannelZone result = apiInstance.patchGroup(channelZoneId, body);
             System.out.println(result);
@@ -354,7 +354,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **channelZoneId** | **String**| Channel zone identifier |
- **body** | [**UpdateChannelZone**](UpdateChannelZone.md)|  |
+ **body** | [**PatchGroupRequest**](PatchGroupRequest.md)| Quantity of reserved channels |
 
 ### Return type
 

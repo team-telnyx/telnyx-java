@@ -11,10 +11,10 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.BulkRoomRecordingsDeleteResponse;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetRoomRecordingResponse;
-import com.telnyx.sdk.model.ListRoomRecordingsResponse;
+import com.telnyx.sdk.model.ListRoomRecordings200Response;
 import java.time.LocalDate;
 import java.util.UUID;
+import com.telnyx.sdk.model.ViewRoomRecording200Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -247,7 +247,7 @@ public class RoomRecordingsApi {
    * @param filterDurationSecsGte duration_secs greater or equal for filtering room recordings. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ListRoomRecordingsResponse
+   * @return ListRoomRecordings200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -255,7 +255,7 @@ public class RoomRecordingsApi {
        <tr><td> 200 </td><td> List room recordings response. </td><td>  -  </td></tr>
      </table>
    */
-  public ListRoomRecordingsResponse listRoomRecordings(LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, LocalDate filterDateStartedAtEq, LocalDate filterDateStartedAtGte, LocalDate filterDateStartedAtLte, UUID filterRoomId, UUID filterParticipantId, UUID filterSessionId, String filterStatus, String filterType, Integer filterDurationSecsEq, Integer filterDurationSecsLte, Integer filterDurationSecsGte, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ListRoomRecordings200Response listRoomRecordings(LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, LocalDate filterDateStartedAtEq, LocalDate filterDateStartedAtGte, LocalDate filterDateStartedAtLte, UUID filterRoomId, UUID filterParticipantId, UUID filterSessionId, String filterStatus, String filterType, Integer filterDurationSecsEq, Integer filterDurationSecsLte, Integer filterDurationSecsGte, Integer pageSize, Integer pageNumber) throws ApiException {
     return listRoomRecordingsWithHttpInfo(filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterDateStartedAtEq, filterDateStartedAtGte, filterDateStartedAtLte, filterRoomId, filterParticipantId, filterSessionId, filterStatus, filterType, filterDurationSecsEq, filterDurationSecsLte, filterDurationSecsGte, pageSize, pageNumber).getData();
   }
 
@@ -278,7 +278,7 @@ public class RoomRecordingsApi {
    * @param filterDurationSecsGte duration_secs greater or equal for filtering room recordings. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ApiResponse&lt;ListRoomRecordingsResponse&gt;
+   * @return ApiResponse&lt;ListRoomRecordings200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -286,7 +286,7 @@ public class RoomRecordingsApi {
        <tr><td> 200 </td><td> List room recordings response. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRoomRecordingsResponse> listRoomRecordingsWithHttpInfo(LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, LocalDate filterDateStartedAtEq, LocalDate filterDateStartedAtGte, LocalDate filterDateStartedAtLte, UUID filterRoomId, UUID filterParticipantId, UUID filterSessionId, String filterStatus, String filterType, Integer filterDurationSecsEq, Integer filterDurationSecsLte, Integer filterDurationSecsGte, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<ListRoomRecordings200Response> listRoomRecordingsWithHttpInfo(LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, LocalDate filterDateStartedAtEq, LocalDate filterDateStartedAtGte, LocalDate filterDateStartedAtLte, UUID filterRoomId, UUID filterParticipantId, UUID filterSessionId, String filterStatus, String filterType, Integer filterDurationSecsEq, Integer filterDurationSecsLte, Integer filterDurationSecsGte, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -330,7 +330,7 @@ public class RoomRecordingsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListRoomRecordingsResponse> localVarReturnType = new GenericType<ListRoomRecordingsResponse>() {};
+    GenericType<ListRoomRecordings200Response> localVarReturnType = new GenericType<ListRoomRecordings200Response>() {};
 
     return apiClient.invokeAPI("RoomRecordingsApi.listRoomRecordings", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -340,7 +340,7 @@ public class RoomRecordingsApi {
    * View a room recording.
    * 
    * @param roomRecordingId The unique identifier of a room recording. (required)
-   * @return GetRoomRecordingResponse
+   * @return ViewRoomRecording200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -349,7 +349,7 @@ public class RoomRecordingsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetRoomRecordingResponse viewRoomRecording(UUID roomRecordingId) throws ApiException {
+  public ViewRoomRecording200Response viewRoomRecording(UUID roomRecordingId) throws ApiException {
     return viewRoomRecordingWithHttpInfo(roomRecordingId).getData();
   }
 
@@ -357,7 +357,7 @@ public class RoomRecordingsApi {
    * View a room recording.
    * 
    * @param roomRecordingId The unique identifier of a room recording. (required)
-   * @return ApiResponse&lt;GetRoomRecordingResponse&gt;
+   * @return ApiResponse&lt;ViewRoomRecording200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -366,7 +366,7 @@ public class RoomRecordingsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetRoomRecordingResponse> viewRoomRecordingWithHttpInfo(UUID roomRecordingId) throws ApiException {
+  public ApiResponse<ViewRoomRecording200Response> viewRoomRecordingWithHttpInfo(UUID roomRecordingId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'roomRecordingId' is set
@@ -400,7 +400,7 @@ public class RoomRecordingsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetRoomRecordingResponse> localVarReturnType = new GenericType<GetRoomRecordingResponse>() {};
+    GenericType<ViewRoomRecording200Response> localVarReturnType = new GenericType<ViewRoomRecording200Response>() {};
 
     return apiClient.invokeAPI("RoomRecordingsApi.viewRoomRecording", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

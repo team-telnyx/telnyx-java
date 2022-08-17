@@ -5,13 +5,17 @@ All URIs are relative to *https://api.telnyx.com/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**bulkSIMCardNetworkPreferences**](SimCardsApi.md#bulkSIMCardNetworkPreferences) | **PUT** /actions/network_preferences/sim_cards | Bulk Network Preferences for SIM cards
+[**bulkSetPublicIPs**](SimCardsApi.md#bulkSetPublicIPs) | **POST** /sim_cards/actions/bulk_set_public_ips | Request bulk setting SIM card public IPs.
+[**deleteNetworkPreference**](SimCardsApi.md#deleteNetworkPreference) | **POST** /sim_cards/{id}/actions/delete_network_preferences | Delete network preferences for a SIM card
 [**listSimCardDataUsageNotifications**](SimCardsApi.md#listSimCardDataUsageNotifications) | **GET** /sim_card_data_usage_notifications | List SIM card data usage notifications
 [**postValidateRegistrationCodes**](SimCardsApi.md#postValidateRegistrationCodes) | **POST** /sim_cards/actions/validate_registration_codes | Validate SIM cards registration codes
 [**removeSIMCardPublicIP**](SimCardsApi.md#removeSIMCardPublicIP) | **POST** /sim_cards/{id}/actions/remove_public_ip | Request removing a SIM card public IP
+[**sIMCardDeviceDetailsGet**](SimCardsApi.md#sIMCardDeviceDetailsGet) | **GET** /sim_cards/{sim_card_id}/device_details | Get SIM card device details
 [**sIMCardNetworkPreferencesDelete**](SimCardsApi.md#sIMCardNetworkPreferencesDelete) | **DELETE** /sim_cards/{sim_card_id}/network_preferences | DELETE network preferences
 [**sIMCardNetworkPreferencesGet**](SimCardsApi.md#sIMCardNetworkPreferencesGet) | **GET** /sim_cards/{sim_card_id}/network_preferences | Get network preferences
 [**sIMCardNetworkPreferencesPut**](SimCardsApi.md#sIMCardNetworkPreferencesPut) | **PUT** /sim_cards/{sim_card_id}/network_preferences | Set network preferences
 [**sIMCardPublicIPGet**](SimCardsApi.md#sIMCardPublicIPGet) | **GET** /sim_cards/{sim_card_id}/public_ip | Get SIM card public IP definition
+[**setNetworkPreference**](SimCardsApi.md#setNetworkPreference) | **POST** /sim_cards/{id}/actions/set_network_preferences | Create or update network preferences for a SIM card
 [**setSIMCardPublicIP**](SimCardsApi.md#setSIMCardPublicIP) | **POST** /sim_cards/{id}/actions/set_public_ip | Request setting a SIM card public IP
 [**simCardDataUsageNotificationsDelete**](SimCardsApi.md#simCardDataUsageNotificationsDelete) | **DELETE** /sim_card_data_usage_notifications/{id} | Delete SIM card data usage notifications
 [**simCardDataUsageNotificationsGet**](SimCardsApi.md#simCardDataUsageNotificationsGet) | **GET** /sim_card_data_usage_notifications/{id} | Get a single SIM card data usage notification
@@ -31,7 +35,7 @@ Method | HTTP request | Description
 
 ## bulkSIMCardNetworkPreferences
 
-> BulkSIMCardNetworkPreferenceResponse bulkSIMCardNetworkPreferences(bulkUpdateSimNetworkPreference)
+> BulkSIMCardNetworkPreferences202Response bulkSIMCardNetworkPreferences(bulkSIMCardNetworkPreferencesRequest)
 
 Bulk Network Preferences for SIM cards
 
@@ -60,9 +64,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        BulkUpdateSimNetworkPreference bulkUpdateSimNetworkPreference = new BulkUpdateSimNetworkPreference(); // BulkUpdateSimNetworkPreference | 
+        BulkSIMCardNetworkPreferencesRequest bulkSIMCardNetworkPreferencesRequest = new BulkSIMCardNetworkPreferencesRequest(); // BulkSIMCardNetworkPreferencesRequest | 
         try {
-            BulkSIMCardNetworkPreferenceResponse result = apiInstance.bulkSIMCardNetworkPreferences(bulkUpdateSimNetworkPreference);
+            BulkSIMCardNetworkPreferences202Response result = apiInstance.bulkSIMCardNetworkPreferences(bulkSIMCardNetworkPreferencesRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#bulkSIMCardNetworkPreferences");
@@ -80,11 +84,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bulkUpdateSimNetworkPreference** | [**BulkUpdateSimNetworkPreference**](BulkUpdateSimNetworkPreference.md)|  | [optional]
+ **bulkSIMCardNetworkPreferencesRequest** | [**BulkSIMCardNetworkPreferencesRequest**](BulkSIMCardNetworkPreferencesRequest.md)|  | [optional]
 
 ### Return type
 
-[**BulkSIMCardNetworkPreferenceResponse**](BulkSIMCardNetworkPreferenceResponse.md)
+[**BulkSIMCardNetworkPreferences202Response**](BulkSIMCardNetworkPreferences202Response.md)
 
 ### Authorization
 
@@ -102,9 +106,157 @@ Name | Type | Description  | Notes
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
 
+## bulkSetPublicIPs
+
+> BulkSetPublicIPs202Response bulkSetPublicIPs(bulkSetPublicIPsRequest)
+
+Request bulk setting SIM card public IPs.
+
+This API triggers an asynchronous operation to set a public IP for each of the specified SIM cards.<br/>
+For each SIM Card a SIM Card Action will be generated. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
+
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.SimCardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        SimCardsApi apiInstance = new SimCardsApi(defaultClient);
+        BulkSetPublicIPsRequest bulkSetPublicIPsRequest = new BulkSetPublicIPsRequest(); // BulkSetPublicIPsRequest | 
+        try {
+            BulkSetPublicIPs202Response result = apiInstance.bulkSetPublicIPs(bulkSetPublicIPsRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SimCardsApi#bulkSetPublicIPs");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bulkSetPublicIPsRequest** | [**BulkSetPublicIPsRequest**](BulkSetPublicIPsRequest.md)|  | [optional]
+
+### Return type
+
+[**BulkSetPublicIPs202Response**](BulkSetPublicIPs202Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful Response |  -  |
+| **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
+
+
+## deleteNetworkPreference
+
+> SimCardActionGet200Response deleteNetworkPreference(id)
+
+Delete network preferences for a SIM card
+
+This API deletes network preferences for a SIM card.<br/>
+The API will trigger an asynchronous operation called a SIM Card Action. Creating network preferences may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
+
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.SimCardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        SimCardsApi apiInstance = new SimCardsApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        try {
+            SimCardActionGet200Response result = apiInstance.deleteNetworkPreference(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SimCardsApi#deleteNetworkPreference");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+
+### Return type
+
+[**SimCardActionGet200Response**](SimCardActionGet200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful Response |  -  |
+| **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
+| **0** | Unexpected error |  -  |
+
+
 ## listSimCardDataUsageNotifications
 
-> SimCardDataUsageNotificationCollection listSimCardDataUsageNotifications(pageNumber, pageSize, filterSimCardId)
+> ListSimCardDataUsageNotifications200Response listSimCardDataUsageNotifications(pageNumber, pageSize, filterSimCardId)
 
 List SIM card data usage notifications
 
@@ -136,7 +288,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         UUID filterSimCardId = UUID.fromString("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9"); // UUID | A valid SIM card ID.
         try {
-            SimCardDataUsageNotificationCollection result = apiInstance.listSimCardDataUsageNotifications(pageNumber, pageSize, filterSimCardId);
+            ListSimCardDataUsageNotifications200Response result = apiInstance.listSimCardDataUsageNotifications(pageNumber, pageSize, filterSimCardId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#listSimCardDataUsageNotifications");
@@ -160,7 +312,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SimCardDataUsageNotificationCollection**](SimCardDataUsageNotificationCollection.md)
+[**ListSimCardDataUsageNotifications200Response**](ListSimCardDataUsageNotifications200Response.md)
 
 ### Authorization
 
@@ -180,7 +332,7 @@ Name | Type | Description  | Notes
 
 ## postValidateRegistrationCodes
 
-> SIMCardRegistrationCodeValidations postValidateRegistrationCodes(createSIMCardValidateRequest)
+> SIMCardRegistrationCodeValidations postValidateRegistrationCodes(postValidateRegistrationCodesRequest)
 
 Validate SIM cards registration codes
 
@@ -207,9 +359,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        CreateSIMCardValidateRequest createSIMCardValidateRequest = new CreateSIMCardValidateRequest(); // CreateSIMCardValidateRequest | 
+        PostValidateRegistrationCodesRequest postValidateRegistrationCodesRequest = new PostValidateRegistrationCodesRequest(); // PostValidateRegistrationCodesRequest | 
         try {
-            SIMCardRegistrationCodeValidations result = apiInstance.postValidateRegistrationCodes(createSIMCardValidateRequest);
+            SIMCardRegistrationCodeValidations result = apiInstance.postValidateRegistrationCodes(postValidateRegistrationCodesRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#postValidateRegistrationCodes");
@@ -227,7 +379,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createSIMCardValidateRequest** | [**CreateSIMCardValidateRequest**](CreateSIMCardValidateRequest.md)|  |
+ **postValidateRegistrationCodesRequest** | [**PostValidateRegistrationCodesRequest**](PostValidateRegistrationCodesRequest.md)|  |
 
 ### Return type
 
@@ -251,7 +403,7 @@ Name | Type | Description  | Notes
 
 ## removeSIMCardPublicIP
 
-> SIMCardActionResponse removeSIMCardPublicIP(id)
+> SimCardActionGet200Response removeSIMCardPublicIP(id)
 
 Request removing a SIM card public IP
 
@@ -282,7 +434,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SIMCardActionResponse result = apiInstance.removeSIMCardPublicIP(id);
+            SimCardActionGet200Response result = apiInstance.removeSIMCardPublicIP(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#removeSIMCardPublicIP");
@@ -304,7 +456,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SIMCardActionResponse**](SIMCardActionResponse.md)
+[**SimCardActionGet200Response**](SimCardActionGet200Response.md)
 
 ### Authorization
 
@@ -322,9 +474,82 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
+## sIMCardDeviceDetailsGet
+
+> SIMCardDeviceDetailsGet200Response sIMCardDeviceDetailsGet(simCardId)
+
+Get SIM card device details
+
+It returns the device details where a SIM card is currently being used.
+
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.SimCardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        SimCardsApi apiInstance = new SimCardsApi(defaultClient);
+        UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
+        try {
+            SIMCardDeviceDetailsGet200Response result = apiInstance.sIMCardDeviceDetailsGet(simCardId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SimCardsApi#sIMCardDeviceDetailsGet");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **simCardId** | **UUID**| Identifies a SIM card. |
+
+### Return type
+
+[**SIMCardDeviceDetailsGet200Response**](SIMCardDeviceDetailsGet200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  -  |
+| **0** | Unexpected error |  -  |
+
+
 ## sIMCardNetworkPreferencesDelete
 
-> DeleteSIMCardNetworkPreferenceResponse sIMCardNetworkPreferencesDelete(simCardId)
+> SIMCardNetworkPreferencesGet200Response sIMCardNetworkPreferencesDelete(simCardId)
 
 DELETE network preferences
 
@@ -355,7 +580,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
         try {
-            DeleteSIMCardNetworkPreferenceResponse result = apiInstance.sIMCardNetworkPreferencesDelete(simCardId);
+            SIMCardNetworkPreferencesGet200Response result = apiInstance.sIMCardNetworkPreferencesDelete(simCardId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#sIMCardNetworkPreferencesDelete");
@@ -377,7 +602,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteSIMCardNetworkPreferenceResponse**](DeleteSIMCardNetworkPreferenceResponse.md)
+[**SIMCardNetworkPreferencesGet200Response**](SIMCardNetworkPreferencesGet200Response.md)
 
 ### Authorization
 
@@ -397,7 +622,7 @@ Name | Type | Description  | Notes
 
 ## sIMCardNetworkPreferencesGet
 
-> SIMCardNetworkPreferenceWithOTAUpdatesResponse sIMCardNetworkPreferencesGet(simCardId, includeOtaUpdates)
+> SIMCardNetworkPreferencesGet200Response sIMCardNetworkPreferencesGet(simCardId, includeOtaUpdates)
 
 Get network preferences
 
@@ -429,7 +654,7 @@ public class Example {
         UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
         Boolean includeOtaUpdates = false; // Boolean | It includes the associated OTA update objects in the response when present.
         try {
-            SIMCardNetworkPreferenceWithOTAUpdatesResponse result = apiInstance.sIMCardNetworkPreferencesGet(simCardId, includeOtaUpdates);
+            SIMCardNetworkPreferencesGet200Response result = apiInstance.sIMCardNetworkPreferencesGet(simCardId, includeOtaUpdates);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#sIMCardNetworkPreferencesGet");
@@ -452,7 +677,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SIMCardNetworkPreferenceWithOTAUpdatesResponse**](SIMCardNetworkPreferenceWithOTAUpdatesResponse.md)
+[**SIMCardNetworkPreferencesGet200Response**](SIMCardNetworkPreferencesGet200Response.md)
 
 ### Authorization
 
@@ -472,7 +697,7 @@ Name | Type | Description  | Notes
 
 ## sIMCardNetworkPreferencesPut
 
-> PUTSIMCardNetworkPreferenceResponse sIMCardNetworkPreferencesPut(simCardId, putNetworkPreferenceRequest)
+> SIMCardNetworkPreferencesGet200Response sIMCardNetworkPreferencesPut(simCardId, siMCardNetworkPreferencesPutRequest)
 
 Set network preferences
 
@@ -504,9 +729,9 @@ public class Example {
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
-        PutNetworkPreferenceRequest putNetworkPreferenceRequest = new PutNetworkPreferenceRequest(); // PutNetworkPreferenceRequest | 
+        SIMCardNetworkPreferencesPutRequest siMCardNetworkPreferencesPutRequest = new SIMCardNetworkPreferencesPutRequest(); // SIMCardNetworkPreferencesPutRequest | 
         try {
-            PUTSIMCardNetworkPreferenceResponse result = apiInstance.sIMCardNetworkPreferencesPut(simCardId, putNetworkPreferenceRequest);
+            SIMCardNetworkPreferencesGet200Response result = apiInstance.sIMCardNetworkPreferencesPut(simCardId, siMCardNetworkPreferencesPutRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#sIMCardNetworkPreferencesPut");
@@ -525,11 +750,11 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **simCardId** | **UUID**| Identifies a SIM card. |
- **putNetworkPreferenceRequest** | [**PutNetworkPreferenceRequest**](PutNetworkPreferenceRequest.md)|  | [optional]
+ **siMCardNetworkPreferencesPutRequest** | [**SIMCardNetworkPreferencesPutRequest**](SIMCardNetworkPreferencesPutRequest.md)|  | [optional]
 
 ### Return type
 
-[**PUTSIMCardNetworkPreferenceResponse**](PUTSIMCardNetworkPreferenceResponse.md)
+[**SIMCardNetworkPreferencesGet200Response**](SIMCardNetworkPreferencesGet200Response.md)
 
 ### Authorization
 
@@ -549,7 +774,7 @@ Name | Type | Description  | Notes
 
 ## sIMCardPublicIPGet
 
-> SIMCardPublicIPResponse sIMCardPublicIPGet(simCardId)
+> SIMCardPublicIPGet200Response sIMCardPublicIPGet(simCardId)
 
 Get SIM card public IP definition
 
@@ -580,7 +805,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
         try {
-            SIMCardPublicIPResponse result = apiInstance.sIMCardPublicIPGet(simCardId);
+            SIMCardPublicIPGet200Response result = apiInstance.sIMCardPublicIPGet(simCardId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#sIMCardPublicIPGet");
@@ -602,7 +827,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SIMCardPublicIPResponse**](SIMCardPublicIPResponse.md)
+[**SIMCardPublicIPGet200Response**](SIMCardPublicIPGet200Response.md)
 
 ### Authorization
 
@@ -620,9 +845,86 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
+## setNetworkPreference
+
+> SimCardActionGet200Response setNetworkPreference(id)
+
+Create or update network preferences for a SIM card
+
+This API sets network preferences for a SIM card.<br/>
+Every SIM card has default network preferences defined on Telnyx. These preferences will determine how a SIMCard will connect to the network by considering a list of preferable operators.<br/><br/>
+The SIM card needs to be attached to the network so this can connect and SMS must be available, otherwise, the operation will fail. This preference will only be respected if the network is available, otherwise the strongest signal will be used. <br/><br/>
+The API will trigger an asynchronous operation called a SIM Card Action. Creating network preferences may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
+
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.SimCardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        SimCardsApi apiInstance = new SimCardsApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        try {
+            SimCardActionGet200Response result = apiInstance.setNetworkPreference(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SimCardsApi#setNetworkPreference");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+
+### Return type
+
+[**SimCardActionGet200Response**](SimCardActionGet200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful Response |  -  |
+| **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
+| **0** | Unexpected error |  -  |
+
+
 ## setSIMCardPublicIP
 
-> SIMCardActionResponse setSIMCardPublicIP(id)
+> SimCardActionGet200Response setSIMCardPublicIP(id)
 
 Request setting a SIM card public IP
 
@@ -654,7 +956,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SIMCardActionResponse result = apiInstance.setSIMCardPublicIP(id);
+            SimCardActionGet200Response result = apiInstance.setSIMCardPublicIP(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#setSIMCardPublicIP");
@@ -676,7 +978,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SIMCardActionResponse**](SIMCardActionResponse.md)
+[**SimCardActionGet200Response**](SimCardActionGet200Response.md)
 
 ### Authorization
 
@@ -696,7 +998,7 @@ Name | Type | Description  | Notes
 
 ## simCardDataUsageNotificationsDelete
 
-> DeleteSimCardDataUsageNotificationResponse simCardDataUsageNotificationsDelete(id)
+> SimCardDataUsageNotificationsPost201Response simCardDataUsageNotificationsDelete(id)
 
 Delete SIM card data usage notifications
 
@@ -726,7 +1028,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            DeleteSimCardDataUsageNotificationResponse result = apiInstance.simCardDataUsageNotificationsDelete(id);
+            SimCardDataUsageNotificationsPost201Response result = apiInstance.simCardDataUsageNotificationsDelete(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardDataUsageNotificationsDelete");
@@ -748,7 +1050,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteSimCardDataUsageNotificationResponse**](DeleteSimCardDataUsageNotificationResponse.md)
+[**SimCardDataUsageNotificationsPost201Response**](SimCardDataUsageNotificationsPost201Response.md)
 
 ### Authorization
 
@@ -768,7 +1070,7 @@ Name | Type | Description  | Notes
 
 ## simCardDataUsageNotificationsGet
 
-> GetSimCardDataUsageNotificationResponse simCardDataUsageNotificationsGet(id)
+> SimCardDataUsageNotificationsPost201Response simCardDataUsageNotificationsGet(id)
 
 Get a single SIM card data usage notification
 
@@ -798,7 +1100,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            GetSimCardDataUsageNotificationResponse result = apiInstance.simCardDataUsageNotificationsGet(id);
+            SimCardDataUsageNotificationsPost201Response result = apiInstance.simCardDataUsageNotificationsGet(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardDataUsageNotificationsGet");
@@ -820,7 +1122,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetSimCardDataUsageNotificationResponse**](GetSimCardDataUsageNotificationResponse.md)
+[**SimCardDataUsageNotificationsPost201Response**](SimCardDataUsageNotificationsPost201Response.md)
 
 ### Authorization
 
@@ -841,7 +1143,7 @@ Name | Type | Description  | Notes
 
 ## simCardDataUsageNotificationsPatch
 
-> UpdateSimCardDataUsageNotificationResponse simCardDataUsageNotificationsPatch(id, simCardDataUsageNotification)
+> SimCardDataUsageNotificationsPost201Response simCardDataUsageNotificationsPatch(id, simCardDataUsageNotification)
 
 Updates information for a SIM Card Data Usage Notification
 
@@ -872,7 +1174,7 @@ public class Example {
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         SimCardDataUsageNotification simCardDataUsageNotification = new SimCardDataUsageNotification(); // SimCardDataUsageNotification | 
         try {
-            UpdateSimCardDataUsageNotificationResponse result = apiInstance.simCardDataUsageNotificationsPatch(id, simCardDataUsageNotification);
+            SimCardDataUsageNotificationsPost201Response result = apiInstance.simCardDataUsageNotificationsPatch(id, simCardDataUsageNotification);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardDataUsageNotificationsPatch");
@@ -895,7 +1197,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateSimCardDataUsageNotificationResponse**](UpdateSimCardDataUsageNotificationResponse.md)
+[**SimCardDataUsageNotificationsPost201Response**](SimCardDataUsageNotificationsPost201Response.md)
 
 ### Authorization
 
@@ -915,7 +1217,7 @@ Name | Type | Description  | Notes
 
 ## simCardDataUsageNotificationsPost
 
-> CreateSimCardDataUsageNotificationResponse simCardDataUsageNotificationsPost(createSIMCardDataUsageNotificationRequest)
+> SimCardDataUsageNotificationsPost201Response simCardDataUsageNotificationsPost(simCardDataUsageNotificationsPostRequest)
 
 Create a new SIM card data usage notification
 
@@ -942,9 +1244,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        CreateSIMCardDataUsageNotificationRequest createSIMCardDataUsageNotificationRequest = new CreateSIMCardDataUsageNotificationRequest(); // CreateSIMCardDataUsageNotificationRequest | 
+        SimCardDataUsageNotificationsPostRequest simCardDataUsageNotificationsPostRequest = new SimCardDataUsageNotificationsPostRequest(); // SimCardDataUsageNotificationsPostRequest | 
         try {
-            CreateSimCardDataUsageNotificationResponse result = apiInstance.simCardDataUsageNotificationsPost(createSIMCardDataUsageNotificationRequest);
+            SimCardDataUsageNotificationsPost201Response result = apiInstance.simCardDataUsageNotificationsPost(simCardDataUsageNotificationsPostRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardDataUsageNotificationsPost");
@@ -962,11 +1264,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createSIMCardDataUsageNotificationRequest** | [**CreateSIMCardDataUsageNotificationRequest**](CreateSIMCardDataUsageNotificationRequest.md)|  |
+ **simCardDataUsageNotificationsPostRequest** | [**SimCardDataUsageNotificationsPostRequest**](SimCardDataUsageNotificationsPostRequest.md)|  |
 
 ### Return type
 
-[**CreateSimCardDataUsageNotificationResponse**](CreateSimCardDataUsageNotificationResponse.md)
+[**SimCardDataUsageNotificationsPost201Response**](SimCardDataUsageNotificationsPost201Response.md)
 
 ### Authorization
 
@@ -986,7 +1288,7 @@ Name | Type | Description  | Notes
 
 ## simCardDelete
 
-> DeleteSimCardResponse simCardDelete(id)
+> SimCardGet200Response simCardDelete(id)
 
 Deletes a SIM card
 
@@ -1018,7 +1320,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            DeleteSimCardResponse result = apiInstance.simCardDelete(id);
+            SimCardGet200Response result = apiInstance.simCardDelete(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardDelete");
@@ -1040,7 +1342,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteSimCardResponse**](DeleteSimCardResponse.md)
+[**SimCardGet200Response**](SimCardGet200Response.md)
 
 ### Authorization
 
@@ -1060,7 +1362,7 @@ Name | Type | Description  | Notes
 
 ## simCardDisable
 
-> SIMCardActionResponse simCardDisable(id)
+> SimCardActionGet200Response simCardDisable(id)
 
 Request a SIM card disable
 
@@ -1092,7 +1394,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SIMCardActionResponse result = apiInstance.simCardDisable(id);
+            SimCardActionGet200Response result = apiInstance.simCardDisable(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardDisable");
@@ -1114,7 +1416,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SIMCardActionResponse**](SIMCardActionResponse.md)
+[**SimCardActionGet200Response**](SimCardActionGet200Response.md)
 
 ### Authorization
 
@@ -1134,7 +1436,7 @@ Name | Type | Description  | Notes
 
 ## simCardEnable
 
-> SIMCardActionResponse simCardEnable(id)
+> SimCardActionGet200Response simCardEnable(id)
 
 Request a SIM card enable
 
@@ -1167,7 +1469,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SIMCardActionResponse result = apiInstance.simCardEnable(id);
+            SimCardActionGet200Response result = apiInstance.simCardEnable(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardEnable");
@@ -1189,7 +1491,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SIMCardActionResponse**](SIMCardActionResponse.md)
+[**SimCardActionGet200Response**](SimCardActionGet200Response.md)
 
 ### Authorization
 
@@ -1210,7 +1512,7 @@ Name | Type | Description  | Notes
 
 ## simCardGet
 
-> GetSimCardResponse simCardGet(id, includeSimCardGroup)
+> SimCardGet200Response simCardGet(id, includeSimCardGroup)
 
 Get SIM card
 
@@ -1241,7 +1543,7 @@ public class Example {
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         Boolean includeSimCardGroup = false; // Boolean | It includes the associated SIM card group object in the response when present.
         try {
-            GetSimCardResponse result = apiInstance.simCardGet(id, includeSimCardGroup);
+            SimCardGet200Response result = apiInstance.simCardGet(id, includeSimCardGroup);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardGet");
@@ -1264,7 +1566,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetSimCardResponse**](GetSimCardResponse.md)
+[**SimCardGet200Response**](SimCardGet200Response.md)
 
 ### Authorization
 
@@ -1284,7 +1586,7 @@ Name | Type | Description  | Notes
 
 ## simCardRegister
 
-> RegisterSimCardsResponse simCardRegister(siMCardRegistration)
+> SimCardRegister202Response simCardRegister(siMCardRegistration)
 
 Register SIM cards
 
@@ -1315,7 +1617,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         SIMCardRegistration siMCardRegistration = new SIMCardRegistration(); // SIMCardRegistration | 
         try {
-            RegisterSimCardsResponse result = apiInstance.simCardRegister(siMCardRegistration);
+            SimCardRegister202Response result = apiInstance.simCardRegister(siMCardRegistration);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardRegister");
@@ -1337,7 +1639,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RegisterSimCardsResponse**](RegisterSimCardsResponse.md)
+[**SimCardRegister202Response**](SimCardRegister202Response.md)
 
 ### Authorization
 
@@ -1356,7 +1658,7 @@ Name | Type | Description  | Notes
 
 ## simCardSetStandby
 
-> SIMCardActionResponse simCardSetStandby(id)
+> SimCardActionGet200Response simCardSetStandby(id)
 
 Request setting a SIM card to standby
 
@@ -1389,7 +1691,7 @@ public class Example {
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SIMCardActionResponse result = apiInstance.simCardSetStandby(id);
+            SimCardActionGet200Response result = apiInstance.simCardSetStandby(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardSetStandby");
@@ -1411,7 +1713,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SIMCardActionResponse**](SIMCardActionResponse.md)
+[**SimCardActionGet200Response**](SimCardActionGet200Response.md)
 
 ### Authorization
 
@@ -1431,7 +1733,7 @@ Name | Type | Description  | Notes
 
 ## simCardUpdate
 
-> UpdateSimCardResponse simCardUpdate(id, siMCard)
+> SimCardGet200Response simCardUpdate(id, siMCard)
 
 Update a SIM card
 
@@ -1462,7 +1764,7 @@ public class Example {
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         SIMCard siMCard = new SIMCard(); // SIMCard | 
         try {
-            UpdateSimCardResponse result = apiInstance.simCardUpdate(id, siMCard);
+            SimCardGet200Response result = apiInstance.simCardUpdate(id, siMCard);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardUpdate");
@@ -1485,7 +1787,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateSimCardResponse**](UpdateSimCardResponse.md)
+[**SimCardGet200Response**](SimCardGet200Response.md)
 
 ### Authorization
 
@@ -1505,7 +1807,7 @@ Name | Type | Description  | Notes
 
 ## simCardsGet
 
-> SearchSimCardsResponse simCardsGet(pageNumber, pageSize, includeSimCardGroup, filterSimCardGroupId, filterTags, filterIccid)
+> SimCardsGet200Response simCardsGet(pageNumber, pageSize, includeSimCardGroup, filterSimCardGroupId, filterTags, filterIccid, filterStatus)
 
 Get all SIM cards
 
@@ -1539,8 +1841,9 @@ public class Example {
         UUID filterSimCardGroupId = UUID.fromString("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9"); // UUID | A valid SIM card group ID.
         List<String> filterTags = Arrays.asList(); // List<String> | A list of SIM card tags to filter on.<br/><br/> If the SIM card contains <b><i>all</i></b> of the given <code>tags</code> they will be found.<br/><br/> For example, if the SIM cards have the following tags: <ul>   <li><code>['customers', 'staff', 'test']</code>   <li><code>['test']</code></li>   <li><code>['customers']</code></li> </ul> Searching for <code>['customers', 'test']</code> returns only the first because it's the only one with both tags.<br/> Searching for <code>test</code> returns the first two SIMs, because both of them have such tag.<br/> Searching for <code>customers</code> returns the first and last SIMs.<br/> 
         String filterIccid = "89310410106543789301"; // String | A search string to partially match for the SIM card's ICCID.
+        List<String> filterStatus = Arrays.asList(); // List<String> | Filter by a SIM card's status.
         try {
-            SearchSimCardsResponse result = apiInstance.simCardsGet(pageNumber, pageSize, includeSimCardGroup, filterSimCardGroupId, filterTags, filterIccid);
+            SimCardsGet200Response result = apiInstance.simCardsGet(pageNumber, pageSize, includeSimCardGroup, filterSimCardGroupId, filterTags, filterIccid, filterStatus);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#simCardsGet");
@@ -1564,10 +1867,11 @@ Name | Type | Description  | Notes
  **filterSimCardGroupId** | **UUID**| A valid SIM card group ID. | [optional]
  **filterTags** | **List&lt;String&gt;**| A list of SIM card tags to filter on.&lt;br/&gt;&lt;br/&gt; If the SIM card contains &lt;b&gt;&lt;i&gt;all&lt;/i&gt;&lt;/b&gt; of the given &lt;code&gt;tags&lt;/code&gt; they will be found.&lt;br/&gt;&lt;br/&gt; For example, if the SIM cards have the following tags: &lt;ul&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;, &#39;staff&#39;, &#39;test&#39;]&lt;/code&gt;   &lt;li&gt;&lt;code&gt;[&#39;test&#39;]&lt;/code&gt;&lt;/li&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;]&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; Searching for &lt;code&gt;[&#39;customers&#39;, &#39;test&#39;]&lt;/code&gt; returns only the first because it&#39;s the only one with both tags.&lt;br/&gt; Searching for &lt;code&gt;test&lt;/code&gt; returns the first two SIMs, because both of them have such tag.&lt;br/&gt; Searching for &lt;code&gt;customers&lt;/code&gt; returns the first and last SIMs.&lt;br/&gt;  | [optional]
  **filterIccid** | **String**| A search string to partially match for the SIM card&#39;s ICCID. | [optional]
+ **filterStatus** | **List&lt;String&gt;**| Filter by a SIM card&#39;s status. | [optional] [enum: enabled, disabled, standby, data_limit_exceeded, unauthorized_imei]
 
 ### Return type
 
-[**SearchSimCardsResponse**](SearchSimCardsResponse.md)
+[**SimCardsGet200Response**](SimCardsGet200Response.md)
 
 ### Authorization
 
@@ -1587,7 +1891,7 @@ Name | Type | Description  | Notes
 
 ## wirelessConnectivityLogsGet
 
-> WirelessConnectivityLogCollectionResponse wirelessConnectivityLogsGet(simCardId, pageNumber, pageSize)
+> WirelessConnectivityLogsGet200Response wirelessConnectivityLogsGet(simCardId, pageNumber, pageSize)
 
 List wireless connectivity logs
 
@@ -1619,7 +1923,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            WirelessConnectivityLogCollectionResponse result = apiInstance.wirelessConnectivityLogsGet(simCardId, pageNumber, pageSize);
+            WirelessConnectivityLogsGet200Response result = apiInstance.wirelessConnectivityLogsGet(simCardId, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#wirelessConnectivityLogsGet");
@@ -1643,7 +1947,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessConnectivityLogCollectionResponse**](WirelessConnectivityLogCollectionResponse.md)
+[**WirelessConnectivityLogsGet200Response**](WirelessConnectivityLogsGet200Response.md)
 
 ### Authorization
 

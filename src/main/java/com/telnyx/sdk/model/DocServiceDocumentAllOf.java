@@ -104,6 +104,20 @@ public class DocServiceDocumentAllOf {
   public DocServiceDocumentAllOf() { 
   }
 
+  @JsonCreator
+  public DocServiceDocumentAllOf(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_CONTENT_TYPE) String contentType, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_SHA256) String sha256
+  ) {
+    this();
+    this.recordType = recordType;
+    this.contentType = contentType;
+    this.status = status;
+    this.sha256 = sha256;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

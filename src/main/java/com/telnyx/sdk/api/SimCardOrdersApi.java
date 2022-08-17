@@ -8,14 +8,13 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreateSimCardOrderPreview;
-import com.telnyx.sdk.model.CreateSimCardOrderResponse;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetAllSimCardOrderResponse;
-import com.telnyx.sdk.model.GetSimCardOrderResponse;
-import com.telnyx.sdk.model.SIMCardOrdersPreviewResponse;
 import com.telnyx.sdk.model.SimCardOrderCreate;
+import com.telnyx.sdk.model.SimCardOrdersGet200Response;
+import com.telnyx.sdk.model.SimCardOrdersPost200Response;
+import com.telnyx.sdk.model.SimCardOrdersPreview202Response;
+import com.telnyx.sdk.model.SimCardOrdersPreviewRequest;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class SimCardOrdersApi {
    * Get a single SIM card order
    * Get a single SIM card order by its ID.
    * @param id Identifies the resource. (required)
-   * @return GetSimCardOrderResponse
+   * @return SimCardOrdersPost200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -67,7 +66,7 @@ public class SimCardOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetSimCardOrderResponse simCardOrderGet(UUID id) throws ApiException {
+  public SimCardOrdersPost200Response simCardOrderGet(UUID id) throws ApiException {
     return simCardOrderGetWithHttpInfo(id).getData();
   }
 
@@ -75,7 +74,7 @@ public class SimCardOrdersApi {
    * Get a single SIM card order
    * Get a single SIM card order by its ID.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;GetSimCardOrderResponse&gt;
+   * @return ApiResponse&lt;SimCardOrdersPost200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -85,7 +84,7 @@ public class SimCardOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetSimCardOrderResponse> simCardOrderGetWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardOrdersPost200Response> simCardOrderGetWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -119,7 +118,7 @@ public class SimCardOrdersApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetSimCardOrderResponse> localVarReturnType = new GenericType<GetSimCardOrderResponse>() {};
+    GenericType<SimCardOrdersPost200Response> localVarReturnType = new GenericType<SimCardOrdersPost200Response>() {};
 
     return apiClient.invokeAPI("SimCardOrdersApi.simCardOrderGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -142,7 +141,7 @@ public class SimCardOrdersApi {
    * @param filterAddressPostalCode Filter by postal code for the address. (optional)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return GetAllSimCardOrderResponse
+   * @return SimCardOrdersGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -151,7 +150,7 @@ public class SimCardOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllSimCardOrderResponse simCardOrdersGet(String filterCreatedAt, String filterUpdatedAt, Integer filterQuantity, String filterCostAmount, String filterCostCurrency, String filterAddressId, String filterAddressStreetAddress, String filterAddressExtendedAddress, String filterAddressLocality, String filterAddressAdministrativeArea, String filterAddressCountryCode, String filterAddressPostalCode, Integer pageNumber, Integer pageSize) throws ApiException {
+  public SimCardOrdersGet200Response simCardOrdersGet(String filterCreatedAt, String filterUpdatedAt, Integer filterQuantity, String filterCostAmount, String filterCostCurrency, String filterAddressId, String filterAddressStreetAddress, String filterAddressExtendedAddress, String filterAddressLocality, String filterAddressAdministrativeArea, String filterAddressCountryCode, String filterAddressPostalCode, Integer pageNumber, Integer pageSize) throws ApiException {
     return simCardOrdersGetWithHttpInfo(filterCreatedAt, filterUpdatedAt, filterQuantity, filterCostAmount, filterCostCurrency, filterAddressId, filterAddressStreetAddress, filterAddressExtendedAddress, filterAddressLocality, filterAddressAdministrativeArea, filterAddressCountryCode, filterAddressPostalCode, pageNumber, pageSize).getData();
   }
 
@@ -172,7 +171,7 @@ public class SimCardOrdersApi {
    * @param filterAddressPostalCode Filter by postal code for the address. (optional)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;GetAllSimCardOrderResponse&gt;
+   * @return ApiResponse&lt;SimCardOrdersGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -181,7 +180,7 @@ public class SimCardOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllSimCardOrderResponse> simCardOrdersGetWithHttpInfo(String filterCreatedAt, String filterUpdatedAt, Integer filterQuantity, String filterCostAmount, String filterCostCurrency, String filterAddressId, String filterAddressStreetAddress, String filterAddressExtendedAddress, String filterAddressLocality, String filterAddressAdministrativeArea, String filterAddressCountryCode, String filterAddressPostalCode, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<SimCardOrdersGet200Response> simCardOrdersGetWithHttpInfo(String filterCreatedAt, String filterUpdatedAt, Integer filterQuantity, String filterCostAmount, String filterCostCurrency, String filterAddressId, String filterAddressStreetAddress, String filterAddressExtendedAddress, String filterAddressLocality, String filterAddressAdministrativeArea, String filterAddressCountryCode, String filterAddressPostalCode, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -223,7 +222,7 @@ public class SimCardOrdersApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetAllSimCardOrderResponse> localVarReturnType = new GenericType<GetAllSimCardOrderResponse>() {};
+    GenericType<SimCardOrdersGet200Response> localVarReturnType = new GenericType<SimCardOrdersGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardOrdersApi.simCardOrdersGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -233,7 +232,7 @@ public class SimCardOrdersApi {
    * Create a SIM card order
    * Creates a new order for SIM cards.
    * @param simCardOrderCreate  (required)
-   * @return CreateSimCardOrderResponse
+   * @return SimCardOrdersPost200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -242,7 +241,7 @@ public class SimCardOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateSimCardOrderResponse simCardOrdersPost(SimCardOrderCreate simCardOrderCreate) throws ApiException {
+  public SimCardOrdersPost200Response simCardOrdersPost(SimCardOrderCreate simCardOrderCreate) throws ApiException {
     return simCardOrdersPostWithHttpInfo(simCardOrderCreate).getData();
   }
 
@@ -250,7 +249,7 @@ public class SimCardOrdersApi {
    * Create a SIM card order
    * Creates a new order for SIM cards.
    * @param simCardOrderCreate  (required)
-   * @return ApiResponse&lt;CreateSimCardOrderResponse&gt;
+   * @return ApiResponse&lt;SimCardOrdersPost200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -259,7 +258,7 @@ public class SimCardOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateSimCardOrderResponse> simCardOrdersPostWithHttpInfo(SimCardOrderCreate simCardOrderCreate) throws ApiException {
+  public ApiResponse<SimCardOrdersPost200Response> simCardOrdersPostWithHttpInfo(SimCardOrderCreate simCardOrderCreate) throws ApiException {
     Object localVarPostBody = simCardOrderCreate;
     
     // verify the required parameter 'simCardOrderCreate' is set
@@ -292,7 +291,7 @@ public class SimCardOrdersApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateSimCardOrderResponse> localVarReturnType = new GenericType<CreateSimCardOrderResponse>() {};
+    GenericType<SimCardOrdersPost200Response> localVarReturnType = new GenericType<SimCardOrdersPost200Response>() {};
 
     return apiClient.invokeAPI("SimCardOrdersApi.simCardOrdersPost", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -301,8 +300,8 @@ public class SimCardOrdersApi {
   /**
    * Preview SIM card orders
    * Preview SIM card order purchases.
-   * @param createSimCardOrderPreview  (optional)
-   * @return SIMCardOrdersPreviewResponse
+   * @param simCardOrdersPreviewRequest  (optional)
+   * @return SimCardOrdersPreview202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -311,15 +310,15 @@ public class SimCardOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardOrdersPreviewResponse simCardOrdersPreview(CreateSimCardOrderPreview createSimCardOrderPreview) throws ApiException {
-    return simCardOrdersPreviewWithHttpInfo(createSimCardOrderPreview).getData();
+  public SimCardOrdersPreview202Response simCardOrdersPreview(SimCardOrdersPreviewRequest simCardOrdersPreviewRequest) throws ApiException {
+    return simCardOrdersPreviewWithHttpInfo(simCardOrdersPreviewRequest).getData();
   }
 
   /**
    * Preview SIM card orders
    * Preview SIM card order purchases.
-   * @param createSimCardOrderPreview  (optional)
-   * @return ApiResponse&lt;SIMCardOrdersPreviewResponse&gt;
+   * @param simCardOrdersPreviewRequest  (optional)
+   * @return ApiResponse&lt;SimCardOrdersPreview202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -328,8 +327,8 @@ public class SimCardOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardOrdersPreviewResponse> simCardOrdersPreviewWithHttpInfo(CreateSimCardOrderPreview createSimCardOrderPreview) throws ApiException {
-    Object localVarPostBody = createSimCardOrderPreview;
+  public ApiResponse<SimCardOrdersPreview202Response> simCardOrdersPreviewWithHttpInfo(SimCardOrdersPreviewRequest simCardOrdersPreviewRequest) throws ApiException {
+    Object localVarPostBody = simCardOrdersPreviewRequest;
     
     // create path and map variables
     String localVarPath = "/sim_card_order_preview";
@@ -356,7 +355,7 @@ public class SimCardOrdersApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardOrdersPreviewResponse> localVarReturnType = new GenericType<SIMCardOrdersPreviewResponse>() {};
+    GenericType<SimCardOrdersPreview202Response> localVarReturnType = new GenericType<SimCardOrdersPreview202Response>() {};
 
     return apiClient.invokeAPI("SimCardOrdersApi.simCardOrdersPreview", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

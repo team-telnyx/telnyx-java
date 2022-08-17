@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**ConferenceCreated**](ConferenceCreated.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**ConferenceCreated**](ConferenceCreated.md) |  |  [optional] |
 
 
 

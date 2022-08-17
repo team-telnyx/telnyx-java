@@ -152,6 +152,22 @@ public class DocReqsRequirement {
   public DocReqsRequirement() { 
   }
 
+  @JsonCreator
+  public DocReqsRequirement(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_REQUIREMENTS_TYPES) List<DocReqsRequirementType> requirementsTypes, 
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.recordType = recordType;
+    this.requirementsTypes = requirementsTypes;
+    this.id = id;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

@@ -8,13 +8,11 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreatePrivateWirelessGatewayResponse;
-import com.telnyx.sdk.model.CreatePrivateWirelessGatwewayRequest;
-import com.telnyx.sdk.model.DeletePrivateWirelessGatewayResponse;
+import com.telnyx.sdk.model.CreatePrivateWirelessGateway202Response;
+import com.telnyx.sdk.model.CreatePrivateWirelessGatewayRequest;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetAllPrivateWirelessGatewaysResponse;
-import com.telnyx.sdk.model.GetPrivateWirelessGatewayResponse;
+import com.telnyx.sdk.model.GetPrivateWirelessGateways200Response;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -55,8 +53,8 @@ public class PrivateWirelessGatewaysApi {
   /**
    * Create a Private Wireless Gateway
    * Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network.
-   * @param createPrivateWirelessGatwewayRequest  (required)
-   * @return CreatePrivateWirelessGatewayResponse
+   * @param createPrivateWirelessGatewayRequest  (required)
+   * @return CreatePrivateWirelessGateway202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -66,15 +64,15 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePrivateWirelessGatewayResponse createPrivateWirelessGateway(CreatePrivateWirelessGatwewayRequest createPrivateWirelessGatwewayRequest) throws ApiException {
-    return createPrivateWirelessGatewayWithHttpInfo(createPrivateWirelessGatwewayRequest).getData();
+  public CreatePrivateWirelessGateway202Response createPrivateWirelessGateway(CreatePrivateWirelessGatewayRequest createPrivateWirelessGatewayRequest) throws ApiException {
+    return createPrivateWirelessGatewayWithHttpInfo(createPrivateWirelessGatewayRequest).getData();
   }
 
   /**
    * Create a Private Wireless Gateway
    * Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network.
-   * @param createPrivateWirelessGatwewayRequest  (required)
-   * @return ApiResponse&lt;CreatePrivateWirelessGatewayResponse&gt;
+   * @param createPrivateWirelessGatewayRequest  (required)
+   * @return ApiResponse&lt;CreatePrivateWirelessGateway202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -84,12 +82,12 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePrivateWirelessGatewayResponse> createPrivateWirelessGatewayWithHttpInfo(CreatePrivateWirelessGatwewayRequest createPrivateWirelessGatwewayRequest) throws ApiException {
-    Object localVarPostBody = createPrivateWirelessGatwewayRequest;
+  public ApiResponse<CreatePrivateWirelessGateway202Response> createPrivateWirelessGatewayWithHttpInfo(CreatePrivateWirelessGatewayRequest createPrivateWirelessGatewayRequest) throws ApiException {
+    Object localVarPostBody = createPrivateWirelessGatewayRequest;
     
-    // verify the required parameter 'createPrivateWirelessGatwewayRequest' is set
-    if (createPrivateWirelessGatwewayRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPrivateWirelessGatwewayRequest' when calling createPrivateWirelessGateway");
+    // verify the required parameter 'createPrivateWirelessGatewayRequest' is set
+    if (createPrivateWirelessGatewayRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'createPrivateWirelessGatewayRequest' when calling createPrivateWirelessGateway");
     }
     
     // create path and map variables
@@ -117,7 +115,7 @@ public class PrivateWirelessGatewaysApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreatePrivateWirelessGatewayResponse> localVarReturnType = new GenericType<CreatePrivateWirelessGatewayResponse>() {};
+    GenericType<CreatePrivateWirelessGateway202Response> localVarReturnType = new GenericType<CreatePrivateWirelessGateway202Response>() {};
 
     return apiClient.invokeAPI("PrivateWirelessGatewaysApi.createPrivateWirelessGateway", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -127,7 +125,7 @@ public class PrivateWirelessGatewaysApi {
    * Delete a Private Wireless Gateway
    * Deletes the Private Wireless Gateway.
    * @param id Identifies the resource. (required)
-   * @return DeletePrivateWirelessGatewayResponse
+   * @return CreatePrivateWirelessGateway202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -137,7 +135,7 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DeletePrivateWirelessGatewayResponse deletePrivateWirelessGateway(UUID id) throws ApiException {
+  public CreatePrivateWirelessGateway202Response deletePrivateWirelessGateway(UUID id) throws ApiException {
     return deletePrivateWirelessGatewayWithHttpInfo(id).getData();
   }
 
@@ -145,7 +143,7 @@ public class PrivateWirelessGatewaysApi {
    * Delete a Private Wireless Gateway
    * Deletes the Private Wireless Gateway.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;DeletePrivateWirelessGatewayResponse&gt;
+   * @return ApiResponse&lt;CreatePrivateWirelessGateway202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -155,7 +153,7 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DeletePrivateWirelessGatewayResponse> deletePrivateWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreatePrivateWirelessGateway202Response> deletePrivateWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -189,7 +187,7 @@ public class PrivateWirelessGatewaysApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DeletePrivateWirelessGatewayResponse> localVarReturnType = new GenericType<DeletePrivateWirelessGatewayResponse>() {};
+    GenericType<CreatePrivateWirelessGateway202Response> localVarReturnType = new GenericType<CreatePrivateWirelessGateway202Response>() {};
 
     return apiClient.invokeAPI("PrivateWirelessGatewaysApi.deletePrivateWirelessGateway", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -199,7 +197,7 @@ public class PrivateWirelessGatewaysApi {
    * Get a Private Wireless Gateway
    * Retrieve information about a Private Wireless Gateway.
    * @param id Identifies the resource. (required)
-   * @return GetPrivateWirelessGatewayResponse
+   * @return CreatePrivateWirelessGateway202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -209,7 +207,7 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetPrivateWirelessGatewayResponse getPrivateWirelessGateway(UUID id) throws ApiException {
+  public CreatePrivateWirelessGateway202Response getPrivateWirelessGateway(UUID id) throws ApiException {
     return getPrivateWirelessGatewayWithHttpInfo(id).getData();
   }
 
@@ -217,7 +215,7 @@ public class PrivateWirelessGatewaysApi {
    * Get a Private Wireless Gateway
    * Retrieve information about a Private Wireless Gateway.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;GetPrivateWirelessGatewayResponse&gt;
+   * @return ApiResponse&lt;CreatePrivateWirelessGateway202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -227,7 +225,7 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetPrivateWirelessGatewayResponse> getPrivateWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreatePrivateWirelessGateway202Response> getPrivateWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -261,7 +259,7 @@ public class PrivateWirelessGatewaysApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetPrivateWirelessGatewayResponse> localVarReturnType = new GenericType<GetPrivateWirelessGatewayResponse>() {};
+    GenericType<CreatePrivateWirelessGateway202Response> localVarReturnType = new GenericType<CreatePrivateWirelessGateway202Response>() {};
 
     return apiClient.invokeAPI("PrivateWirelessGatewaysApi.getPrivateWirelessGateway", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -277,7 +275,7 @@ public class PrivateWirelessGatewaysApi {
    * @param filterRegionCode The name of the region where the Private Wireless Gateway is deployed. (optional)
    * @param filterCreatedAt Private Wireless Gateway resource creation date. (optional)
    * @param filterUpdatedAt When the Private Wireless Gateway was last updated. (optional)
-   * @return GetAllPrivateWirelessGatewaysResponse
+   * @return GetPrivateWirelessGateways200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -286,7 +284,7 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllPrivateWirelessGatewaysResponse getPrivateWirelessGateways(Integer pageNumber, Integer pageSize, String filterName, String filterIpRange, String filterRegionCode, String filterCreatedAt, String filterUpdatedAt) throws ApiException {
+  public GetPrivateWirelessGateways200Response getPrivateWirelessGateways(Integer pageNumber, Integer pageSize, String filterName, String filterIpRange, String filterRegionCode, String filterCreatedAt, String filterUpdatedAt) throws ApiException {
     return getPrivateWirelessGatewaysWithHttpInfo(pageNumber, pageSize, filterName, filterIpRange, filterRegionCode, filterCreatedAt, filterUpdatedAt).getData();
   }
 
@@ -300,7 +298,7 @@ public class PrivateWirelessGatewaysApi {
    * @param filterRegionCode The name of the region where the Private Wireless Gateway is deployed. (optional)
    * @param filterCreatedAt Private Wireless Gateway resource creation date. (optional)
    * @param filterUpdatedAt When the Private Wireless Gateway was last updated. (optional)
-   * @return ApiResponse&lt;GetAllPrivateWirelessGatewaysResponse&gt;
+   * @return ApiResponse&lt;GetPrivateWirelessGateways200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -309,7 +307,7 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllPrivateWirelessGatewaysResponse> getPrivateWirelessGatewaysWithHttpInfo(Integer pageNumber, Integer pageSize, String filterName, String filterIpRange, String filterRegionCode, String filterCreatedAt, String filterUpdatedAt) throws ApiException {
+  public ApiResponse<GetPrivateWirelessGateways200Response> getPrivateWirelessGatewaysWithHttpInfo(Integer pageNumber, Integer pageSize, String filterName, String filterIpRange, String filterRegionCode, String filterCreatedAt, String filterUpdatedAt) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -344,7 +342,7 @@ public class PrivateWirelessGatewaysApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetAllPrivateWirelessGatewaysResponse> localVarReturnType = new GenericType<GetAllPrivateWirelessGatewaysResponse>() {};
+    GenericType<GetPrivateWirelessGateways200Response> localVarReturnType = new GenericType<GetPrivateWirelessGateways200Response>() {};
 
     return apiClient.invokeAPI("PrivateWirelessGatewaysApi.getPrivateWirelessGateways", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

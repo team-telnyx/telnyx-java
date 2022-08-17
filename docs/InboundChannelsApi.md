@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## listOutboundChannels
 
-> ListInboundChannels listOutboundChannels()
+> ListOutboundChannels200Response listOutboundChannels()
 
 Retrieve your inbound channels
 
@@ -39,7 +39,7 @@ public class Example {
 
         InboundChannelsApi apiInstance = new InboundChannelsApi(defaultClient);
         try {
-            ListInboundChannels result = apiInstance.listOutboundChannels();
+            ListOutboundChannels200Response result = apiInstance.listOutboundChannels();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling InboundChannelsApi#listOutboundChannels");
@@ -58,7 +58,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ListInboundChannels**](ListInboundChannels.md)
+[**ListOutboundChannels200Response**](ListOutboundChannels200Response.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ This endpoint does not need any parameter.
 
 ## updateOutboundChannels
 
-> UpdateInbouncChannels updateOutboundChannels(updateInboundChannels)
+> UpdateOutboundChannels200Response updateOutboundChannels(updateOutboundChannelsRequest)
 
 Update inbound channels
 
@@ -107,9 +107,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         InboundChannelsApi apiInstance = new InboundChannelsApi(defaultClient);
-        UpdateInboundChannels updateInboundChannels = new UpdateInboundChannels(); // UpdateInboundChannels | 
+        UpdateOutboundChannelsRequest updateOutboundChannelsRequest = new UpdateOutboundChannelsRequest(); // UpdateOutboundChannelsRequest | Inbound channels update
         try {
-            UpdateInbouncChannels result = apiInstance.updateOutboundChannels(updateInboundChannels);
+            UpdateOutboundChannels200Response result = apiInstance.updateOutboundChannels(updateOutboundChannelsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling InboundChannelsApi#updateOutboundChannels");
@@ -127,11 +127,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updateInboundChannels** | [**UpdateInboundChannels**](UpdateInboundChannels.md)|  |
+ **updateOutboundChannelsRequest** | [**UpdateOutboundChannelsRequest**](UpdateOutboundChannelsRequest.md)| Inbound channels update |
 
 ### Return type
 
-[**UpdateInbouncChannels**](UpdateInbouncChannels.md)
+[**UpdateOutboundChannels200Response**](UpdateOutboundChannels200Response.md)
 
 ### Authorization
 

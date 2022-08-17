@@ -73,8 +73,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -93,8 +93,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -154,8 +154,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -174,8 +174,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -235,7 +235,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -254,7 +254,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -314,7 +314,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -333,7 +333,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -393,8 +393,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -413,8 +413,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -474,8 +474,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -494,8 +494,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -555,8 +555,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -575,8 +575,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -636,8 +636,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -656,8 +656,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -717,8 +717,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -737,8 +737,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -798,8 +798,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -818,8 +818,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -879,8 +879,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -899,8 +899,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -960,8 +960,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -980,8 +980,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1041,7 +1041,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1060,7 +1060,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1119,7 +1119,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1137,7 +1137,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1297,8 +1297,8 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        </table>
      
@@ -1316,8 +1316,8 @@ private ApiResponse<ListParticipantsResponse> listConferenceParticipantsWithHttp
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        </table>
 
@@ -1436,7 +1436,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        </table>
      
@@ -1454,7 +1454,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        </table>
 
@@ -1485,7 +1485,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ConferenceResponse retrieveConference(String id) throws ApiException {
@@ -1502,7 +1502,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ConferenceResponse> retrieveConferenceWithHttpInfo(String id) throws ApiException {

@@ -51,6 +51,18 @@ public class PortingOrdersAllowedFocWindow {
   public PortingOrdersAllowedFocWindow() { 
   }
 
+  @JsonCreator
+  public PortingOrdersAllowedFocWindow(
+    @JsonProperty(JSON_PROPERTY_STARTED_AT) OffsetDateTime startedAt, 
+    @JsonProperty(JSON_PROPERTY_ENDED_AT) OffsetDateTime endedAt, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.startedAt = startedAt;
+    this.endedAt = endedAt;
+    this.recordType = recordType;
+  }
+
    /**
    * ISO 8601 formatted date indicating the start of the range of foc window.
    * @return startedAt

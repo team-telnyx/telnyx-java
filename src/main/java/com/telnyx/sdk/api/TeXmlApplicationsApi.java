@@ -197,7 +197,7 @@ public class TeXmlApplicationsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterFriendlyNameContains If present, applications with &lt;code&gt;friendly_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
-   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+   * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
    * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
    * @return GetAllTexmlApplicationsResponse
    * @throws ApiException if fails to make API call
@@ -210,8 +210,8 @@ public class TeXmlApplicationsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllTexmlApplicationsResponse findTexmlApplications(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
-    return findTexmlApplicationsWithHttpInfo(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundOutboundVoiceProfileId, sort).getData();
+  public GetAllTexmlApplicationsResponse findTexmlApplications(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
+    return findTexmlApplicationsWithHttpInfo(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundVoiceProfileId, sort).getData();
   }
 
   /**
@@ -220,7 +220,7 @@ public class TeXmlApplicationsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterFriendlyNameContains If present, applications with &lt;code&gt;friendly_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
-   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+   * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
    * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
    * @return ApiResponse&lt;GetAllTexmlApplicationsResponse&gt;
    * @throws ApiException if fails to make API call
@@ -233,7 +233,7 @@ public class TeXmlApplicationsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllTexmlApplicationsResponse> findTexmlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+  public ApiResponse<GetAllTexmlApplicationsResponse> findTexmlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -248,7 +248,7 @@ public class TeXmlApplicationsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[friendly_name][contains]", filterFriendlyNameContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound.outbound_voice_profile_id]", filterOutboundOutboundVoiceProfileId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound_voice_profile_id]", filterOutboundVoiceProfileId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     

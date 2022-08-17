@@ -23,12 +23,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Address;
-import com.telnyx.sdk.model.BusinessDescription;
-import com.telnyx.sdk.model.BusinessEmail;
-import com.telnyx.sdk.model.BusinessPhoneNumber;
-import com.telnyx.sdk.model.Contacts;
-import com.telnyx.sdk.model.SubmissionAcknowledgement;
-import com.telnyx.sdk.model.WebsiteUrl;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -55,28 +49,28 @@ public class CreateOrUpdateBusinessIdentityRequest {
   private String name;
 
   public static final String JSON_PROPERTY_BUSINESS_EMAIL = "business_email";
-  private BusinessEmail businessEmail = null;
+  private String businessEmail = null;
 
   public static final String JSON_PROPERTY_BUSINESS_NAME = "business_name";
-  private String businessName;
+  private String businessName = null;
 
   public static final String JSON_PROPERTY_BUSINESS_PHONE_NUMBER = "business_phone_number";
-  private BusinessPhoneNumber businessPhoneNumber = null;
+  private String businessPhoneNumber = null;
 
   public static final String JSON_PROPERTY_BUSINESS_DESCRIPTION = "business_description";
-  private BusinessDescription businessDescription = null;
+  private String businessDescription = null;
 
   public static final String JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT = "submission_acknowledgement";
-  private SubmissionAcknowledgement submissionAcknowledgement = null;
+  private String submissionAcknowledgement = null;
 
   public static final String JSON_PROPERTY_WEBSITE_URL = "website_url";
-  private WebsiteUrl websiteUrl = null;
+  private String websiteUrl = null;
 
   public static final String JSON_PROPERTY_ADDRESS = "address";
   private Address address = null;
 
   public static final String JSON_PROPERTY_CONTACTS = "contacts";
-  private Contacts contacts = null;
+  private String contacts = null;
 
   public CreateOrUpdateBusinessIdentityRequest() { 
   }
@@ -107,7 +101,7 @@ public class CreateOrUpdateBusinessIdentityRequest {
   }
 
 
-  public CreateOrUpdateBusinessIdentityRequest businessEmail(BusinessEmail businessEmail) {
+  public CreateOrUpdateBusinessIdentityRequest businessEmail(String businessEmail) {
     this.businessEmail = businessEmail;
     return this;
   }
@@ -121,14 +115,14 @@ public class CreateOrUpdateBusinessIdentityRequest {
   @JsonProperty(JSON_PROPERTY_BUSINESS_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public BusinessEmail getBusinessEmail() {
+  public String getBusinessEmail() {
     return businessEmail;
   }
 
 
   @JsonProperty(JSON_PROPERTY_BUSINESS_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBusinessEmail(BusinessEmail businessEmail) {
+  public void setBusinessEmail(String businessEmail) {
     this.businessEmail = businessEmail;
   }
 
@@ -139,11 +133,11 @@ public class CreateOrUpdateBusinessIdentityRequest {
   }
 
    /**
-   * The business name associated with the address. An address must have either a first last name or a business name.
+   * Get businessName
    * @return businessName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Toy-O'Kon", value = "The business name associated with the address. An address must have either a first last name or a business name.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -159,7 +153,7 @@ public class CreateOrUpdateBusinessIdentityRequest {
   }
 
 
-  public CreateOrUpdateBusinessIdentityRequest businessPhoneNumber(BusinessPhoneNumber businessPhoneNumber) {
+  public CreateOrUpdateBusinessIdentityRequest businessPhoneNumber(String businessPhoneNumber) {
     this.businessPhoneNumber = businessPhoneNumber;
     return this;
   }
@@ -173,19 +167,19 @@ public class CreateOrUpdateBusinessIdentityRequest {
   @JsonProperty(JSON_PROPERTY_BUSINESS_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public BusinessPhoneNumber getBusinessPhoneNumber() {
+  public String getBusinessPhoneNumber() {
     return businessPhoneNumber;
   }
 
 
   @JsonProperty(JSON_PROPERTY_BUSINESS_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBusinessPhoneNumber(BusinessPhoneNumber businessPhoneNumber) {
+  public void setBusinessPhoneNumber(String businessPhoneNumber) {
     this.businessPhoneNumber = businessPhoneNumber;
   }
 
 
-  public CreateOrUpdateBusinessIdentityRequest businessDescription(BusinessDescription businessDescription) {
+  public CreateOrUpdateBusinessIdentityRequest businessDescription(String businessDescription) {
     this.businessDescription = businessDescription;
     return this;
   }
@@ -199,19 +193,19 @@ public class CreateOrUpdateBusinessIdentityRequest {
   @JsonProperty(JSON_PROPERTY_BUSINESS_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public BusinessDescription getBusinessDescription() {
+  public String getBusinessDescription() {
     return businessDescription;
   }
 
 
   @JsonProperty(JSON_PROPERTY_BUSINESS_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBusinessDescription(BusinessDescription businessDescription) {
+  public void setBusinessDescription(String businessDescription) {
     this.businessDescription = businessDescription;
   }
 
 
-  public CreateOrUpdateBusinessIdentityRequest submissionAcknowledgement(SubmissionAcknowledgement submissionAcknowledgement) {
+  public CreateOrUpdateBusinessIdentityRequest submissionAcknowledgement(String submissionAcknowledgement) {
     this.submissionAcknowledgement = submissionAcknowledgement;
     return this;
   }
@@ -225,19 +219,19 @@ public class CreateOrUpdateBusinessIdentityRequest {
   @JsonProperty(JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SubmissionAcknowledgement getSubmissionAcknowledgement() {
+  public String getSubmissionAcknowledgement() {
     return submissionAcknowledgement;
   }
 
 
   @JsonProperty(JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSubmissionAcknowledgement(SubmissionAcknowledgement submissionAcknowledgement) {
+  public void setSubmissionAcknowledgement(String submissionAcknowledgement) {
     this.submissionAcknowledgement = submissionAcknowledgement;
   }
 
 
-  public CreateOrUpdateBusinessIdentityRequest websiteUrl(WebsiteUrl websiteUrl) {
+  public CreateOrUpdateBusinessIdentityRequest websiteUrl(String websiteUrl) {
     this.websiteUrl = websiteUrl;
     return this;
   }
@@ -251,14 +245,14 @@ public class CreateOrUpdateBusinessIdentityRequest {
   @JsonProperty(JSON_PROPERTY_WEBSITE_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WebsiteUrl getWebsiteUrl() {
+  public String getWebsiteUrl() {
     return websiteUrl;
   }
 
 
   @JsonProperty(JSON_PROPERTY_WEBSITE_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWebsiteUrl(WebsiteUrl websiteUrl) {
+  public void setWebsiteUrl(String websiteUrl) {
     this.websiteUrl = websiteUrl;
   }
 
@@ -289,7 +283,7 @@ public class CreateOrUpdateBusinessIdentityRequest {
   }
 
 
-  public CreateOrUpdateBusinessIdentityRequest contacts(Contacts contacts) {
+  public CreateOrUpdateBusinessIdentityRequest contacts(String contacts) {
     this.contacts = contacts;
     return this;
   }
@@ -303,14 +297,14 @@ public class CreateOrUpdateBusinessIdentityRequest {
   @JsonProperty(JSON_PROPERTY_CONTACTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Contacts getContacts() {
+  public String getContacts() {
     return contacts;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CONTACTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setContacts(Contacts contacts) {
+  public void setContacts(String contacts) {
     this.contacts = contacts;
   }
 

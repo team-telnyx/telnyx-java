@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**PhoneNumberDetailed**](PhoneNumberDetailed.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**PhoneNumberDetailed**](PhoneNumberDetailed.md) |  |  [optional] |
 
 
 

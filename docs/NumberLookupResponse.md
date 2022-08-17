@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**NumberLookupRecord**](NumberLookupRecord.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**NumberLookupRecord**](NumberLookupRecord.md) |  |  [optional] |
 
 
 

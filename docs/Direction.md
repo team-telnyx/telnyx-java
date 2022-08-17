@@ -5,9 +5,9 @@
 ## Enum
 
 
-* `INBOUND` (value: `"INBOUND"`)
+* `INBOUND` (value: `"inbound"`)
 
-* `OUTBOUND` (value: `"OUTBOUND"`)
+* `OUTBOUND` (value: `"outbound"`)
 
 
 

@@ -9,10 +9,10 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Error;
-import com.telnyx.sdk.model.GetRoomParticipantResponse;
-import com.telnyx.sdk.model.ListRoomParticipantsResponse;
+import com.telnyx.sdk.model.ListRoomParticipants200Response;
 import java.time.LocalDate;
 import java.util.UUID;
+import com.telnyx.sdk.model.ViewRoomParticipant200Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,7 +65,7 @@ public class RoomParticipantsApi {
    * @param filterSessionId Session_id for filtering room participants. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ListRoomParticipantsResponse
+   * @return ListRoomParticipants200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -73,7 +73,7 @@ public class RoomParticipantsApi {
        <tr><td> 200 </td><td> List room participants response. </td><td>  -  </td></tr>
      </table>
    */
-  public ListRoomParticipantsResponse listRoomParticipants(LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, String filterSessionId, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ListRoomParticipants200Response listRoomParticipants(LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, String filterSessionId, Integer pageSize, Integer pageNumber) throws ApiException {
     return listRoomParticipantsWithHttpInfo(filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, filterSessionId, pageSize, pageNumber).getData();
   }
 
@@ -93,7 +93,7 @@ public class RoomParticipantsApi {
    * @param filterSessionId Session_id for filtering room participants. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ApiResponse&lt;ListRoomParticipantsResponse&gt;
+   * @return ApiResponse&lt;ListRoomParticipants200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -101,7 +101,7 @@ public class RoomParticipantsApi {
        <tr><td> 200 </td><td> List room participants response. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRoomParticipantsResponse> listRoomParticipantsWithHttpInfo(LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, String filterSessionId, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<ListRoomParticipants200Response> listRoomParticipantsWithHttpInfo(LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, String filterSessionId, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -142,7 +142,7 @@ public class RoomParticipantsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListRoomParticipantsResponse> localVarReturnType = new GenericType<ListRoomParticipantsResponse>() {};
+    GenericType<ListRoomParticipants200Response> localVarReturnType = new GenericType<ListRoomParticipants200Response>() {};
 
     return apiClient.invokeAPI("RoomParticipantsApi.listRoomParticipants", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -152,7 +152,7 @@ public class RoomParticipantsApi {
    * View a room participant.
    * 
    * @param roomParticipantId The unique identifier of a room participant. (required)
-   * @return GetRoomParticipantResponse
+   * @return ViewRoomParticipant200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -161,7 +161,7 @@ public class RoomParticipantsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetRoomParticipantResponse viewRoomParticipant(UUID roomParticipantId) throws ApiException {
+  public ViewRoomParticipant200Response viewRoomParticipant(UUID roomParticipantId) throws ApiException {
     return viewRoomParticipantWithHttpInfo(roomParticipantId).getData();
   }
 
@@ -169,7 +169,7 @@ public class RoomParticipantsApi {
    * View a room participant.
    * 
    * @param roomParticipantId The unique identifier of a room participant. (required)
-   * @return ApiResponse&lt;GetRoomParticipantResponse&gt;
+   * @return ApiResponse&lt;ViewRoomParticipant200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -178,7 +178,7 @@ public class RoomParticipantsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetRoomParticipantResponse> viewRoomParticipantWithHttpInfo(UUID roomParticipantId) throws ApiException {
+  public ApiResponse<ViewRoomParticipant200Response> viewRoomParticipantWithHttpInfo(UUID roomParticipantId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'roomParticipantId' is set
@@ -212,7 +212,7 @@ public class RoomParticipantsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetRoomParticipantResponse> localVarReturnType = new GenericType<GetRoomParticipantResponse>() {};
+    GenericType<ViewRoomParticipant200Response> localVarReturnType = new GenericType<ViewRoomParticipant200Response>() {};
 
     return apiClient.invokeAPI("RoomParticipantsApi.viewRoomParticipant", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

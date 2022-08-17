@@ -102,8 +102,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -177,8 +177,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -409,8 +409,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -484,8 +484,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -559,8 +559,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -638,8 +638,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -713,8 +713,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -793,8 +793,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -868,8 +868,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -943,8 +943,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1018,7 +1018,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1100,7 +1100,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a conference. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1188,8 +1188,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of conference participants. |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Conference does not exist |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1272,7 +1272,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of conferences. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1344,5 +1344,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a conference. |  -  |
-| **404** | Conference does not exist |  -  |
+| **404** | Fax does not exist |  -  |
 

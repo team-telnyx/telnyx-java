@@ -82,9 +82,7 @@ public class CallPlaybackEndedPayload {
     
     CANCELLED_AMD("cancelled_amd"),
     
-    COMPLETED("completed"),
-    
-    FAILED("failed");
+    COMPLETED("completed");
 
     private String value;
 

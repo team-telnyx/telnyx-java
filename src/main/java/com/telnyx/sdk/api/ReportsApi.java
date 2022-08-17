@@ -8,10 +8,9 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreateLedgerBillingGroupReportResponse;
+import com.telnyx.sdk.model.CreateLedgerBillingGroupReport200Response;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.NewLedgerBillingGroupReport;
-import com.telnyx.sdk.model.RetrieveLedgerBillingGroupReportResponse;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class ReportsApi {
    * Create a ledger billing group report
    * 
    * @param newLedgerBillingGroupReport New ledger billing group report parameters (required)
-   * @return CreateLedgerBillingGroupReportResponse
+   * @return CreateLedgerBillingGroupReport200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -62,7 +61,7 @@ public class ReportsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateLedgerBillingGroupReportResponse createLedgerBillingGroupReport(NewLedgerBillingGroupReport newLedgerBillingGroupReport) throws ApiException {
+  public CreateLedgerBillingGroupReport200Response createLedgerBillingGroupReport(NewLedgerBillingGroupReport newLedgerBillingGroupReport) throws ApiException {
     return createLedgerBillingGroupReportWithHttpInfo(newLedgerBillingGroupReport).getData();
   }
 
@@ -70,7 +69,7 @@ public class ReportsApi {
    * Create a ledger billing group report
    * 
    * @param newLedgerBillingGroupReport New ledger billing group report parameters (required)
-   * @return ApiResponse&lt;CreateLedgerBillingGroupReportResponse&gt;
+   * @return ApiResponse&lt;CreateLedgerBillingGroupReport200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -79,7 +78,7 @@ public class ReportsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateLedgerBillingGroupReportResponse> createLedgerBillingGroupReportWithHttpInfo(NewLedgerBillingGroupReport newLedgerBillingGroupReport) throws ApiException {
+  public ApiResponse<CreateLedgerBillingGroupReport200Response> createLedgerBillingGroupReportWithHttpInfo(NewLedgerBillingGroupReport newLedgerBillingGroupReport) throws ApiException {
     Object localVarPostBody = newLedgerBillingGroupReport;
     
     // verify the required parameter 'newLedgerBillingGroupReport' is set
@@ -112,7 +111,7 @@ public class ReportsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateLedgerBillingGroupReportResponse> localVarReturnType = new GenericType<CreateLedgerBillingGroupReportResponse>() {};
+    GenericType<CreateLedgerBillingGroupReport200Response> localVarReturnType = new GenericType<CreateLedgerBillingGroupReport200Response>() {};
 
     return apiClient.invokeAPI("ReportsApi.createLedgerBillingGroupReport", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -122,7 +121,7 @@ public class ReportsApi {
    * Retrieve a ledger billing group report
    * 
    * @param id The id of the ledger billing group report (required)
-   * @return RetrieveLedgerBillingGroupReportResponse
+   * @return CreateLedgerBillingGroupReport200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -131,7 +130,7 @@ public class ReportsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public RetrieveLedgerBillingGroupReportResponse retrieveLedgerBillingGroupReport(UUID id) throws ApiException {
+  public CreateLedgerBillingGroupReport200Response retrieveLedgerBillingGroupReport(UUID id) throws ApiException {
     return retrieveLedgerBillingGroupReportWithHttpInfo(id).getData();
   }
 
@@ -139,7 +138,7 @@ public class ReportsApi {
    * Retrieve a ledger billing group report
    * 
    * @param id The id of the ledger billing group report (required)
-   * @return ApiResponse&lt;RetrieveLedgerBillingGroupReportResponse&gt;
+   * @return ApiResponse&lt;CreateLedgerBillingGroupReport200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -148,7 +147,7 @@ public class ReportsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RetrieveLedgerBillingGroupReportResponse> retrieveLedgerBillingGroupReportWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreateLedgerBillingGroupReport200Response> retrieveLedgerBillingGroupReportWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -182,7 +181,7 @@ public class ReportsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<RetrieveLedgerBillingGroupReportResponse> localVarReturnType = new GenericType<RetrieveLedgerBillingGroupReportResponse>() {};
+    GenericType<CreateLedgerBillingGroupReport200Response> localVarReturnType = new GenericType<CreateLedgerBillingGroupReport200Response>() {};
 
     return apiClient.invokeAPI("ReportsApi.retrieveLedgerBillingGroupReport", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

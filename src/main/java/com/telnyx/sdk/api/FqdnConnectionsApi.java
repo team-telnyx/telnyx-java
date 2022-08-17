@@ -262,7 +262,7 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
 
     /**
      * Set filterConnectionNameContains
-     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
+     * @param filterConnectionNameContains If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional)
      * @return APIlistFqdnConnectionsRequest
      */
     public APIlistFqdnConnectionsRequest filterConnectionNameContains(String filterConnectionNameContains) {

@@ -17,7 +17,6 @@ import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.ListCustomerServiceRequestPhoneNumberCoverage;
 import com.telnyx.sdk.model.ShowCustomerServiceRequest;
-import com.telnyx.sdk.model.UNKNOWN_BASE_TYPE;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -8,8 +8,8 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.CreateInventoryCoverageRequest200Response;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.InventoryCoverageResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +56,7 @@ public class InventoryLevelApi {
    * @param filterPhoneNumberType  (optional)
    * @param filterCountryCode  (optional)
    * @param filterCount  (optional)
-   * @return InventoryCoverageResponse
+   * @return CreateInventoryCoverageRequest200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -65,7 +65,7 @@ public class InventoryLevelApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public InventoryCoverageResponse createInventoryCoverageRequest(String filterGroupBy, Integer filterNpa, Integer filterNxx, String filterAdministrativeArea, String filterPhoneNumberType, String filterCountryCode, Boolean filterCount) throws ApiException {
+  public CreateInventoryCoverageRequest200Response createInventoryCoverageRequest(String filterGroupBy, Integer filterNpa, Integer filterNxx, String filterAdministrativeArea, String filterPhoneNumberType, String filterCountryCode, Boolean filterCount) throws ApiException {
     return createInventoryCoverageRequestWithHttpInfo(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount).getData();
   }
 
@@ -79,7 +79,7 @@ public class InventoryLevelApi {
    * @param filterPhoneNumberType  (optional)
    * @param filterCountryCode  (optional)
    * @param filterCount  (optional)
-   * @return ApiResponse&lt;InventoryCoverageResponse&gt;
+   * @return ApiResponse&lt;CreateInventoryCoverageRequest200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -88,7 +88,7 @@ public class InventoryLevelApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<InventoryCoverageResponse> createInventoryCoverageRequestWithHttpInfo(String filterGroupBy, Integer filterNpa, Integer filterNxx, String filterAdministrativeArea, String filterPhoneNumberType, String filterCountryCode, Boolean filterCount) throws ApiException {
+  public ApiResponse<CreateInventoryCoverageRequest200Response> createInventoryCoverageRequestWithHttpInfo(String filterGroupBy, Integer filterNpa, Integer filterNxx, String filterAdministrativeArea, String filterPhoneNumberType, String filterCountryCode, Boolean filterCount) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'filterGroupBy' is set
@@ -128,7 +128,7 @@ public class InventoryLevelApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<InventoryCoverageResponse> localVarReturnType = new GenericType<InventoryCoverageResponse>() {};
+    GenericType<CreateInventoryCoverageRequest200Response> localVarReturnType = new GenericType<CreateInventoryCoverageRequest200Response>() {};
 
     return apiClient.invokeAPI("InventoryLevelApi.createInventoryCoverageRequest", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## postPortabilityCheck
 
-> PortabilityCheckResponse postPortabilityCheck(createPortabilityCheckRequest)
+> PostPortabilityCheck201Response postPortabilityCheck(postPortabilityCheckRequest)
 
 Run a portability check
 
@@ -37,9 +37,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PhoneNumberPortingApi apiInstance = new PhoneNumberPortingApi(defaultClient);
-        CreatePortabilityCheckRequest createPortabilityCheckRequest = new CreatePortabilityCheckRequest(); // CreatePortabilityCheckRequest | 
+        PostPortabilityCheckRequest postPortabilityCheckRequest = new PostPortabilityCheckRequest(); // PostPortabilityCheckRequest | 
         try {
-            PortabilityCheckResponse result = apiInstance.postPortabilityCheck(createPortabilityCheckRequest);
+            PostPortabilityCheck201Response result = apiInstance.postPortabilityCheck(postPortabilityCheckRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PhoneNumberPortingApi#postPortabilityCheck");
@@ -57,11 +57,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createPortabilityCheckRequest** | [**CreatePortabilityCheckRequest**](CreatePortabilityCheckRequest.md)|  |
+ **postPortabilityCheckRequest** | [**PostPortabilityCheckRequest**](PostPortabilityCheckRequest.md)|  |
 
 ### Return type
 
-[**PortabilityCheckResponse**](PortabilityCheckResponse.md)
+[**PostPortabilityCheck201Response**](PostPortabilityCheck201Response.md)
 
 ### Authorization
 

@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 ## createComment
 
-> CommentResponse createComment(comment)
+> CreateComment200Response createComment(comment)
 
 Create a comment
 
@@ -51,7 +51,7 @@ public class Example {
         NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
         Comment comment = new Comment(); // Comment | 
         try {
-            CommentResponse result = apiInstance.createComment(comment);
+            CreateComment200Response result = apiInstance.createComment(comment);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberOrdersApi#createComment");
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CommentResponse**](CommentResponse.md)
+[**CreateComment200Response**](CreateComment200Response.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 ## listComments
 
-> ListCommentsResponse listComments(filterCommentRecordType, filterCommentRecordId)
+> ListComments200Response listComments(filterCommentRecordType, filterCommentRecordId)
 
 Retrieve all comments
 
@@ -192,7 +192,7 @@ public class Example {
         String filterCommentRecordType = "sub_number_order"; // String | Record type that the comment relates to i.e number_order, sub_number_order or number_order_phone_number
         String filterCommentRecordId = "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576"; // String | ID of the record the comments relate to
         try {
-            ListCommentsResponse result = apiInstance.listComments(filterCommentRecordType, filterCommentRecordId);
+            ListComments200Response result = apiInstance.listComments(filterCommentRecordType, filterCommentRecordId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberOrdersApi#listComments");
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListCommentsResponse**](ListCommentsResponse.md)
+[**ListComments200Response**](ListComments200Response.md)
 
 ### Authorization
 
@@ -329,7 +329,7 @@ Name | Type | Description  | Notes
 
 ## listRegulartoryRequirements
 
-> ListRegulatoryRequirements listRegulartoryRequirements(filterPhoneNumber)
+> ListRegulartoryRequirements200Response listRegulartoryRequirements(filterPhoneNumber)
 
 Retrieve regulartory requirements
 
@@ -356,7 +356,7 @@ public class Example {
         NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
         String filterPhoneNumber = "+41215470622,+41215470633"; // String | Record type phone number/ phone numbers
         try {
-            ListRegulatoryRequirements result = apiInstance.listRegulartoryRequirements(filterPhoneNumber);
+            ListRegulartoryRequirements200Response result = apiInstance.listRegulartoryRequirements(filterPhoneNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberOrdersApi#listRegulartoryRequirements");
@@ -378,7 +378,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRegulatoryRequirements**](ListRegulatoryRequirements.md)
+[**ListRegulartoryRequirements200Response**](ListRegulartoryRequirements200Response.md)
 
 ### Authorization
 
@@ -484,7 +484,7 @@ Name | Type | Description  | Notes
 
 ## markCommentRead
 
-> ReadCommentResponse markCommentRead(id)
+> MarkCommentRead200Response markCommentRead(id)
 
 Mark a comment as read
 
@@ -511,7 +511,7 @@ public class Example {
         NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
         String id = "id_example"; // String | The comment ID.
         try {
-            ReadCommentResponse result = apiInstance.markCommentRead(id);
+            MarkCommentRead200Response result = apiInstance.markCommentRead(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberOrdersApi#markCommentRead");
@@ -533,7 +533,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ReadCommentResponse**](ReadCommentResponse.md)
+[**MarkCommentRead200Response**](MarkCommentRead200Response.md)
 
 ### Authorization
 
@@ -553,7 +553,7 @@ Name | Type | Description  | Notes
 
 ## retrieveComment
 
-> CommentResponse retrieveComment(id)
+> CreateComment200Response retrieveComment(id)
 
 Retrieve a comment
 
@@ -580,7 +580,7 @@ public class Example {
         NumberOrdersApi apiInstance = new NumberOrdersApi(defaultClient);
         String id = "id_example"; // String | The comment ID.
         try {
-            CommentResponse result = apiInstance.retrieveComment(id);
+            CreateComment200Response result = apiInstance.retrieveComment(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberOrdersApi#retrieveComment");
@@ -602,7 +602,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CommentResponse**](CommentResponse.md)
+[**CreateComment200Response**](CreateComment200Response.md)
 
 ### Authorization
 

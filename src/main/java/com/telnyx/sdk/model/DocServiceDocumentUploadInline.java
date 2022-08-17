@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DocServiceDocumentUploadInline {
   public static final String JSON_PROPERTY_FILE = "file";
-  private byte[] file;
+  private byte[] _file;
 
   public static final String JSON_PROPERTY_FILENAME = "filename";
   private String filename;
@@ -50,14 +50,14 @@ public class DocServiceDocumentUploadInline {
   public DocServiceDocumentUploadInline() { 
   }
 
-  public DocServiceDocumentUploadInline file(byte[] file) {
-    this.file = file;
+  public DocServiceDocumentUploadInline _file(byte[] _file) {
+    this._file = _file;
     return this;
   }
 
    /**
    * The Base64 encoded contents of the file you are uploading.
-   * @return file
+   * @return _file
   **/
   @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The Base64 encoded contents of the file you are uploading.")
@@ -65,14 +65,14 @@ public class DocServiceDocumentUploadInline {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public byte[] getFile() {
-    return file;
+    return _file;
   }
 
 
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFile(byte[] file) {
-    this.file = file;
+  public void setFile(byte[] _file) {
+    this._file = _file;
   }
 
 
@@ -140,21 +140,21 @@ public class DocServiceDocumentUploadInline {
       return false;
     }
     DocServiceDocumentUploadInline docServiceDocumentUploadInline = (DocServiceDocumentUploadInline) o;
-    return Arrays.equals(this.file, docServiceDocumentUploadInline.file) &&
+    return Arrays.equals(this._file, docServiceDocumentUploadInline._file) &&
         Objects.equals(this.filename, docServiceDocumentUploadInline.filename) &&
         Objects.equals(this.customerReference, docServiceDocumentUploadInline.customerReference);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(Arrays.hashCode(file), filename, customerReference);
+    return Objects.hash(Arrays.hashCode(_file), filename, customerReference);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class DocServiceDocumentUploadInline {\n");
-    sb.append("    file: ").append(toIndentedString(file)).append("\n");
+    sb.append("    _file: ").append(toIndentedString(_file)).append("\n");
     sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("}");

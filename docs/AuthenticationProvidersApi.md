@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## createAuthenticationProvider
 
-> AuthenticationProviderResponse createAuthenticationProvider(authenticationProviderCreate)
+> CreateAuthenticationProvider200Response createAuthenticationProvider(authenticationProviderCreate)
 
 Creates an authentication provider
 
@@ -43,7 +43,7 @@ public class Example {
         AuthenticationProvidersApi apiInstance = new AuthenticationProvidersApi(defaultClient);
         AuthenticationProviderCreate authenticationProviderCreate = new AuthenticationProviderCreate(); // AuthenticationProviderCreate | Parameters that can be defined during authentication provider creation
         try {
-            AuthenticationProviderResponse result = apiInstance.createAuthenticationProvider(authenticationProviderCreate);
+            CreateAuthenticationProvider200Response result = apiInstance.createAuthenticationProvider(authenticationProviderCreate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AuthenticationProvidersApi#createAuthenticationProvider");
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthenticationProviderResponse**](AuthenticationProviderResponse.md)
+[**CreateAuthenticationProvider200Response**](CreateAuthenticationProvider200Response.md)
 
 ### Authorization
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## deleteAuthenticationProvider
 
-> AuthenticationProviderResponse deleteAuthenticationProvider(id)
+> CreateAuthenticationProvider200Response deleteAuthenticationProvider(id)
 
 Deletes an authentication provider
 
@@ -114,7 +114,7 @@ public class Example {
         AuthenticationProvidersApi apiInstance = new AuthenticationProvidersApi(defaultClient);
         String id = "id_example"; // String | authentication provider ID
         try {
-            AuthenticationProviderResponse result = apiInstance.deleteAuthenticationProvider(id);
+            CreateAuthenticationProvider200Response result = apiInstance.deleteAuthenticationProvider(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AuthenticationProvidersApi#deleteAuthenticationProvider");
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthenticationProviderResponse**](AuthenticationProviderResponse.md)
+[**CreateAuthenticationProvider200Response**](CreateAuthenticationProvider200Response.md)
 
 ### Authorization
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## findAuthenticationProviders
 
-> GetAllAuthenticationProvidersResponse findAuthenticationProviders(pageNumber, pageSize, sort)
+> FindAuthenticationProviders200Response findAuthenticationProviders(pageNumber, pageSize, sort)
 
 List all SSO authentication providers
 
@@ -189,7 +189,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         String sort = "name"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>name</code>: sorts the result by the     <code>name</code> field in ascending order.   </li>    <li>     <code>-name</code>: sorts the result by the     <code>name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
         try {
-            GetAllAuthenticationProvidersResponse result = apiInstance.findAuthenticationProviders(pageNumber, pageSize, sort);
+            FindAuthenticationProviders200Response result = apiInstance.findAuthenticationProviders(pageNumber, pageSize, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AuthenticationProvidersApi#findAuthenticationProviders");
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetAllAuthenticationProvidersResponse**](GetAllAuthenticationProvidersResponse.md)
+[**FindAuthenticationProviders200Response**](FindAuthenticationProviders200Response.md)
 
 ### Authorization
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ## getAuthenticationProvider
 
-> AuthenticationProviderResponse getAuthenticationProvider(id)
+> CreateAuthenticationProvider200Response getAuthenticationProvider(id)
 
 Retrieve an authentication provider
 
@@ -264,7 +264,7 @@ public class Example {
         AuthenticationProvidersApi apiInstance = new AuthenticationProvidersApi(defaultClient);
         String id = "id_example"; // String | authentication provider ID
         try {
-            AuthenticationProviderResponse result = apiInstance.getAuthenticationProvider(id);
+            CreateAuthenticationProvider200Response result = apiInstance.getAuthenticationProvider(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AuthenticationProvidersApi#getAuthenticationProvider");
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthenticationProviderResponse**](AuthenticationProviderResponse.md)
+[**CreateAuthenticationProvider200Response**](CreateAuthenticationProvider200Response.md)
 
 ### Authorization
 
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 
 ## updateAuthenticationProvider
 
-> AuthenticationProviderResponse updateAuthenticationProvider(id, updateAuthenticationProviderRequest)
+> CreateAuthenticationProvider200Response updateAuthenticationProvider(id, updateAuthenticationProviderRequest)
 
 Update a authentication provider
 
@@ -338,7 +338,7 @@ public class Example {
         String id = "id_example"; // String | Identifies the resource.
         UpdateAuthenticationProviderRequest updateAuthenticationProviderRequest = new UpdateAuthenticationProviderRequest(); // UpdateAuthenticationProviderRequest | Parameters that can be updated in a authentication provider
         try {
-            AuthenticationProviderResponse result = apiInstance.updateAuthenticationProvider(id, updateAuthenticationProviderRequest);
+            CreateAuthenticationProvider200Response result = apiInstance.updateAuthenticationProvider(id, updateAuthenticationProviderRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AuthenticationProvidersApi#updateAuthenticationProvider");
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthenticationProviderResponse**](AuthenticationProviderResponse.md)
+[**CreateAuthenticationProvider200Response**](CreateAuthenticationProvider200Response.md)
 
 ### Authorization
 

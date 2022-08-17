@@ -11,9 +11,11 @@ Method | HTTP request | Description
 
 ## listRoomParticipants
 
-> ListRoomParticipantsResponse listRoomParticipants(filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, filterSessionId, pageSize, pageNumber)
+> ListRoomParticipants200Response listRoomParticipants(filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, filterSessionId, pageSize, pageNumber)
 
 View a list of room participants.
+
+
 
 ### Example
 
@@ -51,7 +53,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListRoomParticipantsResponse result = apiInstance.listRoomParticipants(filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, filterSessionId, pageSize, pageNumber);
+            ListRoomParticipants200Response result = apiInstance.listRoomParticipants(filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, filterSessionId, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomParticipantsApi#listRoomParticipants");
@@ -85,7 +87,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRoomParticipantsResponse**](ListRoomParticipantsResponse.md)
+[**ListRoomParticipants200Response**](ListRoomParticipants200Response.md)
 
 ### Authorization
 
@@ -104,7 +106,7 @@ Name | Type | Description  | Notes
 
 ## viewRoomParticipant
 
-> GetRoomParticipantResponse viewRoomParticipant(roomParticipantId)
+> ViewRoomParticipant200Response viewRoomParticipant(roomParticipantId)
 
 View a room participant.
 
@@ -132,7 +134,7 @@ public class Example {
         RoomParticipantsApi apiInstance = new RoomParticipantsApi(defaultClient);
         UUID roomParticipantId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room participant.
         try {
-            GetRoomParticipantResponse result = apiInstance.viewRoomParticipant(roomParticipantId);
+            ViewRoomParticipant200Response result = apiInstance.viewRoomParticipant(roomParticipantId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomParticipantsApi#viewRoomParticipant");
@@ -154,7 +156,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetRoomParticipantResponse**](GetRoomParticipantResponse.md)
+[**ViewRoomParticipant200Response**](ViewRoomParticipant200Response.md)
 
 ### Authorization
 

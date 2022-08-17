@@ -101,6 +101,24 @@ public class ShortCode {
   public ShortCode() { 
   }
 
+  @JsonCreator
+  public ShortCode(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) RecordTypeEnum recordType, 
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_SHORT_CODE) String shortCode, 
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE) String countryCode, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) OffsetDateTime createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) OffsetDateTime updatedAt
+  ) {
+    this();
+    this.recordType = recordType;
+    this.id = id;
+    this.shortCode = shortCode;
+    this.countryCode = countryCode;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

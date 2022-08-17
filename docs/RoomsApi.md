@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## createRoom
 
-> CreateRoomResponse createRoom(createRoomRequest)
+> CreateRoom201Response createRoom(createRoomRequest)
 
 Create a room.
 
@@ -44,7 +44,7 @@ public class Example {
         RoomsApi apiInstance = new RoomsApi(defaultClient);
         CreateRoomRequest createRoomRequest = new CreateRoomRequest(); // CreateRoomRequest | Parameters that can be defined during room creation.
         try {
-            CreateRoomResponse result = apiInstance.createRoom(createRoomRequest);
+            CreateRoom201Response result = apiInstance.createRoom(createRoomRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomsApi#createRoom");
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateRoomResponse**](CreateRoomResponse.md)
+[**CreateRoom201Response**](CreateRoom201Response.md)
 
 ### Authorization
 
@@ -157,9 +157,11 @@ null (empty response body)
 
 ## listRooms
 
-> ListRoomsResponse listRooms(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterUniqueName, includeSessions, pageSize, pageNumber)
+> ListRooms200Response listRooms(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterUniqueName, includeSessions, pageSize, pageNumber)
 
 View a list of rooms.
+
+
 
 ### Example
 
@@ -194,7 +196,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListRoomsResponse result = apiInstance.listRooms(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterUniqueName, includeSessions, pageSize, pageNumber);
+            ListRooms200Response result = apiInstance.listRooms(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterUniqueName, includeSessions, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomsApi#listRooms");
@@ -225,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRoomsResponse**](ListRoomsResponse.md)
+[**ListRooms200Response**](ListRooms200Response.md)
 
 ### Authorization
 
@@ -244,9 +246,11 @@ Name | Type | Description  | Notes
 
 ## nestedListRoomSessions
 
-> ListRoomSessionsResponse nestedListRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber)
+> ListRoomSessions200Response nestedListRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber)
 
 View a list of room sessions.
+
+
 
 ### Example
 
@@ -286,7 +290,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListRoomSessionsResponse result = apiInstance.nestedListRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber);
+            ListRoomSessions200Response result = apiInstance.nestedListRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomsApi#nestedListRoomSessions");
@@ -321,7 +325,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRoomSessionsResponse**](ListRoomSessionsResponse.md)
+[**ListRoomSessions200Response**](ListRoomSessions200Response.md)
 
 ### Authorization
 
@@ -340,7 +344,7 @@ Name | Type | Description  | Notes
 
 ## patchRoom
 
-> PatchRoomResponse patchRoom(roomId, patchRoomRequest)
+> CreateRoom201Response patchRoom(roomId, patchRoomRequest)
 
 Update a room.
 
@@ -371,7 +375,7 @@ public class Example {
         UUID roomId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room.
         PatchRoomRequest patchRoomRequest = new PatchRoomRequest(); // PatchRoomRequest | Parameters that can be defined during room update.
         try {
-            PatchRoomResponse result = apiInstance.patchRoom(roomId, patchRoomRequest);
+            CreateRoom201Response result = apiInstance.patchRoom(roomId, patchRoomRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomsApi#patchRoom");
@@ -394,7 +398,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PatchRoomResponse**](PatchRoomResponse.md)
+[**CreateRoom201Response**](CreateRoom201Response.md)
 
 ### Authorization
 
@@ -409,14 +413,14 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Update room response. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Bad request |  -  |
 
 
 ## viewRoom
 
-> GetRoomResponse viewRoom(roomId, includeSessions)
+> CreateRoom201Response viewRoom(roomId, includeSessions)
 
 View a room.
 
@@ -445,7 +449,7 @@ public class Example {
         UUID roomId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room.
         Boolean includeSessions = true; // Boolean | To decide if room sessions should be included in the response.
         try {
-            GetRoomResponse result = apiInstance.viewRoom(roomId, includeSessions);
+            CreateRoom201Response result = apiInstance.viewRoom(roomId, includeSessions);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomsApi#viewRoom");
@@ -468,7 +472,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetRoomResponse**](GetRoomResponse.md)
+[**CreateRoom201Response**](CreateRoom201Response.md)
 
 ### Authorization
 

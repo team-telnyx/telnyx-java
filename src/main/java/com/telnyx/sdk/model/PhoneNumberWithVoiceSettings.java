@@ -130,6 +130,18 @@ public class PhoneNumberWithVoiceSettings {
   public PhoneNumberWithVoiceSettings() { 
   }
 
+  @JsonCreator
+  public PhoneNumberWithVoiceSettings(
+    @JsonProperty(JSON_PROPERTY_ID) String id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.phoneNumber = phoneNumber;
+  }
+
    /**
    * Identifies the type of resource.
    * @return id

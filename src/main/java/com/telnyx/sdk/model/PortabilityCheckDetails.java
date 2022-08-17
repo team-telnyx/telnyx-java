@@ -58,6 +58,22 @@ public class PortabilityCheckDetails {
   public PortabilityCheckDetails() { 
   }
 
+  @JsonCreator
+  public PortabilityCheckDetails(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_FAST_PORTABLE) Boolean fastPortable, 
+    @JsonProperty(JSON_PROPERTY_NOT_PORTABLE_REASON) String notPortableReason, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
+    @JsonProperty(JSON_PROPERTY_PORTABLE) Boolean portable
+  ) {
+    this();
+    this.recordType = recordType;
+    this.fastPortable = fastPortable;
+    this.notPortableReason = notPortableReason;
+    this.phoneNumber = phoneNumber;
+    this.portable = portable;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

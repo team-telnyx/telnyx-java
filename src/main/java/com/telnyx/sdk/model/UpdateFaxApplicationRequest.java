@@ -70,7 +70,7 @@ public class UpdateFaxApplicationRequest {
   private JsonNullable<Integer> webhookTimeoutSecs = JsonNullable.<Integer>undefined();
 
   public static final String JSON_PROPERTY_FAX_EMAIL_RECIPIENT = "fax_email_recipient";
-  private JsonNullable<String> faxEmailRecipient = JsonNullable.<String>of("null");
+  private JsonNullable<String> faxEmailRecipient = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_INBOUND = "inbound";
   private CreateFaxApplicationRequestInbound inbound;

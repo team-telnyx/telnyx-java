@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## createRoomClientToken
 
-> CreateRoomClientTokenResponse createRoomClientToken(roomId, createRoomClientTokenRequest)
+> CreateRoomClientToken201Response createRoomClientToken(roomId, createRoomClientTokenRequest)
 
 Create Client Token to join a room.
 
@@ -42,7 +42,7 @@ public class Example {
         UUID roomId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room.
         CreateRoomClientTokenRequest createRoomClientTokenRequest = new CreateRoomClientTokenRequest(); // CreateRoomClientTokenRequest | Parameters that can be defined during Room Client Token creation.
         try {
-            CreateRoomClientTokenResponse result = apiInstance.createRoomClientToken(roomId, createRoomClientTokenRequest);
+            CreateRoomClientToken201Response result = apiInstance.createRoomClientToken(roomId, createRoomClientTokenRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomsClientTokensApi#createRoomClientToken");
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateRoomClientTokenResponse**](CreateRoomClientTokenResponse.md)
+[**CreateRoomClientToken201Response**](CreateRoomClientToken201Response.md)
 
 ### Authorization
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## refreshRoomClientToken
 
-> RefreshRoomClientTokenResponse refreshRoomClientToken(roomId, refreshRoomClientTokenRequest)
+> RefreshRoomClientToken201Response refreshRoomClientToken(roomId, refreshRoomClientTokenRequest)
 
 Refresh Client Token to join a room.
 
@@ -111,7 +111,7 @@ public class Example {
         UUID roomId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room.
         RefreshRoomClientTokenRequest refreshRoomClientTokenRequest = new RefreshRoomClientTokenRequest(); // RefreshRoomClientTokenRequest | Parameters that can be defined during Room Client Token refresh.
         try {
-            RefreshRoomClientTokenResponse result = apiInstance.refreshRoomClientToken(roomId, refreshRoomClientTokenRequest);
+            RefreshRoomClientToken201Response result = apiInstance.refreshRoomClientToken(roomId, refreshRoomClientTokenRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomsClientTokensApi#refreshRoomClientToken");
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RefreshRoomClientTokenResponse**](RefreshRoomClientTokenResponse.md)
+[**RefreshRoomClientToken201Response**](RefreshRoomClientToken201Response.md)
 
 ### Authorization
 

@@ -106,11 +106,11 @@ public class SendFaxRequest {
   }
 
    /**
-   * The URL to the PDF used for the fax&#39;s media. media_url and media_name can&#39;t be submitted together.
+   * The URL to the PDF used for the fax&#39;s media. media_url and media_name/contents can&#39;t be submitted together.
    * @return mediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL to the PDF used for the fax's media. media_url and media_name can't be submitted together.")
+  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -132,11 +132,11 @@ public class SendFaxRequest {
   }
 
    /**
-   * The media_name of a file to be used for the fax&#39;s media. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_url and media_name can&#39;t be submitted together.
+   * The media_name used for the fax&#39;s media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can&#39;t be submitted together.
    * @return mediaName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be used for the fax's media. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_url and media_name can't be submitted together.")
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name used for the fax's media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -158,11 +158,11 @@ public class SendFaxRequest {
   }
 
    /**
-   * The phone number, in E.164 format, the fax will be sent to or SIP URI.
+   * The phone number, in E.164 format, the fax will be sent to or SIP URI
    * @return to
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "+13127367276", required = true, value = "The phone number, in E.164 format, the fax will be sent to or SIP URI.")
+  @ApiModelProperty(example = "+13127367276", required = true, value = "The phone number, in E.164 format, the fax will be sent to or SIP URI")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -210,11 +210,11 @@ public class SendFaxRequest {
   }
 
    /**
-   * The quality of the fax. Can be normal, high, very_high.
+   * The quality of the fax. Can be normal, high, very_high
    * @return quality
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "high", value = "The quality of the fax. Can be normal, high, very_high.")
+  @ApiModelProperty(example = "high", value = "The quality of the fax. Can be normal, high, very_high")
   @JsonProperty(JSON_PROPERTY_QUALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

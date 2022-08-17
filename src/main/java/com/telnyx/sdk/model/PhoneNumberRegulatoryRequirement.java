@@ -96,6 +96,16 @@ public class PhoneNumberRegulatoryRequirement {
   public PhoneNumberRegulatoryRequirement() { 
   }
 
+  @JsonCreator
+  public PhoneNumberRegulatoryRequirement(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_FIELD_TYPE) FieldTypeEnum fieldType
+  ) {
+    this();
+    this.recordType = recordType;
+    this.fieldType = fieldType;
+  }
+
    /**
    * Get recordType
    * @return recordType

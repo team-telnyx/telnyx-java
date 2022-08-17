@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## createWdrReport
 
-> CreateWdrReportResponse createWdrReport(wdrReportRequest)
+> CreateWdrReport201Response createWdrReport(wdrReportRequest)
 
 Create a Wireless Detail Records (WDRs) Report
 
@@ -43,7 +43,7 @@ public class Example {
         ReportingApi apiInstance = new ReportingApi(defaultClient);
         WdrReportRequest wdrReportRequest = new WdrReportRequest(); // WdrReportRequest | 
         try {
-            CreateWdrReportResponse result = apiInstance.createWdrReport(wdrReportRequest);
+            CreateWdrReport201Response result = apiInstance.createWdrReport(wdrReportRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReportingApi#createWdrReport");
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateWdrReportResponse**](CreateWdrReportResponse.md)
+[**CreateWdrReport201Response**](CreateWdrReport201Response.md)
 
 ### Authorization
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## deleteWdrReport
 
-> DeleteWdrReportResponse deleteWdrReport(id)
+> CreateWdrReport201Response deleteWdrReport(id)
 
 Delete a Wireless Detail Record (WDR) Report
 
@@ -116,7 +116,7 @@ public class Example {
         ReportingApi apiInstance = new ReportingApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            DeleteWdrReportResponse result = apiInstance.deleteWdrReport(id);
+            CreateWdrReport201Response result = apiInstance.deleteWdrReport(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReportingApi#deleteWdrReport");
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteWdrReportResponse**](DeleteWdrReportResponse.md)
+[**CreateWdrReport201Response**](CreateWdrReport201Response.md)
 
 ### Authorization
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 ## getWdrReport
 
-> GetWdrReportResponse getWdrReport(id)
+> CreateWdrReport201Response getWdrReport(id)
 
 Get a Wireless Detail Record (WDR) Report
 
@@ -189,7 +189,7 @@ public class Example {
         ReportingApi apiInstance = new ReportingApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            GetWdrReportResponse result = apiInstance.getWdrReport(id);
+            CreateWdrReport201Response result = apiInstance.getWdrReport(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReportingApi#getWdrReport");
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetWdrReportResponse**](GetWdrReportResponse.md)
+[**CreateWdrReport201Response**](CreateWdrReport201Response.md)
 
 ### Authorization
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## getWdrReports
 
-> GetWdrReportsResponse getWdrReports(pageNumber, pageSize)
+> GetWdrReports200Response getWdrReports(pageNumber, pageSize)
 
 Get all Wireless Detail Records (WDRs) Reports
 
@@ -262,7 +262,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            GetWdrReportsResponse result = apiInstance.getWdrReports(pageNumber, pageSize);
+            GetWdrReports200Response result = apiInstance.getWdrReports(pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReportingApi#getWdrReports");
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetWdrReportsResponse**](GetWdrReportsResponse.md)
+[**GetWdrReports200Response**](GetWdrReports200Response.md)
 
 ### Authorization
 

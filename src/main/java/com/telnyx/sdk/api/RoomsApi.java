@@ -8,16 +8,14 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.CreateRoom201Response;
 import com.telnyx.sdk.model.CreateRoomRequest;
-import com.telnyx.sdk.model.CreateRoomResponse;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetRoomResponse;
-import com.telnyx.sdk.model.ListRoomSessionsResponse;
-import com.telnyx.sdk.model.ListRoomsResponse;
+import com.telnyx.sdk.model.ListRoomSessions200Response;
+import com.telnyx.sdk.model.ListRooms200Response;
 import java.time.LocalDate;
 import com.telnyx.sdk.model.PatchRoomRequest;
-import com.telnyx.sdk.model.PatchRoomResponse;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -59,7 +57,7 @@ public class RoomsApi {
    * Create a room.
    * Synchronously create a Room.
    * @param createRoomRequest Parameters that can be defined during room creation. (required)
-   * @return CreateRoomResponse
+   * @return CreateRoom201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -68,7 +66,7 @@ public class RoomsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreateRoomResponse createRoom(CreateRoomRequest createRoomRequest) throws ApiException {
+  public CreateRoom201Response createRoom(CreateRoomRequest createRoomRequest) throws ApiException {
     return createRoomWithHttpInfo(createRoomRequest).getData();
   }
 
@@ -76,7 +74,7 @@ public class RoomsApi {
    * Create a room.
    * Synchronously create a Room.
    * @param createRoomRequest Parameters that can be defined during room creation. (required)
-   * @return ApiResponse&lt;CreateRoomResponse&gt;
+   * @return ApiResponse&lt;CreateRoom201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -85,7 +83,7 @@ public class RoomsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateRoomResponse> createRoomWithHttpInfo(CreateRoomRequest createRoomRequest) throws ApiException {
+  public ApiResponse<CreateRoom201Response> createRoomWithHttpInfo(CreateRoomRequest createRoomRequest) throws ApiException {
     Object localVarPostBody = createRoomRequest;
     
     // verify the required parameter 'createRoomRequest' is set
@@ -118,7 +116,7 @@ public class RoomsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateRoomResponse> localVarReturnType = new GenericType<CreateRoomResponse>() {};
+    GenericType<CreateRoom201Response> localVarReturnType = new GenericType<CreateRoom201Response>() {};
 
     return apiClient.invokeAPI("RoomsApi.createRoom", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -204,7 +202,7 @@ public class RoomsApi {
    * @param includeSessions To decide if room sessions should be included in the response. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ListRoomsResponse
+   * @return ListRooms200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -212,7 +210,7 @@ public class RoomsApi {
        <tr><td> 200 </td><td> List rooms response. </td><td>  -  </td></tr>
      </table>
    */
-  public ListRoomsResponse listRooms(LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, String filterUniqueName, Boolean includeSessions, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ListRooms200Response listRooms(LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, String filterUniqueName, Boolean includeSessions, Integer pageSize, Integer pageNumber) throws ApiException {
     return listRoomsWithHttpInfo(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterUniqueName, includeSessions, pageSize, pageNumber).getData();
   }
 
@@ -229,7 +227,7 @@ public class RoomsApi {
    * @param includeSessions To decide if room sessions should be included in the response. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ApiResponse&lt;ListRoomsResponse&gt;
+   * @return ApiResponse&lt;ListRooms200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -237,7 +235,7 @@ public class RoomsApi {
        <tr><td> 200 </td><td> List rooms response. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRoomsResponse> listRoomsWithHttpInfo(LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, String filterUniqueName, Boolean includeSessions, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<ListRooms200Response> listRoomsWithHttpInfo(LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, String filterUniqueName, Boolean includeSessions, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -275,7 +273,7 @@ public class RoomsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListRoomsResponse> localVarReturnType = new GenericType<ListRoomsResponse>() {};
+    GenericType<ListRooms200Response> localVarReturnType = new GenericType<ListRooms200Response>() {};
 
     return apiClient.invokeAPI("RoomsApi.listRooms", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -298,7 +296,7 @@ public class RoomsApi {
    * @param includeParticipants To decide if room participants should be included in the response. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ListRoomSessionsResponse
+   * @return ListRoomSessions200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -306,7 +304,7 @@ public class RoomsApi {
        <tr><td> 200 </td><td> List room sessions response. </td><td>  -  </td></tr>
      </table>
    */
-  public ListRoomSessionsResponse nestedListRoomSessions(UUID roomId, LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, Boolean filterActive, Boolean includeParticipants, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ListRoomSessions200Response nestedListRoomSessions(UUID roomId, LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, Boolean filterActive, Boolean includeParticipants, Integer pageSize, Integer pageNumber) throws ApiException {
     return nestedListRoomSessionsWithHttpInfo(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber).getData();
   }
 
@@ -327,7 +325,7 @@ public class RoomsApi {
    * @param includeParticipants To decide if room participants should be included in the response. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ApiResponse&lt;ListRoomSessionsResponse&gt;
+   * @return ApiResponse&lt;ListRoomSessions200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -335,7 +333,7 @@ public class RoomsApi {
        <tr><td> 200 </td><td> List room sessions response. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRoomSessionsResponse> nestedListRoomSessionsWithHttpInfo(UUID roomId, LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, Boolean filterActive, Boolean includeParticipants, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<ListRoomSessions200Response> nestedListRoomSessionsWithHttpInfo(UUID roomId, LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, Boolean filterActive, Boolean includeParticipants, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'roomId' is set
@@ -382,7 +380,7 @@ public class RoomsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListRoomSessionsResponse> localVarReturnType = new GenericType<ListRoomSessionsResponse>() {};
+    GenericType<ListRoomSessions200Response> localVarReturnType = new GenericType<ListRoomSessions200Response>() {};
 
     return apiClient.invokeAPI("RoomsApi.nestedListRoomSessions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -393,18 +391,18 @@ public class RoomsApi {
    * Synchronously update a Room.
    * @param roomId The unique identifier of a room. (required)
    * @param patchRoomRequest Parameters that can be defined during room update. (required)
-   * @return PatchRoomResponse
+   * @return CreateRoom201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Update room response. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public PatchRoomResponse patchRoom(UUID roomId, PatchRoomRequest patchRoomRequest) throws ApiException {
+  public CreateRoom201Response patchRoom(UUID roomId, PatchRoomRequest patchRoomRequest) throws ApiException {
     return patchRoomWithHttpInfo(roomId, patchRoomRequest).getData();
   }
 
@@ -413,18 +411,18 @@ public class RoomsApi {
    * Synchronously update a Room.
    * @param roomId The unique identifier of a room. (required)
    * @param patchRoomRequest Parameters that can be defined during room update. (required)
-   * @return ApiResponse&lt;PatchRoomResponse&gt;
+   * @return ApiResponse&lt;CreateRoom201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Update room response. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PatchRoomResponse> patchRoomWithHttpInfo(UUID roomId, PatchRoomRequest patchRoomRequest) throws ApiException {
+  public ApiResponse<CreateRoom201Response> patchRoomWithHttpInfo(UUID roomId, PatchRoomRequest patchRoomRequest) throws ApiException {
     Object localVarPostBody = patchRoomRequest;
     
     // verify the required parameter 'roomId' is set
@@ -463,7 +461,7 @@ public class RoomsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PatchRoomResponse> localVarReturnType = new GenericType<PatchRoomResponse>() {};
+    GenericType<CreateRoom201Response> localVarReturnType = new GenericType<CreateRoom201Response>() {};
 
     return apiClient.invokeAPI("RoomsApi.patchRoom", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -474,7 +472,7 @@ public class RoomsApi {
    * 
    * @param roomId The unique identifier of a room. (required)
    * @param includeSessions To decide if room sessions should be included in the response. (optional)
-   * @return GetRoomResponse
+   * @return CreateRoom201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -483,7 +481,7 @@ public class RoomsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetRoomResponse viewRoom(UUID roomId, Boolean includeSessions) throws ApiException {
+  public CreateRoom201Response viewRoom(UUID roomId, Boolean includeSessions) throws ApiException {
     return viewRoomWithHttpInfo(roomId, includeSessions).getData();
   }
 
@@ -492,7 +490,7 @@ public class RoomsApi {
    * 
    * @param roomId The unique identifier of a room. (required)
    * @param includeSessions To decide if room sessions should be included in the response. (optional)
-   * @return ApiResponse&lt;GetRoomResponse&gt;
+   * @return ApiResponse&lt;CreateRoom201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -501,7 +499,7 @@ public class RoomsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetRoomResponse> viewRoomWithHttpInfo(UUID roomId, Boolean includeSessions) throws ApiException {
+  public ApiResponse<CreateRoom201Response> viewRoomWithHttpInfo(UUID roomId, Boolean includeSessions) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'roomId' is set
@@ -536,7 +534,7 @@ public class RoomsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetRoomResponse> localVarReturnType = new GenericType<GetRoomResponse>() {};
+    GenericType<CreateRoom201Response> localVarReturnType = new GenericType<CreateRoom201Response>() {};
 
     return apiClient.invokeAPI("RoomsApi.viewRoom", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

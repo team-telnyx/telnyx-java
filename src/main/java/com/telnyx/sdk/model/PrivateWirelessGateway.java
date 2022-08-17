@@ -22,9 +22,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.PWGAssignedResourcesSummary;
 import com.telnyx.sdk.model.PrivateWirelessGatewayStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -42,7 +45,8 @@ import com.telnyx.sdk.JSON;
   PrivateWirelessGateway.JSON_PROPERTY_NAME,
   PrivateWirelessGateway.JSON_PROPERTY_REGION_CODE,
   PrivateWirelessGateway.JSON_PROPERTY_STATUS,
-  PrivateWirelessGateway.JSON_PROPERTY_IP_RANGE
+  PrivateWirelessGateway.JSON_PROPERTY_IP_RANGE,
+  PrivateWirelessGateway.JSON_PROPERTY_ASSIGNED_RESOURCES
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PrivateWirelessGateway {
@@ -71,9 +75,28 @@ public class PrivateWirelessGateway {
   private PrivateWirelessGatewayStatus status;
 
   public static final String JSON_PROPERTY_IP_RANGE = "ip_range";
-  private String ipRange = "null";
+  private String ipRange;
+
+  public static final String JSON_PROPERTY_ASSIGNED_RESOURCES = "assigned_resources";
+  private List<PWGAssignedResourcesSummary> assignedResources = null;
 
   public PrivateWirelessGateway() { 
+  }
+
+  @JsonCreator
+  public PrivateWirelessGateway(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt, 
+    @JsonProperty(JSON_PROPERTY_IP_RANGE) String ipRange
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.ipRange = ipRange;
   }
 
    /**
@@ -260,6 +283,40 @@ public class PrivateWirelessGateway {
 
 
 
+  public PrivateWirelessGateway assignedResources(List<PWGAssignedResourcesSummary> assignedResources) {
+    this.assignedResources = assignedResources;
+    return this;
+  }
+
+  public PrivateWirelessGateway addAssignedResourcesItem(PWGAssignedResourcesSummary assignedResourcesItem) {
+    if (this.assignedResources == null) {
+      this.assignedResources = new ArrayList<>();
+    }
+    this.assignedResources.add(assignedResourcesItem);
+    return this;
+  }
+
+   /**
+   * A list of the resources that have been assigned to the Private Wireless Gateway
+   * @return assignedResources
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "A list of the resources that have been assigned to the Private Wireless Gateway")
+  @JsonProperty(JSON_PROPERTY_ASSIGNED_RESOURCES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PWGAssignedResourcesSummary> getAssignedResources() {
+    return assignedResources;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSIGNED_RESOURCES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAssignedResources(List<PWGAssignedResourcesSummary> assignedResources) {
+    this.assignedResources = assignedResources;
+  }
+
+
   /**
    * Return true if this PrivateWirelessGateway object is equal to o.
    */
@@ -280,12 +337,13 @@ public class PrivateWirelessGateway {
         Objects.equals(this.name, privateWirelessGateway.name) &&
         Objects.equals(this.regionCode, privateWirelessGateway.regionCode) &&
         Objects.equals(this.status, privateWirelessGateway.status) &&
-        Objects.equals(this.ipRange, privateWirelessGateway.ipRange);
+        Objects.equals(this.ipRange, privateWirelessGateway.ipRange) &&
+        Objects.equals(this.assignedResources, privateWirelessGateway.assignedResources);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, networkId, recordType, createdAt, updatedAt, name, regionCode, status, ipRange);
+    return Objects.hash(id, networkId, recordType, createdAt, updatedAt, name, regionCode, status, ipRange, assignedResources);
   }
 
   @Override
@@ -301,6 +359,7 @@ public class PrivateWirelessGateway {
     sb.append("    regionCode: ").append(toIndentedString(regionCode)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    ipRange: ").append(toIndentedString(ipRange)).append("\n");
+    sb.append("    assignedResources: ").append(toIndentedString(assignedResources)).append("\n");
     sb.append("}");
     return sb.toString();
   }

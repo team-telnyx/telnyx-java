@@ -5,8 +5,9 @@ All URIs are relative to *https://api.telnyx.com/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accessIPAddressCreate**](IpAddressesApi.md#accessIPAddressCreate) | **POST** /access_ip_address | Create new Access IP Address
+[**accessIPAddressDelete**](IpAddressesApi.md#accessIPAddressDelete) | **DELETE** /access_ip_address/{access_ip_address_id} | Delete access IP address
+[**accessIPAddressGet**](IpAddressesApi.md#accessIPAddressGet) | **GET** /access_ip_address/{access_ip_address_id} | Retrieve an access IP address
 [**accessIPAddressList**](IpAddressesApi.md#accessIPAddressList) | **GET** /access_ip_address | List all Access IP Addresses
-[**accessIpAddressAccessIpAddressIdDelete**](IpAddressesApi.md#accessIpAddressAccessIpAddressIdDelete) | **DELETE** /access_ip_address/{access_ip_address_id} | Delete access IP address
 
 
 
@@ -77,6 +78,142 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
 | **422** | Validation Error |  -  |
+
+
+## accessIPAddressDelete
+
+> AccessIPAddressResponseSchema accessIPAddressDelete(accessIpAddressId)
+
+Delete access IP address
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.IpAddressesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        IpAddressesApi apiInstance = new IpAddressesApi(defaultClient);
+        String accessIpAddressId = "accessIpAddressId_example"; // String | 
+        try {
+            AccessIPAddressResponseSchema result = apiInstance.accessIPAddressDelete(accessIpAddressId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling IpAddressesApi#accessIPAddressDelete");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accessIpAddressId** | **String**|  |
+
+### Return type
+
+[**AccessIPAddressResponseSchema**](AccessIPAddressResponseSchema.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+
+
+## accessIPAddressGet
+
+> AccessIPAddressResponseSchema accessIPAddressGet(accessIpAddressId)
+
+Retrieve an access IP address
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.IpAddressesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        IpAddressesApi apiInstance = new IpAddressesApi(defaultClient);
+        String accessIpAddressId = "accessIpAddressId_example"; // String | 
+        try {
+            AccessIPAddressResponseSchema result = apiInstance.accessIPAddressGet(accessIpAddressId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling IpAddressesApi#accessIPAddressGet");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accessIpAddressId** | **String**|  |
+
+### Return type
+
+[**AccessIPAddressResponseSchema**](AccessIPAddressResponseSchema.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
 
 
 ## accessIPAddressList
@@ -159,72 +296,4 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
 | **422** | Validation Error |  -  |
-
-
-## accessIpAddressAccessIpAddressIdDelete
-
-> AccessIPAddressResponseSchema accessIpAddressAccessIpAddressIdDelete(accessIpAddressId)
-
-Delete access IP address
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.IpAddressesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        IpAddressesApi apiInstance = new IpAddressesApi(defaultClient);
-        String accessIpAddressId = "accessIpAddressId_example"; // String | 
-        try {
-            AccessIPAddressResponseSchema result = apiInstance.accessIpAddressAccessIpAddressIdDelete(accessIpAddressId);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling IpAddressesApi#accessIpAddressAccessIpAddressIdDelete");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accessIpAddressId** | **String**|  |
-
-### Return type
-
-[**AccessIPAddressResponseSchema**](AccessIPAddressResponseSchema.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
 

@@ -177,6 +177,30 @@ public class PhoneNumberWithMessagingSettings {
   public PhoneNumberWithMessagingSettings() { 
   }
 
+  @JsonCreator
+  public PhoneNumberWithMessagingSettings(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) RecordTypeEnum recordType, 
+    @JsonProperty(JSON_PROPERTY_ID) String id, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) OffsetDateTime createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) OffsetDateTime updatedAt, 
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE) String countryCode, 
+    @JsonProperty(JSON_PROPERTY_TYPE) TypeEnum type, 
+    @JsonProperty(JSON_PROPERTY_ELIGIBLE_MESSAGING_PRODUCTS) List<String> eligibleMessagingProducts, 
+    @JsonProperty(JSON_PROPERTY_TRAFFIC_TYPE) String trafficType
+  ) {
+    this();
+    this.recordType = recordType;
+    this.id = id;
+    this.phoneNumber = phoneNumber;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.countryCode = countryCode;
+    this.type = type;
+    this.eligibleMessagingProducts = eligibleMessagingProducts;
+    this.trafficType = trafficType;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

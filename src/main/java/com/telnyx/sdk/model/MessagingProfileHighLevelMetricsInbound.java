@@ -43,6 +43,14 @@ public class MessagingProfileHighLevelMetricsInbound {
   public MessagingProfileHighLevelMetricsInbound() { 
   }
 
+  @JsonCreator
+  public MessagingProfileHighLevelMetricsInbound(
+    @JsonProperty(JSON_PROPERTY_RECEIVED) BigDecimal received
+  ) {
+    this();
+    this.received = received;
+  }
+
    /**
    * The number of inbound messages received.
    * @return received

@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**PhoneNumberWithVoiceSettings**](PhoneNumberWithVoiceSettings.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**PhoneNumberWithVoiceSettings**](PhoneNumberWithVoiceSettings.md) |  |  [optional] |
 
 
 

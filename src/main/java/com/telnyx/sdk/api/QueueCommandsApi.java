@@ -59,7 +59,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with a list of calls in a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ListQueueCallsResponse listQueueCalls(String queueName, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -78,7 +78,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with a list of calls in a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListQueueCallsResponse> listQueueCallsWithHttpInfo(String queueName, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -134,7 +134,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call in a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public QueueCallResponse retrieveCallFromQueue(String queueName, String callControlId) throws ApiException {
@@ -152,7 +152,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call in a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<QueueCallResponse> retrieveCallFromQueueWithHttpInfo(String queueName, String callControlId) throws ApiException {
@@ -211,7 +211,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public QueueResponse retrieveCallQueue(String queueName) throws ApiException {
@@ -228,7 +228,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<QueueResponse> retrieveCallQueueWithHttpInfo(String queueName) throws ApiException {

@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**regulatoryRequirements** | [**List&lt;UpdateRegulatoryRequirement&gt;**](UpdateRegulatoryRequirement.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**regulatoryRequirements** | [**List&lt;UpdateRegulatoryRequirement&gt;**](UpdateRegulatoryRequirement.md) |  |  [optional] |
 
 
 

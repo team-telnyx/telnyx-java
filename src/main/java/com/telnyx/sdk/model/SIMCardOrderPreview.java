@@ -59,6 +59,14 @@ public class SIMCardOrderPreview {
   public SIMCardOrderPreview() { 
   }
 
+  @JsonCreator
+  public SIMCardOrderPreview(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.recordType = recordType;
+  }
+
   public SIMCardOrderPreview totalCost(SIMCardOrderPreviewTotalCost totalCost) {
     this.totalCost = totalCost;
     return this;

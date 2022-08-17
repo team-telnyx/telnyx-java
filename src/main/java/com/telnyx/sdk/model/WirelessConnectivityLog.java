@@ -44,6 +44,8 @@ import com.telnyx.sdk.JSON;
   WirelessConnectivityLog.JSON_PROPERTY_MOBILE_NETWORK_CODE,
   WirelessConnectivityLog.JSON_PROPERTY_START_TIME,
   WirelessConnectivityLog.JSON_PROPERTY_STOP_TIME,
+  WirelessConnectivityLog.JSON_PROPERTY_CREATED_AT,
+  WirelessConnectivityLog.JSON_PROPERTY_LAST_SEEN,
   WirelessConnectivityLog.JSON_PROPERTY_APN,
   WirelessConnectivityLog.JSON_PROPERTY_IPV4,
   WirelessConnectivityLog.JSON_PROPERTY_IPV6,
@@ -118,6 +120,12 @@ public class WirelessConnectivityLog {
   public static final String JSON_PROPERTY_STOP_TIME = "stop_time";
   private String stopTime;
 
+  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+  private String createdAt;
+
+  public static final String JSON_PROPERTY_LAST_SEEN = "last_seen";
+  private String lastSeen;
+
   public static final String JSON_PROPERTY_APN = "apn";
   private String apn;
 
@@ -137,6 +145,46 @@ public class WirelessConnectivityLog {
   private String cellId;
 
   public WirelessConnectivityLog() { 
+  }
+
+  @JsonCreator
+  public WirelessConnectivityLog(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_ID) Integer id, 
+    @JsonProperty(JSON_PROPERTY_LOG_TYPE) LogTypeEnum logType, 
+    @JsonProperty(JSON_PROPERTY_IMSI) String imsi, 
+    @JsonProperty(JSON_PROPERTY_IMEI) String imei, 
+    @JsonProperty(JSON_PROPERTY_MOBILE_COUNTRY_CODE) String mobileCountryCode, 
+    @JsonProperty(JSON_PROPERTY_MOBILE_NETWORK_CODE) String mobileNetworkCode, 
+    @JsonProperty(JSON_PROPERTY_START_TIME) String startTime, 
+    @JsonProperty(JSON_PROPERTY_STOP_TIME) String stopTime, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_LAST_SEEN) String lastSeen, 
+    @JsonProperty(JSON_PROPERTY_APN) String apn, 
+    @JsonProperty(JSON_PROPERTY_IPV4) String ipv4, 
+    @JsonProperty(JSON_PROPERTY_IPV6) String ipv6, 
+    @JsonProperty(JSON_PROPERTY_RADIO_ACCESS_TECHNOLOGY) String radioAccessTechnology, 
+    @JsonProperty(JSON_PROPERTY_STATE) String state, 
+    @JsonProperty(JSON_PROPERTY_CELL_ID) String cellId
+  ) {
+    this();
+    this.recordType = recordType;
+    this.id = id;
+    this.logType = logType;
+    this.imsi = imsi;
+    this.imei = imei;
+    this.mobileCountryCode = mobileCountryCode;
+    this.mobileNetworkCode = mobileNetworkCode;
+    this.startTime = startTime;
+    this.stopTime = stopTime;
+    this.createdAt = createdAt;
+    this.lastSeen = lastSeen;
+    this.apn = apn;
+    this.ipv4 = ipv4;
+    this.ipv6 = ipv6;
+    this.radioAccessTechnology = radioAccessTechnology;
+    this.state = state;
+    this.cellId = cellId;
   }
 
    /**
@@ -310,6 +358,38 @@ public class WirelessConnectivityLog {
 
 
    /**
+   * ISO 8601 formatted date-time indicating when the record was created.
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the record was created.")
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCreatedAt() {
+    return createdAt;
+  }
+
+
+
+
+   /**
+   * ISO 8601 formatted date-time indicating when the last heartbeat to the device was successfully recorded.
+   * @return lastSeen
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the last heartbeat to the device was successfully recorded.")
+  @JsonProperty(JSON_PROPERTY_LAST_SEEN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLastSeen() {
+    return lastSeen;
+  }
+
+
+
+
+   /**
    * The Access Point Name (APN) identifies the packet data network that a mobile data user wants to communicate with.
    * @return apn
   **/
@@ -427,6 +507,8 @@ public class WirelessConnectivityLog {
         Objects.equals(this.mobileNetworkCode, wirelessConnectivityLog.mobileNetworkCode) &&
         Objects.equals(this.startTime, wirelessConnectivityLog.startTime) &&
         Objects.equals(this.stopTime, wirelessConnectivityLog.stopTime) &&
+        Objects.equals(this.createdAt, wirelessConnectivityLog.createdAt) &&
+        Objects.equals(this.lastSeen, wirelessConnectivityLog.lastSeen) &&
         Objects.equals(this.apn, wirelessConnectivityLog.apn) &&
         Objects.equals(this.ipv4, wirelessConnectivityLog.ipv4) &&
         Objects.equals(this.ipv6, wirelessConnectivityLog.ipv6) &&
@@ -437,7 +519,7 @@ public class WirelessConnectivityLog {
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, simCardId, logType, imsi, imei, mobileCountryCode, mobileNetworkCode, startTime, stopTime, apn, ipv4, ipv6, radioAccessTechnology, state, cellId);
+    return Objects.hash(recordType, id, simCardId, logType, imsi, imei, mobileCountryCode, mobileNetworkCode, startTime, stopTime, createdAt, lastSeen, apn, ipv4, ipv6, radioAccessTechnology, state, cellId);
   }
 
   @Override
@@ -454,6 +536,8 @@ public class WirelessConnectivityLog {
     sb.append("    mobileNetworkCode: ").append(toIndentedString(mobileNetworkCode)).append("\n");
     sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
     sb.append("    stopTime: ").append(toIndentedString(stopTime)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    lastSeen: ").append(toIndentedString(lastSeen)).append("\n");
     sb.append("    apn: ").append(toIndentedString(apn)).append("\n");
     sb.append("    ipv4: ").append(toIndentedString(ipv4)).append("\n");
     sb.append("    ipv6: ").append(toIndentedString(ipv6)).append("\n");

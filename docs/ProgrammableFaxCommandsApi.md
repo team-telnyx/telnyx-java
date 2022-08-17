@@ -4,12 +4,87 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**cancelFax**](ProgrammableFaxCommandsApi.md#cancelFax) | **POST** /faxes/{id}/actions/cancel | Cancel a fax
 [**deleteFax**](ProgrammableFaxCommandsApi.md#deleteFax) | **DELETE** /faxes/{id} | Delete a fax
 [**listFaxes**](ProgrammableFaxCommandsApi.md#listFaxes) | **GET** /faxes | View a list of faxes
 [**refreshFax**](ProgrammableFaxCommandsApi.md#refreshFax) | **POST** /faxes/{id}/actions/refresh | Refresh a fax
 [**sendFax**](ProgrammableFaxCommandsApi.md#sendFax) | **POST** /faxes | Send a fax
 [**viewFax**](ProgrammableFaxCommandsApi.md#viewFax) | **GET** /faxes/{id} | View a fax
 
+
+
+## cancelFax
+
+> SuccessfulResponseUponAcceptingCancelFaxCommand cancelFax(id)
+
+Cancel a fax
+
+Cancel the outbound fax that is in one of the following states: `queued`, `media.processed`, `originated` or `sending` 
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ProgrammableFaxCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        ProgrammableFaxCommandsApi apiInstance = new ProgrammableFaxCommandsApi(defaultClient);
+        UUID id = UUID.randomUUID(); // UUID | The unique identifier of a fax.
+        try {
+            SuccessfulResponseUponAcceptingCancelFaxCommand result = apiInstance.cancelFax(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProgrammableFaxCommandsApi#cancelFax");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| The unique identifier of a fax. |
+
+### Return type
+
+[**SuccessfulResponseUponAcceptingCancelFaxCommand**](SuccessfulResponseUponAcceptingCancelFaxCommand.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful response upon accepting cancel fax command |  -  |
+| **404** | Fax does not exist |  -  |
+| **422** | Unprocessable entity |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## deleteFax
@@ -86,6 +161,8 @@ null (empty response body)
 > ListFaxesResponse listFaxes(filterCreatedAtGte, filterCreatedAtGt, filterCreatedAtLte, filterCreatedAtLt, filterDirectionEq, filterFromEq, pageSize, pageNumber)
 
 View a list of faxes
+
+
 
 ### Example
 
@@ -234,7 +311,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Refresh fax response |  -  |
-| **404** | Conference does not exist |  -  |
+| **404** | Fax does not exist |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -243,6 +320,17 @@ Name | Type | Description  | Notes
 > SendFaxResponse sendFax(sendFaxRequest)
 
 Send a fax
+
+Send a fax. Files have size limits and page count limit validations. If a file is bigger than 50MB or has more than 350 pages it will fail with `file_size_limit_exceeded` and `page_count_limit_exceeded` respectively. 
+
+**Expected Webhooks:**
+
+- `fax.queued`
+- `fax.media.processed`
+- `fax.sending.started`
+- `fax.delivered`
+- `fax.failed`
+
 
 ### Example
 

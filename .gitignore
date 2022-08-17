@@ -19,11 +19,3 @@ hs_err_pid*
 target
 .gradle
 build
-.travis.yml
-openapitools.json
-
-# ide files
-.idea/
-
-# mac metadata files
-**/.DS_Store

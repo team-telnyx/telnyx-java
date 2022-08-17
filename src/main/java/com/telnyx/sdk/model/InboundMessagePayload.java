@@ -23,11 +23,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Error;
-import com.telnyx.sdk.model.InboundMessagePayloadCc;
+import com.telnyx.sdk.model.InboundMessagePayloadCcInner;
 import com.telnyx.sdk.model.InboundMessagePayloadCost;
 import com.telnyx.sdk.model.InboundMessagePayloadFrom;
-import com.telnyx.sdk.model.InboundMessagePayloadMedia;
-import com.telnyx.sdk.model.InboundMessagePayloadTo;
+import com.telnyx.sdk.model.InboundMessagePayloadMediaInner;
+import com.telnyx.sdk.model.InboundMessagePayloadToInner;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
@@ -187,10 +187,10 @@ public class InboundMessagePayload {
   private String messagingProfileId;
 
   public static final String JSON_PROPERTY_TO = "to";
-  private List<InboundMessagePayloadTo> to = null;
+  private List<InboundMessagePayloadToInner> to = null;
 
   public static final String JSON_PROPERTY_CC = "cc";
-  private List<InboundMessagePayloadCc> cc = null;
+  private List<InboundMessagePayloadCcInner> cc = null;
 
   public static final String JSON_PROPERTY_FROM = "from";
   private InboundMessagePayloadFrom from;
@@ -199,7 +199,7 @@ public class InboundMessagePayload {
   private String text;
 
   public static final String JSON_PROPERTY_MEDIA = "media";
-  private List<InboundMessagePayloadMedia> media = null;
+  private List<InboundMessagePayloadMediaInner> media = null;
 
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private JsonNullable<String> webhookUrl = JsonNullable.<String>undefined();
@@ -367,12 +367,12 @@ public class InboundMessagePayload {
   }
 
 
-  public InboundMessagePayload to(List<InboundMessagePayloadTo> to) {
+  public InboundMessagePayload to(List<InboundMessagePayloadToInner> to) {
     this.to = to;
     return this;
   }
 
-  public InboundMessagePayload addToItem(InboundMessagePayloadTo toItem) {
+  public InboundMessagePayload addToItem(InboundMessagePayloadToInner toItem) {
     if (this.to == null) {
       this.to = new ArrayList<>();
     }
@@ -389,24 +389,24 @@ public class InboundMessagePayload {
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<InboundMessagePayloadTo> getTo() {
+  public List<InboundMessagePayloadToInner> getTo() {
     return to;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTo(List<InboundMessagePayloadTo> to) {
+  public void setTo(List<InboundMessagePayloadToInner> to) {
     this.to = to;
   }
 
 
-  public InboundMessagePayload cc(List<InboundMessagePayloadCc> cc) {
+  public InboundMessagePayload cc(List<InboundMessagePayloadCcInner> cc) {
     this.cc = cc;
     return this;
   }
 
-  public InboundMessagePayload addCcItem(InboundMessagePayloadCc ccItem) {
+  public InboundMessagePayload addCcItem(InboundMessagePayloadCcInner ccItem) {
     if (this.cc == null) {
       this.cc = new ArrayList<>();
     }
@@ -423,14 +423,14 @@ public class InboundMessagePayload {
   @JsonProperty(JSON_PROPERTY_CC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<InboundMessagePayloadCc> getCc() {
+  public List<InboundMessagePayloadCcInner> getCc() {
     return cc;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCc(List<InboundMessagePayloadCc> cc) {
+  public void setCc(List<InboundMessagePayloadCcInner> cc) {
     this.cc = cc;
   }
 
@@ -487,12 +487,12 @@ public class InboundMessagePayload {
   }
 
 
-  public InboundMessagePayload media(List<InboundMessagePayloadMedia> media) {
+  public InboundMessagePayload media(List<InboundMessagePayloadMediaInner> media) {
     this.media = media;
     return this;
   }
 
-  public InboundMessagePayload addMediaItem(InboundMessagePayloadMedia mediaItem) {
+  public InboundMessagePayload addMediaItem(InboundMessagePayloadMediaInner mediaItem) {
     if (this.media == null) {
       this.media = new ArrayList<>();
     }
@@ -509,14 +509,14 @@ public class InboundMessagePayload {
   @JsonProperty(JSON_PROPERTY_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<InboundMessagePayloadMedia> getMedia() {
+  public List<InboundMessagePayloadMediaInner> getMedia() {
     return media;
   }
 
 
   @JsonProperty(JSON_PROPERTY_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMedia(List<InboundMessagePayloadMedia> media) {
+  public void setMedia(List<InboundMessagePayloadMediaInner> media) {
     this.media = media;
   }
 

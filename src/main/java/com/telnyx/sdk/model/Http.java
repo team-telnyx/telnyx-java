@@ -22,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.HttpRequest;
+import com.telnyx.sdk.model.HttpResponse;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -43,79 +45,71 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Http {
   public static final String JSON_PROPERTY_REQUEST = "request";
-  private JsonNullable<Object> request = JsonNullable.<Object>undefined();
+  private HttpRequest request;
 
   public static final String JSON_PROPERTY_RESPONSE = "response";
-  private JsonNullable<Object> response = JsonNullable.<Object>undefined();
+  private JsonNullable<HttpResponse> response = JsonNullable.<HttpResponse>undefined();
 
   public Http() { 
   }
 
-  public Http request(Object request) {
-    this.request = JsonNullable.<Object>of(request);
+  public Http request(HttpRequest request) {
+    this.request = request;
     return this;
   }
 
    /**
-   * Request details.
+   * Get request
    * @return request
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Request details.")
-  @JsonIgnore
-
-  public Object getRequest() {
-        return request.orElse(null);
-  }
-
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REQUEST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getRequest_JsonNullable() {
+  public HttpRequest getRequest() {
     return request;
   }
-  
+
+
   @JsonProperty(JSON_PROPERTY_REQUEST)
-  public void setRequest_JsonNullable(JsonNullable<Object> request) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequest(HttpRequest request) {
     this.request = request;
   }
 
-  public void setRequest(Object request) {
-    this.request = JsonNullable.<Object>of(request);
-  }
 
-
-  public Http response(Object response) {
-    this.response = JsonNullable.<Object>of(response);
+  public Http response(HttpResponse response) {
+    this.response = JsonNullable.<HttpResponse>of(response);
     return this;
   }
 
    /**
-   * Response details, optional.
+   * Get response
    * @return response
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Response details, optional.")
+  @ApiModelProperty(value = "")
   @JsonIgnore
 
-  public Object getResponse() {
+  public HttpResponse getResponse() {
         return response.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_RESPONSE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getResponse_JsonNullable() {
+  public JsonNullable<HttpResponse> getResponse_JsonNullable() {
     return response;
   }
   
   @JsonProperty(JSON_PROPERTY_RESPONSE)
-  public void setResponse_JsonNullable(JsonNullable<Object> response) {
+  public void setResponse_JsonNullable(JsonNullable<HttpResponse> response) {
     this.response = response;
   }
 
-  public void setResponse(Object response) {
-    this.response = JsonNullable.<Object>of(response);
+  public void setResponse(HttpResponse response) {
+    this.response = JsonNullable.<HttpResponse>of(response);
   }
 
 
@@ -131,7 +125,7 @@ public class Http {
       return false;
     }
     Http http = (Http) o;
-    return equalsNullable(this.request, http.request) &&
+    return Objects.equals(this.request, http.request) &&
         equalsNullable(this.response, http.response);
   }
 
@@ -141,7 +135,7 @@ public class Http {
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(request), hashCodeNullable(response));
+    return Objects.hash(request, hashCodeNullable(response));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {

@@ -40,6 +40,7 @@ import com.telnyx.sdk.JSON;
   PlayAudioUrlRequest.JSON_PROPERTY_STOP,
   PlayAudioUrlRequest.JSON_PROPERTY_TARGET_LEGS,
   PlayAudioUrlRequest.JSON_PROPERTY_CACHE_AUDIO,
+  PlayAudioUrlRequest.JSON_PROPERTY_PLAYBACK_CONTENT,
   PlayAudioUrlRequest.JSON_PROPERTY_CLIENT_STATE,
   PlayAudioUrlRequest.JSON_PROPERTY_COMMAND_ID
 })
@@ -65,6 +66,9 @@ public class PlayAudioUrlRequest {
 
   public static final String JSON_PROPERTY_CACHE_AUDIO = "cache_audio";
   private Boolean cacheAudio = true;
+
+  public static final String JSON_PROPERTY_PLAYBACK_CONTENT = "playback_content";
+  private String playbackContent;
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
@@ -257,6 +261,32 @@ public class PlayAudioUrlRequest {
   }
 
 
+  public PlayAudioUrlRequest playbackContent(String playbackContent) {
+    this.playbackContent = playbackContent;
+    return this;
+  }
+
+   /**
+   * Allows a user to provide base64 encoded mp3. Note: when using this parameter, &#x60;media_url&#x60; and &#x60;media_name&#x60; in the &#x60;playback_started&#x60; and &#x60;playback_ended&#x60; webhooks will be empty
+   * @return playbackContent
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "SUQzAwAAAAADf1...", value = "Allows a user to provide base64 encoded mp3. Note: when using this parameter, `media_url` and `media_name` in the `playback_started` and `playback_ended` webhooks will be empty")
+  @JsonProperty(JSON_PROPERTY_PLAYBACK_CONTENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getPlaybackContent() {
+    return playbackContent;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PLAYBACK_CONTENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPlaybackContent(String playbackContent) {
+    this.playbackContent = playbackContent;
+  }
+
+
   public PlayAudioUrlRequest clientState(String clientState) {
     this.clientState = clientState;
     return this;
@@ -328,13 +358,14 @@ public class PlayAudioUrlRequest {
         Objects.equals(this.stop, playAudioUrlRequest.stop) &&
         Objects.equals(this.targetLegs, playAudioUrlRequest.targetLegs) &&
         Objects.equals(this.cacheAudio, playAudioUrlRequest.cacheAudio) &&
+        Objects.equals(this.playbackContent, playAudioUrlRequest.playbackContent) &&
         Objects.equals(this.clientState, playAudioUrlRequest.clientState) &&
         Objects.equals(this.commandId, playAudioUrlRequest.commandId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(audioUrl, mediaName, loop, overlay, stop, targetLegs, cacheAudio, clientState, commandId);
+    return Objects.hash(audioUrl, mediaName, loop, overlay, stop, targetLegs, cacheAudio, playbackContent, clientState, commandId);
   }
 
   @Override
@@ -348,6 +379,7 @@ public class PlayAudioUrlRequest {
     sb.append("    stop: ").append(toIndentedString(stop)).append("\n");
     sb.append("    targetLegs: ").append(toIndentedString(targetLegs)).append("\n");
     sb.append("    cacheAudio: ").append(toIndentedString(cacheAudio)).append("\n");
+    sb.append("    playbackContent: ").append(toIndentedString(playbackContent)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("}");

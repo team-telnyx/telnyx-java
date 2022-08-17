@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## createBillingGroup
 
-> CreateBillingGroupResponse createBillingGroup(newBillingGroup)
+> CreateBillingGroup200Response createBillingGroup(newBillingGroup)
 
 Create a billing group
 
@@ -41,7 +41,7 @@ public class Example {
         BillingGroupsApi apiInstance = new BillingGroupsApi(defaultClient);
         NewBillingGroup newBillingGroup = new NewBillingGroup(); // NewBillingGroup | New billing group object
         try {
-            CreateBillingGroupResponse result = apiInstance.createBillingGroup(newBillingGroup);
+            CreateBillingGroup200Response result = apiInstance.createBillingGroup(newBillingGroup);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BillingGroupsApi#createBillingGroup");
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateBillingGroupResponse**](CreateBillingGroupResponse.md)
+[**CreateBillingGroup200Response**](CreateBillingGroup200Response.md)
 
 ### Authorization
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## deleteBillingGroup
 
-> DeleteBillingGroupResponse deleteBillingGroup(id)
+> CreateBillingGroup200Response deleteBillingGroup(id)
 
 Delete a billing group
 
@@ -111,7 +111,7 @@ public class Example {
         BillingGroupsApi apiInstance = new BillingGroupsApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | The id of the billing group
         try {
-            DeleteBillingGroupResponse result = apiInstance.deleteBillingGroup(id);
+            CreateBillingGroup200Response result = apiInstance.deleteBillingGroup(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BillingGroupsApi#deleteBillingGroup");
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteBillingGroupResponse**](DeleteBillingGroupResponse.md)
+[**CreateBillingGroup200Response**](CreateBillingGroup200Response.md)
 
 ### Authorization
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ## listBillingGroups
 
-> ListBillingGroupsResponse listBillingGroups(pageNumber, pageSize)
+> ListBillingGroups200Response listBillingGroups(pageNumber, pageSize)
 
 List all billing groups
 
@@ -181,7 +181,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListBillingGroupsResponse result = apiInstance.listBillingGroups(pageNumber, pageSize);
+            ListBillingGroups200Response result = apiInstance.listBillingGroups(pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BillingGroupsApi#listBillingGroups");
@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListBillingGroupsResponse**](ListBillingGroupsResponse.md)
+[**ListBillingGroups200Response**](ListBillingGroups200Response.md)
 
 ### Authorization
 
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 ## retrieveBillingGroup
 
-> RetrieveBillingGroupResponse retrieveBillingGroup(id)
+> CreateBillingGroup200Response retrieveBillingGroup(id)
 
 Retrieve a billing group
 
@@ -252,7 +252,7 @@ public class Example {
         BillingGroupsApi apiInstance = new BillingGroupsApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | The id of the billing group
         try {
-            RetrieveBillingGroupResponse result = apiInstance.retrieveBillingGroup(id);
+            CreateBillingGroup200Response result = apiInstance.retrieveBillingGroup(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BillingGroupsApi#retrieveBillingGroup");
@@ -274,7 +274,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveBillingGroupResponse**](RetrieveBillingGroupResponse.md)
+[**CreateBillingGroup200Response**](CreateBillingGroup200Response.md)
 
 ### Authorization
 
@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 
 ## updateBillingGroup
 
-> UpdateBillingGroupResponse updateBillingGroup(id, updateBillingGroup)
+> CreateBillingGroup200Response updateBillingGroup(id, updateBillingGroup)
 
 Update a billing group
 
@@ -323,7 +323,7 @@ public class Example {
         UUID id = UUID.randomUUID(); // UUID | The id of the billing group
         UpdateBillingGroup updateBillingGroup = new UpdateBillingGroup(); // UpdateBillingGroup | Update billing group object
         try {
-            UpdateBillingGroupResponse result = apiInstance.updateBillingGroup(id, updateBillingGroup);
+            CreateBillingGroup200Response result = apiInstance.updateBillingGroup(id, updateBillingGroup);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BillingGroupsApi#updateBillingGroup");
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateBillingGroupResponse**](UpdateBillingGroupResponse.md)
+[**CreateBillingGroup200Response**](CreateBillingGroup200Response.md)
 
 ### Authorization
 

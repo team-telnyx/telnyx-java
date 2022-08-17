@@ -4,6 +4,7 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**endSession**](RoomSessionsApi.md#endSession) | **POST** /room_sessions/{room_session_id}/actions/end | End a room session.
 [**kickParticipantInSession**](RoomSessionsApi.md#kickParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/kick | Kick participants from a room session.
 [**listRoomSessions**](RoomSessionsApi.md#listRoomSessions) | **GET** /room_sessions | View a list of room sessions.
 [**muteParticipantInSession**](RoomSessionsApi.md#muteParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/mute | Mute participants in room session.
@@ -13,11 +14,79 @@ Method | HTTP request | Description
 
 
 
+## endSession
+
+> EndSession200Response endSession(roomSessionId)
+
+End a room session.
+
+Note: this will also kick all participants currently present in the room
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.RoomSessionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+
+        RoomSessionsApi apiInstance = new RoomSessionsApi(defaultClient);
+        UUID roomSessionId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room session.
+        try {
+            EndSession200Response result = apiInstance.endSession(roomSessionId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling RoomSessionsApi#endSession");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **roomSessionId** | **UUID**| The unique identifier of a room session. |
+
+### Return type
+
+[**EndSession200Response**](EndSession200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success Action Response |  -  |
+
+
 ## kickParticipantInSession
 
-> ActionSuccessResponse kickParticipantInSession(roomSessionId, actionsParticipantsRequest)
+> EndSession200Response kickParticipantInSession(roomSessionId, actionsParticipantsRequest)
 
 Kick participants from a room session.
+
+
 
 ### Example
 
@@ -39,7 +108,7 @@ public class Example {
         UUID roomSessionId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room session.
         ActionsParticipantsRequest actionsParticipantsRequest = new ActionsParticipantsRequest(); // ActionsParticipantsRequest | Parameters that can be defined during Kick action.
         try {
-            ActionSuccessResponse result = apiInstance.kickParticipantInSession(roomSessionId, actionsParticipantsRequest);
+            EndSession200Response result = apiInstance.kickParticipantInSession(roomSessionId, actionsParticipantsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomSessionsApi#kickParticipantInSession");
@@ -62,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ActionSuccessResponse**](ActionSuccessResponse.md)
+[**EndSession200Response**](EndSession200Response.md)
 
 ### Authorization
 
@@ -81,9 +150,11 @@ No authorization required
 
 ## listRoomSessions
 
-> ListRoomSessionsResponse listRoomSessions(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterRoomId, filterActive, includeParticipants, pageSize, pageNumber)
+> ListRoomSessions200Response listRoomSessions(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterRoomId, filterActive, includeParticipants, pageSize, pageNumber)
 
 View a list of room sessions.
+
+
 
 ### Example
 
@@ -122,7 +193,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListRoomSessionsResponse result = apiInstance.listRoomSessions(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterRoomId, filterActive, includeParticipants, pageSize, pageNumber);
+            ListRoomSessions200Response result = apiInstance.listRoomSessions(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterRoomId, filterActive, includeParticipants, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomSessionsApi#listRoomSessions");
@@ -157,7 +228,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRoomSessionsResponse**](ListRoomSessionsResponse.md)
+[**ListRoomSessions200Response**](ListRoomSessions200Response.md)
 
 ### Authorization
 
@@ -176,9 +247,11 @@ Name | Type | Description  | Notes
 
 ## muteParticipantInSession
 
-> ActionSuccessResponse muteParticipantInSession(roomSessionId, actionsParticipantsRequest)
+> EndSession200Response muteParticipantInSession(roomSessionId, actionsParticipantsRequest)
 
 Mute participants in room session.
+
+
 
 ### Example
 
@@ -200,7 +273,7 @@ public class Example {
         UUID roomSessionId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room session.
         ActionsParticipantsRequest actionsParticipantsRequest = new ActionsParticipantsRequest(); // ActionsParticipantsRequest | Parameters that can be defined during Mute action.
         try {
-            ActionSuccessResponse result = apiInstance.muteParticipantInSession(roomSessionId, actionsParticipantsRequest);
+            EndSession200Response result = apiInstance.muteParticipantInSession(roomSessionId, actionsParticipantsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomSessionsApi#muteParticipantInSession");
@@ -223,7 +296,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ActionSuccessResponse**](ActionSuccessResponse.md)
+[**EndSession200Response**](EndSession200Response.md)
 
 ### Authorization
 
@@ -242,9 +315,11 @@ No authorization required
 
 ## nestedListRoomParticipants
 
-> ListRoomParticipantsResponse nestedListRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber)
+> ListRoomParticipants200Response nestedListRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber)
 
 View a list of room participants.
+
+
 
 ### Example
 
@@ -283,7 +358,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListRoomParticipantsResponse result = apiInstance.nestedListRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber);
+            ListRoomParticipants200Response result = apiInstance.nestedListRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomSessionsApi#nestedListRoomParticipants");
@@ -317,7 +392,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRoomParticipantsResponse**](ListRoomParticipantsResponse.md)
+[**ListRoomParticipants200Response**](ListRoomParticipants200Response.md)
 
 ### Authorization
 
@@ -336,9 +411,11 @@ Name | Type | Description  | Notes
 
 ## unmuteParticipantInSession
 
-> ActionSuccessResponse unmuteParticipantInSession(roomSessionId, actionsParticipantsRequest)
+> EndSession200Response unmuteParticipantInSession(roomSessionId, actionsParticipantsRequest)
 
 Unmute participants in room session.
+
+
 
 ### Example
 
@@ -360,7 +437,7 @@ public class Example {
         UUID roomSessionId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room session.
         ActionsParticipantsRequest actionsParticipantsRequest = new ActionsParticipantsRequest(); // ActionsParticipantsRequest | Parameters that can be defined during Unmute action.
         try {
-            ActionSuccessResponse result = apiInstance.unmuteParticipantInSession(roomSessionId, actionsParticipantsRequest);
+            EndSession200Response result = apiInstance.unmuteParticipantInSession(roomSessionId, actionsParticipantsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomSessionsApi#unmuteParticipantInSession");
@@ -383,7 +460,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ActionSuccessResponse**](ActionSuccessResponse.md)
+[**EndSession200Response**](EndSession200Response.md)
 
 ### Authorization
 
@@ -402,7 +479,7 @@ No authorization required
 
 ## viewRoomSession
 
-> GetRoomSessionResponse viewRoomSession(roomSessionId, includeParticipants)
+> ViewRoomSession200Response viewRoomSession(roomSessionId, includeParticipants)
 
 View a room session.
 
@@ -431,7 +508,7 @@ public class Example {
         UUID roomSessionId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room session.
         Boolean includeParticipants = true; // Boolean | To decide if room participants should be included in the response.
         try {
-            GetRoomSessionResponse result = apiInstance.viewRoomSession(roomSessionId, includeParticipants);
+            ViewRoomSession200Response result = apiInstance.viewRoomSession(roomSessionId, includeParticipants);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomSessionsApi#viewRoomSession");
@@ -454,7 +531,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetRoomSessionResponse**](GetRoomSessionResponse.md)
+[**ViewRoomSession200Response**](ViewRoomSession200Response.md)
 
 ### Authorization
 

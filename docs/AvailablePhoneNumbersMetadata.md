@@ -5,10 +5,10 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**totalResults** | **Integer** |  |  [optional]
-**bestEffortResults** | **Integer** |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**totalResults** | **Integer** |  |  [optional] |
+|**bestEffortResults** | **Integer** |  |  [optional] |
 
 
 

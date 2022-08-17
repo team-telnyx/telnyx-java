@@ -193,6 +193,14 @@ public class RoomComposition {
   public RoomComposition() { 
   }
 
+  @JsonCreator
+  public RoomComposition(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.recordType = recordType;
+  }
+
   public RoomComposition id(UUID id) {
     this.id = id;
     return this;

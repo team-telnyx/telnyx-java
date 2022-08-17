@@ -129,6 +129,28 @@ public class SubNumberOrder {
   public SubNumberOrder() { 
   }
 
+  @JsonCreator
+  public SubNumberOrder(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_ORDER_REQUEST_ID) UUID orderRequestId, 
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE) String countryCode, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS_COUNT) Integer phoneNumbersCount, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt, 
+    @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET) Boolean requirementsMet
+  ) {
+    this();
+    this.id = id;
+    this.orderRequestId = orderRequestId;
+    this.countryCode = countryCode;
+    this.recordType = recordType;
+    this.phoneNumbersCount = phoneNumbersCount;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.requirementsMet = requirementsMet;
+  }
+
    /**
    * Get id
    * @return id

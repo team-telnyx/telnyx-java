@@ -111,6 +111,24 @@ public class DynamicEmergencyEndpoint {
   public DynamicEmergencyEndpoint() { 
   }
 
+  @JsonCreator
+  public DynamicEmergencyEndpoint(
+    @JsonProperty(JSON_PROPERTY_ID) String id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_SIP_FROM_ID) String sipFromId, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.status = status;
+    this.sipFromId = sipFromId;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Get id
    * @return id

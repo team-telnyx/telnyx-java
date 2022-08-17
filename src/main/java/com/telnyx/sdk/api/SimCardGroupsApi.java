@@ -8,17 +8,14 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreatePrivateWirelessGatwewayRequest1;
-import com.telnyx.sdk.model.CreateSimCardGroupResponse;
-import com.telnyx.sdk.model.DeleteSimCardGroupResponse;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetAllSimCardGroupsResponse;
-import com.telnyx.sdk.model.GetSimCardGroupResponse;
-import com.telnyx.sdk.model.SIMCardGroupActionResponse;
 import com.telnyx.sdk.model.SIMCardGroupCreate;
 import com.telnyx.sdk.model.SIMCardGroupPatch;
+import com.telnyx.sdk.model.SetSIMCardGroupPrivateWirelessGatewayRequest;
+import com.telnyx.sdk.model.SimCardGroupActionGet200Response;
+import com.telnyx.sdk.model.SimCardGroupsGetAll200Response;
+import com.telnyx.sdk.model.SimCardGroupsPost200Response;
 import java.util.UUID;
-import com.telnyx.sdk.model.UpdateSimCardGroupResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +56,7 @@ public class SimCardGroupsApi {
    * Request Private Wireless Gateway removal from SIM card group
    * This action will asynchronously remove an existing Private Wireless Gateway definition from a SIM card group. Completing this operation defines that all SIM cards in the SIM card group will get their traffic handled by Telnyx&#39;s default mobile network configuration.
    * @param id Identifies the resource. (required)
-   * @return SIMCardGroupActionResponse
+   * @return SimCardGroupActionGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -68,7 +65,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardGroupActionResponse removeSIMCardGroupPrivateWirelessGateway(UUID id) throws ApiException {
+  public SimCardGroupActionGet200Response removeSIMCardGroupPrivateWirelessGateway(UUID id) throws ApiException {
     return removeSIMCardGroupPrivateWirelessGatewayWithHttpInfo(id).getData();
   }
 
@@ -76,7 +73,7 @@ public class SimCardGroupsApi {
    * Request Private Wireless Gateway removal from SIM card group
    * This action will asynchronously remove an existing Private Wireless Gateway definition from a SIM card group. Completing this operation defines that all SIM cards in the SIM card group will get their traffic handled by Telnyx&#39;s default mobile network configuration.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;SIMCardGroupActionResponse&gt;
+   * @return ApiResponse&lt;SimCardGroupActionGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -85,7 +82,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardGroupActionResponse> removeSIMCardGroupPrivateWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardGroupActionGet200Response> removeSIMCardGroupPrivateWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -119,7 +116,7 @@ public class SimCardGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardGroupActionResponse> localVarReturnType = new GenericType<SIMCardGroupActionResponse>() {};
+    GenericType<SimCardGroupActionGet200Response> localVarReturnType = new GenericType<SimCardGroupActionGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardGroupsApi.removeSIMCardGroupPrivateWirelessGateway", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -129,8 +126,8 @@ public class SimCardGroupsApi {
    * Request Private Wireless Gateway assignment for SIM card group
    * This action will asynchronously assign a provisioned Private Wireless Gateway to the SIM card group. Completing this operation defines that all SIM cards in the SIM card group will get their traffic controlled by the associated Private Wireless Gateway. This operation will also imply that new SIM cards assigned to a group will inherit its network definitions. If it&#39;s moved to a different group that doesn&#39;t have a Private Wireless Gateway, it&#39;ll use Telnyx&#39;s default mobile network configuration.
    * @param id Identifies the resource. (required)
-   * @param createPrivateWirelessGatwewayRequest1  (required)
-   * @return SIMCardGroupActionResponse
+   * @param setSIMCardGroupPrivateWirelessGatewayRequest  (required)
+   * @return SimCardGroupActionGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -139,16 +136,16 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardGroupActionResponse setSIMCardGroupPrivateWirelessGateway(UUID id, CreatePrivateWirelessGatwewayRequest1 createPrivateWirelessGatwewayRequest1) throws ApiException {
-    return setSIMCardGroupPrivateWirelessGatewayWithHttpInfo(id, createPrivateWirelessGatwewayRequest1).getData();
+  public SimCardGroupActionGet200Response setSIMCardGroupPrivateWirelessGateway(UUID id, SetSIMCardGroupPrivateWirelessGatewayRequest setSIMCardGroupPrivateWirelessGatewayRequest) throws ApiException {
+    return setSIMCardGroupPrivateWirelessGatewayWithHttpInfo(id, setSIMCardGroupPrivateWirelessGatewayRequest).getData();
   }
 
   /**
    * Request Private Wireless Gateway assignment for SIM card group
    * This action will asynchronously assign a provisioned Private Wireless Gateway to the SIM card group. Completing this operation defines that all SIM cards in the SIM card group will get their traffic controlled by the associated Private Wireless Gateway. This operation will also imply that new SIM cards assigned to a group will inherit its network definitions. If it&#39;s moved to a different group that doesn&#39;t have a Private Wireless Gateway, it&#39;ll use Telnyx&#39;s default mobile network configuration.
    * @param id Identifies the resource. (required)
-   * @param createPrivateWirelessGatwewayRequest1  (required)
-   * @return ApiResponse&lt;SIMCardGroupActionResponse&gt;
+   * @param setSIMCardGroupPrivateWirelessGatewayRequest  (required)
+   * @return ApiResponse&lt;SimCardGroupActionGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -157,17 +154,17 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardGroupActionResponse> setSIMCardGroupPrivateWirelessGatewayWithHttpInfo(UUID id, CreatePrivateWirelessGatwewayRequest1 createPrivateWirelessGatwewayRequest1) throws ApiException {
-    Object localVarPostBody = createPrivateWirelessGatwewayRequest1;
+  public ApiResponse<SimCardGroupActionGet200Response> setSIMCardGroupPrivateWirelessGatewayWithHttpInfo(UUID id, SetSIMCardGroupPrivateWirelessGatewayRequest setSIMCardGroupPrivateWirelessGatewayRequest) throws ApiException {
+    Object localVarPostBody = setSIMCardGroupPrivateWirelessGatewayRequest;
     
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling setSIMCardGroupPrivateWirelessGateway");
     }
     
-    // verify the required parameter 'createPrivateWirelessGatwewayRequest1' is set
-    if (createPrivateWirelessGatwewayRequest1 == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPrivateWirelessGatwewayRequest1' when calling setSIMCardGroupPrivateWirelessGateway");
+    // verify the required parameter 'setSIMCardGroupPrivateWirelessGatewayRequest' is set
+    if (setSIMCardGroupPrivateWirelessGatewayRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'setSIMCardGroupPrivateWirelessGatewayRequest' when calling setSIMCardGroupPrivateWirelessGateway");
     }
     
     // create path and map variables
@@ -196,7 +193,7 @@ public class SimCardGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardGroupActionResponse> localVarReturnType = new GenericType<SIMCardGroupActionResponse>() {};
+    GenericType<SimCardGroupActionGet200Response> localVarReturnType = new GenericType<SimCardGroupActionGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardGroupsApi.setSIMCardGroupPrivateWirelessGateway", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -206,7 +203,7 @@ public class SimCardGroupsApi {
    * Delete a SIM card group
    * Permanently deletes a SIM card group
    * @param id Identifies the resource. (required)
-   * @return DeleteSimCardGroupResponse
+   * @return SimCardGroupsPost200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -215,7 +212,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DeleteSimCardGroupResponse simCardGroupDelete(UUID id) throws ApiException {
+  public SimCardGroupsPost200Response simCardGroupDelete(UUID id) throws ApiException {
     return simCardGroupDeleteWithHttpInfo(id).getData();
   }
 
@@ -223,7 +220,7 @@ public class SimCardGroupsApi {
    * Delete a SIM card group
    * Permanently deletes a SIM card group
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;DeleteSimCardGroupResponse&gt;
+   * @return ApiResponse&lt;SimCardGroupsPost200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -232,7 +229,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DeleteSimCardGroupResponse> simCardGroupDeleteWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardGroupsPost200Response> simCardGroupDeleteWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -266,7 +263,7 @@ public class SimCardGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DeleteSimCardGroupResponse> localVarReturnType = new GenericType<DeleteSimCardGroupResponse>() {};
+    GenericType<SimCardGroupsPost200Response> localVarReturnType = new GenericType<SimCardGroupsPost200Response>() {};
 
     return apiClient.invokeAPI("SimCardGroupsApi.simCardGroupDelete", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -277,7 +274,7 @@ public class SimCardGroupsApi {
    * Updates a SIM card group
    * @param id Identifies the resource. (required)
    * @param siMCardGroupPatch  (required)
-   * @return UpdateSimCardGroupResponse
+   * @return SimCardGroupsPost200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -286,7 +283,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public UpdateSimCardGroupResponse simCardGroupUpdate(UUID id, SIMCardGroupPatch siMCardGroupPatch) throws ApiException {
+  public SimCardGroupsPost200Response simCardGroupUpdate(UUID id, SIMCardGroupPatch siMCardGroupPatch) throws ApiException {
     return simCardGroupUpdateWithHttpInfo(id, siMCardGroupPatch).getData();
   }
 
@@ -295,7 +292,7 @@ public class SimCardGroupsApi {
    * Updates a SIM card group
    * @param id Identifies the resource. (required)
    * @param siMCardGroupPatch  (required)
-   * @return ApiResponse&lt;UpdateSimCardGroupResponse&gt;
+   * @return ApiResponse&lt;SimCardGroupsPost200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -304,7 +301,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<UpdateSimCardGroupResponse> simCardGroupUpdateWithHttpInfo(UUID id, SIMCardGroupPatch siMCardGroupPatch) throws ApiException {
+  public ApiResponse<SimCardGroupsPost200Response> simCardGroupUpdateWithHttpInfo(UUID id, SIMCardGroupPatch siMCardGroupPatch) throws ApiException {
     Object localVarPostBody = siMCardGroupPatch;
     
     // verify the required parameter 'id' is set
@@ -343,7 +340,7 @@ public class SimCardGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<UpdateSimCardGroupResponse> localVarReturnType = new GenericType<UpdateSimCardGroupResponse>() {};
+    GenericType<SimCardGroupsPost200Response> localVarReturnType = new GenericType<SimCardGroupsPost200Response>() {};
 
     return apiClient.invokeAPI("SimCardGroupsApi.simCardGroupUpdate", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -353,7 +350,7 @@ public class SimCardGroupsApi {
    * Get SIM card group
    * Returns the details regarding a specific SIM card group
    * @param id Identifies the resource. (required)
-   * @return GetSimCardGroupResponse
+   * @return SimCardGroupsPost200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -362,7 +359,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetSimCardGroupResponse simCardGroupsGet(UUID id) throws ApiException {
+  public SimCardGroupsPost200Response simCardGroupsGet(UUID id) throws ApiException {
     return simCardGroupsGetWithHttpInfo(id).getData();
   }
 
@@ -370,7 +367,7 @@ public class SimCardGroupsApi {
    * Get SIM card group
    * Returns the details regarding a specific SIM card group
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;GetSimCardGroupResponse&gt;
+   * @return ApiResponse&lt;SimCardGroupsPost200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -379,7 +376,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetSimCardGroupResponse> simCardGroupsGetWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardGroupsPost200Response> simCardGroupsGetWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -413,7 +410,7 @@ public class SimCardGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetSimCardGroupResponse> localVarReturnType = new GenericType<GetSimCardGroupResponse>() {};
+    GenericType<SimCardGroupsPost200Response> localVarReturnType = new GenericType<SimCardGroupsPost200Response>() {};
 
     return apiClient.invokeAPI("SimCardGroupsApi.simCardGroupsGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -425,7 +422,8 @@ public class SimCardGroupsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterName A valid SIM card group name. (optional)
-   * @return GetAllSimCardGroupsResponse
+   * @param filterPrivateWirelessGatewayId A Private Wireless Gateway ID associated with the group. (optional)
+   * @return SimCardGroupsGetAll200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -434,8 +432,8 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllSimCardGroupsResponse simCardGroupsGetAll(Integer pageNumber, Integer pageSize, UUID filterName) throws ApiException {
-    return simCardGroupsGetAllWithHttpInfo(pageNumber, pageSize, filterName).getData();
+  public SimCardGroupsGetAll200Response simCardGroupsGetAll(Integer pageNumber, Integer pageSize, UUID filterName, UUID filterPrivateWirelessGatewayId) throws ApiException {
+    return simCardGroupsGetAllWithHttpInfo(pageNumber, pageSize, filterName, filterPrivateWirelessGatewayId).getData();
   }
 
   /**
@@ -444,7 +442,8 @@ public class SimCardGroupsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterName A valid SIM card group name. (optional)
-   * @return ApiResponse&lt;GetAllSimCardGroupsResponse&gt;
+   * @param filterPrivateWirelessGatewayId A Private Wireless Gateway ID associated with the group. (optional)
+   * @return ApiResponse&lt;SimCardGroupsGetAll200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -453,7 +452,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllSimCardGroupsResponse> simCardGroupsGetAllWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterName) throws ApiException {
+  public ApiResponse<SimCardGroupsGetAll200Response> simCardGroupsGetAllWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterName, UUID filterPrivateWirelessGatewayId) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -468,6 +467,7 @@ public class SimCardGroupsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[name]", filterName));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[private_wireless_gateway_id]", filterPrivateWirelessGatewayId));
 
     
     
@@ -484,7 +484,7 @@ public class SimCardGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetAllSimCardGroupsResponse> localVarReturnType = new GenericType<GetAllSimCardGroupsResponse>() {};
+    GenericType<SimCardGroupsGetAll200Response> localVarReturnType = new GenericType<SimCardGroupsGetAll200Response>() {};
 
     return apiClient.invokeAPI("SimCardGroupsApi.simCardGroupsGetAll", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -494,7 +494,7 @@ public class SimCardGroupsApi {
    * Create a SIM card group
    * Creates a new SIM card group object
    * @param siMCardGroupCreate  (required)
-   * @return CreateSimCardGroupResponse
+   * @return SimCardGroupsPost200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -503,7 +503,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateSimCardGroupResponse simCardGroupsPost(SIMCardGroupCreate siMCardGroupCreate) throws ApiException {
+  public SimCardGroupsPost200Response simCardGroupsPost(SIMCardGroupCreate siMCardGroupCreate) throws ApiException {
     return simCardGroupsPostWithHttpInfo(siMCardGroupCreate).getData();
   }
 
@@ -511,7 +511,7 @@ public class SimCardGroupsApi {
    * Create a SIM card group
    * Creates a new SIM card group object
    * @param siMCardGroupCreate  (required)
-   * @return ApiResponse&lt;CreateSimCardGroupResponse&gt;
+   * @return ApiResponse&lt;SimCardGroupsPost200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -520,7 +520,7 @@ public class SimCardGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateSimCardGroupResponse> simCardGroupsPostWithHttpInfo(SIMCardGroupCreate siMCardGroupCreate) throws ApiException {
+  public ApiResponse<SimCardGroupsPost200Response> simCardGroupsPostWithHttpInfo(SIMCardGroupCreate siMCardGroupCreate) throws ApiException {
     Object localVarPostBody = siMCardGroupCreate;
     
     // verify the required parameter 'siMCardGroupCreate' is set
@@ -553,7 +553,7 @@ public class SimCardGroupsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateSimCardGroupResponse> localVarReturnType = new GenericType<CreateSimCardGroupResponse>() {};
+    GenericType<SimCardGroupsPost200Response> localVarReturnType = new GenericType<SimCardGroupsPost200Response>() {};
 
     return apiClient.invokeAPI("SimCardGroupsApi.simCardGroupsPost", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

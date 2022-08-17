@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**CallRecordingSaved**](CallRecordingSaved.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**CallRecordingSaved**](CallRecordingSaved.md) |  |  [optional] |
 
 
 

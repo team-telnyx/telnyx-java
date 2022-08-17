@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## patchWhatsappPhoneNumber
 
-> UpdateWhatsAppPhoneNumber patchWhatsappPhoneNumber(id).updateWhatsappPhoneNumberRequest(updateWhatsappPhoneNumberRequest).execute();
+> WhatsAppPhoneNumber patchWhatsappPhoneNumber(id).updateWhatsappPhoneNumberRequest(updateWhatsappPhoneNumberRequest).execute();
 
 Update a WhatsApp Phone Number webhook
 
@@ -42,7 +42,7 @@ public class Example {
         String id = "id_example"; // String | Identifies the WhatsApp Phone Number
         UpdateWhatsappPhoneNumberRequest updateWhatsappPhoneNumberRequest = new UpdateWhatsappPhoneNumberRequest(); // UpdateWhatsappPhoneNumberRequest | 
         try {
-            UpdateWhatsAppPhoneNumber result = api.patchWhatsappPhoneNumber(id)
+            WhatsAppPhoneNumber result = api.patchWhatsappPhoneNumber(id)
                 .updateWhatsappPhoneNumberRequest(updateWhatsappPhoneNumberRequest)
                 .execute();
             System.out.println(result);
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateWhatsAppPhoneNumber**](UpdateWhatsAppPhoneNumber.md)
+[**WhatsAppPhoneNumber**](WhatsAppPhoneNumber.md)
 
 ### Authorization
 
@@ -159,7 +159,7 @@ null (empty response body)
 
 ## patchWhatsappProfilePhoto
 
-> UpdateWhatsAppProfilePhoto patchWhatsappProfilePhoto(id).photo(photo).execute();
+> WhatsAppProfilePhoto patchWhatsappProfilePhoto(id).photo(photo).execute();
 
 Update the Whatsapp Profile Photo for a given Whatsapp Phone Number
 
@@ -188,7 +188,7 @@ public class Example {
         String id = "id_example"; // String | Identifies the WhatsApp Phone Number
         File photo = new File("/path/to/file"); // File | Must be an image with exactly 640x640px dimensions.
         try {
-            UpdateWhatsAppProfilePhoto result = api.patchWhatsappProfilePhoto(id)
+            WhatsAppProfilePhoto result = api.patchWhatsappProfilePhoto(id)
                 .photo(photo)
                 .execute();
             System.out.println(result);
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateWhatsAppProfilePhoto**](UpdateWhatsAppProfilePhoto.md)
+[**WhatsAppProfilePhoto**](WhatsAppProfilePhoto.md)
 
 ### Authorization
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## retrieveWhatsappPhoneNumber
 
-> RetrieveWhatsAppPhoneNumber retrieveWhatsappPhoneNumber(id).execute();
+> WhatsAppPhoneNumber retrieveWhatsappPhoneNumber(id).execute();
 
 Retrieves a WhatsApp Phone Number
 
@@ -260,7 +260,7 @@ public class Example {
         WhatsAppPhoneNumberApi apiInstance = new WhatsAppPhoneNumberApi(defaultClient);
         String id = "id_example"; // String | Identifies the WhatsApp Phone Number
         try {
-            RetrieveWhatsAppPhoneNumber result = api.retrieveWhatsappPhoneNumber(id)
+            WhatsAppPhoneNumber result = api.retrieveWhatsappPhoneNumber(id)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveWhatsAppPhoneNumber**](RetrieveWhatsAppPhoneNumber.md)
+[**WhatsAppPhoneNumber**](WhatsAppPhoneNumber.md)
 
 ### Authorization
 
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 
 ## retrieveWhatsappProfilePhoto
 
-> RetrieveWhatsAppProfilePhoto retrieveWhatsappProfilePhoto(id).execute();
+> WhatsAppProfilePhoto retrieveWhatsappProfilePhoto(id).execute();
 
 Retrieves a Whatsapp Profile Photo for a WhatsApp Phone Number
 
@@ -330,7 +330,7 @@ public class Example {
         WhatsAppPhoneNumberApi apiInstance = new WhatsAppPhoneNumberApi(defaultClient);
         String id = "id_example"; // String | Identifies the WhatsApp Phone Number
         try {
-            RetrieveWhatsAppProfilePhoto result = api.retrieveWhatsappProfilePhoto(id)
+            WhatsAppProfilePhoto result = api.retrieveWhatsappProfilePhoto(id)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -353,7 +353,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveWhatsAppProfilePhoto**](RetrieveWhatsAppProfilePhoto.md)
+[**WhatsAppProfilePhoto**](WhatsAppProfilePhoto.md)
 
 ### Authorization
 

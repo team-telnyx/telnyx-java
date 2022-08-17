@@ -22,16 +22,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.OneOfstringarray;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,7 +41,7 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ActionsParticipantsRequest {
   public static final String JSON_PROPERTY_PARTICIPANTS = "participants";
-  private JsonNullable<OneOfstringarray> participants = JsonNullable.<OneOfstringarray>undefined();
+  private String participants;
 
   public static final String JSON_PROPERTY_EXCLUDE = "exclude";
   private List<UUID> exclude = null;
@@ -54,37 +49,29 @@ public class ActionsParticipantsRequest {
   public ActionsParticipantsRequest() { 
   }
 
-  public ActionsParticipantsRequest participants(OneOfstringarray participants) {
-    this.participants = JsonNullable.<OneOfstringarray>of(participants);
+  public ActionsParticipantsRequest participants(String participants) {
+    this.participants = participants;
     return this;
   }
 
    /**
-   * Either a list of participant id to perform the action on, or the keyword \&quot;all\&quot; to perform the action on all participant.
+   * Get participants
    * @return participants
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Either a list of participant id to perform the action on, or the keyword \"all\" to perform the action on all participant.")
-  @JsonIgnore
-
-  public OneOfstringarray getParticipants() {
-        return participants.orElse(null);
-  }
-
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PARTICIPANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<OneOfstringarray> getParticipants_JsonNullable() {
+  public String getParticipants() {
     return participants;
   }
-  
-  @JsonProperty(JSON_PROPERTY_PARTICIPANTS)
-  public void setParticipants_JsonNullable(JsonNullable<OneOfstringarray> participants) {
-    this.participants = participants;
-  }
 
-  public void setParticipants(OneOfstringarray participants) {
-    this.participants = JsonNullable.<OneOfstringarray>of(participants);
+
+  @JsonProperty(JSON_PROPERTY_PARTICIPANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setParticipants(String participants) {
+    this.participants = participants;
   }
 
 
@@ -134,24 +121,13 @@ public class ActionsParticipantsRequest {
       return false;
     }
     ActionsParticipantsRequest actionsParticipantsRequest = (ActionsParticipantsRequest) o;
-    return equalsNullable(this.participants, actionsParticipantsRequest.participants) &&
+    return Objects.equals(this.participants, actionsParticipantsRequest.participants) &&
         Objects.equals(this.exclude, actionsParticipantsRequest.exclude);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(participants), exclude);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(participants, exclude);
   }
 
   @Override

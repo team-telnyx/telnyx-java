@@ -8,9 +8,10 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.ListInboundChannels;
-import com.telnyx.sdk.model.UpdateInbouncChannels;
-import com.telnyx.sdk.model.UpdateInboundChannels;
+import com.telnyx.sdk.model.ListOutboundChannels200Response;
+import com.telnyx.sdk.model.UpdateOutboundChannels200Response;
+import com.telnyx.sdk.model.UpdateOutboundChannelsDefaultResponse;
+import com.telnyx.sdk.model.UpdateOutboundChannelsRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class InboundChannelsApi {
   /**
    * Retrieve your inbound channels
    * Returns the inbound channels for your account. Inbound channels allows you to use Channel Billing for calls to your Telnyx phone numbers. Please check the Telnyx Support Articles section for full information and examples of how to utilize Channel Billing.
-   * @return ListInboundChannels
+   * @return ListOutboundChannels200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -61,14 +62,14 @@ public class InboundChannelsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListInboundChannels listOutboundChannels() throws ApiException {
+  public ListOutboundChannels200Response listOutboundChannels() throws ApiException {
     return listOutboundChannelsWithHttpInfo().getData();
   }
 
   /**
    * Retrieve your inbound channels
    * Returns the inbound channels for your account. Inbound channels allows you to use Channel Billing for calls to your Telnyx phone numbers. Please check the Telnyx Support Articles section for full information and examples of how to utilize Channel Billing.
-   * @return ApiResponse&lt;ListInboundChannels&gt;
+   * @return ApiResponse&lt;ListOutboundChannels200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -79,7 +80,7 @@ public class InboundChannelsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListInboundChannels> listOutboundChannelsWithHttpInfo() throws ApiException {
+  public ApiResponse<ListOutboundChannels200Response> listOutboundChannelsWithHttpInfo() throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -107,7 +108,7 @@ public class InboundChannelsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListInboundChannels> localVarReturnType = new GenericType<ListInboundChannels>() {};
+    GenericType<ListOutboundChannels200Response> localVarReturnType = new GenericType<ListOutboundChannels200Response>() {};
 
     return apiClient.invokeAPI("InboundChannelsApi.listOutboundChannels", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -116,8 +117,8 @@ public class InboundChannelsApi {
   /**
    * Update inbound channels
    * Update the inbound channels for the account
-   * @param updateInboundChannels  (required)
-   * @return UpdateInbouncChannels
+   * @param updateOutboundChannelsRequest Inbound channels update (required)
+   * @return UpdateOutboundChannels200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -126,15 +127,15 @@ public class InboundChannelsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public UpdateInbouncChannels updateOutboundChannels(UpdateInboundChannels updateInboundChannels) throws ApiException {
-    return updateOutboundChannelsWithHttpInfo(updateInboundChannels).getData();
+  public UpdateOutboundChannels200Response updateOutboundChannels(UpdateOutboundChannelsRequest updateOutboundChannelsRequest) throws ApiException {
+    return updateOutboundChannelsWithHttpInfo(updateOutboundChannelsRequest).getData();
   }
 
   /**
    * Update inbound channels
    * Update the inbound channels for the account
-   * @param updateInboundChannels  (required)
-   * @return ApiResponse&lt;UpdateInbouncChannels&gt;
+   * @param updateOutboundChannelsRequest Inbound channels update (required)
+   * @return ApiResponse&lt;UpdateOutboundChannels200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -143,12 +144,12 @@ public class InboundChannelsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<UpdateInbouncChannels> updateOutboundChannelsWithHttpInfo(UpdateInboundChannels updateInboundChannels) throws ApiException {
-    Object localVarPostBody = updateInboundChannels;
+  public ApiResponse<UpdateOutboundChannels200Response> updateOutboundChannelsWithHttpInfo(UpdateOutboundChannelsRequest updateOutboundChannelsRequest) throws ApiException {
+    Object localVarPostBody = updateOutboundChannelsRequest;
     
-    // verify the required parameter 'updateInboundChannels' is set
-    if (updateInboundChannels == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateInboundChannels' when calling updateOutboundChannels");
+    // verify the required parameter 'updateOutboundChannelsRequest' is set
+    if (updateOutboundChannelsRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'updateOutboundChannelsRequest' when calling updateOutboundChannels");
     }
     
     // create path and map variables
@@ -176,7 +177,7 @@ public class InboundChannelsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<UpdateInbouncChannels> localVarReturnType = new GenericType<UpdateInbouncChannels>() {};
+    GenericType<UpdateOutboundChannels200Response> localVarReturnType = new GenericType<UpdateOutboundChannels200Response>() {};
 
     return apiClient.invokeAPI("InboundChannelsApi.updateOutboundChannels", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

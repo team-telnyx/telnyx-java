@@ -22,8 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.CallReasons;
-import com.telnyx.sdk.model.PhoneNumbers;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -40,15 +38,15 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateVerifiedCallsDisplayProfileRequest {
   public static final String JSON_PROPERTY_CALL_REASONS = "call_reasons";
-  private CallReasons callReasons = null;
+  private String callReasons = null;
 
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
-  private PhoneNumbers phoneNumbers = null;
+  private String phoneNumbers = null;
 
   public UpdateVerifiedCallsDisplayProfileRequest() { 
   }
 
-  public UpdateVerifiedCallsDisplayProfileRequest callReasons(CallReasons callReasons) {
+  public UpdateVerifiedCallsDisplayProfileRequest callReasons(String callReasons) {
     this.callReasons = callReasons;
     return this;
   }
@@ -62,19 +60,19 @@ public class UpdateVerifiedCallsDisplayProfileRequest {
   @JsonProperty(JSON_PROPERTY_CALL_REASONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CallReasons getCallReasons() {
+  public String getCallReasons() {
     return callReasons;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CALL_REASONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallReasons(CallReasons callReasons) {
+  public void setCallReasons(String callReasons) {
     this.callReasons = callReasons;
   }
 
 
-  public UpdateVerifiedCallsDisplayProfileRequest phoneNumbers(PhoneNumbers phoneNumbers) {
+  public UpdateVerifiedCallsDisplayProfileRequest phoneNumbers(String phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
     return this;
   }
@@ -88,14 +86,14 @@ public class UpdateVerifiedCallsDisplayProfileRequest {
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public PhoneNumbers getPhoneNumbers() {
+  public String getPhoneNumbers() {
     return phoneNumbers;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumbers(PhoneNumbers phoneNumbers) {
+  public void setPhoneNumbers(String phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
 

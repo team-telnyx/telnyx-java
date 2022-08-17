@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.RegulatoryRequirementsRegionInformation;
-import com.telnyx.sdk.model.RegulatoryRequirementsRegulatoryRequirements;
+import com.telnyx.sdk.model.RegulatoryRequirementsRegionInformationInner;
+import com.telnyx.sdk.model.RegulatoryRequirementsRegulatoryRequirementsInner;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -51,15 +51,27 @@ public class RegulatoryRequirements {
   private String phoneNumberType;
 
   public static final String JSON_PROPERTY_REGION_INFORMATION = "region_information";
-  private List<RegulatoryRequirementsRegionInformation> regionInformation = null;
+  private List<RegulatoryRequirementsRegionInformationInner> regionInformation = null;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
 
   public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
-  private List<RegulatoryRequirementsRegulatoryRequirements> regulatoryRequirements = null;
+  private List<RegulatoryRequirementsRegulatoryRequirementsInner> regulatoryRequirements = null;
 
   public RegulatoryRequirements() { 
+  }
+
+  @JsonCreator
+  public RegulatoryRequirements(
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) String phoneNumberType, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.phoneNumber = phoneNumber;
+    this.phoneNumberType = phoneNumberType;
+    this.recordType = recordType;
   }
 
    /**
@@ -94,12 +106,12 @@ public class RegulatoryRequirements {
 
 
 
-  public RegulatoryRequirements regionInformation(List<RegulatoryRequirementsRegionInformation> regionInformation) {
+  public RegulatoryRequirements regionInformation(List<RegulatoryRequirementsRegionInformationInner> regionInformation) {
     this.regionInformation = regionInformation;
     return this;
   }
 
-  public RegulatoryRequirements addRegionInformationItem(RegulatoryRequirementsRegionInformation regionInformationItem) {
+  public RegulatoryRequirements addRegionInformationItem(RegulatoryRequirementsRegionInformationInner regionInformationItem) {
     if (this.regionInformation == null) {
       this.regionInformation = new ArrayList<>();
     }
@@ -116,14 +128,14 @@ public class RegulatoryRequirements {
   @JsonProperty(JSON_PROPERTY_REGION_INFORMATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<RegulatoryRequirementsRegionInformation> getRegionInformation() {
+  public List<RegulatoryRequirementsRegionInformationInner> getRegionInformation() {
     return regionInformation;
   }
 
 
   @JsonProperty(JSON_PROPERTY_REGION_INFORMATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRegionInformation(List<RegulatoryRequirementsRegionInformation> regionInformation) {
+  public void setRegionInformation(List<RegulatoryRequirementsRegionInformationInner> regionInformation) {
     this.regionInformation = regionInformation;
   }
 
@@ -144,12 +156,12 @@ public class RegulatoryRequirements {
 
 
 
-  public RegulatoryRequirements regulatoryRequirements(List<RegulatoryRequirementsRegulatoryRequirements> regulatoryRequirements) {
+  public RegulatoryRequirements regulatoryRequirements(List<RegulatoryRequirementsRegulatoryRequirementsInner> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
     return this;
   }
 
-  public RegulatoryRequirements addRegulatoryRequirementsItem(RegulatoryRequirementsRegulatoryRequirements regulatoryRequirementsItem) {
+  public RegulatoryRequirements addRegulatoryRequirementsItem(RegulatoryRequirementsRegulatoryRequirementsInner regulatoryRequirementsItem) {
     if (this.regulatoryRequirements == null) {
       this.regulatoryRequirements = new ArrayList<>();
     }
@@ -166,14 +178,14 @@ public class RegulatoryRequirements {
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<RegulatoryRequirementsRegulatoryRequirements> getRegulatoryRequirements() {
+  public List<RegulatoryRequirementsRegulatoryRequirementsInner> getRegulatoryRequirements() {
     return regulatoryRequirements;
   }
 
 
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRegulatoryRequirements(List<RegulatoryRequirementsRegulatoryRequirements> regulatoryRequirements) {
+  public void setRegulatoryRequirements(List<RegulatoryRequirementsRegulatoryRequirementsInner> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
   }
 

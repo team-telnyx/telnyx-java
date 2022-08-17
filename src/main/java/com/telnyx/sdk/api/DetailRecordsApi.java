@@ -47,13 +47,13 @@ public class DetailRecordsApi {
 
   /**
    * Search detail records
-   * Search for any detail record across the Telnyx Platform
-   * @param filterRecordType Filter by the given record type (required)
-   * @param filterDateRange Filter by the given user-friendly date range (optional)
-   * @param filter Filter records (optional)
+   * Search for any detail record across the Telnyx Platform. Examples and additional information found [here](/docs/v2/debugging/detail-record-search).
+   * @param filterRecordType Filter by the given record type. (required)
+   * @param filterDateRange Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days. (optional)
+   * @param filter Filter records on a given record attribute and value. &lt;br/&gt;Example: filter[status]&#x3D;delivered (optional)
    * @param pageNumber Page number (optional, default to 1)
    * @param pageSize Page size (optional, default to 20)
-   * @param sort Specifies the sort order for results (optional)
+   * @param sort Specifies the sort order for results. &lt;br/&gt;Example: sort&#x3D;-created_at (optional)
    * @return DetailRecordsSearchResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -68,13 +68,13 @@ public class DetailRecordsApi {
 
   /**
    * Search detail records
-   * Search for any detail record across the Telnyx Platform
-   * @param filterRecordType Filter by the given record type (required)
-   * @param filterDateRange Filter by the given user-friendly date range (optional)
-   * @param filter Filter records (optional)
+   * Search for any detail record across the Telnyx Platform. Examples and additional information found [here](/docs/v2/debugging/detail-record-search).
+   * @param filterRecordType Filter by the given record type. (required)
+   * @param filterDateRange Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days. (optional)
+   * @param filter Filter records on a given record attribute and value. &lt;br/&gt;Example: filter[status]&#x3D;delivered (optional)
    * @param pageNumber Page number (optional, default to 1)
    * @param pageSize Page size (optional, default to 20)
-   * @param sort Specifies the sort order for results (optional)
+   * @param sort Specifies the sort order for results. &lt;br/&gt;Example: sort&#x3D;-created_at (optional)
    * @return ApiResponse&lt;DetailRecordsSearchResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details

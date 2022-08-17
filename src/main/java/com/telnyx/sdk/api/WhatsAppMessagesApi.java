@@ -11,7 +11,7 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.CreateWhatsAppMessageRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.MarkMessageAsReadRequestBody;
-import com.telnyx.sdk.model.WhatsAppMessageResponse;
+import com.telnyx.sdk.model.SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -126,7 +126,7 @@ public class WhatsAppMessagesApi {
    * Send Message
    * Send text messages, media/documents, and message templates to your customers.
    * @param createWhatsAppMessageRequest  (required)
-   * @return WhatsAppMessageResponse
+   * @return SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -135,7 +135,7 @@ public class WhatsAppMessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WhatsAppMessageResponse sendMessage(CreateWhatsAppMessageRequest createWhatsAppMessageRequest) throws ApiException {
+  public SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent sendMessage(CreateWhatsAppMessageRequest createWhatsAppMessageRequest) throws ApiException {
     return sendMessageWithHttpInfo(createWhatsAppMessageRequest).getData();
   }
 
@@ -143,7 +143,7 @@ public class WhatsAppMessagesApi {
    * Send Message
    * Send text messages, media/documents, and message templates to your customers.
    * @param createWhatsAppMessageRequest  (required)
-   * @return ApiResponse&lt;WhatsAppMessageResponse&gt;
+   * @return ApiResponse&lt;SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -152,7 +152,7 @@ public class WhatsAppMessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WhatsAppMessageResponse> sendMessageWithHttpInfo(CreateWhatsAppMessageRequest createWhatsAppMessageRequest) throws ApiException {
+  public ApiResponse<SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent> sendMessageWithHttpInfo(CreateWhatsAppMessageRequest createWhatsAppMessageRequest) throws ApiException {
     Object localVarPostBody = createWhatsAppMessageRequest;
     
     // verify the required parameter 'createWhatsAppMessageRequest' is set
@@ -185,7 +185,7 @@ public class WhatsAppMessagesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WhatsAppMessageResponse> localVarReturnType = new GenericType<WhatsAppMessageResponse>() {};
+    GenericType<SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent> localVarReturnType = new GenericType<SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent>() {};
 
     return apiClient.invokeAPI("WhatsAppMessagesApi.sendMessage", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

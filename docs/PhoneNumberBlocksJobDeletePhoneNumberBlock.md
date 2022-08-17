@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**PhoneNumberBlocksJob**](PhoneNumberBlocksJob.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**PhoneNumberBlocksJob**](PhoneNumberBlocksJob.md) |  |  [optional] |
 
 
 

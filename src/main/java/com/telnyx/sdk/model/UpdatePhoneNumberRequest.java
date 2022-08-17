@@ -103,6 +103,14 @@ public class UpdatePhoneNumberRequest {
   public UpdatePhoneNumberRequest() { 
   }
 
+  @JsonCreator
+  public UpdatePhoneNumberRequest(
+    @JsonProperty(JSON_PROPERTY_ID) String id
+  ) {
+    this();
+    this.id = id;
+  }
+
    /**
    * Identifies the type of resource.
    * @return id

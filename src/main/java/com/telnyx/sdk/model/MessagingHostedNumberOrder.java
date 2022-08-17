@@ -103,6 +103,16 @@ public class MessagingHostedNumberOrder {
   public MessagingHostedNumberOrder() { 
   }
 
+  @JsonCreator
+  public MessagingHostedNumberOrder(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_ID) UUID id
+  ) {
+    this();
+    this.recordType = recordType;
+    this.id = id;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

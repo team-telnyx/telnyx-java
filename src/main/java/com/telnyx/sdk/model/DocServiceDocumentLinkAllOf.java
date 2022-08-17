@@ -55,6 +55,20 @@ public class DocServiceDocumentLinkAllOf {
   public DocServiceDocumentLinkAllOf() { 
   }
 
+  @JsonCreator
+  public DocServiceDocumentLinkAllOf(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_DOCUMENT_ID) UUID documentId, 
+    @JsonProperty(JSON_PROPERTY_LINKED_RECORD_TYPE) String linkedRecordType, 
+    @JsonProperty(JSON_PROPERTY_LINKED_RESOURCE_ID) String linkedResourceId
+  ) {
+    this();
+    this.recordType = recordType;
+    this.documentId = documentId;
+    this.linkedRecordType = linkedRecordType;
+    this.linkedResourceId = linkedResourceId;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

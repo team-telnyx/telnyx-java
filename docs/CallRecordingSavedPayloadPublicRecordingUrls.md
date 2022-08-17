@@ -6,10 +6,10 @@ Recording URLs in requested format. The URL is valid for as long as the file exi
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**mp3** | **String** | Recording URL in requested &#x60;mp3&#x60; format. |  [optional]
-**wav** | **String** | Recording URL in requested &#x60;wav&#x60; format. |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**mp3** | **String** | Recording URL in requested &#x60;mp3&#x60; format. |  [optional] |
+|**wav** | **String** | Recording URL in requested &#x60;wav&#x60; format. |  [optional] |
 
 
 

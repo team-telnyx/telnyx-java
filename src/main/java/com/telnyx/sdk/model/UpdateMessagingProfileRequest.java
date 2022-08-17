@@ -170,6 +170,20 @@ public class UpdateMessagingProfileRequest {
   public UpdateMessagingProfileRequest() { 
   }
 
+  @JsonCreator
+  public UpdateMessagingProfileRequest(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) RecordTypeEnum recordType, 
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) OffsetDateTime createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) OffsetDateTime updatedAt
+  ) {
+    this();
+    this.recordType = recordType;
+    this.id = id;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

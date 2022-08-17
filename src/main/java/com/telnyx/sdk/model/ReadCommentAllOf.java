@@ -42,6 +42,14 @@ public class ReadCommentAllOf {
   public ReadCommentAllOf() { 
   }
 
+  @JsonCreator
+  public ReadCommentAllOf(
+    @JsonProperty(JSON_PROPERTY_READ_AT) String readAt
+  ) {
+    this();
+    this.readAt = readAt;
+  }
+
    /**
    * An ISO 8901 datetime string for when the comment was read.
    * @return readAt

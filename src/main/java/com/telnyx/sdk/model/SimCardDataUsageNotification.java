@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.SimCardDataUsageNotificationsThreshold;
+import com.telnyx.sdk.model.SimCardDataUsageNotificationsPostRequestThreshold;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -54,7 +54,7 @@ public class SimCardDataUsageNotification {
   private String recordType;
 
   public static final String JSON_PROPERTY_THRESHOLD = "threshold";
-  private SimCardDataUsageNotificationsThreshold threshold;
+  private SimCardDataUsageNotificationsPostRequestThreshold threshold;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -63,6 +63,20 @@ public class SimCardDataUsageNotification {
   private String updatedAt;
 
   public SimCardDataUsageNotification() { 
+  }
+
+  @JsonCreator
+  public SimCardDataUsageNotification(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
    /**
@@ -123,7 +137,7 @@ public class SimCardDataUsageNotification {
 
 
 
-  public SimCardDataUsageNotification threshold(SimCardDataUsageNotificationsThreshold threshold) {
+  public SimCardDataUsageNotification threshold(SimCardDataUsageNotificationsPostRequestThreshold threshold) {
     this.threshold = threshold;
     return this;
   }
@@ -137,14 +151,14 @@ public class SimCardDataUsageNotification {
   @JsonProperty(JSON_PROPERTY_THRESHOLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SimCardDataUsageNotificationsThreshold getThreshold() {
+  public SimCardDataUsageNotificationsPostRequestThreshold getThreshold() {
     return threshold;
   }
 
 
   @JsonProperty(JSON_PROPERTY_THRESHOLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setThreshold(SimCardDataUsageNotificationsThreshold threshold) {
+  public void setThreshold(SimCardDataUsageNotificationsPostRequestThreshold threshold) {
     this.threshold = threshold;
   }
 

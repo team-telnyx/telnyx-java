@@ -94,6 +94,14 @@ public class HostedNumber {
   public HostedNumber() { 
   }
 
+  @JsonCreator
+  public HostedNumber(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id
+  ) {
+    this();
+    this.id = id;
+  }
+
   public HostedNumber recordType(String recordType) {
     this.recordType = recordType;
     return this;

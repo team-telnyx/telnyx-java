@@ -8,28 +8,32 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.ActivatePortingOrder202Response;
+import com.telnyx.sdk.model.CancelPortingOrder200Response;
+import com.telnyx.sdk.model.ConfirmPortingOrder200Response;
 import com.telnyx.sdk.model.CreatePortingOrder;
+import com.telnyx.sdk.model.CreatePortingOrder201Response;
 import com.telnyx.sdk.model.CreatePortingOrderComment;
+import com.telnyx.sdk.model.CreatePortingOrderComment201Response;
 import java.io.File;
-import com.telnyx.sdk.model.ListAllowedFocWindow;
-import com.telnyx.sdk.model.ListDraftPortingOrderWithoutPagination;
-import com.telnyx.sdk.model.ListPortingOrder;
-import com.telnyx.sdk.model.ListPortingOrderDocuments;
-import com.telnyx.sdk.model.ListPortingOrdersActivationJobs;
-import com.telnyx.sdk.model.ListPortingOrdersComments;
-import com.telnyx.sdk.model.ListPortingOrdersExceptionTypes;
-import com.telnyx.sdk.model.ListPortingPhoneNumbers;
+import com.telnyx.sdk.model.GetPortingOrder200Response;
+import com.telnyx.sdk.model.GetPortingOrderSubRequest200Response;
+import com.telnyx.sdk.model.ListAllowedFocWindows200Response;
+import com.telnyx.sdk.model.ListPortingOrderDocuments200Response;
+import com.telnyx.sdk.model.ListPortingOrderRequirements200Response;
+import com.telnyx.sdk.model.ListPortingOrders200Response;
+import com.telnyx.sdk.model.ListPortingOrdersActivationJobs200Response;
+import com.telnyx.sdk.model.ListPortingOrdersComments200Response;
+import com.telnyx.sdk.model.ListPortingOrdersExceptionTypes200Response;
+import com.telnyx.sdk.model.ListPortingPhoneNumbers200Response;
 import com.telnyx.sdk.model.PortabilityStatus;
 import com.telnyx.sdk.model.PortingOrderActivationStatus;
-import com.telnyx.sdk.model.PortingOrderDocumentsCreated;
 import com.telnyx.sdk.model.PortingOrderType;
-import com.telnyx.sdk.model.ShowPortingOrder;
-import com.telnyx.sdk.model.ShowPortingOrderComment;
-import com.telnyx.sdk.model.ShowPortingOrdersActivationJob;
-import com.telnyx.sdk.model.SubRequestByPortingOrder;
-import com.telnyx.sdk.model.UNKNOWN_BASE_TYPE;
 import java.util.UUID;
 import com.telnyx.sdk.model.UpdatePortingOrder;
+import com.telnyx.sdk.model.UpdatePortingOrder200Response;
+import com.telnyx.sdk.model.UploadPortingOrderDocuments201Response;
+import com.telnyx.sdk.model.UploadPortingOrderDocumentsRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,7 +74,7 @@ public class PortingOrderApi {
    * Activates every number on a porting order.
    * Activate every numbers of a porting order asynchronously.
    * @param id Porting Order id (required)
-   * @return ShowPortingOrdersActivationJob
+   * @return ActivatePortingOrder202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -80,7 +84,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ShowPortingOrdersActivationJob activatePortingOrder(UUID id) throws ApiException {
+  public ActivatePortingOrder202Response activatePortingOrder(UUID id) throws ApiException {
     return activatePortingOrderWithHttpInfo(id).getData();
   }
 
@@ -88,7 +92,7 @@ public class PortingOrderApi {
    * Activates every number on a porting order.
    * Activate every numbers of a porting order asynchronously.
    * @param id Porting Order id (required)
-   * @return ApiResponse&lt;ShowPortingOrdersActivationJob&gt;
+   * @return ApiResponse&lt;ActivatePortingOrder202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -98,7 +102,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ShowPortingOrdersActivationJob> activatePortingOrderWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<ActivatePortingOrder202Response> activatePortingOrderWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -132,7 +136,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ShowPortingOrdersActivationJob> localVarReturnType = new GenericType<ShowPortingOrdersActivationJob>() {};
+    GenericType<ActivatePortingOrder202Response> localVarReturnType = new GenericType<ActivatePortingOrder202Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.activatePortingOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -142,7 +146,7 @@ public class PortingOrderApi {
    * Cancel a porting order
    * Cancel a porting order
    * @param id Porting Order id (required)
-   * @return ShowPortingOrder
+   * @return CancelPortingOrder200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -152,7 +156,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ShowPortingOrder cancelPortingOrder(UUID id) throws ApiException {
+  public CancelPortingOrder200Response cancelPortingOrder(UUID id) throws ApiException {
     return cancelPortingOrderWithHttpInfo(id).getData();
   }
 
@@ -160,7 +164,7 @@ public class PortingOrderApi {
    * Cancel a porting order
    * Cancel a porting order
    * @param id Porting Order id (required)
-   * @return ApiResponse&lt;ShowPortingOrder&gt;
+   * @return ApiResponse&lt;CancelPortingOrder200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -170,7 +174,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ShowPortingOrder> cancelPortingOrderWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CancelPortingOrder200Response> cancelPortingOrderWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -204,7 +208,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ShowPortingOrder> localVarReturnType = new GenericType<ShowPortingOrder>() {};
+    GenericType<CancelPortingOrder200Response> localVarReturnType = new GenericType<CancelPortingOrder200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.cancelPortingOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -214,7 +218,7 @@ public class PortingOrderApi {
    * Submit a porting order.
    * Confirm and submit your porting order.
    * @param id Porting Order id (required)
-   * @return ShowPortingOrder
+   * @return ConfirmPortingOrder200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -224,7 +228,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ShowPortingOrder confirmPortingOrder(UUID id) throws ApiException {
+  public ConfirmPortingOrder200Response confirmPortingOrder(UUID id) throws ApiException {
     return confirmPortingOrderWithHttpInfo(id).getData();
   }
 
@@ -232,7 +236,7 @@ public class PortingOrderApi {
    * Submit a porting order.
    * Confirm and submit your porting order.
    * @param id Porting Order id (required)
-   * @return ApiResponse&lt;ShowPortingOrder&gt;
+   * @return ApiResponse&lt;ConfirmPortingOrder200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -242,7 +246,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ShowPortingOrder> confirmPortingOrderWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<ConfirmPortingOrder200Response> confirmPortingOrderWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -276,7 +280,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ShowPortingOrder> localVarReturnType = new GenericType<ShowPortingOrder>() {};
+    GenericType<ConfirmPortingOrder200Response> localVarReturnType = new GenericType<ConfirmPortingOrder200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.confirmPortingOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -286,7 +290,7 @@ public class PortingOrderApi {
    * Create a porting order
    * Creates a new porting order object.
    * @param createPortingOrder  (required)
-   * @return ListDraftPortingOrderWithoutPagination
+   * @return CreatePortingOrder201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -296,7 +300,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListDraftPortingOrderWithoutPagination createPortingOrder(CreatePortingOrder createPortingOrder) throws ApiException {
+  public CreatePortingOrder201Response createPortingOrder(CreatePortingOrder createPortingOrder) throws ApiException {
     return createPortingOrderWithHttpInfo(createPortingOrder).getData();
   }
 
@@ -304,7 +308,7 @@ public class PortingOrderApi {
    * Create a porting order
    * Creates a new porting order object.
    * @param createPortingOrder  (required)
-   * @return ApiResponse&lt;ListDraftPortingOrderWithoutPagination&gt;
+   * @return ApiResponse&lt;CreatePortingOrder201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -314,7 +318,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListDraftPortingOrderWithoutPagination> createPortingOrderWithHttpInfo(CreatePortingOrder createPortingOrder) throws ApiException {
+  public ApiResponse<CreatePortingOrder201Response> createPortingOrderWithHttpInfo(CreatePortingOrder createPortingOrder) throws ApiException {
     Object localVarPostBody = createPortingOrder;
     
     // verify the required parameter 'createPortingOrder' is set
@@ -347,7 +351,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListDraftPortingOrderWithoutPagination> localVarReturnType = new GenericType<ListDraftPortingOrderWithoutPagination>() {};
+    GenericType<CreatePortingOrder201Response> localVarReturnType = new GenericType<CreatePortingOrder201Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.createPortingOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -358,7 +362,7 @@ public class PortingOrderApi {
    * Creates a new comment for a porting order.
    * @param id Porting Order id (required)
    * @param createPortingOrderComment  (required)
-   * @return ShowPortingOrderComment
+   * @return CreatePortingOrderComment201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -368,7 +372,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ShowPortingOrderComment createPortingOrderComment(UUID id, CreatePortingOrderComment createPortingOrderComment) throws ApiException {
+  public CreatePortingOrderComment201Response createPortingOrderComment(UUID id, CreatePortingOrderComment createPortingOrderComment) throws ApiException {
     return createPortingOrderCommentWithHttpInfo(id, createPortingOrderComment).getData();
   }
 
@@ -377,7 +381,7 @@ public class PortingOrderApi {
    * Creates a new comment for a porting order.
    * @param id Porting Order id (required)
    * @param createPortingOrderComment  (required)
-   * @return ApiResponse&lt;ShowPortingOrderComment&gt;
+   * @return ApiResponse&lt;CreatePortingOrderComment201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -387,7 +391,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ShowPortingOrderComment> createPortingOrderCommentWithHttpInfo(UUID id, CreatePortingOrderComment createPortingOrderComment) throws ApiException {
+  public ApiResponse<CreatePortingOrderComment201Response> createPortingOrderCommentWithHttpInfo(UUID id, CreatePortingOrderComment createPortingOrderComment) throws ApiException {
     Object localVarPostBody = createPortingOrderComment;
     
     // verify the required parameter 'id' is set
@@ -426,7 +430,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ShowPortingOrderComment> localVarReturnType = new GenericType<ShowPortingOrderComment>() {};
+    GenericType<CreatePortingOrderComment201Response> localVarReturnType = new GenericType<CreatePortingOrderComment201Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.createPortingOrderComment", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -506,7 +510,7 @@ public class PortingOrderApi {
    * Retrieves the details of an existing porting order.
    * @param id Porting Order id (required)
    * @param includePhoneNumbers Include the first 50 phone number objects in the results (optional, default to true)
-   * @return ShowPortingOrder
+   * @return GetPortingOrder200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -515,7 +519,7 @@ public class PortingOrderApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ShowPortingOrder getPortingOrder(UUID id, Boolean includePhoneNumbers) throws ApiException {
+  public GetPortingOrder200Response getPortingOrder(UUID id, Boolean includePhoneNumbers) throws ApiException {
     return getPortingOrderWithHttpInfo(id, includePhoneNumbers).getData();
   }
 
@@ -524,7 +528,7 @@ public class PortingOrderApi {
    * Retrieves the details of an existing porting order.
    * @param id Porting Order id (required)
    * @param includePhoneNumbers Include the first 50 phone number objects in the results (optional, default to true)
-   * @return ApiResponse&lt;ShowPortingOrder&gt;
+   * @return ApiResponse&lt;GetPortingOrder200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -533,7 +537,7 @@ public class PortingOrderApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ShowPortingOrder> getPortingOrderWithHttpInfo(UUID id, Boolean includePhoneNumbers) throws ApiException {
+  public ApiResponse<GetPortingOrder200Response> getPortingOrderWithHttpInfo(UUID id, Boolean includePhoneNumbers) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -568,7 +572,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ShowPortingOrder> localVarReturnType = new GenericType<ShowPortingOrder>() {};
+    GenericType<GetPortingOrder200Response> localVarReturnType = new GenericType<GetPortingOrder200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.getPortingOrder", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -648,7 +652,7 @@ public class PortingOrderApi {
    * Retrieve the associated V1 sub_request_id and port_request_id
    * Retrieve the associated V1 sub_request_id and port_request_id
    * @param id Porting Order id (required)
-   * @return SubRequestByPortingOrder
+   * @return GetPortingOrderSubRequest200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -658,7 +662,7 @@ public class PortingOrderApi {
        <tr><td> 404 </td><td> Porting Order not found </td><td>  -  </td></tr>
      </table>
    */
-  public SubRequestByPortingOrder getPortingOrderSubRequest(UUID id) throws ApiException {
+  public GetPortingOrderSubRequest200Response getPortingOrderSubRequest(UUID id) throws ApiException {
     return getPortingOrderSubRequestWithHttpInfo(id).getData();
   }
 
@@ -666,7 +670,7 @@ public class PortingOrderApi {
    * Retrieve the associated V1 sub_request_id and port_request_id
    * Retrieve the associated V1 sub_request_id and port_request_id
    * @param id Porting Order id (required)
-   * @return ApiResponse&lt;SubRequestByPortingOrder&gt;
+   * @return ApiResponse&lt;GetPortingOrderSubRequest200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -676,7 +680,7 @@ public class PortingOrderApi {
        <tr><td> 404 </td><td> Porting Order not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SubRequestByPortingOrder> getPortingOrderSubRequestWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<GetPortingOrderSubRequest200Response> getPortingOrderSubRequestWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -710,7 +714,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SubRequestByPortingOrder> localVarReturnType = new GenericType<SubRequestByPortingOrder>() {};
+    GenericType<GetPortingOrderSubRequest200Response> localVarReturnType = new GenericType<GetPortingOrderSubRequest200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.getPortingOrderSubRequest", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -721,7 +725,7 @@ public class PortingOrderApi {
    * Returns a porting activation job.
    * @param id Porting Order id (required)
    * @param activationJobId Activation Job Identifier (required)
-   * @return ShowPortingOrdersActivationJob
+   * @return ActivatePortingOrder202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -731,7 +735,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ShowPortingOrdersActivationJob getPortingOrdersActivationJob(UUID id, UUID activationJobId) throws ApiException {
+  public ActivatePortingOrder202Response getPortingOrdersActivationJob(UUID id, UUID activationJobId) throws ApiException {
     return getPortingOrdersActivationJobWithHttpInfo(id, activationJobId).getData();
   }
 
@@ -740,7 +744,7 @@ public class PortingOrderApi {
    * Returns a porting activation job.
    * @param id Porting Order id (required)
    * @param activationJobId Activation Job Identifier (required)
-   * @return ApiResponse&lt;ShowPortingOrdersActivationJob&gt;
+   * @return ApiResponse&lt;ActivatePortingOrder202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -750,7 +754,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ShowPortingOrdersActivationJob> getPortingOrdersActivationJobWithHttpInfo(UUID id, UUID activationJobId) throws ApiException {
+  public ApiResponse<ActivatePortingOrder202Response> getPortingOrdersActivationJobWithHttpInfo(UUID id, UUID activationJobId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -790,7 +794,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ShowPortingOrdersActivationJob> localVarReturnType = new GenericType<ShowPortingOrdersActivationJob>() {};
+    GenericType<ActivatePortingOrder202Response> localVarReturnType = new GenericType<ActivatePortingOrder202Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.getPortingOrdersActivationJob", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -800,7 +804,7 @@ public class PortingOrderApi {
    * List allowed FOC dates
    * Returns a list of allowed FOC dates for a porting order.
    * @param id Porting Order id (required)
-   * @return ListAllowedFocWindow
+   * @return ListAllowedFocWindows200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -809,7 +813,7 @@ public class PortingOrderApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ListAllowedFocWindow listAllowedFocWindows(UUID id) throws ApiException {
+  public ListAllowedFocWindows200Response listAllowedFocWindows(UUID id) throws ApiException {
     return listAllowedFocWindowsWithHttpInfo(id).getData();
   }
 
@@ -817,7 +821,7 @@ public class PortingOrderApi {
    * List allowed FOC dates
    * Returns a list of allowed FOC dates for a porting order.
    * @param id Porting Order id (required)
-   * @return ApiResponse&lt;ListAllowedFocWindow&gt;
+   * @return ApiResponse&lt;ListAllowedFocWindows200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -826,7 +830,7 @@ public class PortingOrderApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListAllowedFocWindow> listAllowedFocWindowsWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<ListAllowedFocWindows200Response> listAllowedFocWindowsWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -860,7 +864,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListAllowedFocWindow> localVarReturnType = new GenericType<ListAllowedFocWindow>() {};
+    GenericType<ListAllowedFocWindows200Response> localVarReturnType = new GenericType<ListAllowedFocWindows200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.listAllowedFocWindows", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -872,7 +876,7 @@ public class PortingOrderApi {
    * @param id Porting Order id (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ListPortingOrderDocuments
+   * @return ListPortingOrderDocuments200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -882,7 +886,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingOrderDocuments listPortingOrderDocuments(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ListPortingOrderDocuments200Response listPortingOrderDocuments(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
     return listPortingOrderDocumentsWithHttpInfo(id, pageNumber, pageSize).getData();
   }
 
@@ -892,7 +896,7 @@ public class PortingOrderApi {
    * @param id Porting Order id (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;ListPortingOrderDocuments&gt;
+   * @return ApiResponse&lt;ListPortingOrderDocuments200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -902,7 +906,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingOrderDocuments> listPortingOrderDocumentsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<ListPortingOrderDocuments200Response> listPortingOrderDocumentsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -938,9 +942,87 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListPortingOrderDocuments> localVarReturnType = new GenericType<ListPortingOrderDocuments>() {};
+    GenericType<ListPortingOrderDocuments200Response> localVarReturnType = new GenericType<ListPortingOrderDocuments200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.listPortingOrderDocuments", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * List all required documents for this porting order
+   * Returns a list of all requirements for this porting order.
+   * @param id Porting Order id (required)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @return ListPortingOrderRequirements200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
+     </table>
+   */
+  public ListPortingOrderRequirements200Response listPortingOrderRequirements(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+    return listPortingOrderRequirementsWithHttpInfo(id, pageNumber, pageSize).getData();
+  }
+
+  /**
+   * List all required documents for this porting order
+   * Returns a list of all requirements for this porting order.
+   * @param id Porting Order id (required)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @return ApiResponse&lt;ListPortingOrderRequirements200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<ListPortingOrderRequirements200Response> listPortingOrderRequirementsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling listPortingOrderRequirements");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/porting_orders/{id}/requirements"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ListPortingOrderRequirements200Response> localVarReturnType = new GenericType<ListPortingOrderRequirements200Response>() {};
+
+    return apiClient.invokeAPI("PortingOrderApi.listPortingOrderRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -961,7 +1043,7 @@ public class PortingOrderApi {
    * @param filterActivationSettingsFocDatetimeRequestedGt Filter results by foc date later than this value (optional)
    * @param filterActivationSettingsFocDatetimeRequestedLt Filter results by foc date earlier than this value (optional)
    * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-   * @return ListPortingOrder
+   * @return ListPortingOrders200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -971,7 +1053,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingOrder listPortingOrders(Integer pageNumber, Integer pageSize, Boolean includePhoneNumbers, String filterStatus, String filterCustomerReference, String filterPhoneNumbersCountryCode, String filterPhoneNumbersCarrierName, PortingOrderType filterMiscType, String filterEndUserAdminEntityName, String filterEndUserAdminAuthPersonName, Boolean filterActivationSettingsFastPortEligible, String filterActivationSettingsFocDatetimeRequestedGt, String filterActivationSettingsFocDatetimeRequestedLt, String sort) throws ApiException {
+  public ListPortingOrders200Response listPortingOrders(Integer pageNumber, Integer pageSize, Boolean includePhoneNumbers, String filterStatus, String filterCustomerReference, String filterPhoneNumbersCountryCode, String filterPhoneNumbersCarrierName, PortingOrderType filterMiscType, String filterEndUserAdminEntityName, String filterEndUserAdminAuthPersonName, Boolean filterActivationSettingsFastPortEligible, String filterActivationSettingsFocDatetimeRequestedGt, String filterActivationSettingsFocDatetimeRequestedLt, String sort) throws ApiException {
     return listPortingOrdersWithHttpInfo(pageNumber, pageSize, includePhoneNumbers, filterStatus, filterCustomerReference, filterPhoneNumbersCountryCode, filterPhoneNumbersCarrierName, filterMiscType, filterEndUserAdminEntityName, filterEndUserAdminAuthPersonName, filterActivationSettingsFastPortEligible, filterActivationSettingsFocDatetimeRequestedGt, filterActivationSettingsFocDatetimeRequestedLt, sort).getData();
   }
 
@@ -992,7 +1074,7 @@ public class PortingOrderApi {
    * @param filterActivationSettingsFocDatetimeRequestedGt Filter results by foc date later than this value (optional)
    * @param filterActivationSettingsFocDatetimeRequestedLt Filter results by foc date earlier than this value (optional)
    * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-   * @return ApiResponse&lt;ListPortingOrder&gt;
+   * @return ApiResponse&lt;ListPortingOrders200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1002,7 +1084,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingOrder> listPortingOrdersWithHttpInfo(Integer pageNumber, Integer pageSize, Boolean includePhoneNumbers, String filterStatus, String filterCustomerReference, String filterPhoneNumbersCountryCode, String filterPhoneNumbersCarrierName, PortingOrderType filterMiscType, String filterEndUserAdminEntityName, String filterEndUserAdminAuthPersonName, Boolean filterActivationSettingsFastPortEligible, String filterActivationSettingsFocDatetimeRequestedGt, String filterActivationSettingsFocDatetimeRequestedLt, String sort) throws ApiException {
+  public ApiResponse<ListPortingOrders200Response> listPortingOrdersWithHttpInfo(Integer pageNumber, Integer pageSize, Boolean includePhoneNumbers, String filterStatus, String filterCustomerReference, String filterPhoneNumbersCountryCode, String filterPhoneNumbersCarrierName, PortingOrderType filterMiscType, String filterEndUserAdminEntityName, String filterEndUserAdminAuthPersonName, Boolean filterActivationSettingsFastPortEligible, String filterActivationSettingsFocDatetimeRequestedGt, String filterActivationSettingsFocDatetimeRequestedLt, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -1044,7 +1126,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListPortingOrder> localVarReturnType = new GenericType<ListPortingOrder>() {};
+    GenericType<ListPortingOrders200Response> localVarReturnType = new GenericType<ListPortingOrders200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.listPortingOrders", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1056,7 +1138,7 @@ public class PortingOrderApi {
    * @param id Porting Order id (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ListPortingOrdersActivationJobs
+   * @return ListPortingOrdersActivationJobs200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1066,7 +1148,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingOrdersActivationJobs listPortingOrdersActivationJobs(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ListPortingOrdersActivationJobs200Response listPortingOrdersActivationJobs(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
     return listPortingOrdersActivationJobsWithHttpInfo(id, pageNumber, pageSize).getData();
   }
 
@@ -1076,7 +1158,7 @@ public class PortingOrderApi {
    * @param id Porting Order id (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;ListPortingOrdersActivationJobs&gt;
+   * @return ApiResponse&lt;ListPortingOrdersActivationJobs200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1086,7 +1168,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingOrdersActivationJobs> listPortingOrdersActivationJobsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<ListPortingOrdersActivationJobs200Response> listPortingOrdersActivationJobsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1122,7 +1204,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListPortingOrdersActivationJobs> localVarReturnType = new GenericType<ListPortingOrdersActivationJobs>() {};
+    GenericType<ListPortingOrdersActivationJobs200Response> localVarReturnType = new GenericType<ListPortingOrdersActivationJobs200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.listPortingOrdersActivationJobs", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1134,7 +1216,7 @@ public class PortingOrderApi {
    * @param id Porting Order id (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ListPortingOrdersComments
+   * @return ListPortingOrdersComments200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1144,7 +1226,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingOrdersComments listPortingOrdersComments(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ListPortingOrdersComments200Response listPortingOrdersComments(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
     return listPortingOrdersCommentsWithHttpInfo(id, pageNumber, pageSize).getData();
   }
 
@@ -1154,7 +1236,7 @@ public class PortingOrderApi {
    * @param id Porting Order id (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;ListPortingOrdersComments&gt;
+   * @return ApiResponse&lt;ListPortingOrdersComments200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1164,7 +1246,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingOrdersComments> listPortingOrdersCommentsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<ListPortingOrdersComments200Response> listPortingOrdersCommentsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1200,7 +1282,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListPortingOrdersComments> localVarReturnType = new GenericType<ListPortingOrdersComments>() {};
+    GenericType<ListPortingOrdersComments200Response> localVarReturnType = new GenericType<ListPortingOrdersComments200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.listPortingOrdersComments", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1209,7 +1291,7 @@ public class PortingOrderApi {
   /**
    * List all exception types
    * Returns a list of all possible exception types for a porting order.
-   * @return ListPortingOrdersExceptionTypes
+   * @return ListPortingOrdersExceptionTypes200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1219,14 +1301,14 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingOrdersExceptionTypes listPortingOrdersExceptionTypes() throws ApiException {
+  public ListPortingOrdersExceptionTypes200Response listPortingOrdersExceptionTypes() throws ApiException {
     return listPortingOrdersExceptionTypesWithHttpInfo().getData();
   }
 
   /**
    * List all exception types
    * Returns a list of all possible exception types for a porting order.
-   * @return ApiResponse&lt;ListPortingOrdersExceptionTypes&gt;
+   * @return ApiResponse&lt;ListPortingOrdersExceptionTypes200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1236,7 +1318,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingOrdersExceptionTypes> listPortingOrdersExceptionTypesWithHttpInfo() throws ApiException {
+  public ApiResponse<ListPortingOrdersExceptionTypes200Response> listPortingOrdersExceptionTypesWithHttpInfo() throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -1264,7 +1346,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListPortingOrdersExceptionTypes> localVarReturnType = new GenericType<ListPortingOrdersExceptionTypes>() {};
+    GenericType<ListPortingOrdersExceptionTypes200Response> localVarReturnType = new GenericType<ListPortingOrdersExceptionTypes200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.listPortingOrdersExceptionTypes", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1284,7 +1366,7 @@ public class PortingOrderApi {
    * @param filterPortingOrderStatus Filter results by porting order status (optional)
    * @param filterActivationStatus Filter results by activation status (optional)
    * @param filterPortabilityStatus Filter results by portability status (optional)
-   * @return ListPortingPhoneNumbers
+   * @return ListPortingPhoneNumbers200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1294,7 +1376,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingPhoneNumbers listPortingPhoneNumbers(Integer pageNumber, Integer pageSize, UUID filterPortingOrderId, List<UUID> filterPortingOrderIdIn, String filterSupportKeyEq, List<String> filterSupportKeyIn, String filterPhoneNumber, List<String> filterPhoneNumberIn, String filterPortingOrderStatus, PortingOrderActivationStatus filterActivationStatus, PortabilityStatus filterPortabilityStatus) throws ApiException {
+  public ListPortingPhoneNumbers200Response listPortingPhoneNumbers(Integer pageNumber, Integer pageSize, UUID filterPortingOrderId, List<UUID> filterPortingOrderIdIn, String filterSupportKeyEq, List<String> filterSupportKeyIn, String filterPhoneNumber, List<String> filterPhoneNumberIn, String filterPortingOrderStatus, PortingOrderActivationStatus filterActivationStatus, PortabilityStatus filterPortabilityStatus) throws ApiException {
     return listPortingPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterPortingOrderId, filterPortingOrderIdIn, filterSupportKeyEq, filterSupportKeyIn, filterPhoneNumber, filterPhoneNumberIn, filterPortingOrderStatus, filterActivationStatus, filterPortabilityStatus).getData();
   }
 
@@ -1312,7 +1394,7 @@ public class PortingOrderApi {
    * @param filterPortingOrderStatus Filter results by porting order status (optional)
    * @param filterActivationStatus Filter results by activation status (optional)
    * @param filterPortabilityStatus Filter results by portability status (optional)
-   * @return ApiResponse&lt;ListPortingPhoneNumbers&gt;
+   * @return ApiResponse&lt;ListPortingPhoneNumbers200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1322,7 +1404,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingPhoneNumbers> listPortingPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterPortingOrderId, List<UUID> filterPortingOrderIdIn, String filterSupportKeyEq, List<String> filterSupportKeyIn, String filterPhoneNumber, List<String> filterPhoneNumberIn, String filterPortingOrderStatus, PortingOrderActivationStatus filterActivationStatus, PortabilityStatus filterPortabilityStatus) throws ApiException {
+  public ApiResponse<ListPortingPhoneNumbers200Response> listPortingPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterPortingOrderId, List<UUID> filterPortingOrderIdIn, String filterSupportKeyEq, List<String> filterSupportKeyIn, String filterPhoneNumber, List<String> filterPhoneNumberIn, String filterPortingOrderStatus, PortingOrderActivationStatus filterActivationStatus, PortabilityStatus filterPortabilityStatus) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -1361,7 +1443,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListPortingPhoneNumbers> localVarReturnType = new GenericType<ListPortingPhoneNumbers>() {};
+    GenericType<ListPortingPhoneNumbers200Response> localVarReturnType = new GenericType<ListPortingPhoneNumbers200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.listPortingPhoneNumbers", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1372,7 +1454,7 @@ public class PortingOrderApi {
    * Edits the details of an existing porting order.  Any or all of a porting order’s attributes may be included in the resource object included in a PATCH request.  If a request does not include all of the attributes for a resource, the system will interpret the missing attributes as if they were included with their current values. To explicitly set something to null, it must be included in the request with a null value.
    * @param id Porting Order id (required)
    * @param updatePortingOrder  (required)
-   * @return ShowPortingOrder
+   * @return UpdatePortingOrder200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1382,7 +1464,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ShowPortingOrder updatePortingOrder(UUID id, UpdatePortingOrder updatePortingOrder) throws ApiException {
+  public UpdatePortingOrder200Response updatePortingOrder(UUID id, UpdatePortingOrder updatePortingOrder) throws ApiException {
     return updatePortingOrderWithHttpInfo(id, updatePortingOrder).getData();
   }
 
@@ -1391,7 +1473,7 @@ public class PortingOrderApi {
    * Edits the details of an existing porting order.  Any or all of a porting order’s attributes may be included in the resource object included in a PATCH request.  If a request does not include all of the attributes for a resource, the system will interpret the missing attributes as if they were included with their current values. To explicitly set something to null, it must be included in the request with a null value.
    * @param id Porting Order id (required)
    * @param updatePortingOrder  (required)
-   * @return ApiResponse&lt;ShowPortingOrder&gt;
+   * @return ApiResponse&lt;UpdatePortingOrder200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1401,7 +1483,7 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ShowPortingOrder> updatePortingOrderWithHttpInfo(UUID id, UpdatePortingOrder updatePortingOrder) throws ApiException {
+  public ApiResponse<UpdatePortingOrder200Response> updatePortingOrderWithHttpInfo(UUID id, UpdatePortingOrder updatePortingOrder) throws ApiException {
     Object localVarPostBody = updatePortingOrder;
     
     // verify the required parameter 'id' is set
@@ -1440,7 +1522,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ShowPortingOrder> localVarReturnType = new GenericType<ShowPortingOrder>() {};
+    GenericType<UpdatePortingOrder200Response> localVarReturnType = new GenericType<UpdatePortingOrder200Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.updatePortingOrder", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1450,8 +1532,8 @@ public class PortingOrderApi {
    * Associate a list of documents with a porting order
    * Associate a list of documents with a porting order.
    * @param id Porting Order id (required)
-   * @param UNKNOWN_BASE_TYPE  (required)
-   * @return PortingOrderDocumentsCreated
+   * @param uploadPortingOrderDocumentsRequest  (required)
+   * @return UploadPortingOrderDocuments201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1461,16 +1543,16 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public PortingOrderDocumentsCreated uploadPortingOrderDocuments(UUID id, UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE) throws ApiException {
-    return uploadPortingOrderDocumentsWithHttpInfo(id, UNKNOWN_BASE_TYPE).getData();
+  public UploadPortingOrderDocuments201Response uploadPortingOrderDocuments(UUID id, UploadPortingOrderDocumentsRequest uploadPortingOrderDocumentsRequest) throws ApiException {
+    return uploadPortingOrderDocumentsWithHttpInfo(id, uploadPortingOrderDocumentsRequest).getData();
   }
 
   /**
    * Associate a list of documents with a porting order
    * Associate a list of documents with a porting order.
    * @param id Porting Order id (required)
-   * @param UNKNOWN_BASE_TYPE  (required)
-   * @return ApiResponse&lt;PortingOrderDocumentsCreated&gt;
+   * @param uploadPortingOrderDocumentsRequest  (required)
+   * @return ApiResponse&lt;UploadPortingOrderDocuments201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1480,17 +1562,17 @@ public class PortingOrderApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PortingOrderDocumentsCreated> uploadPortingOrderDocumentsWithHttpInfo(UUID id, UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE) throws ApiException {
-    Object localVarPostBody = UNKNOWN_BASE_TYPE;
+  public ApiResponse<UploadPortingOrderDocuments201Response> uploadPortingOrderDocumentsWithHttpInfo(UUID id, UploadPortingOrderDocumentsRequest uploadPortingOrderDocumentsRequest) throws ApiException {
+    Object localVarPostBody = uploadPortingOrderDocumentsRequest;
     
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling uploadPortingOrderDocuments");
     }
     
-    // verify the required parameter 'UNKNOWN_BASE_TYPE' is set
-    if (UNKNOWN_BASE_TYPE == null) {
-      throw new ApiException(400, "Missing the required parameter 'UNKNOWN_BASE_TYPE' when calling uploadPortingOrderDocuments");
+    // verify the required parameter 'uploadPortingOrderDocumentsRequest' is set
+    if (uploadPortingOrderDocumentsRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'uploadPortingOrderDocumentsRequest' when calling uploadPortingOrderDocuments");
     }
     
     // create path and map variables
@@ -1519,7 +1601,7 @@ public class PortingOrderApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PortingOrderDocumentsCreated> localVarReturnType = new GenericType<PortingOrderDocumentsCreated>() {};
+    GenericType<UploadPortingOrderDocuments201Response> localVarReturnType = new GenericType<UploadPortingOrderDocuments201Response>() {};
 
     return apiClient.invokeAPI("PortingOrderApi.uploadPortingOrderDocuments", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

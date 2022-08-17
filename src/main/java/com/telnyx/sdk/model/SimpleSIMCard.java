@@ -92,6 +92,26 @@ public class SimpleSIMCard {
   public SimpleSIMCard() { 
   }
 
+  @JsonCreator
+  public SimpleSIMCard(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_ICCID) String iccid, 
+    @JsonProperty(JSON_PROPERTY_IMSI) String imsi, 
+    @JsonProperty(JSON_PROPERTY_MSISDN) String msisdn, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.iccid = iccid;
+    this.imsi = imsi;
+    this.msisdn = msisdn;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Identifies the resource.
    * @return id

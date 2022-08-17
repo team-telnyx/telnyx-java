@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ListTagsResponseData;
+import com.telnyx.sdk.model.ListTagsResponseDataInner;
 import com.telnyx.sdk.model.PaginationMeta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ListTagsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<ListTagsResponseData> data = null;
+  private List<ListTagsResponseDataInner> data = null;
 
   public static final String JSON_PROPERTY_META = "meta";
   private PaginationMeta meta;
@@ -50,12 +50,12 @@ public class ListTagsResponse {
   public ListTagsResponse() { 
   }
 
-  public ListTagsResponse data(List<ListTagsResponseData> data) {
+  public ListTagsResponse data(List<ListTagsResponseDataInner> data) {
     this.data = data;
     return this;
   }
 
-  public ListTagsResponse addDataItem(ListTagsResponseData dataItem) {
+  public ListTagsResponse addDataItem(ListTagsResponseDataInner dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -72,14 +72,14 @@ public class ListTagsResponse {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<ListTagsResponseData> getData() {
+  public List<ListTagsResponseDataInner> getData() {
     return data;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(List<ListTagsResponseData> data) {
+  public void setData(List<ListTagsResponseDataInner> data) {
     this.data = data;
   }
 

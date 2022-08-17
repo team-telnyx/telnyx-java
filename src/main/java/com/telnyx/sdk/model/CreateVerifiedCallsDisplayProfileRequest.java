@@ -22,10 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.CallReasons;
-import com.telnyx.sdk.model.DisplayName;
-import com.telnyx.sdk.model.LogoUrl;
-import com.telnyx.sdk.model.PhoneNumbers;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -53,16 +49,16 @@ public class CreateVerifiedCallsDisplayProfileRequest {
   private String name;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "display_name";
-  private DisplayName displayName = null;
+  private String displayName = null;
 
   public static final String JSON_PROPERTY_LOGO_URL = "logo_url";
-  private LogoUrl logoUrl = null;
+  private String logoUrl = null;
 
   public static final String JSON_PROPERTY_CALL_REASONS = "call_reasons";
-  private CallReasons callReasons = null;
+  private String callReasons = null;
 
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
-  private PhoneNumbers phoneNumbers = null;
+  private String phoneNumbers = null;
 
   public CreateVerifiedCallsDisplayProfileRequest() { 
   }
@@ -119,7 +115,7 @@ public class CreateVerifiedCallsDisplayProfileRequest {
   }
 
 
-  public CreateVerifiedCallsDisplayProfileRequest displayName(DisplayName displayName) {
+  public CreateVerifiedCallsDisplayProfileRequest displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
@@ -133,19 +129,19 @@ public class CreateVerifiedCallsDisplayProfileRequest {
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public DisplayName getDisplayName() {
+  public String getDisplayName() {
     return displayName;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisplayName(DisplayName displayName) {
+  public void setDisplayName(String displayName) {
     this.displayName = displayName;
   }
 
 
-  public CreateVerifiedCallsDisplayProfileRequest logoUrl(LogoUrl logoUrl) {
+  public CreateVerifiedCallsDisplayProfileRequest logoUrl(String logoUrl) {
     this.logoUrl = logoUrl;
     return this;
   }
@@ -159,19 +155,19 @@ public class CreateVerifiedCallsDisplayProfileRequest {
   @JsonProperty(JSON_PROPERTY_LOGO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public LogoUrl getLogoUrl() {
+  public String getLogoUrl() {
     return logoUrl;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LOGO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLogoUrl(LogoUrl logoUrl) {
+  public void setLogoUrl(String logoUrl) {
     this.logoUrl = logoUrl;
   }
 
 
-  public CreateVerifiedCallsDisplayProfileRequest callReasons(CallReasons callReasons) {
+  public CreateVerifiedCallsDisplayProfileRequest callReasons(String callReasons) {
     this.callReasons = callReasons;
     return this;
   }
@@ -185,19 +181,19 @@ public class CreateVerifiedCallsDisplayProfileRequest {
   @JsonProperty(JSON_PROPERTY_CALL_REASONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CallReasons getCallReasons() {
+  public String getCallReasons() {
     return callReasons;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CALL_REASONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallReasons(CallReasons callReasons) {
+  public void setCallReasons(String callReasons) {
     this.callReasons = callReasons;
   }
 
 
-  public CreateVerifiedCallsDisplayProfileRequest phoneNumbers(PhoneNumbers phoneNumbers) {
+  public CreateVerifiedCallsDisplayProfileRequest phoneNumbers(String phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
     return this;
   }
@@ -211,14 +207,14 @@ public class CreateVerifiedCallsDisplayProfileRequest {
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public PhoneNumbers getPhoneNumbers() {
+  public String getPhoneNumbers() {
     return phoneNumbers;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumbers(PhoneNumbers phoneNumbers) {
+  public void setPhoneNumbers(String phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
 

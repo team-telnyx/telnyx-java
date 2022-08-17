@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.CallCostPayloadCostParts;
+import com.telnyx.sdk.model.CallCostPayloadCostPartsInner;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
@@ -67,7 +67,7 @@ public class CallCostPayload {
   private String connectionId;
 
   public static final String JSON_PROPERTY_COST_PARTS = "cost_parts";
-  private List<CallCostPayloadCostParts> costParts = null;
+  private List<CallCostPayloadCostPartsInner> costParts = null;
 
   public static final String JSON_PROPERTY_TOTAL_COST = "total_cost";
   private BigDecimal totalCost;
@@ -276,12 +276,12 @@ public class CallCostPayload {
   }
 
 
-  public CallCostPayload costParts(List<CallCostPayloadCostParts> costParts) {
+  public CallCostPayload costParts(List<CallCostPayloadCostPartsInner> costParts) {
     this.costParts = costParts;
     return this;
   }
 
-  public CallCostPayload addCostPartsItem(CallCostPayloadCostParts costPartsItem) {
+  public CallCostPayload addCostPartsItem(CallCostPayloadCostPartsInner costPartsItem) {
     if (this.costParts == null) {
       this.costParts = new ArrayList<>();
     }
@@ -298,14 +298,14 @@ public class CallCostPayload {
   @JsonProperty(JSON_PROPERTY_COST_PARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<CallCostPayloadCostParts> getCostParts() {
+  public List<CallCostPayloadCostPartsInner> getCostParts() {
     return costParts;
   }
 
 
   @JsonProperty(JSON_PROPERTY_COST_PARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCostParts(List<CallCostPayloadCostParts> costParts) {
+  public void setCostParts(List<CallCostPayloadCostPartsInner> costParts) {
     this.costParts = costParts;
   }
 

@@ -56,6 +56,14 @@ public class PortingOrderActivationSettings {
   public PortingOrderActivationSettings() { 
   }
 
+  @JsonCreator
+  public PortingOrderActivationSettings(
+    @JsonProperty(JSON_PROPERTY_FAST_PORT_ELIGIBLE) Boolean fastPortEligible
+  ) {
+    this();
+    this.fastPortEligible = fastPortEligible;
+  }
+
   public PortingOrderActivationSettings focDatetimeRequested(OffsetDateTime focDatetimeRequested) {
     this.focDatetimeRequested = focDatetimeRequested;
     return this;

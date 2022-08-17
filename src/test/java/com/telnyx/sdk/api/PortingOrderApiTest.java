@@ -34,7 +34,6 @@ import com.telnyx.sdk.model.ShowPortingOrder;
 import com.telnyx.sdk.model.ShowPortingOrderComment;
 import com.telnyx.sdk.model.ShowPortingOrdersActivationJob;
 import com.telnyx.sdk.model.SubRequestByPortingOrder;
-import com.telnyx.sdk.model.UNKNOWN_BASE_TYPE;
 import java.util.UUID;
 import com.telnyx.sdk.model.UpdatePortingOrder;
 import org.junit.Assert;

@@ -149,6 +149,24 @@ public class ReadComment {
   public ReadComment() { 
   }
 
+  @JsonCreator
+  public ReadComment(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_COMMENTER) String commenter, 
+    @JsonProperty(JSON_PROPERTY_COMMENTER_TYPE) CommenterTypeEnum commenterType, 
+    @JsonProperty(JSON_PROPERTY_READ_AT) String readAt, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.commenter = commenter;
+    this.commenterType = commenterType;
+    this.readAt = readAt;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Get id
    * @return id

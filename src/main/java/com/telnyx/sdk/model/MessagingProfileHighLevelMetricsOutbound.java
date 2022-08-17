@@ -51,6 +51,18 @@ public class MessagingProfileHighLevelMetricsOutbound {
   public MessagingProfileHighLevelMetricsOutbound() { 
   }
 
+  @JsonCreator
+  public MessagingProfileHighLevelMetricsOutbound(
+    @JsonProperty(JSON_PROPERTY_SENT) BigDecimal sent, 
+    @JsonProperty(JSON_PROPERTY_DELIVERED) BigDecimal delivered, 
+    @JsonProperty(JSON_PROPERTY_ERROR_RATIO) BigDecimal errorRatio
+  ) {
+    this();
+    this.sent = sent;
+    this.delivered = delivered;
+    this.errorRatio = errorRatio;
+  }
+
    /**
    * The number of outbound messages sent.
    * @return sent

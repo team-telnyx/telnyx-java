@@ -107,6 +107,22 @@ public class CreateNumberReservationRequest {
   public CreateNumberReservationRequest() { 
   }
 
+  @JsonCreator
+  public CreateNumberReservationRequest(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.status = status;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Get id
    * @return id

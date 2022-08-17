@@ -77,6 +77,22 @@ public class SIMCardGroup {
   public SIMCardGroup() { 
   }
 
+  @JsonCreator
+  public SIMCardGroup(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_DEFAULT) Boolean _default, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this._default = _default;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Identifies the resource.
    * @return id

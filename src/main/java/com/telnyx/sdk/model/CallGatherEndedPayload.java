@@ -80,7 +80,9 @@ public class CallGatherEndedPayload {
     
     CANCELLED("cancelled"),
     
-    CANCELLED_AMD("cancelled_amd");
+    CANCELLED_AMD("cancelled_amd"),
+    
+    TIMEOUT("timeout");
 
     private String value;
 

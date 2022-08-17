@@ -32,11 +32,48 @@ import com.telnyx.sdk.JSON;
  * CreateAndroidPushCredentialRequest
  */
 @JsonPropertyOrder({
+  CreateAndroidPushCredentialRequest.JSON_PROPERTY_TYPE,
   CreateAndroidPushCredentialRequest.JSON_PROPERTY_SERVER_KEY,
   CreateAndroidPushCredentialRequest.JSON_PROPERTY_ALIAS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateAndroidPushCredentialRequest {
+  /**
+   * Type of mobile push credential. Should be &lt;code&gt;android&lt;/code&gt; here
+   */
+  public enum TypeEnum {
+    ANDROID("android");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
+
   public static final String JSON_PROPERTY_SERVER_KEY = "server_key";
   private String serverKey;
 
@@ -45,6 +82,32 @@ public class CreateAndroidPushCredentialRequest {
 
   public CreateAndroidPushCredentialRequest() { 
   }
+
+  public CreateAndroidPushCredentialRequest type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Type of mobile push credential. Should be &lt;code&gt;android&lt;/code&gt; here
+   * @return type
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "Type of mobile push credential. Should be <code>android</code> here")
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
 
   public CreateAndroidPushCredentialRequest serverKey(String serverKey) {
     this.serverKey = serverKey;
@@ -56,7 +119,7 @@ public class CreateAndroidPushCredentialRequest {
    * @return serverKey
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "BBBB0J56jd8kda:APA91vjb11BCjvxx3Jxja9L8B1FrxJbc1z2btoiFYkda9Simkkda_0SJNidSan9-jkda-nieD3js9SdhfazonSbLN5VXQDqXFRuPW4kdo_fdnaxdai3y9z9DKXie0", required = true, value = "Server key as received from Google firebase")
+  @ApiModelProperty(example = "BBBB0J56jd8kda:APA91vjb11BCjvxx3Jxja...", required = true, value = "Server key as received from Google firebase")
   @JsonProperty(JSON_PROPERTY_SERVER_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -110,19 +173,21 @@ public class CreateAndroidPushCredentialRequest {
       return false;
     }
     CreateAndroidPushCredentialRequest createAndroidPushCredentialRequest = (CreateAndroidPushCredentialRequest) o;
-    return Objects.equals(this.serverKey, createAndroidPushCredentialRequest.serverKey) &&
+    return Objects.equals(this.type, createAndroidPushCredentialRequest.type) &&
+        Objects.equals(this.serverKey, createAndroidPushCredentialRequest.serverKey) &&
         Objects.equals(this.alias, createAndroidPushCredentialRequest.alias);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(serverKey, alias);
+    return Objects.hash(type, serverKey, alias);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateAndroidPushCredentialRequest {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    serverKey: ").append(toIndentedString(serverKey)).append("\n");
     sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
     sb.append("}");

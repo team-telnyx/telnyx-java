@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
+import io.swagger.annotations.ApiModel;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -25,13 +26,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Gets or Sets Direction
+ * The direction of the fax.
  */
 public enum Direction {
   
-  INBOUND("INBOUND"),
+  INBOUND("inbound"),
   
-  OUTBOUND("OUTBOUND");
+  OUTBOUND("outbound");
 
   private String value;
 

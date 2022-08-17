@@ -113,6 +113,22 @@ public class DocReqsRequirementType {
   public DocReqsRequirementType() { 
   }
 
+  @JsonCreator
+  public DocReqsRequirementType(
+    @JsonProperty(JSON_PROPERTY_NAME) String name, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.name = name;
+    this.recordType = recordType;
+    this.id = id;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
   public DocReqsRequirementType acceptanceCriteria(DocReqsRequirementTypeAcceptanceCriteria acceptanceCriteria) {
     this.acceptanceCriteria = acceptanceCriteria;
     return this;

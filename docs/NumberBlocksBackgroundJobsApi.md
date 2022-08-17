@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## retrievePhoneNumberBlocksJob
 
-> RetrievePhoneNumberBlocksJob retrievePhoneNumberBlocksJob(id).execute();
+> PhoneNumberBlocksJob retrievePhoneNumberBlocksJob(id).execute();
 
 Retrieves a phone number blocks job
 
@@ -195,7 +195,7 @@ public class Example {
         NumberBlocksBackgroundJobsApi apiInstance = new NumberBlocksBackgroundJobsApi(defaultClient);
         String id = "id_example"; // String | Identifies the Phone Number Blocks Job.
         try {
-            RetrievePhoneNumberBlocksJob result = api.retrievePhoneNumberBlocksJob(id)
+            PhoneNumberBlocksJob result = api.retrievePhoneNumberBlocksJob(id)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrievePhoneNumberBlocksJob**](RetrievePhoneNumberBlocksJob.md)
+[**PhoneNumberBlocksJob**](PhoneNumberBlocksJob.md)
 
 ### Authorization
 

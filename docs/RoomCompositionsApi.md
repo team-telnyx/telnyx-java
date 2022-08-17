@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## createRoomComposition
 
-> CreateRoomCompositionResponse createRoomComposition(createRoomCompositionRequest)
+> CreateRoomComposition202Response createRoomComposition(createRoomCompositionRequest)
 
 Create a room composition.
 
@@ -42,7 +42,7 @@ public class Example {
         RoomCompositionsApi apiInstance = new RoomCompositionsApi(defaultClient);
         CreateRoomCompositionRequest createRoomCompositionRequest = new CreateRoomCompositionRequest(); // CreateRoomCompositionRequest | Parameters that can be defined during room composition creation.
         try {
-            CreateRoomCompositionResponse result = apiInstance.createRoomComposition(createRoomCompositionRequest);
+            CreateRoomComposition202Response result = apiInstance.createRoomComposition(createRoomCompositionRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomCompositionsApi#createRoomComposition");
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateRoomCompositionResponse**](CreateRoomCompositionResponse.md)
+[**CreateRoomComposition202Response**](CreateRoomComposition202Response.md)
 
 ### Authorization
 
@@ -155,9 +155,11 @@ null (empty response body)
 
 ## listRoomCompositions
 
-> ListRoomCompositionsResponse listRoomCompositions(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterSessionId, filterStatus, pageSize, pageNumber)
+> ListRoomCompositions200Response listRoomCompositions(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterSessionId, filterStatus, pageSize, pageNumber)
 
 View a list of room compositions.
+
+
 
 ### Example
 
@@ -190,7 +192,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListRoomCompositionsResponse result = apiInstance.listRoomCompositions(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterSessionId, filterStatus, pageSize, pageNumber);
+            ListRoomCompositions200Response result = apiInstance.listRoomCompositions(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterSessionId, filterStatus, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomCompositionsApi#listRoomCompositions");
@@ -218,7 +220,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRoomCompositionsResponse**](ListRoomCompositionsResponse.md)
+[**ListRoomCompositions200Response**](ListRoomCompositions200Response.md)
 
 ### Authorization
 
@@ -237,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## viewRoomComposition
 
-> GetRoomCompositionResponse viewRoomComposition(roomCompositionId)
+> CreateRoomComposition202Response viewRoomComposition(roomCompositionId)
 
 View a room composition.
 
@@ -265,7 +267,7 @@ public class Example {
         RoomCompositionsApi apiInstance = new RoomCompositionsApi(defaultClient);
         UUID roomCompositionId = UUID.fromString("5219b3af-87c6-4c08-9b58-5a533d893e21"); // UUID | The unique identifier of a room composition.
         try {
-            GetRoomCompositionResponse result = apiInstance.viewRoomComposition(roomCompositionId);
+            CreateRoomComposition202Response result = apiInstance.viewRoomComposition(roomCompositionId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomCompositionsApi#viewRoomComposition");
@@ -287,7 +289,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetRoomCompositionResponse**](GetRoomCompositionResponse.md)
+[**CreateRoomComposition202Response**](CreateRoomComposition202Response.md)
 
 ### Authorization
 

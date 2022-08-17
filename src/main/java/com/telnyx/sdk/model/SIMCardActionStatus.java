@@ -85,6 +85,16 @@ public class SIMCardActionStatus {
   public SIMCardActionStatus() { 
   }
 
+  @JsonCreator
+  public SIMCardActionStatus(
+    @JsonProperty(JSON_PROPERTY_VALUE) ValueEnum value, 
+    @JsonProperty(JSON_PROPERTY_REASON) String reason
+  ) {
+    this();
+    this.value = value;
+    this.reason = reason;
+  }
+
    /**
    * The current status of the SIM card action.
    * @return value

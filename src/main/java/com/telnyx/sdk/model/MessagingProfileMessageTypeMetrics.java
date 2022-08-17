@@ -59,6 +59,22 @@ public class MessagingProfileMessageTypeMetrics {
   public MessagingProfileMessageTypeMetrics() { 
   }
 
+  @JsonCreator
+  public MessagingProfileMessageTypeMetrics(
+    @JsonProperty(JSON_PROPERTY_LABEL) String label, 
+    @JsonProperty(JSON_PROPERTY_SENT) BigDecimal sent, 
+    @JsonProperty(JSON_PROPERTY_DELIVERED) BigDecimal delivered, 
+    @JsonProperty(JSON_PROPERTY_OUTBOUND_ERROR_RATIO) BigDecimal outboundErrorRatio, 
+    @JsonProperty(JSON_PROPERTY_RECEIVED) BigDecimal received
+  ) {
+    this();
+    this.label = label;
+    this.sent = sent;
+    this.delivered = delivered;
+    this.outboundErrorRatio = outboundErrorRatio;
+    this.received = received;
+  }
+
    /**
    * The metric type.
    * @return label

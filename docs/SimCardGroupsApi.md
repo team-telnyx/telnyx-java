@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## removeSIMCardGroupPrivateWirelessGateway
 
-> SIMCardGroupActionResponse removeSIMCardGroupPrivateWirelessGateway(id)
+> SimCardGroupActionGet200Response removeSIMCardGroupPrivateWirelessGateway(id)
 
 Request Private Wireless Gateway removal from SIM card group
 
@@ -46,7 +46,7 @@ public class Example {
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SIMCardGroupActionResponse result = apiInstance.removeSIMCardGroupPrivateWirelessGateway(id);
+            SimCardGroupActionGet200Response result = apiInstance.removeSIMCardGroupPrivateWirelessGateway(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupsApi#removeSIMCardGroupPrivateWirelessGateway");
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SIMCardGroupActionResponse**](SIMCardGroupActionResponse.md)
+[**SimCardGroupActionGet200Response**](SimCardGroupActionGet200Response.md)
 
 ### Authorization
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 ## setSIMCardGroupPrivateWirelessGateway
 
-> SIMCardGroupActionResponse setSIMCardGroupPrivateWirelessGateway(id, createPrivateWirelessGatwewayRequest1)
+> SimCardGroupActionGet200Response setSIMCardGroupPrivateWirelessGateway(id, setSIMCardGroupPrivateWirelessGatewayRequest)
 
 Request Private Wireless Gateway assignment for SIM card group
 
@@ -117,9 +117,9 @@ public class Example {
 
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
-        CreatePrivateWirelessGatwewayRequest1 createPrivateWirelessGatwewayRequest1 = new CreatePrivateWirelessGatwewayRequest1(); // CreatePrivateWirelessGatwewayRequest1 | 
+        SetSIMCardGroupPrivateWirelessGatewayRequest setSIMCardGroupPrivateWirelessGatewayRequest = new SetSIMCardGroupPrivateWirelessGatewayRequest(); // SetSIMCardGroupPrivateWirelessGatewayRequest | 
         try {
-            SIMCardGroupActionResponse result = apiInstance.setSIMCardGroupPrivateWirelessGateway(id, createPrivateWirelessGatwewayRequest1);
+            SimCardGroupActionGet200Response result = apiInstance.setSIMCardGroupPrivateWirelessGateway(id, setSIMCardGroupPrivateWirelessGatewayRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupsApi#setSIMCardGroupPrivateWirelessGateway");
@@ -138,11 +138,11 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| Identifies the resource. |
- **createPrivateWirelessGatwewayRequest1** | [**CreatePrivateWirelessGatwewayRequest1**](CreatePrivateWirelessGatwewayRequest1.md)|  |
+ **setSIMCardGroupPrivateWirelessGatewayRequest** | [**SetSIMCardGroupPrivateWirelessGatewayRequest**](SetSIMCardGroupPrivateWirelessGatewayRequest.md)|  |
 
 ### Return type
 
-[**SIMCardGroupActionResponse**](SIMCardGroupActionResponse.md)
+[**SimCardGroupActionGet200Response**](SimCardGroupActionGet200Response.md)
 
 ### Authorization
 
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 ## simCardGroupDelete
 
-> DeleteSimCardGroupResponse simCardGroupDelete(id)
+> SimCardGroupsPost200Response simCardGroupDelete(id)
 
 Delete a SIM card group
 
@@ -192,7 +192,7 @@ public class Example {
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            DeleteSimCardGroupResponse result = apiInstance.simCardGroupDelete(id);
+            SimCardGroupsPost200Response result = apiInstance.simCardGroupDelete(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupsApi#simCardGroupDelete");
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteSimCardGroupResponse**](DeleteSimCardGroupResponse.md)
+[**SimCardGroupsPost200Response**](SimCardGroupsPost200Response.md)
 
 ### Authorization
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ## simCardGroupUpdate
 
-> UpdateSimCardGroupResponse simCardGroupUpdate(id, siMCardGroupPatch)
+> SimCardGroupsPost200Response simCardGroupUpdate(id, siMCardGroupPatch)
 
 Update a SIM card group
 
@@ -265,7 +265,7 @@ public class Example {
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         SIMCardGroupPatch siMCardGroupPatch = new SIMCardGroupPatch(); // SIMCardGroupPatch | 
         try {
-            UpdateSimCardGroupResponse result = apiInstance.simCardGroupUpdate(id, siMCardGroupPatch);
+            SimCardGroupsPost200Response result = apiInstance.simCardGroupUpdate(id, siMCardGroupPatch);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupsApi#simCardGroupUpdate");
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateSimCardGroupResponse**](UpdateSimCardGroupResponse.md)
+[**SimCardGroupsPost200Response**](SimCardGroupsPost200Response.md)
 
 ### Authorization
 
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 
 ## simCardGroupsGet
 
-> GetSimCardGroupResponse simCardGroupsGet(id)
+> SimCardGroupsPost200Response simCardGroupsGet(id)
 
 Get SIM card group
 
@@ -338,7 +338,7 @@ public class Example {
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            GetSimCardGroupResponse result = apiInstance.simCardGroupsGet(id);
+            SimCardGroupsPost200Response result = apiInstance.simCardGroupsGet(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupsApi#simCardGroupsGet");
@@ -360,7 +360,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetSimCardGroupResponse**](GetSimCardGroupResponse.md)
+[**SimCardGroupsPost200Response**](SimCardGroupsPost200Response.md)
 
 ### Authorization
 
@@ -380,7 +380,7 @@ Name | Type | Description  | Notes
 
 ## simCardGroupsGetAll
 
-> GetAllSimCardGroupsResponse simCardGroupsGetAll(pageNumber, pageSize, filterName)
+> SimCardGroupsGetAll200Response simCardGroupsGetAll(pageNumber, pageSize, filterName, filterPrivateWirelessGatewayId)
 
 Get all SIM card groups
 
@@ -411,8 +411,9 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         UUID filterName = UUID.randomUUID(); // UUID | A valid SIM card group name.
+        UUID filterPrivateWirelessGatewayId = UUID.fromString("7606c6d3-ff7c-49c1-943d-68879e9d584d"); // UUID | A Private Wireless Gateway ID associated with the group.
         try {
-            GetAllSimCardGroupsResponse result = apiInstance.simCardGroupsGetAll(pageNumber, pageSize, filterName);
+            SimCardGroupsGetAll200Response result = apiInstance.simCardGroupsGetAll(pageNumber, pageSize, filterName, filterPrivateWirelessGatewayId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupsApi#simCardGroupsGetAll");
@@ -433,10 +434,11 @@ Name | Type | Description  | Notes
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **filterName** | **UUID**| A valid SIM card group name. | [optional]
+ **filterPrivateWirelessGatewayId** | **UUID**| A Private Wireless Gateway ID associated with the group. | [optional]
 
 ### Return type
 
-[**GetAllSimCardGroupsResponse**](GetAllSimCardGroupsResponse.md)
+[**SimCardGroupsGetAll200Response**](SimCardGroupsGetAll200Response.md)
 
 ### Authorization
 
@@ -456,7 +458,7 @@ Name | Type | Description  | Notes
 
 ## simCardGroupsPost
 
-> CreateSimCardGroupResponse simCardGroupsPost(siMCardGroupCreate)
+> SimCardGroupsPost200Response simCardGroupsPost(siMCardGroupCreate)
 
 Create a SIM card group
 
@@ -485,7 +487,7 @@ public class Example {
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
         SIMCardGroupCreate siMCardGroupCreate = new SIMCardGroupCreate(); // SIMCardGroupCreate | 
         try {
-            CreateSimCardGroupResponse result = apiInstance.simCardGroupsPost(siMCardGroupCreate);
+            SimCardGroupsPost200Response result = apiInstance.simCardGroupsPost(siMCardGroupCreate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupsApi#simCardGroupsPost");
@@ -507,7 +509,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateSimCardGroupResponse**](CreateSimCardGroupResponse.md)
+[**SimCardGroupsPost200Response**](SimCardGroupsPost200Response.md)
 
 ### Authorization
 

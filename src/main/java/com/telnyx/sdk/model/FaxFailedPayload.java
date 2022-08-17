@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.Direction;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -49,43 +50,8 @@ public class FaxFailedPayload {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
 
-  /**
-   * The direction of the fax.
-   */
-  public enum DirectionEnum {
-    INBOUND("inbound"),
-    
-    OUTBOUND("outbound");
-
-    private String value;
-
-    DirectionEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static DirectionEnum fromValue(String value) {
-      for (DirectionEnum b : DirectionEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_DIRECTION = "direction";
-  private DirectionEnum direction;
+  private Direction direction;
 
   public static final String JSON_PROPERTY_FAX_ID = "fax_id";
   private UUID faxId;
@@ -186,11 +152,11 @@ public class FaxFailedPayload {
   }
 
    /**
-   * The ID of the connection that was used to send the fax.
+   * The ID of the connection used to send the fax.
    * @return connectionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "234423", value = "The ID of the connection that was used to send the fax.")
+  @ApiModelProperty(example = "234423", value = "The ID of the connection used to send the fax.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -206,28 +172,28 @@ public class FaxFailedPayload {
   }
 
 
-  public FaxFailedPayload direction(DirectionEnum direction) {
+  public FaxFailedPayload direction(Direction direction) {
     this.direction = direction;
     return this;
   }
 
    /**
-   * The direction of the fax.
+   * Get direction
    * @return direction
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "outbound", value = "The direction of the fax.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public DirectionEnum getDirection() {
+  public Direction getDirection() {
     return direction;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDirection(DirectionEnum direction) {
+  public void setDirection(Direction direction) {
     this.direction = direction;
   }
 
@@ -290,11 +256,11 @@ public class FaxFailedPayload {
   }
 
    /**
-   * The media_name used for the fax&#39;s media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization
+   * The media_name used for the fax&#39;s media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can&#39;t be submitted together.
    * @return mediaName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name used for the fax's media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization")
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name used for the fax's media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

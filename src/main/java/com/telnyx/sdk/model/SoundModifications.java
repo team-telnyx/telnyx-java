@@ -29,12 +29,14 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * SoundModifications
+ * Use this field to modify sound effects, for example adjust the pitch.
  */
+@ApiModel(description = "Use this field to modify sound effects, for example adjust the pitch.")
 @JsonPropertyOrder({
   SoundModifications.JSON_PROPERTY_PITCH,
   SoundModifications.JSON_PROPERTY_SEMITONE,
-  SoundModifications.JSON_PROPERTY_OCTAVES
+  SoundModifications.JSON_PROPERTY_OCTAVES,
+  SoundModifications.JSON_PROPERTY_TRACK
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SoundModifications {
@@ -46,6 +48,9 @@ public class SoundModifications {
 
   public static final String JSON_PROPERTY_OCTAVES = "octaves";
   private Double octaves;
+
+  public static final String JSON_PROPERTY_TRACK = "track";
+  private String track = "outbound";
 
   public SoundModifications() { 
   }
@@ -128,6 +133,32 @@ public class SoundModifications {
   }
 
 
+  public SoundModifications track(String track) {
+    this.track = track;
+    return this;
+  }
+
+   /**
+   * The track to which the sound modifications will be applied. Accepted values are &#x60;inbound&#x60;, &#x60;outbound&#x60;, or &#x60;both&#x60;
+   * @return track
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "both", value = "The track to which the sound modifications will be applied. Accepted values are `inbound`, `outbound`, or `both`")
+  @JsonProperty(JSON_PROPERTY_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTrack() {
+    return track;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTrack(String track) {
+    this.track = track;
+  }
+
+
   /**
    * Return true if this SoundModifications object is equal to o.
    */
@@ -142,12 +173,13 @@ public class SoundModifications {
     SoundModifications soundModifications = (SoundModifications) o;
     return Objects.equals(this.pitch, soundModifications.pitch) &&
         Objects.equals(this.semitone, soundModifications.semitone) &&
-        Objects.equals(this.octaves, soundModifications.octaves);
+        Objects.equals(this.octaves, soundModifications.octaves) &&
+        Objects.equals(this.track, soundModifications.track);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pitch, semitone, octaves);
+    return Objects.hash(pitch, semitone, octaves, track);
   }
 
   @Override
@@ -157,6 +189,7 @@ public class SoundModifications {
     sb.append("    pitch: ").append(toIndentedString(pitch)).append("\n");
     sb.append("    semitone: ").append(toIndentedString(semitone)).append("\n");
     sb.append("    octaves: ").append(toIndentedString(octaves)).append("\n");
+    sb.append("    track: ").append(toIndentedString(track)).append("\n");
     sb.append("}");
     return sb.toString();
   }

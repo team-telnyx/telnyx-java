@@ -93,6 +93,16 @@ public class CsvDownload {
   public CsvDownload() { 
   }
 
+  @JsonCreator
+  public CsvDownload(
+    @JsonProperty(JSON_PROPERTY_ID) String id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+  }
+
    /**
    * Identifies the resource.
    * @return id

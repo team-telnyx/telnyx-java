@@ -173,6 +173,14 @@ public class RoomRecording {
   public RoomRecording() { 
   }
 
+  @JsonCreator
+  public RoomRecording(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.recordType = recordType;
+  }
+
   public RoomRecording id(UUID id) {
     this.id = id;
     return this;

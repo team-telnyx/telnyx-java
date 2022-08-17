@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## mobileOperatorNetworksGet
 
-> SearchMobileOperatorNetworksResponse mobileOperatorNetworksGet(pageNumber, pageSize, filterNameStartsWith, filterNameContains, filterNameEndsWith, filterCountryCode, filterMcc, filterMnc, filterTadig)
+> MobileOperatorNetworksGet200Response mobileOperatorNetworksGet(pageNumber, pageSize, filterNameStartsWith, filterNameContains, filterNameEndsWith, filterCountryCode, filterMcc, filterMnc, filterTadig)
 
 List mobile operator networks
 
@@ -47,7 +47,7 @@ public class Example {
         String filterMnc = "410"; // String | Filter by exact MNC.
         String filterTadig = "USACG"; // String | Filter by exact TADIG.
         try {
-            SearchMobileOperatorNetworksResponse result = apiInstance.mobileOperatorNetworksGet(pageNumber, pageSize, filterNameStartsWith, filterNameContains, filterNameEndsWith, filterCountryCode, filterMcc, filterMnc, filterTadig);
+            MobileOperatorNetworksGet200Response result = apiInstance.mobileOperatorNetworksGet(pageNumber, pageSize, filterNameStartsWith, filterNameContains, filterNameEndsWith, filterCountryCode, filterMcc, filterMnc, filterTadig);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling MobileOperatorNetworksApi#mobileOperatorNetworksGet");
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SearchMobileOperatorNetworksResponse**](SearchMobileOperatorNetworksResponse.md)
+[**MobileOperatorNetworksGet200Response**](MobileOperatorNetworksGet200Response.md)
 
 ### Authorization
 

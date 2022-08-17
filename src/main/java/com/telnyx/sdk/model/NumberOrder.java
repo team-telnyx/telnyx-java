@@ -126,6 +126,26 @@ public class NumberOrder {
   public NumberOrder() { 
   }
 
+  @JsonCreator
+  public NumberOrder(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS_COUNT) Integer phoneNumbersCount, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt, 
+    @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET) Boolean requirementsMet
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.phoneNumbersCount = phoneNumbersCount;
+    this.status = status;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.requirementsMet = requirementsMet;
+  }
+
    /**
    * Get id
    * @return id

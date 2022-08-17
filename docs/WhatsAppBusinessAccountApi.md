@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## retrieveWhatsappBusinessAccount
 
-> RetrieveWhatsAppBusinessAccount retrieveWhatsappBusinessAccount(id).execute();
+> WhatsAppBusinessAccount retrieveWhatsappBusinessAccount(id).execute();
 
 Retrieves a WhatsApp Business Account
 
@@ -113,7 +113,7 @@ public class Example {
         WhatsAppBusinessAccountApi apiInstance = new WhatsAppBusinessAccountApi(defaultClient);
         String id = "id_example"; // String | Identifies the WhatsApp Business Account
         try {
-            RetrieveWhatsAppBusinessAccount result = api.retrieveWhatsappBusinessAccount(id)
+            WhatsAppBusinessAccount result = api.retrieveWhatsappBusinessAccount(id)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveWhatsAppBusinessAccount**](RetrieveWhatsAppBusinessAccount.md)
+[**WhatsAppBusinessAccount**](WhatsAppBusinessAccount.md)
 
 ### Authorization
 

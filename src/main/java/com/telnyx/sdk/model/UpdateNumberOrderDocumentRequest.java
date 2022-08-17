@@ -104,6 +104,20 @@ public class UpdateNumberOrderDocumentRequest {
   public UpdateNumberOrderDocumentRequest() { 
   }
 
+  @JsonCreator
+  public UpdateNumberOrderDocumentRequest(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE) RequirementTypeEnum requirementType, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.requirementType = requirementType;
+    this.createdAt = createdAt;
+  }
+
    /**
    * Get id
    * @return id

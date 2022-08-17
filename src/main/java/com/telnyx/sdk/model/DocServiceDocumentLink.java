@@ -69,6 +69,26 @@ public class DocServiceDocumentLink {
   public DocServiceDocumentLink() { 
   }
 
+  @JsonCreator
+  public DocServiceDocumentLink(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt, 
+    @JsonProperty(JSON_PROPERTY_DOCUMENT_ID) UUID documentId, 
+    @JsonProperty(JSON_PROPERTY_LINKED_RECORD_TYPE) String linkedRecordType, 
+    @JsonProperty(JSON_PROPERTY_LINKED_RESOURCE_ID) String linkedResourceId
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.documentId = documentId;
+    this.linkedRecordType = linkedRecordType;
+    this.linkedResourceId = linkedResourceId;
+  }
+
    /**
    * Identifies the resource.
    * @return id

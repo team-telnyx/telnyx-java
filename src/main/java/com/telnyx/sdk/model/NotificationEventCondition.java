@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.NotificationEventConditionParameters;
+import com.telnyx.sdk.model.NotificationEventConditionParametersInner;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
@@ -102,7 +102,7 @@ public class NotificationEventCondition {
   private AssociatedRecordTypeEnum associatedRecordType;
 
   public static final String JSON_PROPERTY_PARAMETERS = "parameters";
-  private List<NotificationEventConditionParameters> parameters = null;
+  private List<NotificationEventConditionParametersInner> parameters = null;
 
   public static final String JSON_PROPERTY_ENABLED = "enabled";
   private Boolean enabled;
@@ -123,6 +123,14 @@ public class NotificationEventCondition {
   private OffsetDateTime updatedAt;
 
   public NotificationEventCondition() { 
+  }
+
+  @JsonCreator
+  public NotificationEventCondition(
+    @JsonProperty(JSON_PROPERTY_ID) String id
+  ) {
+    this();
+    this.id = id;
   }
 
    /**
@@ -245,12 +253,12 @@ public class NotificationEventCondition {
   }
 
 
-  public NotificationEventCondition parameters(List<NotificationEventConditionParameters> parameters) {
+  public NotificationEventCondition parameters(List<NotificationEventConditionParametersInner> parameters) {
     this.parameters = parameters;
     return this;
   }
 
-  public NotificationEventCondition addParametersItem(NotificationEventConditionParameters parametersItem) {
+  public NotificationEventCondition addParametersItem(NotificationEventConditionParametersInner parametersItem) {
     if (this.parameters == null) {
       this.parameters = new ArrayList<>();
     }
@@ -267,14 +275,14 @@ public class NotificationEventCondition {
   @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<NotificationEventConditionParameters> getParameters() {
+  public List<NotificationEventConditionParametersInner> getParameters() {
     return parameters;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParameters(List<NotificationEventConditionParameters> parameters) {
+  public void setParameters(List<NotificationEventConditionParametersInner> parameters) {
     this.parameters = parameters;
   }
 

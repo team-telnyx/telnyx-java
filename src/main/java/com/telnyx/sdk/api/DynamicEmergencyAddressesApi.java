@@ -8,9 +8,9 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.CreateDyanmicEmergencyAddress201Response;
 import com.telnyx.sdk.model.DynamicEmergencyAddress;
-import com.telnyx.sdk.model.DynamicEmergencyAddressResponse;
-import com.telnyx.sdk.model.ListDynamicEmergencyAddresses;
+import com.telnyx.sdk.model.ListDyanmicEmergencyAddresses200Response;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class DynamicEmergencyAddressesApi {
    * Create a dynamic emergency address.
    * Creates a dynamic emergency address.
    * @param dynamicEmergencyAddress  (required)
-   * @return DynamicEmergencyAddressResponse
+   * @return CreateDyanmicEmergencyAddress201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -63,7 +63,7 @@ public class DynamicEmergencyAddressesApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public DynamicEmergencyAddressResponse createDyanmicEmergencyAddress(DynamicEmergencyAddress dynamicEmergencyAddress) throws ApiException {
+  public CreateDyanmicEmergencyAddress201Response createDyanmicEmergencyAddress(DynamicEmergencyAddress dynamicEmergencyAddress) throws ApiException {
     return createDyanmicEmergencyAddressWithHttpInfo(dynamicEmergencyAddress).getData();
   }
 
@@ -71,7 +71,7 @@ public class DynamicEmergencyAddressesApi {
    * Create a dynamic emergency address.
    * Creates a dynamic emergency address.
    * @param dynamicEmergencyAddress  (required)
-   * @return ApiResponse&lt;DynamicEmergencyAddressResponse&gt;
+   * @return ApiResponse&lt;CreateDyanmicEmergencyAddress201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -82,7 +82,7 @@ public class DynamicEmergencyAddressesApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DynamicEmergencyAddressResponse> createDyanmicEmergencyAddressWithHttpInfo(DynamicEmergencyAddress dynamicEmergencyAddress) throws ApiException {
+  public ApiResponse<CreateDyanmicEmergencyAddress201Response> createDyanmicEmergencyAddressWithHttpInfo(DynamicEmergencyAddress dynamicEmergencyAddress) throws ApiException {
     Object localVarPostBody = dynamicEmergencyAddress;
     
     // verify the required parameter 'dynamicEmergencyAddress' is set
@@ -115,7 +115,7 @@ public class DynamicEmergencyAddressesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DynamicEmergencyAddressResponse> localVarReturnType = new GenericType<DynamicEmergencyAddressResponse>() {};
+    GenericType<CreateDyanmicEmergencyAddress201Response> localVarReturnType = new GenericType<CreateDyanmicEmergencyAddress201Response>() {};
 
     return apiClient.invokeAPI("DynamicEmergencyAddressesApi.createDyanmicEmergencyAddress", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -125,7 +125,7 @@ public class DynamicEmergencyAddressesApi {
    * Delete a dynamic emergency address
    * Deletes the dynamic emergency address based on the ID provided
    * @param id Dynamic Emergency Address id (required)
-   * @return DynamicEmergencyAddressResponse
+   * @return CreateDyanmicEmergencyAddress201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -136,7 +136,7 @@ public class DynamicEmergencyAddressesApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public DynamicEmergencyAddressResponse deleteDynamicEmergencyAddress(UUID id) throws ApiException {
+  public CreateDyanmicEmergencyAddress201Response deleteDynamicEmergencyAddress(UUID id) throws ApiException {
     return deleteDynamicEmergencyAddressWithHttpInfo(id).getData();
   }
 
@@ -144,7 +144,7 @@ public class DynamicEmergencyAddressesApi {
    * Delete a dynamic emergency address
    * Deletes the dynamic emergency address based on the ID provided
    * @param id Dynamic Emergency Address id (required)
-   * @return ApiResponse&lt;DynamicEmergencyAddressResponse&gt;
+   * @return ApiResponse&lt;CreateDyanmicEmergencyAddress201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -155,7 +155,7 @@ public class DynamicEmergencyAddressesApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DynamicEmergencyAddressResponse> deleteDynamicEmergencyAddressWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreateDyanmicEmergencyAddress201Response> deleteDynamicEmergencyAddressWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -189,7 +189,7 @@ public class DynamicEmergencyAddressesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DynamicEmergencyAddressResponse> localVarReturnType = new GenericType<DynamicEmergencyAddressResponse>() {};
+    GenericType<CreateDyanmicEmergencyAddress201Response> localVarReturnType = new GenericType<CreateDyanmicEmergencyAddress201Response>() {};
 
     return apiClient.invokeAPI("DynamicEmergencyAddressesApi.deleteDynamicEmergencyAddress", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -199,7 +199,7 @@ public class DynamicEmergencyAddressesApi {
    * Get a dynamic emergency address
    * Returns the dynamic emergency address based on the ID provided
    * @param id Dynamic Emergency Address id (required)
-   * @return DynamicEmergencyAddressResponse
+   * @return CreateDyanmicEmergencyAddress201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -210,7 +210,7 @@ public class DynamicEmergencyAddressesApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public DynamicEmergencyAddressResponse getDynamicEmergencyAddress(UUID id) throws ApiException {
+  public CreateDyanmicEmergencyAddress201Response getDynamicEmergencyAddress(UUID id) throws ApiException {
     return getDynamicEmergencyAddressWithHttpInfo(id).getData();
   }
 
@@ -218,7 +218,7 @@ public class DynamicEmergencyAddressesApi {
    * Get a dynamic emergency address
    * Returns the dynamic emergency address based on the ID provided
    * @param id Dynamic Emergency Address id (required)
-   * @return ApiResponse&lt;DynamicEmergencyAddressResponse&gt;
+   * @return ApiResponse&lt;CreateDyanmicEmergencyAddress201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -229,7 +229,7 @@ public class DynamicEmergencyAddressesApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DynamicEmergencyAddressResponse> getDynamicEmergencyAddressWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreateDyanmicEmergencyAddress201Response> getDynamicEmergencyAddressWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -263,7 +263,7 @@ public class DynamicEmergencyAddressesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DynamicEmergencyAddressResponse> localVarReturnType = new GenericType<DynamicEmergencyAddressResponse>() {};
+    GenericType<CreateDyanmicEmergencyAddress201Response> localVarReturnType = new GenericType<CreateDyanmicEmergencyAddress201Response>() {};
 
     return apiClient.invokeAPI("DynamicEmergencyAddressesApi.getDynamicEmergencyAddress", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -276,7 +276,7 @@ public class DynamicEmergencyAddressesApi {
    * @param filterCountryCode Filter by country code. (optional)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ListDynamicEmergencyAddresses
+   * @return ListDyanmicEmergencyAddresses200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -287,7 +287,7 @@ public class DynamicEmergencyAddressesApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListDynamicEmergencyAddresses listDyanmicEmergencyAddresses(String filterStatus, String filterCountryCode, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ListDyanmicEmergencyAddresses200Response listDyanmicEmergencyAddresses(String filterStatus, String filterCountryCode, Integer pageNumber, Integer pageSize) throws ApiException {
     return listDyanmicEmergencyAddressesWithHttpInfo(filterStatus, filterCountryCode, pageNumber, pageSize).getData();
   }
 
@@ -298,7 +298,7 @@ public class DynamicEmergencyAddressesApi {
    * @param filterCountryCode Filter by country code. (optional)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;ListDynamicEmergencyAddresses&gt;
+   * @return ApiResponse&lt;ListDyanmicEmergencyAddresses200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -309,7 +309,7 @@ public class DynamicEmergencyAddressesApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListDynamicEmergencyAddresses> listDyanmicEmergencyAddressesWithHttpInfo(String filterStatus, String filterCountryCode, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<ListDyanmicEmergencyAddresses200Response> listDyanmicEmergencyAddressesWithHttpInfo(String filterStatus, String filterCountryCode, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -341,7 +341,7 @@ public class DynamicEmergencyAddressesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListDynamicEmergencyAddresses> localVarReturnType = new GenericType<ListDynamicEmergencyAddresses>() {};
+    GenericType<ListDyanmicEmergencyAddresses200Response> localVarReturnType = new GenericType<ListDyanmicEmergencyAddresses200Response>() {};
 
     return apiClient.invokeAPI("DynamicEmergencyAddressesApi.listDyanmicEmergencyAddresses", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
