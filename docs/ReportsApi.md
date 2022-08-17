@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## createLedgerBillingGroupReport
 
-> CreateLedgerBillingGroupReportResponse createLedgerBillingGroupReport(newLedgerBillingGroupReport)
+> CreateLedgerBillingGroupReport200Response createLedgerBillingGroupReport(newLedgerBillingGroupReport)
 
 Create a ledger billing group report
 
@@ -38,7 +38,7 @@ public class Example {
         ReportsApi apiInstance = new ReportsApi(defaultClient);
         NewLedgerBillingGroupReport newLedgerBillingGroupReport = new NewLedgerBillingGroupReport(); // NewLedgerBillingGroupReport | New ledger billing group report parameters
         try {
-            CreateLedgerBillingGroupReportResponse result = apiInstance.createLedgerBillingGroupReport(newLedgerBillingGroupReport);
+            CreateLedgerBillingGroupReport200Response result = apiInstance.createLedgerBillingGroupReport(newLedgerBillingGroupReport);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReportsApi#createLedgerBillingGroupReport");
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateLedgerBillingGroupReportResponse**](CreateLedgerBillingGroupReportResponse.md)
+[**CreateLedgerBillingGroupReport200Response**](CreateLedgerBillingGroupReport200Response.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## retrieveLedgerBillingGroupReport
 
-> RetrieveLedgerBillingGroupReportResponse retrieveLedgerBillingGroupReport(id)
+> CreateLedgerBillingGroupReport200Response retrieveLedgerBillingGroupReport(id)
 
 Retrieve a ledger billing group report
 
@@ -108,7 +108,7 @@ public class Example {
         ReportsApi apiInstance = new ReportsApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | The id of the ledger billing group report
         try {
-            RetrieveLedgerBillingGroupReportResponse result = apiInstance.retrieveLedgerBillingGroupReport(id);
+            CreateLedgerBillingGroupReport200Response result = apiInstance.retrieveLedgerBillingGroupReport(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReportsApi#retrieveLedgerBillingGroupReport");
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveLedgerBillingGroupReportResponse**](RetrieveLedgerBillingGroupReportResponse.md)
+[**CreateLedgerBillingGroupReport200Response**](CreateLedgerBillingGroupReport200Response.md)
 
 ### Authorization
 

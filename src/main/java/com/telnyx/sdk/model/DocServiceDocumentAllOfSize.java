@@ -47,6 +47,16 @@ public class DocServiceDocumentAllOfSize {
   public DocServiceDocumentAllOfSize() { 
   }
 
+  @JsonCreator
+  public DocServiceDocumentAllOfSize(
+    @JsonProperty(JSON_PROPERTY_UNIT) String unit, 
+    @JsonProperty(JSON_PROPERTY_AMOUNT) Integer amount
+  ) {
+    this();
+    this.unit = unit;
+    this.amount = amount;
+  }
+
    /**
    * Identifies the unit
    * @return unit

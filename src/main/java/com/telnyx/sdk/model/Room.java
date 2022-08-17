@@ -94,6 +94,14 @@ public class Room {
   public Room() { 
   }
 
+  @JsonCreator
+  public Room(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.recordType = recordType;
+  }
+
   public Room id(UUID id) {
     this.id = id;
     return this;

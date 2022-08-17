@@ -41,41 +41,8 @@ import com.telnyx.sdk.JSON;
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FaxMediaProcessed {
-  /**
-   * Identifies the type of the resource.
-   */
-  public enum RecordTypeEnum {
-    EVENT("event");
-
-    private String value;
-
-    RecordTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static RecordTypeEnum fromValue(String value) {
-      for (RecordTypeEnum b : RecordTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private RecordTypeEnum recordType;
+  private String recordType;
 
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -122,43 +89,46 @@ public class FaxMediaProcessed {
   public FaxMediaProcessed() { 
   }
 
-  public FaxMediaProcessed recordType(RecordTypeEnum recordType) {
+  @JsonCreator
+  public FaxMediaProcessed(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id
+  ) {
+    this();
+    this.id = id;
+  }
+
+  public FaxMediaProcessed recordType(String recordType) {
     this.recordType = recordType;
     return this;
   }
 
    /**
-   * Identifies the type of the resource.
+   * Identifies record type.
    * @return recordType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "event", value = "Identifies the type of the resource.")
+  @ApiModelProperty(value = "Identifies record type.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public RecordTypeEnum getRecordType() {
+  public String getRecordType() {
     return recordType;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(RecordTypeEnum recordType) {
+  public void setRecordType(String recordType) {
     this.recordType = recordType;
   }
 
 
-  public FaxMediaProcessed id(UUID id) {
-    this.id = id;
-    return this;
-  }
-
    /**
-   * Identifies the type of resource.
+   * Identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Identifies the type of resource.")
+  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -167,11 +137,6 @@ public class FaxMediaProcessed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
 
 
   public FaxMediaProcessed eventType(EventTypeEnum eventType) {

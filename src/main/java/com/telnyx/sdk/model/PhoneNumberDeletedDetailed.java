@@ -177,7 +177,7 @@ public class PhoneNumberDeletedDetailed {
   private String updatedAt;
 
   /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.
+   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level.
    */
   public enum NumberLevelRoutingEnum {
     ENABLED("enabled"),
@@ -212,7 +212,7 @@ public class PhoneNumberDeletedDetailed {
   }
 
   public static final String JSON_PROPERTY_NUMBER_LEVEL_ROUTING = "number_level_routing";
-  private NumberLevelRoutingEnum numberLevelRouting = NumberLevelRoutingEnum.ENABLED;
+  private NumberLevelRoutingEnum numberLevelRouting = NumberLevelRoutingEnum.DISABLED;
 
   /**
    * The phone number&#39;s type.
@@ -261,6 +261,42 @@ public class PhoneNumberDeletedDetailed {
   private PhoneNumberTypeEnum phoneNumberType;
 
   public PhoneNumberDeletedDetailed() { 
+  }
+
+  @JsonCreator
+  public PhoneNumberDeletedDetailed(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_CONNECTION_NAME) String connectionName, 
+    @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED) Boolean emergencyEnabled, 
+    @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID) String emergencyAddressId, 
+    @JsonProperty(JSON_PROPERTY_CALL_FORWARDING_ENABLED) Boolean callForwardingEnabled, 
+    @JsonProperty(JSON_PROPERTY_CNAM_LISTING_ENABLED) Boolean cnamListingEnabled, 
+    @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME_ENABLED) Boolean callerIdNameEnabled, 
+    @JsonProperty(JSON_PROPERTY_CALL_RECORDING_ENABLED) Boolean callRecordingEnabled, 
+    @JsonProperty(JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED) Boolean t38FaxGatewayEnabled, 
+    @JsonProperty(JSON_PROPERTY_PURCHASED_AT) String purchasedAt, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType
+  ) {
+    this();
+    this.recordType = recordType;
+    this.phoneNumber = phoneNumber;
+    this.status = status;
+    this.connectionName = connectionName;
+    this.emergencyEnabled = emergencyEnabled;
+    this.emergencyAddressId = emergencyAddressId;
+    this.callForwardingEnabled = callForwardingEnabled;
+    this.cnamListingEnabled = cnamListingEnabled;
+    this.callerIdNameEnabled = callerIdNameEnabled;
+    this.callRecordingEnabled = callRecordingEnabled;
+    this.t38FaxGatewayEnabled = t38FaxGatewayEnabled;
+    this.purchasedAt = purchasedAt;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.phoneNumberType = phoneNumberType;
   }
 
   public PhoneNumberDeletedDetailed id(String id) {
@@ -709,11 +745,11 @@ public class PhoneNumberDeletedDetailed {
   }
 
    /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.
+   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level.
    * @return numberLevelRouting
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.")
+  @ApiModelProperty(value = "Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level.")
   @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

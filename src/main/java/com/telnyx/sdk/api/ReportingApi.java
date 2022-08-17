@@ -8,12 +8,10 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreateWdrReportResponse;
-import com.telnyx.sdk.model.DeleteWdrReportResponse;
+import com.telnyx.sdk.model.CreateWdrReport201Response;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetWdrReportResponse;
-import com.telnyx.sdk.model.GetWdrReportsResponse;
+import com.telnyx.sdk.model.GetWdrReports200Response;
 import java.util.UUID;
 import com.telnyx.sdk.model.WdrReportRequest;
 
@@ -56,7 +54,7 @@ public class ReportingApi {
    * Create a Wireless Detail Records (WDRs) Report
    * Asynchronously create a report containing Wireless Detail Records (WDRs) for the SIM cards that consumed wireless data in the given time period. 
    * @param wdrReportRequest  (required)
-   * @return CreateWdrReportResponse
+   * @return CreateWdrReport201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -66,7 +64,7 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateWdrReportResponse createWdrReport(WdrReportRequest wdrReportRequest) throws ApiException {
+  public CreateWdrReport201Response createWdrReport(WdrReportRequest wdrReportRequest) throws ApiException {
     return createWdrReportWithHttpInfo(wdrReportRequest).getData();
   }
 
@@ -74,7 +72,7 @@ public class ReportingApi {
    * Create a Wireless Detail Records (WDRs) Report
    * Asynchronously create a report containing Wireless Detail Records (WDRs) for the SIM cards that consumed wireless data in the given time period. 
    * @param wdrReportRequest  (required)
-   * @return ApiResponse&lt;CreateWdrReportResponse&gt;
+   * @return ApiResponse&lt;CreateWdrReport201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -84,7 +82,7 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateWdrReportResponse> createWdrReportWithHttpInfo(WdrReportRequest wdrReportRequest) throws ApiException {
+  public ApiResponse<CreateWdrReport201Response> createWdrReportWithHttpInfo(WdrReportRequest wdrReportRequest) throws ApiException {
     Object localVarPostBody = wdrReportRequest;
     
     // verify the required parameter 'wdrReportRequest' is set
@@ -117,7 +115,7 @@ public class ReportingApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateWdrReportResponse> localVarReturnType = new GenericType<CreateWdrReportResponse>() {};
+    GenericType<CreateWdrReport201Response> localVarReturnType = new GenericType<CreateWdrReport201Response>() {};
 
     return apiClient.invokeAPI("ReportingApi.createWdrReport", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -127,7 +125,7 @@ public class ReportingApi {
    * Delete a Wireless Detail Record (WDR) Report
    * Deletes one specific WDR report
    * @param id Identifies the resource. (required)
-   * @return DeleteWdrReportResponse
+   * @return CreateWdrReport201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -137,7 +135,7 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DeleteWdrReportResponse deleteWdrReport(UUID id) throws ApiException {
+  public CreateWdrReport201Response deleteWdrReport(UUID id) throws ApiException {
     return deleteWdrReportWithHttpInfo(id).getData();
   }
 
@@ -145,7 +143,7 @@ public class ReportingApi {
    * Delete a Wireless Detail Record (WDR) Report
    * Deletes one specific WDR report
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;DeleteWdrReportResponse&gt;
+   * @return ApiResponse&lt;CreateWdrReport201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -155,7 +153,7 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DeleteWdrReportResponse> deleteWdrReportWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreateWdrReport201Response> deleteWdrReportWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -189,7 +187,7 @@ public class ReportingApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DeleteWdrReportResponse> localVarReturnType = new GenericType<DeleteWdrReportResponse>() {};
+    GenericType<CreateWdrReport201Response> localVarReturnType = new GenericType<CreateWdrReport201Response>() {};
 
     return apiClient.invokeAPI("ReportingApi.deleteWdrReport", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -199,7 +197,7 @@ public class ReportingApi {
    * Get a Wireless Detail Record (WDR) Report
    * Returns one specific WDR report
    * @param id Identifies the resource. (required)
-   * @return GetWdrReportResponse
+   * @return CreateWdrReport201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -209,7 +207,7 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetWdrReportResponse getWdrReport(UUID id) throws ApiException {
+  public CreateWdrReport201Response getWdrReport(UUID id) throws ApiException {
     return getWdrReportWithHttpInfo(id).getData();
   }
 
@@ -217,7 +215,7 @@ public class ReportingApi {
    * Get a Wireless Detail Record (WDR) Report
    * Returns one specific WDR report
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;GetWdrReportResponse&gt;
+   * @return ApiResponse&lt;CreateWdrReport201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -227,7 +225,7 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetWdrReportResponse> getWdrReportWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreateWdrReport201Response> getWdrReportWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -261,7 +259,7 @@ public class ReportingApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetWdrReportResponse> localVarReturnType = new GenericType<GetWdrReportResponse>() {};
+    GenericType<CreateWdrReport201Response> localVarReturnType = new GenericType<CreateWdrReport201Response>() {};
 
     return apiClient.invokeAPI("ReportingApi.getWdrReport", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -272,7 +270,7 @@ public class ReportingApi {
    * Returns the WDR Reports that match the given parameters.
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return GetWdrReportsResponse
+   * @return GetWdrReports200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -281,7 +279,7 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetWdrReportsResponse getWdrReports(Integer pageNumber, Integer pageSize) throws ApiException {
+  public GetWdrReports200Response getWdrReports(Integer pageNumber, Integer pageSize) throws ApiException {
     return getWdrReportsWithHttpInfo(pageNumber, pageSize).getData();
   }
 
@@ -290,7 +288,7 @@ public class ReportingApi {
    * Returns the WDR Reports that match the given parameters.
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;GetWdrReportsResponse&gt;
+   * @return ApiResponse&lt;GetWdrReports200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -299,7 +297,7 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetWdrReportsResponse> getWdrReportsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<GetWdrReports200Response> getWdrReportsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -329,7 +327,7 @@ public class ReportingApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetWdrReportsResponse> localVarReturnType = new GenericType<GetWdrReportsResponse>() {};
+    GenericType<GetWdrReports200Response> localVarReturnType = new GenericType<GetWdrReports200Response>() {};
 
     return apiClient.invokeAPI("ReportingApi.getWdrReports", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

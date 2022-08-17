@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**CallStreamingStopped**](CallStreamingStopped.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**CallStreamingStopped**](CallStreamingStopped.md) |  |  [optional] |
 
 
 

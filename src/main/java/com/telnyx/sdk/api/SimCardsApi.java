@@ -8,34 +8,30 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.BulkSIMCardNetworkPreferenceResponse;
-import com.telnyx.sdk.model.BulkUpdateSimNetworkPreference;
-import com.telnyx.sdk.model.CreateSIMCardDataUsageNotificationRequest;
-import com.telnyx.sdk.model.CreateSIMCardValidateRequest;
-import com.telnyx.sdk.model.CreateSimCardDataUsageNotificationResponse;
-import com.telnyx.sdk.model.DeleteSIMCardNetworkPreferenceResponse;
-import com.telnyx.sdk.model.DeleteSimCardDataUsageNotificationResponse;
-import com.telnyx.sdk.model.DeleteSimCardResponse;
+import com.telnyx.sdk.model.BulkSIMCardNetworkPreferences202Response;
+import com.telnyx.sdk.model.BulkSIMCardNetworkPreferencesRequest;
+import com.telnyx.sdk.model.BulkSetPublicIPs202Response;
+import com.telnyx.sdk.model.BulkSetPublicIPsRequest;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetSimCardDataUsageNotificationResponse;
-import com.telnyx.sdk.model.GetSimCardResponse;
-import com.telnyx.sdk.model.PUTSIMCardNetworkPreferenceResponse;
-import com.telnyx.sdk.model.PutNetworkPreferenceRequest;
-import com.telnyx.sdk.model.RegisterSimCardsResponse;
+import com.telnyx.sdk.model.ListSimCardDataUsageNotifications200Response;
+import com.telnyx.sdk.model.PostValidateRegistrationCodesRequest;
 import com.telnyx.sdk.model.SIMCard;
-import com.telnyx.sdk.model.SIMCardActionResponse;
-import com.telnyx.sdk.model.SIMCardNetworkPreferenceWithOTAUpdatesResponse;
-import com.telnyx.sdk.model.SIMCardPublicIPResponse;
+import com.telnyx.sdk.model.SIMCardDeviceDetailsGet200Response;
+import com.telnyx.sdk.model.SIMCardNetworkPreferencesGet200Response;
+import com.telnyx.sdk.model.SIMCardNetworkPreferencesPutRequest;
+import com.telnyx.sdk.model.SIMCardPublicIPGet200Response;
 import com.telnyx.sdk.model.SIMCardRegistration;
 import com.telnyx.sdk.model.SIMCardRegistrationCodeValidations;
-import com.telnyx.sdk.model.SearchSimCardsResponse;
+import com.telnyx.sdk.model.SimCardActionGet200Response;
 import com.telnyx.sdk.model.SimCardDataUsageNotification;
-import com.telnyx.sdk.model.SimCardDataUsageNotificationCollection;
+import com.telnyx.sdk.model.SimCardDataUsageNotificationsPost201Response;
+import com.telnyx.sdk.model.SimCardDataUsageNotificationsPostRequest;
+import com.telnyx.sdk.model.SimCardGet200Response;
+import com.telnyx.sdk.model.SimCardRegister202Response;
+import com.telnyx.sdk.model.SimCardsGet200Response;
 import java.util.UUID;
-import com.telnyx.sdk.model.UpdateSimCardDataUsageNotificationResponse;
-import com.telnyx.sdk.model.UpdateSimCardResponse;
-import com.telnyx.sdk.model.WirelessConnectivityLogCollectionResponse;
+import com.telnyx.sdk.model.WirelessConnectivityLogsGet200Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,8 +71,8 @@ public class SimCardsApi {
   /**
    * Bulk Network Preferences for SIM cards
    * This API allows dispatching the same operation described for the PUT sim_cards/:sim_card_id/network_preferences API for multiple SIM cards at once.&lt;br/&gt;&lt;br/&gt; Although, a SIM card network preference may fail individually under any validation triggered as a consequence of its state. For example, a SIM can&#39;t have an in-progress OTA update for applying a Network Preference, so they&#39;ll fail when requested in this API. In that scenario, the specific error will be present in the response along with the successful definitions in the \&quot;errors\&quot; response node. 
-   * @param bulkUpdateSimNetworkPreference  (optional)
-   * @return BulkSIMCardNetworkPreferenceResponse
+   * @param bulkSIMCardNetworkPreferencesRequest  (optional)
+   * @return BulkSIMCardNetworkPreferences202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -85,15 +81,15 @@ public class SimCardsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public BulkSIMCardNetworkPreferenceResponse bulkSIMCardNetworkPreferences(BulkUpdateSimNetworkPreference bulkUpdateSimNetworkPreference) throws ApiException {
-    return bulkSIMCardNetworkPreferencesWithHttpInfo(bulkUpdateSimNetworkPreference).getData();
+  public BulkSIMCardNetworkPreferences202Response bulkSIMCardNetworkPreferences(BulkSIMCardNetworkPreferencesRequest bulkSIMCardNetworkPreferencesRequest) throws ApiException {
+    return bulkSIMCardNetworkPreferencesWithHttpInfo(bulkSIMCardNetworkPreferencesRequest).getData();
   }
 
   /**
    * Bulk Network Preferences for SIM cards
    * This API allows dispatching the same operation described for the PUT sim_cards/:sim_card_id/network_preferences API for multiple SIM cards at once.&lt;br/&gt;&lt;br/&gt; Although, a SIM card network preference may fail individually under any validation triggered as a consequence of its state. For example, a SIM can&#39;t have an in-progress OTA update for applying a Network Preference, so they&#39;ll fail when requested in this API. In that scenario, the specific error will be present in the response along with the successful definitions in the \&quot;errors\&quot; response node. 
-   * @param bulkUpdateSimNetworkPreference  (optional)
-   * @return ApiResponse&lt;BulkSIMCardNetworkPreferenceResponse&gt;
+   * @param bulkSIMCardNetworkPreferencesRequest  (optional)
+   * @return ApiResponse&lt;BulkSIMCardNetworkPreferences202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -102,8 +98,8 @@ public class SimCardsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<BulkSIMCardNetworkPreferenceResponse> bulkSIMCardNetworkPreferencesWithHttpInfo(BulkUpdateSimNetworkPreference bulkUpdateSimNetworkPreference) throws ApiException {
-    Object localVarPostBody = bulkUpdateSimNetworkPreference;
+  public ApiResponse<BulkSIMCardNetworkPreferences202Response> bulkSIMCardNetworkPreferencesWithHttpInfo(BulkSIMCardNetworkPreferencesRequest bulkSIMCardNetworkPreferencesRequest) throws ApiException {
+    Object localVarPostBody = bulkSIMCardNetworkPreferencesRequest;
     
     // create path and map variables
     String localVarPath = "/actions/network_preferences/sim_cards";
@@ -130,9 +126,145 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<BulkSIMCardNetworkPreferenceResponse> localVarReturnType = new GenericType<BulkSIMCardNetworkPreferenceResponse>() {};
+    GenericType<BulkSIMCardNetworkPreferences202Response> localVarReturnType = new GenericType<BulkSIMCardNetworkPreferences202Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.bulkSIMCardNetworkPreferences", localVarPath, "PUT", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Request bulk setting SIM card public IPs.
+   * This API triggers an asynchronous operation to set a public IP for each of the specified SIM cards.&lt;br/&gt; For each SIM Card a SIM Card Action will be generated. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
+   * @param bulkSetPublicIPsRequest  (optional)
+   * @return BulkSetPublicIPs202Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
+     </table>
+   */
+  public BulkSetPublicIPs202Response bulkSetPublicIPs(BulkSetPublicIPsRequest bulkSetPublicIPsRequest) throws ApiException {
+    return bulkSetPublicIPsWithHttpInfo(bulkSetPublicIPsRequest).getData();
+  }
+
+  /**
+   * Request bulk setting SIM card public IPs.
+   * This API triggers an asynchronous operation to set a public IP for each of the specified SIM cards.&lt;br/&gt; For each SIM Card a SIM Card Action will be generated. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
+   * @param bulkSetPublicIPsRequest  (optional)
+   * @return ApiResponse&lt;BulkSetPublicIPs202Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<BulkSetPublicIPs202Response> bulkSetPublicIPsWithHttpInfo(BulkSetPublicIPsRequest bulkSetPublicIPsRequest) throws ApiException {
+    Object localVarPostBody = bulkSetPublicIPsRequest;
+    
+    // create path and map variables
+    String localVarPath = "/sim_cards/actions/bulk_set_public_ips";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<BulkSetPublicIPs202Response> localVarReturnType = new GenericType<BulkSetPublicIPs202Response>() {};
+
+    return apiClient.invokeAPI("SimCardsApi.bulkSetPublicIPs", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Delete network preferences for a SIM card
+   * This API deletes network preferences for a SIM card.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Creating network preferences may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
+   * @param id Identifies the resource. (required)
+   * @return SimCardActionGet200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public SimCardActionGet200Response deleteNetworkPreference(UUID id) throws ApiException {
+    return deleteNetworkPreferenceWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Delete network preferences for a SIM card
+   * This API deletes network preferences for a SIM card.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Creating network preferences may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;SimCardActionGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<SimCardActionGet200Response> deleteNetworkPreferenceWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteNetworkPreference");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/sim_cards/{id}/actions/delete_network_preferences"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<SimCardActionGet200Response> localVarReturnType = new GenericType<SimCardActionGet200Response>() {};
+
+    return apiClient.invokeAPI("SimCardsApi.deleteNetworkPreference", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -142,7 +274,7 @@ public class SimCardsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterSimCardId A valid SIM card ID. (optional)
-   * @return SimCardDataUsageNotificationCollection
+   * @return ListSimCardDataUsageNotifications200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -151,7 +283,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SimCardDataUsageNotificationCollection listSimCardDataUsageNotifications(Integer pageNumber, Integer pageSize, UUID filterSimCardId) throws ApiException {
+  public ListSimCardDataUsageNotifications200Response listSimCardDataUsageNotifications(Integer pageNumber, Integer pageSize, UUID filterSimCardId) throws ApiException {
     return listSimCardDataUsageNotificationsWithHttpInfo(pageNumber, pageSize, filterSimCardId).getData();
   }
 
@@ -161,7 +293,7 @@ public class SimCardsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterSimCardId A valid SIM card ID. (optional)
-   * @return ApiResponse&lt;SimCardDataUsageNotificationCollection&gt;
+   * @return ApiResponse&lt;ListSimCardDataUsageNotifications200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -170,7 +302,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SimCardDataUsageNotificationCollection> listSimCardDataUsageNotificationsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterSimCardId) throws ApiException {
+  public ApiResponse<ListSimCardDataUsageNotifications200Response> listSimCardDataUsageNotificationsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterSimCardId) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -201,7 +333,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SimCardDataUsageNotificationCollection> localVarReturnType = new GenericType<SimCardDataUsageNotificationCollection>() {};
+    GenericType<ListSimCardDataUsageNotifications200Response> localVarReturnType = new GenericType<ListSimCardDataUsageNotifications200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.listSimCardDataUsageNotifications", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -210,7 +342,7 @@ public class SimCardsApi {
   /**
    * Validate SIM cards registration codes
    * It validates whether SIM card registration codes are valid or not.
-   * @param createSIMCardValidateRequest  (required)
+   * @param postValidateRegistrationCodesRequest  (required)
    * @return SIMCardRegistrationCodeValidations
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -220,14 +352,14 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardRegistrationCodeValidations postValidateRegistrationCodes(CreateSIMCardValidateRequest createSIMCardValidateRequest) throws ApiException {
-    return postValidateRegistrationCodesWithHttpInfo(createSIMCardValidateRequest).getData();
+  public SIMCardRegistrationCodeValidations postValidateRegistrationCodes(PostValidateRegistrationCodesRequest postValidateRegistrationCodesRequest) throws ApiException {
+    return postValidateRegistrationCodesWithHttpInfo(postValidateRegistrationCodesRequest).getData();
   }
 
   /**
    * Validate SIM cards registration codes
    * It validates whether SIM card registration codes are valid or not.
-   * @param createSIMCardValidateRequest  (required)
+   * @param postValidateRegistrationCodesRequest  (required)
    * @return ApiResponse&lt;SIMCardRegistrationCodeValidations&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -237,12 +369,12 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardRegistrationCodeValidations> postValidateRegistrationCodesWithHttpInfo(CreateSIMCardValidateRequest createSIMCardValidateRequest) throws ApiException {
-    Object localVarPostBody = createSIMCardValidateRequest;
+  public ApiResponse<SIMCardRegistrationCodeValidations> postValidateRegistrationCodesWithHttpInfo(PostValidateRegistrationCodesRequest postValidateRegistrationCodesRequest) throws ApiException {
+    Object localVarPostBody = postValidateRegistrationCodesRequest;
     
-    // verify the required parameter 'createSIMCardValidateRequest' is set
-    if (createSIMCardValidateRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createSIMCardValidateRequest' when calling postValidateRegistrationCodes");
+    // verify the required parameter 'postValidateRegistrationCodesRequest' is set
+    if (postValidateRegistrationCodesRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'postValidateRegistrationCodesRequest' when calling postValidateRegistrationCodes");
     }
     
     // create path and map variables
@@ -280,7 +412,7 @@ public class SimCardsApi {
    * Request removing a SIM card public IP
    * This API removes an existing public IP from a SIM card. &lt;br/&gt;&lt;br/&gt;  The API will trigger an asynchronous operation called a SIM Card Action. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
    * @param id Identifies the resource. (required)
-   * @return SIMCardActionResponse
+   * @return SimCardActionGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -289,7 +421,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardActionResponse removeSIMCardPublicIP(UUID id) throws ApiException {
+  public SimCardActionGet200Response removeSIMCardPublicIP(UUID id) throws ApiException {
     return removeSIMCardPublicIPWithHttpInfo(id).getData();
   }
 
@@ -297,7 +429,7 @@ public class SimCardsApi {
    * Request removing a SIM card public IP
    * This API removes an existing public IP from a SIM card. &lt;br/&gt;&lt;br/&gt;  The API will trigger an asynchronous operation called a SIM Card Action. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;SIMCardActionResponse&gt;
+   * @return ApiResponse&lt;SimCardActionGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -306,7 +438,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardActionResponse> removeSIMCardPublicIPWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardActionGet200Response> removeSIMCardPublicIPWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -340,9 +472,79 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardActionResponse> localVarReturnType = new GenericType<SIMCardActionResponse>() {};
+    GenericType<SimCardActionGet200Response> localVarReturnType = new GenericType<SimCardActionGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.removeSIMCardPublicIP", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Get SIM card device details
+   * It returns the device details where a SIM card is currently being used. 
+   * @param simCardId Identifies a SIM card. (required)
+   * @return SIMCardDeviceDetailsGet200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public SIMCardDeviceDetailsGet200Response sIMCardDeviceDetailsGet(UUID simCardId) throws ApiException {
+    return sIMCardDeviceDetailsGetWithHttpInfo(simCardId).getData();
+  }
+
+  /**
+   * Get SIM card device details
+   * It returns the device details where a SIM card is currently being used. 
+   * @param simCardId Identifies a SIM card. (required)
+   * @return ApiResponse&lt;SIMCardDeviceDetailsGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<SIMCardDeviceDetailsGet200Response> sIMCardDeviceDetailsGetWithHttpInfo(UUID simCardId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'simCardId' is set
+    if (simCardId == null) {
+      throw new ApiException(400, "Missing the required parameter 'simCardId' when calling sIMCardDeviceDetailsGet");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/sim_cards/{sim_card_id}/device_details"
+      .replaceAll("\\{" + "sim_card_id" + "\\}", apiClient.escapeString(simCardId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<SIMCardDeviceDetailsGet200Response> localVarReturnType = new GenericType<SIMCardDeviceDetailsGet200Response>() {};
+
+    return apiClient.invokeAPI("SimCardsApi.sIMCardDeviceDetailsGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -350,7 +552,7 @@ public class SimCardsApi {
    * DELETE network preferences
    * This API asynchronously removes the custom-defined network preferences settings. After this operation is done the Telnyx default settings, the same applied for an unaltered SIM card, will be in place. 
    * @param simCardId Identifies a SIM card. (required)
-   * @return DeleteSIMCardNetworkPreferenceResponse
+   * @return SIMCardNetworkPreferencesGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -359,7 +561,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DeleteSIMCardNetworkPreferenceResponse sIMCardNetworkPreferencesDelete(UUID simCardId) throws ApiException {
+  public SIMCardNetworkPreferencesGet200Response sIMCardNetworkPreferencesDelete(UUID simCardId) throws ApiException {
     return sIMCardNetworkPreferencesDeleteWithHttpInfo(simCardId).getData();
   }
 
@@ -367,7 +569,7 @@ public class SimCardsApi {
    * DELETE network preferences
    * This API asynchronously removes the custom-defined network preferences settings. After this operation is done the Telnyx default settings, the same applied for an unaltered SIM card, will be in place. 
    * @param simCardId Identifies a SIM card. (required)
-   * @return ApiResponse&lt;DeleteSIMCardNetworkPreferenceResponse&gt;
+   * @return ApiResponse&lt;SIMCardNetworkPreferencesGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -376,7 +578,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DeleteSIMCardNetworkPreferenceResponse> sIMCardNetworkPreferencesDeleteWithHttpInfo(UUID simCardId) throws ApiException {
+  public ApiResponse<SIMCardNetworkPreferencesGet200Response> sIMCardNetworkPreferencesDeleteWithHttpInfo(UUID simCardId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'simCardId' is set
@@ -410,7 +612,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DeleteSIMCardNetworkPreferenceResponse> localVarReturnType = new GenericType<DeleteSIMCardNetworkPreferenceResponse>() {};
+    GenericType<SIMCardNetworkPreferencesGet200Response> localVarReturnType = new GenericType<SIMCardNetworkPreferencesGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.sIMCardNetworkPreferencesDelete", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -421,7 +623,7 @@ public class SimCardsApi {
    * It returns the network preferences currently applied in the SIM card. 
    * @param simCardId Identifies a SIM card. (required)
    * @param includeOtaUpdates It includes the associated OTA update objects in the response when present. (optional, default to false)
-   * @return SIMCardNetworkPreferenceWithOTAUpdatesResponse
+   * @return SIMCardNetworkPreferencesGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -430,7 +632,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardNetworkPreferenceWithOTAUpdatesResponse sIMCardNetworkPreferencesGet(UUID simCardId, Boolean includeOtaUpdates) throws ApiException {
+  public SIMCardNetworkPreferencesGet200Response sIMCardNetworkPreferencesGet(UUID simCardId, Boolean includeOtaUpdates) throws ApiException {
     return sIMCardNetworkPreferencesGetWithHttpInfo(simCardId, includeOtaUpdates).getData();
   }
 
@@ -439,7 +641,7 @@ public class SimCardsApi {
    * It returns the network preferences currently applied in the SIM card. 
    * @param simCardId Identifies a SIM card. (required)
    * @param includeOtaUpdates It includes the associated OTA update objects in the response when present. (optional, default to false)
-   * @return ApiResponse&lt;SIMCardNetworkPreferenceWithOTAUpdatesResponse&gt;
+   * @return ApiResponse&lt;SIMCardNetworkPreferencesGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -448,7 +650,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardNetworkPreferenceWithOTAUpdatesResponse> sIMCardNetworkPreferencesGetWithHttpInfo(UUID simCardId, Boolean includeOtaUpdates) throws ApiException {
+  public ApiResponse<SIMCardNetworkPreferencesGet200Response> sIMCardNetworkPreferencesGetWithHttpInfo(UUID simCardId, Boolean includeOtaUpdates) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'simCardId' is set
@@ -483,7 +685,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardNetworkPreferenceWithOTAUpdatesResponse> localVarReturnType = new GenericType<SIMCardNetworkPreferenceWithOTAUpdatesResponse>() {};
+    GenericType<SIMCardNetworkPreferencesGet200Response> localVarReturnType = new GenericType<SIMCardNetworkPreferencesGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.sIMCardNetworkPreferencesGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -493,8 +695,8 @@ public class SimCardsApi {
    * Set network preferences
    * This API allows setting or updating a SIM card network preference. &lt;br/&gt;&lt;br/&gt; Every SIM card has default network preferences defined on Telnyx. These preferences will determine how a SIMCard will connect to the network by considering a list of preferable operators.&lt;br/&gt;&lt;br/&gt; There can be multiple scenarios where an operator can be preferred over another, for example, when a specific mobile operator can provide better network latency or better pricing. 
    * @param simCardId Identifies a SIM card. (required)
-   * @param putNetworkPreferenceRequest  (optional)
-   * @return PUTSIMCardNetworkPreferenceResponse
+   * @param siMCardNetworkPreferencesPutRequest  (optional)
+   * @return SIMCardNetworkPreferencesGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -503,16 +705,16 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public PUTSIMCardNetworkPreferenceResponse sIMCardNetworkPreferencesPut(UUID simCardId, PutNetworkPreferenceRequest putNetworkPreferenceRequest) throws ApiException {
-    return sIMCardNetworkPreferencesPutWithHttpInfo(simCardId, putNetworkPreferenceRequest).getData();
+  public SIMCardNetworkPreferencesGet200Response sIMCardNetworkPreferencesPut(UUID simCardId, SIMCardNetworkPreferencesPutRequest siMCardNetworkPreferencesPutRequest) throws ApiException {
+    return sIMCardNetworkPreferencesPutWithHttpInfo(simCardId, siMCardNetworkPreferencesPutRequest).getData();
   }
 
   /**
    * Set network preferences
    * This API allows setting or updating a SIM card network preference. &lt;br/&gt;&lt;br/&gt; Every SIM card has default network preferences defined on Telnyx. These preferences will determine how a SIMCard will connect to the network by considering a list of preferable operators.&lt;br/&gt;&lt;br/&gt; There can be multiple scenarios where an operator can be preferred over another, for example, when a specific mobile operator can provide better network latency or better pricing. 
    * @param simCardId Identifies a SIM card. (required)
-   * @param putNetworkPreferenceRequest  (optional)
-   * @return ApiResponse&lt;PUTSIMCardNetworkPreferenceResponse&gt;
+   * @param siMCardNetworkPreferencesPutRequest  (optional)
+   * @return ApiResponse&lt;SIMCardNetworkPreferencesGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -521,8 +723,8 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PUTSIMCardNetworkPreferenceResponse> sIMCardNetworkPreferencesPutWithHttpInfo(UUID simCardId, PutNetworkPreferenceRequest putNetworkPreferenceRequest) throws ApiException {
-    Object localVarPostBody = putNetworkPreferenceRequest;
+  public ApiResponse<SIMCardNetworkPreferencesGet200Response> sIMCardNetworkPreferencesPutWithHttpInfo(UUID simCardId, SIMCardNetworkPreferencesPutRequest siMCardNetworkPreferencesPutRequest) throws ApiException {
+    Object localVarPostBody = siMCardNetworkPreferencesPutRequest;
     
     // verify the required parameter 'simCardId' is set
     if (simCardId == null) {
@@ -555,7 +757,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PUTSIMCardNetworkPreferenceResponse> localVarReturnType = new GenericType<PUTSIMCardNetworkPreferenceResponse>() {};
+    GenericType<SIMCardNetworkPreferencesGet200Response> localVarReturnType = new GenericType<SIMCardNetworkPreferencesGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.sIMCardNetworkPreferencesPut", localVarPath, "PUT", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -565,7 +767,7 @@ public class SimCardsApi {
    * Get SIM card public IP definition
    * It returns the public IP requested for a SIM card. 
    * @param simCardId Identifies a SIM card. (required)
-   * @return SIMCardPublicIPResponse
+   * @return SIMCardPublicIPGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -574,7 +776,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardPublicIPResponse sIMCardPublicIPGet(UUID simCardId) throws ApiException {
+  public SIMCardPublicIPGet200Response sIMCardPublicIPGet(UUID simCardId) throws ApiException {
     return sIMCardPublicIPGetWithHttpInfo(simCardId).getData();
   }
 
@@ -582,7 +784,7 @@ public class SimCardsApi {
    * Get SIM card public IP definition
    * It returns the public IP requested for a SIM card. 
    * @param simCardId Identifies a SIM card. (required)
-   * @return ApiResponse&lt;SIMCardPublicIPResponse&gt;
+   * @return ApiResponse&lt;SIMCardPublicIPGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -591,7 +793,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardPublicIPResponse> sIMCardPublicIPGetWithHttpInfo(UUID simCardId) throws ApiException {
+  public ApiResponse<SIMCardPublicIPGet200Response> sIMCardPublicIPGetWithHttpInfo(UUID simCardId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'simCardId' is set
@@ -625,9 +827,81 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardPublicIPResponse> localVarReturnType = new GenericType<SIMCardPublicIPResponse>() {};
+    GenericType<SIMCardPublicIPGet200Response> localVarReturnType = new GenericType<SIMCardPublicIPGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.sIMCardPublicIPGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Create or update network preferences for a SIM card
+   * This API sets network preferences for a SIM card.&lt;br/&gt; Every SIM card has default network preferences defined on Telnyx. These preferences will determine how a SIMCard will connect to the network by considering a list of preferable operators.&lt;br/&gt;&lt;br/&gt; The SIM card needs to be attached to the network so this can connect and SMS must be available, otherwise, the operation will fail. This preference will only be respected if the network is available, otherwise the strongest signal will be used. &lt;br/&gt;&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Creating network preferences may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
+   * @param id Identifies the resource. (required)
+   * @return SimCardActionGet200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public SimCardActionGet200Response setNetworkPreference(UUID id) throws ApiException {
+    return setNetworkPreferenceWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Create or update network preferences for a SIM card
+   * This API sets network preferences for a SIM card.&lt;br/&gt; Every SIM card has default network preferences defined on Telnyx. These preferences will determine how a SIMCard will connect to the network by considering a list of preferable operators.&lt;br/&gt;&lt;br/&gt; The SIM card needs to be attached to the network so this can connect and SMS must be available, otherwise, the operation will fail. This preference will only be respected if the network is available, otherwise the strongest signal will be used. &lt;br/&gt;&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Creating network preferences may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;SimCardActionGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<SimCardActionGet200Response> setNetworkPreferenceWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling setNetworkPreference");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/sim_cards/{id}/actions/set_network_preferences"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<SimCardActionGet200Response> localVarReturnType = new GenericType<SimCardActionGet200Response>() {};
+
+    return apiClient.invokeAPI("SimCardsApi.setNetworkPreference", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -635,7 +909,7 @@ public class SimCardsApi {
    * Request setting a SIM card public IP
    * This API makes a SIM card reachable on the public internet by mapping a random public IP to the SIM card. &lt;br/&gt;&lt;br/&gt;  The API will trigger an asynchronous operation called a SIM Card Action. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. &lt;br/&gt;&lt;br/&gt;  Setting a Public IP to a SIM Card incurs a charge and will only succeed if the account has sufficient funds.
    * @param id Identifies the resource. (required)
-   * @return SIMCardActionResponse
+   * @return SimCardActionGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -644,7 +918,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardActionResponse setSIMCardPublicIP(UUID id) throws ApiException {
+  public SimCardActionGet200Response setSIMCardPublicIP(UUID id) throws ApiException {
     return setSIMCardPublicIPWithHttpInfo(id).getData();
   }
 
@@ -652,7 +926,7 @@ public class SimCardsApi {
    * Request setting a SIM card public IP
    * This API makes a SIM card reachable on the public internet by mapping a random public IP to the SIM card. &lt;br/&gt;&lt;br/&gt;  The API will trigger an asynchronous operation called a SIM Card Action. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. &lt;br/&gt;&lt;br/&gt;  Setting a Public IP to a SIM Card incurs a charge and will only succeed if the account has sufficient funds.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;SIMCardActionResponse&gt;
+   * @return ApiResponse&lt;SimCardActionGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -661,7 +935,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardActionResponse> setSIMCardPublicIPWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardActionGet200Response> setSIMCardPublicIPWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -695,7 +969,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardActionResponse> localVarReturnType = new GenericType<SIMCardActionResponse>() {};
+    GenericType<SimCardActionGet200Response> localVarReturnType = new GenericType<SimCardActionGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.setSIMCardPublicIP", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -705,7 +979,7 @@ public class SimCardsApi {
    * Delete SIM card data usage notifications
    * Delete the SIM Card Data Usage Notification.
    * @param id Identifies the resource. (required)
-   * @return DeleteSimCardDataUsageNotificationResponse
+   * @return SimCardDataUsageNotificationsPost201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -714,7 +988,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DeleteSimCardDataUsageNotificationResponse simCardDataUsageNotificationsDelete(UUID id) throws ApiException {
+  public SimCardDataUsageNotificationsPost201Response simCardDataUsageNotificationsDelete(UUID id) throws ApiException {
     return simCardDataUsageNotificationsDeleteWithHttpInfo(id).getData();
   }
 
@@ -722,7 +996,7 @@ public class SimCardsApi {
    * Delete SIM card data usage notifications
    * Delete the SIM Card Data Usage Notification.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;DeleteSimCardDataUsageNotificationResponse&gt;
+   * @return ApiResponse&lt;SimCardDataUsageNotificationsPost201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -731,7 +1005,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DeleteSimCardDataUsageNotificationResponse> simCardDataUsageNotificationsDeleteWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardDataUsageNotificationsPost201Response> simCardDataUsageNotificationsDeleteWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -765,7 +1039,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DeleteSimCardDataUsageNotificationResponse> localVarReturnType = new GenericType<DeleteSimCardDataUsageNotificationResponse>() {};
+    GenericType<SimCardDataUsageNotificationsPost201Response> localVarReturnType = new GenericType<SimCardDataUsageNotificationsPost201Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardDataUsageNotificationsDelete", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -775,7 +1049,7 @@ public class SimCardsApi {
    * Get a single SIM card data usage notification
    * Get a single SIM Card Data Usage Notification.
    * @param id Identifies the resource. (required)
-   * @return GetSimCardDataUsageNotificationResponse
+   * @return SimCardDataUsageNotificationsPost201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -785,7 +1059,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetSimCardDataUsageNotificationResponse simCardDataUsageNotificationsGet(UUID id) throws ApiException {
+  public SimCardDataUsageNotificationsPost201Response simCardDataUsageNotificationsGet(UUID id) throws ApiException {
     return simCardDataUsageNotificationsGetWithHttpInfo(id).getData();
   }
 
@@ -793,7 +1067,7 @@ public class SimCardsApi {
    * Get a single SIM card data usage notification
    * Get a single SIM Card Data Usage Notification.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;GetSimCardDataUsageNotificationResponse&gt;
+   * @return ApiResponse&lt;SimCardDataUsageNotificationsPost201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -803,7 +1077,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetSimCardDataUsageNotificationResponse> simCardDataUsageNotificationsGetWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardDataUsageNotificationsPost201Response> simCardDataUsageNotificationsGetWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -837,7 +1111,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetSimCardDataUsageNotificationResponse> localVarReturnType = new GenericType<GetSimCardDataUsageNotificationResponse>() {};
+    GenericType<SimCardDataUsageNotificationsPost201Response> localVarReturnType = new GenericType<SimCardDataUsageNotificationsPost201Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardDataUsageNotificationsGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -848,7 +1122,7 @@ public class SimCardsApi {
    * Updates information for a SIM Card Data Usage Notification.
    * @param id Identifies the resource. (required)
    * @param simCardDataUsageNotification  (required)
-   * @return UpdateSimCardDataUsageNotificationResponse
+   * @return SimCardDataUsageNotificationsPost201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -857,7 +1131,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public UpdateSimCardDataUsageNotificationResponse simCardDataUsageNotificationsPatch(UUID id, SimCardDataUsageNotification simCardDataUsageNotification) throws ApiException {
+  public SimCardDataUsageNotificationsPost201Response simCardDataUsageNotificationsPatch(UUID id, SimCardDataUsageNotification simCardDataUsageNotification) throws ApiException {
     return simCardDataUsageNotificationsPatchWithHttpInfo(id, simCardDataUsageNotification).getData();
   }
 
@@ -866,7 +1140,7 @@ public class SimCardsApi {
    * Updates information for a SIM Card Data Usage Notification.
    * @param id Identifies the resource. (required)
    * @param simCardDataUsageNotification  (required)
-   * @return ApiResponse&lt;UpdateSimCardDataUsageNotificationResponse&gt;
+   * @return ApiResponse&lt;SimCardDataUsageNotificationsPost201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -875,7 +1149,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<UpdateSimCardDataUsageNotificationResponse> simCardDataUsageNotificationsPatchWithHttpInfo(UUID id, SimCardDataUsageNotification simCardDataUsageNotification) throws ApiException {
+  public ApiResponse<SimCardDataUsageNotificationsPost201Response> simCardDataUsageNotificationsPatchWithHttpInfo(UUID id, SimCardDataUsageNotification simCardDataUsageNotification) throws ApiException {
     Object localVarPostBody = simCardDataUsageNotification;
     
     // verify the required parameter 'id' is set
@@ -914,7 +1188,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<UpdateSimCardDataUsageNotificationResponse> localVarReturnType = new GenericType<UpdateSimCardDataUsageNotificationResponse>() {};
+    GenericType<SimCardDataUsageNotificationsPost201Response> localVarReturnType = new GenericType<SimCardDataUsageNotificationsPost201Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardDataUsageNotificationsPatch", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -923,8 +1197,8 @@ public class SimCardsApi {
   /**
    * Create a new SIM card data usage notification
    * Creates a new SIM card data usage notification.
-   * @param createSIMCardDataUsageNotificationRequest  (required)
-   * @return CreateSimCardDataUsageNotificationResponse
+   * @param simCardDataUsageNotificationsPostRequest  (required)
+   * @return SimCardDataUsageNotificationsPost201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -933,15 +1207,15 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateSimCardDataUsageNotificationResponse simCardDataUsageNotificationsPost(CreateSIMCardDataUsageNotificationRequest createSIMCardDataUsageNotificationRequest) throws ApiException {
-    return simCardDataUsageNotificationsPostWithHttpInfo(createSIMCardDataUsageNotificationRequest).getData();
+  public SimCardDataUsageNotificationsPost201Response simCardDataUsageNotificationsPost(SimCardDataUsageNotificationsPostRequest simCardDataUsageNotificationsPostRequest) throws ApiException {
+    return simCardDataUsageNotificationsPostWithHttpInfo(simCardDataUsageNotificationsPostRequest).getData();
   }
 
   /**
    * Create a new SIM card data usage notification
    * Creates a new SIM card data usage notification.
-   * @param createSIMCardDataUsageNotificationRequest  (required)
-   * @return ApiResponse&lt;CreateSimCardDataUsageNotificationResponse&gt;
+   * @param simCardDataUsageNotificationsPostRequest  (required)
+   * @return ApiResponse&lt;SimCardDataUsageNotificationsPost201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -950,12 +1224,12 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateSimCardDataUsageNotificationResponse> simCardDataUsageNotificationsPostWithHttpInfo(CreateSIMCardDataUsageNotificationRequest createSIMCardDataUsageNotificationRequest) throws ApiException {
-    Object localVarPostBody = createSIMCardDataUsageNotificationRequest;
+  public ApiResponse<SimCardDataUsageNotificationsPost201Response> simCardDataUsageNotificationsPostWithHttpInfo(SimCardDataUsageNotificationsPostRequest simCardDataUsageNotificationsPostRequest) throws ApiException {
+    Object localVarPostBody = simCardDataUsageNotificationsPostRequest;
     
-    // verify the required parameter 'createSIMCardDataUsageNotificationRequest' is set
-    if (createSIMCardDataUsageNotificationRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createSIMCardDataUsageNotificationRequest' when calling simCardDataUsageNotificationsPost");
+    // verify the required parameter 'simCardDataUsageNotificationsPostRequest' is set
+    if (simCardDataUsageNotificationsPostRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'simCardDataUsageNotificationsPostRequest' when calling simCardDataUsageNotificationsPost");
     }
     
     // create path and map variables
@@ -983,7 +1257,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateSimCardDataUsageNotificationResponse> localVarReturnType = new GenericType<CreateSimCardDataUsageNotificationResponse>() {};
+    GenericType<SimCardDataUsageNotificationsPost201Response> localVarReturnType = new GenericType<SimCardDataUsageNotificationsPost201Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardDataUsageNotificationsPost", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -993,7 +1267,7 @@ public class SimCardsApi {
    * Deletes a SIM card
    * The SIM card will be decommissioned, removed from your account and you will stop being charged.&lt;br /&gt;The SIM card won&#39;t be able to connect to the network after the deletion is completed, thus making it impossible to consume data.&lt;br/&gt; Transitioning to the disabled state may take a period of time.&lt;/br&gt; Until the transition is completed, the SIM card status will be disabling &lt;code&gt;disabling&lt;/code&gt;.&lt;br /&gt;In order to re-enable the SIM card, you will need to re-register it.
    * @param id Identifies the resource. (required)
-   * @return DeleteSimCardResponse
+   * @return SimCardGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1002,7 +1276,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DeleteSimCardResponse simCardDelete(UUID id) throws ApiException {
+  public SimCardGet200Response simCardDelete(UUID id) throws ApiException {
     return simCardDeleteWithHttpInfo(id).getData();
   }
 
@@ -1010,7 +1284,7 @@ public class SimCardsApi {
    * Deletes a SIM card
    * The SIM card will be decommissioned, removed from your account and you will stop being charged.&lt;br /&gt;The SIM card won&#39;t be able to connect to the network after the deletion is completed, thus making it impossible to consume data.&lt;br/&gt; Transitioning to the disabled state may take a period of time.&lt;/br&gt; Until the transition is completed, the SIM card status will be disabling &lt;code&gt;disabling&lt;/code&gt;.&lt;br /&gt;In order to re-enable the SIM card, you will need to re-register it.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;DeleteSimCardResponse&gt;
+   * @return ApiResponse&lt;SimCardGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1019,7 +1293,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DeleteSimCardResponse> simCardDeleteWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardGet200Response> simCardDeleteWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1053,7 +1327,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DeleteSimCardResponse> localVarReturnType = new GenericType<DeleteSimCardResponse>() {};
+    GenericType<SimCardGet200Response> localVarReturnType = new GenericType<SimCardGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardDelete", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1063,7 +1337,7 @@ public class SimCardsApi {
    * Request a SIM card disable
    * This API disables a SIM card, disconnecting it from the network and making it impossible to consume data.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the disabled state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
    * @param id Identifies the resource. (required)
-   * @return SIMCardActionResponse
+   * @return SimCardActionGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1072,7 +1346,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardActionResponse simCardDisable(UUID id) throws ApiException {
+  public SimCardActionGet200Response simCardDisable(UUID id) throws ApiException {
     return simCardDisableWithHttpInfo(id).getData();
   }
 
@@ -1080,7 +1354,7 @@ public class SimCardsApi {
    * Request a SIM card disable
    * This API disables a SIM card, disconnecting it from the network and making it impossible to consume data.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the disabled state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;SIMCardActionResponse&gt;
+   * @return ApiResponse&lt;SimCardActionGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1089,7 +1363,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardActionResponse> simCardDisableWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardActionGet200Response> simCardDisableWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1123,7 +1397,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardActionResponse> localVarReturnType = new GenericType<SIMCardActionResponse>() {};
+    GenericType<SimCardActionGet200Response> localVarReturnType = new GenericType<SimCardActionGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardDisable", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1133,7 +1407,7 @@ public class SimCardsApi {
    * Request a SIM card enable
    * This API enables a SIM card, connecting it to the network and making it possible to consume data.&lt;br/&gt; To enable a SIM card, it must be associated with a SIM card group.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the enabled state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
    * @param id Identifies the resource. (required)
-   * @return SIMCardActionResponse
+   * @return SimCardActionGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1143,7 +1417,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardActionResponse simCardEnable(UUID id) throws ApiException {
+  public SimCardActionGet200Response simCardEnable(UUID id) throws ApiException {
     return simCardEnableWithHttpInfo(id).getData();
   }
 
@@ -1151,7 +1425,7 @@ public class SimCardsApi {
    * Request a SIM card enable
    * This API enables a SIM card, connecting it to the network and making it possible to consume data.&lt;br/&gt; To enable a SIM card, it must be associated with a SIM card group.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the enabled state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;SIMCardActionResponse&gt;
+   * @return ApiResponse&lt;SimCardActionGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1161,7 +1435,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardActionResponse> simCardEnableWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardActionGet200Response> simCardEnableWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1195,7 +1469,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardActionResponse> localVarReturnType = new GenericType<SIMCardActionResponse>() {};
+    GenericType<SimCardActionGet200Response> localVarReturnType = new GenericType<SimCardActionGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardEnable", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1206,7 +1480,7 @@ public class SimCardsApi {
    * Returns the details regarding a specific SIM card.
    * @param id Identifies the resource. (required)
    * @param includeSimCardGroup It includes the associated SIM card group object in the response when present. (optional, default to false)
-   * @return GetSimCardResponse
+   * @return SimCardGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1215,7 +1489,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetSimCardResponse simCardGet(UUID id, Boolean includeSimCardGroup) throws ApiException {
+  public SimCardGet200Response simCardGet(UUID id, Boolean includeSimCardGroup) throws ApiException {
     return simCardGetWithHttpInfo(id, includeSimCardGroup).getData();
   }
 
@@ -1224,7 +1498,7 @@ public class SimCardsApi {
    * Returns the details regarding a specific SIM card.
    * @param id Identifies the resource. (required)
    * @param includeSimCardGroup It includes the associated SIM card group object in the response when present. (optional, default to false)
-   * @return ApiResponse&lt;GetSimCardResponse&gt;
+   * @return ApiResponse&lt;SimCardGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1233,7 +1507,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetSimCardResponse> simCardGetWithHttpInfo(UUID id, Boolean includeSimCardGroup) throws ApiException {
+  public ApiResponse<SimCardGet200Response> simCardGetWithHttpInfo(UUID id, Boolean includeSimCardGroup) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1268,7 +1542,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetSimCardResponse> localVarReturnType = new GenericType<GetSimCardResponse>() {};
+    GenericType<SimCardGet200Response> localVarReturnType = new GenericType<SimCardGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1278,7 +1552,7 @@ public class SimCardsApi {
    * Register SIM cards
    * Register the SIM cards associated with the provided registration codes to the current user&#39;s account.&lt;br/&gt;&lt;br/&gt; If &lt;code&gt;sim_card_group_id&lt;/code&gt; is provided, the SIM cards will be associated with that group. Otherwise, the default group for the current user will be used.&lt;br/&gt;&lt;br/&gt; 
    * @param siMCardRegistration  (required)
-   * @return RegisterSimCardsResponse
+   * @return SimCardRegister202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1286,7 +1560,7 @@ public class SimCardsApi {
        <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
    */
-  public RegisterSimCardsResponse simCardRegister(SIMCardRegistration siMCardRegistration) throws ApiException {
+  public SimCardRegister202Response simCardRegister(SIMCardRegistration siMCardRegistration) throws ApiException {
     return simCardRegisterWithHttpInfo(siMCardRegistration).getData();
   }
 
@@ -1294,7 +1568,7 @@ public class SimCardsApi {
    * Register SIM cards
    * Register the SIM cards associated with the provided registration codes to the current user&#39;s account.&lt;br/&gt;&lt;br/&gt; If &lt;code&gt;sim_card_group_id&lt;/code&gt; is provided, the SIM cards will be associated with that group. Otherwise, the default group for the current user will be used.&lt;br/&gt;&lt;br/&gt; 
    * @param siMCardRegistration  (required)
-   * @return ApiResponse&lt;RegisterSimCardsResponse&gt;
+   * @return ApiResponse&lt;SimCardRegister202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1302,7 +1576,7 @@ public class SimCardsApi {
        <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RegisterSimCardsResponse> simCardRegisterWithHttpInfo(SIMCardRegistration siMCardRegistration) throws ApiException {
+  public ApiResponse<SimCardRegister202Response> simCardRegisterWithHttpInfo(SIMCardRegistration siMCardRegistration) throws ApiException {
     Object localVarPostBody = siMCardRegistration;
     
     // verify the required parameter 'siMCardRegistration' is set
@@ -1335,7 +1609,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<RegisterSimCardsResponse> localVarReturnType = new GenericType<RegisterSimCardsResponse>() {};
+    GenericType<SimCardRegister202Response> localVarReturnType = new GenericType<SimCardRegister202Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardRegister", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1345,7 +1619,7 @@ public class SimCardsApi {
    * Request setting a SIM card to standby
    * The SIM card will be able to connect to the network once the process to set it to standby has been completed, thus making it possible to consume data.&lt;br/&gt; To set a SIM card to standby, it must be associated with SIM card group.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the standby state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
    * @param id Identifies the resource. (required)
-   * @return SIMCardActionResponse
+   * @return SimCardActionGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1354,7 +1628,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardActionResponse simCardSetStandby(UUID id) throws ApiException {
+  public SimCardActionGet200Response simCardSetStandby(UUID id) throws ApiException {
     return simCardSetStandbyWithHttpInfo(id).getData();
   }
 
@@ -1362,7 +1636,7 @@ public class SimCardsApi {
    * Request setting a SIM card to standby
    * The SIM card will be able to connect to the network once the process to set it to standby has been completed, thus making it possible to consume data.&lt;br/&gt; To set a SIM card to standby, it must be associated with SIM card group.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the standby state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;SIMCardActionResponse&gt;
+   * @return ApiResponse&lt;SimCardActionGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1371,7 +1645,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardActionResponse> simCardSetStandbyWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardActionGet200Response> simCardSetStandbyWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1405,7 +1679,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardActionResponse> localVarReturnType = new GenericType<SIMCardActionResponse>() {};
+    GenericType<SimCardActionGet200Response> localVarReturnType = new GenericType<SimCardActionGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardSetStandby", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1416,7 +1690,7 @@ public class SimCardsApi {
    * Updates SIM card data
    * @param id Identifies the resource. (required)
    * @param siMCard  (required)
-   * @return UpdateSimCardResponse
+   * @return SimCardGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1425,7 +1699,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public UpdateSimCardResponse simCardUpdate(UUID id, SIMCard siMCard) throws ApiException {
+  public SimCardGet200Response simCardUpdate(UUID id, SIMCard siMCard) throws ApiException {
     return simCardUpdateWithHttpInfo(id, siMCard).getData();
   }
 
@@ -1434,7 +1708,7 @@ public class SimCardsApi {
    * Updates SIM card data
    * @param id Identifies the resource. (required)
    * @param siMCard  (required)
-   * @return ApiResponse&lt;UpdateSimCardResponse&gt;
+   * @return ApiResponse&lt;SimCardGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1443,7 +1717,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<UpdateSimCardResponse> simCardUpdateWithHttpInfo(UUID id, SIMCard siMCard) throws ApiException {
+  public ApiResponse<SimCardGet200Response> simCardUpdateWithHttpInfo(UUID id, SIMCard siMCard) throws ApiException {
     Object localVarPostBody = siMCard;
     
     // verify the required parameter 'id' is set
@@ -1482,7 +1756,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<UpdateSimCardResponse> localVarReturnType = new GenericType<UpdateSimCardResponse>() {};
+    GenericType<SimCardGet200Response> localVarReturnType = new GenericType<SimCardGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardUpdate", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1497,7 +1771,8 @@ public class SimCardsApi {
    * @param filterSimCardGroupId A valid SIM card group ID. (optional)
    * @param filterTags A list of SIM card tags to filter on.&lt;br/&gt;&lt;br/&gt; If the SIM card contains &lt;b&gt;&lt;i&gt;all&lt;/i&gt;&lt;/b&gt; of the given &lt;code&gt;tags&lt;/code&gt; they will be found.&lt;br/&gt;&lt;br/&gt; For example, if the SIM cards have the following tags: &lt;ul&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;, &#39;staff&#39;, &#39;test&#39;]&lt;/code&gt;   &lt;li&gt;&lt;code&gt;[&#39;test&#39;]&lt;/code&gt;&lt;/li&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;]&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; Searching for &lt;code&gt;[&#39;customers&#39;, &#39;test&#39;]&lt;/code&gt; returns only the first because it&#39;s the only one with both tags.&lt;br/&gt; Searching for &lt;code&gt;test&lt;/code&gt; returns the first two SIMs, because both of them have such tag.&lt;br/&gt; Searching for &lt;code&gt;customers&lt;/code&gt; returns the first and last SIMs.&lt;br/&gt;  (optional)
    * @param filterIccid A search string to partially match for the SIM card&#39;s ICCID. (optional)
-   * @return SearchSimCardsResponse
+   * @param filterStatus Filter by a SIM card&#39;s status. (optional)
+   * @return SimCardsGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1506,8 +1781,8 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SearchSimCardsResponse simCardsGet(Integer pageNumber, Integer pageSize, Boolean includeSimCardGroup, UUID filterSimCardGroupId, List<String> filterTags, String filterIccid) throws ApiException {
-    return simCardsGetWithHttpInfo(pageNumber, pageSize, includeSimCardGroup, filterSimCardGroupId, filterTags, filterIccid).getData();
+  public SimCardsGet200Response simCardsGet(Integer pageNumber, Integer pageSize, Boolean includeSimCardGroup, UUID filterSimCardGroupId, List<String> filterTags, String filterIccid, List<String> filterStatus) throws ApiException {
+    return simCardsGetWithHttpInfo(pageNumber, pageSize, includeSimCardGroup, filterSimCardGroupId, filterTags, filterIccid, filterStatus).getData();
   }
 
   /**
@@ -1519,7 +1794,8 @@ public class SimCardsApi {
    * @param filterSimCardGroupId A valid SIM card group ID. (optional)
    * @param filterTags A list of SIM card tags to filter on.&lt;br/&gt;&lt;br/&gt; If the SIM card contains &lt;b&gt;&lt;i&gt;all&lt;/i&gt;&lt;/b&gt; of the given &lt;code&gt;tags&lt;/code&gt; they will be found.&lt;br/&gt;&lt;br/&gt; For example, if the SIM cards have the following tags: &lt;ul&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;, &#39;staff&#39;, &#39;test&#39;]&lt;/code&gt;   &lt;li&gt;&lt;code&gt;[&#39;test&#39;]&lt;/code&gt;&lt;/li&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;]&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; Searching for &lt;code&gt;[&#39;customers&#39;, &#39;test&#39;]&lt;/code&gt; returns only the first because it&#39;s the only one with both tags.&lt;br/&gt; Searching for &lt;code&gt;test&lt;/code&gt; returns the first two SIMs, because both of them have such tag.&lt;br/&gt; Searching for &lt;code&gt;customers&lt;/code&gt; returns the first and last SIMs.&lt;br/&gt;  (optional)
    * @param filterIccid A search string to partially match for the SIM card&#39;s ICCID. (optional)
-   * @return ApiResponse&lt;SearchSimCardsResponse&gt;
+   * @param filterStatus Filter by a SIM card&#39;s status. (optional)
+   * @return ApiResponse&lt;SimCardsGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1528,7 +1804,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SearchSimCardsResponse> simCardsGetWithHttpInfo(Integer pageNumber, Integer pageSize, Boolean includeSimCardGroup, UUID filterSimCardGroupId, List<String> filterTags, String filterIccid) throws ApiException {
+  public ApiResponse<SimCardsGet200Response> simCardsGetWithHttpInfo(Integer pageNumber, Integer pageSize, Boolean includeSimCardGroup, UUID filterSimCardGroupId, List<String> filterTags, String filterIccid, List<String> filterStatus) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -1546,6 +1822,7 @@ public class SimCardsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[sim_card_group_id]", filterSimCardGroupId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[tags]", filterTags));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[iccid]", filterIccid));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[status]", filterStatus));
 
     
     
@@ -1562,7 +1839,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SearchSimCardsResponse> localVarReturnType = new GenericType<SearchSimCardsResponse>() {};
+    GenericType<SimCardsGet200Response> localVarReturnType = new GenericType<SimCardsGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.simCardsGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1574,7 +1851,7 @@ public class SimCardsApi {
    * @param simCardId Identifies a SIM card. (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return WirelessConnectivityLogCollectionResponse
+   * @return WirelessConnectivityLogsGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1583,7 +1860,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WirelessConnectivityLogCollectionResponse wirelessConnectivityLogsGet(UUID simCardId, Integer pageNumber, Integer pageSize) throws ApiException {
+  public WirelessConnectivityLogsGet200Response wirelessConnectivityLogsGet(UUID simCardId, Integer pageNumber, Integer pageSize) throws ApiException {
     return wirelessConnectivityLogsGetWithHttpInfo(simCardId, pageNumber, pageSize).getData();
   }
 
@@ -1593,7 +1870,7 @@ public class SimCardsApi {
    * @param simCardId Identifies a SIM card. (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;WirelessConnectivityLogCollectionResponse&gt;
+   * @return ApiResponse&lt;WirelessConnectivityLogsGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -1602,7 +1879,7 @@ public class SimCardsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WirelessConnectivityLogCollectionResponse> wirelessConnectivityLogsGetWithHttpInfo(UUID simCardId, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<WirelessConnectivityLogsGet200Response> wirelessConnectivityLogsGetWithHttpInfo(UUID simCardId, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'simCardId' is set
@@ -1638,7 +1915,7 @@ public class SimCardsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WirelessConnectivityLogCollectionResponse> localVarReturnType = new GenericType<WirelessConnectivityLogCollectionResponse>() {};
+    GenericType<WirelessConnectivityLogsGet200Response> localVarReturnType = new GenericType<WirelessConnectivityLogsGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardsApi.wirelessConnectivityLogsGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

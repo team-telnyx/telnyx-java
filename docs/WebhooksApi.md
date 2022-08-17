@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## getWebhookDeliveries
 
-> ListWebhookDeliveriesResponse getWebhookDeliveries(filterStatusEq, filterWebhookContains, filterAttemptsContains, filterStartedAtGte, filterStartedAtLte, filterFinishedAtGte, filterFinishedAtLte, pageNumber, pageSize)
+> GetWebhookDeliveries200Response getWebhookDeliveries(filterStatusEq, filterEventType, filterWebhookContains, filterAttemptsContains, filterStartedAtGte, filterStartedAtLte, filterFinishedAtGte, filterFinishedAtLte, pageNumber, pageSize)
 
 List webhook deliveries
 
@@ -39,6 +39,7 @@ public class Example {
 
         WebhooksApi apiInstance = new WebhooksApi(defaultClient);
         String filterStatusEq = "delivered"; // String | Return only webhook_deliveries matching the given `status`
+        String filterEventType = "call_initiated,call.initiated"; // String | Return only webhook_deliveries matching the given value of `event_type`. Accepts multiple values separated by a `,`.
         String filterWebhookContains = "call.initiated"; // String | Return only webhook deliveries whose `webhook` component contains the given text
         String filterAttemptsContains = "https://fallback.example.com/webhooks"; // String | Return only webhook_deliveries whose `attempts` component contains the given text
         String filterStartedAtGte = "2019-03-29T11:10:00Z"; // String | Return only webhook_deliveries whose delivery started later than or at given ISO 8601 datetime
@@ -48,7 +49,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListWebhookDeliveriesResponse result = apiInstance.getWebhookDeliveries(filterStatusEq, filterWebhookContains, filterAttemptsContains, filterStartedAtGte, filterStartedAtLte, filterFinishedAtGte, filterFinishedAtLte, pageNumber, pageSize);
+            GetWebhookDeliveries200Response result = apiInstance.getWebhookDeliveries(filterStatusEq, filterEventType, filterWebhookContains, filterAttemptsContains, filterStartedAtGte, filterStartedAtLte, filterFinishedAtGte, filterFinishedAtLte, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling WebhooksApi#getWebhookDeliveries");
@@ -67,6 +68,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filterStatusEq** | **String**| Return only webhook_deliveries matching the given &#x60;status&#x60; | [optional] [enum: delivered, failed]
+ **filterEventType** | **String**| Return only webhook_deliveries matching the given value of &#x60;event_type&#x60;. Accepts multiple values separated by a &#x60;,&#x60;. | [optional]
  **filterWebhookContains** | **String**| Return only webhook deliveries whose &#x60;webhook&#x60; component contains the given text | [optional]
  **filterAttemptsContains** | **String**| Return only webhook_deliveries whose &#x60;attempts&#x60; component contains the given text | [optional]
  **filterStartedAtGte** | **String**| Return only webhook_deliveries whose delivery started later than or at given ISO 8601 datetime | [optional]
@@ -78,7 +80,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListWebhookDeliveriesResponse**](ListWebhookDeliveriesResponse.md)
+[**GetWebhookDeliveries200Response**](GetWebhookDeliveries200Response.md)
 
 ### Authorization
 
@@ -99,7 +101,7 @@ Name | Type | Description  | Notes
 
 ## getWebhookDelivery
 
-> RetrieveWebhookDelivery getWebhookDelivery(id)
+> GetWebhookDelivery200Response getWebhookDelivery(id)
 
 Find webhook_delivery details by ID
 
@@ -129,7 +131,7 @@ public class Example {
         WebhooksApi apiInstance = new WebhooksApi(defaultClient);
         UUID id = UUID.fromString("c9c0797e-901d-4349-a33c-c2c8f31a92c2"); // UUID | Uniquely identifies the webhook_delivery.
         try {
-            RetrieveWebhookDelivery result = apiInstance.getWebhookDelivery(id);
+            GetWebhookDelivery200Response result = apiInstance.getWebhookDelivery(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling WebhooksApi#getWebhookDelivery");
@@ -151,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveWebhookDelivery**](RetrieveWebhookDelivery.md)
+[**GetWebhookDelivery200Response**](GetWebhookDelivery200Response.md)
 
 ### Authorization
 

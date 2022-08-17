@@ -114,6 +114,20 @@ public class CustomerServiceRequest {
   public CustomerServiceRequest() { 
   }
 
+  @JsonCreator
+  public CustomerServiceRequest(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) OffsetDateTime createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) OffsetDateTime updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Uniquely identifies this customer service request
    * @return id

@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**MdrUsageReportResponse**](MdrUsageReportResponse.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**MdrUsageReportResponse**](MdrUsageReportResponse.md) |  |  [optional] |
 
 
 

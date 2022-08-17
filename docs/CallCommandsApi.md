@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**callEnqueue**](CallCommandsApi.md#callEnqueue) | **POST** /calls/{call_control_id}/actions/enqueue | Enqueue call
 [**callForkStart**](CallCommandsApi.md#callForkStart) | **POST** /calls/{call_control_id}/actions/fork_start | Forking start
 [**callForkStop**](CallCommandsApi.md#callForkStop) | **POST** /calls/{call_control_id}/actions/fork_stop | Forking stop
+[**callGather**](CallCommandsApi.md#callGather) | **POST** /calls/{call_control_id}/actions/gather | Gather
 [**callGatherStop**](CallCommandsApi.md#callGatherStop) | **POST** /calls/{call_control_id}/actions/gather_stop | Gather stop
 [**callGatherUsingAudio**](CallCommandsApi.md#callGatherUsingAudio) | **POST** /calls/{call_control_id}/actions/gather_using_audio | Gather using audio
 [**callGatherUsingSpeak**](CallCommandsApi.md#callGatherUsingSpeak) | **POST** /calls/{call_control_id}/actions/gather_using_speak | Gather using speak
@@ -24,11 +25,11 @@ Method | HTTP request | Description
 [**callReject**](CallCommandsApi.md#callReject) | **POST** /calls/{call_control_id}/actions/reject | Reject a call
 [**callSendDTMF**](CallCommandsApi.md#callSendDTMF) | **POST** /calls/{call_control_id}/actions/send_dtmf | Send DTMF
 [**callSpeak**](CallCommandsApi.md#callSpeak) | **POST** /calls/{call_control_id}/actions/speak | Speak text
-[**callStreamingStart**](CallCommandsApi.md#callStreamingStart) | **POST** /calls/{call_control_id}/actions/streaming_start | Streaming start
 [**callStreamingStop**](CallCommandsApi.md#callStreamingStop) | **POST** /calls/{call_control_id}/actions/streaming_stop | Streaming stop
 [**callTranscriptionStart**](CallCommandsApi.md#callTranscriptionStart) | **POST** /calls/{call_control_id}/actions/transcription_start | Transcription start
 [**callTranscriptionStop**](CallCommandsApi.md#callTranscriptionStop) | **POST** /calls/{call_control_id}/actions/transcription_stop | Transcription stop
 [**callTransfer**](CallCommandsApi.md#callTransfer) | **POST** /calls/{call_control_id}/actions/transfer | Transfer call
+[**callsCallControlIdActionsStreamingStartPost**](CallCommandsApi.md#callsCallControlIdActionsStreamingStartPost) | **POST** /calls/{call_control_id}/actions/streaming_start | Streaming start
 [**clientStateUpdate**](CallCommandsApi.md#clientStateUpdate) | **PUT** /calls/{call_control_id}/actions/client_state_update | Update client state
 [**leaveQueue**](CallCommandsApi.md#leaveQueue) | **POST** /calls/{call_control_id}/actions/leave_queue | Remove call from a queue
 
@@ -45,7 +46,8 @@ Answer an incoming call. You must issue this command before executing subsequent
 **Expected Webhooks:**
 
 - `call.answered`
-- `streaming.started` and `streaming.stopped` if `stream_url` was set
+- `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
+
 
 ### Example
 
@@ -204,8 +206,10 @@ Dial a number or SIP URI from a given connection. A successful response will inc
 - `call.initiated`
 - `call.answered` or `call.hangup`
 - `call.machine.detection.ended` if `answering_machine_detection` was requested
-- `call.machine.greeting.ended` if `answering_machine_detection` was set to `detect_beep`, `greeting_end` or `detect_words`
-- `streaming.started` and `streaming.stopped` if `stream_url` was set
+- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting
+- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
+- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected
+- `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
 
 
 ### Example
@@ -555,6 +559,87 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **callControlId** | **String**| Unique identifier and token for controlling the call |
  **stopForkingRequest** | [**StopForkingRequest**](StopForkingRequest.md)| Stop forking media request |
+
+### Return type
+
+[**CallControlCommandResponse**](CallControlCommandResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response upon making a call control command. |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## callGather
+
+> CallControlCommandResponse callGather(callControlId, gatherRequest)
+
+Gather
+
+Gather DTMF signals to build interactive menus.
+
+You can pass a list of valid digits. The [Answer](/docs/api/v2/call-control/Call-Commands#CallControlAnswer) command must be issued before the `gather` command.
+
+**Expected Webhooks:**
+
+- `call.dtmf.received` (you may receive many of these webhooks)
+- `call.gather.ended`
+
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        GatherRequest gatherRequest = new GatherRequest(); // GatherRequest | Gather
+        try {
+            CallControlCommandResponse result = apiInstance.callGather(callControlId, gatherRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callGather");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **callControlId** | **String**| Unique identifier and token for controlling the call |
+ **gatherRequest** | [**GatherRequest**](GatherRequest.md)| Gather |
 
 ### Return type
 
@@ -1687,141 +1772,6 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## callStreamingStart
-
-> CallControlCommandResponse callStreamingStart(callControlId, startStreamingRequest)
-
-Streaming start
-
-Start streaming the media from a call to a specific WebSocket address in near-realtime. 
-Audio will be delivered as base64-encoded RTP packets, wrapped in JSON payloads. 
-
-**Expected Webhooks:**
-
-- `streaming.started`
-- `streaming.stopped`
-
-**WebSocket events**
-
-When the WebSocket connection is established, the following event is being sent over it:
-```
-{
-  "event": "connected",
-  "version": "1.0.0"
-}
-```
-And when the call is started, an event which contains information about the encoding and `stream_id` that identifies a particular stream:
-```
-{
-  "event": "start",
-  "sequence_number": "1",
-  "start": {
-    "user_id": "3E6F995F-85F7-4705-9741-53B116D28237",
-    "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
-    "media_format": {
-      "encoding": "audio/x-mulaw",
-      "sample_rate": 8000,
-      "channels": 1
-    }
-  },
-  "stream_id": "32DE0DEA-53CB-4B21-89A4-9E1819C043BC"
-}
-```
-The start event is followed by the following media events that contain base64-encoded RTP packets as their payloads:
-```
-{ 
-  "event": "media",
-  "sequence_number": "4",
-  "media": { 
-    "track": "inbound/outbound", 
-    "chunk": "2",
-    "timestamp": "5",
-    "payload": "no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic"                        
-  },
-  "stream_id": "32DE0DEA-53CB-4B21-89A4-9E1819C043BC" 
-}
-```
-Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.
-
-When the call ends, the stop event over WebSockets connection is sent:
-```
-{ 
-  "event": "stop",
-  "sequence_number": "5",
-  "stop": {
-    "user_id": "3E6F995F-85F7-4705-9741-53B116D28237",
-    "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
-   },
-    "stream_id": "32DE0DEA-53CB-4B21-89A4-9E1819C043BC" 
- }
-```
-
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.CallCommandsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
-        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
-        StartStreamingRequest startStreamingRequest = new StartStreamingRequest(); // StartStreamingRequest | Start streaming media request
-        try {
-            CallControlCommandResponse result = apiInstance.callStreamingStart(callControlId, startStreamingRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CallCommandsApi#callStreamingStart");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **callControlId** | **String**| Unique identifier and token for controlling the call |
- **startStreamingRequest** | [**StartStreamingRequest**](StartStreamingRequest.md)| Start streaming media request |
-
-### Return type
-
-[**CallControlCommandResponse**](CallControlCommandResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response upon making a call control command. |  -  |
-| **0** | Unexpected error |  -  |
-
-
 ## callStreamingStop
 
 > CallControlCommandResponse callStreamingStop(callControlId, stopStreamingRequest)
@@ -2111,6 +2061,175 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **callControlId** | **String**| Unique identifier and token for controlling the call |
  **transferCallRequest** | [**TransferCallRequest**](TransferCallRequest.md)| Transfer call request |
+
+### Return type
+
+[**CallControlCommandResponse**](CallControlCommandResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response upon making a call control command. |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## callsCallControlIdActionsStreamingStartPost
+
+> CallControlCommandResponse callsCallControlIdActionsStreamingStartPost(callControlId, startStreamingRequest)
+
+Streaming start
+
+Start streaming the media from a call to a specific WebSocket address or Dialogflow connection in near-realtime. Audio will be delivered as base64-encoded RTP payload (raw audio), wrapped in JSON payloads. 
+
+**Example: Starting a stream to a Websocket address**
+
+ The `stream_url` param is mandatory.
+
+```
+curl -X POST \ 
+  --header "Content-Type: application/json" \ 
+  --header "Accept: application/json" \ 
+  --header "Authorization: Bearer YOUR_API_KEY" \ 
+  --data '{
+ "stream_url": "wss://www.example.com/websocket",\ 
+"client_state":"aGF2ZSBhIG5pY2UgZGF5ID1d",\ 
+"command_id":"891510ac-f3e4-11e8-af5b-de00688a4901" \ 
+}' \ 
+  https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start 
+``` 
+
+ **Example: Starting a stream to a Dialogflow connection** 
+
+ Enable the Dialogflow integration by sending `"enable_dialogflow": true` in the request. You need to have a Dialogflow connection associated with your Call Control application first, [click here for instructions](https://developers.telnyx.com/docs/v2/call-control/tutorials/dialogflow-es).
+```
+curl -X POST \ 
+  --header "Content-Type: application/json" \ 
+  --header "Accept: application/json" \ 
+  --header "Authorization: Bearer YOUR_API_KEY" \ 
+  --data '{
+ "client_state":"aGF2ZSBhIG5pY2UgZGF5ID1d", \ 
+"command_id":"891510ac-f3e4-11e8-af5b-de00688a4901", \ 
+"enable_dialogflow": true \ 
+}' \ 
+  https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start 
+```
+
+**Expected Webhooks:**
+
+- `streaming.started`
+- `streaming.stopped`
+- `streaming.failed`
+
+**WebSocket events**
+
+When the WebSocket connection is established, the following event is being sent over it:
+```
+{
+  "event": "connected",
+  "version": "1.0.0"
+}
+```
+And when the call is started, an event which contains information about the encoding and `stream_id` that identifies a particular stream:
+```
+{
+  "event": "start",
+  "sequence_number": "1",
+  "start": {
+    "user_id": "3e6f995f-85f7-4705-9741-53b116d28237",
+    "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", 
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "media_format": {
+      "encoding": "audio/x-mulaw",
+      "sample_rate": 8000,
+      "channels": 1
+    }
+  },
+  "stream_id": "32de0dea-53cb-4b21-89a4-9e1819c043bc"
+}
+```
+The start event is followed by the following media events that contain base64-encoded RTP payload (raw audio, no RTP headers) (:
+```
+{ 
+  "event": "media",
+  "sequence_number": "4",
+  "media": { 
+    "track": "inbound/outbound", 
+    "chunk": "2",
+    "timestamp": "5",
+    "payload": "no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic" 
+  },
+  "stream_id": "32de0dea-53cb-4b21-89a4-9e1819c043bc" 
+}
+```
+Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.
+
+When the call ends, the stop event over WebSockets connection is sent:
+```
+{ 
+  "event": "stop",
+  "sequence_number": "5",
+  "stop": {
+    "user_id": "3e6f995f-85f7-4705-9741-53b116d28237",
+    "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
+   },
+    "stream_id": "32de0dea-53cb-4b21-89a4-9e1819c043bc" 
+ }
+```
+
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        CallCommandsApi apiInstance = new CallCommandsApi(defaultClient);
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        StartStreamingRequest startStreamingRequest = new StartStreamingRequest(); // StartStreamingRequest | Start streaming media request
+        try {
+            CallControlCommandResponse result = apiInstance.callsCallControlIdActionsStreamingStartPost(callControlId, startStreamingRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallCommandsApi#callsCallControlIdActionsStreamingStartPost");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **callControlId** | **String**| Unique identifier and token for controlling the call |
+ **startStreamingRequest** | [**StartStreamingRequest**](StartStreamingRequest.md)| Start streaming media request |
 
 ### Return type
 

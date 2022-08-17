@@ -79,7 +79,7 @@ public class UploadMedia {
 
 
   /**
-   * Return true if this Upload_Media object is equal to o.
+   * Return true if this Upload_Media_ object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

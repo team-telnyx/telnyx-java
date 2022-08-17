@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.Direction;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -94,43 +95,8 @@ public class Fax {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
 
-  /**
-   * The direction of the fax.
-   */
-  public enum DirectionEnum {
-    INBOUND("inbound"),
-    
-    OUTBOUND("outbound");
-
-    private String value;
-
-    DirectionEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static DirectionEnum fromValue(String value) {
-      for (DirectionEnum b : DirectionEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_DIRECTION = "direction";
-  private DirectionEnum direction;
+  private Direction direction;
 
   public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
   private String mediaUrl;
@@ -154,6 +120,8 @@ public class Fax {
     QUEUED("queued"),
     
     MEDIA_PROCESSED("media.processed"),
+    
+    ORIGINATED("originated"),
     
     SENDING("sending"),
     
@@ -220,6 +188,14 @@ public class Fax {
   public Fax() { 
   }
 
+  @JsonCreator
+  public Fax(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id
+  ) {
+    this();
+    this.id = id;
+  }
+
   public Fax recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
     return this;
@@ -246,17 +222,12 @@ public class Fax {
   }
 
 
-  public Fax id(UUID id) {
-    this.id = id;
-    return this;
-  }
-
    /**
-   * Identifies the fax.
+   * Identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Identifies the fax.")
+  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -265,11 +236,6 @@ public class Fax {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
 
 
   public Fax connectionId(String connectionId) {
@@ -278,11 +244,11 @@ public class Fax {
   }
 
    /**
-   * The connection ID to send the fax with.
+   * The ID of the connection used to send the fax.
    * @return connectionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "234423", value = "The connection ID to send the fax with.")
+  @ApiModelProperty(example = "234423", value = "The ID of the connection used to send the fax.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -298,28 +264,28 @@ public class Fax {
   }
 
 
-  public Fax direction(DirectionEnum direction) {
+  public Fax direction(Direction direction) {
     this.direction = direction;
     return this;
   }
 
    /**
-   * The direction of the fax.
+   * Get direction
    * @return direction
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "outbound", value = "The direction of the fax.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public DirectionEnum getDirection() {
+  public Direction getDirection() {
     return direction;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDirection(DirectionEnum direction) {
+  public void setDirection(Direction direction) {
     this.direction = direction;
   }
 
@@ -330,11 +296,11 @@ public class Fax {
   }
 
    /**
-   * The URL to the PDF used for the fax&#39;s media. If media_name was supplied, this is omitted.
+   * The URL to the PDF used for the fax&#39;s media. media_url and media_name/contents can&#39;t be submitted together.
    * @return mediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL to the PDF used for the fax's media. If media_name was supplied, this is omitted.")
+  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -356,11 +322,11 @@ public class Fax {
   }
 
    /**
-   * The media_name of a file used for the fax&#39;s media.
+   * The media_name used for the fax&#39;s media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can&#39;t be submitted together.
    * @return mediaName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file used for the fax's media.")
+  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name used for the fax's media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -538,11 +504,11 @@ public class Fax {
   }
 
    /**
-   * Should fax media be stored on temporary URL.
+   * Should fax media be stored on temporary URL. It does not support media_name.
    * @return storeMedia
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Should fax media be stored on temporary URL.")
+  @ApiModelProperty(value = "Should fax media be stored on temporary URL. It does not support media_name.")
   @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

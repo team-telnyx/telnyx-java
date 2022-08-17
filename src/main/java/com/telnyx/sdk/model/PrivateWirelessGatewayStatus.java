@@ -82,12 +82,24 @@ public class PrivateWirelessGatewayStatus {
   private ValueEnum value = ValueEnum.PROVISIONING;
 
   public static final String JSON_PROPERTY_ERROR_DESCRIPTION = "error_description";
-  private String errorDescription = "null";
+  private String errorDescription;
 
   public static final String JSON_PROPERTY_ERROR_CODE = "error_code";
-  private String errorCode = "null";
+  private String errorCode;
 
   public PrivateWirelessGatewayStatus() { 
+  }
+
+  @JsonCreator
+  public PrivateWirelessGatewayStatus(
+    @JsonProperty(JSON_PROPERTY_VALUE) ValueEnum value, 
+    @JsonProperty(JSON_PROPERTY_ERROR_DESCRIPTION) String errorDescription, 
+    @JsonProperty(JSON_PROPERTY_ERROR_CODE) String errorCode
+  ) {
+    this();
+    this.value = value;
+    this.errorDescription = errorDescription;
+    this.errorCode = errorCode;
   }
 
    /**

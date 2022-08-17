@@ -9,7 +9,7 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.UserBalanceResponse;
+import com.telnyx.sdk.model.GetUserBalance200Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +49,7 @@ public class BillingApi {
   /**
    * Retrieve user balance details
    * 
-   * @return UserBalanceResponse
+   * @return GetUserBalance200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -58,14 +58,14 @@ public class BillingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public UserBalanceResponse getUserBalance() throws ApiException {
+  public GetUserBalance200Response getUserBalance() throws ApiException {
     return getUserBalanceWithHttpInfo().getData();
   }
 
   /**
    * Retrieve user balance details
    * 
-   * @return ApiResponse&lt;UserBalanceResponse&gt;
+   * @return ApiResponse&lt;GetUserBalance200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -74,7 +74,7 @@ public class BillingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<UserBalanceResponse> getUserBalanceWithHttpInfo() throws ApiException {
+  public ApiResponse<GetUserBalance200Response> getUserBalanceWithHttpInfo() throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -102,7 +102,7 @@ public class BillingApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<UserBalanceResponse> localVarReturnType = new GenericType<UserBalanceResponse>() {};
+    GenericType<GetUserBalance200Response> localVarReturnType = new GenericType<GetUserBalance200Response>() {};
 
     return apiClient.invokeAPI("BillingApi.getUserBalance", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

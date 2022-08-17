@@ -46,6 +46,7 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   PortingOrder.JSON_PROPERTY_ID,
+  PortingOrder.JSON_PROPERTY_CUSTOMER_REFERENCE,
   PortingOrder.JSON_PROPERTY_CREATED_AT,
   PortingOrder.JSON_PROPERTY_UPDATED_AT,
   PortingOrder.JSON_PROPERTY_STATUS,
@@ -58,17 +59,22 @@ import com.telnyx.sdk.JSON;
   PortingOrder.JSON_PROPERTY_END_USER,
   PortingOrder.JSON_PROPERTY_ACTIVATION_SETTINGS,
   PortingOrder.JSON_PROPERTY_PHONE_NUMBER_CONFIGURATION,
+  PortingOrder.JSON_PROPERTY_PHONE_NUMBER_TYPE,
   PortingOrder.JSON_PROPERTY_DESCRIPTION,
   PortingOrder.JSON_PROPERTY_REQUIREMENTS,
+  PortingOrder.JSON_PROPERTY_REQUIREMENTS_MET,
   PortingOrder.JSON_PROPERTY_USER_FEEDBACK,
+  PortingOrder.JSON_PROPERTY_USER_ID,
   PortingOrder.JSON_PROPERTY_WEBHOOK_URL,
-  PortingOrder.JSON_PROPERTY_USER_REFERENCE,
   PortingOrder.JSON_PROPERTY_RECORD_TYPE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PortingOrder {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
+
+  public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
+  private String customerReference;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private OffsetDateTime createdAt;
@@ -106,25 +112,98 @@ public class PortingOrder {
   public static final String JSON_PROPERTY_PHONE_NUMBER_CONFIGURATION = "phone_number_configuration";
   private PortingOrderPhoneNumberConfiguration phoneNumberConfiguration;
 
+  /**
+   * The type of the phone number
+   */
+  public enum PhoneNumberTypeEnum {
+    LANDLINE("landline"),
+    
+    LOCAL("local"),
+    
+    MOBILE("mobile"),
+    
+    NATIONAL("national"),
+    
+    SHARED_COST("shared_cost"),
+    
+    TOLL_FREE("toll_free");
+
+    private String value;
+
+    PhoneNumberTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PhoneNumberTypeEnum fromValue(String value) {
+      for (PhoneNumberTypeEnum b : PhoneNumberTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_PHONE_NUMBER_TYPE = "phone_number_type";
+  private PhoneNumberTypeEnum phoneNumberType;
+
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
   public static final String JSON_PROPERTY_REQUIREMENTS = "requirements";
   private List<PortingOrderRequirement> requirements = null;
 
+  public static final String JSON_PROPERTY_REQUIREMENTS_MET = "requirements_met";
+  private Boolean requirementsMet;
+
   public static final String JSON_PROPERTY_USER_FEEDBACK = "user_feedback";
   private PortingOrderUserFeedback userFeedback;
 
+  public static final String JSON_PROPERTY_USER_ID = "user_id";
+  private UUID userId;
+
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private URI webhookUrl;
-
-  public static final String JSON_PROPERTY_USER_REFERENCE = "user_reference";
-  private String userReference;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
 
   public PortingOrder() { 
+  }
+
+  @JsonCreator
+  public PortingOrder(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) OffsetDateTime createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) OffsetDateTime updatedAt, 
+    @JsonProperty(JSON_PROPERTY_SUPPORT_KEY) String supportKey, 
+    @JsonProperty(JSON_PROPERTY_PARENT_SUPPORT_KEY) String parentSupportKey, 
+    @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBERS_COUNT) Integer portingPhoneNumbersCount, 
+    @JsonProperty(JSON_PROPERTY_OLD_SERVICE_PROVIDER_OCN) String oldServiceProviderOcn, 
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION) String description, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.id = id;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.supportKey = supportKey;
+    this.parentSupportKey = parentSupportKey;
+    this.portingPhoneNumbersCount = portingPhoneNumbersCount;
+    this.oldServiceProviderOcn = oldServiceProviderOcn;
+    this.description = description;
+    this.recordType = recordType;
   }
 
    /**
@@ -141,6 +220,32 @@ public class PortingOrder {
   }
 
 
+
+
+  public PortingOrder customerReference(String customerReference) {
+    this.customerReference = customerReference;
+    return this;
+  }
+
+   /**
+   * A customer-specified reference number for customer bookkeeping purposes
+   * @return customerReference
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Acct 123abc", value = "A customer-specified reference number for customer bookkeeping purposes")
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCustomerReference() {
+    return customerReference;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCustomerReference(String customerReference) {
+    this.customerReference = customerReference;
+  }
 
 
    /**
@@ -395,6 +500,32 @@ public class PortingOrder {
   }
 
 
+  public PortingOrder phoneNumberType(PhoneNumberTypeEnum phoneNumberType) {
+    this.phoneNumberType = phoneNumberType;
+    return this;
+  }
+
+   /**
+   * The type of the phone number
+   * @return phoneNumberType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "local", value = "The type of the phone number")
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PhoneNumberTypeEnum getPhoneNumberType() {
+    return phoneNumberType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPhoneNumberType(PhoneNumberTypeEnum phoneNumberType) {
+    this.phoneNumberType = phoneNumberType;
+  }
+
+
    /**
    * A description of the porting order
    * @return description
@@ -445,6 +576,32 @@ public class PortingOrder {
   }
 
 
+  public PortingOrder requirementsMet(Boolean requirementsMet) {
+    this.requirementsMet = requirementsMet;
+    return this;
+  }
+
+   /**
+   * Is true when the required documentation is met
+   * @return requirementsMet
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "false", value = "Is true when the required documentation is met")
+  @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRequirementsMet() {
+    return requirementsMet;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequirementsMet(Boolean requirementsMet) {
+    this.requirementsMet = requirementsMet;
+  }
+
+
   public PortingOrder userFeedback(PortingOrderUserFeedback userFeedback) {
     this.userFeedback = userFeedback;
     return this;
@@ -471,6 +628,32 @@ public class PortingOrder {
   }
 
 
+  public PortingOrder userId(UUID userId) {
+    this.userId = userId;
+    return this;
+  }
+
+   /**
+   * Identifies the user (or organization) who requested the porting order
+   * @return userId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "40d68ba2-0847-4df2-be9c-b0e0cb673e75", value = "Identifies the user (or organization) who requested the porting order")
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getUserId() {
+    return userId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUserId(UUID userId) {
+    this.userId = userId;
+  }
+
+
   public PortingOrder webhookUrl(URI webhookUrl) {
     this.webhookUrl = webhookUrl;
     return this;
@@ -494,32 +677,6 @@ public class PortingOrder {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWebhookUrl(URI webhookUrl) {
     this.webhookUrl = webhookUrl;
-  }
-
-
-  public PortingOrder userReference(String userReference) {
-    this.userReference = userReference;
-    return this;
-  }
-
-   /**
-   * A customer-specified reference number for customer bookkeeping purposes
-   * @return userReference
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "Acct 123abc", value = "A customer-specified reference number for customer bookkeeping purposes")
-  @JsonProperty(JSON_PROPERTY_USER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUserReference() {
-    return userReference;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_USER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUserReference(String userReference) {
-    this.userReference = userReference;
   }
 
 
@@ -552,6 +709,7 @@ public class PortingOrder {
     }
     PortingOrder portingOrder = (PortingOrder) o;
     return Objects.equals(this.id, portingOrder.id) &&
+        Objects.equals(this.customerReference, portingOrder.customerReference) &&
         Objects.equals(this.createdAt, portingOrder.createdAt) &&
         Objects.equals(this.updatedAt, portingOrder.updatedAt) &&
         Objects.equals(this.status, portingOrder.status) &&
@@ -564,17 +722,19 @@ public class PortingOrder {
         Objects.equals(this.endUser, portingOrder.endUser) &&
         Objects.equals(this.activationSettings, portingOrder.activationSettings) &&
         Objects.equals(this.phoneNumberConfiguration, portingOrder.phoneNumberConfiguration) &&
+        Objects.equals(this.phoneNumberType, portingOrder.phoneNumberType) &&
         Objects.equals(this.description, portingOrder.description) &&
         Objects.equals(this.requirements, portingOrder.requirements) &&
+        Objects.equals(this.requirementsMet, portingOrder.requirementsMet) &&
         Objects.equals(this.userFeedback, portingOrder.userFeedback) &&
+        Objects.equals(this.userId, portingOrder.userId) &&
         Objects.equals(this.webhookUrl, portingOrder.webhookUrl) &&
-        Objects.equals(this.userReference, portingOrder.userReference) &&
         Objects.equals(this.recordType, portingOrder.recordType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, createdAt, updatedAt, status, supportKey, parentSupportKey, portingPhoneNumbersCount, oldServiceProviderOcn, documents, misc, endUser, activationSettings, phoneNumberConfiguration, description, requirements, userFeedback, webhookUrl, userReference, recordType);
+    return Objects.hash(id, customerReference, createdAt, updatedAt, status, supportKey, parentSupportKey, portingPhoneNumbersCount, oldServiceProviderOcn, documents, misc, endUser, activationSettings, phoneNumberConfiguration, phoneNumberType, description, requirements, requirementsMet, userFeedback, userId, webhookUrl, recordType);
   }
 
   @Override
@@ -582,6 +742,7 @@ public class PortingOrder {
     StringBuilder sb = new StringBuilder();
     sb.append("class PortingOrder {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
@@ -594,11 +755,13 @@ public class PortingOrder {
     sb.append("    endUser: ").append(toIndentedString(endUser)).append("\n");
     sb.append("    activationSettings: ").append(toIndentedString(activationSettings)).append("\n");
     sb.append("    phoneNumberConfiguration: ").append(toIndentedString(phoneNumberConfiguration)).append("\n");
+    sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    requirements: ").append(toIndentedString(requirements)).append("\n");
+    sb.append("    requirementsMet: ").append(toIndentedString(requirementsMet)).append("\n");
     sb.append("    userFeedback: ").append(toIndentedString(userFeedback)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
-    sb.append("    userReference: ").append(toIndentedString(userReference)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("}");
     return sb.toString();

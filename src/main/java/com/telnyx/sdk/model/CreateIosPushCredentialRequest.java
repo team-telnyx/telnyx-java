@@ -32,12 +32,49 @@ import com.telnyx.sdk.JSON;
  * CreateIosPushCredentialRequest
  */
 @JsonPropertyOrder({
+  CreateIosPushCredentialRequest.JSON_PROPERTY_TYPE,
   CreateIosPushCredentialRequest.JSON_PROPERTY_CERTIFICATE,
   CreateIosPushCredentialRequest.JSON_PROPERTY_PRIVATE_KEY,
   CreateIosPushCredentialRequest.JSON_PROPERTY_ALIAS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateIosPushCredentialRequest {
+  /**
+   * Type of mobile push credential. Should be &lt;code&gt;ios&lt;/code&gt; here
+   */
+  public enum TypeEnum {
+    IOS("ios");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
+
   public static final String JSON_PROPERTY_CERTIFICATE = "certificate";
   private String certificate;
 
@@ -50,6 +87,32 @@ public class CreateIosPushCredentialRequest {
   public CreateIosPushCredentialRequest() { 
   }
 
+  public CreateIosPushCredentialRequest type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Type of mobile push credential. Should be &lt;code&gt;ios&lt;/code&gt; here
+   * @return type
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "Type of mobile push credential. Should be <code>ios</code> here")
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+
   public CreateIosPushCredentialRequest certificate(String certificate) {
     this.certificate = certificate;
     return this;
@@ -60,7 +123,7 @@ public class CreateIosPushCredentialRequest {
    * @return certificate
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "Bag Attributes     friendlyName: VoIP Services: com.telnyx.webrtcapp     localKeyID: AA AA AA AA AA AA AA AA AA AA AA AA AA AA AA AA AA AA AA AA subject=/UID=com.telnyx.webrtcapp.voip/CN=VoIP Services: com.telnyx.webrtcapp/OU=YKUVNPU9FS/O=Telnyx LLC/C=US issuer=/C=US/O=Apple Inc./OU=Apple Worldwide Developer Relations/CN=Apple Worldwide Developer Relations Certification Authority -----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czspJg4tZZ7NpSCGdeeUo8Vjw4MdZ DbQacxmVkK5FJ28G8rDAokPKsYAtDpgCpcza/sLteg/R/JMyMPkyTzzFGplpZe6H FsVCQTiFknRYwhNQhz4Q4GkXMkxCPUnMgrQwrDYcxwk4A05vnS1c7ogMGDJErElM UNFPJyUc58wwlqVYCTvqPv33odv1rGdWtqY9sGXQAaoscXdWcH6HpirBQkrjJkak qqk5bC8Ye2PIcY0+nVFNWCoQqJadGduy1kHFmEsvkmaemfQdRIwn9q5lpNUnMSo3 o6Cx0igYEHryauzg2hv14ylyvoCBxPOvl95NO86s9XS0CB2Qq6t9V59qkJiCPgKt hRtU70gavh5L0K/FPEO2FnjaNa/2kVeU8LWgqxH8dhIl/QQSipS49PDQR7DIJUWQ cakwR34j97t6UTxz7Yx05uUhjlcB4+hq2+RLA6LOOEcGnpECAwEAAaOCAqgwggKk MAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUiCcXCam2GGCL7Ou69kdZxVJUo7cw PwYIKwYBBQUHAQEEMzAxMC8GCCsGAQUFBzABhiNodHRwOi8vb2NzcC5hcHBsZS5j b20vb2NzcDAzLXd3ZHIwMTCCAR0GA1UdIASCARQwggEQMIIBDAbWVudHMuMDYGCC DRHGx1ngGt7fn3aobpf0CL+k8F1CcwkL8GZaAf3Pe6nxxWaTyaIU/LoBd8OU4aHq dGacHGp5tlgli8WhXNJuvHFmNnm0prQUeWjfTrHvAV2fEYJKoZIhvdjZAUBGAQUF MIH+MIHDBggrBgEFBQcCAjCBtgyBs1JlbGlhbmNlIG9uIHRoaXMgY2VydGlmaWNh dGUgYnkgYW55IHaiZDeWNjZXB0YW5jZSBvZiB0aGUgdGhlbiBhaiZDeaiZDeaiZD Isit2Bn6jXtow1YtMY7wjIcIq3f6Z04/DIe14wIDAQABAoIBAQCQHHcYowHSTm1P 5v0wL/Um+gbP8BUqATSQ9/uYolor2htoQGpcVWCcXMPZg3mM+dfCmrBPSkj5Pgb5 dnvp2ja3Fedo6U1nshdbeyY5Fb9UvqD51Fc3AgXMmh+WycKuXAjqPHSKOnkRnrz3 rpS+CdID85CdzPBdGWSww4+QPUMFz03cyttsIbEL46dR0ikRyRwRUejRTNS8I5+9 vG4J2/d40ejk9cWEB21lXqOv2qa3KYSkXgIbFq4BBIajGKmixjkknqoojqpiu109 CfO37+af5amMDmgKHLWYqpIuF856urhODCRuprjCYwkyHX+cDbuB7E6BKjtyUCRx cHBsaWNhYmxlIHN0OIIJDKDAU094NOJujfoLmFwcGxlLmNvbS99w0BAQsFAAOCAQ Y2VydGlmaWNhdGUgcG9saWN5IGFuZCBjZXJ0aWZpY2F0aW9uIHByYWN0aWNlIHN0 YXRlpX2LTQJsyzUjVKmbCjyATg5Y4QCqgDzrYUOBjL79dJzGwPKNQYG8YW5kYXJk LLuJX3jda0o393hnz03nz0jdah+m30lcS/iZkGAutno3MPd0EU9q3HyjyE0MjpHj /xXNgBL6zty06oXzUF+wXy1yNhUfouDLA3Yhv/uAbxN0NDart5s4kT/E3AAKIX3d BPYcCd3ran8CHgFW+dt3AIHRlcm1zIGFuZCBjb25kaXRpb25zIG9mIHVzZSwg== -----END CERTIFICATE----- ", required = true, value = "Certificate as received from APNs")
+  @ApiModelProperty(example = "-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----", required = true, value = "Certificate as received from APNs")
   @JsonProperty(JSON_PROPERTY_CERTIFICATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -86,7 +149,7 @@ public class CreateIosPushCredentialRequest {
    * @return privateKey
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czspJg4tZZ7NpSCGdeeUo8Vjw4MdZ DbQacxmVkK5FJ28G8rDAokPKsYAtDpgCpcza/sLteg/R/JMyMPkyTzzFGplpZe6H FsVCQTiFknRYwhNQhz4Q4GkXMkxCPUnMgrQwrDYcxwk4A05vnS1c7ogMGDJErElM UNFPJyUc58wwlqVYCTvqPv33odv1rGdWtqY9sGXQAaoscXdWcw6HpirBQkrjJkak qqk5bC8Ye2PIcY0+nVFNWCoQqxuFc9/xYtCzPhd7SLfj+sDp4ZU1u18WYAoD5E3u Isit2Bn6jXtow1YtMY7wjIcIq3f6Z04/DIe14wIDAQABAoIBAQCQHHcYowHSTm1P 5v0wL/Um+gbP8BUqATSQ9/uYolor2htoQGpcVWCcXMPZg3mM+dfCmrBPSkj5Pgb5 dnvp2ja3Fedo6U1nshdbeyY5Fb9UvqD51Fc3AgXMmh+WycKuXAjqPHSKOnkRnrz3 rpS+CdID85CdzPBdGWSww4+QPUMFz03cyttsIbEL46dR0ikRyRwRUejRTNS8I5+9 vG4J2/d40ejk9cWEB21lXqOv2qa3KYSkXgIbFq4BBIajGKmixjk+pMugWkBGwJ9r B8AfqXwV4qalv7/DPVj72OtBi79oiOltNsHWp4cChGkp8FxEaMhy5d6tT7lz/jY2 Zgu2Jz2pAoGBANuey3lj6dgTPc7ZDgcUKVz96aC1dDzrqBRKrIPsodFTVUSdiZP4 3TLrD4niE0+yVD/9YvohdIlczWEQwvTy4feBcubkbKeU0LiAaAILfY1x/2twPuvG wfYU1uVpxUxYcKvrCxHVEBbw8iuf6PABaROZItM2MMrJy+sWf9SQ2rwdAoGBAM4k wsJSER7NNGw08L1QhmSYqNzxZtd2sOqJJXny32zOOW4c2UUbdqoXmfAgPceeAec0 cE1W0SOzi06aNSjI1LQf5mKN4nFIt1Nw19zl9/YDZgbNkysuwsSlBQhZz+TwembC 3icGC8dLMLTpZPrXZ+bsmbj5QO5B0DY8hgXpzZn/AoGASr1Eo6AD8bvCmgU2B+St mu7yNfXqg9zyy00KXq8F9rW0W/B85HWZ2X0zQYpFZibbExfJOjRuc1y4rCLHJhMO IWvVTYxJCdLUISXZv3Bnnt4/vTFqyFRQp805wML5GN00It2PW9c1bYk78OqvnBXu y3Oe7WAQxMJd+jgi8pUFS2UCgYEAnr92cDjM0GCMn0vBnLi3Vh6t47/PR9wyb9r/ zkK3xk2lsmNq+iolHuWf+WiKyv+mTYt3dEeINSsd+4ELsQW/r5rlSz4ihMTP0OUU hxtd8ck6N8D2NYoEGXVPQ9gOHisGx74HYBvq1CXWM2uNBRL/A7luxCDG3PQ3yJyh RUqAt7cCgYEAmp5WdnTZJxkYFwaQ/MYebU4KAMMsvGoMkF+x7MJuB/0oXdpJnMyV QOwLXF/NZrWCyEqstGRN+rSKJXF/slD4wgAZBjfRkXMeYcsCEEPXQLLnj8SF5QIv 8+rvyN9fX+MnxRY9PqCXRaXRl7G/3ORxbPRPsefQAsDQ5NsN5lay2l4= -----END RSA PRIVATE KEY-----", required = true, value = "Corresponding private key to the certificate as received from APNs")
+  @ApiModelProperty(example = "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----", required = true, value = "Corresponding private key to the certificate as received from APNs")
   @JsonProperty(JSON_PROPERTY_PRIVATE_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -140,20 +203,22 @@ public class CreateIosPushCredentialRequest {
       return false;
     }
     CreateIosPushCredentialRequest createIosPushCredentialRequest = (CreateIosPushCredentialRequest) o;
-    return Objects.equals(this.certificate, createIosPushCredentialRequest.certificate) &&
+    return Objects.equals(this.type, createIosPushCredentialRequest.type) &&
+        Objects.equals(this.certificate, createIosPushCredentialRequest.certificate) &&
         Objects.equals(this.privateKey, createIosPushCredentialRequest.privateKey) &&
         Objects.equals(this.alias, createIosPushCredentialRequest.alias);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(certificate, privateKey, alias);
+    return Objects.hash(type, certificate, privateKey, alias);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateIosPushCredentialRequest {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
     sb.append("    privateKey: ").append(toIndentedString(privateKey)).append("\n");
     sb.append("    alias: ").append(toIndentedString(alias)).append("\n");

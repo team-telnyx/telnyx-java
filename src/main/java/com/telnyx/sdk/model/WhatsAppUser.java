@@ -84,6 +84,14 @@ public class WhatsAppUser {
   public WhatsAppUser() { 
   }
 
+  @JsonCreator
+  public WhatsAppUser(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) RecordTypeEnum recordType
+  ) {
+    this();
+    this.recordType = recordType;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

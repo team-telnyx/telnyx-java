@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Language;
+import com.telnyx.sdk.model.TemplateComponents;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class Template {
   private Language language;
 
   public static final String JSON_PROPERTY_COMPONENTS = "components";
-  private List<Object> components = null;
+  private List<TemplateComponents> components = null;
 
   public Template() { 
   }
@@ -135,12 +136,12 @@ public class Template {
   }
 
 
-  public Template components(List<Object> components) {
+  public Template components(List<TemplateComponents> components) {
     this.components = components;
     return this;
   }
 
-  public Template addComponentsItem(Object componentsItem) {
+  public Template addComponentsItem(TemplateComponents componentsItem) {
     if (this.components == null) {
       this.components = new ArrayList<>();
     }
@@ -157,14 +158,14 @@ public class Template {
   @JsonProperty(JSON_PROPERTY_COMPONENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Object> getComponents() {
+  public List<TemplateComponents> getComponents() {
     return components;
   }
 
 
   @JsonProperty(JSON_PROPERTY_COMPONENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setComponents(List<Object> components) {
+  public void setComponents(List<TemplateComponents> components) {
     this.components = components;
   }
 

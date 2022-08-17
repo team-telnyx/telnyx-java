@@ -8,8 +8,8 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.DocReqsListRequirementTypesResponse;
-import com.telnyx.sdk.model.DocReqsRequirementTypeResponse;
+import com.telnyx.sdk.model.DocReqsListRequirementTypes200Response;
+import com.telnyx.sdk.model.DocReqsRetrieveRequirementType200Response;
 import com.telnyx.sdk.model.Errors;
 import java.util.UUID;
 
@@ -53,7 +53,7 @@ public class RequirementTypesApi {
    * List all requirement types ordered by created_at descending
    * @param filterNameContains Filters requirement types to those whose name contains a certain string. (optional)
    * @param sort Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a &#x60;-&#x60; in front of the field name. (optional)
-   * @return DocReqsListRequirementTypesResponse
+   * @return DocReqsListRequirementTypes200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -62,7 +62,7 @@ public class RequirementTypesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DocReqsListRequirementTypesResponse docReqsListRequirementTypes(String filterNameContains, String sort) throws ApiException {
+  public DocReqsListRequirementTypes200Response docReqsListRequirementTypes(String filterNameContains, String sort) throws ApiException {
     return docReqsListRequirementTypesWithHttpInfo(filterNameContains, sort).getData();
   }
 
@@ -71,7 +71,7 @@ public class RequirementTypesApi {
    * List all requirement types ordered by created_at descending
    * @param filterNameContains Filters requirement types to those whose name contains a certain string. (optional)
    * @param sort Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a &#x60;-&#x60; in front of the field name. (optional)
-   * @return ApiResponse&lt;DocReqsListRequirementTypesResponse&gt;
+   * @return ApiResponse&lt;DocReqsListRequirementTypes200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -80,7 +80,7 @@ public class RequirementTypesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DocReqsListRequirementTypesResponse> docReqsListRequirementTypesWithHttpInfo(String filterNameContains, String sort) throws ApiException {
+  public ApiResponse<DocReqsListRequirementTypes200Response> docReqsListRequirementTypesWithHttpInfo(String filterNameContains, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -110,7 +110,7 @@ public class RequirementTypesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DocReqsListRequirementTypesResponse> localVarReturnType = new GenericType<DocReqsListRequirementTypesResponse>() {};
+    GenericType<DocReqsListRequirementTypes200Response> localVarReturnType = new GenericType<DocReqsListRequirementTypes200Response>() {};
 
     return apiClient.invokeAPI("RequirementTypesApi.docReqsListRequirementTypes", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -120,7 +120,7 @@ public class RequirementTypesApi {
    * Retrieve a requirement types
    * Retrieve a requirement type by id
    * @param id Uniquely identifies the requirement_type record (required)
-   * @return DocReqsRequirementTypeResponse
+   * @return DocReqsRetrieveRequirementType200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -129,7 +129,7 @@ public class RequirementTypesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DocReqsRequirementTypeResponse docReqsRetrieveRequirementType(UUID id) throws ApiException {
+  public DocReqsRetrieveRequirementType200Response docReqsRetrieveRequirementType(UUID id) throws ApiException {
     return docReqsRetrieveRequirementTypeWithHttpInfo(id).getData();
   }
 
@@ -137,7 +137,7 @@ public class RequirementTypesApi {
    * Retrieve a requirement types
    * Retrieve a requirement type by id
    * @param id Uniquely identifies the requirement_type record (required)
-   * @return ApiResponse&lt;DocReqsRequirementTypeResponse&gt;
+   * @return ApiResponse&lt;DocReqsRetrieveRequirementType200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -146,7 +146,7 @@ public class RequirementTypesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DocReqsRequirementTypeResponse> docReqsRetrieveRequirementTypeWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<DocReqsRetrieveRequirementType200Response> docReqsRetrieveRequirementTypeWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -180,7 +180,7 @@ public class RequirementTypesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<DocReqsRequirementTypeResponse> localVarReturnType = new GenericType<DocReqsRequirementTypeResponse>() {};
+    GenericType<DocReqsRetrieveRequirementType200Response> localVarReturnType = new GenericType<DocReqsRetrieveRequirementType200Response>() {};
 
     return apiClient.invokeAPI("RequirementTypesApi.docReqsRetrieveRequirementType", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

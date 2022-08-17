@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## simCardGroupActionGet
 
-> SIMCardGroupActionResponse simCardGroupActionGet(id)
+> SimCardGroupActionGet200Response simCardGroupActionGet(id)
 
 Get SIM card group action details
 
@@ -41,7 +41,7 @@ public class Example {
         SimCardGroupActionsApi apiInstance = new SimCardGroupActionsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SIMCardGroupActionResponse result = apiInstance.simCardGroupActionGet(id);
+            SimCardGroupActionGet200Response result = apiInstance.simCardGroupActionGet(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupActionsApi#simCardGroupActionGet");
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SIMCardGroupActionResponse**](SIMCardGroupActionResponse.md)
+[**SimCardGroupActionGet200Response**](SimCardGroupActionGet200Response.md)
 
 ### Authorization
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## simCardGroupActionsGet
 
-> SimCardGroupActionCollectionResponse simCardGroupActionsGet(pageNumber, pageSize, filterSimCardGroupId, filterStatus, filterType)
+> SimCardGroupActionsGet200Response simCardGroupActionsGet(pageNumber, pageSize, filterSimCardGroupId, filterStatus, filterType)
 
 List SIM card group actions
 
@@ -117,7 +117,7 @@ public class Example {
         String filterStatus = "in-progress"; // String | Filter by a specific status of the resource's lifecycle.
         String filterType = "set_private_wireless_gateway"; // String | Filter by action type.
         try {
-            SimCardGroupActionCollectionResponse result = apiInstance.simCardGroupActionsGet(pageNumber, pageSize, filterSimCardGroupId, filterStatus, filterType);
+            SimCardGroupActionsGet200Response result = apiInstance.simCardGroupActionsGet(pageNumber, pageSize, filterSimCardGroupId, filterStatus, filterType);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupActionsApi#simCardGroupActionsGet");
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SimCardGroupActionCollectionResponse**](SimCardGroupActionCollectionResponse.md)
+[**SimCardGroupActionsGet200Response**](SimCardGroupActionsGet200Response.md)
 
 ### Authorization
 

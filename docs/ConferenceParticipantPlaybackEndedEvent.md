@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**ConferenceParticipantPlaybackEnded**](ConferenceParticipantPlaybackEnded.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**ConferenceParticipantPlaybackEnded**](ConferenceParticipantPlaybackEnded.md) |  |  [optional] |
 
 
 

@@ -9,8 +9,8 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.OTAUpdateResponse;
-import com.telnyx.sdk.model.SearchOTAUpdateResponse;
+import com.telnyx.sdk.model.OTAUpdateGET200Response;
+import com.telnyx.sdk.model.OTAUpdatesList200Response;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class OtaUpdatesApi {
    * Get OTA update
    * This API returns the details of an Over the Air (OTA) update.
    * @param id Identifies the resource. (required)
-   * @return OTAUpdateResponse
+   * @return OTAUpdateGET200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -61,7 +61,7 @@ public class OtaUpdatesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public OTAUpdateResponse oTAUpdateGET(UUID id) throws ApiException {
+  public OTAUpdateGET200Response oTAUpdateGET(UUID id) throws ApiException {
     return oTAUpdateGETWithHttpInfo(id).getData();
   }
 
@@ -69,7 +69,7 @@ public class OtaUpdatesApi {
    * Get OTA update
    * This API returns the details of an Over the Air (OTA) update.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;OTAUpdateResponse&gt;
+   * @return ApiResponse&lt;OTAUpdateGET200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -78,7 +78,7 @@ public class OtaUpdatesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<OTAUpdateResponse> oTAUpdateGETWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<OTAUpdateGET200Response> oTAUpdateGETWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -112,7 +112,7 @@ public class OtaUpdatesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<OTAUpdateResponse> localVarReturnType = new GenericType<OTAUpdateResponse>() {};
+    GenericType<OTAUpdateGET200Response> localVarReturnType = new GenericType<OTAUpdateGET200Response>() {};
 
     return apiClient.invokeAPI("OtaUpdatesApi.oTAUpdateGET", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -126,7 +126,7 @@ public class OtaUpdatesApi {
    * @param filterStatus Filter by a specific status of the resource&#39;s lifecycle. (optional)
    * @param filterSimCardId The SIM card identification UUID. (optional)
    * @param filterType Filter by type. (optional)
-   * @return SearchOTAUpdateResponse
+   * @return OTAUpdatesList200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -135,7 +135,7 @@ public class OtaUpdatesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SearchOTAUpdateResponse oTAUpdatesList(Integer pageNumber, Integer pageSize, String filterStatus, String filterSimCardId, String filterType) throws ApiException {
+  public OTAUpdatesList200Response oTAUpdatesList(Integer pageNumber, Integer pageSize, String filterStatus, String filterSimCardId, String filterType) throws ApiException {
     return oTAUpdatesListWithHttpInfo(pageNumber, pageSize, filterStatus, filterSimCardId, filterType).getData();
   }
 
@@ -147,7 +147,7 @@ public class OtaUpdatesApi {
    * @param filterStatus Filter by a specific status of the resource&#39;s lifecycle. (optional)
    * @param filterSimCardId The SIM card identification UUID. (optional)
    * @param filterType Filter by type. (optional)
-   * @return ApiResponse&lt;SearchOTAUpdateResponse&gt;
+   * @return ApiResponse&lt;OTAUpdatesList200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -156,7 +156,7 @@ public class OtaUpdatesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SearchOTAUpdateResponse> oTAUpdatesListWithHttpInfo(Integer pageNumber, Integer pageSize, String filterStatus, String filterSimCardId, String filterType) throws ApiException {
+  public ApiResponse<OTAUpdatesList200Response> oTAUpdatesListWithHttpInfo(Integer pageNumber, Integer pageSize, String filterStatus, String filterSimCardId, String filterType) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -189,7 +189,7 @@ public class OtaUpdatesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SearchOTAUpdateResponse> localVarReturnType = new GenericType<SearchOTAUpdateResponse>() {};
+    GenericType<OTAUpdatesList200Response> localVarReturnType = new GenericType<OTAUpdatesList200Response>() {};
 
     return apiClient.invokeAPI("OtaUpdatesApi.oTAUpdatesList", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

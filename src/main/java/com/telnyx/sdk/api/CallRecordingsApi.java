@@ -50,7 +50,7 @@ public class CallRecordingsApi {
   /**
    * Create custom storage credentials
    * Creates custom storage credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
    * @param gcSConfiguration Creates new credentials resource for given connection_id. (required)
    * @return CredentialsResponse
    * @throws ApiException if fails to make API call
@@ -68,7 +68,7 @@ public class CallRecordingsApi {
   /**
    * Create custom storage credentials
    * Creates custom storage credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
    * @param gcSConfiguration Creates new credentials resource for given connection_id. (required)
    * @return ApiResponse&lt;CredentialsResponse&gt;
    * @throws ApiException if fails to make API call
@@ -127,7 +127,7 @@ public class CallRecordingsApi {
   /**
    * Delete stored credentials
    * Deletes a stored custom credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -143,7 +143,7 @@ public class CallRecordingsApi {
   /**
    * Delete stored credentials
    * Deletes a stored custom credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -194,7 +194,7 @@ public class CallRecordingsApi {
   /**
    * Retrieve stored credentials
    * Returns the information about custom storage credentials.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
    * @return CredentialsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -211,7 +211,7 @@ public class CallRecordingsApi {
   /**
    * Retrieve stored credentials
    * Returns the information about custom storage credentials.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
    * @return ApiResponse&lt;CredentialsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -264,7 +264,7 @@ public class CallRecordingsApi {
   /**
    * Update stored credentials
    * Updates a stored custom credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
    * @param gcSConfiguration Creates new credentials resource for given connection_id. (required)
    * @return CredentialsResponse
    * @throws ApiException if fails to make API call
@@ -282,7 +282,7 @@ public class CallRecordingsApi {
   /**
    * Update stored credentials
    * Updates a stored custom credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
    * @param gcSConfiguration Creates new credentials resource for given connection_id. (required)
    * @return ApiResponse&lt;CredentialsResponse&gt;
    * @throws ApiException if fails to make API call

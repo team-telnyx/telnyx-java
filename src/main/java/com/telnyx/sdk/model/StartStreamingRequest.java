@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.DialogflowConfig;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -35,7 +36,9 @@ import com.telnyx.sdk.JSON;
   StartStreamingRequest.JSON_PROPERTY_STREAM_URL,
   StartStreamingRequest.JSON_PROPERTY_STREAM_TRACK,
   StartStreamingRequest.JSON_PROPERTY_CLIENT_STATE,
-  StartStreamingRequest.JSON_PROPERTY_COMMAND_ID
+  StartStreamingRequest.JSON_PROPERTY_COMMAND_ID,
+  StartStreamingRequest.JSON_PROPERTY_ENABLE_DIALOGFLOW,
+  StartStreamingRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class StartStreamingRequest {
@@ -87,6 +90,12 @@ public class StartStreamingRequest {
 
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
+
+  public static final String JSON_PROPERTY_ENABLE_DIALOGFLOW = "enable_dialogflow";
+  private Boolean enableDialogflow = false;
+
+  public static final String JSON_PROPERTY_DIALOGFLOW_CONFIG = "dialogflow_config";
+  private DialogflowConfig dialogflowConfig;
 
   public StartStreamingRequest() { 
   }
@@ -195,6 +204,58 @@ public class StartStreamingRequest {
   }
 
 
+  public StartStreamingRequest enableDialogflow(Boolean enableDialogflow) {
+    this.enableDialogflow = enableDialogflow;
+    return this;
+  }
+
+   /**
+   * Enables Dialogflow for the current call. The default value is false.
+   * @return enableDialogflow
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Enables Dialogflow for the current call. The default value is false.")
+  @JsonProperty(JSON_PROPERTY_ENABLE_DIALOGFLOW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getEnableDialogflow() {
+    return enableDialogflow;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENABLE_DIALOGFLOW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnableDialogflow(Boolean enableDialogflow) {
+    this.enableDialogflow = enableDialogflow;
+  }
+
+
+  public StartStreamingRequest dialogflowConfig(DialogflowConfig dialogflowConfig) {
+    this.dialogflowConfig = dialogflowConfig;
+    return this;
+  }
+
+   /**
+   * Get dialogflowConfig
+   * @return dialogflowConfig
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DIALOGFLOW_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public DialogflowConfig getDialogflowConfig() {
+    return dialogflowConfig;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DIALOGFLOW_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDialogflowConfig(DialogflowConfig dialogflowConfig) {
+    this.dialogflowConfig = dialogflowConfig;
+  }
+
+
   /**
    * Return true if this StartStreamingRequest object is equal to o.
    */
@@ -210,12 +271,14 @@ public class StartStreamingRequest {
     return Objects.equals(this.streamUrl, startStreamingRequest.streamUrl) &&
         Objects.equals(this.streamTrack, startStreamingRequest.streamTrack) &&
         Objects.equals(this.clientState, startStreamingRequest.clientState) &&
-        Objects.equals(this.commandId, startStreamingRequest.commandId);
+        Objects.equals(this.commandId, startStreamingRequest.commandId) &&
+        Objects.equals(this.enableDialogflow, startStreamingRequest.enableDialogflow) &&
+        Objects.equals(this.dialogflowConfig, startStreamingRequest.dialogflowConfig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(streamUrl, streamTrack, clientState, commandId);
+    return Objects.hash(streamUrl, streamTrack, clientState, commandId, enableDialogflow, dialogflowConfig);
   }
 
   @Override
@@ -226,6 +289,8 @@ public class StartStreamingRequest {
     sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
+    sb.append("    enableDialogflow: ").append(toIndentedString(enableDialogflow)).append("\n");
+    sb.append("    dialogflowConfig: ").append(toIndentedString(dialogflowConfig)).append("\n");
     sb.append("}");
     return sb.toString();
   }

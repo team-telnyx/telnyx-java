@@ -99,7 +99,7 @@ public class ErrorSource {
 
 
   /**
-   * Return true if this Error_source object is equal to o.
+   * Return true if this ErrorSource object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

@@ -10,12 +10,10 @@ import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Errors;
 import java.io.File;
-import com.telnyx.sdk.model.RetrieveWhatsAppPhoneNumber;
-import com.telnyx.sdk.model.RetrieveWhatsAppProfilePhoto;
-import com.telnyx.sdk.model.UpdateWhatsAppPhoneNumber;
-import com.telnyx.sdk.model.UpdateWhatsAppProfilePhoto;
 import com.telnyx.sdk.model.UpdateWhatsappPhoneNumberAboutRequest;
 import com.telnyx.sdk.model.UpdateWhatsappPhoneNumberRequest;
+import com.telnyx.sdk.model.WhatsAppPhoneNumber;
+import com.telnyx.sdk.model.WhatsAppProfilePhoto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +51,7 @@ public class WhatsAppPhoneNumberApi {
   }
 
 
-private ApiResponse<UpdateWhatsAppPhoneNumber> patchWhatsappPhoneNumberWithHttpInfo(String id, UpdateWhatsappPhoneNumberRequest updateWhatsappPhoneNumberRequest) throws ApiException {
+private ApiResponse<WhatsAppPhoneNumber> patchWhatsappPhoneNumberWithHttpInfo(String id, UpdateWhatsappPhoneNumberRequest updateWhatsappPhoneNumberRequest) throws ApiException {
     Object localVarPostBody = updateWhatsappPhoneNumberRequest;
     
     // verify the required parameter 'id' is set
@@ -92,7 +90,7 @@ private ApiResponse<UpdateWhatsAppPhoneNumber> patchWhatsappPhoneNumberWithHttpI
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<UpdateWhatsAppPhoneNumber> localVarReturnType = new GenericType<UpdateWhatsAppPhoneNumber>() {};
+    GenericType<WhatsAppPhoneNumber> localVarReturnType = new GenericType<WhatsAppPhoneNumber>() {};
 
     return apiClient.invokeAPI("WhatsAppPhoneNumberApi.patchWhatsappPhoneNumber", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -119,7 +117,7 @@ private ApiResponse<UpdateWhatsAppPhoneNumber> patchWhatsappPhoneNumberWithHttpI
 
     /**
      * Execute patchWhatsappPhoneNumber request
-     * @return UpdateWhatsAppPhoneNumber
+     * @return WhatsAppPhoneNumber
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -130,13 +128,13 @@ private ApiResponse<UpdateWhatsAppPhoneNumber> patchWhatsappPhoneNumberWithHttpI
      
      */
     
-    public UpdateWhatsAppPhoneNumber execute() throws ApiException {
+    public WhatsAppPhoneNumber execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
      * Execute patchWhatsappPhoneNumber request with HTTP info returned
-     * @return ApiResponse&lt;UpdateWhatsAppPhoneNumber&gt;
+     * @return ApiResponse&lt;WhatsAppPhoneNumber&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -146,7 +144,7 @@ private ApiResponse<UpdateWhatsAppPhoneNumber> patchWhatsappPhoneNumberWithHttpI
        </table>
 
      */
-    public ApiResponse<UpdateWhatsAppPhoneNumber> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<WhatsAppPhoneNumber> executeWithHttpInfo() throws ApiException {
       return patchWhatsappPhoneNumberWithHttpInfo(id, updateWhatsappPhoneNumberRequest);
     }
   }
@@ -273,7 +271,7 @@ private ApiResponse<Void> patchWhatsappPhoneNumberAboutWithHttpInfo(String id, U
     return new APIpatchWhatsappPhoneNumberAboutRequest(id);
   }
 
-private ApiResponse<UpdateWhatsAppProfilePhoto> patchWhatsappProfilePhotoWithHttpInfo(String id, File photo) throws ApiException {
+private ApiResponse<WhatsAppProfilePhoto> patchWhatsappProfilePhotoWithHttpInfo(String id, File photo) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -314,7 +312,7 @@ private ApiResponse<UpdateWhatsAppProfilePhoto> patchWhatsappProfilePhotoWithHtt
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<UpdateWhatsAppProfilePhoto> localVarReturnType = new GenericType<UpdateWhatsAppProfilePhoto>() {};
+    GenericType<WhatsAppProfilePhoto> localVarReturnType = new GenericType<WhatsAppProfilePhoto>() {};
 
     return apiClient.invokeAPI("WhatsAppPhoneNumberApi.patchWhatsappProfilePhoto", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -341,7 +339,7 @@ private ApiResponse<UpdateWhatsAppProfilePhoto> patchWhatsappProfilePhotoWithHtt
 
     /**
      * Execute patchWhatsappProfilePhoto request
-     * @return UpdateWhatsAppProfilePhoto
+     * @return WhatsAppProfilePhoto
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -352,13 +350,13 @@ private ApiResponse<UpdateWhatsAppProfilePhoto> patchWhatsappProfilePhotoWithHtt
      
      */
     
-    public UpdateWhatsAppProfilePhoto execute() throws ApiException {
+    public WhatsAppProfilePhoto execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
      * Execute patchWhatsappProfilePhoto request with HTTP info returned
-     * @return ApiResponse&lt;UpdateWhatsAppProfilePhoto&gt;
+     * @return ApiResponse&lt;WhatsAppProfilePhoto&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -368,7 +366,7 @@ private ApiResponse<UpdateWhatsAppProfilePhoto> patchWhatsappProfilePhotoWithHtt
        </table>
 
      */
-    public ApiResponse<UpdateWhatsAppProfilePhoto> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<WhatsAppProfilePhoto> executeWithHttpInfo() throws ApiException {
       return patchWhatsappProfilePhotoWithHttpInfo(id, photo);
     }
   }
@@ -386,7 +384,7 @@ private ApiResponse<UpdateWhatsAppProfilePhoto> patchWhatsappProfilePhotoWithHtt
     return new APIpatchWhatsappProfilePhotoRequest(id);
   }
 
-private ApiResponse<RetrieveWhatsAppPhoneNumber> retrieveWhatsappPhoneNumberWithHttpInfo(String id) throws ApiException {
+private ApiResponse<WhatsAppPhoneNumber> retrieveWhatsappPhoneNumberWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -420,7 +418,7 @@ private ApiResponse<RetrieveWhatsAppPhoneNumber> retrieveWhatsappPhoneNumberWith
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<RetrieveWhatsAppPhoneNumber> localVarReturnType = new GenericType<RetrieveWhatsAppPhoneNumber>() {};
+    GenericType<WhatsAppPhoneNumber> localVarReturnType = new GenericType<WhatsAppPhoneNumber>() {};
 
     return apiClient.invokeAPI("WhatsAppPhoneNumberApi.retrieveWhatsappPhoneNumber", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -436,7 +434,7 @@ private ApiResponse<RetrieveWhatsAppPhoneNumber> retrieveWhatsappPhoneNumberWith
 
     /**
      * Execute retrieveWhatsappPhoneNumber request
-     * @return RetrieveWhatsAppPhoneNumber
+     * @return WhatsAppPhoneNumber
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -447,13 +445,13 @@ private ApiResponse<RetrieveWhatsAppPhoneNumber> retrieveWhatsappPhoneNumberWith
      
      */
     
-    public RetrieveWhatsAppPhoneNumber execute() throws ApiException {
+    public WhatsAppPhoneNumber execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
      * Execute retrieveWhatsappPhoneNumber request with HTTP info returned
-     * @return ApiResponse&lt;RetrieveWhatsAppPhoneNumber&gt;
+     * @return ApiResponse&lt;WhatsAppPhoneNumber&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -463,7 +461,7 @@ private ApiResponse<RetrieveWhatsAppPhoneNumber> retrieveWhatsappPhoneNumberWith
        </table>
 
      */
-    public ApiResponse<RetrieveWhatsAppPhoneNumber> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<WhatsAppPhoneNumber> executeWithHttpInfo() throws ApiException {
       return retrieveWhatsappPhoneNumberWithHttpInfo(id);
     }
   }
@@ -481,7 +479,7 @@ private ApiResponse<RetrieveWhatsAppPhoneNumber> retrieveWhatsappPhoneNumberWith
     return new APIretrieveWhatsappPhoneNumberRequest(id);
   }
 
-private ApiResponse<RetrieveWhatsAppProfilePhoto> retrieveWhatsappProfilePhotoWithHttpInfo(String id) throws ApiException {
+private ApiResponse<WhatsAppProfilePhoto> retrieveWhatsappProfilePhotoWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -515,7 +513,7 @@ private ApiResponse<RetrieveWhatsAppProfilePhoto> retrieveWhatsappProfilePhotoWi
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<RetrieveWhatsAppProfilePhoto> localVarReturnType = new GenericType<RetrieveWhatsAppProfilePhoto>() {};
+    GenericType<WhatsAppProfilePhoto> localVarReturnType = new GenericType<WhatsAppProfilePhoto>() {};
 
     return apiClient.invokeAPI("WhatsAppPhoneNumberApi.retrieveWhatsappProfilePhoto", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -531,7 +529,7 @@ private ApiResponse<RetrieveWhatsAppProfilePhoto> retrieveWhatsappProfilePhotoWi
 
     /**
      * Execute retrieveWhatsappProfilePhoto request
-     * @return RetrieveWhatsAppProfilePhoto
+     * @return WhatsAppProfilePhoto
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -542,13 +540,13 @@ private ApiResponse<RetrieveWhatsAppProfilePhoto> retrieveWhatsappProfilePhotoWi
      
      */
     
-    public RetrieveWhatsAppProfilePhoto execute() throws ApiException {
+    public WhatsAppProfilePhoto execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
      * Execute retrieveWhatsappProfilePhoto request with HTTP info returned
-     * @return ApiResponse&lt;RetrieveWhatsAppProfilePhoto&gt;
+     * @return ApiResponse&lt;WhatsAppProfilePhoto&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -558,7 +556,7 @@ private ApiResponse<RetrieveWhatsAppProfilePhoto> retrieveWhatsappProfilePhotoWi
        </table>
 
      */
-    public ApiResponse<RetrieveWhatsAppProfilePhoto> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<WhatsAppProfilePhoto> executeWithHttpInfo() throws ApiException {
       return retrieveWhatsappProfilePhotoWithHttpInfo(id);
     }
   }

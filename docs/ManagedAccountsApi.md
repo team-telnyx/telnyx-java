@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## createManagedAccount
 
-> ManagedAccountResponse createManagedAccount(createManagedAccountRequest)
+> CreateManagedAccount200Response createManagedAccount(createManagedAccountRequest)
 
 Create a new managed account.
 
@@ -44,7 +44,7 @@ public class Example {
         ManagedAccountsApi apiInstance = new ManagedAccountsApi(defaultClient);
         CreateManagedAccountRequest createManagedAccountRequest = new CreateManagedAccountRequest(); // CreateManagedAccountRequest | Parameters that define the managed account to be created
         try {
-            ManagedAccountResponse result = apiInstance.createManagedAccount(createManagedAccountRequest);
+            CreateManagedAccount200Response result = apiInstance.createManagedAccount(createManagedAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ManagedAccountsApi#createManagedAccount");
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ManagedAccountResponse**](ManagedAccountResponse.md)
+[**CreateManagedAccount200Response**](CreateManagedAccount200Response.md)
 
 ### Authorization
 
@@ -81,13 +81,13 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
 
 ## disableManagedAccount
 
-> ManagedAccountResponse disableManagedAccount(id)
+> CreateManagedAccount200Response disableManagedAccount(id)
 
 Disables a managed account
 
@@ -116,7 +116,7 @@ public class Example {
         ManagedAccountsApi apiInstance = new ManagedAccountsApi(defaultClient);
         String id = "id_example"; // String | Managed Account User ID
         try {
-            ManagedAccountResponse result = apiInstance.disableManagedAccount(id);
+            CreateManagedAccount200Response result = apiInstance.disableManagedAccount(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ManagedAccountsApi#disableManagedAccount");
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ManagedAccountResponse**](ManagedAccountResponse.md)
+[**CreateManagedAccount200Response**](CreateManagedAccount200Response.md)
 
 ### Authorization
 
@@ -153,14 +153,14 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
 
 ## enableManagedAccount
 
-> ManagedAccountResponse enableManagedAccount(id)
+> CreateManagedAccount200Response enableManagedAccount(id)
 
 Enables a managed account
 
@@ -189,7 +189,7 @@ public class Example {
         ManagedAccountsApi apiInstance = new ManagedAccountsApi(defaultClient);
         String id = "id_example"; // String | Managed Account User ID
         try {
-            ManagedAccountResponse result = apiInstance.enableManagedAccount(id);
+            CreateManagedAccount200Response result = apiInstance.enableManagedAccount(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ManagedAccountsApi#enableManagedAccount");
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ManagedAccountResponse**](ManagedAccountResponse.md)
+[**CreateManagedAccount200Response**](CreateManagedAccount200Response.md)
 
 ### Authorization
 
@@ -226,14 +226,14 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
 
 ## listManagedAccounts
 
-> ListManagedAccountsResponse listManagedAccounts(pageNumber, pageSize, filterEmailContains, filterEmailEq, sort)
+> ListManagedAccounts200Response listManagedAccounts(pageNumber, pageSize, filterEmailContains, filterEmailEq, sort, includeCancelledAccounts)
 
 Lists accounts managed by the current user.
 
@@ -265,8 +265,9 @@ public class Example {
         String filterEmailContains = "null"; // String | If present, email containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
         String filterEmailEq = "null"; // String | If present, only returns results with the <code>email</code> matching exactly the value given.
         String sort = "created_at"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>email</code>: sorts the result by the     <code>email</code> field in ascending order.   </li>    <li>     <code>-email</code>: sorts the result by the     <code>email</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+        Boolean includeCancelledAccounts = false; // Boolean | Specifies if cancelled accounts should be included in the results.
         try {
-            ListManagedAccountsResponse result = apiInstance.listManagedAccounts(pageNumber, pageSize, filterEmailContains, filterEmailEq, sort);
+            ListManagedAccounts200Response result = apiInstance.listManagedAccounts(pageNumber, pageSize, filterEmailContains, filterEmailEq, sort, includeCancelledAccounts);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ManagedAccountsApi#listManagedAccounts");
@@ -289,10 +290,11 @@ Name | Type | Description  | Notes
  **filterEmailContains** | **String**| If present, email containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. | [optional] [default to null]
  **filterEmailEq** | **String**| If present, only returns results with the &lt;code&gt;email&lt;/code&gt; matching exactly the value given. | [optional] [default to null]
  **sort** | **String**| Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;email&lt;/code&gt;: sorts the result by the     &lt;code&gt;email&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-email&lt;/code&gt;: sorts the result by the     &lt;code&gt;email&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. | [optional] [default to created_at] [enum: created_at, email]
+ **includeCancelledAccounts** | **Boolean**| Specifies if cancelled accounts should be included in the results. | [optional] [default to false]
 
 ### Return type
 
-[**ListManagedAccountsResponse**](ListManagedAccountsResponse.md)
+[**ListManagedAccounts200Response**](ListManagedAccounts200Response.md)
 
 ### Authorization
 
@@ -307,12 +309,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of managed accounts. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 
 
 ## retrieveManagedAccount
 
-> ManagedAccountResponse retrieveManagedAccount(id)
+> CreateManagedAccount200Response retrieveManagedAccount(id)
 
 Retrieve a managed account
 
@@ -341,7 +343,7 @@ public class Example {
         ManagedAccountsApi apiInstance = new ManagedAccountsApi(defaultClient);
         String id = "id_example"; // String | Managed Account User ID
         try {
-            ManagedAccountResponse result = apiInstance.retrieveManagedAccount(id);
+            CreateManagedAccount200Response result = apiInstance.retrieveManagedAccount(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ManagedAccountsApi#retrieveManagedAccount");
@@ -363,7 +365,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ManagedAccountResponse**](ManagedAccountResponse.md)
+[**CreateManagedAccount200Response**](CreateManagedAccount200Response.md)
 
 ### Authorization
 
@@ -378,13 +380,13 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **404** | Resource not found |  -  |
 
 
 ## updateManagedAccount
 
-> ManagedAccountResponse updateManagedAccount(id, updateManagedAccountRequest)
+> CreateManagedAccount200Response updateManagedAccount(id, updateManagedAccountRequest)
 
 Update a managed account
 
@@ -414,7 +416,7 @@ public class Example {
         String id = "id_example"; // String | Managed Account User ID
         UpdateManagedAccountRequest updateManagedAccountRequest = new UpdateManagedAccountRequest(); // UpdateManagedAccountRequest | Parameters that define the updates to the managed account
         try {
-            ManagedAccountResponse result = apiInstance.updateManagedAccount(id, updateManagedAccountRequest);
+            CreateManagedAccount200Response result = apiInstance.updateManagedAccount(id, updateManagedAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ManagedAccountsApi#updateManagedAccount");
@@ -437,7 +439,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ManagedAccountResponse**](ManagedAccountResponse.md)
+[**CreateManagedAccount200Response**](CreateManagedAccount200Response.md)
 
 ### Authorization
 
@@ -452,7 +454,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthorized |  -  |
+| **401** | Unauthorized response. Happens when the current user is not a manager account. |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 

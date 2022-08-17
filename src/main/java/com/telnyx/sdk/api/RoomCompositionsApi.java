@@ -8,12 +8,11 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.CreateRoomComposition202Response;
 import com.telnyx.sdk.model.CreateRoomCompositionRequest;
-import com.telnyx.sdk.model.CreateRoomCompositionResponse;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetRoomCompositionResponse;
-import com.telnyx.sdk.model.ListRoomCompositionsResponse;
+import com.telnyx.sdk.model.ListRoomCompositions200Response;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -56,7 +55,7 @@ public class RoomCompositionsApi {
    * Create a room composition.
    * Asynchronously create a room composition.
    * @param createRoomCompositionRequest Parameters that can be defined during room composition creation. (required)
-   * @return CreateRoomCompositionResponse
+   * @return CreateRoomComposition202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -65,7 +64,7 @@ public class RoomCompositionsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreateRoomCompositionResponse createRoomComposition(CreateRoomCompositionRequest createRoomCompositionRequest) throws ApiException {
+  public CreateRoomComposition202Response createRoomComposition(CreateRoomCompositionRequest createRoomCompositionRequest) throws ApiException {
     return createRoomCompositionWithHttpInfo(createRoomCompositionRequest).getData();
   }
 
@@ -73,7 +72,7 @@ public class RoomCompositionsApi {
    * Create a room composition.
    * Asynchronously create a room composition.
    * @param createRoomCompositionRequest Parameters that can be defined during room composition creation. (required)
-   * @return ApiResponse&lt;CreateRoomCompositionResponse&gt;
+   * @return ApiResponse&lt;CreateRoomComposition202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -82,7 +81,7 @@ public class RoomCompositionsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateRoomCompositionResponse> createRoomCompositionWithHttpInfo(CreateRoomCompositionRequest createRoomCompositionRequest) throws ApiException {
+  public ApiResponse<CreateRoomComposition202Response> createRoomCompositionWithHttpInfo(CreateRoomCompositionRequest createRoomCompositionRequest) throws ApiException {
     Object localVarPostBody = createRoomCompositionRequest;
     
     // verify the required parameter 'createRoomCompositionRequest' is set
@@ -115,7 +114,7 @@ public class RoomCompositionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateRoomCompositionResponse> localVarReturnType = new GenericType<CreateRoomCompositionResponse>() {};
+    GenericType<CreateRoomComposition202Response> localVarReturnType = new GenericType<CreateRoomComposition202Response>() {};
 
     return apiClient.invokeAPI("RoomCompositionsApi.createRoomComposition", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -198,7 +197,7 @@ public class RoomCompositionsApi {
    * @param filterStatus The status for filtering room compositions. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ListRoomCompositionsResponse
+   * @return ListRoomCompositions200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -206,7 +205,7 @@ public class RoomCompositionsApi {
        <tr><td> 200 </td><td> List room compositions response. </td><td>  -  </td></tr>
      </table>
    */
-  public ListRoomCompositionsResponse listRoomCompositions(LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, UUID filterSessionId, String filterStatus, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ListRoomCompositions200Response listRoomCompositions(LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, UUID filterSessionId, String filterStatus, Integer pageSize, Integer pageNumber) throws ApiException {
     return listRoomCompositionsWithHttpInfo(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterSessionId, filterStatus, pageSize, pageNumber).getData();
   }
 
@@ -220,7 +219,7 @@ public class RoomCompositionsApi {
    * @param filterStatus The status for filtering room compositions. (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ApiResponse&lt;ListRoomCompositionsResponse&gt;
+   * @return ApiResponse&lt;ListRoomCompositions200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -228,7 +227,7 @@ public class RoomCompositionsApi {
        <tr><td> 200 </td><td> List room compositions response. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRoomCompositionsResponse> listRoomCompositionsWithHttpInfo(LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, UUID filterSessionId, String filterStatus, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<ListRoomCompositions200Response> listRoomCompositionsWithHttpInfo(LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, UUID filterSessionId, String filterStatus, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -263,7 +262,7 @@ public class RoomCompositionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListRoomCompositionsResponse> localVarReturnType = new GenericType<ListRoomCompositionsResponse>() {};
+    GenericType<ListRoomCompositions200Response> localVarReturnType = new GenericType<ListRoomCompositions200Response>() {};
 
     return apiClient.invokeAPI("RoomCompositionsApi.listRoomCompositions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -273,7 +272,7 @@ public class RoomCompositionsApi {
    * View a room composition.
    * 
    * @param roomCompositionId The unique identifier of a room composition. (required)
-   * @return GetRoomCompositionResponse
+   * @return CreateRoomComposition202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -282,7 +281,7 @@ public class RoomCompositionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetRoomCompositionResponse viewRoomComposition(UUID roomCompositionId) throws ApiException {
+  public CreateRoomComposition202Response viewRoomComposition(UUID roomCompositionId) throws ApiException {
     return viewRoomCompositionWithHttpInfo(roomCompositionId).getData();
   }
 
@@ -290,7 +289,7 @@ public class RoomCompositionsApi {
    * View a room composition.
    * 
    * @param roomCompositionId The unique identifier of a room composition. (required)
-   * @return ApiResponse&lt;GetRoomCompositionResponse&gt;
+   * @return ApiResponse&lt;CreateRoomComposition202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -299,7 +298,7 @@ public class RoomCompositionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetRoomCompositionResponse> viewRoomCompositionWithHttpInfo(UUID roomCompositionId) throws ApiException {
+  public ApiResponse<CreateRoomComposition202Response> viewRoomCompositionWithHttpInfo(UUID roomCompositionId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'roomCompositionId' is set
@@ -333,7 +332,7 @@ public class RoomCompositionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetRoomCompositionResponse> localVarReturnType = new GenericType<GetRoomCompositionResponse>() {};
+    GenericType<CreateRoomComposition202Response> localVarReturnType = new GenericType<CreateRoomComposition202Response>() {};
 
     return apiClient.invokeAPI("RoomCompositionsApi.viewRoomComposition", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

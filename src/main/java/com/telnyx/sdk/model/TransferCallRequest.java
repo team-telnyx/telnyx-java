@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallRequestAnsweringMachineDetectionConfig;
 import com.telnyx.sdk.model.CustomSipHeader;
 import com.telnyx.sdk.model.SipHeader;
+import com.telnyx.sdk.model.SoundModifications;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ import com.telnyx.sdk.JSON;
   TransferCallRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
   TransferCallRequest.JSON_PROPERTY_SIP_AUTH_PASSWORD,
   TransferCallRequest.JSON_PROPERTY_SIP_HEADERS,
+  TransferCallRequest.JSON_PROPERTY_SOUND_MODIFICATIONS,
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL,
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
 })
@@ -146,6 +148,9 @@ public class TransferCallRequest {
 
   public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
   private List<SipHeader> sipHeaders = null;
+
+  public static final String JSON_PROPERTY_SOUND_MODIFICATIONS = "sound_modifications";
+  private SoundModifications soundModifications;
 
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private String webhookUrl;
@@ -623,6 +628,32 @@ public class TransferCallRequest {
   }
 
 
+  public TransferCallRequest soundModifications(SoundModifications soundModifications) {
+    this.soundModifications = soundModifications;
+    return this;
+  }
+
+   /**
+   * Get soundModifications
+   * @return soundModifications
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SOUND_MODIFICATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SoundModifications getSoundModifications() {
+    return soundModifications;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SOUND_MODIFICATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSoundModifications(SoundModifications soundModifications) {
+    this.soundModifications = soundModifications;
+  }
+
+
   public TransferCallRequest webhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
     return this;
@@ -703,13 +734,14 @@ public class TransferCallRequest {
         Objects.equals(this.sipAuthUsername, transferCallRequest.sipAuthUsername) &&
         Objects.equals(this.sipAuthPassword, transferCallRequest.sipAuthPassword) &&
         Objects.equals(this.sipHeaders, transferCallRequest.sipHeaders) &&
+        Objects.equals(this.soundModifications, transferCallRequest.soundModifications) &&
         Objects.equals(this.webhookUrl, transferCallRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, transferCallRequest.webhookUrlMethod);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, fromDisplayName, audioUrl, mediaName, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, targetLegClientState, commandId, sipAuthUsername, sipAuthPassword, sipHeaders, webhookUrl, webhookUrlMethod);
+    return Objects.hash(to, from, fromDisplayName, audioUrl, mediaName, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, targetLegClientState, commandId, sipAuthUsername, sipAuthPassword, sipHeaders, soundModifications, webhookUrl, webhookUrlMethod);
   }
 
   @Override
@@ -732,6 +764,7 @@ public class TransferCallRequest {
     sb.append("    sipAuthUsername: ").append(toIndentedString(sipAuthUsername)).append("\n");
     sb.append("    sipAuthPassword: ").append(toIndentedString(sipAuthPassword)).append("\n");
     sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
+    sb.append("    soundModifications: ").append(toIndentedString(soundModifications)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");
     sb.append("}");

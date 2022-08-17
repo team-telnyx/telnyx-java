@@ -84,7 +84,7 @@ public class TexmlApplication {
   private String voiceUrl;
 
   public static final String JSON_PROPERTY_VOICE_FALLBACK_URL = "voice_fallback_url";
-  private String voiceFallbackUrl = "null";
+  private String voiceFallbackUrl;
 
   /**
    * HTTP request method Telnyx will use to interact with your XML Translator webhooks. Either &#39;get&#39; or &#39;post&#39;.
@@ -125,7 +125,7 @@ public class TexmlApplication {
   private VoiceMethodEnum voiceMethod = VoiceMethodEnum.POST;
 
   public static final String JSON_PROPERTY_STATUS_CALLBACK = "status_callback";
-  private String statusCallback = "null";
+  private String statusCallback;
 
   /**
    * HTTP request method Telnyx should use when requesting the status_callback URL.
@@ -178,6 +178,16 @@ public class TexmlApplication {
   private String updatedAt;
 
   public TexmlApplication() { 
+  }
+
+  @JsonCreator
+  public TexmlApplication(
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   public TexmlApplication id(String id) {
@@ -570,17 +580,12 @@ public class TexmlApplication {
   }
 
 
-  public TexmlApplication createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
    /**
-   * ISO 8601 formatted date indicating when the resource was created.
+   * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2020-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was created.")
+  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -589,24 +594,14 @@ public class TexmlApplication {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
 
-
-  public TexmlApplication updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
 
    /**
-   * ISO 8601 formatted date indicating when the resource was updated.
+   * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2020-02-03T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
+  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -615,11 +610,6 @@ public class TexmlApplication {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
 
 
   /**

@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,6 +32,7 @@ import com.telnyx.sdk.model.MediaStorageDetailRecord;
 import com.telnyx.sdk.model.MessageDetailRecord;
 import com.telnyx.sdk.model.SimCardUsageDetailRecord;
 import com.telnyx.sdk.model.VerifyDetailRecord;
+import com.telnyx.sdk.model.WhatsAppConversationDetailRecord;
 import com.telnyx.sdk.model.WhatsAppDetailRecord;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -288,6 +290,32 @@ public class DetailRecord extends AbstractOpenApiSchema {
                 log.log(Level.FINER, "Input data does not match schema 'VerifyDetailRecord'", e);
             }
 
+            // deserialize WhatsAppConversationDetailRecord
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (WhatsAppConversationDetailRecord.class.equals(Integer.class) || WhatsAppConversationDetailRecord.class.equals(Long.class) || WhatsAppConversationDetailRecord.class.equals(Float.class) || WhatsAppConversationDetailRecord.class.equals(Double.class) || WhatsAppConversationDetailRecord.class.equals(Boolean.class) || WhatsAppConversationDetailRecord.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |= ((WhatsAppConversationDetailRecord.class.equals(Integer.class) || WhatsAppConversationDetailRecord.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((WhatsAppConversationDetailRecord.class.equals(Float.class) || WhatsAppConversationDetailRecord.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (WhatsAppConversationDetailRecord.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (WhatsAppConversationDetailRecord.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(WhatsAppConversationDetailRecord.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'WhatsAppConversationDetailRecord'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'WhatsAppConversationDetailRecord'", e);
+            }
+
             // deserialize WhatsAppDetailRecord
             try {
                 boolean attemptParsing = true;
@@ -373,6 +401,11 @@ public class DetailRecord extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
+    public DetailRecord(WhatsAppConversationDetailRecord o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public DetailRecord(WhatsAppDetailRecord o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
@@ -393,6 +426,8 @@ public class DetailRecord extends AbstractOpenApiSchema {
         });
         schemas.put("VerifyDetailRecord", new GenericType<VerifyDetailRecord>() {
         });
+        schemas.put("WhatsAppConversationDetailRecord", new GenericType<WhatsAppConversationDetailRecord>() {
+        });
         schemas.put("WhatsAppDetailRecord", new GenericType<WhatsAppDetailRecord>() {
         });
         JSON.registerDescendants(DetailRecord.class, Collections.unmodifiableMap(schemas));
@@ -405,6 +440,7 @@ public class DetailRecord extends AbstractOpenApiSchema {
         mappings.put("MessageDetailRecord", MessageDetailRecord.class);
         mappings.put("SimCardUsageDetailRecord", SimCardUsageDetailRecord.class);
         mappings.put("VerifyDetailRecord", VerifyDetailRecord.class);
+        mappings.put("WhatsAppConversationDetailRecord", WhatsAppConversationDetailRecord.class);
         mappings.put("WhatsAppDetailRecord", WhatsAppDetailRecord.class);
         mappings.put("DetailRecord", DetailRecord.class);
         JSON.registerDiscriminator(DetailRecord.class, "record_type", mappings);
@@ -418,7 +454,7 @@ public class DetailRecord extends AbstractOpenApiSchema {
     /**
      * Set the instance that matches the oneOf child schema, check
      * the instance parameter is valid against the oneOf child schemas:
-     * AmdDetailRecord, ConferenceDetailRecord, ConferenceParticipantDetailRecord, MediaStorageDetailRecord, MessageDetailRecord, SimCardUsageDetailRecord, VerifyDetailRecord, WhatsAppDetailRecord
+     * AmdDetailRecord, ConferenceDetailRecord, ConferenceParticipantDetailRecord, MediaStorageDetailRecord, MessageDetailRecord, SimCardUsageDetailRecord, VerifyDetailRecord, WhatsAppConversationDetailRecord, WhatsAppDetailRecord
      *
      * It could be an instance of the 'oneOf' schemas.
      * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
@@ -460,19 +496,24 @@ public class DetailRecord extends AbstractOpenApiSchema {
             return;
         }
 
+        if (JSON.isInstanceOf(WhatsAppConversationDetailRecord.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
         if (JSON.isInstanceOf(WhatsAppDetailRecord.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be AmdDetailRecord, ConferenceDetailRecord, ConferenceParticipantDetailRecord, MediaStorageDetailRecord, MessageDetailRecord, SimCardUsageDetailRecord, VerifyDetailRecord, WhatsAppDetailRecord");
+        throw new RuntimeException("Invalid instance type. Must be AmdDetailRecord, ConferenceDetailRecord, ConferenceParticipantDetailRecord, MediaStorageDetailRecord, MessageDetailRecord, SimCardUsageDetailRecord, VerifyDetailRecord, WhatsAppConversationDetailRecord, WhatsAppDetailRecord");
     }
 
     /**
      * Get the actual instance, which can be the following:
-     * AmdDetailRecord, ConferenceDetailRecord, ConferenceParticipantDetailRecord, MediaStorageDetailRecord, MessageDetailRecord, SimCardUsageDetailRecord, VerifyDetailRecord, WhatsAppDetailRecord
+     * AmdDetailRecord, ConferenceDetailRecord, ConferenceParticipantDetailRecord, MediaStorageDetailRecord, MessageDetailRecord, SimCardUsageDetailRecord, VerifyDetailRecord, WhatsAppConversationDetailRecord, WhatsAppDetailRecord
      *
-     * @return The actual instance (AmdDetailRecord, ConferenceDetailRecord, ConferenceParticipantDetailRecord, MediaStorageDetailRecord, MessageDetailRecord, SimCardUsageDetailRecord, VerifyDetailRecord, WhatsAppDetailRecord)
+     * @return The actual instance (AmdDetailRecord, ConferenceDetailRecord, ConferenceParticipantDetailRecord, MediaStorageDetailRecord, MessageDetailRecord, SimCardUsageDetailRecord, VerifyDetailRecord, WhatsAppConversationDetailRecord, WhatsAppDetailRecord)
      */
     @Override
     public Object getActualInstance() {
@@ -554,6 +595,17 @@ public class DetailRecord extends AbstractOpenApiSchema {
      */
     public VerifyDetailRecord getVerifyDetailRecord() throws ClassCastException {
         return (VerifyDetailRecord)super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `WhatsAppConversationDetailRecord`. If the actual instance is not `WhatsAppConversationDetailRecord`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `WhatsAppConversationDetailRecord`
+     * @throws ClassCastException if the instance is not `WhatsAppConversationDetailRecord`
+     */
+    public WhatsAppConversationDetailRecord getWhatsAppConversationDetailRecord() throws ClassCastException {
+        return (WhatsAppConversationDetailRecord)super.getActualInstance();
     }
 
     /**

@@ -8,8 +8,8 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreatePortabilityCheckRequest;
-import com.telnyx.sdk.model.PortabilityCheckResponse;
+import com.telnyx.sdk.model.PostPortabilityCheck201Response;
+import com.telnyx.sdk.model.PostPortabilityCheckRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,8 +49,8 @@ public class PhoneNumberPortingApi {
   /**
    * Run a portability check
    * Runs a portability check, returning the results immediately.
-   * @param createPortabilityCheckRequest  (required)
-   * @return PortabilityCheckResponse
+   * @param postPortabilityCheckRequest  (required)
+   * @return PostPortabilityCheck201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -60,15 +60,15 @@ public class PhoneNumberPortingApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public PortabilityCheckResponse postPortabilityCheck(CreatePortabilityCheckRequest createPortabilityCheckRequest) throws ApiException {
-    return postPortabilityCheckWithHttpInfo(createPortabilityCheckRequest).getData();
+  public PostPortabilityCheck201Response postPortabilityCheck(PostPortabilityCheckRequest postPortabilityCheckRequest) throws ApiException {
+    return postPortabilityCheckWithHttpInfo(postPortabilityCheckRequest).getData();
   }
 
   /**
    * Run a portability check
    * Runs a portability check, returning the results immediately.
-   * @param createPortabilityCheckRequest  (required)
-   * @return ApiResponse&lt;PortabilityCheckResponse&gt;
+   * @param postPortabilityCheckRequest  (required)
+   * @return ApiResponse&lt;PostPortabilityCheck201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -78,12 +78,12 @@ public class PhoneNumberPortingApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PortabilityCheckResponse> postPortabilityCheckWithHttpInfo(CreatePortabilityCheckRequest createPortabilityCheckRequest) throws ApiException {
-    Object localVarPostBody = createPortabilityCheckRequest;
+  public ApiResponse<PostPortabilityCheck201Response> postPortabilityCheckWithHttpInfo(PostPortabilityCheckRequest postPortabilityCheckRequest) throws ApiException {
+    Object localVarPostBody = postPortabilityCheckRequest;
     
-    // verify the required parameter 'createPortabilityCheckRequest' is set
-    if (createPortabilityCheckRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPortabilityCheckRequest' when calling postPortabilityCheck");
+    // verify the required parameter 'postPortabilityCheckRequest' is set
+    if (postPortabilityCheckRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'postPortabilityCheckRequest' when calling postPortabilityCheck");
     }
     
     // create path and map variables
@@ -111,7 +111,7 @@ public class PhoneNumberPortingApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PortabilityCheckResponse> localVarReturnType = new GenericType<PortabilityCheckResponse>() {};
+    GenericType<PostPortabilityCheck201Response> localVarReturnType = new GenericType<PostPortabilityCheck201Response>() {};
 
     return apiClient.invokeAPI("PhoneNumberPortingApi.postPortabilityCheck", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

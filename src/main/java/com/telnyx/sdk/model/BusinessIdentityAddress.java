@@ -72,6 +72,16 @@ public class BusinessIdentityAddress {
   public BusinessIdentityAddress() { 
   }
 
+  @JsonCreator
+  public BusinessIdentityAddress(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_ID) UUID id
+  ) {
+    this();
+    this.recordType = recordType;
+    this.id = id;
+  }
+
    /**
    * Get recordType
    * @return recordType

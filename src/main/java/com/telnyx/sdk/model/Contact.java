@@ -186,7 +186,7 @@ public class Contact {
   }
 
    /**
-   * Get ims
+   * 
    * @return ims
   **/
   @javax.annotation.Nullable

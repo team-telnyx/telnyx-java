@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 ## enableEmergencyPhoneNumber
 
-> CreatePhoneNumberEmergencyEnable enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest)
+> PhoneNumberEnableEmergency enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest)
 
 Enable emergency for a phone number
 
@@ -117,7 +117,7 @@ public class Example {
         String id = "1293384261075731499"; // String | Identifies the resource.
         PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest = new PhoneNumberEnableEmergencyRequest(); // PhoneNumberEnableEmergencyRequest | 
         try {
-            CreatePhoneNumberEmergencyEnable result = apiInstance.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest);
+            PhoneNumberEnableEmergency result = apiInstance.enableEmergencyPhoneNumber(id, phoneNumberEnableEmergencyRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberConfigurationsApi#enableEmergencyPhoneNumber");
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreatePhoneNumberEmergencyEnable**](CreatePhoneNumberEmergencyEnable.md)
+[**PhoneNumberEnableEmergency**](PhoneNumberEnableEmergency.md)
 
 ### Authorization
 

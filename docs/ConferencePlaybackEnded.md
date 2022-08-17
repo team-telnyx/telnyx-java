@@ -5,28 +5,28 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional]
-**eventType** | [**EventTypeEnum**](#EventTypeEnum) | The type of event being delivered. |  [optional]
-**id** | **UUID** | Identifies the type of resource. |  [optional]
-**payload** | [**ConferencePlaybackEndedPayload**](ConferencePlaybackEndedPayload.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional] |
+|**eventType** | [**EventTypeEnum**](#EventTypeEnum) | The type of event being delivered. |  [optional] |
+|**id** | **UUID** | Identifies the type of resource. |  [optional] |
+|**payload** | [**ConferencePlaybackEndedPayload**](ConferencePlaybackEndedPayload.md) |  |  [optional] |
 
 
 
 ## Enum: RecordTypeEnum
 
-Name | Value
----- | -----
-EVENT | &quot;event&quot;
+| Name | Value |
+|---- | -----|
+| EVENT | &quot;event&quot; |
 
 
 
 ## Enum: EventTypeEnum
 
-Name | Value
----- | -----
-CONFERENCE_PLAYBACK_ENDED | &quot;conference.playback.ended&quot;
+| Name | Value |
+|---- | -----|
+| CONFERENCE_PLAYBACK_ENDED | &quot;conference.playback.ended&quot; |
 
 
 

@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**ReplacedLinkClick**](ReplacedLinkClick.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**ReplacedLinkClick**](ReplacedLinkClick.md) |  |  [optional] |
 
 
 

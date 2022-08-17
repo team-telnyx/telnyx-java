@@ -74,7 +74,7 @@ public class CreateTexmlApplicationRequest {
   private String voiceUrl;
 
   public static final String JSON_PROPERTY_VOICE_FALLBACK_URL = "voice_fallback_url";
-  private String voiceFallbackUrl = "null";
+  private String voiceFallbackUrl;
 
   /**
    * HTTP request method Telnyx will use to interact with your XML Translator webhooks. Either &#39;get&#39; or &#39;post&#39;.
@@ -115,7 +115,7 @@ public class CreateTexmlApplicationRequest {
   private VoiceMethodEnum voiceMethod = VoiceMethodEnum.POST;
 
   public static final String JSON_PROPERTY_STATUS_CALLBACK = "status_callback";
-  private String statusCallback = "null";
+  private String statusCallback;
 
   /**
    * HTTP request method Telnyx should use when requesting the status_callback URL.

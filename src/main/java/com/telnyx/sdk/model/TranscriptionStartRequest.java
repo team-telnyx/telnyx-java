@@ -35,6 +35,7 @@ import com.telnyx.sdk.JSON;
   TranscriptionStartRequest.JSON_PROPERTY_LANGUAGE,
   TranscriptionStartRequest.JSON_PROPERTY_INTERIM_RESULTS,
   TranscriptionStartRequest.JSON_PROPERTY_CLIENT_STATE,
+  TranscriptionStartRequest.JSON_PROPERTY_TRANSCRIPTION_TRACKS,
   TranscriptionStartRequest.JSON_PROPERTY_COMMAND_ID
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -90,6 +91,9 @@ public class TranscriptionStartRequest {
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_TRACKS = "transcription_tracks";
+  private String transcriptionTracks = "inbound";
 
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
@@ -175,6 +179,32 @@ public class TranscriptionStartRequest {
   }
 
 
+  public TranscriptionStartRequest transcriptionTracks(String transcriptionTracks) {
+    this.transcriptionTracks = transcriptionTracks;
+    return this;
+  }
+
+   /**
+   * Indicates which leg of the call will be transcribed. Use &#x60;inbound&#x60; for the leg that requested the transcription, &#x60;outbound&#x60; for the other leg, and &#x60;both&#x60; for both legs of the call. Will default to &#x60;inbound&#x60;.
+   * @return transcriptionTracks
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "both", value = "Indicates which leg of the call will be transcribed. Use `inbound` for the leg that requested the transcription, `outbound` for the other leg, and `both` for both legs of the call. Will default to `inbound`.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTranscriptionTracks() {
+    return transcriptionTracks;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionTracks(String transcriptionTracks) {
+    this.transcriptionTracks = transcriptionTracks;
+  }
+
+
   public TranscriptionStartRequest commandId(String commandId) {
     this.commandId = commandId;
     return this;
@@ -216,12 +246,13 @@ public class TranscriptionStartRequest {
     return Objects.equals(this.language, transcriptionStartRequest.language) &&
         Objects.equals(this.interimResults, transcriptionStartRequest.interimResults) &&
         Objects.equals(this.clientState, transcriptionStartRequest.clientState) &&
+        Objects.equals(this.transcriptionTracks, transcriptionStartRequest.transcriptionTracks) &&
         Objects.equals(this.commandId, transcriptionStartRequest.commandId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(language, interimResults, clientState, commandId);
+    return Objects.hash(language, interimResults, clientState, transcriptionTracks, commandId);
   }
 
   @Override
@@ -231,6 +262,7 @@ public class TranscriptionStartRequest {
     sb.append("    language: ").append(toIndentedString(language)).append("\n");
     sb.append("    interimResults: ").append(toIndentedString(interimResults)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
+    sb.append("    transcriptionTracks: ").append(toIndentedString(transcriptionTracks)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("}");
     return sb.toString();

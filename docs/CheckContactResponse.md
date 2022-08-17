@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**List&lt;CheckContact&gt;**](CheckContact.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**List&lt;CheckContact&gt;**](CheckContact.md) |  |  [optional] |
 
 
 

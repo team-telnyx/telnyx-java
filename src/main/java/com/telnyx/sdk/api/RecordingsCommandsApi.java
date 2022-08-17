@@ -155,7 +155,7 @@ private ApiResponse<ListRecordingsResponse> listRecordingsWithHttpInfo(String fi
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        </table>
      
@@ -173,7 +173,7 @@ private ApiResponse<ListRecordingsResponse> listRecordingsWithHttpInfo(String fi
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of recordings. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        </table>
 
@@ -204,8 +204,8 @@ private ApiResponse<ListRecordingsResponse> listRecordingsWithHttpInfo(String fi
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a recording. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public GetRecordingResponse retrieveRecording(String id) throws ApiException {
@@ -222,8 +222,8 @@ private ApiResponse<ListRecordingsResponse> listRecordingsWithHttpInfo(String fi
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a recording. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Conference does not exist </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<GetRecordingResponse> retrieveRecordingWithHttpInfo(String id) throws ApiException {

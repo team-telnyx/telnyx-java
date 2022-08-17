@@ -12,7 +12,9 @@ import com.telnyx.sdk.model.Errors;
 import java.io.File;
 import com.telnyx.sdk.model.ListOfMediaResourcesResponse;
 import com.telnyx.sdk.model.MediaResourceResponse;
+import com.telnyx.sdk.model.UpdateMediaMultipartRequest;
 import com.telnyx.sdk.model.UpdateMediaRequest;
+import com.telnyx.sdk.model.UploadMediaMultipartRequest;
 import com.telnyx.sdk.model.UploadMediaRequest;
 
 import java.util.ArrayList;

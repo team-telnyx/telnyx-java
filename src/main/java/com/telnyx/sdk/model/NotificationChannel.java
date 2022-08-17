@@ -103,6 +103,18 @@ public class NotificationChannel {
   public NotificationChannel() { 
   }
 
+  @JsonCreator
+  public NotificationChannel(
+    @JsonProperty(JSON_PROPERTY_ID) String id, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) OffsetDateTime createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) OffsetDateTime updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * A UUID.
    * @return id

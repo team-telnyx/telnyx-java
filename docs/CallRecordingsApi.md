@@ -40,7 +40,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         CallRecordingsApi apiInstance = new CallRecordingsApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control).
         GCSConfiguration gcSConfiguration = new GCSConfiguration(); // GCSConfiguration | Creates new credentials resource for given connection_id.
         try {
             CredentialsResponse result = apiInstance.createCustomStorageCredentials(connectionId, gcSConfiguration);
@@ -61,7 +61,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control). |
  **gcSConfiguration** | [**GCSConfiguration**](GCSConfiguration.md)| Creates new credentials resource for given connection_id. |
 
 ### Return type
@@ -113,7 +113,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         CallRecordingsApi apiInstance = new CallRecordingsApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control).
         try {
             apiInstance.deleteCustomStorageCredentials(connectionId);
         } catch (ApiException e) {
@@ -132,7 +132,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control). |
 
 ### Return type
 
@@ -183,7 +183,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         CallRecordingsApi apiInstance = new CallRecordingsApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control).
         try {
             CredentialsResponse result = apiInstance.getCustomStorageCredentials(connectionId);
             System.out.println(result);
@@ -203,7 +203,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control). |
 
 ### Return type
 
@@ -254,7 +254,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         CallRecordingsApi apiInstance = new CallRecordingsApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control).
         GCSConfiguration gcSConfiguration = new GCSConfiguration(); // GCSConfiguration | Creates new credentials resource for given connection_id.
         try {
             CredentialsResponse result = apiInstance.updateCustomStorageCredentials(connectionId, gcSConfiguration);
@@ -275,7 +275,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control). |
  **gcSConfiguration** | [**GCSConfiguration**](GCSConfiguration.md)| Creates new credentials resource for given connection_id. |
 
 ### Return type

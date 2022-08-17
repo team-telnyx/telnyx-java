@@ -9,7 +9,7 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.SearchMobileOperatorNetworksResponse;
+import com.telnyx.sdk.model.MobileOperatorNetworksGet200Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +58,7 @@ public class MobileOperatorNetworksApi {
    * @param filterMcc Filter by exact MCC. (optional)
    * @param filterMnc Filter by exact MNC. (optional)
    * @param filterTadig Filter by exact TADIG. (optional)
-   * @return SearchMobileOperatorNetworksResponse
+   * @return MobileOperatorNetworksGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -67,7 +67,7 @@ public class MobileOperatorNetworksApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SearchMobileOperatorNetworksResponse mobileOperatorNetworksGet(Integer pageNumber, Integer pageSize, String filterNameStartsWith, String filterNameContains, String filterNameEndsWith, String filterCountryCode, String filterMcc, String filterMnc, String filterTadig) throws ApiException {
+  public MobileOperatorNetworksGet200Response mobileOperatorNetworksGet(Integer pageNumber, Integer pageSize, String filterNameStartsWith, String filterNameContains, String filterNameEndsWith, String filterCountryCode, String filterMcc, String filterMnc, String filterTadig) throws ApiException {
     return mobileOperatorNetworksGetWithHttpInfo(pageNumber, pageSize, filterNameStartsWith, filterNameContains, filterNameEndsWith, filterCountryCode, filterMcc, filterMnc, filterTadig).getData();
   }
 
@@ -83,7 +83,7 @@ public class MobileOperatorNetworksApi {
    * @param filterMcc Filter by exact MCC. (optional)
    * @param filterMnc Filter by exact MNC. (optional)
    * @param filterTadig Filter by exact TADIG. (optional)
-   * @return ApiResponse&lt;SearchMobileOperatorNetworksResponse&gt;
+   * @return ApiResponse&lt;MobileOperatorNetworksGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -92,7 +92,7 @@ public class MobileOperatorNetworksApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SearchMobileOperatorNetworksResponse> mobileOperatorNetworksGetWithHttpInfo(Integer pageNumber, Integer pageSize, String filterNameStartsWith, String filterNameContains, String filterNameEndsWith, String filterCountryCode, String filterMcc, String filterMnc, String filterTadig) throws ApiException {
+  public ApiResponse<MobileOperatorNetworksGet200Response> mobileOperatorNetworksGetWithHttpInfo(Integer pageNumber, Integer pageSize, String filterNameStartsWith, String filterNameContains, String filterNameEndsWith, String filterCountryCode, String filterMcc, String filterMnc, String filterTadig) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -129,7 +129,7 @@ public class MobileOperatorNetworksApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SearchMobileOperatorNetworksResponse> localVarReturnType = new GenericType<SearchMobileOperatorNetworksResponse>() {};
+    GenericType<MobileOperatorNetworksGet200Response> localVarReturnType = new GenericType<MobileOperatorNetworksGet200Response>() {};
 
     return apiClient.invokeAPI("MobileOperatorNetworksApi.mobileOperatorNetworksGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

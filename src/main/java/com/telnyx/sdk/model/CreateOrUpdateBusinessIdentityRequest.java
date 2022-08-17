@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Address;
 import com.telnyx.sdk.model.BusinessDescription;
 import com.telnyx.sdk.model.BusinessEmail;
+import com.telnyx.sdk.model.BusinessName;
 import com.telnyx.sdk.model.BusinessPhoneNumber;
 import com.telnyx.sdk.model.Contacts;
 import com.telnyx.sdk.model.SubmissionAcknowledgement;
@@ -58,7 +59,7 @@ public class CreateOrUpdateBusinessIdentityRequest {
   private BusinessEmail businessEmail = null;
 
   public static final String JSON_PROPERTY_BUSINESS_NAME = "business_name";
-  private String businessName;
+  private BusinessName businessName = null;
 
   public static final String JSON_PROPERTY_BUSINESS_PHONE_NUMBER = "business_phone_number";
   private BusinessPhoneNumber businessPhoneNumber = null;
@@ -133,28 +134,28 @@ public class CreateOrUpdateBusinessIdentityRequest {
   }
 
 
-  public CreateOrUpdateBusinessIdentityRequest businessName(String businessName) {
+  public CreateOrUpdateBusinessIdentityRequest businessName(BusinessName businessName) {
     this.businessName = businessName;
     return this;
   }
 
    /**
-   * The business name associated with the address. An address must have either a first last name or a business name.
+   * Get businessName
    * @return businessName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Toy-O'Kon", value = "The business name associated with the address. An address must have either a first last name or a business name.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getBusinessName() {
+  public BusinessName getBusinessName() {
     return businessName;
   }
 
 
   @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBusinessName(String businessName) {
+  public void setBusinessName(BusinessName businessName) {
     this.businessName = businessName;
   }
 

@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**WhatsAppDetailRecordReport**](WhatsAppDetailRecordReport.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**WhatsAppDetailRecordReport**](WhatsAppDetailRecordReport.md) |  |  [optional] |
 
 
 

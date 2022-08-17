@@ -64,6 +64,14 @@ public class NotificationEvent {
   public NotificationEvent() { 
   }
 
+  @JsonCreator
+  public NotificationEvent(
+    @JsonProperty(JSON_PROPERTY_ID) String id
+  ) {
+    this();
+    this.id = id;
+  }
+
    /**
    * A UUID.
    * @return id

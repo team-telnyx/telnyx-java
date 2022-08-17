@@ -25,7 +25,7 @@ Method | HTTP request | Description
 
 ## createNotificationChannels
 
-> CreateNotificationChannel createNotificationChannels(notificationChannel)
+> CreateNotificationChannels200Response createNotificationChannels(notificationChannel)
 
 Create a notification channel
 
@@ -54,7 +54,7 @@ public class Example {
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
         NotificationChannel notificationChannel = new NotificationChannel(); // NotificationChannel | Add a Notification Channel
         try {
-            CreateNotificationChannel result = apiInstance.createNotificationChannels(notificationChannel);
+            CreateNotificationChannels200Response result = apiInstance.createNotificationChannels(notificationChannel);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#createNotificationChannels");
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateNotificationChannel**](CreateNotificationChannel.md)
+[**CreateNotificationChannels200Response**](CreateNotificationChannels200Response.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ## createNotificationProfile
 
-> CreateNotificationProfile createNotificationProfile(notificationProfile)
+> CreateNotificationProfile200Response createNotificationProfile(notificationProfile)
 
 Create a notification profile
 
@@ -125,7 +125,7 @@ public class Example {
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
         NotificationProfile notificationProfile = new NotificationProfile(); // NotificationProfile | Add a Notification Profile
         try {
-            CreateNotificationProfile result = apiInstance.createNotificationProfile(notificationProfile);
+            CreateNotificationProfile200Response result = apiInstance.createNotificationProfile(notificationProfile);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#createNotificationProfile");
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateNotificationProfile**](CreateNotificationProfile.md)
+[**CreateNotificationProfile200Response**](CreateNotificationProfile200Response.md)
 
 ### Authorization
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ## createNotificationSetting
 
-> CreateNotificationSetting createNotificationSetting(notificationSetting)
+> CreateNotificationSetting200Response createNotificationSetting(notificationSetting)
 
 Add a Notification Setting
 
@@ -196,7 +196,7 @@ public class Example {
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
         NotificationSetting notificationSetting = new NotificationSetting(); // NotificationSetting | 
         try {
-            CreateNotificationSetting result = apiInstance.createNotificationSetting(notificationSetting);
+            CreateNotificationSetting200Response result = apiInstance.createNotificationSetting(notificationSetting);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#createNotificationSetting");
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateNotificationSetting**](CreateNotificationSetting.md)
+[**CreateNotificationSetting200Response**](CreateNotificationSetting200Response.md)
 
 ### Authorization
 
@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## deleteNotificationChannel
 
-> DeleteNotificationChannel deleteNotificationChannel(id)
+> CreateNotificationChannels200Response deleteNotificationChannel(id)
 
 Delete a notification channel
 
@@ -267,9 +267,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
-            DeleteNotificationChannel result = apiInstance.deleteNotificationChannel(id);
+            CreateNotificationChannels200Response result = apiInstance.deleteNotificationChannel(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#deleteNotificationChannel");
@@ -287,11 +287,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
-[**DeleteNotificationChannel**](DeleteNotificationChannel.md)
+[**CreateNotificationChannels200Response**](CreateNotificationChannels200Response.md)
 
 ### Authorization
 
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ## deleteNotificationProfile
 
-> DeleteNotificationProfiles deleteNotificationProfile(id)
+> CreateNotificationProfile200Response deleteNotificationProfile(id)
 
 Delete a notification profile
 
@@ -339,9 +339,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
-            DeleteNotificationProfiles result = apiInstance.deleteNotificationProfile(id);
+            CreateNotificationProfile200Response result = apiInstance.deleteNotificationProfile(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#deleteNotificationProfile");
@@ -359,11 +359,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
-[**DeleteNotificationProfiles**](DeleteNotificationProfiles.md)
+[**CreateNotificationProfile200Response**](CreateNotificationProfile200Response.md)
 
 ### Authorization
 
@@ -383,7 +383,7 @@ Name | Type | Description  | Notes
 
 ## deleteNotificationSetting
 
-> DeleteNotificationSetting deleteNotificationSetting(id)
+> CreateNotificationSetting200Response deleteNotificationSetting(id)
 
 Delete a notification setting
 
@@ -411,9 +411,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
-            DeleteNotificationSetting result = apiInstance.deleteNotificationSetting(id);
+            CreateNotificationSetting200Response result = apiInstance.deleteNotificationSetting(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#deleteNotificationSetting");
@@ -431,11 +431,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
-[**DeleteNotificationSetting**](DeleteNotificationSetting.md)
+[**CreateNotificationSetting200Response**](CreateNotificationSetting200Response.md)
 
 ### Authorization
 
@@ -456,7 +456,7 @@ Name | Type | Description  | Notes
 
 ## findNotificationsEvents
 
-> ListNotificationEvents findNotificationsEvents(pageNumber, pageSize)
+> FindNotificationsEvents200Response findNotificationsEvents(pageNumber, pageSize)
 
 List all Notifications Events
 
@@ -486,7 +486,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListNotificationEvents result = apiInstance.findNotificationsEvents(pageNumber, pageSize);
+            FindNotificationsEvents200Response result = apiInstance.findNotificationsEvents(pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#findNotificationsEvents");
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListNotificationEvents**](ListNotificationEvents.md)
+[**FindNotificationsEvents200Response**](FindNotificationsEvents200Response.md)
 
 ### Authorization
 
@@ -529,7 +529,7 @@ Name | Type | Description  | Notes
 
 ## findNotificationsEventsConditions
 
-> ListNotificationEvenConditions findNotificationsEventsConditions(pageNumber, pageSize, filterAssociatedRecordTypeEq)
+> FindNotificationsEventsConditions200Response findNotificationsEventsConditions(pageNumber, pageSize, filterAssociatedRecordTypeEq)
 
 List all Notifications Events Conditions
 
@@ -560,7 +560,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         String filterAssociatedRecordTypeEq = "account"; // String | Filter by the associated record type
         try {
-            ListNotificationEvenConditions result = apiInstance.findNotificationsEventsConditions(pageNumber, pageSize, filterAssociatedRecordTypeEq);
+            FindNotificationsEventsConditions200Response result = apiInstance.findNotificationsEventsConditions(pageNumber, pageSize, filterAssociatedRecordTypeEq);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#findNotificationsEventsConditions");
@@ -584,7 +584,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListNotificationEvenConditions**](ListNotificationEvenConditions.md)
+[**FindNotificationsEventsConditions200Response**](FindNotificationsEventsConditions200Response.md)
 
 ### Authorization
 
@@ -604,7 +604,7 @@ Name | Type | Description  | Notes
 
 ## findNotificationsProfiles
 
-> ListNotificationProfiles findNotificationsProfiles(pageNumber, pageSize)
+> FindNotificationsProfiles200Response findNotificationsProfiles(pageNumber, pageSize)
 
 List all Notifications Profiles
 
@@ -634,7 +634,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListNotificationProfiles result = apiInstance.findNotificationsProfiles(pageNumber, pageSize);
+            FindNotificationsProfiles200Response result = apiInstance.findNotificationsProfiles(pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#findNotificationsProfiles");
@@ -657,7 +657,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListNotificationProfiles**](ListNotificationProfiles.md)
+[**FindNotificationsProfiles200Response**](FindNotificationsProfiles200Response.md)
 
 ### Authorization
 
@@ -677,7 +677,7 @@ Name | Type | Description  | Notes
 
 ## listNotificationChannels
 
-> ListNotificationChannels listNotificationChannels(pageNumber, pageSize, filterChannelTypeIdEq)
+> ListNotificationChannels200Response listNotificationChannels(pageNumber, pageSize, filterChannelTypeIdEq)
 
 List notification channels
 
@@ -708,7 +708,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         String filterChannelTypeIdEq = "webhook"; // String | Filter by the id of a channel type
         try {
-            ListNotificationChannels result = apiInstance.listNotificationChannels(pageNumber, pageSize, filterChannelTypeIdEq);
+            ListNotificationChannels200Response result = apiInstance.listNotificationChannels(pageNumber, pageSize, filterChannelTypeIdEq);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#listNotificationChannels");
@@ -732,7 +732,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListNotificationChannels**](ListNotificationChannels.md)
+[**ListNotificationChannels200Response**](ListNotificationChannels200Response.md)
 
 ### Authorization
 
@@ -752,7 +752,7 @@ Name | Type | Description  | Notes
 
 ## listNotificationSettings
 
-> ListNotificationSettings listNotificationSettings(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, filterStatusEq)
+> ListNotificationSettings200Response listNotificationSettings(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, filterStatusEq)
 
 List notification settings
 
@@ -787,7 +787,7 @@ public class Example {
         String filterAssociatedRecordTypeEq = "account"; // String | Filter by the associated record type
         String filterStatusEq = "enabled"; // String | The status of a notification setting
         try {
-            ListNotificationSettings result = apiInstance.listNotificationSettings(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, filterStatusEq);
+            ListNotificationSettings200Response result = apiInstance.listNotificationSettings(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, filterStatusEq);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#listNotificationSettings");
@@ -815,7 +815,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListNotificationSettings**](ListNotificationSettings.md)
+[**ListNotificationSettings200Response**](ListNotificationSettings200Response.md)
 
 ### Authorization
 
@@ -835,7 +835,7 @@ Name | Type | Description  | Notes
 
 ## retrieveNotificationChannel
 
-> RetrieveNotificationChannel retrieveNotificationChannel(id)
+> CreateNotificationChannels200Response retrieveNotificationChannel(id)
 
 Retrieve a notification channel
 
@@ -863,9 +863,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
-            RetrieveNotificationChannel result = apiInstance.retrieveNotificationChannel(id);
+            CreateNotificationChannels200Response result = apiInstance.retrieveNotificationChannel(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#retrieveNotificationChannel");
@@ -883,11 +883,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
-[**RetrieveNotificationChannel**](RetrieveNotificationChannel.md)
+[**CreateNotificationChannels200Response**](CreateNotificationChannels200Response.md)
 
 ### Authorization
 
@@ -907,7 +907,7 @@ Name | Type | Description  | Notes
 
 ## retrieveNotificationProfile
 
-> RetrieveNotificationProfile retrieveNotificationProfile(id)
+> CreateNotificationProfile200Response retrieveNotificationProfile(id)
 
 Retrieve a notification profile
 
@@ -935,9 +935,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
-            RetrieveNotificationProfile result = apiInstance.retrieveNotificationProfile(id);
+            CreateNotificationProfile200Response result = apiInstance.retrieveNotificationProfile(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#retrieveNotificationProfile");
@@ -955,11 +955,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
-[**RetrieveNotificationProfile**](RetrieveNotificationProfile.md)
+[**CreateNotificationProfile200Response**](CreateNotificationProfile200Response.md)
 
 ### Authorization
 
@@ -979,7 +979,7 @@ Name | Type | Description  | Notes
 
 ## retrieveNotificationSetting
 
-> RetrieveNotificationSetting retrieveNotificationSetting(id)
+> CreateNotificationSetting200Response retrieveNotificationSetting(id)
 
 Retrieve a notification setting
 
@@ -1007,9 +1007,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
-            RetrieveNotificationSetting result = apiInstance.retrieveNotificationSetting(id);
+            CreateNotificationSetting200Response result = apiInstance.retrieveNotificationSetting(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#retrieveNotificationSetting");
@@ -1027,11 +1027,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
-[**RetrieveNotificationSetting**](RetrieveNotificationSetting.md)
+[**CreateNotificationSetting200Response**](CreateNotificationSetting200Response.md)
 
 ### Authorization
 
@@ -1051,7 +1051,7 @@ Name | Type | Description  | Notes
 
 ## updateNotificationChannel
 
-> UpdateNotificationChannel updateNotificationChannel(id, notificationChannel)
+> CreateNotificationChannels200Response updateNotificationChannel(id, notificationChannel)
 
 Update a notification channel
 
@@ -1079,10 +1079,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         NotificationChannel notificationChannel = new NotificationChannel(); // NotificationChannel | Update notification channel object
         try {
-            UpdateNotificationChannel result = apiInstance.updateNotificationChannel(id, notificationChannel);
+            CreateNotificationChannels200Response result = apiInstance.updateNotificationChannel(id, notificationChannel);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#updateNotificationChannel");
@@ -1100,12 +1100,12 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **notificationChannel** | [**NotificationChannel**](NotificationChannel.md)| Update notification channel object |
 
 ### Return type
 
-[**UpdateNotificationChannel**](UpdateNotificationChannel.md)
+[**CreateNotificationChannels200Response**](CreateNotificationChannels200Response.md)
 
 ### Authorization
 
@@ -1125,7 +1125,7 @@ Name | Type | Description  | Notes
 
 ## updateNotificationProfile
 
-> UpdateNotificationProfile updateNotificationProfile(id, notificationProfile)
+> CreateNotificationProfile200Response updateNotificationProfile(id, notificationProfile)
 
 Update a notification profile
 
@@ -1153,10 +1153,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         NotificationProfile notificationProfile = new NotificationProfile(); // NotificationProfile | Update notification profile object
         try {
-            UpdateNotificationProfile result = apiInstance.updateNotificationProfile(id, notificationProfile);
+            CreateNotificationProfile200Response result = apiInstance.updateNotificationProfile(id, notificationProfile);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#updateNotificationProfile");
@@ -1174,12 +1174,12 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **notificationProfile** | [**NotificationProfile**](NotificationProfile.md)| Update notification profile object |
 
 ### Return type
 
-[**UpdateNotificationProfile**](UpdateNotificationProfile.md)
+[**CreateNotificationProfile200Response**](CreateNotificationProfile200Response.md)
 
 ### Authorization
 

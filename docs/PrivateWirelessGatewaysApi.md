@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## createPrivateWirelessGateway
 
-> CreatePrivateWirelessGatewayResponse createPrivateWirelessGateway(createPrivateWirelessGatwewayRequest)
+> CreatePrivateWirelessGateway202Response createPrivateWirelessGateway(createPrivateWirelessGatewayRequest)
 
 Create a Private Wireless Gateway
 
@@ -40,9 +40,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PrivateWirelessGatewaysApi apiInstance = new PrivateWirelessGatewaysApi(defaultClient);
-        CreatePrivateWirelessGatwewayRequest createPrivateWirelessGatwewayRequest = new CreatePrivateWirelessGatwewayRequest(); // CreatePrivateWirelessGatwewayRequest | 
+        CreatePrivateWirelessGatewayRequest createPrivateWirelessGatewayRequest = new CreatePrivateWirelessGatewayRequest(); // CreatePrivateWirelessGatewayRequest | 
         try {
-            CreatePrivateWirelessGatewayResponse result = apiInstance.createPrivateWirelessGateway(createPrivateWirelessGatwewayRequest);
+            CreatePrivateWirelessGateway202Response result = apiInstance.createPrivateWirelessGateway(createPrivateWirelessGatewayRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PrivateWirelessGatewaysApi#createPrivateWirelessGateway");
@@ -60,11 +60,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createPrivateWirelessGatwewayRequest** | [**CreatePrivateWirelessGatwewayRequest**](CreatePrivateWirelessGatwewayRequest.md)|  |
+ **createPrivateWirelessGatewayRequest** | [**CreatePrivateWirelessGatewayRequest**](CreatePrivateWirelessGatewayRequest.md)|  |
 
 ### Return type
 
-[**CreatePrivateWirelessGatewayResponse**](CreatePrivateWirelessGatewayResponse.md)
+[**CreatePrivateWirelessGateway202Response**](CreatePrivateWirelessGateway202Response.md)
 
 ### Authorization
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## deletePrivateWirelessGateway
 
-> DeletePrivateWirelessGatewayResponse deletePrivateWirelessGateway(id)
+> CreatePrivateWirelessGateway202Response deletePrivateWirelessGateway(id)
 
 Delete a Private Wireless Gateway
 
@@ -115,7 +115,7 @@ public class Example {
         PrivateWirelessGatewaysApi apiInstance = new PrivateWirelessGatewaysApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            DeletePrivateWirelessGatewayResponse result = apiInstance.deletePrivateWirelessGateway(id);
+            CreatePrivateWirelessGateway202Response result = apiInstance.deletePrivateWirelessGateway(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PrivateWirelessGatewaysApi#deletePrivateWirelessGateway");
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeletePrivateWirelessGatewayResponse**](DeletePrivateWirelessGatewayResponse.md)
+[**CreatePrivateWirelessGateway202Response**](CreatePrivateWirelessGateway202Response.md)
 
 ### Authorization
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## getPrivateWirelessGateway
 
-> GetPrivateWirelessGatewayResponse getPrivateWirelessGateway(id)
+> CreatePrivateWirelessGateway202Response getPrivateWirelessGateway(id)
 
 Get a Private Wireless Gateway
 
@@ -188,7 +188,7 @@ public class Example {
         PrivateWirelessGatewaysApi apiInstance = new PrivateWirelessGatewaysApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            GetPrivateWirelessGatewayResponse result = apiInstance.getPrivateWirelessGateway(id);
+            CreatePrivateWirelessGateway202Response result = apiInstance.getPrivateWirelessGateway(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PrivateWirelessGatewaysApi#getPrivateWirelessGateway");
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetPrivateWirelessGatewayResponse**](GetPrivateWirelessGatewayResponse.md)
+[**CreatePrivateWirelessGateway202Response**](CreatePrivateWirelessGateway202Response.md)
 
 ### Authorization
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ## getPrivateWirelessGateways
 
-> GetAllPrivateWirelessGatewaysResponse getPrivateWirelessGateways(pageNumber, pageSize, filterName, filterIpRange, filterRegionCode, filterCreatedAt, filterUpdatedAt)
+> GetPrivateWirelessGateways200Response getPrivateWirelessGateways(pageNumber, pageSize, filterName, filterIpRange, filterRegionCode, filterCreatedAt, filterUpdatedAt)
 
 Get all Private Wireless Gateways
 
@@ -266,7 +266,7 @@ public class Example {
         String filterCreatedAt = "2018-02-02T22:25:27.521Z"; // String | Private Wireless Gateway resource creation date.
         String filterUpdatedAt = "2018-02-02T22:25:27.521Z"; // String | When the Private Wireless Gateway was last updated.
         try {
-            GetAllPrivateWirelessGatewaysResponse result = apiInstance.getPrivateWirelessGateways(pageNumber, pageSize, filterName, filterIpRange, filterRegionCode, filterCreatedAt, filterUpdatedAt);
+            GetPrivateWirelessGateways200Response result = apiInstance.getPrivateWirelessGateways(pageNumber, pageSize, filterName, filterIpRange, filterRegionCode, filterCreatedAt, filterUpdatedAt);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PrivateWirelessGatewaysApi#getPrivateWirelessGateways");
@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetAllPrivateWirelessGatewaysResponse**](GetAllPrivateWirelessGatewaysResponse.md)
+[**GetPrivateWirelessGateways200Response**](GetPrivateWirelessGateways200Response.md)
 
 ### Authorization
 

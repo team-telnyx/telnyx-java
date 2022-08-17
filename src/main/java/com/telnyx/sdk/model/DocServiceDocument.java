@@ -119,6 +119,26 @@ public class DocServiceDocument {
   public DocServiceDocument() { 
   }
 
+  @JsonCreator
+  public DocServiceDocument(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt, 
+    @JsonProperty(JSON_PROPERTY_CONTENT_TYPE) String contentType, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_SHA256) String sha256
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.contentType = contentType;
+    this.status = status;
+    this.sha256 = sha256;
+  }
+
    /**
    * Identifies the resource.
    * @return id

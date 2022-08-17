@@ -102,6 +102,18 @@ public class PortOutSupportingDocument {
   public PortOutSupportingDocument() { 
   }
 
+  @JsonCreator
+  public PortOutSupportingDocument(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_TYPE) TypeEnum type, 
+    @JsonProperty(JSON_PROPERTY_PORTOUT_ID) UUID portoutId
+  ) {
+    this();
+    this.recordType = recordType;
+    this.type = type;
+    this.portoutId = portoutId;
+  }
+
   public PortOutSupportingDocument id(UUID id) {
     this.id = id;
     return this;

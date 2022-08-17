@@ -67,6 +67,16 @@ public class MobileOperatorNetwork {
   public MobileOperatorNetwork() { 
   }
 
+  @JsonCreator
+  public MobileOperatorNetwork(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+  }
+
    /**
    * Identifies the resource.
    * @return id

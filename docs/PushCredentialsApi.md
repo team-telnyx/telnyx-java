@@ -4,20 +4,92 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deletePushCredentialnById**](PushCredentialsApi.md#deletePushCredentialnById) | **DELETE** /push_credentials/{push_credential_id} | Deletes a push credential
-[**getPushCredentialById**](PushCredentialsApi.md#getPushCredentialById) | **GET** /push_credentials/{push_credential_id} | Retrieves a push credential
-[**getPushCredentials**](PushCredentialsApi.md#getPushCredentials) | **GET** /mobile_applications/{mobile_application_id}/push_credentials | Retrieves push credentials associated to a mobile application
-[**updatePushCredentialById**](PushCredentialsApi.md#updatePushCredentialById) | **PATCH** /push_credentials/{push_credential_id} | Updates a push credential
+[**createPushCredential**](PushCredentialsApi.md#createPushCredential) | **POST** /mobile_push_credentials | Creates a new mobile push credential
+[**deletePushCredentialById**](PushCredentialsApi.md#deletePushCredentialById) | **DELETE** /mobile_push_credentials/{push_credential_id} | Deletes a mobile push credential
+[**getPushCredentialById**](PushCredentialsApi.md#getPushCredentialById) | **GET** /mobile_push_credentials/{push_credential_id} | Retrieves a mobile push credential
+[**listPushCredentials**](PushCredentialsApi.md#listPushCredentials) | **GET** /mobile_push_credentials | List mobile push credentials
 
 
 
-## deletePushCredentialnById
+## createPushCredential
 
-> deletePushCredentialnById(pushCredentialId)
+> PushCredentialResponse createPushCredential(createPushCredentialRequest)
 
-Deletes a push credential
+Creates a new mobile push credential
 
-Deletes a push credential based on the given `id`
+Creates a new mobile push credential
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.PushCredentialsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        PushCredentialsApi apiInstance = new PushCredentialsApi(defaultClient);
+        CreatePushCredentialRequest createPushCredentialRequest = new CreatePushCredentialRequest(); // CreatePushCredentialRequest | Mobile push credential parameters that need to be sent in the request
+        try {
+            PushCredentialResponse result = apiInstance.createPushCredential(createPushCredentialRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PushCredentialsApi#createPushCredential");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createPushCredentialRequest** | [**CreatePushCredentialRequest**](CreatePushCredentialRequest.md)| Mobile push credential parameters that need to be sent in the request |
+
+### Return type
+
+[**PushCredentialResponse**](PushCredentialResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Mobile push credential created |  -  |
+| **401** | Unauthorized request |  -  |
+| **422** | Unable to process request |  -  |
+
+
+## deletePushCredentialById
+
+> deletePushCredentialById(pushCredentialId)
+
+Deletes a mobile push credential
+
+Deletes a mobile push credential based on the given `push_credential_id`
 
 ### Example
 
@@ -41,11 +113,11 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PushCredentialsApi apiInstance = new PushCredentialsApi(defaultClient);
-        UUID pushCredentialId = UUID.fromString("0ccc7b76-4df3-4bca-a05a-3da1ecc389f0"); // UUID | The unique identifier of a push credential
+        UUID pushCredentialId = UUID.fromString("0ccc7b76-4df3-4bca-a05a-3da1ecc389f0"); // UUID | The unique identifier of a mobile push credential
         try {
-            apiInstance.deletePushCredentialnById(pushCredentialId);
+            apiInstance.deletePushCredentialById(pushCredentialId);
         } catch (ApiException e) {
-            System.err.println("Exception when calling PushCredentialsApi#deletePushCredentialnById");
+            System.err.println("Exception when calling PushCredentialsApi#deletePushCredentialById");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -60,7 +132,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pushCredentialId** | **UUID**| The unique identifier of a push credential |
+ **pushCredentialId** | **UUID**| The unique identifier of a mobile push credential |
 
 ### Return type
 
@@ -78,7 +150,7 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | The push credential was deleted successfully |  -  |
+| **204** | The mobile push credential was deleted successfully |  -  |
 | **401** | Unauthorized request |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unable to process request |  -  |
@@ -88,9 +160,9 @@ null (empty response body)
 
 > PushCredentialResponse getPushCredentialById(pushCredentialId)
 
-Retrieves a push credential
+Retrieves a mobile push credential
 
-Retrieves push credential based on the given `id`
+Retrieves mobile push credential based on the given `push_credential_id`
 
 ### Example
 
@@ -114,7 +186,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PushCredentialsApi apiInstance = new PushCredentialsApi(defaultClient);
-        UUID pushCredentialId = UUID.fromString("0ccc7b76-4df3-4bca-a05a-3da1ecc389f0"); // UUID | The unique identifier of a push credential
+        UUID pushCredentialId = UUID.fromString("0ccc7b76-4df3-4bca-a05a-3da1ecc389f0"); // UUID | The unique identifier of a mobile push credential
         try {
             PushCredentialResponse result = apiInstance.getPushCredentialById(pushCredentialId);
             System.out.println(result);
@@ -134,7 +206,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pushCredentialId** | **UUID**| The unique identifier of a push credential |
+ **pushCredentialId** | **UUID**| The unique identifier of a mobile push credential |
 
 ### Return type
 
@@ -152,25 +224,23 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful get push credential response |  -  |
+| **200** | Successful get mobile push credential response |  -  |
 | **401** | Unauthorized request |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unable to process request |  -  |
 
 
-## getPushCredentials
+## listPushCredentials
 
-> List&lt;PushCredentialResponse&gt; getPushCredentials(mobileApplicationId, filterCreatedAtEq, filterCreatedAtGte, filterCreatedAtLte, filterAlias)
+> ListPushCredentialsResponse listPushCredentials(filterType, filterAlias, pageSize, pageNumber)
 
-Retrieves push credentials associated to a mobile application
+List mobile push credentials
 
-Retrieves push credentials for a given mobile application based on filters for a user
+List mobile push credentials
 
 ### Example
 
 ```java
-import java.time.LocalDate;
-import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -189,16 +259,15 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PushCredentialsApi apiInstance = new PushCredentialsApi(defaultClient);
-        UUID mobileApplicationId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a mobile application
-        LocalDate filterCreatedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering credentials created on that date
-        LocalDate filterCreatedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering credentials created after that date
-        LocalDate filterCreatedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering credentials created before that date
-        String filterAlias = "LucyCredential"; // String | Unique push credential alias
+        String filterType = "ios"; // String | type of mobile push credentials
+        String filterAlias = "LucyCredential"; // String | Unique mobile push credential alias
+        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load
         try {
-            List<PushCredentialResponse> result = apiInstance.getPushCredentials(mobileApplicationId, filterCreatedAtEq, filterCreatedAtGte, filterCreatedAtLte, filterAlias);
+            ListPushCredentialsResponse result = apiInstance.listPushCredentials(filterType, filterAlias, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling PushCredentialsApi#getPushCredentials");
+            System.err.println("Exception when calling PushCredentialsApi#listPushCredentials");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -213,15 +282,14 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **mobileApplicationId** | **UUID**| The unique identifier of a mobile application |
- **filterCreatedAtEq** | **LocalDate**| ISO 8601 date for filtering credentials created on that date | [optional]
- **filterCreatedAtGte** | **LocalDate**| ISO 8601 date for filtering credentials created after that date | [optional]
- **filterCreatedAtLte** | **LocalDate**| ISO 8601 date for filtering credentials created before that date | [optional]
- **filterAlias** | **String**| Unique push credential alias | [optional]
+ **filterType** | **String**| type of mobile push credentials | [optional] [enum: ios, android]
+ **filterAlias** | **String**| Unique mobile push credential alias | [optional]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
 
 ### Return type
 
-[**List&lt;PushCredentialResponse&gt;**](PushCredentialResponse.md)
+[**ListPushCredentialsResponse**](ListPushCredentialsResponse.md)
 
 ### Authorization
 
@@ -235,83 +303,6 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Mobile application created |  -  |
+| **200** | Mobile mobile push credentials |  -  |
 | **401** | Unauthorized request |  -  |
-| **422** | Unable to process request |  -  |
-
-
-## updatePushCredentialById
-
-> PushCredentialResponse updatePushCredentialById(pushCredentialId, UNKNOWN_BASE_TYPE)
-
-Updates a push credential
-
-Updates a push credential based on the given `id`
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.PushCredentialsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        PushCredentialsApi apiInstance = new PushCredentialsApi(defaultClient);
-        UUID pushCredentialId = UUID.fromString("0ccc7b76-4df3-4bca-a05a-3da1ecc389f0"); // UUID | The unique identifier of a push credential
-        UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE = new UNKNOWN_BASE_TYPE(); // UNKNOWN_BASE_TYPE | Push credential parameters that need to be sent in the request
-        try {
-            PushCredentialResponse result = apiInstance.updatePushCredentialById(pushCredentialId, UNKNOWN_BASE_TYPE);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PushCredentialsApi#updatePushCredentialById");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **pushCredentialId** | **UUID**| The unique identifier of a push credential |
- **UNKNOWN_BASE_TYPE** | **UNKNOWN_BASE_TYPE**| Push credential parameters that need to be sent in the request | [optional]
-
-### Return type
-
-[**PushCredentialResponse**](PushCredentialResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | The push credential was updated successfully |  -  |
-| **401** | Unauthorized request |  -  |
-| **404** | Resource not found |  -  |
-| **422** | Unable to process request |  -  |
 

@@ -88,6 +88,8 @@ null (empty response body)
 
 Delete several room recordings in a bulk.
 
+
+
 ### Example
 
 ```java
@@ -185,9 +187,11 @@ Name | Type | Description  | Notes
 
 ## listRoomRecordings
 
-> ListRoomRecordingsResponse listRoomRecordings(filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterDateStartedAtEq, filterDateStartedAtGte, filterDateStartedAtLte, filterRoomId, filterParticipantId, filterSessionId, filterStatus, filterType, filterDurationSecsEq, filterDurationSecsLte, filterDurationSecsGte, pageSize, pageNumber)
+> ListRoomRecordings200Response listRoomRecordings(filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterDateStartedAtEq, filterDateStartedAtGte, filterDateStartedAtLte, filterRoomId, filterParticipantId, filterSessionId, filterStatus, filterType, filterDurationSecsEq, filterDurationSecsLte, filterDurationSecsGte, pageSize, pageNumber)
 
 View a list of room recordings.
+
+
 
 ### Example
 
@@ -229,7 +233,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListRoomRecordingsResponse result = apiInstance.listRoomRecordings(filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterDateStartedAtEq, filterDateStartedAtGte, filterDateStartedAtLte, filterRoomId, filterParticipantId, filterSessionId, filterStatus, filterType, filterDurationSecsEq, filterDurationSecsLte, filterDurationSecsGte, pageSize, pageNumber);
+            ListRoomRecordings200Response result = apiInstance.listRoomRecordings(filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterDateStartedAtEq, filterDateStartedAtGte, filterDateStartedAtLte, filterRoomId, filterParticipantId, filterSessionId, filterStatus, filterType, filterDurationSecsEq, filterDurationSecsLte, filterDurationSecsGte, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomRecordingsApi#listRoomRecordings");
@@ -266,7 +270,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRoomRecordingsResponse**](ListRoomRecordingsResponse.md)
+[**ListRoomRecordings200Response**](ListRoomRecordings200Response.md)
 
 ### Authorization
 
@@ -285,7 +289,7 @@ Name | Type | Description  | Notes
 
 ## viewRoomRecording
 
-> GetRoomRecordingResponse viewRoomRecording(roomRecordingId)
+> ViewRoomRecording200Response viewRoomRecording(roomRecordingId)
 
 View a room recording.
 
@@ -313,7 +317,7 @@ public class Example {
         RoomRecordingsApi apiInstance = new RoomRecordingsApi(defaultClient);
         UUID roomRecordingId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room recording.
         try {
-            GetRoomRecordingResponse result = apiInstance.viewRoomRecording(roomRecordingId);
+            ViewRoomRecording200Response result = apiInstance.viewRoomRecording(roomRecordingId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RoomRecordingsApi#viewRoomRecording");
@@ -335,7 +339,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetRoomRecordingResponse**](GetRoomRecordingResponse.md)
+[**ViewRoomRecording200Response**](ViewRoomRecording200Response.md)
 
 ### Authorization
 

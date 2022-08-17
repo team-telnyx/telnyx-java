@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## createDyanmicEmergencyAddress
 
-> DynamicEmergencyAddressResponse createDyanmicEmergencyAddress(dynamicEmergencyAddress)
+> CreateDyanmicEmergencyAddress201Response createDyanmicEmergencyAddress(dynamicEmergencyAddress)
 
 Create a dynamic emergency address.
 
@@ -42,7 +42,7 @@ public class Example {
         DynamicEmergencyAddressesApi apiInstance = new DynamicEmergencyAddressesApi(defaultClient);
         DynamicEmergencyAddress dynamicEmergencyAddress = new DynamicEmergencyAddress(); // DynamicEmergencyAddress | 
         try {
-            DynamicEmergencyAddressResponse result = apiInstance.createDyanmicEmergencyAddress(dynamicEmergencyAddress);
+            CreateDyanmicEmergencyAddress201Response result = apiInstance.createDyanmicEmergencyAddress(dynamicEmergencyAddress);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DynamicEmergencyAddressesApi#createDyanmicEmergencyAddress");
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DynamicEmergencyAddressResponse**](DynamicEmergencyAddressResponse.md)
+[**CreateDyanmicEmergencyAddress201Response**](CreateDyanmicEmergencyAddress201Response.md)
 
 ### Authorization
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## deleteDynamicEmergencyAddress
 
-> DynamicEmergencyAddressResponse deleteDynamicEmergencyAddress(id)
+> CreateDyanmicEmergencyAddress201Response deleteDynamicEmergencyAddress(id)
 
 Delete a dynamic emergency address
 
@@ -116,7 +116,7 @@ public class Example {
         DynamicEmergencyAddressesApi apiInstance = new DynamicEmergencyAddressesApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Dynamic Emergency Address id
         try {
-            DynamicEmergencyAddressResponse result = apiInstance.deleteDynamicEmergencyAddress(id);
+            CreateDyanmicEmergencyAddress201Response result = apiInstance.deleteDynamicEmergencyAddress(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DynamicEmergencyAddressesApi#deleteDynamicEmergencyAddress");
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DynamicEmergencyAddressResponse**](DynamicEmergencyAddressResponse.md)
+[**CreateDyanmicEmergencyAddress201Response**](CreateDyanmicEmergencyAddress201Response.md)
 
 ### Authorization
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ## getDynamicEmergencyAddress
 
-> DynamicEmergencyAddressResponse getDynamicEmergencyAddress(id)
+> CreateDyanmicEmergencyAddress201Response getDynamicEmergencyAddress(id)
 
 Get a dynamic emergency address
 
@@ -190,7 +190,7 @@ public class Example {
         DynamicEmergencyAddressesApi apiInstance = new DynamicEmergencyAddressesApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Dynamic Emergency Address id
         try {
-            DynamicEmergencyAddressResponse result = apiInstance.getDynamicEmergencyAddress(id);
+            CreateDyanmicEmergencyAddress201Response result = apiInstance.getDynamicEmergencyAddress(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DynamicEmergencyAddressesApi#getDynamicEmergencyAddress");
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DynamicEmergencyAddressResponse**](DynamicEmergencyAddressResponse.md)
+[**CreateDyanmicEmergencyAddress201Response**](CreateDyanmicEmergencyAddress201Response.md)
 
 ### Authorization
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ## listDyanmicEmergencyAddresses
 
-> ListDynamicEmergencyAddresses listDyanmicEmergencyAddresses(filterStatus, filterCountryCode, pageNumber, pageSize)
+> ListDyanmicEmergencyAddresses200Response listDyanmicEmergencyAddresses(filterStatus, filterCountryCode, pageNumber, pageSize)
 
 List dynamic emergency addresses
 
@@ -266,7 +266,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListDynamicEmergencyAddresses result = apiInstance.listDyanmicEmergencyAddresses(filterStatus, filterCountryCode, pageNumber, pageSize);
+            ListDyanmicEmergencyAddresses200Response result = apiInstance.listDyanmicEmergencyAddresses(filterStatus, filterCountryCode, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DynamicEmergencyAddressesApi#listDyanmicEmergencyAddresses");
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListDynamicEmergencyAddresses**](ListDynamicEmergencyAddresses.md)
+[**ListDyanmicEmergencyAddresses200Response**](ListDyanmicEmergencyAddresses200Response.md)
 
 ### Authorization
 

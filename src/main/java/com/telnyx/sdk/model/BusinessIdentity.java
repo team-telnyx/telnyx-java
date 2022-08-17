@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.BusinessIdentityAddress;
-import com.telnyx.sdk.model.BusinessIdentityContacts;
+import com.telnyx.sdk.model.BusinessIdentityContactsInner;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class BusinessIdentity {
   private BusinessIdentityAddress address;
 
   public static final String JSON_PROPERTY_CONTACTS = "contacts";
-  private List<BusinessIdentityContacts> contacts = null;
+  private List<BusinessIdentityContactsInner> contacts = null;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -97,6 +97,22 @@ public class BusinessIdentity {
   private String updatedAt;
 
   public BusinessIdentity() { 
+  }
+
+  @JsonCreator
+  public BusinessIdentity(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID) UUID organizationId, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.recordType = recordType;
+    this.id = id;
+    this.organizationId = organizationId;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
    /**
@@ -363,12 +379,12 @@ public class BusinessIdentity {
   }
 
 
-  public BusinessIdentity contacts(List<BusinessIdentityContacts> contacts) {
+  public BusinessIdentity contacts(List<BusinessIdentityContactsInner> contacts) {
     this.contacts = contacts;
     return this;
   }
 
-  public BusinessIdentity addContactsItem(BusinessIdentityContacts contactsItem) {
+  public BusinessIdentity addContactsItem(BusinessIdentityContactsInner contactsItem) {
     if (this.contacts == null) {
       this.contacts = new ArrayList<>();
     }
@@ -385,14 +401,14 @@ public class BusinessIdentity {
   @JsonProperty(JSON_PROPERTY_CONTACTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<BusinessIdentityContacts> getContacts() {
+  public List<BusinessIdentityContactsInner> getContacts() {
     return contacts;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CONTACTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setContacts(List<BusinessIdentityContacts> contacts) {
+  public void setContacts(List<BusinessIdentityContactsInner> contacts) {
     this.contacts = contacts;
   }
 

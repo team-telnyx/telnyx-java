@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ErrorSource;
+import com.telnyx.sdk.model.UpdateOutboundChannelsDefaultResponseErrorsInnerSource;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -51,7 +51,7 @@ public class GenericError {
   private String detail;
 
   public static final String JSON_PROPERTY_SOURCE = "source";
-  private ErrorSource source;
+  private UpdateOutboundChannelsDefaultResponseErrorsInnerSource source;
 
   public static final String JSON_PROPERTY_META = "meta";
   private Object meta;
@@ -137,7 +137,7 @@ public class GenericError {
   }
 
 
-  public GenericError source(ErrorSource source) {
+  public GenericError source(UpdateOutboundChannelsDefaultResponseErrorsInnerSource source) {
     this.source = source;
     return this;
   }
@@ -151,14 +151,14 @@ public class GenericError {
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public ErrorSource getSource() {
+  public UpdateOutboundChannelsDefaultResponseErrorsInnerSource getSource() {
     return source;
   }
 
 
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSource(ErrorSource source) {
+  public void setSource(UpdateOutboundChannelsDefaultResponseErrorsInnerSource source) {
     this.source = source;
   }
 

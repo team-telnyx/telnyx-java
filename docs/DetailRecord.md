@@ -12,6 +12,7 @@ An object following one of the schemas published in https://developers.telnyx.co
 * [MessageDetailRecord](MessageDetailRecord.md)
 * [SimCardUsageDetailRecord](SimCardUsageDetailRecord.md)
 * [VerifyDetailRecord](VerifyDetailRecord.md)
+* [WhatsAppConversationDetailRecord](WhatsAppConversationDetailRecord.md)
 * [WhatsAppDetailRecord](WhatsAppDetailRecord.md)
 
 ## Example
@@ -25,6 +26,7 @@ import com.telnyx.sdk.model.MediaStorageDetailRecord;
 import com.telnyx.sdk.model.MessageDetailRecord;
 import com.telnyx.sdk.model.SimCardUsageDetailRecord;
 import com.telnyx.sdk.model.VerifyDetailRecord;
+import com.telnyx.sdk.model.WhatsAppConversationDetailRecord;
 import com.telnyx.sdk.model.WhatsAppDetailRecord;
 
 public class Example {
@@ -79,6 +81,13 @@ public class Example {
         exampleDetailRecord.setActualInstance(exampleVerifyDetailRecord);
         // to get back the VerifyDetailRecord set earlier
         VerifyDetailRecord testVerifyDetailRecord = (VerifyDetailRecord) exampleDetailRecord.getActualInstance();
+
+        // create a new WhatsAppConversationDetailRecord
+        WhatsAppConversationDetailRecord exampleWhatsAppConversationDetailRecord = new WhatsAppConversationDetailRecord();
+        // set DetailRecord to WhatsAppConversationDetailRecord
+        exampleDetailRecord.setActualInstance(exampleWhatsAppConversationDetailRecord);
+        // to get back the WhatsAppConversationDetailRecord set earlier
+        WhatsAppConversationDetailRecord testWhatsAppConversationDetailRecord = (WhatsAppConversationDetailRecord) exampleDetailRecord.getActualInstance();
 
         // create a new WhatsAppDetailRecord
         WhatsAppDetailRecord exampleWhatsAppDetailRecord = new WhatsAppDetailRecord();

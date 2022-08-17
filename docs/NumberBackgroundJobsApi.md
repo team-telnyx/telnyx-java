@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## createPhoneNumbersJobDeletePhoneNumbers
 
-> CreatePhoneNumbersJobDeletePhoneNumbers createPhoneNumbersJobDeletePhoneNumbers().phoneNumbersJobDeletePhoneNumbersRequest(phoneNumbersJobDeletePhoneNumbersRequest).execute();
+> PhoneNumbersJobDeletePhoneNumbers createPhoneNumbersJobDeletePhoneNumbers().phoneNumbersJobDeletePhoneNumbersRequest(phoneNumbersJobDeletePhoneNumbersRequest).execute();
 
 Delete a batch of numbers
 
@@ -43,7 +43,7 @@ public class Example {
         NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
         PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbersJobDeletePhoneNumbersRequest = new PhoneNumbersJobDeletePhoneNumbersRequest(); // PhoneNumbersJobDeletePhoneNumbersRequest | 
         try {
-            CreatePhoneNumbersJobDeletePhoneNumbers result = api.createPhoneNumbersJobDeletePhoneNumbers()
+            PhoneNumbersJobDeletePhoneNumbers result = api.createPhoneNumbersJobDeletePhoneNumbers()
                 .phoneNumbersJobDeletePhoneNumbersRequest(phoneNumbersJobDeletePhoneNumbersRequest)
                 .execute();
             System.out.println(result);
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreatePhoneNumbersJobDeletePhoneNumbers**](CreatePhoneNumbersJobDeletePhoneNumbers.md)
+[**PhoneNumbersJobDeletePhoneNumbers**](PhoneNumbersJobDeletePhoneNumbers.md)
 
 ### Authorization
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## createPhoneNumbersJobUpdateEmergencySettings
 
-> CreatePhoneNumbersEnableEmergency createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest)
+> PhoneNumbersEnableEmergency createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest)
 
 Update the emergency settings from a batch of numbers
 
@@ -116,7 +116,7 @@ public class Example {
         NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
         PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest = new PhoneNumbersJobUpdateEmergencySettingsRequest(); // PhoneNumbersJobUpdateEmergencySettingsRequest | 
         try {
-            CreatePhoneNumbersEnableEmergency result = apiInstance.createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest);
+            PhoneNumbersEnableEmergency result = apiInstance.createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberBackgroundJobsApi#createPhoneNumbersJobUpdateEmergencySettings");
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreatePhoneNumbersEnableEmergency**](CreatePhoneNumbersEnableEmergency.md)
+[**PhoneNumbersEnableEmergency**](PhoneNumbersEnableEmergency.md)
 
 ### Authorization
 
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ## retrievePhoneNumbersJob
 
-> RetrievePhoneNumbersJob retrievePhoneNumbersJob(id).execute();
+> PhoneNumbersJob retrievePhoneNumbersJob(id).execute();
 
 Retrieve a phone numbers job
 
@@ -338,7 +338,7 @@ public class Example {
         NumberBackgroundJobsApi apiInstance = new NumberBackgroundJobsApi(defaultClient);
         String id = "id_example"; // String | Identifies the Phone Numbers Job.
         try {
-            RetrievePhoneNumbersJob result = api.retrievePhoneNumbersJob(id)
+            PhoneNumbersJob result = api.retrievePhoneNumbersJob(id)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrievePhoneNumbersJob**](RetrievePhoneNumbersJob.md)
+[**PhoneNumbersJob**](PhoneNumbersJob.md)
 
 ### Authorization
 

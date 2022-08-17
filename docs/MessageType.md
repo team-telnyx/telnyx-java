@@ -11,8 +11,6 @@
 
 * `DOCUMENT` (value: `"document"`)
 
-* `HSM` (value: `"hsm"`)
-
 * `IMAGE` (value: `"image"`)
 
 * `LOCATION` (value: `"location"`)

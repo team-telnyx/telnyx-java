@@ -8,12 +8,11 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreatePhoneNumberEmergencyEnable;
-import com.telnyx.sdk.model.CreatePhoneNumberEmergencyRequested;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListMessagingSettingsResponse;
 import com.telnyx.sdk.model.ListPhoneNumbersResponse;
 import com.telnyx.sdk.model.ListPhoneNumbersWithVoiceSettingsResponse;
+import com.telnyx.sdk.model.PhoneNumberEnableEmergency;
 import com.telnyx.sdk.model.PhoneNumberEnableEmergencyRequest;
 import com.telnyx.sdk.model.PhoneNumberResponse;
 import com.telnyx.sdk.model.PhoneNumberResponse1;
@@ -133,7 +132,7 @@ public class NumberConfigurationsApi {
    * 
    * @param id Identifies the resource. (required)
    * @param phoneNumberEnableEmergencyRequest  (required)
-   * @return CreatePhoneNumberEmergencyEnable
+   * @return PhoneNumberEnableEmergency
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -143,7 +142,7 @@ public class NumberConfigurationsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePhoneNumberEmergencyEnable enableEmergencyPhoneNumber(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
+  public PhoneNumberEnableEmergency enableEmergencyPhoneNumber(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
     return enableEmergencyPhoneNumberWithHttpInfo(id, phoneNumberEnableEmergencyRequest).getData();
   }
 
@@ -152,7 +151,7 @@ public class NumberConfigurationsApi {
    * 
    * @param id Identifies the resource. (required)
    * @param phoneNumberEnableEmergencyRequest  (required)
-   * @return ApiResponse&lt;CreatePhoneNumberEmergencyEnable&gt;
+   * @return ApiResponse&lt;PhoneNumberEnableEmergency&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -162,7 +161,7 @@ public class NumberConfigurationsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePhoneNumberEmergencyEnable> enableEmergencyPhoneNumberWithHttpInfo(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
+  public ApiResponse<PhoneNumberEnableEmergency> enableEmergencyPhoneNumberWithHttpInfo(String id, PhoneNumberEnableEmergencyRequest phoneNumberEnableEmergencyRequest) throws ApiException {
     Object localVarPostBody = phoneNumberEnableEmergencyRequest;
     
     // verify the required parameter 'id' is set
@@ -201,7 +200,7 @@ public class NumberConfigurationsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreatePhoneNumberEmergencyEnable> localVarReturnType = new GenericType<CreatePhoneNumberEmergencyEnable>() {};
+    GenericType<PhoneNumberEnableEmergency> localVarReturnType = new GenericType<PhoneNumberEnableEmergency>() {};
 
     return apiClient.invokeAPI("NumberConfigurationsApi.enableEmergencyPhoneNumber", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

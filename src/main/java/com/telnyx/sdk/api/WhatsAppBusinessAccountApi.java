@@ -11,7 +11,7 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListWhatsAppBusinessAccountsResponse;
 import com.telnyx.sdk.model.ListWhatsAppPhoneNumbersResponse;
-import com.telnyx.sdk.model.RetrieveWhatsAppBusinessAccount;
+import com.telnyx.sdk.model.WhatsAppBusinessAccount;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -159,7 +159,7 @@ private ApiResponse<ListWhatsAppBusinessAccountsResponse> listWhatsappBusinessAc
     return new APIlistWhatsappBusinessAccountsRequest();
   }
 
-private ApiResponse<RetrieveWhatsAppBusinessAccount> retrieveWhatsappBusinessAccountWithHttpInfo(String id) throws ApiException {
+private ApiResponse<WhatsAppBusinessAccount> retrieveWhatsappBusinessAccountWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -193,7 +193,7 @@ private ApiResponse<RetrieveWhatsAppBusinessAccount> retrieveWhatsappBusinessAcc
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<RetrieveWhatsAppBusinessAccount> localVarReturnType = new GenericType<RetrieveWhatsAppBusinessAccount>() {};
+    GenericType<WhatsAppBusinessAccount> localVarReturnType = new GenericType<WhatsAppBusinessAccount>() {};
 
     return apiClient.invokeAPI("WhatsAppBusinessAccountApi.retrieveWhatsappBusinessAccount", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -209,7 +209,7 @@ private ApiResponse<RetrieveWhatsAppBusinessAccount> retrieveWhatsappBusinessAcc
 
     /**
      * Execute retrieveWhatsappBusinessAccount request
-     * @return RetrieveWhatsAppBusinessAccount
+     * @return WhatsAppBusinessAccount
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -220,13 +220,13 @@ private ApiResponse<RetrieveWhatsAppBusinessAccount> retrieveWhatsappBusinessAcc
      
      */
     
-    public RetrieveWhatsAppBusinessAccount execute() throws ApiException {
+    public WhatsAppBusinessAccount execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
      * Execute retrieveWhatsappBusinessAccount request with HTTP info returned
-     * @return ApiResponse&lt;RetrieveWhatsAppBusinessAccount&gt;
+     * @return ApiResponse&lt;WhatsAppBusinessAccount&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
@@ -236,7 +236,7 @@ private ApiResponse<RetrieveWhatsAppBusinessAccount> retrieveWhatsappBusinessAcc
        </table>
 
      */
-    public ApiResponse<RetrieveWhatsAppBusinessAccount> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<WhatsAppBusinessAccount> executeWithHttpInfo() throws ApiException {
       return retrieveWhatsappBusinessAccountWithHttpInfo(id);
     }
   }

@@ -6,10 +6,10 @@ The WhatsApp Business API Client will attempt to format the date/time based on a
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**component** | [**DateTimeComponent**](DateTimeComponent.md) |  |  [optional]
-**unixEpoch** | [**DateTimeUnixEpoch**](DateTimeUnixEpoch.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**component** | [**DateTimeComponent**](DateTimeComponent.md) |  |  [optional] |
+|**unixEpoch** | [**DateTimeUnixEpoch**](DateTimeUnixEpoch.md) |  |  [optional] |
 
 
 

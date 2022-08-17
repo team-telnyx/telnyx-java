@@ -8,11 +8,11 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.CreateRoomClientToken201Response;
 import com.telnyx.sdk.model.CreateRoomClientTokenRequest;
-import com.telnyx.sdk.model.CreateRoomClientTokenResponse;
 import com.telnyx.sdk.model.Error;
+import com.telnyx.sdk.model.RefreshRoomClientToken201Response;
 import com.telnyx.sdk.model.RefreshRoomClientTokenRequest;
-import com.telnyx.sdk.model.RefreshRoomClientTokenResponse;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class RoomsClientTokensApi {
    * Synchronously create an Client Token to join a Room. Client Token is necessary to join a Telnyx Room. Client Token will expire after &#x60;token_ttl_secs&#x60;, a Refresh Token is also provided to refresh a Client Token, the Refresh Token expires after &#x60;refresh_token_ttl_secs&#x60;.
    * @param roomId The unique identifier of a room. (required)
    * @param createRoomClientTokenRequest Parameters that can be defined during Room Client Token creation. (required)
-   * @return CreateRoomClientTokenResponse
+   * @return CreateRoomClientToken201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -64,7 +64,7 @@ public class RoomsClientTokensApi {
        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
    */
-  public CreateRoomClientTokenResponse createRoomClientToken(UUID roomId, CreateRoomClientTokenRequest createRoomClientTokenRequest) throws ApiException {
+  public CreateRoomClientToken201Response createRoomClientToken(UUID roomId, CreateRoomClientTokenRequest createRoomClientTokenRequest) throws ApiException {
     return createRoomClientTokenWithHttpInfo(roomId, createRoomClientTokenRequest).getData();
   }
 
@@ -73,7 +73,7 @@ public class RoomsClientTokensApi {
    * Synchronously create an Client Token to join a Room. Client Token is necessary to join a Telnyx Room. Client Token will expire after &#x60;token_ttl_secs&#x60;, a Refresh Token is also provided to refresh a Client Token, the Refresh Token expires after &#x60;refresh_token_ttl_secs&#x60;.
    * @param roomId The unique identifier of a room. (required)
    * @param createRoomClientTokenRequest Parameters that can be defined during Room Client Token creation. (required)
-   * @return ApiResponse&lt;CreateRoomClientTokenResponse&gt;
+   * @return ApiResponse&lt;CreateRoomClientToken201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -82,7 +82,7 @@ public class RoomsClientTokensApi {
        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateRoomClientTokenResponse> createRoomClientTokenWithHttpInfo(UUID roomId, CreateRoomClientTokenRequest createRoomClientTokenRequest) throws ApiException {
+  public ApiResponse<CreateRoomClientToken201Response> createRoomClientTokenWithHttpInfo(UUID roomId, CreateRoomClientTokenRequest createRoomClientTokenRequest) throws ApiException {
     Object localVarPostBody = createRoomClientTokenRequest;
     
     // verify the required parameter 'roomId' is set
@@ -121,7 +121,7 @@ public class RoomsClientTokensApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateRoomClientTokenResponse> localVarReturnType = new GenericType<CreateRoomClientTokenResponse>() {};
+    GenericType<CreateRoomClientToken201Response> localVarReturnType = new GenericType<CreateRoomClientToken201Response>() {};
 
     return apiClient.invokeAPI("RoomsClientTokensApi.createRoomClientToken", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -132,7 +132,7 @@ public class RoomsClientTokensApi {
    * Synchronously refresh an Client Token to join a Room. Client Token is necessary to join a Telnyx Room. Client Token will expire after &#x60;token_ttl_secs&#x60;.
    * @param roomId The unique identifier of a room. (required)
    * @param refreshRoomClientTokenRequest Parameters that can be defined during Room Client Token refresh. (required)
-   * @return RefreshRoomClientTokenResponse
+   * @return RefreshRoomClientToken201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -141,7 +141,7 @@ public class RoomsClientTokensApi {
        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
    */
-  public RefreshRoomClientTokenResponse refreshRoomClientToken(UUID roomId, RefreshRoomClientTokenRequest refreshRoomClientTokenRequest) throws ApiException {
+  public RefreshRoomClientToken201Response refreshRoomClientToken(UUID roomId, RefreshRoomClientTokenRequest refreshRoomClientTokenRequest) throws ApiException {
     return refreshRoomClientTokenWithHttpInfo(roomId, refreshRoomClientTokenRequest).getData();
   }
 
@@ -150,7 +150,7 @@ public class RoomsClientTokensApi {
    * Synchronously refresh an Client Token to join a Room. Client Token is necessary to join a Telnyx Room. Client Token will expire after &#x60;token_ttl_secs&#x60;.
    * @param roomId The unique identifier of a room. (required)
    * @param refreshRoomClientTokenRequest Parameters that can be defined during Room Client Token refresh. (required)
-   * @return ApiResponse&lt;RefreshRoomClientTokenResponse&gt;
+   * @return ApiResponse&lt;RefreshRoomClientToken201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -159,7 +159,7 @@ public class RoomsClientTokensApi {
        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RefreshRoomClientTokenResponse> refreshRoomClientTokenWithHttpInfo(UUID roomId, RefreshRoomClientTokenRequest refreshRoomClientTokenRequest) throws ApiException {
+  public ApiResponse<RefreshRoomClientToken201Response> refreshRoomClientTokenWithHttpInfo(UUID roomId, RefreshRoomClientTokenRequest refreshRoomClientTokenRequest) throws ApiException {
     Object localVarPostBody = refreshRoomClientTokenRequest;
     
     // verify the required parameter 'roomId' is set
@@ -198,7 +198,7 @@ public class RoomsClientTokensApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<RefreshRoomClientTokenResponse> localVarReturnType = new GenericType<RefreshRoomClientTokenResponse>() {};
+    GenericType<RefreshRoomClientToken201Response> localVarReturnType = new GenericType<RefreshRoomClientToken201Response>() {};
 
     return apiClient.invokeAPI("RoomsClientTokensApi.refreshRoomClientToken", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

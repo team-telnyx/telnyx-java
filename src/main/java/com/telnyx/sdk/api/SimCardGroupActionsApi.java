@@ -9,8 +9,8 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.SIMCardGroupActionResponse;
-import com.telnyx.sdk.model.SimCardGroupActionCollectionResponse;
+import com.telnyx.sdk.model.SimCardGroupActionGet200Response;
+import com.telnyx.sdk.model.SimCardGroupActionsGet200Response;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class SimCardGroupActionsApi {
    * Get SIM card group action details
    * This API allows fetching detailed information about a SIM card group action resource to make follow-ups in an existing asynchronous operation.
    * @param id Identifies the resource. (required)
-   * @return SIMCardGroupActionResponse
+   * @return SimCardGroupActionGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -61,7 +61,7 @@ public class SimCardGroupActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SIMCardGroupActionResponse simCardGroupActionGet(UUID id) throws ApiException {
+  public SimCardGroupActionGet200Response simCardGroupActionGet(UUID id) throws ApiException {
     return simCardGroupActionGetWithHttpInfo(id).getData();
   }
 
@@ -69,7 +69,7 @@ public class SimCardGroupActionsApi {
    * Get SIM card group action details
    * This API allows fetching detailed information about a SIM card group action resource to make follow-ups in an existing asynchronous operation.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;SIMCardGroupActionResponse&gt;
+   * @return ApiResponse&lt;SimCardGroupActionGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -78,7 +78,7 @@ public class SimCardGroupActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SIMCardGroupActionResponse> simCardGroupActionGetWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<SimCardGroupActionGet200Response> simCardGroupActionGetWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -112,7 +112,7 @@ public class SimCardGroupActionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SIMCardGroupActionResponse> localVarReturnType = new GenericType<SIMCardGroupActionResponse>() {};
+    GenericType<SimCardGroupActionGet200Response> localVarReturnType = new GenericType<SimCardGroupActionGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardGroupActionsApi.simCardGroupActionGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -126,7 +126,7 @@ public class SimCardGroupActionsApi {
    * @param filterSimCardGroupId A valid SIM card group ID. (optional)
    * @param filterStatus Filter by a specific status of the resource&#39;s lifecycle. (optional)
    * @param filterType Filter by action type. (optional)
-   * @return SimCardGroupActionCollectionResponse
+   * @return SimCardGroupActionsGet200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -135,7 +135,7 @@ public class SimCardGroupActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SimCardGroupActionCollectionResponse simCardGroupActionsGet(Integer pageNumber, Integer pageSize, UUID filterSimCardGroupId, String filterStatus, String filterType) throws ApiException {
+  public SimCardGroupActionsGet200Response simCardGroupActionsGet(Integer pageNumber, Integer pageSize, UUID filterSimCardGroupId, String filterStatus, String filterType) throws ApiException {
     return simCardGroupActionsGetWithHttpInfo(pageNumber, pageSize, filterSimCardGroupId, filterStatus, filterType).getData();
   }
 
@@ -147,7 +147,7 @@ public class SimCardGroupActionsApi {
    * @param filterSimCardGroupId A valid SIM card group ID. (optional)
    * @param filterStatus Filter by a specific status of the resource&#39;s lifecycle. (optional)
    * @param filterType Filter by action type. (optional)
-   * @return ApiResponse&lt;SimCardGroupActionCollectionResponse&gt;
+   * @return ApiResponse&lt;SimCardGroupActionsGet200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -156,7 +156,7 @@ public class SimCardGroupActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SimCardGroupActionCollectionResponse> simCardGroupActionsGetWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterSimCardGroupId, String filterStatus, String filterType) throws ApiException {
+  public ApiResponse<SimCardGroupActionsGet200Response> simCardGroupActionsGetWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterSimCardGroupId, String filterStatus, String filterType) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -189,7 +189,7 @@ public class SimCardGroupActionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<SimCardGroupActionCollectionResponse> localVarReturnType = new GenericType<SimCardGroupActionCollectionResponse>() {};
+    GenericType<SimCardGroupActionsGet200Response> localVarReturnType = new GenericType<SimCardGroupActionsGet200Response>() {};
 
     return apiClient.invokeAPI("SimCardGroupActionsApi.simCardGroupActionsGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

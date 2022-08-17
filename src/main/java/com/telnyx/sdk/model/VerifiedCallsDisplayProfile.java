@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.VerifiedCallsDisplayProfileBusinessIdentity;
-import com.telnyx.sdk.model.VerifiedCallsDisplayProfileCallReasons;
-import com.telnyx.sdk.model.VerifiedCallsDisplayProfilePhoneNumbers;
+import com.telnyx.sdk.model.VerifiedCallsDisplayProfileCallReasonsInner;
+import com.telnyx.sdk.model.VerifiedCallsDisplayProfilePhoneNumbersInner;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -115,10 +115,10 @@ public class VerifiedCallsDisplayProfile {
   private VerifiedCallsDisplayProfileBusinessIdentity businessIdentity;
 
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
-  private List<VerifiedCallsDisplayProfilePhoneNumbers> phoneNumbers = null;
+  private List<VerifiedCallsDisplayProfilePhoneNumbersInner> phoneNumbers = null;
 
   public static final String JSON_PROPERTY_CALL_REASONS = "call_reasons";
-  private List<VerifiedCallsDisplayProfileCallReasons> callReasons = null;
+  private List<VerifiedCallsDisplayProfileCallReasonsInner> callReasons = null;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -127,6 +127,22 @@ public class VerifiedCallsDisplayProfile {
   private String updatedAt;
 
   public VerifiedCallsDisplayProfile() { 
+  }
+
+  @JsonCreator
+  public VerifiedCallsDisplayProfile(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.recordType = recordType;
+    this.id = id;
+    this.status = status;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
    /**
@@ -281,12 +297,12 @@ public class VerifiedCallsDisplayProfile {
   }
 
 
-  public VerifiedCallsDisplayProfile phoneNumbers(List<VerifiedCallsDisplayProfilePhoneNumbers> phoneNumbers) {
+  public VerifiedCallsDisplayProfile phoneNumbers(List<VerifiedCallsDisplayProfilePhoneNumbersInner> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
     return this;
   }
 
-  public VerifiedCallsDisplayProfile addPhoneNumbersItem(VerifiedCallsDisplayProfilePhoneNumbers phoneNumbersItem) {
+  public VerifiedCallsDisplayProfile addPhoneNumbersItem(VerifiedCallsDisplayProfilePhoneNumbersInner phoneNumbersItem) {
     if (this.phoneNumbers == null) {
       this.phoneNumbers = new ArrayList<>();
     }
@@ -303,24 +319,24 @@ public class VerifiedCallsDisplayProfile {
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<VerifiedCallsDisplayProfilePhoneNumbers> getPhoneNumbers() {
+  public List<VerifiedCallsDisplayProfilePhoneNumbersInner> getPhoneNumbers() {
     return phoneNumbers;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumbers(List<VerifiedCallsDisplayProfilePhoneNumbers> phoneNumbers) {
+  public void setPhoneNumbers(List<VerifiedCallsDisplayProfilePhoneNumbersInner> phoneNumbers) {
     this.phoneNumbers = phoneNumbers;
   }
 
 
-  public VerifiedCallsDisplayProfile callReasons(List<VerifiedCallsDisplayProfileCallReasons> callReasons) {
+  public VerifiedCallsDisplayProfile callReasons(List<VerifiedCallsDisplayProfileCallReasonsInner> callReasons) {
     this.callReasons = callReasons;
     return this;
   }
 
-  public VerifiedCallsDisplayProfile addCallReasonsItem(VerifiedCallsDisplayProfileCallReasons callReasonsItem) {
+  public VerifiedCallsDisplayProfile addCallReasonsItem(VerifiedCallsDisplayProfileCallReasonsInner callReasonsItem) {
     if (this.callReasons == null) {
       this.callReasons = new ArrayList<>();
     }
@@ -337,14 +353,14 @@ public class VerifiedCallsDisplayProfile {
   @JsonProperty(JSON_PROPERTY_CALL_REASONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<VerifiedCallsDisplayProfileCallReasons> getCallReasons() {
+  public List<VerifiedCallsDisplayProfileCallReasonsInner> getCallReasons() {
     return callReasons;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CALL_REASONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallReasons(List<VerifiedCallsDisplayProfileCallReasons> callReasons) {
+  public void setCallReasons(List<VerifiedCallsDisplayProfileCallReasonsInner> callReasons) {
     this.callReasons = callReasons;
   }
 

@@ -179,7 +179,7 @@ public class InboundFqdn {
   }
 
   public static final String JSON_PROPERTY_DEFAULT_ROUTING_METHOD = "default_routing_method";
-  private JsonNullable<DefaultRoutingMethodEnum> defaultRoutingMethod = JsonNullable.<DefaultRoutingMethodEnum>of(null);
+  private JsonNullable<DefaultRoutingMethodEnum> defaultRoutingMethod = JsonNullable.<DefaultRoutingMethodEnum>undefined();
 
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
   private JsonNullable<Integer> channelLimit = JsonNullable.<Integer>undefined();
@@ -240,7 +240,7 @@ public class InboundFqdn {
   private SipRegionEnum sipRegion = SipRegionEnum.US;
 
   public static final String JSON_PROPERTY_SIP_SUBDOMAIN = "sip_subdomain";
-  private JsonNullable<String> sipSubdomain = JsonNullable.<String>of("null");
+  private JsonNullable<String> sipSubdomain = JsonNullable.<String>undefined();
 
   /**
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).

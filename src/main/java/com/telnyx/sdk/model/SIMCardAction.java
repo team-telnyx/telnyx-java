@@ -116,6 +116,26 @@ public class SIMCardAction {
   public SIMCardAction() { 
   }
 
+  @JsonCreator
+  public SIMCardAction(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_SIM_CARD_ID) UUID simCardId, 
+    @JsonProperty(JSON_PROPERTY_ACTION_TYPE) ActionTypeEnum actionType, 
+    @JsonProperty(JSON_PROPERTY_SETTINGS) Object settings, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.simCardId = simCardId;
+    this.actionType = actionType;
+    this.settings = settings;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Identifies the resource.
    * @return id
@@ -236,17 +256,12 @@ public class SIMCardAction {
 
 
 
-  public SIMCardAction createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
    /**
-   * ISO 8601 formatted date indicating when the resource was created.
+   * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2020-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was created.")
+  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -255,24 +270,14 @@ public class SIMCardAction {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
 
-
-  public SIMCardAction updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
 
    /**
-   * ISO 8601 formatted date indicating when the resource was updated.
+   * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2020-02-03T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
+  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -281,11 +286,6 @@ public class SIMCardAction {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
 
 
   /**

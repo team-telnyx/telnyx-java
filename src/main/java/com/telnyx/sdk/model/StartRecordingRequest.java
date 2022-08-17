@@ -37,7 +37,8 @@ import com.telnyx.sdk.JSON;
   StartRecordingRequest.JSON_PROPERTY_CLIENT_STATE,
   StartRecordingRequest.JSON_PROPERTY_COMMAND_ID,
   StartRecordingRequest.JSON_PROPERTY_PLAY_BEEP,
-  StartRecordingRequest.JSON_PROPERTY_MAX_LENGTH
+  StartRecordingRequest.JSON_PROPERTY_MAX_LENGTH,
+  StartRecordingRequest.JSON_PROPERTY_TIMEOUT_SECS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class StartRecordingRequest {
@@ -128,6 +129,9 @@ public class StartRecordingRequest {
 
   public static final String JSON_PROPERTY_MAX_LENGTH = "max_length";
   private Integer maxLength = 0;
+
+  public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
+  private Integer timeoutSecs = 0;
 
   public StartRecordingRequest() { 
   }
@@ -268,11 +272,11 @@ public class StartRecordingRequest {
   }
 
    /**
-   * Defines the maximum length for the recording in seconds. Minimum value is 0. Maximum value is 14400. Default is 0 (infinite)
+   * Defines the maximum length for the recording in seconds. The minimum value is 0. The maximum value is 14400. The default value is 0 (infinite)
    * @return maxLength
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "100", value = "Defines the maximum length for the recording in seconds. Minimum value is 0. Maximum value is 14400. Default is 0 (infinite)")
+  @ApiModelProperty(example = "100", value = "Defines the maximum length for the recording in seconds. The minimum value is 0. The maximum value is 14400. The default value is 0 (infinite)")
   @JsonProperty(JSON_PROPERTY_MAX_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -285,6 +289,32 @@ public class StartRecordingRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxLength(Integer maxLength) {
     this.maxLength = maxLength;
+  }
+
+
+  public StartRecordingRequest timeoutSecs(Integer timeoutSecs) {
+    this.timeoutSecs = timeoutSecs;
+    return this;
+  }
+
+   /**
+   * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. The minimum value is 0. The default value is 0 (infinite)
+   * @return timeoutSecs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "100", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. The minimum value is 0. The default value is 0 (infinite)")
+  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTimeoutSecs() {
+    return timeoutSecs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTimeoutSecs(Integer timeoutSecs) {
+    this.timeoutSecs = timeoutSecs;
   }
 
 
@@ -305,12 +335,13 @@ public class StartRecordingRequest {
         Objects.equals(this.clientState, startRecordingRequest.clientState) &&
         Objects.equals(this.commandId, startRecordingRequest.commandId) &&
         Objects.equals(this.playBeep, startRecordingRequest.playBeep) &&
-        Objects.equals(this.maxLength, startRecordingRequest.maxLength);
+        Objects.equals(this.maxLength, startRecordingRequest.maxLength) &&
+        Objects.equals(this.timeoutSecs, startRecordingRequest.timeoutSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(format, channels, clientState, commandId, playBeep, maxLength);
+    return Objects.hash(format, channels, clientState, commandId, playBeep, maxLength, timeoutSecs);
   }
 
   @Override
@@ -323,6 +354,7 @@ public class StartRecordingRequest {
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    playBeep: ").append(toIndentedString(playBeep)).append("\n");
     sb.append("    maxLength: ").append(toIndentedString(maxLength)).append("\n");
+    sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -83,7 +83,7 @@ null (empty response body)
 
 ## sendMessage
 
-> WhatsAppMessageResponse sendMessage(createWhatsAppMessageRequest)
+> SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent sendMessage(createWhatsAppMessageRequest)
 
 Send Message
 
@@ -112,7 +112,7 @@ public class Example {
         WhatsAppMessagesApi apiInstance = new WhatsAppMessagesApi(defaultClient);
         CreateWhatsAppMessageRequest createWhatsAppMessageRequest = new CreateWhatsAppMessageRequest(); // CreateWhatsAppMessageRequest | 
         try {
-            WhatsAppMessageResponse result = apiInstance.sendMessage(createWhatsAppMessageRequest);
+            SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent result = apiInstance.sendMessage(createWhatsAppMessageRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling WhatsAppMessagesApi#sendMessage");
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WhatsAppMessageResponse**](WhatsAppMessageResponse.md)
+[**SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent**](SuccessfulResponseWithDetailsAboutTheWhatsAppMessageSent.md)
 
 ### Authorization
 

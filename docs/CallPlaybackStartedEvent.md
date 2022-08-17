@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**CallPlaybackStarted**](CallPlaybackStarted.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**CallPlaybackStarted**](CallPlaybackStarted.md) |  |  [optional] |
 
 
 

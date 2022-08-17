@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**getPortingOrdersActivationJob**](PortingOrderApi.md#getPortingOrdersActivationJob) | **GET** /porting_orders/{id}/activation_jobs/{activationJobId} | Retrieve a porting activation job
 [**listAllowedFocWindows**](PortingOrderApi.md#listAllowedFocWindows) | **GET** /porting_orders/{id}/allowed_foc_windows | List allowed FOC dates
 [**listPortingOrderDocuments**](PortingOrderApi.md#listPortingOrderDocuments) | **GET** /porting_orders/{id}/documents | List all documents associated with a porting order
+[**listPortingOrderRequirements**](PortingOrderApi.md#listPortingOrderRequirements) | **GET** /porting_orders/{id}/requirements | List all required documents for this porting order
 [**listPortingOrders**](PortingOrderApi.md#listPortingOrders) | **GET** /porting_orders | List all porting orders
 [**listPortingOrdersActivationJobs**](PortingOrderApi.md#listPortingOrdersActivationJobs) | **GET** /porting_orders/{id}/activation_jobs | List all porting activation jobs
 [**listPortingOrdersComments**](PortingOrderApi.md#listPortingOrdersComments) | **GET** /porting_orders/{id}/comments | List all comments of a porting order
@@ -28,7 +29,7 @@ Method | HTTP request | Description
 
 ## activatePortingOrder
 
-> ShowPortingOrdersActivationJob activatePortingOrder(id)
+> ActivatePortingOrder202Response activatePortingOrder(id)
 
 Activates every number on a porting order.
 
@@ -58,7 +59,7 @@ public class Example {
         PortingOrderApi apiInstance = new PortingOrderApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
         try {
-            ShowPortingOrdersActivationJob result = apiInstance.activatePortingOrder(id);
+            ActivatePortingOrder202Response result = apiInstance.activatePortingOrder(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#activatePortingOrder");
@@ -80,7 +81,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ShowPortingOrdersActivationJob**](ShowPortingOrdersActivationJob.md)
+[**ActivatePortingOrder202Response**](ActivatePortingOrder202Response.md)
 
 ### Authorization
 
@@ -101,7 +102,7 @@ Name | Type | Description  | Notes
 
 ## cancelPortingOrder
 
-> ShowPortingOrder cancelPortingOrder(id)
+> CancelPortingOrder200Response cancelPortingOrder(id)
 
 Cancel a porting order
 
@@ -131,7 +132,7 @@ public class Example {
         PortingOrderApi apiInstance = new PortingOrderApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
         try {
-            ShowPortingOrder result = apiInstance.cancelPortingOrder(id);
+            CancelPortingOrder200Response result = apiInstance.cancelPortingOrder(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#cancelPortingOrder");
@@ -153,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ShowPortingOrder**](ShowPortingOrder.md)
+[**CancelPortingOrder200Response**](CancelPortingOrder200Response.md)
 
 ### Authorization
 
@@ -174,7 +175,7 @@ Name | Type | Description  | Notes
 
 ## confirmPortingOrder
 
-> ShowPortingOrder confirmPortingOrder(id)
+> ConfirmPortingOrder200Response confirmPortingOrder(id)
 
 Submit a porting order.
 
@@ -204,7 +205,7 @@ public class Example {
         PortingOrderApi apiInstance = new PortingOrderApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
         try {
-            ShowPortingOrder result = apiInstance.confirmPortingOrder(id);
+            ConfirmPortingOrder200Response result = apiInstance.confirmPortingOrder(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#confirmPortingOrder");
@@ -226,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ShowPortingOrder**](ShowPortingOrder.md)
+[**ConfirmPortingOrder200Response**](ConfirmPortingOrder200Response.md)
 
 ### Authorization
 
@@ -247,7 +248,7 @@ Name | Type | Description  | Notes
 
 ## createPortingOrder
 
-> ListDraftPortingOrderWithoutPagination createPortingOrder(createPortingOrder)
+> CreatePortingOrder201Response createPortingOrder(createPortingOrder)
 
 Create a porting order
 
@@ -276,7 +277,7 @@ public class Example {
         PortingOrderApi apiInstance = new PortingOrderApi(defaultClient);
         CreatePortingOrder createPortingOrder = new CreatePortingOrder(); // CreatePortingOrder | 
         try {
-            ListDraftPortingOrderWithoutPagination result = apiInstance.createPortingOrder(createPortingOrder);
+            CreatePortingOrder201Response result = apiInstance.createPortingOrder(createPortingOrder);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#createPortingOrder");
@@ -298,7 +299,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListDraftPortingOrderWithoutPagination**](ListDraftPortingOrderWithoutPagination.md)
+[**CreatePortingOrder201Response**](CreatePortingOrder201Response.md)
 
 ### Authorization
 
@@ -319,7 +320,7 @@ Name | Type | Description  | Notes
 
 ## createPortingOrderComment
 
-> ShowPortingOrderComment createPortingOrderComment(id, createPortingOrderComment)
+> CreatePortingOrderComment201Response createPortingOrderComment(id, createPortingOrderComment)
 
 Create a comment for a porting order
 
@@ -350,7 +351,7 @@ public class Example {
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
         CreatePortingOrderComment createPortingOrderComment = new CreatePortingOrderComment(); // CreatePortingOrderComment | 
         try {
-            ShowPortingOrderComment result = apiInstance.createPortingOrderComment(id, createPortingOrderComment);
+            CreatePortingOrderComment201Response result = apiInstance.createPortingOrderComment(id, createPortingOrderComment);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#createPortingOrderComment");
@@ -373,7 +374,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ShowPortingOrderComment**](ShowPortingOrderComment.md)
+[**CreatePortingOrderComment201Response**](CreatePortingOrderComment201Response.md)
 
 ### Authorization
 
@@ -466,7 +467,7 @@ null (empty response body)
 
 ## getPortingOrder
 
-> ShowPortingOrder getPortingOrder(id, includePhoneNumbers)
+> GetPortingOrder200Response getPortingOrder(id, includePhoneNumbers)
 
 Retrieve a porting order
 
@@ -497,7 +498,7 @@ public class Example {
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
         Boolean includePhoneNumbers = true; // Boolean | Include the first 50 phone number objects in the results
         try {
-            ShowPortingOrder result = apiInstance.getPortingOrder(id, includePhoneNumbers);
+            GetPortingOrder200Response result = apiInstance.getPortingOrder(id, includePhoneNumbers);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#getPortingOrder");
@@ -520,7 +521,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ShowPortingOrder**](ShowPortingOrder.md)
+[**GetPortingOrder200Response**](GetPortingOrder200Response.md)
 
 ### Authorization
 
@@ -612,7 +613,7 @@ Name | Type | Description  | Notes
 
 ## getPortingOrderSubRequest
 
-> SubRequestByPortingOrder getPortingOrderSubRequest(id)
+> GetPortingOrderSubRequest200Response getPortingOrderSubRequest(id)
 
 Retrieve the associated V1 sub_request_id and port_request_id
 
@@ -642,7 +643,7 @@ public class Example {
         PortingOrderApi apiInstance = new PortingOrderApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
         try {
-            SubRequestByPortingOrder result = apiInstance.getPortingOrderSubRequest(id);
+            GetPortingOrderSubRequest200Response result = apiInstance.getPortingOrderSubRequest(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#getPortingOrderSubRequest");
@@ -664,7 +665,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SubRequestByPortingOrder**](SubRequestByPortingOrder.md)
+[**GetPortingOrderSubRequest200Response**](GetPortingOrderSubRequest200Response.md)
 
 ### Authorization
 
@@ -685,7 +686,7 @@ Name | Type | Description  | Notes
 
 ## getPortingOrdersActivationJob
 
-> ShowPortingOrdersActivationJob getPortingOrdersActivationJob(id, activationJobId)
+> ActivatePortingOrder202Response getPortingOrdersActivationJob(id, activationJobId)
 
 Retrieve a porting activation job
 
@@ -716,7 +717,7 @@ public class Example {
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
         UUID activationJobId = UUID.randomUUID(); // UUID | Activation Job Identifier
         try {
-            ShowPortingOrdersActivationJob result = apiInstance.getPortingOrdersActivationJob(id, activationJobId);
+            ActivatePortingOrder202Response result = apiInstance.getPortingOrdersActivationJob(id, activationJobId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#getPortingOrdersActivationJob");
@@ -739,7 +740,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ShowPortingOrdersActivationJob**](ShowPortingOrdersActivationJob.md)
+[**ActivatePortingOrder202Response**](ActivatePortingOrder202Response.md)
 
 ### Authorization
 
@@ -760,7 +761,7 @@ Name | Type | Description  | Notes
 
 ## listAllowedFocWindows
 
-> ListAllowedFocWindow listAllowedFocWindows(id)
+> ListAllowedFocWindows200Response listAllowedFocWindows(id)
 
 List allowed FOC dates
 
@@ -790,7 +791,7 @@ public class Example {
         PortingOrderApi apiInstance = new PortingOrderApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
         try {
-            ListAllowedFocWindow result = apiInstance.listAllowedFocWindows(id);
+            ListAllowedFocWindows200Response result = apiInstance.listAllowedFocWindows(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#listAllowedFocWindows");
@@ -812,7 +813,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListAllowedFocWindow**](ListAllowedFocWindow.md)
+[**ListAllowedFocWindows200Response**](ListAllowedFocWindows200Response.md)
 
 ### Authorization
 
@@ -832,7 +833,7 @@ Name | Type | Description  | Notes
 
 ## listPortingOrderDocuments
 
-> ListPortingOrderDocuments listPortingOrderDocuments(id, pageNumber, pageSize)
+> ListPortingOrderDocuments200Response listPortingOrderDocuments(id, pageNumber, pageSize)
 
 List all documents associated with a porting order
 
@@ -864,7 +865,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListPortingOrderDocuments result = apiInstance.listPortingOrderDocuments(id, pageNumber, pageSize);
+            ListPortingOrderDocuments200Response result = apiInstance.listPortingOrderDocuments(id, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#listPortingOrderDocuments");
@@ -888,7 +889,84 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPortingOrderDocuments**](ListPortingOrderDocuments.md)
+[**ListPortingOrderDocuments200Response**](ListPortingOrderDocuments200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
+| **422** | Unprocessable entity. Check message field in response for details. |  -  |
+
+
+## listPortingOrderRequirements
+
+> ListPortingOrderRequirements200Response listPortingOrderRequirements(id, pageNumber, pageSize)
+
+List all required documents for this porting order
+
+Returns a list of all requirements for this porting order.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.PortingOrderApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        PortingOrderApi apiInstance = new PortingOrderApi(defaultClient);
+        UUID id = UUID.randomUUID(); // UUID | Porting Order id
+        Integer pageNumber = 1; // Integer | The page number to load
+        Integer pageSize = 20; // Integer | The size of the page
+        try {
+            ListPortingOrderRequirements200Response result = apiInstance.listPortingOrderRequirements(id, pageNumber, pageSize);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PortingOrderApi#listPortingOrderRequirements");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Porting Order id |
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+
+### Return type
+
+[**ListPortingOrderRequirements200Response**](ListPortingOrderRequirements200Response.md)
 
 ### Authorization
 
@@ -909,7 +987,7 @@ Name | Type | Description  | Notes
 
 ## listPortingOrders
 
-> ListPortingOrder listPortingOrders(pageNumber, pageSize, includePhoneNumbers, filterStatus, filterCustomerReference, filterPhoneNumbersCountryCode, filterPhoneNumbersCarrierName, filterMiscType, filterEndUserAdminEntityName, filterEndUserAdminAuthPersonName, filterActivationSettingsFastPortEligible, filterActivationSettingsFocDatetimeRequestedGt, filterActivationSettingsFocDatetimeRequestedLt, sort)
+> ListPortingOrders200Response listPortingOrders(pageNumber, pageSize, includePhoneNumbers, filterStatus, filterCustomerReference, filterPhoneNumbersCountryCode, filterPhoneNumbersCarrierName, filterMiscType, filterEndUserAdminEntityName, filterEndUserAdminAuthPersonName, filterActivationSettingsFastPortEligible, filterActivationSettingsFocDatetimeRequestedGt, filterActivationSettingsFocDatetimeRequestedLt, sort)
 
 List all porting orders
 
@@ -951,7 +1029,7 @@ public class Example {
         String filterActivationSettingsFocDatetimeRequestedLt = "2021-03-25T10:00:00.000Z"; // String | Filter results by foc date earlier than this value
         String sort = "created_at"; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
-            ListPortingOrder result = apiInstance.listPortingOrders(pageNumber, pageSize, includePhoneNumbers, filterStatus, filterCustomerReference, filterPhoneNumbersCountryCode, filterPhoneNumbersCarrierName, filterMiscType, filterEndUserAdminEntityName, filterEndUserAdminAuthPersonName, filterActivationSettingsFastPortEligible, filterActivationSettingsFocDatetimeRequestedGt, filterActivationSettingsFocDatetimeRequestedLt, sort);
+            ListPortingOrders200Response result = apiInstance.listPortingOrders(pageNumber, pageSize, includePhoneNumbers, filterStatus, filterCustomerReference, filterPhoneNumbersCountryCode, filterPhoneNumbersCarrierName, filterMiscType, filterEndUserAdminEntityName, filterEndUserAdminAuthPersonName, filterActivationSettingsFastPortEligible, filterActivationSettingsFocDatetimeRequestedGt, filterActivationSettingsFocDatetimeRequestedLt, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#listPortingOrders");
@@ -986,7 +1064,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPortingOrder**](ListPortingOrder.md)
+[**ListPortingOrders200Response**](ListPortingOrders200Response.md)
 
 ### Authorization
 
@@ -1007,7 +1085,7 @@ Name | Type | Description  | Notes
 
 ## listPortingOrdersActivationJobs
 
-> ListPortingOrdersActivationJobs listPortingOrdersActivationJobs(id, pageNumber, pageSize)
+> ListPortingOrdersActivationJobs200Response listPortingOrdersActivationJobs(id, pageNumber, pageSize)
 
 List all porting activation jobs
 
@@ -1039,7 +1117,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListPortingOrdersActivationJobs result = apiInstance.listPortingOrdersActivationJobs(id, pageNumber, pageSize);
+            ListPortingOrdersActivationJobs200Response result = apiInstance.listPortingOrdersActivationJobs(id, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#listPortingOrdersActivationJobs");
@@ -1063,7 +1141,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPortingOrdersActivationJobs**](ListPortingOrdersActivationJobs.md)
+[**ListPortingOrdersActivationJobs200Response**](ListPortingOrdersActivationJobs200Response.md)
 
 ### Authorization
 
@@ -1084,7 +1162,7 @@ Name | Type | Description  | Notes
 
 ## listPortingOrdersComments
 
-> ListPortingOrdersComments listPortingOrdersComments(id, pageNumber, pageSize)
+> ListPortingOrdersComments200Response listPortingOrdersComments(id, pageNumber, pageSize)
 
 List all comments of a porting order
 
@@ -1116,7 +1194,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListPortingOrdersComments result = apiInstance.listPortingOrdersComments(id, pageNumber, pageSize);
+            ListPortingOrdersComments200Response result = apiInstance.listPortingOrdersComments(id, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#listPortingOrdersComments");
@@ -1140,7 +1218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPortingOrdersComments**](ListPortingOrdersComments.md)
+[**ListPortingOrdersComments200Response**](ListPortingOrdersComments200Response.md)
 
 ### Authorization
 
@@ -1161,7 +1239,7 @@ Name | Type | Description  | Notes
 
 ## listPortingOrdersExceptionTypes
 
-> ListPortingOrdersExceptionTypes listPortingOrdersExceptionTypes()
+> ListPortingOrdersExceptionTypes200Response listPortingOrdersExceptionTypes()
 
 List all exception types
 
@@ -1189,7 +1267,7 @@ public class Example {
 
         PortingOrderApi apiInstance = new PortingOrderApi(defaultClient);
         try {
-            ListPortingOrdersExceptionTypes result = apiInstance.listPortingOrdersExceptionTypes();
+            ListPortingOrdersExceptionTypes200Response result = apiInstance.listPortingOrdersExceptionTypes();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#listPortingOrdersExceptionTypes");
@@ -1208,7 +1286,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ListPortingOrdersExceptionTypes**](ListPortingOrdersExceptionTypes.md)
+[**ListPortingOrdersExceptionTypes200Response**](ListPortingOrdersExceptionTypes200Response.md)
 
 ### Authorization
 
@@ -1229,7 +1307,7 @@ This endpoint does not need any parameter.
 
 ## listPortingPhoneNumbers
 
-> ListPortingPhoneNumbers listPortingPhoneNumbers(pageNumber, pageSize, filterPortingOrderId, filterPortingOrderIdIn, filterSupportKeyEq, filterSupportKeyIn, filterPhoneNumber, filterPhoneNumberIn, filterPortingOrderStatus, filterActivationStatus, filterPortabilityStatus)
+> ListPortingPhoneNumbers200Response listPortingPhoneNumbers(pageNumber, pageSize, filterPortingOrderId, filterPortingOrderIdIn, filterSupportKeyEq, filterSupportKeyIn, filterPhoneNumber, filterPhoneNumberIn, filterPortingOrderStatus, filterActivationStatus, filterPortabilityStatus)
 
 List all porting phone numbers
 
@@ -1269,7 +1347,7 @@ public class Example {
         PortingOrderActivationStatus filterActivationStatus = PortingOrderActivationStatus.fromValue("New"); // PortingOrderActivationStatus | Filter results by activation status
         PortabilityStatus filterPortabilityStatus = PortabilityStatus.fromValue("pending"); // PortabilityStatus | Filter results by portability status
         try {
-            ListPortingPhoneNumbers result = apiInstance.listPortingPhoneNumbers(pageNumber, pageSize, filterPortingOrderId, filterPortingOrderIdIn, filterSupportKeyEq, filterSupportKeyIn, filterPhoneNumber, filterPhoneNumberIn, filterPortingOrderStatus, filterActivationStatus, filterPortabilityStatus);
+            ListPortingPhoneNumbers200Response result = apiInstance.listPortingPhoneNumbers(pageNumber, pageSize, filterPortingOrderId, filterPortingOrderIdIn, filterSupportKeyEq, filterSupportKeyIn, filterPhoneNumber, filterPhoneNumberIn, filterPortingOrderStatus, filterActivationStatus, filterPortabilityStatus);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#listPortingPhoneNumbers");
@@ -1301,7 +1379,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPortingPhoneNumbers**](ListPortingPhoneNumbers.md)
+[**ListPortingPhoneNumbers200Response**](ListPortingPhoneNumbers200Response.md)
 
 ### Authorization
 
@@ -1322,7 +1400,7 @@ Name | Type | Description  | Notes
 
 ## updatePortingOrder
 
-> ShowPortingOrder updatePortingOrder(id, updatePortingOrder)
+> UpdatePortingOrder200Response updatePortingOrder(id, updatePortingOrder)
 
 Edit a porting order
 
@@ -1357,7 +1435,7 @@ public class Example {
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
         UpdatePortingOrder updatePortingOrder = new UpdatePortingOrder(); // UpdatePortingOrder | 
         try {
-            ShowPortingOrder result = apiInstance.updatePortingOrder(id, updatePortingOrder);
+            UpdatePortingOrder200Response result = apiInstance.updatePortingOrder(id, updatePortingOrder);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#updatePortingOrder");
@@ -1380,7 +1458,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ShowPortingOrder**](ShowPortingOrder.md)
+[**UpdatePortingOrder200Response**](UpdatePortingOrder200Response.md)
 
 ### Authorization
 
@@ -1401,7 +1479,7 @@ Name | Type | Description  | Notes
 
 ## uploadPortingOrderDocuments
 
-> PortingOrderDocumentsCreated uploadPortingOrderDocuments(id, UNKNOWN_BASE_TYPE)
+> UploadPortingOrderDocuments201Response uploadPortingOrderDocuments(id, uploadPortingOrderDocumentsRequest)
 
 Associate a list of documents with a porting order
 
@@ -1430,9 +1508,9 @@ public class Example {
 
         PortingOrderApi apiInstance = new PortingOrderApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Porting Order id
-        UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE = new HashMap(); // UNKNOWN_BASE_TYPE | 
+        UploadPortingOrderDocumentsRequest uploadPortingOrderDocumentsRequest = new UploadPortingOrderDocumentsRequest(); // UploadPortingOrderDocumentsRequest | 
         try {
-            PortingOrderDocumentsCreated result = apiInstance.uploadPortingOrderDocuments(id, UNKNOWN_BASE_TYPE);
+            UploadPortingOrderDocuments201Response result = apiInstance.uploadPortingOrderDocuments(id, uploadPortingOrderDocumentsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PortingOrderApi#uploadPortingOrderDocuments");
@@ -1451,11 +1529,11 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| Porting Order id |
- **UNKNOWN_BASE_TYPE** | **UNKNOWN_BASE_TYPE**|  |
+ **uploadPortingOrderDocumentsRequest** | [**UploadPortingOrderDocumentsRequest**](UploadPortingOrderDocumentsRequest.md)|  |
 
 ### Return type
 
-[**PortingOrderDocumentsCreated**](PortingOrderDocumentsCreated.md)
+[**UploadPortingOrderDocuments201Response**](UploadPortingOrderDocuments201Response.md)
 
 ### Authorization
 

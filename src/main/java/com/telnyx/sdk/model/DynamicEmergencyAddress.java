@@ -180,6 +180,24 @@ public class DynamicEmergencyAddress {
   public DynamicEmergencyAddress() { 
   }
 
+  @JsonCreator
+  public DynamicEmergencyAddress(
+    @JsonProperty(JSON_PROPERTY_ID) String id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_SIP_GEOLOCATION_ID) String sipGeolocationId, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.sipGeolocationId = sipGeolocationId;
+    this.status = status;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
    /**
    * Get id
    * @return id

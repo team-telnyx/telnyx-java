@@ -5,9 +5,9 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**ConferenceParticipantSpeakEnded**](ConferenceParticipantSpeakEnded.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**ConferenceParticipantSpeakEnded**](ConferenceParticipantSpeakEnded.md) |  |  [optional] |
 
 
 

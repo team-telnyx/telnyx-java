@@ -74,6 +74,14 @@ public class RoomSession {
   public RoomSession() { 
   }
 
+  @JsonCreator
+  public RoomSession(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.recordType = recordType;
+  }
+
   public RoomSession id(UUID id) {
     this.id = id;
     return this;

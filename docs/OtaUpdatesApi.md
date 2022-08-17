@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## oTAUpdateGET
 
-> OTAUpdateResponse oTAUpdateGET(id)
+> OTAUpdateGET200Response oTAUpdateGET(id)
 
 Get OTA update
 
@@ -41,7 +41,7 @@ public class Example {
         OtaUpdatesApi apiInstance = new OtaUpdatesApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            OTAUpdateResponse result = apiInstance.oTAUpdateGET(id);
+            OTAUpdateGET200Response result = apiInstance.oTAUpdateGET(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling OtaUpdatesApi#oTAUpdateGET");
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OTAUpdateResponse**](OTAUpdateResponse.md)
+[**OTAUpdateGET200Response**](OTAUpdateGET200Response.md)
 
 ### Authorization
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## oTAUpdatesList
 
-> SearchOTAUpdateResponse oTAUpdatesList(pageNumber, pageSize, filterStatus, filterSimCardId, filterType)
+> OTAUpdatesList200Response oTAUpdatesList(pageNumber, pageSize, filterStatus, filterSimCardId, filterType)
 
 List OTA updates
 
@@ -114,7 +114,7 @@ public class Example {
         String filterSimCardId = "filterSimCardId_example"; // String | The SIM card identification UUID.
         String filterType = "sim_card_network_preferences"; // String | Filter by type.
         try {
-            SearchOTAUpdateResponse result = apiInstance.oTAUpdatesList(pageNumber, pageSize, filterStatus, filterSimCardId, filterType);
+            OTAUpdatesList200Response result = apiInstance.oTAUpdatesList(pageNumber, pageSize, filterStatus, filterSimCardId, filterType);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling OtaUpdatesApi#oTAUpdatesList");
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SearchOTAUpdateResponse**](SearchOTAUpdateResponse.md)
+[**OTAUpdatesList200Response**](OTAUpdatesList200Response.md)
 
 ### Authorization
 

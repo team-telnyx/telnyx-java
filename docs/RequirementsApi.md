@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## docReqsRetrieveDocumentRequirements
 
-> DocReqsRequirementResponse docReqsRetrieveDocumentRequirements(id)
+> DocReqsRetrieveDocumentRequirements200Response docReqsRetrieveDocumentRequirements(id)
 
 Retrieve a document requirement
 
@@ -41,7 +41,7 @@ public class Example {
         RequirementsApi apiInstance = new RequirementsApi(defaultClient);
         UUID id = UUID.fromString("a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa"); // UUID | Uniquely identifies the requirement_type record
         try {
-            DocReqsRequirementResponse result = apiInstance.docReqsRetrieveDocumentRequirements(id);
+            DocReqsRetrieveDocumentRequirements200Response result = apiInstance.docReqsRetrieveDocumentRequirements(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RequirementsApi#docReqsRetrieveDocumentRequirements");
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocReqsRequirementResponse**](DocReqsRequirementResponse.md)
+[**DocReqsRetrieveDocumentRequirements200Response**](DocReqsRetrieveDocumentRequirements200Response.md)
 
 ### Authorization
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## listRequirements
 
-> ListRequirementsResponse listRequirements(filterCountryCode, filterPhoneNumberType, filterAction, sort, pageNumber, pageSize)
+> ListRequirements200Response listRequirements(filterCountryCode, filterPhoneNumberType, filterAction, sort, pageNumber, pageSize)
 
 List all requirements
 
@@ -117,7 +117,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListRequirementsResponse result = apiInstance.listRequirements(filterCountryCode, filterPhoneNumberType, filterAction, sort, pageNumber, pageSize);
+            ListRequirements200Response result = apiInstance.listRequirements(filterCountryCode, filterPhoneNumberType, filterAction, sort, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RequirementsApi#listRequirements");
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRequirementsResponse**](ListRequirementsResponse.md)
+[**ListRequirements200Response**](ListRequirements200Response.md)
 
 ### Authorization
 

@@ -95,6 +95,18 @@ public class MessagingProfileHighLevelMetrics {
   public MessagingProfileHighLevelMetrics() { 
   }
 
+  @JsonCreator
+  public MessagingProfileHighLevelMetrics(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) RecordTypeEnum recordType, 
+    @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID) UUID messagingProfileId, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS) BigDecimal phoneNumbers
+  ) {
+    this();
+    this.recordType = recordType;
+    this.messagingProfileId = messagingProfileId;
+    this.phoneNumbers = phoneNumbers;
+  }
+
    /**
    * Identifies the type of the resource.
    * @return recordType

@@ -132,7 +132,7 @@ public class CredentialConnection {
   }
 
   public static final String JSON_PROPERTY_SIP_URI_CALLING_PREFERENCE = "sip_uri_calling_preference";
-  private SipUriCallingPreferenceEnum sipUriCallingPreference = null;
+  private SipUriCallingPreferenceEnum sipUriCallingPreference;
 
   public static final String JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED = "default_on_hold_comfort_noise_enabled";
   private Boolean defaultOnHoldComfortNoiseEnabled = true;

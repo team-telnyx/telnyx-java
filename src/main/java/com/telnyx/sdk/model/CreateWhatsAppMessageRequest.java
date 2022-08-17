@@ -23,9 +23,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Audio;
-import com.telnyx.sdk.model.Contact;
 import com.telnyx.sdk.model.Document;
-import com.telnyx.sdk.model.Hsm;
 import com.telnyx.sdk.model.Image;
 import com.telnyx.sdk.model.Location;
 import com.telnyx.sdk.model.MessageType;
@@ -34,8 +32,6 @@ import com.telnyx.sdk.model.Text;
 import com.telnyx.sdk.model.Video;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -52,8 +48,6 @@ import com.telnyx.sdk.JSON;
   CreateWhatsAppMessageRequest.JSON_PROPERTY_IMAGE,
   CreateWhatsAppMessageRequest.JSON_PROPERTY_DOCUMENT,
   CreateWhatsAppMessageRequest.JSON_PROPERTY_VIDEO,
-  CreateWhatsAppMessageRequest.JSON_PROPERTY_HSM,
-  CreateWhatsAppMessageRequest.JSON_PROPERTY_CONTACTS,
   CreateWhatsAppMessageRequest.JSON_PROPERTY_LOCATION,
   CreateWhatsAppMessageRequest.JSON_PROPERTY_PREVIEW_URL,
   CreateWhatsAppMessageRequest.JSON_PROPERTY_TEMPLATE
@@ -83,12 +77,6 @@ public class CreateWhatsAppMessageRequest {
 
   public static final String JSON_PROPERTY_VIDEO = "video";
   private Video video;
-
-  public static final String JSON_PROPERTY_HSM = "hsm";
-  private Hsm hsm;
-
-  public static final String JSON_PROPERTY_CONTACTS = "contacts";
-  private List<Contact> contacts = null;
 
   public static final String JSON_PROPERTY_LOCATION = "location";
   private Location location;
@@ -310,66 +298,6 @@ public class CreateWhatsAppMessageRequest {
   }
 
 
-  public CreateWhatsAppMessageRequest hsm(Hsm hsm) {
-    this.hsm = hsm;
-    return this;
-  }
-
-   /**
-   * Get hsm
-   * @return hsm
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_HSM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Hsm getHsm() {
-    return hsm;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HSM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHsm(Hsm hsm) {
-    this.hsm = hsm;
-  }
-
-
-  public CreateWhatsAppMessageRequest contacts(List<Contact> contacts) {
-    this.contacts = contacts;
-    return this;
-  }
-
-  public CreateWhatsAppMessageRequest addContactsItem(Contact contactsItem) {
-    if (this.contacts == null) {
-      this.contacts = new ArrayList<>();
-    }
-    this.contacts.add(contactsItem);
-    return this;
-  }
-
-   /**
-   * Get contacts
-   * @return contacts
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CONTACTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<Contact> getContacts() {
-    return contacts;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONTACTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setContacts(List<Contact> contacts) {
-    this.contacts = contacts;
-  }
-
-
   public CreateWhatsAppMessageRequest location(Location location) {
     this.location = location;
     return this;
@@ -468,8 +396,6 @@ public class CreateWhatsAppMessageRequest {
         Objects.equals(this.image, createWhatsAppMessageRequest.image) &&
         Objects.equals(this.document, createWhatsAppMessageRequest.document) &&
         Objects.equals(this.video, createWhatsAppMessageRequest.video) &&
-        Objects.equals(this.hsm, createWhatsAppMessageRequest.hsm) &&
-        Objects.equals(this.contacts, createWhatsAppMessageRequest.contacts) &&
         Objects.equals(this.location, createWhatsAppMessageRequest.location) &&
         Objects.equals(this.previewUrl, createWhatsAppMessageRequest.previewUrl) &&
         Objects.equals(this.template, createWhatsAppMessageRequest.template);
@@ -477,7 +403,7 @@ public class CreateWhatsAppMessageRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(whatsappUserId, to, type, text, audio, image, document, video, hsm, contacts, location, previewUrl, template);
+    return Objects.hash(whatsappUserId, to, type, text, audio, image, document, video, location, previewUrl, template);
   }
 
   @Override
@@ -492,8 +418,6 @@ public class CreateWhatsAppMessageRequest {
     sb.append("    image: ").append(toIndentedString(image)).append("\n");
     sb.append("    document: ").append(toIndentedString(document)).append("\n");
     sb.append("    video: ").append(toIndentedString(video)).append("\n");
-    sb.append("    hsm: ").append(toIndentedString(hsm)).append("\n");
-    sb.append("    contacts: ").append(toIndentedString(contacts)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    previewUrl: ").append(toIndentedString(previewUrl)).append("\n");
     sb.append("    template: ").append(toIndentedString(template)).append("\n");

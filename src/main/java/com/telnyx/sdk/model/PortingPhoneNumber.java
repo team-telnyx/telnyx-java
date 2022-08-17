@@ -206,6 +206,14 @@ public class PortingPhoneNumber {
   public PortingPhoneNumber() { 
   }
 
+  @JsonCreator
+  public PortingPhoneNumber(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+  ) {
+    this();
+    this.recordType = recordType;
+  }
+
   public PortingPhoneNumber portingOrderStatus(PortingOrderStatusEnum portingOrderStatus) {
     this.portingOrderStatus = portingOrderStatus;
     return this;

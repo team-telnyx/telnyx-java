@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## createDocument
 
-> DocServiceDocumentResponse createDocument(createDocServiceDocumentRequest)
+> CreateDocument200Response createDocument(createDocServiceDocumentRequest)
 
 Upload a document
 
@@ -45,7 +45,7 @@ public class Example {
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
         CreateDocServiceDocumentRequest createDocServiceDocumentRequest = new CreateDocServiceDocumentRequest(); // CreateDocServiceDocumentRequest | 
         try {
-            DocServiceDocumentResponse result = apiInstance.createDocument(createDocServiceDocumentRequest);
+            CreateDocument200Response result = apiInstance.createDocument(createDocServiceDocumentRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DocumentsApi#createDocument");
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocServiceDocumentResponse**](DocServiceDocumentResponse.md)
+[**CreateDocument200Response**](CreateDocument200Response.md)
 
 ### Authorization
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 ## deleteDocument
 
-> DocServiceDocumentResponse deleteDocument(id)
+> CreateDocument200Response deleteDocument(id)
 
 Delete a document
 
@@ -116,9 +116,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
-            DocServiceDocumentResponse result = apiInstance.deleteDocument(id);
+            CreateDocument200Response result = apiInstance.deleteDocument(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DocumentsApi#deleteDocument");
@@ -136,11 +136,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
-[**DocServiceDocumentResponse**](DocServiceDocumentResponse.md)
+[**CreateDocument200Response**](CreateDocument200Response.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             File result = apiInstance.downloadDocServiceDocument(id);
             System.out.println(result);
@@ -208,7 +208,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## listDocumentLinks
 
-> ListDocServiceDocumentLinksResponse listDocumentLinks(pageNumber, pageSize, filterDocumentId, filterLinkedRecordType, filterLinkedResourceId)
+> ListDocumentLinks200Response listDocumentLinks(pageNumber, pageSize, filterDocumentId, filterLinkedRecordType, filterLinkedResourceId)
 
 List all document links
 
@@ -266,7 +266,7 @@ public class Example {
         String filterLinkedRecordType = "porting_order"; // String | The `linked_record_type` of the document to filter on.
         UUID filterLinkedResourceId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | The `linked_resource_id` of the document to filter on.
         try {
-            ListDocServiceDocumentLinksResponse result = apiInstance.listDocumentLinks(pageNumber, pageSize, filterDocumentId, filterLinkedRecordType, filterLinkedResourceId);
+            ListDocumentLinks200Response result = apiInstance.listDocumentLinks(pageNumber, pageSize, filterDocumentId, filterLinkedRecordType, filterLinkedResourceId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DocumentsApi#listDocumentLinks");
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListDocServiceDocumentLinksResponse**](ListDocServiceDocumentLinksResponse.md)
+[**ListDocumentLinks200Response**](ListDocumentLinks200Response.md)
 
 ### Authorization
 
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 ## listDocuments
 
-> ListDocServiceDocumentsResposne listDocuments(filterFilenameContains, filterCustomerReferenceEq, filterCustomerReferenceIn, filterCreatedAtGt, filterCreatedAtLt, sort, pageNumber, pageSize)
+> ListDocuments200Response listDocuments(filterFilenameContains, filterCustomerReferenceEq, filterCustomerReferenceIn, filterCreatedAtGt, filterCreatedAtLt, sort, pageNumber, pageSize)
 
 List all documents
 
@@ -348,7 +348,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListDocServiceDocumentsResposne result = apiInstance.listDocuments(filterFilenameContains, filterCustomerReferenceEq, filterCustomerReferenceIn, filterCreatedAtGt, filterCreatedAtLt, sort, pageNumber, pageSize);
+            ListDocuments200Response result = apiInstance.listDocuments(filterFilenameContains, filterCustomerReferenceEq, filterCustomerReferenceIn, filterCreatedAtGt, filterCreatedAtLt, sort, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DocumentsApi#listDocuments");
@@ -377,7 +377,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListDocServiceDocumentsResposne**](ListDocServiceDocumentsResposne.md)
+[**ListDocuments200Response**](ListDocuments200Response.md)
 
 ### Authorization
 
@@ -397,7 +397,7 @@ Name | Type | Description  | Notes
 
 ## retrieveDocument
 
-> DocServiceDocumentResponse retrieveDocument(id)
+> CreateDocument200Response retrieveDocument(id)
 
 Retrieve a document
 
@@ -425,9 +425,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
-            DocServiceDocumentResponse result = apiInstance.retrieveDocument(id);
+            CreateDocument200Response result = apiInstance.retrieveDocument(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DocumentsApi#retrieveDocument");
@@ -445,11 +445,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
-[**DocServiceDocumentResponse**](DocServiceDocumentResponse.md)
+[**CreateDocument200Response**](CreateDocument200Response.md)
 
 ### Authorization
 
@@ -469,7 +469,7 @@ Name | Type | Description  | Notes
 
 ## updateDocument
 
-> DocServiceDocumentResponse updateDocument(id, docServiceDocument)
+> CreateDocument200Response updateDocument(id, docServiceDocument)
 
 Update a document
 
@@ -497,10 +497,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         DocServiceDocument docServiceDocument = new DocServiceDocument(); // DocServiceDocument | 
         try {
-            DocServiceDocumentResponse result = apiInstance.updateDocument(id, docServiceDocument);
+            CreateDocument200Response result = apiInstance.updateDocument(id, docServiceDocument);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DocumentsApi#updateDocument");
@@ -518,12 +518,12 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **docServiceDocument** | [**DocServiceDocument**](DocServiceDocument.md)|  |
 
 ### Return type
 
-[**DocServiceDocumentResponse**](DocServiceDocumentResponse.md)
+[**CreateDocument200Response**](CreateDocument200Response.md)
 
 ### Authorization
 

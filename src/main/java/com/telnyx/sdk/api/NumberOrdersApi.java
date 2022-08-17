@@ -9,17 +9,17 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Comment;
-import com.telnyx.sdk.model.CommentResponse;
+import com.telnyx.sdk.model.CreateComment200Response;
 import com.telnyx.sdk.model.CreateNumberOrderRequest;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.ListCommentsResponse;
+import com.telnyx.sdk.model.ListComments200Response;
 import com.telnyx.sdk.model.ListNumberOrderPhoneNumbersResponse;
 import com.telnyx.sdk.model.ListNumberOrdersResponse;
-import com.telnyx.sdk.model.ListRegulatoryRequirements;
+import com.telnyx.sdk.model.ListRegulartoryRequirements200Response;
 import com.telnyx.sdk.model.ListSubNumberOrdersResponse;
+import com.telnyx.sdk.model.MarkCommentRead200Response;
 import com.telnyx.sdk.model.NumberOrderPhoneNumberResponse;
 import com.telnyx.sdk.model.NumberOrderResponse;
-import com.telnyx.sdk.model.ReadCommentResponse;
 import com.telnyx.sdk.model.SubNumberOrderResponse;
 import java.util.UUID;
 import com.telnyx.sdk.model.UpdateNumberOrderPhoneNumberRequest;
@@ -65,7 +65,7 @@ public class NumberOrdersApi {
    * Create a comment
    * 
    * @param comment  (required)
-   * @return CommentResponse
+   * @return CreateComment200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -74,7 +74,7 @@ public class NumberOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CommentResponse createComment(Comment comment) throws ApiException {
+  public CreateComment200Response createComment(Comment comment) throws ApiException {
     return createCommentWithHttpInfo(comment).getData();
   }
 
@@ -82,7 +82,7 @@ public class NumberOrdersApi {
    * Create a comment
    * 
    * @param comment  (required)
-   * @return ApiResponse&lt;CommentResponse&gt;
+   * @return ApiResponse&lt;CreateComment200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -91,7 +91,7 @@ public class NumberOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CommentResponse> createCommentWithHttpInfo(Comment comment) throws ApiException {
+  public ApiResponse<CreateComment200Response> createCommentWithHttpInfo(Comment comment) throws ApiException {
     Object localVarPostBody = comment;
     
     // verify the required parameter 'comment' is set
@@ -124,7 +124,7 @@ public class NumberOrdersApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CommentResponse> localVarReturnType = new GenericType<CommentResponse>() {};
+    GenericType<CreateComment200Response> localVarReturnType = new GenericType<CreateComment200Response>() {};
 
     return apiClient.invokeAPI("NumberOrdersApi.createComment", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -204,7 +204,7 @@ public class NumberOrdersApi {
    * 
    * @param filterCommentRecordType Record type that the comment relates to i.e number_order, sub_number_order or number_order_phone_number (required)
    * @param filterCommentRecordId ID of the record the comments relate to (required)
-   * @return ListCommentsResponse
+   * @return ListComments200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -213,7 +213,7 @@ public class NumberOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListCommentsResponse listComments(String filterCommentRecordType, String filterCommentRecordId) throws ApiException {
+  public ListComments200Response listComments(String filterCommentRecordType, String filterCommentRecordId) throws ApiException {
     return listCommentsWithHttpInfo(filterCommentRecordType, filterCommentRecordId).getData();
   }
 
@@ -222,7 +222,7 @@ public class NumberOrdersApi {
    * 
    * @param filterCommentRecordType Record type that the comment relates to i.e number_order, sub_number_order or number_order_phone_number (required)
    * @param filterCommentRecordId ID of the record the comments relate to (required)
-   * @return ApiResponse&lt;ListCommentsResponse&gt;
+   * @return ApiResponse&lt;ListComments200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -231,7 +231,7 @@ public class NumberOrdersApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListCommentsResponse> listCommentsWithHttpInfo(String filterCommentRecordType, String filterCommentRecordId) throws ApiException {
+  public ApiResponse<ListComments200Response> listCommentsWithHttpInfo(String filterCommentRecordType, String filterCommentRecordId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'filterCommentRecordType' is set
@@ -271,7 +271,7 @@ public class NumberOrdersApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListCommentsResponse> localVarReturnType = new GenericType<ListCommentsResponse>() {};
+    GenericType<ListComments200Response> localVarReturnType = new GenericType<ListComments200Response>() {};
 
     return apiClient.invokeAPI("NumberOrdersApi.listComments", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -463,7 +463,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
    * Retrieve regulartory requirements
    * 
    * @param filterPhoneNumber Record type phone number/ phone numbers (required)
-   * @return ListRegulatoryRequirements
+   * @return ListRegulartoryRequirements200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -472,7 +472,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListRegulatoryRequirements listRegulartoryRequirements(String filterPhoneNumber) throws ApiException {
+  public ListRegulartoryRequirements200Response listRegulartoryRequirements(String filterPhoneNumber) throws ApiException {
     return listRegulartoryRequirementsWithHttpInfo(filterPhoneNumber).getData();
   }
 
@@ -480,7 +480,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
    * Retrieve regulartory requirements
    * 
    * @param filterPhoneNumber Record type phone number/ phone numbers (required)
-   * @return ApiResponse&lt;ListRegulatoryRequirements&gt;
+   * @return ApiResponse&lt;ListRegulartoryRequirements200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -489,7 +489,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRegulatoryRequirements> listRegulartoryRequirementsWithHttpInfo(String filterPhoneNumber) throws ApiException {
+  public ApiResponse<ListRegulartoryRequirements200Response> listRegulartoryRequirementsWithHttpInfo(String filterPhoneNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'filterPhoneNumber' is set
@@ -523,7 +523,7 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListRegulatoryRequirements> localVarReturnType = new GenericType<ListRegulatoryRequirements>() {};
+    GenericType<ListRegulartoryRequirements200Response> localVarReturnType = new GenericType<ListRegulartoryRequirements200Response>() {};
 
     return apiClient.invokeAPI("NumberOrdersApi.listRegulartoryRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -679,7 +679,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
    * Mark a comment as read
    * 
    * @param id The comment ID. (required)
-   * @return ReadCommentResponse
+   * @return MarkCommentRead200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -688,7 +688,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ReadCommentResponse markCommentRead(String id) throws ApiException {
+  public MarkCommentRead200Response markCommentRead(String id) throws ApiException {
     return markCommentReadWithHttpInfo(id).getData();
   }
 
@@ -696,7 +696,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
    * Mark a comment as read
    * 
    * @param id The comment ID. (required)
-   * @return ApiResponse&lt;ReadCommentResponse&gt;
+   * @return ApiResponse&lt;MarkCommentRead200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -705,7 +705,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ReadCommentResponse> markCommentReadWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<MarkCommentRead200Response> markCommentReadWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -739,7 +739,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ReadCommentResponse> localVarReturnType = new GenericType<ReadCommentResponse>() {};
+    GenericType<MarkCommentRead200Response> localVarReturnType = new GenericType<MarkCommentRead200Response>() {};
 
     return apiClient.invokeAPI("NumberOrdersApi.markCommentRead", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -749,7 +749,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
    * Retrieve a comment
    * 
    * @param id The comment ID. (required)
-   * @return CommentResponse
+   * @return CreateComment200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -758,7 +758,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CommentResponse retrieveComment(String id) throws ApiException {
+  public CreateComment200Response retrieveComment(String id) throws ApiException {
     return retrieveCommentWithHttpInfo(id).getData();
   }
 
@@ -766,7 +766,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
    * Retrieve a comment
    * 
    * @param id The comment ID. (required)
-   * @return ApiResponse&lt;CommentResponse&gt;
+   * @return ApiResponse&lt;CreateComment200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -775,7 +775,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CommentResponse> retrieveCommentWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<CreateComment200Response> retrieveCommentWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -809,7 +809,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CommentResponse> localVarReturnType = new GenericType<CommentResponse>() {};
+    GenericType<CreateComment200Response> localVarReturnType = new GenericType<CreateComment200Response>() {};
 
     return apiClient.invokeAPI("NumberOrdersApi.retrieveComment", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

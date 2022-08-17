@@ -42,7 +42,9 @@ import com.telnyx.sdk.JSON;
   PhoneNumber.JSON_PROPERTY_REGULATORY_GROUP_ID,
   PhoneNumber.JSON_PROPERTY_REGULATORY_REQUIREMENTS,
   PhoneNumber.JSON_PROPERTY_REQUIREMENTS_MET,
-  PhoneNumber.JSON_PROPERTY_STATUS
+  PhoneNumber.JSON_PROPERTY_REQUIREMENTS_STATUS,
+  PhoneNumber.JSON_PROPERTY_STATUS,
+  PhoneNumber.JSON_PROPERTY_PHONE_NUMBER_TYPE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PhoneNumber {
@@ -63,6 +65,54 @@ public class PhoneNumber {
 
   public static final String JSON_PROPERTY_REQUIREMENTS_MET = "requirements_met";
   private Boolean requirementsMet;
+
+  /**
+   * Status of document requirements (if applicable)
+   */
+  public enum RequirementsStatusEnum {
+    PENDING("pending"),
+    
+    APPROVED("approved"),
+    
+    CANCELLED("cancelled"),
+    
+    DELETED("deleted"),
+    
+    REQUIREMENT_INFO_EXCEPTION("requirement-info-exception"),
+    
+    REQUIREMENT_INFO_PENDING("requirement-info-pending"),
+    
+    REQUIREMENT_INFO_UNDER_REVIEW("requirement-info-under-review");
+
+    private String value;
+
+    RequirementsStatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RequirementsStatusEnum fromValue(String value) {
+      for (RequirementsStatusEnum b : RequirementsStatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_REQUIREMENTS_STATUS = "requirements_status";
+  private RequirementsStatusEnum requirementsStatus;
 
   /**
    * The status of the phone number in the order.
@@ -104,7 +154,71 @@ public class PhoneNumber {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
+  /**
+   * Phone number type
+   */
+  public enum PhoneNumberTypeEnum {
+    LOCAL("local"),
+    
+    MOBILE("mobile"),
+    
+    NATIONAL("national"),
+    
+    SHARED_COST("shared_cost"),
+    
+    TOLL_FREE("toll_free");
+
+    private String value;
+
+    PhoneNumberTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PhoneNumberTypeEnum fromValue(String value) {
+      for (PhoneNumberTypeEnum b : PhoneNumberTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_PHONE_NUMBER_TYPE = "phone_number_type";
+  private PhoneNumberTypeEnum phoneNumberType;
+
   public PhoneNumber() { 
+  }
+
+  @JsonCreator
+  public PhoneNumber(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_REGULATORY_GROUP_ID) String regulatoryGroupId, 
+    @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET) Boolean requirementsMet, 
+    @JsonProperty(JSON_PROPERTY_REQUIREMENTS_STATUS) RequirementsStatusEnum requirementsStatus, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.regulatoryGroupId = regulatoryGroupId;
+    this.requirementsMet = requirementsMet;
+    this.requirementsStatus = requirementsStatus;
+    this.status = status;
+    this.phoneNumberType = phoneNumberType;
   }
 
    /**
@@ -232,6 +346,22 @@ public class PhoneNumber {
 
 
    /**
+   * Status of document requirements (if applicable)
+   * @return requirementsStatus
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Status of document requirements (if applicable)")
+  @JsonProperty(JSON_PROPERTY_REQUIREMENTS_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RequirementsStatusEnum getRequirementsStatus() {
+    return requirementsStatus;
+  }
+
+
+
+
+   /**
    * The status of the phone number in the order.
    * @return status
   **/
@@ -242,6 +372,22 @@ public class PhoneNumber {
 
   public StatusEnum getStatus() {
     return status;
+  }
+
+
+
+
+   /**
+   * Phone number type
+   * @return phoneNumberType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Phone number type")
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PhoneNumberTypeEnum getPhoneNumberType() {
+    return phoneNumberType;
   }
 
 
@@ -265,12 +411,14 @@ public class PhoneNumber {
         Objects.equals(this.regulatoryGroupId, phoneNumber.regulatoryGroupId) &&
         Objects.equals(this.regulatoryRequirements, phoneNumber.regulatoryRequirements) &&
         Objects.equals(this.requirementsMet, phoneNumber.requirementsMet) &&
-        Objects.equals(this.status, phoneNumber.status);
+        Objects.equals(this.requirementsStatus, phoneNumber.requirementsStatus) &&
+        Objects.equals(this.status, phoneNumber.status) &&
+        Objects.equals(this.phoneNumberType, phoneNumber.phoneNumberType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, regulatoryGroupId, regulatoryRequirements, requirementsMet, status);
+    return Objects.hash(id, recordType, phoneNumber, regulatoryGroupId, regulatoryRequirements, requirementsMet, requirementsStatus, status, phoneNumberType);
   }
 
   @Override
@@ -283,7 +431,9 @@ public class PhoneNumber {
     sb.append("    regulatoryGroupId: ").append(toIndentedString(regulatoryGroupId)).append("\n");
     sb.append("    regulatoryRequirements: ").append(toIndentedString(regulatoryRequirements)).append("\n");
     sb.append("    requirementsMet: ").append(toIndentedString(requirementsMet)).append("\n");
+    sb.append("    requirementsStatus: ").append(toIndentedString(requirementsStatus)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

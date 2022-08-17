@@ -162,6 +162,20 @@ public class NumberOrderPhoneNumber {
   public NumberOrderPhoneNumber() { 
   }
 
+  @JsonCreator
+  public NumberOrderPhoneNumber(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET) Boolean requirementsMet, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status
+  ) {
+    this();
+    this.id = id;
+    this.recordType = recordType;
+    this.requirementsMet = requirementsMet;
+    this.status = status;
+  }
+
    /**
    * Get id
    * @return id

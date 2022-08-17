@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## simCardOrderGet
 
-> GetSimCardOrderResponse simCardOrderGet(id)
+> SimCardOrdersPost200Response simCardOrderGet(id)
 
 Get a single SIM card order
 
@@ -43,7 +43,7 @@ public class Example {
         SimCardOrdersApi apiInstance = new SimCardOrdersApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            GetSimCardOrderResponse result = apiInstance.simCardOrderGet(id);
+            SimCardOrdersPost200Response result = apiInstance.simCardOrderGet(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardOrdersApi#simCardOrderGet");
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetSimCardOrderResponse**](GetSimCardOrderResponse.md)
+[**SimCardOrdersPost200Response**](SimCardOrdersPost200Response.md)
 
 ### Authorization
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## simCardOrdersGet
 
-> GetAllSimCardOrderResponse simCardOrdersGet(filterCreatedAt, filterUpdatedAt, filterQuantity, filterCostAmount, filterCostCurrency, filterAddressId, filterAddressStreetAddress, filterAddressExtendedAddress, filterAddressLocality, filterAddressAdministrativeArea, filterAddressCountryCode, filterAddressPostalCode, pageNumber, pageSize)
+> SimCardOrdersGet200Response simCardOrdersGet(filterCreatedAt, filterUpdatedAt, filterQuantity, filterCostAmount, filterCostCurrency, filterAddressId, filterAddressStreetAddress, filterAddressExtendedAddress, filterAddressLocality, filterAddressAdministrativeArea, filterAddressCountryCode, filterAddressPostalCode, pageNumber, pageSize)
 
 Get all SIM card orders
 
@@ -128,7 +128,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            GetAllSimCardOrderResponse result = apiInstance.simCardOrdersGet(filterCreatedAt, filterUpdatedAt, filterQuantity, filterCostAmount, filterCostCurrency, filterAddressId, filterAddressStreetAddress, filterAddressExtendedAddress, filterAddressLocality, filterAddressAdministrativeArea, filterAddressCountryCode, filterAddressPostalCode, pageNumber, pageSize);
+            SimCardOrdersGet200Response result = apiInstance.simCardOrdersGet(filterCreatedAt, filterUpdatedAt, filterQuantity, filterCostAmount, filterCostCurrency, filterAddressId, filterAddressStreetAddress, filterAddressExtendedAddress, filterAddressLocality, filterAddressAdministrativeArea, filterAddressCountryCode, filterAddressPostalCode, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardOrdersApi#simCardOrdersGet");
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetAllSimCardOrderResponse**](GetAllSimCardOrderResponse.md)
+[**SimCardOrdersGet200Response**](SimCardOrdersGet200Response.md)
 
 ### Authorization
 
@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
 
 ## simCardOrdersPost
 
-> CreateSimCardOrderResponse simCardOrdersPost(simCardOrderCreate)
+> SimCardOrdersPost200Response simCardOrdersPost(simCardOrderCreate)
 
 Create a SIM card order
 
@@ -212,7 +212,7 @@ public class Example {
         SimCardOrdersApi apiInstance = new SimCardOrdersApi(defaultClient);
         SimCardOrderCreate simCardOrderCreate = new SimCardOrderCreate(); // SimCardOrderCreate | 
         try {
-            CreateSimCardOrderResponse result = apiInstance.simCardOrdersPost(simCardOrderCreate);
+            SimCardOrdersPost200Response result = apiInstance.simCardOrdersPost(simCardOrderCreate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardOrdersApi#simCardOrdersPost");
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateSimCardOrderResponse**](CreateSimCardOrderResponse.md)
+[**SimCardOrdersPost200Response**](SimCardOrdersPost200Response.md)
 
 ### Authorization
 
@@ -254,7 +254,7 @@ Name | Type | Description  | Notes
 
 ## simCardOrdersPreview
 
-> SIMCardOrdersPreviewResponse simCardOrdersPreview(createSimCardOrderPreview)
+> SimCardOrdersPreview202Response simCardOrdersPreview(simCardOrdersPreviewRequest)
 
 Preview SIM card orders
 
@@ -281,9 +281,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardOrdersApi apiInstance = new SimCardOrdersApi(defaultClient);
-        CreateSimCardOrderPreview createSimCardOrderPreview = new CreateSimCardOrderPreview(); // CreateSimCardOrderPreview | 
+        SimCardOrdersPreviewRequest simCardOrdersPreviewRequest = new SimCardOrdersPreviewRequest(); // SimCardOrdersPreviewRequest | 
         try {
-            SIMCardOrdersPreviewResponse result = apiInstance.simCardOrdersPreview(createSimCardOrderPreview);
+            SimCardOrdersPreview202Response result = apiInstance.simCardOrdersPreview(simCardOrdersPreviewRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardOrdersApi#simCardOrdersPreview");
@@ -301,11 +301,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createSimCardOrderPreview** | [**CreateSimCardOrderPreview**](CreateSimCardOrderPreview.md)|  | [optional]
+ **simCardOrdersPreviewRequest** | [**SimCardOrdersPreviewRequest**](SimCardOrdersPreviewRequest.md)|  | [optional]
 
 ### Return type
 
-[**SIMCardOrdersPreviewResponse**](SIMCardOrdersPreviewResponse.md)
+[**SimCardOrdersPreview202Response**](SimCardOrdersPreview202Response.md)
 
 ### Authorization
 

@@ -30,8 +30,9 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * MobileOperatorNetworkPreferencesRequest
+ * 
  */
+@ApiModel(description = "")
 @JsonPropertyOrder({
   MobileOperatorNetworkPreferencesRequest.JSON_PROPERTY_MOBILE_OPERATOR_NETWORK_ID,
   MobileOperatorNetworkPreferencesRequest.JSON_PROPERTY_PRIORITY

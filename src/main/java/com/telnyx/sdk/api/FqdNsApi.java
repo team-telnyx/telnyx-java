@@ -9,6 +9,11 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreateFqdnRequest;
+import com.telnyx.sdk.model.CustomerFacingFQDNsGetIPResponse;
+import com.telnyx.sdk.model.CustomerFacingFQDNsListResponse;
+import com.telnyx.sdk.model.CustomerFacingFQDNsPatch;
+import com.telnyx.sdk.model.CustomerFacingFQDNsPost;
+import com.telnyx.sdk.model.CustomerFacingFQDNsResponseSchema;
 import com.telnyx.sdk.model.FQDNResponse;
 import com.telnyx.sdk.model.ListFQDNsResponse;
 import com.telnyx.sdk.model.UpdateFqdnRequest;
@@ -48,6 +53,73 @@ public class FqdnsApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Create new Access FQDN
+   * 
+   * @param customerFacingFQDNsPost  (required)
+   * @return CustomerFacingFQDNsResponseSchema
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public CustomerFacingFQDNsResponseSchema createAccessFqdn(CustomerFacingFQDNsPost customerFacingFQDNsPost) throws ApiException {
+    return createAccessFqdnWithHttpInfo(customerFacingFQDNsPost).getData();
+  }
+
+  /**
+   * Create new Access FQDN
+   * 
+   * @param customerFacingFQDNsPost  (required)
+   * @return ApiResponse&lt;CustomerFacingFQDNsResponseSchema&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CustomerFacingFQDNsResponseSchema> createAccessFqdnWithHttpInfo(CustomerFacingFQDNsPost customerFacingFQDNsPost) throws ApiException {
+    Object localVarPostBody = customerFacingFQDNsPost;
+    
+    // verify the required parameter 'customerFacingFQDNsPost' is set
+    if (customerFacingFQDNsPost == null) {
+      throw new ApiException(400, "Missing the required parameter 'customerFacingFQDNsPost' when calling createAccessFqdn");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/access_fqdns";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CustomerFacingFQDNsResponseSchema> localVarReturnType = new GenericType<CustomerFacingFQDNsResponseSchema>() {};
+
+    return apiClient.invokeAPI("FqdnsApi.createAccessFqdn", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
   /**
    * Create an FQDN
    * Create a new FQDN object.
@@ -111,6 +183,74 @@ public class FqdnsApi {
     GenericType<FQDNResponse> localVarReturnType = new GenericType<FQDNResponse>() {};
 
     return apiClient.invokeAPI("FqdnsApi.createFqdn", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Delete Access FQDN
+   * 
+   * @param fqdnId  (required)
+   * @return CustomerFacingFQDNsResponseSchema
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public CustomerFacingFQDNsResponseSchema deleteAccessFqdn(String fqdnId) throws ApiException {
+    return deleteAccessFqdnWithHttpInfo(fqdnId).getData();
+  }
+
+  /**
+   * Delete Access FQDN
+   * 
+   * @param fqdnId  (required)
+   * @return ApiResponse&lt;CustomerFacingFQDNsResponseSchema&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CustomerFacingFQDNsResponseSchema> deleteAccessFqdnWithHttpInfo(String fqdnId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'fqdnId' is set
+    if (fqdnId == null) {
+      throw new ApiException(400, "Missing the required parameter 'fqdnId' when calling deleteAccessFqdn");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/access_fqdns/{fqdn_id}"
+      .replaceAll("\\{" + "fqdn_id" + "\\}", apiClient.escapeString(fqdnId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CustomerFacingFQDNsResponseSchema> localVarReturnType = new GenericType<CustomerFacingFQDNsResponseSchema>() {};
+
+    return apiClient.invokeAPI("FqdnsApi.deleteAccessFqdn", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -183,6 +323,214 @@ public class FqdnsApi {
     GenericType<FQDNResponse> localVarReturnType = new GenericType<FQDNResponse>() {};
 
     return apiClient.invokeAPI("FqdnsApi.deleteFqdn", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * List an Access FQDN
+   * 
+   * @param fqdnId  (required)
+   * @return CustomerFacingFQDNsResponseSchema
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public CustomerFacingFQDNsResponseSchema listAccessFqdnById(String fqdnId) throws ApiException {
+    return listAccessFqdnByIdWithHttpInfo(fqdnId).getData();
+  }
+
+  /**
+   * List an Access FQDN
+   * 
+   * @param fqdnId  (required)
+   * @return ApiResponse&lt;CustomerFacingFQDNsResponseSchema&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CustomerFacingFQDNsResponseSchema> listAccessFqdnByIdWithHttpInfo(String fqdnId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'fqdnId' is set
+    if (fqdnId == null) {
+      throw new ApiException(400, "Missing the required parameter 'fqdnId' when calling listAccessFqdnById");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/access_fqdns/{fqdn_id}"
+      .replaceAll("\\{" + "fqdn_id" + "\\}", apiClient.escapeString(fqdnId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CustomerFacingFQDNsResponseSchema> localVarReturnType = new GenericType<CustomerFacingFQDNsResponseSchema>() {};
+
+    return apiClient.invokeAPI("FqdnsApi.listAccessFqdnById", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * List all Access FQDNs
+   * 
+   * @param pageNumber  (optional, default to 1)
+   * @param pageSize  (optional, default to 20)
+   * @return CustomerFacingFQDNsListResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public CustomerFacingFQDNsListResponse listAllAccessFqdns(Integer pageNumber, Integer pageSize) throws ApiException {
+    return listAllAccessFqdnsWithHttpInfo(pageNumber, pageSize).getData();
+  }
+
+  /**
+   * List all Access FQDNs
+   * 
+   * @param pageNumber  (optional, default to 1)
+   * @param pageSize  (optional, default to 20)
+   * @return ApiResponse&lt;CustomerFacingFQDNsListResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CustomerFacingFQDNsListResponse> listAllAccessFqdnsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/access_fqdns";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CustomerFacingFQDNsListResponse> localVarReturnType = new GenericType<CustomerFacingFQDNsListResponse>() {};
+
+    return apiClient.invokeAPI("FqdnsApi.listAllAccessFqdns", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * List Access FQDN&#39;s IP Addresses
+   * 
+   * @param fqdnId  (required)
+   * @param pageNumber  (optional, default to 1)
+   * @param pageSize  (optional, default to 20)
+   * @return CustomerFacingFQDNsGetIPResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public CustomerFacingFQDNsGetIPResponse listAllIpsByFqdn(String fqdnId, Integer pageNumber, Integer pageSize) throws ApiException {
+    return listAllIpsByFqdnWithHttpInfo(fqdnId, pageNumber, pageSize).getData();
+  }
+
+  /**
+   * List Access FQDN&#39;s IP Addresses
+   * 
+   * @param fqdnId  (required)
+   * @param pageNumber  (optional, default to 1)
+   * @param pageSize  (optional, default to 20)
+   * @return ApiResponse&lt;CustomerFacingFQDNsGetIPResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CustomerFacingFQDNsGetIPResponse> listAllIpsByFqdnWithHttpInfo(String fqdnId, Integer pageNumber, Integer pageSize) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'fqdnId' is set
+    if (fqdnId == null) {
+      throw new ApiException(400, "Missing the required parameter 'fqdnId' when calling listAllIpsByFqdn");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/access_fqdns/{fqdn_id}/ips"
+      .replaceAll("\\{" + "fqdn_id" + "\\}", apiClient.escapeString(fqdnId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CustomerFacingFQDNsGetIPResponse> localVarReturnType = new GenericType<CustomerFacingFQDNsGetIPResponse>() {};
+
+    return apiClient.invokeAPI("FqdnsApi.listAllIpsByFqdn", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -415,6 +763,81 @@ private ApiResponse<ListFQDNsResponse> listFqdnsWithHttpInfo(Integer pageNumber,
     GenericType<FQDNResponse> localVarReturnType = new GenericType<FQDNResponse>() {};
 
     return apiClient.invokeAPI("FqdnsApi.retrieveFqdn", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Update Access FQDN
+   * 
+   * @param fqdnId  (required)
+   * @param customerFacingFQDNsPatch  (required)
+   * @return CustomerFacingFQDNsResponseSchema
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public CustomerFacingFQDNsResponseSchema updateAccessFqdn(String fqdnId, CustomerFacingFQDNsPatch customerFacingFQDNsPatch) throws ApiException {
+    return updateAccessFqdnWithHttpInfo(fqdnId, customerFacingFQDNsPatch).getData();
+  }
+
+  /**
+   * Update Access FQDN
+   * 
+   * @param fqdnId  (required)
+   * @param customerFacingFQDNsPatch  (required)
+   * @return ApiResponse&lt;CustomerFacingFQDNsResponseSchema&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CustomerFacingFQDNsResponseSchema> updateAccessFqdnWithHttpInfo(String fqdnId, CustomerFacingFQDNsPatch customerFacingFQDNsPatch) throws ApiException {
+    Object localVarPostBody = customerFacingFQDNsPatch;
+    
+    // verify the required parameter 'fqdnId' is set
+    if (fqdnId == null) {
+      throw new ApiException(400, "Missing the required parameter 'fqdnId' when calling updateAccessFqdn");
+    }
+    
+    // verify the required parameter 'customerFacingFQDNsPatch' is set
+    if (customerFacingFQDNsPatch == null) {
+      throw new ApiException(400, "Missing the required parameter 'customerFacingFQDNsPatch' when calling updateAccessFqdn");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/access_fqdns/{fqdn_id}"
+      .replaceAll("\\{" + "fqdn_id" + "\\}", apiClient.escapeString(fqdnId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CustomerFacingFQDNsResponseSchema> localVarReturnType = new GenericType<CustomerFacingFQDNsResponseSchema>() {};
+
+    return apiClient.invokeAPI("FqdnsApi.updateAccessFqdn", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

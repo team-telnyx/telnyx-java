@@ -8,13 +8,13 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.AssignPhoneNumberRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GcbChannelZone;
 import com.telnyx.sdk.model.GcbPhoneNumber;
-import com.telnyx.sdk.model.GetGcbChannelZonesRequestResponse;
-import com.telnyx.sdk.model.GetGcbPhoneNumbersRequestResponse;
-import com.telnyx.sdk.model.ListChannelZonesByPhoneNumber;
-import com.telnyx.sdk.model.UpdateChannelZone;
+import com.telnyx.sdk.model.GetChannelZones200Response;
+import com.telnyx.sdk.model.GetPhoneNumbers200Response;
+import com.telnyx.sdk.model.PatchGroupRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +55,7 @@ public class ChannelZonesApi {
    * Assign a phone number to a channel zone
    * You should own the phone number being assigned to the channel zone. Remember that you should reserve channels in this channel zone, otherwise you won&#39;t be able to receive incoming calls.
    * @param channelZoneId Channel zone identifier (required)
-   * @param body  (required)
+   * @param body Phone number to assign to the channel zone. The phone number should be in E.164 format. (required)
    * @return GcbPhoneNumber
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -65,7 +65,7 @@ public class ChannelZonesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GcbPhoneNumber assignPhoneNumber(String channelZoneId, ListChannelZonesByPhoneNumber body) throws ApiException {
+  public GcbPhoneNumber assignPhoneNumber(String channelZoneId, AssignPhoneNumberRequest body) throws ApiException {
     return assignPhoneNumberWithHttpInfo(channelZoneId, body).getData();
   }
 
@@ -73,7 +73,7 @@ public class ChannelZonesApi {
    * Assign a phone number to a channel zone
    * You should own the phone number being assigned to the channel zone. Remember that you should reserve channels in this channel zone, otherwise you won&#39;t be able to receive incoming calls.
    * @param channelZoneId Channel zone identifier (required)
-   * @param body  (required)
+   * @param body Phone number to assign to the channel zone. The phone number should be in E.164 format. (required)
    * @return ApiResponse&lt;GcbPhoneNumber&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -83,7 +83,7 @@ public class ChannelZonesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GcbPhoneNumber> assignPhoneNumberWithHttpInfo(String channelZoneId, ListChannelZonesByPhoneNumber body) throws ApiException {
+  public ApiResponse<GcbPhoneNumber> assignPhoneNumberWithHttpInfo(String channelZoneId, AssignPhoneNumberRequest body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'channelZoneId' is set
@@ -203,7 +203,7 @@ public class ChannelZonesApi {
    * List of channel zones with their countries
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return GetGcbChannelZonesRequestResponse
+   * @return GetChannelZones200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -211,7 +211,7 @@ public class ChannelZonesApi {
        <tr><td> 200 </td><td> A list of channel zones </td><td>  -  </td></tr>
      </table>
    */
-  public GetGcbChannelZonesRequestResponse getChannelZones(Integer pageNumber, Integer pageSize) throws ApiException {
+  public GetChannelZones200Response getChannelZones(Integer pageNumber, Integer pageSize) throws ApiException {
     return getChannelZonesWithHttpInfo(pageNumber, pageSize).getData();
   }
 
@@ -220,7 +220,7 @@ public class ChannelZonesApi {
    * List of channel zones with their countries
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;GetGcbChannelZonesRequestResponse&gt;
+   * @return ApiResponse&lt;GetChannelZones200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -228,7 +228,7 @@ public class ChannelZonesApi {
        <tr><td> 200 </td><td> A list of channel zones </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetGcbChannelZonesRequestResponse> getChannelZonesWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<GetChannelZones200Response> getChannelZonesWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -258,7 +258,7 @@ public class ChannelZonesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetGcbChannelZonesRequestResponse> localVarReturnType = new GenericType<GetGcbChannelZonesRequestResponse>() {};
+    GenericType<GetChannelZones200Response> localVarReturnType = new GenericType<GetChannelZones200Response>() {};
 
     return apiClient.invokeAPI("ChannelZonesApi.getChannelZones", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -270,7 +270,7 @@ public class ChannelZonesApi {
    * @param channelZoneId Channel zone identifier (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return GetGcbPhoneNumbersRequestResponse
+   * @return GetPhoneNumbers200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -278,7 +278,7 @@ public class ChannelZonesApi {
        <tr><td> 200 </td><td> A list of phone numbers </td><td>  -  </td></tr>
      </table>
    */
-  public GetGcbPhoneNumbersRequestResponse getPhoneNumbers(String channelZoneId, Integer pageNumber, Integer pageSize) throws ApiException {
+  public GetPhoneNumbers200Response getPhoneNumbers(String channelZoneId, Integer pageNumber, Integer pageSize) throws ApiException {
     return getPhoneNumbersWithHttpInfo(channelZoneId, pageNumber, pageSize).getData();
   }
 
@@ -288,7 +288,7 @@ public class ChannelZonesApi {
    * @param channelZoneId Channel zone identifier (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;GetGcbPhoneNumbersRequestResponse&gt;
+   * @return ApiResponse&lt;GetPhoneNumbers200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -296,7 +296,7 @@ public class ChannelZonesApi {
        <tr><td> 200 </td><td> A list of phone numbers </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetGcbPhoneNumbersRequestResponse> getPhoneNumbersWithHttpInfo(String channelZoneId, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<GetPhoneNumbers200Response> getPhoneNumbersWithHttpInfo(String channelZoneId, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'channelZoneId' is set
@@ -332,7 +332,7 @@ public class ChannelZonesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetGcbPhoneNumbersRequestResponse> localVarReturnType = new GenericType<GetGcbPhoneNumbersRequestResponse>() {};
+    GenericType<GetPhoneNumbers200Response> localVarReturnType = new GenericType<GetPhoneNumbers200Response>() {};
 
     return apiClient.invokeAPI("ChannelZonesApi.getPhoneNumbers", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -342,7 +342,7 @@ public class ChannelZonesApi {
    * Patch a channel zone
    * Change the amount of reserved channels at a given channel zone
    * @param channelZoneId Channel zone identifier (required)
-   * @param body  (required)
+   * @param body Quantity of reserved channels (required)
    * @return GcbChannelZone
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -352,7 +352,7 @@ public class ChannelZonesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GcbChannelZone patchGroup(String channelZoneId, UpdateChannelZone body) throws ApiException {
+  public GcbChannelZone patchGroup(String channelZoneId, PatchGroupRequest body) throws ApiException {
     return patchGroupWithHttpInfo(channelZoneId, body).getData();
   }
 
@@ -360,7 +360,7 @@ public class ChannelZonesApi {
    * Patch a channel zone
    * Change the amount of reserved channels at a given channel zone
    * @param channelZoneId Channel zone identifier (required)
-   * @param body  (required)
+   * @param body Quantity of reserved channels (required)
    * @return ApiResponse&lt;GcbChannelZone&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -370,7 +370,7 @@ public class ChannelZonesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GcbChannelZone> patchGroupWithHttpInfo(String channelZoneId, UpdateChannelZone body) throws ApiException {
+  public ApiResponse<GcbChannelZone> patchGroupWithHttpInfo(String channelZoneId, PatchGroupRequest body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'channelZoneId' is set

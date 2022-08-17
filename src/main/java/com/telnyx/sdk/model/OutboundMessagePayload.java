@@ -25,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.InboundMessagePayloadCost;
 import com.telnyx.sdk.model.OutboundMessagePayloadFrom;
-import com.telnyx.sdk.model.OutboundMessagePayloadMedia;
-import com.telnyx.sdk.model.OutboundMessagePayloadTo;
+import com.telnyx.sdk.model.OutboundMessagePayloadMediaInner;
+import com.telnyx.sdk.model.OutboundMessagePayloadToInner;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
@@ -193,7 +193,7 @@ public class OutboundMessagePayload {
   private OutboundMessagePayloadFrom from;
 
   public static final String JSON_PROPERTY_TO = "to";
-  private List<OutboundMessagePayloadTo> to = null;
+  private List<OutboundMessagePayloadToInner> to = null;
 
   public static final String JSON_PROPERTY_TEXT = "text";
   private String text;
@@ -202,7 +202,7 @@ public class OutboundMessagePayload {
   private JsonNullable<String> subject = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_MEDIA = "media";
-  private List<OutboundMessagePayloadMedia> media = null;
+  private List<OutboundMessagePayloadMediaInner> media = null;
 
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private JsonNullable<String> webhookUrl = JsonNullable.<String>undefined();
@@ -422,12 +422,12 @@ public class OutboundMessagePayload {
   }
 
 
-  public OutboundMessagePayload to(List<OutboundMessagePayloadTo> to) {
+  public OutboundMessagePayload to(List<OutboundMessagePayloadToInner> to) {
     this.to = to;
     return this;
   }
 
-  public OutboundMessagePayload addToItem(OutboundMessagePayloadTo toItem) {
+  public OutboundMessagePayload addToItem(OutboundMessagePayloadToInner toItem) {
     if (this.to == null) {
       this.to = new ArrayList<>();
     }
@@ -444,14 +444,14 @@ public class OutboundMessagePayload {
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<OutboundMessagePayloadTo> getTo() {
+  public List<OutboundMessagePayloadToInner> getTo() {
     return to;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTo(List<OutboundMessagePayloadTo> to) {
+  public void setTo(List<OutboundMessagePayloadToInner> to) {
     this.to = to;
   }
 
@@ -516,12 +516,12 @@ public class OutboundMessagePayload {
   }
 
 
-  public OutboundMessagePayload media(List<OutboundMessagePayloadMedia> media) {
+  public OutboundMessagePayload media(List<OutboundMessagePayloadMediaInner> media) {
     this.media = media;
     return this;
   }
 
-  public OutboundMessagePayload addMediaItem(OutboundMessagePayloadMedia mediaItem) {
+  public OutboundMessagePayload addMediaItem(OutboundMessagePayloadMediaInner mediaItem) {
     if (this.media == null) {
       this.media = new ArrayList<>();
     }
@@ -538,14 +538,14 @@ public class OutboundMessagePayload {
   @JsonProperty(JSON_PROPERTY_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<OutboundMessagePayloadMedia> getMedia() {
+  public List<OutboundMessagePayloadMediaInner> getMedia() {
     return media;
   }
 
 
   @JsonProperty(JSON_PROPERTY_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMedia(List<OutboundMessagePayloadMedia> media) {
+  public void setMedia(List<OutboundMessagePayloadMediaInner> media) {
     this.media = media;
   }
 

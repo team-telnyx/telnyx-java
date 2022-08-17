@@ -8,11 +8,10 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.CreatePushCredentialRequest;
 import com.telnyx.sdk.model.Errors;
-import java.time.LocalDate;
-import com.telnyx.sdk.model.OneOfCreateIosPushCredentialRequestCreateAndroidPushCredentialRequest;
+import com.telnyx.sdk.model.ListPushCredentialsResponse;
 import com.telnyx.sdk.model.PushCredentialResponse;
-import com.telnyx.sdk.model.UNKNOWN_BASE_TYPE;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -51,48 +50,119 @@ public class PushCredentialsApi {
   }
 
   /**
-   * Deletes a push credential
-   * Deletes a push credential based on the given &#x60;id&#x60;
-   * @param pushCredentialId The unique identifier of a push credential (required)
+   * Creates a new mobile push credential
+   * Creates a new mobile push credential
+   * @param createPushCredentialRequest Mobile push credential parameters that need to be sent in the request (required)
+   * @return PushCredentialResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 204 </td><td> The push credential was deleted successfully </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Mobile push credential created </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
+     </table>
+   */
+  public PushCredentialResponse createPushCredential(CreatePushCredentialRequest createPushCredentialRequest) throws ApiException {
+    return createPushCredentialWithHttpInfo(createPushCredentialRequest).getData();
+  }
+
+  /**
+   * Creates a new mobile push credential
+   * Creates a new mobile push credential
+   * @param createPushCredentialRequest Mobile push credential parameters that need to be sent in the request (required)
+   * @return ApiResponse&lt;PushCredentialResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Mobile push credential created </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<PushCredentialResponse> createPushCredentialWithHttpInfo(CreatePushCredentialRequest createPushCredentialRequest) throws ApiException {
+    Object localVarPostBody = createPushCredentialRequest;
+    
+    // verify the required parameter 'createPushCredentialRequest' is set
+    if (createPushCredentialRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'createPushCredentialRequest' when calling createPushCredential");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/mobile_push_credentials";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<PushCredentialResponse> localVarReturnType = new GenericType<PushCredentialResponse>() {};
+
+    return apiClient.invokeAPI("PushCredentialsApi.createPushCredential", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Deletes a mobile push credential
+   * Deletes a mobile push credential based on the given &#x60;push_credential_id&#x60;
+   * @param pushCredentialId The unique identifier of a mobile push credential (required)
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 204 </td><td> The mobile push credential was deleted successfully </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public void deletePushCredentialnById(UUID pushCredentialId) throws ApiException {
-    deletePushCredentialnByIdWithHttpInfo(pushCredentialId);
+  public void deletePushCredentialById(UUID pushCredentialId) throws ApiException {
+    deletePushCredentialByIdWithHttpInfo(pushCredentialId);
   }
 
   /**
-   * Deletes a push credential
-   * Deletes a push credential based on the given &#x60;id&#x60;
-   * @param pushCredentialId The unique identifier of a push credential (required)
+   * Deletes a mobile push credential
+   * Deletes a mobile push credential based on the given &#x60;push_credential_id&#x60;
+   * @param pushCredentialId The unique identifier of a mobile push credential (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 204 </td><td> The push credential was deleted successfully </td><td>  -  </td></tr>
+       <tr><td> 204 </td><td> The mobile push credential was deleted successfully </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deletePushCredentialnByIdWithHttpInfo(UUID pushCredentialId) throws ApiException {
+  public ApiResponse<Void> deletePushCredentialByIdWithHttpInfo(UUID pushCredentialId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'pushCredentialId' is set
     if (pushCredentialId == null) {
-      throw new ApiException(400, "Missing the required parameter 'pushCredentialId' when calling deletePushCredentialnById");
+      throw new ApiException(400, "Missing the required parameter 'pushCredentialId' when calling deletePushCredentialById");
     }
     
     // create path and map variables
-    String localVarPath = "/push_credentials/{push_credential_id}"
+    String localVarPath = "/mobile_push_credentials/{push_credential_id}"
       .replaceAll("\\{" + "push_credential_id" + "\\}", apiClient.escapeString(pushCredentialId.toString()));
 
     // query params
@@ -117,20 +187,20 @@ public class PushCredentialsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("PushCredentialsApi.deletePushCredentialnById", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("PushCredentialsApi.deletePushCredentialById", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, null, false);
   }
   /**
-   * Retrieves a push credential
-   * Retrieves push credential based on the given &#x60;id&#x60;
-   * @param pushCredentialId The unique identifier of a push credential (required)
+   * Retrieves a mobile push credential
+   * Retrieves mobile push credential based on the given &#x60;push_credential_id&#x60;
+   * @param pushCredentialId The unique identifier of a mobile push credential (required)
    * @return PushCredentialResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful get push credential response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful get mobile push credential response </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
@@ -141,15 +211,15 @@ public class PushCredentialsApi {
   }
 
   /**
-   * Retrieves a push credential
-   * Retrieves push credential based on the given &#x60;id&#x60;
-   * @param pushCredentialId The unique identifier of a push credential (required)
+   * Retrieves a mobile push credential
+   * Retrieves mobile push credential based on the given &#x60;push_credential_id&#x60;
+   * @param pushCredentialId The unique identifier of a mobile push credential (required)
    * @return ApiResponse&lt;PushCredentialResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful get push credential response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful get mobile push credential response </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
@@ -164,7 +234,7 @@ public class PushCredentialsApi {
     }
     
     // create path and map variables
-    String localVarPath = "/push_credentials/{push_credential_id}"
+    String localVarPath = "/mobile_push_credentials/{push_credential_id}"
       .replaceAll("\\{" + "push_credential_id" + "\\}", apiClient.escapeString(pushCredentialId.toString()));
 
     // query params
@@ -196,56 +266,46 @@ public class PushCredentialsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Retrieves push credentials associated to a mobile application
-   * Retrieves push credentials for a given mobile application based on filters for a user
-   * @param mobileApplicationId The unique identifier of a mobile application (required)
-   * @param filterCreatedAtEq ISO 8601 date for filtering credentials created on that date (optional)
-   * @param filterCreatedAtGte ISO 8601 date for filtering credentials created after that date (optional)
-   * @param filterCreatedAtLte ISO 8601 date for filtering credentials created before that date (optional)
-   * @param filterAlias Unique push credential alias (optional)
-   * @return List&lt;PushCredentialResponse&gt;
+   * List mobile push credentials
+   * List mobile push credentials
+   * @param filterType type of mobile push credentials (optional)
+   * @param filterAlias Unique mobile push credential alias (optional)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @return ListPushCredentialsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Mobile application created </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Mobile mobile push credentials </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public List<PushCredentialResponse> getPushCredentials(UUID mobileApplicationId, LocalDate filterCreatedAtEq, LocalDate filterCreatedAtGte, LocalDate filterCreatedAtLte, String filterAlias) throws ApiException {
-    return getPushCredentialsWithHttpInfo(mobileApplicationId, filterCreatedAtEq, filterCreatedAtGte, filterCreatedAtLte, filterAlias).getData();
+  public ListPushCredentialsResponse listPushCredentials(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
+    return listPushCredentialsWithHttpInfo(filterType, filterAlias, pageSize, pageNumber).getData();
   }
 
   /**
-   * Retrieves push credentials associated to a mobile application
-   * Retrieves push credentials for a given mobile application based on filters for a user
-   * @param mobileApplicationId The unique identifier of a mobile application (required)
-   * @param filterCreatedAtEq ISO 8601 date for filtering credentials created on that date (optional)
-   * @param filterCreatedAtGte ISO 8601 date for filtering credentials created after that date (optional)
-   * @param filterCreatedAtLte ISO 8601 date for filtering credentials created before that date (optional)
-   * @param filterAlias Unique push credential alias (optional)
-   * @return ApiResponse&lt;List&lt;PushCredentialResponse&gt;&gt;
+   * List mobile push credentials
+   * List mobile push credentials
+   * @param filterType type of mobile push credentials (optional)
+   * @param filterAlias Unique mobile push credential alias (optional)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @return ApiResponse&lt;ListPushCredentialsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Mobile application created </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Mobile mobile push credentials </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<List<PushCredentialResponse>> getPushCredentialsWithHttpInfo(UUID mobileApplicationId, LocalDate filterCreatedAtEq, LocalDate filterCreatedAtGte, LocalDate filterCreatedAtLte, String filterAlias) throws ApiException {
+  public ApiResponse<ListPushCredentialsResponse> listPushCredentialsWithHttpInfo(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'mobileApplicationId' is set
-    if (mobileApplicationId == null) {
-      throw new ApiException(400, "Missing the required parameter 'mobileApplicationId' when calling getPushCredentials");
-    }
-    
     // create path and map variables
-    String localVarPath = "/mobile_applications/{mobile_application_id}/push_credentials"
-      .replaceAll("\\{" + "mobile_application_id" + "\\}", apiClient.escapeString(mobileApplicationId.toString()));
+    String localVarPath = "/mobile_push_credentials";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -253,10 +313,10 @@ public class PushCredentialsApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][eq]", filterCreatedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][gte]", filterCreatedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][lte]", filterCreatedAtLte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[type]", filterType));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[alias]", filterAlias));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
 
     
     
@@ -273,86 +333,10 @@ public class PushCredentialsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<List<PushCredentialResponse>> localVarReturnType = new GenericType<List<PushCredentialResponse>>() {};
+    GenericType<ListPushCredentialsResponse> localVarReturnType = new GenericType<ListPushCredentialsResponse>() {};
 
-    return apiClient.invokeAPI("PushCredentialsApi.getPushCredentials", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("PushCredentialsApi.listPushCredentials", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * Updates a push credential
-   * Updates a push credential based on the given &#x60;id&#x60;
-   * @param pushCredentialId The unique identifier of a push credential (required)
-   * @param UNKNOWN_BASE_TYPE Push credential parameters that need to be sent in the request (optional)
-   * @return PushCredentialResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> The push credential was updated successfully </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
-     </table>
-   */
-  public PushCredentialResponse updatePushCredentialById(UUID pushCredentialId, UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE) throws ApiException {
-    return updatePushCredentialByIdWithHttpInfo(pushCredentialId, UNKNOWN_BASE_TYPE).getData();
-  }
-
-  /**
-   * Updates a push credential
-   * Updates a push credential based on the given &#x60;id&#x60;
-   * @param pushCredentialId The unique identifier of a push credential (required)
-   * @param UNKNOWN_BASE_TYPE Push credential parameters that need to be sent in the request (optional)
-   * @return ApiResponse&lt;PushCredentialResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> The push credential was updated successfully </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<PushCredentialResponse> updatePushCredentialByIdWithHttpInfo(UUID pushCredentialId, UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE) throws ApiException {
-    Object localVarPostBody = UNKNOWN_BASE_TYPE;
-    
-    // verify the required parameter 'pushCredentialId' is set
-    if (pushCredentialId == null) {
-      throw new ApiException(400, "Missing the required parameter 'pushCredentialId' when calling updatePushCredentialById");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/push_credentials/{push_credential_id}"
-      .replaceAll("\\{" + "push_credential_id" + "\\}", apiClient.escapeString(pushCredentialId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<PushCredentialResponse> localVarReturnType = new GenericType<PushCredentialResponse>() {};
-
-    return apiClient.invokeAPI("PushCredentialsApi.updatePushCredentialById", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, true);
   }
 }

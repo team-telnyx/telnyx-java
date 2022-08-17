@@ -29,8 +29,9 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * Message
+ * 
  */
+@ApiModel(description = "")
 @JsonPropertyOrder({
   Message.JSON_PROPERTY_RECORD_TYPE,
   Message.JSON_PROPERTY_ID
@@ -77,6 +78,14 @@ public class Message {
   private String id;
 
   public Message() { 
+  }
+
+  @JsonCreator
+  public Message(
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) RecordTypeEnum recordType
+  ) {
+    this();
+    this.recordType = recordType;
   }
 
    /**

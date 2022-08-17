@@ -6,10 +6,10 @@ HTTP request and response information.
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**request** | [**Object**](Object.md) | Request details. |  [optional]
-**response** | [**Object**](Object.md) | Response details, optional. |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**request** | [**HttpRequest**](HttpRequest.md) |  |  [optional] |
+|**response** | [**HttpResponse**](HttpResponse.md) |  |  [optional] |
 
 
 

@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## findPortoutComments
 
-> ListPortoutComments findPortoutComments(id)
+> FindPortoutComments200Response findPortoutComments(id)
 
 List all comments for a portout request
 
@@ -46,7 +46,7 @@ public class Example {
         NumberPortoutApi apiInstance = new NumberPortoutApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Portout id
         try {
-            ListPortoutComments result = apiInstance.findPortoutComments(id);
+            FindPortoutComments200Response result = apiInstance.findPortoutComments(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberPortoutApi#findPortoutComments");
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPortoutComments**](ListPortoutComments.md)
+[**FindPortoutComments200Response**](FindPortoutComments200Response.md)
 
 ### Authorization
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ## findPortoutRequest
 
-> PortoutResponse findPortoutRequest(id)
+> FindPortoutRequest200Response findPortoutRequest(id)
 
 Get a portout request
 
@@ -120,7 +120,7 @@ public class Example {
         NumberPortoutApi apiInstance = new NumberPortoutApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Portout id
         try {
-            PortoutResponse result = apiInstance.findPortoutRequest(id);
+            FindPortoutRequest200Response result = apiInstance.findPortoutRequest(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberPortoutApi#findPortoutRequest");
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PortoutResponse**](PortoutResponse.md)
+[**FindPortoutRequest200Response**](FindPortoutRequest200Response.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 ## getPortRequestSupportingDocuments
 
-> PortOutListSupportingDocumentsResponse getPortRequestSupportingDocuments(id)
+> GetPortRequestSupportingDocuments201Response getPortRequestSupportingDocuments(id)
 
 List supporting documents on a portout request
 
@@ -194,7 +194,7 @@ public class Example {
         NumberPortoutApi apiInstance = new NumberPortoutApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Portout id
         try {
-            PortOutListSupportingDocumentsResponse result = apiInstance.getPortRequestSupportingDocuments(id);
+            GetPortRequestSupportingDocuments201Response result = apiInstance.getPortRequestSupportingDocuments(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberPortoutApi#getPortRequestSupportingDocuments");
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PortOutListSupportingDocumentsResponse**](PortOutListSupportingDocumentsResponse.md)
+[**GetPortRequestSupportingDocuments201Response**](GetPortRequestSupportingDocuments201Response.md)
 
 ### Authorization
 
@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 
 ## listPortoutRequest
 
-> ListPortoutResponse listPortoutRequest(filterCarrierName, filterSpid, filterStatus, pageNumber, pageSize)
+> ListPortoutRequest200Response listPortoutRequest(filterCarrierName, filterSpid, filterStatus, pageNumber, pageSize)
 
 List portout requests
 
@@ -270,7 +270,7 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListPortoutResponse result = apiInstance.listPortoutRequest(filterCarrierName, filterSpid, filterStatus, pageNumber, pageSize);
+            ListPortoutRequest200Response result = apiInstance.listPortoutRequest(filterCarrierName, filterSpid, filterStatus, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberPortoutApi#listPortoutRequest");
@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPortoutResponse**](ListPortoutResponse.md)
+[**ListPortoutRequest200Response**](ListPortoutRequest200Response.md)
 
 ### Authorization
 
@@ -318,7 +318,7 @@ Name | Type | Description  | Notes
 
 ## postPortRequestComment
 
-> PortoutCommentResposne postPortRequestComment(id, createCommentPortoutRequest)
+> PostPortRequestComment201Response postPortRequestComment(id, postPortRequestCommentRequest)
 
 Create a comment on a portout request
 
@@ -347,9 +347,9 @@ public class Example {
 
         NumberPortoutApi apiInstance = new NumberPortoutApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Portout id
-        CreateCommentPortoutRequest createCommentPortoutRequest = new CreateCommentPortoutRequest(); // CreateCommentPortoutRequest | 
+        PostPortRequestCommentRequest postPortRequestCommentRequest = new PostPortRequestCommentRequest(); // PostPortRequestCommentRequest | 
         try {
-            PortoutCommentResposne result = apiInstance.postPortRequestComment(id, createCommentPortoutRequest);
+            PostPortRequestComment201Response result = apiInstance.postPortRequestComment(id, postPortRequestCommentRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberPortoutApi#postPortRequestComment");
@@ -368,11 +368,11 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| Portout id |
- **createCommentPortoutRequest** | [**CreateCommentPortoutRequest**](CreateCommentPortoutRequest.md)|  |
+ **postPortRequestCommentRequest** | [**PostPortRequestCommentRequest**](PostPortRequestCommentRequest.md)|  |
 
 ### Return type
 
-[**PortoutCommentResposne**](PortoutCommentResposne.md)
+[**PostPortRequestComment201Response**](PostPortRequestComment201Response.md)
 
 ### Authorization
 
@@ -394,7 +394,7 @@ Name | Type | Description  | Notes
 
 ## postPortRequestSupportingDocuments
 
-> CreatePortOutSupportingDocumentsResponse postPortRequestSupportingDocuments(id, createPortingSupportingDocsRequest)
+> GetPortRequestSupportingDocuments201Response postPortRequestSupportingDocuments(id, postPortRequestSupportingDocumentsRequest)
 
 Create a list of supporting documents on a portout request
 
@@ -423,9 +423,9 @@ public class Example {
 
         NumberPortoutApi apiInstance = new NumberPortoutApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Portout id
-        CreatePortingSupportingDocsRequest createPortingSupportingDocsRequest = new CreatePortingSupportingDocsRequest(); // CreatePortingSupportingDocsRequest | 
+        PostPortRequestSupportingDocumentsRequest postPortRequestSupportingDocumentsRequest = new PostPortRequestSupportingDocumentsRequest(); // PostPortRequestSupportingDocumentsRequest | 
         try {
-            CreatePortOutSupportingDocumentsResponse result = apiInstance.postPortRequestSupportingDocuments(id, createPortingSupportingDocsRequest);
+            GetPortRequestSupportingDocuments201Response result = apiInstance.postPortRequestSupportingDocuments(id, postPortRequestSupportingDocumentsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberPortoutApi#postPortRequestSupportingDocuments");
@@ -444,11 +444,11 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| Portout id |
- **createPortingSupportingDocsRequest** | [**CreatePortingSupportingDocsRequest**](CreatePortingSupportingDocsRequest.md)|  |
+ **postPortRequestSupportingDocumentsRequest** | [**PostPortRequestSupportingDocumentsRequest**](PostPortRequestSupportingDocumentsRequest.md)|  |
 
 ### Return type
 
-[**CreatePortOutSupportingDocumentsResponse**](CreatePortOutSupportingDocumentsResponse.md)
+[**GetPortRequestSupportingDocuments201Response**](GetPortRequestSupportingDocuments201Response.md)
 
 ### Authorization
 
@@ -470,7 +470,7 @@ Name | Type | Description  | Notes
 
 ## updatePortoutRequest
 
-> PortoutResponse updatePortoutRequest(id, status, updatePortoutStatusRequest)
+> FindPortoutRequest200Response updatePortoutRequest(id, status, updatePortoutRequestRequest)
 
 Update Status
 
@@ -500,9 +500,9 @@ public class Example {
         NumberPortoutApi apiInstance = new NumberPortoutApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Portout id
         String status = "authorized"; // String | Updated portout status
-        UpdatePortoutStatusRequest updatePortoutStatusRequest = new UpdatePortoutStatusRequest(); // UpdatePortoutStatusRequest | 
+        UpdatePortoutRequestRequest updatePortoutRequestRequest = new UpdatePortoutRequestRequest(); // UpdatePortoutRequestRequest | 
         try {
-            PortoutResponse result = apiInstance.updatePortoutRequest(id, status, updatePortoutStatusRequest);
+            FindPortoutRequest200Response result = apiInstance.updatePortoutRequest(id, status, updatePortoutRequestRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NumberPortoutApi#updatePortoutRequest");
@@ -522,11 +522,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| Portout id |
  **status** | **String**| Updated portout status | [enum: authorized, rejected-pending]
- **updatePortoutStatusRequest** | [**UpdatePortoutStatusRequest**](UpdatePortoutStatusRequest.md)|  |
+ **updatePortoutRequestRequest** | [**UpdatePortoutRequestRequest**](UpdatePortoutRequestRequest.md)|  |
 
 ### Return type
 
-[**PortoutResponse**](PortoutResponse.md)
+[**FindPortoutRequest200Response**](FindPortoutRequest200Response.md)
 
 ### Authorization
 

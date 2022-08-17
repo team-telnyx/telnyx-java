@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.NotificationSettingParameters;
+import com.telnyx.sdk.model.NotificationSettingParametersInner;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
@@ -118,7 +118,7 @@ public class NotificationSetting {
   private String notificationChannelId;
 
   public static final String JSON_PROPERTY_PARAMETERS = "parameters";
-  private List<NotificationSettingParameters> parameters = null;
+  private List<NotificationSettingParametersInner> parameters = null;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private OffsetDateTime createdAt;
@@ -127,6 +127,24 @@ public class NotificationSetting {
   private OffsetDateTime updatedAt;
 
   public NotificationSetting() { 
+  }
+
+  @JsonCreator
+  public NotificationSetting(
+    @JsonProperty(JSON_PROPERTY_ID) String id, 
+    @JsonProperty(JSON_PROPERTY_ASSOCIATED_RECORD_TYPE) String associatedRecordType, 
+    @JsonProperty(JSON_PROPERTY_ASSOCIATED_RECORD_TYPE_VALUE) String associatedRecordTypeValue, 
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) OffsetDateTime createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) OffsetDateTime updatedAt
+  ) {
+    this();
+    this.id = id;
+    this.associatedRecordType = associatedRecordType;
+    this.associatedRecordTypeValue = associatedRecordTypeValue;
+    this.status = status;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
    /**
@@ -271,12 +289,12 @@ public class NotificationSetting {
   }
 
 
-  public NotificationSetting parameters(List<NotificationSettingParameters> parameters) {
+  public NotificationSetting parameters(List<NotificationSettingParametersInner> parameters) {
     this.parameters = parameters;
     return this;
   }
 
-  public NotificationSetting addParametersItem(NotificationSettingParameters parametersItem) {
+  public NotificationSetting addParametersItem(NotificationSettingParametersInner parametersItem) {
     if (this.parameters == null) {
       this.parameters = new ArrayList<>();
     }
@@ -293,14 +311,14 @@ public class NotificationSetting {
   @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<NotificationSettingParameters> getParameters() {
+  public List<NotificationSettingParametersInner> getParameters() {
     return parameters;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParameters(List<NotificationSettingParameters> parameters) {
+  public void setParameters(List<NotificationSettingParametersInner> parameters) {
     this.parameters = parameters;
   }
 

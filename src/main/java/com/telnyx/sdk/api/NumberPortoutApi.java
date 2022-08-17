@@ -8,16 +8,15 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreateCommentPortoutRequest;
-import com.telnyx.sdk.model.CreatePortOutSupportingDocumentsResponse;
-import com.telnyx.sdk.model.CreatePortingSupportingDocsRequest;
-import com.telnyx.sdk.model.ListPortoutComments;
-import com.telnyx.sdk.model.ListPortoutResponse;
-import com.telnyx.sdk.model.PortOutListSupportingDocumentsResponse;
-import com.telnyx.sdk.model.PortoutCommentResposne;
-import com.telnyx.sdk.model.PortoutResponse;
+import com.telnyx.sdk.model.FindPortoutComments200Response;
+import com.telnyx.sdk.model.FindPortoutRequest200Response;
+import com.telnyx.sdk.model.GetPortRequestSupportingDocuments201Response;
+import com.telnyx.sdk.model.ListPortoutRequest200Response;
+import com.telnyx.sdk.model.PostPortRequestComment201Response;
+import com.telnyx.sdk.model.PostPortRequestCommentRequest;
+import com.telnyx.sdk.model.PostPortRequestSupportingDocumentsRequest;
 import java.util.UUID;
-import com.telnyx.sdk.model.UpdatePortoutStatusRequest;
+import com.telnyx.sdk.model.UpdatePortoutRequestRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +57,7 @@ public class NumberPortoutApi {
    * List all comments for a portout request
    * Returns a list of comments for a portout request.
    * @param id Portout id (required)
-   * @return ListPortoutComments
+   * @return FindPortoutComments200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -69,7 +68,7 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortoutComments findPortoutComments(UUID id) throws ApiException {
+  public FindPortoutComments200Response findPortoutComments(UUID id) throws ApiException {
     return findPortoutCommentsWithHttpInfo(id).getData();
   }
 
@@ -77,7 +76,7 @@ public class NumberPortoutApi {
    * List all comments for a portout request
    * Returns a list of comments for a portout request.
    * @param id Portout id (required)
-   * @return ApiResponse&lt;ListPortoutComments&gt;
+   * @return ApiResponse&lt;FindPortoutComments200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -88,7 +87,7 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortoutComments> findPortoutCommentsWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<FindPortoutComments200Response> findPortoutCommentsWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -122,7 +121,7 @@ public class NumberPortoutApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListPortoutComments> localVarReturnType = new GenericType<ListPortoutComments>() {};
+    GenericType<FindPortoutComments200Response> localVarReturnType = new GenericType<FindPortoutComments200Response>() {};
 
     return apiClient.invokeAPI("NumberPortoutApi.findPortoutComments", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -132,7 +131,7 @@ public class NumberPortoutApi {
    * Get a portout request
    * Returns the portout request based on the ID provided
    * @param id Portout id (required)
-   * @return PortoutResponse
+   * @return FindPortoutRequest200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -143,7 +142,7 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public PortoutResponse findPortoutRequest(UUID id) throws ApiException {
+  public FindPortoutRequest200Response findPortoutRequest(UUID id) throws ApiException {
     return findPortoutRequestWithHttpInfo(id).getData();
   }
 
@@ -151,7 +150,7 @@ public class NumberPortoutApi {
    * Get a portout request
    * Returns the portout request based on the ID provided
    * @param id Portout id (required)
-   * @return ApiResponse&lt;PortoutResponse&gt;
+   * @return ApiResponse&lt;FindPortoutRequest200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -162,7 +161,7 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PortoutResponse> findPortoutRequestWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<FindPortoutRequest200Response> findPortoutRequestWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -196,7 +195,7 @@ public class NumberPortoutApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PortoutResponse> localVarReturnType = new GenericType<PortoutResponse>() {};
+    GenericType<FindPortoutRequest200Response> localVarReturnType = new GenericType<FindPortoutRequest200Response>() {};
 
     return apiClient.invokeAPI("NumberPortoutApi.findPortoutRequest", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -206,7 +205,7 @@ public class NumberPortoutApi {
    * List supporting documents on a portout request
    * List every supporting documents for a portout request.
    * @param id Portout id (required)
-   * @return PortOutListSupportingDocumentsResponse
+   * @return GetPortRequestSupportingDocuments201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -216,7 +215,7 @@ public class NumberPortoutApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public PortOutListSupportingDocumentsResponse getPortRequestSupportingDocuments(UUID id) throws ApiException {
+  public GetPortRequestSupportingDocuments201Response getPortRequestSupportingDocuments(UUID id) throws ApiException {
     return getPortRequestSupportingDocumentsWithHttpInfo(id).getData();
   }
 
@@ -224,7 +223,7 @@ public class NumberPortoutApi {
    * List supporting documents on a portout request
    * List every supporting documents for a portout request.
    * @param id Portout id (required)
-   * @return ApiResponse&lt;PortOutListSupportingDocumentsResponse&gt;
+   * @return ApiResponse&lt;GetPortRequestSupportingDocuments201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -234,7 +233,7 @@ public class NumberPortoutApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PortOutListSupportingDocumentsResponse> getPortRequestSupportingDocumentsWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<GetPortRequestSupportingDocuments201Response> getPortRequestSupportingDocumentsWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -268,7 +267,7 @@ public class NumberPortoutApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PortOutListSupportingDocumentsResponse> localVarReturnType = new GenericType<PortOutListSupportingDocumentsResponse>() {};
+    GenericType<GetPortRequestSupportingDocuments201Response> localVarReturnType = new GenericType<GetPortRequestSupportingDocuments201Response>() {};
 
     return apiClient.invokeAPI("NumberPortoutApi.getPortRequestSupportingDocuments", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -282,7 +281,7 @@ public class NumberPortoutApi {
    * @param filterStatus Filter by portout status. (optional)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ListPortoutResponse
+   * @return ListPortoutRequest200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -293,7 +292,7 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortoutResponse listPortoutRequest(String filterCarrierName, String filterSpid, String filterStatus, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ListPortoutRequest200Response listPortoutRequest(String filterCarrierName, String filterSpid, String filterStatus, Integer pageNumber, Integer pageSize) throws ApiException {
     return listPortoutRequestWithHttpInfo(filterCarrierName, filterSpid, filterStatus, pageNumber, pageSize).getData();
   }
 
@@ -305,7 +304,7 @@ public class NumberPortoutApi {
    * @param filterStatus Filter by portout status. (optional)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;ListPortoutResponse&gt;
+   * @return ApiResponse&lt;ListPortoutRequest200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -316,7 +315,7 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortoutResponse> listPortoutRequestWithHttpInfo(String filterCarrierName, String filterSpid, String filterStatus, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<ListPortoutRequest200Response> listPortoutRequestWithHttpInfo(String filterCarrierName, String filterSpid, String filterStatus, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -349,7 +348,7 @@ public class NumberPortoutApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListPortoutResponse> localVarReturnType = new GenericType<ListPortoutResponse>() {};
+    GenericType<ListPortoutRequest200Response> localVarReturnType = new GenericType<ListPortoutRequest200Response>() {};
 
     return apiClient.invokeAPI("NumberPortoutApi.listPortoutRequest", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -359,8 +358,8 @@ public class NumberPortoutApi {
    * Create a comment on a portout request
    * Creates a comment on a portout request.
    * @param id Portout id (required)
-   * @param createCommentPortoutRequest  (required)
-   * @return PortoutCommentResposne
+   * @param postPortRequestCommentRequest  (required)
+   * @return PostPortRequestComment201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -371,16 +370,16 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public PortoutCommentResposne postPortRequestComment(UUID id, CreateCommentPortoutRequest createCommentPortoutRequest) throws ApiException {
-    return postPortRequestCommentWithHttpInfo(id, createCommentPortoutRequest).getData();
+  public PostPortRequestComment201Response postPortRequestComment(UUID id, PostPortRequestCommentRequest postPortRequestCommentRequest) throws ApiException {
+    return postPortRequestCommentWithHttpInfo(id, postPortRequestCommentRequest).getData();
   }
 
   /**
    * Create a comment on a portout request
    * Creates a comment on a portout request.
    * @param id Portout id (required)
-   * @param createCommentPortoutRequest  (required)
-   * @return ApiResponse&lt;PortoutCommentResposne&gt;
+   * @param postPortRequestCommentRequest  (required)
+   * @return ApiResponse&lt;PostPortRequestComment201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -391,17 +390,17 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PortoutCommentResposne> postPortRequestCommentWithHttpInfo(UUID id, CreateCommentPortoutRequest createCommentPortoutRequest) throws ApiException {
-    Object localVarPostBody = createCommentPortoutRequest;
+  public ApiResponse<PostPortRequestComment201Response> postPortRequestCommentWithHttpInfo(UUID id, PostPortRequestCommentRequest postPortRequestCommentRequest) throws ApiException {
+    Object localVarPostBody = postPortRequestCommentRequest;
     
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling postPortRequestComment");
     }
     
-    // verify the required parameter 'createCommentPortoutRequest' is set
-    if (createCommentPortoutRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createCommentPortoutRequest' when calling postPortRequestComment");
+    // verify the required parameter 'postPortRequestCommentRequest' is set
+    if (postPortRequestCommentRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'postPortRequestCommentRequest' when calling postPortRequestComment");
     }
     
     // create path and map variables
@@ -430,7 +429,7 @@ public class NumberPortoutApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PortoutCommentResposne> localVarReturnType = new GenericType<PortoutCommentResposne>() {};
+    GenericType<PostPortRequestComment201Response> localVarReturnType = new GenericType<PostPortRequestComment201Response>() {};
 
     return apiClient.invokeAPI("NumberPortoutApi.postPortRequestComment", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -440,8 +439,8 @@ public class NumberPortoutApi {
    * Create a list of supporting documents on a portout request
    * Creates a list of supporting documents on a portout request.
    * @param id Portout id (required)
-   * @param createPortingSupportingDocsRequest  (required)
-   * @return CreatePortOutSupportingDocumentsResponse
+   * @param postPortRequestSupportingDocumentsRequest  (required)
+   * @return GetPortRequestSupportingDocuments201Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -452,16 +451,16 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePortOutSupportingDocumentsResponse postPortRequestSupportingDocuments(UUID id, CreatePortingSupportingDocsRequest createPortingSupportingDocsRequest) throws ApiException {
-    return postPortRequestSupportingDocumentsWithHttpInfo(id, createPortingSupportingDocsRequest).getData();
+  public GetPortRequestSupportingDocuments201Response postPortRequestSupportingDocuments(UUID id, PostPortRequestSupportingDocumentsRequest postPortRequestSupportingDocumentsRequest) throws ApiException {
+    return postPortRequestSupportingDocumentsWithHttpInfo(id, postPortRequestSupportingDocumentsRequest).getData();
   }
 
   /**
    * Create a list of supporting documents on a portout request
    * Creates a list of supporting documents on a portout request.
    * @param id Portout id (required)
-   * @param createPortingSupportingDocsRequest  (required)
-   * @return ApiResponse&lt;CreatePortOutSupportingDocumentsResponse&gt;
+   * @param postPortRequestSupportingDocumentsRequest  (required)
+   * @return ApiResponse&lt;GetPortRequestSupportingDocuments201Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -472,17 +471,17 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePortOutSupportingDocumentsResponse> postPortRequestSupportingDocumentsWithHttpInfo(UUID id, CreatePortingSupportingDocsRequest createPortingSupportingDocsRequest) throws ApiException {
-    Object localVarPostBody = createPortingSupportingDocsRequest;
+  public ApiResponse<GetPortRequestSupportingDocuments201Response> postPortRequestSupportingDocumentsWithHttpInfo(UUID id, PostPortRequestSupportingDocumentsRequest postPortRequestSupportingDocumentsRequest) throws ApiException {
+    Object localVarPostBody = postPortRequestSupportingDocumentsRequest;
     
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling postPortRequestSupportingDocuments");
     }
     
-    // verify the required parameter 'createPortingSupportingDocsRequest' is set
-    if (createPortingSupportingDocsRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPortingSupportingDocsRequest' when calling postPortRequestSupportingDocuments");
+    // verify the required parameter 'postPortRequestSupportingDocumentsRequest' is set
+    if (postPortRequestSupportingDocumentsRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'postPortRequestSupportingDocumentsRequest' when calling postPortRequestSupportingDocuments");
     }
     
     // create path and map variables
@@ -511,7 +510,7 @@ public class NumberPortoutApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreatePortOutSupportingDocumentsResponse> localVarReturnType = new GenericType<CreatePortOutSupportingDocumentsResponse>() {};
+    GenericType<GetPortRequestSupportingDocuments201Response> localVarReturnType = new GenericType<GetPortRequestSupportingDocuments201Response>() {};
 
     return apiClient.invokeAPI("NumberPortoutApi.postPortRequestSupportingDocuments", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -522,8 +521,8 @@ public class NumberPortoutApi {
    * Authorize or reject portout request
    * @param id Portout id (required)
    * @param status Updated portout status (required)
-   * @param updatePortoutStatusRequest  (required)
-   * @return PortoutResponse
+   * @param updatePortoutRequestRequest  (required)
+   * @return FindPortoutRequest200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -534,8 +533,8 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public PortoutResponse updatePortoutRequest(UUID id, String status, UpdatePortoutStatusRequest updatePortoutStatusRequest) throws ApiException {
-    return updatePortoutRequestWithHttpInfo(id, status, updatePortoutStatusRequest).getData();
+  public FindPortoutRequest200Response updatePortoutRequest(UUID id, String status, UpdatePortoutRequestRequest updatePortoutRequestRequest) throws ApiException {
+    return updatePortoutRequestWithHttpInfo(id, status, updatePortoutRequestRequest).getData();
   }
 
   /**
@@ -543,8 +542,8 @@ public class NumberPortoutApi {
    * Authorize or reject portout request
    * @param id Portout id (required)
    * @param status Updated portout status (required)
-   * @param updatePortoutStatusRequest  (required)
-   * @return ApiResponse&lt;PortoutResponse&gt;
+   * @param updatePortoutRequestRequest  (required)
+   * @return ApiResponse&lt;FindPortoutRequest200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -555,8 +554,8 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PortoutResponse> updatePortoutRequestWithHttpInfo(UUID id, String status, UpdatePortoutStatusRequest updatePortoutStatusRequest) throws ApiException {
-    Object localVarPostBody = updatePortoutStatusRequest;
+  public ApiResponse<FindPortoutRequest200Response> updatePortoutRequestWithHttpInfo(UUID id, String status, UpdatePortoutRequestRequest updatePortoutRequestRequest) throws ApiException {
+    Object localVarPostBody = updatePortoutRequestRequest;
     
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -568,9 +567,9 @@ public class NumberPortoutApi {
       throw new ApiException(400, "Missing the required parameter 'status' when calling updatePortoutRequest");
     }
     
-    // verify the required parameter 'updatePortoutStatusRequest' is set
-    if (updatePortoutStatusRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updatePortoutStatusRequest' when calling updatePortoutRequest");
+    // verify the required parameter 'updatePortoutRequestRequest' is set
+    if (updatePortoutRequestRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'updatePortoutRequestRequest' when calling updatePortoutRequest");
     }
     
     // create path and map variables
@@ -600,7 +599,7 @@ public class NumberPortoutApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PortoutResponse> localVarReturnType = new GenericType<PortoutResponse>() {};
+    GenericType<FindPortoutRequest200Response> localVarReturnType = new GenericType<FindPortoutRequest200Response>() {};
 
     return apiClient.invokeAPI("NumberPortoutApi.updatePortoutRequest", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

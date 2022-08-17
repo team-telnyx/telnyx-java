@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## docReqsListRequirementTypes
 
-> DocReqsListRequirementTypesResponse docReqsListRequirementTypes(filterNameContains, sort)
+> DocReqsListRequirementTypes200Response docReqsListRequirementTypes(filterNameContains, sort)
 
 List all requirement types
 
@@ -41,7 +41,7 @@ public class Example {
         String filterNameContains = "utility bill"; // String | Filters requirement types to those whose name contains a certain string.
         String sort = "created_at"; // String | Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name.
         try {
-            DocReqsListRequirementTypesResponse result = apiInstance.docReqsListRequirementTypes(filterNameContains, sort);
+            DocReqsListRequirementTypes200Response result = apiInstance.docReqsListRequirementTypes(filterNameContains, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RequirementTypesApi#docReqsListRequirementTypes");
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocReqsListRequirementTypesResponse**](DocReqsListRequirementTypesResponse.md)
+[**DocReqsListRequirementTypes200Response**](DocReqsListRequirementTypes200Response.md)
 
 ### Authorization
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## docReqsRetrieveRequirementType
 
-> DocReqsRequirementTypeResponse docReqsRetrieveRequirementType(id)
+> DocReqsRetrieveRequirementType200Response docReqsRetrieveRequirementType(id)
 
 Retrieve a requirement types
 
@@ -114,7 +114,7 @@ public class Example {
         RequirementTypesApi apiInstance = new RequirementTypesApi(defaultClient);
         UUID id = UUID.fromString("a38c217a-8019-48f8-bff6-0fdd9939075b"); // UUID | Uniquely identifies the requirement_type record
         try {
-            DocReqsRequirementTypeResponse result = apiInstance.docReqsRetrieveRequirementType(id);
+            DocReqsRetrieveRequirementType200Response result = apiInstance.docReqsRetrieveRequirementType(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RequirementTypesApi#docReqsRetrieveRequirementType");
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocReqsRequirementTypeResponse**](DocReqsRequirementTypeResponse.md)
+[**DocReqsRetrieveRequirementType200Response**](DocReqsRetrieveRequirementType200Response.md)
 
 ### Authorization
 

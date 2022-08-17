@@ -15,6 +15,7 @@ import com.telnyx.sdk.model.CallRequest;
 import com.telnyx.sdk.model.ClientStateUpdateRequest;
 import com.telnyx.sdk.model.EnqueueRequest;
 import com.telnyx.sdk.model.Errors;
+import com.telnyx.sdk.model.GatherRequest;
 import com.telnyx.sdk.model.GatherUsingAudioRequest;
 import com.telnyx.sdk.model.GatherUsingSpeakRequest;
 import com.telnyx.sdk.model.HangupRequest;
@@ -76,7 +77,7 @@ public class CallCommandsApi {
 
   /**
    * Answer call
-   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60; and &#x60;streaming.stopped&#x60; if &#x60;stream_url&#x60; was set
+   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param answerRequest Answer call request (required)
    * @return CallControlCommandResponse
@@ -94,7 +95,7 @@ public class CallCommandsApi {
 
   /**
    * Answer call
-   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60; and &#x60;streaming.stopped&#x60; if &#x60;stream_url&#x60; was set
+   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param answerRequest Answer call request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -230,7 +231,7 @@ public class CallCommandsApi {
   }
   /**
    * Dial
-   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was set to &#x60;detect_beep&#x60;, &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; - &#x60;streaming.started&#x60; and &#x60;streaming.stopped&#x60; if &#x60;stream_url&#x60; was set 
+   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
    * @param callRequest Call request (required)
    * @return RetrieveCallStatusResponse
    * @throws ApiException if fails to make API call
@@ -247,7 +248,7 @@ public class CallCommandsApi {
 
   /**
    * Dial
-   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was set to &#x60;detect_beep&#x60;, &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; - &#x60;streaming.started&#x60; and &#x60;streaming.stopped&#x60; if &#x60;stream_url&#x60; was set 
+   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
    * @param callRequest Call request (required)
    * @return ApiResponse&lt;RetrieveCallStatusResponse&gt;
    * @throws ApiException if fails to make API call
@@ -525,6 +526,83 @@ public class CallCommandsApi {
     GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
 
     return apiClient.invokeAPI("CallCommandsApi.callForkStop", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Gather
+   * Gather DTMF signals to build interactive menus.  You can pass a list of valid digits. The [Answer](/docs/api/v2/call-control/Call-Commands#CallControlAnswer) command must be issued before the &#x60;gather&#x60; command.  **Expected Webhooks:**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param gatherRequest Gather (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callGather(String callControlId, GatherRequest gatherRequest) throws ApiException {
+    return callGatherWithHttpInfo(callControlId, gatherRequest).getData();
+  }
+
+  /**
+   * Gather
+   * Gather DTMF signals to build interactive menus.  You can pass a list of valid digits. The [Answer](/docs/api/v2/call-control/Call-Commands#CallControlAnswer) command must be issued before the &#x60;gather&#x60; command.  **Expected Webhooks:**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param gatherRequest Gather (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callGatherWithHttpInfo(String callControlId, GatherRequest gatherRequest) throws ApiException {
+    Object localVarPostBody = gatherRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callGather");
+    }
+    
+    // verify the required parameter 'gatherRequest' is set
+    if (gatherRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'gatherRequest' when calling callGather");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/gather"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callGather", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -1607,83 +1685,6 @@ public class CallCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Streaming start
-   * Start streaming the media from a call to a specific WebSocket address in near-realtime.  Audio will be delivered as base64-encoded RTP packets, wrapped in JSON payloads.   **Expected Webhooks:**  - &#x60;streaming.started&#x60; - &#x60;streaming.stopped&#x60;  **WebSocket events**  When the WebSocket connection is established, the following event is being sent over it: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;connected\&quot;,   \&quot;version\&quot;: \&quot;1.0.0\&quot; } &#x60;&#x60;&#x60; And when the call is started, an event which contains information about the encoding and &#x60;stream_id&#x60; that identifies a particular stream: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;start\&quot;,   \&quot;sequence_number\&quot;: \&quot;1\&quot;,   \&quot;start\&quot;: {     \&quot;user_id\&quot;: \&quot;3E6F995F-85F7-4705-9741-53B116D28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;,     \&quot;media_format\&quot;: {       \&quot;encoding\&quot;: \&quot;audio/x-mulaw\&quot;,       \&quot;sample_rate\&quot;: 8000,       \&quot;channels\&quot;: 1     }   },   \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot; } &#x60;&#x60;&#x60; The start event is followed by the following media events that contain base64-encoded RTP packets as their payloads: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;sequence_number\&quot;: \&quot;4\&quot;,   \&quot;media\&quot;: {      \&quot;track\&quot;: \&quot;inbound/outbound\&quot;,      \&quot;chunk\&quot;: \&quot;2\&quot;,     \&quot;timestamp\&quot;: \&quot;5\&quot;,     \&quot;payload\&quot;: \&quot;no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic\&quot;                           },   \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot;  } &#x60;&#x60;&#x60; Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.  When the call ends, the stop event over WebSockets connection is sent: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;stop\&quot;,   \&quot;sequence_number\&quot;: \&quot;5\&quot;,   \&quot;stop\&quot;: {     \&quot;user_id\&quot;: \&quot;3E6F995F-85F7-4705-9741-53B116D28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;    },     \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot;   } &#x60;&#x60;&#x60; 
-   * @param callControlId Unique identifier and token for controlling the call (required)
-   * @param startStreamingRequest Start streaming media request (required)
-   * @return CallControlCommandResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public CallControlCommandResponse callStreamingStart(String callControlId, StartStreamingRequest startStreamingRequest) throws ApiException {
-    return callStreamingStartWithHttpInfo(callControlId, startStreamingRequest).getData();
-  }
-
-  /**
-   * Streaming start
-   * Start streaming the media from a call to a specific WebSocket address in near-realtime.  Audio will be delivered as base64-encoded RTP packets, wrapped in JSON payloads.   **Expected Webhooks:**  - &#x60;streaming.started&#x60; - &#x60;streaming.stopped&#x60;  **WebSocket events**  When the WebSocket connection is established, the following event is being sent over it: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;connected\&quot;,   \&quot;version\&quot;: \&quot;1.0.0\&quot; } &#x60;&#x60;&#x60; And when the call is started, an event which contains information about the encoding and &#x60;stream_id&#x60; that identifies a particular stream: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;start\&quot;,   \&quot;sequence_number\&quot;: \&quot;1\&quot;,   \&quot;start\&quot;: {     \&quot;user_id\&quot;: \&quot;3E6F995F-85F7-4705-9741-53B116D28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;,     \&quot;media_format\&quot;: {       \&quot;encoding\&quot;: \&quot;audio/x-mulaw\&quot;,       \&quot;sample_rate\&quot;: 8000,       \&quot;channels\&quot;: 1     }   },   \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot; } &#x60;&#x60;&#x60; The start event is followed by the following media events that contain base64-encoded RTP packets as their payloads: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;sequence_number\&quot;: \&quot;4\&quot;,   \&quot;media\&quot;: {      \&quot;track\&quot;: \&quot;inbound/outbound\&quot;,      \&quot;chunk\&quot;: \&quot;2\&quot;,     \&quot;timestamp\&quot;: \&quot;5\&quot;,     \&quot;payload\&quot;: \&quot;no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic\&quot;                           },   \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot;  } &#x60;&#x60;&#x60; Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.  When the call ends, the stop event over WebSockets connection is sent: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;stop\&quot;,   \&quot;sequence_number\&quot;: \&quot;5\&quot;,   \&quot;stop\&quot;: {     \&quot;user_id\&quot;: \&quot;3E6F995F-85F7-4705-9741-53B116D28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;    },     \&quot;stream_id\&quot;: \&quot;32DE0DEA-53CB-4B21-89A4-9E1819C043BC\&quot;   } &#x60;&#x60;&#x60; 
-   * @param callControlId Unique identifier and token for controlling the call (required)
-   * @param startStreamingRequest Start streaming media request (required)
-   * @return ApiResponse&lt;CallControlCommandResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<CallControlCommandResponse> callStreamingStartWithHttpInfo(String callControlId, StartStreamingRequest startStreamingRequest) throws ApiException {
-    Object localVarPostBody = startStreamingRequest;
-    
-    // verify the required parameter 'callControlId' is set
-    if (callControlId == null) {
-      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callStreamingStart");
-    }
-    
-    // verify the required parameter 'startStreamingRequest' is set
-    if (startStreamingRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'startStreamingRequest' when calling callStreamingStart");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/calls/{call_control_id}/actions/streaming_start"
-      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
-
-    return apiClient.invokeAPI("CallCommandsApi.callStreamingStart", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
    * Streaming stop
    * Stop streaming a call to a WebSocket.  **Expected Webhooks:**  - &#x60;streaming.stopped&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
@@ -1988,6 +1989,83 @@ public class CallCommandsApi {
     GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
 
     return apiClient.invokeAPI("CallCommandsApi.callTransfer", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Streaming start
+   * Start streaming the media from a call to a specific WebSocket address or Dialogflow connection in near-realtime. Audio will be delivered as base64-encoded RTP payload (raw audio), wrapped in JSON payloads.   **Example: Starting a stream to a Websocket address**   The &#x60;stream_url&#x60; param is mandatory.  &#x60;&#x60;&#x60; curl -X POST \\    --header \&quot;Content-Type: application/json\&quot; \\    --header \&quot;Accept: application/json\&quot; \\    --header \&quot;Authorization: Bearer YOUR_API_KEY\&quot; \\    --data &#39;{  \&quot;stream_url\&quot;: \&quot;wss://www.example.com/websocket\&quot;,\\  \&quot;client_state\&quot;:\&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;,\\  \&quot;command_id\&quot;:\&quot;891510ac-f3e4-11e8-af5b-de00688a4901\&quot; \\  }&#39; \\    https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start  &#x60;&#x60;&#x60;    **Example: Starting a stream to a Dialogflow connection**    Enable the Dialogflow integration by sending &#x60;\&quot;enable_dialogflow\&quot;: true&#x60; in the request. You need to have a Dialogflow connection associated with your Call Control application first, [click here for instructions](https://developers.telnyx.com/docs/v2/call-control/tutorials/dialogflow-es). &#x60;&#x60;&#x60; curl -X POST \\    --header \&quot;Content-Type: application/json\&quot; \\    --header \&quot;Accept: application/json\&quot; \\    --header \&quot;Authorization: Bearer YOUR_API_KEY\&quot; \\    --data &#39;{  \&quot;client_state\&quot;:\&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;, \\  \&quot;command_id\&quot;:\&quot;891510ac-f3e4-11e8-af5b-de00688a4901\&quot;, \\  \&quot;enable_dialogflow\&quot;: true \\  }&#39; \\    https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start  &#x60;&#x60;&#x60;  **Expected Webhooks:**  - &#x60;streaming.started&#x60; - &#x60;streaming.stopped&#x60; - &#x60;streaming.failed&#x60;  **WebSocket events**  When the WebSocket connection is established, the following event is being sent over it: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;connected\&quot;,   \&quot;version\&quot;: \&quot;1.0.0\&quot; } &#x60;&#x60;&#x60; And when the call is started, an event which contains information about the encoding and &#x60;stream_id&#x60; that identifies a particular stream: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;start\&quot;,   \&quot;sequence_number\&quot;: \&quot;1\&quot;,   \&quot;start\&quot;: {     \&quot;user_id\&quot;: \&quot;3e6f995f-85f7-4705-9741-53b116d28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;,      \&quot;client_state\&quot;: \&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;,     \&quot;media_format\&quot;: {       \&quot;encoding\&quot;: \&quot;audio/x-mulaw\&quot;,       \&quot;sample_rate\&quot;: 8000,       \&quot;channels\&quot;: 1     }   },   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot; } &#x60;&#x60;&#x60; The start event is followed by the following media events that contain base64-encoded RTP payload (raw audio, no RTP headers) (: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;sequence_number\&quot;: \&quot;4\&quot;,   \&quot;media\&quot;: {      \&quot;track\&quot;: \&quot;inbound/outbound\&quot;,      \&quot;chunk\&quot;: \&quot;2\&quot;,     \&quot;timestamp\&quot;: \&quot;5\&quot;,     \&quot;payload\&quot;: \&quot;no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic\&quot;    },   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;  } &#x60;&#x60;&#x60; Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.  When the call ends, the stop event over WebSockets connection is sent: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;stop\&quot;,   \&quot;sequence_number\&quot;: \&quot;5\&quot;,   \&quot;stop\&quot;: {     \&quot;user_id\&quot;: \&quot;3e6f995f-85f7-4705-9741-53b116d28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;    },     \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;   } &#x60;&#x60;&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param startStreamingRequest Start streaming media request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callsCallControlIdActionsStreamingStartPost(String callControlId, StartStreamingRequest startStreamingRequest) throws ApiException {
+    return callsCallControlIdActionsStreamingStartPostWithHttpInfo(callControlId, startStreamingRequest).getData();
+  }
+
+  /**
+   * Streaming start
+   * Start streaming the media from a call to a specific WebSocket address or Dialogflow connection in near-realtime. Audio will be delivered as base64-encoded RTP payload (raw audio), wrapped in JSON payloads.   **Example: Starting a stream to a Websocket address**   The &#x60;stream_url&#x60; param is mandatory.  &#x60;&#x60;&#x60; curl -X POST \\    --header \&quot;Content-Type: application/json\&quot; \\    --header \&quot;Accept: application/json\&quot; \\    --header \&quot;Authorization: Bearer YOUR_API_KEY\&quot; \\    --data &#39;{  \&quot;stream_url\&quot;: \&quot;wss://www.example.com/websocket\&quot;,\\  \&quot;client_state\&quot;:\&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;,\\  \&quot;command_id\&quot;:\&quot;891510ac-f3e4-11e8-af5b-de00688a4901\&quot; \\  }&#39; \\    https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start  &#x60;&#x60;&#x60;    **Example: Starting a stream to a Dialogflow connection**    Enable the Dialogflow integration by sending &#x60;\&quot;enable_dialogflow\&quot;: true&#x60; in the request. You need to have a Dialogflow connection associated with your Call Control application first, [click here for instructions](https://developers.telnyx.com/docs/v2/call-control/tutorials/dialogflow-es). &#x60;&#x60;&#x60; curl -X POST \\    --header \&quot;Content-Type: application/json\&quot; \\    --header \&quot;Accept: application/json\&quot; \\    --header \&quot;Authorization: Bearer YOUR_API_KEY\&quot; \\    --data &#39;{  \&quot;client_state\&quot;:\&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;, \\  \&quot;command_id\&quot;:\&quot;891510ac-f3e4-11e8-af5b-de00688a4901\&quot;, \\  \&quot;enable_dialogflow\&quot;: true \\  }&#39; \\    https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start  &#x60;&#x60;&#x60;  **Expected Webhooks:**  - &#x60;streaming.started&#x60; - &#x60;streaming.stopped&#x60; - &#x60;streaming.failed&#x60;  **WebSocket events**  When the WebSocket connection is established, the following event is being sent over it: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;connected\&quot;,   \&quot;version\&quot;: \&quot;1.0.0\&quot; } &#x60;&#x60;&#x60; And when the call is started, an event which contains information about the encoding and &#x60;stream_id&#x60; that identifies a particular stream: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;start\&quot;,   \&quot;sequence_number\&quot;: \&quot;1\&quot;,   \&quot;start\&quot;: {     \&quot;user_id\&quot;: \&quot;3e6f995f-85f7-4705-9741-53b116d28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;,      \&quot;client_state\&quot;: \&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;,     \&quot;media_format\&quot;: {       \&quot;encoding\&quot;: \&quot;audio/x-mulaw\&quot;,       \&quot;sample_rate\&quot;: 8000,       \&quot;channels\&quot;: 1     }   },   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot; } &#x60;&#x60;&#x60; The start event is followed by the following media events that contain base64-encoded RTP payload (raw audio, no RTP headers) (: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;sequence_number\&quot;: \&quot;4\&quot;,   \&quot;media\&quot;: {      \&quot;track\&quot;: \&quot;inbound/outbound\&quot;,      \&quot;chunk\&quot;: \&quot;2\&quot;,     \&quot;timestamp\&quot;: \&quot;5\&quot;,     \&quot;payload\&quot;: \&quot;no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic\&quot;    },   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;  } &#x60;&#x60;&#x60; Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.  When the call ends, the stop event over WebSockets connection is sent: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;stop\&quot;,   \&quot;sequence_number\&quot;: \&quot;5\&quot;,   \&quot;stop\&quot;: {     \&quot;user_id\&quot;: \&quot;3e6f995f-85f7-4705-9741-53b116d28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;    },     \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;   } &#x60;&#x60;&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param startStreamingRequest Start streaming media request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callsCallControlIdActionsStreamingStartPostWithHttpInfo(String callControlId, StartStreamingRequest startStreamingRequest) throws ApiException {
+    Object localVarPostBody = startStreamingRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callsCallControlIdActionsStreamingStartPost");
+    }
+    
+    // verify the required parameter 'startStreamingRequest' is set
+    if (startStreamingRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'startStreamingRequest' when calling callsCallControlIdActionsStreamingStartPost");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/streaming_start"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callsCallControlIdActionsStreamingStartPost", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

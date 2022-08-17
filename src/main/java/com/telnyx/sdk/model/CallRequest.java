@@ -23,8 +23,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallRequestAnsweringMachineDetectionConfig;
+import com.telnyx.sdk.model.CallRequestTo;
 import com.telnyx.sdk.model.CustomSipHeader;
-import com.telnyx.sdk.model.OneOfstringarray;
+import com.telnyx.sdk.model.DialogflowConfig;
 import com.telnyx.sdk.model.SoundModifications;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -61,12 +62,19 @@ import com.telnyx.sdk.JSON;
   CallRequest.JSON_PROPERTY_STREAM_URL,
   CallRequest.JSON_PROPERTY_STREAM_TRACK,
   CallRequest.JSON_PROPERTY_WEBHOOK_URL,
-  CallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
+  CallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD,
+  CallRequest.JSON_PROPERTY_RECORD,
+  CallRequest.JSON_PROPERTY_RECORD_CHANNELS,
+  CallRequest.JSON_PROPERTY_RECORD_FORMAT,
+  CallRequest.JSON_PROPERTY_RECORD_MAX_LENGTH,
+  CallRequest.JSON_PROPERTY_RECORD_TIMEOUT_SECS,
+  CallRequest.JSON_PROPERTY_ENABLE_DIALOGFLOW,
+  CallRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CallRequest {
   public static final String JSON_PROPERTY_TO = "to";
-  private OneOfstringarray to;
+  private CallRequestTo to;
 
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -247,31 +255,155 @@ public class CallRequest {
   public static final String JSON_PROPERTY_WEBHOOK_URL_METHOD = "webhook_url_method";
   private WebhookUrlMethodEnum webhookUrlMethod = WebhookUrlMethodEnum.POST;
 
+  /**
+   * Start recording automatically after an event. Disabled by default.
+   */
+  public enum RecordEnum {
+    RECORD_FROM_ANSWER("record-from-answer");
+
+    private String value;
+
+    RecordEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordEnum fromValue(String value) {
+      for (RecordEnum b : RecordEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD = "record";
+  private RecordEnum record;
+
+  /**
+   * Defines which channel should be recorded (&#39;single&#39; or &#39;dual&#39;) when &#x60;record&#x60; is specified.
+   */
+  public enum RecordChannelsEnum {
+    SINGLE("single"),
+    
+    DUAL("dual");
+
+    private String value;
+
+    RecordChannelsEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordChannelsEnum fromValue(String value) {
+      for (RecordChannelsEnum b : RecordChannelsEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD_CHANNELS = "record_channels";
+  private RecordChannelsEnum recordChannels = RecordChannelsEnum.DUAL;
+
+  /**
+   * Defines the format of the recording (&#39;wav&#39; or &#39;mp3&#39;) when &#x60;record&#x60; is specified.
+   */
+  public enum RecordFormatEnum {
+    WAV("wav"),
+    
+    MP3("mp3");
+
+    private String value;
+
+    RecordFormatEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordFormatEnum fromValue(String value) {
+      for (RecordFormatEnum b : RecordFormatEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD_FORMAT = "record_format";
+  private RecordFormatEnum recordFormat = RecordFormatEnum.MP3;
+
+  public static final String JSON_PROPERTY_RECORD_MAX_LENGTH = "record_max_length";
+  private Integer recordMaxLength = 0;
+
+  public static final String JSON_PROPERTY_RECORD_TIMEOUT_SECS = "record_timeout_secs";
+  private Integer recordTimeoutSecs = 0;
+
+  public static final String JSON_PROPERTY_ENABLE_DIALOGFLOW = "enable_dialogflow";
+  private Boolean enableDialogflow = false;
+
+  public static final String JSON_PROPERTY_DIALOGFLOW_CONFIG = "dialogflow_config";
+  private DialogflowConfig dialogflowConfig;
+
   public CallRequest() { 
   }
 
-  public CallRequest to(OneOfstringarray to) {
+  public CallRequest to(CallRequestTo to) {
     this.to = to;
     return this;
   }
 
    /**
-   * The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an array of strings
+   * Get to
    * @return to
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(required = true, value = "The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an array of strings")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public OneOfstringarray getTo() {
+  public CallRequestTo getTo() {
     return to;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTo(OneOfstringarray to) {
+  public void setTo(CallRequestTo to) {
     this.to = to;
   }
 
@@ -856,6 +988,188 @@ public class CallRequest {
   }
 
 
+  public CallRequest record(RecordEnum record) {
+    this.record = record;
+    return this;
+  }
+
+   /**
+   * Start recording automatically after an event. Disabled by default.
+   * @return record
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "record-from-answer", value = "Start recording automatically after an event. Disabled by default.")
+  @JsonProperty(JSON_PROPERTY_RECORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordEnum getRecord() {
+    return record;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecord(RecordEnum record) {
+    this.record = record;
+  }
+
+
+  public CallRequest recordChannels(RecordChannelsEnum recordChannels) {
+    this.recordChannels = recordChannels;
+    return this;
+  }
+
+   /**
+   * Defines which channel should be recorded (&#39;single&#39; or &#39;dual&#39;) when &#x60;record&#x60; is specified.
+   * @return recordChannels
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "single", value = "Defines which channel should be recorded ('single' or 'dual') when `record` is specified.")
+  @JsonProperty(JSON_PROPERTY_RECORD_CHANNELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordChannelsEnum getRecordChannels() {
+    return recordChannels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_CHANNELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordChannels(RecordChannelsEnum recordChannels) {
+    this.recordChannels = recordChannels;
+  }
+
+
+  public CallRequest recordFormat(RecordFormatEnum recordFormat) {
+    this.recordFormat = recordFormat;
+    return this;
+  }
+
+   /**
+   * Defines the format of the recording (&#39;wav&#39; or &#39;mp3&#39;) when &#x60;record&#x60; is specified.
+   * @return recordFormat
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "wav", value = "Defines the format of the recording ('wav' or 'mp3') when `record` is specified.")
+  @JsonProperty(JSON_PROPERTY_RECORD_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordFormatEnum getRecordFormat() {
+    return recordFormat;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordFormat(RecordFormatEnum recordFormat) {
+    this.recordFormat = recordFormat;
+  }
+
+
+  public CallRequest recordMaxLength(Integer recordMaxLength) {
+    this.recordMaxLength = recordMaxLength;
+    return this;
+  }
+
+   /**
+   * Defines the maximum length for the recording in seconds when &#x60;record&#x60; is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).
+   * @return recordMaxLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "1000", value = "Defines the maximum length for the recording in seconds when `record` is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).")
+  @JsonProperty(JSON_PROPERTY_RECORD_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRecordMaxLength() {
+    return recordMaxLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordMaxLength(Integer recordMaxLength) {
+    this.recordMaxLength = recordMaxLength;
+  }
+
+
+  public CallRequest recordTimeoutSecs(Integer recordTimeoutSecs) {
+    this.recordTimeoutSecs = recordTimeoutSecs;
+    return this;
+  }
+
+   /**
+   * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when &#x60;record&#x60; is specified. The timer only starts when the speech is detected. The minimum value is 0. The default value is 0 (infinite).
+   * @return recordTimeoutSecs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "100", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. The minimum value is 0. The default value is 0 (infinite).")
+  @JsonProperty(JSON_PROPERTY_RECORD_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRecordTimeoutSecs() {
+    return recordTimeoutSecs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordTimeoutSecs(Integer recordTimeoutSecs) {
+    this.recordTimeoutSecs = recordTimeoutSecs;
+  }
+
+
+  public CallRequest enableDialogflow(Boolean enableDialogflow) {
+    this.enableDialogflow = enableDialogflow;
+    return this;
+  }
+
+   /**
+   * Enables Dialogflow for the current call. The default value is false.
+   * @return enableDialogflow
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Enables Dialogflow for the current call. The default value is false.")
+  @JsonProperty(JSON_PROPERTY_ENABLE_DIALOGFLOW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getEnableDialogflow() {
+    return enableDialogflow;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENABLE_DIALOGFLOW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnableDialogflow(Boolean enableDialogflow) {
+    this.enableDialogflow = enableDialogflow;
+  }
+
+
+  public CallRequest dialogflowConfig(DialogflowConfig dialogflowConfig) {
+    this.dialogflowConfig = dialogflowConfig;
+    return this;
+  }
+
+   /**
+   * Get dialogflowConfig
+   * @return dialogflowConfig
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DIALOGFLOW_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public DialogflowConfig getDialogflowConfig() {
+    return dialogflowConfig;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DIALOGFLOW_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDialogflowConfig(DialogflowConfig dialogflowConfig) {
+    this.dialogflowConfig = dialogflowConfig;
+  }
+
+
   /**
    * Return true if this CallRequest object is equal to o.
    */
@@ -890,12 +1204,19 @@ public class CallRequest {
         Objects.equals(this.streamUrl, callRequest.streamUrl) &&
         Objects.equals(this.streamTrack, callRequest.streamTrack) &&
         Objects.equals(this.webhookUrl, callRequest.webhookUrl) &&
-        Objects.equals(this.webhookUrlMethod, callRequest.webhookUrlMethod);
+        Objects.equals(this.webhookUrlMethod, callRequest.webhookUrlMethod) &&
+        Objects.equals(this.record, callRequest.record) &&
+        Objects.equals(this.recordChannels, callRequest.recordChannels) &&
+        Objects.equals(this.recordFormat, callRequest.recordFormat) &&
+        Objects.equals(this.recordMaxLength, callRequest.recordMaxLength) &&
+        Objects.equals(this.recordTimeoutSecs, callRequest.recordTimeoutSecs) &&
+        Objects.equals(this.enableDialogflow, callRequest.enableDialogflow) &&
+        Objects.equals(this.dialogflowConfig, callRequest.dialogflowConfig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, fromDisplayName, connectionId, audioUrl, mediaName, preferredCodecs, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, sipAuthUsername, sipAuthPassword, soundModifications, streamUrl, streamTrack, webhookUrl, webhookUrlMethod);
+    return Objects.hash(to, from, fromDisplayName, connectionId, audioUrl, mediaName, preferredCodecs, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, sipAuthUsername, sipAuthPassword, soundModifications, streamUrl, streamTrack, webhookUrl, webhookUrlMethod, record, recordChannels, recordFormat, recordMaxLength, recordTimeoutSecs, enableDialogflow, dialogflowConfig);
   }
 
   @Override
@@ -925,6 +1246,13 @@ public class CallRequest {
     sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");
+    sb.append("    record: ").append(toIndentedString(record)).append("\n");
+    sb.append("    recordChannels: ").append(toIndentedString(recordChannels)).append("\n");
+    sb.append("    recordFormat: ").append(toIndentedString(recordFormat)).append("\n");
+    sb.append("    recordMaxLength: ").append(toIndentedString(recordMaxLength)).append("\n");
+    sb.append("    recordTimeoutSecs: ").append(toIndentedString(recordTimeoutSecs)).append("\n");
+    sb.append("    enableDialogflow: ").append(toIndentedString(enableDialogflow)).append("\n");
+    sb.append("    dialogflowConfig: ").append(toIndentedString(dialogflowConfig)).append("\n");
     sb.append("}");
     return sb.toString();
   }
