@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Error;
-import com.telnyx.sdk.model.ValidateAddress;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class ValidateAddressResult {
   private ResultEnum result;
 
   public static final String JSON_PROPERTY_SUGGESTED = "suggested";
-  private ValidateAddress suggested;
+  private String suggested;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -119,7 +118,7 @@ public class ValidateAddressResult {
   }
 
 
-  public ValidateAddressResult suggested(ValidateAddress suggested) {
+  public ValidateAddressResult suggested(String suggested) {
     this.suggested = suggested;
     return this;
   }
@@ -133,14 +132,14 @@ public class ValidateAddressResult {
   @JsonProperty(JSON_PROPERTY_SUGGESTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public ValidateAddress getSuggested() {
+  public String getSuggested() {
     return suggested;
   }
 
 
   @JsonProperty(JSON_PROPERTY_SUGGESTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuggested(ValidateAddress suggested) {
+  public void setSuggested(String suggested) {
     this.suggested = suggested;
   }
 

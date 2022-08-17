@@ -14,22 +14,15 @@
 package com.telnyx.sdk.model;
 
 import java.util.Objects;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.WhatsappMessageTemplateComponentsInner;
-import com.telnyx.sdk.model.WhatsappMessageTemplateQualityScore;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
 
 
 /**
@@ -46,6 +39,7 @@ import com.telnyx.sdk.JSON;
   WhatsappMessageTemplate.JSON_PROPERTY_REJECTED_REASON,
   WhatsappMessageTemplate.JSON_PROPERTY_STATUS
 })
+
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsappMessageTemplate {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";

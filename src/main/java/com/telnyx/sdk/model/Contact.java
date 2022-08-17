@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Email;
-import com.telnyx.sdk.model.Name;
 import com.telnyx.sdk.model.Organization;
 import com.telnyx.sdk.model.Phone;
 import com.telnyx.sdk.model.Url;
@@ -64,7 +63,7 @@ public class Contact {
   private List<String> ims = null;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  private Name name;
+  private String name;
 
   public static final String JSON_PROPERTY_ORG = "org";
   private Organization org;
@@ -206,7 +205,7 @@ public class Contact {
   }
 
 
-  public Contact name(Name name) {
+  public Contact name(String name) {
     this.name = name;
     return this;
   }
@@ -220,14 +219,14 @@ public class Contact {
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Name getName() {
+  public String getName() {
     return name;
   }
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(Name name) {
+  public void setName(String name) {
     this.name = name;
   }
 

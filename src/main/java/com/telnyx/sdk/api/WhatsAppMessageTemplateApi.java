@@ -11,7 +11,6 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.CreateWhatsappMessageTemplateRequestBody;
 import com.telnyx.sdk.model.Errors;
 import java.util.UUID;
-import com.telnyx.sdk.model.WhatsAppMessageTemplate;
 import com.telnyx.sdk.model.WhatsAppMessageTemplate1;
 
 import java.util.ArrayList;
@@ -197,7 +196,7 @@ public class WhatsAppMessageTemplateApi {
                                localVarAuthNames, null, false);
   }
 
-private ApiResponse<WhatsAppMessageTemplate> listWhatsappMessageTemplatesWithHttpInfo(UUID id, String category, String language, String name, String qualityScore, String rejectedReason, String limit, String before, String after, String status) throws ApiException {
+private ApiResponse<String> listWhatsappMessageTemplatesWithHttpInfo(UUID id, String category, String language, String name, String qualityScore, String rejectedReason, String limit, String before, String after, String status) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -240,7 +239,7 @@ private ApiResponse<WhatsAppMessageTemplate> listWhatsappMessageTemplatesWithHtt
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WhatsAppMessageTemplate> localVarReturnType = new GenericType<WhatsAppMessageTemplate>() {};
+    GenericType<String> localVarReturnType = new GenericType<String>() {};
 
     return apiClient.invokeAPI("WhatsAppMessageTemplateApi.listWhatsappMessageTemplates", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -366,7 +365,7 @@ private ApiResponse<WhatsAppMessageTemplate> listWhatsappMessageTemplatesWithHtt
      
      */
     
-    public WhatsAppMessageTemplate execute() throws ApiException {
+    public String execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
@@ -382,7 +381,7 @@ private ApiResponse<WhatsAppMessageTemplate> listWhatsappMessageTemplatesWithHtt
        </table>
 
      */
-    public ApiResponse<WhatsAppMessageTemplate> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<String> executeWithHttpInfo() throws ApiException {
       return listWhatsappMessageTemplatesWithHttpInfo(id, category, language, name, qualityScore, rejectedReason, limit, before, after, status);
     }
   }

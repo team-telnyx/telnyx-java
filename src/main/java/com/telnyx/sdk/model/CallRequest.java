@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallRequestAnsweringMachineDetectionConfig;
-import com.telnyx.sdk.model.CallRequestTo;
 import com.telnyx.sdk.model.CustomSipHeader;
 import com.telnyx.sdk.model.DialogflowConfig;
 import com.telnyx.sdk.model.SoundModifications;
@@ -74,7 +73,7 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CallRequest {
   public static final String JSON_PROPERTY_TO = "to";
-  private CallRequestTo to;
+  private String to;
 
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -382,7 +381,7 @@ public class CallRequest {
   public CallRequest() { 
   }
 
-  public CallRequest to(CallRequestTo to) {
+  public CallRequest to(String to) {
     this.to = to;
     return this;
   }
@@ -396,14 +395,14 @@ public class CallRequest {
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public CallRequestTo getTo() {
+  public String getTo() {
     return to;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTo(CallRequestTo to) {
+  public void setTo(String to) {
     this.to = to;
   }
 
@@ -1269,4 +1268,3 @@ public class CallRequest {
   }
 
 }
-

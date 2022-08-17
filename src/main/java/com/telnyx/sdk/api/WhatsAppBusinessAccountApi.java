@@ -11,7 +11,6 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListWhatsAppBusinessAccountsResponse;
 import com.telnyx.sdk.model.ListWhatsAppPhoneNumbersResponse;
-import com.telnyx.sdk.model.WhatsAppBusinessAccount;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -159,7 +158,7 @@ private ApiResponse<ListWhatsAppBusinessAccountsResponse> listWhatsappBusinessAc
     return new APIlistWhatsappBusinessAccountsRequest();
   }
 
-private ApiResponse<WhatsAppBusinessAccount> retrieveWhatsappBusinessAccountWithHttpInfo(String id) throws ApiException {
+private ApiResponse<String> retrieveWhatsappBusinessAccountWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -193,7 +192,7 @@ private ApiResponse<WhatsAppBusinessAccount> retrieveWhatsappBusinessAccountWith
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WhatsAppBusinessAccount> localVarReturnType = new GenericType<WhatsAppBusinessAccount>() {};
+    GenericType<String> localVarReturnType = new GenericType<String>() {};
 
     return apiClient.invokeAPI("WhatsAppBusinessAccountApi.retrieveWhatsappBusinessAccount", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -220,7 +219,7 @@ private ApiResponse<WhatsAppBusinessAccount> retrieveWhatsappBusinessAccountWith
      
      */
     
-    public WhatsAppBusinessAccount execute() throws ApiException {
+    public String execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
@@ -236,7 +235,7 @@ private ApiResponse<WhatsAppBusinessAccount> retrieveWhatsappBusinessAccountWith
        </table>
 
      */
-    public ApiResponse<WhatsAppBusinessAccount> executeWithHttpInfo() throws ApiException {
+    public ApiResponse<String> executeWithHttpInfo() throws ApiException {
       return retrieveWhatsappBusinessAccountWithHttpInfo(id);
     }
   }

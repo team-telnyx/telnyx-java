@@ -10,7 +10,6 @@ import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreatePushCredentialRequest;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.ListPushCredentialsResponse;
 import com.telnyx.sdk.model.PushCredentialResponse;
 import java.util.UUID;
 
@@ -281,7 +280,7 @@ public class PushCredentialsApi {
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
      </table>
    */
-  public ListPushCredentialsResponse listPushCredentials(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
+  public String listPushCredentials(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
     return listPushCredentialsWithHttpInfo(filterType, filterAlias, pageSize, pageNumber).getData();
   }
 
@@ -301,7 +300,7 @@ public class PushCredentialsApi {
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPushCredentialsResponse> listPushCredentialsWithHttpInfo(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<String> listPushCredentialsWithHttpInfo(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -333,7 +332,7 @@ public class PushCredentialsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListPushCredentialsResponse> localVarReturnType = new GenericType<ListPushCredentialsResponse>() {};
+    GenericType<String> localVarReturnType = new GenericType<String>() {};
 
     return apiClient.invokeAPI("PushCredentialsApi.listPushCredentials", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

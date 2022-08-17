@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
  */
 public class IPsApiTest {
 
-    private final IPsApi api = new IPsApi();
+    private final IpsApi api = new IpsApi();
 
     @Before
     public void setup() {

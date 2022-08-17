@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
  */
 public class FqdNsApiTest {
 
-    private final FqdNsApi api = new FqdNsApi();
+    private final FqdnsApi api = new FqdnsApi();
     private final FqdnConnectionsApi fqdnConnectionsApi = new FqdnConnectionsApi();
     private Fqdn existingFqdn;
     private FqdnConnection existingFqdnConnection;

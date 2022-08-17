@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ActionsParticipantsRequestParticipants;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ import com.telnyx.sdk.JSON;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ActionsParticipantsRequest {
   public static final String JSON_PROPERTY_PARTICIPANTS = "participants";
-  private ActionsParticipantsRequestParticipants participants;
+  private String participants;
 
   public static final String JSON_PROPERTY_EXCLUDE = "exclude";
   private List<UUID> exclude = null;
@@ -50,7 +49,7 @@ public class ActionsParticipantsRequest {
   public ActionsParticipantsRequest() { 
   }
 
-  public ActionsParticipantsRequest participants(ActionsParticipantsRequestParticipants participants) {
+  public ActionsParticipantsRequest participants(String participants) {
     this.participants = participants;
     return this;
   }
@@ -64,14 +63,14 @@ public class ActionsParticipantsRequest {
   @JsonProperty(JSON_PROPERTY_PARTICIPANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public ActionsParticipantsRequestParticipants getParticipants() {
+  public String getParticipants() {
     return participants;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PARTICIPANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParticipants(ActionsParticipantsRequestParticipants participants) {
+  public void setParticipants(String participants) {
     this.participants = participants;
   }
 

@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Email;
-import com.telnyx.sdk.model.Name;
 import com.telnyx.sdk.model.Organization;
 import com.telnyx.sdk.model.Phone;
 import com.telnyx.sdk.model.Url;

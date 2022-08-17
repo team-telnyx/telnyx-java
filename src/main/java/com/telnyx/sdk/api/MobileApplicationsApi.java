@@ -11,9 +11,7 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.CreateMobileApplicationRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.MobileApplicationResponse;
-import com.telnyx.sdk.model.OneOfCreateIosPushCredentialRequestCreateAndroidPushCredentialRequest;
 import com.telnyx.sdk.model.PushCredentialResponse;
-import com.telnyx.sdk.model.UNKNOWN_BASE_TYPE;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -137,7 +135,7 @@ public class MobileApplicationsApi {
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public PushCredentialResponse addPushCredential(UUID mobileApplicationId, UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE) throws ApiException {
+  public PushCredentialResponse addPushCredential(UUID mobileApplicationId, String UNKNOWN_BASE_TYPE) throws ApiException {
     return addPushCredentialWithHttpInfo(mobileApplicationId, UNKNOWN_BASE_TYPE).getData();
   }
 
@@ -156,7 +154,7 @@ public class MobileApplicationsApi {
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PushCredentialResponse> addPushCredentialWithHttpInfo(UUID mobileApplicationId, UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE) throws ApiException {
+  public ApiResponse<PushCredentialResponse> addPushCredentialWithHttpInfo(UUID mobileApplicationId, String UNKNOWN_BASE_TYPE) throws ApiException {
     Object localVarPostBody = UNKNOWN_BASE_TYPE;
     
     // verify the required parameter 'mobileApplicationId' is set

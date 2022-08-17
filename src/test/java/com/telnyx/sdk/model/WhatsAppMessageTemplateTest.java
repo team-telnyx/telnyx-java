@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
  * Model tests for WhatsAppMessageTemplate
  */
 public class WhatsAppMessageTemplateTest {
-    private final WhatsAppMessageTemplate model = new WhatsAppMessageTemplate();
+    private final WhatsappMessageTemplate model = new WhatsappMessageTemplate();
 
     /**
      * Model tests for WhatsAppMessageTemplate

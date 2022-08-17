@@ -13,7 +13,6 @@ import com.telnyx.sdk.model.GetFaxResponse;
 import com.telnyx.sdk.model.ListFaxesResponse;
 import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.RefreshFaxResponse;
-import com.telnyx.sdk.model.SendFaxMultipartRequest;
 import com.telnyx.sdk.model.SendFaxRequest;
 import com.telnyx.sdk.model.SendFaxResponse;
 import com.telnyx.sdk.model.SuccessfulResponseUponAcceptingCancelFaxCommand;

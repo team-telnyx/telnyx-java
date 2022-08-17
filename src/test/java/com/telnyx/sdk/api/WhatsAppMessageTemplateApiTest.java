@@ -18,7 +18,6 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.CreateWhatsappMessageTemplateRequestBody;
 import com.telnyx.sdk.model.Errors;
 import java.util.UUID;
-import com.telnyx.sdk.model.WhatsAppMessageTemplate;
 import com.telnyx.sdk.model.WhatsAppMessageTemplate1;
 import org.junit.Assert;
 import org.junit.Ignore;

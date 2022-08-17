@@ -131,7 +131,7 @@ public class SIMCardAction {
     this.recordType = recordType;
     this.simCardId = simCardId;
     this.actionType = actionType;
-    this.settings = settings;
+    this.settings = (JsonNullable<Object>) settings;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }

@@ -10,7 +10,6 @@ import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreateDocServiceDocumentRequest;
 import com.telnyx.sdk.model.CreateDocument200Response;
-import com.telnyx.sdk.model.CreateMultiPartDocServiceDocumentRequest;
 import com.telnyx.sdk.model.DocServiceDocument;
 import com.telnyx.sdk.model.Errors;
 import java.io.File;
