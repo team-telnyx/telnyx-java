@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>3.5.0</version>
+  <version>3.5.1</version>
   <scope>compile</scope>
 </dependency>
 ```
