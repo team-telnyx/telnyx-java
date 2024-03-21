@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,9 +28,10 @@ import com.telnyx.sdk.model.CallForwarding;
 import com.telnyx.sdk.model.CallRecording;
 import com.telnyx.sdk.model.CnamListing;
 import com.telnyx.sdk.model.MediaFeatures;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,9 +45,10 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CNAM_LISTING,
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_USAGE_PAYMENT_METHOD,
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_MEDIA_FEATURES,
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALL_RECORDING
+  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALL_RECORDING,
+  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_INBOUND_CALL_SCREENING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdatePhoneNumberVoiceSettingsRequest {
   public static final String JSON_PROPERTY_TECH_PREFIX_ENABLED = "tech_prefix_enabled";
   private Boolean techPrefixEnabled = false;
@@ -101,6 +105,46 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
 
   public static final String JSON_PROPERTY_CALL_RECORDING = "call_recording";
   private CallRecording callRecording;
+
+  /**
+   * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
+   */
+  public enum InboundCallScreeningEnum {
+    DISABLED("disabled"),
+    
+    REJECT_CALLS("reject_calls"),
+    
+    FLAG_CALLS("flag_calls");
+
+    private String value;
+
+    InboundCallScreeningEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static InboundCallScreeningEnum fromValue(String value) {
+      for (InboundCallScreeningEnum b : InboundCallScreeningEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_INBOUND_CALL_SCREENING = "inbound_call_screening";
+  private InboundCallScreeningEnum inboundCallScreening = InboundCallScreeningEnum.DISABLED;
 
   public UpdatePhoneNumberVoiceSettingsRequest() { 
   }
@@ -287,6 +331,32 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   }
 
 
+  public UpdatePhoneNumberVoiceSettingsRequest inboundCallScreening(InboundCallScreeningEnum inboundCallScreening) {
+    this.inboundCallScreening = inboundCallScreening;
+    return this;
+  }
+
+   /**
+   * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
+   * @return inboundCallScreening
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.")
+  @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public InboundCallScreeningEnum getInboundCallScreening() {
+    return inboundCallScreening;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInboundCallScreening(InboundCallScreeningEnum inboundCallScreening) {
+    this.inboundCallScreening = inboundCallScreening;
+  }
+
+
   /**
    * Return true if this UpdatePhoneNumberVoiceSettingsRequest object is equal to o.
    */
@@ -305,12 +375,13 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
         Objects.equals(this.cnamListing, updatePhoneNumberVoiceSettingsRequest.cnamListing) &&
         Objects.equals(this.usagePaymentMethod, updatePhoneNumberVoiceSettingsRequest.usagePaymentMethod) &&
         Objects.equals(this.mediaFeatures, updatePhoneNumberVoiceSettingsRequest.mediaFeatures) &&
-        Objects.equals(this.callRecording, updatePhoneNumberVoiceSettingsRequest.callRecording);
+        Objects.equals(this.callRecording, updatePhoneNumberVoiceSettingsRequest.callRecording) &&
+        Objects.equals(this.inboundCallScreening, updatePhoneNumberVoiceSettingsRequest.inboundCallScreening);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(techPrefixEnabled, translatedNumber, callForwarding, cnamListing, usagePaymentMethod, mediaFeatures, callRecording);
+    return Objects.hash(techPrefixEnabled, translatedNumber, callForwarding, cnamListing, usagePaymentMethod, mediaFeatures, callRecording, inboundCallScreening);
   }
 
   @Override
@@ -324,6 +395,7 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
     sb.append("    usagePaymentMethod: ").append(toIndentedString(usagePaymentMethod)).append("\n");
     sb.append("    mediaFeatures: ").append(toIndentedString(mediaFeatures)).append("\n");
     sb.append("    callRecording: ").append(toIndentedString(callRecording)).append("\n");
+    sb.append("    inboundCallScreening: ").append(toIndentedString(inboundCallScreening)).append("\n");
     sb.append("}");
     return sb.toString();
   }

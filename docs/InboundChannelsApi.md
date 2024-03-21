@@ -4,16 +4,16 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**listOutboundChannels**](InboundChannelsApi.md#listOutboundChannels) | **GET** /phone_numbers/inbound_channels | Retrieve your inbound channels
+[**listInboundChannels**](InboundChannelsApi.md#listInboundChannels) | **GET** /phone_numbers/inbound_channels | List your inbound channels
 [**updateOutboundChannels**](InboundChannelsApi.md#updateOutboundChannels) | **PATCH** /phone_numbers/inbound_channels | Update inbound channels
 
 
 
-## listOutboundChannels
+## listInboundChannels
 
-> ListOutboundChannels200Response listOutboundChannels()
+> ListInboundChannels200Response listInboundChannels()
 
-Retrieve your inbound channels
+List your inbound channels
 
 Returns the inbound channels for your account. Inbound channels allows you to use Channel Billing for calls to your Telnyx phone numbers. Please check the Telnyx Support Articles section for full information and examples of how to utilize Channel Billing.
 
@@ -39,10 +39,10 @@ public class Example {
 
         InboundChannelsApi apiInstance = new InboundChannelsApi(defaultClient);
         try {
-            ListOutboundChannels200Response result = apiInstance.listOutboundChannels();
+            ListInboundChannels200Response result = apiInstance.listInboundChannels();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling InboundChannelsApi#listOutboundChannels");
+            System.err.println("Exception when calling InboundChannelsApi#listInboundChannels");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -58,7 +58,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ListOutboundChannels200Response**](ListOutboundChannels200Response.md)
+[**ListInboundChannels200Response**](ListInboundChannels200Response.md)
 
 ### Authorization
 

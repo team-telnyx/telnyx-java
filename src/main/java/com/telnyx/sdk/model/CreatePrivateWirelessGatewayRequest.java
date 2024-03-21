@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -36,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CreatePrivateWirelessGatewayRequest.JSON_PROPERTY_NETWORK_ID,
   CreatePrivateWirelessGatewayRequest.JSON_PROPERTY_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreatePrivateWirelessGatewayRequest {
   public static final String JSON_PROPERTY_NETWORK_ID = "network_id";
   private UUID networkId;
@@ -100,7 +103,7 @@ public class CreatePrivateWirelessGatewayRequest {
 
 
   /**
-   * Return true if this createPrivateWirelessGateway_request object is equal to o.
+   * Return true if this CreatePrivateWirelessGateway_request object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

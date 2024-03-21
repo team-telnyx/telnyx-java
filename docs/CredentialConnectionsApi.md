@@ -4,12 +4,87 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**checkRegistrationStatus**](CredentialConnectionsApi.md#checkRegistrationStatus) | **POST** /credential_connections/{id}/actions/check_registration_status | Update a credential connection registration status
 [**createCredentialConnection**](CredentialConnectionsApi.md#createCredentialConnection) | **POST** /credential_connections | Create a credential connection
 [**deleteCredentialConnection**](CredentialConnectionsApi.md#deleteCredentialConnection) | **DELETE** /credential_connections/{id} | Delete a credential connection
 [**listCredentialConnections**](CredentialConnectionsApi.md#listCredentialConnections) | **GET** /credential_connections | List credential connections
 [**retrieveCredentialConnection**](CredentialConnectionsApi.md#retrieveCredentialConnection) | **GET** /credential_connections/{id} | Retrieve a credential connection
 [**updateCredentialConnection**](CredentialConnectionsApi.md#updateCredentialConnection) | **PATCH** /credential_connections/{id} | Update a credential connection
 
+
+
+## checkRegistrationStatus
+
+> RegistrationStatusResponse checkRegistrationStatus(id)
+
+Update a credential connection registration status
+
+Updates the registration_status for a credential connection, this endpoint also updates the `registration_status` and `registration_status_updated_at` fields in the credential connection
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CredentialConnectionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        CredentialConnectionsApi apiInstance = new CredentialConnectionsApi(defaultClient);
+        String id = "id_example"; // String | Identifies the resource.
+        try {
+            RegistrationStatusResponse result = apiInstance.checkRegistrationStatus(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CredentialConnectionsApi#checkRegistrationStatus");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Identifies the resource. |
+
+### Return type
+
+[**RegistrationStatusResponse**](RegistrationStatusResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response with details about a credential connection registration status. |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **404** | Resource not found |  -  |
 
 
 ## createCredentialConnection
@@ -80,7 +155,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Successful response with details about a credential connection. |  -  |
-| **422** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **422** | Unprocessable entity |  -  |
 
 
 ## deleteCredentialConnection
@@ -151,9 +228,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a credential connection. |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
 | **404** | Resource not found |  -  |
-| **422** | Bad request |  -  |
 
 
 ## listCredentialConnections
@@ -187,7 +265,7 @@ public class Example {
         CredentialConnectionsApi apiInstance = new CredentialConnectionsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
-        String filterConnectionNameContains = "filterConnectionNameContains_example"; // String | If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+        String filterConnectionNameContains = "My Connection"; // String | If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
         String filterOutboundOutboundVoiceProfileId = "1293384261075731499"; // String | Identifies the associated outbound voice profile.
         String sort = "created_at"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
         try {
@@ -238,9 +316,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of credential connections. |  -  |
-| **400** | Bad request |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
 
 
 ## retrieveCredentialConnection
@@ -311,8 +389,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a credential connection. |  -  |
-| **400** | Bad request |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
 | **404** | Resource not found |  -  |
 
 
@@ -387,6 +466,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a credential connection. |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
 | **404** | Resource not found |  -  |
-| **422** | Bad request |  -  |
+| **422** | Unprocessable entity |  -  |
 

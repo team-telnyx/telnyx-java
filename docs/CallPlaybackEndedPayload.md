@@ -29,7 +29,7 @@
 | FAILED | &quot;failed&quot; |
 | CANCELLED_AMD | &quot;cancelled_amd&quot; |
 | COMPLETED | &quot;completed&quot; |
-| FAILED | &quot;failed&quot; |
+| FAILED2 | &quot;failed&quot; |
 
 
 

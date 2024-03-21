@@ -4,8 +4,91 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**listConnectionActiveCalls**](CallInformationApi.md#listConnectionActiveCalls) | **GET** /connections/{connection_id}/active_calls | List all active calls for given connection
 [**retrieveCallStatus**](CallInformationApi.md#retrieveCallStatus) | **GET** /calls/{call_control_id} | Retrieve a call status
 
+
+
+## listConnectionActiveCalls
+
+> ActiveCallsResponse listConnectionActiveCalls(connectionId).pageLimit(pageLimit).pageAfter(pageAfter).pageBefore(pageBefore).execute();
+
+List all active calls for given connection
+
+Lists all active calls for given connection. Acceptable connections are either SIP connections with webhook_url or xml_request_url, call control or texml. Returned results are cursor paginated.
+
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.CallInformationApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        CallInformationApi apiInstance = new CallInformationApi(defaultClient);
+        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        Integer pageLimit = 20; // Integer | Limit of records per single page
+        String pageAfter = "null"; // String | Opaque identifier of next page
+        String pageBefore = "null"; // String | Opaque identifier of previous page
+        try {
+            ActiveCallsResponse result = api.listConnectionActiveCalls(connectionId)
+                .pageLimit(pageLimit)
+                .pageAfter(pageAfter)
+                .pageBefore(pageBefore)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CallInformationApi#listConnectionActiveCalls");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **pageLimit** | **Integer**| Limit of records per single page | [optional] [default to 20]
+ **pageAfter** | **String**| Opaque identifier of next page | [optional] [default to null]
+ **pageBefore** | **String**| Opaque identifier of previous page | [optional] [default to null]
+
+### Return type
+
+[**ActiveCallsResponse**](ActiveCallsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response with list of details about active calls. |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## retrieveCallStatus

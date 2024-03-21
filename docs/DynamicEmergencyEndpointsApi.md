@@ -4,16 +4,16 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createDyanmicEmergencyEndpoint**](DynamicEmergencyEndpointsApi.md#createDyanmicEmergencyEndpoint) | **POST** /dynamic_emergency_endpoints | Create a dynamic emergency endpoint.
+[**createDynamicEmergencyEndpoint**](DynamicEmergencyEndpointsApi.md#createDynamicEmergencyEndpoint) | **POST** /dynamic_emergency_endpoints | Create a dynamic emergency endpoint.
 [**deleteDynamicEmergencyEndpoint**](DynamicEmergencyEndpointsApi.md#deleteDynamicEmergencyEndpoint) | **DELETE** /dynamic_emergency_endpoints/{id} | Delete a dynamic emergency endpoint
 [**getDynamicEmergencyEndpoint**](DynamicEmergencyEndpointsApi.md#getDynamicEmergencyEndpoint) | **GET** /dynamic_emergency_endpoints/{id} | Get a dynamic emergency endpoint
-[**listDyanmicEmergencyEndpoints**](DynamicEmergencyEndpointsApi.md#listDyanmicEmergencyEndpoints) | **GET** /dynamic_emergency_endpoints | List dynamic emergency endpoints
+[**listDynamicEmergencyEndpoints**](DynamicEmergencyEndpointsApi.md#listDynamicEmergencyEndpoints) | **GET** /dynamic_emergency_endpoints | List dynamic emergency endpoints
 
 
 
-## createDyanmicEmergencyEndpoint
+## createDynamicEmergencyEndpoint
 
-> CreateDyanmicEmergencyEndpoint201Response createDyanmicEmergencyEndpoint(dynamicEmergencyEndpoint)
+> CreateDynamicEmergencyEndpoint201Response createDynamicEmergencyEndpoint(dynamicEmergencyEndpoint)
 
 Create a dynamic emergency endpoint.
 
@@ -42,10 +42,10 @@ public class Example {
         DynamicEmergencyEndpointsApi apiInstance = new DynamicEmergencyEndpointsApi(defaultClient);
         DynamicEmergencyEndpoint dynamicEmergencyEndpoint = new DynamicEmergencyEndpoint(); // DynamicEmergencyEndpoint | 
         try {
-            CreateDyanmicEmergencyEndpoint201Response result = apiInstance.createDyanmicEmergencyEndpoint(dynamicEmergencyEndpoint);
+            CreateDynamicEmergencyEndpoint201Response result = apiInstance.createDynamicEmergencyEndpoint(dynamicEmergencyEndpoint);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DynamicEmergencyEndpointsApi#createDyanmicEmergencyEndpoint");
+            System.err.println("Exception when calling DynamicEmergencyEndpointsApi#createDynamicEmergencyEndpoint");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateDyanmicEmergencyEndpoint201Response**](CreateDyanmicEmergencyEndpoint201Response.md)
+[**CreateDynamicEmergencyEndpoint201Response**](CreateDynamicEmergencyEndpoint201Response.md)
 
 ### Authorization
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## deleteDynamicEmergencyEndpoint
 
-> CreateDyanmicEmergencyEndpoint201Response deleteDynamicEmergencyEndpoint(id)
+> CreateDynamicEmergencyEndpoint201Response deleteDynamicEmergencyEndpoint(id)
 
 Delete a dynamic emergency endpoint
 
@@ -116,7 +116,7 @@ public class Example {
         DynamicEmergencyEndpointsApi apiInstance = new DynamicEmergencyEndpointsApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Dynamic Emergency Endpoint id
         try {
-            CreateDyanmicEmergencyEndpoint201Response result = apiInstance.deleteDynamicEmergencyEndpoint(id);
+            CreateDynamicEmergencyEndpoint201Response result = apiInstance.deleteDynamicEmergencyEndpoint(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DynamicEmergencyEndpointsApi#deleteDynamicEmergencyEndpoint");
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateDyanmicEmergencyEndpoint201Response**](CreateDyanmicEmergencyEndpoint201Response.md)
+[**CreateDynamicEmergencyEndpoint201Response**](CreateDynamicEmergencyEndpoint201Response.md)
 
 ### Authorization
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ## getDynamicEmergencyEndpoint
 
-> CreateDyanmicEmergencyEndpoint201Response getDynamicEmergencyEndpoint(id)
+> CreateDynamicEmergencyEndpoint201Response getDynamicEmergencyEndpoint(id)
 
 Get a dynamic emergency endpoint
 
@@ -190,7 +190,7 @@ public class Example {
         DynamicEmergencyEndpointsApi apiInstance = new DynamicEmergencyEndpointsApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Dynamic Emergency Endpoint id
         try {
-            CreateDyanmicEmergencyEndpoint201Response result = apiInstance.getDynamicEmergencyEndpoint(id);
+            CreateDynamicEmergencyEndpoint201Response result = apiInstance.getDynamicEmergencyEndpoint(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DynamicEmergencyEndpointsApi#getDynamicEmergencyEndpoint");
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateDyanmicEmergencyEndpoint201Response**](CreateDyanmicEmergencyEndpoint201Response.md)
+[**CreateDynamicEmergencyEndpoint201Response**](CreateDynamicEmergencyEndpoint201Response.md)
 
 ### Authorization
 
@@ -232,9 +232,9 @@ Name | Type | Description  | Notes
 | **422** | Unprocessable entity. Check message field in response for details. |  -  |
 
 
-## listDyanmicEmergencyEndpoints
+## listDynamicEmergencyEndpoints
 
-> ListDyanmicEmergencyEndpoints200Response listDyanmicEmergencyEndpoints(filterStatus, filterCountryCode, pageNumber, pageSize)
+> ListDynamicEmergencyEndpoints200Response listDynamicEmergencyEndpoints(filterStatus, filterCountryCode, pageNumber, pageSize)
 
 List dynamic emergency endpoints
 
@@ -266,10 +266,10 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListDyanmicEmergencyEndpoints200Response result = apiInstance.listDyanmicEmergencyEndpoints(filterStatus, filterCountryCode, pageNumber, pageSize);
+            ListDynamicEmergencyEndpoints200Response result = apiInstance.listDynamicEmergencyEndpoints(filterStatus, filterCountryCode, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DynamicEmergencyEndpointsApi#listDyanmicEmergencyEndpoints");
+            System.err.println("Exception when calling DynamicEmergencyEndpointsApi#listDynamicEmergencyEndpoints");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListDyanmicEmergencyEndpoints200Response**](ListDyanmicEmergencyEndpoints200Response.md)
+[**ListDynamicEmergencyEndpoints200Response**](ListDynamicEmergencyEndpoints200Response.md)
 
 ### Authorization
 

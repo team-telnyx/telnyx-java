@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,11 +25,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AnchorsiteOverride;
+import com.telnyx.sdk.model.CreateExternalConnectionRequestOutbound;
 import com.telnyx.sdk.model.CreateFaxApplicationRequestInbound;
-import com.telnyx.sdk.model.CreateFaxApplicationRequestOutbound;
+import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -49,7 +53,7 @@ import com.telnyx.sdk.JSON;
   UpdateFaxApplicationRequest.JSON_PROPERTY_INBOUND,
   UpdateFaxApplicationRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateFaxApplicationRequest {
   public static final String JSON_PROPERTY_APPLICATION_NAME = "application_name";
   private String applicationName;
@@ -76,7 +80,7 @@ public class UpdateFaxApplicationRequest {
   private CreateFaxApplicationRequestInbound inbound;
 
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
-  private CreateFaxApplicationRequestOutbound outbound;
+  private CreateExternalConnectionRequestOutbound outbound;
 
   public UpdateFaxApplicationRequest() { 
   }
@@ -315,7 +319,7 @@ public class UpdateFaxApplicationRequest {
   }
 
 
-  public UpdateFaxApplicationRequest outbound(CreateFaxApplicationRequestOutbound outbound) {
+  public UpdateFaxApplicationRequest outbound(CreateExternalConnectionRequestOutbound outbound) {
     this.outbound = outbound;
     return this;
   }
@@ -329,14 +333,14 @@ public class UpdateFaxApplicationRequest {
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CreateFaxApplicationRequestOutbound getOutbound() {
+  public CreateExternalConnectionRequestOutbound getOutbound() {
     return outbound;
   }
 
 
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutbound(CreateFaxApplicationRequestOutbound outbound) {
+  public void setOutbound(CreateExternalConnectionRequestOutbound outbound) {
     this.outbound = outbound;
   }
 

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.PortingOrdersActivationJobActivationWindowsInner;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -36,11 +42,14 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PortingOrdersActivationJob.JSON_PROPERTY_ID,
   PortingOrdersActivationJob.JSON_PROPERTY_STATUS,
+  PortingOrdersActivationJob.JSON_PROPERTY_ACTIVATION_TYPE,
+  PortingOrdersActivationJob.JSON_PROPERTY_ACTIVATE_AT,
+  PortingOrdersActivationJob.JSON_PROPERTY_ACTIVATION_WINDOWS,
   PortingOrdersActivationJob.JSON_PROPERTY_RECORD_TYPE,
   PortingOrdersActivationJob.JSON_PROPERTY_CREATED_AT,
   PortingOrdersActivationJob.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrdersActivationJob {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -86,6 +95,50 @@ public class PortingOrdersActivationJob {
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
+
+  /**
+   * Specifies the type of this activation job
+   */
+  public enum ActivationTypeEnum {
+    SCHEDULED("scheduled"),
+    
+    ON_DEMAND("on-demand");
+
+    private String value;
+
+    ActivationTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ActivationTypeEnum fromValue(String value) {
+      for (ActivationTypeEnum b : ActivationTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_ACTIVATION_TYPE = "activation_type";
+  private ActivationTypeEnum activationType;
+
+  public static final String JSON_PROPERTY_ACTIVATE_AT = "activate_at";
+  private OffsetDateTime activateAt;
+
+  public static final String JSON_PROPERTY_ACTIVATION_WINDOWS = "activation_windows";
+  private List<PortingOrdersActivationJobActivationWindowsInner> activationWindows = null;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -155,6 +208,92 @@ public class PortingOrdersActivationJob {
   }
 
 
+  public PortingOrdersActivationJob activationType(ActivationTypeEnum activationType) {
+    this.activationType = activationType;
+    return this;
+  }
+
+   /**
+   * Specifies the type of this activation job
+   * @return activationType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Specifies the type of this activation job")
+  @JsonProperty(JSON_PROPERTY_ACTIVATION_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ActivationTypeEnum getActivationType() {
+    return activationType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTIVATION_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setActivationType(ActivationTypeEnum activationType) {
+    this.activationType = activationType;
+  }
+
+
+  public PortingOrdersActivationJob activateAt(OffsetDateTime activateAt) {
+    this.activateAt = activateAt;
+    return this;
+  }
+
+   /**
+   * ISO 8601 formatted date indicating when the activation job should be executed. This time should be between some activation window.
+   * @return activateAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the activation job should be executed. This time should be between some activation window.")
+  @JsonProperty(JSON_PROPERTY_ACTIVATE_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getActivateAt() {
+    return activateAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTIVATE_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setActivateAt(OffsetDateTime activateAt) {
+    this.activateAt = activateAt;
+  }
+
+
+  public PortingOrdersActivationJob activationWindows(List<PortingOrdersActivationJobActivationWindowsInner> activationWindows) {
+    this.activationWindows = activationWindows;
+    return this;
+  }
+
+  public PortingOrdersActivationJob addActivationWindowsItem(PortingOrdersActivationJobActivationWindowsInner activationWindowsItem) {
+    if (this.activationWindows == null) {
+      this.activationWindows = new ArrayList<>();
+    }
+    this.activationWindows.add(activationWindowsItem);
+    return this;
+  }
+
+   /**
+   * List of allowed activation windows for this activation job
+   * @return activationWindows
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "List of allowed activation windows for this activation job")
+  @JsonProperty(JSON_PROPERTY_ACTIVATION_WINDOWS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PortingOrdersActivationJobActivationWindowsInner> getActivationWindows() {
+    return activationWindows;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTIVATION_WINDOWS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setActivationWindows(List<PortingOrdersActivationJobActivationWindowsInner> activationWindows) {
+    this.activationWindows = activationWindows;
+  }
+
+
    /**
    * Identifies the type of the resource.
    * @return recordType
@@ -217,6 +356,9 @@ public class PortingOrdersActivationJob {
     PortingOrdersActivationJob portingOrdersActivationJob = (PortingOrdersActivationJob) o;
     return Objects.equals(this.id, portingOrdersActivationJob.id) &&
         Objects.equals(this.status, portingOrdersActivationJob.status) &&
+        Objects.equals(this.activationType, portingOrdersActivationJob.activationType) &&
+        Objects.equals(this.activateAt, portingOrdersActivationJob.activateAt) &&
+        Objects.equals(this.activationWindows, portingOrdersActivationJob.activationWindows) &&
         Objects.equals(this.recordType, portingOrdersActivationJob.recordType) &&
         Objects.equals(this.createdAt, portingOrdersActivationJob.createdAt) &&
         Objects.equals(this.updatedAt, portingOrdersActivationJob.updatedAt);
@@ -224,7 +366,7 @@ public class PortingOrdersActivationJob {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, status, recordType, createdAt, updatedAt);
+    return Objects.hash(id, status, activationType, activateAt, activationWindows, recordType, createdAt, updatedAt);
   }
 
   @Override
@@ -233,6 +375,9 @@ public class PortingOrdersActivationJob {
     sb.append("class PortingOrdersActivationJob {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    activationType: ").append(toIndentedString(activationType)).append("\n");
+    sb.append("    activateAt: ").append(toIndentedString(activateAt)).append("\n");
+    sb.append("    activationWindows: ").append(toIndentedString(activationWindows)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");

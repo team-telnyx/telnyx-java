@@ -10,8 +10,8 @@
 |**callControlIds** | **List&lt;String&gt;** | Call Control IDs of participants who will hear the spoken text. When empty all participants will hear the spoken text. |  [optional] |
 |**payload** | **String** | The text or SSML to be converted into speech. There is a 3,000 character limit. |  |
 |**payloadType** | [**PayloadTypeEnum**](#PayloadTypeEnum) | The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML). |  [optional] |
-|**voice** | [**VoiceEnum**](#VoiceEnum) | The gender of the voice used to speak the text. |  |
-|**language** | [**LanguageEnum**](#LanguageEnum) | The language used to speak the text. |  |
+|**voice** | [**VoiceEnum**](#VoiceEnum) | The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of &#x60;Polly.&lt;voice&gt;&#x60;, e.g. &#x60;Polly.Brian&#x60;. All standard Amazon Polly voices are supported. |  |
+|**language** | [**LanguageEnum**](#LanguageEnum) | The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified. |  [optional] |
 |**commandId** | **String** | Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same &#x60;command_id&#x60; as one that has already been executed. |  [optional] |
 
 

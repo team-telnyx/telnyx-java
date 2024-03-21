@@ -9,14 +9,14 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.RegionList200Response;
+import com.telnyx.sdk.model.ListRegions200Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RegionsApi {
   private ApiClient apiClient;
 
@@ -49,7 +49,7 @@ public class RegionsApi {
   /**
    * List all Regions
    * List all regions and the interfaces that region supports
-   * @return RegionList200Response
+   * @return ListRegions200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -58,14 +58,14 @@ public class RegionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public RegionList200Response regionList() throws ApiException {
-    return regionListWithHttpInfo().getData();
+  public ListRegions200Response listRegions() throws ApiException {
+    return listRegionsWithHttpInfo().getData();
   }
 
   /**
    * List all Regions
    * List all regions and the interfaces that region supports
-   * @return ApiResponse&lt;RegionList200Response&gt;
+   * @return ApiResponse&lt;ListRegions200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -74,7 +74,7 @@ public class RegionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RegionList200Response> regionListWithHttpInfo() throws ApiException {
+  public ApiResponse<ListRegions200Response> listRegionsWithHttpInfo() throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -102,9 +102,9 @@ public class RegionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<RegionList200Response> localVarReturnType = new GenericType<RegionList200Response>() {};
+    GenericType<ListRegions200Response> localVarReturnType = new GenericType<ListRegions200Response>() {};
 
-    return apiClient.invokeAPI("RegionsApi.regionList", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("RegionsApi.listRegions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

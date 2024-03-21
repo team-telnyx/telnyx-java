@@ -16,14 +16,14 @@ import com.telnyx.sdk.model.PostPortRequestComment201Response;
 import com.telnyx.sdk.model.PostPortRequestCommentRequest;
 import com.telnyx.sdk.model.PostPortRequestSupportingDocumentsRequest;
 import java.util.UUID;
-import com.telnyx.sdk.model.UpdatePortoutRequestRequest;
+import com.telnyx.sdk.model.UpdatePortoutStatusRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class NumberPortoutApi {
   private ApiClient apiClient;
 
@@ -521,7 +521,7 @@ public class NumberPortoutApi {
    * Authorize or reject portout request
    * @param id Portout id (required)
    * @param status Updated portout status (required)
-   * @param updatePortoutRequestRequest  (required)
+   * @param updatePortoutStatusRequest  (required)
    * @return FindPortoutRequest200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -533,8 +533,8 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public FindPortoutRequest200Response updatePortoutRequest(UUID id, String status, UpdatePortoutRequestRequest updatePortoutRequestRequest) throws ApiException {
-    return updatePortoutRequestWithHttpInfo(id, status, updatePortoutRequestRequest).getData();
+  public FindPortoutRequest200Response updatePortoutStatus(UUID id, String status, UpdatePortoutStatusRequest updatePortoutStatusRequest) throws ApiException {
+    return updatePortoutStatusWithHttpInfo(id, status, updatePortoutStatusRequest).getData();
   }
 
   /**
@@ -542,7 +542,7 @@ public class NumberPortoutApi {
    * Authorize or reject portout request
    * @param id Portout id (required)
    * @param status Updated portout status (required)
-   * @param updatePortoutRequestRequest  (required)
+   * @param updatePortoutStatusRequest  (required)
    * @return ApiResponse&lt;FindPortoutRequest200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -554,22 +554,22 @@ public class NumberPortoutApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FindPortoutRequest200Response> updatePortoutRequestWithHttpInfo(UUID id, String status, UpdatePortoutRequestRequest updatePortoutRequestRequest) throws ApiException {
-    Object localVarPostBody = updatePortoutRequestRequest;
+  public ApiResponse<FindPortoutRequest200Response> updatePortoutStatusWithHttpInfo(UUID id, String status, UpdatePortoutStatusRequest updatePortoutStatusRequest) throws ApiException {
+    Object localVarPostBody = updatePortoutStatusRequest;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updatePortoutRequest");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updatePortoutStatus");
     }
     
     // verify the required parameter 'status' is set
     if (status == null) {
-      throw new ApiException(400, "Missing the required parameter 'status' when calling updatePortoutRequest");
+      throw new ApiException(400, "Missing the required parameter 'status' when calling updatePortoutStatus");
     }
     
-    // verify the required parameter 'updatePortoutRequestRequest' is set
-    if (updatePortoutRequestRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updatePortoutRequestRequest' when calling updatePortoutRequest");
+    // verify the required parameter 'updatePortoutStatusRequest' is set
+    if (updatePortoutStatusRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'updatePortoutStatusRequest' when calling updatePortoutStatus");
     }
     
     // create path and map variables
@@ -601,7 +601,7 @@ public class NumberPortoutApi {
 
     GenericType<FindPortoutRequest200Response> localVarReturnType = new GenericType<FindPortoutRequest200Response>() {};
 
-    return apiClient.invokeAPI("NumberPortoutApi.updatePortoutRequest", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("NumberPortoutApi.updatePortoutStatus", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

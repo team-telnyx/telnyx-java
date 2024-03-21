@@ -13,6 +13,7 @@
 |**customHeaders** | [**List&lt;CustomSipHeader&gt;**](CustomSipHeader.md) | Custom headers to be added to the SIP INVITE. |  [optional] |
 |**sipAuthUsername** | **String** | SIP Authentication username used for SIP challenges. |  [optional] |
 |**sipAuthPassword** | **String** | SIP Authentication password used for SIP challenges. |  [optional] |
+|**sipHeaders** | [**List&lt;SipHeader&gt;**](SipHeader.md) | SIP headers to be added to the request. Currently only User-to-User header is supported. |  [optional] |
 
 
 

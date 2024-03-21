@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**getChannelZone**](ChannelZonesApi.md#getChannelZone) | **GET** /channel_zones/{channel_zone_id} | Get a specific channel zone
 [**getChannelZones**](ChannelZonesApi.md#getChannelZones) | **GET** /channel_zones | Get list of channel zones
 [**getPhoneNumbers**](ChannelZonesApi.md#getPhoneNumbers) | **GET** /channel_zones/{channel_zone_id}/channel_zone_phone_numbers | Get the list of phone numbers assigned to a channel zone
-[**patchGroup**](ChannelZonesApi.md#patchGroup) | **PATCH** /channel_zones/{channel_zone_id} | Patch a channel zone
+[**patchChannelZone**](ChannelZonesApi.md#patchChannelZone) | **PATCH** /channel_zones/{channel_zone_id} | Patch a channel zone
 [**unassignPhoneNumber**](ChannelZonesApi.md#unassignPhoneNumber) | **DELETE** /channel_zones/{channel_zone_id}/channel_zone_phone_numbers/{phone_number} | Unassign a phone number from a channel zone
 
 
@@ -303,9 +303,9 @@ Name | Type | Description  | Notes
 | **200** | A list of phone numbers |  -  |
 
 
-## patchGroup
+## patchChannelZone
 
-> GcbChannelZone patchGroup(channelZoneId, body)
+> GcbChannelZone patchChannelZone(channelZoneId, body)
 
 Patch a channel zone
 
@@ -333,12 +333,12 @@ public class Example {
 
         ChannelZonesApi apiInstance = new ChannelZonesApi(defaultClient);
         String channelZoneId = "channelZoneId_example"; // String | Channel zone identifier
-        PatchGroupRequest body = new PatchGroupRequest(); // PatchGroupRequest | Quantity of reserved channels
+        PatchChannelZoneRequest body = new PatchChannelZoneRequest(); // PatchChannelZoneRequest | Quantity of reserved channels
         try {
-            GcbChannelZone result = apiInstance.patchGroup(channelZoneId, body);
+            GcbChannelZone result = apiInstance.patchChannelZone(channelZoneId, body);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ChannelZonesApi#patchGroup");
+            System.err.println("Exception when calling ChannelZonesApi#patchChannelZone");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -354,7 +354,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **channelZoneId** | **String**| Channel zone identifier |
- **body** | [**PatchGroupRequest**](PatchGroupRequest.md)| Quantity of reserved channels |
+ **body** | [**PatchChannelZoneRequest**](PatchChannelZoneRequest.md)| Quantity of reserved channels |
 
 ### Return type
 

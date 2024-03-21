@@ -4,14 +4,14 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createLedgerBillingGroupReport**](ReportsApi.md#createLedgerBillingGroupReport) | **POST** /ledger_billing_group_reports | Create a ledger billing group report
-[**retrieveLedgerBillingGroupReport**](ReportsApi.md#retrieveLedgerBillingGroupReport) | **GET** /ledger_billing_group_reports/{id} | Retrieve a ledger billing group report
+[**createBillingGroupReport**](ReportsApi.md#createBillingGroupReport) | **POST** /ledger_billing_group_reports | Create a ledger billing group report
+[**getBillingGroupReport**](ReportsApi.md#getBillingGroupReport) | **GET** /ledger_billing_group_reports/{id} | Get a ledger billing group report
 
 
 
-## createLedgerBillingGroupReport
+## createBillingGroupReport
 
-> CreateLedgerBillingGroupReport200Response createLedgerBillingGroupReport(newLedgerBillingGroupReport)
+> CreateBillingGroupReport200Response createBillingGroupReport(newLedgerBillingGroupReport)
 
 Create a ledger billing group report
 
@@ -38,10 +38,10 @@ public class Example {
         ReportsApi apiInstance = new ReportsApi(defaultClient);
         NewLedgerBillingGroupReport newLedgerBillingGroupReport = new NewLedgerBillingGroupReport(); // NewLedgerBillingGroupReport | New ledger billing group report parameters
         try {
-            CreateLedgerBillingGroupReport200Response result = apiInstance.createLedgerBillingGroupReport(newLedgerBillingGroupReport);
+            CreateBillingGroupReport200Response result = apiInstance.createBillingGroupReport(newLedgerBillingGroupReport);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ReportsApi#createLedgerBillingGroupReport");
+            System.err.println("Exception when calling ReportsApi#createBillingGroupReport");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateLedgerBillingGroupReport200Response**](CreateLedgerBillingGroupReport200Response.md)
+[**CreateBillingGroupReport200Response**](CreateBillingGroupReport200Response.md)
 
 ### Authorization
 
@@ -78,11 +78,11 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## retrieveLedgerBillingGroupReport
+## getBillingGroupReport
 
-> CreateLedgerBillingGroupReport200Response retrieveLedgerBillingGroupReport(id)
+> CreateBillingGroupReport200Response getBillingGroupReport(id)
 
-Retrieve a ledger billing group report
+Get a ledger billing group report
 
 ### Example
 
@@ -108,10 +108,10 @@ public class Example {
         ReportsApi apiInstance = new ReportsApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | The id of the ledger billing group report
         try {
-            CreateLedgerBillingGroupReport200Response result = apiInstance.retrieveLedgerBillingGroupReport(id);
+            CreateBillingGroupReport200Response result = apiInstance.getBillingGroupReport(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ReportsApi#retrieveLedgerBillingGroupReport");
+            System.err.println("Exception when calling ReportsApi#getBillingGroupReport");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateLedgerBillingGroupReport200Response**](CreateLedgerBillingGroupReport200Response.md)
+[**CreateBillingGroupReport200Response**](CreateBillingGroupReport200Response.md)
 
 ### Authorization
 

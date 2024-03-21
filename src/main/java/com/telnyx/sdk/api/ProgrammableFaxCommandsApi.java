@@ -13,6 +13,7 @@ import com.telnyx.sdk.model.GetFaxResponse;
 import com.telnyx.sdk.model.ListFaxesResponse;
 import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.RefreshFaxResponse;
+import com.telnyx.sdk.model.ResourceNotFound;
 import com.telnyx.sdk.model.SendFaxRequest;
 import com.telnyx.sdk.model.SendFaxResponse;
 import com.telnyx.sdk.model.SuccessfulResponseUponAcceptingCancelFaxCommand;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ProgrammableFaxCommandsApi {
   private ApiClient apiClient;
 
@@ -63,7 +64,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Successful response upon accepting cancel fax command </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
@@ -82,7 +83,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Successful response upon accepting cancel fax command </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
@@ -203,6 +204,7 @@ public class ProgrammableFaxCommandsApi {
    * @param filterCreatedAtLt ISO 8601 formatted date time for filtering faxes created before that date (optional)
    * @param filterDirectionEq The direction, inbound or outbound, for filtering faxes sent from this account (optional)
    * @param filterFromEq The phone number, in E.164 format for filtering faxes sent from this number (optional)
+   * @param filterToEq The phone number, in E.164 format for filtering faxes sent to this number (optional)
    * @param pageSize Number of fax resourcxes for the single page returned (optional)
    * @param pageNumber Number of the page to be retrieved (optional)
    * @return ListFaxesResponse
@@ -214,8 +216,8 @@ public class ProgrammableFaxCommandsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListFaxesResponse listFaxes(OffsetDateTime filterCreatedAtGte, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLte, OffsetDateTime filterCreatedAtLt, String filterDirectionEq, String filterFromEq, Integer pageSize, Integer pageNumber) throws ApiException {
-    return listFaxesWithHttpInfo(filterCreatedAtGte, filterCreatedAtGt, filterCreatedAtLte, filterCreatedAtLt, filterDirectionEq, filterFromEq, pageSize, pageNumber).getData();
+  public ListFaxesResponse listFaxes(OffsetDateTime filterCreatedAtGte, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLte, OffsetDateTime filterCreatedAtLt, String filterDirectionEq, String filterFromEq, String filterToEq, Integer pageSize, Integer pageNumber) throws ApiException {
+    return listFaxesWithHttpInfo(filterCreatedAtGte, filterCreatedAtGt, filterCreatedAtLte, filterCreatedAtLt, filterDirectionEq, filterFromEq, filterToEq, pageSize, pageNumber).getData();
   }
 
   /**
@@ -227,6 +229,7 @@ public class ProgrammableFaxCommandsApi {
    * @param filterCreatedAtLt ISO 8601 formatted date time for filtering faxes created before that date (optional)
    * @param filterDirectionEq The direction, inbound or outbound, for filtering faxes sent from this account (optional)
    * @param filterFromEq The phone number, in E.164 format for filtering faxes sent from this number (optional)
+   * @param filterToEq The phone number, in E.164 format for filtering faxes sent to this number (optional)
    * @param pageSize Number of fax resourcxes for the single page returned (optional)
    * @param pageNumber Number of the page to be retrieved (optional)
    * @return ApiResponse&lt;ListFaxesResponse&gt;
@@ -238,7 +241,7 @@ public class ProgrammableFaxCommandsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListFaxesResponse> listFaxesWithHttpInfo(OffsetDateTime filterCreatedAtGte, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLte, OffsetDateTime filterCreatedAtLt, String filterDirectionEq, String filterFromEq, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<ListFaxesResponse> listFaxesWithHttpInfo(OffsetDateTime filterCreatedAtGte, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLte, OffsetDateTime filterCreatedAtLt, String filterDirectionEq, String filterFromEq, String filterToEq, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -256,6 +259,7 @@ public class ProgrammableFaxCommandsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][lt]", filterCreatedAtLt));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[direction][eq]", filterDirectionEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[from][eq]", filterFromEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[to][eq]", filterToEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
 
@@ -290,7 +294,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -308,7 +312,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */

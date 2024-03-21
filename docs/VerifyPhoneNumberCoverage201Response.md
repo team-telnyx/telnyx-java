@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**List&lt;CustomerServiceRequestPhoneNumberCoverage&gt;**](CustomerServiceRequestPhoneNumberCoverage.md) |  |  [optional] |
+|**data** | [**List&lt;CustomerServiceRecordPhoneNumberCoverage&gt;**](CustomerServiceRecordPhoneNumberCoverage.md) |  |  [optional] |
 
 
 

@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class DocumentsApi {
   private ApiClient apiClient;
 
@@ -126,7 +126,7 @@ public class DocumentsApi {
   /**
    * Delete a document
    * Delete a document.&lt;br /&gt;&lt;br /&gt;A document can only be deleted if it&#39;s not linked to a service. If it is linked to a service, it must be unlinked prior to deleting.
-   * @param id The id of the resource. (required)
+   * @param id Identifies the resource. (required)
    * @return CreateDocument200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -143,7 +143,7 @@ public class DocumentsApi {
   /**
    * Delete a document
    * Delete a document.&lt;br /&gt;&lt;br /&gt;A document can only be deleted if it&#39;s not linked to a service. If it is linked to a service, it must be unlinked prior to deleting.
-   * @param id The id of the resource. (required)
+   * @param id Identifies the resource. (required)
    * @return ApiResponse&lt;CreateDocument200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -196,7 +196,7 @@ public class DocumentsApi {
   /**
    * Download a document
    * Download a document.
-   * @param id The id of the resource. (required)
+   * @param id Identifies the resource. (required)
    * @return File
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -206,14 +206,14 @@ public class DocumentsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public File downloadDocServiceDocument(UUID id) throws ApiException {
-    return downloadDocServiceDocumentWithHttpInfo(id).getData();
+  public File downloadDocument(UUID id) throws ApiException {
+    return downloadDocumentWithHttpInfo(id).getData();
   }
 
   /**
    * Download a document
    * Download a document.
-   * @param id The id of the resource. (required)
+   * @param id Identifies the resource. (required)
    * @return ApiResponse&lt;File&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -223,12 +223,12 @@ public class DocumentsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<File> downloadDocServiceDocumentWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<File> downloadDocumentWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling downloadDocServiceDocument");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling downloadDocument");
     }
     
     // create path and map variables
@@ -259,7 +259,7 @@ public class DocumentsApi {
 
     GenericType<File> localVarReturnType = new GenericType<File>() {};
 
-    return apiClient.invokeAPI("DocumentsApi.downloadDocServiceDocument", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("DocumentsApi.downloadDocument", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -429,7 +429,7 @@ public class DocumentsApi {
   /**
    * Retrieve a document
    * Retrieve a document.
-   * @param id The id of the resource. (required)
+   * @param id Identifies the resource. (required)
    * @return CreateDocument200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -446,7 +446,7 @@ public class DocumentsApi {
   /**
    * Retrieve a document
    * Retrieve a document.
-   * @param id The id of the resource. (required)
+   * @param id Identifies the resource. (required)
    * @return ApiResponse&lt;CreateDocument200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -499,7 +499,7 @@ public class DocumentsApi {
   /**
    * Update a document
    * Update a document.
-   * @param id The id of the resource. (required)
+   * @param id Identifies the resource. (required)
    * @param docServiceDocument  (required)
    * @return CreateDocument200Response
    * @throws ApiException if fails to make API call
@@ -517,7 +517,7 @@ public class DocumentsApi {
   /**
    * Update a document
    * Update a document.
-   * @param id The id of the resource. (required)
+   * @param id Identifies the resource. (required)
    * @param docServiceDocument  (required)
    * @return ApiResponse&lt;CreateDocument200Response&gt;
    * @throws ApiException if fails to make API call

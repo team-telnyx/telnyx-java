@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,80 +24,51 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.net.URI;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * Standard Values: HOME, WORK
+ * Url
  */
-@ApiModel(description = "Standard Values: HOME, WORK")
 @JsonPropertyOrder({
-  Url.JSON_PROPERTY_URL,
-  Url.JSON_PROPERTY_TYPE
+  Url.JSON_PROPERTY_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Url {
   public static final String JSON_PROPERTY_URL = "url";
-  private String url;
-
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private String type;
+  private URI url;
 
   public Url() { 
   }
 
-  public Url url(String url) {
+  public Url url(URI url) {
     this.url = url;
     return this;
   }
 
    /**
-   * URL
+   * Get url
    * @return url
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "URL")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getUrl() {
+  public URI getUrl() {
     return url;
   }
 
 
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUrl(String url) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUrl(URI url) {
     this.url = url;
-  }
-
-
-  public Url type(String type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Standard Values: HOME, WORK
-   * @return type
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Standard Values: HOME, WORK")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(String type) {
-    this.type = type;
   }
 
 
@@ -111,13 +84,12 @@ public class Url {
       return false;
     }
     Url url = (Url) o;
-    return Objects.equals(this.url, url.url) &&
-        Objects.equals(this.type, url.type);
+    return Objects.equals(this.url, url.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url, type);
+    return Objects.hash(url);
   }
 
   @Override
@@ -125,7 +97,6 @@ public class Url {
     StringBuilder sb = new StringBuilder();
     sb.append("class Url {\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

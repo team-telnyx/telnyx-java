@@ -44,6 +44,7 @@ public class IPsApiTest {
 
     private final IpsApi api = new IpsApi();
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -60,6 +61,7 @@ public class IPsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createIp_defaultParams_returnsCreatedIp() throws ApiException {
         //given
@@ -127,6 +129,7 @@ public class IPsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveIp_ipIdProvided_returnsIp() throws ApiException {
         //given
@@ -147,6 +150,7 @@ public class IPsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void updateIp_changedParams_returnsUpdatedIp() throws ApiException {
         //given

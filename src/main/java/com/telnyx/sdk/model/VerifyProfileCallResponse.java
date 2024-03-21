@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -32,14 +36,18 @@ import com.telnyx.sdk.JSON;
  * VerifyProfileCallResponse
  */
 @JsonPropertyOrder({
-  VerifyProfileCallResponse.JSON_PROPERTY_SPEECH_TEMPLATE,
+  VerifyProfileCallResponse.JSON_PROPERTY_MESSAGING_TEMPLATE_ID,
+  VerifyProfileCallResponse.JSON_PROPERTY_APP_NAME,
   VerifyProfileCallResponse.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS,
   VerifyProfileCallResponse.JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifyProfileCallResponse {
-  public static final String JSON_PROPERTY_SPEECH_TEMPLATE = "speech_template";
-  private String speechTemplate;
+  public static final String JSON_PROPERTY_MESSAGING_TEMPLATE_ID = "messaging_template_id";
+  private UUID messagingTemplateId;
+
+  public static final String JSON_PROPERTY_APP_NAME = "app_name";
+  private String appName;
 
   public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
   private Integer defaultVerificationTimeoutSecs;
@@ -50,29 +58,55 @@ public class VerifyProfileCallResponse {
   public VerifyProfileCallResponse() { 
   }
 
-  public VerifyProfileCallResponse speechTemplate(String speechTemplate) {
-    this.speechTemplate = speechTemplate;
+  public VerifyProfileCallResponse messagingTemplateId(UUID messagingTemplateId) {
+    this.messagingTemplateId = messagingTemplateId;
     return this;
   }
 
    /**
-   * Optionally sets a speech text template when sending the verification code. Uses &#x60;{code}&#x60; to template in the actual verification code.
-   * @return speechTemplate
+   * The message template identifier selected from /verify_profiles/templates
+   * @return messagingTemplateId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Hello, this is the Acme Inc verification code you requested: {code}.", value = "Optionally sets a speech text template when sending the verification code. Uses `{code}` to template in the actual verification code.")
-  @JsonProperty(JSON_PROPERTY_SPEECH_TEMPLATE)
+  @ApiModelProperty(example = "0abb5b4f-459f-445a-bfcd-488998b7572d", value = "The message template identifier selected from /verify_profiles/templates")
+  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getSpeechTemplate() {
-    return speechTemplate;
+  public UUID getMessagingTemplateId() {
+    return messagingTemplateId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SPEECH_TEMPLATE)
+  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSpeechTemplate(String speechTemplate) {
-    this.speechTemplate = speechTemplate;
+  public void setMessagingTemplateId(UUID messagingTemplateId) {
+    this.messagingTemplateId = messagingTemplateId;
+  }
+
+
+  public VerifyProfileCallResponse appName(String appName) {
+    this.appName = appName;
+    return this;
+  }
+
+   /**
+   * The name that identifies the application requesting 2fa in the verification message.
+   * @return appName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Example Secure App", value = "The name that identifies the application requesting 2fa in the verification message.")
+  @JsonProperty(JSON_PROPERTY_APP_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAppName() {
+    return appName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_APP_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAppName(String appName) {
+    this.appName = appName;
   }
 
 
@@ -140,21 +174,23 @@ public class VerifyProfileCallResponse {
       return false;
     }
     VerifyProfileCallResponse verifyProfileCallResponse = (VerifyProfileCallResponse) o;
-    return Objects.equals(this.speechTemplate, verifyProfileCallResponse.speechTemplate) &&
+    return Objects.equals(this.messagingTemplateId, verifyProfileCallResponse.messagingTemplateId) &&
+        Objects.equals(this.appName, verifyProfileCallResponse.appName) &&
         Objects.equals(this.defaultVerificationTimeoutSecs, verifyProfileCallResponse.defaultVerificationTimeoutSecs) &&
         Objects.equals(this.defaultCallTimeoutSecs, verifyProfileCallResponse.defaultCallTimeoutSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(speechTemplate, defaultVerificationTimeoutSecs, defaultCallTimeoutSecs);
+    return Objects.hash(messagingTemplateId, appName, defaultVerificationTimeoutSecs, defaultCallTimeoutSecs);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class VerifyProfileCallResponse {\n");
-    sb.append("    speechTemplate: ").append(toIndentedString(speechTemplate)).append("\n");
+    sb.append("    messagingTemplateId: ").append(toIndentedString(messagingTemplateId)).append("\n");
+    sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
     sb.append("    defaultVerificationTimeoutSecs: ").append(toIndentedString(defaultVerificationTimeoutSecs)).append("\n");
     sb.append("    defaultCallTimeoutSecs: ").append(toIndentedString(defaultCallTimeoutSecs)).append("\n");
     sb.append("}");

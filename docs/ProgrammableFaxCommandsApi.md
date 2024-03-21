@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful response upon accepting cancel fax command |  -  |
-| **404** | Fax does not exist |  -  |
+| **404** | Resource not found |  -  |
 | **422** | Unprocessable entity |  -  |
 | **0** | Unexpected error |  -  |
 
@@ -158,7 +158,7 @@ null (empty response body)
 
 ## listFaxes
 
-> ListFaxesResponse listFaxes(filterCreatedAtGte, filterCreatedAtGt, filterCreatedAtLte, filterCreatedAtLt, filterDirectionEq, filterFromEq, pageSize, pageNumber)
+> ListFaxesResponse listFaxes(filterCreatedAtGte, filterCreatedAtGt, filterCreatedAtLte, filterCreatedAtLt, filterDirectionEq, filterFromEq, filterToEq, pageSize, pageNumber)
 
 View a list of faxes
 
@@ -192,10 +192,11 @@ public class Example {
         OffsetDateTime filterCreatedAtLt = OffsetDateTime.parse("2020-02-02T22:25:27.521992Z"); // OffsetDateTime | ISO 8601 formatted date time for filtering faxes created before that date
         String filterDirectionEq = "inbound"; // String | The direction, inbound or outbound, for filtering faxes sent from this account
         String filterFromEq = "+13127367276"; // String | The phone number, in E.164 format for filtering faxes sent from this number
+        String filterToEq = "+13127367276"; // String | The phone number, in E.164 format for filtering faxes sent to this number
         Integer pageSize = 2; // Integer | Number of fax resourcxes for the single page returned
         Integer pageNumber = 2; // Integer | Number of the page to be retrieved
         try {
-            ListFaxesResponse result = apiInstance.listFaxes(filterCreatedAtGte, filterCreatedAtGt, filterCreatedAtLte, filterCreatedAtLt, filterDirectionEq, filterFromEq, pageSize, pageNumber);
+            ListFaxesResponse result = apiInstance.listFaxes(filterCreatedAtGte, filterCreatedAtGt, filterCreatedAtLte, filterCreatedAtLt, filterDirectionEq, filterFromEq, filterToEq, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProgrammableFaxCommandsApi#listFaxes");
@@ -219,6 +220,7 @@ Name | Type | Description  | Notes
  **filterCreatedAtLt** | **OffsetDateTime**| ISO 8601 formatted date time for filtering faxes created before that date | [optional]
  **filterDirectionEq** | **String**| The direction, inbound or outbound, for filtering faxes sent from this account | [optional]
  **filterFromEq** | **String**| The phone number, in E.164 format for filtering faxes sent from this number | [optional]
+ **filterToEq** | **String**| The phone number, in E.164 format for filtering faxes sent to this number | [optional]
  **pageSize** | **Integer**| Number of fax resourcxes for the single page returned | [optional]
  **pageNumber** | **Integer**| Number of the page to be retrieved | [optional]
 
@@ -311,7 +313,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Refresh fax response |  -  |
-| **404** | Fax does not exist |  -  |
+| **404** | Resource not found |  -  |
 | **0** | Unexpected error |  -  |
 
 

@@ -4,28 +4,27 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**removeSIMCardGroupPrivateWirelessGateway**](SimCardGroupsApi.md#removeSIMCardGroupPrivateWirelessGateway) | **POST** /sim_card_groups/{id}/actions/remove_private_wireless_gateway | Request Private Wireless Gateway removal from SIM card group
-[**setSIMCardGroupPrivateWirelessGateway**](SimCardGroupsApi.md#setSIMCardGroupPrivateWirelessGateway) | **POST** /sim_card_groups/{id}/actions/set_private_wireless_gateway | Request Private Wireless Gateway assignment for SIM card group
-[**simCardGroupDelete**](SimCardGroupsApi.md#simCardGroupDelete) | **DELETE** /sim_card_groups/{id} | Delete a SIM card group
-[**simCardGroupUpdate**](SimCardGroupsApi.md#simCardGroupUpdate) | **PATCH** /sim_card_groups/{id} | Update a SIM card group
-[**simCardGroupsGet**](SimCardGroupsApi.md#simCardGroupsGet) | **GET** /sim_card_groups/{id} | Get SIM card group
-[**simCardGroupsGetAll**](SimCardGroupsApi.md#simCardGroupsGetAll) | **GET** /sim_card_groups | Get all SIM card groups
-[**simCardGroupsPost**](SimCardGroupsApi.md#simCardGroupsPost) | **POST** /sim_card_groups | Create a SIM card group
+[**createSimCardGroup**](SimCardGroupsApi.md#createSimCardGroup) | **POST** /sim_card_groups | Create a SIM card group
+[**deleteSimCardGroup**](SimCardGroupsApi.md#deleteSimCardGroup) | **DELETE** /sim_card_groups/{id} | Delete a SIM card group
+[**getAllSimCardGroups**](SimCardGroupsApi.md#getAllSimCardGroups) | **GET** /sim_card_groups | Get all SIM card groups
+[**getSimCardGroup**](SimCardGroupsApi.md#getSimCardGroup) | **GET** /sim_card_groups/{id} | Get SIM card group
+[**removeSimCardGroupPrivateWirelessGateway**](SimCardGroupsApi.md#removeSimCardGroupPrivateWirelessGateway) | **POST** /sim_card_groups/{id}/actions/remove_private_wireless_gateway | Request Private Wireless Gateway removal from SIM card group
+[**setPrivateWirelessGatewayForSimCardGroup**](SimCardGroupsApi.md#setPrivateWirelessGatewayForSimCardGroup) | **POST** /sim_card_groups/{id}/actions/set_private_wireless_gateway | Request Private Wireless Gateway assignment for SIM card group
+[**updateSimCardGroup**](SimCardGroupsApi.md#updateSimCardGroup) | **PATCH** /sim_card_groups/{id} | Update a SIM card group
 
 
 
-## removeSIMCardGroupPrivateWirelessGateway
+## createSimCardGroup
 
-> SimCardGroupActionGet200Response removeSIMCardGroupPrivateWirelessGateway(id)
+> CreateSimCardGroup200Response createSimCardGroup(siMCardGroupCreate)
 
-Request Private Wireless Gateway removal from SIM card group
+Create a SIM card group
 
-This action will asynchronously remove an existing Private Wireless Gateway definition from a SIM card group. Completing this operation defines that all SIM cards in the SIM card group will get their traffic handled by Telnyx's default mobile network configuration.
+Creates a new SIM card group object
 
 ### Example
 
 ```java
-import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -44,12 +43,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        SIMCardGroupCreate siMCardGroupCreate = new SIMCardGroupCreate(); // SIMCardGroupCreate | 
         try {
-            SimCardGroupActionGet200Response result = apiInstance.removeSIMCardGroupPrivateWirelessGateway(id);
+            CreateSimCardGroup200Response result = apiInstance.createSimCardGroup(siMCardGroupCreate);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardGroupsApi#removeSIMCardGroupPrivateWirelessGateway");
+            System.err.println("Exception when calling SimCardGroupsApi#createSimCardGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -64,85 +63,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **siMCardGroupCreate** | [**SIMCardGroupCreate**](SIMCardGroupCreate.md)|  |
 
 ### Return type
 
-[**SimCardGroupActionGet200Response**](SimCardGroupActionGet200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful Response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## setSIMCardGroupPrivateWirelessGateway
-
-> SimCardGroupActionGet200Response setSIMCardGroupPrivateWirelessGateway(id, setSIMCardGroupPrivateWirelessGatewayRequest)
-
-Request Private Wireless Gateway assignment for SIM card group
-
-This action will asynchronously assign a provisioned Private Wireless Gateway to the SIM card group. Completing this operation defines that all SIM cards in the SIM card group will get their traffic controlled by the associated Private Wireless Gateway. This operation will also imply that new SIM cards assigned to a group will inherit its network definitions. If it's moved to a different group that doesn't have a Private Wireless Gateway, it'll use Telnyx's default mobile network configuration.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.SimCardGroupsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
-        SetSIMCardGroupPrivateWirelessGatewayRequest setSIMCardGroupPrivateWirelessGatewayRequest = new SetSIMCardGroupPrivateWirelessGatewayRequest(); // SetSIMCardGroupPrivateWirelessGatewayRequest | 
-        try {
-            SimCardGroupActionGet200Response result = apiInstance.setSIMCardGroupPrivateWirelessGateway(id, setSIMCardGroupPrivateWirelessGatewayRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardGroupsApi#setSIMCardGroupPrivateWirelessGateway");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
- **setSIMCardGroupPrivateWirelessGatewayRequest** | [**SetSIMCardGroupPrivateWirelessGatewayRequest**](SetSIMCardGroupPrivateWirelessGatewayRequest.md)|  |
-
-### Return type
-
-[**SimCardGroupActionGet200Response**](SimCardGroupActionGet200Response.md)
+[**CreateSimCardGroup200Response**](CreateSimCardGroup200Response.md)
 
 ### Authorization
 
@@ -156,13 +81,13 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Successful Response |  -  |
+| **200** | Successful Response |  -  |
 | **0** | Unexpected error |  -  |
 
 
-## simCardGroupDelete
+## deleteSimCardGroup
 
-> SimCardGroupsPost200Response simCardGroupDelete(id)
+> CreateSimCardGroup200Response deleteSimCardGroup(id)
 
 Delete a SIM card group
 
@@ -192,10 +117,10 @@ public class Example {
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SimCardGroupsPost200Response result = apiInstance.simCardGroupDelete(id);
+            CreateSimCardGroup200Response result = apiInstance.deleteSimCardGroup(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardGroupsApi#simCardGroupDelete");
+            System.err.println("Exception when calling SimCardGroupsApi#deleteSimCardGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -214,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SimCardGroupsPost200Response**](SimCardGroupsPost200Response.md)
+[**CreateSimCardGroup200Response**](CreateSimCardGroup200Response.md)
 
 ### Authorization
 
@@ -232,155 +157,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## simCardGroupUpdate
+## getAllSimCardGroups
 
-> SimCardGroupsPost200Response simCardGroupUpdate(id, siMCardGroupPatch)
-
-Update a SIM card group
-
-Updates a SIM card group
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.SimCardGroupsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
-        SIMCardGroupPatch siMCardGroupPatch = new SIMCardGroupPatch(); // SIMCardGroupPatch | 
-        try {
-            SimCardGroupsPost200Response result = apiInstance.simCardGroupUpdate(id, siMCardGroupPatch);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardGroupsApi#simCardGroupUpdate");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
- **siMCardGroupPatch** | [**SIMCardGroupPatch**](SIMCardGroupPatch.md)|  |
-
-### Return type
-
-[**SimCardGroupsPost200Response**](SimCardGroupsPost200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## simCardGroupsGet
-
-> SimCardGroupsPost200Response simCardGroupsGet(id)
-
-Get SIM card group
-
-Returns the details regarding a specific SIM card group
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.SimCardGroupsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
-        try {
-            SimCardGroupsPost200Response result = apiInstance.simCardGroupsGet(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardGroupsApi#simCardGroupsGet");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
-
-### Return type
-
-[**SimCardGroupsPost200Response**](SimCardGroupsPost200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## simCardGroupsGetAll
-
-> SimCardGroupsGetAll200Response simCardGroupsGetAll(pageNumber, pageSize, filterName, filterPrivateWirelessGatewayId)
+> GetAllSimCardGroups200Response getAllSimCardGroups(pageNumber, pageSize, filterName, filterPrivateWirelessGatewayId)
 
 Get all SIM card groups
 
@@ -413,10 +192,10 @@ public class Example {
         UUID filterName = UUID.randomUUID(); // UUID | A valid SIM card group name.
         UUID filterPrivateWirelessGatewayId = UUID.fromString("7606c6d3-ff7c-49c1-943d-68879e9d584d"); // UUID | A Private Wireless Gateway ID associated with the group.
         try {
-            SimCardGroupsGetAll200Response result = apiInstance.simCardGroupsGetAll(pageNumber, pageSize, filterName, filterPrivateWirelessGatewayId);
+            GetAllSimCardGroups200Response result = apiInstance.getAllSimCardGroups(pageNumber, pageSize, filterName, filterPrivateWirelessGatewayId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardGroupsApi#simCardGroupsGetAll");
+            System.err.println("Exception when calling SimCardGroupsApi#getAllSimCardGroups");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -438,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SimCardGroupsGetAll200Response**](SimCardGroupsGetAll200Response.md)
+[**GetAllSimCardGroups200Response**](GetAllSimCardGroups200Response.md)
 
 ### Authorization
 
@@ -456,17 +235,18 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## simCardGroupsPost
+## getSimCardGroup
 
-> SimCardGroupsPost200Response simCardGroupsPost(siMCardGroupCreate)
+> CreateSimCardGroup200Response getSimCardGroup(id)
 
-Create a SIM card group
+Get SIM card group
 
-Creates a new SIM card group object
+Returns the details regarding a specific SIM card group
 
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -485,12 +265,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        SIMCardGroupCreate siMCardGroupCreate = new SIMCardGroupCreate(); // SIMCardGroupCreate | 
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SimCardGroupsPost200Response result = apiInstance.simCardGroupsPost(siMCardGroupCreate);
+            CreateSimCardGroup200Response result = apiInstance.getSimCardGroup(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardGroupsApi#simCardGroupsPost");
+            System.err.println("Exception when calling SimCardGroupsApi#getSimCardGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -505,11 +285,231 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **siMCardGroupCreate** | [**SIMCardGroupCreate**](SIMCardGroupCreate.md)|  |
+ **id** | **UUID**| Identifies the resource. |
 
 ### Return type
 
-[**SimCardGroupsPost200Response**](SimCardGroupsPost200Response.md)
+[**CreateSimCardGroup200Response**](CreateSimCardGroup200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## removeSimCardGroupPrivateWirelessGateway
+
+> GetSimCardGroupAction200Response removeSimCardGroupPrivateWirelessGateway(id)
+
+Request Private Wireless Gateway removal from SIM card group
+
+This action will asynchronously remove an existing Private Wireless Gateway definition from a SIM card group. Completing this operation defines that all SIM cards in the SIM card group will get their traffic handled by Telnyx's default mobile network configuration.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.SimCardGroupsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        try {
+            GetSimCardGroupAction200Response result = apiInstance.removeSimCardGroupPrivateWirelessGateway(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SimCardGroupsApi#removeSimCardGroupPrivateWirelessGateway");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+
+### Return type
+
+[**GetSimCardGroupAction200Response**](GetSimCardGroupAction200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful Response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## setPrivateWirelessGatewayForSimCardGroup
+
+> GetSimCardGroupAction200Response setPrivateWirelessGatewayForSimCardGroup(id, setPrivateWirelessGatewayForSimCardGroupRequest)
+
+Request Private Wireless Gateway assignment for SIM card group
+
+This action will asynchronously assign a provisioned Private Wireless Gateway to the SIM card group. Completing this operation defines that all SIM cards in the SIM card group will get their traffic controlled by the associated Private Wireless Gateway. This operation will also imply that new SIM cards assigned to a group will inherit its network definitions. If it's moved to a different group that doesn't have a Private Wireless Gateway, it'll use Telnyx's default mobile network configuration.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.SimCardGroupsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        SetPrivateWirelessGatewayForSimCardGroupRequest setPrivateWirelessGatewayForSimCardGroupRequest = new SetPrivateWirelessGatewayForSimCardGroupRequest(); // SetPrivateWirelessGatewayForSimCardGroupRequest | 
+        try {
+            GetSimCardGroupAction200Response result = apiInstance.setPrivateWirelessGatewayForSimCardGroup(id, setPrivateWirelessGatewayForSimCardGroupRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SimCardGroupsApi#setPrivateWirelessGatewayForSimCardGroup");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+ **setPrivateWirelessGatewayForSimCardGroupRequest** | [**SetPrivateWirelessGatewayForSimCardGroupRequest**](SetPrivateWirelessGatewayForSimCardGroupRequest.md)|  |
+
+### Return type
+
+[**GetSimCardGroupAction200Response**](GetSimCardGroupAction200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful Response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## updateSimCardGroup
+
+> CreateSimCardGroup200Response updateSimCardGroup(id, siMCardGroupPatch)
+
+Update a SIM card group
+
+Updates a SIM card group
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.SimCardGroupsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        SIMCardGroupPatch siMCardGroupPatch = new SIMCardGroupPatch(); // SIMCardGroupPatch | 
+        try {
+            CreateSimCardGroup200Response result = apiInstance.updateSimCardGroup(id, siMCardGroupPatch);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SimCardGroupsApi#updateSimCardGroup");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+ **siMCardGroupPatch** | [**SIMCardGroupPatch**](SIMCardGroupPatch.md)|  |
+
+### Return type
+
+[**CreateSimCardGroup200Response**](CreateSimCardGroup200Response.md)
 
 ### Authorization
 

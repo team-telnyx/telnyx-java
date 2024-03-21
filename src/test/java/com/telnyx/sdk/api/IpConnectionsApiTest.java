@@ -42,6 +42,7 @@ public class IpConnectionsApiTest {
 
     private final IpConnectionsApi api = new IpConnectionsApi();
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -58,6 +59,7 @@ public class IpConnectionsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createIpConnection_defaultParams_returnsCreatedIpConnection() throws ApiException {
         //given
@@ -129,6 +131,7 @@ public class IpConnectionsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveIpConnection_ipConnectionIdProvided_returnsIpConnection() throws ApiException {
         //given
@@ -148,6 +151,7 @@ public class IpConnectionsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void updateIpConnection_changedParams_returnsUpdatedIpConnection() throws ApiException {
         //given

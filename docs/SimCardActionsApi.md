@@ -4,16 +4,16 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**bulkSimCardActionGet**](SimCardActionsApi.md#bulkSimCardActionGet) | **GET** /bulk_sim_card_actions/{id} | Get bulk SIM card action details
-[**listBulkSIMCardActions**](SimCardActionsApi.md#listBulkSIMCardActions) | **GET** /bulk_sim_card_actions | List bulk SIM card actions
-[**listSIMCardActions**](SimCardActionsApi.md#listSIMCardActions) | **GET** /sim_card_actions | List SIM card actions
-[**simCardActionGet**](SimCardActionsApi.md#simCardActionGet) | **GET** /sim_card_actions/{id} | Get SIM card action details
+[**getBulkSimCardAction**](SimCardActionsApi.md#getBulkSimCardAction) | **GET** /bulk_sim_card_actions/{id} | Get bulk SIM card action details
+[**getSimCardAction**](SimCardActionsApi.md#getSimCardAction) | **GET** /sim_card_actions/{id} | Get SIM card action details
+[**listSimCardActions**](SimCardActionsApi.md#listSimCardActions) | **GET** /bulk_sim_card_actions | List bulk SIM card actions
+[**listSimCardActions_0**](SimCardActionsApi.md#listSimCardActions_0) | **GET** /sim_card_actions | List SIM card actions
 
 
 
-## bulkSimCardActionGet
+## getBulkSimCardAction
 
-> BulkSimCardActionGet200Response bulkSimCardActionGet(id)
+> GetBulkSimCardAction200Response getBulkSimCardAction(id)
 
 Get bulk SIM card action details
 
@@ -43,10 +43,10 @@ public class Example {
         SimCardActionsApi apiInstance = new SimCardActionsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            BulkSimCardActionGet200Response result = apiInstance.bulkSimCardActionGet(id);
+            GetBulkSimCardAction200Response result = apiInstance.getBulkSimCardAction(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardActionsApi#bulkSimCardActionGet");
+            System.err.println("Exception when calling SimCardActionsApi#getBulkSimCardAction");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkSimCardActionGet200Response**](BulkSimCardActionGet200Response.md)
+[**GetBulkSimCardAction200Response**](GetBulkSimCardAction200Response.md)
 
 ### Authorization
 
@@ -83,9 +83,81 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## listBulkSIMCardActions
+## getSimCardAction
 
-> ListBulkSIMCardActions200Response listBulkSIMCardActions(pageNumber, pageSize, filterActionType)
+> GetSimCardAction200Response getSimCardAction(id)
+
+Get SIM card action details
+
+This API fetches detailed information about a SIM card action to follow-up on an existing asynchronous operation.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.SimCardActionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        SimCardActionsApi apiInstance = new SimCardActionsApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        try {
+            GetSimCardAction200Response result = apiInstance.getSimCardAction(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SimCardActionsApi#getSimCardAction");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+
+### Return type
+
+[**GetSimCardAction200Response**](GetSimCardAction200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## listSimCardActions
+
+> ListSimCardActions200Response listSimCardActions(pageNumber, pageSize, filterActionType)
 
 List bulk SIM card actions
 
@@ -116,10 +188,10 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         String filterActionType = "bulk_set_public_ips"; // String | Filter by action type.
         try {
-            ListBulkSIMCardActions200Response result = apiInstance.listBulkSIMCardActions(pageNumber, pageSize, filterActionType);
+            ListSimCardActions200Response result = apiInstance.listSimCardActions(pageNumber, pageSize, filterActionType);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardActionsApi#listBulkSIMCardActions");
+            System.err.println("Exception when calling SimCardActionsApi#listSimCardActions");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -140,7 +212,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListBulkSIMCardActions200Response**](ListBulkSIMCardActions200Response.md)
+[**ListSimCardActions200Response**](ListSimCardActions200Response.md)
 
 ### Authorization
 
@@ -158,9 +230,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## listSIMCardActions
+## listSimCardActions_0
 
-> ListSIMCardActions200Response listSIMCardActions(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType)
+> ListSimCardActions200Response1 listSimCardActions_0(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType)
 
 List SIM card actions
 
@@ -195,10 +267,10 @@ public class Example {
         UUID filterBulkSimCardActionId = UUID.fromString("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9"); // UUID | Filter by a bulk SIM card action ID.
         String filterActionType = "enable"; // String | Filter by action type.
         try {
-            ListSIMCardActions200Response result = apiInstance.listSIMCardActions(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType);
+            ListSimCardActions200Response1 result = apiInstance.listSimCardActions_0(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardActionsApi#listSIMCardActions");
+            System.err.println("Exception when calling SimCardActionsApi#listSimCardActions_0");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -222,7 +294,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListSIMCardActions200Response**](ListSIMCardActions200Response.md)
+[**ListSimCardActions200Response1**](ListSimCardActions200Response1.md)
 
 ### Authorization
 
@@ -237,77 +309,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## simCardActionGet
-
-> SimCardActionGet200Response simCardActionGet(id)
-
-Get SIM card action details
-
-This API fetches detailed information about a SIM card action to follow-up on an existing asynchronous operation.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.SimCardActionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        SimCardActionsApi apiInstance = new SimCardActionsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
-        try {
-            SimCardActionGet200Response result = apiInstance.simCardActionGet(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardActionsApi#simCardActionGet");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
-
-### Return type
-
-[**SimCardActionGet200Response**](SimCardActionGet200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
 | **0** | Unexpected error |  -  |
 

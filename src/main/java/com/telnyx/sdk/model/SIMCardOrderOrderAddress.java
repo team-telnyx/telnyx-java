@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -34,6 +37,9 @@ import com.telnyx.sdk.JSON;
 @ApiModel(description = "An object representing the address information from when the order was submitted.")
 @JsonPropertyOrder({
   SIMCardOrderOrderAddress.JSON_PROPERTY_ID,
+  SIMCardOrderOrderAddress.JSON_PROPERTY_FIRST_NAME,
+  SIMCardOrderOrderAddress.JSON_PROPERTY_LAST_NAME,
+  SIMCardOrderOrderAddress.JSON_PROPERTY_BUSINESS_NAME,
   SIMCardOrderOrderAddress.JSON_PROPERTY_STREET_ADDRESS,
   SIMCardOrderOrderAddress.JSON_PROPERTY_EXTENDED_ADDRESS,
   SIMCardOrderOrderAddress.JSON_PROPERTY_LOCALITY,
@@ -41,10 +47,19 @@ import com.telnyx.sdk.JSON;
   SIMCardOrderOrderAddress.JSON_PROPERTY_COUNTRY_CODE,
   SIMCardOrderOrderAddress.JSON_PROPERTY_POSTAL_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardOrderOrderAddress {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
+
+  public static final String JSON_PROPERTY_FIRST_NAME = "first_name";
+  private String firstName;
+
+  public static final String JSON_PROPERTY_LAST_NAME = "last_name";
+  private String lastName;
+
+  public static final String JSON_PROPERTY_BUSINESS_NAME = "business_name";
+  private String businessName;
 
   public static final String JSON_PROPERTY_STREET_ADDRESS = "street_address";
   private String streetAddress;
@@ -90,6 +105,84 @@ public class SIMCardOrderOrderAddress {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(String id) {
     this.id = id;
+  }
+
+
+  public SIMCardOrderOrderAddress firstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+
+   /**
+   * The first name of the shipping recipient.
+   * @return firstName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "John", value = "The first name of the shipping recipient.")
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+
+  public SIMCardOrderOrderAddress lastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+   /**
+   * The last name of the shipping recipient.
+   * @return lastName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Smith", value = "The last name of the shipping recipient.")
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLastName() {
+    return lastName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+
+  public SIMCardOrderOrderAddress businessName(String businessName) {
+    this.businessName = businessName;
+    return this;
+  }
+
+   /**
+   * The name of the business where the address is located.
+   * @return businessName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Telnyx LLC", value = "The name of the business where the address is located.")
+  @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBusinessName() {
+    return businessName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBusinessName(String businessName) {
+    this.businessName = businessName;
   }
 
 
@@ -262,6 +355,9 @@ public class SIMCardOrderOrderAddress {
     }
     SIMCardOrderOrderAddress siMCardOrderOrderAddress = (SIMCardOrderOrderAddress) o;
     return Objects.equals(this.id, siMCardOrderOrderAddress.id) &&
+        Objects.equals(this.firstName, siMCardOrderOrderAddress.firstName) &&
+        Objects.equals(this.lastName, siMCardOrderOrderAddress.lastName) &&
+        Objects.equals(this.businessName, siMCardOrderOrderAddress.businessName) &&
         Objects.equals(this.streetAddress, siMCardOrderOrderAddress.streetAddress) &&
         Objects.equals(this.extendedAddress, siMCardOrderOrderAddress.extendedAddress) &&
         Objects.equals(this.locality, siMCardOrderOrderAddress.locality) &&
@@ -272,7 +368,7 @@ public class SIMCardOrderOrderAddress {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, streetAddress, extendedAddress, locality, administrativeArea, countryCode, postalCode);
+    return Objects.hash(id, firstName, lastName, businessName, streetAddress, extendedAddress, locality, administrativeArea, countryCode, postalCode);
   }
 
   @Override
@@ -280,6 +376,9 @@ public class SIMCardOrderOrderAddress {
     StringBuilder sb = new StringBuilder();
     sb.append("class SIMCardOrderOrderAddress {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
+    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+    sb.append("    businessName: ").append(toIndentedString(businessName)).append("\n");
     sb.append("    streetAddress: ").append(toIndentedString(streetAddress)).append("\n");
     sb.append("    extendedAddress: ").append(toIndentedString(extendedAddress)).append("\n");
     sb.append("    locality: ").append(toIndentedString(locality)).append("\n");

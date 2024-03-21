@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,11 +27,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallRequestAnsweringMachineDetectionConfig;
 import com.telnyx.sdk.model.CustomSipHeader;
 import com.telnyx.sdk.model.DialogflowConfig;
+import com.telnyx.sdk.model.SipHeader;
 import com.telnyx.sdk.model.SoundModifications;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -55,11 +59,15 @@ import com.telnyx.sdk.JSON;
   CallRequest.JSON_PROPERTY_CLIENT_STATE,
   CallRequest.JSON_PROPERTY_COMMAND_ID,
   CallRequest.JSON_PROPERTY_LINK_TO,
+  CallRequest.JSON_PROPERTY_MEDIA_ENCRYPTION,
   CallRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
   CallRequest.JSON_PROPERTY_SIP_AUTH_PASSWORD,
+  CallRequest.JSON_PROPERTY_SIP_HEADERS,
+  CallRequest.JSON_PROPERTY_SIP_TRANSPORT_PROTOCOL,
   CallRequest.JSON_PROPERTY_SOUND_MODIFICATIONS,
   CallRequest.JSON_PROPERTY_STREAM_URL,
   CallRequest.JSON_PROPERTY_STREAM_TRACK,
+  CallRequest.JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE,
   CallRequest.JSON_PROPERTY_WEBHOOK_URL,
   CallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD,
   CallRequest.JSON_PROPERTY_RECORD,
@@ -67,10 +75,12 @@ import com.telnyx.sdk.JSON;
   CallRequest.JSON_PROPERTY_RECORD_FORMAT,
   CallRequest.JSON_PROPERTY_RECORD_MAX_LENGTH,
   CallRequest.JSON_PROPERTY_RECORD_TIMEOUT_SECS,
+  CallRequest.JSON_PROPERTY_RECORD_TRIM,
+  CallRequest.JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME,
   CallRequest.JSON_PROPERTY_ENABLE_DIALOGFLOW,
   CallRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallRequest {
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
@@ -100,9 +110,11 @@ public class CallRequest {
   private Integer timeLimitSecs = 14400;
 
   /**
-   * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#39;greeting_end&#39; or &#39;detect_words&#39; is used and a &#39;machine&#39; is detected, you will receive another &#39;call.machine.greeting.ended&#39; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#39;call.machine.greeting.ended&#39; if a beep is detected.
+   * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a &#x60;call.machine.premium.detection.ended&#x60; webhook with one of the following results: &#x60;human_residence&#x60;, &#x60;human_business&#x60;, &#x60;machine&#x60;, &#x60;silence&#x60; or &#x60;fax_detected&#x60;. If we detect a beep, we also send a &#x60;call.machine.premium.greeting.ended&#x60; webhook with the result of &#x60;beep_detected&#x60;. If we detect a beep before &#x60;call.machine.premium.detection.ended&#x60; we only send &#x60;call.machine.premium.greeting.ended&#x60;, and if we detect a beep after &#x60;call.machine.premium.detection.ended&#x60;, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; is used and a &#x60;machine&#x60; is detected, you will receive another &#x60;call.machine.greeting.ended&#x60; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x60;call.machine.greeting.ended&#x60; if a beep is detected.
    */
   public enum AnsweringMachineDetectionEnum {
+    PREMIUM("premium"),
+    
     DETECT("detect"),
     
     DETECT_BEEP("detect_beep"),
@@ -161,11 +173,92 @@ public class CallRequest {
   public static final String JSON_PROPERTY_LINK_TO = "link_to";
   private String linkTo;
 
+  /**
+   * Defines whether media should be encrypted on the call.
+   */
+  public enum MediaEncryptionEnum {
+    DISABLED("disabled"),
+    
+    SRTP("SRTP");
+
+    private String value;
+
+    MediaEncryptionEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static MediaEncryptionEnum fromValue(String value) {
+      for (MediaEncryptionEnum b : MediaEncryptionEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_MEDIA_ENCRYPTION = "media_encryption";
+  private MediaEncryptionEnum mediaEncryption = MediaEncryptionEnum.DISABLED;
+
   public static final String JSON_PROPERTY_SIP_AUTH_USERNAME = "sip_auth_username";
   private String sipAuthUsername;
 
   public static final String JSON_PROPERTY_SIP_AUTH_PASSWORD = "sip_auth_password";
   private String sipAuthPassword;
+
+  public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
+  private List<SipHeader> sipHeaders = null;
+
+  /**
+   * Defines SIP transport protocol to be used on the call.
+   */
+  public enum SipTransportProtocolEnum {
+    UDP("UDP"),
+    
+    TCP("TCP"),
+    
+    TLS("TLS");
+
+    private String value;
+
+    SipTransportProtocolEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SipTransportProtocolEnum fromValue(String value) {
+      for (SipTransportProtocolEnum b : SipTransportProtocolEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_SIP_TRANSPORT_PROTOCOL = "sip_transport_protocol";
+  private SipTransportProtocolEnum sipTransportProtocol = SipTransportProtocolEnum.UDP;
 
   public static final String JSON_PROPERTY_SOUND_MODIFICATIONS = "sound_modifications";
   private SoundModifications soundModifications;
@@ -212,6 +305,9 @@ public class CallRequest {
 
   public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
   private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
+
+  public static final String JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE = "send_silence_when_idle";
+  private Boolean sendSilenceWhenIdle = false;
 
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private String webhookUrl;
@@ -372,6 +468,45 @@ public class CallRequest {
   public static final String JSON_PROPERTY_RECORD_TIMEOUT_SECS = "record_timeout_secs";
   private Integer recordTimeoutSecs = 0;
 
+  /**
+   * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
+   */
+  public enum RecordTrimEnum {
+    TRIM_SILENCE("trim-silence");
+
+    private String value;
+
+    RecordTrimEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordTrimEnum fromValue(String value) {
+      for (RecordTrimEnum b : RecordTrimEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD_TRIM = "record_trim";
+  private RecordTrimEnum recordTrim;
+
+  public static final String JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME = "record_custom_file_name";
+  private String recordCustomFileName;
+
   public static final String JSON_PROPERTY_ENABLE_DIALOGFLOW = "enable_dialogflow";
   private Boolean enableDialogflow = false;
 
@@ -413,11 +548,11 @@ public class CallRequest {
   }
 
    /**
-   * The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number). The number should be in +E164 format. This attribute will default to the &#x60;from&#x60; number of the original call if omitted.
+   * The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number). The number should be in +E164 format.
    * @return from
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "+18005550101", required = true, value = "The `from` number to be used as the caller id presented to the destination (`to` number). The number should be in +E164 format. This attribute will default to the `from` number of the original call if omitted.")
+  @ApiModelProperty(example = "+18005550101", required = true, value = "The `from` number to be used as the caller id presented to the destination (`to` number). The number should be in +E164 format.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -596,6 +731,8 @@ public class CallRequest {
 
    /**
    * Sets the maximum duration of a Call Control Leg in seconds. If the time limit is reached, the call will hangup and a &#x60;call.hangup&#x60; webhook with a &#x60;hangup_cause&#x60; of &#x60;time_limit&#x60; will be sent. For example, by setting a time limit of 120 seconds, a Call Leg will be automatically terminated two minutes after being answered. The default time limit is 14400 seconds or 4 hours and this is also the maximum allowed call length.
+   * minimum: 30
+   * maximum: 14400
    * @return timeLimitSecs
   **/
   @javax.annotation.Nullable
@@ -621,11 +758,11 @@ public class CallRequest {
   }
 
    /**
-   * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#39;greeting_end&#39; or &#39;detect_words&#39; is used and a &#39;machine&#39; is detected, you will receive another &#39;call.machine.greeting.ended&#39; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#39;call.machine.greeting.ended&#39; if a beep is detected.
+   * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a &#x60;call.machine.premium.detection.ended&#x60; webhook with one of the following results: &#x60;human_residence&#x60;, &#x60;human_business&#x60;, &#x60;machine&#x60;, &#x60;silence&#x60; or &#x60;fax_detected&#x60;. If we detect a beep, we also send a &#x60;call.machine.premium.greeting.ended&#x60; webhook with the result of &#x60;beep_detected&#x60;. If we detect a beep before &#x60;call.machine.premium.detection.ended&#x60; we only send &#x60;call.machine.premium.greeting.ended&#x60;, and if we detect a beep after &#x60;call.machine.premium.detection.ended&#x60;, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; is used and a &#x60;machine&#x60; is detected, you will receive another &#x60;call.machine.greeting.ended&#x60; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x60;call.machine.greeting.ended&#x60; if a beep is detected.
    * @return answeringMachineDetection
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If 'greeting_end' or 'detect_words' is used and a 'machine' is detected, you will receive another 'call.machine.greeting.ended' webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive 'call.machine.greeting.ended' if a beep is detected.")
+  @ApiModelProperty(value = "Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a `call.machine.premium.detection.ended` webhook with one of the following results: `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect a beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we only send `call.machine.premium.greeting.ended`, and if we detect a beep after `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will receive another `call.machine.greeting.ended` webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive `call.machine.greeting.ended` if a beep is detected.")
   @JsonProperty(JSON_PROPERTY_ANSWERING_MACHINE_DETECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -805,6 +942,32 @@ public class CallRequest {
   }
 
 
+  public CallRequest mediaEncryption(MediaEncryptionEnum mediaEncryption) {
+    this.mediaEncryption = mediaEncryption;
+    return this;
+  }
+
+   /**
+   * Defines whether media should be encrypted on the call.
+   * @return mediaEncryption
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Defines whether media should be encrypted on the call.")
+  @JsonProperty(JSON_PROPERTY_MEDIA_ENCRYPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MediaEncryptionEnum getMediaEncryption() {
+    return mediaEncryption;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEDIA_ENCRYPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMediaEncryption(MediaEncryptionEnum mediaEncryption) {
+    this.mediaEncryption = mediaEncryption;
+  }
+
+
   public CallRequest sipAuthUsername(String sipAuthUsername) {
     this.sipAuthUsername = sipAuthUsername;
     return this;
@@ -854,6 +1017,66 @@ public class CallRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipAuthPassword(String sipAuthPassword) {
     this.sipAuthPassword = sipAuthPassword;
+  }
+
+
+  public CallRequest sipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+    return this;
+  }
+
+  public CallRequest addSipHeadersItem(SipHeader sipHeadersItem) {
+    if (this.sipHeaders == null) {
+      this.sipHeaders = new ArrayList<>();
+    }
+    this.sipHeaders.add(sipHeadersItem);
+    return this;
+  }
+
+   /**
+   * SIP headers to be added to the SIP INVITE request. Currently only User-to-User header is supported.
+   * @return sipHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"value\"}]", value = "SIP headers to be added to the SIP INVITE request. Currently only User-to-User header is supported.")
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SipHeader> getSipHeaders() {
+    return sipHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+  }
+
+
+  public CallRequest sipTransportProtocol(SipTransportProtocolEnum sipTransportProtocol) {
+    this.sipTransportProtocol = sipTransportProtocol;
+    return this;
+  }
+
+   /**
+   * Defines SIP transport protocol to be used on the call.
+   * @return sipTransportProtocol
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Defines SIP transport protocol to be used on the call.")
+  @JsonProperty(JSON_PROPERTY_SIP_TRANSPORT_PROTOCOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SipTransportProtocolEnum getSipTransportProtocol() {
+    return sipTransportProtocol;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIP_TRANSPORT_PROTOCOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSipTransportProtocol(SipTransportProtocolEnum sipTransportProtocol) {
+    this.sipTransportProtocol = sipTransportProtocol;
   }
 
 
@@ -932,6 +1155,32 @@ public class CallRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStreamTrack(StreamTrackEnum streamTrack) {
     this.streamTrack = streamTrack;
+  }
+
+
+  public CallRequest sendSilenceWhenIdle(Boolean sendSilenceWhenIdle) {
+    this.sendSilenceWhenIdle = sendSilenceWhenIdle;
+    return this;
+  }
+
+   /**
+   * Generate silence RTP packets when no transmission available.
+   * @return sendSilenceWhenIdle
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Generate silence RTP packets when no transmission available.")
+  @JsonProperty(JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSendSilenceWhenIdle() {
+    return sendSilenceWhenIdle;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSendSilenceWhenIdle(Boolean sendSilenceWhenIdle) {
+    this.sendSilenceWhenIdle = sendSilenceWhenIdle;
   }
 
 
@@ -1097,11 +1346,11 @@ public class CallRequest {
   }
 
    /**
-   * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when &#x60;record&#x60; is specified. The timer only starts when the speech is detected. The minimum value is 0. The default value is 0 (infinite).
+   * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when &#x60;record&#x60; is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).
    * @return recordTimeoutSecs
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "100", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. The minimum value is 0. The default value is 0 (infinite).")
+  @ApiModelProperty(example = "100", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).")
   @JsonProperty(JSON_PROPERTY_RECORD_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1114,6 +1363,58 @@ public class CallRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordTimeoutSecs(Integer recordTimeoutSecs) {
     this.recordTimeoutSecs = recordTimeoutSecs;
+  }
+
+
+  public CallRequest recordTrim(RecordTrimEnum recordTrim) {
+    this.recordTrim = recordTrim;
+    return this;
+  }
+
+   /**
+   * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
+   * @return recordTrim
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "trim-silence", value = "When set to `trim-silence`, silence will be removed from the beginning and end of the recording.")
+  @JsonProperty(JSON_PROPERTY_RECORD_TRIM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordTrimEnum getRecordTrim() {
+    return recordTrim;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_TRIM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordTrim(RecordTrimEnum recordTrim) {
+    this.recordTrim = recordTrim;
+  }
+
+
+  public CallRequest recordCustomFileName(String recordCustomFileName) {
+    this.recordCustomFileName = recordCustomFileName;
+    return this;
+  }
+
+   /**
+   * The custom recording file name to be used instead of the default &#x60;call_leg_id&#x60;. Telnyx will still add a Unix timestamp suffix.
+   * @return recordCustomFileName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_recording_file_name", value = "The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.")
+  @JsonProperty(JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRecordCustomFileName() {
+    return recordCustomFileName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordCustomFileName(String recordCustomFileName) {
+    this.recordCustomFileName = recordCustomFileName;
   }
 
 
@@ -1197,11 +1498,15 @@ public class CallRequest {
         Objects.equals(this.clientState, callRequest.clientState) &&
         Objects.equals(this.commandId, callRequest.commandId) &&
         Objects.equals(this.linkTo, callRequest.linkTo) &&
+        Objects.equals(this.mediaEncryption, callRequest.mediaEncryption) &&
         Objects.equals(this.sipAuthUsername, callRequest.sipAuthUsername) &&
         Objects.equals(this.sipAuthPassword, callRequest.sipAuthPassword) &&
+        Objects.equals(this.sipHeaders, callRequest.sipHeaders) &&
+        Objects.equals(this.sipTransportProtocol, callRequest.sipTransportProtocol) &&
         Objects.equals(this.soundModifications, callRequest.soundModifications) &&
         Objects.equals(this.streamUrl, callRequest.streamUrl) &&
         Objects.equals(this.streamTrack, callRequest.streamTrack) &&
+        Objects.equals(this.sendSilenceWhenIdle, callRequest.sendSilenceWhenIdle) &&
         Objects.equals(this.webhookUrl, callRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, callRequest.webhookUrlMethod) &&
         Objects.equals(this.record, callRequest.record) &&
@@ -1209,13 +1514,15 @@ public class CallRequest {
         Objects.equals(this.recordFormat, callRequest.recordFormat) &&
         Objects.equals(this.recordMaxLength, callRequest.recordMaxLength) &&
         Objects.equals(this.recordTimeoutSecs, callRequest.recordTimeoutSecs) &&
+        Objects.equals(this.recordTrim, callRequest.recordTrim) &&
+        Objects.equals(this.recordCustomFileName, callRequest.recordCustomFileName) &&
         Objects.equals(this.enableDialogflow, callRequest.enableDialogflow) &&
         Objects.equals(this.dialogflowConfig, callRequest.dialogflowConfig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, fromDisplayName, connectionId, audioUrl, mediaName, preferredCodecs, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, sipAuthUsername, sipAuthPassword, soundModifications, streamUrl, streamTrack, webhookUrl, webhookUrlMethod, record, recordChannels, recordFormat, recordMaxLength, recordTimeoutSecs, enableDialogflow, dialogflowConfig);
+    return Objects.hash(to, from, fromDisplayName, connectionId, audioUrl, mediaName, preferredCodecs, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, mediaEncryption, sipAuthUsername, sipAuthPassword, sipHeaders, sipTransportProtocol, soundModifications, streamUrl, streamTrack, sendSilenceWhenIdle, webhookUrl, webhookUrlMethod, record, recordChannels, recordFormat, recordMaxLength, recordTimeoutSecs, recordTrim, recordCustomFileName, enableDialogflow, dialogflowConfig);
   }
 
   @Override
@@ -1238,11 +1545,15 @@ public class CallRequest {
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    linkTo: ").append(toIndentedString(linkTo)).append("\n");
+    sb.append("    mediaEncryption: ").append(toIndentedString(mediaEncryption)).append("\n");
     sb.append("    sipAuthUsername: ").append(toIndentedString(sipAuthUsername)).append("\n");
     sb.append("    sipAuthPassword: ").append(toIndentedString(sipAuthPassword)).append("\n");
+    sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
+    sb.append("    sipTransportProtocol: ").append(toIndentedString(sipTransportProtocol)).append("\n");
     sb.append("    soundModifications: ").append(toIndentedString(soundModifications)).append("\n");
     sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
     sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
+    sb.append("    sendSilenceWhenIdle: ").append(toIndentedString(sendSilenceWhenIdle)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");
     sb.append("    record: ").append(toIndentedString(record)).append("\n");
@@ -1250,6 +1561,8 @@ public class CallRequest {
     sb.append("    recordFormat: ").append(toIndentedString(recordFormat)).append("\n");
     sb.append("    recordMaxLength: ").append(toIndentedString(recordMaxLength)).append("\n");
     sb.append("    recordTimeoutSecs: ").append(toIndentedString(recordTimeoutSecs)).append("\n");
+    sb.append("    recordTrim: ").append(toIndentedString(recordTrim)).append("\n");
+    sb.append("    recordCustomFileName: ").append(toIndentedString(recordCustomFileName)).append("\n");
     sb.append("    enableDialogflow: ").append(toIndentedString(enableDialogflow)).append("\n");
     sb.append("    dialogflowConfig: ").append(toIndentedString(dialogflowConfig)).append("\n");
     sb.append("}");
@@ -1268,3 +1581,4 @@ public class CallRequest {
   }
 
 }
+

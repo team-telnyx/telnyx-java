@@ -25,6 +25,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 
+import org.junit.Test;
+
 /**
  * Model tests for CreateVerifyProfileWhatsappRequest
  */

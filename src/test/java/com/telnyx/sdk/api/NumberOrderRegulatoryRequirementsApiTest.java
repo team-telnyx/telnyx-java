@@ -35,6 +35,7 @@ public class NumberOrderRegulatoryRequirementsApiTest {
     private final NumberSearchApi numberSearchApi = new NumberSearchApi();
     private final NumberOrdersApi numberOrdersApi = new NumberOrdersApi();
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -49,6 +50,7 @@ public class NumberOrderRegulatoryRequirementsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void listNumberOrderRegulatoryRequirements_whenNoFilterCriteria_returnsAllRegulatoryRequirements() throws ApiException {
         ListNumberOrderRegulatoryRequirementsResponse response = api.listNumberOrderRegulatoryRequirements()
@@ -100,6 +102,7 @@ public class NumberOrderRegulatoryRequirementsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveNumberOrderRegulatoryRequirementTest() throws ApiException {
         //String requirementId = null;

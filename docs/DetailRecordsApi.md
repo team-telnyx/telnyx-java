@@ -4,17 +4,17 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**detailRecordsSearch**](DetailRecordsApi.md#detailRecordsSearch) | **GET** /detail_records | Search detail records
+[**searchDetailRecords**](DetailRecordsApi.md#searchDetailRecords) | **GET** /detail_records | Search detail records
 
 
 
-## detailRecordsSearch
+## searchDetailRecords
 
-> DetailRecordsSearchResponse detailRecordsSearch(filterRecordType, filterDateRange, filter, pageNumber, pageSize, sort)
+> DetailRecordsSearchResponse searchDetailRecords(filterRecordType, filterDateRange, filter, pageNumber, pageSize, sort)
 
 Search detail records
 
-Search for any detail record across the Telnyx Platform. Examples and additional information found [here](/docs/v2/debugging/detail-record-search).
+Search for any detail record across the Telnyx Platform
 
 ### Example
 
@@ -44,10 +44,10 @@ public class Example {
         Integer pageSize = 20; // Integer | Page size
         List<String> sort = Arrays.asList(); // List<String> | Specifies the sort order for results. <br/>Example: sort=-created_at
         try {
-            DetailRecordsSearchResponse result = apiInstance.detailRecordsSearch(filterRecordType, filterDateRange, filter, pageNumber, pageSize, sort);
+            DetailRecordsSearchResponse result = apiInstance.searchDetailRecords(filterRecordType, filterDateRange, filter, pageNumber, pageSize, sort);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DetailRecordsApi#detailRecordsSearch");
+            System.err.println("Exception when calling DetailRecordsApi#searchDetailRecords");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

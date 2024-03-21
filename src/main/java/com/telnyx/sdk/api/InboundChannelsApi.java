@@ -8,7 +8,7 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.ListOutboundChannels200Response;
+import com.telnyx.sdk.model.ListInboundChannels200Response;
 import com.telnyx.sdk.model.UpdateOutboundChannels200Response;
 import com.telnyx.sdk.model.UpdateOutboundChannelsDefaultResponse;
 import com.telnyx.sdk.model.UpdateOutboundChannelsRequest;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class InboundChannelsApi {
   private ApiClient apiClient;
 
@@ -49,9 +49,9 @@ public class InboundChannelsApi {
   }
 
   /**
-   * Retrieve your inbound channels
+   * List your inbound channels
    * Returns the inbound channels for your account. Inbound channels allows you to use Channel Billing for calls to your Telnyx phone numbers. Please check the Telnyx Support Articles section for full information and examples of how to utilize Channel Billing.
-   * @return ListOutboundChannels200Response
+   * @return ListInboundChannels200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -62,14 +62,14 @@ public class InboundChannelsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListOutboundChannels200Response listOutboundChannels() throws ApiException {
-    return listOutboundChannelsWithHttpInfo().getData();
+  public ListInboundChannels200Response listInboundChannels() throws ApiException {
+    return listInboundChannelsWithHttpInfo().getData();
   }
 
   /**
-   * Retrieve your inbound channels
+   * List your inbound channels
    * Returns the inbound channels for your account. Inbound channels allows you to use Channel Billing for calls to your Telnyx phone numbers. Please check the Telnyx Support Articles section for full information and examples of how to utilize Channel Billing.
-   * @return ApiResponse&lt;ListOutboundChannels200Response&gt;
+   * @return ApiResponse&lt;ListInboundChannels200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -80,7 +80,7 @@ public class InboundChannelsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListOutboundChannels200Response> listOutboundChannelsWithHttpInfo() throws ApiException {
+  public ApiResponse<ListInboundChannels200Response> listInboundChannelsWithHttpInfo() throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -108,9 +108,9 @@ public class InboundChannelsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListOutboundChannels200Response> localVarReturnType = new GenericType<ListOutboundChannels200Response>() {};
+    GenericType<ListInboundChannels200Response> localVarReturnType = new GenericType<ListInboundChannels200Response>() {};
 
-    return apiClient.invokeAPI("InboundChannelsApi.listOutboundChannels", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("InboundChannelsApi.listInboundChannels", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

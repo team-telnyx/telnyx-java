@@ -11,6 +11,9 @@
 |**dnisNumberFormat** | [**DnisNumberFormatEnum**](#DnisNumberFormatEnum) |  |  [optional] |
 |**codecs** | **List&lt;String&gt;** | Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP. |  [optional] |
 |**defaultRoutingMethod** | [**DefaultRoutingMethodEnum**](#DefaultRoutingMethodEnum) | Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or null, other values are not allowed. |  [optional] |
+|**defaultPrimaryFqdnId** | **String** | The default primary FQDN to use for the number. Only settable if the connection is of FQDN type. Value must be the ID of an FQDN set on the connection. |  [optional] |
+|**defaultSecondaryFqdnId** | **String** | The default secondary FQDN to use for the number. Only settable if the connection is of FQDN type. Value must be the ID of an FQDN set on the connection. |  [optional] |
+|**defaultTertiaryFqdnId** | **String** | The default tertiary FQDN to use for the number. Only settable if the connection is of FQDN type. Value must be the ID of an FQDN set on the connection. |  [optional] |
 |**channelLimit** | **Integer** | When set, this will limit the total number of inbound calls to phone numbers associated with this connection. |  [optional] |
 |**generateRingbackTone** | **Boolean** | Generate ringback tone through 183 session progress message with early media. |  [optional] |
 |**isupHeadersEnabled** | **Boolean** | When set, inbound phone calls will receive ISUP parameters via SIP headers. (Only when available and only when using TCP or TLS transport.) |  [optional] |
@@ -22,6 +25,7 @@
 |**sipSubdomainReceiveSettings** | [**SipSubdomainReceiveSettingsEnum**](#SipSubdomainReceiveSettingsEnum) | This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user). |  [optional] |
 |**timeout1xxSecs** | **Integer** | Time(sec) before aborting if connection is not made. |  [optional] |
 |**timeout2xxSecs** | **Integer** | Time(sec) before aborting if call is unanswered (min: 1, max: 600). |  [optional] |
+|**shakenStirEnabled** | **Boolean** | When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport. |  [optional] |
 
 
 

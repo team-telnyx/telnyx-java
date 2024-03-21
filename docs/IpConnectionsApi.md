@@ -80,7 +80,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Successful response with details about an IP connection. |  -  |
-| **422** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **422** | Unprocessable entity |  -  |
 
 
 ## deleteIpConnection
@@ -151,9 +153,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an IP connection. |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
 | **404** | Resource not found |  -  |
-| **422** | Bad request |  -  |
 
 
 ## listIpConnections
@@ -187,7 +190,7 @@ public class Example {
         IpConnectionsApi apiInstance = new IpConnectionsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
-        String filterConnectionNameContains = "filterConnectionNameContains_example"; // String | If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+        String filterConnectionNameContains = "My Connection"; // String | If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
         String filterOutboundOutboundVoiceProfileId = "1293384261075731499"; // String | Identifies the associated outbound voice profile.
         String sort = "created_at"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
         try {
@@ -238,9 +241,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of IP connections. |  -  |
-| **400** | Bad request |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
 
 
 ## retrieveIpConnection
@@ -311,9 +314,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an IP connection. |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
 | **404** | Resource not found |  -  |
-| **422** | Bad request |  -  |
 
 
 ## updateIpConnection
@@ -387,6 +391,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an IP connection. |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
 | **404** | Resource not found |  -  |
-| **422** | Bad request |  -  |
+| **422** | Unprocessable entity |  -  |
 

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -32,129 +36,129 @@ import com.telnyx.sdk.JSON;
  * Location
  */
 @JsonPropertyOrder({
-  Location.JSON_PROPERTY_LONGITUDE,
-  Location.JSON_PROPERTY_LATITUDE,
-  Location.JSON_PROPERTY_NAME,
-  Location.JSON_PROPERTY_ADDRESS
+  Location.JSON_PROPERTY_ID,
+  Location.JSON_PROPERTY_ADDITIONAL_INFO,
+  Location.JSON_PROPERTY_DESCRIPTION,
+  Location.JSON_PROPERTY_IS_DEFAULT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Location {
-  public static final String JSON_PROPERTY_LONGITUDE = "longitude";
-  private String longitude;
+  public static final String JSON_PROPERTY_ID = "id";
+  private UUID id;
 
-  public static final String JSON_PROPERTY_LATITUDE = "latitude";
-  private String latitude;
+  public static final String JSON_PROPERTY_ADDITIONAL_INFO = "additional_info";
+  private String additionalInfo;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  private String description;
 
-  public static final String JSON_PROPERTY_ADDRESS = "address";
-  private String address;
+  public static final String JSON_PROPERTY_IS_DEFAULT = "is_default";
+  private Boolean isDefault;
 
   public Location() { 
   }
 
-  public Location longitude(String longitude) {
-    this.longitude = longitude;
+  public Location id(UUID id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Longitude of the location
-   * @return longitude
+   * Uniquely identifies the resource.
+   * @return id
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Longitude of the location")
-  @JsonProperty(JSON_PROPERTY_LONGITUDE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "542c3bca-d247-42bc-8fe7-e01d16ecd761", value = "Uniquely identifies the resource.")
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getLongitude() {
-    return longitude;
+  public UUID getId() {
+    return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LONGITUDE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLongitude(String longitude) {
-    this.longitude = longitude;
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(UUID id) {
+    this.id = id;
   }
 
 
-  public Location latitude(String latitude) {
-    this.latitude = latitude;
+  public Location additionalInfo(String additionalInfo) {
+    this.additionalInfo = additionalInfo;
     return this;
   }
 
    /**
-   * Latitude of the location
-   * @return latitude
+   * Get additionalInfo
+   * @return additionalInfo
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Latitude of the location")
-  @JsonProperty(JSON_PROPERTY_LATITUDE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Main building, Suite 504", value = "")
+  @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getLatitude() {
-    return latitude;
+  public String getAdditionalInfo() {
+    return additionalInfo;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LATITUDE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLatitude(String latitude) {
-    this.latitude = latitude;
+  @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAdditionalInfo(String additionalInfo) {
+    this.additionalInfo = additionalInfo;
   }
 
 
-  public Location name(String name) {
-    this.name = name;
+  public Location description(String description) {
+    this.description = description;
     return this;
   }
 
    /**
-   * Name of the location
-   * @return name
+   * Get description
+   * @return description
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Name of the location")
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Chicago Office", value = "")
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getName() {
-    return name;
+  public String getDescription() {
+    return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(String name) {
-    this.name = name;
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 
-  public Location address(String address) {
-    this.address = address;
+  public Location isDefault(Boolean isDefault) {
+    this.isDefault = isDefault;
     return this;
   }
 
    /**
-   * Address of the location. Only displayed if name is present.
-   * @return address
+   * Represents whether the location is the default or not.
+   * @return isDefault
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Address of the location. Only displayed if name is present.")
-  @JsonProperty(JSON_PROPERTY_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Represents whether the location is the default or not.")
+  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getAddress() {
-    return address;
+  public Boolean getIsDefault() {
+    return isDefault;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAddress(String address) {
-    this.address = address;
+  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsDefault(Boolean isDefault) {
+    this.isDefault = isDefault;
   }
 
 
@@ -170,25 +174,25 @@ public class Location {
       return false;
     }
     Location location = (Location) o;
-    return Objects.equals(this.longitude, location.longitude) &&
-        Objects.equals(this.latitude, location.latitude) &&
-        Objects.equals(this.name, location.name) &&
-        Objects.equals(this.address, location.address);
+    return Objects.equals(this.id, location.id) &&
+        Objects.equals(this.additionalInfo, location.additionalInfo) &&
+        Objects.equals(this.description, location.description) &&
+        Objects.equals(this.isDefault, location.isDefault);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(longitude, latitude, name, address);
+    return Objects.hash(id, additionalInfo, description, isDefault);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Location {\n");
-    sb.append("    longitude: ").append(toIndentedString(longitude)).append("\n");
-    sb.append("    latitude: ").append(toIndentedString(latitude)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
     sb.append("}");
     return sb.toString();
   }

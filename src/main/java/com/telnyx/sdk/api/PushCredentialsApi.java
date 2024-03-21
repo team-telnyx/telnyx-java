@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PushCredentialsApi {
   private ApiClient apiClient;
 
@@ -280,9 +280,6 @@ public class PushCredentialsApi {
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
      </table>
    */
-  public String listPushCredentials(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
-    return listPushCredentialsWithHttpInfo(filterType, filterAlias, pageSize, pageNumber).getData();
-  }
 
   /**
    * List mobile push credentials
@@ -332,10 +329,8 @@ public class PushCredentialsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<String> localVarReturnType = new GenericType<String>() {};
-
     return apiClient.invokeAPI("PushCredentialsApi.listPushCredentials", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
+                               localVarAuthNames, null, false);
   }
 }

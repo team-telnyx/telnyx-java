@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.Quality;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -37,12 +41,14 @@ import com.telnyx.sdk.JSON;
   SendFaxRequest.JSON_PROPERTY_MEDIA_NAME,
   SendFaxRequest.JSON_PROPERTY_TO,
   SendFaxRequest.JSON_PROPERTY_FROM,
+  SendFaxRequest.JSON_PROPERTY_FROM_DISPLAY_NAME,
   SendFaxRequest.JSON_PROPERTY_QUALITY,
   SendFaxRequest.JSON_PROPERTY_T38_ENABLED,
   SendFaxRequest.JSON_PROPERTY_MONOCHROME,
-  SendFaxRequest.JSON_PROPERTY_STORE_MEDIA
+  SendFaxRequest.JSON_PROPERTY_STORE_MEDIA,
+  SendFaxRequest.JSON_PROPERTY_WEBHOOK_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SendFaxRequest {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -59,8 +65,11 @@ public class SendFaxRequest {
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
 
+  public static final String JSON_PROPERTY_FROM_DISPLAY_NAME = "from_display_name";
+  private String fromDisplayName;
+
   public static final String JSON_PROPERTY_QUALITY = "quality";
-  private String quality = "high";
+  private Quality quality = Quality.HIGH;
 
   public static final String JSON_PROPERTY_T38_ENABLED = "t38_enabled";
   private Boolean t38Enabled = true;
@@ -70,6 +79,9 @@ public class SendFaxRequest {
 
   public static final String JSON_PROPERTY_STORE_MEDIA = "store_media";
   private Boolean storeMedia = false;
+
+  public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
+  private String webhookUrl;
 
   public SendFaxRequest() { 
   }
@@ -204,28 +216,54 @@ public class SendFaxRequest {
   }
 
 
-  public SendFaxRequest quality(String quality) {
+  public SendFaxRequest fromDisplayName(String fromDisplayName) {
+    this.fromDisplayName = fromDisplayName;
+    return this;
+  }
+
+   /**
+   * The &#x60;from_display_name&#x60; string to be used as the caller id name (SIP From Display Name) presented to the destination (&#x60;to&#x60; number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the &#x60;from&#x60; field.
+   * @return fromDisplayName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Company Name", value = "The `from_display_name` string to be used as the caller id name (SIP From Display Name) presented to the destination (`to` number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the `from` field.")
+  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFromDisplayName() {
+    return fromDisplayName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFromDisplayName(String fromDisplayName) {
+    this.fromDisplayName = fromDisplayName;
+  }
+
+
+  public SendFaxRequest quality(Quality quality) {
     this.quality = quality;
     return this;
   }
 
    /**
-   * The quality of the fax. Can be normal, high, very_high
+   * Get quality
    * @return quality
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "high", value = "The quality of the fax. Can be normal, high, very_high")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_QUALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getQuality() {
+  public Quality getQuality() {
     return quality;
   }
 
 
   @JsonProperty(JSON_PROPERTY_QUALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setQuality(String quality) {
+  public void setQuality(Quality quality) {
     this.quality = quality;
   }
 
@@ -308,6 +346,32 @@ public class SendFaxRequest {
   }
 
 
+  public SendFaxRequest webhookUrl(String webhookUrl) {
+    this.webhookUrl = webhookUrl;
+    return this;
+  }
+
+   /**
+   * Use this field to override the URL to which Telnyx will send subsequent webhooks for this fax.
+   * @return webhookUrl
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL to which Telnyx will send subsequent webhooks for this fax.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookUrl() {
+    return webhookUrl;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWebhookUrl(String webhookUrl) {
+    this.webhookUrl = webhookUrl;
+  }
+
+
   /**
    * Return true if this SendFaxRequest object is equal to o.
    */
@@ -325,15 +389,17 @@ public class SendFaxRequest {
         Objects.equals(this.mediaName, sendFaxRequest.mediaName) &&
         Objects.equals(this.to, sendFaxRequest.to) &&
         Objects.equals(this.from, sendFaxRequest.from) &&
+        Objects.equals(this.fromDisplayName, sendFaxRequest.fromDisplayName) &&
         Objects.equals(this.quality, sendFaxRequest.quality) &&
         Objects.equals(this.t38Enabled, sendFaxRequest.t38Enabled) &&
         Objects.equals(this.monochrome, sendFaxRequest.monochrome) &&
-        Objects.equals(this.storeMedia, sendFaxRequest.storeMedia);
+        Objects.equals(this.storeMedia, sendFaxRequest.storeMedia) &&
+        Objects.equals(this.webhookUrl, sendFaxRequest.webhookUrl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, mediaUrl, mediaName, to, from, quality, t38Enabled, monochrome, storeMedia);
+    return Objects.hash(connectionId, mediaUrl, mediaName, to, from, fromDisplayName, quality, t38Enabled, monochrome, storeMedia, webhookUrl);
   }
 
   @Override
@@ -345,10 +411,12 @@ public class SendFaxRequest {
     sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
+    sb.append("    fromDisplayName: ").append(toIndentedString(fromDisplayName)).append("\n");
     sb.append("    quality: ").append(toIndentedString(quality)).append("\n");
     sb.append("    t38Enabled: ").append(toIndentedString(t38Enabled)).append("\n");
     sb.append("    monochrome: ").append(toIndentedString(monochrome)).append("\n");
     sb.append("    storeMedia: ").append(toIndentedString(storeMedia)).append("\n");
+    sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("}");
     return sb.toString();
   }

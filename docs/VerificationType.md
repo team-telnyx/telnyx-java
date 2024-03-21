@@ -5,15 +5,11 @@
 ## Enum
 
 
-* `SMS_VERIFICATION` (value: `"sms_verification"`)
+* `SMS` (value: `"sms"`)
 
-* `PSD2_VERIFICATION` (value: `"psd2_verification"`)
+* `CALL` (value: `"call"`)
 
-* `WHATSAPP_VERIFICATION` (value: `"whatsapp_verification"`)
-
-* `CALL_VERIFICATION` (value: `"call_verification"`)
-
-* `FLASHCALL_VERIFICATION` (value: `"flashcall_verification"`)
+* `FLASHCALL` (value: `"flashcall"`)
 
 
 

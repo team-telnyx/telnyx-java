@@ -4,18 +4,95 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**networkCreate**](NetworksApi.md#networkCreate) | **POST** /networks | Create a Network
-[**networkDelete**](NetworksApi.md#networkDelete) | **DELETE** /networks/{id} | Delete a Network
-[**networkGet**](NetworksApi.md#networkGet) | **GET** /networks/{id} | Retrieve a Network
-[**networkInterfaceList**](NetworksApi.md#networkInterfaceList) | **GET** /networks/{id}/network_interfaces | List all Interfaces for a Network.
-[**networkList**](NetworksApi.md#networkList) | **GET** /networks | List all Networks
-[**networkUpdate**](NetworksApi.md#networkUpdate) | **PATCH** /networks/{id} | Update a Network
+[**createDefaultGateway**](NetworksApi.md#createDefaultGateway) | **POST** /networks/{id}/default_gateway | Create Default Gateway.
+[**createNetwork**](NetworksApi.md#createNetwork) | **POST** /networks | Create a Network
+[**deleteDefaultGateway**](NetworksApi.md#deleteDefaultGateway) | **DELETE** /networks/{id}/default_gateway | Delete Default Gateway.
+[**deleteNetwork**](NetworksApi.md#deleteNetwork) | **DELETE** /networks/{id} | Delete a Network
+[**getDefaultGateway**](NetworksApi.md#getDefaultGateway) | **GET** /networks/{id}/default_gateway | Get Default Gateway status.
+[**getNetwork**](NetworksApi.md#getNetwork) | **GET** /networks/{id} | Retrieve a Network
+[**listNetworkInterfaces**](NetworksApi.md#listNetworkInterfaces) | **GET** /networks/{id}/network_interfaces | List all Interfaces for a Network.
+[**listNetworks**](NetworksApi.md#listNetworks) | **GET** /networks | List all Networks
+[**updateNetwork**](NetworksApi.md#updateNetwork) | **PATCH** /networks/{id} | Update a Network
 
 
 
-## networkCreate
+## createDefaultGateway
 
-> NetworkCreate200Response networkCreate(networkCreate)
+> GetDefaultGateway200Response createDefaultGateway(id, defaultGateway)
+
+Create Default Gateway.
+
+Create Default Gateway.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NetworksApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NetworksApi apiInstance = new NetworksApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        DefaultGateway defaultGateway = new DefaultGateway(); // DefaultGateway | 
+        try {
+            GetDefaultGateway200Response result = apiInstance.createDefaultGateway(id, defaultGateway);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NetworksApi#createDefaultGateway");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+ **defaultGateway** | [**DefaultGateway**](DefaultGateway.md)|  |
+
+### Return type
+
+[**GetDefaultGateway200Response**](GetDefaultGateway200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## createNetwork
+
+> CreateNetwork200Response createNetwork(networkCreate)
 
 Create a Network
 
@@ -44,10 +121,10 @@ public class Example {
         NetworksApi apiInstance = new NetworksApi(defaultClient);
         NetworkCreate networkCreate = new NetworkCreate(); // NetworkCreate | 
         try {
-            NetworkCreate200Response result = apiInstance.networkCreate(networkCreate);
+            CreateNetwork200Response result = apiInstance.createNetwork(networkCreate);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling NetworksApi#networkCreate");
+            System.err.println("Exception when calling NetworksApi#createNetwork");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -66,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NetworkCreate200Response**](NetworkCreate200Response.md)
+[**CreateNetwork200Response**](CreateNetwork200Response.md)
 
 ### Authorization
 
@@ -85,9 +162,81 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## networkDelete
+## deleteDefaultGateway
 
-> NetworkCreate200Response networkDelete(id)
+> GetDefaultGateway200Response deleteDefaultGateway(id)
+
+Delete Default Gateway.
+
+Delete Default Gateway.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NetworksApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NetworksApi apiInstance = new NetworksApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        try {
+            GetDefaultGateway200Response result = apiInstance.deleteDefaultGateway(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NetworksApi#deleteDefaultGateway");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+
+### Return type
+
+[**GetDefaultGateway200Response**](GetDefaultGateway200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## deleteNetwork
+
+> CreateNetwork200Response deleteNetwork(id)
 
 Delete a Network
 
@@ -117,10 +266,10 @@ public class Example {
         NetworksApi apiInstance = new NetworksApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            NetworkCreate200Response result = apiInstance.networkDelete(id);
+            CreateNetwork200Response result = apiInstance.deleteNetwork(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling NetworksApi#networkDelete");
+            System.err.println("Exception when calling NetworksApi#deleteNetwork");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -139,7 +288,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NetworkCreate200Response**](NetworkCreate200Response.md)
+[**CreateNetwork200Response**](CreateNetwork200Response.md)
 
 ### Authorization
 
@@ -157,9 +306,81 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## networkGet
+## getDefaultGateway
 
-> NetworkCreate200Response networkGet(id)
+> GetDefaultGateway200Response getDefaultGateway(id)
+
+Get Default Gateway status.
+
+Get Default Gateway status.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NetworksApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NetworksApi apiInstance = new NetworksApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        try {
+            GetDefaultGateway200Response result = apiInstance.getDefaultGateway(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NetworksApi#getDefaultGateway");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+
+### Return type
+
+[**GetDefaultGateway200Response**](GetDefaultGateway200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## getNetwork
+
+> CreateNetwork200Response getNetwork(id)
 
 Retrieve a Network
 
@@ -189,10 +410,10 @@ public class Example {
         NetworksApi apiInstance = new NetworksApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            NetworkCreate200Response result = apiInstance.networkGet(id);
+            CreateNetwork200Response result = apiInstance.getNetwork(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling NetworksApi#networkGet");
+            System.err.println("Exception when calling NetworksApi#getNetwork");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -211,7 +432,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NetworkCreate200Response**](NetworkCreate200Response.md)
+[**CreateNetwork200Response**](CreateNetwork200Response.md)
 
 ### Authorization
 
@@ -229,9 +450,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## networkInterfaceList
+## listNetworkInterfaces
 
-> NetworkInterfaceList200Response networkInterfaceList(id, pageNumber, pageSize, filterName, filterType, filterStatus)
+> ListNetworkInterfaces200Response listNetworkInterfaces(id, pageNumber, pageSize, filterName, filterType, filterStatus)
 
 List all Interfaces for a Network.
 
@@ -266,10 +487,10 @@ public class Example {
         String filterType = "wireguard_interface"; // String | The interface type to filter on.
         InterfaceStatus filterStatus = InterfaceStatus.fromValue("created"); // InterfaceStatus | The interface status to filter on.
         try {
-            NetworkInterfaceList200Response result = apiInstance.networkInterfaceList(id, pageNumber, pageSize, filterName, filterType, filterStatus);
+            ListNetworkInterfaces200Response result = apiInstance.listNetworkInterfaces(id, pageNumber, pageSize, filterName, filterType, filterStatus);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling NetworksApi#networkInterfaceList");
+            System.err.println("Exception when calling NetworksApi#listNetworkInterfaces");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -293,7 +514,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NetworkInterfaceList200Response**](NetworkInterfaceList200Response.md)
+[**ListNetworkInterfaces200Response**](ListNetworkInterfaces200Response.md)
 
 ### Authorization
 
@@ -311,9 +532,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## networkList
+## listNetworks
 
-> NetworkList200Response networkList(pageNumber, pageSize, filterName)
+> ListNetworks200Response listNetworks(pageNumber, pageSize, filterName)
 
 List all Networks
 
@@ -344,10 +565,10 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         String filterName = "test network"; // String | The network name to filter on.
         try {
-            NetworkList200Response result = apiInstance.networkList(pageNumber, pageSize, filterName);
+            ListNetworks200Response result = apiInstance.listNetworks(pageNumber, pageSize, filterName);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling NetworksApi#networkList");
+            System.err.println("Exception when calling NetworksApi#listNetworks");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -368,7 +589,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NetworkList200Response**](NetworkList200Response.md)
+[**ListNetworks200Response**](ListNetworks200Response.md)
 
 ### Authorization
 
@@ -386,9 +607,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## networkUpdate
+## updateNetwork
 
-> NetworkCreate200Response networkUpdate(id, networkCreate)
+> CreateNetwork200Response updateNetwork(id, networkCreate)
 
 Update a Network
 
@@ -419,10 +640,10 @@ public class Example {
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         NetworkCreate networkCreate = new NetworkCreate(); // NetworkCreate | 
         try {
-            NetworkCreate200Response result = apiInstance.networkUpdate(id, networkCreate);
+            CreateNetwork200Response result = apiInstance.updateNetwork(id, networkCreate);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling NetworksApi#networkUpdate");
+            System.err.println("Exception when calling NetworksApi#updateNetwork");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -442,7 +663,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NetworkCreate200Response**](NetworkCreate200Response.md)
+[**CreateNetwork200Response**](CreateNetwork200Response.md)
 
 ### Authorization
 

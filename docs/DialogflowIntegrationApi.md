@@ -40,7 +40,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DialogflowIntegrationApi apiInstance = new DialogflowIntegrationApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control).
+        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
         DialogflowConnection dialogflowConnection = new DialogflowConnection(); // DialogflowConnection | The params expected to create/update a Dialogflow Connection for given connection_id.
         try {
             DialogflowConnectionResponse result = apiInstance.createDialogflowConnection(connectionId, dialogflowConnection);
@@ -61,7 +61,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control). |
+ **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
  **dialogflowConnection** | [**DialogflowConnection**](DialogflowConnection.md)| The params expected to create/update a Dialogflow Connection for given connection_id. |
 
 ### Return type
@@ -113,7 +113,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DialogflowIntegrationApi apiInstance = new DialogflowIntegrationApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control).
+        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
         try {
             apiInstance.deleteDialogflowConnection(connectionId);
         } catch (ApiException e) {
@@ -132,7 +132,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control). |
+ **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
 
 ### Return type
 
@@ -183,7 +183,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DialogflowIntegrationApi apiInstance = new DialogflowIntegrationApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control).
+        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
         try {
             DialogflowConnectionResponse result = apiInstance.getDialogflowConnection(connectionId);
             System.out.println(result);
@@ -203,7 +203,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control). |
+ **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
 
 ### Return type
 
@@ -254,7 +254,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DialogflowIntegrationApi apiInstance = new DialogflowIntegrationApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control).
+        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
         DialogflowConnection dialogflowConnection = new DialogflowConnection(); // DialogflowConnection | The params expected to create/update a Dialogflow Connection for given connection_id.
         try {
             DialogflowConnectionResponse result = apiInstance.updateDialogflowConnection(connectionId, dialogflowConnection);
@@ -275,7 +275,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control). |
+ **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
  **dialogflowConnection** | [**DialogflowConnection**](DialogflowConnection.md)| The params expected to create/update a Dialogflow Connection for given connection_id. |
 
 ### Return type

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,11 +26,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.NumberPoolSettings;
 import com.telnyx.sdk.model.UrlShortenerSettings;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -54,9 +57,10 @@ import com.telnyx.sdk.JSON;
   UpdateMessagingProfileRequest.JSON_PROPERTY_UPDATED_AT,
   UpdateMessagingProfileRequest.JSON_PROPERTY_V1_SECRET,
   UpdateMessagingProfileRequest.JSON_PROPERTY_NUMBER_POOL_SETTINGS,
-  UpdateMessagingProfileRequest.JSON_PROPERTY_URL_SHORTENER_SETTINGS
+  UpdateMessagingProfileRequest.JSON_PROPERTY_URL_SHORTENER_SETTINGS,
+  UpdateMessagingProfileRequest.JSON_PROPERTY_ALPHA_SENDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateMessagingProfileRequest {
   /**
    * Identifies the type of the resource.
@@ -150,7 +154,7 @@ public class UpdateMessagingProfileRequest {
   private WebhookApiVersionEnum webhookApiVersion;
 
   public static final String JSON_PROPERTY_WHITELISTED_DESTINATIONS = "whitelisted_destinations";
-  private JsonNullable<List<String>> whitelistedDestinations = JsonNullable.<List<String>>undefined();
+  private List<String> whitelistedDestinations = null;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private OffsetDateTime createdAt;
@@ -166,6 +170,9 @@ public class UpdateMessagingProfileRequest {
 
   public static final String JSON_PROPERTY_URL_SHORTENER_SETTINGS = "url_shortener_settings";
   private JsonNullable<UrlShortenerSettings> urlShortenerSettings = JsonNullable.<UrlShortenerSettings>undefined();
+
+  public static final String JSON_PROPERTY_ALPHA_SENDER = "alpha_sender";
+  private JsonNullable<String> alphaSender = JsonNullable.<String>undefined();
 
   public UpdateMessagingProfileRequest() { 
   }
@@ -363,48 +370,36 @@ public class UpdateMessagingProfileRequest {
 
 
   public UpdateMessagingProfileRequest whitelistedDestinations(List<String> whitelistedDestinations) {
-    this.whitelistedDestinations = JsonNullable.<List<String>>of(whitelistedDestinations);
+    this.whitelistedDestinations = whitelistedDestinations;
     return this;
   }
 
   public UpdateMessagingProfileRequest addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
-    if (this.whitelistedDestinations == null || !this.whitelistedDestinations.isPresent()) {
-      this.whitelistedDestinations = JsonNullable.<List<String>>of(new ArrayList<>());
+    if (this.whitelistedDestinations == null) {
+      this.whitelistedDestinations = new ArrayList<>();
     }
-    try {
-      this.whitelistedDestinations.get().add(whitelistedDestinationsItem);
-    } catch (java.util.NoSuchElementException e) {
-      // this can never happen, as we make sure above that the value is present
-    }
+    this.whitelistedDestinations.add(whitelistedDestinationsItem);
     return this;
   }
 
    /**
-   * Destinations to which the messaging profile is allowed to send. If set to &#x60;null&#x60;, all destinations will be allowed. Setting a value of &#x60;[\&quot;*\&quot;]&#x60; has the equivalent effect. The elements in the list must be valid ISO 3166-1 alpha-2 country codes.
+   * Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60;, all destinations will be allowed.  This field is required if the messaging profile doesn&#39;t have it defined yet.
    * @return whitelistedDestinations
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Destinations to which the messaging profile is allowed to send. If set to `null`, all destinations will be allowed. Setting a value of `[\"*\"]` has the equivalent effect. The elements in the list must be valid ISO 3166-1 alpha-2 country codes.")
-  @JsonIgnore
-
-  public List<String> getWhitelistedDestinations() {
-        return whitelistedDestinations.orElse(null);
-  }
-
+  @ApiModelProperty(value = "Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]`, all destinations will be allowed.  This field is required if the messaging profile doesn't have it defined yet.")
   @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<List<String>> getWhitelistedDestinations_JsonNullable() {
+  public List<String> getWhitelistedDestinations() {
     return whitelistedDestinations;
   }
-  
-  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
-  public void setWhitelistedDestinations_JsonNullable(JsonNullable<List<String>> whitelistedDestinations) {
-    this.whitelistedDestinations = whitelistedDestinations;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhitelistedDestinations(List<String> whitelistedDestinations) {
-    this.whitelistedDestinations = JsonNullable.<List<String>>of(whitelistedDestinations);
+    this.whitelistedDestinations = whitelistedDestinations;
   }
 
 
@@ -534,6 +529,40 @@ public class UpdateMessagingProfileRequest {
   }
 
 
+  public UpdateMessagingProfileRequest alphaSender(String alphaSender) {
+    this.alphaSender = JsonNullable.<String>of(alphaSender);
+    return this;
+  }
+
+   /**
+   * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.
+   * @return alphaSender
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.")
+  @JsonIgnore
+
+  public String getAlphaSender() {
+        return alphaSender.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ALPHA_SENDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getAlphaSender_JsonNullable() {
+    return alphaSender;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ALPHA_SENDER)
+  public void setAlphaSender_JsonNullable(JsonNullable<String> alphaSender) {
+    this.alphaSender = alphaSender;
+  }
+
+  public void setAlphaSender(String alphaSender) {
+    this.alphaSender = JsonNullable.<String>of(alphaSender);
+  }
+
+
   /**
    * Return true if this UpdateMessagingProfileRequest object is equal to o.
    */
@@ -553,12 +582,13 @@ public class UpdateMessagingProfileRequest {
         equalsNullable(this.webhookUrl, updateMessagingProfileRequest.webhookUrl) &&
         equalsNullable(this.webhookFailoverUrl, updateMessagingProfileRequest.webhookFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, updateMessagingProfileRequest.webhookApiVersion) &&
-        equalsNullable(this.whitelistedDestinations, updateMessagingProfileRequest.whitelistedDestinations) &&
+        Objects.equals(this.whitelistedDestinations, updateMessagingProfileRequest.whitelistedDestinations) &&
         Objects.equals(this.createdAt, updateMessagingProfileRequest.createdAt) &&
         Objects.equals(this.updatedAt, updateMessagingProfileRequest.updatedAt) &&
         Objects.equals(this.v1Secret, updateMessagingProfileRequest.v1Secret) &&
         equalsNullable(this.numberPoolSettings, updateMessagingProfileRequest.numberPoolSettings) &&
-        equalsNullable(this.urlShortenerSettings, updateMessagingProfileRequest.urlShortenerSettings);
+        equalsNullable(this.urlShortenerSettings, updateMessagingProfileRequest.urlShortenerSettings) &&
+        equalsNullable(this.alphaSender, updateMessagingProfileRequest.alphaSender);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -567,7 +597,7 @@ public class UpdateMessagingProfileRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, name, enabled, hashCodeNullable(webhookUrl), hashCodeNullable(webhookFailoverUrl), webhookApiVersion, hashCodeNullable(whitelistedDestinations), createdAt, updatedAt, v1Secret, hashCodeNullable(numberPoolSettings), hashCodeNullable(urlShortenerSettings));
+    return Objects.hash(recordType, id, name, enabled, hashCodeNullable(webhookUrl), hashCodeNullable(webhookFailoverUrl), webhookApiVersion, whitelistedDestinations, createdAt, updatedAt, v1Secret, hashCodeNullable(numberPoolSettings), hashCodeNullable(urlShortenerSettings), hashCodeNullable(alphaSender));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -594,6 +624,7 @@ public class UpdateMessagingProfileRequest {
     sb.append("    v1Secret: ").append(toIndentedString(v1Secret)).append("\n");
     sb.append("    numberPoolSettings: ").append(toIndentedString(numberPoolSettings)).append("\n");
     sb.append("    urlShortenerSettings: ").append(toIndentedString(urlShortenerSettings)).append("\n");
+    sb.append("    alphaSender: ").append(toIndentedString(alphaSender)).append("\n");
     sb.append("}");
     return sb.toString();
   }

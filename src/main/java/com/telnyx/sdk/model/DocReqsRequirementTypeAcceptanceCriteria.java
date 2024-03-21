@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,6 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -34,15 +39,19 @@ import com.telnyx.sdk.JSON;
 @ApiModel(description = "Specifies objective criteria for acceptance")
 @JsonPropertyOrder({
   DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_TIME_LIMIT,
-  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_LOCALITY_LIMIT
+  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_LOCALITY_LIMIT,
+  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_ACCEPTABLE_VALUES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class DocReqsRequirementTypeAcceptanceCriteria {
   public static final String JSON_PROPERTY_TIME_LIMIT = "time_limit";
   private String timeLimit;
 
   public static final String JSON_PROPERTY_LOCALITY_LIMIT = "locality_limit";
   private String localityLimit;
+
+  public static final String JSON_PROPERTY_ACCEPTABLE_VALUES = "acceptable_values";
+  private List<String> acceptableValues = null;
 
   public DocReqsRequirementTypeAcceptanceCriteria() { 
   }
@@ -99,6 +108,40 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
   }
 
 
+  public DocReqsRequirementTypeAcceptanceCriteria acceptableValues(List<String> acceptableValues) {
+    this.acceptableValues = acceptableValues;
+    return this;
+  }
+
+  public DocReqsRequirementTypeAcceptanceCriteria addAcceptableValuesItem(String acceptableValuesItem) {
+    if (this.acceptableValues == null) {
+      this.acceptableValues = new ArrayList<>();
+    }
+    this.acceptableValues.add(acceptableValuesItem);
+    return this;
+  }
+
+   /**
+   * Specifies the list of strictly possible values for the requirement. Ignored when empty
+   * @return acceptableValues
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Specifies the list of strictly possible values for the requirement. Ignored when empty")
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_VALUES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAcceptableValues() {
+    return acceptableValues;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_VALUES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAcceptableValues(List<String> acceptableValues) {
+    this.acceptableValues = acceptableValues;
+  }
+
+
   /**
    * Return true if this DocReqsRequirementType_acceptance_criteria object is equal to o.
    */
@@ -112,12 +155,13 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
     }
     DocReqsRequirementTypeAcceptanceCriteria docReqsRequirementTypeAcceptanceCriteria = (DocReqsRequirementTypeAcceptanceCriteria) o;
     return Objects.equals(this.timeLimit, docReqsRequirementTypeAcceptanceCriteria.timeLimit) &&
-        Objects.equals(this.localityLimit, docReqsRequirementTypeAcceptanceCriteria.localityLimit);
+        Objects.equals(this.localityLimit, docReqsRequirementTypeAcceptanceCriteria.localityLimit) &&
+        Objects.equals(this.acceptableValues, docReqsRequirementTypeAcceptanceCriteria.acceptableValues);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timeLimit, localityLimit);
+    return Objects.hash(timeLimit, localityLimit, acceptableValues);
   }
 
   @Override
@@ -126,6 +170,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
     sb.append("class DocReqsRequirementTypeAcceptanceCriteria {\n");
     sb.append("    timeLimit: ").append(toIndentedString(timeLimit)).append("\n");
     sb.append("    localityLimit: ").append(toIndentedString(localityLimit)).append("\n");
+    sb.append("    acceptableValues: ").append(toIndentedString(acceptableValues)).append("\n");
     sb.append("}");
     return sb.toString();
   }

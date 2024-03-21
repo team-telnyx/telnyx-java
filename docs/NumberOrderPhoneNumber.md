@@ -14,7 +14,7 @@
 |**subNumberOrderId** | **UUID** |  |  [optional] |
 |**countryCode** | **String** |  |  [optional] |
 |**phoneNumberType** | [**PhoneNumberTypeEnum**](#PhoneNumberTypeEnum) |  |  [optional] |
-|**regulatoryRequirements** | [**List&lt;PhoneNumberRegulatoryRequirement&gt;**](PhoneNumberRegulatoryRequirement.md) |  |  [optional] |
+|**regulatoryRequirements** | [**List&lt;SubNumberOrderRegulatoryRequirementWithValue&gt;**](SubNumberOrderRegulatoryRequirementWithValue.md) |  |  [optional] |
 |**requirementsMet** | **Boolean** | True if all requirements are met for a phone number, false otherwise. |  [optional] [readonly] |
 |**status** | [**StatusEnum**](#StatusEnum) | The status of the phone number in the order. |  [optional] [readonly] |
 

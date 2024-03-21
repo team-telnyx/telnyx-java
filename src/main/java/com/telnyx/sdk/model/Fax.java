@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Direction;
+import com.telnyx.sdk.model.Quality;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,6 +46,7 @@ import com.telnyx.sdk.JSON;
   Fax.JSON_PROPERTY_MEDIA_NAME,
   Fax.JSON_PROPERTY_TO,
   Fax.JSON_PROPERTY_FROM,
+  Fax.JSON_PROPERTY_FROM_DISPLAY_NAME,
   Fax.JSON_PROPERTY_QUALITY,
   Fax.JSON_PROPERTY_STATUS,
   Fax.JSON_PROPERTY_WEBHOOK_URL,
@@ -51,7 +56,7 @@ import com.telnyx.sdk.JSON;
   Fax.JSON_PROPERTY_CREATED_AT,
   Fax.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Fax {
   /**
    * Identifies the type of the resource.
@@ -110,8 +115,11 @@ public class Fax {
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
 
+  public static final String JSON_PROPERTY_FROM_DISPLAY_NAME = "from_display_name";
+  private String fromDisplayName;
+
   public static final String JSON_PROPERTY_QUALITY = "quality";
-  private String quality = "high";
+  private Quality quality = Quality.HIGH;
 
   /**
    * Status of the fax
@@ -188,14 +196,6 @@ public class Fax {
   public Fax() { 
   }
 
-  @JsonCreator
-  public Fax(
-    @JsonProperty(JSON_PROPERTY_ID) UUID id
-  ) {
-    this();
-    this.id = id;
-  }
-
   public Fax recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
     return this;
@@ -222,12 +222,17 @@ public class Fax {
   }
 
 
+  public Fax id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Identifies the type of resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
+  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -236,6 +241,11 @@ public class Fax {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
 
   public Fax connectionId(String connectionId) {
@@ -394,28 +404,54 @@ public class Fax {
   }
 
 
-  public Fax quality(String quality) {
+  public Fax fromDisplayName(String fromDisplayName) {
+    this.fromDisplayName = fromDisplayName;
+    return this;
+  }
+
+   /**
+   * The string used as the caller id name (SIP From Display Name) presented to the destination (&#x60;to&#x60; number).
+   * @return fromDisplayName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Company Name", value = "The string used as the caller id name (SIP From Display Name) presented to the destination (`to` number).")
+  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFromDisplayName() {
+    return fromDisplayName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFromDisplayName(String fromDisplayName) {
+    this.fromDisplayName = fromDisplayName;
+  }
+
+
+  public Fax quality(Quality quality) {
     this.quality = quality;
     return this;
   }
 
    /**
-   * The quality of the fax. Can be normal, high, very_high
+   * Get quality
    * @return quality
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "high", value = "The quality of the fax. Can be normal, high, very_high")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_QUALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getQuality() {
+  public Quality getQuality() {
     return quality;
   }
 
 
   @JsonProperty(JSON_PROPERTY_QUALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setQuality(String quality) {
+  public void setQuality(Quality quality) {
     this.quality = quality;
   }
 
@@ -622,6 +658,7 @@ public class Fax {
         Objects.equals(this.mediaName, fax.mediaName) &&
         Objects.equals(this.to, fax.to) &&
         Objects.equals(this.from, fax.from) &&
+        Objects.equals(this.fromDisplayName, fax.fromDisplayName) &&
         Objects.equals(this.quality, fax.quality) &&
         Objects.equals(this.status, fax.status) &&
         Objects.equals(this.webhookUrl, fax.webhookUrl) &&
@@ -634,7 +671,7 @@ public class Fax {
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, connectionId, direction, mediaUrl, mediaName, to, from, quality, status, webhookUrl, webhookFailoverUrl, storeMedia, storedMediaUrl, createdAt, updatedAt);
+    return Objects.hash(recordType, id, connectionId, direction, mediaUrl, mediaName, to, from, fromDisplayName, quality, status, webhookUrl, webhookFailoverUrl, storeMedia, storedMediaUrl, createdAt, updatedAt);
   }
 
   @Override
@@ -649,6 +686,7 @@ public class Fax {
     sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
+    sb.append("    fromDisplayName: ").append(toIndentedString(fromDisplayName)).append("\n");
     sb.append("    quality: ").append(toIndentedString(quality)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");

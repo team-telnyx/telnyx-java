@@ -11,8 +11,8 @@
 |**invalidPayload** | **String** | The text or SSML to be converted into speech when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. There is a 3,000 character limit. |  [optional] |
 |**payloadType** | [**PayloadTypeEnum**](#PayloadTypeEnum) | The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML). |  [optional] |
 |**serviceLevel** | [**ServiceLevelEnum**](#ServiceLevelEnum) | This parameter impacts speech quality, language options and payload types. When using &#x60;basic&#x60;, only the &#x60;en-US&#x60; language and payload type &#x60;text&#x60; are allowed. |  [optional] |
-|**voice** | [**VoiceEnum**](#VoiceEnum) | The gender of the voice used to speak back the text. |  |
-|**language** | [**LanguageEnum**](#LanguageEnum) | The language you want spoken. |  |
+|**voice** | [**VoiceEnum**](#VoiceEnum) | The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of &#x60;Polly.&lt;voice&gt;&#x60;, e.g. &#x60;Polly.Brian&#x60;. All standard Amazon Polly voices are supported. |  |
+|**language** | [**LanguageEnum**](#LanguageEnum) | The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified. |  [optional] |
 |**minimumDigits** | **Integer** | The minimum number of digits to fetch. This parameter has a minimum value of 1. |  [optional] |
 |**maximumDigits** | **Integer** | The maximum number of digits to fetch. This parameter has a maximum value of 128. |  [optional] |
 |**maximumTries** | **Integer** | The maximum number of times that a file should be played back if there is no input from the user on the call. |  [optional] |

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,11 +25,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallCostPayloadCostPartsInner;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,7 +49,7 @@ import com.telnyx.sdk.JSON;
   CallCostPayload.JSON_PROPERTY_TOTAL_COST,
   CallCostPayload.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallCostPayload {
   public static final String JSON_PROPERTY_BILLED_DURATION_SECS = "billed_duration_secs";
   private Integer billedDurationSecs;
@@ -156,7 +159,7 @@ public class CallCostPayload {
    * @return callControlId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", value = "Call ID used to issue commands via Call Control API.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "Call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

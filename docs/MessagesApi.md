@@ -4,12 +4,82 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**createGroupMmsMessage**](MessagesApi.md#createGroupMmsMessage) | **POST** /messages/group_mms | Send a group MMS message
 [**createLongCodeMessage**](MessagesApi.md#createLongCodeMessage) | **POST** /messages/long_code | Send a long code message
-[**createMessage**](MessagesApi.md#createMessage) | **POST** /messages | Send a message
 [**createNumberPoolMessage**](MessagesApi.md#createNumberPoolMessage) | **POST** /messages/number_pool | Send a message using number pool
 [**createShortCodeMessage**](MessagesApi.md#createShortCodeMessage) | **POST** /messages/short_code | Send a short code message
-[**retrieveMessage**](MessagesApi.md#retrieveMessage) | **GET** /messages/{id} | Retrieve a message
+[**getMessage**](MessagesApi.md#getMessage) | **GET** /messages/{id} | Retrieve a message
+[**sendMessage**](MessagesApi.md#sendMessage) | **POST** /messages | Send a message
 
+
+
+## createGroupMmsMessage
+
+> MessageResponse createGroupMmsMessage(createGroupMMSMessageRequest)
+
+Send a group MMS message
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        MessagesApi apiInstance = new MessagesApi(defaultClient);
+        CreateGroupMMSMessageRequest createGroupMMSMessageRequest = new CreateGroupMMSMessageRequest(); // CreateGroupMMSMessageRequest | Message payload
+        try {
+            MessageResponse result = apiInstance.createGroupMmsMessage(createGroupMMSMessageRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagesApi#createGroupMmsMessage");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createGroupMMSMessageRequest** | [**CreateGroupMMSMessageRequest**](CreateGroupMMSMessageRequest.md)| Message payload | [optional]
+
+### Return type
+
+[**MessageResponse**](MessageResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response with details about a message. |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## createLongCodeMessage
@@ -60,82 +130,6 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **createLongCodeMessageRequest** | [**CreateLongCodeMessageRequest**](CreateLongCodeMessageRequest.md)| Message payload | [optional]
-
-### Return type
-
-[**MessageResponse**](MessageResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response with details about a message. |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## createMessage
-
-> MessageResponse createMessage(createMessageRequest)
-
-Send a message
-
-Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.
-
-This endpoint allows you to send a message with any messaging resource.
-Current messaging resources include: long-code, short-code, number-pool, and
-alphanumeric-sender-id.
-
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.MessagesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        MessagesApi apiInstance = new MessagesApi(defaultClient);
-        CreateMessageRequest createMessageRequest = new CreateMessageRequest(); // CreateMessageRequest | Message payload
-        try {
-            MessageResponse result = apiInstance.createMessage(createMessageRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling MessagesApi#createMessage");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createMessageRequest** | [**CreateMessageRequest**](CreateMessageRequest.md)| Message payload | [optional]
 
 ### Return type
 
@@ -295,9 +289,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## retrieveMessage
+## getMessage
 
-> MessageResponse retrieveMessage(id)
+> MessageResponse getMessage(id)
 
 Retrieve a message
 
@@ -327,10 +321,10 @@ public class Example {
         MessagesApi apiInstance = new MessagesApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | The id of the message
         try {
-            MessageResponse result = apiInstance.retrieveMessage(id);
+            MessageResponse result = apiInstance.getMessage(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MessagesApi#retrieveMessage");
+            System.err.println("Exception when calling MessagesApi#getMessage");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -358,6 +352,82 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response with details about a message. |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## sendMessage
+
+> MessageResponse sendMessage(createMessageRequest)
+
+Send a message
+
+Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.
+
+This endpoint allows you to send a message with any messaging resource.
+Current messaging resources include: long-code, short-code, number-pool, and
+alphanumeric-sender-id.
+
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.MessagesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        MessagesApi apiInstance = new MessagesApi(defaultClient);
+        CreateMessageRequest createMessageRequest = new CreateMessageRequest(); // CreateMessageRequest | Message payload
+        try {
+            MessageResponse result = apiInstance.sendMessage(createMessageRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MessagesApi#sendMessage");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createMessageRequest** | [**CreateMessageRequest**](CreateMessageRequest.md)| Message payload | [optional]
+
+### Return type
+
+[**MessageResponse**](MessageResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 ### HTTP response details

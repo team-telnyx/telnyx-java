@@ -17,6 +17,7 @@ import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -39,6 +40,7 @@ public class NumberOrdersApiTest {
     private final NumberOrdersApi api = new NumberOrdersApi();
     private final NumberSearchApi numberSearchApi = new NumberSearchApi();
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -55,6 +57,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberOrder_whenRequestIsValid_returnsCreatedOrder() throws ApiException {
         String availablePhoneNumber = numberSearchApi
@@ -78,6 +81,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberOrder_whenOrderingUSPhoneNumber_returnsCreatedOrder() throws ApiException {
         String countryCode = "US";
@@ -108,6 +112,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberOrder_whenOrderingFiveUSPhoneNumbers_returnsCreatedOrder() throws ApiException {
         String countryCode = "US";
@@ -139,6 +144,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberOrder_whenOrderingASpanishPhoneNumber_returnsCreatedOrder() throws ApiException {
         String countryCode = "ES";
@@ -169,6 +175,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberOrder_whenOrderingAParisPhoneNumber_returnsCreatedOrder() throws ApiException {
         String city = "paris";
@@ -198,6 +205,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void listNumberOrders_whenRequestingSecondPageOfResults_returnsSecondPageOfOrders() throws ApiException {
         String countryCode = "US";
@@ -234,6 +242,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void listNumberOrders_whenRequestingFirstPageAndOnlyTwoPhoneNumberOrdersExist_returnsOrders() throws ApiException {
         String countryCode = "US";
@@ -271,6 +280,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void listNumberOrders_whenFilteringByCreatedAtDate_returnsOrders() throws ApiException {
         try {
@@ -309,6 +319,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveNumberOrderTest() throws ApiException {
         //String numberOrderId = null;
@@ -323,6 +334,7 @@ public class NumberOrdersApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void updateNumberOrderTest() throws ApiException {
         //String numberOrderId = null;

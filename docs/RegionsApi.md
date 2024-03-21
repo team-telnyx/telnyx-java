@@ -4,13 +4,13 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**regionList**](RegionsApi.md#regionList) | **GET** /regions | List all Regions
+[**listRegions**](RegionsApi.md#listRegions) | **GET** /regions | List all Regions
 
 
 
-## regionList
+## listRegions
 
-> RegionList200Response regionList()
+> ListRegions200Response listRegions()
 
 List all Regions
 
@@ -38,10 +38,10 @@ public class Example {
 
         RegionsApi apiInstance = new RegionsApi(defaultClient);
         try {
-            RegionList200Response result = apiInstance.regionList();
+            ListRegions200Response result = apiInstance.listRegions();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling RegionsApi#regionList");
+            System.err.println("Exception when calling RegionsApi#listRegions");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -57,7 +57,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**RegionList200Response**](RegionList200Response.md)
+[**ListRegions200Response**](ListRegions200Response.md)
 
 ### Authorization
 

@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**to** | **String** | The DID or SIP URI to dial out and bridge to the given call. |  |
-|**from** | **String** | The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number). The number should be in +E164 format. This attribute will default to the &#x60;from&#x60; number of the original call if omitted. |  [optional] |
+|**to** | **String** | The DID or SIP URI to dial out to. |  |
+|**from** | **String** | The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number). The number should be in +E164 format. This attribute will default to the &#x60;to&#x60; number of the original call if omitted. |  [optional] |
 |**fromDisplayName** | **String** | The &#x60;from_display_name&#x60; string to be used as the caller id name (SIP From Display Name) presented to the destination (&#x60;to&#x60; number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the &#x60;from&#x60; field. |  [optional] |
 |**audioUrl** | **String** | The URL of a file to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request. |  [optional] |
 |**mediaName** | **String** | The media_name of a file to be played back when the transfer destination answers before bridging the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. |  [optional] |
@@ -20,9 +20,11 @@
 |**clientState** | **String** | Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. |  [optional] |
 |**targetLegClientState** | **String** | Use this field to add state to every subsequent webhook for the new leg. It must be a valid Base-64 encoded string. |  [optional] |
 |**commandId** | **String** | Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;. |  [optional] |
+|**mediaEncryption** | [**MediaEncryptionEnum**](#MediaEncryptionEnum) | Defines whether media should be encrypted on the new call leg. |  [optional] |
 |**sipAuthUsername** | **String** | SIP Authentication username used for SIP challenges. |  [optional] |
 |**sipAuthPassword** | **String** | SIP Authentication password used for SIP challenges. |  [optional] |
 |**sipHeaders** | [**List&lt;SipHeader&gt;**](SipHeader.md) | SIP headers to be added to the SIP INVITE. Currently only User-to-User header is supported. |  [optional] |
+|**sipTransportProtocol** | [**SipTransportProtocolEnum**](#SipTransportProtocolEnum) | Defines SIP transport protocol to be used on the call. |  [optional] |
 |**soundModifications** | [**SoundModifications**](SoundModifications.md) |  |  [optional] |
 |**webhookUrl** | **String** | Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call. |  [optional] |
 |**webhookUrlMethod** | [**WebhookUrlMethodEnum**](#WebhookUrlMethodEnum) | HTTP request type used for &#x60;webhook_url&#x60;. |  [optional] |
@@ -33,11 +35,31 @@
 
 | Name | Value |
 |---- | -----|
+| PREMIUM | &quot;premium&quot; |
 | DETECT | &quot;detect&quot; |
 | DETECT_BEEP | &quot;detect_beep&quot; |
 | DETECT_WORDS | &quot;detect_words&quot; |
 | GREETING_END | &quot;greeting_end&quot; |
 | DISABLED | &quot;disabled&quot; |
+
+
+
+## Enum: MediaEncryptionEnum
+
+| Name | Value |
+|---- | -----|
+| DISABLED | &quot;disabled&quot; |
+| SRTP | &quot;SRTP&quot; |
+
+
+
+## Enum: SipTransportProtocolEnum
+
+| Name | Value |
+|---- | -----|
+| UDP | &quot;UDP&quot; |
+| TCP | &quot;TCP&quot; |
+| TLS | &quot;TLS&quot; |
 
 
 

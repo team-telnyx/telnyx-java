@@ -4,14 +4,14 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**docReqsListRequirementTypes**](RequirementTypesApi.md#docReqsListRequirementTypes) | **GET** /requirement_types | List all requirement types
-[**docReqsRetrieveRequirementType**](RequirementTypesApi.md#docReqsRetrieveRequirementType) | **GET** /requirement_types/{id} | Retrieve a requirement types
+[**listRequirementTypes**](RequirementTypesApi.md#listRequirementTypes) | **GET** /requirement_types | List all requirement types
+[**retrieveRequirementType**](RequirementTypesApi.md#retrieveRequirementType) | **GET** /requirement_types/{id} | Retrieve a requirement types
 
 
 
-## docReqsListRequirementTypes
+## listRequirementTypes
 
-> DocReqsListRequirementTypes200Response docReqsListRequirementTypes(filterNameContains, sort)
+> ListRequirementTypes200Response listRequirementTypes(filterNameContains, sort)
 
 List all requirement types
 
@@ -41,10 +41,10 @@ public class Example {
         String filterNameContains = "utility bill"; // String | Filters requirement types to those whose name contains a certain string.
         String sort = "created_at"; // String | Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name.
         try {
-            DocReqsListRequirementTypes200Response result = apiInstance.docReqsListRequirementTypes(filterNameContains, sort);
+            ListRequirementTypes200Response result = apiInstance.listRequirementTypes(filterNameContains, sort);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling RequirementTypesApi#docReqsListRequirementTypes");
+            System.err.println("Exception when calling RequirementTypesApi#listRequirementTypes");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocReqsListRequirementTypes200Response**](DocReqsListRequirementTypes200Response.md)
+[**ListRequirementTypes200Response**](ListRequirementTypes200Response.md)
 
 ### Authorization
 
@@ -82,9 +82,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## docReqsRetrieveRequirementType
+## retrieveRequirementType
 
-> DocReqsRetrieveRequirementType200Response docReqsRetrieveRequirementType(id)
+> RetrieveRequirementType200Response retrieveRequirementType(id)
 
 Retrieve a requirement types
 
@@ -114,10 +114,10 @@ public class Example {
         RequirementTypesApi apiInstance = new RequirementTypesApi(defaultClient);
         UUID id = UUID.fromString("a38c217a-8019-48f8-bff6-0fdd9939075b"); // UUID | Uniquely identifies the requirement_type record
         try {
-            DocReqsRetrieveRequirementType200Response result = apiInstance.docReqsRetrieveRequirementType(id);
+            RetrieveRequirementType200Response result = apiInstance.retrieveRequirementType(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling RequirementTypesApi#docReqsRetrieveRequirementType");
+            System.err.println("Exception when calling RequirementTypesApi#retrieveRequirementType");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocReqsRetrieveRequirementType200Response**](DocReqsRetrieveRequirementType200Response.md)
+[**RetrieveRequirementType200Response**](RetrieveRequirementType200Response.md)
 
 ### Authorization
 

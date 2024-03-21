@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**findTelephonyCredentials**](CredentialsApi.md#findTelephonyCredentials) | **GET** /telephony_credentials | List all credentials
 [**getTelephonyCredential**](CredentialsApi.md#getTelephonyCredential) | **GET** /telephony_credentials/{id} | Get a credential
 [**listTags**](CredentialsApi.md#listTags) | **GET** /telephony_credentials/tags | List all tags
-[**telephonyCredentialAction**](CredentialsApi.md#telephonyCredentialAction) | **POST** /telephony_credentials/{id}/actions/{action} | Perform activate or deactivate action on provided Credential
+[**performCredentialAction**](CredentialsApi.md#performCredentialAction) | **POST** /telephony_credentials/{id}/actions/{action} | Perform activate or deactivate action on provided Credential
 [**updateTelephonyCredential**](CredentialsApi.md#updateTelephonyCredential) | **PATCH** /telephony_credentials/{id} | Update a credential
 
 
@@ -399,9 +399,9 @@ Name | Type | Description  | Notes
 | **404** | Resource not found |  -  |
 
 
-## telephonyCredentialAction
+## performCredentialAction
 
-> TelephonyCredentialResponse telephonyCredentialAction(id, action)
+> TelephonyCredentialResponse performCredentialAction(id, action)
 
 Perform activate or deactivate action on provided Credential
 
@@ -431,10 +431,10 @@ public class Example {
         String id = "id_example"; // String | Identifies the resource.
         String action = "activate"; // String | Identifies the action to be taken.
         try {
-            TelephonyCredentialResponse result = apiInstance.telephonyCredentialAction(id, action);
+            TelephonyCredentialResponse result = apiInstance.performCredentialAction(id, action);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CredentialsApi#telephonyCredentialAction");
+            System.err.println("Exception when calling CredentialsApi#performCredentialAction");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

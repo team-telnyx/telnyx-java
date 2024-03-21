@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,11 +29,12 @@ import com.telnyx.sdk.model.InboundMessagePayloadCost;
 import com.telnyx.sdk.model.OutboundMessagePayloadFrom;
 import com.telnyx.sdk.model.OutboundMessagePayloadMediaInner;
 import com.telnyx.sdk.model.OutboundMessagePayloadToInner;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -68,7 +71,7 @@ import com.telnyx.sdk.JSON;
   OutboundMessagePayload.JSON_PROPERTY_VALID_UNTIL,
   OutboundMessagePayload.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class OutboundMessagePayload {
   /**
    * Identifies the type of the resource.

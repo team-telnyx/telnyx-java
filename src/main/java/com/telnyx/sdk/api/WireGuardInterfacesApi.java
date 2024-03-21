@@ -8,16 +8,16 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.CreateWireguardInterface202Response;
+import com.telnyx.sdk.model.CreateWireguardPeer202Response;
 import com.telnyx.sdk.model.Errors;
+import com.telnyx.sdk.model.GetWireguardPeerAllowedIp200Response;
+import com.telnyx.sdk.model.ListWireguardInterfaces200Response;
+import com.telnyx.sdk.model.ListWireguardPeerAllowedIps200Response;
+import com.telnyx.sdk.model.ListWireguardPeers200Response;
 import java.util.UUID;
 import com.telnyx.sdk.model.WireguardInterfaceCreate;
-import com.telnyx.sdk.model.WireguardInterfaceCreate202Response;
-import com.telnyx.sdk.model.WireguardInterfaceList200Response;
-import com.telnyx.sdk.model.WireguardPeerAllowedIPGet200Response;
-import com.telnyx.sdk.model.WireguardPeerAllowedIPList200Response;
 import com.telnyx.sdk.model.WireguardPeerCreate;
-import com.telnyx.sdk.model.WireguardPeerCreate202Response;
-import com.telnyx.sdk.model.WireguardPeerList200Response;
 import com.telnyx.sdk.model.WireguardPeerPatch;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class WireGuardInterfacesApi {
   private ApiClient apiClient;
 
@@ -59,7 +59,7 @@ public class WireGuardInterfacesApi {
    * Create a WireGuard Interface
    * Create a new WireGuard Interface. Current limitation of 10 interfaces per user can be created.
    * @param wireguardInterfaceCreate  (required)
-   * @return WireguardInterfaceCreate202Response
+   * @return CreateWireguardInterface202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -69,15 +69,15 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WireguardInterfaceCreate202Response wireguardInterfaceCreate(WireguardInterfaceCreate wireguardInterfaceCreate) throws ApiException {
-    return wireguardInterfaceCreateWithHttpInfo(wireguardInterfaceCreate).getData();
+  public CreateWireguardInterface202Response createWireguardInterface(WireguardInterfaceCreate wireguardInterfaceCreate) throws ApiException {
+    return createWireguardInterfaceWithHttpInfo(wireguardInterfaceCreate).getData();
   }
 
   /**
    * Create a WireGuard Interface
    * Create a new WireGuard Interface. Current limitation of 10 interfaces per user can be created.
    * @param wireguardInterfaceCreate  (required)
-   * @return ApiResponse&lt;WireguardInterfaceCreate202Response&gt;
+   * @return ApiResponse&lt;CreateWireguardInterface202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -87,12 +87,12 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WireguardInterfaceCreate202Response> wireguardInterfaceCreateWithHttpInfo(WireguardInterfaceCreate wireguardInterfaceCreate) throws ApiException {
+  public ApiResponse<CreateWireguardInterface202Response> createWireguardInterfaceWithHttpInfo(WireguardInterfaceCreate wireguardInterfaceCreate) throws ApiException {
     Object localVarPostBody = wireguardInterfaceCreate;
     
     // verify the required parameter 'wireguardInterfaceCreate' is set
     if (wireguardInterfaceCreate == null) {
-      throw new ApiException(400, "Missing the required parameter 'wireguardInterfaceCreate' when calling wireguardInterfaceCreate");
+      throw new ApiException(400, "Missing the required parameter 'wireguardInterfaceCreate' when calling createWireguardInterface");
     }
     
     // create path and map variables
@@ -120,9 +120,88 @@ public class WireGuardInterfacesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WireguardInterfaceCreate202Response> localVarReturnType = new GenericType<WireguardInterfaceCreate202Response>() {};
+    GenericType<CreateWireguardInterface202Response> localVarReturnType = new GenericType<CreateWireguardInterface202Response>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardInterfaceCreate", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.createWireguardInterface", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Create a WireGuard Peer
+   * Create a new WireGuard Peer. Current limitation of 5 peers per interface can be created.
+   * @param id Identifies the resource. (required)
+   * @param wireguardPeerCreate  (required)
+   * @return CreateWireguardPeer202Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateWireguardPeer202Response createWireguardPeer(UUID id, WireguardPeerCreate wireguardPeerCreate) throws ApiException {
+    return createWireguardPeerWithHttpInfo(id, wireguardPeerCreate).getData();
+  }
+
+  /**
+   * Create a WireGuard Peer
+   * Create a new WireGuard Peer. Current limitation of 5 peers per interface can be created.
+   * @param id Identifies the resource. (required)
+   * @param wireguardPeerCreate  (required)
+   * @return ApiResponse&lt;CreateWireguardPeer202Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateWireguardPeer202Response> createWireguardPeerWithHttpInfo(UUID id, WireguardPeerCreate wireguardPeerCreate) throws ApiException {
+    Object localVarPostBody = wireguardPeerCreate;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling createWireguardPeer");
+    }
+    
+    // verify the required parameter 'wireguardPeerCreate' is set
+    if (wireguardPeerCreate == null) {
+      throw new ApiException(400, "Missing the required parameter 'wireguardPeerCreate' when calling createWireguardPeer");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/wireguard_peers"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateWireguardPeer202Response> localVarReturnType = new GenericType<CreateWireguardPeer202Response>() {};
+
+    return apiClient.invokeAPI("WireGuardInterfacesApi.createWireguardPeer", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -130,7 +209,7 @@ public class WireGuardInterfacesApi {
    * Delete a WireGuard Interface
    * Delete a WireGuard Interface.
    * @param id Identifies the resource. (required)
-   * @return WireguardInterfaceCreate202Response
+   * @return CreateWireguardInterface202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -139,15 +218,15 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WireguardInterfaceCreate202Response wireguardInterfaceDelete(UUID id) throws ApiException {
-    return wireguardInterfaceDeleteWithHttpInfo(id).getData();
+  public CreateWireguardInterface202Response deleteWireguardInterface(UUID id) throws ApiException {
+    return deleteWireguardInterfaceWithHttpInfo(id).getData();
   }
 
   /**
    * Delete a WireGuard Interface
    * Delete a WireGuard Interface.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;WireguardInterfaceCreate202Response&gt;
+   * @return ApiResponse&lt;CreateWireguardInterface202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -156,12 +235,12 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WireguardInterfaceCreate202Response> wireguardInterfaceDeleteWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreateWireguardInterface202Response> deleteWireguardInterfaceWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardInterfaceDelete");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteWireguardInterface");
     }
     
     // create path and map variables
@@ -190,9 +269,79 @@ public class WireGuardInterfacesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WireguardInterfaceCreate202Response> localVarReturnType = new GenericType<WireguardInterfaceCreate202Response>() {};
+    GenericType<CreateWireguardInterface202Response> localVarReturnType = new GenericType<CreateWireguardInterface202Response>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardInterfaceDelete", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.deleteWireguardInterface", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Delete the WireGuard Peer
+   * Delete the WireGuard peer.
+   * @param id Identifies the resource. (required)
+   * @return CreateWireguardPeer202Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateWireguardPeer202Response deleteWireguardPeer(UUID id) throws ApiException {
+    return deleteWireguardPeerWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Delete the WireGuard Peer
+   * Delete the WireGuard peer.
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;CreateWireguardPeer202Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateWireguardPeer202Response> deleteWireguardPeerWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteWireguardPeer");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/wireguard_peers/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateWireguardPeer202Response> localVarReturnType = new GenericType<CreateWireguardPeer202Response>() {};
+
+    return apiClient.invokeAPI("WireGuardInterfacesApi.deleteWireguardPeer", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -200,7 +349,7 @@ public class WireGuardInterfacesApi {
    * Retrieve a WireGuard Interfaces
    * Retrieve a WireGuard Interfaces.
    * @param id Identifies the resource. (required)
-   * @return WireguardInterfaceCreate202Response
+   * @return CreateWireguardInterface202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -209,15 +358,15 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WireguardInterfaceCreate202Response wireguardInterfaceGet(UUID id) throws ApiException {
-    return wireguardInterfaceGetWithHttpInfo(id).getData();
+  public CreateWireguardInterface202Response getWireguardInterface(UUID id) throws ApiException {
+    return getWireguardInterfaceWithHttpInfo(id).getData();
   }
 
   /**
    * Retrieve a WireGuard Interfaces
    * Retrieve a WireGuard Interfaces.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;WireguardInterfaceCreate202Response&gt;
+   * @return ApiResponse&lt;CreateWireguardInterface202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -226,12 +375,12 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WireguardInterfaceCreate202Response> wireguardInterfaceGetWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreateWireguardInterface202Response> getWireguardInterfaceWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardInterfaceGet");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getWireguardInterface");
     }
     
     // create path and map variables
@@ -260,19 +409,17 @@ public class WireGuardInterfacesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WireguardInterfaceCreate202Response> localVarReturnType = new GenericType<WireguardInterfaceCreate202Response>() {};
+    GenericType<CreateWireguardInterface202Response> localVarReturnType = new GenericType<CreateWireguardInterface202Response>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardInterfaceGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.getWireguardInterface", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * List all WireGuard Interfaces
-   * List all WireGuard Interfaces.
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @param filterNetworkId The associated network id to filter on. (optional)
-   * @return WireguardInterfaceList200Response
+   * Retrieve the WireGuard Peer
+   * Retrieve the WireGuard peer.
+   * @param id Identifies the resource. (required)
+   * @return CreateWireguardPeer202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -281,17 +428,15 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WireguardInterfaceList200Response wireguardInterfaceList(Integer pageNumber, Integer pageSize, String filterNetworkId) throws ApiException {
-    return wireguardInterfaceListWithHttpInfo(pageNumber, pageSize, filterNetworkId).getData();
+  public CreateWireguardPeer202Response getWireguardPeer(UUID id) throws ApiException {
+    return getWireguardPeerWithHttpInfo(id).getData();
   }
 
   /**
-   * List all WireGuard Interfaces
-   * List all WireGuard Interfaces.
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @param filterNetworkId The associated network id to filter on. (optional)
-   * @return ApiResponse&lt;WireguardInterfaceList200Response&gt;
+   * Retrieve the WireGuard Peer
+   * Retrieve the WireGuard peer.
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;CreateWireguardPeer202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -300,11 +445,17 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WireguardInterfaceList200Response> wireguardInterfaceListWithHttpInfo(Integer pageNumber, Integer pageSize, String filterNetworkId) throws ApiException {
+  public ApiResponse<CreateWireguardPeer202Response> getWireguardPeerWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getWireguardPeer");
+    }
+    
     // create path and map variables
-    String localVarPath = "/wireguard_interfaces";
+    String localVarPath = "/wireguard_peers/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -312,9 +463,6 @@ public class WireGuardInterfacesApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[network_id]", filterNetworkId));
 
     
     
@@ -331,9 +479,9 @@ public class WireGuardInterfacesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WireguardInterfaceList200Response> localVarReturnType = new GenericType<WireguardInterfaceList200Response>() {};
+    GenericType<CreateWireguardPeer202Response> localVarReturnType = new GenericType<CreateWireguardPeer202Response>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardInterfaceList", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.getWireguardPeer", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -342,7 +490,7 @@ public class WireGuardInterfacesApi {
    * Retrieve the Allowed IP.
    * @param id Identifies the resource. (required)
    * @param childId Identifies the child resource (required)
-   * @return WireguardPeerAllowedIPGet200Response
+   * @return GetWireguardPeerAllowedIp200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -351,8 +499,8 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WireguardPeerAllowedIPGet200Response wireguardPeerAllowedIPGet(UUID id, UUID childId) throws ApiException {
-    return wireguardPeerAllowedIPGetWithHttpInfo(id, childId).getData();
+  public GetWireguardPeerAllowedIp200Response getWireguardPeerAllowedIp(UUID id, UUID childId) throws ApiException {
+    return getWireguardPeerAllowedIpWithHttpInfo(id, childId).getData();
   }
 
   /**
@@ -360,7 +508,7 @@ public class WireGuardInterfacesApi {
    * Retrieve the Allowed IP.
    * @param id Identifies the resource. (required)
    * @param childId Identifies the child resource (required)
-   * @return ApiResponse&lt;WireguardPeerAllowedIPGet200Response&gt;
+   * @return ApiResponse&lt;GetWireguardPeerAllowedIp200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -369,17 +517,17 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WireguardPeerAllowedIPGet200Response> wireguardPeerAllowedIPGetWithHttpInfo(UUID id, UUID childId) throws ApiException {
+  public ApiResponse<GetWireguardPeerAllowedIp200Response> getWireguardPeerAllowedIpWithHttpInfo(UUID id, UUID childId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardPeerAllowedIPGet");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getWireguardPeerAllowedIp");
     }
     
     // verify the required parameter 'childId' is set
     if (childId == null) {
-      throw new ApiException(400, "Missing the required parameter 'childId' when calling wireguardPeerAllowedIPGet");
+      throw new ApiException(400, "Missing the required parameter 'childId' when calling getWireguardPeerAllowedIp");
     }
     
     // create path and map variables
@@ -409,85 +557,9 @@ public class WireGuardInterfacesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WireguardPeerAllowedIPGet200Response> localVarReturnType = new GenericType<WireguardPeerAllowedIPGet200Response>() {};
+    GenericType<GetWireguardPeerAllowedIp200Response> localVarReturnType = new GenericType<GetWireguardPeerAllowedIp200Response>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardPeerAllowedIPGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * List all Allowed IPs for a WireGuard Peer
-   * List all Allowed IPs for a WireGuard peer.
-   * @param id Identifies the resource. (required)
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @return WireguardPeerAllowedIPList200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public WireguardPeerAllowedIPList200Response wireguardPeerAllowedIPList(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    return wireguardPeerAllowedIPListWithHttpInfo(id, pageNumber, pageSize).getData();
-  }
-
-  /**
-   * List all Allowed IPs for a WireGuard Peer
-   * List all Allowed IPs for a WireGuard peer.
-   * @param id Identifies the resource. (required)
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;WireguardPeerAllowedIPList200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<WireguardPeerAllowedIPList200Response> wireguardPeerAllowedIPListWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardPeerAllowedIPList");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/wireguard_peers/{id}/allowed_ips"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<WireguardPeerAllowedIPList200Response> localVarReturnType = new GenericType<WireguardPeerAllowedIPList200Response>() {};
-
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardPeerAllowedIPList", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.getWireguardPeerAllowedIp", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -504,8 +576,8 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public String wireguardPeerConfig(UUID id) throws ApiException {
-    return wireguardPeerConfigWithHttpInfo(id).getData();
+  public String getWireguardPeerConfig(UUID id) throws ApiException {
+    return getWireguardPeerConfigWithHttpInfo(id).getData();
   }
 
   /**
@@ -521,12 +593,12 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<String> wireguardPeerConfigWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<String> getWireguardPeerConfigWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardPeerConfig");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getWireguardPeerConfig");
     }
     
     // create path and map variables
@@ -557,94 +629,17 @@ public class WireGuardInterfacesApi {
 
     GenericType<String> localVarReturnType = new GenericType<String>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardPeerConfig", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.getWireguardPeerConfig", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Create a WireGuard Peer
-   * Create a new WireGuard Peer. Current limitation of 5 peers per interface can be created.
-   * @param id Identifies the resource. (required)
-   * @param wireguardPeerCreate  (required)
-   * @return WireguardPeerCreate202Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public WireguardPeerCreate202Response wireguardPeerCreate(UUID id, WireguardPeerCreate wireguardPeerCreate) throws ApiException {
-    return wireguardPeerCreateWithHttpInfo(id, wireguardPeerCreate).getData();
-  }
-
-  /**
-   * Create a WireGuard Peer
-   * Create a new WireGuard Peer. Current limitation of 5 peers per interface can be created.
-   * @param id Identifies the resource. (required)
-   * @param wireguardPeerCreate  (required)
-   * @return ApiResponse&lt;WireguardPeerCreate202Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<WireguardPeerCreate202Response> wireguardPeerCreateWithHttpInfo(UUID id, WireguardPeerCreate wireguardPeerCreate) throws ApiException {
-    Object localVarPostBody = wireguardPeerCreate;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardPeerCreate");
-    }
-    
-    // verify the required parameter 'wireguardPeerCreate' is set
-    if (wireguardPeerCreate == null) {
-      throw new ApiException(400, "Missing the required parameter 'wireguardPeerCreate' when calling wireguardPeerCreate");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/wireguard_peers"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<WireguardPeerCreate202Response> localVarReturnType = new GenericType<WireguardPeerCreate202Response>() {};
-
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardPeerCreate", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * Delete the WireGuard Peer
-   * Delete the WireGuard peer.
-   * @param id Identifies the resource. (required)
-   * @return WireguardPeerCreate202Response
+   * List all WireGuard Interfaces
+   * List all WireGuard Interfaces.
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @param filterNetworkId The associated network id to filter on. (optional)
+   * @return ListWireguardInterfaces200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -653,15 +648,17 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WireguardPeerCreate202Response wireguardPeerDelete(UUID id) throws ApiException {
-    return wireguardPeerDeleteWithHttpInfo(id).getData();
+  public ListWireguardInterfaces200Response listWireguardInterfaces(Integer pageNumber, Integer pageSize, String filterNetworkId) throws ApiException {
+    return listWireguardInterfacesWithHttpInfo(pageNumber, pageSize, filterNetworkId).getData();
   }
 
   /**
-   * Delete the WireGuard Peer
-   * Delete the WireGuard peer.
-   * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;WireguardPeerCreate202Response&gt;
+   * List all WireGuard Interfaces
+   * List all WireGuard Interfaces.
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @param filterNetworkId The associated network id to filter on. (optional)
+   * @return ApiResponse&lt;ListWireguardInterfaces200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -670,17 +667,11 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WireguardPeerCreate202Response> wireguardPeerDeleteWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<ListWireguardInterfaces200Response> listWireguardInterfacesWithHttpInfo(Integer pageNumber, Integer pageSize, String filterNetworkId) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardPeerDelete");
-    }
-    
     // create path and map variables
-    String localVarPath = "/wireguard_peers/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+    String localVarPath = "/wireguard_interfaces";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -688,6 +679,9 @@ public class WireGuardInterfacesApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[network_id]", filterNetworkId));
 
     
     
@@ -704,17 +698,19 @@ public class WireGuardInterfacesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WireguardPeerCreate202Response> localVarReturnType = new GenericType<WireguardPeerCreate202Response>() {};
+    GenericType<ListWireguardInterfaces200Response> localVarReturnType = new GenericType<ListWireguardInterfaces200Response>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardPeerDelete", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.listWireguardInterfaces", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Retrieve the WireGuard Peer
-   * Retrieve the WireGuard peer.
+   * List all Allowed IPs for a WireGuard Peer
+   * List all Allowed IPs for a WireGuard peer.
    * @param id Identifies the resource. (required)
-   * @return WireguardPeerCreate202Response
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @return ListWireguardPeerAllowedIps200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -723,15 +719,17 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WireguardPeerCreate202Response wireguardPeerGet(UUID id) throws ApiException {
-    return wireguardPeerGetWithHttpInfo(id).getData();
+  public ListWireguardPeerAllowedIps200Response listWireguardPeerAllowedIps(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+    return listWireguardPeerAllowedIpsWithHttpInfo(id, pageNumber, pageSize).getData();
   }
 
   /**
-   * Retrieve the WireGuard Peer
-   * Retrieve the WireGuard peer.
+   * List all Allowed IPs for a WireGuard Peer
+   * List all Allowed IPs for a WireGuard peer.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;WireguardPeerCreate202Response&gt;
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @return ApiResponse&lt;ListWireguardPeerAllowedIps200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -740,16 +738,16 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WireguardPeerCreate202Response> wireguardPeerGetWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<ListWireguardPeerAllowedIps200Response> listWireguardPeerAllowedIpsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardPeerGet");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling listWireguardPeerAllowedIps");
     }
     
     // create path and map variables
-    String localVarPath = "/wireguard_peers/{id}"
+    String localVarPath = "/wireguard_peers/{id}/allowed_ips"
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
@@ -758,6 +756,8 @@ public class WireGuardInterfacesApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
 
     
     
@@ -774,9 +774,9 @@ public class WireGuardInterfacesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WireguardPeerCreate202Response> localVarReturnType = new GenericType<WireguardPeerCreate202Response>() {};
+    GenericType<ListWireguardPeerAllowedIps200Response> localVarReturnType = new GenericType<ListWireguardPeerAllowedIps200Response>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardPeerGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.listWireguardPeerAllowedIps", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -787,7 +787,7 @@ public class WireGuardInterfacesApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterWireguardInterfaceId The id of the associated WireGuard interface to filter on. (optional)
-   * @return WireguardPeerList200Response
+   * @return ListWireguardPeers200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -796,8 +796,8 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WireguardPeerList200Response wireguardPeerList(UUID id, Integer pageNumber, Integer pageSize, UUID filterWireguardInterfaceId) throws ApiException {
-    return wireguardPeerListWithHttpInfo(id, pageNumber, pageSize, filterWireguardInterfaceId).getData();
+  public ListWireguardPeers200Response listWireguardPeers(UUID id, Integer pageNumber, Integer pageSize, UUID filterWireguardInterfaceId) throws ApiException {
+    return listWireguardPeersWithHttpInfo(id, pageNumber, pageSize, filterWireguardInterfaceId).getData();
   }
 
   /**
@@ -807,7 +807,7 @@ public class WireGuardInterfacesApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterWireguardInterfaceId The id of the associated WireGuard interface to filter on. (optional)
-   * @return ApiResponse&lt;WireguardPeerList200Response&gt;
+   * @return ApiResponse&lt;ListWireguardPeers200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -816,12 +816,12 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WireguardPeerList200Response> wireguardPeerListWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, UUID filterWireguardInterfaceId) throws ApiException {
+  public ApiResponse<ListWireguardPeers200Response> listWireguardPeersWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, UUID filterWireguardInterfaceId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardPeerList");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling listWireguardPeers");
     }
     
     // create path and map variables
@@ -853,9 +853,9 @@ public class WireGuardInterfacesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WireguardPeerList200Response> localVarReturnType = new GenericType<WireguardPeerList200Response>() {};
+    GenericType<ListWireguardPeers200Response> localVarReturnType = new GenericType<ListWireguardPeers200Response>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardPeerList", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.listWireguardPeers", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -864,7 +864,7 @@ public class WireGuardInterfacesApi {
    * Update the WireGuard peer.
    * @param id Identifies the resource. (required)
    * @param wireguardPeerPatch  (required)
-   * @return WireguardPeerCreate202Response
+   * @return CreateWireguardPeer202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -874,8 +874,8 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public WireguardPeerCreate202Response wireguardPeerUpdate(UUID id, WireguardPeerPatch wireguardPeerPatch) throws ApiException {
-    return wireguardPeerUpdateWithHttpInfo(id, wireguardPeerPatch).getData();
+  public CreateWireguardPeer202Response updateWireguardPeer(UUID id, WireguardPeerPatch wireguardPeerPatch) throws ApiException {
+    return updateWireguardPeerWithHttpInfo(id, wireguardPeerPatch).getData();
   }
 
   /**
@@ -883,7 +883,7 @@ public class WireGuardInterfacesApi {
    * Update the WireGuard peer.
    * @param id Identifies the resource. (required)
    * @param wireguardPeerPatch  (required)
-   * @return ApiResponse&lt;WireguardPeerCreate202Response&gt;
+   * @return ApiResponse&lt;CreateWireguardPeer202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -893,17 +893,17 @@ public class WireGuardInterfacesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WireguardPeerCreate202Response> wireguardPeerUpdateWithHttpInfo(UUID id, WireguardPeerPatch wireguardPeerPatch) throws ApiException {
+  public ApiResponse<CreateWireguardPeer202Response> updateWireguardPeerWithHttpInfo(UUID id, WireguardPeerPatch wireguardPeerPatch) throws ApiException {
     Object localVarPostBody = wireguardPeerPatch;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling wireguardPeerUpdate");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updateWireguardPeer");
     }
     
     // verify the required parameter 'wireguardPeerPatch' is set
     if (wireguardPeerPatch == null) {
-      throw new ApiException(400, "Missing the required parameter 'wireguardPeerPatch' when calling wireguardPeerUpdate");
+      throw new ApiException(400, "Missing the required parameter 'wireguardPeerPatch' when calling updateWireguardPeer");
     }
     
     // create path and map variables
@@ -932,9 +932,9 @@ public class WireGuardInterfacesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<WireguardPeerCreate202Response> localVarReturnType = new GenericType<WireguardPeerCreate202Response>() {};
+    GenericType<CreateWireguardPeer202Response> localVarReturnType = new GenericType<CreateWireguardPeer202Response>() {};
 
-    return apiClient.invokeAPI("WireGuardInterfacesApi.wireguardPeerUpdate", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("WireGuardInterfacesApi.updateWireguardPeer", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

@@ -4,13 +4,13 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**numberLookup**](NumberLookupApi.md#numberLookup) | **GET** /number_lookup/{phone_number} | Lookup phone number data
+[**lookupNumber**](NumberLookupApi.md#lookupNumber) | **GET** /number_lookup/{phone_number} | Lookup phone number data
 
 
 
-## numberLookup
+## lookupNumber
 
-> NumberLookupResponse numberLookup(phoneNumber, type)
+> NumberLookupResponse lookupNumber(phoneNumber, type)
 
 Lookup phone number data
 
@@ -40,10 +40,10 @@ public class Example {
         String phoneNumber = "+18665552368"; // String | The phone number to be looked up
         String type = "carrier"; // String | Specifies the type of number lookup to be performed
         try {
-            NumberLookupResponse result = apiInstance.numberLookup(phoneNumber, type);
+            NumberLookupResponse result = apiInstance.lookupNumber(phoneNumber, type);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling NumberLookupApi#numberLookup");
+            System.err.println("Exception when calling NumberLookupApi#lookupNumber");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

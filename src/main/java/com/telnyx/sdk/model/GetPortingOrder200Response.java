@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,9 +26,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.GetPortingOrder200ResponseMeta;
 import com.telnyx.sdk.model.PortingOrder;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -37,7 +40,7 @@ import com.telnyx.sdk.JSON;
   GetPortingOrder200Response.JSON_PROPERTY_DATA,
   GetPortingOrder200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GetPortingOrder200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private PortingOrder data;
@@ -101,7 +104,7 @@ public class GetPortingOrder200Response {
 
 
   /**
-   * Return true if this getPortingOrder_200_response object is equal to o.
+   * Return true if this GetPortingOrder_200_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

@@ -9,10 +9,9 @@ Either a list of participant id to perform the action on, or the keyword \"all\"
 * [String](String.md)
 
 ## Example
-
 ```java
 // Import classes:
-
+import com.telnyx.sdk.model.ActionsParticipantsRequestParticipants;
 import com.telnyx.sdk.model.List<UUID>;
 import com.telnyx.sdk.model.String;
 
@@ -21,11 +20,11 @@ public class Example {
         ActionsParticipantsRequestParticipants exampleActionsParticipantsRequestParticipants = new ActionsParticipantsRequestParticipants();
 
         // create a new List<UUID>
-        List<UUID> exampleList<UUID > = new List<UUID>();
+        List<UUID> exampleList<UUID> = new List<UUID>();
         // set ActionsParticipantsRequestParticipants to List<UUID>
-        exampleActionsParticipantsRequestParticipants.setActualInstance(exampleList < UUID >);
+        exampleActionsParticipantsRequestParticipants.setActualInstance(exampleList<UUID>);
         // to get back the List<UUID> set earlier
-        List<UUID> testList<UUID > = (List<UUID>) exampleActionsParticipantsRequestParticipants.getActualInstance();
+        List<UUID> testList<UUID> = (List<UUID>) exampleActionsParticipantsRequestParticipants.getActualInstance();
 
         // create a new String
         String exampleString = new String();

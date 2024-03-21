@@ -10,7 +10,7 @@
 |**id** | **UUID** | Identifies the resource |  [optional] |
 |**startTime** | **OffsetDateTime** |  |  [optional] |
 |**endTime** | **OffsetDateTime** |  |  [optional] |
-|**connections** | **List&lt;Long&gt;** |  |  [optional] |
+|**connections** |  |  |  [optional] |
 |**aggregationType** | [**AggregationTypeEnum**](#AggregationTypeEnum) |  |  [optional] |
 |**status** | [**StatusEnum**](#StatusEnum) |  |  [optional] |
 |**reportUrl** | **String** |  |  [optional] |

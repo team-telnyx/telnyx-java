@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -30,12 +32,13 @@ import com.telnyx.sdk.model.PortingOrderPhoneNumberConfiguration;
 import com.telnyx.sdk.model.PortingOrderRequirement;
 import com.telnyx.sdk.model.PortingOrderStatus;
 import com.telnyx.sdk.model.PortingOrderUserFeedback;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -68,7 +71,7 @@ import com.telnyx.sdk.JSON;
   PortingOrder.JSON_PROPERTY_WEBHOOK_URL,
   PortingOrder.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrder {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;

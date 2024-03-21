@@ -15,29 +15,16 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
+import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.OutboundCallRecording;
-import com.telnyx.sdk.model.ServicePlan;
-import com.telnyx.sdk.model.TrafficType;
-import com.telnyx.sdk.model.UsagePaymentMethod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
 
 
 /**
@@ -63,7 +50,7 @@ import com.telnyx.sdk.JSON;
   OutboundVoiceProfile.JSON_PROPERTY_CREATED_AT,
   OutboundVoiceProfile.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class OutboundVoiceProfile {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -405,7 +392,7 @@ public class OutboundVoiceProfile {
 
   public OutboundVoiceProfile addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
     if (this.whitelistedDestinations == null) {
-      this.whitelistedDestinations = new ArrayList<>();
+      this.whitelistedDestinations = new ArrayList<>(Arrays.asList("US", "CA"));
     }
     this.whitelistedDestinations.add(whitelistedDestinationsItem);
     return this;

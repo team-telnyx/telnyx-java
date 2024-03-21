@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -32,14 +35,53 @@ import com.telnyx.sdk.JSON;
  * TranscriptionStartRequest
  */
 @JsonPropertyOrder({
+  TranscriptionStartRequest.JSON_PROPERTY_TRANSCRIPTION_ENGINE,
   TranscriptionStartRequest.JSON_PROPERTY_LANGUAGE,
   TranscriptionStartRequest.JSON_PROPERTY_INTERIM_RESULTS,
   TranscriptionStartRequest.JSON_PROPERTY_CLIENT_STATE,
   TranscriptionStartRequest.JSON_PROPERTY_TRANSCRIPTION_TRACKS,
   TranscriptionStartRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TranscriptionStartRequest {
+  /**
+   * Engine to use for speech recognition. &#x60;A&#x60; - &#x60;google&#x60;, &#x60;B&#x60; - &#x60;telnyx&#x60;.
+   */
+  public enum TranscriptionEngineEnum {
+    A("A"),
+    
+    B("B");
+
+    private String value;
+
+    TranscriptionEngineEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TranscriptionEngineEnum fromValue(String value) {
+      for (TranscriptionEngineEnum b : TranscriptionEngineEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_ENGINE = "transcription_engine";
+  private TranscriptionEngineEnum transcriptionEngine = TranscriptionEngineEnum.A;
+
   /**
    * Language to use for speech recognition
    */
@@ -101,6 +143,32 @@ public class TranscriptionStartRequest {
   public TranscriptionStartRequest() { 
   }
 
+  public TranscriptionStartRequest transcriptionEngine(TranscriptionEngineEnum transcriptionEngine) {
+    this.transcriptionEngine = transcriptionEngine;
+    return this;
+  }
+
+   /**
+   * Engine to use for speech recognition. &#x60;A&#x60; - &#x60;google&#x60;, &#x60;B&#x60; - &#x60;telnyx&#x60;.
+   * @return transcriptionEngine
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "A", value = "Engine to use for speech recognition. `A` - `google`, `B` - `telnyx`.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_ENGINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TranscriptionEngineEnum getTranscriptionEngine() {
+    return transcriptionEngine;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_ENGINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionEngine(TranscriptionEngineEnum transcriptionEngine) {
+    this.transcriptionEngine = transcriptionEngine;
+  }
+
+
   public TranscriptionStartRequest language(LanguageEnum language) {
     this.language = language;
     return this;
@@ -133,11 +201,11 @@ public class TranscriptionStartRequest {
   }
 
    /**
-   * Whether to send also interim results. If set to false, only final results will be sent.
+   * Whether to send also interim results. If set to false, only final results will be sent. Applies to &#x60;google&#x60; engine only.
    * @return interimResults
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Whether to send also interim results. If set to false, only final results will be sent.")
+  @ApiModelProperty(example = "true", value = "Whether to send also interim results. If set to false, only final results will be sent. Applies to `google` engine only.")
   @JsonProperty(JSON_PROPERTY_INTERIM_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -243,7 +311,8 @@ public class TranscriptionStartRequest {
       return false;
     }
     TranscriptionStartRequest transcriptionStartRequest = (TranscriptionStartRequest) o;
-    return Objects.equals(this.language, transcriptionStartRequest.language) &&
+    return Objects.equals(this.transcriptionEngine, transcriptionStartRequest.transcriptionEngine) &&
+        Objects.equals(this.language, transcriptionStartRequest.language) &&
         Objects.equals(this.interimResults, transcriptionStartRequest.interimResults) &&
         Objects.equals(this.clientState, transcriptionStartRequest.clientState) &&
         Objects.equals(this.transcriptionTracks, transcriptionStartRequest.transcriptionTracks) &&
@@ -252,13 +321,14 @@ public class TranscriptionStartRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(language, interimResults, clientState, transcriptionTracks, commandId);
+    return Objects.hash(transcriptionEngine, language, interimResults, clientState, transcriptionTracks, commandId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TranscriptionStartRequest {\n");
+    sb.append("    transcriptionEngine: ").append(toIndentedString(transcriptionEngine)).append("\n");
     sb.append("    language: ").append(toIndentedString(language)).append("\n");
     sb.append("    interimResults: ").append(toIndentedString(interimResults)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");

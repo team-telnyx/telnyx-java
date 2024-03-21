@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**longitude** | **String** | Longitude of the location |  |
-|**latitude** | **String** | Latitude of the location |  |
-|**name** | **String** | Name of the location |  |
-|**address** | **String** | Address of the location. Only displayed if name is present. |  |
+|**id** | **UUID** | Uniquely identifies the resource. |  [optional] |
+|**additionalInfo** | **String** |  |  [optional] |
+|**description** | **String** |  |  [optional] |
+|**isDefault** | **Boolean** | Represents whether the location is the default or not. |  [optional] |
 
 
 

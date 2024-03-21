@@ -12,6 +12,7 @@
 |**name** | **String** | SPID (Service Provider ID) name, if the requested phone number has been ported; otherwise, the name of carrier who owns the phone number block |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | A phone number type that identifies the type of service associated with the requested phone number |  [optional] |
 |**errorCode** | **String** | Unused |  [optional] |
+|**normalizedCarrier** | **String** | If known to Telnyx and applicable, the primary network carrier. |  [optional] |
 
 
 

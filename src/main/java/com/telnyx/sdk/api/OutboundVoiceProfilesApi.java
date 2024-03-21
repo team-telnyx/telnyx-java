@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class OutboundVoiceProfilesApi {
   private ApiClient apiClient;
 
@@ -63,8 +63,8 @@ public class OutboundVoiceProfilesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public OutboundVoiceProfileResponse createOutboundVoiceProfile(CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest) throws ApiException {
-    return createOutboundVoiceProfileWithHttpInfo(createOutboundVoiceProfileRequest).getData();
+  public OutboundVoiceProfileResponse createVoiceProfile(CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest) throws ApiException {
+    return createVoiceProfileWithHttpInfo(createOutboundVoiceProfileRequest).getData();
   }
 
   /**
@@ -82,12 +82,12 @@ public class OutboundVoiceProfilesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<OutboundVoiceProfileResponse> createOutboundVoiceProfileWithHttpInfo(CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest) throws ApiException {
+  public ApiResponse<OutboundVoiceProfileResponse> createVoiceProfileWithHttpInfo(CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest) throws ApiException {
     Object localVarPostBody = createOutboundVoiceProfileRequest;
     
     // verify the required parameter 'createOutboundVoiceProfileRequest' is set
     if (createOutboundVoiceProfileRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createOutboundVoiceProfileRequest' when calling createOutboundVoiceProfile");
+      throw new ApiException(400, "Missing the required parameter 'createOutboundVoiceProfileRequest' when calling createVoiceProfile");
     }
     
     // create path and map variables
@@ -117,7 +117,7 @@ public class OutboundVoiceProfilesApi {
 
     GenericType<OutboundVoiceProfileResponse> localVarReturnType = new GenericType<OutboundVoiceProfileResponse>() {};
 
-    return apiClient.invokeAPI("OutboundVoiceProfilesApi.createOutboundVoiceProfile", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("OutboundVoiceProfilesApi.createVoiceProfile", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -192,6 +192,80 @@ public class OutboundVoiceProfilesApi {
     GenericType<OutboundVoiceProfileResponse> localVarReturnType = new GenericType<OutboundVoiceProfileResponse>() {};
 
     return apiClient.invokeAPI("OutboundVoiceProfilesApi.deleteOutboundVoiceProfile", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Retrieve an outbound voice profile
+   * Retrieves the details of an existing outbound voice profile.
+   * @param id Identifies the resource. (required)
+   * @return OutboundVoiceProfileResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+     </table>
+   */
+  public OutboundVoiceProfileResponse getOutboundVoiceProfile(String id) throws ApiException {
+    return getOutboundVoiceProfileWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Retrieve an outbound voice profile
+   * Retrieves the details of an existing outbound voice profile.
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;OutboundVoiceProfileResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<OutboundVoiceProfileResponse> getOutboundVoiceProfileWithHttpInfo(String id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getOutboundVoiceProfile");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/outbound_voice_profiles/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<OutboundVoiceProfileResponse> localVarReturnType = new GenericType<OutboundVoiceProfileResponse>() {};
+
+    return apiClient.invokeAPI("OutboundVoiceProfilesApi.getOutboundVoiceProfile", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -330,80 +404,6 @@ private ApiResponse<ListOutboundVoiceProfilesResponse> listOutboundVoiceProfiles
    */
   public APIlistOutboundVoiceProfilesRequest listOutboundVoiceProfiles() throws ApiException {
     return new APIlistOutboundVoiceProfilesRequest();
-  }
-  /**
-   * Retrieve an outbound voice profile
-   * Retrieves the details of an existing outbound voice profile.
-   * @param id Identifies the resource. (required)
-   * @return OutboundVoiceProfileResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-   */
-  public OutboundVoiceProfileResponse retrieveOutboundVoiceProfile(String id) throws ApiException {
-    return retrieveOutboundVoiceProfileWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Retrieve an outbound voice profile
-   * Retrieves the details of an existing outbound voice profile.
-   * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;OutboundVoiceProfileResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<OutboundVoiceProfileResponse> retrieveOutboundVoiceProfileWithHttpInfo(String id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveOutboundVoiceProfile");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/outbound_voice_profiles/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<OutboundVoiceProfileResponse> localVarReturnType = new GenericType<OutboundVoiceProfileResponse>() {};
-
-    return apiClient.invokeAPI("OutboundVoiceProfilesApi.retrieveOutboundVoiceProfile", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
   }
   /**
    * Updates an existing outbound voice profile.

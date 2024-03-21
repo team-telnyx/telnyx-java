@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**listPortoutRequest**](NumberPortoutApi.md#listPortoutRequest) | **GET** /portouts | List portout requests
 [**postPortRequestComment**](NumberPortoutApi.md#postPortRequestComment) | **POST** /portouts/{id}/comments | Create a comment on a portout request
 [**postPortRequestSupportingDocuments**](NumberPortoutApi.md#postPortRequestSupportingDocuments) | **POST** /portouts/{id}/supporting_documents | Create a list of supporting documents on a portout request
-[**updatePortoutRequest**](NumberPortoutApi.md#updatePortoutRequest) | **PATCH** /portouts/{id}/{status} | Update Status
+[**updatePortoutStatus**](NumberPortoutApi.md#updatePortoutStatus) | **PATCH** /portouts/{id}/{status} | Update Status
 
 
 
@@ -468,9 +468,9 @@ Name | Type | Description  | Notes
 | **422** | Unprocessable entity. Check message field in response for details. |  -  |
 
 
-## updatePortoutRequest
+## updatePortoutStatus
 
-> FindPortoutRequest200Response updatePortoutRequest(id, status, updatePortoutRequestRequest)
+> FindPortoutRequest200Response updatePortoutStatus(id, status, updatePortoutStatusRequest)
 
 Update Status
 
@@ -500,12 +500,12 @@ public class Example {
         NumberPortoutApi apiInstance = new NumberPortoutApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | Portout id
         String status = "authorized"; // String | Updated portout status
-        UpdatePortoutRequestRequest updatePortoutRequestRequest = new UpdatePortoutRequestRequest(); // UpdatePortoutRequestRequest | 
+        UpdatePortoutStatusRequest updatePortoutStatusRequest = new UpdatePortoutStatusRequest(); // UpdatePortoutStatusRequest | 
         try {
-            FindPortoutRequest200Response result = apiInstance.updatePortoutRequest(id, status, updatePortoutRequestRequest);
+            FindPortoutRequest200Response result = apiInstance.updatePortoutStatus(id, status, updatePortoutStatusRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling NumberPortoutApi#updatePortoutRequest");
+            System.err.println("Exception when calling NumberPortoutApi#updatePortoutStatus");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -522,7 +522,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| Portout id |
  **status** | **String**| Updated portout status | [enum: authorized, rejected-pending]
- **updatePortoutRequestRequest** | [**UpdatePortoutRequestRequest**](UpdatePortoutRequestRequest.md)|  |
+ **updatePortoutStatusRequest** | [**UpdatePortoutStatusRequest**](UpdatePortoutStatusRequest.md)|  |
 
 ### Return type
 

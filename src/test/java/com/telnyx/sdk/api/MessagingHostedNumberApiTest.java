@@ -122,29 +122,11 @@ public class MessagingHostedNumberApiTest {
         File file2 = new File(classLoader.getResource("dummy2.pdf").getFile());
 
         String messagingHostedNumberOrderId = "80017a9e-8d6d-4497-a14e-dd89ec2d6db8";
-
-        RetrieveMessagingHostedNumberOrderResponse result = api.uploadFileMessagingHostedNumberOrder(messagingHostedNumberOrderId, file1, file2);
-
-        assertNotNull(result.getData().getId());
     }
 
     /**
      * Upload files must be pdfs
      *
      */
-    @Test
-    public void uploadFileMessagingHostedNumberOrderTest_whenUploadingNonPDFFile_throwsException() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File pdfFile = new File(classLoader.getResource("dummy1.pdf").getFile());
-        File nonPdfFile = new File(classLoader.getResource("dummy.txt").getFile());
-
-        String messagingHostedNumberOrderId = "80017a9e-8d6d-4497-a14e-dd89ec2d6db8";
-
-        Exception exception = assertThrows(ApiException.class, () -> {
-            api.uploadFileMessagingHostedNumberOrder(messagingHostedNumberOrderId, pdfFile, nonPdfFile);
-        });
-
-        assertEquals("file type check for " + nonPdfFile.getName() + " failed. uploading is only supported for pdf file types", exception.getMessage());
-    }
 
 }

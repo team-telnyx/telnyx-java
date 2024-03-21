@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,10 +25,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallMachinePremiumDetectionEndedPayload;
+import java.time.OffsetDateTime;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,7 +44,7 @@ import com.telnyx.sdk.JSON;
   CallMachinePremiumDetectionEnded.JSON_PROPERTY_OCCURRED_AT,
   CallMachinePremiumDetectionEnded.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallMachinePremiumDetectionEnded {
   /**
    * Identifies the type of the resource.
@@ -124,6 +127,8 @@ public class CallMachinePremiumDetectionEnded {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private CallMachinePremiumDetectionEndedPayload payload;
 
+  public CallMachinePremiumDetectionEnded() { 
+  }
 
   public CallMachinePremiumDetectionEnded recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -144,6 +149,8 @@ public class CallMachinePremiumDetectionEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -168,6 +175,8 @@ public class CallMachinePremiumDetectionEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEventType(EventTypeEnum eventType) {
     this.eventType = eventType;
   }
@@ -192,6 +201,8 @@ public class CallMachinePremiumDetectionEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -216,6 +227,8 @@ public class CallMachinePremiumDetectionEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOccurredAt(OffsetDateTime occurredAt) {
     this.occurredAt = occurredAt;
   }
@@ -240,6 +253,8 @@ public class CallMachinePremiumDetectionEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAYLOAD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPayload(CallMachinePremiumDetectionEndedPayload payload) {
     this.payload = payload;
   }
@@ -268,7 +283,6 @@ public class CallMachinePremiumDetectionEnded {
   public int hashCode() {
     return Objects.hash(recordType, eventType, id, occurredAt, payload);
   }
-
 
   @Override
   public String toString() {

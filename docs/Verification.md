@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **UUID** |  |  [optional] |
-|**verificationType** | **VerificationType** |  |  [optional] |
+|**type** | **VerificationType** |  |  [optional] |
 |**recordType** | **VerificationRecordType** |  |  [optional] |
 |**phoneNumber** | **String** | +E164 formatted phone number. |  [optional] |
 |**verifyProfileId** | **UUID** | The identifier of the associated Verify profile. |  [optional] |

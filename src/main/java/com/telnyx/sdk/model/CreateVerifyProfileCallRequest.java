@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -32,14 +35,18 @@ import com.telnyx.sdk.JSON;
  * CreateVerifyProfileCallRequest
  */
 @JsonPropertyOrder({
-  CreateVerifyProfileCallRequest.JSON_PROPERTY_SPEECH_TEMPLATE,
+  CreateVerifyProfileCallRequest.JSON_PROPERTY_MSG_TEMPLATE,
+  CreateVerifyProfileCallRequest.JSON_PROPERTY_APP_NAME,
   CreateVerifyProfileCallRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS,
   CreateVerifyProfileCallRequest.JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateVerifyProfileCallRequest {
-  public static final String JSON_PROPERTY_SPEECH_TEMPLATE = "speech_template";
-  private String speechTemplate;
+  public static final String JSON_PROPERTY_MSG_TEMPLATE = "msg_template";
+  private String msgTemplate;
+
+  public static final String JSON_PROPERTY_APP_NAME = "app_name";
+  private String appName;
 
   public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
   private Integer defaultVerificationTimeoutSecs;
@@ -50,29 +57,55 @@ public class CreateVerifyProfileCallRequest {
   public CreateVerifyProfileCallRequest() { 
   }
 
-  public CreateVerifyProfileCallRequest speechTemplate(String speechTemplate) {
-    this.speechTemplate = speechTemplate;
+  public CreateVerifyProfileCallRequest msgTemplate(String msgTemplate) {
+    this.msgTemplate = msgTemplate;
     return this;
   }
 
    /**
    * Optionally sets a speech text template when sending the verification code. Uses &#x60;{code}&#x60; to template in the actual verification code.
-   * @return speechTemplate
+   * @return msgTemplate
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "Hello, this is the Acme Inc verification code you requested: {code}.", value = "Optionally sets a speech text template when sending the verification code. Uses `{code}` to template in the actual verification code.")
-  @JsonProperty(JSON_PROPERTY_SPEECH_TEMPLATE)
+  @JsonProperty(JSON_PROPERTY_MSG_TEMPLATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getSpeechTemplate() {
-    return speechTemplate;
+  public String getMsgTemplate() {
+    return msgTemplate;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SPEECH_TEMPLATE)
+  @JsonProperty(JSON_PROPERTY_MSG_TEMPLATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSpeechTemplate(String speechTemplate) {
-    this.speechTemplate = speechTemplate;
+  public void setMsgTemplate(String msgTemplate) {
+    this.msgTemplate = msgTemplate;
+  }
+
+
+  public CreateVerifyProfileCallRequest appName(String appName) {
+    this.appName = appName;
+    return this;
+  }
+
+   /**
+   * The name that identifies the application requesting 2fa in the verification message.
+   * @return appName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Example Secure App", value = "The name that identifies the application requesting 2fa in the verification message.")
+  @JsonProperty(JSON_PROPERTY_APP_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAppName() {
+    return appName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_APP_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAppName(String appName) {
+    this.appName = appName;
   }
 
 
@@ -140,21 +173,23 @@ public class CreateVerifyProfileCallRequest {
       return false;
     }
     CreateVerifyProfileCallRequest createVerifyProfileCallRequest = (CreateVerifyProfileCallRequest) o;
-    return Objects.equals(this.speechTemplate, createVerifyProfileCallRequest.speechTemplate) &&
+    return Objects.equals(this.msgTemplate, createVerifyProfileCallRequest.msgTemplate) &&
+        Objects.equals(this.appName, createVerifyProfileCallRequest.appName) &&
         Objects.equals(this.defaultVerificationTimeoutSecs, createVerifyProfileCallRequest.defaultVerificationTimeoutSecs) &&
         Objects.equals(this.defaultCallTimeoutSecs, createVerifyProfileCallRequest.defaultCallTimeoutSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(speechTemplate, defaultVerificationTimeoutSecs, defaultCallTimeoutSecs);
+    return Objects.hash(msgTemplate, appName, defaultVerificationTimeoutSecs, defaultCallTimeoutSecs);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateVerifyProfileCallRequest {\n");
-    sb.append("    speechTemplate: ").append(toIndentedString(speechTemplate)).append("\n");
+    sb.append("    msgTemplate: ").append(toIndentedString(msgTemplate)).append("\n");
+    sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
     sb.append("    defaultVerificationTimeoutSecs: ").append(toIndentedString(defaultVerificationTimeoutSecs)).append("\n");
     sb.append("    defaultCallTimeoutSecs: ").append(toIndentedString(defaultCallTimeoutSecs)).append("\n");
     sb.append("}");

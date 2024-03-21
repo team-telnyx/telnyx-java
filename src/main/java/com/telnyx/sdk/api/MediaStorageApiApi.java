@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MediaStorageApiApi {
   private ApiClient apiClient;
 
@@ -199,8 +199,8 @@ public class MediaStorageApiApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public File downloadMediaStorage(String mediaName) throws ApiException {
-    return downloadMediaStorageWithHttpInfo(mediaName).getData();
+  public File downloadMedia(String mediaName) throws ApiException {
+    return downloadMediaWithHttpInfo(mediaName).getData();
   }
 
   /**
@@ -216,12 +216,12 @@ public class MediaStorageApiApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<File> downloadMediaStorageWithHttpInfo(String mediaName) throws ApiException {
+  public ApiResponse<File> downloadMediaWithHttpInfo(String mediaName) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'mediaName' is set
     if (mediaName == null) {
-      throw new ApiException(400, "Missing the required parameter 'mediaName' when calling downloadMediaStorage");
+      throw new ApiException(400, "Missing the required parameter 'mediaName' when calling downloadMedia");
     }
     
     // create path and map variables
@@ -252,7 +252,7 @@ public class MediaStorageApiApi {
 
     GenericType<File> localVarReturnType = new GenericType<File>() {};
 
-    return apiClient.invokeAPI("MediaStorageApiApi.downloadMediaStorage", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("MediaStorageApiApi.downloadMedia", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

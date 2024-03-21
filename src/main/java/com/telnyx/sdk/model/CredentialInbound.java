@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,9 +47,10 @@ import com.telnyx.sdk.JSON;
   CredentialInbound.JSON_PROPERTY_PRIVACY_ZONE_ENABLED,
   CredentialInbound.JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED,
   CredentialInbound.JSON_PROPERTY_TIMEOUT1XX_SECS,
-  CredentialInbound.JSON_PROPERTY_TIMEOUT2XX_SECS
+  CredentialInbound.JSON_PROPERTY_TIMEOUT2XX_SECS,
+  CredentialInbound.JSON_PROPERTY_SHAKEN_STIR_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CredentialInbound {
   /**
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
@@ -159,6 +163,9 @@ public class CredentialInbound {
   public static final String JSON_PROPERTY_TIMEOUT2XX_SECS = "timeout_2xx_secs";
   private String timeout2xxSecs = "90";
 
+  public static final String JSON_PROPERTY_SHAKEN_STIR_ENABLED = "shaken_stir_enabled";
+  private Boolean shakenStirEnabled = false;
+
   public CredentialInbound() { 
   }
 
@@ -221,7 +228,7 @@ public class CredentialInbound {
 
   public CredentialInbound addCodecsItem(String codecsItem) {
     if (this.codecs == null) {
-      this.codecs = new ArrayList<>();
+      this.codecs = new ArrayList<>(Arrays.asList("G722", "G711U", "G711A", "G729", "OPUS", "H.264"));
     }
     this.codecs.add(codecsItem);
     return this;
@@ -458,6 +465,32 @@ public class CredentialInbound {
   }
 
 
+  public CredentialInbound shakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
+    return this;
+  }
+
+   /**
+   * When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.
+   * @return shakenStirEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.")
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getShakenStirEnabled() {
+    return shakenStirEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setShakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
+  }
+
+
   /**
    * Return true if this CredentialInbound object is equal to o.
    */
@@ -480,12 +513,13 @@ public class CredentialInbound {
         Objects.equals(this.privacyZoneEnabled, credentialInbound.privacyZoneEnabled) &&
         Objects.equals(this.sipCompactHeadersEnabled, credentialInbound.sipCompactHeadersEnabled) &&
         Objects.equals(this.timeout1xxSecs, credentialInbound.timeout1xxSecs) &&
-        Objects.equals(this.timeout2xxSecs, credentialInbound.timeout2xxSecs);
+        Objects.equals(this.timeout2xxSecs, credentialInbound.timeout2xxSecs) &&
+        Objects.equals(this.shakenStirEnabled, credentialInbound.shakenStirEnabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, timeout1xxSecs, timeout2xxSecs);
+    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, timeout1xxSecs, timeout2xxSecs, shakenStirEnabled);
   }
 
   @Override
@@ -503,6 +537,7 @@ public class CredentialInbound {
     sb.append("    sipCompactHeadersEnabled: ").append(toIndentedString(sipCompactHeadersEnabled)).append("\n");
     sb.append("    timeout1xxSecs: ").append(toIndentedString(timeout1xxSecs)).append("\n");
     sb.append("    timeout2xxSecs: ").append(toIndentedString(timeout2xxSecs)).append("\n");
+    sb.append("    shakenStirEnabled: ").append(toIndentedString(shakenStirEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

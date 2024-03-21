@@ -11,8 +11,8 @@
 |**payloadType** | [**PayloadTypeEnum**](#PayloadTypeEnum) | The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML). |  [optional] |
 |**serviceLevel** | [**ServiceLevelEnum**](#ServiceLevelEnum) | This parameter impacts speech quality, language options and payload types. When using &#x60;basic&#x60;, only the &#x60;en-US&#x60; language and payload type &#x60;text&#x60; are allowed. |  [optional] |
 |**stop** | **String** | When specified, it stops the current audio being played. Specify &#x60;current&#x60; to stop the current audio being played, and to play the next file in the queue. Specify &#x60;all&#x60; to stop the current audio file being played and to also clear all audio files from the queue. |  [optional] |
-|**voice** | [**VoiceEnum**](#VoiceEnum) | The gender of the voice used to speak back the text. |  |
-|**language** | [**LanguageEnum**](#LanguageEnum) | The language you want spoken. |  |
+|**voice** | [**VoiceEnum**](#VoiceEnum) | The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of &#x60;Polly.&lt;voice&gt;&#x60;, e.g. &#x60;Polly.Brian&#x60;. All standard Amazon Polly voices are supported. |  |
+|**language** | [**LanguageEnum**](#LanguageEnum) | The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified. |  [optional] |
 |**clientState** | **String** | Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. |  [optional] |
 |**commandId** | **String** | Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;. |  [optional] |
 

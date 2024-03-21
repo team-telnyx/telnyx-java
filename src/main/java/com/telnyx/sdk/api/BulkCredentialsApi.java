@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BulkCredentialsApi {
   private ApiClient apiClient;
 
@@ -141,8 +141,8 @@ public class BulkCredentialsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public BulkCredentialResponse createBulkTelephonyCredential(BulkCredentialRequest bulkCredentialRequest) throws ApiException {
-    return createBulkTelephonyCredentialWithHttpInfo(bulkCredentialRequest).getData();
+  public BulkCredentialResponse createBulkTelephonyCredentials(BulkCredentialRequest bulkCredentialRequest) throws ApiException {
+    return createBulkTelephonyCredentialsWithHttpInfo(bulkCredentialRequest).getData();
   }
 
   /**
@@ -158,12 +158,12 @@ public class BulkCredentialsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<BulkCredentialResponse> createBulkTelephonyCredentialWithHttpInfo(BulkCredentialRequest bulkCredentialRequest) throws ApiException {
+  public ApiResponse<BulkCredentialResponse> createBulkTelephonyCredentialsWithHttpInfo(BulkCredentialRequest bulkCredentialRequest) throws ApiException {
     Object localVarPostBody = bulkCredentialRequest;
     
     // verify the required parameter 'bulkCredentialRequest' is set
     if (bulkCredentialRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'bulkCredentialRequest' when calling createBulkTelephonyCredential");
+      throw new ApiException(400, "Missing the required parameter 'bulkCredentialRequest' when calling createBulkTelephonyCredentials");
     }
     
     // create path and map variables
@@ -193,7 +193,7 @@ public class BulkCredentialsApi {
 
     GenericType<BulkCredentialResponse> localVarReturnType = new GenericType<BulkCredentialResponse>() {};
 
-    return apiClient.invokeAPI("BulkCredentialsApi.createBulkTelephonyCredential", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("BulkCredentialsApi.createBulkTelephonyCredentials", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -210,8 +210,8 @@ public class BulkCredentialsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public BulkCredentialResponse deleteBulkTelephonyCredential(String filterTag) throws ApiException {
-    return deleteBulkTelephonyCredentialWithHttpInfo(filterTag).getData();
+  public BulkCredentialResponse deleteTelephonyCredentials(String filterTag) throws ApiException {
+    return deleteTelephonyCredentialsWithHttpInfo(filterTag).getData();
   }
 
   /**
@@ -227,12 +227,12 @@ public class BulkCredentialsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<BulkCredentialResponse> deleteBulkTelephonyCredentialWithHttpInfo(String filterTag) throws ApiException {
+  public ApiResponse<BulkCredentialResponse> deleteTelephonyCredentialsWithHttpInfo(String filterTag) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'filterTag' is set
     if (filterTag == null) {
-      throw new ApiException(400, "Missing the required parameter 'filterTag' when calling deleteBulkTelephonyCredential");
+      throw new ApiException(400, "Missing the required parameter 'filterTag' when calling deleteTelephonyCredentials");
     }
     
     // create path and map variables
@@ -263,7 +263,7 @@ public class BulkCredentialsApi {
 
     GenericType<BulkCredentialResponse> localVarReturnType = new GenericType<BulkCredentialResponse>() {};
 
-    return apiClient.invokeAPI("BulkCredentialsApi.deleteBulkTelephonyCredential", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("BulkCredentialsApi.deleteTelephonyCredentials", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -51,9 +54,10 @@ import com.telnyx.sdk.JSON;
   InboundIp.JSON_PROPERTY_SIP_SUBDOMAIN,
   InboundIp.JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS,
   InboundIp.JSON_PROPERTY_TIMEOUT1XX_SECS,
-  InboundIp.JSON_PROPERTY_TIMEOUT2XX_SECS
+  InboundIp.JSON_PROPERTY_TIMEOUT2XX_SECS,
+  InboundIp.JSON_PROPERTY_SHAKEN_STIR_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class InboundIp {
   /**
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
@@ -294,6 +298,9 @@ public class InboundIp {
   public static final String JSON_PROPERTY_TIMEOUT2XX_SECS = "timeout_2xx_secs";
   private Integer timeout2xxSecs = 90;
 
+  public static final String JSON_PROPERTY_SHAKEN_STIR_ENABLED = "shaken_stir_enabled";
+  private Boolean shakenStirEnabled = false;
+
   public InboundIp() { 
   }
 
@@ -356,7 +363,7 @@ public class InboundIp {
 
   public InboundIp addCodecsItem(String codecsItem) {
     if (this.codecs == null) {
-      this.codecs = new ArrayList<>();
+      this.codecs = new ArrayList<>(Arrays.asList("G722", "G711U", "G711A", "G729", "OPUS", "H.264"));
     }
     this.codecs.add(codecsItem);
     return this;
@@ -775,6 +782,32 @@ public class InboundIp {
   }
 
 
+  public InboundIp shakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
+    return this;
+  }
+
+   /**
+   * When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.
+   * @return shakenStirEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.")
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getShakenStirEnabled() {
+    return shakenStirEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setShakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
+  }
+
+
   /**
    * Return true if this InboundIp object is equal to o.
    */
@@ -804,12 +837,13 @@ public class InboundIp {
         Objects.equals(this.sipSubdomain, inboundIp.sipSubdomain) &&
         Objects.equals(this.sipSubdomainReceiveSettings, inboundIp.sipSubdomainReceiveSettings) &&
         Objects.equals(this.timeout1xxSecs, inboundIp.timeout1xxSecs) &&
-        Objects.equals(this.timeout2xxSecs, inboundIp.timeout2xxSecs);
+        Objects.equals(this.timeout2xxSecs, inboundIp.timeout2xxSecs) &&
+        Objects.equals(this.shakenStirEnabled, inboundIp.shakenStirEnabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, defaultPrimaryIpId, defaultSecondaryIpId, defaultTertiaryIpId, defaultRoutingMethod, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, sipRegion, sipSubdomain, sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs);
+    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, defaultPrimaryIpId, defaultSecondaryIpId, defaultTertiaryIpId, defaultRoutingMethod, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, sipRegion, sipSubdomain, sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs, shakenStirEnabled);
   }
 
   @Override
@@ -834,6 +868,7 @@ public class InboundIp {
     sb.append("    sipSubdomainReceiveSettings: ").append(toIndentedString(sipSubdomainReceiveSettings)).append("\n");
     sb.append("    timeout1xxSecs: ").append(toIndentedString(timeout1xxSecs)).append("\n");
     sb.append("    timeout2xxSecs: ").append(toIndentedString(timeout2xxSecs)).append("\n");
+    sb.append("    shakenStirEnabled: ").append(toIndentedString(shakenStirEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

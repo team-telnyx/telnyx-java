@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -56,9 +59,10 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDetailed.JSON_PROPERTY_PURCHASED_AT,
   PhoneNumberDetailed.JSON_PROPERTY_CREATED_AT,
   PhoneNumberDetailed.JSON_PROPERTY_NUMBER_LEVEL_ROUTING,
-  PhoneNumberDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE
+  PhoneNumberDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE,
+  PhoneNumberDetailed.JSON_PROPERTY_INBOUND_CALL_SCREENING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PhoneNumberDetailed {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -89,7 +93,15 @@ public class PhoneNumberDetailed {
     
     PORTED_OUT("ported-out"),
     
-    PORT_OUT_PENDING("port-out-pending");
+    PORT_OUT_PENDING("port-out-pending"),
+    
+    REQUIREMENT_INFO_PENDING("requirement-info-pending"),
+    
+    REQUIREMENT_INFO_UNDER_REVIEW("requirement-info-under-review"),
+    
+    REQUIREMENT_INFO_EXCEPTION("requirement-info-exception"),
+    
+    PROVISION_PENDING("provision-pending");
 
     private String value;
 
@@ -173,11 +185,9 @@ public class PhoneNumberDetailed {
   private String createdAt;
 
   /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level.
+   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
    */
   public enum NumberLevelRoutingEnum {
-    ENABLED("enabled"),
-    
     DISABLED("disabled");
 
     private String value;
@@ -211,7 +221,7 @@ public class PhoneNumberDetailed {
   private NumberLevelRoutingEnum numberLevelRouting = NumberLevelRoutingEnum.DISABLED;
 
   /**
-   * The phone number&#39;s type.
+   * The phone number&#39;s type. Note: For numbers purchased prior to July 2023 or when fetching a number&#39;s details immediately after a purchase completes, the legacy values &#x60;tollfree&#x60;, &#x60;shortcode&#x60; or &#x60;longcode&#x60; may be returned instead.
    */
   public enum PhoneNumberTypeEnum {
     LOCAL("local"),
@@ -224,7 +234,13 @@ public class PhoneNumberDetailed {
     
     SHARED_COST("shared_cost"),
     
-    LANDLINE("landline");
+    LANDLINE("landline"),
+    
+    TOLLFREE("tollfree"),
+    
+    SHORTCODE("shortcode"),
+    
+    LONGCODE("longcode");
 
     private String value;
 
@@ -256,11 +272,52 @@ public class PhoneNumberDetailed {
   public static final String JSON_PROPERTY_PHONE_NUMBER_TYPE = "phone_number_type";
   private PhoneNumberTypeEnum phoneNumberType;
 
+  /**
+   * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
+   */
+  public enum InboundCallScreeningEnum {
+    DISABLED("disabled"),
+    
+    REJECT_CALLS("reject_calls"),
+    
+    FLAG_CALLS("flag_calls");
+
+    private String value;
+
+    InboundCallScreeningEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static InboundCallScreeningEnum fromValue(String value) {
+      for (InboundCallScreeningEnum b : InboundCallScreeningEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_INBOUND_CALL_SCREENING = "inbound_call_screening";
+  private InboundCallScreeningEnum inboundCallScreening = InboundCallScreeningEnum.DISABLED;
+
   public PhoneNumberDetailed() { 
   }
 
   @JsonCreator
   public PhoneNumberDetailed(
+    @JsonProperty(JSON_PROPERTY_ID) String id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
     @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
@@ -277,6 +334,7 @@ public class PhoneNumberDetailed {
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType
   ) {
     this();
+    this.id = id;
     this.recordType = recordType;
     this.phoneNumber = phoneNumber;
     this.status = status;
@@ -293,17 +351,12 @@ public class PhoneNumberDetailed {
     this.phoneNumberType = phoneNumberType;
   }
 
-  public PhoneNumberDetailed id(String id) {
-    this.id = id;
-    return this;
-  }
-
    /**
-   * Uniquely identifies the resource.
+   * Identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -312,11 +365,6 @@ public class PhoneNumberDetailed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
 
 
    /**
@@ -723,11 +771,11 @@ public class PhoneNumberDetailed {
   }
 
    /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level.
+   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
    * @return numberLevelRouting
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level.")
+  @ApiModelProperty(value = "Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.")
   @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -744,11 +792,11 @@ public class PhoneNumberDetailed {
 
 
    /**
-   * The phone number&#39;s type.
+   * The phone number&#39;s type. Note: For numbers purchased prior to July 2023 or when fetching a number&#39;s details immediately after a purchase completes, the legacy values &#x60;tollfree&#x60;, &#x60;shortcode&#x60; or &#x60;longcode&#x60; may be returned instead.
    * @return phoneNumberType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The phone number's type.")
+  @ApiModelProperty(value = "The phone number's type. Note: For numbers purchased prior to July 2023 or when fetching a number's details immediately after a purchase completes, the legacy values `tollfree`, `shortcode` or `longcode` may be returned instead.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -757,6 +805,32 @@ public class PhoneNumberDetailed {
   }
 
 
+
+
+  public PhoneNumberDetailed inboundCallScreening(InboundCallScreeningEnum inboundCallScreening) {
+    this.inboundCallScreening = inboundCallScreening;
+    return this;
+  }
+
+   /**
+   * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
+   * @return inboundCallScreening
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.")
+  @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public InboundCallScreeningEnum getInboundCallScreening() {
+    return inboundCallScreening;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInboundCallScreening(InboundCallScreeningEnum inboundCallScreening) {
+    this.inboundCallScreening = inboundCallScreening;
+  }
 
 
   /**
@@ -793,12 +867,13 @@ public class PhoneNumberDetailed {
         Objects.equals(this.purchasedAt, phoneNumberDetailed.purchasedAt) &&
         Objects.equals(this.createdAt, phoneNumberDetailed.createdAt) &&
         Objects.equals(this.numberLevelRouting, phoneNumberDetailed.numberLevelRouting) &&
-        Objects.equals(this.phoneNumberType, phoneNumberDetailed.phoneNumberType);
+        Objects.equals(this.phoneNumberType, phoneNumberDetailed.phoneNumberType) &&
+        Objects.equals(this.inboundCallScreening, phoneNumberDetailed.inboundCallScreening);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, connectionId, customerReference, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, numberLevelRouting, phoneNumberType);
+    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, connectionId, customerReference, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, numberLevelRouting, phoneNumberType, inboundCallScreening);
   }
 
   @Override
@@ -828,6 +903,7 @@ public class PhoneNumberDetailed {
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    numberLevelRouting: ").append(toIndentedString(numberLevelRouting)).append("\n");
     sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
+    sb.append("    inboundCallScreening: ").append(toIndentedString(inboundCallScreening)).append("\n");
     sb.append("}");
     return sb.toString();
   }

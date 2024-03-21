@@ -11,7 +11,6 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.AccessIPAddressListResponseSchema;
 import com.telnyx.sdk.model.AccessIPAddressPOST;
 import com.telnyx.sdk.model.AccessIPAddressResponseSchema;
-import com.telnyx.sdk.model.CloudflareSyncStatus;
 import com.telnyx.sdk.model.Errors;
 import java.time.OffsetDateTime;
 
@@ -20,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class IpAddressesApi {
   private ApiClient apiClient;
 
@@ -63,8 +62,8 @@ public class IpAddressesApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public AccessIPAddressResponseSchema accessIPAddressCreate(AccessIPAddressPOST accessIPAddressPOST) throws ApiException {
-    return accessIPAddressCreateWithHttpInfo(accessIPAddressPOST).getData();
+  public AccessIPAddressResponseSchema createAccessIpAddress(AccessIPAddressPOST accessIPAddressPOST) throws ApiException {
+    return createAccessIpAddressWithHttpInfo(accessIPAddressPOST).getData();
   }
 
   /**
@@ -80,12 +79,12 @@ public class IpAddressesApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AccessIPAddressResponseSchema> accessIPAddressCreateWithHttpInfo(AccessIPAddressPOST accessIPAddressPOST) throws ApiException {
+  public ApiResponse<AccessIPAddressResponseSchema> createAccessIpAddressWithHttpInfo(AccessIPAddressPOST accessIPAddressPOST) throws ApiException {
     Object localVarPostBody = accessIPAddressPOST;
     
     // verify the required parameter 'accessIPAddressPOST' is set
     if (accessIPAddressPOST == null) {
-      throw new ApiException(400, "Missing the required parameter 'accessIPAddressPOST' when calling accessIPAddressCreate");
+      throw new ApiException(400, "Missing the required parameter 'accessIPAddressPOST' when calling createAccessIpAddress");
     }
     
     // create path and map variables
@@ -115,7 +114,7 @@ public class IpAddressesApi {
 
     GenericType<AccessIPAddressResponseSchema> localVarReturnType = new GenericType<AccessIPAddressResponseSchema>() {};
 
-    return apiClient.invokeAPI("IpAddressesApi.accessIPAddressCreate", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("IpAddressesApi.createAccessIpAddress", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -131,8 +130,8 @@ public class IpAddressesApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public AccessIPAddressResponseSchema accessIPAddressDelete(String accessIpAddressId) throws ApiException {
-    return accessIPAddressDeleteWithHttpInfo(accessIpAddressId).getData();
+  public AccessIPAddressResponseSchema deleteAccessIpAddress(String accessIpAddressId) throws ApiException {
+    return deleteAccessIpAddressWithHttpInfo(accessIpAddressId).getData();
   }
 
   /**
@@ -147,12 +146,12 @@ public class IpAddressesApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AccessIPAddressResponseSchema> accessIPAddressDeleteWithHttpInfo(String accessIpAddressId) throws ApiException {
+  public ApiResponse<AccessIPAddressResponseSchema> deleteAccessIpAddressWithHttpInfo(String accessIpAddressId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'accessIpAddressId' is set
     if (accessIpAddressId == null) {
-      throw new ApiException(400, "Missing the required parameter 'accessIpAddressId' when calling accessIPAddressDelete");
+      throw new ApiException(400, "Missing the required parameter 'accessIpAddressId' when calling deleteAccessIpAddress");
     }
     
     // create path and map variables
@@ -183,7 +182,7 @@ public class IpAddressesApi {
 
     GenericType<AccessIPAddressResponseSchema> localVarReturnType = new GenericType<AccessIPAddressResponseSchema>() {};
 
-    return apiClient.invokeAPI("IpAddressesApi.accessIPAddressDelete", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("IpAddressesApi.deleteAccessIpAddress", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -199,8 +198,8 @@ public class IpAddressesApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public AccessIPAddressResponseSchema accessIPAddressGet(String accessIpAddressId) throws ApiException {
-    return accessIPAddressGetWithHttpInfo(accessIpAddressId).getData();
+  public AccessIPAddressResponseSchema getAccessIpAddress(String accessIpAddressId) throws ApiException {
+    return getAccessIpAddressWithHttpInfo(accessIpAddressId).getData();
   }
 
   /**
@@ -215,12 +214,12 @@ public class IpAddressesApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AccessIPAddressResponseSchema> accessIPAddressGetWithHttpInfo(String accessIpAddressId) throws ApiException {
+  public ApiResponse<AccessIPAddressResponseSchema> getAccessIpAddressWithHttpInfo(String accessIpAddressId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'accessIpAddressId' is set
     if (accessIpAddressId == null) {
-      throw new ApiException(400, "Missing the required parameter 'accessIpAddressId' when calling accessIPAddressGet");
+      throw new ApiException(400, "Missing the required parameter 'accessIpAddressId' when calling getAccessIpAddress");
     }
     
     // create path and map variables
@@ -251,7 +250,7 @@ public class IpAddressesApi {
 
     GenericType<AccessIPAddressResponseSchema> localVarReturnType = new GenericType<AccessIPAddressResponseSchema>() {};
 
-    return apiClient.invokeAPI("IpAddressesApi.accessIPAddressGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("IpAddressesApi.getAccessIpAddress", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -260,7 +259,6 @@ public class IpAddressesApi {
    * 
    * @param filterIpSource  (optional)
    * @param filterIpAddress  (optional)
-   * @param filterStatus  (optional)
    * @param filterCreatedAtGt  (optional)
    * @param filterCreatedAtLt  (optional)
    * @param pageNumber  (optional, default to 1)
@@ -274,8 +272,8 @@ public class IpAddressesApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public AccessIPAddressListResponseSchema accessIPAddressList(String filterIpSource, String filterIpAddress, CloudflareSyncStatus filterStatus, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLt, Integer pageNumber, Integer pageSize) throws ApiException {
-    return accessIPAddressListWithHttpInfo(filterIpSource, filterIpAddress, filterStatus, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize).getData();
+  public AccessIPAddressListResponseSchema listAccessIpAddresses(String filterIpSource, String filterIpAddress, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLt, Integer pageNumber, Integer pageSize) throws ApiException {
+    return listAccessIpAddressesWithHttpInfo(filterIpSource, filterIpAddress, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize).getData();
   }
 
   /**
@@ -283,7 +281,6 @@ public class IpAddressesApi {
    * 
    * @param filterIpSource  (optional)
    * @param filterIpAddress  (optional)
-   * @param filterStatus  (optional)
    * @param filterCreatedAtGt  (optional)
    * @param filterCreatedAtLt  (optional)
    * @param pageNumber  (optional, default to 1)
@@ -297,7 +294,7 @@ public class IpAddressesApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AccessIPAddressListResponseSchema> accessIPAddressListWithHttpInfo(String filterIpSource, String filterIpAddress, CloudflareSyncStatus filterStatus, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLt, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<AccessIPAddressListResponseSchema> listAccessIpAddressesWithHttpInfo(String filterIpSource, String filterIpAddress, OffsetDateTime filterCreatedAtGt, OffsetDateTime filterCreatedAtLt, Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -311,7 +308,6 @@ public class IpAddressesApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[ip_source]", filterIpSource));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[ip_address]", filterIpAddress));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][gt]", filterCreatedAtGt));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][lt]", filterCreatedAtLt));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
@@ -334,7 +330,7 @@ public class IpAddressesApi {
 
     GenericType<AccessIPAddressListResponseSchema> localVarReturnType = new GenericType<AccessIPAddressListResponseSchema>() {};
 
-    return apiClient.invokeAPI("IpAddressesApi.accessIPAddressList", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("IpAddressesApi.listAccessIpAddresses", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

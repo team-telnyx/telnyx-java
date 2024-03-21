@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -35,7 +38,7 @@ import com.telnyx.sdk.JSON;
   GCSConfigurationData.JSON_PROPERTY_CREDENTIALS,
   GCSConfigurationData.JSON_PROPERTY_BUCKET
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GCSConfigurationData {
   public static final String JSON_PROPERTY_CREDENTIALS = "credentials";
   private String credentials;
@@ -52,11 +55,11 @@ public class GCSConfigurationData {
   }
 
    /**
-   * Opaque credential token used to authenticate and authorize with storage provider
+   * Opaque credential token used to authenticate and authorize with storage provider.
    * @return credentials
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "OPAQUE_CREDENTIALS_TOKEN", value = "Opaque credential token used to authenticate and authorize with storage provider")
+  @ApiModelProperty(example = "OPAQUE_CREDENTIALS_TOKEN", value = "Opaque credential token used to authenticate and authorize with storage provider.")
   @JsonProperty(JSON_PROPERTY_CREDENTIALS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -78,11 +81,11 @@ public class GCSConfigurationData {
   }
 
    /**
-   * Name of the bucket to be used to store recording files
+   * Name of the bucket to be used to store recording files.
    * @return bucket
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "example-bucket", value = "Name of the bucket to be used to store recording files")
+  @ApiModelProperty(example = "example-bucket", value = "Name of the bucket to be used to store recording files.")
   @JsonProperty(JSON_PROPERTY_BUCKET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

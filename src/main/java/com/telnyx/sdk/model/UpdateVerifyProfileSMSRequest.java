@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -33,27 +37,23 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   UpdateVerifyProfileSMSRequest.JSON_PROPERTY_MESSAGING_ENABLED,
-  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_RCS_ENABLED,
-  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_MESSAGING_TEMPLATE,
-  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS,
-  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_VSMS_ENABLED
+  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_MESSAGING_TEMPLATE_ID,
+  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_APP_NAME,
+  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateVerifyProfileSMSRequest {
   public static final String JSON_PROPERTY_MESSAGING_ENABLED = "messaging_enabled";
   private Boolean messagingEnabled;
 
-  public static final String JSON_PROPERTY_RCS_ENABLED = "rcs_enabled";
-  private Boolean rcsEnabled;
+  public static final String JSON_PROPERTY_MESSAGING_TEMPLATE_ID = "messaging_template_id";
+  private UUID messagingTemplateId;
 
-  public static final String JSON_PROPERTY_MESSAGING_TEMPLATE = "messaging_template";
-  private String messagingTemplate;
+  public static final String JSON_PROPERTY_APP_NAME = "app_name";
+  private String appName;
 
   public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
   private Integer defaultVerificationTimeoutSecs;
-
-  public static final String JSON_PROPERTY_VSMS_ENABLED = "vsms_enabled";
-  private Boolean vsmsEnabled;
 
   public UpdateVerifyProfileSMSRequest() { 
   }
@@ -84,55 +84,55 @@ public class UpdateVerifyProfileSMSRequest {
   }
 
 
-  public UpdateVerifyProfileSMSRequest rcsEnabled(Boolean rcsEnabled) {
-    this.rcsEnabled = rcsEnabled;
+  public UpdateVerifyProfileSMSRequest messagingTemplateId(UUID messagingTemplateId) {
+    this.messagingTemplateId = messagingTemplateId;
     return this;
   }
 
    /**
-   * Enables RCS messaging for the Verify profile.
-   * @return rcsEnabled
+   * The message template identifier selected from /verify_profiles/templates
+   * @return messagingTemplateId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Enables RCS messaging for the Verify profile.")
-  @JsonProperty(JSON_PROPERTY_RCS_ENABLED)
+  @ApiModelProperty(example = "0abb5b4f-459f-445a-bfcd-488998b7572d", value = "The message template identifier selected from /verify_profiles/templates")
+  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getRcsEnabled() {
-    return rcsEnabled;
+  public UUID getMessagingTemplateId() {
+    return messagingTemplateId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RCS_ENABLED)
+  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRcsEnabled(Boolean rcsEnabled) {
-    this.rcsEnabled = rcsEnabled;
+  public void setMessagingTemplateId(UUID messagingTemplateId) {
+    this.messagingTemplateId = messagingTemplateId;
   }
 
 
-  public UpdateVerifyProfileSMSRequest messagingTemplate(String messagingTemplate) {
-    this.messagingTemplate = messagingTemplate;
+  public UpdateVerifyProfileSMSRequest appName(String appName) {
+    this.appName = appName;
     return this;
   }
 
    /**
-   * Optionally sets a messaging text template when sending the verification code. Uses &#x60;{code}&#x60; to template in the actual verification code.
-   * @return messagingTemplate
+   * The name that identifies the application requesting 2fa in the verification message.
+   * @return appName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Hello, this is the Acme Inc verification code you requested: {code}.", value = "Optionally sets a messaging text template when sending the verification code. Uses `{code}` to template in the actual verification code.")
-  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE)
+  @ApiModelProperty(example = "Example Secure App", value = "The name that identifies the application requesting 2fa in the verification message.")
+  @JsonProperty(JSON_PROPERTY_APP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getMessagingTemplate() {
-    return messagingTemplate;
+  public String getAppName() {
+    return appName;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE)
+  @JsonProperty(JSON_PROPERTY_APP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessagingTemplate(String messagingTemplate) {
-    this.messagingTemplate = messagingTemplate;
+  public void setAppName(String appName) {
+    this.appName = appName;
   }
 
 
@@ -162,32 +162,6 @@ public class UpdateVerifyProfileSMSRequest {
   }
 
 
-  public UpdateVerifyProfileSMSRequest vsmsEnabled(Boolean vsmsEnabled) {
-    this.vsmsEnabled = vsmsEnabled;
-    return this;
-  }
-
-   /**
-   * Enables VSMS for the Verify profile.
-   * @return vsmsEnabled
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Enables VSMS for the Verify profile.")
-  @JsonProperty(JSON_PROPERTY_VSMS_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getVsmsEnabled() {
-    return vsmsEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VSMS_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVsmsEnabled(Boolean vsmsEnabled) {
-    this.vsmsEnabled = vsmsEnabled;
-  }
-
-
   /**
    * Return true if this UpdateVerifyProfileSMSRequest object is equal to o.
    */
@@ -201,15 +175,14 @@ public class UpdateVerifyProfileSMSRequest {
     }
     UpdateVerifyProfileSMSRequest updateVerifyProfileSMSRequest = (UpdateVerifyProfileSMSRequest) o;
     return Objects.equals(this.messagingEnabled, updateVerifyProfileSMSRequest.messagingEnabled) &&
-        Objects.equals(this.rcsEnabled, updateVerifyProfileSMSRequest.rcsEnabled) &&
-        Objects.equals(this.messagingTemplate, updateVerifyProfileSMSRequest.messagingTemplate) &&
-        Objects.equals(this.defaultVerificationTimeoutSecs, updateVerifyProfileSMSRequest.defaultVerificationTimeoutSecs) &&
-        Objects.equals(this.vsmsEnabled, updateVerifyProfileSMSRequest.vsmsEnabled);
+        Objects.equals(this.messagingTemplateId, updateVerifyProfileSMSRequest.messagingTemplateId) &&
+        Objects.equals(this.appName, updateVerifyProfileSMSRequest.appName) &&
+        Objects.equals(this.defaultVerificationTimeoutSecs, updateVerifyProfileSMSRequest.defaultVerificationTimeoutSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(messagingEnabled, rcsEnabled, messagingTemplate, defaultVerificationTimeoutSecs, vsmsEnabled);
+    return Objects.hash(messagingEnabled, messagingTemplateId, appName, defaultVerificationTimeoutSecs);
   }
 
   @Override
@@ -217,10 +190,9 @@ public class UpdateVerifyProfileSMSRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateVerifyProfileSMSRequest {\n");
     sb.append("    messagingEnabled: ").append(toIndentedString(messagingEnabled)).append("\n");
-    sb.append("    rcsEnabled: ").append(toIndentedString(rcsEnabled)).append("\n");
-    sb.append("    messagingTemplate: ").append(toIndentedString(messagingTemplate)).append("\n");
+    sb.append("    messagingTemplateId: ").append(toIndentedString(messagingTemplateId)).append("\n");
+    sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
     sb.append("    defaultVerificationTimeoutSecs: ").append(toIndentedString(defaultVerificationTimeoutSecs)).append("\n");
-    sb.append("    vsmsEnabled: ").append(toIndentedString(vsmsEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

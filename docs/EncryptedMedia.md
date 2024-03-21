@@ -7,7 +7,5 @@
 
 * `SRTP` (value: `"SRTP"`)
 
-* `ZRTP` (value: `"ZRTP"`)
-
 
 

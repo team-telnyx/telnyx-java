@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PrivateWirelessGatewaysApi {
   private ApiClient apiClient;
 
@@ -135,8 +135,8 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePrivateWirelessGateway202Response deletePrivateWirelessGateway(UUID id) throws ApiException {
-    return deletePrivateWirelessGatewayWithHttpInfo(id).getData();
+  public CreatePrivateWirelessGateway202Response deleteWirelessGateway(UUID id) throws ApiException {
+    return deleteWirelessGatewayWithHttpInfo(id).getData();
   }
 
   /**
@@ -153,12 +153,12 @@ public class PrivateWirelessGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePrivateWirelessGateway202Response> deletePrivateWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<CreatePrivateWirelessGateway202Response> deleteWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deletePrivateWirelessGateway");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteWirelessGateway");
     }
     
     // create path and map variables
@@ -189,7 +189,7 @@ public class PrivateWirelessGatewaysApi {
 
     GenericType<CreatePrivateWirelessGateway202Response> localVarReturnType = new GenericType<CreatePrivateWirelessGateway202Response>() {};
 
-    return apiClient.invokeAPI("PrivateWirelessGatewaysApi.deletePrivateWirelessGateway", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("PrivateWirelessGatewaysApi.deleteWirelessGateway", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,7 +44,7 @@ import com.telnyx.sdk.JSON;
   SpeakRequest.JSON_PROPERTY_CLIENT_STATE,
   SpeakRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SpeakRequest {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private String payload;
@@ -126,7 +129,7 @@ public class SpeakRequest {
   private String stop;
 
   /**
-   * The gender of the voice used to speak back the text.
+   * The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of &#x60;Polly.&lt;voice&gt;&#x60;, e.g. &#x60;Polly.Brian&#x60;. All standard Amazon Polly voices are supported.
    */
   public enum VoiceEnum {
     MALE("male"),
@@ -164,7 +167,7 @@ public class SpeakRequest {
   private VoiceEnum voice;
 
   /**
-   * The language you want spoken.
+   * The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified.
    */
   public enum LanguageEnum {
     ARB("arb"),
@@ -374,11 +377,11 @@ public class SpeakRequest {
   }
 
    /**
-   * The gender of the voice used to speak back the text.
+   * The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of &#x60;Polly.&lt;voice&gt;&#x60;, e.g. &#x60;Polly.Brian&#x60;. All standard Amazon Polly voices are supported.
    * @return voice
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "female", required = true, value = "The gender of the voice used to speak back the text.")
+  @ApiModelProperty(example = "female", required = true, value = "The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of `Polly.<voice>`, e.g. `Polly.Brian`. All standard Amazon Polly voices are supported.")
   @JsonProperty(JSON_PROPERTY_VOICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -400,13 +403,13 @@ public class SpeakRequest {
   }
 
    /**
-   * The language you want spoken.
+   * The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified.
    * @return language
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(example = "en-US", required = true, value = "The language you want spoken.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "en-US", value = "The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified.")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public LanguageEnum getLanguage() {
     return language;
@@ -414,7 +417,7 @@ public class SpeakRequest {
 
 
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLanguage(LanguageEnum language) {
     this.language = language;
   }

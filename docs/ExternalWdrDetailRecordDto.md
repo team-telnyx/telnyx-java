@@ -14,7 +14,7 @@
 |**mnc** | **String** | Mobile network code. |  [optional] |
 |**downlinkData** | [**DownlinkData**](DownlinkData.md) |  |  [optional] |
 |**durationSeconds** | **BigDecimal** | Session duration in seconds. |  [optional] |
-|**imsi** | **String** | International mobile subscriber identity |  [optional] |
+|**imsi** | **String** | International mobile subscriber identity. |  [optional] |
 |**rate** | [**WirelessRate**](WirelessRate.md) |  |  [optional] |
 |**simGroupName** | **String** | Defined sim group name |  [optional] |
 |**simGroupId** | **String** | Sim group unique identifier |  [optional] |

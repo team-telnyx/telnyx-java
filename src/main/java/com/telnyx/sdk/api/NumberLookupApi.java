@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class NumberLookupApi {
   private ApiClient apiClient;
 
@@ -61,8 +61,8 @@ public class NumberLookupApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public NumberLookupResponse numberLookup(String phoneNumber, String type) throws ApiException {
-    return numberLookupWithHttpInfo(phoneNumber, type).getData();
+  public NumberLookupResponse lookupNumber(String phoneNumber, String type) throws ApiException {
+    return lookupNumberWithHttpInfo(phoneNumber, type).getData();
   }
 
   /**
@@ -80,12 +80,12 @@ public class NumberLookupApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<NumberLookupResponse> numberLookupWithHttpInfo(String phoneNumber, String type) throws ApiException {
+  public ApiResponse<NumberLookupResponse> lookupNumberWithHttpInfo(String phoneNumber, String type) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'phoneNumber' is set
     if (phoneNumber == null) {
-      throw new ApiException(400, "Missing the required parameter 'phoneNumber' when calling numberLookup");
+      throw new ApiException(400, "Missing the required parameter 'phoneNumber' when calling lookupNumber");
     }
     
     // create path and map variables
@@ -117,8 +117,13 @@ public class NumberLookupApi {
 
     GenericType<NumberLookupResponse> localVarReturnType = new GenericType<NumberLookupResponse>() {};
 
-    return apiClient.invokeAPI("NumberLookupApi.numberLookup", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("NumberLookupApi.lookupNumber", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
+
+public NumberLookupResponse numberLookupRecord(String phoneNumber, String type) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'numberLookupRecord'");
+}
 }

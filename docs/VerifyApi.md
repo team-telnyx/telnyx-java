@@ -4,20 +4,88 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**createFlashcallVerification**](VerifyApi.md#createFlashcallVerification) | **POST** /verifications/flashcall | Trigger a Flash call verification
 [**createVerificationCall**](VerifyApi.md#createVerificationCall) | **POST** /verifications/call | Trigger a Call verification
-[**createVerificationFlashcall**](VerifyApi.md#createVerificationFlashcall) | **POST** /verifications/flashcall | Trigger a Flash call verification
-[**createVerificationPSD2**](VerifyApi.md#createVerificationPSD2) | **POST** /verifications/psd2 | Trigger a PSD2 verification
-[**createVerificationSMS**](VerifyApi.md#createVerificationSMS) | **POST** /verifications/sms | Trigger a SMS verification
-[**createVerificationWhatsapp**](VerifyApi.md#createVerificationWhatsapp) | **POST** /verifications/whatsapp | Trigger a Whatsapp verification
+[**createVerificationSms**](VerifyApi.md#createVerificationSms) | **POST** /verifications/sms | Trigger a SMS verification
 [**createVerifyProfile**](VerifyApi.md#createVerifyProfile) | **POST** /verify_profiles | Create a Verify profile
-[**deleteVerifyProfile**](VerifyApi.md#deleteVerifyProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete a Verify profile
+[**deleteProfile**](VerifyApi.md#deleteProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete a Verify profile
+[**getVerifyProfile**](VerifyApi.md#getVerifyProfile) | **GET** /verify_profiles/{verify_profile_id} | Retrieve a Verify profile
+[**listProfileMessageTemplates**](VerifyApi.md#listProfileMessageTemplates) | **GET** /verify_profiles/templates | Retrieve a Verify profile message templates
+[**listProfiles**](VerifyApi.md#listProfiles) | **GET** /verify_profiles | List all Verify profiles
 [**listVerifications**](VerifyApi.md#listVerifications) | **GET** /verifications/by_phone_number/{phone_number} | List verifications by phone number
-[**listVerifyProfiles**](VerifyApi.md#listVerifyProfiles) | **GET** /verify_profiles | List all Verify profiles
 [**retrieveVerification**](VerifyApi.md#retrieveVerification) | **GET** /verifications/{verification_id} | Retrieve a verification
-[**retrieveVerifyProfile**](VerifyApi.md#retrieveVerifyProfile) | **GET** /verify_profiles/{verify_profile_id} | Retrieve a Verify profile
 [**updateVerifyProfile**](VerifyApi.md#updateVerifyProfile) | **PATCH** /verify_profiles/{verify_profile_id} | Update a Verify profile
 [**verifyVerificationCode**](VerifyApi.md#verifyVerificationCode) | **POST** /verifications/by_phone_number/{phone_number}/actions/verify | Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
 
+
+
+## createFlashcallVerification
+
+> CreateVerificationResponse createFlashcallVerification(createVerificationRequestFlashcall)
+
+Trigger a Flash call verification
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.VerifyApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        VerifyApi apiInstance = new VerifyApi(defaultClient);
+        CreateVerificationRequestFlashcall createVerificationRequestFlashcall = new CreateVerificationRequestFlashcall(); // CreateVerificationRequestFlashcall | 
+        try {
+            CreateVerificationResponse result = apiInstance.createFlashcallVerification(createVerificationRequestFlashcall);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VerifyApi#createFlashcallVerification");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createVerificationRequestFlashcall** | [**CreateVerificationRequestFlashcall**](CreateVerificationRequestFlashcall.md)|  |
+
+### Return type
+
+[**CreateVerificationResponse**](CreateVerificationResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Expected verifications response to a valid request. |  -  |
+| **400** | Unexpected error |  -  |
 
 
 ## createVerificationCall
@@ -89,147 +157,9 @@ Name | Type | Description  | Notes
 | **400** | Unexpected error |  -  |
 
 
-## createVerificationFlashcall
+## createVerificationSms
 
-> CreateVerificationResponse createVerificationFlashcall(createVerificationRequestFlashcall)
-
-Trigger a Flash call verification
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.VerifyApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        VerifyApi apiInstance = new VerifyApi(defaultClient);
-        CreateVerificationRequestFlashcall createVerificationRequestFlashcall = new CreateVerificationRequestFlashcall(); // CreateVerificationRequestFlashcall | 
-        try {
-            CreateVerificationResponse result = apiInstance.createVerificationFlashcall(createVerificationRequestFlashcall);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VerifyApi#createVerificationFlashcall");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createVerificationRequestFlashcall** | [**CreateVerificationRequestFlashcall**](CreateVerificationRequestFlashcall.md)|  |
-
-### Return type
-
-[**CreateVerificationResponse**](CreateVerificationResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
-
-
-## createVerificationPSD2
-
-> CreateVerificationResponse createVerificationPSD2(createVerificationRequestPSD2)
-
-Trigger a PSD2 verification
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.VerifyApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        VerifyApi apiInstance = new VerifyApi(defaultClient);
-        CreateVerificationRequestPSD2 createVerificationRequestPSD2 = new CreateVerificationRequestPSD2(); // CreateVerificationRequestPSD2 | 
-        try {
-            CreateVerificationResponse result = apiInstance.createVerificationPSD2(createVerificationRequestPSD2);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VerifyApi#createVerificationPSD2");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createVerificationRequestPSD2** | [**CreateVerificationRequestPSD2**](CreateVerificationRequestPSD2.md)|  |
-
-### Return type
-
-[**CreateVerificationResponse**](CreateVerificationResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
-
-
-## createVerificationSMS
-
-> CreateVerificationResponse createVerificationSMS(createVerificationRequestSMS)
+> CreateVerificationResponse createVerificationSms(createVerificationRequestSMS)
 
 Trigger a SMS verification
 
@@ -256,10 +186,10 @@ public class Example {
         VerifyApi apiInstance = new VerifyApi(defaultClient);
         CreateVerificationRequestSMS createVerificationRequestSMS = new CreateVerificationRequestSMS(); // CreateVerificationRequestSMS | 
         try {
-            CreateVerificationResponse result = apiInstance.createVerificationSMS(createVerificationRequestSMS);
+            CreateVerificationResponse result = apiInstance.createVerificationSms(createVerificationRequestSMS);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling VerifyApi#createVerificationSMS");
+            System.err.println("Exception when calling VerifyApi#createVerificationSms");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -275,75 +205,6 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **createVerificationRequestSMS** | [**CreateVerificationRequestSMS**](CreateVerificationRequestSMS.md)|  |
-
-### Return type
-
-[**CreateVerificationResponse**](CreateVerificationResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
-
-
-## createVerificationWhatsapp
-
-> CreateVerificationResponse createVerificationWhatsapp(createVerificationRequestWhatsapp)
-
-Trigger a Whatsapp verification
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.VerifyApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        VerifyApi apiInstance = new VerifyApi(defaultClient);
-        CreateVerificationRequestWhatsapp createVerificationRequestWhatsapp = new CreateVerificationRequestWhatsapp(); // CreateVerificationRequestWhatsapp | 
-        try {
-            CreateVerificationResponse result = apiInstance.createVerificationWhatsapp(createVerificationRequestWhatsapp);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VerifyApi#createVerificationWhatsapp");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createVerificationRequestWhatsapp** | [**CreateVerificationRequestWhatsapp**](CreateVerificationRequestWhatsapp.md)|  |
 
 ### Return type
 
@@ -436,9 +297,9 @@ Name | Type | Description  | Notes
 | **400** | Unexpected error |  -  |
 
 
-## deleteVerifyProfile
+## deleteProfile
 
-> VerifyProfileResponseDataWrapper deleteVerifyProfile(verifyProfileId)
+> VerifyProfileResponseDataWrapper deleteProfile(verifyProfileId)
 
 Delete a Verify profile
 
@@ -466,10 +327,10 @@ public class Example {
         VerifyApi apiInstance = new VerifyApi(defaultClient);
         UUID verifyProfileId = UUID.fromString("12ade33a-21c0-473b-b055-b3c836e1c292"); // UUID | The identifier of the Verify profile to delete.
         try {
-            VerifyProfileResponseDataWrapper result = apiInstance.deleteVerifyProfile(verifyProfileId);
+            VerifyProfileResponseDataWrapper result = apiInstance.deleteProfile(verifyProfileId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling VerifyApi#deleteVerifyProfile");
+            System.err.println("Exception when calling VerifyApi#deleteProfile");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -489,6 +350,223 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**VerifyProfileResponseDataWrapper**](VerifyProfileResponseDataWrapper.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Expected Verify profile response to a valid request. |  -  |
+| **400** | Unexpected error |  -  |
+
+
+## getVerifyProfile
+
+> VerifyProfileResponseDataWrapper getVerifyProfile(verifyProfileId)
+
+Retrieve a Verify profile
+
+Gets a single Verify profile.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.VerifyApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        VerifyApi apiInstance = new VerifyApi(defaultClient);
+        UUID verifyProfileId = UUID.fromString("12ade33a-21c0-473b-b055-b3c836e1c292"); // UUID | The identifier of the Verify profile to retrieve.
+        try {
+            VerifyProfileResponseDataWrapper result = apiInstance.getVerifyProfile(verifyProfileId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VerifyApi#getVerifyProfile");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **verifyProfileId** | **UUID**| The identifier of the Verify profile to retrieve. |
+
+### Return type
+
+[**VerifyProfileResponseDataWrapper**](VerifyProfileResponseDataWrapper.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Expected Verify profile response to a valid request. |  -  |
+| **400** | Unexpected error |  -  |
+
+
+## listProfileMessageTemplates
+
+> ListVerifyProfileMessageTemplateResponse listProfileMessageTemplates()
+
+Retrieve a Verify profile message templates
+
+List all Verify profile message templates.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.VerifyApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        VerifyApi apiInstance = new VerifyApi(defaultClient);
+        try {
+            ListVerifyProfileMessageTemplateResponse result = apiInstance.listProfileMessageTemplates();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VerifyApi#listProfileMessageTemplates");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**ListVerifyProfileMessageTemplateResponse**](ListVerifyProfileMessageTemplateResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Expected Verify profile message template response to a valid request. |  -  |
+
+
+## listProfiles
+
+> ListVerifyProfilesResponse listProfiles().filterName(filterName).pageSize(pageSize).pageNumber(pageNumber).execute();
+
+List all Verify profiles
+
+Gets a paginated list of Verify profiles.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.VerifyApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        VerifyApi apiInstance = new VerifyApi(defaultClient);
+        String filterName = "filterName_example"; // String | 
+        Integer pageSize = 25; // Integer | 
+        Integer pageNumber = 1; // Integer | 
+        try {
+            ListVerifyProfilesResponse result = api.listProfiles()
+                .filterName(filterName)
+                .pageSize(pageSize)
+                .pageNumber(pageNumber)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VerifyApi#listProfiles");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filterName** | **String**|  | [optional]
+ **pageSize** | **Integer**|  | [optional] [default to 25]
+ **pageNumber** | **Integer**|  | [optional] [default to 1]
+
+### Return type
+
+[**ListVerifyProfilesResponse**](ListVerifyProfilesResponse.md)
 
 ### Authorization
 
@@ -575,85 +653,6 @@ Name | Type | Description  | Notes
 | **400** | Unexpected error |  -  |
 
 
-## listVerifyProfiles
-
-> ListVerifyProfilesResponse listVerifyProfiles().filterName(filterName).pageSize(pageSize).pageNumber(pageNumber).execute();
-
-List all Verify profiles
-
-Gets a paginated list of Verify profiles.
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.VerifyApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        VerifyApi apiInstance = new VerifyApi(defaultClient);
-        String filterName = "filterName_example"; // String | 
-        Integer pageSize = 25; // Integer | 
-        Integer pageNumber = 1; // Integer | 
-        try {
-            ListVerifyProfilesResponse result = api.listVerifyProfiles()
-                .filterName(filterName)
-                .pageSize(pageSize)
-                .pageNumber(pageNumber)
-                .execute();
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VerifyApi#listVerifyProfiles");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **filterName** | **String**|  | [optional]
- **pageSize** | **Integer**|  | [optional] [default to 25]
- **pageNumber** | **Integer**|  | [optional] [default to 1]
-
-### Return type
-
-[**ListVerifyProfilesResponse**](ListVerifyProfilesResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Expected Verify profile response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
-
-
 ## retrieveVerification
 
 > RetrieveVerificationResponse retrieveVerification(verificationId)
@@ -721,78 +720,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected verifications response to a valid request. |  -  |
-| **400** | Unexpected error |  -  |
-
-
-## retrieveVerifyProfile
-
-> VerifyProfileResponseDataWrapper retrieveVerifyProfile(verifyProfileId)
-
-Retrieve a Verify profile
-
-Gets a single Verify profile.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.VerifyApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        VerifyApi apiInstance = new VerifyApi(defaultClient);
-        UUID verifyProfileId = UUID.fromString("12ade33a-21c0-473b-b055-b3c836e1c292"); // UUID | The identifier of the Verify profile to retrieve.
-        try {
-            VerifyProfileResponseDataWrapper result = apiInstance.retrieveVerifyProfile(verifyProfileId);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VerifyApi#retrieveVerifyProfile");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **verifyProfileId** | **UUID**| The identifier of the Verify profile to retrieve. |
-
-### Return type
-
-[**VerifyProfileResponseDataWrapper**](VerifyProfileResponseDataWrapper.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Expected Verify profile response to a valid request. |  -  |
 | **400** | Unexpected error |  -  |
 
 

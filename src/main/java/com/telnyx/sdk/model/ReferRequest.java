@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,10 +25,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CustomSipHeader;
+import com.telnyx.sdk.model.SipHeader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,9 +44,10 @@ import com.telnyx.sdk.JSON;
   ReferRequest.JSON_PROPERTY_COMMAND_ID,
   ReferRequest.JSON_PROPERTY_CUSTOM_HEADERS,
   ReferRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
-  ReferRequest.JSON_PROPERTY_SIP_AUTH_PASSWORD
+  ReferRequest.JSON_PROPERTY_SIP_AUTH_PASSWORD,
+  ReferRequest.JSON_PROPERTY_SIP_HEADERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ReferRequest {
   public static final String JSON_PROPERTY_SIP_ADDRESS = "sip_address";
   private String sipAddress;
@@ -61,6 +66,9 @@ public class ReferRequest {
 
   public static final String JSON_PROPERTY_SIP_AUTH_PASSWORD = "sip_auth_password";
   private String sipAuthPassword;
+
+  public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
+  private List<SipHeader> sipHeaders = null;
 
   public ReferRequest() { 
   }
@@ -229,6 +237,40 @@ public class ReferRequest {
   }
 
 
+  public ReferRequest sipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+    return this;
+  }
+
+  public ReferRequest addSipHeadersItem(SipHeader sipHeadersItem) {
+    if (this.sipHeaders == null) {
+      this.sipHeaders = new ArrayList<>();
+    }
+    this.sipHeaders.add(sipHeadersItem);
+    return this;
+  }
+
+   /**
+   * SIP headers to be added to the request. Currently only User-to-User header is supported.
+   * @return sipHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"value\"}]", value = "SIP headers to be added to the request. Currently only User-to-User header is supported.")
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SipHeader> getSipHeaders() {
+    return sipHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+  }
+
+
   /**
    * Return true if this ReferRequest object is equal to o.
    */
@@ -246,12 +288,13 @@ public class ReferRequest {
         Objects.equals(this.commandId, referRequest.commandId) &&
         Objects.equals(this.customHeaders, referRequest.customHeaders) &&
         Objects.equals(this.sipAuthUsername, referRequest.sipAuthUsername) &&
-        Objects.equals(this.sipAuthPassword, referRequest.sipAuthPassword);
+        Objects.equals(this.sipAuthPassword, referRequest.sipAuthPassword) &&
+        Objects.equals(this.sipHeaders, referRequest.sipHeaders);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sipAddress, clientState, commandId, customHeaders, sipAuthUsername, sipAuthPassword);
+    return Objects.hash(sipAddress, clientState, commandId, customHeaders, sipAuthUsername, sipAuthPassword, sipHeaders);
   }
 
   @Override
@@ -264,6 +307,7 @@ public class ReferRequest {
     sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
     sb.append("    sipAuthUsername: ").append(toIndentedString(sipAuthUsername)).append("\n");
     sb.append("    sipAuthPassword: ").append(toIndentedString(sipAuthPassword)).append("\n");
+    sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
     sb.append("}");
     return sb.toString();
   }

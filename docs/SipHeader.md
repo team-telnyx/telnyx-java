@@ -16,7 +16,7 @@
 
 | Name | Value |
 |---- | -----|
-| USER_TO_USER | &quot;user-to-user&quot; |
+| USER_TO_USER | &quot;User-to-User&quot; |
 
 
 

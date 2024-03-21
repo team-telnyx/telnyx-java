@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.VideoRegion;
+import java.util.Arrays;
+import java.util.HashMap;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -49,7 +52,7 @@ import com.telnyx.sdk.JSON;
   CreateRoomCompositionRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   CreateRoomCompositionRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateRoomCompositionRequest {
   public static final String JSON_PROPERTY_FORMAT = "format";
   private JsonNullable<String> format = JsonNullable.<String>of("mp4");

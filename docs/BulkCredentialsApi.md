@@ -5,8 +5,8 @@ All URIs are relative to *https://api.telnyx.com/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**bulkCredentialAction**](BulkCredentialsApi.md#bulkCredentialAction) | **POST** /actions/{action}/telephony_credentials | Perform activate or deactivate action on all credentials filtered by the provided tag.
-[**createBulkTelephonyCredential**](BulkCredentialsApi.md#createBulkTelephonyCredential) | **POST** /actions/bulk/telephony_credentials | Creates several credentials
-[**deleteBulkTelephonyCredential**](BulkCredentialsApi.md#deleteBulkTelephonyCredential) | **DELETE** /actions/bulk/telephony_credentials | Delete several credentials
+[**createBulkTelephonyCredentials**](BulkCredentialsApi.md#createBulkTelephonyCredentials) | **POST** /actions/bulk/telephony_credentials | Creates several credentials
+[**deleteTelephonyCredentials**](BulkCredentialsApi.md#deleteTelephonyCredentials) | **DELETE** /actions/bulk/telephony_credentials | Delete several credentials
 [**updateBulkTelephonyCredential**](BulkCredentialsApi.md#updateBulkTelephonyCredential) | **PATCH** /actions/bulk/telephony_credentials | Update several credentials
 
 
@@ -86,9 +86,9 @@ Name | Type | Description  | Notes
 | **422** | Bad request |  -  |
 
 
-## createBulkTelephonyCredential
+## createBulkTelephonyCredentials
 
-> BulkCredentialResponse createBulkTelephonyCredential(bulkCredentialRequest)
+> BulkCredentialResponse createBulkTelephonyCredentials(bulkCredentialRequest)
 
 Creates several credentials
 
@@ -117,10 +117,10 @@ public class Example {
         BulkCredentialsApi apiInstance = new BulkCredentialsApi(defaultClient);
         BulkCredentialRequest bulkCredentialRequest = new BulkCredentialRequest(); // BulkCredentialRequest | Requested parameters to create credentials on bulk
         try {
-            BulkCredentialResponse result = apiInstance.createBulkTelephonyCredential(bulkCredentialRequest);
+            BulkCredentialResponse result = apiInstance.createBulkTelephonyCredentials(bulkCredentialRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling BulkCredentialsApi#createBulkTelephonyCredential");
+            System.err.println("Exception when calling BulkCredentialsApi#createBulkTelephonyCredentials");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -157,9 +157,9 @@ Name | Type | Description  | Notes
 | **422** | Bad request |  -  |
 
 
-## deleteBulkTelephonyCredential
+## deleteTelephonyCredentials
 
-> BulkCredentialResponse deleteBulkTelephonyCredential(filterTag)
+> BulkCredentialResponse deleteTelephonyCredentials(filterTag)
 
 Delete several credentials
 
@@ -188,10 +188,10 @@ public class Example {
         BulkCredentialsApi apiInstance = new BulkCredentialsApi(defaultClient);
         String filterTag = "filterTag_example"; // String | Filter by tag, required by bulk operations.
         try {
-            BulkCredentialResponse result = apiInstance.deleteBulkTelephonyCredential(filterTag);
+            BulkCredentialResponse result = apiInstance.deleteTelephonyCredentials(filterTag);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling BulkCredentialsApi#deleteBulkTelephonyCredential");
+            System.err.println("Exception when calling BulkCredentialsApi#deleteTelephonyCredentials");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ConferenceEndedBy;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -45,7 +48,7 @@ import com.telnyx.sdk.JSON;
   Conference.JSON_PROPERTY_ENDED_BY,
   Conference.JSON_PROPERTY_CONNECTION_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Conference {
   /**
    * Gets or Sets recordType
@@ -458,11 +461,11 @@ public class Conference {
   }
 
    /**
-   * Identifies the connection (Call Control App) associated with the conference
+   * Identifies the connection associated with the conference
    * @return connectionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "3fa85f64-9191-4567-b3fc-2c963f66afa6", value = "Identifies the connection (Call Control App) associated with the conference")
+  @ApiModelProperty(example = "3fa85f64-9191-4567-b3fc-2c963f66afa6", value = "Identifies the connection associated with the conference")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

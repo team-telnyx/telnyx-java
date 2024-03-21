@@ -4,13 +4,13 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createInventoryCoverageRequest**](InventoryLevelApi.md#createInventoryCoverageRequest) | **GET** /inventory_coverage | Create an inventory coverage request
+[**createInventoryCoverage**](InventoryLevelApi.md#createInventoryCoverage) | **GET** /inventory_coverage | Create an inventory coverage request
 
 
 
-## createInventoryCoverageRequest
+## createInventoryCoverage
 
-> CreateInventoryCoverageRequest200Response createInventoryCoverageRequest(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount)
+> CreateInventoryCoverage200Response createInventoryCoverage(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount, filterFeatures)
 
 Create an inventory coverage request
 
@@ -44,11 +44,12 @@ public class Example {
         String filterPhoneNumberType = "local"; // String | 
         String filterCountryCode = "US"; // String | 
         Boolean filterCount = true; // Boolean | 
+        List<String> filterFeatures = Arrays.asList(); // List<String> | Filter if the phone number should be used for voice, fax, mms, sms, emergency. Returns features in the response when used.
         try {
-            CreateInventoryCoverageRequest200Response result = apiInstance.createInventoryCoverageRequest(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount);
+            CreateInventoryCoverage200Response result = apiInstance.createInventoryCoverage(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount, filterFeatures);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling InventoryLevelApi#createInventoryCoverageRequest");
+            System.err.println("Exception when calling InventoryLevelApi#createInventoryCoverage");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -70,10 +71,11 @@ Name | Type | Description  | Notes
  **filterPhoneNumberType** | **String**|  | [optional] [enum: local, toll_free, national, mobile, landline, shared_cost]
  **filterCountryCode** | **String**|  | [optional] [enum: US, CA, GB]
  **filterCount** | **Boolean**|  | [optional]
+ **filterFeatures** | **List&lt;String&gt;**| Filter if the phone number should be used for voice, fax, mms, sms, emergency. Returns features in the response when used. | [optional] [enum: sms, mms, voice, fax, emergency]
 
 ### Return type
 
-[**CreateInventoryCoverageRequest200Response**](CreateInventoryCoverageRequest200Response.md)
+[**CreateInventoryCoverage200Response**](CreateInventoryCoverage200Response.md)
 
 ### Authorization
 

@@ -15,8 +15,6 @@
 |**createdAt** | **String** |  |  [optional] |
 |**updatedAt** | **String** |  |  [optional] |
 |**sms** | **VerifyProfileSMSResponse** |  |  [optional] |
-|**psd2** | **VerifyProfilePSD2Response** |  |  [optional] |
-|**whatsapp** | **VerifyProfileWhatsappResponse** |  |  [optional] |
 |**call** | **VerifyProfileCallResponse** |  |  [optional] |
 |**flashcall** | **VerifyProfileFlashcallResponse** |  |  [optional] |
 |**language** | **String** |  |  [optional] |

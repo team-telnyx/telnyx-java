@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,9 +30,11 @@ import com.telnyx.sdk.model.CredentialInbound;
 import com.telnyx.sdk.model.CredentialOutbound;
 import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
+import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -65,7 +69,7 @@ import com.telnyx.sdk.JSON;
   CredentialConnection.JSON_PROPERTY_INBOUND,
   CredentialConnection.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CredentialConnection {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;

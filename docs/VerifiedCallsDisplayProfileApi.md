@@ -4,18 +4,18 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createVerifiedCallsDisplayProfile**](VerifiedCallsDisplayProfileApi.md#createVerifiedCallsDisplayProfile) | **POST** /verified_calls_display_profiles | Creates a Verified Calls Display Profile
-[**createVerifiedCallsDisplayProfileVerificationRequest**](VerifiedCallsDisplayProfileApi.md#createVerifiedCallsDisplayProfileVerificationRequest) | **POST** /verified_calls_display_profiles/{id}/verification_request | Creates a Verification Request
-[**deleteVerifiedCallsDisplayProfile**](VerifiedCallsDisplayProfileApi.md#deleteVerifiedCallsDisplayProfile) | **DELETE** /verified_calls_display_profiles/{id} | Deletes the Verified Calls Display Profile
-[**displayVerifiedCallsDisplayProfile**](VerifiedCallsDisplayProfileApi.md#displayVerifiedCallsDisplayProfile) | **GET** /verified_calls_display_profiles/{id} | Display the Verified Calls Display Profile
-[**listVerifiedCallsDisplayProfiles**](VerifiedCallsDisplayProfileApi.md#listVerifiedCallsDisplayProfiles) | **GET** /verified_calls_display_profiles | Lists the Verified Calls Display Profiles owned by the current user/organization
-[**updateVerifiedCallsDisplayProfile**](VerifiedCallsDisplayProfileApi.md#updateVerifiedCallsDisplayProfile) | **PATCH** /verified_calls_display_profiles/{id} | Update a Verified Calls Display Profile
+[**createProfile**](VerifiedCallsDisplayProfileApi.md#createProfile) | **POST** /verified_calls_display_profiles | Creates a Verified Calls Display Profile
+[**createProfileVerificationRequest**](VerifiedCallsDisplayProfileApi.md#createProfileVerificationRequest) | **POST** /verified_calls_display_profiles/{id}/verification_request | Creates a Verification Request
+[**deleteProfile**](VerifiedCallsDisplayProfileApi.md#deleteProfile) | **DELETE** /verified_calls_display_profiles/{id} | Deletes the Verified Calls Display Profile
+[**displayProfile**](VerifiedCallsDisplayProfileApi.md#displayProfile) | **GET** /verified_calls_display_profiles/{id} | Display the Verified Calls Display Profile
+[**listProfiles**](VerifiedCallsDisplayProfileApi.md#listProfiles) | **GET** /verified_calls_display_profiles | Lists the Verified Calls Display Profiles owned by the current user/organization
+[**updateProfile**](VerifiedCallsDisplayProfileApi.md#updateProfile) | **PATCH** /verified_calls_display_profiles/{id} | Update a Verified Calls Display Profile
 
 
 
-## createVerifiedCallsDisplayProfile
+## createProfile
 
-> ShowVerifiedCallsDisplayProfileResponse createVerifiedCallsDisplayProfile().createVerifiedCallsDisplayProfileRequest(createVerifiedCallsDisplayProfileRequest).execute();
+> ShowVerifiedCallsDisplayProfileResponse createProfile().createVerifiedCallsDisplayProfileRequest(createVerifiedCallsDisplayProfileRequest).execute();
 
 Creates a Verified Calls Display Profile
 
@@ -44,12 +44,12 @@ public class Example {
         VerifiedCallsDisplayProfileApi apiInstance = new VerifiedCallsDisplayProfileApi(defaultClient);
         CreateVerifiedCallsDisplayProfileRequest createVerifiedCallsDisplayProfileRequest = new CreateVerifiedCallsDisplayProfileRequest(); // CreateVerifiedCallsDisplayProfileRequest | 
         try {
-            ShowVerifiedCallsDisplayProfileResponse result = api.createVerifiedCallsDisplayProfile()
+            ShowVerifiedCallsDisplayProfileResponse result = api.createProfile()
                 .createVerifiedCallsDisplayProfileRequest(createVerifiedCallsDisplayProfileRequest)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#createVerifiedCallsDisplayProfile");
+            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#createProfile");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -86,9 +86,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## createVerifiedCallsDisplayProfileVerificationRequest
+## createProfileVerificationRequest
 
-> createVerifiedCallsDisplayProfileVerificationRequest(id)
+> createProfileVerificationRequest(id)
 
 Creates a Verification Request
 
@@ -117,9 +117,9 @@ public class Example {
         VerifiedCallsDisplayProfileApi apiInstance = new VerifiedCallsDisplayProfileApi(defaultClient);
         String id = "id_example"; // String | Identifies the Verified Calls Display Profile
         try {
-            apiInstance.createVerifiedCallsDisplayProfileVerificationRequest(id);
+            apiInstance.createProfileVerificationRequest(id);
         } catch (ApiException e) {
-            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#createVerifiedCallsDisplayProfileVerificationRequest");
+            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#createProfileVerificationRequest");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -156,9 +156,9 @@ null (empty response body)
 | **0** | Unexpected error |  -  |
 
 
-## deleteVerifiedCallsDisplayProfile
+## deleteProfile
 
-> ShowVerifiedCallsDisplayProfileResponse deleteVerifiedCallsDisplayProfile(id).execute();
+> ShowVerifiedCallsDisplayProfileResponse deleteProfile(id).execute();
 
 Deletes the Verified Calls Display Profile
 
@@ -187,11 +187,11 @@ public class Example {
         VerifiedCallsDisplayProfileApi apiInstance = new VerifiedCallsDisplayProfileApi(defaultClient);
         String id = "id_example"; // String | Identifies the Verified Calls Display Profile
         try {
-            ShowVerifiedCallsDisplayProfileResponse result = api.deleteVerifiedCallsDisplayProfile(id)
+            ShowVerifiedCallsDisplayProfileResponse result = api.deleteProfile(id)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#deleteVerifiedCallsDisplayProfile");
+            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#deleteProfile");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -228,9 +228,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## displayVerifiedCallsDisplayProfile
+## displayProfile
 
-> ShowVerifiedCallsDisplayProfileResponse displayVerifiedCallsDisplayProfile(id).execute();
+> ShowVerifiedCallsDisplayProfileResponse displayProfile(id).execute();
 
 Display the Verified Calls Display Profile
 
@@ -257,11 +257,11 @@ public class Example {
         VerifiedCallsDisplayProfileApi apiInstance = new VerifiedCallsDisplayProfileApi(defaultClient);
         String id = "id_example"; // String | Identifies the Verified Calls Display Profile
         try {
-            ShowVerifiedCallsDisplayProfileResponse result = api.displayVerifiedCallsDisplayProfile(id)
+            ShowVerifiedCallsDisplayProfileResponse result = api.displayProfile(id)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#displayVerifiedCallsDisplayProfile");
+            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#displayProfile");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -298,9 +298,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## listVerifiedCallsDisplayProfiles
+## listProfiles
 
-> ListVerifiedCallsDisplayProfilesResponse listVerifiedCallsDisplayProfiles().pageNumber(pageNumber).pageSize(pageSize).execute();
+> ListVerifiedCallsDisplayProfilesResponse listProfiles().pageNumber(pageNumber).pageSize(pageSize).execute();
 
 Lists the Verified Calls Display Profiles owned by the current user/organization
 
@@ -328,13 +328,13 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            ListVerifiedCallsDisplayProfilesResponse result = api.listVerifiedCallsDisplayProfiles()
+            ListVerifiedCallsDisplayProfilesResponse result = api.listProfiles()
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#listVerifiedCallsDisplayProfiles");
+            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#listProfiles");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -372,9 +372,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## updateVerifiedCallsDisplayProfile
+## updateProfile
 
-> updateVerifiedCallsDisplayProfile(id).updateVerifiedCallsDisplayProfileRequest(updateVerifiedCallsDisplayProfileRequest).execute();
+> updateProfile(id).updateVerifiedCallsDisplayProfileRequest(updateVerifiedCallsDisplayProfileRequest).execute();
 
 Update a Verified Calls Display Profile
 
@@ -404,11 +404,11 @@ public class Example {
         String id = "id_example"; // String | Identifies the Verified Calls Display Profile
         UpdateVerifiedCallsDisplayProfileRequest updateVerifiedCallsDisplayProfileRequest = new UpdateVerifiedCallsDisplayProfileRequest(); // UpdateVerifiedCallsDisplayProfileRequest | 
         try {
-            api.updateVerifiedCallsDisplayProfile(id)
+            api.updateProfile(id)
                 .updateVerifiedCallsDisplayProfileRequest(updateVerifiedCallsDisplayProfileRequest)
                 .execute();
         } catch (ApiException e) {
-            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#updateVerifiedCallsDisplayProfile");
+            System.err.println("Exception when calling VerifiedCallsDisplayProfileApi#updateProfile");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

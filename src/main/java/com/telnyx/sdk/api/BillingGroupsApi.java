@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BillingGroupsApi {
   private ApiClient apiClient;
 
@@ -190,6 +190,76 @@ public class BillingGroupsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Get a billing group
+   * 
+   * @param id The id of the billing group (required)
+   * @return CreateBillingGroup200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateBillingGroup200Response getBillingGroup(UUID id) throws ApiException {
+    return getBillingGroupWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Get a billing group
+   * 
+   * @param id The id of the billing group (required)
+   * @return ApiResponse&lt;CreateBillingGroup200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateBillingGroup200Response> getBillingGroupWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getBillingGroup");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/billing_groups/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateBillingGroup200Response> localVarReturnType = new GenericType<CreateBillingGroup200Response>() {};
+
+    return apiClient.invokeAPI("BillingGroupsApi.getBillingGroup", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * List all billing groups
    * 
    * @param pageNumber The page number to load (optional, default to 1)
@@ -254,76 +324,6 @@ public class BillingGroupsApi {
     GenericType<ListBillingGroups200Response> localVarReturnType = new GenericType<ListBillingGroups200Response>() {};
 
     return apiClient.invokeAPI("BillingGroupsApi.listBillingGroups", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * Retrieve a billing group
-   * 
-   * @param id The id of the billing group (required)
-   * @return CreateBillingGroup200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public CreateBillingGroup200Response retrieveBillingGroup(UUID id) throws ApiException {
-    return retrieveBillingGroupWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Retrieve a billing group
-   * 
-   * @param id The id of the billing group (required)
-   * @return ApiResponse&lt;CreateBillingGroup200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<CreateBillingGroup200Response> retrieveBillingGroupWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveBillingGroup");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/billing_groups/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateBillingGroup200Response> localVarReturnType = new GenericType<CreateBillingGroup200Response>() {};
-
-    return apiClient.invokeAPI("BillingGroupsApi.retrieveBillingGroup", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

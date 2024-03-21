@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,11 +25,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AnchorsiteOverride;
+import com.telnyx.sdk.model.CreateExternalConnectionRequestOutbound;
 import com.telnyx.sdk.model.CreateFaxApplicationRequestInbound;
-import com.telnyx.sdk.model.CreateFaxApplicationRequestOutbound;
+import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -52,7 +56,7 @@ import com.telnyx.sdk.JSON;
   FaxApplication.JSON_PROPERTY_CREATED_AT,
   FaxApplication.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class FaxApplication {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -82,7 +86,7 @@ public class FaxApplication {
   private CreateFaxApplicationRequestInbound inbound;
 
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
-  private CreateFaxApplicationRequestOutbound outbound;
+  private CreateExternalConnectionRequestOutbound outbound;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -93,17 +97,20 @@ public class FaxApplication {
   public FaxApplication() { 
   }
 
-  public FaxApplication id(String id) {
+  @JsonCreator
+  public FaxApplication(
+    @JsonProperty(JSON_PROPERTY_ID) String id
+  ) {
+    this();
     this.id = id;
-    return this;
   }
 
    /**
-   * Uniquely identifies the resource.
+   * Identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -112,11 +119,6 @@ public class FaxApplication {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
 
 
   public FaxApplication recordType(String recordType) {
@@ -345,7 +347,7 @@ public class FaxApplication {
   }
 
 
-  public FaxApplication outbound(CreateFaxApplicationRequestOutbound outbound) {
+  public FaxApplication outbound(CreateExternalConnectionRequestOutbound outbound) {
     this.outbound = outbound;
     return this;
   }
@@ -359,14 +361,14 @@ public class FaxApplication {
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CreateFaxApplicationRequestOutbound getOutbound() {
+  public CreateExternalConnectionRequestOutbound getOutbound() {
     return outbound;
   }
 
 
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutbound(CreateFaxApplicationRequestOutbound outbound) {
+  public void setOutbound(CreateExternalConnectionRequestOutbound outbound) {
     this.outbound = outbound;
   }
 

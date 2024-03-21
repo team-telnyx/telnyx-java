@@ -4,16 +4,16 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**publicInternetGatewayCreate**](PublicInternetGatewaysApi.md#publicInternetGatewayCreate) | **POST** /public_internet_gateways | Create a Public Internet Gateway
-[**publicInternetGatewayDelete**](PublicInternetGatewaysApi.md#publicInternetGatewayDelete) | **DELETE** /public_internet_gateways/{id} | Delete a Public Internet Gateway
-[**publicInternetGatewayGet**](PublicInternetGatewaysApi.md#publicInternetGatewayGet) | **GET** /public_internet_gateways/{id} | Retrieve a Public Internet Gateway
-[**publicInternetGatewayList**](PublicInternetGatewaysApi.md#publicInternetGatewayList) | **GET** /public_internet_gateways | List all Public Internet Gateways
+[**createPublicInternetGateway**](PublicInternetGatewaysApi.md#createPublicInternetGateway) | **POST** /public_internet_gateways | Create a Public Internet Gateway
+[**deletePublicInternetGateway**](PublicInternetGatewaysApi.md#deletePublicInternetGateway) | **DELETE** /public_internet_gateways/{id} | Delete a Public Internet Gateway
+[**getPublicInternetGateway**](PublicInternetGatewaysApi.md#getPublicInternetGateway) | **GET** /public_internet_gateways/{id} | Retrieve a Public Internet Gateway
+[**listPublicInternetGateways**](PublicInternetGatewaysApi.md#listPublicInternetGateways) | **GET** /public_internet_gateways | List all Public Internet Gateways
 
 
 
-## publicInternetGatewayCreate
+## createPublicInternetGateway
 
-> PublicInternetGatewayCreate202Response publicInternetGatewayCreate(publicInternetGatewayCreate)
+> CreatePublicInternetGateway202Response createPublicInternetGateway(publicInternetGatewayCreate)
 
 Create a Public Internet Gateway
 
@@ -42,10 +42,10 @@ public class Example {
         PublicInternetGatewaysApi apiInstance = new PublicInternetGatewaysApi(defaultClient);
         PublicInternetGatewayCreate publicInternetGatewayCreate = new PublicInternetGatewayCreate(); // PublicInternetGatewayCreate | 
         try {
-            PublicInternetGatewayCreate202Response result = apiInstance.publicInternetGatewayCreate(publicInternetGatewayCreate);
+            CreatePublicInternetGateway202Response result = apiInstance.createPublicInternetGateway(publicInternetGatewayCreate);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling PublicInternetGatewaysApi#publicInternetGatewayCreate");
+            System.err.println("Exception when calling PublicInternetGatewaysApi#createPublicInternetGateway");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PublicInternetGatewayCreate202Response**](PublicInternetGatewayCreate202Response.md)
+[**CreatePublicInternetGateway202Response**](CreatePublicInternetGateway202Response.md)
 
 ### Authorization
 
@@ -83,9 +83,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## publicInternetGatewayDelete
+## deletePublicInternetGateway
 
-> PublicInternetGatewayCreate202Response publicInternetGatewayDelete(id)
+> CreatePublicInternetGateway202Response deletePublicInternetGateway(id)
 
 Delete a Public Internet Gateway
 
@@ -115,10 +115,10 @@ public class Example {
         PublicInternetGatewaysApi apiInstance = new PublicInternetGatewaysApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            PublicInternetGatewayCreate202Response result = apiInstance.publicInternetGatewayDelete(id);
+            CreatePublicInternetGateway202Response result = apiInstance.deletePublicInternetGateway(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling PublicInternetGatewaysApi#publicInternetGatewayDelete");
+            System.err.println("Exception when calling PublicInternetGatewaysApi#deletePublicInternetGateway");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PublicInternetGatewayCreate202Response**](PublicInternetGatewayCreate202Response.md)
+[**CreatePublicInternetGateway202Response**](CreatePublicInternetGateway202Response.md)
 
 ### Authorization
 
@@ -155,9 +155,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## publicInternetGatewayGet
+## getPublicInternetGateway
 
-> PublicInternetGatewayCreate202Response publicInternetGatewayGet(id)
+> CreatePublicInternetGateway202Response getPublicInternetGateway(id)
 
 Retrieve a Public Internet Gateway
 
@@ -187,10 +187,10 @@ public class Example {
         PublicInternetGatewaysApi apiInstance = new PublicInternetGatewaysApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            PublicInternetGatewayCreate202Response result = apiInstance.publicInternetGatewayGet(id);
+            CreatePublicInternetGateway202Response result = apiInstance.getPublicInternetGateway(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling PublicInternetGatewaysApi#publicInternetGatewayGet");
+            System.err.println("Exception when calling PublicInternetGatewaysApi#getPublicInternetGateway");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PublicInternetGatewayCreate202Response**](PublicInternetGatewayCreate202Response.md)
+[**CreatePublicInternetGateway202Response**](CreatePublicInternetGateway202Response.md)
 
 ### Authorization
 
@@ -227,9 +227,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## publicInternetGatewayList
+## listPublicInternetGateways
 
-> PublicInternetGatewayList200Response publicInternetGatewayList(pageNumber, pageSize, filterNetworkId)
+> ListPublicInternetGateways200Response listPublicInternetGateways(pageNumber, pageSize, filterNetworkId)
 
 List all Public Internet Gateways
 
@@ -260,10 +260,10 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         String filterNetworkId = "6a09cdc3-8948-47f0-aa62-74ac943d6c58"; // String | The associated network id to filter on.
         try {
-            PublicInternetGatewayList200Response result = apiInstance.publicInternetGatewayList(pageNumber, pageSize, filterNetworkId);
+            ListPublicInternetGateways200Response result = apiInstance.listPublicInternetGateways(pageNumber, pageSize, filterNetworkId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling PublicInternetGatewaysApi#publicInternetGatewayList");
+            System.err.println("Exception when calling PublicInternetGatewaysApi#listPublicInternetGateways");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PublicInternetGatewayList200Response**](PublicInternetGatewayList200Response.md)
+[**ListPublicInternetGateways200Response**](ListPublicInternetGateways200Response.md)
 
 ### Authorization
 

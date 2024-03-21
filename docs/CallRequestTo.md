@@ -9,10 +9,9 @@ The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided usin
 * [String](String.md)
 
 ## Example
-
 ```java
 // Import classes:
-
+import com.telnyx.sdk.model.CallRequestTo;
 import com.telnyx.sdk.model.List<String>;
 import com.telnyx.sdk.model.String;
 
@@ -21,11 +20,11 @@ public class Example {
         CallRequestTo exampleCallRequestTo = new CallRequestTo();
 
         // create a new List<String>
-        List<String> exampleList<String > = new List<String>();
+        List<String> exampleList<String> = new List<String>();
         // set CallRequestTo to List<String>
-        exampleCallRequestTo.setActualInstance(exampleList < String >);
+        exampleCallRequestTo.setActualInstance(exampleList<String>);
         // to get back the List<String> set earlier
-        List<String> testList<String > = (List<String>) exampleCallRequestTo.getActualInstance();
+        List<String> testList<String> = (List<String>) exampleCallRequestTo.getActualInstance();
 
         // create a new String
         String exampleString = new String();

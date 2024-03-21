@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,7 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.CustomSipHeader;
+import com.telnyx.sdk.model.SipHeader;
 import com.telnyx.sdk.model.SoundModifications;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -37,13 +44,16 @@ import com.telnyx.sdk.JSON;
   AnswerRequest.JSON_PROPERTY_BILLING_GROUP_ID,
   AnswerRequest.JSON_PROPERTY_CLIENT_STATE,
   AnswerRequest.JSON_PROPERTY_COMMAND_ID,
-  AnswerRequest.JSON_PROPERTY_STREAM_URL,
+  AnswerRequest.JSON_PROPERTY_CUSTOM_HEADERS,
+  AnswerRequest.JSON_PROPERTY_SIP_HEADERS,
   AnswerRequest.JSON_PROPERTY_SOUND_MODIFICATIONS,
+  AnswerRequest.JSON_PROPERTY_STREAM_URL,
   AnswerRequest.JSON_PROPERTY_STREAM_TRACK,
+  AnswerRequest.JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE,
   AnswerRequest.JSON_PROPERTY_WEBHOOK_URL,
   AnswerRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class AnswerRequest {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private UUID billingGroupId;
@@ -54,11 +64,17 @@ public class AnswerRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
-  public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
-  private String streamUrl;
+  public static final String JSON_PROPERTY_CUSTOM_HEADERS = "custom_headers";
+  private List<CustomSipHeader> customHeaders = null;
+
+  public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
+  private List<SipHeader> sipHeaders = null;
 
   public static final String JSON_PROPERTY_SOUND_MODIFICATIONS = "sound_modifications";
   private SoundModifications soundModifications;
+
+  public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
+  private String streamUrl;
 
   /**
    * Specifies which track should be streamed.
@@ -99,6 +115,9 @@ public class AnswerRequest {
 
   public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
   private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
+
+  public static final String JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE = "send_silence_when_idle";
+  private Boolean sendSilenceWhenIdle = false;
 
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private String webhookUrl;
@@ -222,29 +241,71 @@ public class AnswerRequest {
   }
 
 
-  public AnswerRequest streamUrl(String streamUrl) {
-    this.streamUrl = streamUrl;
+  public AnswerRequest customHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
+    return this;
+  }
+
+  public AnswerRequest addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+    if (this.customHeaders == null) {
+      this.customHeaders = new ArrayList<>();
+    }
+    this.customHeaders.add(customHeadersItem);
     return this;
   }
 
    /**
-   * The destination WebSocket address where the stream is going to be delivered.
-   * @return streamUrl
+   * Custom headers to be added to the SIP INVITE response.
+   * @return customHeaders
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "wss://www.example.com/websocket", value = "The destination WebSocket address where the stream is going to be delivered.")
-  @JsonProperty(JSON_PROPERTY_STREAM_URL)
+  @ApiModelProperty(example = "[{\"name\":\"head_1\",\"value\":\"val_1\"},{\"name\":\"head_2\",\"value\":\"val_2\"}]", value = "Custom headers to be added to the SIP INVITE response.")
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getStreamUrl() {
-    return streamUrl;
+  public List<CustomSipHeader> getCustomHeaders() {
+    return customHeaders;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STREAM_URL)
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamUrl(String streamUrl) {
-    this.streamUrl = streamUrl;
+  public void setCustomHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
+  }
+
+
+  public AnswerRequest sipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+    return this;
+  }
+
+  public AnswerRequest addSipHeadersItem(SipHeader sipHeadersItem) {
+    if (this.sipHeaders == null) {
+      this.sipHeaders = new ArrayList<>();
+    }
+    this.sipHeaders.add(sipHeadersItem);
+    return this;
+  }
+
+   /**
+   * SIP headers to be added to the SIP INVITE response. Currently only User-to-User header is supported.
+   * @return sipHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"value\"}]", value = "SIP headers to be added to the SIP INVITE response. Currently only User-to-User header is supported.")
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SipHeader> getSipHeaders() {
+    return sipHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
   }
 
 
@@ -274,6 +335,32 @@ public class AnswerRequest {
   }
 
 
+  public AnswerRequest streamUrl(String streamUrl) {
+    this.streamUrl = streamUrl;
+    return this;
+  }
+
+   /**
+   * The destination WebSocket address where the stream is going to be delivered.
+   * @return streamUrl
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "wss://www.example.com/websocket", value = "The destination WebSocket address where the stream is going to be delivered.")
+  @JsonProperty(JSON_PROPERTY_STREAM_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getStreamUrl() {
+    return streamUrl;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamUrl(String streamUrl) {
+    this.streamUrl = streamUrl;
+  }
+
+
   public AnswerRequest streamTrack(StreamTrackEnum streamTrack) {
     this.streamTrack = streamTrack;
     return this;
@@ -297,6 +384,32 @@ public class AnswerRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStreamTrack(StreamTrackEnum streamTrack) {
     this.streamTrack = streamTrack;
+  }
+
+
+  public AnswerRequest sendSilenceWhenIdle(Boolean sendSilenceWhenIdle) {
+    this.sendSilenceWhenIdle = sendSilenceWhenIdle;
+    return this;
+  }
+
+   /**
+   * Generate silence RTP packets when no transmission available.
+   * @return sendSilenceWhenIdle
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Generate silence RTP packets when no transmission available.")
+  @JsonProperty(JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSendSilenceWhenIdle() {
+    return sendSilenceWhenIdle;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSendSilenceWhenIdle(Boolean sendSilenceWhenIdle) {
+    this.sendSilenceWhenIdle = sendSilenceWhenIdle;
   }
 
 
@@ -367,16 +480,19 @@ public class AnswerRequest {
     return Objects.equals(this.billingGroupId, answerRequest.billingGroupId) &&
         Objects.equals(this.clientState, answerRequest.clientState) &&
         Objects.equals(this.commandId, answerRequest.commandId) &&
-        Objects.equals(this.streamUrl, answerRequest.streamUrl) &&
+        Objects.equals(this.customHeaders, answerRequest.customHeaders) &&
+        Objects.equals(this.sipHeaders, answerRequest.sipHeaders) &&
         Objects.equals(this.soundModifications, answerRequest.soundModifications) &&
+        Objects.equals(this.streamUrl, answerRequest.streamUrl) &&
         Objects.equals(this.streamTrack, answerRequest.streamTrack) &&
+        Objects.equals(this.sendSilenceWhenIdle, answerRequest.sendSilenceWhenIdle) &&
         Objects.equals(this.webhookUrl, answerRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, answerRequest.webhookUrlMethod);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(billingGroupId, clientState, commandId, streamUrl, soundModifications, streamTrack, webhookUrl, webhookUrlMethod);
+    return Objects.hash(billingGroupId, clientState, commandId, customHeaders, sipHeaders, soundModifications, streamUrl, streamTrack, sendSilenceWhenIdle, webhookUrl, webhookUrlMethod);
   }
 
   @Override
@@ -386,9 +502,12 @@ public class AnswerRequest {
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
-    sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
+    sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
+    sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
     sb.append("    soundModifications: ").append(toIndentedString(soundModifications)).append("\n");
+    sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
     sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
+    sb.append("    sendSilenceWhenIdle: ").append(toIndentedString(sendSilenceWhenIdle)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");
     sb.append("}");

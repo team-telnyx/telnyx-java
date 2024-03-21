@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,9 +41,12 @@ import com.telnyx.sdk.JSON;
   StartRecordingRequest.JSON_PROPERTY_COMMAND_ID,
   StartRecordingRequest.JSON_PROPERTY_PLAY_BEEP,
   StartRecordingRequest.JSON_PROPERTY_MAX_LENGTH,
-  StartRecordingRequest.JSON_PROPERTY_TIMEOUT_SECS
+  StartRecordingRequest.JSON_PROPERTY_TIMEOUT_SECS,
+  StartRecordingRequest.JSON_PROPERTY_RECORDING_TRACK,
+  StartRecordingRequest.JSON_PROPERTY_TRIM,
+  StartRecordingRequest.JSON_PROPERTY_CUSTOM_FILE_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class StartRecordingRequest {
   /**
    * The audio file format used when storing the call recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;.
@@ -132,6 +138,85 @@ public class StartRecordingRequest {
 
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs = 0;
+
+  /**
+   * The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel).
+   */
+  public enum RecordingTrackEnum {
+    BOTH("both"),
+    
+    INBOUND("inbound"),
+    
+    OUTBOUND("outbound");
+
+    private String value;
+
+    RecordingTrackEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordingTrackEnum fromValue(String value) {
+      for (RecordingTrackEnum b : RecordingTrackEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORDING_TRACK = "recording_track";
+  private RecordingTrackEnum recordingTrack = RecordingTrackEnum.BOTH;
+
+  /**
+   * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
+   */
+  public enum TrimEnum {
+    TRIM_SILENCE("trim-silence");
+
+    private String value;
+
+    TrimEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TrimEnum fromValue(String value) {
+      for (TrimEnum b : TrimEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TRIM = "trim";
+  private TrimEnum trim;
+
+  public static final String JSON_PROPERTY_CUSTOM_FILE_NAME = "custom_file_name";
+  private String customFileName;
 
   public StartRecordingRequest() { 
   }
@@ -298,11 +383,11 @@ public class StartRecordingRequest {
   }
 
    /**
-   * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. The minimum value is 0. The default value is 0 (infinite)
+   * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite)
    * @return timeoutSecs
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "100", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. The minimum value is 0. The default value is 0 (infinite)")
+  @ApiModelProperty(example = "100", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite)")
   @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -315,6 +400,84 @@ public class StartRecordingRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
+  }
+
+
+  public StartRecordingRequest recordingTrack(RecordingTrackEnum recordingTrack) {
+    this.recordingTrack = recordingTrack;
+    return this;
+  }
+
+   /**
+   * The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel).
+   * @return recordingTrack
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "outbound", value = "The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).")
+  @JsonProperty(JSON_PROPERTY_RECORDING_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordingTrackEnum getRecordingTrack() {
+    return recordingTrack;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORDING_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordingTrack(RecordingTrackEnum recordingTrack) {
+    this.recordingTrack = recordingTrack;
+  }
+
+
+  public StartRecordingRequest trim(TrimEnum trim) {
+    this.trim = trim;
+    return this;
+  }
+
+   /**
+   * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
+   * @return trim
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "trim-silence", value = "When set to `trim-silence`, silence will be removed from the beginning and end of the recording.")
+  @JsonProperty(JSON_PROPERTY_TRIM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TrimEnum getTrim() {
+    return trim;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRIM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTrim(TrimEnum trim) {
+    this.trim = trim;
+  }
+
+
+  public StartRecordingRequest customFileName(String customFileName) {
+    this.customFileName = customFileName;
+    return this;
+  }
+
+   /**
+   * The custom recording file name to be used instead of the default &#x60;call_leg_id&#x60;. Telnyx will still add a Unix timestamp suffix.
+   * @return customFileName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_recording_file_name", value = "The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.")
+  @JsonProperty(JSON_PROPERTY_CUSTOM_FILE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCustomFileName() {
+    return customFileName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CUSTOM_FILE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCustomFileName(String customFileName) {
+    this.customFileName = customFileName;
   }
 
 
@@ -336,12 +499,15 @@ public class StartRecordingRequest {
         Objects.equals(this.commandId, startRecordingRequest.commandId) &&
         Objects.equals(this.playBeep, startRecordingRequest.playBeep) &&
         Objects.equals(this.maxLength, startRecordingRequest.maxLength) &&
-        Objects.equals(this.timeoutSecs, startRecordingRequest.timeoutSecs);
+        Objects.equals(this.timeoutSecs, startRecordingRequest.timeoutSecs) &&
+        Objects.equals(this.recordingTrack, startRecordingRequest.recordingTrack) &&
+        Objects.equals(this.trim, startRecordingRequest.trim) &&
+        Objects.equals(this.customFileName, startRecordingRequest.customFileName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(format, channels, clientState, commandId, playBeep, maxLength, timeoutSecs);
+    return Objects.hash(format, channels, clientState, commandId, playBeep, maxLength, timeoutSecs, recordingTrack, trim, customFileName);
   }
 
   @Override
@@ -355,6 +521,9 @@ public class StartRecordingRequest {
     sb.append("    playBeep: ").append(toIndentedString(playBeep)).append("\n");
     sb.append("    maxLength: ").append(toIndentedString(maxLength)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
+    sb.append("    recordingTrack: ").append(toIndentedString(recordingTrack)).append("\n");
+    sb.append("    trim: ").append(toIndentedString(trim)).append("\n");
+    sb.append("    customFileName: ").append(toIndentedString(customFileName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

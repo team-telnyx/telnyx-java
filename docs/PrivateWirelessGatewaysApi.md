@@ -5,7 +5,7 @@ All URIs are relative to *https://api.telnyx.com/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createPrivateWirelessGateway**](PrivateWirelessGatewaysApi.md#createPrivateWirelessGateway) | **POST** /private_wireless_gateways | Create a Private Wireless Gateway
-[**deletePrivateWirelessGateway**](PrivateWirelessGatewaysApi.md#deletePrivateWirelessGateway) | **DELETE** /private_wireless_gateways/{id} | Delete a Private Wireless Gateway
+[**deleteWirelessGateway**](PrivateWirelessGatewaysApi.md#deleteWirelessGateway) | **DELETE** /private_wireless_gateways/{id} | Delete a Private Wireless Gateway
 [**getPrivateWirelessGateway**](PrivateWirelessGatewaysApi.md#getPrivateWirelessGateway) | **GET** /private_wireless_gateways/{id} | Get a Private Wireless Gateway
 [**getPrivateWirelessGateways**](PrivateWirelessGatewaysApi.md#getPrivateWirelessGateways) | **GET** /private_wireless_gateways | Get all Private Wireless Gateways
 
@@ -83,9 +83,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## deletePrivateWirelessGateway
+## deleteWirelessGateway
 
-> CreatePrivateWirelessGateway202Response deletePrivateWirelessGateway(id)
+> CreatePrivateWirelessGateway202Response deleteWirelessGateway(id)
 
 Delete a Private Wireless Gateway
 
@@ -115,10 +115,10 @@ public class Example {
         PrivateWirelessGatewaysApi apiInstance = new PrivateWirelessGatewaysApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            CreatePrivateWirelessGateway202Response result = apiInstance.deletePrivateWirelessGateway(id);
+            CreatePrivateWirelessGateway202Response result = apiInstance.deleteWirelessGateway(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling PrivateWirelessGatewaysApi#deletePrivateWirelessGateway");
+            System.err.println("Exception when calling PrivateWirelessGatewaysApi#deleteWirelessGateway");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

@@ -13,6 +13,7 @@
 |**customerReference** | **String** | A customer reference string for customer look ups. |  [optional] |
 |**connectionId** | **String** | Identifies the connection associated with the phone number. |  [optional] |
 |**billingGroupId** | **String** | Identifies the billing group associated with the phone number. |  [optional] |
+|**voice** | [**UpdatePhoneNumberVoiceSettingsRequest**](UpdatePhoneNumberVoiceSettingsRequest.md) |  |  [optional] |
 
 
 

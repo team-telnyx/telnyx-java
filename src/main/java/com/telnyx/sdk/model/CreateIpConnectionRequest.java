@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,9 +30,11 @@ import com.telnyx.sdk.model.CreateInboundIpRequest;
 import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.OutboundIp;
+import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -51,6 +55,8 @@ import com.telnyx.sdk.JSON;
   CreateIpConnectionRequest.JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED,
   CreateIpConnectionRequest.JSON_PROPERTY_ENCRYPTED_MEDIA,
   CreateIpConnectionRequest.JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED,
+  CreateIpConnectionRequest.JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID,
+  CreateIpConnectionRequest.JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID,
   CreateIpConnectionRequest.JSON_PROPERTY_WEBHOOK_EVENT_URL,
   CreateIpConnectionRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   CreateIpConnectionRequest.JSON_PROPERTY_WEBHOOK_API_VERSION,
@@ -59,7 +65,7 @@ import com.telnyx.sdk.JSON;
   CreateIpConnectionRequest.JSON_PROPERTY_INBOUND,
   CreateIpConnectionRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateIpConnectionRequest {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active;
@@ -124,6 +130,12 @@ public class CreateIpConnectionRequest {
 
   public static final String JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED = "onnet_t38_passthrough_enabled";
   private Boolean onnetT38PassthroughEnabled = false;
+
+  public static final String JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID = "ios_push_credential_id";
+  private JsonNullable<String> iosPushCredentialId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID = "android_push_credential_id";
+  private JsonNullable<String> androidPushCredentialId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_WEBHOOK_EVENT_URL = "webhook_event_url";
   private String webhookEventUrl;
@@ -426,6 +438,74 @@ public class CreateIpConnectionRequest {
   }
 
 
+  public CreateIpConnectionRequest iosPushCredentialId(String iosPushCredentialId) {
+    this.iosPushCredentialId = JsonNullable.<String>of(iosPushCredentialId);
+    return this;
+  }
+
+   /**
+   * The uuid of the push credential for Ios
+   * @return iosPushCredentialId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "ec0c8e5d-439e-4620-a0c1-9d9c8d02a836", value = "The uuid of the push credential for Ios")
+  @JsonIgnore
+
+  public String getIosPushCredentialId() {
+        return iosPushCredentialId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getIosPushCredentialId_JsonNullable() {
+    return iosPushCredentialId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID)
+  public void setIosPushCredentialId_JsonNullable(JsonNullable<String> iosPushCredentialId) {
+    this.iosPushCredentialId = iosPushCredentialId;
+  }
+
+  public void setIosPushCredentialId(String iosPushCredentialId) {
+    this.iosPushCredentialId = JsonNullable.<String>of(iosPushCredentialId);
+  }
+
+
+  public CreateIpConnectionRequest androidPushCredentialId(String androidPushCredentialId) {
+    this.androidPushCredentialId = JsonNullable.<String>of(androidPushCredentialId);
+    return this;
+  }
+
+   /**
+   * The uuid of the push credential for Android
+   * @return androidPushCredentialId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "06b09dfd-7154-4980-8b75-cebf7a9d4f8e", value = "The uuid of the push credential for Android")
+  @JsonIgnore
+
+  public String getAndroidPushCredentialId() {
+        return androidPushCredentialId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getAndroidPushCredentialId_JsonNullable() {
+    return androidPushCredentialId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID)
+  public void setAndroidPushCredentialId_JsonNullable(JsonNullable<String> androidPushCredentialId) {
+    this.androidPushCredentialId = androidPushCredentialId;
+  }
+
+  public void setAndroidPushCredentialId(String androidPushCredentialId) {
+    this.androidPushCredentialId = JsonNullable.<String>of(androidPushCredentialId);
+  }
+
+
   public CreateIpConnectionRequest webhookEventUrl(String webhookEventUrl) {
     this.webhookEventUrl = webhookEventUrl;
     return this;
@@ -647,6 +727,8 @@ public class CreateIpConnectionRequest {
         Objects.equals(this.encodeContactHeaderEnabled, createIpConnectionRequest.encodeContactHeaderEnabled) &&
         equalsNullable(this.encryptedMedia, createIpConnectionRequest.encryptedMedia) &&
         Objects.equals(this.onnetT38PassthroughEnabled, createIpConnectionRequest.onnetT38PassthroughEnabled) &&
+        equalsNullable(this.iosPushCredentialId, createIpConnectionRequest.iosPushCredentialId) &&
+        equalsNullable(this.androidPushCredentialId, createIpConnectionRequest.androidPushCredentialId) &&
         Objects.equals(this.webhookEventUrl, createIpConnectionRequest.webhookEventUrl) &&
         equalsNullable(this.webhookEventFailoverUrl, createIpConnectionRequest.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, createIpConnectionRequest.webhookApiVersion) &&
@@ -662,7 +744,7 @@ public class CreateIpConnectionRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, inbound, outbound);
+    return Objects.hash(active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, hashCodeNullable(iosPushCredentialId), hashCodeNullable(androidPushCredentialId), webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, inbound, outbound);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -685,6 +767,8 @@ public class CreateIpConnectionRequest {
     sb.append("    encodeContactHeaderEnabled: ").append(toIndentedString(encodeContactHeaderEnabled)).append("\n");
     sb.append("    encryptedMedia: ").append(toIndentedString(encryptedMedia)).append("\n");
     sb.append("    onnetT38PassthroughEnabled: ").append(toIndentedString(onnetT38PassthroughEnabled)).append("\n");
+    sb.append("    iosPushCredentialId: ").append(toIndentedString(iosPushCredentialId)).append("\n");
+    sb.append("    androidPushCredentialId: ").append(toIndentedString(androidPushCredentialId)).append("\n");
     sb.append("    webhookEventUrl: ").append(toIndentedString(webhookEventUrl)).append("\n");
     sb.append("    webhookEventFailoverUrl: ").append(toIndentedString(webhookEventFailoverUrl)).append("\n");
     sb.append("    webhookApiVersion: ").append(toIndentedString(webhookApiVersion)).append("\n");

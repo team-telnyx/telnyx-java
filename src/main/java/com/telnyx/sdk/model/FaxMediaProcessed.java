@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.FaxMediaProcessedPayload;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,7 +42,7 @@ import com.telnyx.sdk.JSON;
   FaxMediaProcessed.JSON_PROPERTY_EVENT_TYPE,
   FaxMediaProcessed.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class FaxMediaProcessed {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -89,14 +92,6 @@ public class FaxMediaProcessed {
   public FaxMediaProcessed() { 
   }
 
-  @JsonCreator
-  public FaxMediaProcessed(
-    @JsonProperty(JSON_PROPERTY_ID) UUID id
-  ) {
-    this();
-    this.id = id;
-  }
-
   public FaxMediaProcessed recordType(String recordType) {
     this.recordType = recordType;
     return this;
@@ -123,12 +118,17 @@ public class FaxMediaProcessed {
   }
 
 
+  public FaxMediaProcessed id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Identifies the type of resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
+  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -137,6 +137,11 @@ public class FaxMediaProcessed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
 
   public FaxMediaProcessed eventType(EventTypeEnum eventType) {

@@ -4,16 +4,16 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**accessIPAddressCreate**](IpAddressesApi.md#accessIPAddressCreate) | **POST** /access_ip_address | Create new Access IP Address
-[**accessIPAddressDelete**](IpAddressesApi.md#accessIPAddressDelete) | **DELETE** /access_ip_address/{access_ip_address_id} | Delete access IP address
-[**accessIPAddressGet**](IpAddressesApi.md#accessIPAddressGet) | **GET** /access_ip_address/{access_ip_address_id} | Retrieve an access IP address
-[**accessIPAddressList**](IpAddressesApi.md#accessIPAddressList) | **GET** /access_ip_address | List all Access IP Addresses
+[**createAccessIpAddress**](IpAddressesApi.md#createAccessIpAddress) | **POST** /access_ip_address | Create new Access IP Address
+[**deleteAccessIpAddress**](IpAddressesApi.md#deleteAccessIpAddress) | **DELETE** /access_ip_address/{access_ip_address_id} | Delete access IP address
+[**getAccessIpAddress**](IpAddressesApi.md#getAccessIpAddress) | **GET** /access_ip_address/{access_ip_address_id} | Retrieve an access IP address
+[**listAccessIpAddresses**](IpAddressesApi.md#listAccessIpAddresses) | **GET** /access_ip_address | List all Access IP Addresses
 
 
 
-## accessIPAddressCreate
+## createAccessIpAddress
 
-> AccessIPAddressResponseSchema accessIPAddressCreate(accessIPAddressPOST)
+> AccessIPAddressResponseSchema createAccessIpAddress(accessIPAddressPOST)
 
 Create new Access IP Address
 
@@ -40,10 +40,10 @@ public class Example {
         IpAddressesApi apiInstance = new IpAddressesApi(defaultClient);
         AccessIPAddressPOST accessIPAddressPOST = new AccessIPAddressPOST(); // AccessIPAddressPOST | 
         try {
-            AccessIPAddressResponseSchema result = apiInstance.accessIPAddressCreate(accessIPAddressPOST);
+            AccessIPAddressResponseSchema result = apiInstance.createAccessIpAddress(accessIPAddressPOST);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IpAddressesApi#accessIPAddressCreate");
+            System.err.println("Exception when calling IpAddressesApi#createAccessIpAddress");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -80,9 +80,9 @@ Name | Type | Description  | Notes
 | **422** | Validation Error |  -  |
 
 
-## accessIPAddressDelete
+## deleteAccessIpAddress
 
-> AccessIPAddressResponseSchema accessIPAddressDelete(accessIpAddressId)
+> AccessIPAddressResponseSchema deleteAccessIpAddress(accessIpAddressId)
 
 Delete access IP address
 
@@ -109,10 +109,10 @@ public class Example {
         IpAddressesApi apiInstance = new IpAddressesApi(defaultClient);
         String accessIpAddressId = "accessIpAddressId_example"; // String | 
         try {
-            AccessIPAddressResponseSchema result = apiInstance.accessIPAddressDelete(accessIpAddressId);
+            AccessIPAddressResponseSchema result = apiInstance.deleteAccessIpAddress(accessIpAddressId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IpAddressesApi#accessIPAddressDelete");
+            System.err.println("Exception when calling IpAddressesApi#deleteAccessIpAddress");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -148,9 +148,9 @@ Name | Type | Description  | Notes
 | **200** | Successful Response |  -  |
 
 
-## accessIPAddressGet
+## getAccessIpAddress
 
-> AccessIPAddressResponseSchema accessIPAddressGet(accessIpAddressId)
+> AccessIPAddressResponseSchema getAccessIpAddress(accessIpAddressId)
 
 Retrieve an access IP address
 
@@ -177,10 +177,10 @@ public class Example {
         IpAddressesApi apiInstance = new IpAddressesApi(defaultClient);
         String accessIpAddressId = "accessIpAddressId_example"; // String | 
         try {
-            AccessIPAddressResponseSchema result = apiInstance.accessIPAddressGet(accessIpAddressId);
+            AccessIPAddressResponseSchema result = apiInstance.getAccessIpAddress(accessIpAddressId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IpAddressesApi#accessIPAddressGet");
+            System.err.println("Exception when calling IpAddressesApi#getAccessIpAddress");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -216,9 +216,9 @@ Name | Type | Description  | Notes
 | **200** | Successful Response |  -  |
 
 
-## accessIPAddressList
+## listAccessIpAddresses
 
-> AccessIPAddressListResponseSchema accessIPAddressList(filterIpSource, filterIpAddress, filterStatus, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize)
+> AccessIPAddressListResponseSchema listAccessIpAddresses(filterIpSource, filterIpAddress, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize)
 
 List all Access IP Addresses
 
@@ -246,16 +246,15 @@ public class Example {
         IpAddressesApi apiInstance = new IpAddressesApi(defaultClient);
         String filterIpSource = "filterIpSource_example"; // String | 
         String filterIpAddress = "filterIpAddress_example"; // String | 
-        CloudflareSyncStatus filterStatus = CloudflareSyncStatus.fromValue("pending"); // CloudflareSyncStatus | 
         OffsetDateTime filterCreatedAtGt = OffsetDateTime.now(); // OffsetDateTime | 
         OffsetDateTime filterCreatedAtLt = OffsetDateTime.now(); // OffsetDateTime | 
         Integer pageNumber = 1; // Integer | 
         Integer pageSize = 20; // Integer | 
         try {
-            AccessIPAddressListResponseSchema result = apiInstance.accessIPAddressList(filterIpSource, filterIpAddress, filterStatus, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize);
+            AccessIPAddressListResponseSchema result = apiInstance.listAccessIpAddresses(filterIpSource, filterIpAddress, filterCreatedAtGt, filterCreatedAtLt, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling IpAddressesApi#accessIPAddressList");
+            System.err.println("Exception when calling IpAddressesApi#listAccessIpAddresses");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -272,7 +271,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filterIpSource** | **String**|  | [optional]
  **filterIpAddress** | **String**|  | [optional]
- **filterStatus** | **CloudflareSyncStatus**|  | [optional] [enum: pending, added]
  **filterCreatedAtGt** | **OffsetDateTime**|  | [optional]
  **filterCreatedAtLt** | **OffsetDateTime**|  | [optional]
  **pageNumber** | **Integer**|  | [optional] [default to 1]

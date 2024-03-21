@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,11 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PhoneNumberRegulatoryRequirement;
+import com.telnyx.sdk.model.SubNumberOrderRegulatoryRequirementWithValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -47,7 +50,7 @@ import com.telnyx.sdk.JSON;
   NumberOrderPhoneNumber.JSON_PROPERTY_REQUIREMENTS_MET,
   NumberOrderPhoneNumber.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class NumberOrderPhoneNumber {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -114,7 +117,7 @@ public class NumberOrderPhoneNumber {
   private PhoneNumberTypeEnum phoneNumberType;
 
   public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
-  private List<PhoneNumberRegulatoryRequirement> regulatoryRequirements = null;
+  private List<SubNumberOrderRegulatoryRequirementWithValue> regulatoryRequirements = null;
 
   public static final String JSON_PROPERTY_REQUIREMENTS_MET = "requirements_met";
   private Boolean requirementsMet;
@@ -338,12 +341,12 @@ public class NumberOrderPhoneNumber {
   }
 
 
-  public NumberOrderPhoneNumber regulatoryRequirements(List<PhoneNumberRegulatoryRequirement> regulatoryRequirements) {
+  public NumberOrderPhoneNumber regulatoryRequirements(List<SubNumberOrderRegulatoryRequirementWithValue> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
     return this;
   }
 
-  public NumberOrderPhoneNumber addRegulatoryRequirementsItem(PhoneNumberRegulatoryRequirement regulatoryRequirementsItem) {
+  public NumberOrderPhoneNumber addRegulatoryRequirementsItem(SubNumberOrderRegulatoryRequirementWithValue regulatoryRequirementsItem) {
     if (this.regulatoryRequirements == null) {
       this.regulatoryRequirements = new ArrayList<>();
     }
@@ -360,14 +363,14 @@ public class NumberOrderPhoneNumber {
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<PhoneNumberRegulatoryRequirement> getRegulatoryRequirements() {
+  public List<SubNumberOrderRegulatoryRequirementWithValue> getRegulatoryRequirements() {
     return regulatoryRequirements;
   }
 
 
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRegulatoryRequirements(List<PhoneNumberRegulatoryRequirement> regulatoryRequirements) {
+  public void setRegulatoryRequirements(List<SubNumberOrderRegulatoryRequirementWithValue> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
   }
 

@@ -27,9 +27,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+
+
+import org.junit.Test;
 
 /**
  * Model tests for VirtualCrossConnect

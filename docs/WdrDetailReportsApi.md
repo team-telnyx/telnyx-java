@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## getPaginatedWdrs
 
-> ExternalWdrGetDetailResponse getPaginatedWdrs(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize)
+> ExternalWdrGetDetailResponse getPaginatedWdrs(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize, sort)
 
 
 
@@ -49,8 +49,9 @@ public class Example {
         String phoneNumber = "+12345678910"; // String | 
         Integer pageNumber = 1; // Integer | Page number
         Integer pageSize = 20; // Integer | Size of the page
+        List<String> sort = Arrays.asList(); // List<String> | 
         try {
-            ExternalWdrGetDetailResponse result = apiInstance.getPaginatedWdrs(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize);
+            ExternalWdrGetDetailResponse result = apiInstance.getPaginatedWdrs(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling WdrDetailReportsApi#getPaginatedWdrs");
@@ -80,6 +81,7 @@ Name | Type | Description  | Notes
  **phoneNumber** | **String**|  | [optional]
  **pageNumber** | **Integer**| Page number | [optional] [default to 1]
  **pageSize** | **Integer**| Size of the page | [optional] [default to 20]
+ **sort** | **List&lt;String&gt;**|  | [optional]
 
 ### Return type
 

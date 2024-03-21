@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,10 +25,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.VerificationRequestStatus;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,7 +42,7 @@ import com.telnyx.sdk.JSON;
   PaginatedVerificationRequestStatus.JSON_PROPERTY_RECORDS,
   PaginatedVerificationRequestStatus.JSON_PROPERTY_TOTAL_RECORDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PaginatedVerificationRequestStatus {
   public static final String JSON_PROPERTY_RECORDS = "records";
   private List<VerificationRequestStatus> records = null;
@@ -57,7 +60,7 @@ public class PaginatedVerificationRequestStatus {
 
   public PaginatedVerificationRequestStatus addRecordsItem(VerificationRequestStatus recordsItem) {
     if (this.records == null) {
-      this.records = null;
+      this.records = new ArrayList<>();
     }
     this.records.add(recordsItem);
     return this;

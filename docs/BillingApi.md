@@ -4,7 +4,7 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getUserBalance**](BillingApi.md#getUserBalance) | **GET** /balance | Retrieve user balance details
+[**getUserBalance**](BillingApi.md#getUserBalance) | **GET** /balance | Get user balance details
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > GetUserBalance200Response getUserBalance()
 
-Retrieve user balance details
+Get user balance details
 
 ### Example
 
@@ -69,6 +69,6 @@ This endpoint does not need any parameter.
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Retrieve user balance details |  -  |
+| **200** | Get user balance details |  -  |
 | **0** | Unexpected error |  -  |
 

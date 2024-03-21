@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,11 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.CustomerServiceRequestPhoneNumberCoverage;
+import com.telnyx.sdk.model.CustomerServiceRecordPhoneNumberCoverage;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -37,20 +40,20 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   VerifyPhoneNumberCoverage201Response.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifyPhoneNumberCoverage201Response {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<CustomerServiceRequestPhoneNumberCoverage> data = null;
+  private List<CustomerServiceRecordPhoneNumberCoverage> data = null;
 
   public VerifyPhoneNumberCoverage201Response() { 
   }
 
-  public VerifyPhoneNumberCoverage201Response data(List<CustomerServiceRequestPhoneNumberCoverage> data) {
+  public VerifyPhoneNumberCoverage201Response data(List<CustomerServiceRecordPhoneNumberCoverage> data) {
     this.data = data;
     return this;
   }
 
-  public VerifyPhoneNumberCoverage201Response addDataItem(CustomerServiceRequestPhoneNumberCoverage dataItem) {
+  public VerifyPhoneNumberCoverage201Response addDataItem(CustomerServiceRecordPhoneNumberCoverage dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -67,20 +70,20 @@ public class VerifyPhoneNumberCoverage201Response {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<CustomerServiceRequestPhoneNumberCoverage> getData() {
+  public List<CustomerServiceRecordPhoneNumberCoverage> getData() {
     return data;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(List<CustomerServiceRequestPhoneNumberCoverage> data) {
+  public void setData(List<CustomerServiceRecordPhoneNumberCoverage> data) {
     this.data = data;
   }
 
 
   /**
-   * Return true if this verifyPhoneNumberCoverage_201_response object is equal to o.
+   * Return true if this VerifyPhoneNumberCoverage_201_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

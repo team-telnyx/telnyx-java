@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -35,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PortingOrdersExceptionType.JSON_PROPERTY_CODE,
   PortingOrdersExceptionType.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrdersExceptionType {
   /**
    * Identifier of an exception type
@@ -74,7 +77,9 @@ public class PortingOrdersExceptionType {
     PORT_TYPE_INCORRECT("PORT_TYPE_INCORRECT"),
     
     PORTING_ORDER_SPLIT_REQUIRED("PORTING_ORDER_SPLIT_REQUIRED"),
-
+    
+    PORTING_ORDER_SPLIT_REQUIRED2("PORTING_ORDER_SPLIT_REQUIRED"),
+    
     POSTAL_CODE_MISMATCH("POSTAL_CODE_MISMATCH"),
     
     RATE_CENTER_NOT_PORTABLE("RATE_CENTER_NOT_PORTABLE"),

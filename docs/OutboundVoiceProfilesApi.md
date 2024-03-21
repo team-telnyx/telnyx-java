@@ -4,17 +4,17 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#createOutboundVoiceProfile) | **POST** /outbound_voice_profiles | Create an outbound voice profile
+[**createVoiceProfile**](OutboundVoiceProfilesApi.md#createVoiceProfile) | **POST** /outbound_voice_profiles | Create an outbound voice profile
 [**deleteOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#deleteOutboundVoiceProfile) | **DELETE** /outbound_voice_profiles/{id} | Delete an outbound voice profile
+[**getOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#getOutboundVoiceProfile) | **GET** /outbound_voice_profiles/{id} | Retrieve an outbound voice profile
 [**listOutboundVoiceProfiles**](OutboundVoiceProfilesApi.md#listOutboundVoiceProfiles) | **GET** /outbound_voice_profiles | Get all outbound voice profiles
-[**retrieveOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#retrieveOutboundVoiceProfile) | **GET** /outbound_voice_profiles/{id} | Retrieve an outbound voice profile
 [**updateOutboundVoiceProfile**](OutboundVoiceProfilesApi.md#updateOutboundVoiceProfile) | **PATCH** /outbound_voice_profiles/{id} | Updates an existing outbound voice profile.
 
 
 
-## createOutboundVoiceProfile
+## createVoiceProfile
 
-> OutboundVoiceProfileResponse createOutboundVoiceProfile(createOutboundVoiceProfileRequest)
+> OutboundVoiceProfileResponse createVoiceProfile(createOutboundVoiceProfileRequest)
 
 Create an outbound voice profile
 
@@ -43,10 +43,10 @@ public class Example {
         OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
         CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest = new CreateOutboundVoiceProfileRequest(); // CreateOutboundVoiceProfileRequest | Parameters that can be defined when creating an outbound voice profile
         try {
-            OutboundVoiceProfileResponse result = apiInstance.createOutboundVoiceProfile(createOutboundVoiceProfileRequest);
+            OutboundVoiceProfileResponse result = apiInstance.createVoiceProfile(createOutboundVoiceProfileRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling OutboundVoiceProfilesApi#createOutboundVoiceProfile");
+            System.err.println("Exception when calling OutboundVoiceProfilesApi#createVoiceProfile");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -120,6 +120,79 @@ public class Example {
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling OutboundVoiceProfilesApi#deleteOutboundVoiceProfile");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Identifies the resource. |
+
+### Return type
+
+[**OutboundVoiceProfileResponse**](OutboundVoiceProfileResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **422** | Bad request |  -  |
+
+
+## getOutboundVoiceProfile
+
+> OutboundVoiceProfileResponse getOutboundVoiceProfile(id)
+
+Retrieve an outbound voice profile
+
+Retrieves the details of an existing outbound voice profile.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.OutboundVoiceProfilesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
+        String id = "1293384261075731499"; // String | Identifies the resource.
+        try {
+            OutboundVoiceProfileResponse result = apiInstance.getOutboundVoiceProfile(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OutboundVoiceProfilesApi#getOutboundVoiceProfile");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -238,79 +311,6 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
 | **401** | Unauthorized |  -  |
-| **422** | Bad request |  -  |
-
-
-## retrieveOutboundVoiceProfile
-
-> OutboundVoiceProfileResponse retrieveOutboundVoiceProfile(id)
-
-Retrieve an outbound voice profile
-
-Retrieves the details of an existing outbound voice profile.
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.OutboundVoiceProfilesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
-        try {
-            OutboundVoiceProfileResponse result = apiInstance.retrieveOutboundVoiceProfile(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling OutboundVoiceProfilesApi#retrieveOutboundVoiceProfile");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
-
-### Return type
-
-[**OutboundVoiceProfileResponse**](OutboundVoiceProfileResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
 | **422** | Bad request |  -  |
 
 

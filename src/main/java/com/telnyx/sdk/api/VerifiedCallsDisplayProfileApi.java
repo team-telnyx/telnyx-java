@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifiedCallsDisplayProfileApi {
   private ApiClient apiClient;
 
@@ -50,12 +50,12 @@ public class VerifiedCallsDisplayProfileApi {
   }
 
 
-private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> createVerifiedCallsDisplayProfileWithHttpInfo(CreateVerifiedCallsDisplayProfileRequest createVerifiedCallsDisplayProfileRequest) throws ApiException {
+private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> createProfileWithHttpInfo(CreateVerifiedCallsDisplayProfileRequest createVerifiedCallsDisplayProfileRequest) throws ApiException {
     Object localVarPostBody = createVerifiedCallsDisplayProfileRequest;
     
     // verify the required parameter 'createVerifiedCallsDisplayProfileRequest' is set
     if (createVerifiedCallsDisplayProfileRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createVerifiedCallsDisplayProfileRequest' when calling createVerifiedCallsDisplayProfile");
+      throw new ApiException(400, "Missing the required parameter 'createVerifiedCallsDisplayProfileRequest' when calling createProfile");
     }
     
     // create path and map variables
@@ -85,29 +85,29 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> createVerifiedCalls
 
     GenericType<ShowVerifiedCallsDisplayProfileResponse> localVarReturnType = new GenericType<ShowVerifiedCallsDisplayProfileResponse>() {};
 
-    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.createVerifiedCallsDisplayProfile", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.createProfile", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-  public class APIcreateVerifiedCallsDisplayProfileRequest {
+  public class APIcreateProfileRequest {
     private CreateVerifiedCallsDisplayProfileRequest createVerifiedCallsDisplayProfileRequest;
 
-    private APIcreateVerifiedCallsDisplayProfileRequest() {
+    private APIcreateProfileRequest() {
     }
 
     /**
      * Set createVerifiedCallsDisplayProfileRequest
      * @param createVerifiedCallsDisplayProfileRequest  (required)
-     * @return APIcreateVerifiedCallsDisplayProfileRequest
+     * @return APIcreateProfileRequest
      */
-    public APIcreateVerifiedCallsDisplayProfileRequest createVerifiedCallsDisplayProfileRequest(CreateVerifiedCallsDisplayProfileRequest createVerifiedCallsDisplayProfileRequest) {
+    public APIcreateProfileRequest createVerifiedCallsDisplayProfileRequest(CreateVerifiedCallsDisplayProfileRequest createVerifiedCallsDisplayProfileRequest) {
       this.createVerifiedCallsDisplayProfileRequest = createVerifiedCallsDisplayProfileRequest;
       return this;
     }
 
     /**
-     * Execute createVerifiedCallsDisplayProfile request
+     * Execute createProfile request
      * @return ShowVerifiedCallsDisplayProfileResponse
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -124,7 +124,7 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> createVerifiedCalls
     }
 
     /**
-     * Execute createVerifiedCallsDisplayProfile request with HTTP info returned
+     * Execute createProfile request with HTTP info returned
      * @return ApiResponse&lt;ShowVerifiedCallsDisplayProfileResponse&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -136,20 +136,20 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> createVerifiedCalls
 
      */
     public ApiResponse<ShowVerifiedCallsDisplayProfileResponse> executeWithHttpInfo() throws ApiException {
-      return createVerifiedCallsDisplayProfileWithHttpInfo(createVerifiedCallsDisplayProfileRequest);
+      return createProfileWithHttpInfo(createVerifiedCallsDisplayProfileRequest);
     }
   }
 
   /**
    * Creates a Verified Calls Display Profile
    * Creates a Verified Calls Display Profile associated with the given Business Identity
-   * @return createVerifiedCallsDisplayProfileRequest
+   * @return createProfileRequest
    * @throws ApiException if fails to make API call
    
    
    */
-  public APIcreateVerifiedCallsDisplayProfileRequest createVerifiedCallsDisplayProfile() throws ApiException {
-    return new APIcreateVerifiedCallsDisplayProfileRequest();
+  public APIcreateProfileRequest createProfile() throws ApiException {
+    return new APIcreateProfileRequest();
   }
   /**
    * Creates a Verification Request
@@ -163,8 +163,8 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> createVerifiedCalls
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public void createVerifiedCallsDisplayProfileVerificationRequest(String id) throws ApiException {
-    createVerifiedCallsDisplayProfileVerificationRequestWithHttpInfo(id);
+  public void createProfileVerificationRequest(String id) throws ApiException {
+    createProfileVerificationRequestWithHttpInfo(id);
   }
 
   /**
@@ -180,12 +180,12 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> createVerifiedCalls
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> createVerifiedCallsDisplayProfileVerificationRequestWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<Void> createProfileVerificationRequestWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling createVerifiedCallsDisplayProfileVerificationRequest");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling createProfileVerificationRequest");
     }
     
     // create path and map variables
@@ -214,17 +214,17 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> createVerifiedCalls
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.createVerifiedCallsDisplayProfileVerificationRequest", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.createProfileVerificationRequest", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, null, false);
   }
 
-private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> deleteVerifiedCallsDisplayProfileWithHttpInfo(String id) throws ApiException {
+private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> deleteProfileWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteVerifiedCallsDisplayProfile");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteProfile");
     }
     
     // create path and map variables
@@ -255,20 +255,20 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> deleteVerifiedCalls
 
     GenericType<ShowVerifiedCallsDisplayProfileResponse> localVarReturnType = new GenericType<ShowVerifiedCallsDisplayProfileResponse>() {};
 
-    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.deleteVerifiedCallsDisplayProfile", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.deleteProfile", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-  public class APIdeleteVerifiedCallsDisplayProfileRequest {
+  public class APIdeleteProfileRequest {
     private String id;
 
-    private APIdeleteVerifiedCallsDisplayProfileRequest(String id) {
+    private APIdeleteProfileRequest(String id) {
       this.id = id;
     }
 
     /**
-     * Execute deleteVerifiedCallsDisplayProfile request
+     * Execute deleteProfile request
      * @return ShowVerifiedCallsDisplayProfileResponse
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -285,7 +285,7 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> deleteVerifiedCalls
     }
 
     /**
-     * Execute deleteVerifiedCallsDisplayProfile request with HTTP info returned
+     * Execute deleteProfile request with HTTP info returned
      * @return ApiResponse&lt;ShowVerifiedCallsDisplayProfileResponse&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -297,7 +297,7 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> deleteVerifiedCalls
 
      */
     public ApiResponse<ShowVerifiedCallsDisplayProfileResponse> executeWithHttpInfo() throws ApiException {
-      return deleteVerifiedCallsDisplayProfileWithHttpInfo(id);
+      return deleteProfileWithHttpInfo(id);
     }
   }
 
@@ -305,21 +305,21 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> deleteVerifiedCalls
    * Deletes the Verified Calls Display Profile
    * Deletes the Verified Calls Display Profile. This action will fail if any verification requests have been made for this Verified Calls Display Profile. Please contact support@telnyx.com in case you want to delete a Verified Calls Display Profile in that situation.
    * @param id Identifies the Verified Calls Display Profile (required)
-   * @return deleteVerifiedCallsDisplayProfileRequest
+   * @return deleteProfileRequest
    * @throws ApiException if fails to make API call
    
    
    */
-  public APIdeleteVerifiedCallsDisplayProfileRequest deleteVerifiedCallsDisplayProfile(String id) throws ApiException {
-    return new APIdeleteVerifiedCallsDisplayProfileRequest(id);
+  public APIdeleteProfileRequest deleteProfile(String id) throws ApiException {
+    return new APIdeleteProfileRequest(id);
   }
 
-private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> displayVerifiedCallsDisplayProfileWithHttpInfo(String id) throws ApiException {
+private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> displayProfileWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling displayVerifiedCallsDisplayProfile");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling displayProfile");
     }
     
     // create path and map variables
@@ -350,20 +350,20 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> displayVerifiedCall
 
     GenericType<ShowVerifiedCallsDisplayProfileResponse> localVarReturnType = new GenericType<ShowVerifiedCallsDisplayProfileResponse>() {};
 
-    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.displayVerifiedCallsDisplayProfile", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.displayProfile", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-  public class APIdisplayVerifiedCallsDisplayProfileRequest {
+  public class APIdisplayProfileRequest {
     private String id;
 
-    private APIdisplayVerifiedCallsDisplayProfileRequest(String id) {
+    private APIdisplayProfileRequest(String id) {
       this.id = id;
     }
 
     /**
-     * Execute displayVerifiedCallsDisplayProfile request
+     * Execute displayProfile request
      * @return ShowVerifiedCallsDisplayProfileResponse
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -380,7 +380,7 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> displayVerifiedCall
     }
 
     /**
-     * Execute displayVerifiedCallsDisplayProfile request with HTTP info returned
+     * Execute displayProfile request with HTTP info returned
      * @return ApiResponse&lt;ShowVerifiedCallsDisplayProfileResponse&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -392,7 +392,7 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> displayVerifiedCall
 
      */
     public ApiResponse<ShowVerifiedCallsDisplayProfileResponse> executeWithHttpInfo() throws ApiException {
-      return displayVerifiedCallsDisplayProfileWithHttpInfo(id);
+      return displayProfileWithHttpInfo(id);
     }
   }
 
@@ -400,16 +400,16 @@ private ApiResponse<ShowVerifiedCallsDisplayProfileResponse> displayVerifiedCall
    * Display the Verified Calls Display Profile
    * 
    * @param id Identifies the Verified Calls Display Profile (required)
-   * @return displayVerifiedCallsDisplayProfileRequest
+   * @return displayProfileRequest
    * @throws ApiException if fails to make API call
    
    
    */
-  public APIdisplayVerifiedCallsDisplayProfileRequest displayVerifiedCallsDisplayProfile(String id) throws ApiException {
-    return new APIdisplayVerifiedCallsDisplayProfileRequest(id);
+  public APIdisplayProfileRequest displayProfile(String id) throws ApiException {
+    return new APIdisplayProfileRequest(id);
   }
 
-private ApiResponse<ListVerifiedCallsDisplayProfilesResponse> listVerifiedCallsDisplayProfilesWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+private ApiResponse<ListVerifiedCallsDisplayProfilesResponse> listProfilesWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -441,24 +441,24 @@ private ApiResponse<ListVerifiedCallsDisplayProfilesResponse> listVerifiedCallsD
 
     GenericType<ListVerifiedCallsDisplayProfilesResponse> localVarReturnType = new GenericType<ListVerifiedCallsDisplayProfilesResponse>() {};
 
-    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.listVerifiedCallsDisplayProfiles", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.listProfiles", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-  public class APIlistVerifiedCallsDisplayProfilesRequest {
+  public class APIlistProfilesRequest {
     private Integer pageNumber;
     private Integer pageSize;
 
-    private APIlistVerifiedCallsDisplayProfilesRequest() {
+    private APIlistProfilesRequest() {
     }
 
     /**
      * Set pageNumber
      * @param pageNumber The page number to load (optional, default to 1)
-     * @return APIlistVerifiedCallsDisplayProfilesRequest
+     * @return APIlistProfilesRequest
      */
-    public APIlistVerifiedCallsDisplayProfilesRequest pageNumber(Integer pageNumber) {
+    public APIlistProfilesRequest pageNumber(Integer pageNumber) {
       this.pageNumber = pageNumber;
       return this;
     }
@@ -466,15 +466,15 @@ private ApiResponse<ListVerifiedCallsDisplayProfilesResponse> listVerifiedCallsD
     /**
      * Set pageSize
      * @param pageSize The size of the page (optional, default to 20)
-     * @return APIlistVerifiedCallsDisplayProfilesRequest
+     * @return APIlistProfilesRequest
      */
-    public APIlistVerifiedCallsDisplayProfilesRequest pageSize(Integer pageSize) {
+    public APIlistProfilesRequest pageSize(Integer pageSize) {
       this.pageSize = pageSize;
       return this;
     }
 
     /**
-     * Execute listVerifiedCallsDisplayProfiles request
+     * Execute listProfiles request
      * @return ListVerifiedCallsDisplayProfilesResponse
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -491,7 +491,7 @@ private ApiResponse<ListVerifiedCallsDisplayProfilesResponse> listVerifiedCallsD
     }
 
     /**
-     * Execute listVerifiedCallsDisplayProfiles request with HTTP info returned
+     * Execute listProfiles request with HTTP info returned
      * @return ApiResponse&lt;ListVerifiedCallsDisplayProfilesResponse&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -503,33 +503,33 @@ private ApiResponse<ListVerifiedCallsDisplayProfilesResponse> listVerifiedCallsD
 
      */
     public ApiResponse<ListVerifiedCallsDisplayProfilesResponse> executeWithHttpInfo() throws ApiException {
-      return listVerifiedCallsDisplayProfilesWithHttpInfo(pageNumber, pageSize);
+      return listProfilesWithHttpInfo(pageNumber, pageSize);
     }
   }
 
   /**
    * Lists the Verified Calls Display Profiles owned by the current user/organization
    * 
-   * @return listVerifiedCallsDisplayProfilesRequest
+   * @return listProfilesRequest
    * @throws ApiException if fails to make API call
    
    
    */
-  public APIlistVerifiedCallsDisplayProfilesRequest listVerifiedCallsDisplayProfiles() throws ApiException {
-    return new APIlistVerifiedCallsDisplayProfilesRequest();
+  public APIlistProfilesRequest listProfiles() throws ApiException {
+    return new APIlistProfilesRequest();
   }
 
-private ApiResponse<Void> updateVerifiedCallsDisplayProfileWithHttpInfo(String id, UpdateVerifiedCallsDisplayProfileRequest updateVerifiedCallsDisplayProfileRequest) throws ApiException {
+private ApiResponse<Void> updateProfileWithHttpInfo(String id, UpdateVerifiedCallsDisplayProfileRequest updateVerifiedCallsDisplayProfileRequest) throws ApiException {
     Object localVarPostBody = updateVerifiedCallsDisplayProfileRequest;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateVerifiedCallsDisplayProfile");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updateProfile");
     }
     
     // verify the required parameter 'updateVerifiedCallsDisplayProfileRequest' is set
     if (updateVerifiedCallsDisplayProfileRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateVerifiedCallsDisplayProfileRequest' when calling updateVerifiedCallsDisplayProfile");
+      throw new ApiException(400, "Missing the required parameter 'updateVerifiedCallsDisplayProfileRequest' when calling updateProfile");
     }
     
     // create path and map variables
@@ -558,31 +558,31 @@ private ApiResponse<Void> updateVerifiedCallsDisplayProfileWithHttpInfo(String i
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.updateVerifiedCallsDisplayProfile", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("VerifiedCallsDisplayProfileApi.updateProfile", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, null, false);
   }
 
-  public class APIupdateVerifiedCallsDisplayProfileRequest {
+  public class APIupdateProfileRequest {
     private String id;
     private UpdateVerifiedCallsDisplayProfileRequest updateVerifiedCallsDisplayProfileRequest;
 
-    private APIupdateVerifiedCallsDisplayProfileRequest(String id) {
+    private APIupdateProfileRequest(String id) {
       this.id = id;
     }
 
     /**
      * Set updateVerifiedCallsDisplayProfileRequest
      * @param updateVerifiedCallsDisplayProfileRequest  (required)
-     * @return APIupdateVerifiedCallsDisplayProfileRequest
+     * @return APIupdateProfileRequest
      */
-    public APIupdateVerifiedCallsDisplayProfileRequest updateVerifiedCallsDisplayProfileRequest(UpdateVerifiedCallsDisplayProfileRequest updateVerifiedCallsDisplayProfileRequest) {
+    public APIupdateProfileRequest updateVerifiedCallsDisplayProfileRequest(UpdateVerifiedCallsDisplayProfileRequest updateVerifiedCallsDisplayProfileRequest) {
       this.updateVerifiedCallsDisplayProfileRequest = updateVerifiedCallsDisplayProfileRequest;
       return this;
     }
 
     /**
-     * Execute updateVerifiedCallsDisplayProfile request
+     * Execute updateProfile request
      
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -599,7 +599,7 @@ private ApiResponse<Void> updateVerifiedCallsDisplayProfileWithHttpInfo(String i
     }
 
     /**
-     * Execute updateVerifiedCallsDisplayProfile request with HTTP info returned
+     * Execute updateProfile request with HTTP info returned
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -611,7 +611,7 @@ private ApiResponse<Void> updateVerifiedCallsDisplayProfileWithHttpInfo(String i
 
      */
     public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
-      return updateVerifiedCallsDisplayProfileWithHttpInfo(id, updateVerifiedCallsDisplayProfileRequest);
+      return updateProfileWithHttpInfo(id, updateVerifiedCallsDisplayProfileRequest);
     }
   }
 
@@ -619,12 +619,12 @@ private ApiResponse<Void> updateVerifiedCallsDisplayProfileWithHttpInfo(String i
    * Update a Verified Calls Display Profile
    * Update an existing Verified Calls Display Profile and allows adding/removing nested Call Reasons and Phone Numbers. Different attributes can be updated depending on the Verified Calls Display Profile&#39;s status: For the VERIFICATION_STATE_PENDING status, no fields can be updated. For the VERIFICATION_STATE_VERIFIED status, it is allowed only to add/remove Call Reaons and Phone Numbers. For the other statuses, all fields can be updated. All existing Call Reasons and Phone Numbers must be sent during the request, or the update will fail.
    * @param id Identifies the Verified Calls Display Profile (required)
-   * @return updateVerifiedCallsDisplayProfileRequest
+   * @return updateProfileRequest
    * @throws ApiException if fails to make API call
    
    
    */
-  public APIupdateVerifiedCallsDisplayProfileRequest updateVerifiedCallsDisplayProfile(String id) throws ApiException {
-    return new APIupdateVerifiedCallsDisplayProfileRequest(id);
+  public APIupdateProfileRequest updateProfile(String id) throws ApiException {
+    return new APIupdateProfileRequest(id);
   }
 }

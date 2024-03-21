@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,10 +28,11 @@ import com.telnyx.sdk.model.CallRequestAnsweringMachineDetectionConfig;
 import com.telnyx.sdk.model.CustomSipHeader;
 import com.telnyx.sdk.model.SipHeader;
 import com.telnyx.sdk.model.SoundModifications;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -51,14 +54,16 @@ import com.telnyx.sdk.JSON;
   TransferCallRequest.JSON_PROPERTY_CLIENT_STATE,
   TransferCallRequest.JSON_PROPERTY_TARGET_LEG_CLIENT_STATE,
   TransferCallRequest.JSON_PROPERTY_COMMAND_ID,
+  TransferCallRequest.JSON_PROPERTY_MEDIA_ENCRYPTION,
   TransferCallRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
   TransferCallRequest.JSON_PROPERTY_SIP_AUTH_PASSWORD,
   TransferCallRequest.JSON_PROPERTY_SIP_HEADERS,
+  TransferCallRequest.JSON_PROPERTY_SIP_TRANSPORT_PROTOCOL,
   TransferCallRequest.JSON_PROPERTY_SOUND_MODIFICATIONS,
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL,
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TransferCallRequest {
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
@@ -85,6 +90,8 @@ public class TransferCallRequest {
    * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#39;greeting_end&#39; or &#39;detect_words&#39; is used and a &#39;machine&#39; is detected, you will receive another &#39;call.machine.greeting.ended&#39; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#39;call.machine.greeting.ended&#39; if a beep is detected.
    */
   public enum AnsweringMachineDetectionEnum {
+    PREMIUM("premium"),
+    
     DETECT("detect"),
     
     DETECT_BEEP("detect_beep"),
@@ -140,6 +147,44 @@ public class TransferCallRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
+  /**
+   * Defines whether media should be encrypted on the new call leg.
+   */
+  public enum MediaEncryptionEnum {
+    DISABLED("disabled"),
+    
+    SRTP("SRTP");
+
+    private String value;
+
+    MediaEncryptionEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static MediaEncryptionEnum fromValue(String value) {
+      for (MediaEncryptionEnum b : MediaEncryptionEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_MEDIA_ENCRYPTION = "media_encryption";
+  private MediaEncryptionEnum mediaEncryption = MediaEncryptionEnum.DISABLED;
+
   public static final String JSON_PROPERTY_SIP_AUTH_USERNAME = "sip_auth_username";
   private String sipAuthUsername;
 
@@ -148,6 +193,46 @@ public class TransferCallRequest {
 
   public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
   private List<SipHeader> sipHeaders = null;
+
+  /**
+   * Defines SIP transport protocol to be used on the call.
+   */
+  public enum SipTransportProtocolEnum {
+    UDP("UDP"),
+    
+    TCP("TCP"),
+    
+    TLS("TLS");
+
+    private String value;
+
+    SipTransportProtocolEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SipTransportProtocolEnum fromValue(String value) {
+      for (SipTransportProtocolEnum b : SipTransportProtocolEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_SIP_TRANSPORT_PROTOCOL = "sip_transport_protocol";
+  private SipTransportProtocolEnum sipTransportProtocol = SipTransportProtocolEnum.UDP;
 
   public static final String JSON_PROPERTY_SOUND_MODIFICATIONS = "sound_modifications";
   private SoundModifications soundModifications;
@@ -202,11 +287,11 @@ public class TransferCallRequest {
   }
 
    /**
-   * The DID or SIP URI to dial out and bridge to the given call.
+   * The DID or SIP URI to dial out to.
    * @return to
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "+18005550100 or sip:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out and bridge to the given call.")
+  @ApiModelProperty(example = "+18005550100 or sip:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out to.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -228,11 +313,11 @@ public class TransferCallRequest {
   }
 
    /**
-   * The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number). The number should be in +E164 format. This attribute will default to the &#x60;from&#x60; number of the original call if omitted.
+   * The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number). The number should be in +E164 format. This attribute will default to the &#x60;to&#x60; number of the original call if omitted.
    * @return from
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "+18005550101", value = "The `from` number to be used as the caller id presented to the destination (`to` number). The number should be in +E164 format. This attribute will default to the `from` number of the original call if omitted.")
+  @ApiModelProperty(example = "+18005550101", value = "The `from` number to be used as the caller id presented to the destination (`to` number). The number should be in +E164 format. This attribute will default to the `to` number of the original call if omitted.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -359,6 +444,8 @@ public class TransferCallRequest {
 
    /**
    * Sets the maximum duration of a Call Control Leg in seconds. If the time limit is reached, the call will hangup and a &#x60;call.hangup&#x60; webhook with a &#x60;hangup_cause&#x60; of &#x60;time_limit&#x60; will be sent. For example, by setting a time limit of 120 seconds, a Call Leg will be automatically terminated two minutes after being answered. The default time limit is 14400 seconds or 4 hours and this is also the maximum allowed call length.
+   * minimum: 30
+   * maximum: 14400
    * @return timeLimitSecs
   **/
   @javax.annotation.Nullable
@@ -542,6 +629,32 @@ public class TransferCallRequest {
   }
 
 
+  public TransferCallRequest mediaEncryption(MediaEncryptionEnum mediaEncryption) {
+    this.mediaEncryption = mediaEncryption;
+    return this;
+  }
+
+   /**
+   * Defines whether media should be encrypted on the new call leg.
+   * @return mediaEncryption
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Defines whether media should be encrypted on the new call leg.")
+  @JsonProperty(JSON_PROPERTY_MEDIA_ENCRYPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MediaEncryptionEnum getMediaEncryption() {
+    return mediaEncryption;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEDIA_ENCRYPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMediaEncryption(MediaEncryptionEnum mediaEncryption) {
+    this.mediaEncryption = mediaEncryption;
+  }
+
+
   public TransferCallRequest sipAuthUsername(String sipAuthUsername) {
     this.sipAuthUsername = sipAuthUsername;
     return this;
@@ -612,7 +725,7 @@ public class TransferCallRequest {
    * @return sipHeaders
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "[{\"name\":\"user-to-user\",\"value\":\"value\"}]", value = "SIP headers to be added to the SIP INVITE. Currently only User-to-User header is supported.")
+  @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"value\"}]", value = "SIP headers to be added to the SIP INVITE. Currently only User-to-User header is supported.")
   @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -625,6 +738,32 @@ public class TransferCallRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSipHeaders(List<SipHeader> sipHeaders) {
     this.sipHeaders = sipHeaders;
+  }
+
+
+  public TransferCallRequest sipTransportProtocol(SipTransportProtocolEnum sipTransportProtocol) {
+    this.sipTransportProtocol = sipTransportProtocol;
+    return this;
+  }
+
+   /**
+   * Defines SIP transport protocol to be used on the call.
+   * @return sipTransportProtocol
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Defines SIP transport protocol to be used on the call.")
+  @JsonProperty(JSON_PROPERTY_SIP_TRANSPORT_PROTOCOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SipTransportProtocolEnum getSipTransportProtocol() {
+    return sipTransportProtocol;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIP_TRANSPORT_PROTOCOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSipTransportProtocol(SipTransportProtocolEnum sipTransportProtocol) {
+    this.sipTransportProtocol = sipTransportProtocol;
   }
 
 
@@ -731,9 +870,11 @@ public class TransferCallRequest {
         Objects.equals(this.clientState, transferCallRequest.clientState) &&
         Objects.equals(this.targetLegClientState, transferCallRequest.targetLegClientState) &&
         Objects.equals(this.commandId, transferCallRequest.commandId) &&
+        Objects.equals(this.mediaEncryption, transferCallRequest.mediaEncryption) &&
         Objects.equals(this.sipAuthUsername, transferCallRequest.sipAuthUsername) &&
         Objects.equals(this.sipAuthPassword, transferCallRequest.sipAuthPassword) &&
         Objects.equals(this.sipHeaders, transferCallRequest.sipHeaders) &&
+        Objects.equals(this.sipTransportProtocol, transferCallRequest.sipTransportProtocol) &&
         Objects.equals(this.soundModifications, transferCallRequest.soundModifications) &&
         Objects.equals(this.webhookUrl, transferCallRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, transferCallRequest.webhookUrlMethod);
@@ -741,7 +882,7 @@ public class TransferCallRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, fromDisplayName, audioUrl, mediaName, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, targetLegClientState, commandId, sipAuthUsername, sipAuthPassword, sipHeaders, soundModifications, webhookUrl, webhookUrlMethod);
+    return Objects.hash(to, from, fromDisplayName, audioUrl, mediaName, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, targetLegClientState, commandId, mediaEncryption, sipAuthUsername, sipAuthPassword, sipHeaders, sipTransportProtocol, soundModifications, webhookUrl, webhookUrlMethod);
   }
 
   @Override
@@ -761,9 +902,11 @@ public class TransferCallRequest {
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    targetLegClientState: ").append(toIndentedString(targetLegClientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
+    sb.append("    mediaEncryption: ").append(toIndentedString(mediaEncryption)).append("\n");
     sb.append("    sipAuthUsername: ").append(toIndentedString(sipAuthUsername)).append("\n");
     sb.append("    sipAuthPassword: ").append(toIndentedString(sipAuthPassword)).append("\n");
     sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
+    sb.append("    sipTransportProtocol: ").append(toIndentedString(sipTransportProtocol)).append("\n");
     sb.append("    soundModifications: ").append(toIndentedString(soundModifications)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");

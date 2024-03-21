@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,9 +26,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallControlApplicationInbound;
 import com.telnyx.sdk.model.CallControlApplicationOutbound;
+import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -51,7 +55,7 @@ import com.telnyx.sdk.JSON;
   CreateCallControlApplicationRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   CreateCallControlApplicationRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateCallControlApplicationRequest {
   public static final String JSON_PROPERTY_APPLICATION_NAME = "application_name";
   private String applicationName;

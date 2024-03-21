@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RoomsApi {
   private ApiClient apiClient;
 
@@ -190,6 +190,113 @@ public class RoomsApi {
                                localVarAuthNames, null, false);
   }
   /**
+   * View a list of room sessions.
+   * 
+   * @param roomId The unique identifier of a room. (required)
+   * @param filterDateCreatedAtEq ISO 8601 date for filtering room sessions created on that date. (optional)
+   * @param filterDateCreatedAtGte ISO 8601 date for filtering room sessions created after that date. (optional)
+   * @param filterDateCreatedAtLte ISO 8601 date for filtering room sessions created before that date. (optional)
+   * @param filterDateUpdatedAtEq ISO 8601 date for filtering room sessions updated on that date. (optional)
+   * @param filterDateUpdatedAtGte ISO 8601 date for filtering room sessions updated after that date. (optional)
+   * @param filterDateUpdatedAtLte ISO 8601 date for filtering room sessions updated before that date. (optional)
+   * @param filterDateEndedAtEq ISO 8601 date for filtering room sessions ended on that date. (optional)
+   * @param filterDateEndedAtGte ISO 8601 date for filtering room sessions ended after that date. (optional)
+   * @param filterDateEndedAtLte ISO 8601 date for filtering room sessions ended before that date. (optional)
+   * @param filterActive Filter active or inactive room sessions. (optional)
+   * @param includeParticipants To decide if room participants should be included in the response. (optional)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @return ListRoomSessions200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> List room sessions response. </td><td>  -  </td></tr>
+     </table>
+   */
+  public ListRoomSessions200Response listRoomSessions(UUID roomId, LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, Boolean filterActive, Boolean includeParticipants, Integer pageSize, Integer pageNumber) throws ApiException {
+    return listRoomSessionsWithHttpInfo(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber).getData();
+  }
+
+  /**
+   * View a list of room sessions.
+   * 
+   * @param roomId The unique identifier of a room. (required)
+   * @param filterDateCreatedAtEq ISO 8601 date for filtering room sessions created on that date. (optional)
+   * @param filterDateCreatedAtGte ISO 8601 date for filtering room sessions created after that date. (optional)
+   * @param filterDateCreatedAtLte ISO 8601 date for filtering room sessions created before that date. (optional)
+   * @param filterDateUpdatedAtEq ISO 8601 date for filtering room sessions updated on that date. (optional)
+   * @param filterDateUpdatedAtGte ISO 8601 date for filtering room sessions updated after that date. (optional)
+   * @param filterDateUpdatedAtLte ISO 8601 date for filtering room sessions updated before that date. (optional)
+   * @param filterDateEndedAtEq ISO 8601 date for filtering room sessions ended on that date. (optional)
+   * @param filterDateEndedAtGte ISO 8601 date for filtering room sessions ended after that date. (optional)
+   * @param filterDateEndedAtLte ISO 8601 date for filtering room sessions ended before that date. (optional)
+   * @param filterActive Filter active or inactive room sessions. (optional)
+   * @param includeParticipants To decide if room participants should be included in the response. (optional)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @return ApiResponse&lt;ListRoomSessions200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> List room sessions response. </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<ListRoomSessions200Response> listRoomSessionsWithHttpInfo(UUID roomId, LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, Boolean filterActive, Boolean includeParticipants, Integer pageSize, Integer pageNumber) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'roomId' is set
+    if (roomId == null) {
+      throw new ApiException(400, "Missing the required parameter 'roomId' when calling listRoomSessions");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/rooms/{room_id}/sessions"
+      .replaceAll("\\{" + "room_id" + "\\}", apiClient.escapeString(roomId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_created_at][eq]", filterDateCreatedAtEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_created_at][gte]", filterDateCreatedAtGte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_created_at][lte]", filterDateCreatedAtLte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][eq]", filterDateUpdatedAtEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][gte]", filterDateUpdatedAtGte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][lte]", filterDateUpdatedAtLte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][eq]", filterDateEndedAtEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][gte]", filterDateEndedAtGte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][lte]", filterDateEndedAtLte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[active]", filterActive));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "include_participants", includeParticipants));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ListRoomSessions200Response> localVarReturnType = new GenericType<ListRoomSessions200Response>() {};
+
+    return apiClient.invokeAPI("RoomsApi.listRoomSessions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * View a list of rooms.
    * 
    * @param filterDateCreatedAtEq ISO 8601 date for filtering rooms created on that date. (optional)
@@ -280,113 +387,6 @@ public class RoomsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * View a list of room sessions.
-   * 
-   * @param roomId The unique identifier of a room. (required)
-   * @param filterDateCreatedAtEq ISO 8601 date for filtering room sessions created on that date. (optional)
-   * @param filterDateCreatedAtGte ISO 8601 date for filtering room sessions created after that date. (optional)
-   * @param filterDateCreatedAtLte ISO 8601 date for filtering room sessions created before that date. (optional)
-   * @param filterDateUpdatedAtEq ISO 8601 date for filtering room sessions updated on that date. (optional)
-   * @param filterDateUpdatedAtGte ISO 8601 date for filtering room sessions updated after that date. (optional)
-   * @param filterDateUpdatedAtLte ISO 8601 date for filtering room sessions updated before that date. (optional)
-   * @param filterDateEndedAtEq ISO 8601 date for filtering room sessions ended on that date. (optional)
-   * @param filterDateEndedAtGte ISO 8601 date for filtering room sessions ended after that date. (optional)
-   * @param filterDateEndedAtLte ISO 8601 date for filtering room sessions ended before that date. (optional)
-   * @param filterActive Filter active or inactive room sessions. (optional)
-   * @param includeParticipants To decide if room participants should be included in the response. (optional)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @return ListRoomSessions200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> List room sessions response. </td><td>  -  </td></tr>
-     </table>
-   */
-  public ListRoomSessions200Response nestedListRoomSessions(UUID roomId, LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, Boolean filterActive, Boolean includeParticipants, Integer pageSize, Integer pageNumber) throws ApiException {
-    return nestedListRoomSessionsWithHttpInfo(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber).getData();
-  }
-
-  /**
-   * View a list of room sessions.
-   * 
-   * @param roomId The unique identifier of a room. (required)
-   * @param filterDateCreatedAtEq ISO 8601 date for filtering room sessions created on that date. (optional)
-   * @param filterDateCreatedAtGte ISO 8601 date for filtering room sessions created after that date. (optional)
-   * @param filterDateCreatedAtLte ISO 8601 date for filtering room sessions created before that date. (optional)
-   * @param filterDateUpdatedAtEq ISO 8601 date for filtering room sessions updated on that date. (optional)
-   * @param filterDateUpdatedAtGte ISO 8601 date for filtering room sessions updated after that date. (optional)
-   * @param filterDateUpdatedAtLte ISO 8601 date for filtering room sessions updated before that date. (optional)
-   * @param filterDateEndedAtEq ISO 8601 date for filtering room sessions ended on that date. (optional)
-   * @param filterDateEndedAtGte ISO 8601 date for filtering room sessions ended after that date. (optional)
-   * @param filterDateEndedAtLte ISO 8601 date for filtering room sessions ended before that date. (optional)
-   * @param filterActive Filter active or inactive room sessions. (optional)
-   * @param includeParticipants To decide if room participants should be included in the response. (optional)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @return ApiResponse&lt;ListRoomSessions200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> List room sessions response. </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<ListRoomSessions200Response> nestedListRoomSessionsWithHttpInfo(UUID roomId, LocalDate filterDateCreatedAtEq, LocalDate filterDateCreatedAtGte, LocalDate filterDateCreatedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, Boolean filterActive, Boolean includeParticipants, Integer pageSize, Integer pageNumber) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'roomId' is set
-    if (roomId == null) {
-      throw new ApiException(400, "Missing the required parameter 'roomId' when calling nestedListRoomSessions");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/rooms/{room_id}/sessions"
-      .replaceAll("\\{" + "room_id" + "\\}", apiClient.escapeString(roomId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_created_at][eq]", filterDateCreatedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_created_at][gte]", filterDateCreatedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_created_at][lte]", filterDateCreatedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][eq]", filterDateUpdatedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][gte]", filterDateUpdatedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][lte]", filterDateUpdatedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][eq]", filterDateEndedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][gte]", filterDateEndedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][lte]", filterDateEndedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[active]", filterActive));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "include_participants", includeParticipants));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListRoomSessions200Response> localVarReturnType = new GenericType<ListRoomSessions200Response>() {};
-
-    return apiClient.invokeAPI("RoomsApi.nestedListRoomSessions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
    * Update a room.
    * Synchronously update a Room.
    * @param roomId The unique identifier of a room. (required)
@@ -397,13 +397,13 @@ public class RoomsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Update room response. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public CreateRoom201Response patchRoom(UUID roomId, PatchRoomRequest patchRoomRequest) throws ApiException {
-    return patchRoomWithHttpInfo(roomId, patchRoomRequest).getData();
+  public CreateRoom201Response updateRoom(UUID roomId, PatchRoomRequest patchRoomRequest) throws ApiException {
+    return updateRoomWithHttpInfo(roomId, patchRoomRequest).getData();
   }
 
   /**
@@ -417,22 +417,22 @@ public class RoomsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Update room response. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateRoom201Response> patchRoomWithHttpInfo(UUID roomId, PatchRoomRequest patchRoomRequest) throws ApiException {
+  public ApiResponse<CreateRoom201Response> updateRoomWithHttpInfo(UUID roomId, PatchRoomRequest patchRoomRequest) throws ApiException {
     Object localVarPostBody = patchRoomRequest;
     
     // verify the required parameter 'roomId' is set
     if (roomId == null) {
-      throw new ApiException(400, "Missing the required parameter 'roomId' when calling patchRoom");
+      throw new ApiException(400, "Missing the required parameter 'roomId' when calling updateRoom");
     }
     
     // verify the required parameter 'patchRoomRequest' is set
     if (patchRoomRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'patchRoomRequest' when calling patchRoom");
+      throw new ApiException(400, "Missing the required parameter 'patchRoomRequest' when calling updateRoom");
     }
     
     // create path and map variables
@@ -463,7 +463,7 @@ public class RoomsApi {
 
     GenericType<CreateRoom201Response> localVarReturnType = new GenericType<CreateRoom201Response>() {};
 
-    return apiClient.invokeAPI("RoomsApi.patchRoom", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("RoomsApi.updateRoom", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -36,9 +40,11 @@ import com.telnyx.sdk.JSON;
   BridgeRequest.JSON_PROPERTY_CLIENT_STATE,
   BridgeRequest.JSON_PROPERTY_COMMAND_ID,
   BridgeRequest.JSON_PROPERTY_QUEUE,
+  BridgeRequest.JSON_PROPERTY_VIDEO_ROOM_ID,
+  BridgeRequest.JSON_PROPERTY_VIDEO_ROOM_CONTEXT,
   BridgeRequest.JSON_PROPERTY_PARK_AFTER_UNBRIDGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BridgeRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -52,6 +58,12 @@ public class BridgeRequest {
   public static final String JSON_PROPERTY_QUEUE = "queue";
   private String queue;
 
+  public static final String JSON_PROPERTY_VIDEO_ROOM_ID = "video_room_id";
+  private UUID videoRoomId;
+
+  public static final String JSON_PROPERTY_VIDEO_ROOM_CONTEXT = "video_room_context";
+  private String videoRoomContext;
+
   public static final String JSON_PROPERTY_PARK_AFTER_UNBRIDGE = "park_after_unbridge";
   private String parkAfterUnbridge;
 
@@ -64,11 +76,11 @@ public class BridgeRequest {
   }
 
    /**
-   * The Call Control ID of the call you want to bridge with.
+   * The Call Control ID of the call you want to bridge with, can&#39;t be used together with queue parameter or video_room_id parameter.
    * @return callControlId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", required = true, value = "The Call Control ID of the call you want to bridge with.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", required = true, value = "The Call Control ID of the call you want to bridge with, can't be used together with queue parameter or video_room_id parameter.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -142,11 +154,11 @@ public class BridgeRequest {
   }
 
    /**
-   * The name of the queue you want to bridge with, can&#39;t be used together with call_control_id parameter. Bridging with a queue means bridging with the first call in the queue. The call will always be removed from the queue regardless of whether bridging succeeds. Returns an error when the queue is empty.
+   * The name of the queue you want to bridge with, can&#39;t be used together with call_control_id parameter or video_room_id parameter. Bridging with a queue means bridging with the first call in the queue. The call will always be removed from the queue regardless of whether bridging succeeds. Returns an error when the queue is empty.
    * @return queue
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "support", value = "The name of the queue you want to bridge with, can't be used together with call_control_id parameter. Bridging with a queue means bridging with the first call in the queue. The call will always be removed from the queue regardless of whether bridging succeeds. Returns an error when the queue is empty.")
+  @ApiModelProperty(example = "support", value = "The name of the queue you want to bridge with, can't be used together with call_control_id parameter or video_room_id parameter. Bridging with a queue means bridging with the first call in the queue. The call will always be removed from the queue regardless of whether bridging succeeds. Returns an error when the queue is empty.")
   @JsonProperty(JSON_PROPERTY_QUEUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -159,6 +171,58 @@ public class BridgeRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setQueue(String queue) {
     this.queue = queue;
+  }
+
+
+  public BridgeRequest videoRoomId(UUID videoRoomId) {
+    this.videoRoomId = videoRoomId;
+    return this;
+  }
+
+   /**
+   * The ID of the video room you want to bridge with, can&#39;t be used together with call_control_id parameter or queue parameter.
+   * @return videoRoomId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "The ID of the video room you want to bridge with, can't be used together with call_control_id parameter or queue parameter.")
+  @JsonProperty(JSON_PROPERTY_VIDEO_ROOM_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getVideoRoomId() {
+    return videoRoomId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VIDEO_ROOM_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVideoRoomId(UUID videoRoomId) {
+    this.videoRoomId = videoRoomId;
+  }
+
+
+  public BridgeRequest videoRoomContext(String videoRoomContext) {
+    this.videoRoomContext = videoRoomContext;
+    return this;
+  }
+
+   /**
+   * The additional parameter that will be passed to the video conference. It is a text field and the user can decide how to use it. For example, you can set the participant name or pass JSON text. It can be used only with video_room_id parameter.
+   * @return videoRoomContext
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Alice", value = "The additional parameter that will be passed to the video conference. It is a text field and the user can decide how to use it. For example, you can set the participant name or pass JSON text. It can be used only with video_room_id parameter.")
+  @JsonProperty(JSON_PROPERTY_VIDEO_ROOM_CONTEXT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVideoRoomContext() {
+    return videoRoomContext;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VIDEO_ROOM_CONTEXT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVideoRoomContext(String videoRoomContext) {
+    this.videoRoomContext = videoRoomContext;
   }
 
 
@@ -204,12 +268,14 @@ public class BridgeRequest {
         Objects.equals(this.clientState, bridgeRequest.clientState) &&
         Objects.equals(this.commandId, bridgeRequest.commandId) &&
         Objects.equals(this.queue, bridgeRequest.queue) &&
+        Objects.equals(this.videoRoomId, bridgeRequest.videoRoomId) &&
+        Objects.equals(this.videoRoomContext, bridgeRequest.videoRoomContext) &&
         Objects.equals(this.parkAfterUnbridge, bridgeRequest.parkAfterUnbridge);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, clientState, commandId, queue, parkAfterUnbridge);
+    return Objects.hash(callControlId, clientState, commandId, queue, videoRoomId, videoRoomContext, parkAfterUnbridge);
   }
 
   @Override
@@ -220,6 +286,8 @@ public class BridgeRequest {
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    queue: ").append(toIndentedString(queue)).append("\n");
+    sb.append("    videoRoomId: ").append(toIndentedString(videoRoomId)).append("\n");
+    sb.append("    videoRoomContext: ").append(toIndentedString(videoRoomContext)).append("\n");
     sb.append("    parkAfterUnbridge: ").append(toIndentedString(parkAfterUnbridge)).append("\n");
     sb.append("}");
     return sb.toString();

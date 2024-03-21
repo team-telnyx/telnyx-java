@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ImmutableSetLong extends ArrayList<Long> {
   public ImmutableSetLong() { 
   }

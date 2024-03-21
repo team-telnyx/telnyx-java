@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,14 +24,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.model.TFPhoneNumber;
 import com.telnyx.sdk.model.Url;
 import com.telnyx.sdk.model.UseCaseCategories;
 import com.telnyx.sdk.model.Volume;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -61,7 +64,7 @@ import com.telnyx.sdk.JSON;
   TFVerificationRequest.JSON_PROPERTY_ISV_RESELLER,
   TFVerificationRequest.JSON_PROPERTY_WEBHOOK_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TFVerificationRequest {
   public static final String JSON_PROPERTY_BUSINESS_NAME = "businessName";
   private String businessName;
@@ -421,11 +424,11 @@ public class TFVerificationRequest {
   }
 
    /**
-   * Get messageVolume
+   * One of the following exact values: 10; 100; 1,000; 10,000; 100,000; 250,000; 500,000; 750,000; 1,000,000; 5,000,000; 10,000,000+
    * @return messageVolume
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "One of the following exact values: 10; 100; 1,000; 10,000; 100,000; 250,000; 500,000; 750,000; 1,000,000; 5,000,000; 10,000,000+")
   @JsonProperty(JSON_PROPERTY_MESSAGE_VOLUME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

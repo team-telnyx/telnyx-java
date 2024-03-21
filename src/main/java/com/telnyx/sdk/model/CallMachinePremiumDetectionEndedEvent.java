@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallMachinePremiumDetectionEnded;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -35,11 +38,13 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CallMachinePremiumDetectionEndedEvent.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallMachinePremiumDetectionEndedEvent {
   public static final String JSON_PROPERTY_DATA = "data";
   private CallMachinePremiumDetectionEnded data;
 
+  public CallMachinePremiumDetectionEndedEvent() { 
+  }
 
   public CallMachinePremiumDetectionEndedEvent data(CallMachinePremiumDetectionEnded data) {
     this.data = data;
@@ -60,6 +65,8 @@ public class CallMachinePremiumDetectionEndedEvent {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(CallMachinePremiumDetectionEnded data) {
     this.data = data;
   }
@@ -84,7 +91,6 @@ public class CallMachinePremiumDetectionEndedEvent {
   public int hashCode() {
     return Objects.hash(data);
   }
-
 
   @Override
   public String toString() {

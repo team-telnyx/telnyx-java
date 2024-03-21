@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**recordType** | **String** | Identifies record type. |  [optional] |
-|**id** | **UUID** | Identifies the resource. |  [optional] [readonly] |
+|**id** | **UUID** | Identifies the type of resource. |  [optional] |
 |**eventType** | [**EventTypeEnum**](#EventTypeEnum) | The type of event being delivered. |  [optional] |
 |**payload** | [**FaxMediaProcessedPayload**](FaxMediaProcessedPayload.md) |  |  [optional] |
 

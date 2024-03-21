@@ -66,7 +66,7 @@ import com.telnyx.sdk.auth.ApiKeyAuth;
 /**
  * <p>ApiClient class.</p>
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ApiClient extends JavaTimeFormatter {
   protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   protected Map<String, String> defaultCookieMap = new HashMap<String, String>();
@@ -77,7 +77,7 @@ public class ApiClient extends JavaTimeFormatter {
   protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
     new ServerConfiguration(
       "https://api.telnyx.com/v2",
-      "Version 2.0.0 of the Telnyx API",
+      "Telnyx's Communication API",
       new HashMap<String, ServerVariable>()
     )
   ));

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,10 +25,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PhoneNumber;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -40,6 +43,7 @@ import com.telnyx.sdk.JSON;
   CreateNumberOrderRequest.JSON_PROPERTY_RECORD_TYPE,
   CreateNumberOrderRequest.JSON_PROPERTY_PHONE_NUMBERS,
   CreateNumberOrderRequest.JSON_PROPERTY_PHONE_NUMBERS_COUNT,
+  CreateNumberOrderRequest.JSON_PROPERTY_SUB_NUMBER_ORDER_IDS,
   CreateNumberOrderRequest.JSON_PROPERTY_CONNECTION_ID,
   CreateNumberOrderRequest.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   CreateNumberOrderRequest.JSON_PROPERTY_BILLING_GROUP_ID,
@@ -49,7 +53,7 @@ import com.telnyx.sdk.JSON;
   CreateNumberOrderRequest.JSON_PROPERTY_UPDATED_AT,
   CreateNumberOrderRequest.JSON_PROPERTY_REQUIREMENTS_MET
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateNumberOrderRequest {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -62,6 +66,9 @@ public class CreateNumberOrderRequest {
 
   public static final String JSON_PROPERTY_PHONE_NUMBERS_COUNT = "phone_numbers_count";
   private Integer phoneNumbersCount;
+
+  public static final String JSON_PROPERTY_SUB_NUMBER_ORDER_IDS = "sub_number_order_ids";
+  private List<String> subNumberOrderIds = null;
 
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -227,6 +234,40 @@ public class CreateNumberOrderRequest {
   }
 
 
+
+
+  public CreateNumberOrderRequest subNumberOrderIds(List<String> subNumberOrderIds) {
+    this.subNumberOrderIds = subNumberOrderIds;
+    return this;
+  }
+
+  public CreateNumberOrderRequest addSubNumberOrderIdsItem(String subNumberOrderIdsItem) {
+    if (this.subNumberOrderIds == null) {
+      this.subNumberOrderIds = new ArrayList<>();
+    }
+    this.subNumberOrderIds.add(subNumberOrderIdsItem);
+    return this;
+  }
+
+   /**
+   * Get subNumberOrderIds
+   * @return subNumberOrderIds
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SUB_NUMBER_ORDER_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSubNumberOrderIds() {
+    return subNumberOrderIds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUB_NUMBER_ORDER_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSubNumberOrderIds(List<String> subNumberOrderIds) {
+    this.subNumberOrderIds = subNumberOrderIds;
+  }
 
 
   public CreateNumberOrderRequest connectionId(String connectionId) {
@@ -413,6 +454,7 @@ public class CreateNumberOrderRequest {
         Objects.equals(this.recordType, createNumberOrderRequest.recordType) &&
         Objects.equals(this.phoneNumbers, createNumberOrderRequest.phoneNumbers) &&
         Objects.equals(this.phoneNumbersCount, createNumberOrderRequest.phoneNumbersCount) &&
+        Objects.equals(this.subNumberOrderIds, createNumberOrderRequest.subNumberOrderIds) &&
         Objects.equals(this.connectionId, createNumberOrderRequest.connectionId) &&
         Objects.equals(this.messagingProfileId, createNumberOrderRequest.messagingProfileId) &&
         Objects.equals(this.billingGroupId, createNumberOrderRequest.billingGroupId) &&
@@ -425,7 +467,7 @@ public class CreateNumberOrderRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumbers, phoneNumbersCount, connectionId, messagingProfileId, billingGroupId, status, customerReference, createdAt, updatedAt, requirementsMet);
+    return Objects.hash(id, recordType, phoneNumbers, phoneNumbersCount, subNumberOrderIds, connectionId, messagingProfileId, billingGroupId, status, customerReference, createdAt, updatedAt, requirementsMet);
   }
 
   @Override
@@ -436,6 +478,7 @@ public class CreateNumberOrderRequest {
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    phoneNumbers: ").append(toIndentedString(phoneNumbers)).append("\n");
     sb.append("    phoneNumbersCount: ").append(toIndentedString(phoneNumbersCount)).append("\n");
+    sb.append("    subNumberOrderIds: ").append(toIndentedString(subNumberOrderIds)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");

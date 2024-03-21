@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,12 +27,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.VerificationProfileRecordType;
 import com.telnyx.sdk.model.VerifyProfileCallResponse;
 import com.telnyx.sdk.model.VerifyProfileFlashcallResponse;
-import com.telnyx.sdk.model.VerifyProfilePSD2Response;
 import com.telnyx.sdk.model.VerifyProfileSMSResponse;
-import com.telnyx.sdk.model.VerifyProfileWhatsappResponse;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,13 +48,11 @@ import com.telnyx.sdk.JSON;
   VerifyProfileResponse.JSON_PROPERTY_CREATED_AT,
   VerifyProfileResponse.JSON_PROPERTY_UPDATED_AT,
   VerifyProfileResponse.JSON_PROPERTY_SMS,
-  VerifyProfileResponse.JSON_PROPERTY_PSD2,
-  VerifyProfileResponse.JSON_PROPERTY_WHATSAPP,
   VerifyProfileResponse.JSON_PROPERTY_CALL,
   VerifyProfileResponse.JSON_PROPERTY_FLASHCALL,
   VerifyProfileResponse.JSON_PROPERTY_LANGUAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifyProfileResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -78,12 +77,6 @@ public class VerifyProfileResponse {
 
   public static final String JSON_PROPERTY_SMS = "sms";
   private VerifyProfileSMSResponse sms;
-
-  public static final String JSON_PROPERTY_PSD2 = "psd2";
-  private VerifyProfilePSD2Response psd2;
-
-  public static final String JSON_PROPERTY_WHATSAPP = "whatsapp";
-  private VerifyProfileWhatsappResponse whatsapp;
 
   public static final String JSON_PROPERTY_CALL = "call";
   private VerifyProfileCallResponse call;
@@ -305,58 +298,6 @@ public class VerifyProfileResponse {
   }
 
 
-  public VerifyProfileResponse psd2(VerifyProfilePSD2Response psd2) {
-    this.psd2 = psd2;
-    return this;
-  }
-
-   /**
-   * Get psd2
-   * @return psd2
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PSD2)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public VerifyProfilePSD2Response getPsd2() {
-    return psd2;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PSD2)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPsd2(VerifyProfilePSD2Response psd2) {
-    this.psd2 = psd2;
-  }
-
-
-  public VerifyProfileResponse whatsapp(VerifyProfileWhatsappResponse whatsapp) {
-    this.whatsapp = whatsapp;
-    return this;
-  }
-
-   /**
-   * Get whatsapp
-   * @return whatsapp
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_WHATSAPP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public VerifyProfileWhatsappResponse getWhatsapp() {
-    return whatsapp;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_WHATSAPP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWhatsapp(VerifyProfileWhatsappResponse whatsapp) {
-    this.whatsapp = whatsapp;
-  }
-
-
   public VerifyProfileResponse call(VerifyProfileCallResponse call) {
     this.call = call;
     return this;
@@ -455,8 +396,6 @@ public class VerifyProfileResponse {
         Objects.equals(this.createdAt, verifyProfileResponse.createdAt) &&
         Objects.equals(this.updatedAt, verifyProfileResponse.updatedAt) &&
         Objects.equals(this.sms, verifyProfileResponse.sms) &&
-        Objects.equals(this.psd2, verifyProfileResponse.psd2) &&
-        Objects.equals(this.whatsapp, verifyProfileResponse.whatsapp) &&
         Objects.equals(this.call, verifyProfileResponse.call) &&
         Objects.equals(this.flashcall, verifyProfileResponse.flashcall) &&
         Objects.equals(this.language, verifyProfileResponse.language);
@@ -464,7 +403,7 @@ public class VerifyProfileResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, webhookUrl, webhookFailoverUrl, recordType, createdAt, updatedAt, sms, psd2, whatsapp, call, flashcall, language);
+    return Objects.hash(id, name, webhookUrl, webhookFailoverUrl, recordType, createdAt, updatedAt, sms, call, flashcall, language);
   }
 
   @Override
@@ -479,8 +418,6 @@ public class VerifyProfileResponse {
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    sms: ").append(toIndentedString(sms)).append("\n");
-    sb.append("    psd2: ").append(toIndentedString(psd2)).append("\n");
-    sb.append("    whatsapp: ").append(toIndentedString(whatsapp)).append("\n");
     sb.append("    call: ").append(toIndentedString(call)).append("\n");
     sb.append("    flashcall: ").append(toIndentedString(flashcall)).append("\n");
     sb.append("    language: ").append(toIndentedString(language)).append("\n");

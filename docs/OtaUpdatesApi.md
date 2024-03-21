@@ -4,14 +4,14 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**oTAUpdateGET**](OtaUpdatesApi.md#oTAUpdateGET) | **GET** /ota_updates/{id} | Get OTA update
-[**oTAUpdatesList**](OtaUpdatesApi.md#oTAUpdatesList) | **GET** /ota_updates | List OTA updates
+[**getOtaUpdate**](OtaUpdatesApi.md#getOtaUpdate) | **GET** /ota_updates/{id} | Get OTA update
+[**listOtaUpdates**](OtaUpdatesApi.md#listOtaUpdates) | **GET** /ota_updates | List OTA updates
 
 
 
-## oTAUpdateGET
+## getOtaUpdate
 
-> OTAUpdateGET200Response oTAUpdateGET(id)
+> GetOtaUpdate200Response getOtaUpdate(id)
 
 Get OTA update
 
@@ -41,10 +41,10 @@ public class Example {
         OtaUpdatesApi apiInstance = new OtaUpdatesApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            OTAUpdateGET200Response result = apiInstance.oTAUpdateGET(id);
+            GetOtaUpdate200Response result = apiInstance.getOtaUpdate(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling OtaUpdatesApi#oTAUpdateGET");
+            System.err.println("Exception when calling OtaUpdatesApi#getOtaUpdate");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OTAUpdateGET200Response**](OTAUpdateGET200Response.md)
+[**GetOtaUpdate200Response**](GetOtaUpdate200Response.md)
 
 ### Authorization
 
@@ -81,9 +81,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## oTAUpdatesList
+## listOtaUpdates
 
-> OTAUpdatesList200Response oTAUpdatesList(pageNumber, pageSize, filterStatus, filterSimCardId, filterType)
+> ListOtaUpdates200Response listOtaUpdates(pageNumber, pageSize, filterStatus, filterSimCardId, filterType)
 
 List OTA updates
 
@@ -114,10 +114,10 @@ public class Example {
         String filterSimCardId = "filterSimCardId_example"; // String | The SIM card identification UUID.
         String filterType = "sim_card_network_preferences"; // String | Filter by type.
         try {
-            OTAUpdatesList200Response result = apiInstance.oTAUpdatesList(pageNumber, pageSize, filterStatus, filterSimCardId, filterType);
+            ListOtaUpdates200Response result = apiInstance.listOtaUpdates(pageNumber, pageSize, filterStatus, filterSimCardId, filterType);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling OtaUpdatesApi#oTAUpdatesList");
+            System.err.println("Exception when calling OtaUpdatesApi#listOtaUpdates");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OTAUpdatesList200Response**](OTAUpdatesList200Response.md)
+[**ListOtaUpdates200Response**](ListOtaUpdates200Response.md)
 
 ### Authorization
 

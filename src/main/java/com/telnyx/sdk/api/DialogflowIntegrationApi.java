@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class DialogflowIntegrationApi {
   private ApiClient apiClient;
 
@@ -50,7 +50,7 @@ public class DialogflowIntegrationApi {
   /**
    * Create a Dialogflow Connection
    * Save Dialogflow Credentiails to Telnyx, so it can be used with other Telnyx services.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
    * @param dialogflowConnection The params expected to create/update a Dialogflow Connection for given connection_id. (required)
    * @return DialogflowConnectionResponse
    * @throws ApiException if fails to make API call
@@ -68,7 +68,7 @@ public class DialogflowIntegrationApi {
   /**
    * Create a Dialogflow Connection
    * Save Dialogflow Credentiails to Telnyx, so it can be used with other Telnyx services.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
    * @param dialogflowConnection The params expected to create/update a Dialogflow Connection for given connection_id. (required)
    * @return ApiResponse&lt;DialogflowConnectionResponse&gt;
    * @throws ApiException if fails to make API call
@@ -127,7 +127,7 @@ public class DialogflowIntegrationApi {
   /**
    * Delete stored Dialogflow Connection
    * Deletes a stored Dialogflow Connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -143,7 +143,7 @@ public class DialogflowIntegrationApi {
   /**
    * Delete stored Dialogflow Connection
    * Deletes a stored Dialogflow Connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -194,7 +194,7 @@ public class DialogflowIntegrationApi {
   /**
    * Retrieve stored Dialogflow Connection
    * Return details of the Dialogflow connection associated with the given CallControl connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
    * @return DialogflowConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -211,7 +211,7 @@ public class DialogflowIntegrationApi {
   /**
    * Retrieve stored Dialogflow Connection
    * Return details of the Dialogflow connection associated with the given CallControl connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
    * @return ApiResponse&lt;DialogflowConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -264,7 +264,7 @@ public class DialogflowIntegrationApi {
   /**
    * Update stored Dialogflow Connection
    * Updates a stored Dialogflow Connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
    * @param dialogflowConnection The params expected to create/update a Dialogflow Connection for given connection_id. (required)
    * @return DialogflowConnectionResponse
    * @throws ApiException if fails to make API call
@@ -282,7 +282,7 @@ public class DialogflowIntegrationApi {
   /**
    * Update stored Dialogflow Connection
    * Updates a stored Dialogflow Connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control). (required)
+   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
    * @param dialogflowConnection The params expected to create/update a Dialogflow Connection for given connection_id. (required)
    * @return ApiResponse&lt;DialogflowConnectionResponse&gt;
    * @throws ApiException if fails to make API call

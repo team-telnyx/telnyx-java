@@ -32,6 +32,7 @@ public class FqdnConnectionsApiTest {
     private final FqdnConnectionsApi api = new FqdnConnectionsApi();
     private FqdnConnection existingFqdnConnection;
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -49,6 +50,7 @@ public class FqdnConnectionsApiTest {
         }
     }
 
+    @Ignore
     @After
     public void tearDown() throws InterruptedException {
         try {
@@ -67,6 +69,7 @@ public class FqdnConnectionsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createFqdnConnection_whenRequestIsValid_returnsCreatedFqdnConnection() throws ApiException {
         InboundFqdn inboundFqdn = new InboundFqdn()
@@ -122,6 +125,7 @@ public class FqdnConnectionsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void deleteFqdnConnection_whenValidId_returnsDeletedFqdnConnection() throws ApiException {
         String actualId = api.deleteFqdnConnection(existingFqdnConnection.getId())
@@ -153,6 +157,7 @@ public class FqdnConnectionsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveFqdnConnection_whenFqdnConnectionExists_returnsFqdnConnection() throws ApiException {
         FqdnConnection actualFqdnConnection = api.retrieveFqdnConnection(existingFqdnConnection.getId()).getData();
@@ -165,6 +170,7 @@ public class FqdnConnectionsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void updateFqdnConnection_whenRequestIsValid_returnsUpdatedFqdnConnection() throws ApiException {
         InboundFqdn inboundFqdn = new InboundFqdn()

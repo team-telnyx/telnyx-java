@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createDocument**](DocumentsApi.md#createDocument) | **POST** /documents | Upload a document
 [**deleteDocument**](DocumentsApi.md#deleteDocument) | **DELETE** /documents/{id} | Delete a document
-[**downloadDocServiceDocument**](DocumentsApi.md#downloadDocServiceDocument) | **GET** /documents/{id}/download | Download a document
+[**downloadDocument**](DocumentsApi.md#downloadDocument) | **GET** /documents/{id}/download | Download a document
 [**listDocumentLinks**](DocumentsApi.md#listDocumentLinks) | **GET** /document_links | List all document links
 [**listDocuments**](DocumentsApi.md#listDocuments) | **GET** /documents | List all documents
 [**retrieveDocument**](DocumentsApi.md#retrieveDocument) | **GET** /documents/{id} | Retrieve a document
@@ -116,7 +116,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
             CreateDocument200Response result = apiInstance.deleteDocument(id);
             System.out.println(result);
@@ -136,7 +136,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
+ **id** | **UUID**| Identifies the resource. |
 
 ### Return type
 
@@ -158,9 +158,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## downloadDocServiceDocument
+## downloadDocument
 
-> File downloadDocServiceDocument(id)
+> File downloadDocument(id)
 
 Download a document
 
@@ -188,12 +188,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            File result = apiInstance.downloadDocServiceDocument(id);
+            File result = apiInstance.downloadDocument(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DocumentsApi#downloadDocServiceDocument");
+            System.err.println("Exception when calling DocumentsApi#downloadDocument");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -208,7 +208,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
+ **id** | **UUID**| Identifies the resource. |
 
 ### Return type
 
@@ -425,7 +425,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
             CreateDocument200Response result = apiInstance.retrieveDocument(id);
             System.out.println(result);
@@ -445,7 +445,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
+ **id** | **UUID**| Identifies the resource. |
 
 ### Return type
 
@@ -497,7 +497,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         DocServiceDocument docServiceDocument = new DocServiceDocument(); // DocServiceDocument | 
         try {
             CreateDocument200Response result = apiInstance.updateDocument(id, docServiceDocument);
@@ -518,7 +518,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
+ **id** | **UUID**| Identifies the resource. |
  **docServiceDocument** | [**DocServiceDocument**](DocServiceDocument.md)|  |
 
 ### Return type

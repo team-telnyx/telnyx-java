@@ -4,81 +4,9 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**docReqsRetrieveDocumentRequirements**](RequirementsApi.md#docReqsRetrieveDocumentRequirements) | **GET** /requirements/{id} | Retrieve a document requirement
 [**listRequirements**](RequirementsApi.md#listRequirements) | **GET** /requirements | List all requirements
+[**retrieveDocumentRequirements**](RequirementsApi.md#retrieveDocumentRequirements) | **GET** /requirements/{id} | Retrieve a document requirement
 
-
-
-## docReqsRetrieveDocumentRequirements
-
-> DocReqsRetrieveDocumentRequirements200Response docReqsRetrieveDocumentRequirements(id)
-
-Retrieve a document requirement
-
-Retrieve a document requirement record
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.RequirementsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        RequirementsApi apiInstance = new RequirementsApi(defaultClient);
-        UUID id = UUID.fromString("a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa"); // UUID | Uniquely identifies the requirement_type record
-        try {
-            DocReqsRetrieveDocumentRequirements200Response result = apiInstance.docReqsRetrieveDocumentRequirements(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling RequirementsApi#docReqsRetrieveDocumentRequirements");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Uniquely identifies the requirement_type record |
-
-### Return type
-
-[**DocReqsRetrieveDocumentRequirements200Response**](DocReqsRetrieveDocumentRequirements200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
 
 
 ## listRequirements
@@ -145,6 +73,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListRequirements200Response**](ListRequirements200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## retrieveDocumentRequirements
+
+> RetrieveDocumentRequirements200Response retrieveDocumentRequirements(id)
+
+Retrieve a document requirement
+
+Retrieve a document requirement record
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.RequirementsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        RequirementsApi apiInstance = new RequirementsApi(defaultClient);
+        UUID id = UUID.fromString("a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa"); // UUID | Uniquely identifies the requirement_type record
+        try {
+            RetrieveDocumentRequirements200Response result = apiInstance.retrieveDocumentRequirements(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling RequirementsApi#retrieveDocumentRequirements");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Uniquely identifies the requirement_type record |
+
+### Return type
+
+[**RetrieveDocumentRequirements200Response**](RetrieveDocumentRequirements200Response.md)
 
 ### Authorization
 

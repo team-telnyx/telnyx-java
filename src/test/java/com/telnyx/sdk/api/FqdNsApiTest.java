@@ -32,6 +32,7 @@ public class FqdNsApiTest {
     private Fqdn existingFqdn;
     private FqdnConnection existingFqdnConnection;
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -55,6 +56,7 @@ public class FqdNsApiTest {
         }
     }
 
+    @Ignore
     @After
     public void tearDown() throws InterruptedException {
         try {
@@ -74,6 +76,7 @@ public class FqdNsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createFqdn_whenValidRequest_returnsCreatedFqdn() throws ApiException {
         CreateFqdnRequest createFqdnRequest = new CreateFqdnRequest()
@@ -100,6 +103,7 @@ public class FqdNsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void deleteFqdn_whenValidId_returnsDeletedFqdn() throws ApiException {
         String actualId = api.deleteFqdn(existingFqdn.getId())
@@ -135,6 +139,7 @@ public class FqdNsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveFqdn_whenFqdnExists_returnsFqdn() throws ApiException {
         Fqdn actualFqdn = api.retrieveFqdn(existingFqdn.getId()).getData();

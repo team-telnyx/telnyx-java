@@ -15,7 +15,7 @@
 |**webhookTimeoutSecs** | **Integer** | Specifies how many seconds to wait before timing out a webhook. |  [optional] |
 |**faxEmailRecipient** | **String** | Specifies an email address where faxes sent to this application will be forwarded to (as pdf or tiff attachments) |  [optional] |
 |**inbound** | [**CreateFaxApplicationRequestInbound**](CreateFaxApplicationRequestInbound.md) |  |  [optional] |
-|**outbound** | [**CreateFaxApplicationRequestOutbound**](CreateFaxApplicationRequestOutbound.md) |  |  [optional] |
+|**outbound** | [**CreateExternalConnectionRequestOutbound**](CreateExternalConnectionRequestOutbound.md) |  |  [optional] |
 
 
 

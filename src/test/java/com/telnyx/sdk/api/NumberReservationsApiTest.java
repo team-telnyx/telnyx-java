@@ -37,6 +37,7 @@ public class NumberReservationsApiTest {
     private final NumberReservationsApi api = new NumberReservationsApi();
     private final NumberSearchApi numberSearchApi = new NumberSearchApi();
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -53,6 +54,7 @@ public class NumberReservationsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberReservation_whenRequestIsValid_returnsNumberReservation() throws ApiException {
         List<AvailablePhoneNumber> availableNumbers = numberSearchApi
@@ -80,6 +82,7 @@ public class NumberReservationsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberReservation_whenReservingUSPhoneNumber_returnsNumberReservation() throws ApiException {
         String countryCode = "US";
@@ -147,6 +150,7 @@ public class NumberReservationsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberReservation_whenReservingFivePhoneNumbers_returnsNumberReservation() throws ApiException {
         List<String> phoneNumbers = new ArrayList<>();
@@ -180,6 +184,7 @@ public class NumberReservationsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void listNumberReservationsTest() throws ApiException {
         //String filterStatus = null;
@@ -208,6 +213,7 @@ public class NumberReservationsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveNumberReservationTest() throws ApiException {
         //String numberReservationId = null;

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,6 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.CustomSipHeader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -35,6 +41,7 @@ import com.telnyx.sdk.JSON;
   CallInitiatedPayload.JSON_PROPERTY_CALL_CONTROL_ID,
   CallInitiatedPayload.JSON_PROPERTY_CONNECTION_ID,
   CallInitiatedPayload.JSON_PROPERTY_CALL_LEG_ID,
+  CallInitiatedPayload.JSON_PROPERTY_CUSTOM_HEADERS,
   CallInitiatedPayload.JSON_PROPERTY_CALL_SESSION_ID,
   CallInitiatedPayload.JSON_PROPERTY_CLIENT_STATE,
   CallInitiatedPayload.JSON_PROPERTY_FROM,
@@ -42,7 +49,7 @@ import com.telnyx.sdk.JSON;
   CallInitiatedPayload.JSON_PROPERTY_DIRECTION,
   CallInitiatedPayload.JSON_PROPERTY_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallInitiatedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -52,6 +59,9 @@ public class CallInitiatedPayload {
 
   public static final String JSON_PROPERTY_CALL_LEG_ID = "call_leg_id";
   private String callLegId;
+
+  public static final String JSON_PROPERTY_CUSTOM_HEADERS = "custom_headers";
+  private List<CustomSipHeader> customHeaders = null;
 
   public static final String JSON_PROPERTY_CALL_SESSION_ID = "call_session_id";
   private String callSessionId;
@@ -154,7 +164,7 @@ public class CallInitiatedPayload {
    * @return callControlId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", value = "Call ID used to issue commands via Call Control API.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "Call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -219,6 +229,40 @@ public class CallInitiatedPayload {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
+  }
+
+
+  public CallInitiatedPayload customHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
+    return this;
+  }
+
+  public CallInitiatedPayload addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+    if (this.customHeaders == null) {
+      this.customHeaders = new ArrayList<>();
+    }
+    this.customHeaders.add(customHeadersItem);
+    return this;
+  }
+
+   /**
+   * Custom headers from sip invite
+   * @return customHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"head_1\",\"value\":\"val_1\"},{\"name\":\"head_2\",\"value\":\"val_2\"}]", value = "Custom headers from sip invite")
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<CustomSipHeader> getCustomHeaders() {
+    return customHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCustomHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
   }
 
 
@@ -393,6 +437,7 @@ public class CallInitiatedPayload {
     return Objects.equals(this.callControlId, callInitiatedPayload.callControlId) &&
         Objects.equals(this.connectionId, callInitiatedPayload.connectionId) &&
         Objects.equals(this.callLegId, callInitiatedPayload.callLegId) &&
+        Objects.equals(this.customHeaders, callInitiatedPayload.customHeaders) &&
         Objects.equals(this.callSessionId, callInitiatedPayload.callSessionId) &&
         Objects.equals(this.clientState, callInitiatedPayload.clientState) &&
         Objects.equals(this.from, callInitiatedPayload.from) &&
@@ -403,7 +448,7 @@ public class CallInitiatedPayload {
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to, direction, state);
+    return Objects.hash(callControlId, connectionId, callLegId, customHeaders, callSessionId, clientState, from, to, direction, state);
   }
 
   @Override
@@ -413,6 +458,7 @@ public class CallInitiatedPayload {
     sb.append("    callControlId: ").append(toIndentedString(callControlId)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    callLegId: ").append(toIndentedString(callLegId)).append("\n");
+    sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
     sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");

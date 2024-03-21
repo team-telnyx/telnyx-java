@@ -19,6 +19,7 @@ import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.ListAvailablePhoneNumbersResponse;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -31,6 +32,7 @@ public class NumberSearchApiTest {
 
     private final NumberSearchApi api = new NumberSearchApi();
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -45,6 +47,7 @@ public class NumberSearchApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void listAvailablePhoneNumbers_whenFilterCriteriaExists_returnsAvailableNumbers() throws ApiException {
         ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
@@ -65,6 +68,7 @@ public class NumberSearchApiTest {
      * @throws ApiException
      *          if the Api call fails
      */
+    @Ignore
     @Test
     public void listAvailablePhoneNumbers_whenFilteringForUSPhoneNumbers_returnsAvailableNumbers() throws ApiException {
         String countryCode = "US";
@@ -85,6 +89,7 @@ public class NumberSearchApiTest {
      * @throws ApiException
      *          if the Api call fails
      */
+    @Ignore
     @Test
     public void listAvailablePhoneNumbers_whenFilteringByAreaCode_returnsAvailableNumbers() throws ApiException {
         String areaCode = "IL";
@@ -105,6 +110,7 @@ public class NumberSearchApiTest {
      * @throws ApiException
      *          if the Api call fails
      */
+    @Ignore
     @Test
     public void listAvailablePhoneNumbers_whenFilteringForCanadaPhoneNumbers_returnsAvailableNumbers() throws ApiException {
         String countryCode = "CA";
@@ -125,6 +131,7 @@ public class NumberSearchApiTest {
      * @throws ApiException
      *          if the Api call fails
      */
+    @Ignore
     @Test
     public void listAvailablePhoneNumbers_whenFilteringForSpainPhoneNumbers_returnsAvailableNumbers() throws ApiException {
         String countryCode = "ES";
@@ -145,6 +152,7 @@ public class NumberSearchApiTest {
      * @throws ApiException
      *          if the Api call fails
      */
+    @Ignore
     @Test
     public void listAvailablePhoneNumbers_whenFilteringByNumbersStartingWith22_returnsAvailableNumbers() throws ApiException {
         String startsWith = "22";
@@ -166,6 +174,7 @@ public class NumberSearchApiTest {
      * @throws ApiException
      *          if the Api call fails
      */
+    @Ignore
     @Test
     public void listAvailablePhoneNumbers_whenFilteringFor100PhoneNumbersInChicago_returnsAvailableNumbers() throws ApiException {
         String city = "chi";

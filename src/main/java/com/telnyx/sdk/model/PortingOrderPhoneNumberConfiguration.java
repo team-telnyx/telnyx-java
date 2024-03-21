@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -34,13 +37,17 @@ import com.telnyx.sdk.JSON;
  * PortingOrderPhoneNumberConfiguration
  */
 @JsonPropertyOrder({
+  PortingOrderPhoneNumberConfiguration.JSON_PROPERTY_BILLING_GROUP_ID,
   PortingOrderPhoneNumberConfiguration.JSON_PROPERTY_CONNECTION_ID,
   PortingOrderPhoneNumberConfiguration.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   PortingOrderPhoneNumberConfiguration.JSON_PROPERTY_EMERGENCY_ADDRESS_ID,
   PortingOrderPhoneNumberConfiguration.JSON_PROPERTY_TAGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrderPhoneNumberConfiguration {
+  public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
+  private String billingGroupId;
+
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
 
@@ -55,6 +62,32 @@ public class PortingOrderPhoneNumberConfiguration {
 
   public PortingOrderPhoneNumberConfiguration() { 
   }
+
+  public PortingOrderPhoneNumberConfiguration billingGroupId(String billingGroupId) {
+    this.billingGroupId = billingGroupId;
+    return this;
+  }
+
+   /**
+   * identifies the billing group to set on the numbers when ported
+   * @return billingGroupId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "identifies the billing group to set on the numbers when ported")
+  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBillingGroupId() {
+    return billingGroupId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBillingGroupId(String billingGroupId) {
+    this.billingGroupId = billingGroupId;
+  }
+
 
   public PortingOrderPhoneNumberConfiguration connectionId(String connectionId) {
     this.connectionId = connectionId;
@@ -180,7 +213,8 @@ public class PortingOrderPhoneNumberConfiguration {
       return false;
     }
     PortingOrderPhoneNumberConfiguration portingOrderPhoneNumberConfiguration = (PortingOrderPhoneNumberConfiguration) o;
-    return Objects.equals(this.connectionId, portingOrderPhoneNumberConfiguration.connectionId) &&
+    return Objects.equals(this.billingGroupId, portingOrderPhoneNumberConfiguration.billingGroupId) &&
+        Objects.equals(this.connectionId, portingOrderPhoneNumberConfiguration.connectionId) &&
         Objects.equals(this.messagingProfileId, portingOrderPhoneNumberConfiguration.messagingProfileId) &&
         Objects.equals(this.emergencyAddressId, portingOrderPhoneNumberConfiguration.emergencyAddressId) &&
         Objects.equals(this.tags, portingOrderPhoneNumberConfiguration.tags);
@@ -188,13 +222,14 @@ public class PortingOrderPhoneNumberConfiguration {
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, messagingProfileId, emergencyAddressId, tags);
+    return Objects.hash(billingGroupId, connectionId, messagingProfileId, emergencyAddressId, tags);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PortingOrderPhoneNumberConfiguration {\n");
+    sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
     sb.append("    emergencyAddressId: ").append(toIndentedString(emergencyAddressId)).append("\n");

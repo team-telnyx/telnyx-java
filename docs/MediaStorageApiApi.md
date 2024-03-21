@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createMediaStorage**](MediaStorageApiApi.md#createMediaStorage) | **POST** /media | Upload media
 [**deleteMediaStorage**](MediaStorageApiApi.md#deleteMediaStorage) | **DELETE** /media/{media_name} | Deletes stored media
-[**downloadMediaStorage**](MediaStorageApiApi.md#downloadMediaStorage) | **GET** /media/{media_name}/download | Download stored media
+[**downloadMedia**](MediaStorageApiApi.md#downloadMedia) | **GET** /media/{media_name}/download | Download stored media
 [**getMediaStorage**](MediaStorageApiApi.md#getMediaStorage) | **GET** /media/{media_name} | Retrieve stored media
 [**listMediaStorage**](MediaStorageApiApi.md#listMediaStorage) | **GET** /media | List uploaded media
 [**updateMediaStorage**](MediaStorageApiApi.md#updateMediaStorage) | **PUT** /media/{media_name} | Update stored media
@@ -154,9 +154,9 @@ null (empty response body)
 | **0** | Unexpected error |  -  |
 
 
-## downloadMediaStorage
+## downloadMedia
 
-> File downloadMediaStorage(mediaName)
+> File downloadMedia(mediaName)
 
 Download stored media
 
@@ -185,10 +185,10 @@ public class Example {
         MediaStorageApiApi apiInstance = new MediaStorageApiApi(defaultClient);
         String mediaName = "mediaName_example"; // String | Uniquely identifies a media resource.
         try {
-            File result = apiInstance.downloadMediaStorage(mediaName);
+            File result = apiInstance.downloadMedia(mediaName);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MediaStorageApiApi#downloadMediaStorage");
+            System.err.println("Exception when calling MediaStorageApiApi#downloadMedia");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

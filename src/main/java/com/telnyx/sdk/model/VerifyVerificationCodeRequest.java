@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -33,74 +35,44 @@ import com.telnyx.sdk.JSON;
  * VerifyVerificationCodeRequest
  */
 @JsonPropertyOrder({
-  VerifyVerificationCodeRequest.JSON_PROPERTY_CODE,
-  VerifyVerificationCodeRequest.JSON_PROPERTY_VERIFY_PROFILE_ID
+  VerifyVerificationCodeRequest.JSON_PROPERTY_VERIFICATION_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifyVerificationCodeRequest {
-  public static final String JSON_PROPERTY_CODE = "code";
-  private String code;
-
-  public static final String JSON_PROPERTY_VERIFY_PROFILE_ID = "verify_profile_id";
-  private UUID verifyProfileId;
+  public static final String JSON_PROPERTY_VERIFICATION_CODE = "verification_code";
+  private String verificationCode;
 
   public VerifyVerificationCodeRequest() { 
   }
 
-  public VerifyVerificationCodeRequest code(String code) {
-    this.code = code;
+  public VerifyVerificationCodeRequest verificationCode(String verificationCode) {
+    this.verificationCode = verificationCode;
     return this;
   }
 
    /**
-   * This is the code the user submits for verification.
-   * @return code
+   * Get verificationCode
+   * @return verificationCode
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "17686", required = true, value = "This is the code the user submits for verification.")
-  @JsonProperty(JSON_PROPERTY_CODE)
+  @ApiModelProperty(example = "123456", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_VERIFICATION_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getCode() {
-    return code;
+  public String getVerificationCode() {
+    return verificationCode;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CODE)
+  @JsonProperty(JSON_PROPERTY_VERIFICATION_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-
-  public VerifyVerificationCodeRequest verifyProfileId(UUID verifyProfileId) {
-    this.verifyProfileId = verifyProfileId;
-    return this;
-  }
-
-   /**
-   * The identifier of the associated Verify profile.
-   * @return verifyProfileId
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "The identifier of the associated Verify profile.")
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public UUID getVerifyProfileId() {
-    return verifyProfileId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVerifyProfileId(UUID verifyProfileId) {
-    this.verifyProfileId = verifyProfileId;
+  public void setVerificationCode(String verificationCode) {
+    this.verificationCode = verificationCode;
   }
 
 
   /**
-   * Return true if this VerifyVerificationCodeRequest object is equal to o.
+   * Return true if this Verify_Verification_Code_Request object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -111,21 +83,19 @@ public class VerifyVerificationCodeRequest {
       return false;
     }
     VerifyVerificationCodeRequest verifyVerificationCodeRequest = (VerifyVerificationCodeRequest) o;
-    return Objects.equals(this.code, verifyVerificationCodeRequest.code) &&
-        Objects.equals(this.verifyProfileId, verifyVerificationCodeRequest.verifyProfileId);
+    return Objects.equals(this.verificationCode, verifyVerificationCodeRequest.verificationCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, verifyProfileId);
+    return Objects.hash(verificationCode);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class VerifyVerificationCodeRequest {\n");
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    verifyProfileId: ").append(toIndentedString(verifyProfileId)).append("\n");
+    sb.append("    verificationCode: ").append(toIndentedString(verificationCode)).append("\n");
     sb.append("}");
     return sb.toString();
   }

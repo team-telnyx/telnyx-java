@@ -9,8 +9,10 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreateIpRequest;
+import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.IpResponse;
 import com.telnyx.sdk.model.ListIpsResponse;
+import com.telnyx.sdk.model.ResourceNotFound;
 import java.util.UUID;
 import com.telnyx.sdk.model.UpdateIpRequest;
 
@@ -19,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class IpsApi {
   private ApiClient apiClient;
 
@@ -59,8 +61,9 @@ public class IpsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public IpResponse createIp(CreateIpRequest createIpRequest) throws ApiException {
@@ -77,8 +80,9 @@ public class IpsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<IpResponse> createIpWithHttpInfo(CreateIpRequest createIpRequest) throws ApiException {
@@ -125,8 +129,10 @@ public class IpsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
   public IpResponse deleteIp(UUID id) throws ApiException {
@@ -143,8 +149,10 @@ public class IpsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<IpResponse> deleteIpWithHttpInfo(UUID id) throws ApiException {
@@ -296,8 +304,9 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of IPs. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        </table>
      
      */
@@ -314,8 +323,9 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of IPs. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        </table>
 
      */
@@ -345,8 +355,10 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
   public IpResponse retrieveIp(UUID id) throws ApiException {
@@ -363,8 +375,10 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<IpResponse> retrieveIpWithHttpInfo(UUID id) throws ApiException {
@@ -418,8 +432,10 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public IpResponse updateIp(UUID id, UpdateIpRequest updateIpRequest) throws ApiException {
@@ -437,8 +453,10 @@ private ApiResponse<ListIpsResponse> listIpsWithHttpInfo(Integer pageNumber, Int
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an IP. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<IpResponse> updateIpWithHttpInfo(UUID id, UpdateIpRequest updateIpRequest) throws ApiException {

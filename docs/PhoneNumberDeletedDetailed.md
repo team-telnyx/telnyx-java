@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** | Uniquely identifies the resource. |  [optional] |
+|**id** | **String** | Identifies the resource. |  [optional] [readonly] |
 |**recordType** | **String** | Identifies the type of the resource. |  [optional] [readonly] |
 |**phoneNumber** | **String** | The +E.164-formatted phone number associated with this record. |  [optional] [readonly] |
 |**status** | [**StatusEnum**](#StatusEnum) | The phone number&#39;s current status. |  [optional] [readonly] |
@@ -29,7 +29,7 @@
 |**purchasedAt** | **String** | ISO 8601 formatted date indicating the time the request was made to purchase the number. |  [optional] [readonly] |
 |**createdAt** | **String** | ISO 8601 formatted date indicating when the time it took to activate after the purchase. |  [optional] [readonly] |
 |**updatedAt** | **String** | ISO 8601 formatted date indicating when the resource was updated. |  [optional] [readonly] |
-|**numberLevelRouting** | [**NumberLevelRoutingEnum**](#NumberLevelRoutingEnum) | Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level. |  [optional] |
+|**numberLevelRouting** | [**NumberLevelRoutingEnum**](#NumberLevelRoutingEnum) | Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings. |  [optional] |
 |**phoneNumberType** | [**PhoneNumberTypeEnum**](#PhoneNumberTypeEnum) | The phone number&#39;s type. |  [optional] [readonly] |
 
 
@@ -54,7 +54,6 @@
 
 | Name | Value |
 |---- | -----|
-| ENABLED | &quot;enabled&quot; |
 | DISABLED | &quot;disabled&quot; |
 
 

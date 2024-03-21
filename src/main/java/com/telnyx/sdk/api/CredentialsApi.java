@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CredentialsApi {
   private ApiClient apiClient;
 
@@ -528,8 +528,8 @@ private ApiResponse<GetAllTelephonyCredentialResponse> findTelephonyCredentialsW
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public TelephonyCredentialResponse telephonyCredentialAction(String id, String action) throws ApiException {
-    return telephonyCredentialActionWithHttpInfo(id, action).getData();
+  public TelephonyCredentialResponse performCredentialAction(String id, String action) throws ApiException {
+    return performCredentialActionWithHttpInfo(id, action).getData();
   }
 
   /**
@@ -548,17 +548,17 @@ private ApiResponse<GetAllTelephonyCredentialResponse> findTelephonyCredentialsW
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TelephonyCredentialResponse> telephonyCredentialActionWithHttpInfo(String id, String action) throws ApiException {
+  public ApiResponse<TelephonyCredentialResponse> performCredentialActionWithHttpInfo(String id, String action) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling telephonyCredentialAction");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling performCredentialAction");
     }
     
     // verify the required parameter 'action' is set
     if (action == null) {
-      throw new ApiException(400, "Missing the required parameter 'action' when calling telephonyCredentialAction");
+      throw new ApiException(400, "Missing the required parameter 'action' when calling performCredentialAction");
     }
     
     // create path and map variables
@@ -590,7 +590,7 @@ private ApiResponse<GetAllTelephonyCredentialResponse> findTelephonyCredentialsW
 
     GenericType<TelephonyCredentialResponse> localVarReturnType = new GenericType<TelephonyCredentialResponse>() {};
 
-    return apiClient.invokeAPI("CredentialsApi.telephonyCredentialAction", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("CredentialsApi.performCredentialAction", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

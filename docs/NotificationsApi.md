@@ -13,11 +13,11 @@ Method | HTTP request | Description
 [**findNotificationsEvents**](NotificationsApi.md#findNotificationsEvents) | **GET** /notification_events | List all Notifications Events
 [**findNotificationsEventsConditions**](NotificationsApi.md#findNotificationsEventsConditions) | **GET** /notification_event_conditions | List all Notifications Events Conditions
 [**findNotificationsProfiles**](NotificationsApi.md#findNotificationsProfiles) | **GET** /notification_profiles | List all Notifications Profiles
+[**getNotificationChannel**](NotificationsApi.md#getNotificationChannel) | **GET** /notification_channels/{id} | Get a notification channel
+[**getNotificationProfile**](NotificationsApi.md#getNotificationProfile) | **GET** /notification_profiles/{id} | Get a notification profile
+[**getNotificationSetting**](NotificationsApi.md#getNotificationSetting) | **GET** /notification_settings/{id} | Get a notification setting
 [**listNotificationChannels**](NotificationsApi.md#listNotificationChannels) | **GET** /notification_channels | List notification channels
 [**listNotificationSettings**](NotificationsApi.md#listNotificationSettings) | **GET** /notification_settings | List notification settings
-[**retrieveNotificationChannel**](NotificationsApi.md#retrieveNotificationChannel) | **GET** /notification_channels/{id} | Retrieve a notification channel
-[**retrieveNotificationProfile**](NotificationsApi.md#retrieveNotificationProfile) | **GET** /notification_profiles/{id} | Retrieve a notification profile
-[**retrieveNotificationSetting**](NotificationsApi.md#retrieveNotificationSetting) | **GET** /notification_settings/{id} | Retrieve a notification setting
 [**updateNotificationChannel**](NotificationsApi.md#updateNotificationChannel) | **PATCH** /notification_channels/{id} | Update a notification channel
 [**updateNotificationProfile**](NotificationsApi.md#updateNotificationProfile) | **PATCH** /notification_profiles/{id} | Update a notification profile
 
@@ -267,7 +267,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
             CreateNotificationChannels200Response result = apiInstance.deleteNotificationChannel(id);
             System.out.println(result);
@@ -287,7 +287,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
+ **id** | **UUID**| Identifies the resource. |
 
 ### Return type
 
@@ -339,7 +339,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
             CreateNotificationProfile200Response result = apiInstance.deleteNotificationProfile(id);
             System.out.println(result);
@@ -359,7 +359,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
+ **id** | **UUID**| Identifies the resource. |
 
 ### Return type
 
@@ -411,7 +411,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
             CreateNotificationSetting200Response result = apiInstance.deleteNotificationSetting(id);
             System.out.println(result);
@@ -431,7 +431,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
+ **id** | **UUID**| Identifies the resource. |
 
 ### Return type
 
@@ -675,6 +675,222 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
+## getNotificationChannel
+
+> CreateNotificationChannels200Response getNotificationChannel(id)
+
+Get a notification channel
+
+Get a notification channel.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NotificationsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NotificationsApi apiInstance = new NotificationsApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        try {
+            CreateNotificationChannels200Response result = apiInstance.getNotificationChannel(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NotificationsApi#getNotificationChannel");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+
+### Return type
+
+[**CreateNotificationChannels200Response**](CreateNotificationChannels200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A Notification Channel response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## getNotificationProfile
+
+> CreateNotificationProfile200Response getNotificationProfile(id)
+
+Get a notification profile
+
+Get a notification profile.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NotificationsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NotificationsApi apiInstance = new NotificationsApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        try {
+            CreateNotificationProfile200Response result = apiInstance.getNotificationProfile(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NotificationsApi#getNotificationProfile");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+
+### Return type
+
+[**CreateNotificationProfile200Response**](CreateNotificationProfile200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A Notification Profile response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## getNotificationSetting
+
+> CreateNotificationSetting200Response getNotificationSetting(id)
+
+Get a notification setting
+
+Get a notification setting.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.NotificationsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        NotificationsApi apiInstance = new NotificationsApi(defaultClient);
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        try {
+            CreateNotificationSetting200Response result = apiInstance.getNotificationSetting(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NotificationsApi#getNotificationSetting");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Identifies the resource. |
+
+### Return type
+
+[**CreateNotificationSetting200Response**](CreateNotificationSetting200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A Notification Setting response |  -  |
+| **0** | Unexpected error |  -  |
+
+
 ## listNotificationChannels
 
 > ListNotificationChannels200Response listNotificationChannels(pageNumber, pageSize, filterChannelTypeIdEq)
@@ -752,7 +968,7 @@ Name | Type | Description  | Notes
 
 ## listNotificationSettings
 
-> ListNotificationSettings200Response listNotificationSettings(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, filterStatusEq)
+> ListNotificationSettings200Response listNotificationSettings(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, status)
 
 List notification settings
 
@@ -785,9 +1001,9 @@ public class Example {
         String filterNotificationChannelEq = "12455643-3cf1-4683-ad23-1cd32f7d5e0a"; // String | Filter by the id of a notification channel
         String filterNotificationEventConditionIdEq = "12455643-3cf1-4683-ad23-1cd32f7d5e0a"; // String | Filter by the id of a notification channel
         String filterAssociatedRecordTypeEq = "account"; // String | Filter by the associated record type
-        String filterStatusEq = "enabled"; // String | The status of a notification setting
+        String status = "canceled"; // String | Filters calls by status.
         try {
-            ListNotificationSettings200Response result = apiInstance.listNotificationSettings(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, filterStatusEq);
+            ListNotificationSettings200Response result = apiInstance.listNotificationSettings(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, status);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NotificationsApi#listNotificationSettings");
@@ -811,7 +1027,7 @@ Name | Type | Description  | Notes
  **filterNotificationChannelEq** | **String**| Filter by the id of a notification channel | [optional]
  **filterNotificationEventConditionIdEq** | **String**| Filter by the id of a notification channel | [optional]
  **filterAssociatedRecordTypeEq** | **String**| Filter by the associated record type | [optional] [enum: account, phone_number]
- **filterStatusEq** | **String**| The status of a notification setting | [optional] [enum: enabled, enable-received, enable-pending, enable-submtited, delete-received, delete-pending, delete-submitted, deleted]
+ **status** | **String**| Filters calls by status. | [optional] [enum: canceled, completed, failed, busy, no-answer]
 
 ### Return type
 
@@ -830,222 +1046,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Returns a list of notification settings. |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## retrieveNotificationChannel
-
-> CreateNotificationChannels200Response retrieveNotificationChannel(id)
-
-Retrieve a notification channel
-
-Retrieve a notification channel.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.NotificationsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
-        try {
-            CreateNotificationChannels200Response result = apiInstance.retrieveNotificationChannel(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling NotificationsApi#retrieveNotificationChannel");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
-
-### Return type
-
-[**CreateNotificationChannels200Response**](CreateNotificationChannels200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | A Notification Channel response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## retrieveNotificationProfile
-
-> CreateNotificationProfile200Response retrieveNotificationProfile(id)
-
-Retrieve a notification profile
-
-Retrieve a notification profile.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.NotificationsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
-        try {
-            CreateNotificationProfile200Response result = apiInstance.retrieveNotificationProfile(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling NotificationsApi#retrieveNotificationProfile");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
-
-### Return type
-
-[**CreateNotificationProfile200Response**](CreateNotificationProfile200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | A Notification Profile response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## retrieveNotificationSetting
-
-> CreateNotificationSetting200Response retrieveNotificationSetting(id)
-
-Retrieve a notification setting
-
-Retrieve a notification setting.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.NotificationsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
-        try {
-            CreateNotificationSetting200Response result = apiInstance.retrieveNotificationSetting(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling NotificationsApi#retrieveNotificationSetting");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
-
-### Return type
-
-[**CreateNotificationSetting200Response**](CreateNotificationSetting200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | A Notification Setting response |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -1079,7 +1079,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         NotificationChannel notificationChannel = new NotificationChannel(); // NotificationChannel | Update notification channel object
         try {
             CreateNotificationChannels200Response result = apiInstance.updateNotificationChannel(id, notificationChannel);
@@ -1100,7 +1100,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
+ **id** | **UUID**| Identifies the resource. |
  **notificationChannel** | [**NotificationChannel**](NotificationChannel.md)| Update notification channel object |
 
 ### Return type
@@ -1153,7 +1153,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         NotificationProfile notificationProfile = new NotificationProfile(); // NotificationProfile | Update notification profile object
         try {
             CreateNotificationProfile200Response result = apiInstance.updateNotificationProfile(id, notificationProfile);
@@ -1174,7 +1174,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| The id of the resource. |
+ **id** | **UUID**| Identifies the resource. |
  **notificationProfile** | [**NotificationProfile**](NotificationProfile.md)| Update notification profile object |
 
 ### Return type

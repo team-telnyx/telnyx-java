@@ -1,6 +1,6 @@
 
 
-# TeXmlRESTCommandResponse
+# TeXMLRESTCommandResponse
 
 
 ## Properties

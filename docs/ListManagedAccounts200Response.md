@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**List&lt;ManagedAccount&gt;**](ManagedAccount.md) |  |  [optional] |
+|**data** | [**List&lt;ManagedAccountMultiListing&gt;**](ManagedAccountMultiListing.md) |  |  [optional] |
 |**meta** | [**PaginationMeta**](PaginationMeta.md) |  |  [optional] |
 
 

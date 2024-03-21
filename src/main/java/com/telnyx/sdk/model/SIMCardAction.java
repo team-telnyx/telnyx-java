@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.SIMCardActionStatus;
+import java.util.Arrays;
+import java.util.UUID;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -48,7 +51,7 @@ import com.telnyx.sdk.JSON;
   SIMCardAction.JSON_PROPERTY_CREATED_AT,
   SIMCardAction.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardAction {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -118,7 +121,6 @@ public class SIMCardAction {
 
   @JsonCreator
   public SIMCardAction(
-    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_SIM_CARD_ID) UUID simCardId, 
     @JsonProperty(JSON_PROPERTY_ACTION_TYPE) ActionTypeEnum actionType, 
@@ -127,7 +129,6 @@ public class SIMCardAction {
     @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
   ) {
     this();
-    this.id = id;
     this.recordType = recordType;
     this.simCardId = simCardId;
     this.actionType = actionType;
@@ -136,12 +137,17 @@ public class SIMCardAction {
     this.updatedAt = updatedAt;
   }
 
+  public SIMCardAction id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Identifies the type of resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
+  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -150,6 +156,11 @@ public class SIMCardAction {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
 
    /**

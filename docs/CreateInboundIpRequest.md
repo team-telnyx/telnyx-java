@@ -22,6 +22,7 @@
 |**sipSubdomainReceiveSettings** | [**SipSubdomainReceiveSettingsEnum**](#SipSubdomainReceiveSettingsEnum) | This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user). |  [optional] |
 |**timeout1xxSecs** | **Integer** | Time(sec) before aborting if connection is not made. |  [optional] |
 |**timeout2xxSecs** | **Integer** | Time(sec) before aborting if call is unanswered (min: 1, max: 600). |  [optional] |
+|**shakenStirEnabled** | **Boolean** | When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport. |  [optional] |
 
 
 

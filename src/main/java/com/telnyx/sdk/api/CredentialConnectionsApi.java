@@ -10,7 +10,10 @@ import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreateCredentialConnectionRequest;
 import com.telnyx.sdk.model.CredentialConnectionResponse;
+import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.ListCredentialConnectionsResponse;
+import com.telnyx.sdk.model.RegistrationStatusResponse;
+import com.telnyx.sdk.model.ResourceNotFound;
 import com.telnyx.sdk.model.UpdateCredentialConnectionRequest;
 
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CredentialConnectionsApi {
   private ApiClient apiClient;
 
@@ -49,6 +52,82 @@ public class CredentialConnectionsApi {
   }
 
   /**
+   * Update a credential connection registration status
+   * Updates the registration_status for a credential connection, this endpoint also updates the &#x60;registration_status&#x60; and &#x60;registration_status_updated_at&#x60; fields in the credential connection
+   * @param id Identifies the resource. (required)
+   * @return RegistrationStatusResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a credential connection registration status. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+     </table>
+   */
+  public RegistrationStatusResponse checkRegistrationStatus(String id) throws ApiException {
+    return checkRegistrationStatusWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Update a credential connection registration status
+   * Updates the registration_status for a credential connection, this endpoint also updates the &#x60;registration_status&#x60; and &#x60;registration_status_updated_at&#x60; fields in the credential connection
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;RegistrationStatusResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a credential connection registration status. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<RegistrationStatusResponse> checkRegistrationStatusWithHttpInfo(String id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling checkRegistrationStatus");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/credential_connections/{id}/actions/check_registration_status"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<RegistrationStatusResponse> localVarReturnType = new GenericType<RegistrationStatusResponse>() {};
+
+    return apiClient.invokeAPI("CredentialConnectionsApi.checkRegistrationStatus", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Create a credential connection
    * Creates a credential connection.
    * @param createCredentialConnectionRequest Parameters that can be defined during credential connection creation (required)
@@ -58,7 +137,9 @@ public class CredentialConnectionsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public CredentialConnectionResponse createCredentialConnection(CreateCredentialConnectionRequest createCredentialConnectionRequest) throws ApiException {
@@ -75,7 +156,9 @@ public class CredentialConnectionsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CredentialConnectionResponse> createCredentialConnectionWithHttpInfo(CreateCredentialConnectionRequest createCredentialConnectionRequest) throws ApiException {
@@ -127,9 +210,10 @@ public class CredentialConnectionsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
   public CredentialConnectionResponse deleteCredentialConnection(String id) throws ApiException {
@@ -146,9 +230,10 @@ public class CredentialConnectionsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CredentialConnectionResponse> deleteCredentialConnectionWithHttpInfo(String id) throws ApiException {
@@ -300,9 +385,9 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of credential connections. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        </table>
      
      */
@@ -319,9 +404,9 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of credential connections. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        </table>
 
      */
@@ -351,8 +436,9 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
@@ -370,8 +456,9 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
@@ -427,8 +514,9 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public CredentialConnectionResponse updateCredentialConnection(String id, UpdateCredentialConnectionRequest updateCredentialConnectionRequest) throws ApiException {
@@ -447,8 +535,9 @@ private ApiResponse<ListCredentialConnectionsResponse> listCredentialConnections
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a credential connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CredentialConnectionResponse> updateCredentialConnectionWithHttpInfo(String id, UpdateCredentialConnectionRequest updateCredentialConnectionRequest) throws ApiException {

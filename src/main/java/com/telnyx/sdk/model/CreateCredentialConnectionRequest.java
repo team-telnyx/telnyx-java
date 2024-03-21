@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,9 +30,11 @@ import com.telnyx.sdk.model.CredentialInbound;
 import com.telnyx.sdk.model.CredentialOutbound;
 import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
+import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -53,6 +57,8 @@ import com.telnyx.sdk.JSON;
   CreateCredentialConnectionRequest.JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED,
   CreateCredentialConnectionRequest.JSON_PROPERTY_ENCRYPTED_MEDIA,
   CreateCredentialConnectionRequest.JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED,
+  CreateCredentialConnectionRequest.JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID,
+  CreateCredentialConnectionRequest.JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID,
   CreateCredentialConnectionRequest.JSON_PROPERTY_WEBHOOK_EVENT_URL,
   CreateCredentialConnectionRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   CreateCredentialConnectionRequest.JSON_PROPERTY_WEBHOOK_API_VERSION,
@@ -61,7 +67,7 @@ import com.telnyx.sdk.JSON;
   CreateCredentialConnectionRequest.JSON_PROPERTY_INBOUND,
   CreateCredentialConnectionRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateCredentialConnectionRequest {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active;
@@ -116,7 +122,7 @@ public class CreateCredentialConnectionRequest {
   }
 
   public static final String JSON_PROPERTY_SIP_URI_CALLING_PREFERENCE = "sip_uri_calling_preference";
-  private SipUriCallingPreferenceEnum sipUriCallingPreference = SipUriCallingPreferenceEnum.DISABLED;
+  private SipUriCallingPreferenceEnum sipUriCallingPreference;
 
   public static final String JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED = "default_on_hold_comfort_noise_enabled";
   private Boolean defaultOnHoldComfortNoiseEnabled = false;
@@ -133,6 +139,12 @@ public class CreateCredentialConnectionRequest {
   public static final String JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED = "onnet_t38_passthrough_enabled";
   private Boolean onnetT38PassthroughEnabled = false;
 
+  public static final String JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID = "ios_push_credential_id";
+  private JsonNullable<String> iosPushCredentialId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID = "android_push_credential_id";
+  private JsonNullable<String> androidPushCredentialId = JsonNullable.<String>undefined();
+
   public static final String JSON_PROPERTY_WEBHOOK_EVENT_URL = "webhook_event_url";
   private String webhookEventUrl;
 
@@ -140,12 +152,14 @@ public class CreateCredentialConnectionRequest {
   private JsonNullable<String> webhookEventFailoverUrl = JsonNullable.<String>of("");
 
   /**
-   * Determines which webhook format will be used, Telnyx API v1 or v2.
+   * Determines which webhook format will be used, Telnyx API v1, v2 or texml. Note - texml can only be set when the outbound object parameter call_parking_enabled is included and set to true.
    */
   public enum WebhookApiVersionEnum {
     _1("1"),
     
-    _2("2");
+    _2("2"),
+    
+    TEXML("texml");
 
     private String value;
 
@@ -302,11 +316,11 @@ public class CreateCredentialConnectionRequest {
   }
 
    /**
-   * Get connectionName
+   * A user-assigned name to help manage the connection.
    * @return connectionName
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "office-connection", required = true, value = "A user-assigned name to help manage the connection.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -486,6 +500,74 @@ public class CreateCredentialConnectionRequest {
   }
 
 
+  public CreateCredentialConnectionRequest iosPushCredentialId(String iosPushCredentialId) {
+    this.iosPushCredentialId = JsonNullable.<String>of(iosPushCredentialId);
+    return this;
+  }
+
+   /**
+   * The uuid of the push credential for Ios
+   * @return iosPushCredentialId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "ec0c8e5d-439e-4620-a0c1-9d9c8d02a836", value = "The uuid of the push credential for Ios")
+  @JsonIgnore
+
+  public String getIosPushCredentialId() {
+        return iosPushCredentialId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getIosPushCredentialId_JsonNullable() {
+    return iosPushCredentialId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID)
+  public void setIosPushCredentialId_JsonNullable(JsonNullable<String> iosPushCredentialId) {
+    this.iosPushCredentialId = iosPushCredentialId;
+  }
+
+  public void setIosPushCredentialId(String iosPushCredentialId) {
+    this.iosPushCredentialId = JsonNullable.<String>of(iosPushCredentialId);
+  }
+
+
+  public CreateCredentialConnectionRequest androidPushCredentialId(String androidPushCredentialId) {
+    this.androidPushCredentialId = JsonNullable.<String>of(androidPushCredentialId);
+    return this;
+  }
+
+   /**
+   * The uuid of the push credential for Android
+   * @return androidPushCredentialId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "06b09dfd-7154-4980-8b75-cebf7a9d4f8e", value = "The uuid of the push credential for Android")
+  @JsonIgnore
+
+  public String getAndroidPushCredentialId() {
+        return androidPushCredentialId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getAndroidPushCredentialId_JsonNullable() {
+    return androidPushCredentialId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID)
+  public void setAndroidPushCredentialId_JsonNullable(JsonNullable<String> androidPushCredentialId) {
+    this.androidPushCredentialId = androidPushCredentialId;
+  }
+
+  public void setAndroidPushCredentialId(String androidPushCredentialId) {
+    this.androidPushCredentialId = JsonNullable.<String>of(androidPushCredentialId);
+  }
+
+
   public CreateCredentialConnectionRequest webhookEventUrl(String webhookEventUrl) {
     this.webhookEventUrl = webhookEventUrl;
     return this;
@@ -552,11 +634,11 @@ public class CreateCredentialConnectionRequest {
   }
 
    /**
-   * Determines which webhook format will be used, Telnyx API v1 or v2.
+   * Determines which webhook format will be used, Telnyx API v1, v2 or texml. Note - texml can only be set when the outbound object parameter call_parking_enabled is included and set to true.
    * @return webhookApiVersion
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1", value = "Determines which webhook format will be used, Telnyx API v1 or v2.")
+  @ApiModelProperty(example = "1", value = "Determines which webhook format will be used, Telnyx API v1, v2 or texml. Note - texml can only be set when the outbound object parameter call_parking_enabled is included and set to true.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -709,6 +791,8 @@ public class CreateCredentialConnectionRequest {
         Objects.equals(this.encodeContactHeaderEnabled, createCredentialConnectionRequest.encodeContactHeaderEnabled) &&
         equalsNullable(this.encryptedMedia, createCredentialConnectionRequest.encryptedMedia) &&
         Objects.equals(this.onnetT38PassthroughEnabled, createCredentialConnectionRequest.onnetT38PassthroughEnabled) &&
+        equalsNullable(this.iosPushCredentialId, createCredentialConnectionRequest.iosPushCredentialId) &&
+        equalsNullable(this.androidPushCredentialId, createCredentialConnectionRequest.androidPushCredentialId) &&
         Objects.equals(this.webhookEventUrl, createCredentialConnectionRequest.webhookEventUrl) &&
         equalsNullable(this.webhookEventFailoverUrl, createCredentialConnectionRequest.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, createCredentialConnectionRequest.webhookApiVersion) &&
@@ -724,7 +808,7 @@ public class CreateCredentialConnectionRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(active, userName, password, anchorsiteOverride, connectionName, sipUriCallingPreference, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, inbound, outbound);
+    return Objects.hash(active, userName, password, anchorsiteOverride, connectionName, sipUriCallingPreference, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, hashCodeNullable(iosPushCredentialId), hashCodeNullable(androidPushCredentialId), webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, inbound, outbound);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -749,6 +833,8 @@ public class CreateCredentialConnectionRequest {
     sb.append("    encodeContactHeaderEnabled: ").append(toIndentedString(encodeContactHeaderEnabled)).append("\n");
     sb.append("    encryptedMedia: ").append(toIndentedString(encryptedMedia)).append("\n");
     sb.append("    onnetT38PassthroughEnabled: ").append(toIndentedString(onnetT38PassthroughEnabled)).append("\n");
+    sb.append("    iosPushCredentialId: ").append(toIndentedString(iosPushCredentialId)).append("\n");
+    sb.append("    androidPushCredentialId: ").append(toIndentedString(androidPushCredentialId)).append("\n");
     sb.append("    webhookEventUrl: ").append(toIndentedString(webhookEventUrl)).append("\n");
     sb.append("    webhookEventFailoverUrl: ").append(toIndentedString(webhookEventFailoverUrl)).append("\n");
     sb.append("    webhookApiVersion: ").append(toIndentedString(webhookApiVersion)).append("\n");

@@ -1,13 +1,13 @@
 
 
-# ListSIMCardActions200Response
+# ListSimCardActions200Response
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**List&lt;SIMCardAction&gt;**](SIMCardAction.md) |  |  [optional] |
+|**data** | [**List&lt;BulkSIMCardActionDetailed&gt;**](BulkSIMCardActionDetailed.md) |  |  [optional] |
 |**meta** | [**PaginationMeta**](PaginationMeta.md) |  |  [optional] |
 
 

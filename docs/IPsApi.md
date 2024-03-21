@@ -80,8 +80,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Successful response with details about an IP. |  -  |
-| **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **422** | Unprocessable entity |  -  |
 
 
 ## deleteIp
@@ -153,8 +154,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an IP. |  -  |
-| **400** | Bad request |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **404** | Resource not found |  -  |
 
 
 ## listIps
@@ -239,8 +242,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of IPs. |  -  |
-| **400** | Bad request |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
 
 
 ## retrieveIp
@@ -312,8 +316,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an IP. |  -  |
-| **400** | Bad request |  -  |
+| **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **404** | Resource not found |  -  |
 
 
 ## updateIp
@@ -387,6 +393,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an IP. |  -  |
-| **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
+| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **404** | Resource not found |  -  |
+| **422** | Unprocessable entity |  -  |
 

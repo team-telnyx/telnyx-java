@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,9 +28,10 @@ import com.telnyx.sdk.model.AnchorsiteOverride;
 import com.telnyx.sdk.model.CreateTexmlApplicationRequestInbound;
 import com.telnyx.sdk.model.CreateTexmlApplicationRequestOutbound;
 import com.telnyx.sdk.model.DtmfType;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -50,7 +53,7 @@ import com.telnyx.sdk.JSON;
   UpdateTexmlApplicationRequest.JSON_PROPERTY_INBOUND,
   UpdateTexmlApplicationRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateTexmlApplicationRequest {
   public static final String JSON_PROPERTY_FRIENDLY_NAME = "friendly_name";
   private String friendlyName;

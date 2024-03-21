@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,6 +26,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.NumberPoolSettings;
 import com.telnyx.sdk.model.UrlShortenerSettings;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -39,17 +44,22 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   CreateMessagingProfileRequest.JSON_PROPERTY_NAME,
+  CreateMessagingProfileRequest.JSON_PROPERTY_WHITELISTED_DESTINATIONS,
   CreateMessagingProfileRequest.JSON_PROPERTY_ENABLED,
   CreateMessagingProfileRequest.JSON_PROPERTY_WEBHOOK_URL,
   CreateMessagingProfileRequest.JSON_PROPERTY_WEBHOOK_FAILOVER_URL,
   CreateMessagingProfileRequest.JSON_PROPERTY_WEBHOOK_API_VERSION,
   CreateMessagingProfileRequest.JSON_PROPERTY_NUMBER_POOL_SETTINGS,
-  CreateMessagingProfileRequest.JSON_PROPERTY_URL_SHORTENER_SETTINGS
+  CreateMessagingProfileRequest.JSON_PROPERTY_URL_SHORTENER_SETTINGS,
+  CreateMessagingProfileRequest.JSON_PROPERTY_ALPHA_SENDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateMessagingProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
+
+  public static final String JSON_PROPERTY_WHITELISTED_DESTINATIONS = "whitelisted_destinations";
+  private List<String> whitelistedDestinations = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ENABLED = "enabled";
   private Boolean enabled = true;
@@ -106,6 +116,9 @@ public class CreateMessagingProfileRequest {
   public static final String JSON_PROPERTY_URL_SHORTENER_SETTINGS = "url_shortener_settings";
   private JsonNullable<UrlShortenerSettings> urlShortenerSettings = JsonNullable.<UrlShortenerSettings>undefined();
 
+  public static final String JSON_PROPERTY_ALPHA_SENDER = "alpha_sender";
+  private JsonNullable<String> alphaSender = JsonNullable.<String>undefined();
+
   public CreateMessagingProfileRequest() { 
   }
 
@@ -132,6 +145,37 @@ public class CreateMessagingProfileRequest {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(String name) {
     this.name = name;
+  }
+
+
+  public CreateMessagingProfileRequest whitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
+    return this;
+  }
+
+  public CreateMessagingProfileRequest addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+    this.whitelistedDestinations.add(whitelistedDestinationsItem);
+    return this;
+  }
+
+   /**
+   * Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60; all destinations will be allowed.
+   * @return whitelistedDestinations
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]` all destinations will be allowed.")
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<String> getWhitelistedDestinations() {
+    return whitelistedDestinations;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setWhitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
   }
 
 
@@ -323,6 +367,40 @@ public class CreateMessagingProfileRequest {
   }
 
 
+  public CreateMessagingProfileRequest alphaSender(String alphaSender) {
+    this.alphaSender = JsonNullable.<String>of(alphaSender);
+    return this;
+  }
+
+   /**
+   * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.
+   * @return alphaSender
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.")
+  @JsonIgnore
+
+  public String getAlphaSender() {
+        return alphaSender.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ALPHA_SENDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getAlphaSender_JsonNullable() {
+    return alphaSender;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ALPHA_SENDER)
+  public void setAlphaSender_JsonNullable(JsonNullable<String> alphaSender) {
+    this.alphaSender = alphaSender;
+  }
+
+  public void setAlphaSender(String alphaSender) {
+    this.alphaSender = JsonNullable.<String>of(alphaSender);
+  }
+
+
   /**
    * Return true if this CreateMessagingProfileRequest object is equal to o.
    */
@@ -336,12 +414,14 @@ public class CreateMessagingProfileRequest {
     }
     CreateMessagingProfileRequest createMessagingProfileRequest = (CreateMessagingProfileRequest) o;
     return Objects.equals(this.name, createMessagingProfileRequest.name) &&
+        Objects.equals(this.whitelistedDestinations, createMessagingProfileRequest.whitelistedDestinations) &&
         Objects.equals(this.enabled, createMessagingProfileRequest.enabled) &&
         equalsNullable(this.webhookUrl, createMessagingProfileRequest.webhookUrl) &&
         equalsNullable(this.webhookFailoverUrl, createMessagingProfileRequest.webhookFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, createMessagingProfileRequest.webhookApiVersion) &&
         equalsNullable(this.numberPoolSettings, createMessagingProfileRequest.numberPoolSettings) &&
-        equalsNullable(this.urlShortenerSettings, createMessagingProfileRequest.urlShortenerSettings);
+        equalsNullable(this.urlShortenerSettings, createMessagingProfileRequest.urlShortenerSettings) &&
+        equalsNullable(this.alphaSender, createMessagingProfileRequest.alphaSender);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -350,7 +430,7 @@ public class CreateMessagingProfileRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, enabled, hashCodeNullable(webhookUrl), hashCodeNullable(webhookFailoverUrl), webhookApiVersion, hashCodeNullable(numberPoolSettings), hashCodeNullable(urlShortenerSettings));
+    return Objects.hash(name, whitelistedDestinations, enabled, hashCodeNullable(webhookUrl), hashCodeNullable(webhookFailoverUrl), webhookApiVersion, hashCodeNullable(numberPoolSettings), hashCodeNullable(urlShortenerSettings), hashCodeNullable(alphaSender));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -365,12 +445,14 @@ public class CreateMessagingProfileRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateMessagingProfileRequest {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    whitelistedDestinations: ").append(toIndentedString(whitelistedDestinations)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookFailoverUrl: ").append(toIndentedString(webhookFailoverUrl)).append("\n");
     sb.append("    webhookApiVersion: ").append(toIndentedString(webhookApiVersion)).append("\n");
     sb.append("    numberPoolSettings: ").append(toIndentedString(numberPoolSettings)).append("\n");
     sb.append("    urlShortenerSettings: ").append(toIndentedString(urlShortenerSettings)).append("\n");
+    sb.append("    alphaSender: ").append(toIndentedString(alphaSender)).append("\n");
     sb.append("}");
     return sb.toString();
   }

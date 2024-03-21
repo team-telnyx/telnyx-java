@@ -4,16 +4,87 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**simCardOrderGet**](SimCardOrdersApi.md#simCardOrderGet) | **GET** /sim_card_orders/{id} | Get a single SIM card order
-[**simCardOrdersGet**](SimCardOrdersApi.md#simCardOrdersGet) | **GET** /sim_card_orders | Get all SIM card orders
-[**simCardOrdersPost**](SimCardOrdersApi.md#simCardOrdersPost) | **POST** /sim_card_orders | Create a SIM card order
-[**simCardOrdersPreview**](SimCardOrdersApi.md#simCardOrdersPreview) | **POST** /sim_card_order_preview | Preview SIM card orders
+[**createSimCardOrder**](SimCardOrdersApi.md#createSimCardOrder) | **POST** /sim_card_orders | Create a SIM card order
+[**getSimCardOrder**](SimCardOrdersApi.md#getSimCardOrder) | **GET** /sim_card_orders/{id} | Get a single SIM card order
+[**getSimCardOrders**](SimCardOrdersApi.md#getSimCardOrders) | **GET** /sim_card_orders | Get all SIM card orders
+[**previewSimCardOrders**](SimCardOrdersApi.md#previewSimCardOrders) | **POST** /sim_card_order_preview | Preview SIM card orders
 
 
 
-## simCardOrderGet
+## createSimCardOrder
 
-> SimCardOrdersPost200Response simCardOrderGet(id)
+> CreateSimCardOrder200Response createSimCardOrder(simCardOrderCreate)
+
+Create a SIM card order
+
+Creates a new order for SIM cards.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.SimCardOrdersApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        SimCardOrdersApi apiInstance = new SimCardOrdersApi(defaultClient);
+        SimCardOrderCreate simCardOrderCreate = new SimCardOrderCreate(); // SimCardOrderCreate | 
+        try {
+            CreateSimCardOrder200Response result = apiInstance.createSimCardOrder(simCardOrderCreate);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SimCardOrdersApi#createSimCardOrder");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **simCardOrderCreate** | [**SimCardOrderCreate**](SimCardOrderCreate.md)|  |
+
+### Return type
+
+[**CreateSimCardOrder200Response**](CreateSimCardOrder200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## getSimCardOrder
+
+> CreateSimCardOrder200Response getSimCardOrder(id)
 
 Get a single SIM card order
 
@@ -43,10 +114,10 @@ public class Example {
         SimCardOrdersApi apiInstance = new SimCardOrdersApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            SimCardOrdersPost200Response result = apiInstance.simCardOrderGet(id);
+            CreateSimCardOrder200Response result = apiInstance.getSimCardOrder(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardOrdersApi#simCardOrderGet");
+            System.err.println("Exception when calling SimCardOrdersApi#getSimCardOrder");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -65,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SimCardOrdersPost200Response**](SimCardOrdersPost200Response.md)
+[**CreateSimCardOrder200Response**](CreateSimCardOrder200Response.md)
 
 ### Authorization
 
@@ -84,9 +155,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## simCardOrdersGet
+## getSimCardOrders
 
-> SimCardOrdersGet200Response simCardOrdersGet(filterCreatedAt, filterUpdatedAt, filterQuantity, filterCostAmount, filterCostCurrency, filterAddressId, filterAddressStreetAddress, filterAddressExtendedAddress, filterAddressLocality, filterAddressAdministrativeArea, filterAddressCountryCode, filterAddressPostalCode, pageNumber, pageSize)
+> GetSimCardOrders200Response getSimCardOrders(filterCreatedAt, filterUpdatedAt, filterQuantity, filterCostAmount, filterCostCurrency, filterAddressId, filterAddressStreetAddress, filterAddressExtendedAddress, filterAddressLocality, filterAddressAdministrativeArea, filterAddressCountryCode, filterAddressPostalCode, pageNumber, pageSize)
 
 Get all SIM card orders
 
@@ -128,10 +199,10 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            SimCardOrdersGet200Response result = apiInstance.simCardOrdersGet(filterCreatedAt, filterUpdatedAt, filterQuantity, filterCostAmount, filterCostCurrency, filterAddressId, filterAddressStreetAddress, filterAddressExtendedAddress, filterAddressLocality, filterAddressAdministrativeArea, filterAddressCountryCode, filterAddressPostalCode, pageNumber, pageSize);
+            GetSimCardOrders200Response result = apiInstance.getSimCardOrders(filterCreatedAt, filterUpdatedAt, filterQuantity, filterCostAmount, filterCostCurrency, filterAddressId, filterAddressStreetAddress, filterAddressExtendedAddress, filterAddressLocality, filterAddressAdministrativeArea, filterAddressCountryCode, filterAddressPostalCode, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardOrdersApi#simCardOrdersGet");
+            System.err.println("Exception when calling SimCardOrdersApi#getSimCardOrders");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -163,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SimCardOrdersGet200Response**](SimCardOrdersGet200Response.md)
+[**GetSimCardOrders200Response**](GetSimCardOrders200Response.md)
 
 ### Authorization
 
@@ -181,80 +252,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## simCardOrdersPost
+## previewSimCardOrders
 
-> SimCardOrdersPost200Response simCardOrdersPost(simCardOrderCreate)
-
-Create a SIM card order
-
-Creates a new order for SIM cards.
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.SimCardOrdersApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        SimCardOrdersApi apiInstance = new SimCardOrdersApi(defaultClient);
-        SimCardOrderCreate simCardOrderCreate = new SimCardOrderCreate(); // SimCardOrderCreate | 
-        try {
-            SimCardOrdersPost200Response result = apiInstance.simCardOrdersPost(simCardOrderCreate);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardOrdersApi#simCardOrdersPost");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **simCardOrderCreate** | [**SimCardOrderCreate**](SimCardOrderCreate.md)|  |
-
-### Return type
-
-[**SimCardOrdersPost200Response**](SimCardOrdersPost200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## simCardOrdersPreview
-
-> SimCardOrdersPreview202Response simCardOrdersPreview(simCardOrdersPreviewRequest)
+> PreviewSimCardOrders202Response previewSimCardOrders(previewSimCardOrdersRequest)
 
 Preview SIM card orders
 
@@ -281,12 +281,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardOrdersApi apiInstance = new SimCardOrdersApi(defaultClient);
-        SimCardOrdersPreviewRequest simCardOrdersPreviewRequest = new SimCardOrdersPreviewRequest(); // SimCardOrdersPreviewRequest | 
+        PreviewSimCardOrdersRequest previewSimCardOrdersRequest = new PreviewSimCardOrdersRequest(); // PreviewSimCardOrdersRequest | 
         try {
-            SimCardOrdersPreview202Response result = apiInstance.simCardOrdersPreview(simCardOrdersPreviewRequest);
+            PreviewSimCardOrders202Response result = apiInstance.previewSimCardOrders(previewSimCardOrdersRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardOrdersApi#simCardOrdersPreview");
+            System.err.println("Exception when calling SimCardOrdersApi#previewSimCardOrders");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -301,11 +301,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **simCardOrdersPreviewRequest** | [**SimCardOrdersPreviewRequest**](SimCardOrdersPreviewRequest.md)|  | [optional]
+ **previewSimCardOrdersRequest** | [**PreviewSimCardOrdersRequest**](PreviewSimCardOrdersRequest.md)|  | [optional]
 
 ### Return type
 
-[**SimCardOrdersPreview202Response**](SimCardOrdersPreview202Response.md)
+[**PreviewSimCardOrders202Response**](PreviewSimCardOrders202Response.md)
 
 ### Authorization
 

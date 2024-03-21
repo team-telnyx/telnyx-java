@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -59,7 +62,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDeletedDetailed.JSON_PROPERTY_NUMBER_LEVEL_ROUTING,
   PhoneNumberDeletedDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PhoneNumberDeletedDetailed {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -177,11 +180,9 @@ public class PhoneNumberDeletedDetailed {
   private String updatedAt;
 
   /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level.
+   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
    */
   public enum NumberLevelRoutingEnum {
-    ENABLED("enabled"),
-    
     DISABLED("disabled");
 
     private String value;
@@ -265,6 +266,7 @@ public class PhoneNumberDeletedDetailed {
 
   @JsonCreator
   public PhoneNumberDeletedDetailed(
+    @JsonProperty(JSON_PROPERTY_ID) String id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
     @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
@@ -282,6 +284,7 @@ public class PhoneNumberDeletedDetailed {
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType
   ) {
     this();
+    this.id = id;
     this.recordType = recordType;
     this.phoneNumber = phoneNumber;
     this.status = status;
@@ -299,17 +302,12 @@ public class PhoneNumberDeletedDetailed {
     this.phoneNumberType = phoneNumberType;
   }
 
-  public PhoneNumberDeletedDetailed id(String id) {
-    this.id = id;
-    return this;
-  }
-
    /**
-   * Uniquely identifies the resource.
+   * Identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -318,11 +316,6 @@ public class PhoneNumberDeletedDetailed {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
 
 
    /**
@@ -745,11 +738,11 @@ public class PhoneNumberDeletedDetailed {
   }
 
    /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level.
+   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
    * @return numberLevelRouting
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to disabled or the value set on your user profile in default_number_routing_setting. There are performance advantages to using disabled and setting all routing information at the connection level.")
+  @ApiModelProperty(value = "Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.")
   @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,10 +26,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.RegulatoryRequirementsRegionInformationInner;
 import com.telnyx.sdk.model.RegulatoryRequirementsRegulatoryRequirementsInner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +45,7 @@ import com.telnyx.sdk.JSON;
   RegulatoryRequirements.JSON_PROPERTY_RECORD_TYPE,
   RegulatoryRequirements.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RegulatoryRequirements {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;

@@ -6,9 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**endSession**](RoomSessionsApi.md#endSession) | **POST** /room_sessions/{room_session_id}/actions/end | End a room session.
 [**kickParticipantInSession**](RoomSessionsApi.md#kickParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/kick | Kick participants from a room session.
+[**listRoomParticipants**](RoomSessionsApi.md#listRoomParticipants) | **GET** /room_sessions/{room_session_id}/participants | View a list of room participants.
 [**listRoomSessions**](RoomSessionsApi.md#listRoomSessions) | **GET** /room_sessions | View a list of room sessions.
 [**muteParticipantInSession**](RoomSessionsApi.md#muteParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/mute | Mute participants in room session.
-[**nestedListRoomParticipants**](RoomSessionsApi.md#nestedListRoomParticipants) | **GET** /room_sessions/{room_session_id}/participants | View a list of room participants.
 [**unmuteParticipantInSession**](RoomSessionsApi.md#unmuteParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/unmute | Unmute participants in room session.
 [**viewRoomSession**](RoomSessionsApi.md#viewRoomSession) | **GET** /room_sessions/{room_session_id} | View a room session.
 
@@ -146,6 +146,102 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success Action Response |  -  |
+
+
+## listRoomParticipants
+
+> ListRoomParticipants200Response listRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber)
+
+View a list of room participants.
+
+
+
+### Example
+
+```java
+import java.time.LocalDate;
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.RoomSessionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        RoomSessionsApi apiInstance = new RoomSessionsApi(defaultClient);
+        UUID roomSessionId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room session.
+        LocalDate filterDateJoinedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that joined on that date.
+        LocalDate filterDateJoinedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that joined after that date.
+        LocalDate filterDateJoinedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that joined before that date.
+        LocalDate filterDateUpdatedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants updated on that date.
+        LocalDate filterDateUpdatedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants updated after that date.
+        LocalDate filterDateUpdatedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants updated before that date.
+        LocalDate filterDateLeftAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that left on that date.
+        LocalDate filterDateLeftAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that left after that date.
+        LocalDate filterDateLeftAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that left before that date.
+        String filterContext = "Alice"; // String | Filter room participants based on the context.
+        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load
+        try {
+            ListRoomParticipants200Response result = apiInstance.listRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling RoomSessionsApi#listRoomParticipants");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **roomSessionId** | **UUID**| The unique identifier of a room session. |
+ **filterDateJoinedAtEq** | **LocalDate**| ISO 8601 date for filtering room participants that joined on that date. | [optional]
+ **filterDateJoinedAtGte** | **LocalDate**| ISO 8601 date for filtering room participants that joined after that date. | [optional]
+ **filterDateJoinedAtLte** | **LocalDate**| ISO 8601 date for filtering room participants that joined before that date. | [optional]
+ **filterDateUpdatedAtEq** | **LocalDate**| ISO 8601 date for filtering room participants updated on that date. | [optional]
+ **filterDateUpdatedAtGte** | **LocalDate**| ISO 8601 date for filtering room participants updated after that date. | [optional]
+ **filterDateUpdatedAtLte** | **LocalDate**| ISO 8601 date for filtering room participants updated before that date. | [optional]
+ **filterDateLeftAtEq** | **LocalDate**| ISO 8601 date for filtering room participants that left on that date. | [optional]
+ **filterDateLeftAtGte** | **LocalDate**| ISO 8601 date for filtering room participants that left after that date. | [optional]
+ **filterDateLeftAtLte** | **LocalDate**| ISO 8601 date for filtering room participants that left before that date. | [optional]
+ **filterContext** | **String**| Filter room participants based on the context. | [optional]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+
+### Return type
+
+[**ListRoomParticipants200Response**](ListRoomParticipants200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | List room participants response. |  -  |
 
 
 ## listRoomSessions
@@ -311,102 +407,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success Action Response |  -  |
-
-
-## nestedListRoomParticipants
-
-> ListRoomParticipants200Response nestedListRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber)
-
-View a list of room participants.
-
-
-
-### Example
-
-```java
-import java.time.LocalDate;
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.RoomSessionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        RoomSessionsApi apiInstance = new RoomSessionsApi(defaultClient);
-        UUID roomSessionId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room session.
-        LocalDate filterDateJoinedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that joined on that date.
-        LocalDate filterDateJoinedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that joined after that date.
-        LocalDate filterDateJoinedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that joined before that date.
-        LocalDate filterDateUpdatedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants updated on that date.
-        LocalDate filterDateUpdatedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants updated after that date.
-        LocalDate filterDateUpdatedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants updated before that date.
-        LocalDate filterDateLeftAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that left on that date.
-        LocalDate filterDateLeftAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that left after that date.
-        LocalDate filterDateLeftAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room participants that left before that date.
-        String filterContext = "Alice"; // String | Filter room participants based on the context.
-        Integer pageSize = 20; // Integer | The size of the page
-        Integer pageNumber = 1; // Integer | The page number to load
-        try {
-            ListRoomParticipants200Response result = apiInstance.nestedListRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling RoomSessionsApi#nestedListRoomParticipants");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **roomSessionId** | **UUID**| The unique identifier of a room session. |
- **filterDateJoinedAtEq** | **LocalDate**| ISO 8601 date for filtering room participants that joined on that date. | [optional]
- **filterDateJoinedAtGte** | **LocalDate**| ISO 8601 date for filtering room participants that joined after that date. | [optional]
- **filterDateJoinedAtLte** | **LocalDate**| ISO 8601 date for filtering room participants that joined before that date. | [optional]
- **filterDateUpdatedAtEq** | **LocalDate**| ISO 8601 date for filtering room participants updated on that date. | [optional]
- **filterDateUpdatedAtGte** | **LocalDate**| ISO 8601 date for filtering room participants updated after that date. | [optional]
- **filterDateUpdatedAtLte** | **LocalDate**| ISO 8601 date for filtering room participants updated before that date. | [optional]
- **filterDateLeftAtEq** | **LocalDate**| ISO 8601 date for filtering room participants that left on that date. | [optional]
- **filterDateLeftAtGte** | **LocalDate**| ISO 8601 date for filtering room participants that left after that date. | [optional]
- **filterDateLeftAtLte** | **LocalDate**| ISO 8601 date for filtering room participants that left before that date. | [optional]
- **filterContext** | **String**| Filter room participants based on the context. | [optional]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
-
-### Return type
-
-[**ListRoomParticipants200Response**](ListRoomParticipants200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | List room participants response. |  -  |
 
 
 ## unmuteParticipantInSession

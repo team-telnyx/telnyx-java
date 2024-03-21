@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,13 +24,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.GenericError;
-import com.telnyx.sdk.model.ResourceNotFoundErrorAllOf;
 import com.telnyx.sdk.model.ResourceNotFoundErrorAllOfMeta;
 import com.telnyx.sdk.model.UpdateOutboundChannelsDefaultResponseErrorsInnerSource;
+import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -46,7 +48,7 @@ import com.telnyx.sdk.JSON;
   ResourceNotFoundError.JSON_PROPERTY_SOURCE,
   ResourceNotFoundError.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ResourceNotFoundError {
   public static final String JSON_PROPERTY_CODE = "code";
   private JsonNullable<Object> code = JsonNullable.<Object>of(null);

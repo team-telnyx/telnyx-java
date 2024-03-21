@@ -4,17 +4,91 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**acceptAddressSuggestions**](AddressesApi.md#acceptAddressSuggestions) | **POST** /addresses/{id}/actions/accept_suggestions | Accepts this address suggestion as a new emergency address for Operator Connect and finishes the uploads of the numbers associated with it to Microsoft.
 [**createAddress**](AddressesApi.md#createAddress) | **POST** /addresses | Creates an address
 [**deleteAddress**](AddressesApi.md#deleteAddress) | **DELETE** /addresses/{id} | Deletes an address
-[**findAddresss**](AddressesApi.md#findAddresss) | **GET** /addresses | List all addresses
+[**findAddresses**](AddressesApi.md#findAddresses) | **GET** /addresses | List all addresses
 [**getAddress**](AddressesApi.md#getAddress) | **GET** /addresses/{id} | Retrieve an address
 [**validateAddress**](AddressesApi.md#validateAddress) | **POST** /addresses/actions/validate | Validate an address
 
 
 
+## acceptAddressSuggestions
+
+> AddressSuggestionResponse acceptAddressSuggestions(id, acceptSuggestionsRequest)
+
+Accepts this address suggestion as a new emergency address for Operator Connect and finishes the uploads of the numbers associated with it to Microsoft.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.AddressesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        AddressesApi apiInstance = new AddressesApi(defaultClient);
+        UUID id = UUID.randomUUID(); // UUID | The UUID of the address that should be accepted.
+        AcceptSuggestionsRequest acceptSuggestionsRequest = new AcceptSuggestionsRequest(); // AcceptSuggestionsRequest | 
+        try {
+            AddressSuggestionResponse result = apiInstance.acceptAddressSuggestions(id, acceptSuggestionsRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AddressesApi#acceptAddressSuggestions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| The UUID of the address that should be accepted. |
+ **acceptSuggestionsRequest** | [**AcceptSuggestionsRequest**](AcceptSuggestionsRequest.md)|  | [optional]
+
+### Return type
+
+[**AddressSuggestionResponse**](AddressSuggestionResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | This address suggestion has already been accepted. |  -  |
+| **202** | This address suggestion was accepted. The numbers associated to it will resume processing in the background. |  -  |
+| **404** | Address not found or not accessible by the user. |  -  |
+
+
 ## createAddress
 
-> AddressResponse createAddress(addressCreate)
+> CreateAddress200Response createAddress(addressCreate)
 
 Creates an address
 
@@ -43,7 +117,7 @@ public class Example {
         AddressesApi apiInstance = new AddressesApi(defaultClient);
         AddressCreate addressCreate = new AddressCreate(); // AddressCreate | Parameters that can be defined during address creation
         try {
-            AddressResponse result = apiInstance.createAddress(addressCreate);
+            CreateAddress200Response result = apiInstance.createAddress(addressCreate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AddressesApi#createAddress");
@@ -65,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AddressResponse**](AddressResponse.md)
+[**CreateAddress200Response**](CreateAddress200Response.md)
 
 ### Authorization
 
@@ -85,7 +159,7 @@ Name | Type | Description  | Notes
 
 ## deleteAddress
 
-> AddressResponse deleteAddress(id)
+> CreateAddress200Response deleteAddress(id)
 
 Deletes an address
 
@@ -114,7 +188,7 @@ public class Example {
         AddressesApi apiInstance = new AddressesApi(defaultClient);
         String id = "id_example"; // String | address ID
         try {
-            AddressResponse result = apiInstance.deleteAddress(id);
+            CreateAddress200Response result = apiInstance.deleteAddress(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AddressesApi#deleteAddress");
@@ -136,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AddressResponse**](AddressResponse.md)
+[**CreateAddress200Response**](CreateAddress200Response.md)
 
 ### Authorization
 
@@ -156,9 +230,9 @@ Name | Type | Description  | Notes
 | **422** | Bad request |  -  |
 
 
-## findAddresss
+## findAddresses
 
-> GetAllAddressResponse findAddresss(pageNumber, pageSize, filterCustomerReferenceEq, filterCustomerReferenceContains, filterUsedAsEmergency, filterStreetAddressContains, filterAddressBookEq, sort)
+> FindAddresses200Response findAddresses(pageNumber, pageSize, filterCustomerReferenceEq, filterCustomerReferenceContains, filterUsedAsEmergency, filterStreetAddressContains, filterAddressBookEq, sort)
 
 List all addresses
 
@@ -194,10 +268,10 @@ public class Example {
         String filterAddressBookEq = "null"; // String | If present, only returns results with the <code>address_book</code> flag set to the given value.
         String sort = "created_at"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>street_address</code>: sorts the result by the     <code>street_address</code> field in ascending order.   </li>    <li>     <code>-street_address</code>: sorts the result by the     <code>street_address</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
         try {
-            GetAllAddressResponse result = apiInstance.findAddresss(pageNumber, pageSize, filterCustomerReferenceEq, filterCustomerReferenceContains, filterUsedAsEmergency, filterStreetAddressContains, filterAddressBookEq, sort);
+            FindAddresses200Response result = apiInstance.findAddresses(pageNumber, pageSize, filterCustomerReferenceEq, filterCustomerReferenceContains, filterUsedAsEmergency, filterStreetAddressContains, filterAddressBookEq, sort);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling AddressesApi#findAddresss");
+            System.err.println("Exception when calling AddressesApi#findAddresses");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -223,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetAllAddressResponse**](GetAllAddressResponse.md)
+[**FindAddresses200Response**](FindAddresses200Response.md)
 
 ### Authorization
 
@@ -245,7 +319,7 @@ Name | Type | Description  | Notes
 
 ## getAddress
 
-> AddressResponse getAddress(id)
+> CreateAddress200Response getAddress(id)
 
 Retrieve an address
 
@@ -274,7 +348,7 @@ public class Example {
         AddressesApi apiInstance = new AddressesApi(defaultClient);
         String id = "id_example"; // String | address ID
         try {
-            AddressResponse result = apiInstance.getAddress(id);
+            CreateAddress200Response result = apiInstance.getAddress(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AddressesApi#getAddress");
@@ -296,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AddressResponse**](AddressResponse.md)
+[**CreateAddress200Response**](CreateAddress200Response.md)
 
 ### Authorization
 
@@ -318,7 +392,7 @@ Name | Type | Description  | Notes
 
 ## validateAddress
 
-> ValidateAddressResponse validateAddress(validateAddressRequest)
+> ValidateAddressActionResponse validateAddress(validateAddressRequest)
 
 Validate an address
 
@@ -347,7 +421,7 @@ public class Example {
         AddressesApi apiInstance = new AddressesApi(defaultClient);
         ValidateAddressRequest validateAddressRequest = new ValidateAddressRequest(); // ValidateAddressRequest | Parameters that can be defined during address validation
         try {
-            ValidateAddressResponse result = apiInstance.validateAddress(validateAddressRequest);
+            ValidateAddressActionResponse result = apiInstance.validateAddress(validateAddressRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AddressesApi#validateAddress");
@@ -369,7 +443,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ValidateAddressResponse**](ValidateAddressResponse.md)
+[**ValidateAddressActionResponse**](ValidateAddressActionResponse.md)
 
 ### Authorization
 

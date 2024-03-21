@@ -14,7 +14,7 @@
 |**fallbackMethod** | [**FallbackMethodEnum**](#FallbackMethodEnum) | HTTP request type used for &#x60;FallbackUrl&#x60;. |  [optional] |
 |**statusCallback** | **String** | URL destination for Telnyx to send status callback events to for the call. |  [optional] |
 |**statusCallbackMethod** | [**StatusCallbackMethodEnum**](#StatusCallbackMethodEnum) | HTTP request type used for &#x60;StatusCallback&#x60;. |  [optional] |
-|**texml** | **String** | TeXml to replace the current one with. |  [optional] |
+|**texml** | **String** | TeXML to replace the current one with. |  [optional] |
 
 
 
