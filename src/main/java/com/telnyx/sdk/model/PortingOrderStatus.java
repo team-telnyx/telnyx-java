@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderStatus.JSON_PROPERTY_DETAILS,
   PortingOrderStatus.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrderStatus {
   public static final String JSON_PROPERTY_DETAILS = "details";
   private List<PortingOrdersExceptionType> details = null;
@@ -117,7 +117,7 @@ public class PortingOrderStatus {
    * A list of 0 or more details about this porting order&#39;s status
    * @return details
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of 0 or more details about this porting order's status")
   @JsonProperty(JSON_PROPERTY_DETAILS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class PortingOrderStatus {
    * The current status of the porting order
    * @return value
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ported", value = "The current status of the porting order")
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

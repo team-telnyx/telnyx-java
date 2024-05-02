@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   PortingLOAConfigurationContact.JSON_PROPERTY_EMAIL,
   PortingLOAConfigurationContact.JSON_PROPERTY_PHONE_NUMBER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingLOAConfigurationContact {
   public static final String JSON_PROPERTY_EMAIL = "email";
   private String email;
@@ -59,7 +59,7 @@ public class PortingLOAConfigurationContact {
    * The email address of the contact
    * @return email
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "testing@telnyx.com", value = "The email address of the contact")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class PortingLOAConfigurationContact {
    * The phone number of the contact
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12003270001", value = "The phone number of the contact")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

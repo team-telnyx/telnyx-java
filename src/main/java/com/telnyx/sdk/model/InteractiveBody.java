@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   InteractiveBody.JSON_PROPERTY_TEXT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InteractiveBody {
   public static final String JSON_PROPERTY_TEXT = "text";
   private String text;
@@ -53,7 +53,7 @@ public class InteractiveBody {
    * The body content of the message. Emojis and markdown are supported. Links are supported.
    * @return text
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The body content of the message. Emojis and markdown are supported. Links are supported.")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

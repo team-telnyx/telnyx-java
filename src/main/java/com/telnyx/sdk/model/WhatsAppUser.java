@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   WhatsAppUser.JSON_PROPERTY_ID,
   WhatsAppUser.JSON_PROPERTY_WEBHOOK_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsAppUser {
   /**
    * Identifies the type of the resource.
@@ -98,7 +98,7 @@ public class WhatsAppUser {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class WhatsAppUser {
    * The WhatsApp User ID, usually a phone number.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "15125551212", value = "The WhatsApp User ID, usually a phone number.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class WhatsAppUser {
    * The URL that WhatsApp webhooks are sent to.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://mywebhook.com/example/endpoint", value = "The URL that WhatsApp webhooks are sent to.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

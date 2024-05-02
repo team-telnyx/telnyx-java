@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   UpdateOutboundChannelsDefaultResponseErrorsInnerSource.JSON_PROPERTY_POINTER,
   UpdateOutboundChannelsDefaultResponseErrorsInnerSource.JSON_PROPERTY_PARAMETER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateOutboundChannelsDefaultResponseErrorsInnerSource {
   public static final String JSON_PROPERTY_POINTER = "pointer";
   private String pointer;
@@ -58,7 +58,7 @@ public class UpdateOutboundChannelsDefaultResponseErrorsInnerSource {
    * JSON pointer (RFC6901) to the offending entity.
    * @return pointer
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "JSON pointer (RFC6901) to the offending entity.")
   @JsonProperty(JSON_PROPERTY_POINTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class UpdateOutboundChannelsDefaultResponseErrorsInnerSource {
    * Indicates which query parameter caused the error.
    * @return parameter
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates which query parameter caused the error.")
   @JsonProperty(JSON_PROPERTY_PARAMETER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

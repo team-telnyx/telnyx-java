@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   PublicCompanyRecordSet.JSON_PROPERTY_PAGE,
   PublicCompanyRecordSet.JSON_PROPERTY_TOTAL_RECORDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PublicCompanyRecordSet {
   public static final String JSON_PROPERTY_RECORDS = "records";
   private List<PublicCompany> records = null;
@@ -73,7 +73,7 @@ public class PublicCompanyRecordSet {
    * Get records
    * @return records
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -99,7 +99,7 @@ public class PublicCompanyRecordSet {
    * Get page
    * @return page
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -125,7 +125,7 @@ public class PublicCompanyRecordSet {
    * Get totalRecords
    * @return totalRecords
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_RECORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

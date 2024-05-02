@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   VerifyVerificationCodeResponseData.JSON_PROPERTY_PHONE_NUMBER,
   VerifyVerificationCodeResponseData.JSON_PROPERTY_RESPONSE_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifyVerificationCodeResponseData {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -93,7 +93,7 @@ public class VerifyVerificationCodeResponseData {
    * +E164 formatted phone number.
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+13035551234", required = true, value = "+E164 formatted phone number.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -119,7 +119,7 @@ public class VerifyVerificationCodeResponseData {
    * Identifies if the verification code has been accepted or rejected.
    * @return responseCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "accepted", required = true, value = "Identifies if the verification code has been accepted or rejected.")
   @JsonProperty(JSON_PROPERTY_RESPONSE_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

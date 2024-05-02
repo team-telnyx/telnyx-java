@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CallStreamingFailedPayloadStreamParams.JSON_PROPERTY_STREAM_URL,
   CallStreamingFailedPayloadStreamParams.JSON_PROPERTY_TRACK
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallStreamingFailedPayloadStreamParams {
   public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
   private String streamUrl;
@@ -96,7 +96,7 @@ public class CallStreamingFailedPayloadStreamParams {
    * The destination WebSocket address where the stream is going to be delivered.
    * @return streamUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wss://www.example.com/websocket", value = "The destination WebSocket address where the stream is going to be delivered.")
   @JsonProperty(JSON_PROPERTY_STREAM_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class CallStreamingFailedPayloadStreamParams {
    * Specifies which track should be streamed.
    * @return track
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "inbound_track", value = "Specifies which track should be streamed.")
   @JsonProperty(JSON_PROPERTY_TRACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderMisc.JSON_PROPERTY_REMAINING_NUMBERS_ACTION,
   PortingOrderMisc.JSON_PROPERTY_NEW_BILLING_PHONE_NUMBER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrderMisc {
   public static final String JSON_PROPERTY_TYPE = "type";
   private PortingOrderType type;
@@ -98,7 +98,7 @@ public class PortingOrderMisc {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class PortingOrderMisc {
    * Remaining numbers can be either kept with their current service provider or disconnected. &#39;new_billing_telephone_number&#39; is required when &#39;remaining_numbers_action&#39; is &#39;keep&#39;.
    * @return remainingNumbersAction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "disconnect", value = "Remaining numbers can be either kept with their current service provider or disconnected. 'new_billing_telephone_number' is required when 'remaining_numbers_action' is 'keep'.")
   @JsonProperty(JSON_PROPERTY_REMAINING_NUMBERS_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class PortingOrderMisc {
    * New billing phone number for the remaining numbers. Used in case the current billing phone number is being ported to Telnyx. This will be set on your account with your current service provider and should be one of the numbers remaining on that account.
    * @return newBillingPhoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "New billing phone number for the remaining numbers. Used in case the current billing phone number is being ported to Telnyx. This will be set on your account with your current service provider and should be one of the numbers remaining on that account.")
   @JsonProperty(JSON_PROPERTY_NEW_BILLING_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

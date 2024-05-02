@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderRequirement.JSON_PROPERTY_REQUIREMENT_TYPE_ID,
   PortingOrderRequirement.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrderRequirement {
   /**
    * Type of value expected on field_value field
@@ -99,7 +99,7 @@ public class PortingOrderRequirement {
    * Type of value expected on field_value field
    * @return fieldType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "document", value = "Type of value expected on field_value field")
   @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -125,7 +125,7 @@ public class PortingOrderRequirement {
    * identifies the document that satisfies this requirement
    * @return fieldValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "9787fb5f-cbe5-4de4-b765-3303774ee9fe", value = "identifies the document that satisfies this requirement")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -151,7 +151,7 @@ public class PortingOrderRequirement {
    * Identifies the requirement type that meets this requirement
    * @return requirementTypeId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "59b0762a-b274-4f76-ac32-4d5cf0272e66", value = "Identifies the requirement type that meets this requirement")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -177,7 +177,7 @@ public class PortingOrderRequirement {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_requirement", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

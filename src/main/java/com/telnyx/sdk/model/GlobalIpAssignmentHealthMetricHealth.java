@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpAssignmentHealthMetricHealth.JSON_PROPERTY_PASS,
   GlobalIpAssignmentHealthMetricHealth.JSON_PROPERTY_FAIL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIpAssignmentHealthMetricHealth {
   public static final String JSON_PROPERTY_PASS = "pass";
   private BigDecimal pass;
@@ -59,7 +59,7 @@ public class GlobalIpAssignmentHealthMetricHealth {
    * The number of successful health checks.
    * @return pass
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "The number of successful health checks.")
   @JsonProperty(JSON_PROPERTY_PASS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class GlobalIpAssignmentHealthMetricHealth {
    * The number of failed health checks.
    * @return fail
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0", value = "The number of failed health checks.")
   @JsonProperty(JSON_PROPERTY_FAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

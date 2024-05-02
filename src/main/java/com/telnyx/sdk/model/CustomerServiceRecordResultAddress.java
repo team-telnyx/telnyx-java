@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRecordResultAddress.JSON_PROPERTY_STREET_ADDRESS,
   CustomerServiceRecordResultAddress.JSON_PROPERTY_FULL_ADDRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CustomerServiceRecordResultAddress {
   public static final String JSON_PROPERTY_ADMINISTRATIVE_AREA = "administrative_area";
   private String administrativeArea;
@@ -71,7 +71,7 @@ public class CustomerServiceRecordResultAddress {
    * The state of the address
    * @return administrativeArea
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "NY", value = "The state of the address")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class CustomerServiceRecordResultAddress {
    * The city of the address
    * @return locality
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "New York", value = "The city of the address")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class CustomerServiceRecordResultAddress {
    * The zip code of the address
    * @return postalCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10001", value = "The zip code of the address")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -149,7 +149,7 @@ public class CustomerServiceRecordResultAddress {
    * The street address
    * @return streetAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123 Main St", value = "The street address")
   @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -175,7 +175,7 @@ public class CustomerServiceRecordResultAddress {
    * The full address
    * @return fullAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123 Main St; New York; NY; 10001", value = "The full address")
   @JsonProperty(JSON_PROPERTY_FULL_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

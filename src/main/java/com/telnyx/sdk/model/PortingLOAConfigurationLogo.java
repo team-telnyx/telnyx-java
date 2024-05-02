@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PortingLOAConfigurationLogo.JSON_PROPERTY_DOCUMENT_ID,
   PortingLOAConfigurationLogo.JSON_PROPERTY_CONTENT_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingLOAConfigurationLogo {
   public static final String JSON_PROPERTY_DOCUMENT_ID = "document_id";
   private UUID documentId;
@@ -93,7 +93,7 @@ public class PortingLOAConfigurationLogo {
    * Identifies the document that contains the logo.
    * @return documentId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "Identifies the document that contains the logo.")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class PortingLOAConfigurationLogo {
    * The content type of the logo.
    * @return contentType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "image/png", value = "The content type of the logo.")
   @JsonProperty(JSON_PROPERTY_CONTENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

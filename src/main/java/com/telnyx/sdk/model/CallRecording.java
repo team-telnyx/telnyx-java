@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CallRecording.JSON_PROPERTY_INBOUND_CALL_RECORDING_FORMAT,
   CallRecording.JSON_PROPERTY_INBOUND_CALL_RECORDING_CHANNELS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallRecording {
   public static final String JSON_PROPERTY_INBOUND_CALL_RECORDING_ENABLED = "inbound_call_recording_enabled";
   private Boolean inboundCallRecordingEnabled = false;
@@ -133,7 +133,7 @@ public class CallRecording {
    * When enabled, any inbound call to this number will be recorded.
    * @return inboundCallRecordingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When enabled, any inbound call to this number will be recorded.")
   @JsonProperty(JSON_PROPERTY_INBOUND_CALL_RECORDING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -159,7 +159,7 @@ public class CallRecording {
    * The audio file format for calls being recorded.
    * @return inboundCallRecordingFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The audio file format for calls being recorded.")
   @JsonProperty(JSON_PROPERTY_INBOUND_CALL_RECORDING_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -185,7 +185,7 @@ public class CallRecording {
    * When using &#39;dual&#39; channels, final audio file will be stereo recorded with the first leg on channel A, and the rest on channel B.
    * @return inboundCallRecordingChannels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When using 'dual' channels, final audio file will be stereo recorded with the first leg on channel A, and the rest on channel B.")
   @JsonProperty(JSON_PROPERTY_INBOUND_CALL_RECORDING_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

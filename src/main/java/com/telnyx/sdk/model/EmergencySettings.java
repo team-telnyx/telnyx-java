@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   EmergencySettings.JSON_PROPERTY_EMERGENCY_ADDRESS_ID,
   EmergencySettings.JSON_PROPERTY_EMERGENCY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class EmergencySettings {
   public static final String JSON_PROPERTY_EMERGENCY_ENABLED = "emergency_enabled";
   private Boolean emergencyEnabled = false;
@@ -102,7 +102,7 @@ public class EmergencySettings {
    * Allows you to enable or disable emergency services on the phone number. In order to enable emergency services, you must also set an emergency_address_id.
    * @return emergencyEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Allows you to enable or disable emergency services on the phone number. In order to enable emergency services, you must also set an emergency_address_id.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -128,7 +128,7 @@ public class EmergencySettings {
    * Identifies the address to be used with emergency services.
    * @return emergencyAddressId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the address to be used with emergency services.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -154,7 +154,7 @@ public class EmergencySettings {
    * Represents the state of the number regarding emergency activation.
    * @return emergencyStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Represents the state of the number regarding emergency activation.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

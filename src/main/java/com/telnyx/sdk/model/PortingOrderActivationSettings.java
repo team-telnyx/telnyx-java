@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderActivationSettings.JSON_PROPERTY_FAST_PORT_ELIGIBLE,
   PortingOrderActivationSettings.JSON_PROPERTY_ACTIVATION_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrderActivationSettings {
   public static final String JSON_PROPERTY_FOC_DATETIME_REQUESTED = "foc_datetime_requested";
   private OffsetDateTime focDatetimeRequested;
@@ -76,7 +76,7 @@ public class PortingOrderActivationSettings {
    * ISO 8601 formatted Date/Time requested for the FOC date
    * @return focDatetimeRequested
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted Date/Time requested for the FOC date")
   @JsonProperty(JSON_PROPERTY_FOC_DATETIME_REQUESTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -102,7 +102,7 @@ public class PortingOrderActivationSettings {
    * ISO 8601 formatted Date/Time of the FOC date
    * @return focDatetimeActual
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted Date/Time of the FOC date")
   @JsonProperty(JSON_PROPERTY_FOC_DATETIME_ACTUAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class PortingOrderActivationSettings {
    * Indicates whether this porting order is eligible for FastPort
    * @return fastPortEligible
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether this porting order is eligible for FastPort")
   @JsonProperty(JSON_PROPERTY_FAST_PORT_ELIGIBLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class PortingOrderActivationSettings {
    * Get activationStatus
    * @return activationStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ACTIVATION_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

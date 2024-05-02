@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   GlobalIPAllowedPort.JSON_PROPERTY_FIRST_PORT,
   GlobalIPAllowedPort.JSON_PROPERTY_LAST_PORT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIPAllowedPort {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -82,7 +82,7 @@ public class GlobalIPAllowedPort {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -98,7 +98,7 @@ public class GlobalIPAllowedPort {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "global_ip_allowed_port", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class GlobalIPAllowedPort {
    * The Global IP Protocol code.
    * @return protocolCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "tcp", value = "The Global IP Protocol code.")
   @JsonProperty(JSON_PROPERTY_PROTOCOL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -135,7 +135,7 @@ public class GlobalIPAllowedPort {
    * A name for the Global IP ports range.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "TCP Registered", value = "A name for the Global IP ports range.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -161,7 +161,7 @@ public class GlobalIPAllowedPort {
    * First port of a range.
    * @return firstPort
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1024", value = "First port of a range.")
   @JsonProperty(JSON_PROPERTY_FIRST_PORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -187,7 +187,7 @@ public class GlobalIPAllowedPort {
    * Last port of a range.
    * @return lastPort
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "49151", value = "Last port of a range.")
   @JsonProperty(JSON_PROPERTY_LAST_PORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

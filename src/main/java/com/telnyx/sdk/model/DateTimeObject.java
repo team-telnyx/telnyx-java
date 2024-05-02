@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   DateTimeObject.JSON_PROPERTY_COMPONENT,
   DateTimeObject.JSON_PROPERTY_UNIX_EPOCH
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DateTimeObject {
   public static final String JSON_PROPERTY_COMPONENT = "component";
   private DateTimeComponent component;
@@ -60,7 +60,7 @@ public class DateTimeObject {
    * Get component
    * @return component
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COMPONENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class DateTimeObject {
    * Get unixEpoch
    * @return unixEpoch
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_UNIX_EPOCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

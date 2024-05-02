@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   WhatsappBusinessAccountWhatsappSettings.JSON_PROPERTY_BAN_STATE,
   WhatsappBusinessAccountWhatsappSettings.JSON_PROPERTY_BAN_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsappBusinessAccountWhatsappSettings {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -157,7 +157,7 @@ public class WhatsappBusinessAccountWhatsappSettings {
    * The unique ID of the business account in Facebook
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The unique ID of the business account in Facebook")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -183,7 +183,7 @@ public class WhatsappBusinessAccountWhatsappSettings {
    * The name of the business account in Facebook
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The name of the business account in Facebook")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -209,7 +209,7 @@ public class WhatsappBusinessAccountWhatsappSettings {
    * The review status of the account in Facebook.&lt;/br&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;PENDING&lt;/code&gt;The account is waiting for review by the WhatsApp team. At this stage, the account is allowed only to send messages using the pre-approved messaging templates, from a single verified phone-number.&lt;/li&gt;&lt;li&gt;&lt;code&gt;APPROVED&lt;/code&gt;The WhatsApp team demeed the account as valid and now it has access to all capabilities that the WhatsApp integration offers.&lt;/li&gt;&lt;li&gt;&lt;code&gt;REJECTED&lt;/code&gt;The account was rejected by the WhatsApp team. It will need to re-submit its business information to resume the approval process.&lt;/li&gt;&lt;/ul&gt;
    * @return accountReviewStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The review status of the account in Facebook.</br><ul><li><code>PENDING</code>The account is waiting for review by the WhatsApp team. At this stage, the account is allowed only to send messages using the pre-approved messaging templates, from a single verified phone-number.</li><li><code>APPROVED</code>The WhatsApp team demeed the account as valid and now it has access to all capabilities that the WhatsApp integration offers.</li><li><code>REJECTED</code>The account was rejected by the WhatsApp team. It will need to re-submit its business information to resume the approval process.</li></ul>")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_REVIEW_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -235,7 +235,7 @@ public class WhatsappBusinessAccountWhatsappSettings {
    * The unique ID of the business that owns the account in Facebook
    * @return ownerBusinessId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The unique ID of the business that owns the account in Facebook")
   @JsonProperty(JSON_PROPERTY_OWNER_BUSINESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -261,7 +261,7 @@ public class WhatsappBusinessAccountWhatsappSettings {
    * The name of the business that owns the account in Facebook
    * @return ownerBusinessName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The name of the business that owns the account in Facebook")
   @JsonProperty(JSON_PROPERTY_OWNER_BUSINESS_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -287,7 +287,7 @@ public class WhatsappBusinessAccountWhatsappSettings {
    * The account&#39;s message template namespace provideded by Facebook
    * @return messageTemplateNamespace
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The account's message template namespace provideded by Facebook")
   @JsonProperty(JSON_PROPERTY_MESSAGE_TEMPLATE_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -313,7 +313,7 @@ public class WhatsappBusinessAccountWhatsappSettings {
    * The ban state of the account in Facebook.
    * @return banState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The ban state of the account in Facebook.")
   @JsonProperty(JSON_PROPERTY_BAN_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -339,7 +339,7 @@ public class WhatsappBusinessAccountWhatsappSettings {
    * The date the account was banned in Facebook.
    * @return banDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The date the account was banned in Facebook.")
   @JsonProperty(JSON_PROPERTY_BAN_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

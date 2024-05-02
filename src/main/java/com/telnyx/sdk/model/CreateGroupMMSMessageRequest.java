@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   CreateGroupMMSMessageRequest.JSON_PROPERTY_WEBHOOK_FAILOVER_URL,
   CreateGroupMMSMessageRequest.JSON_PROPERTY_USE_PROFILE_WEBHOOKS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateGroupMMSMessageRequest {
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -84,7 +84,7 @@ public class CreateGroupMMSMessageRequest {
    * Phone number, in +E.164 format, used to send the message.
    * @return from
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Phone number, in +E.164 format, used to send the message.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -115,7 +115,7 @@ public class CreateGroupMMSMessageRequest {
    * A list of destinations. No more than 8 destinations are allowed.
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "A list of destinations. No more than 8 destinations are allowed.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -141,7 +141,7 @@ public class CreateGroupMMSMessageRequest {
    * Message body (i.e., content) as a non-empty string.
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message body (i.e., content) as a non-empty string.")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -167,7 +167,7 @@ public class CreateGroupMMSMessageRequest {
    * Subject of multimedia message
    * @return subject
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Subject of multimedia message")
   @JsonProperty(JSON_PROPERTY_SUBJECT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -201,7 +201,7 @@ public class CreateGroupMMSMessageRequest {
    * A list of media URLs. The total media size must be less than 1 MB.
    * @return mediaUrls
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of media URLs. The total media size must be less than 1 MB.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -227,7 +227,7 @@ public class CreateGroupMMSMessageRequest {
    * The URL where webhooks related to this message will be sent.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The URL where webhooks related to this message will be sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -253,7 +253,7 @@ public class CreateGroupMMSMessageRequest {
    * The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.
    * @return webhookFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -279,7 +279,7 @@ public class CreateGroupMMSMessageRequest {
    * If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.
    * @return useProfileWebhooks
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.")
   @JsonProperty(JSON_PROPERTY_USE_PROFILE_WEBHOOKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

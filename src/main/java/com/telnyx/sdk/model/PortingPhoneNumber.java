@@ -48,7 +48,7 @@ import com.telnyx.sdk.JSON;
   PortingPhoneNumber.JSON_PROPERTY_REQUIREMENTS_STATUS,
   PortingPhoneNumber.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingPhoneNumber {
   /**
    * The current status of the porting order
@@ -226,7 +226,7 @@ public class PortingPhoneNumber {
    * The current status of the porting order
    * @return portingOrderStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "in-process", value = "The current status of the porting order")
   @JsonProperty(JSON_PROPERTY_PORTING_ORDER_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -252,7 +252,7 @@ public class PortingPhoneNumber {
    * The type of the phone number
    * @return phoneNumberType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "local", value = "The type of the phone number")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -278,7 +278,7 @@ public class PortingPhoneNumber {
    * E164 formatted phone number
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "13035550987", value = "E164 formatted phone number")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -304,7 +304,7 @@ public class PortingPhoneNumber {
    * Identifies the associated port request
    * @return portingOrderId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "Identifies the associated port request")
   @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -330,7 +330,7 @@ public class PortingPhoneNumber {
    * A key to reference this porting order when contacting Telnyx customer support
    * @return supportKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sr_a12345", value = "A key to reference this porting order when contacting Telnyx customer support")
   @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -356,7 +356,7 @@ public class PortingPhoneNumber {
    * Get activationStatus
    * @return activationStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ACTIVATION_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -382,7 +382,7 @@ public class PortingPhoneNumber {
    * Get portabilityStatus
    * @return portabilityStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PORTABILITY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -408,7 +408,7 @@ public class PortingPhoneNumber {
    * The current status of the requirements in a INTL porting order
    * @return requirementsStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "approved", value = "The current status of the requirements in a INTL porting order")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -429,7 +429,7 @@ public class PortingPhoneNumber {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_phone_number", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

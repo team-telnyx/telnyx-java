@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PortoutsIdSupportingDocumentsDocuments.JSON_PROPERTY_TYPE,
   PortoutsIdSupportingDocumentsDocuments.JSON_PROPERTY_DOCUMENT_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PortoutsIdSupportingDocumentsDocuments {
   /**
    * Identifies the type of the document
@@ -93,7 +93,7 @@ public class PortoutsIdSupportingDocumentsDocuments {
    * Identifies the type of the document
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "loa", required = true, value = "Identifies the type of the document")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -119,7 +119,7 @@ public class PortoutsIdSupportingDocumentsDocuments {
    * Identifies the associated document
    * @return documentId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", required = true, value = "Identifies the associated document")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

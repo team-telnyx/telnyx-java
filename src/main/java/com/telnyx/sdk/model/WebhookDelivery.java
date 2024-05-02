@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   WebhookDelivery.JSON_PROPERTY_FINISHED_AT,
   WebhookDelivery.JSON_PROPERTY_ATTEMPTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class WebhookDelivery {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -124,7 +124,7 @@ public class WebhookDelivery {
    * Uniquely identifies the webhook_delivery record.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f5586561-8ff0-4291-a0ac-84fe544797bd", value = "Uniquely identifies the webhook_delivery record.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class WebhookDelivery {
    * Uniquely identifies the user that owns the webhook_delivery record.
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Uniquely identifies the user that owns the webhook_delivery record.")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class WebhookDelivery {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "webhook_delivery", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -202,7 +202,7 @@ public class WebhookDelivery {
    * Delivery status: &#39;delivered&#39; when successfuly delivered or &#39;failed&#39; if all attempts have failed.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Delivery status: 'delivered' when successfuly delivered or 'failed' if all attempts have failed.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -228,7 +228,7 @@ public class WebhookDelivery {
    * Get webhook
    * @return webhook
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_WEBHOOK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -254,7 +254,7 @@ public class WebhookDelivery {
    * ISO 8601 timestamp indicating when the first request attempt was initiated.
    * @return startedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-08-10T14:00Z", value = "ISO 8601 timestamp indicating when the first request attempt was initiated.")
   @JsonProperty(JSON_PROPERTY_STARTED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -280,7 +280,7 @@ public class WebhookDelivery {
    * ISO 8601 timestamp indicating when the last webhook response has been received.
    * @return finishedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-08-10T14:00:05.595Z", value = "ISO 8601 timestamp indicating when the last webhook response has been received.")
   @JsonProperty(JSON_PROPERTY_FINISHED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -314,7 +314,7 @@ public class WebhookDelivery {
    * Detailed delivery attempts, ordered by most recent.
    * @return attempts
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[{\"status\":\"delivered\",\"started_at\":\"2020-08-10T14:00:05.364Z\",\"finished_at\":\"2020-08-10T14:00:05.595Z\",\"http\":{\"request\":{\"url\":\"https://fallback.example.com/webhooks\",\"headers\":[\"Accept: *_/_*\"]},\"response\":{\"status\":200,\"headers\":[\"Content-Type: text/html\"],\"body\":\"All good.\"}}},{\"status\":\"failed\",\"started_at\":\"2020-08-10T14:00:05.004Z\",\"finished_at\":\"2020-08-10T14:00:05.360Z\",\"http\":{\"request\":{\"url\":\"https://typo.example.com/webhooks\",\"headers\":[\"Accept: *_/_*\"]},\"response\":{\"status\":404,\"headers\":[\"Content-Type: text/html\",\"Pragma: no-cache\"],\"body\":\"Oops. Not found.\"}},\"errors\":[{\"code\":\"75499\",\"title\":\"Webhook host returned HTTP 4XX\",\"detail\":\"The server returned another HTTP 4XX error\"}]}]", value = "Detailed delivery attempts, ordered by most recent.")
   @JsonProperty(JSON_PROPERTY_ATTEMPTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

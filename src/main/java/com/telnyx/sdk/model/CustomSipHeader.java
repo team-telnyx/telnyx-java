@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CustomSipHeader.JSON_PROPERTY_NAME,
   CustomSipHeader.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CustomSipHeader {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -58,7 +58,7 @@ public class CustomSipHeader {
    * The name of the header to add.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "head_1", required = true, value = "The name of the header to add.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,7 +84,7 @@ public class CustomSipHeader {
    * The value of the header.
    * @return value
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "val_1", required = true, value = "The value of the header.")
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

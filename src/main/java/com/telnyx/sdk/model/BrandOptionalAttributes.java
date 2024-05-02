@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   BrandOptionalAttributes.JSON_PROPERTY_TAX_EXEMPT_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BrandOptionalAttributes {
   public static final String JSON_PROPERTY_TAX_EXEMPT_STATUS = "taxExemptStatus";
   private String taxExemptStatus;
@@ -54,7 +54,7 @@ public class BrandOptionalAttributes {
    * The tax exempt status of the brand
    * @return taxExemptStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The tax exempt status of the brand")
   @JsonProperty(JSON_PROPERTY_TAX_EXEMPT_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

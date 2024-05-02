@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   Action.JSON_PROPERTY_CATALOG_ID,
   Action.JSON_PROPERTY_PRODUCT_RETAILER_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Action {
   public static final String JSON_PROPERTY_BUTTON = "button";
   private String button;
@@ -75,7 +75,7 @@ public class Action {
    * Button content. It cannot be an empty string and must be unique within the message. Emojis are supported, markdown is not. Required for List Messages.
    * @return button
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Button content. It cannot be an empty string and must be unique within the message. Emojis are supported, markdown is not. Required for List Messages.")
   @JsonProperty(JSON_PROPERTY_BUTTON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -109,7 +109,7 @@ public class Action {
    * A list of buttons. Required for Reply Button Messages.
    * @return buttons
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of buttons. Required for Reply Button Messages.")
   @JsonProperty(JSON_PROPERTY_BUTTONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class Action {
    * Array of section objects. Required for List Messages and Multi-Product Messages.
    * @return sections
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Array of section objects. Required for List Messages and Multi-Product Messages.")
   @JsonProperty(JSON_PROPERTY_SECTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -169,7 +169,7 @@ public class Action {
    * Unique identifier of the Facebook catalog linked to your WhatsApp Business Account. This ID can be retrieved via Commerce Manager. Required for Single Product Messages and Multi-Product Messages.
    * @return catalogId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier of the Facebook catalog linked to your WhatsApp Business Account. This ID can be retrieved via Commerce Manager. Required for Single Product Messages and Multi-Product Messages.")
   @JsonProperty(JSON_PROPERTY_CATALOG_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -195,7 +195,7 @@ public class Action {
    * Unique identifier of the product in a catalog. To get this ID, go to Commerce Manager, select your Facebook Business account, and you will see a list of shops connected to your account. Click the shop you want to use. On the left-side panel, click Catalog &gt; Items, and find the item you want to mention. The ID for that item is displayed under the item&#39;s name.
    * @return productRetailerId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier of the product in a catalog. To get this ID, go to Commerce Manager, select your Facebook Business account, and you will see a list of shops connected to your account. Click the shop you want to use. On the left-side panel, click Catalog > Items, and find the item you want to mention. The ID for that item is displayed under the item's name.")
   @JsonProperty(JSON_PROPERTY_PRODUCT_RETAILER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

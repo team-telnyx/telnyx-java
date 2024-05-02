@@ -61,7 +61,7 @@ import com.telnyx.sdk.JSON;
   CreateOutboundVoiceProfileRequest.JSON_PROPERTY_CALL_RECORDING,
   CreateOutboundVoiceProfileRequest.JSON_PROPERTY_BILLING_GROUP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateOutboundVoiceProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -114,7 +114,7 @@ public class CreateOutboundVoiceProfileRequest {
    * A user-supplied name to help with organization.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "office", required = true, value = "A user-supplied name to help with organization.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -140,7 +140,7 @@ public class CreateOutboundVoiceProfileRequest {
    * Get trafficType
    * @return trafficType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TRAFFIC_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -166,7 +166,7 @@ public class CreateOutboundVoiceProfileRequest {
    * Get servicePlan
    * @return servicePlan
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SERVICE_PLAN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -192,7 +192,7 @@ public class CreateOutboundVoiceProfileRequest {
    * Must be no more than your global concurrent call limit. Null means no limit.
    * @return concurrentCallLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "Must be no more than your global concurrent call limit. Null means no limit.")
   @JsonIgnore
 
@@ -226,7 +226,7 @@ public class CreateOutboundVoiceProfileRequest {
    * Specifies whether the outbound voice profile can be used. Disabled profiles will result in outbound calls being blocked for the associated Connections.
    * @return enabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Specifies whether the outbound voice profile can be used. Disabled profiles will result in outbound calls being blocked for the associated Connections.")
   @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -260,7 +260,7 @@ public class CreateOutboundVoiceProfileRequest {
    * Get tags
    * @return tags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"office-profile\"]", value = "")
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -286,7 +286,7 @@ public class CreateOutboundVoiceProfileRequest {
    * Get usagePaymentMethod
    * @return usagePaymentMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_USAGE_PAYMENT_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -320,7 +320,7 @@ public class CreateOutboundVoiceProfileRequest {
    * The list of destinations you want to be able to call using this outbound voice profile formatted in alpha2.
    * @return whitelistedDestinations
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"US\",\"BR\",\"AU\"]", value = "The list of destinations you want to be able to call using this outbound voice profile formatted in alpha2.")
   @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -346,7 +346,7 @@ public class CreateOutboundVoiceProfileRequest {
    * Maximum rate (price per minute) for a Destination to be allowed when making outbound calls.
    * @return maxDestinationRate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Maximum rate (price per minute) for a Destination to be allowed when making outbound calls.")
   @JsonProperty(JSON_PROPERTY_MAX_DESTINATION_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -372,7 +372,7 @@ public class CreateOutboundVoiceProfileRequest {
    * The maximum amount of usage charges, in USD, you want Telnyx to allow on this outbound voice profile in a day before disallowing new calls.
    * @return dailySpendLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100.00", value = "The maximum amount of usage charges, in USD, you want Telnyx to allow on this outbound voice profile in a day before disallowing new calls.")
   @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -398,7 +398,7 @@ public class CreateOutboundVoiceProfileRequest {
    * Specifies whether to enforce the daily_spend_limit on this outbound voice profile.
    * @return dailySpendLimitEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Specifies whether to enforce the daily_spend_limit on this outbound voice profile.")
   @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -424,7 +424,7 @@ public class CreateOutboundVoiceProfileRequest {
    * Get callRecording
    * @return callRecording
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CALL_RECORDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -450,7 +450,7 @@ public class CreateOutboundVoiceProfileRequest {
    * The ID of the billing group associated with the outbound proflile. Defaults to null (for no group assigned).
    * @return billingGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The ID of the billing group associated with the outbound proflile. Defaults to null (for no group assigned).")
   @JsonIgnore
 

@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   Settings.JSON_PROPERTY_IDP_CERT_FINGERPRINT,
   Settings.JSON_PROPERTY_IDP_CERT_FINGERPRINT_ALGORITHM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Settings {
   public static final String JSON_PROPERTY_IDP_ENTITY_ID = "idp_entity_id";
   private String idpEntityId;
@@ -106,7 +106,7 @@ public class Settings {
    * The Entity ID for the identity provider (IdP).
    * @return idpEntityId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "https://myorg.myidp.com/saml/metadata", required = true, value = "The Entity ID for the identity provider (IdP).")
   @JsonProperty(JSON_PROPERTY_IDP_ENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -132,7 +132,7 @@ public class Settings {
    * The SSO target url for the identity provider (IdP).
    * @return idpSsoTargetUrl
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "https://myorg.myidp.com/trust/saml2/http-post/sso", required = true, value = "The SSO target url for the identity provider (IdP).")
   @JsonProperty(JSON_PROPERTY_IDP_SSO_TARGET_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -158,7 +158,7 @@ public class Settings {
    * The certificate fingerprint for the identity provider (IdP)
    * @return idpCertFingerprint
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7", required = true, value = "The certificate fingerprint for the identity provider (IdP)")
   @JsonProperty(JSON_PROPERTY_IDP_CERT_FINGERPRINT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -184,7 +184,7 @@ public class Settings {
    * The algorithm used to generate the identity provider&#39;s (IdP) certificate fingerprint
    * @return idpCertFingerprintAlgorithm
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sha256", value = "The algorithm used to generate the identity provider's (IdP) certificate fingerprint")
   @JsonProperty(JSON_PROPERTY_IDP_CERT_FINGERPRINT_ALGORITHM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

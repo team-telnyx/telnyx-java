@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   PushCredential.JSON_PROPERTY_CREATED_AT,
   PushCredential.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PushCredential {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -94,7 +94,7 @@ public class PushCredential {
    * Unique identifier of a push credential
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "0ccc7b54-4df3-4bcb-a65a-3da1ecc997d7", required = true, value = "Unique identifier of a push credential")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -120,7 +120,7 @@ public class PushCredential {
    * Apple certificate for sending push notifications. For iOS only
    * @return certificate
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----", required = true, value = "Apple certificate for sending push notifications. For iOS only")
   @JsonProperty(JSON_PROPERTY_CERTIFICATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -146,7 +146,7 @@ public class PushCredential {
    * Apple private key for a given certificate for sending push notifications. For iOS only
    * @return privateKey
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----", required = true, value = "Apple private key for a given certificate for sending push notifications. For iOS only")
   @JsonProperty(JSON_PROPERTY_PRIVATE_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -172,7 +172,7 @@ public class PushCredential {
    * Google server key for sending push notifications. For Android only
    * @return serverKey
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "", required = true, value = "Google server key for sending push notifications. For Android only")
   @JsonProperty(JSON_PROPERTY_SERVER_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -198,7 +198,7 @@ public class PushCredential {
    * Alias to uniquely identify a credential
    * @return alias
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "LucyCredential", required = true, value = "Alias to uniquely identify a credential")
   @JsonProperty(JSON_PROPERTY_ALIAS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -224,7 +224,7 @@ public class PushCredential {
    * Type of mobile push credential. Either &lt;code&gt;ios&lt;/code&gt; or &lt;code&gt;android&lt;/code&gt;
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "ios", required = true, value = "Type of mobile push credential. Either <code>ios</code> or <code>android</code>")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -245,7 +245,7 @@ public class PushCredential {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "push_credential", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -266,7 +266,7 @@ public class PushCredential {
    * ISO 8601 timestamp when the room was created
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2021-03-26T17:51:59.588408Z", required = true, value = "ISO 8601 timestamp when the room was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -292,7 +292,7 @@ public class PushCredential {
    * ISO 8601 timestamp when the room was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2021-03-26T17:51:59.588408Z", required = true, value = "ISO 8601 timestamp when the room was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

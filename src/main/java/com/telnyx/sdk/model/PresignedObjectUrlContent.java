@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PresignedObjectUrlContent.JSON_PROPERTY_PRESIGNED_URL,
   PresignedObjectUrlContent.JSON_PROPERTY_EXPIRES_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PresignedObjectUrlContent {
   public static final String JSON_PROPERTY_TOKEN = "token";
   private String token;
@@ -63,7 +63,7 @@ public class PresignedObjectUrlContent {
    * The token for the object
    * @return token
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The token for the object")
   @JsonProperty(JSON_PROPERTY_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -89,7 +89,7 @@ public class PresignedObjectUrlContent {
    * The presigned URL for the object
    * @return presignedUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The presigned URL for the object")
   @JsonProperty(JSON_PROPERTY_PRESIGNED_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class PresignedObjectUrlContent {
    * The expiration time of the token
    * @return expiresAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The expiration time of the token")
   @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

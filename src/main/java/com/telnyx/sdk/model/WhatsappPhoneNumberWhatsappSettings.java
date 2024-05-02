@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   WhatsappPhoneNumberWhatsappSettings.JSON_PROPERTY_DISPLAY_NAME_STATUS,
   WhatsappPhoneNumberWhatsappSettings.JSON_PROPERTY_QUALITY_RATING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsappPhoneNumberWhatsappSettings {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -107,7 +107,7 @@ public class WhatsappPhoneNumberWhatsappSettings {
    * The unique ID of the phone number in Facebook
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The unique ID of the phone number in Facebook")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -133,7 +133,7 @@ public class WhatsappPhoneNumberWhatsappSettings {
    * The display name of the phone number in the WhatsApp app
    * @return displayName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The display name of the phone number in the WhatsApp app")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -159,7 +159,7 @@ public class WhatsappPhoneNumberWhatsappSettings {
    * The Facebook approval status of the phone numbers display name
    * @return displayNameStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The Facebook approval status of the phone numbers display name")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -185,7 +185,7 @@ public class WhatsappPhoneNumberWhatsappSettings {
    * The quality rating of the number in the WhatsApp app
    * @return qualityRating
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The quality rating of the number in the WhatsApp app")
   @JsonProperty(JSON_PROPERTY_QUALITY_RATING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

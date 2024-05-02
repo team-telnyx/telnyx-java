@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   Language.JSON_PROPERTY_POLICY,
   Language.JSON_PROPERTY_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Language {
   /**
    * The language policy the message should follow
@@ -92,7 +92,7 @@ public class Language {
    * The language policy the message should follow
    * @return policy
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The language policy the message should follow")
   @JsonProperty(JSON_PROPERTY_POLICY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -118,7 +118,7 @@ public class Language {
    * The code of the language or locale to use — Accepts both language and language_locale formats (e.g., en and en_US).
    * @return code
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The code of the language or locale to use — Accepts both language and language_locale formats (e.g., en and en_US).")
   @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

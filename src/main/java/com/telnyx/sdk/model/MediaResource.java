@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   MediaResource.JSON_PROPERTY_UPDATED_AT,
   MediaResource.JSON_PROPERTY_CONTENT_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MediaResource {
   public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
   private String mediaName;
@@ -70,7 +70,7 @@ public class MediaResource {
    * Uniquely identifies a media resource.
    * @return mediaName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Uniquely identifies a media resource.")
   @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class MediaResource {
    * ISO 8601 formatted date of when the media resource will expire and be deleted.
    * @return expiresAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the media resource will expire and be deleted.")
   @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class MediaResource {
    * ISO 8601 formatted date of when the media resource was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the media resource was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class MediaResource {
    * ISO 8601 formatted date of when the media resource was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the media resource was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class MediaResource {
    * Content type of the file
    * @return contentType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "application/xml", value = "Content type of the file")
   @JsonProperty(JSON_PROPERTY_CONTENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   PortabilityCheckDetails.JSON_PROPERTY_PHONE_NUMBER,
   PortabilityCheckDetails.JSON_PROPERTY_PORTABLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortabilityCheckDetails {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -81,7 +81,7 @@ public class PortabilityCheckDetails {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "portability_check_result", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class PortabilityCheckDetails {
    * Indicates whether this phone number is FastPort eligible
    * @return fastPortable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether this phone number is FastPort eligible")
   @JsonProperty(JSON_PROPERTY_FAST_PORTABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -113,7 +113,7 @@ public class PortabilityCheckDetails {
    * If this phone number is not portable, explains why. Empty string if the number is portable.
    * @return notPortableReason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "No coverage", value = "If this phone number is not portable, explains why. Empty string if the number is portable.")
   @JsonProperty(JSON_PROPERTY_NOT_PORTABLE_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -129,7 +129,7 @@ public class PortabilityCheckDetails {
    * The +E.164 formatted phone number this result is about
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13125550123", value = "The +E.164 formatted phone number this result is about")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class PortabilityCheckDetails {
    * Indicates whether this phone number is portable
    * @return portable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether this phone number is portable")
   @JsonProperty(JSON_PROPERTY_PORTABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

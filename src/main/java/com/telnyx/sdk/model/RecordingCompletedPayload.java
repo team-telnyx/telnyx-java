@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   RecordingCompletedPayload.JSON_PROPERTY_CODEC,
   RecordingCompletedPayload.JSON_PROPERTY_DURATION_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RecordingCompletedPayload {
   public static final String JSON_PROPERTY_SESSION_ID = "session_id";
   private UUID sessionId;
@@ -122,7 +122,7 @@ public class RecordingCompletedPayload {
    * Session ID associated with the recording.
    * @return sessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Session ID associated with the recording.")
   @JsonProperty(JSON_PROPERTY_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class RecordingCompletedPayload {
    * Room ID associated with the recording.
    * @return roomId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Room ID associated with the recording.")
   @JsonProperty(JSON_PROPERTY_ROOM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class RecordingCompletedPayload {
    * Participant ID associated with the recording.
    * @return participantId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Participant ID associated with the recording.")
   @JsonProperty(JSON_PROPERTY_PARTICIPANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -200,7 +200,7 @@ public class RecordingCompletedPayload {
    * Recording ID that identifies the recording.
    * @return recordingId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Recording ID that identifies the recording.")
   @JsonProperty(JSON_PROPERTY_RECORDING_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -226,7 +226,7 @@ public class RecordingCompletedPayload {
    * Type of the recording.
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "audio", value = "Type of the recording.")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -252,7 +252,7 @@ public class RecordingCompletedPayload {
    * Recording size in MB.
    * @return sizeMb
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10.5", value = "Recording size in MB.")
   @JsonProperty(JSON_PROPERTY_SIZE_MB)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -278,7 +278,7 @@ public class RecordingCompletedPayload {
    * Url to download the recording.
    * @return downloadUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com", value = "Url to download the recording.")
   @JsonProperty(JSON_PROPERTY_DOWNLOAD_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -304,7 +304,7 @@ public class RecordingCompletedPayload {
    * Codec used for the recording.
    * @return codec
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "opus", value = "Codec used for the recording.")
   @JsonProperty(JSON_PROPERTY_CODEC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -330,7 +330,7 @@ public class RecordingCompletedPayload {
    * Recording duration in seconds.
    * @return durationSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "67", value = "Recording duration in seconds.")
   @JsonProperty(JSON_PROPERTY_DURATION_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

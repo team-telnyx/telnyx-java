@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   SingleManagedAccountGlobalOutboundChannels.JSON_PROPERTY_MANAGER_ACCOUNT_ID,
   SingleManagedAccountGlobalOutboundChannels.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SingleManagedAccountGlobalOutboundChannels {
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
   private Integer channelLimit;
@@ -70,7 +70,7 @@ public class SingleManagedAccountGlobalOutboundChannels {
    * Integer value that indicates the number of allocatable global outbound channels that are allocated to the managed account. If the value is 0 then the account will have no usable channels and will not be able to perform outbound calling.
    * @return channelLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "30", value = "Integer value that indicates the number of allocatable global outbound channels that are allocated to the managed account. If the value is 0 then the account will have no usable channels and will not be able to perform outbound calling.")
   @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class SingleManagedAccountGlobalOutboundChannels {
    * The email of the managed account.
    * @return email
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "customer@example.org", value = "The email of the managed account.")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class SingleManagedAccountGlobalOutboundChannels {
    * The user ID of the managed account.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "096abcde-1122-3344-ab77-ff0123456789", value = "The user ID of the managed account.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class SingleManagedAccountGlobalOutboundChannels {
    * The user ID of the manager of the account.
    * @return managerAccountId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "beeabcde-1122-3344-ab77-ff0123456789", value = "The user ID of the manager of the account.")
   @JsonProperty(JSON_PROPERTY_MANAGER_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class SingleManagedAccountGlobalOutboundChannels {
    * The name of the type of data in the response.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "managed_account_global_outbound_settings", value = "The name of the type of data in the response.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

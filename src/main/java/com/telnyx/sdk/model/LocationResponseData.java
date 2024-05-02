@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   LocationResponseData.JSON_PROPERTY_STATIC_EMERGENCY_ADDRESS_ID,
   LocationResponseData.JSON_PROPERTY_ACCEPTED_ADDRESS_SUGGESTIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class LocationResponseData {
   public static final String JSON_PROPERTY_LOCATION_ID = "location_id";
   private UUID locationId;
@@ -63,7 +63,7 @@ public class LocationResponseData {
    * Get locationId
    * @return locationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOCATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -89,7 +89,7 @@ public class LocationResponseData {
    * Get staticEmergencyAddressId
    * @return staticEmergencyAddressId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATIC_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class LocationResponseData {
    * Get acceptedAddressSuggestions
    * @return acceptedAddressSuggestions
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ACCEPTED_ADDRESS_SUGGESTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

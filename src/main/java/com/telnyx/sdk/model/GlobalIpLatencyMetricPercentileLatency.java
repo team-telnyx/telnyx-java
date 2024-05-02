@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpLatencyMetricPercentileLatency.JSON_PROPERTY_99,
   GlobalIpLatencyMetricPercentileLatency.JSON_PROPERTY_100
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIpLatencyMetricPercentileLatency {
   public static final String JSON_PROPERTY_0 = "0";
   private GlobalIpLatencyMetricPercentileLatency0 _0;
@@ -85,7 +85,7 @@ public class GlobalIpLatencyMetricPercentileLatency {
    * Get _0
    * @return _0
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_0)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -111,7 +111,7 @@ public class GlobalIpLatencyMetricPercentileLatency {
    * Get _25
    * @return _25
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_25)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -137,7 +137,7 @@ public class GlobalIpLatencyMetricPercentileLatency {
    * Get _50
    * @return _50
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_50)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -163,7 +163,7 @@ public class GlobalIpLatencyMetricPercentileLatency {
    * Get _75
    * @return _75
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_75)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -189,7 +189,7 @@ public class GlobalIpLatencyMetricPercentileLatency {
    * Get _90
    * @return _90
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_90)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -215,7 +215,7 @@ public class GlobalIpLatencyMetricPercentileLatency {
    * Get _99
    * @return _99
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_99)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -241,7 +241,7 @@ public class GlobalIpLatencyMetricPercentileLatency {
    * Get _100
    * @return _100
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_100)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

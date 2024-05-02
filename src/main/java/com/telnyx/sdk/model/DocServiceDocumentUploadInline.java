@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   DocServiceDocumentUploadInline.JSON_PROPERTY_FILENAME,
   DocServiceDocumentUploadInline.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class DocServiceDocumentUploadInline {
   public static final String JSON_PROPERTY_FILE = "file";
   private byte[] _file;
@@ -62,7 +62,7 @@ public class DocServiceDocumentUploadInline {
    * The Base64 encoded contents of the file you are uploading.
    * @return _file
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[B@6b3871d6", required = true, value = "The Base64 encoded contents of the file you are uploading.")
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -88,7 +88,7 @@ public class DocServiceDocumentUploadInline {
    * The filename of the document.
    * @return filename
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "test-document.pdf", value = "The filename of the document.")
   @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class DocServiceDocumentUploadInline {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

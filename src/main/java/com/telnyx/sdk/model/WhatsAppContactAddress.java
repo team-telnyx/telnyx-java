@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   WhatsAppContactAddress.JSON_PROPERTY_TYPE,
   WhatsAppContactAddress.JSON_PROPERTY_ZIP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsAppContactAddress {
   public static final String JSON_PROPERTY_CITY = "city";
   private String city;
@@ -77,7 +77,7 @@ public class WhatsAppContactAddress {
    * City name
    * @return city
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "City name")
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -103,7 +103,7 @@ public class WhatsAppContactAddress {
    * Full country name
    * @return country
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Full country name")
   @JsonProperty(JSON_PROPERTY_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -129,7 +129,7 @@ public class WhatsAppContactAddress {
    * Two-letter country abbreviation
    * @return countryCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Two-letter country abbreviation")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -155,7 +155,7 @@ public class WhatsAppContactAddress {
    * State abbreviation
    * @return state
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "State abbreviation")
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -181,7 +181,7 @@ public class WhatsAppContactAddress {
    * Street number and name
    * @return street
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Street number and name")
   @JsonProperty(JSON_PROPERTY_STREET)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -207,7 +207,7 @@ public class WhatsAppContactAddress {
    * Standard Values: HOME, WORK
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Standard Values: HOME, WORK")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -233,7 +233,7 @@ public class WhatsAppContactAddress {
    * ZIP code
    * @return zip
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "ZIP code")
   @JsonProperty(JSON_PROPERTY_ZIP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

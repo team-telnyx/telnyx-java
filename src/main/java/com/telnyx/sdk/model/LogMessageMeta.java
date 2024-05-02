@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   LogMessageMeta.JSON_PROPERTY_EXTERNAL_CONNECTION_ID,
   LogMessageMeta.JSON_PROPERTY_TICKET_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class LogMessageMeta {
   public static final String JSON_PROPERTY_TELEPHONE_NUMBER = "telephone_number";
   private String telephoneNumber;
@@ -63,7 +63,7 @@ public class LogMessageMeta {
    * The telephone number the log message is associated with, if any.
    * @return telephoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12345678", value = "The telephone number the log message is associated with, if any.")
   @JsonProperty(JSON_PROPERTY_TELEPHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -89,7 +89,7 @@ public class LogMessageMeta {
    * The external connection the log message is associated with, if any.
    * @return externalConnectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1293384261075731499", value = "The external connection the log message is associated with, if any.")
   @JsonProperty(JSON_PROPERTY_EXTERNAL_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class LogMessageMeta {
    * The ticket ID for an operation that generated the log message, if any.
    * @return ticketId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "542c3bca-d247-42bc-8fe7-e01d16ecd761", value = "The ticket ID for an operation that generated the log message, if any.")
   @JsonProperty(JSON_PROPERTY_TICKET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   Http.JSON_PROPERTY_REQUEST,
   Http.JSON_PROPERTY_RESPONSE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Http {
   public static final String JSON_PROPERTY_REQUEST = "request";
   private HttpRequest request;
@@ -64,7 +64,7 @@ public class Http {
    * Get request
    * @return request
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REQUEST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -90,7 +90,7 @@ public class Http {
    * Get response
    * @return response
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 

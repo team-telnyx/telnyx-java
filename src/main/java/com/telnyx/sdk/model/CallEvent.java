@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   CallEvent.JSON_PROPERTY_TYPE,
   CallEvent.JSON_PROPERTY_METADATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallEvent {
   /**
    * Gets or Sets recordType
@@ -146,7 +146,7 @@ public class CallEvent {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "call_event", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -172,7 +172,7 @@ public class CallEvent {
    * Uniquely identifies an individual call leg.
    * @return callLegId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "308fe500-5213-11e9-ace7-02420a0f0668", required = true, value = "Uniquely identifies an individual call leg.")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -198,7 +198,7 @@ public class CallEvent {
    * Uniquely identifies the call control session. A session may include multiple call leg events.
    * @return callSessionId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "308fec30-5213-11e9-9d3f-02420a0f0668", required = true, value = "Uniquely identifies the call control session. A session may include multiple call leg events.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -224,7 +224,7 @@ public class CallEvent {
    * Event timestamp
    * @return eventTimestamp
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-03-29T11:10:19.127783Z", required = true, value = "Event timestamp")
   @JsonProperty(JSON_PROPERTY_EVENT_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -250,7 +250,7 @@ public class CallEvent {
    * Event name
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "call.hangup", required = true, value = "Event name")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -276,7 +276,7 @@ public class CallEvent {
    * Event type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "webhook", required = true, value = "Event type")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -302,7 +302,7 @@ public class CallEvent {
    * Event metadata, which includes raw event, and extra information based on event type
    * @return metadata
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Event metadata, which includes raw event, and extra information based on event type")
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

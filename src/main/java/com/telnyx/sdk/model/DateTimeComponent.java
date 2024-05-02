@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   DateTimeComponent.JSON_PROPERTY_HOUR,
   DateTimeComponent.JSON_PROPERTY_MINUTE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DateTimeComponent {
   /**
    * Both strings and numbers are accepted. If different from the value derived from the date (if specified), use the derived value.
@@ -140,7 +140,7 @@ public class DateTimeComponent {
    * Both strings and numbers are accepted. If different from the value derived from the date (if specified), use the derived value.
    * @return dayOfWeek
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Both strings and numbers are accepted. If different from the value derived from the date (if specified), use the derived value.")
   @JsonProperty(JSON_PROPERTY_DAY_OF_WEEK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -166,7 +166,7 @@ public class DateTimeComponent {
    * The day of month
    * @return dayOfMonth
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The day of month")
   @JsonProperty(JSON_PROPERTY_DAY_OF_MONTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -192,7 +192,7 @@ public class DateTimeComponent {
    * The year
    * @return year
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The year")
   @JsonProperty(JSON_PROPERTY_YEAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -218,7 +218,7 @@ public class DateTimeComponent {
    * The month
    * @return month
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The month")
   @JsonProperty(JSON_PROPERTY_MONTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -244,7 +244,7 @@ public class DateTimeComponent {
    * The hour
    * @return hour
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The hour")
   @JsonProperty(JSON_PROPERTY_HOUR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -270,7 +270,7 @@ public class DateTimeComponent {
    * The minute
    * @return minute
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The minute")
   @JsonProperty(JSON_PROPERTY_MINUTE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   TexmlRecordingSubresourcesUris.JSON_PROPERTY_TRANSCRIPTIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TexmlRecordingSubresourcesUris {
   public static final String JSON_PROPERTY_TRANSCRIPTIONS = "transcriptions";
   private JsonNullable<URI> transcriptions = JsonNullable.<URI>undefined();
@@ -61,7 +61,7 @@ public class TexmlRecordingSubresourcesUris {
    * Get transcriptions
    * @return transcriptions
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json", value = "")
   @JsonIgnore
 

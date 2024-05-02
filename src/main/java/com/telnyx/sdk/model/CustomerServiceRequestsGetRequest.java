@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRequestsGetRequest.JSON_PROPERTY_DATA,
   CustomerServiceRequestsGetRequest.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CustomerServiceRequestsGetRequest {
   public static final String JSON_PROPERTY_DATA = "data";
   private CustomerServiceRequestStatusChangedEvent data;
@@ -59,7 +59,7 @@ public class CustomerServiceRequestsGetRequest {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class CustomerServiceRequestsGetRequest {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

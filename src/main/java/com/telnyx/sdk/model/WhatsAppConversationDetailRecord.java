@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   WhatsAppConversationDetailRecord.JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID,
   WhatsAppConversationDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class WhatsAppConversationDetailRecord {
   public static final String JSON_PROPERTY_RECIPIENT_REGION_CODE = "recipient_region_code";
   private String recipientRegionCode;
@@ -120,7 +120,7 @@ public class WhatsAppConversationDetailRecord {
    * CLDR two-letter region-code of recipient
    * @return recipientRegionCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "CLDR two-letter region-code of recipient")
   @JsonProperty(JSON_PROPERTY_RECIPIENT_REGION_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -146,7 +146,7 @@ public class WhatsAppConversationDetailRecord {
    * Telnyx account currency used to describe monetary values, including billing cost
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Telnyx account currency used to describe monetary values, including billing cost")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -172,7 +172,7 @@ public class WhatsAppConversationDetailRecord {
    * UTC time when the message was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-08-06T03:32:01.125Z", value = "UTC time when the message was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -198,7 +198,7 @@ public class WhatsAppConversationDetailRecord {
    * Currency amount for WhatsApp cost
    * @return whatsappFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.003", value = "Currency amount for WhatsApp cost")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -224,7 +224,7 @@ public class WhatsAppConversationDetailRecord {
    * Whatsapp Conversation ID
    * @return conversationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f44ae083-c800-4433-baac-b439e5270aa4", value = "Whatsapp Conversation ID")
   @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -250,7 +250,7 @@ public class WhatsAppConversationDetailRecord {
    * Whatsapp Conversation Origin
    * @return conversationOrigin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Whatsapp Conversation Origin")
   @JsonProperty(JSON_PROPERTY_CONVERSATION_ORIGIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -276,7 +276,7 @@ public class WhatsAppConversationDetailRecord {
    * Whatsapp Business Account ID
    * @return whatsappBusinessAccountId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "421452453", value = "Whatsapp Business Account ID")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -302,7 +302,7 @@ public class WhatsAppConversationDetailRecord {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "whatsapp-conversation_detail_record", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

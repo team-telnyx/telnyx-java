@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   SimCardRegister202Response.JSON_PROPERTY_DATA,
   SimCardRegister202Response.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SimCardRegister202Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<SimpleSIMCard> data = null;
@@ -69,7 +69,7 @@ public class SimCardRegister202Response {
    * Successfully registered SIM cards.
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Successfully registered SIM cards.")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -103,7 +103,7 @@ public class SimCardRegister202Response {
    * Get errors
    * @return errors
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

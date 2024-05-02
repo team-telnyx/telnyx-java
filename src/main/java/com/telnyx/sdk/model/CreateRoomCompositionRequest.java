@@ -52,7 +52,7 @@ import com.telnyx.sdk.JSON;
   CreateRoomCompositionRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   CreateRoomCompositionRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateRoomCompositionRequest {
   public static final String JSON_PROPERTY_FORMAT = "format";
   private JsonNullable<String> format = JsonNullable.<String>of("mp4");
@@ -87,7 +87,7 @@ public class CreateRoomCompositionRequest {
    * The desired format of the room composition.
    * @return format
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "mp4", value = "The desired format of the room composition.")
   @JsonIgnore
 
@@ -121,7 +121,7 @@ public class CreateRoomCompositionRequest {
    * The desired resolution (width/height in pixels) of the resulting video of the room composition. Both width and height are required to be between 16 and 1280; and width * height should not exceed 1280 * 720
    * @return resolution
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "800x600", value = "The desired resolution (width/height in pixels) of the resulting video of the room composition. Both width and height are required to be between 16 and 1280; and width * height should not exceed 1280 * 720")
   @JsonIgnore
 
@@ -155,7 +155,7 @@ public class CreateRoomCompositionRequest {
    * id of the room session associated with the room composition.
    * @return sessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777b0", value = "id of the room session associated with the room composition.")
   @JsonIgnore
 
@@ -197,7 +197,7 @@ public class CreateRoomCompositionRequest {
    * Describes the video layout of the room composition in terms of regions.
    * @return videoLayout
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Describes the video layout of the room composition in terms of regions.")
   @JsonProperty(JSON_PROPERTY_VIDEO_LAYOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -223,7 +223,7 @@ public class CreateRoomCompositionRequest {
    * The URL where webhooks related to this room composition will be sent. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com", value = "The URL where webhooks related to this room composition will be sent. Must include a scheme, such as 'https'.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -249,7 +249,7 @@ public class CreateRoomCompositionRequest {
    * The failover URL where webhooks related to this room composition will be sent if sending to the primary URL fails. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://failover.example.com", value = "The failover URL where webhooks related to this room composition will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.")
   @JsonIgnore
 
@@ -285,7 +285,7 @@ public class CreateRoomCompositionRequest {
    * maximum: 30
    * @return webhookTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "25", value = "Specifies how many seconds to wait before timing out a webhook.")
   @JsonIgnore
 

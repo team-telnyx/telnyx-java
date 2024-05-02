@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   NotificationSetting.JSON_PROPERTY_CREATED_AT,
   NotificationSetting.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class NotificationSetting {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -154,7 +154,7 @@ public class NotificationSetting {
    * A UUID.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "8eb5b5f9-5893-423c-9f15-b487713d44d4", value = "A UUID.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -175,7 +175,7 @@ public class NotificationSetting {
    * A UUID reference to the associated Notification Event Condition.
    * @return notificationEventConditionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "70c7c5cb-dce2-4124-accb-870d39dbe852", value = "A UUID reference to the associated Notification Event Condition.")
   @JsonProperty(JSON_PROPERTY_NOTIFICATION_EVENT_CONDITION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -201,7 +201,7 @@ public class NotificationSetting {
    * A UUID reference to the associated Notification Profile.
    * @return notificationProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12455643-3cf1-4683-ad23-1cd32f7d5e0a", value = "A UUID reference to the associated Notification Profile.")
   @JsonProperty(JSON_PROPERTY_NOTIFICATION_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -222,7 +222,7 @@ public class NotificationSetting {
    * Get associatedRecordType
    * @return associatedRecordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "phone_number", value = "")
   @JsonProperty(JSON_PROPERTY_ASSOCIATED_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -238,7 +238,7 @@ public class NotificationSetting {
    * Get associatedRecordTypeValue
    * @return associatedRecordTypeValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13125550000", value = "")
   @JsonProperty(JSON_PROPERTY_ASSOCIATED_RECORD_TYPE_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -254,7 +254,7 @@ public class NotificationSetting {
    * Most preferences apply immediately; however, other may needs to propagate.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "enable-received", value = "Most preferences apply immediately; however, other may needs to propagate.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -275,7 +275,7 @@ public class NotificationSetting {
    * A UUID reference to the associated Notification Channel.
    * @return notificationChannelId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12455643-3cf1-4683-ad23-1cd32f7d5e0a", value = "A UUID reference to the associated Notification Channel.")
   @JsonProperty(JSON_PROPERTY_NOTIFICATION_CHANNEL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -309,7 +309,7 @@ public class NotificationSetting {
    * Get parameters
    * @return parameters
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -330,7 +330,7 @@ public class NotificationSetting {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-10-15T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -346,7 +346,7 @@ public class NotificationSetting {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-10-15T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

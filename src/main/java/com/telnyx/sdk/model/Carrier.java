@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   Carrier.JSON_PROPERTY_ERROR_CODE,
   Carrier.JSON_PROPERTY_NORMALIZED_CARRIER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Carrier {
   public static final String JSON_PROPERTY_MOBILE_COUNTRY_CODE = "mobile_country_code";
   private String mobileCountryCode;
@@ -129,7 +129,7 @@ public class Carrier {
    * Region code that matches the specific country calling code if the requested phone number type is mobile
    * @return mobileCountryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "Region code that matches the specific country calling code if the requested phone number type is mobile")
   @JsonProperty(JSON_PROPERTY_MOBILE_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -155,7 +155,7 @@ public class Carrier {
    * National destination code (NDC), with a 0 prefix, if an NDC is found and the requested phone number type is mobile
    * @return mobileNetworkCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0866", value = "National destination code (NDC), with a 0 prefix, if an NDC is found and the requested phone number type is mobile")
   @JsonProperty(JSON_PROPERTY_MOBILE_NETWORK_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -181,7 +181,7 @@ public class Carrier {
    * SPID (Service Provider ID) name, if the requested phone number has been ported; otherwise, the name of carrier who owns the phone number block
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Telnyx/4", value = "SPID (Service Provider ID) name, if the requested phone number has been ported; otherwise, the name of carrier who owns the phone number block")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -207,7 +207,7 @@ public class Carrier {
    * A phone number type that identifies the type of service associated with the requested phone number
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "voip", value = "A phone number type that identifies the type of service associated with the requested phone number")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -233,7 +233,7 @@ public class Carrier {
    * Unused
    * @return errorCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unused")
   @JsonProperty(JSON_PROPERTY_ERROR_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -259,7 +259,7 @@ public class Carrier {
    * If known to Telnyx and applicable, the primary network carrier.
    * @return normalizedCarrier
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "AT&T", value = "If known to Telnyx and applicable, the primary network carrier.")
   @JsonProperty(JSON_PROPERTY_NORMALIZED_CARRIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

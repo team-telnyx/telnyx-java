@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderPhoneNumberConfiguration.JSON_PROPERTY_EMERGENCY_ADDRESS_ID,
   PortingOrderPhoneNumberConfiguration.JSON_PROPERTY_TAGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrderPhoneNumberConfiguration {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private String billingGroupId;
@@ -72,7 +72,7 @@ public class PortingOrderPhoneNumberConfiguration {
    * identifies the billing group to set on the numbers when ported
    * @return billingGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "identifies the billing group to set on the numbers when ported")
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -98,7 +98,7 @@ public class PortingOrderPhoneNumberConfiguration {
    * identifies the connection to set on the numbers when ported
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "identifies the connection to set on the numbers when ported")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class PortingOrderPhoneNumberConfiguration {
    * identifies the messaging profile to set on the numbers when ported
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f901", value = "identifies the messaging profile to set on the numbers when ported")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class PortingOrderPhoneNumberConfiguration {
    * identifies the emergency address to set on the numbers when ported
    * @return emergencyAddressId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "identifies the emergency address to set on the numbers when ported")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -184,7 +184,7 @@ public class PortingOrderPhoneNumberConfiguration {
    * Get tags
    * @return tags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"abc\",\"123\"]", value = "")
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

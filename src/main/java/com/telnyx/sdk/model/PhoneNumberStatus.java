@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberStatus.JSON_PROPERTY_ASSIGNED_AT,
   PhoneNumberStatus.JSON_PROPERTY_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PhoneNumberStatus {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phoneNumber";
   private String phoneNumber;
@@ -68,7 +68,7 @@ public class PhoneNumberStatus {
    * A phone number that is intended to be linked to a campaign.
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+12193849584", required = true, value = "A phone number that is intended to be linked to a campaign.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -94,7 +94,7 @@ public class PhoneNumberStatus {
    * The current status of the phone number.
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The current status of the phone number.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -120,7 +120,7 @@ public class PhoneNumberStatus {
    * The date and time that the this phone number was assigned.
    * @return assignedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-06-30T10:49:04-07:00", value = "The date and time that the this phone number was assigned.")
   @JsonProperty(JSON_PROPERTY_ASSIGNED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -146,7 +146,7 @@ public class PhoneNumberStatus {
    * Errors related to an individual phone number assignment.
    * @return error
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Detailed error description here.", value = "Errors related to an individual phone number assignment.")
   @JsonProperty(JSON_PROPERTY_ERROR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

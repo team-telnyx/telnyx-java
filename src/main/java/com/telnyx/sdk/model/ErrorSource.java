@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   ErrorSource.JSON_PROPERTY_POINTER,
   ErrorSource.JSON_PROPERTY_PARAMETER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ErrorSource {
   public static final String JSON_PROPERTY_POINTER = "pointer";
   private String pointer;
@@ -57,7 +57,7 @@ public class ErrorSource {
    * JSON pointer (RFC6901) to the offending entity.
    * @return pointer
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "JSON pointer (RFC6901) to the offending entity.")
   @JsonProperty(JSON_PROPERTY_POINTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class ErrorSource {
    * Indicates which query parameter caused the error.
    * @return parameter
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates which query parameter caused the error.")
   @JsonProperty(JSON_PROPERTY_PARAMETER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

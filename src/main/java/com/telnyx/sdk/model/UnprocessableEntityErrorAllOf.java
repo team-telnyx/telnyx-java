@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   UnprocessableEntityErrorAllOf.JSON_PROPERTY_SOURCE,
   UnprocessableEntityErrorAllOf.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UnprocessableEntityErrorAllOf {
   public static final String JSON_PROPERTY_CODE = "code";
   private JsonNullable<Object> code = JsonNullable.<Object>of(null);
@@ -75,7 +75,7 @@ public class UnprocessableEntityErrorAllOf {
    * Get code
    * @return code
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10002", value = "")
   @JsonIgnore
 
@@ -109,7 +109,7 @@ public class UnprocessableEntityErrorAllOf {
    * Get title
    * @return title
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Invalid phone number", value = "")
   @JsonIgnore
 
@@ -143,7 +143,7 @@ public class UnprocessableEntityErrorAllOf {
    * Get detail
    * @return detail
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "The phone number is invalid.", value = "")
   @JsonIgnore
 
@@ -177,7 +177,7 @@ public class UnprocessableEntityErrorAllOf {
    * Get source
    * @return source
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -203,7 +203,7 @@ public class UnprocessableEntityErrorAllOf {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

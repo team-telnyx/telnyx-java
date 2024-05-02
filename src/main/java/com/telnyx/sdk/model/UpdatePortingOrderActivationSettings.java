@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdatePortingOrderActivationSettings.JSON_PROPERTY_FOC_DATETIME_REQUESTED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdatePortingOrderActivationSettings {
   public static final String JSON_PROPERTY_FOC_DATETIME_REQUESTED = "foc_datetime_requested";
   private OffsetDateTime focDatetimeRequested;
@@ -55,7 +55,7 @@ public class UpdatePortingOrderActivationSettings {
    * ISO 8601 formatted Date/Time requested for the FOC date
    * @return focDatetimeRequested
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted Date/Time requested for the FOC date")
   @JsonProperty(JSON_PROPERTY_FOC_DATETIME_REQUESTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

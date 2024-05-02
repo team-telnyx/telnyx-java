@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   Metadata.JSON_PROPERTY_PAGE_NUMBER,
   Metadata.JSON_PROPERTY_PAGE_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Metadata {
   public static final String JSON_PROPERTY_TOTAL_PAGES = "total_pages";
   private Double totalPages;
@@ -66,7 +66,7 @@ public class Metadata {
    * Total number of pages based on pagination settings
    * @return totalPages
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "13", value = "Total number of pages based on pagination settings")
   @JsonProperty(JSON_PROPERTY_TOTAL_PAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class Metadata {
    * Total number of results
    * @return totalResults
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "13", value = "Total number of results")
   @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class Metadata {
    * Current Page based on pagination settings (included when defaults are used.)
    * @return pageNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3", value = "Current Page based on pagination settings (included when defaults are used.)")
   @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class Metadata {
    * Number of results to return per page based on pagination settings (included when defaults are used.)
    * @return pageSize
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "Number of results to return per page based on pagination settings (included when defaults are used.)")
   @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

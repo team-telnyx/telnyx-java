@@ -48,7 +48,7 @@ import com.telnyx.sdk.JSON;
   CreateShortCodeMessageRequest.JSON_PROPERTY_TYPE,
   CreateShortCodeMessageRequest.JSON_PROPERTY_AUTO_DETECT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateShortCodeMessageRequest {
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -127,7 +127,7 @@ public class CreateShortCodeMessageRequest {
    * Phone number, in +E.164 format, used to send the message.
    * @return from
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Phone number, in +E.164 format, used to send the message.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -153,7 +153,7 @@ public class CreateShortCodeMessageRequest {
    * Receiving address (+E.164 formatted phone number or short code).
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+E.164", required = true, value = "Receiving address (+E.164 formatted phone number or short code).")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -179,7 +179,7 @@ public class CreateShortCodeMessageRequest {
    * Message body (i.e., content) as a non-empty string.  **Required for SMS**
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message body (i.e., content) as a non-empty string.  **Required for SMS**")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -205,7 +205,7 @@ public class CreateShortCodeMessageRequest {
    * Subject of multimedia message
    * @return subject
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Subject of multimedia message")
   @JsonProperty(JSON_PROPERTY_SUBJECT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class CreateShortCodeMessageRequest {
    * A list of media URLs. The total media size must be less than 1 MB.  **Required for MMS**
    * @return mediaUrls
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of media URLs. The total media size must be less than 1 MB.  **Required for MMS**")
   @JsonProperty(JSON_PROPERTY_MEDIA_URLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -265,7 +265,7 @@ public class CreateShortCodeMessageRequest {
    * The URL where webhooks related to this message will be sent.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The URL where webhooks related to this message will be sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -291,7 +291,7 @@ public class CreateShortCodeMessageRequest {
    * The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.
    * @return webhookFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -317,7 +317,7 @@ public class CreateShortCodeMessageRequest {
    * If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.
    * @return useProfileWebhooks
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.")
   @JsonProperty(JSON_PROPERTY_USE_PROFILE_WEBHOOKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -343,7 +343,7 @@ public class CreateShortCodeMessageRequest {
    * The protocol for sending the message, either SMS or MMS.
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The protocol for sending the message, either SMS or MMS.")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -369,7 +369,7 @@ public class CreateShortCodeMessageRequest {
    * Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.
    * @return autoDetect
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.")
   @JsonProperty(JSON_PROPERTY_AUTO_DETECT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

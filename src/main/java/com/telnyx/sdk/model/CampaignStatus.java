@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   CampaignStatus.JSON_PROPERTY_CREATED_AT,
   CampaignStatus.JSON_PROPERTY_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CampaignStatus {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
@@ -72,7 +72,7 @@ public class CampaignStatus {
    * The campaign description.
    * @return description
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "This campaign belongs to John's Donuts and will be used for marketing.", required = true, value = "The campaign description.")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -98,7 +98,7 @@ public class CampaignStatus {
    * The current status of the campaign.
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The current status of the campaign.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -124,7 +124,7 @@ public class CampaignStatus {
    * The ID of the campaign created via bulk creation. This campaign will only have a campaignId after the campaign has been created.
    * @return campaignId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4b30017a-2f50-4c90-c9e6-5f67304cbde7", value = "The ID of the campaign created via bulk creation. This campaign will only have a campaignId after the campaign has been created.")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class CampaignStatus {
    * The date and time that the campaign was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-06-30T10:49:04-07:00", value = "The date and time that the campaign was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class CampaignStatus {
    * Errors related to a campaign creation failure.
    * @return error
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "More sample messages required for some mobile network operators.", value = "Errors related to a campaign creation failure.")
   @JsonProperty(JSON_PROPERTY_ERROR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

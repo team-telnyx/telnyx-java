@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   ChatCompletionSystemMessageParam.JSON_PROPERTY_CONTENT,
   ChatCompletionSystemMessageParam.JSON_PROPERTY_ROLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ChatCompletionSystemMessageParam {
   public static final String JSON_PROPERTY_CONTENT = "content";
   private String content;
@@ -97,7 +97,7 @@ public class ChatCompletionSystemMessageParam {
    * Get content
    * @return content
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -123,7 +123,7 @@ public class ChatCompletionSystemMessageParam {
    * Get role
    * @return role
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ROLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

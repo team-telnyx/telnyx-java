@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderRequirementDetailRequirementType.JSON_PROPERTY_NAME,
   PortingOrderRequirementDetailRequirementType.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrderRequirementDetailRequirementType {
   public static final String JSON_PROPERTY_ACCEPTANCE_CRITERIA = "acceptance_criteria";
   private Object acceptanceCriteria;
@@ -75,7 +75,7 @@ public class PortingOrderRequirementDetailRequirementType {
    * The acceptance criteria for the requirement type
    * @return acceptanceCriteria
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "{\"acceptable_values\":[]}", value = "The acceptance criteria for the requirement type")
   @JsonProperty(JSON_PROPERTY_ACCEPTANCE_CRITERIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -101,7 +101,7 @@ public class PortingOrderRequirementDetailRequirementType {
    * A description of the requirement type
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "A copy of the latest phone bill from the current provider", value = "A description of the requirement type")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -127,7 +127,7 @@ public class PortingOrderRequirementDetailRequirementType {
    * An example of the requirement type
    * @return example
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Most recent phone bill", value = "An example of the requirement type")
   @JsonProperty(JSON_PROPERTY_EXAMPLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -153,7 +153,7 @@ public class PortingOrderRequirementDetailRequirementType {
    * Identifies the requirement type
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "53970723-fbff-4f46-a975-f62be6c1a585", value = "Identifies the requirement type")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -179,7 +179,7 @@ public class PortingOrderRequirementDetailRequirementType {
    * The name of the requirement type
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Latest Invoice", value = "The name of the requirement type")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -205,7 +205,7 @@ public class PortingOrderRequirementDetailRequirementType {
    * The type of the requirement type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "document", value = "The type of the requirement type")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

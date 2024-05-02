@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CreateMessagingHostedNumberOrderRequest.JSON_PROPERTY_PHONE_NUMBERS,
   CreateMessagingHostedNumberOrderRequest.JSON_PROPERTY_MESSAGING_PROFILE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateMessagingHostedNumberOrderRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = null;
@@ -68,7 +68,7 @@ public class CreateMessagingHostedNumberOrderRequest {
    * Phone numbers to be used for hosted messaging.
    * @return phoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phone numbers to be used for hosted messaging.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -94,7 +94,7 @@ public class CreateMessagingHostedNumberOrderRequest {
    * Automatically associate the number with this messaging profile ID when the order is complete.
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Automatically associate the number with this messaging profile ID when the order is complete.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

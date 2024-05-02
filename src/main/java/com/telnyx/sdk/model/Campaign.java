@@ -68,7 +68,7 @@ import com.telnyx.sdk.JSON;
   Campaign.JSON_PROPERTY_MESSAGE_FLOW,
   Campaign.JSON_PROPERTY_HELP_MESSAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Campaign {
   public static final String JSON_PROPERTY_CAMPAIGN_ID = "campaignId";
   private String campaignId;
@@ -166,7 +166,7 @@ public class Campaign {
    * Alphanumeric identifier assigned by the registry for a campaign. This identifier is required by the NetNumber OSR SMS enabling process of 10DLC.
    * @return campaignId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4b30017a-15eb-6a25-2e3f-59b6422cud79", value = "Alphanumeric identifier assigned by the registry for a campaign. This identifier is required by the NetNumber OSR SMS enabling process of 10DLC.")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -192,7 +192,7 @@ public class Campaign {
    * Alphanumeric identifier of the CSP associated with this campaign.
    * @return cspId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Alphanumeric identifier of the CSP associated with this campaign.")
   @JsonProperty(JSON_PROPERTY_CSP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -218,7 +218,7 @@ public class Campaign {
    * Alphanumeric identifier of the reseller that you want to associate with this campaign.
    * @return resellerId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "RPQFAOY", value = "Alphanumeric identifier of the reseller that you want to associate with this campaign.")
   @JsonProperty(JSON_PROPERTY_RESELLER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -244,7 +244,7 @@ public class Campaign {
    * Current campaign status. Possible values: ACTIVE, EXPIRED. A newly created campaign defaults to ACTIVE status.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Current campaign status. Possible values: ACTIVE, EXPIRED. A newly created campaign defaults to ACTIVE status.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -270,7 +270,7 @@ public class Campaign {
    * Unix timestamp when campaign was created.
    * @return createDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unix timestamp when campaign was created.")
   @JsonProperty(JSON_PROPERTY_CREATE_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -296,7 +296,7 @@ public class Campaign {
    * Campaign subscription auto-renewal status.
    * @return autoRenewal
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Campaign subscription auto-renewal status.")
   @JsonProperty(JSON_PROPERTY_AUTO_RENEWAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -322,7 +322,7 @@ public class Campaign {
    * Campaign recent billed date.
    * @return billedDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Campaign recent billed date.")
   @JsonProperty(JSON_PROPERTY_BILLED_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -348,7 +348,7 @@ public class Campaign {
    * Alphanumeric identifier of the brand associated with this campaign.
    * @return brandId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "4b206179-f731-8ab7-f19c-34e19d22ide9", required = true, value = "Alphanumeric identifier of the brand associated with this campaign.")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -374,7 +374,7 @@ public class Campaign {
    * Get vertical
    * @return vertical
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_VERTICAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -400,7 +400,7 @@ public class Campaign {
    * Get usecase
    * @return usecase
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_USECASE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -426,7 +426,7 @@ public class Campaign {
    * Get subUsecases
    * @return subUsecases
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SUB_USECASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -452,7 +452,7 @@ public class Campaign {
    * Summary description of this campaign.
    * @return description
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Campaign description goes here.", required = true, value = "Summary description of this campaign.")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -478,7 +478,7 @@ public class Campaign {
    * Does message generated by the campaign include URL link in SMS?
    * @return embeddedLink
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does message generated by the campaign include URL link in SMS?")
   @JsonProperty(JSON_PROPERTY_EMBEDDED_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -504,7 +504,7 @@ public class Campaign {
    * Does message generated by the campaign include phone number in SMS?
    * @return embeddedPhone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does message generated by the campaign include phone number in SMS?")
   @JsonProperty(JSON_PROPERTY_EMBEDDED_PHONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -530,7 +530,7 @@ public class Campaign {
    * Does message content controlled by affiliate marketing other than the brand?
    * @return affiliateMarketing
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does message content controlled by affiliate marketing other than the brand?")
   @JsonProperty(JSON_PROPERTY_AFFILIATE_MARKETING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -556,7 +556,7 @@ public class Campaign {
    * Does campaign utilize pool of phone nubers?
    * @return numberPool
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does campaign utilize pool of phone nubers?")
   @JsonProperty(JSON_PROPERTY_NUMBER_POOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -582,7 +582,7 @@ public class Campaign {
    * Age gated content in campaign.
    * @return ageGated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Age gated content in campaign.")
   @JsonProperty(JSON_PROPERTY_AGE_GATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -608,7 +608,7 @@ public class Campaign {
    * Get directLending
    * @return directLending
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DIRECT_LENDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -634,7 +634,7 @@ public class Campaign {
    * Does campaign require subscriber to opt-in before SMS is sent to subscriber?
    * @return subscriberOptin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does campaign require subscriber to opt-in before SMS is sent to subscriber?")
   @JsonProperty(JSON_PROPERTY_SUBSCRIBER_OPTIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -660,7 +660,7 @@ public class Campaign {
    * Does campaign support subscriber opt-out keyword(s)?
    * @return subscriberOptout
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does campaign support subscriber opt-out keyword(s)?")
   @JsonProperty(JSON_PROPERTY_SUBSCRIBER_OPTOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -686,7 +686,7 @@ public class Campaign {
    * Does campaign responds to help keyword(s)?
    * @return subscriberHelp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does campaign responds to help keyword(s)?")
   @JsonProperty(JSON_PROPERTY_SUBSCRIBER_HELP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -712,7 +712,7 @@ public class Campaign {
    * Message sample. Some campaign tiers require 1 or more message samples.
    * @return sample1
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "This is a an updated message!", value = "Message sample. Some campaign tiers require 1 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE1)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -738,7 +738,7 @@ public class Campaign {
    * Message sample. Some campaign tiers require 2 or more message samples.
    * @return sample2
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "This is a newly created message!", value = "Message sample. Some campaign tiers require 2 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -764,7 +764,7 @@ public class Campaign {
    * Message sample. Some campaign tiers require 3 or more message samples.
    * @return sample3
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "This is a newly created message!", value = "Message sample. Some campaign tiers require 3 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE3)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -790,7 +790,7 @@ public class Campaign {
    * Message sample. Some campaign tiers require 4 or more message samples.
    * @return sample4
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 4 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE4)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -816,7 +816,7 @@ public class Campaign {
    * Message sample. Some campaign tiers require 5 or more message samples.
    * @return sample5
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 5 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE5)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -842,7 +842,7 @@ public class Campaign {
    * Message flow description.
    * @return messageFlow
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message flow description.")
   @JsonProperty(JSON_PROPERTY_MESSAGE_FLOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -868,7 +868,7 @@ public class Campaign {
    * Help message of the campaign.
    * @return helpMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Help message of the campaign.")
   @JsonProperty(JSON_PROPERTY_HELP_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

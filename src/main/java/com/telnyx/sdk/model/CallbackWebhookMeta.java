@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CallbackWebhookMeta.JSON_PROPERTY_ATTEMPT,
   CallbackWebhookMeta.JSON_PROPERTY_DELIVERED_TO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallbackWebhookMeta {
   public static final String JSON_PROPERTY_ATTEMPT = "attempt";
   private Integer attempt;
@@ -58,7 +58,7 @@ public class CallbackWebhookMeta {
    * The number of times the callback webhook has been attempted.
    * @return attempt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "The number of times the callback webhook has been attempted.")
   @JsonProperty(JSON_PROPERTY_ATTEMPT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class CallbackWebhookMeta {
    * The URL that the callback webhook was delivered to.
    * @return deliveredTo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com/webhook", value = "The URL that the callback webhook was delivered to.")
   @JsonProperty(JSON_PROPERTY_DELIVERED_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

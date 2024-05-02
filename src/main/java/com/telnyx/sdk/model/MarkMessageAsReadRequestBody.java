@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   MarkMessageAsReadRequestBody.JSON_PROPERTY_WHATSAPP_USER_ID,
   MarkMessageAsReadRequestBody.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MarkMessageAsReadRequestBody {
   public static final String JSON_PROPERTY_WHATSAPP_USER_ID = "whatsapp_user_id";
   private String whatsappUserId;
@@ -57,7 +57,7 @@ public class MarkMessageAsReadRequestBody {
    * The user&#39;s WhatsApp ID.
    * @return whatsappUserId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "15125551212", required = true, value = "The user's WhatsApp ID.")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_USER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -83,7 +83,7 @@ public class MarkMessageAsReadRequestBody {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

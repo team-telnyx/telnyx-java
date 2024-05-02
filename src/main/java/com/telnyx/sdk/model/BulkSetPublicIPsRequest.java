@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   BulkSetPublicIPsRequest.JSON_PROPERTY_SIM_CARD_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BulkSetPublicIPsRequest {
   public static final String JSON_PROPERTY_SIM_CARD_IDS = "sim_card_ids";
   private List<UUID> simCardIds = new ArrayList<>();
@@ -61,7 +61,7 @@ public class BulkSetPublicIPsRequest {
    * Get simCardIds
    * @return simCardIds
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"6b14e151-8493-4fa1-8664-1cc4e6d14158\"]", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_SIM_CARD_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

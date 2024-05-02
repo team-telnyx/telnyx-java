@@ -53,7 +53,7 @@ import com.telnyx.sdk.JSON;
   CreateMessagingProfileRequest.JSON_PROPERTY_URL_SHORTENER_SETTINGS,
   CreateMessagingProfileRequest.JSON_PROPERTY_ALPHA_SENDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateMessagingProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -131,7 +131,7 @@ public class CreateMessagingProfileRequest {
    * A user friendly name for the messaging profile.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "A user friendly name for the messaging profile.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -162,7 +162,7 @@ public class CreateMessagingProfileRequest {
    * Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60; all destinations will be allowed.
    * @return whitelistedDestinations
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]` all destinations will be allowed.")
   @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -188,7 +188,7 @@ public class CreateMessagingProfileRequest {
    * Specifies whether the messaging profile is enabled or not.
    * @return enabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies whether the messaging profile is enabled or not.")
   @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -214,7 +214,7 @@ public class CreateMessagingProfileRequest {
    * The URL where webhooks related to this messaging profile will be sent.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The URL where webhooks related to this messaging profile will be sent.")
   @JsonIgnore
 
@@ -248,7 +248,7 @@ public class CreateMessagingProfileRequest {
    * The failover URL where webhooks related to this messaging profile will be sent if sending to the primary URL fails.
    * @return webhookFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The failover URL where webhooks related to this messaging profile will be sent if sending to the primary URL fails.")
   @JsonIgnore
 
@@ -282,7 +282,7 @@ public class CreateMessagingProfileRequest {
    * Determines which webhook format will be used, Telnyx API v1, v2, or a legacy 2010-04-01 format.
    * @return webhookApiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Determines which webhook format will be used, Telnyx API v1, v2, or a legacy 2010-04-01 format.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -308,7 +308,7 @@ public class CreateMessagingProfileRequest {
    * Get numberPoolSettings
    * @return numberPoolSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -342,7 +342,7 @@ public class CreateMessagingProfileRequest {
    * Get urlShortenerSettings
    * @return urlShortenerSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -376,7 +376,7 @@ public class CreateMessagingProfileRequest {
    * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.
    * @return alphaSender
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.")
   @JsonIgnore
 

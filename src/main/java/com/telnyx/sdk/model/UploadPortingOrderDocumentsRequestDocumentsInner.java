@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   UploadPortingOrderDocumentsRequestDocumentsInner.JSON_PROPERTY_DOCUMENT_TYPE,
   UploadPortingOrderDocumentsRequestDocumentsInner.JSON_PROPERTY_DOCUMENT_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UploadPortingOrderDocumentsRequestDocumentsInner {
   /**
    * The type of the document.
@@ -94,7 +94,7 @@ public class UploadPortingOrderDocumentsRequestDocumentsInner {
    * The type of the document.
    * @return documentType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "loa", required = true, value = "The type of the document.")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -120,7 +120,7 @@ public class UploadPortingOrderDocumentsRequestDocumentsInner {
    * Uniquely identifies a document uploaded via the &lt;code&gt;&lt;a href&#x3D;\&quot;https://developers.telnyx.com/docs/api/v2/documents/Documents#createDocument\&quot;&gt;/v2/documents&lt;/a&gt;&lt;/code&gt; endpoint.
    * @return documentId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "5f940c35-ef28-4408-bb95-af73b047d589", required = true, value = "Uniquely identifies a document uploaded via the <code><a href=\"https://developers.telnyx.com/docs/api/v2/documents/Documents#createDocument\">/v2/documents</a></code> endpoint.")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

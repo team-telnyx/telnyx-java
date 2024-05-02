@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CampaignStatusUpdateEvent.JSON_PROPERTY_IS_T_MOBILE_REGISTERED,
   CampaignStatusUpdateEvent.JSON_PROPERTY_IS_T_MOBILE_SUSPENDED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CampaignStatusUpdateEvent {
   public static final String JSON_PROPERTY_BRAND_ID = "brandId";
   private String brandId;
@@ -74,7 +74,7 @@ public class CampaignStatusUpdateEvent {
    * Brand ID associated with the campaign.
    * @return brandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "d88dd2aa-1bb9-4ef0-9ec8-1752b80316a5", value = "Brand ID associated with the campaign.")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -100,7 +100,7 @@ public class CampaignStatusUpdateEvent {
    * The ID of the campaign.
    * @return campaignId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4b300178-131c-d902-d54e-72d90ba1620j", value = "The ID of the campaign.")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -126,7 +126,7 @@ public class CampaignStatusUpdateEvent {
    * Unix timestamp when campaign was created.
    * @return createDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unix timestamp when campaign was created.")
   @JsonProperty(JSON_PROPERTY_CREATE_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -152,7 +152,7 @@ public class CampaignStatusUpdateEvent {
    * Alphanumeric identifier of the CSP associated with this campaign.
    * @return cspId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Alphanumeric identifier of the CSP associated with this campaign.")
   @JsonProperty(JSON_PROPERTY_CSP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -178,7 +178,7 @@ public class CampaignStatusUpdateEvent {
    * Indicates whether the campaign is registered with T-Mobile.
    * @return isTMobileRegistered
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether the campaign is registered with T-Mobile.")
   @JsonProperty(JSON_PROPERTY_IS_T_MOBILE_REGISTERED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -204,7 +204,7 @@ public class CampaignStatusUpdateEvent {
    * Indicates whether the campaign is suspended with T-Mobile.
    * @return isTMobileSuspended
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether the campaign is suspended with T-Mobile.")
   @JsonProperty(JSON_PROPERTY_IS_T_MOBILE_SUSPENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

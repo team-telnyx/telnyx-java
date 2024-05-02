@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CustomerFacingFQDNsPost.JSON_PROPERTY_FQDN,
   CustomerFacingFQDNsPost.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CustomerFacingFQDNsPost {
   public static final String JSON_PROPERTY_FQDN = "fqdn";
   private String fqdn;
@@ -57,7 +57,7 @@ public class CustomerFacingFQDNsPost {
    * Get fqdn
    * @return fqdn
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_FQDN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -83,7 +83,7 @@ public class CustomerFacingFQDNsPost {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   OutboundCallRecording.JSON_PROPERTY_CALL_RECORDING_CHANNELS,
   OutboundCallRecording.JSON_PROPERTY_CALL_RECORDING_FORMAT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class OutboundCallRecording {
   /**
    * Specifies which calls are recorded.
@@ -175,7 +175,7 @@ public class OutboundCallRecording {
    * Specifies which calls are recorded.
    * @return callRecordingType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies which calls are recorded.")
   @JsonProperty(JSON_PROPERTY_CALL_RECORDING_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -209,7 +209,7 @@ public class OutboundCallRecording {
    * When call_recording_type is &#39;by_caller_phone_number&#39;, only outbound calls using one of these numbers will be recorded. Numbers must be specified in E164 format.
    * @return callRecordingCallerPhoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"+19705555098\"]", value = "When call_recording_type is 'by_caller_phone_number', only outbound calls using one of these numbers will be recorded. Numbers must be specified in E164 format.")
   @JsonProperty(JSON_PROPERTY_CALL_RECORDING_CALLER_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -235,7 +235,7 @@ public class OutboundCallRecording {
    * When using &#39;dual&#39; channels, the final audio file will be a stereo recording with the first leg on channel A, and the rest on channel B.
    * @return callRecordingChannels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "dual", value = "When using 'dual' channels, the final audio file will be a stereo recording with the first leg on channel A, and the rest on channel B.")
   @JsonProperty(JSON_PROPERTY_CALL_RECORDING_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -261,7 +261,7 @@ public class OutboundCallRecording {
    * The audio file format for calls being recorded.
    * @return callRecordingFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "mp3", value = "The audio file format for calls being recorded.")
   @JsonProperty(JSON_PROPERTY_CALL_RECORDING_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

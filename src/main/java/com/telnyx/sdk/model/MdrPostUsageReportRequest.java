@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   MdrPostUsageReportRequest.JSON_PROPERTY_AGGREGATION_TYPE,
   MdrPostUsageReportRequest.JSON_PROPERTY_PROFILES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MdrPostUsageReportRequest {
   public static final String JSON_PROPERTY_START_DATE = "start_date";
   private OffsetDateTime startDate;
@@ -104,7 +104,7 @@ public class MdrPostUsageReportRequest {
    * Get startDate
    * @return startDate
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -130,7 +130,7 @@ public class MdrPostUsageReportRequest {
    * Get endDate
    * @return endDate
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -156,7 +156,7 @@ public class MdrPostUsageReportRequest {
    * Get aggregationType
    * @return aggregationType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_AGGREGATION_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -182,7 +182,7 @@ public class MdrPostUsageReportRequest {
    * Get profiles
    * @return profiles
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "My profile", value = "")
   @JsonProperty(JSON_PROPERTY_PROFILES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

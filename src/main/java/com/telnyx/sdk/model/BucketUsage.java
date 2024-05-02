@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   BucketUsage.JSON_PROPERTY_NUM_OBJECTS,
   BucketUsage.JSON_PROPERTY_TIMESTAMP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BucketUsage {
   public static final String JSON_PROPERTY_SIZE = "size";
   private Integer size;
@@ -67,7 +67,7 @@ public class BucketUsage {
    * The size of the bucket in bytes
    * @return size
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456", value = "The size of the bucket in bytes")
   @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class BucketUsage {
    * The size of the bucket in kilobytes
    * @return sizeKb
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456", value = "The size of the bucket in kilobytes")
   @JsonProperty(JSON_PROPERTY_SIZE_KB)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class BucketUsage {
    * The number of objects in the bucket
    * @return numObjects
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456", value = "The number of objects in the bucket")
   @JsonProperty(JSON_PROPERTY_NUM_OBJECTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class BucketUsage {
    * The time the snapshot was taken
    * @return timestamp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-01T00:00Z", value = "The time the snapshot was taken")
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -48,7 +48,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpAssignment.JSON_PROPERTY_IS_IN_MAINTENANCE,
   GlobalIpAssignment.JSON_PROPERTY_IS_ANNOUNCED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIpAssignment {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -105,7 +105,7 @@ public class GlobalIpAssignment {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -121,7 +121,7 @@ public class GlobalIpAssignment {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "global_ip_assignment", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -137,7 +137,7 @@ public class GlobalIpAssignment {
    * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -153,7 +153,7 @@ public class GlobalIpAssignment {
    * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class GlobalIpAssignment {
    * Global IP ID.
    * @return globalIpId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "a836125b-20b6-452e-9c03-2653f09c7ed7", value = "Global IP ID.")
   @JsonProperty(JSON_PROPERTY_GLOBAL_IP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -200,7 +200,7 @@ public class GlobalIpAssignment {
    * Wireguard peer ID.
    * @return wireguardPeerId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "e66c496d-4a85-423b-8b2a-8e63fac20320", value = "Wireguard peer ID.")
   @JsonProperty(JSON_PROPERTY_WIREGUARD_PEER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -226,7 +226,7 @@ public class GlobalIpAssignment {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -247,7 +247,7 @@ public class GlobalIpAssignment {
    * Wireguard peer is connected.
    * @return isConnected
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Wireguard peer is connected.")
   @JsonProperty(JSON_PROPERTY_IS_CONNECTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -268,7 +268,7 @@ public class GlobalIpAssignment {
    * Enable/disable BGP announcement.
    * @return isInMaintenance
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Enable/disable BGP announcement.")
   @JsonProperty(JSON_PROPERTY_IS_IN_MAINTENANCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -289,7 +289,7 @@ public class GlobalIpAssignment {
    * Status of BGP announcement.
    * @return isAnnounced
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Status of BGP announcement.")
   @JsonProperty(JSON_PROPERTY_IS_ANNOUNCED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

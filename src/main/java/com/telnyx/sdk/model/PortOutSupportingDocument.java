@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   PortOutSupportingDocument.JSON_PROPERTY_CREATED_AT,
   PortOutSupportingDocument.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortOutSupportingDocument {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -126,7 +126,7 @@ public class PortOutSupportingDocument {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "5a16902a-2ee9-4882-a247-420fc6627b62", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -147,7 +147,7 @@ public class PortOutSupportingDocument {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "supporting_document", required = true, value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -163,7 +163,7 @@ public class PortOutSupportingDocument {
    * Identifies the type of the document
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "loa", required = true, value = "Identifies the type of the document")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -179,7 +179,7 @@ public class PortOutSupportingDocument {
    * Identifies the associated port request
    * @return portoutId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", required = true, value = "Identifies the associated port request")
   @JsonProperty(JSON_PROPERTY_PORTOUT_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -200,7 +200,7 @@ public class PortOutSupportingDocument {
    * Identifies the associated document
    * @return documentId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "f1c5e079-9d82-4f50-95bc-ae2f6b8d84d7", required = true, value = "Identifies the associated document")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -226,7 +226,7 @@ public class PortOutSupportingDocument {
    * Supporting document creation timestamp in ISO 8601 format
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", required = true, value = "Supporting document creation timestamp in ISO 8601 format")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -252,7 +252,7 @@ public class PortOutSupportingDocument {
    * Supporting document last changed timestamp in ISO 8601 format
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", required = true, value = "Supporting document last changed timestamp in ISO 8601 format")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

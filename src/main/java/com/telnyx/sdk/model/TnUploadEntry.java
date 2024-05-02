@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   TnUploadEntry.JSON_PROPERTY_LOCATION_ID,
   TnUploadEntry.JSON_PROPERTY_INTERNAL_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TnUploadEntry {
   public static final String JSON_PROPERTY_NUMBER_ID = "number_id";
   private UUID numberId;
@@ -210,7 +210,7 @@ public class TnUploadEntry {
    * Uniquely identifies the resource.
    * @return numberId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "542c3bca-d247-42bc-8fe7-e01d16ecd761", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_NUMBER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -236,7 +236,7 @@ public class TnUploadEntry {
    * Phone number in E164 format.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phone number in E164 format.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -262,7 +262,7 @@ public class TnUploadEntry {
    * Represents the status of the phone number entry upload on Microsoft Teams.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "error", value = "Represents the status of the phone number entry upload on Microsoft Teams.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -288,7 +288,7 @@ public class TnUploadEntry {
    * A code returned by Microsoft Teams if there is an error with the phone number entry upload.
    * @return errorCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "internal_error", value = "A code returned by Microsoft Teams if there is an error with the phone number entry upload.")
   @JsonProperty(JSON_PROPERTY_ERROR_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -314,7 +314,7 @@ public class TnUploadEntry {
    * A message returned by Microsoft Teams if there is an error with the upload process.
    * @return errorMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A message returned by Microsoft Teams if there is an error with the upload process.")
   @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -340,7 +340,7 @@ public class TnUploadEntry {
    * Identifies the civic address assigned to the phone number entry.
    * @return civicAddressId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the civic address assigned to the phone number entry.")
   @JsonProperty(JSON_PROPERTY_CIVIC_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -366,7 +366,7 @@ public class TnUploadEntry {
    * Identifies the location assigned to the phone number entry.
    * @return locationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the location assigned to the phone number entry.")
   @JsonProperty(JSON_PROPERTY_LOCATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -392,7 +392,7 @@ public class TnUploadEntry {
    * Represents the status of the phone number entry upload on Telnyx.
    * @return internalStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "error", value = "Represents the status of the phone number entry upload on Telnyx.")
   @JsonProperty(JSON_PROPERTY_INTERNAL_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

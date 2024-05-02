@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   ListAvailablePhoneNumbersResponse.JSON_PROPERTY_DATA,
   ListAvailablePhoneNumbersResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ListAvailablePhoneNumbersResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<AvailablePhoneNumber> data = null;
@@ -69,7 +69,7 @@ public class ListAvailablePhoneNumbersResponse {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -95,7 +95,7 @@ public class ListAvailablePhoneNumbersResponse {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

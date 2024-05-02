@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CommentResponse.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CommentResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private JsonNullable<Comment> data = JsonNullable.<Comment>undefined();
@@ -58,7 +58,7 @@ public class CommentResponse {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 

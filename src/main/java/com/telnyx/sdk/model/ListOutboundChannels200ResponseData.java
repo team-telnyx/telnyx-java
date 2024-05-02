@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   ListOutboundChannels200ResponseData.JSON_PROPERTY_CHANNELS,
   ListOutboundChannels200ResponseData.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ListOutboundChannels200ResponseData {
   public static final String JSON_PROPERTY_CHANNELS = "channels";
   private Integer channels;
@@ -57,7 +57,7 @@ public class ListOutboundChannels200ResponseData {
    * The current number of concurrent channels set for the account
    * @return channels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "7", value = "The current number of concurrent channels set for the account")
   @JsonProperty(JSON_PROPERTY_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class ListOutboundChannels200ResponseData {
    * Identifies the type of the response
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "inbound_channels", value = "Identifies the type of the response")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

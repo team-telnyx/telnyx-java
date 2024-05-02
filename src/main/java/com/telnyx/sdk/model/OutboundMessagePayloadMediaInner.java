@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   OutboundMessagePayloadMediaInner.JSON_PROPERTY_SHA256,
   OutboundMessagePayloadMediaInner.JSON_PROPERTY_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class OutboundMessagePayloadMediaInner {
   public static final String JSON_PROPERTY_URL = "url";
   private String url;
@@ -71,7 +71,7 @@ public class OutboundMessagePayloadMediaInner {
    * The url of the media requested to be sent.
    * @return url
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The url of the media requested to be sent.")
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class OutboundMessagePayloadMediaInner {
    * The MIME type of the requested media.
    * @return contentType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The MIME type of the requested media.")
   @JsonIgnore
 
@@ -131,7 +131,7 @@ public class OutboundMessagePayloadMediaInner {
    * The SHA256 hash of the requested media.
    * @return sha256
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The SHA256 hash of the requested media.")
   @JsonIgnore
 
@@ -165,7 +165,7 @@ public class OutboundMessagePayloadMediaInner {
    * The size of the requested media.
    * @return size
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The size of the requested media.")
   @JsonIgnore
 

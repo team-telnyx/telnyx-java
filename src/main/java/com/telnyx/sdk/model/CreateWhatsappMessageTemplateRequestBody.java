@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CreateWhatsappMessageTemplateRequestBody.JSON_PROPERTY_NAME,
   CreateWhatsappMessageTemplateRequestBody.JSON_PROPERTY_COMPONENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateWhatsappMessageTemplateRequestBody {
   /**
    * The template category
@@ -291,7 +291,7 @@ public class CreateWhatsappMessageTemplateRequestBody {
    * The template category
    * @return category
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The template category")
   @JsonProperty(JSON_PROPERTY_CATEGORY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -317,7 +317,7 @@ public class CreateWhatsappMessageTemplateRequestBody {
    * The language of the whatsapp message template
    * @return language
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The language of the whatsapp message template")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -343,7 +343,7 @@ public class CreateWhatsappMessageTemplateRequestBody {
    * A name identifying this whatsapp message template
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A name identifying this whatsapp message template")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -369,7 +369,7 @@ public class CreateWhatsappMessageTemplateRequestBody {
    * The JSON-formatted components for the this whatsapp message template, please refer to whatsapp documentation on the correct structure for this field
    * @return components
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The JSON-formatted components for the this whatsapp message template, please refer to whatsapp documentation on the correct structure for this field")
   @JsonProperty(JSON_PROPERTY_COMPONENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

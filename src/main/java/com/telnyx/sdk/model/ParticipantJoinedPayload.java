@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   ParticipantJoinedPayload.JSON_PROPERTY_CONTEXT,
   ParticipantJoinedPayload.JSON_PROPERTY_PARTICIPANT_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ParticipantJoinedPayload {
   public static final String JSON_PROPERTY_SESSION_ID = "session_id";
   private UUID sessionId;
@@ -67,7 +67,7 @@ public class ParticipantJoinedPayload {
    * Session ID that identifies the session where the participant joined.
    * @return sessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Session ID that identifies the session where the participant joined.")
   @JsonProperty(JSON_PROPERTY_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class ParticipantJoinedPayload {
    * Room ID that identifies the room where the participant joined.
    * @return roomId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Room ID that identifies the room where the participant joined.")
   @JsonProperty(JSON_PROPERTY_ROOM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class ParticipantJoinedPayload {
    * Context provided to the given participant through the client SDK
    * @return context
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Alice", value = "Context provided to the given participant through the client SDK")
   @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class ParticipantJoinedPayload {
    * Participant ID that identifies the participant that joined.
    * @return participantId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Participant ID that identifies the participant that joined.")
   @JsonProperty(JSON_PROPERTY_PARTICIPANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CsvDownload.JSON_PROPERTY_URL,
   CsvDownload.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CsvDownload {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -110,7 +110,7 @@ public class CsvDownload {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "42587e44-3a3e-46de-9255-0c9a7a1d1ec7", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -126,7 +126,7 @@ public class CsvDownload {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "csv_download", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -147,7 +147,7 @@ public class CsvDownload {
    * The URL at which the CSV file can be retrieved.
    * @return url
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.telnyx.com/sample/42587e44-3a3e-46de-9255-0c9a7a1d1ec7", value = "The URL at which the CSV file can be retrieved.")
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -173,7 +173,7 @@ public class CsvDownload {
    * Indicates the completion level of the CSV report. Only complete CSV download requests will be able to be retrieved.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending", value = "Indicates the completion level of the CSV report. Only complete CSV download requests will be able to be retrieved.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

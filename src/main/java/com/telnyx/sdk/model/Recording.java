@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   Recording.JSON_PROPERTY_CALL_SESSION_ID,
   Recording.JSON_PROPERTY_DOWNLOAD_URLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Recording {
   /**
    * Gets or Sets recordType
@@ -242,7 +242,7 @@ public class Recording {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "recording", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -268,7 +268,7 @@ public class Recording {
    * Uniquely identifies the recording
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", required = true, value = "Uniquely identifies the recording")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -294,7 +294,7 @@ public class Recording {
    * ISO 8601 formatted date of when the recording was created
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -320,7 +320,7 @@ public class Recording {
    * ISO 8601 formatted date of when the recording was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -346,7 +346,7 @@ public class Recording {
    * ISO 8601 formatted date of when the recording started
    * @return recordingStartedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording started")
   @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -372,7 +372,7 @@ public class Recording {
    * ISO 8601 formatted date of when the recording ended
    * @return recordingEndedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording ended")
   @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -398,7 +398,7 @@ public class Recording {
    * The duration of the recording in milliseconds
    * @return durationMillis
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "60000", required = true, value = "The duration of the recording in milliseconds")
   @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -424,7 +424,7 @@ public class Recording {
    * The status of the recording. Only resources for &#x60;completed&#x60; recordings are currently supported
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "completed", required = true, value = "The status of the recording. Only resources for `completed` recordings are currently supported")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -450,7 +450,7 @@ public class Recording {
    * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B.
    * @return channels
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "single", required = true, value = "When `dual`, final audio file has the first leg on channel A, and the rest on channel B.")
   @JsonProperty(JSON_PROPERTY_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -476,7 +476,7 @@ public class Recording {
    * The kind of event that led to this recording being created
    * @return source
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "conference", required = true, value = "The kind of event that led to this recording being created")
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -502,7 +502,7 @@ public class Recording {
    * If a conference recording, uniquely identifies the recorded conference
    * @return conferenceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", value = "If a conference recording, uniquely identifies the recorded conference")
   @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -528,7 +528,7 @@ public class Recording {
    * If a call recording, uniquely identifies the recorded call leg
    * @return callLegId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "11111111-5717-4562-b3fc-2c963f66afa6", value = "If a call recording, uniquely identifies the recorded call leg")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -554,7 +554,7 @@ public class Recording {
    * If a call recording, uniquely identifies the recorded call session
    * @return callSessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "22222222-5717-4562-b3fc-2c963f66afa6", value = "If a call recording, uniquely identifies the recorded call session")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -580,7 +580,7 @@ public class Recording {
    * Get downloadUrls
    * @return downloadUrls
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_DOWNLOAD_URLS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

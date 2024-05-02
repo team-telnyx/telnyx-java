@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ManagedAccountsGlobalOutboundChannels.JSON_PROPERTY_RECORD_TYPE,
   ManagedAccountsGlobalOutboundChannels.JSON_PROPERTY_TOTAL_GLOBAL_CHANNELS_ALLOCATED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ManagedAccountsGlobalOutboundChannels {
   public static final String JSON_PROPERTY_MANAGED_ACCOUNT_ALLOW_CUSTOM_PRICING = "managed_account_allow_custom_pricing";
   private Boolean managedAccountAllowCustomPricing;
@@ -66,7 +66,7 @@ public class ManagedAccountsGlobalOutboundChannels {
    * Boolean value that indicates if the managed account is able to have custom pricing set for it or not. If false, uses the pricing of the manager account. Defaults to false. This value may be changed, but there may be time lag between when the value is changed and pricing changes take effect.
    * @return managedAccountAllowCustomPricing
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Boolean value that indicates if the managed account is able to have custom pricing set for it or not. If false, uses the pricing of the manager account. Defaults to false. This value may be changed, but there may be time lag between when the value is changed and pricing changes take effect.")
   @JsonProperty(JSON_PROPERTY_MANAGED_ACCOUNT_ALLOW_CUSTOM_PRICING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class ManagedAccountsGlobalOutboundChannels {
    * The total amount of allocatable global outbound channels available to the authenticated manager. Will be 0 if the feature is not enabled for their account.
    * @return allocatableGlobalOutboundChannels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "500", value = "The total amount of allocatable global outbound channels available to the authenticated manager. Will be 0 if the feature is not enabled for their account.")
   @JsonProperty(JSON_PROPERTY_ALLOCATABLE_GLOBAL_OUTBOUND_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class ManagedAccountsGlobalOutboundChannels {
    * The type of the data contained in this record.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "allocatable_global_outbound_channels", value = "The type of the data contained in this record.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class ManagedAccountsGlobalOutboundChannels {
    * The total number of allocatable global outbound channels currently allocated across all managed accounts for the authenticated user. This includes any amount of channels allocated by default at managed account creation time. Will be 0 if the feature is not enabled for their account.
    * @return totalGlobalChannelsAllocated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "135", value = "The total number of allocatable global outbound channels currently allocated across all managed accounts for the authenticated user. This includes any amount of channels allocated by default at managed account creation time. Will be 0 if the feature is not enabled for their account.")
   @JsonProperty(JSON_PROPERTY_TOTAL_GLOBAL_CHANNELS_ALLOCATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -52,7 +52,7 @@ import com.telnyx.sdk.JSON;
   TexmlRecordingTranscription.JSON_PROPERTY_TRANSCRIPTION_TEXT,
   TexmlRecordingTranscription.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TexmlRecordingTranscription {
   public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
   private String accountSid;
@@ -134,7 +134,7 @@ public class TexmlRecordingTranscription {
    * Get accountSid
    * @return accountSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -160,7 +160,7 @@ public class TexmlRecordingTranscription {
    * Get callSid
    * @return callSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA", value = "")
   @JsonProperty(JSON_PROPERTY_CALL_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -186,7 +186,7 @@ public class TexmlRecordingTranscription {
    * The version of the API that was used to make the request.
    * @return apiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2010-04-01", value = "The version of the API that was used to make the request.")
   @JsonProperty(JSON_PROPERTY_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -212,7 +212,7 @@ public class TexmlRecordingTranscription {
    * Get dateCreated
    * @return dateCreated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Fri, 11 Aug 2023 19:12:11 +0000", value = "")
   @JsonProperty(JSON_PROPERTY_DATE_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -238,7 +238,7 @@ public class TexmlRecordingTranscription {
    * Get dateUpdated
    * @return dateUpdated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Fri, 11 Aug 2023 19:12:11 +0000", value = "")
   @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -264,7 +264,7 @@ public class TexmlRecordingTranscription {
    * The duration of this recording, given in seconds.
    * @return duration
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12", value = "The duration of this recording, given in seconds.")
   @JsonIgnore
 
@@ -298,7 +298,7 @@ public class TexmlRecordingTranscription {
    * Identifier of a resource.
    * @return sid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "e9cea0be-7dbd-4b98-98b1-c0089d9d43b0", value = "Identifier of a resource.")
   @JsonProperty(JSON_PROPERTY_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -324,7 +324,7 @@ public class TexmlRecordingTranscription {
    * Identifier of a resource.
    * @return recordingSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "e9cea0be-7dbd-4b98-98b1-c0089d9d43b0", value = "Identifier of a resource.")
   @JsonProperty(JSON_PROPERTY_RECORDING_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -350,7 +350,7 @@ public class TexmlRecordingTranscription {
    * The status of the recording transcriptions. The transcription text will be available only when the status is completed.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed", value = "The status of the recording transcriptions. The transcription text will be available only when the status is completed.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -376,7 +376,7 @@ public class TexmlRecordingTranscription {
    * The recording&#39;s transcribed text
    * @return transcriptionText
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Good morning, how may I help you?", value = "The recording's transcribed text")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -402,7 +402,7 @@ public class TexmlRecordingTranscription {
    * The relative URI for the recording transcription resource.
    * @return uri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json", value = "The relative URI for the recording transcription resource.")
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

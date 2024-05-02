@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRecordResultAdmin.JSON_PROPERTY_ACCOUNT_NUMBER,
   CustomerServiceRecordResultAdmin.JSON_PROPERTY_AUTHORIZED_PERSON_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CustomerServiceRecordResultAdmin {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -67,7 +67,7 @@ public class CustomerServiceRecordResultAdmin {
    * The name of the customer service record.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "John Doe", value = "The name of the customer service record.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class CustomerServiceRecordResultAdmin {
    * The billing phone number of the customer service record.
    * @return billingPhoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12065551212", value = "The billing phone number of the customer service record.")
   @JsonProperty(JSON_PROPERTY_BILLING_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class CustomerServiceRecordResultAdmin {
    * The account number of the customer service record.
    * @return accountNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1234567890", value = "The account number of the customer service record.")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class CustomerServiceRecordResultAdmin {
    * The authorized person name of the customer service record.
    * @return authorizedPersonName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "John Doe", value = "The authorized person name of the customer service record.")
   @JsonProperty(JSON_PROPERTY_AUTHORIZED_PERSON_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

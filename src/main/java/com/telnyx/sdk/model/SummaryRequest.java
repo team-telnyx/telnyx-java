@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   SummaryRequest.JSON_PROPERTY_BUCKET,
   SummaryRequest.JSON_PROPERTY_FILENAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SummaryRequest {
   public static final String JSON_PROPERTY_BUCKET = "bucket";
   private String bucket;
@@ -58,7 +58,7 @@ public class SummaryRequest {
    * Get bucket
    * @return bucket
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUCKET)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,7 +84,7 @@ public class SummaryRequest {
    * Get filename
    * @return filename
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

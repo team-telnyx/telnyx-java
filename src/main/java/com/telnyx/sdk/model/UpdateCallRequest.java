@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   UpdateCallRequest.JSON_PROPERTY_STATUS_CALLBACK_METHOD,
   UpdateCallRequest.JSON_PROPERTY_TEXML
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateCallRequest {
   public static final String JSON_PROPERTY_STATUS = "Status";
   private String status;
@@ -187,7 +187,7 @@ public class UpdateCallRequest {
    * The value to set the call status to. Setting the status to completed ends the call.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed", value = "The value to set the call status to. Setting the status to completed ends the call.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class UpdateCallRequest {
    * The URL where TeXML will make a request to retrieve a new set of TeXML instructions to continue the call flow.
    * @return url
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/intruction-b.xml", value = "The URL where TeXML will make a request to retrieve a new set of TeXML instructions to continue the call flow.")
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class UpdateCallRequest {
    * HTTP request type used for &#x60;Url&#x60;.
    * @return method
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "HTTP request type used for `Url`.")
   @JsonProperty(JSON_PROPERTY_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -265,7 +265,7 @@ public class UpdateCallRequest {
    * A failover URL for which Telnyx will retrieve the TeXML call instructions if the Url is not responding.
    * @return fallbackUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/intruction-c.xml", value = "A failover URL for which Telnyx will retrieve the TeXML call instructions if the Url is not responding.")
   @JsonProperty(JSON_PROPERTY_FALLBACK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -291,7 +291,7 @@ public class UpdateCallRequest {
    * HTTP request type used for &#x60;FallbackUrl&#x60;.
    * @return fallbackMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "HTTP request type used for `FallbackUrl`.")
   @JsonProperty(JSON_PROPERTY_FALLBACK_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -317,7 +317,7 @@ public class UpdateCallRequest {
    * URL destination for Telnyx to send status callback events to for the call.
    * @return statusCallback
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/callback", value = "URL destination for Telnyx to send status callback events to for the call.")
   @JsonProperty(JSON_PROPERTY_STATUS_CALLBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -343,7 +343,7 @@ public class UpdateCallRequest {
    * HTTP request type used for &#x60;StatusCallback&#x60;.
    * @return statusCallbackMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "HTTP request type used for `StatusCallback`.")
   @JsonProperty(JSON_PROPERTY_STATUS_CALLBACK_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -369,7 +369,7 @@ public class UpdateCallRequest {
    * TeXML to replace the current one with.
    * @return texml
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>", value = "TeXML to replace the current one with.")
   @JsonProperty(JSON_PROPERTY_TEXML)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

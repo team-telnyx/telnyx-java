@@ -61,7 +61,7 @@ import com.telnyx.sdk.JSON;
   UpdateBrandResponse.JSON_PROPERTY_ALT_BUSINESS_ID_TYPE,
   UpdateBrandResponse.JSON_PROPERTY_IDENTITY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateBrandResponse {
   public static final String JSON_PROPERTY_ENTITY_TYPE = "entityType";
   private EntityType entityType;
@@ -135,7 +135,7 @@ public class UpdateBrandResponse {
    * Get entityType
    * @return entityType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ENTITY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -161,7 +161,7 @@ public class UpdateBrandResponse {
    * Display or marketing name of the brand.
    * @return displayName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Example Company Updated", required = true, value = "Display or marketing name of the brand.")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -187,7 +187,7 @@ public class UpdateBrandResponse {
    * (Required for Non-profit/private/public) Legal company name.
    * @return companyName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Example Company Inc.", value = "(Required for Non-profit/private/public) Legal company name.")
   @JsonProperty(JSON_PROPERTY_COMPANY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class UpdateBrandResponse {
    * (Required for Non-profit/private/public) Government assigned corporate tax ID. EIN is 9-digits in U.S. The only entity type which does not require an EIN is a Sole Proprietor.
    * @return ein
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "142536893", value = "(Required for Non-profit/private/public) Government assigned corporate tax ID. EIN is 9-digits in U.S. The only entity type which does not require an EIN is a Sole Proprietor.")
   @JsonProperty(JSON_PROPERTY_EIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class UpdateBrandResponse {
    * Valid phone number in e.164 international format.
    * @return phone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13259390512", value = "Valid phone number in e.164 international format.")
   @JsonProperty(JSON_PROPERTY_PHONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -265,7 +265,7 @@ public class UpdateBrandResponse {
    * Street number and name.
    * @return street
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123 Example St.", value = "Street number and name.")
   @JsonProperty(JSON_PROPERTY_STREET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -291,7 +291,7 @@ public class UpdateBrandResponse {
    * City name
    * @return city
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "San Francisco", value = "City name")
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -317,7 +317,7 @@ public class UpdateBrandResponse {
    * State. Must be 2 letters code for United States.
    * @return state
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "CA", value = "State. Must be 2 letters code for United States.")
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -343,7 +343,7 @@ public class UpdateBrandResponse {
    * Postal codes. Use 5 digit zipcode for United States
    * @return postalCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "94016", value = "Postal codes. Use 5 digit zipcode for United States")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -369,7 +369,7 @@ public class UpdateBrandResponse {
    * ISO2 2 characters country code. Example: US - United States
    * @return country
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "US", required = true, value = "ISO2 2 characters country code. Example: US - United States")
   @JsonProperty(JSON_PROPERTY_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -395,7 +395,7 @@ public class UpdateBrandResponse {
    * Valid email address of brand support contact.
    * @return email
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "examplename@examplecompanyupdated.com", required = true, value = "Valid email address of brand support contact.")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -421,7 +421,7 @@ public class UpdateBrandResponse {
    * (Required for public company) stock symbol.
    * @return stockSymbol
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "EXCOUP", value = "(Required for public company) stock symbol.")
   @JsonProperty(JSON_PROPERTY_STOCK_SYMBOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -447,7 +447,7 @@ public class UpdateBrandResponse {
    * Get stockExchange
    * @return stockExchange
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STOCK_EXCHANGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -473,7 +473,7 @@ public class UpdateBrandResponse {
    * IP address of the browser requesting to create brand identity.
    * @return ipAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "IP address of the browser requesting to create brand identity.")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -499,7 +499,7 @@ public class UpdateBrandResponse {
    * Brand website URL.
    * @return website
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "www.examplecompanyupdated.com", value = "Brand website URL.")
   @JsonProperty(JSON_PROPERTY_WEBSITE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -525,7 +525,7 @@ public class UpdateBrandResponse {
    * Get brandRelationship
    * @return brandRelationship
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BRAND_RELATIONSHIP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -551,7 +551,7 @@ public class UpdateBrandResponse {
    * Get vertical
    * @return vertical
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_VERTICAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -577,7 +577,7 @@ public class UpdateBrandResponse {
    * Alternate business identifier such as DUNS, LEI, or GIIN
    * @return altBusinessId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Alternate business identifier such as DUNS, LEI, or GIIN")
   @JsonProperty(JSON_PROPERTY_ALT_BUSINESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -603,7 +603,7 @@ public class UpdateBrandResponse {
    * Get altBusinessIdType
    * @return altBusinessIdType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ALT_BUSINESS_ID_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -629,7 +629,7 @@ public class UpdateBrandResponse {
    * TCR assessment of the brand identification status.
    * @return identityStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "VERIFIED", value = "TCR assessment of the brand identification status.")
   @JsonProperty(JSON_PROPERTY_IDENTITY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   RegisterCallRequest.JSON_PROPERTY_TO,
   RegisterCallRequest.JSON_PROPERTY_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RegisterCallRequest {
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -62,7 +62,7 @@ public class RegisterCallRequest {
    * The DID that you will dial out from.
    * @return from
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+15001340938", required = true, value = "The DID that you will dial out from.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -88,7 +88,7 @@ public class RegisterCallRequest {
    * The DID that you will dial out to.
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+18005550100", required = true, value = "The DID that you will dial out to.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -114,7 +114,7 @@ public class RegisterCallRequest {
    * The reason for call (this will be displayed on call recipient&#39;s device).
    * @return reason
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Confirm the Doctor appointment.", required = true, value = "The reason for call (this will be displayed on call recipient's device).")
   @JsonProperty(JSON_PROPERTY_REASON)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

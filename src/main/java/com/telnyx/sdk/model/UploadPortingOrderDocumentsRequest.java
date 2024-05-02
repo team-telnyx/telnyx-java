@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UploadPortingOrderDocumentsRequest.JSON_PROPERTY_DOCUMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UploadPortingOrderDocumentsRequest {
   public static final String JSON_PROPERTY_DOCUMENTS = "documents";
   private List<UploadPortingOrderDocumentsRequestDocumentsInner> documents = new ArrayList<>();
@@ -61,7 +61,7 @@ public class UploadPortingOrderDocumentsRequest {
    * A list of documents to be associated with a porting order.
    * @return documents
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "A list of documents to be associated with a porting order.")
   @JsonProperty(JSON_PROPERTY_DOCUMENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

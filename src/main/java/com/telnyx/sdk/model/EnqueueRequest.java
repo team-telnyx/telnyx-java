@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   EnqueueRequest.JSON_PROPERTY_MAX_WAIT_TIME_SECS,
   EnqueueRequest.JSON_PROPERTY_MAX_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class EnqueueRequest {
   public static final String JSON_PROPERTY_QUEUE_NAME = "queue_name";
   private String queueName;
@@ -70,7 +70,7 @@ public class EnqueueRequest {
    * The name of the queue the call should be put in. If a queue with a given name doesn&#39;t exist yet it will be created.
    * @return queueName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "tier_1_support", value = "The name of the queue the call should be put in. If a queue with a given name doesn't exist yet it will be created.")
   @JsonProperty(JSON_PROPERTY_QUEUE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class EnqueueRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class EnqueueRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class EnqueueRequest {
    * The number of seconds after which the call will be removed from the queue.
    * @return maxWaitTimeSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "600", value = "The number of seconds after which the call will be removed from the queue.")
   @JsonProperty(JSON_PROPERTY_MAX_WAIT_TIME_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class EnqueueRequest {
    * The maximum number of calls allowed in the queue at a given time. Can&#39;t be modified for an existing queue.
    * @return maxSize
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "200", value = "The maximum number of calls allowed in the queue at a given time. Can't be modified for an existing queue.")
   @JsonProperty(JSON_PROPERTY_MAX_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

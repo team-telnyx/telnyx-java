@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   EnableManagedAccountRequest.JSON_PROPERTY_REENABLE_ALL_CONNECTIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class EnableManagedAccountRequest {
   public static final String JSON_PROPERTY_REENABLE_ALL_CONNECTIONS = "reenable_all_connections";
   private Boolean reenableAllConnections = false;
@@ -54,7 +54,7 @@ public class EnableManagedAccountRequest {
    * When true, all connections owned by this managed account will automatically be re-enabled. Note: Any connections that do not pass validations will not be re-enabled.
    * @return reenableAllConnections
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "When true, all connections owned by this managed account will automatically be re-enabled. Note: Any connections that do not pass validations will not be re-enabled.")
   @JsonProperty(JSON_PROPERTY_REENABLE_ALL_CONNECTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

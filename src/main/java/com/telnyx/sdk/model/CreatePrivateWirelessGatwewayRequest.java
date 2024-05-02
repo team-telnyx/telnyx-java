@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CreatePrivateWirelessGatwewayRequest.JSON_PROPERTY_NETWORK_ID,
   CreatePrivateWirelessGatwewayRequest.JSON_PROPERTY_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreatePrivateWirelessGatwewayRequest {
   public static final String JSON_PROPERTY_NETWORK_ID = "network_id";
   private UUID networkId;
@@ -58,7 +58,7 @@ public class CreatePrivateWirelessGatwewayRequest {
    * The identification of the related network resource.
    * @return networkId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", required = true, value = "The identification of the related network resource.")
   @JsonProperty(JSON_PROPERTY_NETWORK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,7 +84,7 @@ public class CreatePrivateWirelessGatwewayRequest {
    * The private wireless gateway name.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "My private wireless gateway", required = true, value = "The private wireless gateway name.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

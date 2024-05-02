@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   GatherRequest.JSON_PROPERTY_CLIENT_STATE,
   GatherRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GatherRequest {
   public static final String JSON_PROPERTY_MINIMUM_DIGITS = "minimum_digits";
   private Integer minimumDigits = 1;
@@ -90,7 +90,7 @@ public class GatherRequest {
    * The minimum number of digits to fetch. This parameter has a minimum value of 1.
    * @return minimumDigits
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "The minimum number of digits to fetch. This parameter has a minimum value of 1.")
   @JsonProperty(JSON_PROPERTY_MINIMUM_DIGITS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -116,7 +116,7 @@ public class GatherRequest {
    * The maximum number of digits to fetch. This parameter has a maximum value of 128.
    * @return maximumDigits
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "The maximum number of digits to fetch. This parameter has a maximum value of 128.")
   @JsonProperty(JSON_PROPERTY_MAXIMUM_DIGITS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -142,7 +142,7 @@ public class GatherRequest {
    * The number of milliseconds to wait to complete the request.
    * @return timeoutMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "60000", value = "The number of milliseconds to wait to complete the request.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -168,7 +168,7 @@ public class GatherRequest {
    * The number of milliseconds to wait for input between digits.
    * @return interDigitTimeoutMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10000", value = "The number of milliseconds to wait for input between digits.")
   @JsonProperty(JSON_PROPERTY_INTER_DIGIT_TIMEOUT_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -194,7 +194,7 @@ public class GatherRequest {
    * The number of milliseconds to wait for the first DTMF.
    * @return initialTimeoutMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10000", value = "The number of milliseconds to wait for the first DTMF.")
   @JsonProperty(JSON_PROPERTY_INITIAL_TIMEOUT_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -220,7 +220,7 @@ public class GatherRequest {
    * The digit used to terminate input if fewer than &#x60;maximum_digits&#x60; digits have been gathered.
    * @return terminatingDigit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "#", value = "The digit used to terminate input if fewer than `maximum_digits` digits have been gathered.")
   @JsonProperty(JSON_PROPERTY_TERMINATING_DIGIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -246,7 +246,7 @@ public class GatherRequest {
    * A list of all digits accepted as valid.
    * @return validDigits
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123", value = "A list of all digits accepted as valid.")
   @JsonProperty(JSON_PROPERTY_VALID_DIGITS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -272,7 +272,7 @@ public class GatherRequest {
    * An id that will be sent back in the corresponding &#x60;call.gather.ended&#x60; webhook. Will be randomly generated if not specified.
    * @return gatherId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_gather_id", value = "An id that will be sent back in the corresponding `call.gather.ended` webhook. Will be randomly generated if not specified.")
   @JsonProperty(JSON_PROPERTY_GATHER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -298,7 +298,7 @@ public class GatherRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -324,7 +324,7 @@ public class GatherRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

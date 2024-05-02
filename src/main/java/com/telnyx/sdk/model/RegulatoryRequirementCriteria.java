@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   RegulatoryRequirementCriteria.JSON_PROPERTY_CRITERIA_TYPE,
   RegulatoryRequirementCriteria.JSON_PROPERTY_CRITERIA_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RegulatoryRequirementCriteria {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -91,7 +91,7 @@ public class RegulatoryRequirementCriteria {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "phone_number_regulatory_requirement_criteria", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -107,7 +107,7 @@ public class RegulatoryRequirementCriteria {
    * Get criteriaType
    * @return criteriaType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CRITERIA_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class RegulatoryRequirementCriteria {
    * Get criteriaValue
    * @return criteriaValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "AU", value = "")
   @JsonProperty(JSON_PROPERTY_CRITERIA_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   ListVerifyProfilesResponse.JSON_PROPERTY_DATA,
   ListVerifyProfilesResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ListVerifyProfilesResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<VerifyProfileResponse> data = new ArrayList<>();
@@ -68,7 +68,7 @@ public class ListVerifyProfilesResponse {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -94,7 +94,7 @@ public class ListVerifyProfilesResponse {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

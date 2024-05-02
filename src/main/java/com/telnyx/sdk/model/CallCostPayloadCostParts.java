@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   CallCostPayloadCostParts.JSON_PROPERTY_CURRENCY,
   CallCostPayloadCostParts.JSON_PROPERTY_RATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CallCostPayloadCostParts {
   public static final String JSON_PROPERTY_BILLED_DURATION_SECS = "billed_duration_secs";
   private Integer billedDurationSecs;
@@ -71,7 +71,7 @@ public class CallCostPayloadCostParts {
    * minimum: 0
    * @return billedDurationSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0", value = "The number of seconds for which this item will be billed")
   @JsonProperty(JSON_PROPERTY_BILLED_DURATION_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class CallCostPayloadCostParts {
    * The service incurring a charge
    * @return callPart
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "call-control", value = "The service incurring a charge")
   @JsonProperty(JSON_PROPERTY_CALL_PART)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class CallCostPayloadCostParts {
    * minimum: 0.0
    * @return cost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.0", value = "The billed cost of the item, in currency shown in the `currency` field")
   @JsonProperty(JSON_PROPERTY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class CallCostPayloadCostParts {
    * The currency in which &#x60;cost&#x60; is measured
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "The currency in which `cost` is measured")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -177,7 +177,7 @@ public class CallCostPayloadCostParts {
    * minimum: 0.0
    * @return rate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.001", value = "The cost per unit of the item incurring a charge")
   @JsonProperty(JSON_PROPERTY_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

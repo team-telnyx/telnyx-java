@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   Organization.JSON_PROPERTY_DEPARTMENT,
   Organization.JSON_PROPERTY_TITLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Organization {
   public static final String JSON_PROPERTY_COMPANY = "company";
   private String company;
@@ -62,7 +62,7 @@ public class Organization {
    * Name of the contact&#39;s company
    * @return company
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Name of the contact's company")
   @JsonProperty(JSON_PROPERTY_COMPANY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -88,7 +88,7 @@ public class Organization {
    * Name of the contact&#39;s department
    * @return department
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Name of the contact's department")
   @JsonProperty(JSON_PROPERTY_DEPARTMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class Organization {
    * Contact&#39;s business title
    * @return title
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Contact's business title")
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

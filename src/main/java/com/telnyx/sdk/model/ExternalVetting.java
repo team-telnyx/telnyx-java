@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   ExternalVetting.JSON_PROPERTY_VETTED_DATE,
   ExternalVetting.JSON_PROPERTY_CREATE_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ExternalVetting {
   public static final String JSON_PROPERTY_EVP_ID = "evpId";
   private String evpId;
@@ -78,7 +78,7 @@ public class ExternalVetting {
    * External vetting provider ID for the brand.
    * @return evpId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "External vetting provider ID for the brand.")
   @JsonProperty(JSON_PROPERTY_EVP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -104,7 +104,7 @@ public class ExternalVetting {
    * Unique ID that identifies a vetting transaction performed by a vetting provider. This ID is provided by the vetting provider at time of vetting.
    * @return vettingId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique ID that identifies a vetting transaction performed by a vetting provider. This ID is provided by the vetting provider at time of vetting.")
   @JsonProperty(JSON_PROPERTY_VETTING_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -130,7 +130,7 @@ public class ExternalVetting {
    * Required by some providers for vetting record confirmation.
    * @return vettingToken
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Required by some providers for vetting record confirmation.")
   @JsonProperty(JSON_PROPERTY_VETTING_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -156,7 +156,7 @@ public class ExternalVetting {
    * Vetting score ranging from 0-100.
    * @return vettingScore
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Vetting score ranging from 0-100.")
   @JsonProperty(JSON_PROPERTY_VETTING_SCORE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -182,7 +182,7 @@ public class ExternalVetting {
    * Identifies the vetting classification.
    * @return vettingClass
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the vetting classification.")
   @JsonProperty(JSON_PROPERTY_VETTING_CLASS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -208,7 +208,7 @@ public class ExternalVetting {
    * Vetting effective date. This is the date when vetting was completed, or the starting effective date in ISO 8601 format. If this date is missing, then the vetting was not complete or not valid.
    * @return vettedDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Vetting effective date. This is the date when vetting was completed, or the starting effective date in ISO 8601 format. If this date is missing, then the vetting was not complete or not valid.")
   @JsonProperty(JSON_PROPERTY_VETTED_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -234,7 +234,7 @@ public class ExternalVetting {
    * Vetting submission date. This is the date when the vetting request is generated in ISO 8601 format.
    * @return createDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Vetting submission date. This is the date when the vetting request is generated in ISO 8601 format.")
   @JsonProperty(JSON_PROPERTY_CREATE_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -54,7 +54,7 @@ import com.telnyx.sdk.JSON;
   ConferenceParticipantDetailRecord.JSON_PROPERTY_CURRENCY,
   ConferenceParticipantDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ConferenceParticipantDetailRecord {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -119,7 +119,7 @@ public class ConferenceParticipantDetailRecord {
    * Participant id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Participant id")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class ConferenceParticipantDetailRecord {
    * User id
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "User id")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -171,7 +171,7 @@ public class ConferenceParticipantDetailRecord {
    * Conference id
    * @return conferenceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Conference id")
   @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -197,7 +197,7 @@ public class ConferenceParticipantDetailRecord {
    * Participant join time
    * @return joinedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", value = "Participant join time")
   @JsonProperty(JSON_PROPERTY_JOINED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -223,7 +223,7 @@ public class ConferenceParticipantDetailRecord {
    * Participant leave time
    * @return leftAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", value = "Participant leave time")
   @JsonProperty(JSON_PROPERTY_LEFT_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -249,7 +249,7 @@ public class ConferenceParticipantDetailRecord {
    * Number called by the participant to join the conference
    * @return destinationNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+18005550199", value = "Number called by the participant to join the conference")
   @JsonProperty(JSON_PROPERTY_DESTINATION_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -275,7 +275,7 @@ public class ConferenceParticipantDetailRecord {
    * Participant origin number used in the conference call
    * @return originatingNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+18005550199", value = "Participant origin number used in the conference call")
   @JsonProperty(JSON_PROPERTY_ORIGINATING_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -301,7 +301,7 @@ public class ConferenceParticipantDetailRecord {
    * Telnyx UUID that identifies the conference call leg
    * @return callLegId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Telnyx UUID that identifies the conference call leg")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -327,7 +327,7 @@ public class ConferenceParticipantDetailRecord {
    * Telnyx UUID that identifies with conference call session
    * @return callSessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Telnyx UUID that identifies with conference call session")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -353,7 +353,7 @@ public class ConferenceParticipantDetailRecord {
    * Duration of the conference call in seconds
    * @return callSec
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "Duration of the conference call in seconds")
   @JsonProperty(JSON_PROPERTY_CALL_SEC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -379,7 +379,7 @@ public class ConferenceParticipantDetailRecord {
    * Duration of the conference call for billing purposes
    * @return billedSec
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "120", value = "Duration of the conference call for billing purposes")
   @JsonProperty(JSON_PROPERTY_BILLED_SEC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -405,7 +405,7 @@ public class ConferenceParticipantDetailRecord {
    * Indicates whether Telnyx billing charges might be applicable
    * @return isTelnyxBillable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether Telnyx billing charges might be applicable")
   @JsonProperty(JSON_PROPERTY_IS_TELNYX_BILLABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -431,7 +431,7 @@ public class ConferenceParticipantDetailRecord {
    * Currency amount per billing unit used to calculate the Telnyx billing cost
    * @return rate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.002", value = "Currency amount per billing unit used to calculate the Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -457,7 +457,7 @@ public class ConferenceParticipantDetailRecord {
    * Billing unit used to calculate the Telnyx billing cost
    * @return rateMeasuredIn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "minutes", value = "Billing unit used to calculate the Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_RATE_MEASURED_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -483,7 +483,7 @@ public class ConferenceParticipantDetailRecord {
    * Currency amount for Telnyx billing cost
    * @return cost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.004", value = "Currency amount for Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -509,7 +509,7 @@ public class ConferenceParticipantDetailRecord {
    * Telnyx account currency used to describe monetary values, including billing cost
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Telnyx account currency used to describe monetary values, including billing cost")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -535,7 +535,7 @@ public class ConferenceParticipantDetailRecord {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "conference_participant_detail_record", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

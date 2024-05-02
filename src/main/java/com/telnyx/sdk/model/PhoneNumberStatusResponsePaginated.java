@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PhoneNumberStatusResponsePaginated.JSON_PROPERTY_RECORDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PhoneNumberStatusResponsePaginated {
   public static final String JSON_PROPERTY_RECORDS = "records";
   private List<ProfileAssignmentPhoneNumbers> records = new ArrayList<>();
@@ -62,7 +62,7 @@ public class PhoneNumberStatusResponsePaginated {
    * Get records
    * @return records
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

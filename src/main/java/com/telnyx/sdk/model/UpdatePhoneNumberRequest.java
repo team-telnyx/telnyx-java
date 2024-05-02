@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberRequest.JSON_PROPERTY_BILLING_GROUP_ID,
   UpdatePhoneNumberRequest.JSON_PROPERTY_NUMBER_LEVEL_ROUTING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdatePhoneNumberRequest {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -121,7 +121,7 @@ public class UpdatePhoneNumberRequest {
    * Identifies the type of resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class UpdatePhoneNumberRequest {
    * A list of user-assigned tags to help organize phone numbers.
    * @return tags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of user-assigned tags to help organize phone numbers.")
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class UpdatePhoneNumberRequest {
    * If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, we will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism.
    * @return externalPin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, we will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism.")
   @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -202,7 +202,7 @@ public class UpdatePhoneNumberRequest {
    * Indicates whether HD voice is enabled for this number.
    * @return hdVoiceEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether HD voice is enabled for this number.")
   @JsonProperty(JSON_PROPERTY_HD_VOICE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -228,7 +228,7 @@ public class UpdatePhoneNumberRequest {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -254,7 +254,7 @@ public class UpdatePhoneNumberRequest {
    * Identifies the connection associated with the phone number.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the connection associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -280,7 +280,7 @@ public class UpdatePhoneNumberRequest {
    * Identifies the billing group associated with the phone number.
    * @return billingGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the billing group associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -306,7 +306,7 @@ public class UpdatePhoneNumberRequest {
    * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
    * @return numberLevelRouting
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.")
   @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

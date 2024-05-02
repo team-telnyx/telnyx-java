@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   AddressSuggestionResponseData.JSON_PROPERTY_ID,
   AddressSuggestionResponseData.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class AddressSuggestionResponseData {
   public static final String JSON_PROPERTY_ACCEPTED = "accepted";
   private Boolean accepted;
@@ -96,7 +96,7 @@ public class AddressSuggestionResponseData {
    * Indicates if the address suggestions are accepted.
    * @return accepted
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates if the address suggestions are accepted.")
   @JsonProperty(JSON_PROPERTY_ACCEPTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class AddressSuggestionResponseData {
    * The UUID of the location.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The UUID of the location.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class AddressSuggestionResponseData {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PortingOrdersAllowedFocWindow.JSON_PROPERTY_ENDED_AT,
   PortingOrdersAllowedFocWindow.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrdersAllowedFocWindow {
   public static final String JSON_PROPERTY_STARTED_AT = "started_at";
   private OffsetDateTime startedAt;
@@ -70,7 +70,7 @@ public class PortingOrdersAllowedFocWindow {
    * ISO 8601 formatted date indicating the start of the range of foc window.
    * @return startedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating the start of the range of foc window.")
   @JsonProperty(JSON_PROPERTY_STARTED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class PortingOrdersAllowedFocWindow {
    * ISO 8601 formatted date indicating the end of the range of foc window
    * @return endedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating the end of the range of foc window")
   @JsonProperty(JSON_PROPERTY_ENDED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -102,7 +102,7 @@ public class PortingOrdersAllowedFocWindow {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_order", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

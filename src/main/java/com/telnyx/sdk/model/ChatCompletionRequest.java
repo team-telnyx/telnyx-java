@@ -58,7 +58,7 @@ import com.telnyx.sdk.JSON;
   ChatCompletionRequest.JSON_PROPERTY_TOP_P,
   ChatCompletionRequest.JSON_PROPERTY_OPENAI_API_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ChatCompletionRequest {
   public static final String JSON_PROPERTY_MESSAGES = "messages";
   private List<ChatCompletionSystemMessageParam> messages = new ArrayList<>();
@@ -163,7 +163,7 @@ public class ChatCompletionRequest {
    * A list of the previous chat messages for context.
    * @return messages
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[{\"role\":\"system\",\"content\":\"You are a friendly chatbot.\"},{\"role\":\"user\",\"content\":\"Hello, world!\"}]", required = true, value = "A list of the previous chat messages for context.")
   @JsonProperty(JSON_PROPERTY_MESSAGES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -189,7 +189,7 @@ public class ChatCompletionRequest {
    * The language model to chat with. If you are optimizing for speed, try [mistralai/Mistral-7B-Instruct-v0.1](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1). For quality, try [NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO)
    * @return model
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The language model to chat with. If you are optimizing for speed, try [mistralai/Mistral-7B-Instruct-v0.1](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1). For quality, try [NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO)")
   @JsonProperty(JSON_PROPERTY_MODEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -215,7 +215,7 @@ public class ChatCompletionRequest {
    * Whether or not to stream data-only server-sent events as they become available.
    * @return stream
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Whether or not to stream data-only server-sent events as they become available.")
   @JsonProperty(JSON_PROPERTY_STREAM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -241,7 +241,7 @@ public class ChatCompletionRequest {
    * Maximum number of completion tokens the model should generate.
    * @return maxTokens
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "128", value = "Maximum number of completion tokens the model should generate.")
   @JsonProperty(JSON_PROPERTY_MAX_TOKENS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -267,7 +267,7 @@ public class ChatCompletionRequest {
    * Adjusts the \&quot;creativity\&quot; of the model. Lower values make the model more deterministic and repetitive, while higher values make the model more random and creative.
    * @return temperature
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.8", value = "Adjusts the \"creativity\" of the model. Lower values make the model more deterministic and repetitive, while higher values make the model more random and creative.")
   @JsonProperty(JSON_PROPERTY_TEMPERATURE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -293,7 +293,7 @@ public class ChatCompletionRequest {
    * This is an alternative to &#x60;temperature&#x60; that [many prefer](https://github.com/huggingface/transformers/issues/27670). Must be in [0, 1].
    * @return minP
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.1", value = "This is an alternative to `temperature` that [many prefer](https://github.com/huggingface/transformers/issues/27670). Must be in [0, 1].")
   @JsonProperty(JSON_PROPERTY_MIN_P)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -319,7 +319,7 @@ public class ChatCompletionRequest {
    * This will return multiple choices for you instead of a single chat completion.
    * @return n
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2", value = "This will return multiple choices for you instead of a single chat completion.")
   @JsonProperty(JSON_PROPERTY_N)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -353,7 +353,7 @@ public class ChatCompletionRequest {
    * The &#x60;retrieval&#x60; tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.
    * @return tools
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The `retrieval` tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.")
   @JsonProperty(JSON_PROPERTY_TOOLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -379,7 +379,7 @@ public class ChatCompletionRequest {
    * Get toolChoice
    * @return toolChoice
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TOOL_CHOICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -405,7 +405,7 @@ public class ChatCompletionRequest {
    * Setting this to &#x60;true&#x60; will allow the model to [explore more completion options](https://huggingface.co/blog/how-to-generate#beam-search). This is not supported by OpenAI.
    * @return useBeamSearch
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Setting this to `true` will allow the model to [explore more completion options](https://huggingface.co/blog/how-to-generate#beam-search). This is not supported by OpenAI.")
   @JsonProperty(JSON_PROPERTY_USE_BEAM_SEARCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -431,7 +431,7 @@ public class ChatCompletionRequest {
    * This is used with &#x60;use_beam_search&#x60; to determine how many candidate beams to explore.
    * @return bestOf
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2", value = "This is used with `use_beam_search` to determine how many candidate beams to explore.")
   @JsonProperty(JSON_PROPERTY_BEST_OF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -457,7 +457,7 @@ public class ChatCompletionRequest {
    * This is used with &#x60;use_beam_search&#x60; to prefer shorter or longer completions.
    * @return lengthPenalty
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "This is used with `use_beam_search` to prefer shorter or longer completions.")
   @JsonProperty(JSON_PROPERTY_LENGTH_PENALTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -483,7 +483,7 @@ public class ChatCompletionRequest {
    * This is used with &#x60;use_beam_search&#x60;. If &#x60;true&#x60;, generation stops as soon as there are &#x60;best_of&#x60; complete candidates; if &#x60;false&#x60;, a heuristic is applied and the generation stops when is it very unlikely to find better candidates.
    * @return earlyStopping
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "This is used with `use_beam_search`. If `true`, generation stops as soon as there are `best_of` complete candidates; if `false`, a heuristic is applied and the generation stops when is it very unlikely to find better candidates.")
   @JsonProperty(JSON_PROPERTY_EARLY_STOPPING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -509,7 +509,7 @@ public class ChatCompletionRequest {
    * Higher values will penalize the model from repeating the same output tokens.
    * @return frequencyPenalty
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1.5", value = "Higher values will penalize the model from repeating the same output tokens.")
   @JsonProperty(JSON_PROPERTY_FREQUENCY_PENALTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -535,7 +535,7 @@ public class ChatCompletionRequest {
    * Higher values will penalize the model from repeating the same output tokens.
    * @return presencePenalty
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1.5", value = "Higher values will penalize the model from repeating the same output tokens.")
   @JsonProperty(JSON_PROPERTY_PRESENCE_PENALTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -561,7 +561,7 @@ public class ChatCompletionRequest {
    * An alternative to &#x60;temperature&#x60;.
    * @return topP
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "An alternative to `temperature`.")
   @JsonProperty(JSON_PROPERTY_TOP_P)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -587,7 +587,7 @@ public class ChatCompletionRequest {
    * If you are using OpenAI models using our API, this is how you pass along your OpenAI API key.
    * @return openaiApiKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If you are using OpenAI models using our API, this is how you pass along your OpenAI API key.")
   @JsonProperty(JSON_PROPERTY_OPENAI_API_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

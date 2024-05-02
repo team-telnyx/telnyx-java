@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   RegulatoryRequirementsAcceptanceCriteria.JSON_PROPERTY_FIELD_VALUE,
   RegulatoryRequirementsAcceptanceCriteria.JSON_PROPERTY_FIELD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RegulatoryRequirementsAcceptanceCriteria {
   public static final String JSON_PROPERTY_LOCALITY_LIMIT = "locality_limit";
   private String localityLimit;
@@ -61,7 +61,7 @@ public class RegulatoryRequirementsAcceptanceCriteria {
    * Get localityLimit
    * @return localityLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Identical locality as the numbers desired", value = "")
   @JsonProperty(JSON_PROPERTY_LOCALITY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -87,7 +87,7 @@ public class RegulatoryRequirementsAcceptanceCriteria {
    * Get fieldValue
    * @return fieldValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "45f45a04-b4be-4592-95b1-9306b9db2b21", value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -113,7 +113,7 @@ public class RegulatoryRequirementsAcceptanceCriteria {
    * Get fieldType
    * @return fieldType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "address", value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

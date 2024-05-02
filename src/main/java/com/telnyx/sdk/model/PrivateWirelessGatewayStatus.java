@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PrivateWirelessGatewayStatus.JSON_PROPERTY_ERROR_DESCRIPTION,
   PrivateWirelessGatewayStatus.JSON_PROPERTY_ERROR_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PrivateWirelessGatewayStatus {
   /**
    * The current status or failure details of the Private Wireless Gateway. &lt;ul&gt;  &lt;li&gt;&lt;code&gt;provisioning&lt;/code&gt; - the Private Wireless Gateway is being provisioned.&lt;/li&gt;  &lt;li&gt;&lt;code&gt;provisioned&lt;/code&gt; - the Private Wireless Gateway was provisioned and able to receive connections.&lt;/li&gt;  &lt;li&gt;&lt;code&gt;failed&lt;/code&gt; - the provisioning had failed for a reason and it requires an intervention.&lt;/li&gt;  &lt;li&gt;&lt;code&gt;decommissioning&lt;/code&gt; - the Private Wireless Gateway is being removed from the network.&lt;/li&gt;  &lt;/ul&gt;  Transitioning between the provisioning and provisioned states may take some time.
@@ -109,7 +109,7 @@ public class PrivateWirelessGatewayStatus {
    * The current status or failure details of the Private Wireless Gateway. &lt;ul&gt;  &lt;li&gt;&lt;code&gt;provisioning&lt;/code&gt; - the Private Wireless Gateway is being provisioned.&lt;/li&gt;  &lt;li&gt;&lt;code&gt;provisioned&lt;/code&gt; - the Private Wireless Gateway was provisioned and able to receive connections.&lt;/li&gt;  &lt;li&gt;&lt;code&gt;failed&lt;/code&gt; - the provisioning had failed for a reason and it requires an intervention.&lt;/li&gt;  &lt;li&gt;&lt;code&gt;decommissioning&lt;/code&gt; - the Private Wireless Gateway is being removed from the network.&lt;/li&gt;  &lt;/ul&gt;  Transitioning between the provisioning and provisioned states may take some time.
    * @return value
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "provisioned", value = "The current status or failure details of the Private Wireless Gateway. <ul>  <li><code>provisioning</code> - the Private Wireless Gateway is being provisioned.</li>  <li><code>provisioned</code> - the Private Wireless Gateway was provisioned and able to receive connections.</li>  <li><code>failed</code> - the provisioning had failed for a reason and it requires an intervention.</li>  <li><code>decommissioning</code> - the Private Wireless Gateway is being removed from the network.</li>  </ul>  Transitioning between the provisioning and provisioned states may take some time.")
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -125,7 +125,7 @@ public class PrivateWirelessGatewayStatus {
    * This attribute provides a human-readable explanation of why a failure happened.
    * @return errorDescription
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "This attribute provides a human-readable explanation of why a failure happened.")
   @JsonProperty(JSON_PROPERTY_ERROR_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -141,7 +141,7 @@ public class PrivateWirelessGatewayStatus {
    * This attribute is an &lt;a href&#x3D;\&quot;https://developers.telnyx.com/docs/api/v2/overview#errors\&quot;&gt;error code&lt;/a&gt; related to the failure reason.
    * @return errorCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "This attribute is an <a href=\"https://developers.telnyx.com/docs/api/v2/overview#errors\">error code</a> related to the failure reason.")
   @JsonProperty(JSON_PROPERTY_ERROR_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

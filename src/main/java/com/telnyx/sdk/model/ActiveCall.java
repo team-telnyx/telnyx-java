@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   ActiveCall.JSON_PROPERTY_CLIENT_STATE,
   ActiveCall.JSON_PROPERTY_CALL_DURATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ActiveCall {
   /**
    * Gets or Sets recordType
@@ -107,7 +107,7 @@ public class ActiveCall {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "call", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -133,7 +133,7 @@ public class ActiveCall {
    * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call
    * @return callSessionId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "428c31b6-7af4-4bcb-b68e-5013ef9657c1", required = true, value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -159,7 +159,7 @@ public class ActiveCall {
    * ID that is unique to the call and can be used to correlate webhook events
    * @return callLegId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "428c31b6-7af4-4bcb-b7f5-5013ef9657c1", required = true, value = "ID that is unique to the call and can be used to correlate webhook events")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -185,7 +185,7 @@ public class ActiveCall {
    * Unique identifier and token for controlling the call.
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", required = true, value = "Unique identifier and token for controlling the call.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -211,7 +211,7 @@ public class ActiveCall {
    * State received from a command.
    * @return clientState
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", required = true, value = "State received from a command.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -237,7 +237,7 @@ public class ActiveCall {
    * Indicates the duration of the call in seconds
    * @return callDuration
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "50", required = true, value = "Indicates the duration of the call in seconds")
   @JsonProperty(JSON_PROPERTY_CALL_DURATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

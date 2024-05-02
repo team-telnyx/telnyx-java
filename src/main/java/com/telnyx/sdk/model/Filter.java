@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   Filter.JSON_PROPERTY_TAGS_LIST,
   Filter.JSON_PROPERTY_BILLING_GROUP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Filter {
   /**
    * Gets or Sets filterType
@@ -187,7 +187,7 @@ public class Filter {
    * Get filterType
    * @return filterType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FILTER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class Filter {
    * Get cli
    * @return cli
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13129457420", value = "")
   @JsonProperty(JSON_PROPERTY_CLI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class Filter {
    * Get cliFilter
    * @return cliFilter
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CLI_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -265,7 +265,7 @@ public class Filter {
    * Get cld
    * @return cld
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13129457420", value = "")
   @JsonProperty(JSON_PROPERTY_CLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -291,7 +291,7 @@ public class Filter {
    * Get cldFilter
    * @return cldFilter
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CLD_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -317,7 +317,7 @@ public class Filter {
    * Get tagsList
    * @return tagsList
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "tag1", value = "")
   @JsonProperty(JSON_PROPERTY_TAGS_LIST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -343,7 +343,7 @@ public class Filter {
    * Get billingGroup
    * @return billingGroup
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "adfaa016-f921-4b6c-97bb-e4c1dad231c5", value = "")
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

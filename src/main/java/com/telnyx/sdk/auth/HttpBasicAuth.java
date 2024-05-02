@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.List;
 
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class HttpBasicAuth implements Authentication {
   private String username;
   private String password;

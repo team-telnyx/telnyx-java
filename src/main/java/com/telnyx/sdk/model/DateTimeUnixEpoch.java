@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   DateTimeUnixEpoch.JSON_PROPERTY_TIMESTAMP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DateTimeUnixEpoch {
   public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
   private Integer timestamp;
@@ -54,7 +54,7 @@ public class DateTimeUnixEpoch {
    * Epoch timestamp in seconds
    * @return timestamp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Epoch timestamp in seconds")
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

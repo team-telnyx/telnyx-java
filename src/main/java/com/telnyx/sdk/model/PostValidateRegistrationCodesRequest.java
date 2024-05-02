@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PostValidateRegistrationCodesRequest.JSON_PROPERTY_REGISTRATION_CODES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PostValidateRegistrationCodesRequest {
   public static final String JSON_PROPERTY_REGISTRATION_CODES = "registration_codes";
   private List<String> registrationCodes = null;
@@ -64,7 +64,7 @@ public class PostValidateRegistrationCodesRequest {
    * Get registrationCodes
    * @return registrationCodes
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGISTRATION_CODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

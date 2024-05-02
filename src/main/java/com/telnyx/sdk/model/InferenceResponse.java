@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   InferenceResponse.JSON_PROPERTY_ANSWER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class InferenceResponse {
   public static final String JSON_PROPERTY_ANSWER = "answer";
   private List<String> answer = new ArrayList<>();
@@ -61,7 +61,7 @@ public class InferenceResponse {
    * Get answer
    * @return answer
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ANSWER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

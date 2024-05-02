@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   TranscriptionPayloadTranscriptionData.JSON_PROPERTY_IS_FINAL,
   TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TranscriptionPayloadTranscriptionData {
   public static final String JSON_PROPERTY_CONFIDENCE = "confidence";
   private Double confidence;
@@ -62,7 +62,7 @@ public class TranscriptionPayloadTranscriptionData {
    * Speech recognition confidence level.
    * @return confidence
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.977219", value = "Speech recognition confidence level.")
   @JsonProperty(JSON_PROPERTY_CONFIDENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class TranscriptionPayloadTranscriptionData {
    * When false, it means that this is an interim result.
    * @return isFinal
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "When false, it means that this is an interim result.")
   @JsonProperty(JSON_PROPERTY_IS_FINAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class TranscriptionPayloadTranscriptionData {
    * Recognized text.
    * @return transcript
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "hello this is a test speech", value = "Recognized text.")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   DocServiceDocumentLinkAllOf.JSON_PROPERTY_LINKED_RECORD_TYPE,
   DocServiceDocumentLinkAllOf.JSON_PROPERTY_LINKED_RESOURCE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DocServiceDocumentLinkAllOf {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -75,7 +75,7 @@ public class DocServiceDocumentLinkAllOf {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "document_link", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -91,7 +91,7 @@ public class DocServiceDocumentLinkAllOf {
    * Identifies the associated document.
    * @return documentId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the associated document.")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -107,7 +107,7 @@ public class DocServiceDocumentLinkAllOf {
    * The linked resource&#39;s record type.
    * @return linkedRecordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_order", value = "The linked resource's record type.")
   @JsonProperty(JSON_PROPERTY_LINKED_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class DocServiceDocumentLinkAllOf {
    * Identifies the linked resource.
    * @return linkedResourceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "132091b4-442b-4a2a-b87f-61e707e46d54", value = "Identifies the linked resource.")
   @JsonProperty(JSON_PROPERTY_LINKED_RESOURCE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

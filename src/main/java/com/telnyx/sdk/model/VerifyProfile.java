@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   VerifyProfile.JSON_PROPERTY_DEFAULT_TIMEOUT_SECS,
   VerifyProfile.JSON_PROPERTY_VSMS_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class VerifyProfile {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -111,7 +111,7 @@ public class VerifyProfile {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "verify_profile", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -204,7 +204,7 @@ public class VerifyProfile {
    * Enables SMS text messaging for the Verify profile.
    * @return messagingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Enables SMS text messaging for the Verify profile.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -251,7 +251,7 @@ public class VerifyProfile {
    * Optionally sets a messaging text template when sending the verification code. Uses &#x60;{code}&#x60; to template in the actual verification code.
    * @return messagingTemplate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Hello, this is the Acme Inc verification code you requested: {code}.", value = "Optionally sets a messaging text template when sending the verification code. Uses `{code}` to template in the actual verification code.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -298,7 +298,7 @@ public class VerifyProfile {
    * Enables VSMS for the Verify profile.
    * @return vsmsEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Enables VSMS for the Verify profile.")
   @JsonProperty(JSON_PROPERTY_VSMS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

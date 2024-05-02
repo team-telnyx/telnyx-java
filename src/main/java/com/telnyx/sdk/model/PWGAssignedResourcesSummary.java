@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   PWGAssignedResourcesSummary.JSON_PROPERTY_RECORD_TYPE,
   PWGAssignedResourcesSummary.JSON_PROPERTY_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PWGAssignedResourcesSummary {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -64,7 +64,7 @@ public class PWGAssignedResourcesSummary {
    * The type of the resource assigned to the Private Wireless Gateway
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sim_card_group", value = "The type of the resource assigned to the Private Wireless Gateway")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -80,7 +80,7 @@ public class PWGAssignedResourcesSummary {
    * The current count of a resource type assigned to the Private Wireless Gateway
    * @return count
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "The current count of a resource type assigned to the Private Wireless Gateway")
   @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

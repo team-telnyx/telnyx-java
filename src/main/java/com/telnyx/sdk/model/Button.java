@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   Button.JSON_PROPERTY_INDEX,
   Button.JSON_PROPERTY_PARAMETERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Button {
   public static final String JSON_PROPERTY_SUB_TYPE = "sub_type";
   private Object subType = null;
@@ -64,7 +64,7 @@ public class Button {
    * Type of button being created.
    * @return subType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(required = true, value = "Type of button being created.")
   @JsonProperty(JSON_PROPERTY_SUB_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -90,7 +90,7 @@ public class Button {
    * Position index of the button. You can have up to 3 buttons using index values of 0-2.
    * @return index
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Position index of the button. You can have up to 3 buttons using index values of 0-2.")
   @JsonProperty(JSON_PROPERTY_INDEX)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -121,7 +121,7 @@ public class Button {
    * The parameters for the button, which are set at creation time in your Business Manager.
    * @return parameters
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The parameters for the button, which are set at creation time in your Business Manager.")
   @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

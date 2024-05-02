@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PutSimCardNetworkPreferencesRequest.JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PutSimCardNetworkPreferencesRequest {
   public static final String JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES = "mobile_network_operators_preferences";
   private List<MobileNetworkOperatorPreferencesRequest> mobileNetworkOperatorsPreferences = null;
@@ -65,7 +65,7 @@ public class PutSimCardNetworkPreferencesRequest {
    * A list of mobile network operators and the priority that should be applied when the SIM is connecting to the network.
    * @return mobileNetworkOperatorsPreferences
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of mobile network operators and the priority that should be applied when the SIM is connecting to the network.")
   @JsonProperty(JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

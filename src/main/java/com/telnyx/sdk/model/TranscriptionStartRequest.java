@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   TranscriptionStartRequest.JSON_PROPERTY_TRANSCRIPTION_TRACKS,
   TranscriptionStartRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TranscriptionStartRequest {
   /**
    * Engine to use for speech recognition. &#x60;A&#x60; - &#x60;google&#x60;, &#x60;B&#x60; - &#x60;telnyx&#x60;.
@@ -152,7 +152,7 @@ public class TranscriptionStartRequest {
    * Engine to use for speech recognition. &#x60;A&#x60; - &#x60;google&#x60;, &#x60;B&#x60; - &#x60;telnyx&#x60;.
    * @return transcriptionEngine
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "A", value = "Engine to use for speech recognition. `A` - `google`, `B` - `telnyx`.")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_ENGINE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -178,7 +178,7 @@ public class TranscriptionStartRequest {
    * Language to use for speech recognition
    * @return language
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "en", value = "Language to use for speech recognition")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -204,7 +204,7 @@ public class TranscriptionStartRequest {
    * Whether to send also interim results. If set to false, only final results will be sent. Applies to &#x60;google&#x60; engine only.
    * @return interimResults
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Whether to send also interim results. If set to false, only final results will be sent. Applies to `google` engine only.")
   @JsonProperty(JSON_PROPERTY_INTERIM_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -230,7 +230,7 @@ public class TranscriptionStartRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -256,7 +256,7 @@ public class TranscriptionStartRequest {
    * Indicates which leg of the call will be transcribed. Use &#x60;inbound&#x60; for the leg that requested the transcription, &#x60;outbound&#x60; for the other leg, and &#x60;both&#x60; for both legs of the call. Will default to &#x60;inbound&#x60;.
    * @return transcriptionTracks
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "both", value = "Indicates which leg of the call will be transcribed. Use `inbound` for the leg that requested the transcription, `outbound` for the other leg, and `both` for both legs of the call. Will default to `inbound`.")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -282,7 +282,7 @@ public class TranscriptionStartRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

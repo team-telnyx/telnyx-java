@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateWhatsappPhoneNumberRequest.JSON_PROPERTY_WEBHOOK_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateWhatsappPhoneNumberRequest {
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private String webhookUrl;
@@ -53,7 +53,7 @@ public class UpdateWhatsappPhoneNumberRequest {
    * The desired URL to set for your WhatsApp webhook endpoint.
    * @return webhookUrl
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "https://mywebhook.com/example/endpoint", required = true, value = "The desired URL to set for your WhatsApp webhook endpoint.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

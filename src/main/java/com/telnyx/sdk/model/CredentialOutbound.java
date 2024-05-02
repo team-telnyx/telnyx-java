@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   CredentialOutbound.JSON_PROPERTY_T38_REINVITE_SOURCE,
   CredentialOutbound.JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CredentialOutbound {
   public static final String JSON_PROPERTY_CALL_PARKING_ENABLED = "call_parking_enabled";
   private Boolean callParkingEnabled = false;
@@ -166,7 +166,7 @@ public class CredentialOutbound {
    * Forces all SIP calls originated on this connection to be \&quot;parked\&quot; instead of \&quot;bridged\&quot; to the destination specified on the URI. Parked calls will return ringback to the caller and will await for a Call Control command to define which action will be taken next.
    * @return callParkingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Forces all SIP calls originated on this connection to be \"parked\" instead of \"bridged\" to the destination specified on the URI. Parked calls will return ringback to the caller and will await for a Call Control command to define which action will be taken next.")
   @JsonProperty(JSON_PROPERTY_CALL_PARKING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -192,7 +192,7 @@ public class CredentialOutbound {
    * Set a phone number as the ani_override value to override caller id number on outbound calls.
    * @return aniOverride
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Set a phone number as the ani_override value to override caller id number on outbound calls.")
   @JsonProperty(JSON_PROPERTY_ANI_OVERRIDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -218,7 +218,7 @@ public class CredentialOutbound {
    * Specifies when we apply your ani_override setting. Only applies when ani_override is not blank.
    * @return aniOverrideType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies when we apply your ani_override setting. Only applies when ani_override is not blank.")
   @JsonProperty(JSON_PROPERTY_ANI_OVERRIDE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -244,7 +244,7 @@ public class CredentialOutbound {
    * When set, this will limit the total number of outbound calls to phone numbers associated with this connection.
    * @return channelLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When set, this will limit the total number of outbound calls to phone numbers associated with this connection.")
   @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -270,7 +270,7 @@ public class CredentialOutbound {
    * When set, ringback will not wait for indication before sending ringback tone to calling party.
    * @return instantRingbackEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When set, ringback will not wait for indication before sending ringback tone to calling party.")
   @JsonProperty(JSON_PROPERTY_INSTANT_RINGBACK_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -296,7 +296,7 @@ public class CredentialOutbound {
    * Generate ringback tone through 183 session progress message with early media.
    * @return generateRingbackTone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Generate ringback tone through 183 session progress message with early media.")
   @JsonProperty(JSON_PROPERTY_GENERATE_RINGBACK_TONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -322,7 +322,7 @@ public class CredentialOutbound {
    * A 2-character country code specifying the country whose national dialing rules should be used. For example, if set to &#x60;US&#x60; then any US number can be dialed without preprending +1 to the number. When left blank, Telnyx will try US and GB dialing rules, in that order, by default.
    * @return localization
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "A 2-character country code specifying the country whose national dialing rules should be used. For example, if set to `US` then any US number can be dialed without preprending +1 to the number. When left blank, Telnyx will try US and GB dialing rules, in that order, by default.")
   @JsonProperty(JSON_PROPERTY_LOCALIZATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -348,7 +348,7 @@ public class CredentialOutbound {
    * This setting only affects connections with Fax-type Outbound Voice Profiles. The setting dictates whether or not Telnyx sends a t.38 reinvite.&lt;br/&gt;&lt;br/&gt; By default, Telnyx will send the re-invite. If set to &#x60;customer&#x60;, the caller is expected to send the t.38 reinvite.
    * @return t38ReinviteSource
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "This setting only affects connections with Fax-type Outbound Voice Profiles. The setting dictates whether or not Telnyx sends a t.38 reinvite.<br/><br/> By default, Telnyx will send the re-invite. If set to `customer`, the caller is expected to send the t.38 reinvite.")
   @JsonProperty(JSON_PROPERTY_T38_REINVITE_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -374,7 +374,7 @@ public class CredentialOutbound {
    * Identifies the associated outbound voice profile.
    * @return outboundVoiceProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1293384261075731499", value = "Identifies the associated outbound voice profile.")
   @JsonProperty(JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   UpdateVerifyProfileCallRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS,
   UpdateVerifyProfileCallRequest.JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateVerifyProfileCallRequest {
   public static final String JSON_PROPERTY_MSG_TEMPLATE = "msg_template";
   private String msgTemplate;
@@ -66,7 +66,7 @@ public class UpdateVerifyProfileCallRequest {
    * Optionally sets a speech text template when sending the verification code. Uses &#x60;{code}&#x60; to template in the actual verification code.
    * @return msgTemplate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Hello, this is the Acme Inc verification code you requested: {code}.", value = "Optionally sets a speech text template when sending the verification code. Uses `{code}` to template in the actual verification code.")
   @JsonProperty(JSON_PROPERTY_MSG_TEMPLATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class UpdateVerifyProfileCallRequest {
    * The name that identifies the application requesting 2fa in the verification message.
    * @return appName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Example Secure App", value = "The name that identifies the application requesting 2fa in the verification message.")
   @JsonProperty(JSON_PROPERTY_APP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class UpdateVerifyProfileCallRequest {
    * For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.
    * @return defaultVerificationTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "300", value = "For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.")
   @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class UpdateVerifyProfileCallRequest {
    * Must be less than default_verification_timeout_secs
    * @return defaultCallTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "30", value = "Must be less than default_verification_timeout_secs")
   @JsonProperty(JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

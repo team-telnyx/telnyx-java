@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CampaignRegistryApiSchemasBulkCreationMeta.JSON_PROPERTY_TOTAL_PAGES,
   CampaignRegistryApiSchemasBulkCreationMeta.JSON_PROPERTY_TOTAL_RECORDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CampaignRegistryApiSchemasBulkCreationMeta {
   public static final String JSON_PROPERTY_PAGE = "page";
   private Integer page;
@@ -66,7 +66,7 @@ public class CampaignRegistryApiSchemasBulkCreationMeta {
    * Get page
    * @return page
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -92,7 +92,7 @@ public class CampaignRegistryApiSchemasBulkCreationMeta {
    * Get recordsPerPage
    * @return recordsPerPage
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "20", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORDS_PER_PAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -118,7 +118,7 @@ public class CampaignRegistryApiSchemasBulkCreationMeta {
    * Get totalPages
    * @return totalPages
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_PAGES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -144,7 +144,7 @@ public class CampaignRegistryApiSchemasBulkCreationMeta {
    * Get totalRecords
    * @return totalRecords
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_RECORDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

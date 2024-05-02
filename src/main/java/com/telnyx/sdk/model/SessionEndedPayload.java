@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   SessionEndedPayload.JSON_PROPERTY_DURATION_SECS,
   SessionEndedPayload.JSON_PROPERTY_ENDED_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SessionEndedPayload {
   public static final String JSON_PROPERTY_SESSION_ID = "session_id";
   private UUID sessionId;
@@ -67,7 +67,7 @@ public class SessionEndedPayload {
    * Session ID that identifies the session that ended.
    * @return sessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Session ID that identifies the session that ended.")
   @JsonProperty(JSON_PROPERTY_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class SessionEndedPayload {
    * Room ID that identifies the room where the session ended.
    * @return roomId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Room ID that identifies the room where the session ended.")
   @JsonProperty(JSON_PROPERTY_ROOM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class SessionEndedPayload {
    * The duration in seconds of the session
    * @return durationSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "245", value = "The duration in seconds of the session")
   @JsonProperty(JSON_PROPERTY_DURATION_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class SessionEndedPayload {
    * The reason why the session ended
    * @return endedReason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "stale", value = "The reason why the session ended")
   @JsonProperty(JSON_PROPERTY_ENDED_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

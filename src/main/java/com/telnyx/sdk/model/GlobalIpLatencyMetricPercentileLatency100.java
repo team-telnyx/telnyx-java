@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpLatencyMetricPercentileLatency100.JSON_PROPERTY_AMOUNT,
   GlobalIpLatencyMetricPercentileLatency100.JSON_PROPERTY_UNIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIpLatencyMetricPercentileLatency100 {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private BigDecimal amount;
@@ -59,7 +59,7 @@ public class GlobalIpLatencyMetricPercentileLatency100 {
    * The maximum latency.
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "The maximum latency.")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class GlobalIpLatencyMetricPercentileLatency100 {
    * The unit of the maximum latency.
    * @return unit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ms", value = "The unit of the maximum latency.")
   @JsonProperty(JSON_PROPERTY_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

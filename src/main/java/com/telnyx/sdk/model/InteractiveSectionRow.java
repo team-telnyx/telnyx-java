@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   InteractiveSectionRow.JSON_PROPERTY_TITLE,
   InteractiveSectionRow.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InteractiveSectionRow {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -61,7 +61,7 @@ public class InteractiveSectionRow {
    * Maximum length: 200 characters
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Maximum length: 200 characters")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -87,7 +87,7 @@ public class InteractiveSectionRow {
    * Maximum length: 24 characters
    * @return title
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Maximum length: 24 characters")
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -113,7 +113,7 @@ public class InteractiveSectionRow {
    * Maximum length: 72 characters
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Maximum length: 72 characters")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   SIMCardGroupCreate.JSON_PROPERTY_NAME,
   SIMCardGroupCreate.JSON_PROPERTY_DATA_LIMIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardGroupCreate {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -59,7 +59,7 @@ public class SIMCardGroupCreate {
    * A user friendly name for the SIM card group.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "My Test Group", required = true, value = "A user friendly name for the SIM card group.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -85,7 +85,7 @@ public class SIMCardGroupCreate {
    * Get dataLimit
    * @return dataLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   ListLogMessagesResponse.JSON_PROPERTY_LOG_MESSAGES,
   ListLogMessagesResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ListLogMessagesResponse {
   public static final String JSON_PROPERTY_LOG_MESSAGES = "log_messages";
   private List<LogMessage> logMessages = null;
@@ -70,7 +70,7 @@ public class ListLogMessagesResponse {
    * Get logMessages
    * @return logMessages
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOG_MESSAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class ListLogMessagesResponse {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

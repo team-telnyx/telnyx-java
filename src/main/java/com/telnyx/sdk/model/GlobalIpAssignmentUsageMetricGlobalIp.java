@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpAssignmentUsageMetricGlobalIp.JSON_PROPERTY_ID,
   GlobalIpAssignmentUsageMetricGlobalIp.JSON_PROPERTY_IP_ADDRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIpAssignmentUsageMetricGlobalIp {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -67,7 +67,7 @@ public class GlobalIpAssignmentUsageMetricGlobalIp {
    * Global IP ID.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "a836125b-20b6-452e-9c03-2653f09c7ed7", value = "Global IP ID.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class GlobalIpAssignmentUsageMetricGlobalIp {
    * The Global IP address.
    * @return ipAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "64.1.4.130", value = "The Global IP address.")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

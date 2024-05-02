@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CreateVerifiedCallsDisplayProfileRequest.JSON_PROPERTY_CALL_REASONS,
   CreateVerifiedCallsDisplayProfileRequest.JSON_PROPERTY_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateVerifiedCallsDisplayProfileRequest {
   public static final String JSON_PROPERTY_BUSINESS_IDENTITY_ID = "business_identity_id";
   private UUID businessIdentityId;
@@ -72,7 +72,7 @@ public class CreateVerifiedCallsDisplayProfileRequest {
    * The ID of the business identity that owns the record
    * @return businessIdentityId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "c6feda4e-6501-4db9-a21f-665e5b4ce2ba", required = true, value = "The ID of the business identity that owns the record")
   @JsonProperty(JSON_PROPERTY_BUSINESS_IDENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -98,7 +98,7 @@ public class CreateVerifiedCallsDisplayProfileRequest {
    * The name associated with the authentication provider.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Okta", required = true, value = "The name associated with the authentication provider.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -124,7 +124,7 @@ public class CreateVerifiedCallsDisplayProfileRequest {
    * Get displayName
    * @return displayName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class CreateVerifiedCallsDisplayProfileRequest {
    * Get logoUrl
    * @return logoUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOGO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class CreateVerifiedCallsDisplayProfileRequest {
    * Get callReasons
    * @return callReasons
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CALL_REASONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -202,7 +202,7 @@ public class CreateVerifiedCallsDisplayProfileRequest {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

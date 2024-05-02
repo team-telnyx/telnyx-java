@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   BulkUpdateSimNetworkPreference.JSON_PROPERTY_SIM_CARD_IDS,
   BulkUpdateSimNetworkPreference.JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BulkUpdateSimNetworkPreference {
   public static final String JSON_PROPERTY_SIM_CARD_IDS = "sim_card_ids";
   private List<UUID> simCardIds = null;
@@ -69,7 +69,7 @@ public class BulkUpdateSimNetworkPreference {
    * Get simCardIds
    * @return simCardIds
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"6b14e151-8493-4fa1-8664-1cc4e6d14158\",\"6b14e151-8493-4fa1-8664-1cc4e6d14158\"]", value = "")
   @JsonProperty(JSON_PROPERTY_SIM_CARD_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -103,7 +103,7 @@ public class BulkUpdateSimNetworkPreference {
    * A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network.
    * @return mobileOperatorNetworksPreferences
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network.")
   @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

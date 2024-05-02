@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CursorPagination.JSON_PROPERTY_NEXT,
   CursorPagination.JSON_PROPERTY_PREVIOUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CursorPagination {
   public static final String JSON_PROPERTY_CURSORS = "cursors";
   private CursorPaginationCursors cursors;
@@ -62,7 +62,7 @@ public class CursorPagination {
    * Get cursors
    * @return cursors
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CURSORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class CursorPagination {
    * A URL to the next page of results.
    * @return next
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A URL to the next page of results.")
   @JsonProperty(JSON_PROPERTY_NEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class CursorPagination {
    * A URL to the previous page of results.
    * @return previous
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A URL to the previous page of results.")
   @JsonProperty(JSON_PROPERTY_PREVIOUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

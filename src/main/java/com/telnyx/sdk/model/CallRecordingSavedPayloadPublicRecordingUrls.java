@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   CallRecordingSavedPayloadPublicRecordingUrls.JSON_PROPERTY_MP3,
   CallRecordingSavedPayloadPublicRecordingUrls.JSON_PROPERTY_WAV
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallRecordingSavedPayloadPublicRecordingUrls {
   public static final String JSON_PROPERTY_MP3 = "mp3";
   private JsonNullable<String> mp3 = JsonNullable.<String>undefined();
@@ -64,7 +64,7 @@ public class CallRecordingSavedPayloadPublicRecordingUrls {
    * Recording URL in requested &#x60;mp3&#x60; format.
    * @return mp3
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example.com/recording.mp3", value = "Recording URL in requested `mp3` format.")
   @JsonIgnore
 
@@ -98,7 +98,7 @@ public class CallRecordingSavedPayloadPublicRecordingUrls {
    * Recording URL in requested &#x60;wav&#x60; format.
    * @return wav
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example.com/recording.wav", value = "Recording URL in requested `wav` format.")
   @JsonIgnore
 

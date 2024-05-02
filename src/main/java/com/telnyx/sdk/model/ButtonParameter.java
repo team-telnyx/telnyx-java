@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   ButtonParameter.JSON_PROPERTY_PAYLOAD,
   ButtonParameter.JSON_PROPERTY_TEXT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ButtonParameter {
   public static final String JSON_PROPERTY_TYPE = "type";
   private Object type = null;
@@ -65,7 +65,7 @@ public class ButtonParameter {
    * Indicates the type of parameter for the button.
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(required = true, value = "Indicates the type of parameter for the button.")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,7 +91,7 @@ public class ButtonParameter {
    * Developer-defined payload that will be returned when the button is clicked in addition to the display text on the button. Required for quick_reply buttons.
    * @return payload
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Developer-defined payload that will be returned when the button is clicked in addition to the display text on the button. Required for quick_reply buttons.")
   @JsonIgnore
 
@@ -125,7 +125,7 @@ public class ButtonParameter {
    * Developer provided suffix that will be appended to a previously created dynamic URL button. Required for url buttons.
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Developer provided suffix that will be appended to a previously created dynamic URL button. Required for url buttons.")
   @JsonIgnore
 

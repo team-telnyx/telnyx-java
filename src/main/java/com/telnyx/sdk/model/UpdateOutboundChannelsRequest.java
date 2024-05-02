@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateOutboundChannelsRequest.JSON_PROPERTY_CHANNELS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateOutboundChannelsRequest {
   public static final String JSON_PROPERTY_CHANNELS = "channels";
   private Integer channels;
@@ -54,7 +54,7 @@ public class UpdateOutboundChannelsRequest {
    * The new number of concurrent channels for the account
    * @return channels
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "7", required = true, value = "The new number of concurrent channels for the account")
   @JsonProperty(JSON_PROPERTY_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

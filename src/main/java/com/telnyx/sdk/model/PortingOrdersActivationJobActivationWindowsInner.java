@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   PortingOrdersActivationJobActivationWindowsInner.JSON_PROPERTY_START_AT,
   PortingOrdersActivationJobActivationWindowsInner.JSON_PROPERTY_END_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrdersActivationJobActivationWindowsInner {
   public static final String JSON_PROPERTY_START_AT = "start_at";
   private OffsetDateTime startAt;
@@ -59,7 +59,7 @@ public class PortingOrdersActivationJobActivationWindowsInner {
    * ISO 8601 formatted date indicating when the activation window starts
    * @return startAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the activation window starts")
   @JsonProperty(JSON_PROPERTY_START_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class PortingOrdersActivationJobActivationWindowsInner {
    * ISO 8601 formatted date indicating when the activation window ends
    * @return endAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the activation window ends")
   @JsonProperty(JSON_PROPERTY_END_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

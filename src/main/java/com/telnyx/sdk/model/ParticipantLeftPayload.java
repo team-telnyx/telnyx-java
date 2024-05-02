@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   ParticipantLeftPayload.JSON_PROPERTY_DURATION_SECS,
   ParticipantLeftPayload.JSON_PROPERTY_LEFT_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ParticipantLeftPayload {
   public static final String JSON_PROPERTY_SESSION_ID = "session_id";
   private UUID sessionId;
@@ -75,7 +75,7 @@ public class ParticipantLeftPayload {
    * Session ID that identifies the session where the participant left.
    * @return sessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Session ID that identifies the session where the participant left.")
   @JsonProperty(JSON_PROPERTY_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -101,7 +101,7 @@ public class ParticipantLeftPayload {
    * Room ID that identifies the room where the participant left.
    * @return roomId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Room ID that identifies the room where the participant left.")
   @JsonProperty(JSON_PROPERTY_ROOM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -127,7 +127,7 @@ public class ParticipantLeftPayload {
    * Context provided to the given participant through the client SDK
    * @return context
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Alice", value = "Context provided to the given participant through the client SDK")
   @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -153,7 +153,7 @@ public class ParticipantLeftPayload {
    * Participant ID that identifies the participant that left.
    * @return participantId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Participant ID that identifies the participant that left.")
   @JsonProperty(JSON_PROPERTY_PARTICIPANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -179,7 +179,7 @@ public class ParticipantLeftPayload {
    * The duration in seconds of the participant in the session
    * @return durationSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "245", value = "The duration in seconds of the participant in the session")
   @JsonProperty(JSON_PROPERTY_DURATION_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -205,7 +205,7 @@ public class ParticipantLeftPayload {
    * The reason why the participant left
    * @return leftReason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "kicked", value = "The reason why the participant left")
   @JsonProperty(JSON_PROPERTY_LEFT_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

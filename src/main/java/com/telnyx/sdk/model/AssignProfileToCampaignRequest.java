@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   AssignProfileToCampaignRequest.JSON_PROPERTY_TCR_CAMPAIGN_ID,
   AssignProfileToCampaignRequest.JSON_PROPERTY_CAMPAIGN_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class AssignProfileToCampaignRequest {
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messagingProfileId";
   private String messagingProfileId;
@@ -62,7 +62,7 @@ public class AssignProfileToCampaignRequest {
    * The ID of the messaging profile that you want to link to the specified campaign.
    * @return messagingProfileId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "4001767e-ce0f-4cae-9d5f-0d5e636e7809", required = true, value = "The ID of the messaging profile that you want to link to the specified campaign.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -88,7 +88,7 @@ public class AssignProfileToCampaignRequest {
    * The TCR ID of the shared campaign you want to link to the specified messaging profile (for campaigns not created using Telnyx 10DLC services only). If you supply this ID in the request, do not also include a campaignId.
    * @return tcrCampaignId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "CWZTFH1", value = "The TCR ID of the shared campaign you want to link to the specified messaging profile (for campaigns not created using Telnyx 10DLC services only). If you supply this ID in the request, do not also include a campaignId.")
   @JsonProperty(JSON_PROPERTY_TCR_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class AssignProfileToCampaignRequest {
    * The ID of the campaign you want to link to the specified messaging profile. If you supply this ID in the request, do not also include a tcrCampaignId.
    * @return campaignId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4b300178-131c-d902-d54e-72d90ba1620j", value = "The ID of the campaign you want to link to the specified messaging profile. If you supply this ID in the request, do not also include a tcrCampaignId.")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

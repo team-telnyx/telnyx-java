@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   WhatsappProfilePhoto.JSON_PROPERTY_PHONE_NUMBER_ID,
   WhatsappProfilePhoto.JSON_PROPERTY_WHATSAPP_USER_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsappProfilePhoto {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -66,7 +66,7 @@ public class WhatsappProfilePhoto {
    * the record type
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "whatsapp_profile_photo", value = "the record type")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class WhatsappProfilePhoto {
    * An URL to the thumbnail photo
    * @return thumbnailPhotoUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://pps.whatsapp.net/v/t61.24694-24/11111111_2222222222222222_3333333_n.jpg?oh=f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8&oe=5E5E5E5E", value = "An URL to the thumbnail photo")
   @JsonProperty(JSON_PROPERTY_THUMBNAIL_PHOTO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class WhatsappProfilePhoto {
    * The associated Whatsapp Phone Number ID
    * @return phoneNumberId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "The associated Whatsapp Phone Number ID")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class WhatsappProfilePhoto {
    * The phone number&#39;s WhatsApp User ID, used in other Telnyx Whatsapp API endpoints
    * @return whatsappUserId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456789", value = "The phone number's WhatsApp User ID, used in other Telnyx Whatsapp API endpoints")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

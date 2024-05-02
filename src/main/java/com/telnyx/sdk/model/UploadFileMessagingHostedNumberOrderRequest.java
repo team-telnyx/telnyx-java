@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   UploadFileMessagingHostedNumberOrderRequest.JSON_PROPERTY_LOA,
   UploadFileMessagingHostedNumberOrderRequest.JSON_PROPERTY_BILL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UploadFileMessagingHostedNumberOrderRequest {
   public static final String JSON_PROPERTY_LOA = "loa";
   private File loa;
@@ -56,7 +56,7 @@ public class UploadFileMessagingHostedNumberOrderRequest {
    * Must be a signed LOA for the numbers in the order in PDF format.
    * @return loa
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Must be a signed LOA for the numbers in the order in PDF format.")
   @JsonProperty(JSON_PROPERTY_LOA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -80,7 +80,7 @@ public class UploadFileMessagingHostedNumberOrderRequest {
    * Must be the last month&#39;s bill with proof of ownership of all of the numbers in the order in PDF format.
    * @return bill
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Must be the last month's bill with proof of ownership of all of the numbers in the order in PDF format.")
   @JsonProperty(JSON_PROPERTY_BILL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

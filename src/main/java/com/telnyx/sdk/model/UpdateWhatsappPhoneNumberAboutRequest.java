@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateWhatsappPhoneNumberAboutRequest.JSON_PROPERTY_ABOUT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateWhatsappPhoneNumberAboutRequest {
   public static final String JSON_PROPERTY_ABOUT = "about";
   private String about;
@@ -53,7 +53,7 @@ public class UpdateWhatsappPhoneNumberAboutRequest {
    * The desired text to set for your WhatsApp about section.
    * @return about
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "This is our about section", required = true, value = "The desired text to set for your WhatsApp about section.")
   @JsonProperty(JSON_PROPERTY_ABOUT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
