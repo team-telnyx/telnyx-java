@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CreatePortingOrder.JSON_PROPERTY_PHONE_NUMBERS,
   CreatePortingOrder.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreatePortingOrder {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = new ArrayList<>();
@@ -65,7 +65,7 @@ public class CreatePortingOrder {
    * The list of +E.164 formatted phone numbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"+13035550000\",\"+13035550001\",\"+13035550002\"]", required = true, value = "The list of +E.164 formatted phone numbers")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,7 +91,7 @@ public class CreatePortingOrder {
    * A customer-specified reference number for customer bookkeeping purposes
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Acct 123abc", value = "A customer-specified reference number for customer bookkeeping purposes")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

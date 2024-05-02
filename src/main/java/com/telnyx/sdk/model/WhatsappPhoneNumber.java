@@ -49,7 +49,7 @@ import com.telnyx.sdk.JSON;
   WhatsappPhoneNumber.JSON_PROPERTY_CREATED_AT,
   WhatsappPhoneNumber.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsappPhoneNumber {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -136,7 +136,7 @@ public class WhatsappPhoneNumber {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "whatsapp_phone_number", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -162,7 +162,7 @@ public class WhatsappPhoneNumber {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -188,7 +188,7 @@ public class WhatsappPhoneNumber {
    * The owning organization&#39;s ID
    * @return organizationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "The owning organization's ID")
   @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -214,7 +214,7 @@ public class WhatsappPhoneNumber {
    * The associated WhatsApp Business Account ID
    * @return whatsappBusinessAccountId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "The associated WhatsApp Business Account ID")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -240,7 +240,7 @@ public class WhatsappPhoneNumber {
    * The configuration status for the phone number in the Telnyx platform
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The configuration status for the phone number in the Telnyx platform")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -266,7 +266,7 @@ public class WhatsappPhoneNumber {
    * The webhook url to be used by facebook
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://mydomain.com/webhook", value = "The webhook url to be used by facebook")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -292,7 +292,7 @@ public class WhatsappPhoneNumber {
    * The WhatsApp about section content
    * @return about
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "This is our about section", value = "The WhatsApp about section content")
   @JsonProperty(JSON_PROPERTY_ABOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -318,7 +318,7 @@ public class WhatsappPhoneNumber {
    * The phone number in E164 format
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The phone number in E164 format")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -344,7 +344,7 @@ public class WhatsappPhoneNumber {
    * The phone number&#39;s WhatsApp User ID, used in other Telnyx Whatsapp API endpoints
    * @return whatsappUserId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The phone number's WhatsApp User ID, used in other Telnyx Whatsapp API endpoints")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -370,7 +370,7 @@ public class WhatsappPhoneNumber {
    * Get whatsappSettings
    * @return whatsappSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@ public class WhatsappPhoneNumber {
    * An ISO 8601 datetime string denoting when the account was added to the Telnyx platform
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8601 datetime string denoting when the account was added to the Telnyx platform")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -422,7 +422,7 @@ public class WhatsappPhoneNumber {
    * An ISO 8601 datetime string for when the number order was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8601 datetime string for when the number order was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

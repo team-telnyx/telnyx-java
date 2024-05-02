@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   BrandFeedback.JSON_PROPERTY_BRAND_ID,
   BrandFeedback.JSON_PROPERTY_CATEGORY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BrandFeedback {
   public static final String JSON_PROPERTY_BRAND_ID = "brandId";
   private String brandId;
@@ -61,7 +61,7 @@ public class BrandFeedback {
    * ID of the brand being queried about
    * @return brandId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "d88dd2aa-1bb9-4ef0-9ec8-1752b80316a5", required = true, value = "ID of the brand being queried about")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -92,7 +92,7 @@ public class BrandFeedback {
    * A list of reasons why brand creation/revetting didn&#39;t go as planned
    * @return category
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "A list of reasons why brand creation/revetting didn't go as planned")
   @JsonProperty(JSON_PROPERTY_CATEGORY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

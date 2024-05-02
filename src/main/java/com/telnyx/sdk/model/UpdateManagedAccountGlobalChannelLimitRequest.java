@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateManagedAccountGlobalChannelLimitRequest.JSON_PROPERTY_CHANNEL_LIMIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateManagedAccountGlobalChannelLimitRequest {
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
   private Integer channelLimit;
@@ -54,7 +54,7 @@ public class UpdateManagedAccountGlobalChannelLimitRequest {
    * Integer value that indicates the number of allocatable global outbound channels that should be allocated to the managed account. Must be 0 or more. If the value is 0 then the account will have no usable channels and will not be able to perform outbound calling.
    * @return channelLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "30", value = "Integer value that indicates the number of allocatable global outbound channels that should be allocated to the managed account. Must be 0 or more. If the value is 0 then the account will have no usable channels and will not be able to perform outbound calling.")
   @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   AutoRechargePref.JSON_PROPERTY_INVOICE_ENABLED,
   AutoRechargePref.JSON_PROPERTY_PREFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class AutoRechargePref {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -114,7 +114,7 @@ public class AutoRechargePref {
    * The unique identifier for the auto recharge preference.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1524126400473204723", value = "The unique identifier for the auto recharge preference.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -140,7 +140,7 @@ public class AutoRechargePref {
    * The record type.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "auto_recharge_pref", value = "The record type.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -166,7 +166,7 @@ public class AutoRechargePref {
    * The threshold amount at which the account will be recharged.
    * @return thresholdAmount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "104.00", value = "The threshold amount at which the account will be recharged.")
   @JsonProperty(JSON_PROPERTY_THRESHOLD_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -192,7 +192,7 @@ public class AutoRechargePref {
    * The amount to recharge the account, the actual recharge amount will be the amount necessary to reach the threshold amount plus the recharge amount.
    * @return rechargeAmount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "104.00", value = "The amount to recharge the account, the actual recharge amount will be the amount necessary to reach the threshold amount plus the recharge amount.")
   @JsonProperty(JSON_PROPERTY_RECHARGE_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -218,7 +218,7 @@ public class AutoRechargePref {
    * Whether auto recharge is enabled.
    * @return enabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Whether auto recharge is enabled.")
   @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -244,7 +244,7 @@ public class AutoRechargePref {
    * Get invoiceEnabled
    * @return invoiceEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "")
   @JsonProperty(JSON_PROPERTY_INVOICE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -270,7 +270,7 @@ public class AutoRechargePref {
    * The payment preference for auto recharge.
    * @return preference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "credit_paypal", value = "The payment preference for auto recharge.")
   @JsonProperty(JSON_PROPERTY_PREFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

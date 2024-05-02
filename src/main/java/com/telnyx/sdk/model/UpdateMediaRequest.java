@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   UpdateMediaRequest.JSON_PROPERTY_MEDIA_URL,
   UpdateMediaRequest.JSON_PROPERTY_TTL_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateMediaRequest {
   public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
   private String mediaUrl;
@@ -58,7 +58,7 @@ public class UpdateMediaRequest {
    * The URL where the media to be stored in Telnyx network is currently hosted. The maximum allowed size is 20 MB.
    * @return mediaUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://www.example.com/audio.mp3", value = "The URL where the media to be stored in Telnyx network is currently hosted. The maximum allowed size is 20 MB.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class UpdateMediaRequest {
    * The number of seconds after which the media resource will be deleted, defaults to 2 days. The maximum allowed vale is 630720000, which translates to 20 years.
    * @return ttlSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "86400", value = "The number of seconds after which the media resource will be deleted, defaults to 2 days. The maximum allowed vale is 630720000, which translates to 20 years.")
   @JsonProperty(JSON_PROPERTY_TTL_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

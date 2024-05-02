@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateLocationRequest.JSON_PROPERTY_STATIC_EMERGENCY_ADDRESS_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateLocationRequest {
   public static final String JSON_PROPERTY_STATIC_EMERGENCY_ADDRESS_ID = "static_emergency_address_id";
   private UUID staticEmergencyAddressId;
@@ -55,7 +55,7 @@ public class UpdateLocationRequest {
    * A new static emergency address ID to update the location with
    * @return staticEmergencyAddressId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "A new static emergency address ID to update the location with")
   @JsonProperty(JSON_PROPERTY_STATIC_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

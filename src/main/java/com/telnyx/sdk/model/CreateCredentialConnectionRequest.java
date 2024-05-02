@@ -67,7 +67,7 @@ import com.telnyx.sdk.JSON;
   CreateCredentialConnectionRequest.JSON_PROPERTY_INBOUND,
   CreateCredentialConnectionRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateCredentialConnectionRequest {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active;
@@ -215,7 +215,7 @@ public class CreateCredentialConnectionRequest {
    * Defaults to true
    * @return active
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Defaults to true")
   @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -241,7 +241,7 @@ public class CreateCredentialConnectionRequest {
    * The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters).
    * @return userName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "myusername123", required = true, value = "The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters).")
   @JsonProperty(JSON_PROPERTY_USER_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -267,7 +267,7 @@ public class CreateCredentialConnectionRequest {
    * The password to be used as part of the credentials. Must be 8 to 128 characters long.
    * @return password
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "my123secure456password789", required = true, value = "The password to be used as part of the credentials. Must be 8 to 128 characters long.")
   @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -293,7 +293,7 @@ public class CreateCredentialConnectionRequest {
    * Get anchorsiteOverride
    * @return anchorsiteOverride
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -319,7 +319,7 @@ public class CreateCredentialConnectionRequest {
    * A user-assigned name to help manage the connection.
    * @return connectionName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "office-connection", required = true, value = "A user-assigned name to help manage the connection.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -345,7 +345,7 @@ public class CreateCredentialConnectionRequest {
    * This feature enables inbound SIP URI calls to your Credential Auth Connection. If enabled for all (unrestricted) then anyone who calls the SIP URI &lt;your-username&gt;@telnyx.com will be connected to your Connection. You can also choose to allow only calls that are originated on any Connections under your account (internal).
    * @return sipUriCallingPreference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "This feature enables inbound SIP URI calls to your Credential Auth Connection. If enabled for all (unrestricted) then anyone who calls the SIP URI <your-username>@telnyx.com will be connected to your Connection. You can also choose to allow only calls that are originated on any Connections under your account (internal).")
   @JsonProperty(JSON_PROPERTY_SIP_URI_CALLING_PREFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -371,7 +371,7 @@ public class CreateCredentialConnectionRequest {
    * When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout.
    * @return defaultOnHoldComfortNoiseEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout.")
   @JsonProperty(JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -397,7 +397,7 @@ public class CreateCredentialConnectionRequest {
    * Get dtmfType
    * @return dtmfType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -423,7 +423,7 @@ public class CreateCredentialConnectionRequest {
    * Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios.
    * @return encodeContactHeaderEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios.")
   @JsonProperty(JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -449,7 +449,7 @@ public class CreateCredentialConnectionRequest {
    * Get encryptedMedia
    * @return encryptedMedia
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -483,7 +483,7 @@ public class CreateCredentialConnectionRequest {
    * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg&#39;s settings.
    * @return onnetT38PassthroughEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings.")
   @JsonProperty(JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -509,7 +509,7 @@ public class CreateCredentialConnectionRequest {
    * The uuid of the push credential for Ios
    * @return iosPushCredentialId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ec0c8e5d-439e-4620-a0c1-9d9c8d02a836", value = "The uuid of the push credential for Ios")
   @JsonIgnore
 
@@ -543,7 +543,7 @@ public class CreateCredentialConnectionRequest {
    * The uuid of the push credential for Android
    * @return androidPushCredentialId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "06b09dfd-7154-4980-8b75-cebf7a9d4f8e", value = "The uuid of the push credential for Android")
   @JsonIgnore
 
@@ -577,7 +577,7 @@ public class CreateCredentialConnectionRequest {
    * The URL where webhooks related to this connection will be sent. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com", value = "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -603,7 +603,7 @@ public class CreateCredentialConnectionRequest {
    * The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://failover.example.com", value = "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.")
   @JsonIgnore
 
@@ -637,7 +637,7 @@ public class CreateCredentialConnectionRequest {
    * Determines which webhook format will be used, Telnyx API v1, v2 or texml. Note - texml can only be set when the outbound object parameter call_parking_enabled is included and set to true.
    * @return webhookApiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "Determines which webhook format will be used, Telnyx API v1, v2 or texml. Note - texml can only be set when the outbound object parameter call_parking_enabled is included and set to true.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -665,7 +665,7 @@ public class CreateCredentialConnectionRequest {
    * maximum: 30
    * @return webhookTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "25", value = "Specifies how many seconds to wait before timing out a webhook.")
   @JsonIgnore
 
@@ -699,7 +699,7 @@ public class CreateCredentialConnectionRequest {
    * Get rtcpSettings
    * @return rtcpSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RTCP_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -725,7 +725,7 @@ public class CreateCredentialConnectionRequest {
    * Get inbound
    * @return inbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -751,7 +751,7 @@ public class CreateCredentialConnectionRequest {
    * Get outbound
    * @return outbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

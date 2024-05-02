@@ -56,7 +56,7 @@ import com.telnyx.sdk.JSON;
   WhatsAppDetailRecord.JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID,
   WhatsAppDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class WhatsAppDetailRecord {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -275,7 +275,7 @@ public class WhatsAppDetailRecord {
    * WhatsApp Message Id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "gBOGyfgaqtrewgpRTGqKuHKaTRhP", value = "WhatsApp Message Id")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -301,7 +301,7 @@ public class WhatsAppDetailRecord {
    * WhatsApp API Version
    * @return version
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v0.1.0", value = "WhatsApp API Version")
   @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -327,7 +327,7 @@ public class WhatsAppDetailRecord {
    * WhatsApp Sender Id
    * @return senderId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "18336512500", value = "WhatsApp Sender Id")
   @JsonProperty(JSON_PROPERTY_SENDER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -353,7 +353,7 @@ public class WhatsAppDetailRecord {
    * WhatsApp Recipient Id
    * @return recipientId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "18336512500", value = "WhatsApp Recipient Id")
   @JsonProperty(JSON_PROPERTY_RECIPIENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -379,7 +379,7 @@ public class WhatsAppDetailRecord {
    * WhatsApp Message Type. Consult WhatsApp API documentation to see all available types
    * @return messageType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "session", value = "WhatsApp Message Type. Consult WhatsApp API documentation to see all available types")
   @JsonProperty(JSON_PROPERTY_MESSAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -405,7 +405,7 @@ public class WhatsAppDetailRecord {
    * WhatsApp Message Status. Consult WhatsApp API documentation to see all available status
    * @return messageStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "delivered", value = "WhatsApp Message Status. Consult WhatsApp API documentation to see all available status")
   @JsonProperty(JSON_PROPERTY_MESSAGE_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -431,7 +431,7 @@ public class WhatsAppDetailRecord {
    * Logical direction of the message from the Telnyx customer&#39;s perspective. It&#39;s inbound when the Telnyx customer receives the message, or outbound otherwise
    * @return direction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "inbound", value = "Logical direction of the message from the Telnyx customer's perspective. It's inbound when the Telnyx customer receives the message, or outbound otherwise")
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -457,7 +457,7 @@ public class WhatsAppDetailRecord {
    * CLDR two-letter region-code of recipient
    * @return recipientRegionCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "CLDR two-letter region-code of recipient")
   @JsonProperty(JSON_PROPERTY_RECIPIENT_REGION_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -483,7 +483,7 @@ public class WhatsAppDetailRecord {
    * Telnyx account currency used to describe monetary values, including billing cost
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Telnyx account currency used to describe monetary values, including billing cost")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -509,7 +509,7 @@ public class WhatsAppDetailRecord {
    * A string representing Whatsapp error code. Consult WhatsApp API documentation to see all available error codes
    * @return whatsappErrorCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "490", value = "A string representing Whatsapp error code. Consult WhatsApp API documentation to see all available error codes")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_ERROR_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -535,7 +535,7 @@ public class WhatsAppDetailRecord {
    * UTC time when the message was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-08-06T03:32:01.125Z", value = "UTC time when the message was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -561,7 +561,7 @@ public class WhatsAppDetailRecord {
    * UTC time when the webhook was received
    * @return webhookReceivedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-08-06T03:32:01.125Z", value = "UTC time when the webhook was received")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_RECEIVED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -587,7 +587,7 @@ public class WhatsAppDetailRecord {
    * UUID representation of the webhook unique identifier
    * @return webhookId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "UUID representation of the webhook unique identifier")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -613,7 +613,7 @@ public class WhatsAppDetailRecord {
    * Currency amount for Telnyx billing cost
    * @return telnyxFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.003", value = "Currency amount for Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_TELNYX_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -639,7 +639,7 @@ public class WhatsAppDetailRecord {
    * Currency amount for WhatsApp cost
    * @return whatsappFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.003", value = "Currency amount for WhatsApp cost")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -665,7 +665,7 @@ public class WhatsAppDetailRecord {
    * Whatsapp Conversation ID
    * @return conversationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f44ae083-c800-4433-baac-b439e5270aa4", value = "Whatsapp Conversation ID")
   @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -691,7 +691,7 @@ public class WhatsAppDetailRecord {
    * Whatsapp Conversation Origin
    * @return conversationOrigin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Whatsapp Conversation Origin")
   @JsonProperty(JSON_PROPERTY_CONVERSATION_ORIGIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -717,7 +717,7 @@ public class WhatsAppDetailRecord {
    * Whatsapp Business Account ID
    * @return whatsappBusinessAccountId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "421452453", value = "Whatsapp Business Account ID")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -743,7 +743,7 @@ public class WhatsAppDetailRecord {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "whatsapp_detail_record", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

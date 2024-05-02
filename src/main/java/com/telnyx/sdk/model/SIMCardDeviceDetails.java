@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   SIMCardDeviceDetails.JSON_PROPERTY_DEVICE_TYPE,
   SIMCardDeviceDetails.JSON_PROPERTY_OPERATING_SYSTEM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardDeviceDetails {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -87,7 +87,7 @@ public class SIMCardDeviceDetails {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "device_details", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -103,7 +103,7 @@ public class SIMCardDeviceDetails {
    * IMEI of the device where the SIM card is being used in.
    * @return imei
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "457032284023794", value = "IMEI of the device where the SIM card is being used in.")
   @JsonProperty(JSON_PROPERTY_IMEI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class SIMCardDeviceDetails {
    * Brand of the device where the SIM card is being used in.
    * @return modelName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "iPad Pro 11 2020 Cellular", value = "Brand of the device where the SIM card is being used in.")
   @JsonProperty(JSON_PROPERTY_MODEL_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -135,7 +135,7 @@ public class SIMCardDeviceDetails {
    * Brand of the device where the SIM card is being used in.
    * @return brandName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Apple", value = "Brand of the device where the SIM card is being used in.")
   @JsonProperty(JSON_PROPERTY_BRAND_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -151,7 +151,7 @@ public class SIMCardDeviceDetails {
    * Type of the device where the SIM card is being used in.
    * @return deviceType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Tablet", value = "Type of the device where the SIM card is being used in.")
   @JsonProperty(JSON_PROPERTY_DEVICE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -167,7 +167,7 @@ public class SIMCardDeviceDetails {
    * Operating system of the device where the SIM card is being used in.
    * @return operatingSystem
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "iOS 12", value = "Operating system of the device where the SIM card is being used in.")
   @JsonProperty(JSON_PROPERTY_OPERATING_SYSTEM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

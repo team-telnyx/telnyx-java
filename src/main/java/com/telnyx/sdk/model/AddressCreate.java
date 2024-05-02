@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   AddressCreate.JSON_PROPERTY_ADDRESS_BOOK,
   AddressCreate.JSON_PROPERTY_VALIDATE_ADDRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class AddressCreate {
   public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
   private String customerReference;
@@ -110,7 +110,7 @@ public class AddressCreate {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -136,7 +136,7 @@ public class AddressCreate {
    * The first name associated with the address. An address must have either a first last name or a business name.
    * @return firstName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Alfred", required = true, value = "The first name associated with the address. An address must have either a first last name or a business name.")
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -162,7 +162,7 @@ public class AddressCreate {
    * The last name associated with the address. An address must have either a first last name or a business name.
    * @return lastName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Foster", required = true, value = "The last name associated with the address. An address must have either a first last name or a business name.")
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -188,7 +188,7 @@ public class AddressCreate {
    * The business name associated with the address. An address must have either a first last name or a business name.
    * @return businessName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Toy-O'Kon", required = true, value = "The business name associated with the address. An address must have either a first last name or a business name.")
   @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -214,7 +214,7 @@ public class AddressCreate {
    * The phone number associated with the address.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12125559000", value = "The phone number associated with the address.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -240,7 +240,7 @@ public class AddressCreate {
    * The primary street address information about the address.
    * @return streetAddress
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "311 W Superior Street", required = true, value = "The primary street address information about the address.")
   @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -266,7 +266,7 @@ public class AddressCreate {
    * Additional street address information about the address such as, but not limited to, unit number or apartment number.
    * @return extendedAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "#504", value = "Additional street address information about the address such as, but not limited to, unit number or apartment number.")
   @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -292,7 +292,7 @@ public class AddressCreate {
    * The locality of the address. For US addresses, this corresponds to the city of the address.
    * @return locality
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Chicago", required = true, value = "The locality of the address. For US addresses, this corresponds to the city of the address.")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -318,7 +318,7 @@ public class AddressCreate {
    * The locality of the address. For US addresses, this corresponds to the state of the address.
    * @return administrativeArea
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "IL", value = "The locality of the address. For US addresses, this corresponds to the state of the address.")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -344,7 +344,7 @@ public class AddressCreate {
    * The neighborhood of the address. This field is not used for addresses in the US but is used for some international addresses.
    * @return neighborhood
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Ciudad de los deportes", value = "The neighborhood of the address. This field is not used for addresses in the US but is used for some international addresses.")
   @JsonProperty(JSON_PROPERTY_NEIGHBORHOOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -370,7 +370,7 @@ public class AddressCreate {
    * The borough of the address. This field is not used for addresses in the US but is used for some international addresses.
    * @return borough
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Guadalajara", value = "The borough of the address. This field is not used for addresses in the US but is used for some international addresses.")
   @JsonProperty(JSON_PROPERTY_BOROUGH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@ public class AddressCreate {
    * The postal code of the address.
    * @return postalCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "60654", value = "The postal code of the address.")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -422,7 +422,7 @@ public class AddressCreate {
    * The two-character (ISO 3166-1 alpha-2) country code of the address.
    * @return countryCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "US", required = true, value = "The two-character (ISO 3166-1 alpha-2) country code of the address.")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -448,7 +448,7 @@ public class AddressCreate {
    * Indicates whether or not the address should be considered part of your list of addresses that appear for regular use.
    * @return addressBook
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Indicates whether or not the address should be considered part of your list of addresses that appear for regular use.")
   @JsonProperty(JSON_PROPERTY_ADDRESS_BOOK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -474,7 +474,7 @@ public class AddressCreate {
    * Indicates whether or not the address should be validated for emergency use upon creation or not. This should be left with the default value of &#x60;true&#x60; unless you have used the &#x60;/addresses/actions/validate&#x60; endpoint to validate the address separately prior to creation. If an address is not validated for emergency use upon creation and it is not valid, it will not be able to be used for emergency services.
    * @return validateAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether or not the address should be validated for emergency use upon creation or not. This should be left with the default value of `true` unless you have used the `/addresses/actions/validate` endpoint to validate the address separately prior to creation. If an address is not validated for emergency use upon creation and it is not valid, it will not be able to be used for emergency services.")
   @JsonProperty(JSON_PROPERTY_VALIDATE_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

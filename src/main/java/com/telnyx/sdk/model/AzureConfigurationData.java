@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   AzureConfigurationData.JSON_PROPERTY_ACCOUNT_NAME,
   AzureConfigurationData.JSON_PROPERTY_ACCOUNT_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class AzureConfigurationData {
   public static final String JSON_PROPERTY_BUCKET = "bucket";
   private String bucket;
@@ -62,7 +62,7 @@ public class AzureConfigurationData {
    * Name of the bucket to be used to store recording files.
    * @return bucket
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "example-bucket", value = "Name of the bucket to be used to store recording files.")
   @JsonProperty(JSON_PROPERTY_BUCKET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class AzureConfigurationData {
    * Azure Blob Storage account name
    * @return accountName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my-account", value = "Azure Blob Storage account name")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class AzureConfigurationData {
    * Azure Blob Storage account key
    * @return accountKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "bPxRfiCYEXAMPLEKEY", value = "Azure Blob Storage account key")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

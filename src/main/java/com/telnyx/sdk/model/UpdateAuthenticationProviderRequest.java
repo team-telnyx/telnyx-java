@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   UpdateAuthenticationProviderRequest.JSON_PROPERTY_SETTINGS,
   UpdateAuthenticationProviderRequest.JSON_PROPERTY_SETTINGS_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateAuthenticationProviderRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -71,7 +71,7 @@ public class UpdateAuthenticationProviderRequest {
    * The name associated with the authentication provider.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Okta", value = "The name associated with the authentication provider.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class UpdateAuthenticationProviderRequest {
    * The short name associated with the authentication provider. This must be unique and URL-friendly, as it&#39;s going to be part of the login URL.
    * @return shortName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "myorg", value = "The short name associated with the authentication provider. This must be unique and URL-friendly, as it's going to be part of the login URL.")
   @JsonProperty(JSON_PROPERTY_SHORT_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class UpdateAuthenticationProviderRequest {
    * The active status of the authentication provider
    * @return active
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "The active status of the authentication provider")
   @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -149,7 +149,7 @@ public class UpdateAuthenticationProviderRequest {
    * Get settings
    * @return settings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -175,7 +175,7 @@ public class UpdateAuthenticationProviderRequest {
    * The URL for the identity provider metadata file to populate the settings automatically. If the settings attribute is provided, that will be used instead.
    * @return settingsUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://myorg.myidp.com/saml/metadata", value = "The URL for the identity provider metadata file to populate the settings automatically. If the settings attribute is provided, that will be used instead.")
   @JsonProperty(JSON_PROPERTY_SETTINGS_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

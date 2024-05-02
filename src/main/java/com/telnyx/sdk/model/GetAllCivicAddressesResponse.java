@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   GetAllCivicAddressesResponse.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GetAllCivicAddressesResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<CivicAddress> data = null;
@@ -65,7 +65,7 @@ public class GetAllCivicAddressesResponse {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

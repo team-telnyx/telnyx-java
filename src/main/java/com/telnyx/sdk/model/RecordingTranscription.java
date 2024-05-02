@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   RecordingTranscription.JSON_PROPERTY_TRANSCRIPTION_TEXT,
   RecordingTranscription.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RecordingTranscription {
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -150,7 +150,7 @@ public class RecordingTranscription {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class RecordingTranscription {
    * The duration of the recording transcription in milliseconds.
    * @return durationMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "60000", value = "The duration of the recording transcription in milliseconds.")
   @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -202,7 +202,7 @@ public class RecordingTranscription {
    * Uniquely identifies the recording transcription.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", value = "Uniquely identifies the recording transcription.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -228,7 +228,7 @@ public class RecordingTranscription {
    * Uniquely identifies the recording associated with this transcription.
    * @return recordingId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", value = "Uniquely identifies the recording associated with this transcription.")
   @JsonProperty(JSON_PROPERTY_RECORDING_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -254,7 +254,7 @@ public class RecordingTranscription {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "recording_transcription", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -280,7 +280,7 @@ public class RecordingTranscription {
    * The status of the recording transcriptions. The transcription text will be available only when the status is completed.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed", value = "The status of the recording transcriptions. The transcription text will be available only when the status is completed.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -306,7 +306,7 @@ public class RecordingTranscription {
    * The recording&#39;s transcribed text
    * @return transcriptionText
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Good morning, how may I help you?", value = "The recording's transcribed text")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -332,7 +332,7 @@ public class RecordingTranscription {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

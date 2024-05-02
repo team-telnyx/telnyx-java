@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   CreateAssistantRequest.JSON_PROPERTY_INSTRUCTIONS,
   CreateAssistantRequest.JSON_PROPERTY_TOOLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateAssistantRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -73,7 +73,7 @@ public class CreateAssistantRequest {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -99,7 +99,7 @@ public class CreateAssistantRequest {
    * Get model
    * @return model
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MODEL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -125,7 +125,7 @@ public class CreateAssistantRequest {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -151,7 +151,7 @@ public class CreateAssistantRequest {
    * Get instructions
    * @return instructions
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_INSTRUCTIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -185,7 +185,7 @@ public class CreateAssistantRequest {
    * Get tools
    * @return tools
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TOOLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

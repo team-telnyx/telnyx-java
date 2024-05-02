@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   RegistrationStatus.JSON_PROPERTY_USER_AGENT,
   RegistrationStatus.JSON_PROPERTY_LAST_REGISTRATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RegistrationStatus {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -125,7 +125,7 @@ public class RegistrationStatus {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "registration_status", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -151,7 +151,7 @@ public class RegistrationStatus {
    * The current registration status of your SIP connection
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The current registration status of your SIP connection")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -177,7 +177,7 @@ public class RegistrationStatus {
    * The user name of the SIP connection
    * @return sipUsername
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sip_username", value = "The user name of the SIP connection")
   @JsonProperty(JSON_PROPERTY_SIP_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -203,7 +203,7 @@ public class RegistrationStatus {
    * The ip used during the SIP connection
    * @return ipAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "190.106.106.121", value = "The ip used during the SIP connection")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -229,7 +229,7 @@ public class RegistrationStatus {
    * The protocol of the SIP connection
    * @return transport
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "TCP", value = "The protocol of the SIP connection")
   @JsonProperty(JSON_PROPERTY_TRANSPORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -255,7 +255,7 @@ public class RegistrationStatus {
    * The port of the SIP connection
    * @return port
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "37223", value = "The port of the SIP connection")
   @JsonProperty(JSON_PROPERTY_PORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -281,7 +281,7 @@ public class RegistrationStatus {
    * The user agent of the SIP connection
    * @return userAgent
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Z 5.4.12 v2.10.13.2-mod", value = "The user agent of the SIP connection")
   @JsonProperty(JSON_PROPERTY_USER_AGENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -307,7 +307,7 @@ public class RegistrationStatus {
    * ISO 8601 formatted date indicating when the resource was last updated.
    * @return lastRegistration
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was last updated.")
   @JsonProperty(JSON_PROPERTY_LAST_REGISTRATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

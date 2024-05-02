@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   EmbeddingBucketRequest.JSON_PROPERTY_EMBEDDING_MODEL,
   EmbeddingBucketRequest.JSON_PROPERTY_LOADER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class EmbeddingBucketRequest {
   public static final String JSON_PROPERTY_BUCKET_NAME = "bucket_name";
   private String bucketName;
@@ -72,7 +72,7 @@ public class EmbeddingBucketRequest {
    * Get bucketName
    * @return bucketName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUCKET_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -98,7 +98,7 @@ public class EmbeddingBucketRequest {
    * Get documentChunkSize
    * @return documentChunkSize
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_CHUNK_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class EmbeddingBucketRequest {
    * Get documentChunkOverlapSize
    * @return documentChunkOverlapSize
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_CHUNK_OVERLAP_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class EmbeddingBucketRequest {
    * Get embeddingModel
    * @return embeddingModel
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_EMBEDDING_MODEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class EmbeddingBucketRequest {
    * Get loader
    * @return loader
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOADER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

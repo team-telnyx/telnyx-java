@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   NumberPoolSettings.JSON_PROPERTY_STICKY_SENDER,
   NumberPoolSettings.JSON_PROPERTY_GEOMATCH
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class NumberPoolSettings {
   public static final String JSON_PROPERTY_TOLL_FREE_WEIGHT = "toll_free_weight";
   private BigDecimal tollFreeWeight;
@@ -72,7 +72,7 @@ public class NumberPoolSettings {
    * Defines the probability weight for a Toll Free number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100. Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. 
    * @return tollFreeWeight
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "10", required = true, value = "Defines the probability weight for a Toll Free number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100. Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. ")
   @JsonProperty(JSON_PROPERTY_TOLL_FREE_WEIGHT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -98,7 +98,7 @@ public class NumberPoolSettings {
    * Defines the probability weight for a Long Code number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100.  Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. 
    * @return longCodeWeight
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1", required = true, value = "Defines the probability weight for a Long Code number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100.  Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. ")
   @JsonProperty(JSON_PROPERTY_LONG_CODE_WEIGHT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -124,7 +124,7 @@ public class NumberPoolSettings {
    * If set to true all unhealthy numbers will be automatically excluded from the pool. Health metrics per number are calculated on a regular basis, taking into account the deliverability rate and the amount of messages marked as spam by upstream carriers. Numbers with a deliverability rate below 25% or spam ratio over 75% will be considered unhealthy. 
    * @return skipUnhealthy
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "If set to true all unhealthy numbers will be automatically excluded from the pool. Health metrics per number are calculated on a regular basis, taking into account the deliverability rate and the amount of messages marked as spam by upstream carriers. Numbers with a deliverability rate below 25% or spam ratio over 75% will be considered unhealthy. ")
   @JsonProperty(JSON_PROPERTY_SKIP_UNHEALTHY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -150,7 +150,7 @@ public class NumberPoolSettings {
    * If set to true, Number Pool will try to choose the same sending number for all messages to a particular recipient. If the sending number becomes unhealthy and &#x60;skip_unhealthy&#x60; is set to true, a new number will be chosen. 
    * @return stickySender
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If set to true, Number Pool will try to choose the same sending number for all messages to a particular recipient. If the sending number becomes unhealthy and `skip_unhealthy` is set to true, a new number will be chosen. ")
   @JsonProperty(JSON_PROPERTY_STICKY_SENDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class NumberPoolSettings {
    * If set to true, Number Pool will try to choose a sending number with the same area code as the destination number. If there are no such numbers available, a nunber with a different area code will be chosen. Currently only NANP numbers are supported. 
    * @return geomatch
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If set to true, Number Pool will try to choose a sending number with the same area code as the destination number. If there are no such numbers available, a nunber with a different area code will be chosen. Currently only NANP numbers are supported. ")
   @JsonProperty(JSON_PROPERTY_GEOMATCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

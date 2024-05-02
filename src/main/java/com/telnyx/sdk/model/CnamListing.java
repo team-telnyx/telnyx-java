@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CnamListing.JSON_PROPERTY_CNAM_LISTING_ENABLED,
   CnamListing.JSON_PROPERTY_CNAM_LISTING_DETAILS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CnamListing {
   public static final String JSON_PROPERTY_CNAM_LISTING_ENABLED = "cnam_listing_enabled";
   private Boolean cnamListingEnabled = false;
@@ -59,7 +59,7 @@ public class CnamListing {
    * Enables CNAM listings for this number. Requires cnam_listing_details to also be set.
    * @return cnamListingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Enables CNAM listings for this number. Requires cnam_listing_details to also be set.")
   @JsonProperty(JSON_PROPERTY_CNAM_LISTING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class CnamListing {
    * The CNAM listing details for this number. Must be alphanumeric characters or spaces with a maximum length of 15. Requires cnam_listing_enabled to also be set to true.
    * @return cnamListingDetails
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The CNAM listing details for this number. Must be alphanumeric characters or spaces with a maximum length of 15. Requires cnam_listing_enabled to also be set to true.")
   @JsonProperty(JSON_PROPERTY_CNAM_LISTING_DETAILS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

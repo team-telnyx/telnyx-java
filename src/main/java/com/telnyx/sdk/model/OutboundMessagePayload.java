@@ -71,7 +71,7 @@ import com.telnyx.sdk.JSON;
   OutboundMessagePayload.JSON_PROPERTY_VALID_UNTIL,
   OutboundMessagePayload.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class OutboundMessagePayload {
   /**
    * Identifies the type of the resource.
@@ -252,7 +252,7 @@ public class OutboundMessagePayload {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "message", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -278,7 +278,7 @@ public class OutboundMessagePayload {
    * The direction of the message. Inbound messages are sent to you whereas outbound messages are sent from you.
    * @return direction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "outbound", value = "The direction of the message. Inbound messages are sent to you whereas outbound messages are sent from you.")
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -304,7 +304,7 @@ public class OutboundMessagePayload {
    * Identifies the type of resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -330,7 +330,7 @@ public class OutboundMessagePayload {
    * The type of message.
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The type of message.")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -356,7 +356,7 @@ public class OutboundMessagePayload {
    * Unique identifier for a messaging profile.
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier for a messaging profile.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -382,7 +382,7 @@ public class OutboundMessagePayload {
    * The id of the organization the messaging profile belongs to.
    * @return organizationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The id of the organization the messaging profile belongs to.")
   @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -408,7 +408,7 @@ public class OutboundMessagePayload {
    * Get from
    * @return from
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -442,7 +442,7 @@ public class OutboundMessagePayload {
    * Get to
    * @return to
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -468,7 +468,7 @@ public class OutboundMessagePayload {
    * Message body (i.e., content) as a non-empty string.  **Required for SMS**
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message body (i.e., content) as a non-empty string.  **Required for SMS**")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -494,7 +494,7 @@ public class OutboundMessagePayload {
    * Subject of multimedia message
    * @return subject
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Subject of multimedia message")
   @JsonIgnore
 
@@ -536,7 +536,7 @@ public class OutboundMessagePayload {
    * Get media
    * @return media
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -562,7 +562,7 @@ public class OutboundMessagePayload {
    * The URL where webhooks related to this message will be sent.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The URL where webhooks related to this message will be sent.")
   @JsonIgnore
 
@@ -596,7 +596,7 @@ public class OutboundMessagePayload {
    * The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.
    * @return webhookFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.")
   @JsonIgnore
 
@@ -630,7 +630,7 @@ public class OutboundMessagePayload {
    * Encoding scheme used for the message body.
    * @return encoding
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Encoding scheme used for the message body.")
   @JsonProperty(JSON_PROPERTY_ENCODING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -658,7 +658,7 @@ public class OutboundMessagePayload {
    * maximum: 10
    * @return parts
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Number of parts into which the message's body must be split.")
   @JsonProperty(JSON_PROPERTY_PARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -692,7 +692,7 @@ public class OutboundMessagePayload {
    * Tags associated with the resource.
    * @return tags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Tags associated with the resource.")
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -718,7 +718,7 @@ public class OutboundMessagePayload {
    * Get cost
    * @return cost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -752,7 +752,7 @@ public class OutboundMessagePayload {
    * ISO 8601 formatted date indicating when the message request was received.
    * @return receivedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the message request was received.")
   @JsonProperty(JSON_PROPERTY_RECEIVED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -778,7 +778,7 @@ public class OutboundMessagePayload {
    * ISO 8601 formatted date indicating when the message was sent.
    * @return sentAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the message was sent.")
   @JsonProperty(JSON_PROPERTY_SENT_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -804,7 +804,7 @@ public class OutboundMessagePayload {
    * ISO 8601 formatted date indicating when the message was finalized.
    * @return completedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the message was finalized.")
   @JsonProperty(JSON_PROPERTY_COMPLETED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -830,7 +830,7 @@ public class OutboundMessagePayload {
    * Message must be out of the queue by this time or else it will be discarded and marked as &#39;sending_failed&#39;. Once the message moves out of the queue, this field will be nulled
    * @return validUntil
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message must be out of the queue by this time or else it will be discarded and marked as 'sending_failed'. Once the message moves out of the queue, this field will be nulled")
   @JsonIgnore
 
@@ -872,7 +872,7 @@ public class OutboundMessagePayload {
    * These errors may point at addressees when referring to unsuccessful/unconfirmed delivery statuses.
    * @return errors
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "These errors may point at addressees when referring to unsuccessful/unconfirmed delivery statuses.")
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

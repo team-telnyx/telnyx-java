@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   MobileNetworkOperator.JSON_PROPERTY_MNC,
   MobileNetworkOperator.JSON_PROPERTY_NETWORK_PREFERENCES_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MobileNetworkOperator {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -90,7 +90,7 @@ public class MobileNetworkOperator {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -106,7 +106,7 @@ public class MobileNetworkOperator {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "mobile_network_operator", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -127,7 +127,7 @@ public class MobileNetworkOperator {
    * The network operator name.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "AT&T Mobility (USACG)", value = "The network operator name.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -153,7 +153,7 @@ public class MobileNetworkOperator {
    * TADIG stands for Transferred Account Data Interchange Group. The TADIG code is a unique identifier for network operators in GSM mobile networks.
    * @return tadig
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USACG", value = "TADIG stands for Transferred Account Data Interchange Group. The TADIG code is a unique identifier for network operators in GSM mobile networks.")
   @JsonProperty(JSON_PROPERTY_TADIG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -179,7 +179,7 @@ public class MobileNetworkOperator {
    * The mobile operator two-character (ISO 3166-1 alpha-2) origin country code.
    * @return countryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "The mobile operator two-character (ISO 3166-1 alpha-2) origin country code.")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -205,7 +205,7 @@ public class MobileNetworkOperator {
    * MCC stands for Mobile Country Code. It&#39;s a three decimal digit that identifies a country.&lt;br/&gt;&lt;br/&gt; This code is commonly seen joined with a Mobile Network Code (MNC) in a tuple that allows identifying a carrier known as PLMN (Public Land Mobile Network) code.
    * @return mcc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "310", value = "MCC stands for Mobile Country Code. It's a three decimal digit that identifies a country.<br/><br/> This code is commonly seen joined with a Mobile Network Code (MNC) in a tuple that allows identifying a carrier known as PLMN (Public Land Mobile Network) code.")
   @JsonProperty(JSON_PROPERTY_MCC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -231,7 +231,7 @@ public class MobileNetworkOperator {
    * MNC stands for Mobile Network Code. It&#39;s a two to three decimal digits that identify a network.&lt;br/&gt;&lt;br/&gt;  This code is commonly seen joined with a Mobile Country Code (MCC) in a tuple that allows identifying a carrier known as PLMN (Public Land Mobile Network) code.
    * @return mnc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "410", value = "MNC stands for Mobile Network Code. It's a two to three decimal digits that identify a network.<br/><br/>  This code is commonly seen joined with a Mobile Country Code (MCC) in a tuple that allows identifying a carrier known as PLMN (Public Land Mobile Network) code.")
   @JsonProperty(JSON_PROPERTY_MNC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -252,7 +252,7 @@ public class MobileNetworkOperator {
    * Indicate whether the mobile network operator can be set as preferred in the Network Preferences API.
    * @return networkPreferencesEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicate whether the mobile network operator can be set as preferred in the Network Preferences API.")
   @JsonProperty(JSON_PROPERTY_NETWORK_PREFERENCES_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

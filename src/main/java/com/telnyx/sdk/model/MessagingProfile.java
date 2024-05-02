@@ -60,7 +60,7 @@ import com.telnyx.sdk.JSON;
   MessagingProfile.JSON_PROPERTY_URL_SHORTENER_SETTINGS,
   MessagingProfile.JSON_PROPERTY_ALPHA_SENDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MessagingProfile {
   /**
    * Identifies the type of the resource.
@@ -195,7 +195,7 @@ public class MessagingProfile {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -211,7 +211,7 @@ public class MessagingProfile {
    * Identifies the type of resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -232,7 +232,7 @@ public class MessagingProfile {
    * A user friendly name for the messaging profile.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A user friendly name for the messaging profile.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -258,7 +258,7 @@ public class MessagingProfile {
    * Specifies whether the messaging profile is enabled or not.
    * @return enabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies whether the messaging profile is enabled or not.")
   @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -284,7 +284,7 @@ public class MessagingProfile {
    * The URL where webhooks related to this messaging profile will be sent.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The URL where webhooks related to this messaging profile will be sent.")
   @JsonIgnore
 
@@ -318,7 +318,7 @@ public class MessagingProfile {
    * The failover URL where webhooks related to this messaging profile will be sent if sending to the primary URL fails.
    * @return webhookFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The failover URL where webhooks related to this messaging profile will be sent if sending to the primary URL fails.")
   @JsonIgnore
 
@@ -352,7 +352,7 @@ public class MessagingProfile {
    * Determines which webhook format will be used, Telnyx API v1, v2, or a legacy 2010-04-01 format.
    * @return webhookApiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Determines which webhook format will be used, Telnyx API v1, v2, or a legacy 2010-04-01 format.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -386,7 +386,7 @@ public class MessagingProfile {
    * Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60;, all destinations will be allowed.
    * @return whitelistedDestinations
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]`, all destinations will be allowed.")
   @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -407,7 +407,7 @@ public class MessagingProfile {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -423,7 +423,7 @@ public class MessagingProfile {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -444,7 +444,7 @@ public class MessagingProfile {
    * Secret used to authenticate with v1 endpoints.
    * @return v1Secret
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Secret used to authenticate with v1 endpoints.")
   @JsonProperty(JSON_PROPERTY_V1_SECRET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -470,7 +470,7 @@ public class MessagingProfile {
    * Get numberPoolSettings
    * @return numberPoolSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -504,7 +504,7 @@ public class MessagingProfile {
    * Get urlShortenerSettings
    * @return urlShortenerSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -538,7 +538,7 @@ public class MessagingProfile {
    * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.
    * @return alphaSender
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.")
   @JsonIgnore
 

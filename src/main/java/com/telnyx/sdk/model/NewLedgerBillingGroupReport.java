@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   NewLedgerBillingGroupReport.JSON_PROPERTY_YEAR,
   NewLedgerBillingGroupReport.JSON_PROPERTY_MONTH
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class NewLedgerBillingGroupReport {
   public static final String JSON_PROPERTY_YEAR = "year";
   private Integer year;
@@ -58,7 +58,7 @@ public class NewLedgerBillingGroupReport {
    * Year of the ledger billing group report
    * @return year
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019", value = "Year of the ledger billing group report")
   @JsonProperty(JSON_PROPERTY_YEAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class NewLedgerBillingGroupReport {
    * Month of the ledger billing group report
    * @return month
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "Month of the ledger billing group report")
   @JsonProperty(JSON_PROPERTY_MONTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

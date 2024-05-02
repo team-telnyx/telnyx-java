@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   UploadMediaRequest.JSON_PROPERTY_TTL_SECS,
   UploadMediaRequest.JSON_PROPERTY_MEDIA_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UploadMediaRequest {
   public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
   private String mediaUrl;
@@ -62,7 +62,7 @@ public class UploadMediaRequest {
    * The URL where the media to be stored in Telnyx network is currently hosted. The maximum allowed size is 20 MB.
    * @return mediaUrl
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "http://www.example.com/audio.mp3", required = true, value = "The URL where the media to be stored in Telnyx network is currently hosted. The maximum allowed size is 20 MB.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -88,7 +88,7 @@ public class UploadMediaRequest {
    * The number of seconds after which the media resource will be deleted, defaults to 2 days. The maximum allowed vale is 630720000, which translates to 20 years.
    * @return ttlSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "86400", value = "The number of seconds after which the media resource will be deleted, defaults to 2 days. The maximum allowed vale is 630720000, which translates to 20 years.")
   @JsonProperty(JSON_PROPERTY_TTL_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class UploadMediaRequest {
    * The unique identifier of a file.
    * @return mediaName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_file", value = "The unique identifier of a file.")
   @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

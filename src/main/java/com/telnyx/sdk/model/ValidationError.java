@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   ValidationError.JSON_PROPERTY_MSG,
   ValidationError.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ValidationError {
   public static final String JSON_PROPERTY_LOC = "loc";
   private List<Location1Inner> loc = new ArrayList<>();
@@ -70,7 +70,7 @@ public class ValidationError {
    * Get loc
    * @return loc
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_LOC)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -96,7 +96,7 @@ public class ValidationError {
    * Get msg
    * @return msg
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MSG)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -122,7 +122,7 @@ public class ValidationError {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

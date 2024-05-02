@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   SIMCardRegistration.JSON_PROPERTY_REGISTRATION_CODES,
   SIMCardRegistration.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardRegistration {
   public static final String JSON_PROPERTY_SIM_CARD_GROUP_ID = "sim_card_group_id";
   private UUID simCardGroupId;
@@ -106,7 +106,7 @@ public class SIMCardRegistration {
    * The group SIMCardGroup identification. This attribute can be &lt;code&gt;null&lt;/code&gt; when it&#39;s present in an associated resource.
    * @return simCardGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The group SIMCardGroup identification. This attribute can be <code>null</code> when it's present in an associated resource.")
   @JsonProperty(JSON_PROPERTY_SIM_CARD_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -140,7 +140,7 @@ public class SIMCardRegistration {
    * Searchable tags associated with the SIM card
    * @return tags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"personal\",\"customers\",\"active-customers\"]", value = "Searchable tags associated with the SIM card")
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -171,7 +171,7 @@ public class SIMCardRegistration {
    * Get registrationCodes
    * @return registrationCodes
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"0000000001\",\"0000000002\",\"0000000003\"]", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_REGISTRATION_CODES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -197,7 +197,7 @@ public class SIMCardRegistration {
    * Status on which the SIM card will be set after being successful registered.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "standby", value = "Status on which the SIM card will be set after being successful registered.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

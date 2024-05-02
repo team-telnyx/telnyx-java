@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   WirelessCost.JSON_PROPERTY_AMOUNT,
   WirelessCost.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class WirelessCost {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private String amount;
@@ -99,7 +99,7 @@ public class WirelessCost {
    * Final cost. Cost is calculated as rate * unit
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.1", value = "Final cost. Cost is calculated as rate * unit")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -125,7 +125,7 @@ public class WirelessCost {
    * Currency of the rate and cost
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Currency of the rate and cost")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

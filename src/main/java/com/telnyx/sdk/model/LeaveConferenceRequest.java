@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   LeaveConferenceRequest.JSON_PROPERTY_COMMAND_ID,
   LeaveConferenceRequest.JSON_PROPERTY_BEEP_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class LeaveConferenceRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -101,7 +101,7 @@ public class LeaveConferenceRequest {
    * Unique identifier and token for controlling the call
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "f91269aa-61d1-417f-97b3-10e020e8bc47", required = true, value = "Unique identifier and token for controlling the call")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -127,7 +127,7 @@ public class LeaveConferenceRequest {
    * Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same &#x60;command_id&#x60; as one that has already been executed.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -153,7 +153,7 @@ public class LeaveConferenceRequest {
    * Whether a beep sound should be played when the participant leaves the conference. Can be used to override the conference-level setting.
    * @return beepEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "on_exit", value = "Whether a beep sound should be played when the participant leaves the conference. Can be used to override the conference-level setting.")
   @JsonProperty(JSON_PROPERTY_BEEP_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

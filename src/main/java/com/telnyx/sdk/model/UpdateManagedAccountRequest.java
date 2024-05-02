@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateManagedAccountRequest.JSON_PROPERTY_MANAGED_ACCOUNT_ALLOW_CUSTOM_PRICING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateManagedAccountRequest {
   public static final String JSON_PROPERTY_MANAGED_ACCOUNT_ALLOW_CUSTOM_PRICING = "managed_account_allow_custom_pricing";
   private Boolean managedAccountAllowCustomPricing;
@@ -54,7 +54,7 @@ public class UpdateManagedAccountRequest {
    * Boolean value that indicates if the managed account is able to have custom pricing set for it or not. If false, uses the pricing of the manager account. Defaults to false. This value may be changed, but there may be time lag between when the value is changed and pricing changes take effect.
    * @return managedAccountAllowCustomPricing
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Boolean value that indicates if the managed account is able to have custom pricing set for it or not. If false, uses the pricing of the manager account. Defaults to false. This value may be changed, but there may be time lag between when the value is changed and pricing changes take effect.")
   @JsonProperty(JSON_PROPERTY_MANAGED_ACCOUNT_ALLOW_CUSTOM_PRICING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

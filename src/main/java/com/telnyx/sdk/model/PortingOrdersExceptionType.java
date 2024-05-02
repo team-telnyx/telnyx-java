@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PortingOrdersExceptionType.JSON_PROPERTY_CODE,
   PortingOrdersExceptionType.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrdersExceptionType {
   /**
    * Identifier of an exception type
@@ -133,7 +133,7 @@ public class PortingOrdersExceptionType {
    * Identifier of an exception type
    * @return code
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ENTITY_NAME_MISMATCH", value = "Identifier of an exception type")
   @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -159,7 +159,7 @@ public class PortingOrdersExceptionType {
    * Description of an exception type
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Entity name does not match that on the CSR", value = "Description of an exception type")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

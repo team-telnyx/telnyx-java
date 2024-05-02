@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderEndUserAdmin.JSON_PROPERTY_PIN_PASSCODE,
   PortingOrderEndUserAdmin.JSON_PROPERTY_BUSINESS_IDENTIFIER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrderEndUserAdmin {
   public static final String JSON_PROPERTY_ENTITY_NAME = "entity_name";
   private String entityName;
@@ -78,7 +78,7 @@ public class PortingOrderEndUserAdmin {
    * Person Name or Company name requesting the port
    * @return entityName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Porter McPortersen", value = "Person Name or Company name requesting the port")
   @JsonProperty(JSON_PROPERTY_ENTITY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -104,7 +104,7 @@ public class PortingOrderEndUserAdmin {
    * Name of person authorizing the porting order
    * @return authPersonName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Porter McPortersen II", value = "Name of person authorizing the porting order")
   @JsonProperty(JSON_PROPERTY_AUTH_PERSON_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -130,7 +130,7 @@ public class PortingOrderEndUserAdmin {
    * Billing phone number associated with these phone numbers
    * @return billingPhoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "13035551234", value = "Billing phone number associated with these phone numbers")
   @JsonProperty(JSON_PROPERTY_BILLING_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -156,7 +156,7 @@ public class PortingOrderEndUserAdmin {
    * The authorized person&#39;s account number with the current service provider
    * @return accountNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123abc", value = "The authorized person's account number with the current service provider")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -182,7 +182,7 @@ public class PortingOrderEndUserAdmin {
    * European tax identification number. Applicable only in the European Union
    * @return taxIdentifier
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1234abcd", value = "European tax identification number. Applicable only in the European Union")
   @JsonProperty(JSON_PROPERTY_TAX_IDENTIFIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -208,7 +208,7 @@ public class PortingOrderEndUserAdmin {
    * PIN/passcode possibly required by the old service provider for extra verification
    * @return pinPasscode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1234", value = "PIN/passcode possibly required by the old service provider for extra verification")
   @JsonProperty(JSON_PROPERTY_PIN_PASSCODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -234,7 +234,7 @@ public class PortingOrderEndUserAdmin {
    * European business identification number. Applicable only in the European Union
    * @return businessIdentifier
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "abc123", value = "European business identification number. Applicable only in the European Union")
   @JsonProperty(JSON_PROPERTY_BUSINESS_IDENTIFIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

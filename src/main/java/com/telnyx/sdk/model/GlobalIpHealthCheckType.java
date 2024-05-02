@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpHealthCheckType.JSON_PROPERTY_HEALTH_CHECK_TYPE,
   GlobalIpHealthCheckType.JSON_PROPERTY_HEALTH_CHECK_PARAMS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIpHealthCheckType {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -65,7 +65,7 @@ public class GlobalIpHealthCheckType {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "global_ip_health_check_type", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class GlobalIpHealthCheckType {
    * Global IP Health check type.
    * @return healthCheckType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http_status_2xx", value = "Global IP Health check type.")
   @JsonProperty(JSON_PROPERTY_HEALTH_CHECK_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class GlobalIpHealthCheckType {
    * Global IP Health check params.
    * @return healthCheckParams
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "{\"health_check_params\":{\"path\":\"str\",\"port\":\"int\"}}", value = "Global IP Health check params.")
   @JsonProperty(JSON_PROPERTY_HEALTH_CHECK_PARAMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

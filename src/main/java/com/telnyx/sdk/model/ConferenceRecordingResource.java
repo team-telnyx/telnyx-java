@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   ConferenceRecordingResource.JSON_PROPERTY_SUBRESOURCE_URIS,
   ConferenceRecordingResource.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ConferenceRecordingResource {
   public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
   private String accountSid;
@@ -194,7 +194,7 @@ public class ConferenceRecordingResource {
    * The id of the account the resource belongs to.
    * @return accountSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "The id of the account the resource belongs to.")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -220,7 +220,7 @@ public class ConferenceRecordingResource {
    * The identifier of the related participant&#39;s call.
    * @return callSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ", value = "The identifier of the related participant's call.")
   @JsonProperty(JSON_PROPERTY_CALL_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -246,7 +246,7 @@ public class ConferenceRecordingResource {
    * The number of channels in the recording.
    * @return channels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "The number of channels in the recording.")
   @JsonProperty(JSON_PROPERTY_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -272,7 +272,7 @@ public class ConferenceRecordingResource {
    * The identifier of the related conference.
    * @return conferenceSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f", value = "The identifier of the related conference.")
   @JsonProperty(JSON_PROPERTY_CONFERENCE_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -298,7 +298,7 @@ public class ConferenceRecordingResource {
    * The timestamp of when the resource was created.
    * @return dateCreated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The timestamp of when the resource was created.")
   @JsonProperty(JSON_PROPERTY_DATE_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -324,7 +324,7 @@ public class ConferenceRecordingResource {
    * The timestamp of when the resource was last updated.
    * @return dateUpdated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The timestamp of when the resource was last updated.")
   @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -350,7 +350,7 @@ public class ConferenceRecordingResource {
    * Duratin of the recording in seconds.
    * @return duration
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "Duratin of the recording in seconds.")
   @JsonProperty(JSON_PROPERTY_DURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -376,7 +376,7 @@ public class ConferenceRecordingResource {
    * The recording error, if any.
    * @return errorCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The recording error, if any.")
   @JsonProperty(JSON_PROPERTY_ERROR_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -402,7 +402,7 @@ public class ConferenceRecordingResource {
    * The URL to use to download the recording.
    * @return mediaUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/download.mp3", value = "The URL to use to download the recording.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -428,7 +428,7 @@ public class ConferenceRecordingResource {
    * The unique identifier of the recording.
    * @return sid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "136285da-4b74-46f1-a016-fe2982fa77c3", value = "The unique identifier of the recording.")
   @JsonProperty(JSON_PROPERTY_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -454,7 +454,7 @@ public class ConferenceRecordingResource {
    * How the recording was started.
    * @return source
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "StartConferenceRecordingAPI", value = "How the recording was started.")
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -480,7 +480,7 @@ public class ConferenceRecordingResource {
    * The timestamp of when the recording was started.
    * @return startTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The timestamp of when the recording was started.")
   @JsonProperty(JSON_PROPERTY_START_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -506,7 +506,7 @@ public class ConferenceRecordingResource {
    * The status of the recording.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed", value = "The status of the recording.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -532,7 +532,7 @@ public class ConferenceRecordingResource {
    * A list of related resources identified by their relative URIs.
    * @return subresourceUris
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "{\"transcriptions\":null}", value = "A list of related resources identified by their relative URIs.")
   @JsonProperty(JSON_PROPERTY_SUBRESOURCE_URIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -558,7 +558,7 @@ public class ConferenceRecordingResource {
    * The relative URI for this recording.
    * @return uri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/136285da-4b74-46f1-a016-fe2982fa77c3.json", value = "The relative URI for this recording.")
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

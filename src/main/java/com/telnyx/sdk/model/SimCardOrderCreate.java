@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   SimCardOrderCreate.JSON_PROPERTY_ADDRESS_ID,
   SimCardOrderCreate.JSON_PROPERTY_QUANTITY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SimCardOrderCreate {
   public static final String JSON_PROPERTY_ADDRESS_ID = "address_id";
   private String addressId;
@@ -58,7 +58,7 @@ public class SimCardOrderCreate {
    * Uniquely identifies the address for the order.
    * @return addressId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1293384261075731499", required = true, value = "Uniquely identifies the address for the order.")
   @JsonProperty(JSON_PROPERTY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -85,7 +85,7 @@ public class SimCardOrderCreate {
    * minimum: 1
    * @return quantity
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "23", required = true, value = "The amount of SIM cards to order.")
   @JsonProperty(JSON_PROPERTY_QUANTITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

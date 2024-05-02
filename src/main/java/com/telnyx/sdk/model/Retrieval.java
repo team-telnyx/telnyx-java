@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   Retrieval.JSON_PROPERTY_TYPE,
   Retrieval.JSON_PROPERTY_RETRIEVAL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Retrieval {
   /**
    * Gets or Sets type
@@ -92,7 +92,7 @@ public class Retrieval {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -118,7 +118,7 @@ public class Retrieval {
    * Get retrieval
    * @return retrieval
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RETRIEVAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

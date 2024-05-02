@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRecordResult.JSON_PROPERTY_ADMIN,
   CustomerServiceRecordResult.JSON_PROPERTY_ADDRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CustomerServiceRecordResult {
   public static final String JSON_PROPERTY_CARRIER_NAME = "carrier_name";
   private String carrierName;
@@ -71,7 +71,7 @@ public class CustomerServiceRecordResult {
    * The name of the carrier that the customer service record is for.
    * @return carrierName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ABC CARRIER, INC.", value = "The name of the carrier that the customer service record is for.")
   @JsonProperty(JSON_PROPERTY_CARRIER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -105,7 +105,7 @@ public class CustomerServiceRecordResult {
    * The associated phone numbers of the customer service record.
    * @return associatedPhoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The associated phone numbers of the customer service record.")
   @JsonProperty(JSON_PROPERTY_ASSOCIATED_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -131,7 +131,7 @@ public class CustomerServiceRecordResult {
    * Get admin
    * @return admin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -157,7 +157,7 @@ public class CustomerServiceRecordResult {
    * Get address
    * @return address
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -58,7 +58,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberWithMessagingSettings.JSON_PROPERTY_MESSAGING_PRODUCT,
   PhoneNumberWithMessagingSettings.JSON_PROPERTY_FEATURES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PhoneNumberWithMessagingSettings {
   /**
    * Identifies the type of the resource.
@@ -208,7 +208,7 @@ public class PhoneNumberWithMessagingSettings {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "messaging_settings", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -224,7 +224,7 @@ public class PhoneNumberWithMessagingSettings {
    * Identifies the type of resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -240,7 +240,7 @@ public class PhoneNumberWithMessagingSettings {
    * +E.164 formatted phone number.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "+E.164 formatted phone number.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -261,7 +261,7 @@ public class PhoneNumberWithMessagingSettings {
    * Unique identifier for a messaging profile.
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier for a messaging profile.")
   @JsonIgnore
 
@@ -290,7 +290,7 @@ public class PhoneNumberWithMessagingSettings {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -306,7 +306,7 @@ public class PhoneNumberWithMessagingSettings {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -322,7 +322,7 @@ public class PhoneNumberWithMessagingSettings {
    * ISO 3166-1 alpha-2 country code.
    * @return countryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "ISO 3166-1 alpha-2 country code.")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -338,7 +338,7 @@ public class PhoneNumberWithMessagingSettings {
    * The type of the phone number
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The type of the phone number")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -359,7 +359,7 @@ public class PhoneNumberWithMessagingSettings {
    * Get health
    * @return health
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_HEALTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -380,7 +380,7 @@ public class PhoneNumberWithMessagingSettings {
    * The messaging products that this number can be registered to use
    * @return eligibleMessagingProducts
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The messaging products that this number can be registered to use")
   @JsonProperty(JSON_PROPERTY_ELIGIBLE_MESSAGING_PRODUCTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@ public class PhoneNumberWithMessagingSettings {
    * The messaging traffic or use case for which the number is currently configured.
    * @return trafficType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "P2P", value = "The messaging traffic or use case for which the number is currently configured.")
   @JsonProperty(JSON_PROPERTY_TRAFFIC_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -417,7 +417,7 @@ public class PhoneNumberWithMessagingSettings {
    * The messaging product that the number is registered to use
    * @return messagingProduct
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "P2P", value = "The messaging product that the number is registered to use")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PRODUCT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -443,7 +443,7 @@ public class PhoneNumberWithMessagingSettings {
    * Get features
    * @return features
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FEATURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

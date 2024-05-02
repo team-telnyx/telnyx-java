@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpAssignmentUsageMetricReceived.JSON_PROPERTY_AMOUNT,
   GlobalIpAssignmentUsageMetricReceived.JSON_PROPERTY_UNIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIpAssignmentUsageMetricReceived {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private BigDecimal amount;
@@ -59,7 +59,7 @@ public class GlobalIpAssignmentUsageMetricReceived {
    * The amount of data received.
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100000", value = "The amount of data received.")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class GlobalIpAssignmentUsageMetricReceived {
    * The unit of the amount of data received.
    * @return unit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "B", value = "The unit of the amount of data received.")
   @JsonProperty(JSON_PROPERTY_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

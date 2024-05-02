@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CreateAndroidPushCredentialRequest.JSON_PROPERTY_SERVER_KEY,
   CreateAndroidPushCredentialRequest.JSON_PROPERTY_ALIAS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateAndroidPushCredentialRequest {
   /**
    * Type of mobile push credential. Should be &lt;code&gt;android&lt;/code&gt; here
@@ -95,7 +95,7 @@ public class CreateAndroidPushCredentialRequest {
    * Type of mobile push credential. Should be &lt;code&gt;android&lt;/code&gt; here
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Type of mobile push credential. Should be <code>android</code> here")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -121,7 +121,7 @@ public class CreateAndroidPushCredentialRequest {
    * Server key as received from Google firebase
    * @return serverKey
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "BBBB0J56jd8kda:APA91vjb11BCjvxx3Jxja...", required = true, value = "Server key as received from Google firebase")
   @JsonProperty(JSON_PROPERTY_SERVER_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -147,7 +147,7 @@ public class CreateAndroidPushCredentialRequest {
    * Alias to uniquely identify the credential
    * @return alias
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "LucyAndroidCredential", required = true, value = "Alias to uniquely identify the credential")
   @JsonProperty(JSON_PROPERTY_ALIAS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

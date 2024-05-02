@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   OutboundMessageEventMeta.JSON_PROPERTY_ATTEMPT,
   OutboundMessageEventMeta.JSON_PROPERTY_DELIVERED_TO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class OutboundMessageEventMeta {
   public static final String JSON_PROPERTY_ATTEMPT = "attempt";
   private Integer attempt;
@@ -58,7 +58,7 @@ public class OutboundMessageEventMeta {
    * Number of attempts to deliver the webhook event.
    * @return attempt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "Number of attempts to deliver the webhook event.")
   @JsonProperty(JSON_PROPERTY_ATTEMPT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class OutboundMessageEventMeta {
    * The webhook URL the event was delivered to.
    * @return deliveredTo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/hooks", value = "The webhook URL the event was delivered to.")
   @JsonProperty(JSON_PROPERTY_DELIVERED_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

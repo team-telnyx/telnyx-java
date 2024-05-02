@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   AuthenticationProviderSettings.JSON_PROPERTY_IDP_CERT_FINGERPRINT_ALGORITHM,
   AuthenticationProviderSettings.JSON_PROPERTY_NAME_IDENTIFIER_FORMAT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class AuthenticationProviderSettings {
   public static final String JSON_PROPERTY_ASSERTION_CONSUMER_SERVICE_URL = "assertion_consumer_service_url";
   private String assertionConsumerServiceUrl;
@@ -118,7 +118,7 @@ public class AuthenticationProviderSettings {
    * The Assertion Consumer Service URL for the service provider (Telnyx).
    * @return assertionConsumerServiceUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://api.telnyx.com/sso/saml/auth/myorg", value = "The Assertion Consumer Service URL for the service provider (Telnyx).")
   @JsonProperty(JSON_PROPERTY_ASSERTION_CONSUMER_SERVICE_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class AuthenticationProviderSettings {
    * The Entity ID for the service provider (Telnyx).
    * @return serviceProviderEntityId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://api.telnyx.com/sso/saml/metadata/myorg", value = "The Entity ID for the service provider (Telnyx).")
   @JsonProperty(JSON_PROPERTY_SERVICE_PROVIDER_ENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -170,7 +170,7 @@ public class AuthenticationProviderSettings {
    * The Entity ID for the identity provider (IdP).
    * @return idpEntityId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://myorg.myidp.com/saml/metadata", value = "The Entity ID for the identity provider (IdP).")
   @JsonProperty(JSON_PROPERTY_IDP_ENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -196,7 +196,7 @@ public class AuthenticationProviderSettings {
    * The SSO target url for the identity provider (IdP).
    * @return idpSsoTargetUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://myorg.myidp.com/trust/saml2/http-post/sso", value = "The SSO target url for the identity provider (IdP).")
   @JsonProperty(JSON_PROPERTY_IDP_SSO_TARGET_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -222,7 +222,7 @@ public class AuthenticationProviderSettings {
    * The certificate fingerprint for the identity provider (IdP)
    * @return idpCertFingerprint
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7", value = "The certificate fingerprint for the identity provider (IdP)")
   @JsonProperty(JSON_PROPERTY_IDP_CERT_FINGERPRINT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -248,7 +248,7 @@ public class AuthenticationProviderSettings {
    * The algorithm used to generate the identity provider&#39;s (IdP) certificate fingerprint
    * @return idpCertFingerprintAlgorithm
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sha256", value = "The algorithm used to generate the identity provider's (IdP) certificate fingerprint")
   @JsonProperty(JSON_PROPERTY_IDP_CERT_FINGERPRINT_ALGORITHM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -274,7 +274,7 @@ public class AuthenticationProviderSettings {
    * The name identifier format associated with the authentication provider. This must be the same for both the Identity Provider (IdP) and the service provider (Telnyx).
    * @return nameIdentifierFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "urn:oasis:names:tc:SAML:1.1:nameid-format", value = "The name identifier format associated with the authentication provider. This must be the same for both the Identity Provider (IdP) and the service provider (Telnyx).")
   @JsonProperty(JSON_PROPERTY_NAME_IDENTIFIER_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

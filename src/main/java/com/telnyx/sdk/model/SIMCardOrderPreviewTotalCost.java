@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   SIMCardOrderPreviewTotalCost.JSON_PROPERTY_AMOUNT,
   SIMCardOrderPreviewTotalCost.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardOrderPreviewTotalCost {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private String amount;
@@ -58,7 +58,7 @@ public class SIMCardOrderPreviewTotalCost {
    * A string representing the cost amount.
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2.32", value = "A string representing the cost amount.")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class SIMCardOrderPreviewTotalCost {
    * ISO 4217 currency string.
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "ISO 4217 currency string.")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   TemplateComponent.JSON_PROPERTY_TYPE,
   TemplateComponent.JSON_PROPERTY_PARAMETERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TemplateComponent {
   public static final String JSON_PROPERTY_TYPE = "type";
   private TemplateComponentType type;
@@ -61,7 +61,7 @@ public class TemplateComponent {
    * Describes the component type.
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(required = true, value = "Describes the component type.")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -95,7 +95,7 @@ public class TemplateComponent {
    * Get parameters
    * @return parameters
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

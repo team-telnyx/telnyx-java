@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   ChatCompletionToolParam.JSON_PROPERTY_FUNCTION,
   ChatCompletionToolParam.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ChatCompletionToolParam {
   public static final String JSON_PROPERTY_FUNCTION = "function";
   private FunctionDefinition function;
@@ -92,7 +92,7 @@ public class ChatCompletionToolParam {
    * Get function
    * @return function
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_FUNCTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -118,7 +118,7 @@ public class ChatCompletionToolParam {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   UpdateConferenceRequest.JSON_PROPERTY_ANNOUNCE_URL,
   UpdateConferenceRequest.JSON_PROPERTY_ANNOUNCE_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateConferenceRequest {
   public static final String JSON_PROPERTY_STATUS = "Status";
   private String status;
@@ -97,7 +97,7 @@ public class UpdateConferenceRequest {
    * The new status of the resource. Specifying &#x60;completed&#x60; will end the conference and hang up all participants.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed", value = "The new status of the resource. Specifying `completed` will end the conference and hang up all participants.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class UpdateConferenceRequest {
    * The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &lt;Play&gt;, &lt;Say&gt;, &lt;Pause&gt;, or &lt;Redirect&gt; verbs.
    * @return announceUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/announce.xml", value = "The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains <Play>, <Say>, <Pause>, or <Redirect> verbs.")
   @JsonProperty(JSON_PROPERTY_ANNOUNCE_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -149,7 +149,7 @@ public class UpdateConferenceRequest {
    * The HTTP method used to call the &#x60;AnnounceUrl&#x60;. Defaults to &#x60;POST&#x60;.
    * @return announceMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.")
   @JsonProperty(JSON_PROPERTY_ANNOUNCE_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

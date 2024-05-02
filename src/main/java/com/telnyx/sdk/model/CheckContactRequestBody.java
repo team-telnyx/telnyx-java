@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CheckContactRequestBody.JSON_PROPERTY_BLOCKING,
   CheckContactRequestBody.JSON_PROPERTY_CONTACTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CheckContactRequestBody {
   public static final String JSON_PROPERTY_WHATSAPP_USER_ID = "whatsapp_user_id";
   private String whatsappUserId;
@@ -98,7 +98,7 @@ public class CheckContactRequestBody {
    * The sender&#39;s WhatsApp ID.
    * @return whatsappUserId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The sender's WhatsApp ID.")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_USER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -124,7 +124,7 @@ public class CheckContactRequestBody {
    * Blocking determines whether the request should wait for the processing to complete (synchronous) or not (asynchronous).
    * @return blocking
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Blocking determines whether the request should wait for the processing to complete (synchronous) or not (asynchronous).")
   @JsonProperty(JSON_PROPERTY_BLOCKING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -155,7 +155,7 @@ public class CheckContactRequestBody {
    * Array of contact phone numbers. The numbers can be in any standard telephone number format.
    * @return contacts
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Array of contact phone numbers. The numbers can be in any standard telephone number format.")
   @JsonProperty(JSON_PROPERTY_CONTACTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

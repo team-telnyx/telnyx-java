@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   GCSConfiguration.JSON_PROPERTY_BACKEND,
   GCSConfiguration.JSON_PROPERTY_CONFIGURATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class GCSConfiguration {
   /**
    * Gets or Sets backend
@@ -91,7 +91,7 @@ public class GCSConfiguration {
    * Get backend
    * @return backend
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "gcs", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BACKEND)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -117,7 +117,7 @@ public class GCSConfiguration {
    * Get _configuration
    * @return _configuration
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

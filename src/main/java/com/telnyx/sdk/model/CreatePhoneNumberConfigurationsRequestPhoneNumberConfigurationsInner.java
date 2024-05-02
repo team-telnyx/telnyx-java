@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CreatePhoneNumberConfigurationsRequestPhoneNumberConfigurationsInner.JSON_PROPERTY_PORTING_PHONE_NUMBER_ID,
   CreatePhoneNumberConfigurationsRequestPhoneNumberConfigurationsInner.JSON_PROPERTY_USER_BUNDLE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreatePhoneNumberConfigurationsRequestPhoneNumberConfigurationsInner {
   public static final String JSON_PROPERTY_PORTING_PHONE_NUMBER_ID = "porting_phone_number_id";
   private UUID portingPhoneNumberId;
@@ -59,7 +59,7 @@ public class CreatePhoneNumberConfigurationsRequestPhoneNumberConfigurationsInne
    * Identifies the porting phone number to be configured.
    * @return portingPhoneNumberId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "927f4687-318c-44bc-9f2f-22a5898143a4", required = true, value = "Identifies the porting phone number to be configured.")
   @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -85,7 +85,7 @@ public class CreatePhoneNumberConfigurationsRequestPhoneNumberConfigurationsInne
    * Identifies the user bundle to be associated with the porting phone number.
    * @return userBundleId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "ff901545-3e27-462a-ba9d-2b34654cab82", required = true, value = "Identifies the user bundle to be associated with the porting phone number.")
   @JsonProperty(JSON_PROPERTY_USER_BUNDLE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

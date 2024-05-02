@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   QueueCall.JSON_PROPERTY_QUEUE_POSITION,
   QueueCall.JSON_PROPERTY_QUEUE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class QueueCall {
   /**
    * Gets or Sets recordType
@@ -127,7 +127,7 @@ public class QueueCall {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "queue_call", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -153,7 +153,7 @@ public class QueueCall {
    * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call
    * @return callSessionId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "428c31b6-7af4-4bcb-b68e-5013ef9657c1", required = true, value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -179,7 +179,7 @@ public class QueueCall {
    * ID that is unique to the call and can be used to correlate webhook events
    * @return callLegId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "428c31b6-7af4-4bcb-b7f5-5013ef9657c1", required = true, value = "ID that is unique to the call and can be used to correlate webhook events")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -205,7 +205,7 @@ public class QueueCall {
    * Unique identifier and token for controlling the call.
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", required = true, value = "Unique identifier and token for controlling the call.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -231,7 +231,7 @@ public class QueueCall {
    * Call Control App ID (formerly Telnyx connection ID) used in the call.
    * @return connectionId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", required = true, value = "Call Control App ID (formerly Telnyx connection ID) used in the call.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -257,7 +257,7 @@ public class QueueCall {
    * Number or SIP URI placing the call.
    * @return from
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+35319605860", required = true, value = "Number or SIP URI placing the call.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -283,7 +283,7 @@ public class QueueCall {
    * Destination number or SIP URI of the call.
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+13129457420", required = true, value = "Destination number or SIP URI of the call.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -309,7 +309,7 @@ public class QueueCall {
    * ISO 8601 formatted date of when the call was put in the queue
    * @return enqueuedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the call was put in the queue")
   @JsonProperty(JSON_PROPERTY_ENQUEUED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -335,7 +335,7 @@ public class QueueCall {
    * The time the call has been waiting in the queue, given in seconds
    * @return waitTimeSecs
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "272", required = true, value = "The time the call has been waiting in the queue, given in seconds")
   @JsonProperty(JSON_PROPERTY_WAIT_TIME_SECS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -361,7 +361,7 @@ public class QueueCall {
    * Current position of the call in the queue
    * @return queuePosition
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "3", required = true, value = "Current position of the call in the queue")
   @JsonProperty(JSON_PROPERTY_QUEUE_POSITION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -387,7 +387,7 @@ public class QueueCall {
    * Unique identifier of the queue the call is in.
    * @return queueId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "ae1626cc-6f42-11ea-becd-02420a0f8b69", required = true, value = "Unique identifier of the queue the call is in.")
   @JsonProperty(JSON_PROPERTY_QUEUE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

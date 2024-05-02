@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   GcbChannelZone.JSON_PROPERTY_CREATED_AT,
   GcbChannelZone.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GcbChannelZone {
   /**
    * Gets or Sets recordType
@@ -113,7 +113,7 @@ public class GcbChannelZone {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "channel_zone", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -144,7 +144,7 @@ public class GcbChannelZone {
    * List of countries (in ISO 3166-2, capitalized) members of the billing channel zone
    * @return countries
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"BE\",\"EL\",\"LT\",\"PT\",\"BG\",\"ES\",\"LU\",\"RO\",\"CZ\",\"FR\",\"HU\",\"SI\",\"DK\",\"HR\",\"MT\",\"SK\",\"DE\",\"IT\",\"NL\",\"FI\",\"EE\",\"CY\",\"AT\",\"SE\",\"IE\",\"LV\",\"PL\"]", required = true, value = "List of countries (in ISO 3166-2, capitalized) members of the billing channel zone")
   @JsonProperty(JSON_PROPERTY_COUNTRIES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -170,7 +170,7 @@ public class GcbChannelZone {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1653e6a1-4bfd-4857-97c6-6a51e1c34477", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -196,7 +196,7 @@ public class GcbChannelZone {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Euro channel zone", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -222,7 +222,7 @@ public class GcbChannelZone {
    * Get channels
    * @return channels
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "7", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -248,7 +248,7 @@ public class GcbChannelZone {
    * ISO 8601 formatted date of when the channel zone was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the channel zone was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -274,7 +274,7 @@ public class GcbChannelZone {
    * ISO 8601 formatted date of when the channel zone was updated
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the channel zone was updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

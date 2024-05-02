@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateExternalConnectionPhoneNumberRequest.JSON_PROPERTY_LOCATION_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateExternalConnectionPhoneNumberRequest {
   public static final String JSON_PROPERTY_LOCATION_ID = "location_id";
   private UUID locationId;
@@ -55,7 +55,7 @@ public class UpdateExternalConnectionPhoneNumberRequest {
    * Identifies the location to assign the phone number to.
    * @return locationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the location to assign the phone number to.")
   @JsonProperty(JSON_PROPERTY_LOCATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

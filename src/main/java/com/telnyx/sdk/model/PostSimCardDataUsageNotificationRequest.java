@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PostSimCardDataUsageNotificationRequest.JSON_PROPERTY_SIM_CARD_ID,
   PostSimCardDataUsageNotificationRequest.JSON_PROPERTY_THRESHOLD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PostSimCardDataUsageNotificationRequest {
   public static final String JSON_PROPERTY_SIM_CARD_ID = "sim_card_id";
   private UUID simCardId;
@@ -60,7 +60,7 @@ public class PostSimCardDataUsageNotificationRequest {
    * The identification UUID of the related SIM card resource.
    * @return simCardId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", required = true, value = "The identification UUID of the related SIM card resource.")
   @JsonProperty(JSON_PROPERTY_SIM_CARD_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -86,7 +86,7 @@ public class PostSimCardDataUsageNotificationRequest {
    * Get threshold
    * @return threshold
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_THRESHOLD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

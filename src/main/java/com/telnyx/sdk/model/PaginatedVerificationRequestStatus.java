@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   PaginatedVerificationRequestStatus.JSON_PROPERTY_RECORDS,
   PaginatedVerificationRequestStatus.JSON_PROPERTY_TOTAL_RECORDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PaginatedVerificationRequestStatus {
   public static final String JSON_PROPERTY_RECORDS = "records";
   private List<VerificationRequestStatus> records = null;
@@ -70,7 +70,7 @@ public class PaginatedVerificationRequestStatus {
    * The records yielded by this request
    * @return records
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The records yielded by this request")
   @JsonProperty(JSON_PROPERTY_RECORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class PaginatedVerificationRequestStatus {
    * The total amount of records for these query parameters
    * @return totalRecords
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The total amount of records for these query parameters")
   @JsonProperty(JSON_PROPERTY_TOTAL_RECORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

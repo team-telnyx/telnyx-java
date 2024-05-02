@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   ManagedAccountBalance.JSON_PROPERTY_AVAILABLE_CREDIT,
   ManagedAccountBalance.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ManagedAccountBalance {
   /**
    * Identifies the type of the resource.
@@ -104,7 +104,7 @@ public class ManagedAccountBalance {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "balance", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -130,7 +130,7 @@ public class ManagedAccountBalance {
    * The account&#39;s current balance.
    * @return balance
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "300.00", value = "The account's current balance.")
   @JsonProperty(JSON_PROPERTY_BALANCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -156,7 +156,7 @@ public class ManagedAccountBalance {
    * The account&#39;s credit limit.
    * @return creditLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100.00", value = "The account's credit limit.")
   @JsonProperty(JSON_PROPERTY_CREDIT_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -182,7 +182,7 @@ public class ManagedAccountBalance {
    * Available amount to spend (balance + credit limit)
    * @return availableCredit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "400.00", value = "Available amount to spend (balance + credit limit)")
   @JsonProperty(JSON_PROPERTY_AVAILABLE_CREDIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -208,7 +208,7 @@ public class ManagedAccountBalance {
    * The ISO 4217 currency identifier.
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "The ISO 4217 currency identifier.")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

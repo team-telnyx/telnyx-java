@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderDocuments.JSON_PROPERTY_LOA,
   PortingOrderDocuments.JSON_PROPERTY_INVOICE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrderDocuments {
   public static final String JSON_PROPERTY_LOA = "loa";
   private UUID loa;
@@ -59,7 +59,7 @@ public class PortingOrderDocuments {
    * Returned ID of the submitted LOA via the Documents endpoint
    * @return loa
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "64ffb720-04c7-455b-92d6-20fcca92e935", value = "Returned ID of the submitted LOA via the Documents endpoint")
   @JsonProperty(JSON_PROPERTY_LOA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class PortingOrderDocuments {
    * Returned ID of the submitted Invoice via the Documents endpoint
    * @return invoice
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ce74b771-d23d-4960-81ec-8741b3862146", value = "Returned ID of the submitted Invoice via the Documents endpoint")
   @JsonProperty(JSON_PROPERTY_INVOICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

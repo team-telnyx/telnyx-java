@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   VirtualCrossConnectPatch.JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT,
   VirtualCrossConnectPatch.JSON_PROPERTY_SECONDARY_CLOUD_IP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VirtualCrossConnectPatch {
   public static final String JSON_PROPERTY_PRIMARY_ENABLED = "primary_enabled";
   private Boolean primaryEnabled;
@@ -74,7 +74,7 @@ public class VirtualCrossConnectPatch {
    * Indicates whether the primary circuit is enabled. Setting this to &#x60;false&#x60; will disable the circuit.
    * @return primaryEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether the primary circuit is enabled. Setting this to `false` will disable the circuit.")
   @JsonProperty(JSON_PROPERTY_PRIMARY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -100,7 +100,7 @@ public class VirtualCrossConnectPatch {
    * Whether the primary BGP route is being announced.
    * @return primaryRoutingAnnouncement
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether the primary BGP route is being announced.")
   @JsonProperty(JSON_PROPERTY_PRIMARY_ROUTING_ANNOUNCEMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -126,7 +126,7 @@ public class VirtualCrossConnectPatch {
    * The IP address assigned for your side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value can not be patched once the VXC has bene provisioned.
    * @return primaryCloudIp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "169.254.0.2", value = "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned.")
   @JsonProperty(JSON_PROPERTY_PRIMARY_CLOUD_IP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -152,7 +152,7 @@ public class VirtualCrossConnectPatch {
    * Indicates whether the secondary circuit is enabled. Setting this to &#x60;false&#x60; will disable the circuit.
    * @return secondaryEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether the secondary circuit is enabled. Setting this to `false` will disable the circuit.")
   @JsonProperty(JSON_PROPERTY_SECONDARY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -178,7 +178,7 @@ public class VirtualCrossConnectPatch {
    * Whether the secondary BGP route is being announced.
    * @return secondaryRoutingAnnouncement
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether the secondary BGP route is being announced.")
   @JsonProperty(JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -204,7 +204,7 @@ public class VirtualCrossConnectPatch {
    * The IP address assigned for your side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value can not be patched once the VXC has bene provisioned.
    * @return secondaryCloudIp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "169.254.0.4", value = "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned.")
   @JsonProperty(JSON_PROPERTY_SECONDARY_CLOUD_IP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

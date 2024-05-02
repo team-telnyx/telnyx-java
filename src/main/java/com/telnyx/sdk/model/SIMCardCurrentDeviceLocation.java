@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   SIMCardCurrentDeviceLocation.JSON_PROPERTY_ACCURACY,
   SIMCardCurrentDeviceLocation.JSON_PROPERTY_ACCURACY_UNIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardCurrentDeviceLocation {
   public static final String JSON_PROPERTY_LATITUDE = "latitude";
   private Float latitude;
@@ -67,7 +67,7 @@ public class SIMCardCurrentDeviceLocation {
    * Get latitude
    * @return latitude
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "41.143", value = "")
   @JsonProperty(JSON_PROPERTY_LATITUDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class SIMCardCurrentDeviceLocation {
    * Get longitude
    * @return longitude
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "-8.605", value = "")
   @JsonProperty(JSON_PROPERTY_LONGITUDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class SIMCardCurrentDeviceLocation {
    * Get accuracy
    * @return accuracy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1250", value = "")
   @JsonProperty(JSON_PROPERTY_ACCURACY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class SIMCardCurrentDeviceLocation {
    * Get accuracyUnit
    * @return accuracyUnit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "m", value = "")
   @JsonProperty(JSON_PROPERTY_ACCURACY_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   ConferencePlayRequest.JSON_PROPERTY_LOOP,
   ConferencePlayRequest.JSON_PROPERTY_CALL_CONTROL_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ConferencePlayRequest {
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
@@ -69,7 +69,7 @@ public class ConferencePlayRequest {
    * The URL of a file to be played back in the conference. media_name and audio_url cannot be used together in one request.
    * @return audioUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back in the conference. media_name and audio_url cannot be used together in one request.")
   @JsonProperty(JSON_PROPERTY_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -95,7 +95,7 @@ public class ConferencePlayRequest {
    * The media_name of a file to be played back in the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
    * @return mediaName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played back in the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
   @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -121,7 +121,7 @@ public class ConferencePlayRequest {
    * Get loop
    * @return loop
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOOP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -155,7 +155,7 @@ public class ConferencePlayRequest {
    * List of call control ids identifying participants the audio file should be played to. If not given, the audio file will be played to the entire conference.
    * @return callControlIds
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "List of call control ids identifying participants the audio file should be played to. If not given, the audio file will be played to the entire conference.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

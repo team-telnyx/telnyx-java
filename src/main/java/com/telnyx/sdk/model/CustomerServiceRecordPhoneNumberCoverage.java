@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRecordPhoneNumberCoverage.JSON_PROPERTY_ADDITIONAL_DATA_REQUIRED,
   CustomerServiceRecordPhoneNumberCoverage.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CustomerServiceRecordPhoneNumberCoverage {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -123,7 +123,7 @@ public class CustomerServiceRecordPhoneNumberCoverage {
    * The phone number that is being verified.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12223334444", value = "The phone number that is being verified.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -149,7 +149,7 @@ public class CustomerServiceRecordPhoneNumberCoverage {
    * Indicates whether the phone number is covered or not.
    * @return hasCsrCoverage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether the phone number is covered or not.")
   @JsonProperty(JSON_PROPERTY_HAS_CSR_COVERAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -175,7 +175,7 @@ public class CustomerServiceRecordPhoneNumberCoverage {
    * The reason why the phone number is not covered. Only returned if &#x60;has_csr_coverage&#x60; is false.
    * @return reason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "The phone number '+19999999999' is invalid.", value = "The reason why the phone number is not covered. Only returned if `has_csr_coverage` is false.")
   @JsonProperty(JSON_PROPERTY_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -209,7 +209,7 @@ public class CustomerServiceRecordPhoneNumberCoverage {
    * Additional data required to perform CSR for the phone number. Only returned if &#x60;has_csr_coverage&#x60; is true.
    * @return additionalDataRequired
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Additional data required to perform CSR for the phone number. Only returned if `has_csr_coverage` is true.")
   @JsonProperty(JSON_PROPERTY_ADDITIONAL_DATA_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -235,7 +235,7 @@ public class CustomerServiceRecordPhoneNumberCoverage {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "customer_service_record_phone_number_coverage", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

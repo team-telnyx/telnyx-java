@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   MessagingProfileHighLevelMetricsOutbound.JSON_PROPERTY_DELIVERED,
   MessagingProfileHighLevelMetricsOutbound.JSON_PROPERTY_ERROR_RATIO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MessagingProfileHighLevelMetricsOutbound {
   public static final String JSON_PROPERTY_SENT = "sent";
   private BigDecimal sent;
@@ -70,7 +70,7 @@ public class MessagingProfileHighLevelMetricsOutbound {
    * The number of outbound messages sent.
    * @return sent
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The number of outbound messages sent.")
   @JsonProperty(JSON_PROPERTY_SENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class MessagingProfileHighLevelMetricsOutbound {
    * The number of outbound messages successfully delivered.
    * @return delivered
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The number of outbound messages successfully delivered.")
   @JsonProperty(JSON_PROPERTY_DELIVERED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -102,7 +102,7 @@ public class MessagingProfileHighLevelMetricsOutbound {
    * The ratio of messages sent that resulted in errors.
    * @return errorRatio
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The ratio of messages sent that resulted in errors.")
   @JsonProperty(JSON_PROPERTY_ERROR_RATIO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

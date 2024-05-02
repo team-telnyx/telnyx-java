@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   AvailablePhoneNumber.JSON_PROPERTY_COST_INFORMATION,
   AvailablePhoneNumber.JSON_PROPERTY_FEATURES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class AvailablePhoneNumber {
   /**
    * Gets or Sets recordType
@@ -124,7 +124,7 @@ public class AvailablePhoneNumber {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "available_phone_number", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class AvailablePhoneNumber {
    * Get phoneNumber
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+19705555098", value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class AvailablePhoneNumber {
    * Get vanityFormat
    * @return vanityFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_VANITY_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -202,7 +202,7 @@ public class AvailablePhoneNumber {
    * Specifies whether the phone number is an exact match based on the search criteria or not.
    * @return bestEffort
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Specifies whether the phone number is an exact match based on the search criteria or not.")
   @JsonProperty(JSON_PROPERTY_BEST_EFFORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -228,7 +228,7 @@ public class AvailablePhoneNumber {
    * Specifies whether the phone number can receive calls immediately after purchase or not.
    * @return quickship
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Specifies whether the phone number can receive calls immediately after purchase or not.")
   @JsonProperty(JSON_PROPERTY_QUICKSHIP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -254,7 +254,7 @@ public class AvailablePhoneNumber {
    * Specifies whether the phone number can be reserved before purchase or not.
    * @return reservable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Specifies whether the phone number can be reserved before purchase or not.")
   @JsonProperty(JSON_PROPERTY_RESERVABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -288,7 +288,7 @@ public class AvailablePhoneNumber {
    * Get regionInformation
    * @return regionInformation
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGION_INFORMATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -314,7 +314,7 @@ public class AvailablePhoneNumber {
    * Get costInformation
    * @return costInformation
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COST_INFORMATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -348,7 +348,7 @@ public class AvailablePhoneNumber {
    * Get features
    * @return features
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FEATURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

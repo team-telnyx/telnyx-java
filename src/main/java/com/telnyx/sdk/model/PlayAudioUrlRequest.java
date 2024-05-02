@@ -48,7 +48,7 @@ import com.telnyx.sdk.JSON;
   PlayAudioUrlRequest.JSON_PROPERTY_CLIENT_STATE,
   PlayAudioUrlRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PlayAudioUrlRequest {
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
@@ -130,7 +130,7 @@ public class PlayAudioUrlRequest {
    * The URL of a file to be played back on the call. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.
    * @return audioUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back on the call. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.")
   @JsonProperty(JSON_PROPERTY_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -156,7 +156,7 @@ public class PlayAudioUrlRequest {
    * The media_name of a file to be played back on the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
    * @return mediaName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played back on the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
   @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -182,7 +182,7 @@ public class PlayAudioUrlRequest {
    * Get loop
    * @return loop
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOOP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -208,7 +208,7 @@ public class PlayAudioUrlRequest {
    * When enabled, audio will be mixed on top of any other audio that is actively being played back. Note that &#x60;overlay: true&#x60; will only work if there is another audio file already being played on the call.
    * @return overlay
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "When enabled, audio will be mixed on top of any other audio that is actively being played back. Note that `overlay: true` will only work if there is another audio file already being played on the call.")
   @JsonProperty(JSON_PROPERTY_OVERLAY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -234,7 +234,7 @@ public class PlayAudioUrlRequest {
    * When specified, it stops the current audio being played. Specify &#x60;current&#x60; to stop the current audio being played, and to play the next file in the queue. Specify &#x60;all&#x60; to stop the current audio file being played and to also clear all audio files from the queue.
    * @return stop
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "current", value = "When specified, it stops the current audio being played. Specify `current` to stop the current audio being played, and to play the next file in the queue. Specify `all` to stop the current audio file being played and to also clear all audio files from the queue.")
   @JsonProperty(JSON_PROPERTY_STOP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -260,7 +260,7 @@ public class PlayAudioUrlRequest {
    * Specifies the leg or legs on which audio will be played. If supplied, the value must be either &#x60;self&#x60;, &#x60;opposite&#x60; or &#x60;both&#x60;.
    * @return targetLegs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "self", value = "Specifies the leg or legs on which audio will be played. If supplied, the value must be either `self`, `opposite` or `both`.")
   @JsonProperty(JSON_PROPERTY_TARGET_LEGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -286,7 +286,7 @@ public class PlayAudioUrlRequest {
    * Caches the audio file. Useful when playing the same audio file multiple times during the call.
    * @return cacheAudio
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Caches the audio file. Useful when playing the same audio file multiple times during the call.")
   @JsonProperty(JSON_PROPERTY_CACHE_AUDIO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -312,7 +312,7 @@ public class PlayAudioUrlRequest {
    * Specifies the type of audio provided in &#x60;audio_url&#x60; or &#x60;playback_content&#x60;.
    * @return audioType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wav", value = "Specifies the type of audio provided in `audio_url` or `playback_content`.")
   @JsonProperty(JSON_PROPERTY_AUDIO_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -338,7 +338,7 @@ public class PlayAudioUrlRequest {
    * Allows a user to provide base64 encoded mp3 or wav. Note: when using this parameter, &#x60;media_url&#x60; and &#x60;media_name&#x60; in the &#x60;playback_started&#x60; and &#x60;playback_ended&#x60; webhooks will be empty
    * @return playbackContent
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "SUQzAwAAAAADf1...", value = "Allows a user to provide base64 encoded mp3 or wav. Note: when using this parameter, `media_url` and `media_name` in the `playback_started` and `playback_ended` webhooks will be empty")
   @JsonProperty(JSON_PROPERTY_PLAYBACK_CONTENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -364,7 +364,7 @@ public class PlayAudioUrlRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -390,7 +390,7 @@ public class PlayAudioUrlRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

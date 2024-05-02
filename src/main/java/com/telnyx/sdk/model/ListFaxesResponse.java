@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   ListFaxesResponse.JSON_PROPERTY_DATA,
   ListFaxesResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ListFaxesResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<Fax> data = null;
@@ -69,7 +69,7 @@ public class ListFaxesResponse {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -95,7 +95,7 @@ public class ListFaxesResponse {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "{\"page_number\":2,\"page_size\":1,\"total_pages\":3,\"total_results\":3}", value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

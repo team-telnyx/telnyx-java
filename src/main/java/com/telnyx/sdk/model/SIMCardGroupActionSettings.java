@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   SIMCardGroupActionSettings.JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardGroupActionSettings {
   public static final String JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID = "private_wireless_gateway_id";
   private UUID privateWirelessGatewayId;
@@ -56,7 +56,7 @@ public class SIMCardGroupActionSettings {
    * The identification of the related Private Wireless Gateway resource.
    * @return privateWirelessGatewayId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The identification of the related Private Wireless Gateway resource.")
   @JsonProperty(JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

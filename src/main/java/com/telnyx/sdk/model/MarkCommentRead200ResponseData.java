@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   MarkCommentRead200ResponseData.JSON_PROPERTY_CREATED_AT,
   MarkCommentRead200ResponseData.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MarkCommentRead200ResponseData {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -172,7 +172,7 @@ public class MarkCommentRead200ResponseData {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -193,7 +193,7 @@ public class MarkCommentRead200ResponseData {
    * Get body
    * @return body
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Hi there, ....", value = "")
   @JsonProperty(JSON_PROPERTY_BODY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -214,7 +214,7 @@ public class MarkCommentRead200ResponseData {
    * Get commenter
    * @return commenter
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "user@company.com", value = "")
   @JsonProperty(JSON_PROPERTY_COMMENTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -230,7 +230,7 @@ public class MarkCommentRead200ResponseData {
    * Get commenterType
    * @return commenterType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "user", value = "")
   @JsonProperty(JSON_PROPERTY_COMMENTER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -251,7 +251,7 @@ public class MarkCommentRead200ResponseData {
    * Get commentRecordType
    * @return commentRecordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sub_number_order", value = "")
   @JsonProperty(JSON_PROPERTY_COMMENT_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -277,7 +277,7 @@ public class MarkCommentRead200ResponseData {
    * Get commentRecordId
    * @return commentRecordId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576", value = "")
   @JsonProperty(JSON_PROPERTY_COMMENT_RECORD_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -298,7 +298,7 @@ public class MarkCommentRead200ResponseData {
    * An ISO 8901 datetime string for when the comment was read.
    * @return readAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string for when the comment was read.")
   @JsonProperty(JSON_PROPERTY_READ_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -314,7 +314,7 @@ public class MarkCommentRead200ResponseData {
    * An ISO 8901 datetime string denoting when the comment was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string denoting when the comment was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -330,7 +330,7 @@ public class MarkCommentRead200ResponseData {
    * An ISO 8901 datetime string for when the comment was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string for when the comment was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

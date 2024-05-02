@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   MessagingProfileMessageTypeMetrics.JSON_PROPERTY_OUTBOUND_ERROR_RATIO,
   MessagingProfileMessageTypeMetrics.JSON_PROPERTY_RECEIVED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MessagingProfileMessageTypeMetrics {
   public static final String JSON_PROPERTY_LABEL = "label";
   private String label;
@@ -82,7 +82,7 @@ public class MessagingProfileMessageTypeMetrics {
    * The metric type.
    * @return label
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The metric type.")
   @JsonProperty(JSON_PROPERTY_LABEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -98,7 +98,7 @@ public class MessagingProfileMessageTypeMetrics {
    * The number of outbound messages sent.
    * @return sent
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The number of outbound messages sent.")
   @JsonProperty(JSON_PROPERTY_SENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class MessagingProfileMessageTypeMetrics {
    * The number of outbound messages successfully delivered.
    * @return delivered
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The number of outbound messages successfully delivered.")
   @JsonProperty(JSON_PROPERTY_DELIVERED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -130,7 +130,7 @@ public class MessagingProfileMessageTypeMetrics {
    * The ratio of outbound messages sent that resulted in errors.
    * @return outboundErrorRatio
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The ratio of outbound messages sent that resulted in errors.")
   @JsonProperty(JSON_PROPERTY_OUTBOUND_ERROR_RATIO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -146,7 +146,7 @@ public class MessagingProfileMessageTypeMetrics {
    * The number of inbound messages received.
    * @return received
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The number of inbound messages received.")
   @JsonProperty(JSON_PROPERTY_RECEIVED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

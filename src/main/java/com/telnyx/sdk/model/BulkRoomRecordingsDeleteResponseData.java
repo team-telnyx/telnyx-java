@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   BulkRoomRecordingsDeleteResponseData.JSON_PROPERTY_ROOM_RECORDINGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BulkRoomRecordingsDeleteResponseData {
   public static final String JSON_PROPERTY_ROOM_RECORDINGS = "room_recordings";
   private Integer roomRecordings;
@@ -54,7 +54,7 @@ public class BulkRoomRecordingsDeleteResponseData {
    * Amount of room recordings affected
    * @return roomRecordings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5", value = "Amount of room recordings affected")
   @JsonProperty(JSON_PROPERTY_ROOM_RECORDINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

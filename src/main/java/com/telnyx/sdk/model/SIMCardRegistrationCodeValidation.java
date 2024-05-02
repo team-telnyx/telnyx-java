@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   SIMCardRegistrationCodeValidation.JSON_PROPERTY_VALID,
   SIMCardRegistrationCodeValidation.JSON_PROPERTY_INVALID_DETAIL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardRegistrationCodeValidation {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -71,7 +71,7 @@ public class SIMCardRegistrationCodeValidation {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sim_card_registration_code_validation", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class SIMCardRegistrationCodeValidation {
    * The 10-digit SIM card registration code
    * @return registrationCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0123456789", value = "The 10-digit SIM card registration code")
   @JsonProperty(JSON_PROPERTY_REGISTRATION_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class SIMCardRegistrationCodeValidation {
    * The attribute that denotes whether the code is valid or not
    * @return valid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "The attribute that denotes whether the code is valid or not")
   @JsonProperty(JSON_PROPERTY_VALID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -149,7 +149,7 @@ public class SIMCardRegistrationCodeValidation {
    * The validation message
    * @return invalidDetail
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "This code has already been used.", value = "The validation message")
   @JsonIgnore
 

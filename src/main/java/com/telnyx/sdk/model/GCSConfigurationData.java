@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   GCSConfigurationData.JSON_PROPERTY_CREDENTIALS,
   GCSConfigurationData.JSON_PROPERTY_BUCKET
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GCSConfigurationData {
   public static final String JSON_PROPERTY_CREDENTIALS = "credentials";
   private String credentials;
@@ -58,7 +58,7 @@ public class GCSConfigurationData {
    * Opaque credential token used to authenticate and authorize with storage provider.
    * @return credentials
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "OPAQUE_CREDENTIALS_TOKEN", value = "Opaque credential token used to authenticate and authorize with storage provider.")
   @JsonProperty(JSON_PROPERTY_CREDENTIALS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class GCSConfigurationData {
    * Name of the bucket to be used to store recording files.
    * @return bucket
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "example-bucket", value = "Name of the bucket to be used to store recording files.")
   @JsonProperty(JSON_PROPERTY_BUCKET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

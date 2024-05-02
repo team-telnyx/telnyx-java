@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_LOCALITY_LIMIT,
   DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_ACCEPTABLE_VALUES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class DocReqsRequirementTypeAcceptanceCriteria {
   public static final String JSON_PROPERTY_TIME_LIMIT = "time_limit";
   private String timeLimit;
@@ -65,7 +65,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Specifies time-based acceptance criteria
    * @return timeLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Current and not expired", value = "Specifies time-based acceptance criteria")
   @JsonProperty(JSON_PROPERTY_TIME_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -91,7 +91,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Specifies geography-based acceptance criteria
    * @return localityLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Issued by the same country that the phone number belongs to", value = "Specifies geography-based acceptance criteria")
   @JsonProperty(JSON_PROPERTY_LOCALITY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -125,7 +125,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Specifies the list of strictly possible values for the requirement. Ignored when empty
    * @return acceptableValues
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies the list of strictly possible values for the requirement. Ignored when empty")
   @JsonProperty(JSON_PROPERTY_ACCEPTABLE_VALUES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

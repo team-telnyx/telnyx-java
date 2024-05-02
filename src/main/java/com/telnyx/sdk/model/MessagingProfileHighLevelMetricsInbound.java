@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   MessagingProfileHighLevelMetricsInbound.JSON_PROPERTY_RECEIVED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MessagingProfileHighLevelMetricsInbound {
   public static final String JSON_PROPERTY_RECEIVED = "received";
   private BigDecimal received;
@@ -58,7 +58,7 @@ public class MessagingProfileHighLevelMetricsInbound {
    * The number of inbound messages received.
    * @return received
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The number of inbound messages received.")
   @JsonProperty(JSON_PROPERTY_RECEIVED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

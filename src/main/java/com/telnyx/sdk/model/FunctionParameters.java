@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   FunctionParameters.JSON_PROPERTY_PROPERTIES,
   FunctionParameters.JSON_PROPERTY_REQUIRED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class FunctionParameters {
   public static final String JSON_PROPERTY_TYPE = "type";
   private String type;
@@ -68,7 +68,7 @@ public class FunctionParameters {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -99,7 +99,7 @@ public class FunctionParameters {
    * Get properties
    * @return properties
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -130,7 +130,7 @@ public class FunctionParameters {
    * Get required
    * @return required
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

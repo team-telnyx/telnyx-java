@@ -67,7 +67,7 @@ import com.telnyx.sdk.JSON;
   InitiateCallRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
   InitiateCallRequest.JSON_PROPERTY_TRIM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class InitiateCallRequest {
   public static final String JSON_PROPERTY_APPLICATION_SID = "ApplicationSid";
   private String applicationSid;
@@ -532,7 +532,7 @@ public class InitiateCallRequest {
    * The ID of the TeXML Application.
    * @return applicationSid
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The ID of the TeXML Application.")
   @JsonProperty(JSON_PROPERTY_APPLICATION_SID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -558,7 +558,7 @@ public class InitiateCallRequest {
    * The phone number of the called party. Phone numbers are formatted with a &#x60;+&#x60; and country code.
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+16175551212", required = true, value = "The phone number of the called party. Phone numbers are formatted with a `+` and country code.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -584,7 +584,7 @@ public class InitiateCallRequest {
    * The phone number of the party that initiated the call. Phone numbers are formatted with a &#x60;+&#x60; and country code.
    * @return from
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+16175551212", required = true, value = "The phone number of the party that initiated the call. Phone numbers are formatted with a `+` and country code.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -610,7 +610,7 @@ public class InitiateCallRequest {
    * The URL from which Telnyx will retrieve the TeXML call instructions.
    * @return url
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/instructions.xml", value = "The URL from which Telnyx will retrieve the TeXML call instructions.")
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -636,7 +636,7 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;Url&#x60;. The default value is inherited from TeXML Application setting.
    * @return urlMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "HTTP request type used for `Url`. The default value is inherited from TeXML Application setting.")
   @JsonProperty(JSON_PROPERTY_URL_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -662,7 +662,7 @@ public class InitiateCallRequest {
    * A failover URL for which Telnyx will retrieve the TeXML call instructions if the &#x60;Url&#x60; is not responding.
    * @return fallbackUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/instructions-fallback.xml", value = "A failover URL for which Telnyx will retrieve the TeXML call instructions if the `Url` is not responding.")
   @JsonProperty(JSON_PROPERTY_FALLBACK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -688,7 +688,7 @@ public class InitiateCallRequest {
    * URL destination for Telnyx to send status callback events to for the call.
    * @return statusCallback
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/callback", value = "URL destination for Telnyx to send status callback events to for the call.")
   @JsonProperty(JSON_PROPERTY_STATUS_CALLBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -714,7 +714,7 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;StatusCallback&#x60;.
    * @return statusCallbackMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "HTTP request type used for `StatusCallback`.")
   @JsonProperty(JSON_PROPERTY_STATUS_CALLBACK_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -740,7 +740,7 @@ public class InitiateCallRequest {
    * The call events for which Telnyx should send a webhook. Multiple events can be defined when separated by a space.
    * @return statusCallbackEvent
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "iniated ringing", value = "The call events for which Telnyx should send a webhook. Multiple events can be defined when separated by a space.")
   @JsonProperty(JSON_PROPERTY_STATUS_CALLBACK_EVENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -766,7 +766,7 @@ public class InitiateCallRequest {
    * Enables Answering Machine Detection.
    * @return machineDetection
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Enable", value = "Enables Answering Machine Detection.")
   @JsonProperty(JSON_PROPERTY_MACHINE_DETECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -792,7 +792,7 @@ public class InitiateCallRequest {
    * Allows you to chose between Premium and Standard detections.
    * @return detectionMode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Premium", value = "Allows you to chose between Premium and Standard detections.")
   @JsonProperty(JSON_PROPERTY_DETECTION_MODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -818,7 +818,7 @@ public class InitiateCallRequest {
    * Select whether to perform answering machine detection in the background. By default execution is blocked until Answering Machine Detection is completed.
    * @return asyncAmd
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Select whether to perform answering machine detection in the background. By default execution is blocked until Answering Machine Detection is completed.")
   @JsonProperty(JSON_PROPERTY_ASYNC_AMD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -844,7 +844,7 @@ public class InitiateCallRequest {
    * URL destination for Telnyx to send AMD callback events to for the call.
    * @return asyncAmdStatusCallback
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/callback", value = "URL destination for Telnyx to send AMD callback events to for the call.")
   @JsonProperty(JSON_PROPERTY_ASYNC_AMD_STATUS_CALLBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -870,7 +870,7 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;AsyncAmdStatusCallback&#x60;. The default value is inherited from TeXML Application setting.
    * @return asyncAmdStatusCallbackMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "HTTP request type used for `AsyncAmdStatusCallback`. The default value is inherited from TeXML Application setting.")
   @JsonProperty(JSON_PROPERTY_ASYNC_AMD_STATUS_CALLBACK_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -898,7 +898,7 @@ public class InitiateCallRequest {
    * maximum: 60000
    * @return machineDetectionTimeout
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5000", value = "Maximum timeout threshold in milliseconds for overall detection.")
   @JsonProperty(JSON_PROPERTY_MACHINE_DETECTION_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -924,7 +924,7 @@ public class InitiateCallRequest {
    * Maximum threshold of a human greeting. If greeting longer than this value, considered machine. Ignored when &#x60;premium&#x60; detection is used.
    * @return machineDetectionSpeechThreshold
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2000", value = "Maximum threshold of a human greeting. If greeting longer than this value, considered machine. Ignored when `premium` detection is used.")
   @JsonProperty(JSON_PROPERTY_MACHINE_DETECTION_SPEECH_THRESHOLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -950,7 +950,7 @@ public class InitiateCallRequest {
    * Silence duration threshold after a greeting message or voice for it be considered human. Ignored when &#x60;premium&#x60; detection is used.
    * @return machineDetectionSpeechEndThreshold
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2000", value = "Silence duration threshold after a greeting message or voice for it be considered human. Ignored when `premium` detection is used.")
   @JsonProperty(JSON_PROPERTY_MACHINE_DETECTION_SPEECH_END_THRESHOLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -976,7 +976,7 @@ public class InitiateCallRequest {
    * If initial silence duration is greater than this value, consider it a machine. Ignored when &#x60;premium&#x60; detection is used.
    * @return machineDetectionSilenceTimeout
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2000", value = "If initial silence duration is greater than this value, consider it a machine. Ignored when `premium` detection is used.")
   @JsonProperty(JSON_PROPERTY_MACHINE_DETECTION_SILENCE_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1002,7 +1002,7 @@ public class InitiateCallRequest {
    * Whether to cancel ongoing playback on &#x60;machine&#x60; detection. Defaults to &#x60;true&#x60;.
    * @return cancelPlaybackOnMachineDetection
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether to cancel ongoing playback on `machine` detection. Defaults to `true`.")
   @JsonProperty(JSON_PROPERTY_CANCEL_PLAYBACK_ON_MACHINE_DETECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1028,7 +1028,7 @@ public class InitiateCallRequest {
    * Whether to cancel ongoing playback on &#x60;greeting ended&#x60; detection. Defaults to &#x60;true&#x60;.
    * @return cancelPlaybackOnDetectMessageEnd
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether to cancel ongoing playback on `greeting ended` detection. Defaults to `true`.")
   @JsonProperty(JSON_PROPERTY_CANCEL_PLAYBACK_ON_DETECT_MESSAGE_END)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1054,7 +1054,7 @@ public class InitiateCallRequest {
    * The list of comma-separated codecs to be offered on a call.
    * @return preferredCodecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "PCMA,PCMU", value = "The list of comma-separated codecs to be offered on a call.")
   @JsonProperty(JSON_PROPERTY_PREFERRED_CODECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1080,7 +1080,7 @@ public class InitiateCallRequest {
    * Whether to record the entire participant&#39;s call leg. Defaults to &#x60;false&#x60;.
    * @return record
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether to record the entire participant's call leg. Defaults to `false`.")
   @JsonProperty(JSON_PROPERTY_RECORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1106,7 +1106,7 @@ public class InitiateCallRequest {
    * The number of channels in the final recording. Defaults to &#x60;mono&#x60;.
    * @return recordingChannels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "dual", value = "The number of channels in the final recording. Defaults to `mono`.")
   @JsonProperty(JSON_PROPERTY_RECORDING_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1132,7 +1132,7 @@ public class InitiateCallRequest {
    * The URL the recording callbacks will be sent to.
    * @return recordingStatusCallback
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com/recording_status_callback", value = "The URL the recording callbacks will be sent to.")
   @JsonProperty(JSON_PROPERTY_RECORDING_STATUS_CALLBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1158,7 +1158,7 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;RecordingStatusCallback&#x60;. Defaults to &#x60;POST&#x60;.
    * @return recordingStatusCallbackMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "HTTP request type used for `RecordingStatusCallback`. Defaults to `POST`.")
   @JsonProperty(JSON_PROPERTY_RECORDING_STATUS_CALLBACK_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1184,7 +1184,7 @@ public class InitiateCallRequest {
    * The changes to the recording&#39;s state that should generate a call to &#x60;RecoridngStatusCallback&#x60;. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60; and &#x60;absent&#x60;. Separate multiple values with a space. Defaults to &#x60;completed&#x60;.
    * @return recordingStatusCallbackEvent
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "in-progress completed absent", value = "The changes to the recording's state that should generate a call to `RecoridngStatusCallback`. Can be: `in-progress`, `completed` and `absent`. Separate multiple values with a space. Defaults to `completed`.")
   @JsonProperty(JSON_PROPERTY_RECORDING_STATUS_CALLBACK_EVENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1210,7 +1210,7 @@ public class InitiateCallRequest {
    * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. Please note that the transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite)
    * @return recordingTimeout
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. Please note that the transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite)")
   @JsonProperty(JSON_PROPERTY_RECORDING_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1236,7 +1236,7 @@ public class InitiateCallRequest {
    * The audio track to record for the call. The default is &#x60;both&#x60;.
    * @return recordingTrack
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "inbound", value = "The audio track to record for the call. The default is `both`.")
   @JsonProperty(JSON_PROPERTY_RECORDING_TRACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1262,7 +1262,7 @@ public class InitiateCallRequest {
    * The password to use for SIP authentication.
    * @return sipAuthPassword
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1234", value = "The password to use for SIP authentication.")
   @JsonProperty(JSON_PROPERTY_SIP_AUTH_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1288,7 +1288,7 @@ public class InitiateCallRequest {
    * The username to use for SIP authentication.
    * @return sipAuthUsername
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "user", value = "The username to use for SIP authentication.")
   @JsonProperty(JSON_PROPERTY_SIP_AUTH_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1314,7 +1314,7 @@ public class InitiateCallRequest {
    * Whether to trim any leading and trailing silence from the recording. Defaults to &#x60;trim-silence&#x60;.
    * @return trim
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether to trim any leading and trailing silence from the recording. Defaults to `trim-silence`.")
   @JsonProperty(JSON_PROPERTY_TRIM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

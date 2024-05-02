@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpAssignmentHealthMetric.JSON_PROPERTY_GLOBAL_IP_ASSIGNMENT,
   GlobalIpAssignmentHealthMetric.JSON_PROPERTY_HEALTH
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIpAssignmentHealthMetric {
   public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
   private OffsetDateTime timestamp;
@@ -70,7 +70,7 @@ public class GlobalIpAssignmentHealthMetric {
    * The timestamp of the metric.
    * @return timestamp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-01T00:00Z", value = "The timestamp of the metric.")
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class GlobalIpAssignmentHealthMetric {
    * Get globalIp
    * @return globalIp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_GLOBAL_IP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class GlobalIpAssignmentHealthMetric {
    * Get globalIpAssignment
    * @return globalIpAssignment
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_GLOBAL_IP_ASSIGNMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class GlobalIpAssignmentHealthMetric {
    * Get health
    * @return health
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_HEALTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

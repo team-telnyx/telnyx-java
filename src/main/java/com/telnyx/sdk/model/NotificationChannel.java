@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   NotificationChannel.JSON_PROPERTY_CREATED_AT,
   NotificationChannel.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class NotificationChannel {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -122,7 +122,7 @@ public class NotificationChannel {
    * A UUID.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12455643-3cf1-4683-ad23-1cd32f7d5e0a", value = "A UUID.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class NotificationChannel {
    * A UUID reference to the associated Notification Profile.
    * @return notificationProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12455643-3cf1-4683-ad23-1cd32f7d5e0a", value = "A UUID reference to the associated Notification Profile.")
   @JsonProperty(JSON_PROPERTY_NOTIFICATION_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -169,7 +169,7 @@ public class NotificationChannel {
    * A Channel Type ID
    * @return channelTypeId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A Channel Type ID")
   @JsonProperty(JSON_PROPERTY_CHANNEL_TYPE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -195,7 +195,7 @@ public class NotificationChannel {
    * The destination associated with the channel type.
    * @return channelDestination
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13125550000", value = "The destination associated with the channel type.")
   @JsonProperty(JSON_PROPERTY_CHANNEL_DESTINATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -216,7 +216,7 @@ public class NotificationChannel {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-10-15T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -232,7 +232,7 @@ public class NotificationChannel {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-10-15T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

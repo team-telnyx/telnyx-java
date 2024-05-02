@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   GetCustomerServiceRecord404Response.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GetCustomerServiceRecord404Response {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private List<ResourceNotFoundError> errors = null;
@@ -65,7 +65,7 @@ public class GetCustomerServiceRecord404Response {
    * Get errors
    * @return errors
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

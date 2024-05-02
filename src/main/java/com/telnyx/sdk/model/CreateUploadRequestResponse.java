@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CreateUploadRequestResponse.JSON_PROPERTY_SUCCESS,
   CreateUploadRequestResponse.JSON_PROPERTY_TICKET_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateUploadRequestResponse {
   public static final String JSON_PROPERTY_SUCCESS = "success";
   private Boolean success;
@@ -59,7 +59,7 @@ public class CreateUploadRequestResponse {
    * Describes wether or not the operation was successful
    * @return success
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Describes wether or not the operation was successful")
   @JsonProperty(JSON_PROPERTY_SUCCESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class CreateUploadRequestResponse {
    * Ticket id of the upload request
    * @return ticketId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Ticket id of the upload request")
   @JsonProperty(JSON_PROPERTY_TICKET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

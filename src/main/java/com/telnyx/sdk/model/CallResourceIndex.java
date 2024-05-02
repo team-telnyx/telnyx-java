@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   CallResourceIndex.JSON_PROPERTY_START,
   CallResourceIndex.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallResourceIndex {
   public static final String JSON_PROPERTY_CALLS = "calls";
   private List<CallResource> calls = null;
@@ -93,7 +93,7 @@ public class CallResourceIndex {
    * Get calls
    * @return calls
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CALLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class CallResourceIndex {
    * The number of the last element on the page, zero-indexed.
    * @return end
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "19", value = "The number of the last element on the page, zero-indexed.")
   @JsonProperty(JSON_PROPERTY_END)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class CallResourceIndex {
    * /v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls.json?Page&#x3D;0&amp;PageSize&#x3D;1
    * @return firstPageUri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "accepted", value = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls.json?Page=0&PageSize=1")
   @JsonProperty(JSON_PROPERTY_FIRST_PAGE_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -171,7 +171,7 @@ public class CallResourceIndex {
    * /v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls.json?Page&#x3D;1&amp;PageSize&#x3D;1&amp;PageToken&#x3D;MTY4AjgyNDkwNzIxMQ
    * @return nextPageUri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "accepted", value = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls.json?Page=1&PageSize=1&PageToken=MTY4AjgyNDkwNzIxMQ")
   @JsonProperty(JSON_PROPERTY_NEXT_PAGE_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -197,7 +197,7 @@ public class CallResourceIndex {
    * Current page number, zero-indexed.
    * @return page
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0", value = "Current page number, zero-indexed.")
   @JsonProperty(JSON_PROPERTY_PAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -223,7 +223,7 @@ public class CallResourceIndex {
    * The number of items on the page
    * @return pageSize
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "20", value = "The number of items on the page")
   @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -249,7 +249,7 @@ public class CallResourceIndex {
    * The number of the first element on the page, zero-indexed.
    * @return start
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0", value = "The number of the first element on the page, zero-indexed.")
   @JsonProperty(JSON_PROPERTY_START)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -275,7 +275,7 @@ public class CallResourceIndex {
    * The URI of the current page.
    * @return uri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls.json?Page=0&PageSize=1", value = "The URI of the current page.")
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   ConferenceMuteRequest.JSON_PROPERTY_CALL_CONTROL_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ConferenceMuteRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_IDS = "call_control_ids";
   private List<String> callControlIds = null;
@@ -64,7 +64,7 @@ public class ConferenceMuteRequest {
    * Array of unique identifiers and tokens for controlling the call. When empty all participants will be muted.
    * @return callControlIds
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Array of unique identifiers and tokens for controlling the call. When empty all participants will be muted.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   BulkSIMCardNetworkPreferenceResponse.JSON_PROPERTY_DATA,
   BulkSIMCardNetworkPreferenceResponse.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BulkSIMCardNetworkPreferenceResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<SIMCardNetworkPreferenceWithOTAUpdates> data = null;
@@ -69,7 +69,7 @@ public class BulkSIMCardNetworkPreferenceResponse {
    * Multi requested SIM cards network preferences.
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Multi requested SIM cards network preferences.")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -103,7 +103,7 @@ public class BulkSIMCardNetworkPreferenceResponse {
    * Get errors
    * @return errors
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

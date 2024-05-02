@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   VerifyProfileSMSResponse.JSON_PROPERTY_APP_NAME,
   VerifyProfileSMSResponse.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifyProfileSMSResponse {
   public static final String JSON_PROPERTY_MESSAGING_ENABLED = "messaging_enabled";
   private Boolean messagingEnabled;
@@ -67,7 +67,7 @@ public class VerifyProfileSMSResponse {
    * Enables SMS text messaging for the Verify profile.
    * @return messagingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Enables SMS text messaging for the Verify profile.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class VerifyProfileSMSResponse {
    * The message template identifier selected from /verify_profiles/templates
    * @return messagingTemplateId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0abb5b4f-459f-445a-bfcd-488998b7572d", value = "The message template identifier selected from /verify_profiles/templates")
   @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class VerifyProfileSMSResponse {
    * The name that identifies the application requesting 2fa in the verification message.
    * @return appName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Example Secure App", value = "The name that identifies the application requesting 2fa in the verification message.")
   @JsonProperty(JSON_PROPERTY_APP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class VerifyProfileSMSResponse {
    * For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.
    * @return defaultVerificationTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "300", value = "For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.")
   @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

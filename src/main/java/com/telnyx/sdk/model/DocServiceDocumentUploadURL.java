@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   DocServiceDocumentUploadURL.JSON_PROPERTY_FILENAME,
   DocServiceDocumentUploadURL.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class DocServiceDocumentUploadURL {
   public static final String JSON_PROPERTY_URL = "url";
   private String url;
@@ -62,7 +62,7 @@ public class DocServiceDocumentUploadURL {
    * If the file is already hosted publicly, you can provide a URL and have the documents service fetch it for you.
    * @return url
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", required = true, value = "If the file is already hosted publicly, you can provide a URL and have the documents service fetch it for you.")
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -88,7 +88,7 @@ public class DocServiceDocumentUploadURL {
    * The filename of the document.
    * @return filename
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "test-document.pdf", value = "The filename of the document.")
   @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class DocServiceDocumentUploadURL {
    * Optional reference string for customer tracking.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "Optional reference string for customer tracking.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

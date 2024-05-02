@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   HttpRequest.JSON_PROPERTY_URL,
   HttpRequest.JSON_PROPERTY_HEADERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class HttpRequest {
   public static final String JSON_PROPERTY_URL = "url";
   private String url;
@@ -61,7 +61,7 @@ public class HttpRequest {
    * Get url
    * @return url
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com/webhooks", value = "")
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -95,7 +95,7 @@ public class HttpRequest {
    * List of headers, limited to 10kB.
    * @return headers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "List of headers, limited to 10kB.")
   @JsonProperty(JSON_PROPERTY_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

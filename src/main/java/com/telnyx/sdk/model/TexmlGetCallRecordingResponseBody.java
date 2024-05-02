@@ -61,7 +61,7 @@ import com.telnyx.sdk.JSON;
   TexmlGetCallRecordingResponseBody.JSON_PROPERTY_URI,
   TexmlGetCallRecordingResponseBody.JSON_PROPERTY_MEDIA_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TexmlGetCallRecordingResponseBody {
   public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
   private String accountSid;
@@ -120,7 +120,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get accountSid
    * @return accountSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -146,7 +146,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get callSid
    * @return callSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA", value = "")
   @JsonProperty(JSON_PROPERTY_CALL_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -172,7 +172,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get conferenceSid
    * @return conferenceSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "cd5a70f4-759b-4d5e-9c06-88c00f16f3c1", value = "")
   @JsonIgnore
 
@@ -206,7 +206,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get channels
    * @return channels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -232,7 +232,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get dateCreated
    * @return dateCreated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Fri, 11 Aug 2023 19:12:11 +0000", value = "")
   @JsonProperty(JSON_PROPERTY_DATE_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -258,7 +258,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get dateUpdated
    * @return dateUpdated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Fri, 11 Aug 2023 19:12:11 +0000", value = "")
   @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -284,7 +284,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get startTime
    * @return startTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Fri, 11 Aug 2023 19:12:11 +0000", value = "")
   @JsonProperty(JSON_PROPERTY_START_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -310,7 +310,7 @@ public class TexmlGetCallRecordingResponseBody {
    * The duration of this recording, given in seconds.
    * @return duration
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12", value = "The duration of this recording, given in seconds.")
   @JsonIgnore
 
@@ -344,7 +344,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Identifier of a resource.
    * @return sid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "e9cea0be-7dbd-4b98-98b1-c0089d9d43b0", value = "Identifier of a resource.")
   @JsonProperty(JSON_PROPERTY_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -370,7 +370,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get source
    * @return source
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -422,7 +422,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get errorCode
    * @return errorCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -456,7 +456,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get subresourcesUris
    * @return subresourcesUris
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SUBRESOURCES_URIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -482,7 +482,7 @@ public class TexmlGetCallRecordingResponseBody {
    * The relative URI for this recording resource.
    * @return uri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json", value = "The relative URI for this recording resource.")
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -508,7 +508,7 @@ public class TexmlGetCallRecordingResponseBody {
    * Get mediaUrl
    * @return mediaUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://recordings.com/mp3/filename.mp3", value = "")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

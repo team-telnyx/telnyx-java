@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   ExternalConnectionPhoneNumber.JSON_PROPERTY_DISPLAYED_COUNTRY_CODE,
   ExternalConnectionPhoneNumber.JSON_PROPERTY_ACQUIRED_CAPABILITIES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ExternalConnectionPhoneNumber {
   public static final String JSON_PROPERTY_TICKET_ID = "ticket_id";
   private UUID ticketId;
@@ -122,7 +122,7 @@ public class ExternalConnectionPhoneNumber {
    * Uniquely identifies the resource.
    * @return ticketId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "542c3bca-d247-42bc-8fe7-e01d16ecd761", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_TICKET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class ExternalConnectionPhoneNumber {
    * Phone number in E164 format.
    * @return telephoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phone number in E164 format.")
   @JsonProperty(JSON_PROPERTY_TELEPHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class ExternalConnectionPhoneNumber {
    * Phone number ID from the Telnyx API.
    * @return numberId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phone number ID from the Telnyx API.")
   @JsonProperty(JSON_PROPERTY_NUMBER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -200,7 +200,7 @@ public class ExternalConnectionPhoneNumber {
    * Identifies the civic address assigned to the phone number.
    * @return civicAddressId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the civic address assigned to the phone number.")
   @JsonProperty(JSON_PROPERTY_CIVIC_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -226,7 +226,7 @@ public class ExternalConnectionPhoneNumber {
    * Identifies the location assigned to the phone number.
    * @return locationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the location assigned to the phone number.")
   @JsonProperty(JSON_PROPERTY_LOCATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -252,7 +252,7 @@ public class ExternalConnectionPhoneNumber {
    * The iso country code that will be displayed to the user when they receive a call from this phone number.
    * @return displayedCountryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The iso country code that will be displayed to the user when they receive a call from this phone number.")
   @JsonProperty(JSON_PROPERTY_DISPLAYED_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -286,7 +286,7 @@ public class ExternalConnectionPhoneNumber {
    * Get acquiredCapabilities
    * @return acquiredCapabilities
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ACQUIRED_CAPABILITIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

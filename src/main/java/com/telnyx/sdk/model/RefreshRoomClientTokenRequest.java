@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   RefreshRoomClientTokenRequest.JSON_PROPERTY_TOKEN_TTL_SECS,
   RefreshRoomClientTokenRequest.JSON_PROPERTY_REFRESH_TOKEN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RefreshRoomClientTokenRequest {
   public static final String JSON_PROPERTY_TOKEN_TTL_SECS = "token_ttl_secs";
   private Integer tokenTtlSecs = 600;
@@ -60,7 +60,7 @@ public class RefreshRoomClientTokenRequest {
    * maximum: 3600
    * @return tokenTtlSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "600", value = "The time to live in seconds of the Client Token, after that time the Client Token is invalid and can't be used to join a Room.")
   @JsonProperty(JSON_PROPERTY_TOKEN_TTL_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class RefreshRoomClientTokenRequest {
    * Get refreshToken
    * @return refreshToken
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_REFRESH_TOKEN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CallControlApplicationInbound.JSON_PROPERTY_SIP_SUBDOMAIN,
   CallControlApplicationInbound.JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallControlApplicationInbound {
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
   private Integer channelLimit;
@@ -101,7 +101,7 @@ public class CallControlApplicationInbound {
    * When set, this will limit the total number of inbound calls to phone numbers associated with this connection.
    * @return channelLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "When set, this will limit the total number of inbound calls to phone numbers associated with this connection.")
   @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -127,7 +127,7 @@ public class CallControlApplicationInbound {
    * When enabled Telnyx will include Shaken/Stir data in the Webhook for new inbound calls.
    * @return shakenStirEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "When enabled Telnyx will include Shaken/Stir data in the Webhook for new inbound calls.")
   @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -153,7 +153,7 @@ public class CallControlApplicationInbound {
    * Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the same way a phone number is used, from a SIP endpoint. Example: the subdomain \&quot;example.sip.telnyx.com\&quot; can be called from any SIP endpoint by using the SIP URI \&quot;sip:@example.sip.telnyx.com\&quot; where the user part can be any alphanumeric value. Please note TLS encrypted calls are not allowed for subdomain calls.
    * @return sipSubdomain
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "example", value = "Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the same way a phone number is used, from a SIP endpoint. Example: the subdomain \"example.sip.telnyx.com\" can be called from any SIP endpoint by using the SIP URI \"sip:@example.sip.telnyx.com\" where the user part can be any alphanumeric value. Please note TLS encrypted calls are not allowed for subdomain calls.")
   @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -179,7 +179,7 @@ public class CallControlApplicationInbound {
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).
    * @return sipSubdomainReceiveSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "only_my_connections", value = "This option can be enabled to receive calls from: \"Anyone\" (any SIP endpoint in the public Internet) or \"Only my connections\" (any connection assigned to the same Telnyx user).")
   @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

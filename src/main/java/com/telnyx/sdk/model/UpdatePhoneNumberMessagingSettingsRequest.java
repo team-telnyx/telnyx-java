@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberMessagingSettingsRequest.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   UpdatePhoneNumberMessagingSettingsRequest.JSON_PROPERTY_MESSAGING_PRODUCT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdatePhoneNumberMessagingSettingsRequest {
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
@@ -58,7 +58,7 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
    * Unique identifier for a messaging profile.
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier for a messaging profile.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
    * The requested messaging product the number should be on
    * @return messagingProduct
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "P2P", value = "The requested messaging product the number should be on")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PRODUCT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

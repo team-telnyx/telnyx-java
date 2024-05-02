@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   UpdateCommandResult.JSON_PROPERTY_SID,
   UpdateCommandResult.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateCommandResult {
   public static final String JSON_PROPERTY_SID = "sid";
   private String sid;
@@ -58,7 +58,7 @@ public class UpdateCommandResult {
    * Get sid
    * @return sid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "c46e06d7-b78f-4b13-96b6-c576af9640ff", value = "")
   @JsonProperty(JSON_PROPERTY_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class UpdateCommandResult {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "accepted", value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

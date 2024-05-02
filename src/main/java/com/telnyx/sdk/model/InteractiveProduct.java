@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   InteractiveProduct.JSON_PROPERTY_PRODUCT_RETAILER_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InteractiveProduct {
   public static final String JSON_PROPERTY_PRODUCT_RETAILER_ID = "product_retailer_id";
   private String productRetailerId;
@@ -53,7 +53,7 @@ public class InteractiveProduct {
    * Unique identifier of the product in a catalog. To get this ID, go to Commerce Manager, select your Facebook Business account, and you will see a list of shops connected to your account. Click the shop you want to use. On the left-side panel, click Catalog &gt; Items, and find the item you want to mention. The ID for that item is displayed under the item&#39;s name.
    * @return productRetailerId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Unique identifier of the product in a catalog. To get this ID, go to Commerce Manager, select your Facebook Business account, and you will see a list of shops connected to your account. Click the shop you want to use. On the left-side panel, click Catalog > Items, and find the item you want to mention. The ID for that item is displayed under the item's name.")
   @JsonProperty(JSON_PROPERTY_PRODUCT_RETAILER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   AccessIPRangePOST.JSON_PROPERTY_CIDR_BLOCK,
   AccessIPRangePOST.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class AccessIPRangePOST {
   public static final String JSON_PROPERTY_CIDR_BLOCK = "cidr_block";
   private String cidrBlock;
@@ -58,7 +58,7 @@ public class AccessIPRangePOST {
    * Get cidrBlock
    * @return cidrBlock
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CIDR_BLOCK)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,7 +84,7 @@ public class AccessIPRangePOST {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

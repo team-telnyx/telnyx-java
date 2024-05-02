@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   GetPortingOrder200ResponseMeta.JSON_PROPERTY_PHONE_NUMBERS_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GetPortingOrder200ResponseMeta {
   public static final String JSON_PROPERTY_PHONE_NUMBERS_URL = "phone_numbers_url";
   private String phoneNumbersUrl;
@@ -54,7 +54,7 @@ public class GetPortingOrder200ResponseMeta {
    * Link to list all phone numbers
    * @return phoneNumbersUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/porting_phone_numbers?filter[porting_order_id]=eef10fb8-f3df-4c67-97c5-e18179723222", value = "Link to list all phone numbers")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CreateVerificationRequestCall.JSON_PROPERTY_TIMEOUT_SECS,
   CreateVerificationRequestCall.JSON_PROPERTY_CALL_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateVerificationRequestCall {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -68,7 +68,7 @@ public class CreateVerificationRequestCall {
    * +E164 formatted phone number.
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+13035551234", required = true, value = "+E164 formatted phone number.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -94,7 +94,7 @@ public class CreateVerificationRequestCall {
    * The identifier of the associated Verify profile.
    * @return verifyProfileId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "The identifier of the associated Verify profile.")
   @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -120,7 +120,7 @@ public class CreateVerificationRequestCall {
    * The number of seconds the verification code is valid for.
    * @return timeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "300", value = "The number of seconds the verification code is valid for.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -146,7 +146,7 @@ public class CreateVerificationRequestCall {
    * Must be less than the profile&#39;s default_verification_timeout_secs or timeout_secs, whichever is lesser.
    * @return callTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "30", value = "Must be less than the profile's default_verification_timeout_secs or timeout_secs, whichever is lesser.")
   @JsonProperty(JSON_PROPERTY_CALL_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

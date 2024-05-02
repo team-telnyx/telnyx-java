@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   GlobalIPHealthCheck.JSON_PROPERTY_HEALTH_CHECK_PARAMS,
   GlobalIPHealthCheck.JSON_PROPERTY_GLOBAL_IP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIPHealthCheck {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -88,7 +88,7 @@ public class GlobalIPHealthCheck {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -104,7 +104,7 @@ public class GlobalIPHealthCheck {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "global_ip_health_check", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -120,7 +120,7 @@ public class GlobalIPHealthCheck {
    * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -136,7 +136,7 @@ public class GlobalIPHealthCheck {
    * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -157,7 +157,7 @@ public class GlobalIPHealthCheck {
    * The Global IP health check type.
    * @return healthCheckType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http_status_2xx", value = "The Global IP health check type.")
   @JsonProperty(JSON_PROPERTY_HEALTH_CHECK_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -183,7 +183,7 @@ public class GlobalIPHealthCheck {
    * A Global IP health check params.
    * @return healthCheckParams
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "{\"path\":\"/\",\"port\":8080}", value = "A Global IP health check params.")
   @JsonProperty(JSON_PROPERTY_HEALTH_CHECK_PARAMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -209,7 +209,7 @@ public class GlobalIPHealthCheck {
    * Global IP ID.
    * @return globalIpId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "a836125b-20b6-452e-9c03-2653f09c7ed7", value = "Global IP ID.")
   @JsonProperty(JSON_PROPERTY_GLOBAL_IP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

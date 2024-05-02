@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRequestAddress.JSON_PROPERTY_ADMINISTRATIVE_AREA,
   CustomerServiceRequestAddress.JSON_PROPERTY_POSTAL_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CustomerServiceRequestAddress {
   public static final String JSON_PROPERTY_STREET_ADDRESS = "street_address";
   private String streetAddress;
@@ -66,7 +66,7 @@ public class CustomerServiceRequestAddress {
    * The street address
    * @return streetAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123 Main St", value = "The street address")
   @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class CustomerServiceRequestAddress {
    * The city of the address
    * @return locality
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "New York", value = "The city of the address")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class CustomerServiceRequestAddress {
    * The state of the address
    * @return administrativeArea
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "NY", value = "The state of the address")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class CustomerServiceRequestAddress {
    * The zip code of the address
    * @return postalCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10001", value = "The zip code of the address")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

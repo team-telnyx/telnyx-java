@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   BrandFeedbackCategory.JSON_PROPERTY_DESCRIPTION,
   BrandFeedbackCategory.JSON_PROPERTY_FIELDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BrandFeedbackCategory {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -68,7 +68,7 @@ public class BrandFeedbackCategory {
    * One of &#x60;TAX_ID&#x60;, &#x60;STOCK_SYMBOL&#x60;, &#x60;GOVERNMENT_ENTITY&#x60;, &#x60;NONPROFIT&#x60;, and &#x60;OTHERS&#x60;
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "TAX_ID", required = true, value = "One of `TAX_ID`, `STOCK_SYMBOL`, `GOVERNMENT_ENTITY`, `NONPROFIT`, and `OTHERS`")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -94,7 +94,7 @@ public class BrandFeedbackCategory {
    * Human-readable version of the &#x60;id&#x60; field
    * @return displayName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Tax Id", required = true, value = "Human-readable version of the `id` field")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -120,7 +120,7 @@ public class BrandFeedbackCategory {
    * Long-form description of the feedback with additional information
    * @return description
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Tax Id does not match with the company name or business type.", required = true, value = "Long-form description of the feedback with additional information")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -151,7 +151,7 @@ public class BrandFeedbackCategory {
    * List of relevant fields in the originally-submitted brand json
    * @return fields
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"ein\",\"companyName\",\"entityType\"]", required = true, value = "List of relevant fields in the originally-submitted brand json")
   @JsonProperty(JSON_PROPERTY_FIELDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

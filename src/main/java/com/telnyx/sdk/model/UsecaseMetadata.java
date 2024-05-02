@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   UsecaseMetadata.JSON_PROPERTY_QUARTERLY_FEE,
   UsecaseMetadata.JSON_PROPERTY_USECASE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UsecaseMetadata {
   public static final String JSON_PROPERTY_ANNUAL_FEE = "annualFee";
   private BigDecimal annualFee;
@@ -79,7 +79,7 @@ public class UsecaseMetadata {
    * Campaign annual subscription fee
    * @return annualFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Campaign annual subscription fee")
   @JsonProperty(JSON_PROPERTY_ANNUAL_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -105,7 +105,7 @@ public class UsecaseMetadata {
    * Maximum number of sub-usecases declaration required.
    * @return maxSubUsecases
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Maximum number of sub-usecases declaration required.")
   @JsonProperty(JSON_PROPERTY_MAX_SUB_USECASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -131,7 +131,7 @@ public class UsecaseMetadata {
    * Minimum number of sub-usecases declaration required.
    * @return minSubUsecases
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Minimum number of sub-usecases declaration required.")
   @JsonProperty(JSON_PROPERTY_MIN_SUB_USECASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -157,7 +157,7 @@ public class UsecaseMetadata {
    * Map of usecase metadata for each MNO. Key is the network ID of the MNO (e.g. 10017), Value is the mno metadata for the usecase.
    * @return mnoMetadata
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Map of usecase metadata for each MNO. Key is the network ID of the MNO (e.g. 10017), Value is the mno metadata for the usecase.")
   @JsonProperty(JSON_PROPERTY_MNO_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -183,7 +183,7 @@ public class UsecaseMetadata {
    * Campaign monthly subscription fee
    * @return monthlyFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Campaign monthly subscription fee")
   @JsonProperty(JSON_PROPERTY_MONTHLY_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -209,7 +209,7 @@ public class UsecaseMetadata {
    * Campaign quarterly subscription fee
    * @return quarterlyFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Campaign quarterly subscription fee")
   @JsonProperty(JSON_PROPERTY_QUARTERLY_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -235,7 +235,7 @@ public class UsecaseMetadata {
    * Campaign usecase
    * @return usecase
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Campaign usecase")
   @JsonProperty(JSON_PROPERTY_USECASE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

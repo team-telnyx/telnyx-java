@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   MessagingFeatureSet.JSON_PROPERTY_INTERNATIONAL_INBOUND,
   MessagingFeatureSet.JSON_PROPERTY_INTERNATIONAL_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MessagingFeatureSet {
   public static final String JSON_PROPERTY_DOMESTIC_TWO_WAY = "domestic_two_way";
   private Boolean domesticTwoWay;
@@ -63,7 +63,7 @@ public class MessagingFeatureSet {
    * Send messages to and receive messages from numbers in the same country.
    * @return domesticTwoWay
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Send messages to and receive messages from numbers in the same country.")
   @JsonProperty(JSON_PROPERTY_DOMESTIC_TWO_WAY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -89,7 +89,7 @@ public class MessagingFeatureSet {
    * Receive messages from numbers in other countries.
    * @return internationalInbound
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Receive messages from numbers in other countries.")
   @JsonProperty(JSON_PROPERTY_INTERNATIONAL_INBOUND)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -115,7 +115,7 @@ public class MessagingFeatureSet {
    * Send messages to numbers in other countries.
    * @return internationalOutbound
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Send messages to numbers in other countries.")
   @JsonProperty(JSON_PROPERTY_INTERNATIONAL_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

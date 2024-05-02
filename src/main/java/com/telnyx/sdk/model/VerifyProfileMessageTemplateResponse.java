@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   VerifyProfileMessageTemplateResponse.JSON_PROPERTY_ID,
   VerifyProfileMessageTemplateResponse.JSON_PROPERTY_TEXT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifyProfileMessageTemplateResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -59,7 +59,7 @@ public class VerifyProfileMessageTemplateResponse {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0abb5b4f-459f-445a-bfcd-488998b7572d", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class VerifyProfileMessageTemplateResponse {
    * Get text
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Your {{app_name}} verification code is: {{code}}.", value = "")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

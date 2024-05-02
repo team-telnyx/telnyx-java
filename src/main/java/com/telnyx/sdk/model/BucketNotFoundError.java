@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   BucketNotFoundError.JSON_PROPERTY_DETAIL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BucketNotFoundError {
   public static final String JSON_PROPERTY_DETAIL = "detail";
   private List<NotFoundError> detail = null;
@@ -65,7 +65,7 @@ public class BucketNotFoundError {
    * Get detail
    * @return detail
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DETAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

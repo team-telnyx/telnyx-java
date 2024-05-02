@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CredentialsResponse.JSON_PROPERTY_CONNECTION_ID,
   CredentialsResponse.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CredentialsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private CustomStorageConfiguration data;
@@ -63,7 +63,7 @@ public class CredentialsResponse {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -89,7 +89,7 @@ public class CredentialsResponse {
    * The ID of the connection used to send the fax.
    * @return connectionId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "234423", required = true, value = "The ID of the connection used to send the fax.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -115,7 +115,7 @@ public class CredentialsResponse {
    * Identifies record type.
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Identifies record type.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

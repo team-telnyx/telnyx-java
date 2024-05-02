@@ -71,7 +71,7 @@ import com.telnyx.sdk.JSON;
   PortingOrder.JSON_PROPERTY_WEBHOOK_URL,
   PortingOrder.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PortingOrder {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -213,7 +213,7 @@ public class PortingOrder {
    * Uniquely identifies this porting order
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "Uniquely identifies this porting order")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -234,7 +234,7 @@ public class PortingOrder {
    * A customer-specified reference number for customer bookkeeping purposes
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Acct 123abc", value = "A customer-specified reference number for customer bookkeeping purposes")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -255,7 +255,7 @@ public class PortingOrder {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -271,7 +271,7 @@ public class PortingOrder {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -292,7 +292,7 @@ public class PortingOrder {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -313,7 +313,7 @@ public class PortingOrder {
    * A key to reference this porting order when contacting Telnyx customer support. This information is not available in draft porting orders.
    * @return supportKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sr_123abc", value = "A key to reference this porting order when contacting Telnyx customer support. This information is not available in draft porting orders.")
   @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -329,7 +329,7 @@ public class PortingOrder {
    * A key to reference for the porting order group when contacting Telnyx customer support. This information is not available for porting orders in &#x60;draft&#x60; state
    * @return parentSupportKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pr_123abc", value = "A key to reference for the porting order group when contacting Telnyx customer support. This information is not available for porting orders in `draft` state")
   @JsonProperty(JSON_PROPERTY_PARENT_SUPPORT_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -345,7 +345,7 @@ public class PortingOrder {
    * Count of phone numbers associated with this porting order
    * @return portingPhoneNumbersCount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "Count of phone numbers associated with this porting order")
   @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBERS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -361,7 +361,7 @@ public class PortingOrder {
    * Identifies the old service provider
    * @return oldServiceProviderOcn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Unreal Communications", value = "Identifies the old service provider")
   @JsonProperty(JSON_PROPERTY_OLD_SERVICE_PROVIDER_OCN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -382,7 +382,7 @@ public class PortingOrder {
    * Get documents
    * @return documents
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DOCUMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -408,7 +408,7 @@ public class PortingOrder {
    * Get misc
    * @return misc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_MISC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -434,7 +434,7 @@ public class PortingOrder {
    * Get endUser
    * @return endUser
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_END_USER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -460,7 +460,7 @@ public class PortingOrder {
    * Get activationSettings
    * @return activationSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ACTIVATION_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -486,7 +486,7 @@ public class PortingOrder {
    * Get phoneNumberConfiguration
    * @return phoneNumberConfiguration
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -512,7 +512,7 @@ public class PortingOrder {
    * The type of the phone number
    * @return phoneNumberType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "local", value = "The type of the phone number")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -533,7 +533,7 @@ public class PortingOrder {
    * A description of the porting order
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "FP Telnyx", value = "A description of the porting order")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -562,7 +562,7 @@ public class PortingOrder {
    * List of documentation requirements for porting numbers.
    * @return requirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "List of documentation requirements for porting numbers.")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -588,7 +588,7 @@ public class PortingOrder {
    * Is true when the required documentation is met
    * @return requirementsMet
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Is true when the required documentation is met")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -614,7 +614,7 @@ public class PortingOrder {
    * Get userFeedback
    * @return userFeedback
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_USER_FEEDBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -640,7 +640,7 @@ public class PortingOrder {
    * Identifies the user (or organization) who requested the porting order
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "40d68ba2-0847-4df2-be9c-b0e0cb673e75", value = "Identifies the user (or organization) who requested the porting order")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -666,7 +666,7 @@ public class PortingOrder {
    * Get webhookUrl
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com/porting_webhooks", value = "")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -687,7 +687,7 @@ public class PortingOrder {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_order", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

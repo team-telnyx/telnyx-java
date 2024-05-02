@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ChatCompletionMessageToolCallParam.JSON_PROPERTY_FUNCTION,
   ChatCompletionMessageToolCallParam.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ChatCompletionMessageToolCallParam {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -63,7 +63,7 @@ public class ChatCompletionMessageToolCallParam {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -89,7 +89,7 @@ public class ChatCompletionMessageToolCallParam {
    * Get function
    * @return function
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_FUNCTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -115,7 +115,7 @@ public class ChatCompletionMessageToolCallParam {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

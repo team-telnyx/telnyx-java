@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_ZIP_CODE,
   PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_COUNTRY_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PreviewLoaConfigurationParamsRequestAddress {
   public static final String JSON_PROPERTY_STREET_ADDRESS = "street_address";
   private String streetAddress;
@@ -75,7 +75,7 @@ public class PreviewLoaConfigurationParamsRequestAddress {
    * The street address of the company
    * @return streetAddress
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "311 W. Superior St", required = true, value = "The street address of the company")
   @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -101,7 +101,7 @@ public class PreviewLoaConfigurationParamsRequestAddress {
    * The extended address of the company
    * @return extendedAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Suite 504", value = "The extended address of the company")
   @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -127,7 +127,7 @@ public class PreviewLoaConfigurationParamsRequestAddress {
    * The locality of the company
    * @return city
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Chicago", value = "The locality of the company")
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -153,7 +153,7 @@ public class PreviewLoaConfigurationParamsRequestAddress {
    * The administrative area of the company
    * @return state
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "IL", value = "The administrative area of the company")
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -179,7 +179,7 @@ public class PreviewLoaConfigurationParamsRequestAddress {
    * The postal code of the company
    * @return zipCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "60654", value = "The postal code of the company")
   @JsonProperty(JSON_PROPERTY_ZIP_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -205,7 +205,7 @@ public class PreviewLoaConfigurationParamsRequestAddress {
    * The country code of the company
    * @return countryCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "US", required = true, value = "The country code of the company")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

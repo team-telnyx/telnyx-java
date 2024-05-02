@@ -52,7 +52,7 @@ import com.telnyx.sdk.JSON;
   RecordingResponseData.JSON_PROPERTY_STATUS,
   RecordingResponseData.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RecordingResponseData {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -247,7 +247,7 @@ public class RecordingResponseData {
    * Unique identifier and token for controlling the call.
    * @return callControlId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:e-31OnvjEM7Y4wvxr3TKNk8M3QyLcGZPiUIzCGtwQtOtEjY-B0urkw", value = "Unique identifier and token for controlling the call.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -273,7 +273,7 @@ public class RecordingResponseData {
    * ID that is unique to the call and can be used to correlate webhook events.
    * @return callLegId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "84a97d76-e40f-11ed-9074-02420a0daa69", value = "ID that is unique to the call and can be used to correlate webhook events.")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -299,7 +299,7 @@ public class RecordingResponseData {
    * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
    * @return callSessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "84a97d76-e40f-11ed-9074-02420a0daa69", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -325,7 +325,7 @@ public class RecordingResponseData {
    * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B.
    * @return channels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "dual", value = "When `dual`, final audio file has the first leg on channel A, and the rest on channel B.")
   @JsonProperty(JSON_PROPERTY_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -351,7 +351,7 @@ public class RecordingResponseData {
    * Uniquely identifies the conference.
    * @return conferenceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "84a97d76-e40f-11ed-9074-02420a0daa69", value = "Uniquely identifies the conference.")
   @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -377,7 +377,7 @@ public class RecordingResponseData {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -403,7 +403,7 @@ public class RecordingResponseData {
    * Get downloadUrls
    * @return downloadUrls
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DOWNLOAD_URLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -429,7 +429,7 @@ public class RecordingResponseData {
    * The duration of the recording in milliseconds.
    * @return durationMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "60000", value = "The duration of the recording in milliseconds.")
   @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -455,7 +455,7 @@ public class RecordingResponseData {
    * Uniquely identifies the recording.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", value = "Uniquely identifies the recording.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -481,7 +481,7 @@ public class RecordingResponseData {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "recording", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -507,7 +507,7 @@ public class RecordingResponseData {
    * ISO 8601 formatted date of when the recording started.
    * @return recordingStartedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the recording started.")
   @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -533,7 +533,7 @@ public class RecordingResponseData {
    * ISO 8601 formatted date of when the recording ended.
    * @return recordingEndedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the recording ended.")
   @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -559,7 +559,7 @@ public class RecordingResponseData {
    * The kind of event that led to this recording being created.
    * @return source
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "conference", value = "The kind of event that led to this recording being created.")
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -585,7 +585,7 @@ public class RecordingResponseData {
    * The status of the recording. Only resources for &#x60;completed&#x60; recordings are currently supported.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed", value = "The status of the recording. Only resources for `completed` recordings are currently supported.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -611,7 +611,7 @@ public class RecordingResponseData {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

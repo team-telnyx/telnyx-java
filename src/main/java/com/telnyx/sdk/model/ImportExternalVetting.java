@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   ImportExternalVetting.JSON_PROPERTY_VETTING_ID,
   ImportExternalVetting.JSON_PROPERTY_VETTING_TOKEN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ImportExternalVetting {
   public static final String JSON_PROPERTY_EVP_ID = "evpId";
   private String evpId;
@@ -62,7 +62,7 @@ public class ImportExternalVetting {
    * External vetting provider ID for the brand.
    * @return evpId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "External vetting provider ID for the brand.")
   @JsonProperty(JSON_PROPERTY_EVP_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -88,7 +88,7 @@ public class ImportExternalVetting {
    * Unique ID that identifies a vetting transaction performed by a vetting provider. This ID is provided by the vetting provider at time of vetting.
    * @return vettingId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Unique ID that identifies a vetting transaction performed by a vetting provider. This ID is provided by the vetting provider at time of vetting.")
   @JsonProperty(JSON_PROPERTY_VETTING_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -114,7 +114,7 @@ public class ImportExternalVetting {
    * Required by some providers for vetting record confirmation.
    * @return vettingToken
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Required by some providers for vetting record confirmation.")
   @JsonProperty(JSON_PROPERTY_VETTING_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

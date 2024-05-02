@@ -83,7 +83,7 @@ import com.telnyx.sdk.JSON;
   FqdnConnection.JSON_PROPERTY_INBOUND,
   FqdnConnection.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class FqdnConnection {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -209,7 +209,7 @@ public class FqdnConnection {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -235,7 +235,7 @@ public class FqdnConnection {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "fqdn_connection", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -261,7 +261,7 @@ public class FqdnConnection {
    * Defaults to true
    * @return active
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Defaults to true")
   @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -287,7 +287,7 @@ public class FqdnConnection {
    * Get anchorsiteOverride
    * @return anchorsiteOverride
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -313,7 +313,7 @@ public class FqdnConnection {
    * A user-assigned name to help manage the connection.
    * @return connectionName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "office-connection", required = true, value = "A user-assigned name to help manage the connection.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -339,7 +339,7 @@ public class FqdnConnection {
    * Get transportProtocol
    * @return transportProtocol
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TRANSPORT_PROTOCOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -365,7 +365,7 @@ public class FqdnConnection {
    * When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout.
    * @return defaultOnHoldComfortNoiseEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout.")
   @JsonProperty(JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -391,7 +391,7 @@ public class FqdnConnection {
    * Get dtmfType
    * @return dtmfType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -417,7 +417,7 @@ public class FqdnConnection {
    * Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios.
    * @return encodeContactHeaderEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios.")
   @JsonProperty(JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -443,7 +443,7 @@ public class FqdnConnection {
    * Get encryptedMedia
    * @return encryptedMedia
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -477,7 +477,7 @@ public class FqdnConnection {
    * The connection is enabled for Microsoft Teams Direct Routing.
    * @return microsoftTeamsSbc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The connection is enabled for Microsoft Teams Direct Routing.")
   @JsonProperty(JSON_PROPERTY_MICROSOFT_TEAMS_SBC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -503,7 +503,7 @@ public class FqdnConnection {
    * Enable on-net T38 if you prefer that the sender and receiver negotiate T38 directly when both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call according to each leg&#39;s settings.
    * @return onnetT38PassthroughEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Enable on-net T38 if you prefer that the sender and receiver negotiate T38 directly when both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call according to each leg's settings.")
   @JsonProperty(JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -529,7 +529,7 @@ public class FqdnConnection {
    * The username for the FQDN connection.
    * @return userName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The username for the FQDN connection.")
   @JsonProperty(JSON_PROPERTY_USER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -555,7 +555,7 @@ public class FqdnConnection {
    * The password for the FQDN connection.
    * @return password
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The password for the FQDN connection.")
   @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -581,7 +581,7 @@ public class FqdnConnection {
    * Defines if codecs should be passed on stream change.
    * @return rtpPassCodecsOnStreamChange
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Defines if codecs should be passed on stream change.")
   @JsonProperty(JSON_PROPERTY_RTP_PASS_CODECS_ON_STREAM_CHANGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -607,7 +607,7 @@ public class FqdnConnection {
    * Indicates whether DTMF timestamp adjustment is enabled.
    * @return adjustDtmfTimestamp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether DTMF timestamp adjustment is enabled.")
   @JsonProperty(JSON_PROPERTY_ADJUST_DTMF_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -633,7 +633,7 @@ public class FqdnConnection {
    * Indicates whether DTMF duration should be ignored.
    * @return ignoreDtmfDuration
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether DTMF duration should be ignored.")
   @JsonProperty(JSON_PROPERTY_IGNORE_DTMF_DURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -659,7 +659,7 @@ public class FqdnConnection {
    * Indicates whether the mark bit should be ignored.
    * @return ignoreMarkBit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether the mark bit should be ignored.")
   @JsonProperty(JSON_PROPERTY_IGNORE_MARK_BIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -685,7 +685,7 @@ public class FqdnConnection {
    * Indicates whether call cost calculation is enabled.
    * @return callCostEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether call cost calculation is enabled.")
   @JsonProperty(JSON_PROPERTY_CALL_COST_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -711,7 +711,7 @@ public class FqdnConnection {
    * Indicates whether noise suppression is enabled.
    * @return noiseSuppression
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether noise suppression is enabled.")
   @JsonProperty(JSON_PROPERTY_NOISE_SUPPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -737,7 +737,7 @@ public class FqdnConnection {
    * Indicates whether normalized timestamps should be sent.
    * @return sendNormalizedTimestamps
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether normalized timestamps should be sent.")
   @JsonProperty(JSON_PROPERTY_SEND_NORMALIZED_TIMESTAMPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -763,7 +763,7 @@ public class FqdnConnection {
    * Indicates whether third-party control is enabled.
    * @return thirdPartyControlEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether third-party control is enabled.")
   @JsonProperty(JSON_PROPERTY_THIRD_PARTY_CONTROL_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -789,7 +789,7 @@ public class FqdnConnection {
    * The name for the TXT record associated with the FQDN connection.
    * @return txtName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The name for the TXT record associated with the FQDN connection.")
   @JsonProperty(JSON_PROPERTY_TXT_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -815,7 +815,7 @@ public class FqdnConnection {
    * The value for the TXT record associated with the FQDN connection.
    * @return txtValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The value for the TXT record associated with the FQDN connection.")
   @JsonProperty(JSON_PROPERTY_TXT_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -841,7 +841,7 @@ public class FqdnConnection {
    * The time to live for the TXT record associated with the FQDN connection.
    * @return txtTtl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The time to live for the TXT record associated with the FQDN connection.")
   @JsonProperty(JSON_PROPERTY_TXT_TTL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -867,7 +867,7 @@ public class FqdnConnection {
    * The URL where webhooks related to this connection will be sent. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com", value = "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -893,7 +893,7 @@ public class FqdnConnection {
    * The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://failover.example.com", value = "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.")
   @JsonIgnore
 
@@ -927,7 +927,7 @@ public class FqdnConnection {
    * Get webhookApiVersion
    * @return webhookApiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -955,7 +955,7 @@ public class FqdnConnection {
    * maximum: 30
    * @return webhookTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "25", value = "Specifies how many seconds to wait before timing out a webhook.")
   @JsonIgnore
 
@@ -989,7 +989,7 @@ public class FqdnConnection {
    * Get rtcpSettings
    * @return rtcpSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RTCP_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1010,7 +1010,7 @@ public class FqdnConnection {
    * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1026,7 +1026,7 @@ public class FqdnConnection {
    * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1047,7 +1047,7 @@ public class FqdnConnection {
    * Get inbound
    * @return inbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1073,7 +1073,7 @@ public class FqdnConnection {
    * Get outbound
    * @return outbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

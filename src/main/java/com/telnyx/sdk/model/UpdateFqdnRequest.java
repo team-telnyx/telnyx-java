@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   UpdateFqdnRequest.JSON_PROPERTY_PORT,
   UpdateFqdnRequest.JSON_PROPERTY_DNS_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateFqdnRequest {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -71,7 +71,7 @@ public class UpdateFqdnRequest {
    * ID of the FQDN connection to which this IP should be attached.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ID of the FQDN connection to which this IP should be attached.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class UpdateFqdnRequest {
    * FQDN represented by this resource.
    * @return fqdn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "example.com", value = "FQDN represented by this resource.")
   @JsonProperty(JSON_PROPERTY_FQDN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class UpdateFqdnRequest {
    * Port to use when connecting to this FQDN.
    * @return port
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5060", value = "Port to use when connecting to this FQDN.")
   @JsonIgnore
 
@@ -157,7 +157,7 @@ public class UpdateFqdnRequest {
    * The DNS record type for the FQDN. For cases where a port is not set, the DNS record type must be &#39;srv&#39;. For cases where a port is set, the DNS record type must be &#39;a&#39;. If the DNS record type is &#39;a&#39; and a port is not specified, 5060 will be used.
    * @return dnsRecordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "a", value = "The DNS record type for the FQDN. For cases where a port is not set, the DNS record type must be 'srv'. For cases where a port is set, the DNS record type must be 'a'. If the DNS record type is 'a' and a port is not specified, 5060 will be used.")
   @JsonProperty(JSON_PROPERTY_DNS_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

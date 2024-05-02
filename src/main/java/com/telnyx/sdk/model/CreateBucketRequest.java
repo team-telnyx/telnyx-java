@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreateBucketRequest.JSON_PROPERTY_LOCATION_CONSTRAINT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateBucketRequest {
   public static final String JSON_PROPERTY_LOCATION_CONSTRAINT = "LocationConstraint";
   private String locationConstraint;
@@ -54,7 +54,7 @@ public class CreateBucketRequest {
    * Get locationConstraint
    * @return locationConstraint
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOCATION_CONSTRAINT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

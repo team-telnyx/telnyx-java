@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PostPortRequestCommentRequest.JSON_PROPERTY_BODY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PostPortRequestCommentRequest {
   public static final String JSON_PROPERTY_BODY = "body";
   private String body;
@@ -54,7 +54,7 @@ public class PostPortRequestCommentRequest {
    * Comment to post on this portout request
    * @return body
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Comment to post on this portout request")
   @JsonProperty(JSON_PROPERTY_BODY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

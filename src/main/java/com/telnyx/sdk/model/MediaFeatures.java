@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   MediaFeatures.JSON_PROPERTY_ACCEPT_ANY_RTP_PACKETS_ENABLED,
   MediaFeatures.JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MediaFeatures {
   public static final String JSON_PROPERTY_RTP_AUTO_ADJUST_ENABLED = "rtp_auto_adjust_enabled";
   private Boolean rtpAutoAdjustEnabled = true;
@@ -63,7 +63,7 @@ public class MediaFeatures {
    * When RTP Auto-Adjust is enabled, the destination RTP address port will be automatically changed to match the source of the incoming RTP packets.
    * @return rtpAutoAdjustEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When RTP Auto-Adjust is enabled, the destination RTP address port will be automatically changed to match the source of the incoming RTP packets.")
   @JsonProperty(JSON_PROPERTY_RTP_AUTO_ADJUST_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -89,7 +89,7 @@ public class MediaFeatures {
    * When enabled, Telnyx will accept RTP packets from any customer-side IP address and port, not just those to which Telnyx is sending RTP.
    * @return acceptAnyRtpPacketsEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When enabled, Telnyx will accept RTP packets from any customer-side IP address and port, not just those to which Telnyx is sending RTP.")
   @JsonProperty(JSON_PROPERTY_ACCEPT_ANY_RTP_PACKETS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class MediaFeatures {
    * Controls whether Telnyx will accept a T.38 re-INVITE for this phone number. Note that Telnyx will not send a T.38 re-INVITE; this option only controls whether one will be accepted.
    * @return t38FaxGatewayEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Controls whether Telnyx will accept a T.38 re-INVITE for this phone number. Note that Telnyx will not send a T.38 re-INVITE; this option only controls whether one will be accepted.")
   @JsonProperty(JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

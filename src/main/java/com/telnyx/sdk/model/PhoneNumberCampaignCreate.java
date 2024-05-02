@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberCampaignCreate.JSON_PROPERTY_PHONE_NUMBER,
   PhoneNumberCampaignCreate.JSON_PROPERTY_CAMPAIGN_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PhoneNumberCampaignCreate {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phoneNumber";
   private String phoneNumber;
@@ -58,7 +58,7 @@ public class PhoneNumberCampaignCreate {
    * The phone number you want to link to a specified campaign.
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+18005550199", required = true, value = "The phone number you want to link to a specified campaign.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,7 +84,7 @@ public class PhoneNumberCampaignCreate {
    * The ID of the campaign you want to link to the specified phone number.
    * @return campaignId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "4b300178-131c-d902-d54e-72d90ba1620j", required = true, value = "The ID of the campaign you want to link to the specified phone number.")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

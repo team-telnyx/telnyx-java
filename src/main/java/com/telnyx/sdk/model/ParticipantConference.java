@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   ParticipantConference.JSON_PROPERTY_ID,
   ParticipantConference.JSON_PROPERTY_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ParticipantConference {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -59,7 +59,7 @@ public class ParticipantConference {
    * Uniquely identifies the conference
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", value = "Uniquely identifies the conference")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class ParticipantConference {
    * Name of the conference
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "All hands meeting", value = "Name of the conference")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

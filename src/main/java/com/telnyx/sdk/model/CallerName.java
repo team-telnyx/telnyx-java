@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CallerName.JSON_PROPERTY_CALLER_NAME,
   CallerName.JSON_PROPERTY_ERROR_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallerName {
   public static final String JSON_PROPERTY_CALLER_NAME = "caller_name";
   private String callerName;
@@ -58,7 +58,7 @@ public class CallerName {
    * The name of the requested phone number&#39;s owner as per the CNAM database
    * @return callerName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "TELNYX LLC", value = "The name of the requested phone number's owner as per the CNAM database")
   @JsonProperty(JSON_PROPERTY_CALLER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class CallerName {
    * A caller-name lookup specific error code, expressed as a stringified 5-digit integer
    * @return errorCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10001", value = "A caller-name lookup specific error code, expressed as a stringified 5-digit integer")
   @JsonProperty(JSON_PROPERTY_ERROR_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

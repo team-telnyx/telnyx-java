@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   LogMessageSource.JSON_PROPERTY_POINTER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class LogMessageSource {
   public static final String JSON_PROPERTY_POINTER = "pointer";
   private String pointer;
@@ -54,7 +54,7 @@ public class LogMessageSource {
    * JSON pointer (RFC6901) to the offending entity.
    * @return pointer
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/attribute", value = "JSON pointer (RFC6901) to the offending entity.")
   @JsonProperty(JSON_PROPERTY_POINTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   WireguardAllowedIP.JSON_PROPERTY_RECORD_TYPE,
   WireguardAllowedIP.JSON_PROPERTY_IP_ADDRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WireguardAllowedIP {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -60,7 +60,7 @@ public class WireguardAllowedIP {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wireguard_allowed_ip", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -81,7 +81,7 @@ public class WireguardAllowedIP {
    * The IP address to add to the Wireguard Interface&#39;s AllowedIP list.
    * @return ipAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "198.51.100.1", value = "The IP address to add to the Wireguard Interface's AllowedIP list.")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

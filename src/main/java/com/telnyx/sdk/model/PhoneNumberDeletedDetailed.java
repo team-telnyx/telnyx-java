@@ -62,7 +62,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDeletedDetailed.JSON_PROPERTY_NUMBER_LEVEL_ROUTING,
   PhoneNumberDeletedDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PhoneNumberDeletedDetailed {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -306,7 +306,7 @@ public class PhoneNumberDeletedDetailed {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -322,7 +322,7 @@ public class PhoneNumberDeletedDetailed {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "phone_number", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -338,7 +338,7 @@ public class PhoneNumberDeletedDetailed {
    * The +E.164-formatted phone number associated with this record.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The +E.164-formatted phone number associated with this record.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -354,7 +354,7 @@ public class PhoneNumberDeletedDetailed {
    * The phone number&#39;s current status.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The phone number's current status.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -383,7 +383,7 @@ public class PhoneNumberDeletedDetailed {
    * A list of user-assigned tags to help manage the phone number.
    * @return tags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of user-assigned tags to help manage the phone number.")
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -409,7 +409,7 @@ public class PhoneNumberDeletedDetailed {
    * If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, Telnyx will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism.
    * @return externalPin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, Telnyx will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism.")
   @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -430,7 +430,7 @@ public class PhoneNumberDeletedDetailed {
    * The user-assigned name of the connection to be associated with this phone number.
    * @return connectionName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The user-assigned name of the connection to be associated with this phone number.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -451,7 +451,7 @@ public class PhoneNumberDeletedDetailed {
    * Identifies the connection associated with the phone number.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the connection associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -477,7 +477,7 @@ public class PhoneNumberDeletedDetailed {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -503,7 +503,7 @@ public class PhoneNumberDeletedDetailed {
    * Identifies the messaging profile associated with the phone number.
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the messaging profile associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -529,7 +529,7 @@ public class PhoneNumberDeletedDetailed {
    * The name of the messaging profile associated with the phone number.
    * @return messagingProfileName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "regional-customers", value = "The name of the messaging profile associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -555,7 +555,7 @@ public class PhoneNumberDeletedDetailed {
    * Identifies the billing group associated with the phone number.
    * @return billingGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the billing group associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -576,7 +576,7 @@ public class PhoneNumberDeletedDetailed {
    * Indicates whether emergency services are enabled for this number.
    * @return emergencyEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether emergency services are enabled for this number.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -592,7 +592,7 @@ public class PhoneNumberDeletedDetailed {
    * Identifies the emergency address associated with the phone number.
    * @return emergencyAddressId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the emergency address associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -608,7 +608,7 @@ public class PhoneNumberDeletedDetailed {
    * Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.
    * @return callForwardingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.")
   @JsonProperty(JSON_PROPERTY_CALL_FORWARDING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -624,7 +624,7 @@ public class PhoneNumberDeletedDetailed {
    * Indicates whether a CNAM listing is enabled for this number.
    * @return cnamListingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether a CNAM listing is enabled for this number.")
   @JsonProperty(JSON_PROPERTY_CNAM_LISTING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -640,7 +640,7 @@ public class PhoneNumberDeletedDetailed {
    * Indicates whether caller ID is enabled for this number.
    * @return callerIdNameEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether caller ID is enabled for this number.")
   @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -656,7 +656,7 @@ public class PhoneNumberDeletedDetailed {
    * Indicates whether call recording is enabled for this number.
    * @return callRecordingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether call recording is enabled for this number.")
   @JsonProperty(JSON_PROPERTY_CALL_RECORDING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -672,7 +672,7 @@ public class PhoneNumberDeletedDetailed {
    * Indicates whether T38 Fax Gateway for inbound calls to this number.
    * @return t38FaxGatewayEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether T38 Fax Gateway for inbound calls to this number.")
   @JsonProperty(JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -688,7 +688,7 @@ public class PhoneNumberDeletedDetailed {
    * ISO 8601 formatted date indicating the time the request was made to purchase the number.
    * @return purchasedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating the time the request was made to purchase the number.")
   @JsonProperty(JSON_PROPERTY_PURCHASED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -704,7 +704,7 @@ public class PhoneNumberDeletedDetailed {
    * ISO 8601 formatted date indicating when the time it took to activate after the purchase.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the time it took to activate after the purchase.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -720,7 +720,7 @@ public class PhoneNumberDeletedDetailed {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -741,7 +741,7 @@ public class PhoneNumberDeletedDetailed {
    * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
    * @return numberLevelRouting
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.")
   @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -762,7 +762,7 @@ public class PhoneNumberDeletedDetailed {
    * The phone number&#39;s type.
    * @return phoneNumberType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The phone number's type.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

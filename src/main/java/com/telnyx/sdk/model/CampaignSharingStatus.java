@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   CampaignSharingStatus.JSON_PROPERTY_STATUS_DATE,
   CampaignSharingStatus.JSON_PROPERTY_UPSTREAM_CNP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CampaignSharingStatus {
   public static final String JSON_PROPERTY_DOWNSTREAM_CNP_ID = "downstreamCnpId";
   private String downstreamCnpId;
@@ -70,7 +70,7 @@ public class CampaignSharingStatus {
    * Get downstreamCnpId
    * @return downstreamCnpId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DOWNSTREAM_CNP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class CampaignSharingStatus {
    * Get sharedDate
    * @return sharedDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SHARED_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class CampaignSharingStatus {
    * Get sharingStatus
    * @return sharingStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SHARING_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class CampaignSharingStatus {
    * Get statusDate
    * @return statusDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class CampaignSharingStatus {
    * Get upstreamCnpId
    * @return upstreamCnpId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_UPSTREAM_CNP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

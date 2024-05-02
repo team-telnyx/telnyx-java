@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   ExportPortingOrdersCSVReportFilters.JSON_PROPERTY_CREATED_AT_LT,
   ExportPortingOrdersCSVReportFilters.JSON_PROPERTY_CREATED_AT_GT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ExportPortingOrdersCSVReportFilters {
   /**
    * Gets or Sets statusIn
@@ -125,7 +125,7 @@ public class ExportPortingOrdersCSVReportFilters {
    * The status of the porting orders to include in the report.
    * @return statusIn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The status of the porting orders to include in the report.")
   @JsonProperty(JSON_PROPERTY_STATUS_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -159,7 +159,7 @@ public class ExportPortingOrdersCSVReportFilters {
    * The customer reference of the porting orders to include in the report.
    * @return customerReferenceIn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The customer reference of the porting orders to include in the report.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -185,7 +185,7 @@ public class ExportPortingOrdersCSVReportFilters {
    * The date and time the porting order was created before.
    * @return createdAtLt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The date and time the porting order was created before.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT_LT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -211,7 +211,7 @@ public class ExportPortingOrdersCSVReportFilters {
    * The date and time the porting order was created after.
    * @return createdAtGt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The date and time the porting order was created after.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT_GT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

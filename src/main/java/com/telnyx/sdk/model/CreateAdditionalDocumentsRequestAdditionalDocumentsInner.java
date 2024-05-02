@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CreateAdditionalDocumentsRequestAdditionalDocumentsInner.JSON_PROPERTY_DOCUMENT_TYPE,
   CreateAdditionalDocumentsRequestAdditionalDocumentsInner.JSON_PROPERTY_DOCUMENT_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateAdditionalDocumentsRequestAdditionalDocumentsInner {
   /**
    * The type of document being created.
@@ -98,7 +98,7 @@ public class CreateAdditionalDocumentsRequestAdditionalDocumentsInner {
    * The type of document being created.
    * @return documentType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The type of document being created.")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class CreateAdditionalDocumentsRequestAdditionalDocumentsInner {
    * The document identification
    * @return documentId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The document identification")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

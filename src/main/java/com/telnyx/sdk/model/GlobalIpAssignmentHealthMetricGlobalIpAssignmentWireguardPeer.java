@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpAssignmentHealthMetricGlobalIpAssignmentWireguardPeer.JSON_PROPERTY_NAME,
   GlobalIpAssignmentHealthMetricGlobalIpAssignmentWireguardPeer.JSON_PROPERTY_IP_ADDRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class GlobalIpAssignmentHealthMetricGlobalIpAssignmentWireguardPeer {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -58,7 +58,7 @@ public class GlobalIpAssignmentHealthMetricGlobalIpAssignmentWireguardPeer {
    * A user specified name for the interface.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Wireguard Peer 1", value = "A user specified name for the interface.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class GlobalIpAssignmentHealthMetricGlobalIpAssignmentWireguardPeer {
    * The IP address of the interface.
    * @return ipAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "73.47.1.23", value = "The IP address of the interface.")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

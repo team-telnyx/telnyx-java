@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberCampaignPaginated.JSON_PROPERTY_PAGE,
   PhoneNumberCampaignPaginated.JSON_PROPERTY_TOTAL_RECORDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PhoneNumberCampaignPaginated {
   public static final String JSON_PROPERTY_RECORDS = "records";
   private List<PhoneNumberCampaign> records = new ArrayList<>();
@@ -70,7 +70,7 @@ public class PhoneNumberCampaignPaginated {
    * Get records
    * @return records
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -96,7 +96,7 @@ public class PhoneNumberCampaignPaginated {
    * Get page
    * @return page
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -122,7 +122,7 @@ public class PhoneNumberCampaignPaginated {
    * Get totalRecords
    * @return totalRecords
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_RECORDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
