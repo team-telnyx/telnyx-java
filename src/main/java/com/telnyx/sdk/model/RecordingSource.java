@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -31,17 +31,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum RecordingSource {
   
-  STARTCALLRECORDINGAPI("StartCallRecordingAPI"),
+  START_CALL_RECORDING_API("StartCallRecordingAPI"),
   
-  STARTCONFERENCERECORDINGAPI("StartConferenceRecordingAPI"),
+  START_CONFERENCE_RECORDING_API("StartConferenceRecordingAPI"),
   
-  OUTBOUNDAPI("OutboundAPI"),
+  OUTBOUND_API("OutboundAPI"),
   
-  DIALVERB("DialVerb"),
+  DIAL_VERB("DialVerb"),
   
   CONFERENCE("Conference"),
   
-  RECORDVERB("RecordVerb"),
+  RECORD_VERB("RecordVerb"),
   
   TRUNKING("Trunking");
 

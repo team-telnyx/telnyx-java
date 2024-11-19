@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,13 +39,13 @@ import com.telnyx.sdk.JSON;
   HttpRequest.JSON_PROPERTY_URL,
   HttpRequest.JSON_PROPERTY_HEADERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class HttpRequest {
   public static final String JSON_PROPERTY_URL = "url";
   private String url;
 
   public static final String JSON_PROPERTY_HEADERS = "headers";
-  private List<String> headers = null;
+  private List<List<String>> headers = null;
 
   public HttpRequest() { 
   }
@@ -78,12 +76,12 @@ public class HttpRequest {
   }
 
 
-  public HttpRequest headers(List<String> headers) {
+  public HttpRequest headers(List<List<String>> headers) {
     this.headers = headers;
     return this;
   }
 
-  public HttpRequest addHeadersItem(String headersItem) {
+  public HttpRequest addheadersItem(List<String> headersItem) {
     if (this.headers == null) {
       this.headers = new ArrayList<>();
     }
@@ -96,18 +94,18 @@ public class HttpRequest {
    * @return headers
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "List of headers, limited to 10kB.")
+  @ApiModelProperty(example = "[[\"header_name\",\"header_value\"]]", value = "List of headers, limited to 10kB.")
   @JsonProperty(JSON_PROPERTY_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<String> getHeaders() {
+  public List<List<String>> getHeaders() {
     return headers;
   }
 
 
   @JsonProperty(JSON_PROPERTY_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHeaders(List<String> headers) {
+  public void setHeaders(List<List<String>> headers) {
     this.headers = headers;
   }
 

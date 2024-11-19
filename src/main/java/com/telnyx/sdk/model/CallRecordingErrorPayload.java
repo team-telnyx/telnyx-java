@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CallRecordingErrorPayload.JSON_PROPERTY_CLIENT_STATE,
   CallRecordingErrorPayload.JSON_PROPERTY_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CallRecordingErrorPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -63,13 +61,13 @@ public class CallRecordingErrorPayload {
    * Indication that there was a problem recording the call.
    */
   public enum ReasonEnum {
-    FAILED_TO_AUTHORIZE_WITH_STORAGE_USING_CUSTOM_CREDENTIALS("Failed to authorize with storage using custom credentials"),
+    FAILED_TO_AUTHORIZE_WITH_STORAGE_USING_CUSTOM_CREDENTIALS(String.valueOf("Failed to authorize with storage using custom credentials")),
     
-    INVALID_CREDENTIALS_JSON("Invalid credentials json"),
+    INVALID_CREDENTIALS_JSON(String.valueOf("Invalid credentials json")),
     
-    UNSUPPORTED_BACKEND("Unsupported backend"),
+    UNSUPPORTED_BACKEND(String.valueOf("Unsupported backend")),
     
-    INTERNAL_SERVER_ERROR("Internal server error");
+    INTERNAL_SERVER_ERROR(String.valueOf("Internal server error"));
 
     private String value;
 

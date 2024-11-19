@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -30,8 +30,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -60,13 +58,13 @@ import com.telnyx.sdk.JSON;
   UpdateMessagingProfileRequest.JSON_PROPERTY_URL_SHORTENER_SETTINGS,
   UpdateMessagingProfileRequest.JSON_PROPERTY_ALPHA_SENDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class UpdateMessagingProfileRequest {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    MESSAGING_PROFILE("messaging_profile");
+    MESSAGING_PROFILE(String.valueOf("messaging_profile"));
 
     private String value;
 
@@ -117,11 +115,11 @@ public class UpdateMessagingProfileRequest {
    * Determines which webhook format will be used, Telnyx API v1, v2, or a legacy 2010-04-01 format.
    */
   public enum WebhookApiVersionEnum {
-    _1("1"),
+    _1(String.valueOf("1")),
     
-    _2("2"),
+    _2(String.valueOf("2")),
     
-    _2010_04_01("2010-04-01");
+    _2010_04_01(String.valueOf("2010-04-01"));
 
     private String value;
 
@@ -374,7 +372,7 @@ public class UpdateMessagingProfileRequest {
     return this;
   }
 
-  public UpdateMessagingProfileRequest addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+  public UpdateMessagingProfileRequest addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
     if (this.whitelistedDestinations == null) {
       this.whitelistedDestinations = new ArrayList<>();
     }

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -56,7 +54,7 @@ import com.telnyx.sdk.JSON;
   SlimPhoneNumberDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE,
   SlimPhoneNumberDetailed.JSON_PROPERTY_INBOUND_CALL_SCREENING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class SlimPhoneNumberDetailed {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -71,31 +69,31 @@ public class SlimPhoneNumberDetailed {
    * The phone number&#39;s current status.
    */
   public enum StatusEnum {
-    PURCHASE_PENDING("purchase-pending"),
+    PURCHASE_PENDING(String.valueOf("purchase-pending")),
     
-    PURCHASE_FAILED("purchase-failed"),
+    PURCHASE_FAILED(String.valueOf("purchase-failed")),
     
-    PORT_PENDING("port-pending"),
+    PORT_PENDING(String.valueOf("port-pending")),
     
-    PORT_FAILED("port-failed"),
+    PORT_FAILED(String.valueOf("port-failed")),
     
-    ACTIVE("active"),
+    ACTIVE(String.valueOf("active")),
     
-    DELETED("deleted"),
+    DELETED(String.valueOf("deleted")),
     
-    EMERGENCY_ONLY("emergency-only"),
+    EMERGENCY_ONLY(String.valueOf("emergency-only")),
     
-    PORTED_OUT("ported-out"),
+    PORTED_OUT(String.valueOf("ported-out")),
     
-    PORT_OUT_PENDING("port-out-pending"),
+    PORT_OUT_PENDING(String.valueOf("port-out-pending")),
     
-    REQUIREMENT_INFO_PENDING("requirement-info-pending"),
+    REQUIREMENT_INFO_PENDING(String.valueOf("requirement-info-pending")),
     
-    REQUIREMENT_INFO_UNDER_REVIEW("requirement-info-under-review"),
+    REQUIREMENT_INFO_UNDER_REVIEW(String.valueOf("requirement-info-under-review")),
     
-    REQUIREMENT_INFO_EXCEPTION("requirement-info-exception"),
+    REQUIREMENT_INFO_EXCEPTION(String.valueOf("requirement-info-exception")),
     
-    PROVISION_PENDING("provision-pending");
+    PROVISION_PENDING(String.valueOf("provision-pending"));
 
     private String value;
 
@@ -170,7 +168,7 @@ public class SlimPhoneNumberDetailed {
    * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
    */
   public enum NumberLevelRoutingEnum {
-    DISABLED("disabled");
+    DISABLED(String.valueOf("disabled"));
 
     private String value;
 
@@ -206,23 +204,23 @@ public class SlimPhoneNumberDetailed {
    * The phone number&#39;s type. Note: For numbers purchased prior to July 2023 or when fetching a number&#39;s details immediately after a purchase completes, the legacy values &#x60;tollfree&#x60;, &#x60;shortcode&#x60; or &#x60;longcode&#x60; may be returned instead.
    */
   public enum PhoneNumberTypeEnum {
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    TOLL_FREE("toll_free"),
+    TOLL_FREE(String.valueOf("toll_free")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SHARED_COST("shared_cost"),
+    SHARED_COST(String.valueOf("shared_cost")),
     
-    LANDLINE("landline"),
+    LANDLINE(String.valueOf("landline")),
     
-    TOLLFREE("tollfree"),
+    TOLLFREE(String.valueOf("tollfree")),
     
-    SHORTCODE("shortcode"),
+    SHORTCODE(String.valueOf("shortcode")),
     
-    LONGCODE("longcode");
+    LONGCODE(String.valueOf("longcode"));
 
     private String value;
 
@@ -258,11 +256,11 @@ public class SlimPhoneNumberDetailed {
    * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
    */
   public enum InboundCallScreeningEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    REJECT_CALLS("reject_calls"),
+    REJECT_CALLS(String.valueOf("reject_calls")),
     
-    FLAG_CALLS("flag_calls");
+    FLAG_CALLS(String.valueOf("flag_calls"));
 
     private String value;
 
@@ -299,7 +297,6 @@ public class SlimPhoneNumberDetailed {
 
   @JsonCreator
   public SlimPhoneNumberDetailed(
-    @JsonProperty(JSON_PROPERTY_ID) String id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
     @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
@@ -315,7 +312,6 @@ public class SlimPhoneNumberDetailed {
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType
   ) {
     this();
-    this.id = id;
     this.recordType = recordType;
     this.phoneNumber = phoneNumber;
     this.status = status;
@@ -331,12 +327,17 @@ public class SlimPhoneNumberDetailed {
     this.phoneNumberType = phoneNumberType;
   }
 
+  public SlimPhoneNumberDetailed id(String id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Uniquely identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -345,6 +346,11 @@ public class SlimPhoneNumberDetailed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(String id) {
+    this.id = id;
+  }
 
 
    /**

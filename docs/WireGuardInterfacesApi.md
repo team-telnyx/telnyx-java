@@ -10,10 +10,8 @@ Method | HTTP request | Description
 [**deleteWireguardPeer**](WireGuardInterfacesApi.md#deleteWireguardPeer) | **DELETE** /wireguard_peers/{id} | Delete the WireGuard Peer
 [**getWireguardInterface**](WireGuardInterfacesApi.md#getWireguardInterface) | **GET** /wireguard_interfaces/{id} | Retrieve a WireGuard Interfaces
 [**getWireguardPeer**](WireGuardInterfacesApi.md#getWireguardPeer) | **GET** /wireguard_peers/{id} | Retrieve the WireGuard Peer
-[**getWireguardPeerAllowedIp**](WireGuardInterfacesApi.md#getWireguardPeerAllowedIp) | **GET** /wireguard_peers/{id}/allowed_ips/{child_id} | Retrieve the Allowed IP
 [**getWireguardPeerConfig**](WireGuardInterfacesApi.md#getWireguardPeerConfig) | **GET** /wireguard_peers/{id}/config | Retrieve Wireguard config template for Peer
 [**listWireguardInterfaces**](WireGuardInterfacesApi.md#listWireguardInterfaces) | **GET** /wireguard_interfaces | List all WireGuard Interfaces
-[**listWireguardPeerAllowedIps**](WireGuardInterfacesApi.md#listWireguardPeerAllowedIps) | **GET** /wireguard_peers/{id}/allowed_ips | List all Allowed IPs for a WireGuard Peer
 [**listWireguardPeers**](WireGuardInterfacesApi.md#listWireguardPeers) | **GET** /wireguard_peers | List all WireGuard Peers
 [**updateWireguardPeer**](WireGuardInterfacesApi.md#updateWireguardPeer) | **PATCH** /wireguard_peers/{id} | Update the WireGuard Peer
 
@@ -454,80 +452,6 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## getWireguardPeerAllowedIp
-
-> GetWireguardPeerAllowedIp200Response getWireguardPeerAllowedIp(id, childId)
-
-Retrieve the Allowed IP
-
-Retrieve the Allowed IP.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.WireGuardInterfacesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        WireGuardInterfacesApi apiInstance = new WireGuardInterfacesApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
-        UUID childId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the child resource
-        try {
-            GetWireguardPeerAllowedIp200Response result = apiInstance.getWireguardPeerAllowedIp(id, childId);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling WireGuardInterfacesApi#getWireguardPeerAllowedIp");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
- **childId** | **UUID**| Identifies the child resource |
-
-### Return type
-
-[**GetWireguardPeerAllowedIp200Response**](GetWireguardPeerAllowedIp200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
-
-
 ## getWireguardPeerConfig
 
 > String getWireguardPeerConfig(id)
@@ -658,82 +582,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListWireguardInterfaces200Response**](ListWireguardInterfaces200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## listWireguardPeerAllowedIps
-
-> ListWireguardPeerAllowedIps200Response listWireguardPeerAllowedIps(id, pageNumber, pageSize)
-
-List all Allowed IPs for a WireGuard Peer
-
-List all Allowed IPs for a WireGuard peer.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.WireGuardInterfacesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        WireGuardInterfacesApi apiInstance = new WireGuardInterfacesApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
-        Integer pageNumber = 1; // Integer | The page number to load
-        Integer pageSize = 20; // Integer | The size of the page
-        try {
-            ListWireguardPeerAllowedIps200Response result = apiInstance.listWireguardPeerAllowedIps(id, pageNumber, pageSize);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling WireGuardInterfacesApi#listWireguardPeerAllowedIps");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
-
-### Return type
-
-[**ListWireguardPeerAllowedIps200Response**](ListWireguardPeerAllowedIps200Response.md)
 
 ### Authorization
 

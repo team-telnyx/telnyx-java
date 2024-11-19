@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CustomerServiceRecordStatusChangedEventPayload;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRecordStatusChangedEvent.JSON_PROPERTY_OCCURRED_AT,
   CustomerServiceRecordStatusChangedEvent.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CustomerServiceRecordStatusChangedEvent {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -53,7 +51,7 @@ public class CustomerServiceRecordStatusChangedEvent {
    * The type of the callback event.
    */
   public enum EventTypeEnum {
-    CUSTOMER_SERVICE_RECORD_STATUS_CHANGED("customer_service_record.status_changed");
+    CUSTOMER_SERVICE_RECORD_STATUS_CHANGED(String.valueOf("customer_service_record.status_changed"));
 
     private String value;
 
@@ -95,7 +93,7 @@ public class CustomerServiceRecordStatusChangedEvent {
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   SpeakRequest.JSON_PROPERTY_CLIENT_STATE,
   SpeakRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class SpeakRequest {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private String payload;
@@ -53,9 +51,9 @@ public class SpeakRequest {
    * The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).
    */
   public enum PayloadTypeEnum {
-    TEXT("text"),
+    TEXT(String.valueOf("text")),
     
-    SSML("ssml");
+    SSML(String.valueOf("ssml"));
 
     private String value;
 
@@ -91,9 +89,9 @@ public class SpeakRequest {
    * This parameter impacts speech quality, language options and payload types. When using &#x60;basic&#x60;, only the &#x60;en-US&#x60; language and payload type &#x60;text&#x60; are allowed.
    */
   public enum ServiceLevelEnum {
-    BASIC("basic"),
+    BASIC(String.valueOf("basic")),
     
-    PREMIUM("premium");
+    PREMIUM(String.valueOf("premium"));
 
     private String value;
 
@@ -132,9 +130,9 @@ public class SpeakRequest {
    * The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of &#x60;Polly.&lt;voice&gt;&#x60;, e.g. &#x60;Polly.Brian&#x60;. All standard Amazon Polly voices are supported.
    */
   public enum VoiceEnum {
-    MALE("male"),
+    MALE(String.valueOf("male")),
     
-    FEMALE("female");
+    FEMALE(String.valueOf("female"));
 
     private String value;
 
@@ -170,63 +168,63 @@ public class SpeakRequest {
    * The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified.
    */
   public enum LanguageEnum {
-    ARB("arb"),
+    ARB(String.valueOf("arb")),
     
-    CMN_CN("cmn-CN"),
+    CMN_CN(String.valueOf("cmn-CN")),
     
-    CY_GB("cy-GB"),
+    CY_GB(String.valueOf("cy-GB")),
     
-    DA_DK("da-DK"),
+    DA_DK(String.valueOf("da-DK")),
     
-    DE_DE("de-DE"),
+    DE_DE(String.valueOf("de-DE")),
     
-    EN_AU("en-AU"),
+    EN_AU(String.valueOf("en-AU")),
     
-    EN_GB("en-GB"),
+    EN_GB(String.valueOf("en-GB")),
     
-    EN_GB_WLS("en-GB-WLS"),
+    EN_GB_WLS(String.valueOf("en-GB-WLS")),
     
-    EN_IN("en-IN"),
+    EN_IN(String.valueOf("en-IN")),
     
-    EN_US("en-US"),
+    EN_US(String.valueOf("en-US")),
     
-    ES_ES("es-ES"),
+    ES_ES(String.valueOf("es-ES")),
     
-    ES_MX("es-MX"),
+    ES_MX(String.valueOf("es-MX")),
     
-    ES_US("es-US"),
+    ES_US(String.valueOf("es-US")),
     
-    FR_CA("fr-CA"),
+    FR_CA(String.valueOf("fr-CA")),
     
-    FR_FR("fr-FR"),
+    FR_FR(String.valueOf("fr-FR")),
     
-    HI_IN("hi-IN"),
+    HI_IN(String.valueOf("hi-IN")),
     
-    IS_IS("is-IS"),
+    IS_IS(String.valueOf("is-IS")),
     
-    IT_IT("it-IT"),
+    IT_IT(String.valueOf("it-IT")),
     
-    JA_JP("ja-JP"),
+    JA_JP(String.valueOf("ja-JP")),
     
-    KO_KR("ko-KR"),
+    KO_KR(String.valueOf("ko-KR")),
     
-    NB_NO("nb-NO"),
+    NB_NO(String.valueOf("nb-NO")),
     
-    NL_NL("nl-NL"),
+    NL_NL(String.valueOf("nl-NL")),
     
-    PL_PL("pl-PL"),
+    PL_PL(String.valueOf("pl-PL")),
     
-    PT_BR("pt-BR"),
+    PT_BR(String.valueOf("pt-BR")),
     
-    PT_PT("pt-PT"),
+    PT_PT(String.valueOf("pt-PT")),
     
-    RO_RO("ro-RO"),
+    RO_RO(String.valueOf("ro-RO")),
     
-    RU_RU("ru-RU"),
+    RU_RU(String.valueOf("ru-RU")),
     
-    SV_SE("sv-SE"),
+    SV_SE(String.valueOf("sv-SE")),
     
-    TR_TR("tr-TR");
+    TR_TR(String.valueOf("tr-TR"));
 
     private String value;
 

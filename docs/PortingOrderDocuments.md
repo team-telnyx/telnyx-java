@@ -2,6 +2,7 @@
 
 # PortingOrderDocuments
 
+Can be specified directly or via the `requirement_group_id` parameter.
 
 ## Properties
 

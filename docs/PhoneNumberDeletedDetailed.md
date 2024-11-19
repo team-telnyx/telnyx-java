@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** | Identifies the resource. |  [optional] [readonly] |
+|**id** | **String** | Uniquely identifies the resource. |  [optional] |
 |**recordType** | **String** | Identifies the type of the resource. |  [optional] [readonly] |
 |**phoneNumber** | **String** | The +E.164-formatted phone number associated with this record. |  [optional] [readonly] |
 |**status** | [**StatusEnum**](#StatusEnum) | The phone number&#39;s current status. |  [optional] [readonly] |

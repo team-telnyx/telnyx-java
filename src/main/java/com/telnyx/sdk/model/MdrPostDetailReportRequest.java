@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   MdrPostDetailReportRequest.JSON_PROPERTY_FILTERS,
   MdrPostDetailReportRequest.JSON_PROPERTY_PROFILES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class MdrPostDetailReportRequest {
   public static final String JSON_PROPERTY_START_DATE = "start_date";
   private OffsetDateTime startDate;
@@ -61,9 +59,9 @@ public class MdrPostDetailReportRequest {
    * Gets or Sets directions
    */
   public enum DirectionsEnum {
-    INBOUND("INBOUND"),
+    INBOUND(String.valueOf("INBOUND")),
     
-    OUTBOUND("OUTBOUND");
+    OUTBOUND(String.valueOf("OUTBOUND"));
 
     private String value;
 
@@ -99,11 +97,11 @@ public class MdrPostDetailReportRequest {
    * Gets or Sets recordTypes
    */
   public enum RecordTypesEnum {
-    INCOMPLETE("INCOMPLETE"),
+    INCOMPLETE(String.valueOf("INCOMPLETE")),
     
-    COMPLETED("COMPLETED"),
+    COMPLETED(String.valueOf("COMPLETED")),
     
-    ERRORS("ERRORS");
+    ERRORS(String.valueOf("ERRORS"));
 
     private String value;
 
@@ -210,7 +208,7 @@ public class MdrPostDetailReportRequest {
     return this;
   }
 
-  public MdrPostDetailReportRequest addDirectionsItem(DirectionsEnum directionsItem) {
+  public MdrPostDetailReportRequest adddirectionsItem(DirectionsEnum directionsItem) {
     if (this.directions == null) {
       this.directions = new ArrayList<>();
     }
@@ -244,7 +242,7 @@ public class MdrPostDetailReportRequest {
     return this;
   }
 
-  public MdrPostDetailReportRequest addRecordTypesItem(RecordTypesEnum recordTypesItem) {
+  public MdrPostDetailReportRequest addrecordTypesItem(RecordTypesEnum recordTypesItem) {
     if (this.recordTypes == null) {
       this.recordTypes = new ArrayList<>();
     }
@@ -278,7 +276,7 @@ public class MdrPostDetailReportRequest {
     return this;
   }
 
-  public MdrPostDetailReportRequest addConnectionsItem(Long connectionsItem) {
+  public MdrPostDetailReportRequest addconnectionsItem(Long connectionsItem) {
     if (this.connections == null) {
       this.connections = new ArrayList<>();
     }
@@ -364,7 +362,7 @@ public class MdrPostDetailReportRequest {
     return this;
   }
 
-  public MdrPostDetailReportRequest addFiltersItem(Filter filtersItem) {
+  public MdrPostDetailReportRequest addfiltersItem(Filter filtersItem) {
     if (this.filters == null) {
       this.filters = new ArrayList<>();
     }

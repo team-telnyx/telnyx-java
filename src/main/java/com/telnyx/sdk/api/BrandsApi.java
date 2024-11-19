@@ -16,6 +16,7 @@ import com.telnyx.sdk.model.HTTPValidationError;
 import com.telnyx.sdk.model.ImportExternalVetting;
 import com.telnyx.sdk.model.OrderExternalVetting;
 import com.telnyx.sdk.model.TelnyxBrand;
+import com.telnyx.sdk.model.TelnyxBrandWithCampaignsCount;
 import com.telnyx.sdk.model.UpdateBrand;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class BrandsApi {
   private ApiClient apiClient;
 
@@ -57,7 +58,7 @@ public class BrandsApi {
    * Create Brand
    * This endpoint is used to create a new brand. A brand is an entity created by The Campaign Registry (TCR) that represents an organization or a company. It is this entity that TCR created campaigns will be associated with. Each brand creation will entail an upfront, non-refundable $4 expense.
    * @param createBrand  (required)
-   * @return Object
+   * @return TelnyxBrand
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -66,7 +67,7 @@ public class BrandsApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public Object createBrandPost(CreateBrand createBrand) throws ApiException {
+  public TelnyxBrand createBrandPost(CreateBrand createBrand) throws ApiException {
     return createBrandPostWithHttpInfo(createBrand).getData();
   }
 
@@ -74,7 +75,7 @@ public class BrandsApi {
    * Create Brand
    * This endpoint is used to create a new brand. A brand is an entity created by The Campaign Registry (TCR) that represents an organization or a company. It is this entity that TCR created campaigns will be associated with. Each brand creation will entail an upfront, non-refundable $4 expense.
    * @param createBrand  (required)
-   * @return ApiResponse&lt;Object&gt;
+   * @return ApiResponse&lt;TelnyxBrand&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -83,7 +84,7 @@ public class BrandsApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Object> createBrandPostWithHttpInfo(CreateBrand createBrand) throws ApiException {
+  public ApiResponse<TelnyxBrand> createBrandPostWithHttpInfo(CreateBrand createBrand) throws ApiException {
     Object localVarPostBody = createBrand;
     
     // verify the required parameter 'createBrand' is set
@@ -116,7 +117,7 @@ public class BrandsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<Object> localVarReturnType = new GenericType<Object>() {};
+    GenericType<TelnyxBrand> localVarReturnType = new GenericType<TelnyxBrand>() {};
 
     return apiClient.invokeAPI("BrandsApi.createBrandPost", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -124,7 +125,7 @@ public class BrandsApi {
   }
   /**
    * Delete Brand
-   * 
+   * Delete Brand. This endpoint is used to delete a brand. Note the brand cannot be deleted if it contains one or more active campaigns, the campaigns need to be inactive and at least 3 months old due to billing purposes.
    * @param brandId  (required)
    * @return Object
    * @throws ApiException if fails to make API call
@@ -141,7 +142,7 @@ public class BrandsApi {
 
   /**
    * Delete Brand
-   * 
+   * Delete Brand. This endpoint is used to delete a brand. Note the brand cannot be deleted if it contains one or more active campaigns, the campaigns need to be inactive and at least 3 months old due to billing purposes.
    * @param brandId  (required)
    * @return ApiResponse&lt;Object&gt;
    * @throws ApiException if fails to make API call
@@ -196,7 +197,7 @@ public class BrandsApi {
    * Get Brand
    * Retrieve a brand by &#x60;brandId&#x60;.
    * @param brandId  (required)
-   * @return TelnyxBrand
+   * @return TelnyxBrandWithCampaignsCount
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -205,7 +206,7 @@ public class BrandsApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public TelnyxBrand getBrand(String brandId) throws ApiException {
+  public TelnyxBrandWithCampaignsCount getBrand(String brandId) throws ApiException {
     return getBrandWithHttpInfo(brandId).getData();
   }
 
@@ -213,7 +214,7 @@ public class BrandsApi {
    * Get Brand
    * Retrieve a brand by &#x60;brandId&#x60;.
    * @param brandId  (required)
-   * @return ApiResponse&lt;TelnyxBrand&gt;
+   * @return ApiResponse&lt;TelnyxBrandWithCampaignsCount&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -222,7 +223,7 @@ public class BrandsApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TelnyxBrand> getBrandWithHttpInfo(String brandId) throws ApiException {
+  public ApiResponse<TelnyxBrandWithCampaignsCount> getBrandWithHttpInfo(String brandId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'brandId' is set
@@ -256,7 +257,7 @@ public class BrandsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<TelnyxBrand> localVarReturnType = new GenericType<TelnyxBrand>() {};
+    GenericType<TelnyxBrandWithCampaignsCount> localVarReturnType = new GenericType<TelnyxBrandWithCampaignsCount>() {};
 
     return apiClient.invokeAPI("BrandsApi.getBrand", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -337,10 +338,13 @@ public class BrandsApi {
    * This endpoint is used to list all brands associated with your organization.
    * @param page  (optional, default to 1)
    * @param recordsPerPage number of records per page. maximum of 500 (optional, default to 10)
+   * @param sort Specifies the sort order for results. If not given, results are sorted by createdAt in descending order. (optional, default to -createdAt)
    * @param displayName  (optional)
    * @param entityType  (optional)
    * @param state  (optional)
    * @param country  (optional)
+   * @param brandId Filter results by the Telnyx Brand id (optional)
+   * @param tcrBrandId Filter results by the TCR Brand id (optional)
    * @return BrandRecordSetCSP
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -350,8 +354,8 @@ public class BrandsApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public BrandRecordSetCSP getBrands(Integer page, Integer recordsPerPage, String displayName, String entityType, String state, String country) throws ApiException {
-    return getBrandsWithHttpInfo(page, recordsPerPage, displayName, entityType, state, country).getData();
+  public BrandRecordSetCSP getBrands(Integer page, Integer recordsPerPage, String sort, String displayName, String entityType, String state, String country, String brandId, String tcrBrandId) throws ApiException {
+    return getBrandsWithHttpInfo(page, recordsPerPage, sort, displayName, entityType, state, country, brandId, tcrBrandId).getData();
   }
 
   /**
@@ -359,10 +363,13 @@ public class BrandsApi {
    * This endpoint is used to list all brands associated with your organization.
    * @param page  (optional, default to 1)
    * @param recordsPerPage number of records per page. maximum of 500 (optional, default to 10)
+   * @param sort Specifies the sort order for results. If not given, results are sorted by createdAt in descending order. (optional, default to -createdAt)
    * @param displayName  (optional)
    * @param entityType  (optional)
    * @param state  (optional)
    * @param country  (optional)
+   * @param brandId Filter results by the Telnyx Brand id (optional)
+   * @param tcrBrandId Filter results by the TCR Brand id (optional)
    * @return ApiResponse&lt;BrandRecordSetCSP&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -372,7 +379,7 @@ public class BrandsApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<BrandRecordSetCSP> getBrandsWithHttpInfo(Integer page, Integer recordsPerPage, String displayName, String entityType, String state, String country) throws ApiException {
+  public ApiResponse<BrandRecordSetCSP> getBrandsWithHttpInfo(Integer page, Integer recordsPerPage, String sort, String displayName, String entityType, String state, String country, String brandId, String tcrBrandId) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -386,10 +393,13 @@ public class BrandsApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page", page));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "recordsPerPage", recordsPerPage));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "displayName", displayName));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "entityType", entityType));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "state", state));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "country", country));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "brandId", brandId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "tcrBrandId", tcrBrandId));
 
     
     
@@ -635,6 +645,71 @@ public class BrandsApi {
     return apiClient.invokeAPI("BrandsApi.putExternalVettingRecord", localVarPath, "PUT", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Resend brand 2FA email
+   * 
+   * @param brandId  (required)
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public void resendBrand2faEmail(String brandId) throws ApiException {
+    resendBrand2faEmailWithHttpInfo(brandId);
+  }
+
+  /**
+   * Resend brand 2FA email
+   * 
+   * @param brandId  (required)
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<Void> resendBrand2faEmailWithHttpInfo(String brandId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'brandId' is set
+    if (brandId == null) {
+      throw new ApiException(400, "Missing the required parameter 'brandId' when calling resendBrand2faEmail");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/brand/{brandId}/2faEmail"
+      .replaceAll("\\{" + "brandId" + "\\}", apiClient.escapeString(brandId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    return apiClient.invokeAPI("BrandsApi.resendBrand2faEmail", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, null, false);
   }
   /**
    * Revet Brand

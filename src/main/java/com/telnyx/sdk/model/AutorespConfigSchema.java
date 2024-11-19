@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,17 +44,17 @@ import com.telnyx.sdk.JSON;
   AutorespConfigSchema.JSON_PROPERTY_CREATED_AT,
   AutorespConfigSchema.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class AutorespConfigSchema {
   /**
    * Gets or Sets op
    */
   public enum OpEnum {
-    START("start"),
+    START(String.valueOf("start")),
     
-    STOP("stop"),
+    STOP(String.valueOf("stop")),
     
-    INFO("info");
+    INFO(String.valueOf("info"));
 
     private String value;
 
@@ -140,7 +138,7 @@ public class AutorespConfigSchema {
     return this;
   }
 
-  public AutorespConfigSchema addKeywordsItem(String keywordsItem) {
+  public AutorespConfigSchema addkeywordsItem(String keywordsItem) {
     this.keywords.add(keywordsItem);
     return this;
   }

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.RoomSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -56,7 +54,7 @@ import com.telnyx.sdk.JSON;
   Room.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS,
   Room.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class Room {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -266,7 +264,7 @@ public class Room {
     return this;
   }
 
-  public Room addSessionsItem(RoomSession sessionsItem) {
+  public Room addsessionsItem(RoomSession sessionsItem) {
     if (this.sessions == null) {
       this.sessions = new ArrayList<>();
     }

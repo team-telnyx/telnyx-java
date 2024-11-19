@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,7 +37,7 @@ import com.telnyx.sdk.JSON;
   DocServiceDocumentUploadInline.JSON_PROPERTY_FILENAME,
   DocServiceDocumentUploadInline.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class DocServiceDocumentUploadInline {
   public static final String JSON_PROPERTY_FILE = "file";
   private byte[] _file;
@@ -63,7 +61,7 @@ public class DocServiceDocumentUploadInline {
    * @return _file
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "[B@6b3871d6", required = true, value = "The Base64 encoded contents of the file you are uploading.")
+  @ApiModelProperty(example = "[B@6a9d5dff", required = true, value = "The Base64 encoded contents of the file you are uploading.")
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

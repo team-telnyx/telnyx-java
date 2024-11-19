@@ -66,7 +66,7 @@ import com.telnyx.sdk.auth.ApiKeyAuth;
 /**
  * <p>ApiClient class.</p>
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ApiClient extends JavaTimeFormatter {
   protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   protected Map<String, String> defaultCookieMap = new HashMap<String, String>();
@@ -77,7 +77,7 @@ public class ApiClient extends JavaTimeFormatter {
   protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
     new ServerConfiguration(
       "https://api.telnyx.com/v2",
-      "Telnyx's Communication API",
+      "Version 2.0.0 of the Telnyx API",
       new HashMap<String, ServerVariable>()
     )
   ));
@@ -125,14 +125,6 @@ public class ApiClient extends JavaTimeFormatter {
     // Setup authentications (key: authentication name, value: authentication).
     authentications = new HashMap<String, Authentication>();
     Authentication auth = null;
-    if (authMap != null) {
-      auth = authMap.get("BearerAuth");
-    }
-    if (auth instanceof HttpBearerAuth) {
-      authentications.put("BearerAuth", auth);
-    } else {
-      authentications.put("BearerAuth", new HttpBearerAuth("bearer"));
-    }
     if (authMap != null) {
       auth = authMap.get("bearerAuth");
     }

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -25,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PostPortRequestSupportingDocumentsRequestDocumentsInner;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PostPortRequestSupportingDocumentsRequest.JSON_PROPERTY_DOCUMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PostPortRequestSupportingDocumentsRequest {
   public static final String JSON_PROPERTY_DOCUMENTS = "documents";
   private List<PostPortRequestSupportingDocumentsRequestDocumentsInner> documents = null;
@@ -52,7 +51,7 @@ public class PostPortRequestSupportingDocumentsRequest {
     return this;
   }
 
-  public PostPortRequestSupportingDocumentsRequest addDocumentsItem(PostPortRequestSupportingDocumentsRequestDocumentsInner documentsItem) {
+  public PostPortRequestSupportingDocumentsRequest adddocumentsItem(PostPortRequestSupportingDocumentsRequestDocumentsInner documentsItem) {
     if (this.documents == null) {
       this.documents = new ArrayList<>();
     }
@@ -82,7 +81,7 @@ public class PostPortRequestSupportingDocumentsRequest {
 
 
   /**
-   * Return true if this postPortRequestSupportingDocuments_request object is equal to o.
+   * Return true if this PostPortRequestSupportingDocuments_request object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

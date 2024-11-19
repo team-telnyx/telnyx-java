@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   CallHangupPayload.JSON_PROPERTY_HANGUP_SOURCE,
   CallHangupPayload.JSON_PROPERTY_SIP_HANGUP_CAUSE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CallHangupPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -79,7 +77,7 @@ public class CallHangupPayload {
    * State received from a command.
    */
   public enum StateEnum {
-    HANGUP("hangup");
+    HANGUP(String.valueOf("hangup"));
 
     private String value;
 
@@ -115,21 +113,21 @@ public class CallHangupPayload {
    * The reason the call was ended (&#x60;call_rejected&#x60;, &#x60;normal_clearing&#x60;, &#x60;originator_cancel&#x60;, &#x60;timeout&#x60;, &#x60;time_limit&#x60;, &#x60;user_busy&#x60;, &#x60;not_found&#x60; or &#x60;unspecified&#x60;).
    */
   public enum HangupCauseEnum {
-    CALL_REJECTED("call_rejected"),
+    CALL_REJECTED(String.valueOf("call_rejected")),
     
-    NORMAL_CLEARING("normal_clearing"),
+    NORMAL_CLEARING(String.valueOf("normal_clearing")),
     
-    ORIGINATOR_CANCEL("originator_cancel"),
+    ORIGINATOR_CANCEL(String.valueOf("originator_cancel")),
     
-    TIMEOUT("timeout"),
+    TIMEOUT(String.valueOf("timeout")),
     
-    TIME_LIMIT("time_limit"),
+    TIME_LIMIT(String.valueOf("time_limit")),
     
-    USER_BUSY("user_busy"),
+    USER_BUSY(String.valueOf("user_busy")),
     
-    NOT_FOUND("not_found"),
+    NOT_FOUND(String.valueOf("not_found")),
     
-    UNSPECIFIED("unspecified");
+    UNSPECIFIED(String.valueOf("unspecified"));
 
     private String value;
 
@@ -165,11 +163,11 @@ public class CallHangupPayload {
    * The party who ended the call (&#x60;callee&#x60;, &#x60;caller&#x60;, &#x60;unknown&#x60;).
    */
   public enum HangupSourceEnum {
-    CALLER("caller"),
+    CALLER(String.valueOf("caller")),
     
-    CALLEE("callee"),
+    CALLEE(String.valueOf("callee")),
     
-    UNKNOWN("unknown");
+    UNKNOWN(String.valueOf("unknown"));
 
     private String value;
 

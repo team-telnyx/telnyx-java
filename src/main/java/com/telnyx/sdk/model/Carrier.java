@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   Carrier.JSON_PROPERTY_ERROR_CODE,
   Carrier.JSON_PROPERTY_NORMALIZED_CARRIER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class Carrier {
   public static final String JSON_PROPERTY_MOBILE_COUNTRY_CODE = "mobile_country_code";
   private String mobileCountryCode;
@@ -57,29 +55,29 @@ public class Carrier {
    * A phone number type that identifies the type of service associated with the requested phone number
    */
   public enum TypeEnum {
-    FIXED_LINE("fixed line"),
+    FIXED_LINE(String.valueOf("fixed line")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    VOIP("voip"),
+    VOIP(String.valueOf("voip")),
     
-    FIXED_LINE_OR_MOBILE("fixed line or mobile"),
+    FIXED_LINE_OR_MOBILE(String.valueOf("fixed line or mobile")),
     
-    TOLL_FREE("toll free"),
+    TOLL_FREE(String.valueOf("toll free")),
     
-    PREMIUM_RATE("premium rate"),
+    PREMIUM_RATE(String.valueOf("premium rate")),
     
-    SHARED_COST("shared cost"),
+    SHARED_COST(String.valueOf("shared cost")),
     
-    PERSONAL_NUMBER("personal number"),
+    PERSONAL_NUMBER(String.valueOf("personal number")),
     
-    PAGER("pager"),
+    PAGER(String.valueOf("pager")),
     
-    UAN("uan"),
+    UAN(String.valueOf("uan")),
     
-    VOICEMAIL("voicemail"),
+    VOICEMAIL(String.valueOf("voicemail")),
     
-    UNKNOWN("unknown");
+    UNKNOWN(String.valueOf("unknown"));
 
     private String value;
 

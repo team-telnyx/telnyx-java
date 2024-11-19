@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,11 +27,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CustomSipHeader;
 import com.telnyx.sdk.model.SipHeader;
 import com.telnyx.sdk.model.SoundModifications;
+import com.telnyx.sdk.model.StreamBidirectionalCodec;
+import com.telnyx.sdk.model.StreamBidirectionalMode;
+import com.telnyx.sdk.model.TranscriptionStartRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -45,15 +46,28 @@ import com.telnyx.sdk.JSON;
   AnswerRequest.JSON_PROPERTY_CLIENT_STATE,
   AnswerRequest.JSON_PROPERTY_COMMAND_ID,
   AnswerRequest.JSON_PROPERTY_CUSTOM_HEADERS,
+  AnswerRequest.JSON_PROPERTY_PREFERRED_CODECS,
   AnswerRequest.JSON_PROPERTY_SIP_HEADERS,
   AnswerRequest.JSON_PROPERTY_SOUND_MODIFICATIONS,
   AnswerRequest.JSON_PROPERTY_STREAM_URL,
   AnswerRequest.JSON_PROPERTY_STREAM_TRACK,
+  AnswerRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE,
+  AnswerRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC,
   AnswerRequest.JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE,
   AnswerRequest.JSON_PROPERTY_WEBHOOK_URL,
-  AnswerRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
+  AnswerRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD,
+  AnswerRequest.JSON_PROPERTY_TRANSCRIPTION,
+  AnswerRequest.JSON_PROPERTY_TRANSCRIPTION_CONFIG,
+  AnswerRequest.JSON_PROPERTY_RECORD,
+  AnswerRequest.JSON_PROPERTY_RECORD_CHANNELS,
+  AnswerRequest.JSON_PROPERTY_RECORD_FORMAT,
+  AnswerRequest.JSON_PROPERTY_RECORD_MAX_LENGTH,
+  AnswerRequest.JSON_PROPERTY_RECORD_TIMEOUT_SECS,
+  AnswerRequest.JSON_PROPERTY_RECORD_TRACK,
+  AnswerRequest.JSON_PROPERTY_RECORD_TRIM,
+  AnswerRequest.JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class AnswerRequest {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private UUID billingGroupId;
@@ -66,6 +80,42 @@ public class AnswerRequest {
 
   public static final String JSON_PROPERTY_CUSTOM_HEADERS = "custom_headers";
   private List<CustomSipHeader> customHeaders = null;
+
+  /**
+   * The list of comma-separated codecs in a preferred order for the forked media to be received.
+   */
+  public enum PreferredCodecsEnum {
+    G722_PCMU_PCMA_G729_OPUS_VP8_H264(String.valueOf("G722,PCMU,PCMA,G729,OPUS,VP8,H264"));
+
+    private String value;
+
+    PreferredCodecsEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PreferredCodecsEnum fromValue(String value) {
+      for (PreferredCodecsEnum b : PreferredCodecsEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_PREFERRED_CODECS = "preferred_codecs";
+  private PreferredCodecsEnum preferredCodecs;
 
   public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
   private List<SipHeader> sipHeaders = null;
@@ -80,11 +130,11 @@ public class AnswerRequest {
    * Specifies which track should be streamed.
    */
   public enum StreamTrackEnum {
-    INBOUND_TRACK("inbound_track"),
+    INBOUND_TRACK(String.valueOf("inbound_track")),
     
-    OUTBOUND_TRACK("outbound_track"),
+    OUTBOUND_TRACK(String.valueOf("outbound_track")),
     
-    BOTH_TRACKS("both_tracks");
+    BOTH_TRACKS(String.valueOf("both_tracks"));
 
     private String value;
 
@@ -116,6 +166,12 @@ public class AnswerRequest {
   public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
   private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
 
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE = "stream_bidirectional_mode";
+  private StreamBidirectionalMode streamBidirectionalMode = StreamBidirectionalMode.MP3;
+
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC = "stream_bidirectional_codec";
+  private StreamBidirectionalCodec streamBidirectionalCodec = StreamBidirectionalCodec.PCMU;
+
   public static final String JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE = "send_silence_when_idle";
   private Boolean sendSilenceWhenIdle = false;
 
@@ -126,9 +182,9 @@ public class AnswerRequest {
    * HTTP request type used for &#x60;webhook_url&#x60;.
    */
   public enum WebhookUrlMethodEnum {
-    POST("POST"),
+    POST(String.valueOf("POST")),
     
-    GET("GET");
+    GET(String.valueOf("GET"));
 
     private String value;
 
@@ -159,6 +215,209 @@ public class AnswerRequest {
 
   public static final String JSON_PROPERTY_WEBHOOK_URL_METHOD = "webhook_url_method";
   private WebhookUrlMethodEnum webhookUrlMethod = WebhookUrlMethodEnum.POST;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION = "transcription";
+  private Boolean transcription = false;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_CONFIG = "transcription_config";
+  private TranscriptionStartRequest transcriptionConfig;
+
+  /**
+   * Start recording automatically after an event. Disabled by default.
+   */
+  public enum RecordEnum {
+    RECORD_FROM_ANSWER(String.valueOf("record-from-answer"));
+
+    private String value;
+
+    RecordEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordEnum fromValue(String value) {
+      for (RecordEnum b : RecordEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD = "record";
+  private RecordEnum record;
+
+  /**
+   * Defines which channel should be recorded (&#39;single&#39; or &#39;dual&#39;) when &#x60;record&#x60; is specified.
+   */
+  public enum RecordChannelsEnum {
+    SINGLE(String.valueOf("single")),
+    
+    DUAL(String.valueOf("dual"));
+
+    private String value;
+
+    RecordChannelsEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordChannelsEnum fromValue(String value) {
+      for (RecordChannelsEnum b : RecordChannelsEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD_CHANNELS = "record_channels";
+  private RecordChannelsEnum recordChannels = RecordChannelsEnum.DUAL;
+
+  /**
+   * Defines the format of the recording (&#39;wav&#39; or &#39;mp3&#39;) when &#x60;record&#x60; is specified.
+   */
+  public enum RecordFormatEnum {
+    WAV(String.valueOf("wav")),
+    
+    MP3(String.valueOf("mp3"));
+
+    private String value;
+
+    RecordFormatEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordFormatEnum fromValue(String value) {
+      for (RecordFormatEnum b : RecordFormatEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD_FORMAT = "record_format";
+  private RecordFormatEnum recordFormat = RecordFormatEnum.MP3;
+
+  public static final String JSON_PROPERTY_RECORD_MAX_LENGTH = "record_max_length";
+  private Integer recordMaxLength = 0;
+
+  public static final String JSON_PROPERTY_RECORD_TIMEOUT_SECS = "record_timeout_secs";
+  private Integer recordTimeoutSecs = 0;
+
+  /**
+   * The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel).
+   */
+  public enum RecordTrackEnum {
+    BOTH(String.valueOf("both")),
+    
+    INBOUND(String.valueOf("inbound")),
+    
+    OUTBOUND(String.valueOf("outbound"));
+
+    private String value;
+
+    RecordTrackEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordTrackEnum fromValue(String value) {
+      for (RecordTrackEnum b : RecordTrackEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD_TRACK = "record_track";
+  private RecordTrackEnum recordTrack = RecordTrackEnum.BOTH;
+
+  /**
+   * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
+   */
+  public enum RecordTrimEnum {
+    TRIM_SILENCE(String.valueOf("trim-silence"));
+
+    private String value;
+
+    RecordTrimEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordTrimEnum fromValue(String value) {
+      for (RecordTrimEnum b : RecordTrimEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD_TRIM = "record_trim";
+  private RecordTrimEnum recordTrim;
+
+  public static final String JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME = "record_custom_file_name";
+  private String recordCustomFileName;
 
   public AnswerRequest() { 
   }
@@ -246,7 +505,7 @@ public class AnswerRequest {
     return this;
   }
 
-  public AnswerRequest addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+  public AnswerRequest addcustomHeadersItem(CustomSipHeader customHeadersItem) {
     if (this.customHeaders == null) {
       this.customHeaders = new ArrayList<>();
     }
@@ -275,12 +534,38 @@ public class AnswerRequest {
   }
 
 
+  public AnswerRequest preferredCodecs(PreferredCodecsEnum preferredCodecs) {
+    this.preferredCodecs = preferredCodecs;
+    return this;
+  }
+
+   /**
+   * The list of comma-separated codecs in a preferred order for the forked media to be received.
+   * @return preferredCodecs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "G722,PCMU,PCMA,G729,OPUS,VP8,H264", value = "The list of comma-separated codecs in a preferred order for the forked media to be received.")
+  @JsonProperty(JSON_PROPERTY_PREFERRED_CODECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PreferredCodecsEnum getPreferredCodecs() {
+    return preferredCodecs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PREFERRED_CODECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPreferredCodecs(PreferredCodecsEnum preferredCodecs) {
+    this.preferredCodecs = preferredCodecs;
+  }
+
+
   public AnswerRequest sipHeaders(List<SipHeader> sipHeaders) {
     this.sipHeaders = sipHeaders;
     return this;
   }
 
-  public AnswerRequest addSipHeadersItem(SipHeader sipHeadersItem) {
+  public AnswerRequest addsipHeadersItem(SipHeader sipHeadersItem) {
     if (this.sipHeaders == null) {
       this.sipHeaders = new ArrayList<>();
     }
@@ -387,6 +672,58 @@ public class AnswerRequest {
   }
 
 
+  public AnswerRequest streamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
+    this.streamBidirectionalMode = streamBidirectionalMode;
+    return this;
+  }
+
+   /**
+   * Get streamBidirectionalMode
+   * @return streamBidirectionalMode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamBidirectionalMode getStreamBidirectionalMode() {
+    return streamBidirectionalMode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
+    this.streamBidirectionalMode = streamBidirectionalMode;
+  }
+
+
+  public AnswerRequest streamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
+    this.streamBidirectionalCodec = streamBidirectionalCodec;
+    return this;
+  }
+
+   /**
+   * Get streamBidirectionalCodec
+   * @return streamBidirectionalCodec
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamBidirectionalCodec getStreamBidirectionalCodec() {
+    return streamBidirectionalCodec;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
+    this.streamBidirectionalCodec = streamBidirectionalCodec;
+  }
+
+
   public AnswerRequest sendSilenceWhenIdle(Boolean sendSilenceWhenIdle) {
     this.sendSilenceWhenIdle = sendSilenceWhenIdle;
     return this;
@@ -465,6 +802,266 @@ public class AnswerRequest {
   }
 
 
+  public AnswerRequest transcription(Boolean transcription) {
+    this.transcription = transcription;
+    return this;
+  }
+
+   /**
+   * Enable transcription upon call answer. The default value is false.
+   * @return transcription
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Enable transcription upon call answer. The default value is false.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getTranscription() {
+    return transcription;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscription(Boolean transcription) {
+    this.transcription = transcription;
+  }
+
+
+  public AnswerRequest transcriptionConfig(TranscriptionStartRequest transcriptionConfig) {
+    this.transcriptionConfig = transcriptionConfig;
+    return this;
+  }
+
+   /**
+   * Get transcriptionConfig
+   * @return transcriptionConfig
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TranscriptionStartRequest getTranscriptionConfig() {
+    return transcriptionConfig;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionConfig(TranscriptionStartRequest transcriptionConfig) {
+    this.transcriptionConfig = transcriptionConfig;
+  }
+
+
+  public AnswerRequest record(RecordEnum record) {
+    this.record = record;
+    return this;
+  }
+
+   /**
+   * Start recording automatically after an event. Disabled by default.
+   * @return record
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "record-from-answer", value = "Start recording automatically after an event. Disabled by default.")
+  @JsonProperty(JSON_PROPERTY_RECORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordEnum getRecord() {
+    return record;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecord(RecordEnum record) {
+    this.record = record;
+  }
+
+
+  public AnswerRequest recordChannels(RecordChannelsEnum recordChannels) {
+    this.recordChannels = recordChannels;
+    return this;
+  }
+
+   /**
+   * Defines which channel should be recorded (&#39;single&#39; or &#39;dual&#39;) when &#x60;record&#x60; is specified.
+   * @return recordChannels
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "single", value = "Defines which channel should be recorded ('single' or 'dual') when `record` is specified.")
+  @JsonProperty(JSON_PROPERTY_RECORD_CHANNELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordChannelsEnum getRecordChannels() {
+    return recordChannels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_CHANNELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordChannels(RecordChannelsEnum recordChannels) {
+    this.recordChannels = recordChannels;
+  }
+
+
+  public AnswerRequest recordFormat(RecordFormatEnum recordFormat) {
+    this.recordFormat = recordFormat;
+    return this;
+  }
+
+   /**
+   * Defines the format of the recording (&#39;wav&#39; or &#39;mp3&#39;) when &#x60;record&#x60; is specified.
+   * @return recordFormat
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "wav", value = "Defines the format of the recording ('wav' or 'mp3') when `record` is specified.")
+  @JsonProperty(JSON_PROPERTY_RECORD_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordFormatEnum getRecordFormat() {
+    return recordFormat;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordFormat(RecordFormatEnum recordFormat) {
+    this.recordFormat = recordFormat;
+  }
+
+
+  public AnswerRequest recordMaxLength(Integer recordMaxLength) {
+    this.recordMaxLength = recordMaxLength;
+    return this;
+  }
+
+   /**
+   * Defines the maximum length for the recording in seconds when &#x60;record&#x60; is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).
+   * @return recordMaxLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "1000", value = "Defines the maximum length for the recording in seconds when `record` is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).")
+  @JsonProperty(JSON_PROPERTY_RECORD_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRecordMaxLength() {
+    return recordMaxLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordMaxLength(Integer recordMaxLength) {
+    this.recordMaxLength = recordMaxLength;
+  }
+
+
+  public AnswerRequest recordTimeoutSecs(Integer recordTimeoutSecs) {
+    this.recordTimeoutSecs = recordTimeoutSecs;
+    return this;
+  }
+
+   /**
+   * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when &#x60;record&#x60; is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).
+   * @return recordTimeoutSecs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "100", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).")
+  @JsonProperty(JSON_PROPERTY_RECORD_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRecordTimeoutSecs() {
+    return recordTimeoutSecs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_TIMEOUT_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordTimeoutSecs(Integer recordTimeoutSecs) {
+    this.recordTimeoutSecs = recordTimeoutSecs;
+  }
+
+
+  public AnswerRequest recordTrack(RecordTrackEnum recordTrack) {
+    this.recordTrack = recordTrack;
+    return this;
+  }
+
+   /**
+   * The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel).
+   * @return recordTrack
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "outbound", value = "The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).")
+  @JsonProperty(JSON_PROPERTY_RECORD_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordTrackEnum getRecordTrack() {
+    return recordTrack;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordTrack(RecordTrackEnum recordTrack) {
+    this.recordTrack = recordTrack;
+  }
+
+
+  public AnswerRequest recordTrim(RecordTrimEnum recordTrim) {
+    this.recordTrim = recordTrim;
+    return this;
+  }
+
+   /**
+   * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
+   * @return recordTrim
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "trim-silence", value = "When set to `trim-silence`, silence will be removed from the beginning and end of the recording.")
+  @JsonProperty(JSON_PROPERTY_RECORD_TRIM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordTrimEnum getRecordTrim() {
+    return recordTrim;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_TRIM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordTrim(RecordTrimEnum recordTrim) {
+    this.recordTrim = recordTrim;
+  }
+
+
+  public AnswerRequest recordCustomFileName(String recordCustomFileName) {
+    this.recordCustomFileName = recordCustomFileName;
+    return this;
+  }
+
+   /**
+   * The custom recording file name to be used instead of the default &#x60;call_leg_id&#x60;. Telnyx will still add a Unix timestamp suffix.
+   * @return recordCustomFileName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_recording_file_name", value = "The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.")
+  @JsonProperty(JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRecordCustomFileName() {
+    return recordCustomFileName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordCustomFileName(String recordCustomFileName) {
+    this.recordCustomFileName = recordCustomFileName;
+  }
+
+
   /**
    * Return true if this AnswerRequest object is equal to o.
    */
@@ -481,18 +1078,31 @@ public class AnswerRequest {
         Objects.equals(this.clientState, answerRequest.clientState) &&
         Objects.equals(this.commandId, answerRequest.commandId) &&
         Objects.equals(this.customHeaders, answerRequest.customHeaders) &&
+        Objects.equals(this.preferredCodecs, answerRequest.preferredCodecs) &&
         Objects.equals(this.sipHeaders, answerRequest.sipHeaders) &&
         Objects.equals(this.soundModifications, answerRequest.soundModifications) &&
         Objects.equals(this.streamUrl, answerRequest.streamUrl) &&
         Objects.equals(this.streamTrack, answerRequest.streamTrack) &&
+        Objects.equals(this.streamBidirectionalMode, answerRequest.streamBidirectionalMode) &&
+        Objects.equals(this.streamBidirectionalCodec, answerRequest.streamBidirectionalCodec) &&
         Objects.equals(this.sendSilenceWhenIdle, answerRequest.sendSilenceWhenIdle) &&
         Objects.equals(this.webhookUrl, answerRequest.webhookUrl) &&
-        Objects.equals(this.webhookUrlMethod, answerRequest.webhookUrlMethod);
+        Objects.equals(this.webhookUrlMethod, answerRequest.webhookUrlMethod) &&
+        Objects.equals(this.transcription, answerRequest.transcription) &&
+        Objects.equals(this.transcriptionConfig, answerRequest.transcriptionConfig) &&
+        Objects.equals(this.record, answerRequest.record) &&
+        Objects.equals(this.recordChannels, answerRequest.recordChannels) &&
+        Objects.equals(this.recordFormat, answerRequest.recordFormat) &&
+        Objects.equals(this.recordMaxLength, answerRequest.recordMaxLength) &&
+        Objects.equals(this.recordTimeoutSecs, answerRequest.recordTimeoutSecs) &&
+        Objects.equals(this.recordTrack, answerRequest.recordTrack) &&
+        Objects.equals(this.recordTrim, answerRequest.recordTrim) &&
+        Objects.equals(this.recordCustomFileName, answerRequest.recordCustomFileName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(billingGroupId, clientState, commandId, customHeaders, sipHeaders, soundModifications, streamUrl, streamTrack, sendSilenceWhenIdle, webhookUrl, webhookUrlMethod);
+    return Objects.hash(billingGroupId, clientState, commandId, customHeaders, preferredCodecs, sipHeaders, soundModifications, streamUrl, streamTrack, streamBidirectionalMode, streamBidirectionalCodec, sendSilenceWhenIdle, webhookUrl, webhookUrlMethod, transcription, transcriptionConfig, record, recordChannels, recordFormat, recordMaxLength, recordTimeoutSecs, recordTrack, recordTrim, recordCustomFileName);
   }
 
   @Override
@@ -503,13 +1113,26 @@ public class AnswerRequest {
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
+    sb.append("    preferredCodecs: ").append(toIndentedString(preferredCodecs)).append("\n");
     sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
     sb.append("    soundModifications: ").append(toIndentedString(soundModifications)).append("\n");
     sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
     sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
+    sb.append("    streamBidirectionalMode: ").append(toIndentedString(streamBidirectionalMode)).append("\n");
+    sb.append("    streamBidirectionalCodec: ").append(toIndentedString(streamBidirectionalCodec)).append("\n");
     sb.append("    sendSilenceWhenIdle: ").append(toIndentedString(sendSilenceWhenIdle)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");
+    sb.append("    transcription: ").append(toIndentedString(transcription)).append("\n");
+    sb.append("    transcriptionConfig: ").append(toIndentedString(transcriptionConfig)).append("\n");
+    sb.append("    record: ").append(toIndentedString(record)).append("\n");
+    sb.append("    recordChannels: ").append(toIndentedString(recordChannels)).append("\n");
+    sb.append("    recordFormat: ").append(toIndentedString(recordFormat)).append("\n");
+    sb.append("    recordMaxLength: ").append(toIndentedString(recordMaxLength)).append("\n");
+    sb.append("    recordTimeoutSecs: ").append(toIndentedString(recordTimeoutSecs)).append("\n");
+    sb.append("    recordTrack: ").append(toIndentedString(recordTrack)).append("\n");
+    sb.append("    recordTrim: ").append(toIndentedString(recordTrim)).append("\n");
+    sb.append("    recordCustomFileName: ").append(toIndentedString(recordCustomFileName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

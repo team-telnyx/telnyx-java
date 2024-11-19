@@ -4,22 +4,93 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**cancelSubNumberOrder**](PhoneNumberOrdersApi.md#cancelSubNumberOrder) | **PATCH** /sub_number_orders/{sub_number_order_id}/cancel | Cancel a sub number order
 [**createComment**](PhoneNumberOrdersApi.md#createComment) | **POST** /comments | Create a comment
 [**createNumberOrder**](PhoneNumberOrdersApi.md#createNumberOrder) | **POST** /number_orders | Create a number order
-[**getNumberOrderPhoneNumber**](PhoneNumberOrdersApi.md#getNumberOrderPhoneNumber) | **GET** /number_order_phone_numbers/{number_order_phone_number_id} | Retrieve a number order phone number.
+[**getNumberOrderPhoneNumber**](PhoneNumberOrdersApi.md#getNumberOrderPhoneNumber) | **GET** /number_order_phone_numbers/{number_order_phone_number_id} | Retrieve a single phone number within a number order.
 [**getSubNumberOrder**](PhoneNumberOrdersApi.md#getSubNumberOrder) | **GET** /sub_number_orders/{sub_number_order_id} | Retrieve a sub number order
 [**listComments**](PhoneNumberOrdersApi.md#listComments) | **GET** /comments | Retrieve all comments
 [**listNumberOrders**](PhoneNumberOrdersApi.md#listNumberOrders) | **GET** /number_orders | List number orders
-[**listRegulatoryRequirements**](PhoneNumberOrdersApi.md#listRegulatoryRequirements) | **GET** /phone_numbers_regulatory_requirements | Retrieve regulartory requirements
 [**listSubNumberOrders**](PhoneNumberOrdersApi.md#listSubNumberOrders) | **GET** /sub_number_orders | List sub number orders
 [**markCommentRead**](PhoneNumberOrdersApi.md#markCommentRead) | **PATCH** /comments/{id}/read | Mark a comment as read
 [**retrieveComment**](PhoneNumberOrdersApi.md#retrieveComment) | **GET** /comments/{id} | Retrieve a comment
 [**retrieveNumberOrder**](PhoneNumberOrdersApi.md#retrieveNumberOrder) | **GET** /number_orders/{number_order_id} | Retrieve a number order
 [**retrieveOrderPhoneNumbers**](PhoneNumberOrdersApi.md#retrieveOrderPhoneNumbers) | **GET** /number_order_phone_numbers | Retrieve a list of phone numbers associated to orders
 [**updateNumberOrder**](PhoneNumberOrdersApi.md#updateNumberOrder) | **PATCH** /number_orders/{number_order_id} | Update a number order
-[**updateNumberOrderPhoneNumber**](PhoneNumberOrdersApi.md#updateNumberOrderPhoneNumber) | **PATCH** /number_order_phone_numbers/{number_order_phone_number_id} | Update a number order phone number.
-[**updateSubNumberOrder**](PhoneNumberOrdersApi.md#updateSubNumberOrder) | **PATCH** /sub_number_orders/{sub_number_order_id} | Update a sub number order
+[**updateNumberOrderPhoneNumber**](PhoneNumberOrdersApi.md#updateNumberOrderPhoneNumber) | **PATCH** /number_order_phone_numbers/{number_order_phone_number_id} | Update requirements for a single phone number within a number order.
+[**updateSubNumberOrder**](PhoneNumberOrdersApi.md#updateSubNumberOrder) | **PATCH** /sub_number_orders/{sub_number_order_id} | Update a sub number order&#39;s requirements
 
+
+
+## cancelSubNumberOrder
+
+> SubNumberOrderResponse cancelSubNumberOrder(subNumberOrderId)
+
+Cancel a sub number order
+
+Allows you to cancel a sub number order in 'pending' status.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.PhoneNumberOrdersApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        PhoneNumberOrdersApi apiInstance = new PhoneNumberOrdersApi(defaultClient);
+        String subNumberOrderId = "subNumberOrderId_example"; // String | The ID of the sub number order.
+        try {
+            SubNumberOrderResponse result = apiInstance.cancelSubNumberOrder(subNumberOrderId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PhoneNumberOrdersApi#cancelSubNumberOrder");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **subNumberOrderId** | **String**| The ID of the sub number order. |
+
+### Return type
+
+[**SubNumberOrderResponse**](SubNumberOrderResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response with details about a sub number order. |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## createComment
@@ -166,9 +237,9 @@ Name | Type | Description  | Notes
 
 > NumberOrderPhoneNumberResponse getNumberOrderPhoneNumber(numberOrderPhoneNumberId)
 
-Retrieve a number order phone number.
+Retrieve a single phone number within a number order.
 
-Get an existing number order phone number.
+Get an existing phone number in number order.
 
 ### Example
 
@@ -333,7 +404,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PhoneNumberOrdersApi apiInstance = new PhoneNumberOrdersApi(defaultClient);
-        String filterCommentRecordType = "sub_number_order"; // String | Record type that the comment relates to i.e number_order, sub_number_order or number_order_phone_number
+        String filterCommentRecordType = "sub_number_order"; // String | Record type that the comment relates to
         String filterCommentRecordId = "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576"; // String | ID of the record the comments relate to
         try {
             ListComments200Response result = apiInstance.listComments(filterCommentRecordType, filterCommentRecordId);
@@ -354,7 +425,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filterCommentRecordType** | **String**| Record type that the comment relates to i.e number_order, sub_number_order or number_order_phone_number |
+ **filterCommentRecordType** | **String**| Record type that the comment relates to | [enum: sub_number_order, requirement_group]
  **filterCommentRecordId** | **String**| ID of the record the comments relate to |
 
 ### Return type
@@ -471,78 +542,9 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## listRegulatoryRequirements
-
-> ListRegulatoryRequirements200Response listRegulatoryRequirements(filterPhoneNumber)
-
-Retrieve regulartory requirements
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.PhoneNumberOrdersApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        PhoneNumberOrdersApi apiInstance = new PhoneNumberOrdersApi(defaultClient);
-        String filterPhoneNumber = "+41215470622,+41215470633"; // String | Record type phone number/ phone numbers
-        try {
-            ListRegulatoryRequirements200Response result = apiInstance.listRegulatoryRequirements(filterPhoneNumber);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PhoneNumberOrdersApi#listRegulatoryRequirements");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **filterPhoneNumber** | **String**| Record type phone number/ phone numbers |
-
-### Return type
-
-[**ListRegulatoryRequirements200Response**](ListRegulatoryRequirements200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | An array of Regulatory Requiremenst Responses |  -  |
-| **0** | Unexpected error |  -  |
-
-
 ## listSubNumberOrders
 
-> ListSubNumberOrdersResponse listSubNumberOrders().filterUserId(filterUserId).filterOrderRequestId(filterOrderRequestId).filterCountryCode(filterCountryCode).filterPhoneNumberType(filterPhoneNumberType).filterPhoneNumbersCount(filterPhoneNumbersCount).filterIncludePhoneNumbers(filterIncludePhoneNumbers).execute();
+> ListSubNumberOrdersResponse listSubNumberOrders().filterStatus(filterStatus).filterOrderRequestId(filterOrderRequestId).filterCountryCode(filterCountryCode).filterPhoneNumberType(filterPhoneNumberType).filterPhoneNumbersCount(filterPhoneNumbersCount).execute();
 
 List sub number orders
 
@@ -570,20 +572,18 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PhoneNumberOrdersApi apiInstance = new PhoneNumberOrdersApi(defaultClient);
-        UUID filterUserId = UUID.fromString("d70873cd-7c98-401a-81b6-b1ae08246995"); // UUID | User ID of the user who owns the sub number order
+        String filterStatus = "filterStatus_example"; // String | Filter sub number orders by status.
         UUID filterOrderRequestId = UUID.fromString("12ade33a-21c0-473b-b055-b3c836e1c293"); // UUID | ID of the number order the sub number order belongs to
         String filterCountryCode = "US"; // String | ISO alpha-2 country code.
         String filterPhoneNumberType = "local"; // String | Phone Number Type
         Integer filterPhoneNumbersCount = 1; // Integer | Amount of numbers in the sub number order
-        Boolean filterIncludePhoneNumbers = false; // Boolean | Include the first 50 phone number objects for each sub order in the results. Note: use of this filter could produce unexpected results due to payload size.
         try {
             ListSubNumberOrdersResponse result = api.listSubNumberOrders()
-                .filterUserId(filterUserId)
+                .filterStatus(filterStatus)
                 .filterOrderRequestId(filterOrderRequestId)
                 .filterCountryCode(filterCountryCode)
                 .filterPhoneNumberType(filterPhoneNumberType)
                 .filterPhoneNumbersCount(filterPhoneNumbersCount)
-                .filterIncludePhoneNumbers(filterIncludePhoneNumbers)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -602,12 +602,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filterUserId** | **UUID**| User ID of the user who owns the sub number order | [optional]
+ **filterStatus** | **String**| Filter sub number orders by status. | [optional]
  **filterOrderRequestId** | **UUID**| ID of the number order the sub number order belongs to | [optional]
  **filterCountryCode** | **String**| ISO alpha-2 country code. | [optional]
  **filterPhoneNumberType** | **String**| Phone Number Type | [optional]
  **filterPhoneNumbersCount** | **Integer**| Amount of numbers in the sub number order | [optional]
- **filterIncludePhoneNumbers** | **Boolean**| Include the first 50 phone number objects for each sub order in the results. Note: use of this filter could produce unexpected results due to payload size. | [optional] [default to false]
 
 ### Return type
 
@@ -840,7 +839,7 @@ Name | Type | Description  | Notes
 
 ## retrieveOrderPhoneNumbers
 
-> ListNumberOrderPhoneNumbersResponse retrieveOrderPhoneNumbers()
+> ListNumberOrderPhoneNumbersResponse retrieveOrderPhoneNumbers(filterCountryCode)
 
 Retrieve a list of phone numbers associated to orders
 
@@ -867,8 +866,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PhoneNumberOrdersApi apiInstance = new PhoneNumberOrdersApi(defaultClient);
+        String filterCountryCode = "US"; // String | Country code of the order phone number.
         try {
-            ListNumberOrderPhoneNumbersResponse result = apiInstance.retrieveOrderPhoneNumbers();
+            ListNumberOrderPhoneNumbersResponse result = apiInstance.retrieveOrderPhoneNumbers(filterCountryCode);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PhoneNumberOrdersApi#retrieveOrderPhoneNumbers");
@@ -883,7 +883,10 @@ public class Example {
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filterCountryCode** | **String**| Country code of the order phone number. | [optional]
 
 ### Return type
 
@@ -982,9 +985,9 @@ Name | Type | Description  | Notes
 
 > NumberOrderPhoneNumberResponse updateNumberOrderPhoneNumber(numberOrderPhoneNumberId, updateNumberOrderPhoneNumberRequest)
 
-Update a number order phone number.
+Update requirements for a single phone number within a number order.
 
-Updates a number order phone number.
+Updates requirements for a single phone number within a number order.
 
 ### Example
 
@@ -1055,7 +1058,7 @@ Name | Type | Description  | Notes
 
 > SubNumberOrderResponse updateSubNumberOrder(subNumberOrderId, updateSubNumberOrderRequest)
 
-Update a sub number order
+Update a sub number order&#39;s requirements
 
 Updates a sub number order.
 

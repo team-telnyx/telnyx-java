@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -30,8 +30,6 @@ import com.telnyx.sdk.model.PhoneNumberStatus;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,7 +44,7 @@ import com.telnyx.sdk.JSON;
   DetailedTaskStatus.JSON_PROPERTY_CAMPAIGN,
   DetailedTaskStatus.JSON_PROPERTY_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class DetailedTaskStatus {
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
   private String taskId;
@@ -123,7 +121,7 @@ public class DetailedTaskStatus {
     return this;
   }
 
-  public DetailedTaskStatus addBrandItem(BrandStatus brandItem) {
+  public DetailedTaskStatus addbrandItem(BrandStatus brandItem) {
     this.brand.add(brandItem);
     return this;
   }
@@ -154,7 +152,7 @@ public class DetailedTaskStatus {
     return this;
   }
 
-  public DetailedTaskStatus addCampaignItem(CampaignStatus campaignItem) {
+  public DetailedTaskStatus addcampaignItem(CampaignStatus campaignItem) {
     this.campaign.add(campaignItem);
     return this;
   }
@@ -185,7 +183,7 @@ public class DetailedTaskStatus {
     return this;
   }
 
-  public DetailedTaskStatus addPhoneNumbersItem(PhoneNumberStatus phoneNumbersItem) {
+  public DetailedTaskStatus addphoneNumbersItem(PhoneNumberStatus phoneNumbersItem) {
     this.phoneNumbers.add(phoneNumbersItem);
     return this;
   }

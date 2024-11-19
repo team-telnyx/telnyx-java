@@ -12,6 +12,8 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListPhoneNumbersResponse;
 import com.telnyx.sdk.model.ListPhoneNumbersResponse1;
 import com.telnyx.sdk.model.ListPhoneNumbersWithVoiceSettingsResponse;
+import com.telnyx.sdk.model.PhoneNumberBundleStatusChange;
+import com.telnyx.sdk.model.PhoneNumberBundleStatusChangeRequest;
 import com.telnyx.sdk.model.PhoneNumberEnableEmergency;
 import com.telnyx.sdk.model.PhoneNumberEnableEmergencyRequest;
 import com.telnyx.sdk.model.PhoneNumberResponse;
@@ -25,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PhoneNumberConfigurationsApi {
   private ApiClient apiClient;
 
@@ -709,6 +711,83 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
    */
   public APIlistPhoneNumbersWithVoiceSettingsRequest listPhoneNumbersWithVoiceSettings() throws ApiException {
     return new APIlistPhoneNumbersWithVoiceSettingsRequest();
+  }
+  /**
+   * Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
+   * 
+   * @param id Identifies the resource. (required)
+   * @param phoneNumberBundleStatusChangeRequest  (required)
+   * @return PhoneNumberBundleStatusChange
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Phone number bundle status change success </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public PhoneNumberBundleStatusChange phoneNumberBundleStatusChange(String id, PhoneNumberBundleStatusChangeRequest phoneNumberBundleStatusChangeRequest) throws ApiException {
+    return phoneNumberBundleStatusChangeWithHttpInfo(id, phoneNumberBundleStatusChangeRequest).getData();
+  }
+
+  /**
+   * Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
+   * 
+   * @param id Identifies the resource. (required)
+   * @param phoneNumberBundleStatusChangeRequest  (required)
+   * @return ApiResponse&lt;PhoneNumberBundleStatusChange&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Phone number bundle status change success </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<PhoneNumberBundleStatusChange> phoneNumberBundleStatusChangeWithHttpInfo(String id, PhoneNumberBundleStatusChangeRequest phoneNumberBundleStatusChangeRequest) throws ApiException {
+    Object localVarPostBody = phoneNumberBundleStatusChangeRequest;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling phoneNumberBundleStatusChange");
+    }
+    
+    // verify the required parameter 'phoneNumberBundleStatusChangeRequest' is set
+    if (phoneNumberBundleStatusChangeRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'phoneNumberBundleStatusChangeRequest' when calling phoneNumberBundleStatusChange");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/phone_numbers/{id}/actions/bundle_status_change"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<PhoneNumberBundleStatusChange> localVarReturnType = new GenericType<PhoneNumberBundleStatusChange>() {};
+
+    return apiClient.invokeAPI("PhoneNumberConfigurationsApi.phoneNumberBundleStatusChange", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
   }
   /**
    * Retrieve a phone number

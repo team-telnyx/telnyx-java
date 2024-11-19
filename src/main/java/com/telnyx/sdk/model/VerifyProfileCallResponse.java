@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -24,10 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -38,10 +38,11 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   VerifyProfileCallResponse.JSON_PROPERTY_MESSAGING_TEMPLATE_ID,
   VerifyProfileCallResponse.JSON_PROPERTY_APP_NAME,
-  VerifyProfileCallResponse.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS,
-  VerifyProfileCallResponse.JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS
+  VerifyProfileCallResponse.JSON_PROPERTY_CODE_LENGTH,
+  VerifyProfileCallResponse.JSON_PROPERTY_WHITELISTED_DESTINATIONS,
+  VerifyProfileCallResponse.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class VerifyProfileCallResponse {
   public static final String JSON_PROPERTY_MESSAGING_TEMPLATE_ID = "messaging_template_id";
   private UUID messagingTemplateId;
@@ -49,11 +50,14 @@ public class VerifyProfileCallResponse {
   public static final String JSON_PROPERTY_APP_NAME = "app_name";
   private String appName;
 
-  public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
-  private Integer defaultVerificationTimeoutSecs;
+  public static final String JSON_PROPERTY_CODE_LENGTH = "code_length";
+  private Integer codeLength = 5;
 
-  public static final String JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS = "default_call_timeout_secs";
-  private Integer defaultCallTimeoutSecs = 45;
+  public static final String JSON_PROPERTY_WHITELISTED_DESTINATIONS = "whitelisted_destinations";
+  private List<String> whitelistedDestinations = null;
+
+  public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
+  private Integer defaultVerificationTimeoutSecs = 300;
 
   public VerifyProfileCallResponse() { 
   }
@@ -110,6 +114,66 @@ public class VerifyProfileCallResponse {
   }
 
 
+  public VerifyProfileCallResponse codeLength(Integer codeLength) {
+    this.codeLength = codeLength;
+    return this;
+  }
+
+   /**
+   * The length of the verify code to generate.
+   * @return codeLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "6", value = "The length of the verify code to generate.")
+  @JsonProperty(JSON_PROPERTY_CODE_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getCodeLength() {
+    return codeLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CODE_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCodeLength(Integer codeLength) {
+    this.codeLength = codeLength;
+  }
+
+
+  public VerifyProfileCallResponse whitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
+    return this;
+  }
+
+  public VerifyProfileCallResponse addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+    if (this.whitelistedDestinations == null) {
+      this.whitelistedDestinations = new ArrayList<>();
+    }
+    this.whitelistedDestinations.add(whitelistedDestinationsItem);
+    return this;
+  }
+
+   /**
+   * Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60;, all destinations will be allowed.
+   * @return whitelistedDestinations
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[\"US\",\"CA\"]", value = "Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]`, all destinations will be allowed.")
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getWhitelistedDestinations() {
+    return whitelistedDestinations;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWhitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
+  }
+
+
   public VerifyProfileCallResponse defaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
     return this;
@@ -136,32 +200,6 @@ public class VerifyProfileCallResponse {
   }
 
 
-  public VerifyProfileCallResponse defaultCallTimeoutSecs(Integer defaultCallTimeoutSecs) {
-    this.defaultCallTimeoutSecs = defaultCallTimeoutSecs;
-    return this;
-  }
-
-   /**
-   * Must be less than default_verification_timeout_secs
-   * @return defaultCallTimeoutSecs
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "30", value = "Must be less than default_verification_timeout_secs")
-  @JsonProperty(JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getDefaultCallTimeoutSecs() {
-    return defaultCallTimeoutSecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDefaultCallTimeoutSecs(Integer defaultCallTimeoutSecs) {
-    this.defaultCallTimeoutSecs = defaultCallTimeoutSecs;
-  }
-
-
   /**
    * Return true if this VerifyProfileCallResponse object is equal to o.
    */
@@ -176,13 +214,14 @@ public class VerifyProfileCallResponse {
     VerifyProfileCallResponse verifyProfileCallResponse = (VerifyProfileCallResponse) o;
     return Objects.equals(this.messagingTemplateId, verifyProfileCallResponse.messagingTemplateId) &&
         Objects.equals(this.appName, verifyProfileCallResponse.appName) &&
-        Objects.equals(this.defaultVerificationTimeoutSecs, verifyProfileCallResponse.defaultVerificationTimeoutSecs) &&
-        Objects.equals(this.defaultCallTimeoutSecs, verifyProfileCallResponse.defaultCallTimeoutSecs);
+        Objects.equals(this.codeLength, verifyProfileCallResponse.codeLength) &&
+        Objects.equals(this.whitelistedDestinations, verifyProfileCallResponse.whitelistedDestinations) &&
+        Objects.equals(this.defaultVerificationTimeoutSecs, verifyProfileCallResponse.defaultVerificationTimeoutSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(messagingTemplateId, appName, defaultVerificationTimeoutSecs, defaultCallTimeoutSecs);
+    return Objects.hash(messagingTemplateId, appName, codeLength, whitelistedDestinations, defaultVerificationTimeoutSecs);
   }
 
   @Override
@@ -191,8 +230,9 @@ public class VerifyProfileCallResponse {
     sb.append("class VerifyProfileCallResponse {\n");
     sb.append("    messagingTemplateId: ").append(toIndentedString(messagingTemplateId)).append("\n");
     sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
+    sb.append("    codeLength: ").append(toIndentedString(codeLength)).append("\n");
+    sb.append("    whitelistedDestinations: ").append(toIndentedString(whitelistedDestinations)).append("\n");
     sb.append("    defaultVerificationTimeoutSecs: ").append(toIndentedString(defaultVerificationTimeoutSecs)).append("\n");
-    sb.append("    defaultCallTimeoutSecs: ").append(toIndentedString(defaultCallTimeoutSecs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

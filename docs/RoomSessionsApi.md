@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**endSession**](RoomSessionsApi.md#endSession) | **POST** /room_sessions/{room_session_id}/actions/end | End a room session.
 [**kickParticipantInSession**](RoomSessionsApi.md#kickParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/kick | Kick participants from a room session.
-[**listRoomParticipants**](RoomSessionsApi.md#listRoomParticipants) | **GET** /room_sessions/{room_session_id}/participants | View a list of room participants.
+[**listRoomParticipantsView**](RoomSessionsApi.md#listRoomParticipantsView) | **GET** /room_sessions/{room_session_id}/participants | View a list of room participants.
 [**listRoomSessions**](RoomSessionsApi.md#listRoomSessions) | **GET** /room_sessions | View a list of room sessions.
 [**muteParticipantInSession**](RoomSessionsApi.md#muteParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/mute | Mute participants in room session.
 [**unmuteParticipantInSession**](RoomSessionsApi.md#unmuteParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/unmute | Unmute participants in room session.
@@ -148,9 +148,9 @@ No authorization required
 | **200** | Success Action Response |  -  |
 
 
-## listRoomParticipants
+## listRoomParticipantsView
 
-> ListRoomParticipants200Response listRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber)
+> ListRoomParticipants200Response listRoomParticipantsView(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber)
 
 View a list of room participants.
 
@@ -193,10 +193,10 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListRoomParticipants200Response result = apiInstance.listRoomParticipants(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber);
+            ListRoomParticipants200Response result = apiInstance.listRoomParticipantsView(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling RoomSessionsApi#listRoomParticipants");
+            System.err.println("Exception when calling RoomSessionsApi#listRoomParticipantsView");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

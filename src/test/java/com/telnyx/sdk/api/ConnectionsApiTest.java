@@ -88,7 +88,6 @@ public class ConnectionsApiTest {
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
                 .filterConnectionNameContains(filterConnectionNameContains)
-                .filterOutboundOutboundVoiceProfileId(filterOutboundVoiceProfileId)
                 .sort(sort)
                 .execute();
 

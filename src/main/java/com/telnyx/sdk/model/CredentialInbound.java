@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -50,19 +48,19 @@ import com.telnyx.sdk.JSON;
   CredentialInbound.JSON_PROPERTY_TIMEOUT2XX_SECS,
   CredentialInbound.JSON_PROPERTY_SHAKEN_STIR_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CredentialInbound {
   /**
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
    */
   public enum AniNumberFormatEnum {
-    _E_164("+E.164"),
+    _E_164(String.valueOf("+E.164")),
     
-    E_164("E.164"),
+    E_164(String.valueOf("E.164")),
     
-    _E_164_NATIONAL("+E.164-national"),
+    _E_164_NATIONAL(String.valueOf("+E.164-national")),
     
-    E_164_NATIONAL("E.164-national");
+    E_164_NATIONAL(String.valueOf("E.164-national"));
 
     private String value;
 
@@ -98,13 +96,13 @@ public class CredentialInbound {
    * Gets or Sets dnisNumberFormat
    */
   public enum DnisNumberFormatEnum {
-    _E164("+e164"),
+    _E164(String.valueOf("+e164")),
     
-    E164("e164"),
+    E164(String.valueOf("e164")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SIP_USERNAME("sip_username");
+    SIP_USERNAME(String.valueOf("sip_username"));
 
     private String value;
 
@@ -226,7 +224,7 @@ public class CredentialInbound {
     return this;
   }
 
-  public CredentialInbound addCodecsItem(String codecsItem) {
+  public CredentialInbound addcodecsItem(String codecsItem) {
     if (this.codecs == null) {
       this.codecs = new ArrayList<>(Arrays.asList("G722", "G711U", "G711A", "G729", "OPUS", "H.264"));
     }

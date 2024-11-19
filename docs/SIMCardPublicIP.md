@@ -8,6 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**recordType** | **String** |  |  [optional] [readonly] |
+|**regionCode** | **String** |  |  [optional] [readonly] |
 |**simCardId** | **UUID** |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) |  |  [optional] [readonly] |
 |**ip** | **String** | The provisioned IP address. This attribute will only be available when underlying resource status is in a \&quot;provisioned\&quot; status. |  [optional] [readonly] |

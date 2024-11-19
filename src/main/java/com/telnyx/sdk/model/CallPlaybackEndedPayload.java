@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -45,7 +43,7 @@ import com.telnyx.sdk.JSON;
   CallPlaybackEndedPayload.JSON_PROPERTY_OVERLAY,
   CallPlaybackEndedPayload.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CallPlaybackEndedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -75,19 +73,19 @@ public class CallPlaybackEndedPayload {
    * Reflects how command ended.
    */
   public enum StatusEnum {
-    FILE_NOT_FOUND("file_not_found"),
+    FILE_NOT_FOUND(String.valueOf("file_not_found")),
     
-    CALL_HANGUP("call_hangup"),
+    CALL_HANGUP(String.valueOf("call_hangup")),
     
-    UNKNOWN("unknown"),
+    UNKNOWN(String.valueOf("unknown")),
     
-    FAILED("failed"),
+    FAILED(String.valueOf("failed")),
     
-    CANCELLED_AMD("cancelled_amd"),
+    CANCELLED_AMD(String.valueOf("cancelled_amd")),
     
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    FAILED2("failed");
+    FAILED2(String.valueOf("failed"));
 
     private String value;
 

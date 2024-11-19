@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,13 +43,13 @@ import com.telnyx.sdk.JSON;
   GcbChannelZone.JSON_PROPERTY_CREATED_AT,
   GcbChannelZone.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class GcbChannelZone {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    CHANNEL_ZONE("channel_zone");
+    CHANNEL_ZONE(String.valueOf("channel_zone"));
 
     private String value;
 
@@ -135,7 +133,7 @@ public class GcbChannelZone {
     return this;
   }
 
-  public GcbChannelZone addCountriesItem(String countriesItem) {
+  public GcbChannelZone addcountriesItem(String countriesItem) {
     this.countries.add(countriesItem);
     return this;
   }

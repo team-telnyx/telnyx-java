@@ -29,13 +29,13 @@
 
 | Name | Value |
 |---- | -----|
-| DIALVERB | &quot;DialVerb&quot; |
+| DIAL_VERB | &quot;DialVerb&quot; |
 | CONFERENCE | &quot;Conference&quot; |
-| OUTBOUNDAPI | &quot;OutboundAPI&quot; |
+| OUTBOUND_API | &quot;OutboundAPI&quot; |
 | TRUNKING | &quot;Trunking&quot; |
-| RECORDVERB | &quot;RecordVerb&quot; |
-| STARTCALLRECORDINGAPI | &quot;StartCallRecordingAPI&quot; |
-| STARTCONFERENCERECORDINGAPI | &quot;StartConferenceRecordingAPI&quot; |
+| RECORD_VERB | &quot;RecordVerb&quot; |
+| START_CALL_RECORDING_API | &quot;StartCallRecordingAPI&quot; |
+| START_CONFERENCE_RECORDING_API | &quot;StartConferenceRecordingAPI&quot; |
 
 
 

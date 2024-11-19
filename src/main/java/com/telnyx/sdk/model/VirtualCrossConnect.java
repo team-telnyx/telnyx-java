@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.InterfaceStatus;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,7 +44,7 @@ import com.telnyx.sdk.JSON;
   VirtualCrossConnect.JSON_PROPERTY_NAME,
   VirtualCrossConnect.JSON_PROPERTY_STATUS,
   VirtualCrossConnect.JSON_PROPERTY_CLOUD_PROVIDER,
-  VirtualCrossConnect.JSON_PROPERTY_CLOUD_REGION,
+  VirtualCrossConnect.JSON_PROPERTY_CLOUD_PROVIDER_REGION,
   VirtualCrossConnect.JSON_PROPERTY_BGP_ASN,
   VirtualCrossConnect.JSON_PROPERTY_BANDWIDTH_MBPS,
   VirtualCrossConnect.JSON_PROPERTY_PRIMARY_ENABLED,
@@ -60,7 +58,7 @@ import com.telnyx.sdk.JSON;
   VirtualCrossConnect.JSON_PROPERTY_SECONDARY_CLOUD_IP,
   VirtualCrossConnect.JSON_PROPERTY_SECONDARY_BGP_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class VirtualCrossConnect {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -87,11 +85,11 @@ public class VirtualCrossConnect {
    * The Virtual Private Cloud with which you would like to establish a cross connect.
    */
   public enum CloudProviderEnum {
-    AWS("aws"),
+    AWS(String.valueOf("aws")),
     
-    AZURE("azure"),
+    AZURE(String.valueOf("azure")),
     
-    GCE("gce");
+    GCE(String.valueOf("gce"));
 
     private String value;
 
@@ -123,8 +121,8 @@ public class VirtualCrossConnect {
   public static final String JSON_PROPERTY_CLOUD_PROVIDER = "cloud_provider";
   private CloudProviderEnum cloudProvider;
 
-  public static final String JSON_PROPERTY_CLOUD_REGION = "cloud_region";
-  private String cloudRegion;
+  public static final String JSON_PROPERTY_CLOUD_PROVIDER_REGION = "cloud_provider_region";
+  private String cloudProviderRegion;
 
   public static final String JSON_PROPERTY_BGP_ASN = "bgp_asn";
   private BigDecimal bgpAsn;
@@ -351,29 +349,29 @@ public class VirtualCrossConnect {
   }
 
 
-  public VirtualCrossConnect cloudRegion(String cloudRegion) {
-    this.cloudRegion = cloudRegion;
+  public VirtualCrossConnect cloudProviderRegion(String cloudProviderRegion) {
+    this.cloudProviderRegion = cloudProviderRegion;
     return this;
   }
 
    /**
    * The region where your Virtual Private Cloud hosts are located.&lt;br /&gt;&lt;br /&gt;The available regions can be found using the /virtual_cross_connect_regions endpoint.
-   * @return cloudRegion
+   * @return cloudProviderRegion
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "us-east-1", value = "The region where your Virtual Private Cloud hosts are located.<br /><br />The available regions can be found using the /virtual_cross_connect_regions endpoint.")
-  @JsonProperty(JSON_PROPERTY_CLOUD_REGION)
+  @JsonProperty(JSON_PROPERTY_CLOUD_PROVIDER_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getCloudRegion() {
-    return cloudRegion;
+  public String getCloudProviderRegion() {
+    return cloudProviderRegion;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLOUD_REGION)
+  @JsonProperty(JSON_PROPERTY_CLOUD_PROVIDER_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCloudRegion(String cloudRegion) {
-    this.cloudRegion = cloudRegion;
+  public void setCloudProviderRegion(String cloudProviderRegion) {
+    this.cloudProviderRegion = cloudProviderRegion;
   }
 
 
@@ -689,7 +687,7 @@ public class VirtualCrossConnect {
         Objects.equals(this.name, virtualCrossConnect.name) &&
         Objects.equals(this.status, virtualCrossConnect.status) &&
         Objects.equals(this.cloudProvider, virtualCrossConnect.cloudProvider) &&
-        Objects.equals(this.cloudRegion, virtualCrossConnect.cloudRegion) &&
+        Objects.equals(this.cloudProviderRegion, virtualCrossConnect.cloudProviderRegion) &&
         Objects.equals(this.bgpAsn, virtualCrossConnect.bgpAsn) &&
         Objects.equals(this.bandwidthMbps, virtualCrossConnect.bandwidthMbps) &&
         Objects.equals(this.primaryEnabled, virtualCrossConnect.primaryEnabled) &&
@@ -706,7 +704,7 @@ public class VirtualCrossConnect {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, createdAt, updatedAt, networkId, name, status, cloudProvider, cloudRegion, bgpAsn, bandwidthMbps, primaryEnabled, primaryCloudAccountId, primaryTelnyxIp, primaryCloudIp, primaryBgpKey, secondaryEnabled, secondaryCloudAccountId, secondaryTelnyxIp, secondaryCloudIp, secondaryBgpKey);
+    return Objects.hash(id, recordType, createdAt, updatedAt, networkId, name, status, cloudProvider, cloudProviderRegion, bgpAsn, bandwidthMbps, primaryEnabled, primaryCloudAccountId, primaryTelnyxIp, primaryCloudIp, primaryBgpKey, secondaryEnabled, secondaryCloudAccountId, secondaryTelnyxIp, secondaryCloudIp, secondaryBgpKey);
   }
 
   @Override
@@ -721,7 +719,7 @@ public class VirtualCrossConnect {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    cloudProvider: ").append(toIndentedString(cloudProvider)).append("\n");
-    sb.append("    cloudRegion: ").append(toIndentedString(cloudRegion)).append("\n");
+    sb.append("    cloudProviderRegion: ").append(toIndentedString(cloudProviderRegion)).append("\n");
     sb.append("    bgpAsn: ").append(toIndentedString(bgpAsn)).append("\n");
     sb.append("    bandwidthMbps: ").append(toIndentedString(bandwidthMbps)).append("\n");
     sb.append("    primaryEnabled: ").append(toIndentedString(primaryEnabled)).append("\n");

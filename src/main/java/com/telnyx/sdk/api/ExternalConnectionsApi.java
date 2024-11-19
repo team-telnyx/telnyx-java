@@ -38,7 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ExternalConnectionsApi {
   private ApiClient apiClient;
 
@@ -1072,7 +1072,8 @@ public class ExternalConnectionsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterPhoneNumberEq The phone number to filter by (optional)
-   * @param filterPhoneNumberContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
+   * @param filterPhoneNumberContains The partial phone number to filter by. Requires 3-15 digits. (optional)
+   * @param filterPhoneNumbersContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
    * @param filterCivicAddressIdEq The civic address ID to filter by (optional)
    * @param filterLocationIdEq The location ID to filter by (optional)
    * @return ListExternalConnectionPhoneNumbersResponse
@@ -1086,8 +1087,8 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(String id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
-    return listExternalConnectionPhoneNumbersWithHttpInfo(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterCivicAddressIdEq, filterLocationIdEq).getData();
+  public ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(String id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, String filterPhoneNumbersContains, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
+    return listExternalConnectionPhoneNumbersWithHttpInfo(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterPhoneNumbersContains, filterCivicAddressIdEq, filterLocationIdEq).getData();
   }
 
   /**
@@ -1097,7 +1098,8 @@ public class ExternalConnectionsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterPhoneNumberEq The phone number to filter by (optional)
-   * @param filterPhoneNumberContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
+   * @param filterPhoneNumberContains The partial phone number to filter by. Requires 3-15 digits. (optional)
+   * @param filterPhoneNumbersContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
    * @param filterCivicAddressIdEq The civic address ID to filter by (optional)
    * @param filterLocationIdEq The location ID to filter by (optional)
    * @return ApiResponse&lt;ListExternalConnectionPhoneNumbersResponse&gt;
@@ -1111,7 +1113,7 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListExternalConnectionPhoneNumbersResponse> listExternalConnectionPhoneNumbersWithHttpInfo(String id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
+  public ApiResponse<ListExternalConnectionPhoneNumbersResponse> listExternalConnectionPhoneNumbersWithHttpInfo(String id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, String filterPhoneNumbersContains, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1133,6 +1135,7 @@ public class ExternalConnectionsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][eq]", filterPhoneNumberEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][contains]", filterPhoneNumberContains));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_numbers][contains]", filterPhoneNumbersContains));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[civic_address_id][eq]", filterCivicAddressIdEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[location_id][eq]", filterLocationIdEq));
 
@@ -1356,7 +1359,7 @@ public class ExternalConnectionsApi {
    * @param filterExternalSipConnection If present, connections with &lt;code&gt;external_sip_connection&lt;/code&gt; matching the given value will be returned. (optional)
    * @param filterId If present, connections with &lt;code&gt;id&lt;/code&gt; matching the given value will be returned. (optional)
    * @param filterCreatedAt Filter by ISO 8601 formatted date-time string matching resource creation date-time. (optional)
-   * @param filterPhoneNumberContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
+   * @param filterPhoneNumbersContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
    * @return GetAllExternalConnectionsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1368,8 +1371,8 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllExternalConnectionsResponse listExternalConnections(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumberContains) throws ApiException {
-    return listExternalConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumberContains).getData();
+  public GetAllExternalConnectionsResponse listExternalConnections(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumbersContains) throws ApiException {
+    return listExternalConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumbersContains).getData();
   }
 
   /**
@@ -1381,7 +1384,7 @@ public class ExternalConnectionsApi {
    * @param filterExternalSipConnection If present, connections with &lt;code&gt;external_sip_connection&lt;/code&gt; matching the given value will be returned. (optional)
    * @param filterId If present, connections with &lt;code&gt;id&lt;/code&gt; matching the given value will be returned. (optional)
    * @param filterCreatedAt Filter by ISO 8601 formatted date-time string matching resource creation date-time. (optional)
-   * @param filterPhoneNumberContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
+   * @param filterPhoneNumbersContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
    * @return ApiResponse&lt;GetAllExternalConnectionsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1393,7 +1396,7 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllExternalConnectionsResponse> listExternalConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumberContains) throws ApiException {
+  public ApiResponse<GetAllExternalConnectionsResponse> listExternalConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumbersContains) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -1411,7 +1414,7 @@ public class ExternalConnectionsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[external_sip_connection]", filterExternalSipConnection));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[id]", filterId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at]", filterCreatedAt));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][contains]", filterPhoneNumberContains));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_numbers][contains]", filterPhoneNumbersContains));
 
     
     

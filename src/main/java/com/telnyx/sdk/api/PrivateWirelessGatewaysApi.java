@@ -12,6 +12,7 @@ import com.telnyx.sdk.model.CreatePrivateWirelessGateway202Response;
 import com.telnyx.sdk.model.CreatePrivateWirelessGatewayRequest;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
+import com.telnyx.sdk.model.GetPrivateWirelessGateway200Response;
 import com.telnyx.sdk.model.GetPrivateWirelessGateways200Response;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PrivateWirelessGatewaysApi {
   private ApiClient apiClient;
 
@@ -52,14 +53,14 @@ public class PrivateWirelessGatewaysApi {
 
   /**
    * Create a Private Wireless Gateway
-   * Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network.
+   * Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network. This operation may take several minutes so you can check the Private Wireless Gateway status at the section Get a Private Wireless Gateway
    * @param createPrivateWirelessGatewayRequest  (required)
    * @return CreatePrivateWirelessGateway202Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
@@ -70,14 +71,14 @@ public class PrivateWirelessGatewaysApi {
 
   /**
    * Create a Private Wireless Gateway
-   * Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network.
+   * Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network. This operation may take several minutes so you can check the Private Wireless Gateway status at the section Get a Private Wireless Gateway
    * @param createPrivateWirelessGatewayRequest  (required)
    * @return ApiResponse&lt;CreatePrivateWirelessGateway202Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
@@ -124,36 +125,36 @@ public class PrivateWirelessGatewaysApi {
   /**
    * Delete a Private Wireless Gateway
    * Deletes the Private Wireless Gateway.
-   * @param id Identifies the resource. (required)
-   * @return CreatePrivateWirelessGateway202Response
+   * @param id Identifies the private wireless gateway. (required)
+   * @return GetPrivateWirelessGateway200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePrivateWirelessGateway202Response deleteWirelessGateway(UUID id) throws ApiException {
+  public GetPrivateWirelessGateway200Response deleteWirelessGateway(UUID id) throws ApiException {
     return deleteWirelessGatewayWithHttpInfo(id).getData();
   }
 
   /**
    * Delete a Private Wireless Gateway
    * Deletes the Private Wireless Gateway.
-   * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;CreatePrivateWirelessGateway202Response&gt;
+   * @param id Identifies the private wireless gateway. (required)
+   * @return ApiResponse&lt;GetPrivateWirelessGateway200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePrivateWirelessGateway202Response> deleteWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<GetPrivateWirelessGateway200Response> deleteWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -187,7 +188,7 @@ public class PrivateWirelessGatewaysApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreatePrivateWirelessGateway202Response> localVarReturnType = new GenericType<CreatePrivateWirelessGateway202Response>() {};
+    GenericType<GetPrivateWirelessGateway200Response> localVarReturnType = new GenericType<GetPrivateWirelessGateway200Response>() {};
 
     return apiClient.invokeAPI("PrivateWirelessGatewaysApi.deleteWirelessGateway", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -196,36 +197,36 @@ public class PrivateWirelessGatewaysApi {
   /**
    * Get a Private Wireless Gateway
    * Retrieve information about a Private Wireless Gateway.
-   * @param id Identifies the resource. (required)
-   * @return CreatePrivateWirelessGateway202Response
+   * @param id Identifies the private wireless gateway. (required)
+   * @return GetPrivateWirelessGateway200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePrivateWirelessGateway202Response getPrivateWirelessGateway(UUID id) throws ApiException {
+  public GetPrivateWirelessGateway200Response getPrivateWirelessGateway(UUID id) throws ApiException {
     return getPrivateWirelessGatewayWithHttpInfo(id).getData();
   }
 
   /**
    * Get a Private Wireless Gateway
    * Retrieve information about a Private Wireless Gateway.
-   * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;CreatePrivateWirelessGateway202Response&gt;
+   * @param id Identifies the private wireless gateway. (required)
+   * @return ApiResponse&lt;GetPrivateWirelessGateway200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePrivateWirelessGateway202Response> getPrivateWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<GetPrivateWirelessGateway200Response> getPrivateWirelessGatewayWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -259,7 +260,7 @@ public class PrivateWirelessGatewaysApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreatePrivateWirelessGateway202Response> localVarReturnType = new GenericType<CreatePrivateWirelessGateway202Response>() {};
+    GenericType<GetPrivateWirelessGateway200Response> localVarReturnType = new GenericType<GetPrivateWirelessGateway200Response>() {};
 
     return apiClient.invokeAPI("PrivateWirelessGatewaysApi.getPrivateWirelessGateway", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -280,7 +281,8 @@ public class PrivateWirelessGatewaysApi {
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -303,7 +305,8 @@ public class PrivateWirelessGatewaysApi {
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */

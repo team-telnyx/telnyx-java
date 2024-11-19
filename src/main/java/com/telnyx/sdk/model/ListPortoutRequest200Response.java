@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.PortoutDetails;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListPortoutRequest200Response.JSON_PROPERTY_DATA,
   ListPortoutRequest200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ListPortoutRequest200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<PortoutDetails> data = null;
@@ -58,7 +56,7 @@ public class ListPortoutRequest200Response {
     return this;
   }
 
-  public ListPortoutRequest200Response addDataItem(PortoutDetails dataItem) {
+  public ListPortoutRequest200Response adddataItem(PortoutDetails dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 Delete a Wireless Detail Record (WDR) Report
 
-Deletes one specific WDR report
+Deletes one specific WDR report.
 
 ### Example
 
@@ -300,5 +300,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 

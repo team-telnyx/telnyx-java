@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.UnprocessableEntityError;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreateManagedAccount422Response.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateManagedAccount422Response {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private List<UnprocessableEntityError> errors = null;
@@ -53,7 +51,7 @@ public class CreateManagedAccount422Response {
     return this;
   }
 
-  public CreateManagedAccount422Response addErrorsItem(UnprocessableEntityError errorsItem) {
+  public CreateManagedAccount422Response adderrorsItem(UnprocessableEntityError errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }

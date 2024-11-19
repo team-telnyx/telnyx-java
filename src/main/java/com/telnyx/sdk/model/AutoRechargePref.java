@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   AutoRechargePref.JSON_PROPERTY_INVOICE_ENABLED,
   AutoRechargePref.JSON_PROPERTY_PREFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class AutoRechargePref {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -68,9 +66,9 @@ public class AutoRechargePref {
    * The payment preference for auto recharge.
    */
   public enum PreferenceEnum {
-    CREDIT_PAYPAL("credit_paypal"),
+    CREDIT_PAYPAL(String.valueOf("credit_paypal")),
     
-    ACH("ach");
+    ACH(String.valueOf("ach"));
 
     private String value;
 

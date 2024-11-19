@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   EmergencySettings.JSON_PROPERTY_EMERGENCY_ADDRESS_ID,
   EmergencySettings.JSON_PROPERTY_EMERGENCY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class EmergencySettings {
   public static final String JSON_PROPERTY_EMERGENCY_ENABLED = "emergency_enabled";
   private Boolean emergencyEnabled = false;
@@ -52,13 +50,13 @@ public class EmergencySettings {
    * Represents the state of the number regarding emergency activation.
    */
   public enum EmergencyStatusEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    ACTIVE("active"),
+    ACTIVE(String.valueOf("active")),
     
-    PROVISIONING("provisioning"),
+    PROVISIONING(String.valueOf("provisioning")),
     
-    DEPROVISIONING("deprovisioning");
+    DEPROVISIONING(String.valueOf("deprovisioning"));
 
     private String value;
 

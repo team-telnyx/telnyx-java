@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**List&lt;BulkSIMCardActionDetailed&gt;**](BulkSIMCardActionDetailed.md) |  |  [optional] |
+|**data** | [**List&lt;SIMCardAction&gt;**](SIMCardAction.md) |  |  [optional] |
 |**meta** | [**PaginationMeta**](PaginationMeta.md) |  |  [optional] |
 
 

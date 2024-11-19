@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,15 +37,15 @@ import com.telnyx.sdk.JSON;
   ConnectionRtcpSettings.JSON_PROPERTY_CAPTURE_ENABLED,
   ConnectionRtcpSettings.JSON_PROPERTY_REPORT_FREQUENCY_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ConnectionRtcpSettings {
   /**
    * RTCP port by default is rtp+1, it can also be set to rtcp-mux
    */
   public enum PortEnum {
-    RTCP_MUX("rtcp-mux"),
+    RTCP_MUX(String.valueOf("rtcp-mux")),
     
-    RTP_1("rtp+1");
+    RTP_1(String.valueOf("rtp+1"));
 
     private String value;
 

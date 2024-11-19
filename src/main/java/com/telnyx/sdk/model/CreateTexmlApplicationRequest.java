@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -30,8 +30,6 @@ import com.telnyx.sdk.model.CreateTexmlApplicationRequestOutbound;
 import com.telnyx.sdk.model.DtmfType;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -53,7 +51,7 @@ import com.telnyx.sdk.JSON;
   CreateTexmlApplicationRequest.JSON_PROPERTY_INBOUND,
   CreateTexmlApplicationRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateTexmlApplicationRequest {
   public static final String JSON_PROPERTY_FRIENDLY_NAME = "friendly_name";
   private String friendlyName;
@@ -83,9 +81,9 @@ public class CreateTexmlApplicationRequest {
    * HTTP request method Telnyx will use to interact with your XML Translator webhooks. Either &#39;get&#39; or &#39;post&#39;.
    */
   public enum VoiceMethodEnum {
-    GET("get"),
+    GET(String.valueOf("get")),
     
-    POST("post");
+    POST(String.valueOf("post"));
 
     private String value;
 
@@ -124,9 +122,9 @@ public class CreateTexmlApplicationRequest {
    * HTTP request method Telnyx should use when requesting the status_callback URL.
    */
   public enum StatusCallbackMethodEnum {
-    GET("get"),
+    GET(String.valueOf("get")),
     
-    POST("post");
+    POST(String.valueOf("post"));
 
     private String value;
 

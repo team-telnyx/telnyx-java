@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,9 +29,6 @@ import com.telnyx.sdk.model.CreateExternalConnectionRequestOutbound;
 import com.telnyx.sdk.model.ExternalSipConnection;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -57,7 +54,7 @@ import com.telnyx.sdk.JSON;
   ExternalConnection.JSON_PROPERTY_CREATED_AT,
   ExternalConnection.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ExternalConnection {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -84,9 +81,9 @@ public class ExternalConnection {
    * Determines which webhook format will be used, Telnyx API v1 or v2.
    */
   public enum WebhookApiVersionEnum {
-    _1("1"),
+    _1(String.valueOf("1")),
     
-    _2("2");
+    _2(String.valueOf("2"));
 
     private String value;
 
@@ -136,20 +133,17 @@ public class ExternalConnection {
   public ExternalConnection() { 
   }
 
-  @JsonCreator
-  public ExternalConnection(
-    @JsonProperty(JSON_PROPERTY_ID) String id
-  ) {
-    this();
+  public ExternalConnection id(String id) {
     this.id = id;
+    return this;
   }
 
    /**
-   * Identifies the resource.
+   * Uniquely identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -158,6 +152,11 @@ public class ExternalConnection {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(String id) {
+    this.id = id;
+  }
 
 
   public ExternalConnection recordType(String recordType) {

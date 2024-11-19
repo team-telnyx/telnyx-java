@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PortingLOAConfigurationLogo.JSON_PROPERTY_DOCUMENT_ID,
   PortingLOAConfigurationLogo.JSON_PROPERTY_CONTENT_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PortingLOAConfigurationLogo {
   public static final String JSON_PROPERTY_DOCUMENT_ID = "document_id";
   private UUID documentId;
@@ -49,7 +47,7 @@ public class PortingLOAConfigurationLogo {
    * The content type of the logo.
    */
   public enum ContentTypeEnum {
-    IMAGE_PNG("image/png");
+    IMAGE_PNG(String.valueOf("image/png"));
 
     private String value;
 

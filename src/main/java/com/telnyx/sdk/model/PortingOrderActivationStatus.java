@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -55,7 +55,7 @@ public enum PortingOrderActivationStatus {
   
   ACTIVE("Active"),
   
-  CANCELED("Canceled");
+  CANCELLED("Cancelled");
 
   private String value;
 

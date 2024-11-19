@@ -11,9 +11,7 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.CreateWireguardInterface202Response;
 import com.telnyx.sdk.model.CreateWireguardPeer202Response;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetWireguardPeerAllowedIp200Response;
 import com.telnyx.sdk.model.ListWireguardInterfaces200Response;
-import com.telnyx.sdk.model.ListWireguardPeerAllowedIps200Response;
 import com.telnyx.sdk.model.ListWireguardPeers200Response;
 import java.util.UUID;
 import com.telnyx.sdk.model.WireguardInterfaceCreate;
@@ -25,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class WireGuardInterfacesApi {
   private ApiClient apiClient;
 
@@ -486,84 +484,6 @@ public class WireGuardInterfacesApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Retrieve the Allowed IP
-   * Retrieve the Allowed IP.
-   * @param id Identifies the resource. (required)
-   * @param childId Identifies the child resource (required)
-   * @return GetWireguardPeerAllowedIp200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public GetWireguardPeerAllowedIp200Response getWireguardPeerAllowedIp(UUID id, UUID childId) throws ApiException {
-    return getWireguardPeerAllowedIpWithHttpInfo(id, childId).getData();
-  }
-
-  /**
-   * Retrieve the Allowed IP
-   * Retrieve the Allowed IP.
-   * @param id Identifies the resource. (required)
-   * @param childId Identifies the child resource (required)
-   * @return ApiResponse&lt;GetWireguardPeerAllowedIp200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<GetWireguardPeerAllowedIp200Response> getWireguardPeerAllowedIpWithHttpInfo(UUID id, UUID childId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getWireguardPeerAllowedIp");
-    }
-    
-    // verify the required parameter 'childId' is set
-    if (childId == null) {
-      throw new ApiException(400, "Missing the required parameter 'childId' when calling getWireguardPeerAllowedIp");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/wireguard_peers/{id}/allowed_ips/{child_id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "child_id" + "\\}", apiClient.escapeString(childId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetWireguardPeerAllowedIp200Response> localVarReturnType = new GenericType<GetWireguardPeerAllowedIp200Response>() {};
-
-    return apiClient.invokeAPI("WireGuardInterfacesApi.getWireguardPeerAllowedIp", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
    * Retrieve Wireguard config template for Peer
    * Retrieve Wireguard config template for Peer
    * @param id Identifies the resource. (required)
@@ -701,82 +621,6 @@ public class WireGuardInterfacesApi {
     GenericType<ListWireguardInterfaces200Response> localVarReturnType = new GenericType<ListWireguardInterfaces200Response>() {};
 
     return apiClient.invokeAPI("WireGuardInterfacesApi.listWireguardInterfaces", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * List all Allowed IPs for a WireGuard Peer
-   * List all Allowed IPs for a WireGuard peer.
-   * @param id Identifies the resource. (required)
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @return ListWireguardPeerAllowedIps200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ListWireguardPeerAllowedIps200Response listWireguardPeerAllowedIps(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    return listWireguardPeerAllowedIpsWithHttpInfo(id, pageNumber, pageSize).getData();
-  }
-
-  /**
-   * List all Allowed IPs for a WireGuard Peer
-   * List all Allowed IPs for a WireGuard peer.
-   * @param id Identifies the resource. (required)
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;ListWireguardPeerAllowedIps200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<ListWireguardPeerAllowedIps200Response> listWireguardPeerAllowedIpsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listWireguardPeerAllowedIps");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/wireguard_peers/{id}/allowed_ips"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListWireguardPeerAllowedIps200Response> localVarReturnType = new GenericType<ListWireguardPeerAllowedIps200Response>() {};
-
-    return apiClient.invokeAPI("WireGuardInterfacesApi.listWireguardPeerAllowedIps", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

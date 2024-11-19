@@ -107,7 +107,6 @@ public class CallCommandsApiTest {
 
         CallRequest outboundCallRequest = new CallRequest()
                 .from(TestConfiguration.TEST_FROM_NUMBER)
-                .to(TestConfiguration.TEST_TO_NUMBER)
                 .connectionId(connectionId)
                 .clientState(clientState);
 

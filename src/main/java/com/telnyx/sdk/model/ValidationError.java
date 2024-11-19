@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.Location1Inner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ValidationError.JSON_PROPERTY_MSG,
   ValidationError.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ValidationError {
   public static final String JSON_PROPERTY_LOC = "loc";
   private List<Location1Inner> loc = new ArrayList<>();
@@ -61,7 +59,7 @@ public class ValidationError {
     return this;
   }
 
-  public ValidationError addLocItem(Location1Inner locItem) {
+  public ValidationError addlocItem(Location1Inner locItem) {
     this.loc.add(locItem);
     return this;
   }

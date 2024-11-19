@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
   BucketOps.JSON_PROPERTY_SUCCESSFUL_OPS,
   BucketOps.JSON_PROPERTY_CATEGORY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class BucketOps {
   public static final String JSON_PROPERTY_BYTES_SENT = "bytes_sent";
   private Integer bytesSent;
@@ -59,25 +57,25 @@ public class BucketOps {
    * The category of the bucket operation
    */
   public enum CategoryEnum {
-    LIST_BUCKET("list_bucket"),
+    LIST_BUCKET(String.valueOf("list_bucket")),
     
-    LIST_BUCKETS("list_buckets"),
+    LIST_BUCKETS(String.valueOf("list_buckets")),
     
-    GET_BUCKET_LOCATION("get-bucket_location"),
+    GET_BUCKET_LOCATION(String.valueOf("get-bucket_location")),
     
-    CREATE_BUCKET("create_bucket"),
+    CREATE_BUCKET(String.valueOf("create_bucket")),
     
-    STAT_BUCKET("stat_bucket"),
+    STAT_BUCKET(String.valueOf("stat_bucket")),
     
-    GET_BUCKET_VERSIONING("get_bucket_versioning"),
+    GET_BUCKET_VERSIONING(String.valueOf("get_bucket_versioning")),
     
-    SET_BUCKET_VERSIONING("set_bucket_versioning"),
+    SET_BUCKET_VERSIONING(String.valueOf("set_bucket_versioning")),
     
-    GET_OBJ("get_obj"),
+    GET_OBJ(String.valueOf("get_obj")),
     
-    PUT_OBJ("put_obj"),
+    PUT_OBJ(String.valueOf("put_obj")),
     
-    DELETE_OBJ("delete_obj");
+    DELETE_OBJ(String.valueOf("delete_obj"));
 
     private String value;
 

@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
@@ -299,7 +299,7 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about allocatable global outbound channels. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **403** | Unauthorized response. Happens when the current user is not authorized to access the endpoint. |  -  |
 
 
@@ -385,7 +385,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of managed accounts. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 
 
 ## retrieveManagedAccount
@@ -456,7 +456,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 
 
@@ -530,7 +530,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
@@ -605,7 +605,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about the allocatable global outbound channels for the given account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 

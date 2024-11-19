@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.PortingOrdersExceptionType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderStatus.JSON_PROPERTY_DETAILS,
   PortingOrderStatus.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PortingOrderStatus {
   public static final String JSON_PROPERTY_DETAILS = "details";
   private List<PortingOrdersExceptionType> details = null;
@@ -51,21 +49,21 @@ public class PortingOrderStatus {
    * The current status of the porting order
    */
   public enum ValueEnum {
-    DRAFT("draft"),
+    DRAFT(String.valueOf("draft")),
     
-    IN_PROCESS("in-process"),
+    IN_PROCESS(String.valueOf("in-process")),
     
-    SUBMITTED("submitted"),
+    SUBMITTED(String.valueOf("submitted")),
     
-    EXCEPTION("exception"),
+    EXCEPTION(String.valueOf("exception")),
     
-    FOC_DATE_CONFIRMED("foc-date-confirmed"),
+    FOC_DATE_CONFIRMED(String.valueOf("foc-date-confirmed")),
     
-    PORTED("ported"),
+    PORTED(String.valueOf("ported")),
     
-    CANCELED("canceled"),
+    CANCELLED(String.valueOf("cancelled")),
     
-    CANCEL_PENDING("cancel-pending");
+    CANCEL_PENDING(String.valueOf("cancel-pending"));
 
     private String value;
 
@@ -105,7 +103,7 @@ public class PortingOrderStatus {
     return this;
   }
 
-  public PortingOrderStatus addDetailsItem(PortingOrdersExceptionType detailsItem) {
+  public PortingOrderStatus adddetailsItem(PortingOrdersExceptionType detailsItem) {
     if (this.details == null) {
       this.details = new ArrayList<>();
     }

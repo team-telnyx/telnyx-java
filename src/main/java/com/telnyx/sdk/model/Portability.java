@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   Portability.JSON_PROPERTY_CITY,
   Portability.JSON_PROPERTY_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class Portability {
   public static final String JSON_PROPERTY_LRN = "lrn";
   private String lrn;
@@ -58,11 +56,11 @@ public class Portability {
    * Indicates whether or not the requested phone number has been ported
    */
   public enum PortedStatusEnum {
-    Y("Y"),
+    Y(String.valueOf("Y")),
     
-    N("N"),
+    N(String.valueOf("N")),
     
-    EMPTY("");
+    EMPTY(String.valueOf(""));
 
     private String value;
 

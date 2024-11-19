@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -25,11 +25,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CustomSipHeader;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,9 +45,10 @@ import com.telnyx.sdk.JSON;
   CallAnsweredPayload.JSON_PROPERTY_CUSTOM_HEADERS,
   CallAnsweredPayload.JSON_PROPERTY_FROM,
   CallAnsweredPayload.JSON_PROPERTY_TO,
+  CallAnsweredPayload.JSON_PROPERTY_START_TIME,
   CallAnsweredPayload.JSON_PROPERTY_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CallAnsweredPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -74,11 +74,14 @@ public class CallAnsweredPayload {
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
 
+  public static final String JSON_PROPERTY_START_TIME = "start_time";
+  private OffsetDateTime startTime;
+
   /**
    * State received from a command.
    */
   public enum StateEnum {
-    ANSWERED("answered");
+    ANSWERED(String.valueOf("answered"));
 
     private String value;
 
@@ -248,7 +251,7 @@ public class CallAnsweredPayload {
     return this;
   }
 
-  public CallAnsweredPayload addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+  public CallAnsweredPayload addcustomHeadersItem(CustomSipHeader customHeadersItem) {
     if (this.customHeaders == null) {
       this.customHeaders = new ArrayList<>();
     }
@@ -329,6 +332,32 @@ public class CallAnsweredPayload {
   }
 
 
+  public CallAnsweredPayload startTime(OffsetDateTime startTime) {
+    this.startTime = startTime;
+    return this;
+  }
+
+   /**
+   * ISO 8601 datetime of when the call started.
+   * @return startTime
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2018-02-02T22:20:27.521992Z", value = "ISO 8601 datetime of when the call started.")
+  @JsonProperty(JSON_PROPERTY_START_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getStartTime() {
+    return startTime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_START_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStartTime(OffsetDateTime startTime) {
+    this.startTime = startTime;
+  }
+
+
   public CallAnsweredPayload state(StateEnum state) {
     this.state = state;
     return this;
@@ -375,12 +404,13 @@ public class CallAnsweredPayload {
         Objects.equals(this.customHeaders, callAnsweredPayload.customHeaders) &&
         Objects.equals(this.from, callAnsweredPayload.from) &&
         Objects.equals(this.to, callAnsweredPayload.to) &&
+        Objects.equals(this.startTime, callAnsweredPayload.startTime) &&
         Objects.equals(this.state, callAnsweredPayload.state);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, customHeaders, from, to, state);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, customHeaders, from, to, startTime, state);
   }
 
   @Override
@@ -395,6 +425,7 @@ public class CallAnsweredPayload {
     sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
+    sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("}");
     return sb.toString();

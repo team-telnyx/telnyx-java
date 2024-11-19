@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -30,8 +30,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -51,7 +49,7 @@ import com.telnyx.sdk.JSON;
   WebhookDelivery.JSON_PROPERTY_FINISHED_AT,
   WebhookDelivery.JSON_PROPERTY_ATTEMPTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class WebhookDelivery {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -66,9 +64,9 @@ public class WebhookDelivery {
    * Delivery status: &#39;delivered&#39; when successfuly delivered or &#39;failed&#39; if all attempts have failed.
    */
   public enum StatusEnum {
-    DELIVERED("delivered"),
+    DELIVERED(String.valueOf("delivered")),
     
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 
@@ -302,7 +300,7 @@ public class WebhookDelivery {
     return this;
   }
 
-  public WebhookDelivery addAttemptsItem(Attempt attemptsItem) {
+  public WebhookDelivery addattemptsItem(Attempt attemptsItem) {
     if (this.attempts == null) {
       this.attempts = new ArrayList<>();
     }

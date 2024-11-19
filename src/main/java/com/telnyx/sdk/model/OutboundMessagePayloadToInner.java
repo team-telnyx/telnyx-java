@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   OutboundMessagePayloadToInner.JSON_PROPERTY_CARRIER,
   OutboundMessagePayloadToInner.JSON_PROPERTY_LINE_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class OutboundMessagePayloadToInner {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -49,21 +47,21 @@ public class OutboundMessagePayloadToInner {
    * The delivery status of the message.
    */
   public enum StatusEnum {
-    QUEUED("queued"),
+    QUEUED(String.valueOf("queued")),
     
-    SENDING("sending"),
+    SENDING(String.valueOf("sending")),
     
-    SENT("sent"),
+    SENT(String.valueOf("sent")),
     
-    EXPIRED("expired"),
+    EXPIRED(String.valueOf("expired")),
     
-    SENDING_FAILED("sending_failed"),
+    SENDING_FAILED(String.valueOf("sending_failed")),
     
-    DELIVERY_UNCONFIRMED("delivery_unconfirmed"),
+    DELIVERY_UNCONFIRMED(String.valueOf("delivery_unconfirmed")),
     
-    DELIVERED("delivered"),
+    DELIVERED(String.valueOf("delivered")),
     
-    DELIVERY_FAILED("delivery_failed");
+    DELIVERY_FAILED(String.valueOf("delivery_failed"));
 
     private String value;
 
@@ -102,17 +100,17 @@ public class OutboundMessagePayloadToInner {
    * The line-type of the receiver.
    */
   public enum LineTypeEnum {
-    WIRELINE("Wireline"),
+    WIRELINE(String.valueOf("Wireline")),
     
-    WIRELESS("Wireless"),
+    WIRELESS(String.valueOf("Wireless")),
     
-    VOWIFI("VoWiFi"),
+    VO_WI_FI(String.valueOf("VoWiFi")),
     
-    VOIP("VoIP"),
+    VO_IP(String.valueOf("VoIP")),
     
-    PRE_PAID_WIRELESS("Pre-Paid Wireless"),
+    PRE_PAID_WIRELESS(String.valueOf("Pre-Paid Wireless")),
     
-    EMPTY("");
+    EMPTY(String.valueOf(""));
 
     private String value;
 

@@ -29,6 +29,9 @@
 |**altBusinessIdType** | **AltBusinessIdType** |  |  [optional] |
 |**isReseller** | **Boolean** |  |  [optional] |
 |**identityStatus** | **BrandIdentityStatus** |  |  [optional] |
+|**businessContactEmail** | **String** | Business contact email.  Required if &#x60;entityType&#x60; will be changed to &#x60;PUBLIC_PROFIT&#x60;. |  [optional] |
+|**webhookURL** | **String** | Webhook URL for brand status updates. |  [optional] |
+|**webhookFailoverURL** | **String** | Webhook failover URL for brand status updates. |  [optional] |
 
 
 

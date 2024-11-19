@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   ListRecordingTranscriptionsResponse.JSON_PROPERTY_START,
   ListRecordingTranscriptionsResponse.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ListRecordingTranscriptionsResponse {
   public static final String JSON_PROPERTY_TRANSCRIPTIONS = "transcriptions";
   private List<TexmlRecordingTranscription> transcriptions = null;
@@ -86,7 +84,7 @@ public class ListRecordingTranscriptionsResponse {
     return this;
   }
 
-  public ListRecordingTranscriptionsResponse addTranscriptionsItem(TexmlRecordingTranscription transcriptionsItem) {
+  public ListRecordingTranscriptionsResponse addtranscriptionsItem(TexmlRecordingTranscription transcriptionsItem) {
     if (this.transcriptions == null) {
       this.transcriptions = new ArrayList<>();
     }

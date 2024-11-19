@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -38,23 +36,15 @@ import com.telnyx.sdk.JSON;
  * ActionsParticipantsRequest
  */
 @JsonPropertyOrder({
-  ActionsParticipantsRequest.JSON_PROPERTY_PARTICIPANTS,
   ActionsParticipantsRequest.JSON_PROPERTY_EXCLUDE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ActionsParticipantsRequest {
-  public static final String JSON_PROPERTY_PARTICIPANTS = "participants";
-  private String participants;
 
   public static final String JSON_PROPERTY_EXCLUDE = "exclude";
   private List<UUID> exclude = null;
 
   public ActionsParticipantsRequest() { 
-  }
-
-  public ActionsParticipantsRequest participants(String participants) {
-    this.participants = participants;
-    return this;
   }
 
    /**
@@ -63,19 +53,7 @@ public class ActionsParticipantsRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PARTICIPANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getParticipants() {
-    return participants;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PARTICIPANTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParticipants(String participants) {
-    this.participants = participants;
-  }
 
 
   public ActionsParticipantsRequest exclude(List<UUID> exclude) {
@@ -83,7 +61,7 @@ public class ActionsParticipantsRequest {
     return this;
   }
 
-  public ActionsParticipantsRequest addExcludeItem(UUID excludeItem) {
+  public ActionsParticipantsRequest addexcludeItem(UUID excludeItem) {
     if (this.exclude == null) {
       this.exclude = new ArrayList<>();
     }
@@ -110,49 +88,5 @@ public class ActionsParticipantsRequest {
   public void setExclude(List<UUID> exclude) {
     this.exclude = exclude;
   }
-
-
-  /**
-   * Return true if this ActionsParticipantsRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ActionsParticipantsRequest actionsParticipantsRequest = (ActionsParticipantsRequest) o;
-    return Objects.equals(this.participants, actionsParticipantsRequest.participants) &&
-        Objects.equals(this.exclude, actionsParticipantsRequest.exclude);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(participants, exclude);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ActionsParticipantsRequest {\n");
-    sb.append("    participants: ").append(toIndentedString(participants)).append("\n");
-    sb.append("    exclude: ").append(toIndentedString(exclude)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
 

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -24,11 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.MarkCommentRead200ResponseData;
+import com.telnyx.sdk.model.Comment;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,15 +36,15 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   MarkCommentRead200Response.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class MarkCommentRead200Response {
   public static final String JSON_PROPERTY_DATA = "data";
-  private MarkCommentRead200ResponseData data;
+  private Comment data;
 
   public MarkCommentRead200Response() { 
   }
 
-  public MarkCommentRead200Response data(MarkCommentRead200ResponseData data) {
+  public MarkCommentRead200Response data(Comment data) {
     this.data = data;
     return this;
   }
@@ -60,14 +58,14 @@ public class MarkCommentRead200Response {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public MarkCommentRead200ResponseData getData() {
+  public Comment getData() {
     return data;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(MarkCommentRead200ResponseData data) {
+  public void setData(Comment data) {
     this.data = data;
   }
 

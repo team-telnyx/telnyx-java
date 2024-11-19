@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -43,7 +41,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderPhoneNumberConfiguration.JSON_PROPERTY_EMERGENCY_ADDRESS_ID,
   PortingOrderPhoneNumberConfiguration.JSON_PROPERTY_TAGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PortingOrderPhoneNumberConfiguration {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private String billingGroupId;
@@ -172,7 +170,7 @@ public class PortingOrderPhoneNumberConfiguration {
     return this;
   }
 
-  public PortingOrderPhoneNumberConfiguration addTagsItem(String tagsItem) {
+  public PortingOrderPhoneNumberConfiguration addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }

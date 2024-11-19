@@ -8,6 +8,7 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.BackgroundTasksQueryResponseData;
 import com.telnyx.sdk.model.BucketNotFoundError;
 import com.telnyx.sdk.model.EmbeddingBucketRequest;
 import com.telnyx.sdk.model.EmbeddingResponse;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class EmbeddingsApi {
   private ApiClient apiClient;
 
@@ -321,6 +322,71 @@ public class EmbeddingsApi {
     GenericType<TaskStatusResponse> localVarReturnType = new GenericType<TaskStatusResponse>() {};
 
     return apiClient.invokeAPI("EmbeddingsApi.getEmbeddingTask", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Get Tasks by Status
+   * Retrieve tasks for the user that are either &#x60;queued&#x60;, &#x60;processing&#x60;, &#x60;failed&#x60;, &#x60;success&#x60; or &#x60;partial_success&#x60; based on the query string. Defaults to &#x60;queued&#x60; and &#x60;processing&#x60;.
+   * @param status List of task statuses i.e. &#x60;status&#x3D;queued&amp;status&#x3D;processing&#x60; (optional, default to processing,queued)
+   * @return BackgroundTasksQueryResponseData
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+     </table>
+   */
+  public BackgroundTasksQueryResponseData getTasksByStatus(List<String> status) throws ApiException {
+    return getTasksByStatusWithHttpInfo(status).getData();
+  }
+
+  /**
+   * Get Tasks by Status
+   * Retrieve tasks for the user that are either &#x60;queued&#x60;, &#x60;processing&#x60;, &#x60;failed&#x60;, &#x60;success&#x60; or &#x60;partial_success&#x60; based on the query string. Defaults to &#x60;queued&#x60; and &#x60;processing&#x60;.
+   * @param status List of task statuses i.e. &#x60;status&#x3D;queued&amp;status&#x3D;processing&#x60; (optional, default to processing,queued)
+   * @return ApiResponse&lt;BackgroundTasksQueryResponseData&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<BackgroundTasksQueryResponseData> getTasksByStatusWithHttpInfo(List<String> status) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/ai/embeddings";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "status", status));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<BackgroundTasksQueryResponseData> localVarReturnType = new GenericType<BackgroundTasksQueryResponseData>() {};
+
+    return apiClient.invokeAPI("EmbeddingsApi.getTasksByStatus", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

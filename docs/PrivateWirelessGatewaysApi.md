@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 Create a Private Wireless Gateway
 
-Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network.
+Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network. This operation may take several minutes so you can check the Private Wireless Gateway status at the section Get a Private Wireless Gateway
 
 ### Example
 
@@ -78,14 +78,14 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Successful response |  -  |
+| **202** | Successful Response |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 | **0** | Unexpected error |  -  |
 
 
 ## deleteWirelessGateway
 
-> CreatePrivateWirelessGateway202Response deleteWirelessGateway(id)
+> GetPrivateWirelessGateway200Response deleteWirelessGateway(id)
 
 Delete a Private Wireless Gateway
 
@@ -113,9 +113,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PrivateWirelessGatewaysApi apiInstance = new PrivateWirelessGatewaysApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the private wireless gateway.
         try {
-            CreatePrivateWirelessGateway202Response result = apiInstance.deleteWirelessGateway(id);
+            GetPrivateWirelessGateway200Response result = apiInstance.deleteWirelessGateway(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PrivateWirelessGatewaysApi#deleteWirelessGateway");
@@ -133,11 +133,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the private wireless gateway. |
 
 ### Return type
 
-[**CreatePrivateWirelessGateway202Response**](CreatePrivateWirelessGateway202Response.md)
+[**GetPrivateWirelessGateway200Response**](GetPrivateWirelessGateway200Response.md)
 
 ### Authorization
 
@@ -151,14 +151,14 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
 | **404** | Resource not found |  -  |
 | **0** | Unexpected error |  -  |
 
 
 ## getPrivateWirelessGateway
 
-> CreatePrivateWirelessGateway202Response getPrivateWirelessGateway(id)
+> GetPrivateWirelessGateway200Response getPrivateWirelessGateway(id)
 
 Get a Private Wireless Gateway
 
@@ -186,9 +186,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PrivateWirelessGatewaysApi apiInstance = new PrivateWirelessGatewaysApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the private wireless gateway.
         try {
-            CreatePrivateWirelessGateway202Response result = apiInstance.getPrivateWirelessGateway(id);
+            GetPrivateWirelessGateway200Response result = apiInstance.getPrivateWirelessGateway(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PrivateWirelessGatewaysApi#getPrivateWirelessGateway");
@@ -206,11 +206,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the private wireless gateway. |
 
 ### Return type
 
-[**CreatePrivateWirelessGateway202Response**](CreatePrivateWirelessGateway202Response.md)
+[**GetPrivateWirelessGateway200Response**](GetPrivateWirelessGateway200Response.md)
 
 ### Authorization
 
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
 | **404** | Resource not found |  -  |
 | **0** | Unexpected error |  -  |
 
@@ -308,6 +308,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 

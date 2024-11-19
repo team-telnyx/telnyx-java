@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,9 +28,6 @@ import com.telnyx.sdk.model.CallControlApplicationInbound;
 import com.telnyx.sdk.model.CallControlApplicationOutbound;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -55,7 +52,7 @@ import com.telnyx.sdk.JSON;
   UpdateCallControlApplicationRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   UpdateCallControlApplicationRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class UpdateCallControlApplicationRequest {
   public static final String JSON_PROPERTY_APPLICATION_NAME = "application_name";
   private String applicationName;
@@ -70,13 +67,13 @@ public class UpdateCallControlApplicationRequest {
    * &lt;code&gt;Latency&lt;/code&gt; directs Telnyx to route media through the site with the lowest round-trip time to the user&#39;s connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media. 
    */
   public enum AnchorsiteOverrideEnum {
-    LATENCY_("\"Latency\""),
+    LATENCY_(String.valueOf("\"Latency\"")),
     
-    CHICAGO_IL_("\"Chicago, IL\""),
+    CHICAGO_IL_(String.valueOf("\"Chicago, IL\"")),
     
-    ASHBURN_VA_("\"Ashburn, VA\""),
+    ASHBURN_VA_(String.valueOf("\"Ashburn, VA\"")),
     
-    SAN_JOSE_CA_("\"San Jose, CA\"");
+    SAN_JOSE_CA_(String.valueOf("\"San Jose, CA\""));
 
     private String value;
 
@@ -112,11 +109,11 @@ public class UpdateCallControlApplicationRequest {
    * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.
    */
   public enum DtmfTypeEnum {
-    RFC_2833("RFC 2833"),
+    RFC_2833(String.valueOf("RFC 2833")),
     
-    INBAND("Inband"),
+    INBAND(String.valueOf("Inband")),
     
-    SIP_INFO("SIP INFO");
+    SIP_INFO(String.valueOf("SIP INFO"));
 
     private String value;
 
@@ -164,9 +161,9 @@ public class UpdateCallControlApplicationRequest {
    * Determines which webhook format will be used, Telnyx API v1 or v2.
    */
   public enum WebhookApiVersionEnum {
-    _1("1"),
+    _1(String.valueOf("1")),
     
-    _2("2");
+    _2(String.valueOf("2"));
 
     private String value;
 

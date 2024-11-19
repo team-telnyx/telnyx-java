@@ -291,11 +291,11 @@ Name | Type | Description  | Notes
 
 ## getMessage
 
-> MessageResponse getMessage(id)
+> GetMessage200Response getMessage(id)
 
 Retrieve a message
 
-Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/docs/api/v1/reports/MDR-Reports)
+Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/api/v1/mission-control/add-mdr-request)
 
 ### Example
 
@@ -321,7 +321,7 @@ public class Example {
         MessagesApi apiInstance = new MessagesApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | The id of the message
         try {
-            MessageResponse result = apiInstance.getMessage(id);
+            GetMessage200Response result = apiInstance.getMessage(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling MessagesApi#getMessage");
@@ -343,7 +343,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessageResponse**](MessageResponse.md)
+[**GetMessage200Response**](GetMessage200Response.md)
 
 ### Authorization
 
@@ -357,7 +357,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response with details about a message. |  -  |
+| **200** | Successful response with details of a message. |  -  |
 | **0** | Unexpected error |  -  |
 
 

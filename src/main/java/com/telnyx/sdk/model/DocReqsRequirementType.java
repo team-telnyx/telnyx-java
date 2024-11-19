@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.DocReqsRequirementTypeAcceptanceCriteria;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   DocReqsRequirementType.JSON_PROPERTY_CREATED_AT,
   DocReqsRequirementType.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class DocReqsRequirementType {
   public static final String JSON_PROPERTY_ACCEPTANCE_CRITERIA = "acceptance_criteria";
   private DocReqsRequirementTypeAcceptanceCriteria acceptanceCriteria;
@@ -62,11 +60,11 @@ public class DocReqsRequirementType {
    * Defines the type of this requirement type
    */
   public enum TypeEnum {
-    DOCUMENT("document"),
+    DOCUMENT(String.valueOf("document")),
     
-    ADDRESS("address"),
+    ADDRESS(String.valueOf("address")),
     
-    TEXTUAL("textual");
+    TEXTUAL(String.valueOf("textual"));
 
     private String value;
 

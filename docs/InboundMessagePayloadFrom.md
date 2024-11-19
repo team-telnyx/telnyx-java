@@ -29,8 +29,8 @@
 |---- | -----|
 | WIRELINE | &quot;Wireline&quot; |
 | WIRELESS | &quot;Wireless&quot; |
-| VOWIFI | &quot;VoWiFi&quot; |
-| VOIP | &quot;VoIP&quot; |
+| VO_WI_FI | &quot;VoWiFi&quot; |
+| VO_IP | &quot;VoIP&quot; |
 | PRE_PAID_WIRELESS | &quot;Pre-Paid Wireless&quot; |
 | EMPTY | &quot;&quot; |
 

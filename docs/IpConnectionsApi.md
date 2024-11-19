@@ -81,8 +81,8 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **201** | Successful response with details about an IP connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **422** | Unprocessable entity |  -  |
+| **403** | Unauthorized |  -  |
+| **422** | The request was well-formed but was unable to be followed due to semantic errors. |  -  |
 
 
 ## deleteIpConnection
@@ -155,8 +155,8 @@ Name | Type | Description  | Notes
 | **200** | Successful response with details about an IP connection. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | The requested resource doesn&#39;t exist. |  -  |
 
 
 ## listIpConnections
@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 | **200** | Successful response with a list of IP connections. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **403** | Unauthorized |  -  |
 
 
 ## retrieveIpConnection
@@ -316,8 +316,8 @@ Name | Type | Description  | Notes
 | **200** | Successful response with details about an IP connection. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | The requested resource doesn&#39;t exist. |  -  |
 
 
 ## updateIpConnection
@@ -391,7 +391,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an IP connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
-| **422** | Unprocessable entity |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | The requested resource doesn&#39;t exist. |  -  |
+| **422** | The request was well-formed but was unable to be followed due to semantic errors. |  -  |
 

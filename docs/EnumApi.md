@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## getEnumEndpoint
 
-> Object getEnumEndpoint(endpoint)
+> GetEnumEndpoint200Response getEnumEndpoint(endpoint)
 
 Get Enum
 
@@ -35,9 +35,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         EnumApi apiInstance = new EnumApi(defaultClient);
-        String endpoint = "endpoint_example"; // String | 
+        String endpoint = "mno"; // String | 
         try {
-            Object result = apiInstance.getEnumEndpoint(endpoint);
+            GetEnumEndpoint200Response result = apiInstance.getEnumEndpoint(endpoint);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling EnumApi#getEnumEndpoint");
@@ -55,11 +55,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **endpoint** | **String**|  |
+ **endpoint** | **String**|  | [enum: mno, optionalAttributes, usecase, vertical, altBusinessIdType, brandIdentityStatus, brandRelationship, campaignStatus, entityType, extVettingProvider, vettingStatus, brandStatus, operationStatus, approvedPublicCompany, stockExchange, vettingClass]
 
 ### Return type
 
-**Object**
+[**GetEnumEndpoint200Response**](GetEnumEndpoint200Response.md)
 
 ### Authorization
 
@@ -74,5 +74,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **404** | Resource not found |  -  |
 

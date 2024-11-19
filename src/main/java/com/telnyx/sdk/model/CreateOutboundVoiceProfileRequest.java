@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -32,8 +32,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -61,7 +59,7 @@ import com.telnyx.sdk.JSON;
   CreateOutboundVoiceProfileRequest.JSON_PROPERTY_CALL_RECORDING,
   CreateOutboundVoiceProfileRequest.JSON_PROPERTY_BILLING_GROUP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateOutboundVoiceProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -248,7 +246,7 @@ public class CreateOutboundVoiceProfileRequest {
     return this;
   }
 
-  public CreateOutboundVoiceProfileRequest addTagsItem(String tagsItem) {
+  public CreateOutboundVoiceProfileRequest addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -308,7 +306,7 @@ public class CreateOutboundVoiceProfileRequest {
     return this;
   }
 
-  public CreateOutboundVoiceProfileRequest addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+  public CreateOutboundVoiceProfileRequest addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
     if (this.whitelistedDestinations == null) {
       this.whitelistedDestinations = new ArrayList<>(Arrays.asList("US", "CA"));
     }

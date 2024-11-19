@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.DocReqsRequirementType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   DocReqsRequirement.JSON_PROPERTY_CREATED_AT,
   DocReqsRequirement.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class DocReqsRequirement {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -64,11 +62,11 @@ public class DocReqsRequirement {
    * Indicates the phone_number_type this requirement applies to. Leave blank if this requirement applies to all number_types.
    */
   public enum PhoneNumberTypeEnum {
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    TOLL_FREE("toll_free");
+    TOLL_FREE(String.valueOf("toll_free"));
 
     private String value;
 
@@ -104,11 +102,11 @@ public class DocReqsRequirement {
    * Indicates whether this requirement applies to ordering, porting, or both
    */
   public enum ActionEnum {
-    BOTH("both"),
+    BOTH(String.valueOf("both")),
     
-    ORDERING("ordering"),
+    ORDERING(String.valueOf("ordering")),
     
-    PORTING("porting");
+    PORTING(String.valueOf("porting"));
 
     private String value;
 

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -67,7 +65,7 @@ import com.telnyx.sdk.JSON;
   InitiateCallRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
   InitiateCallRequest.JSON_PROPERTY_TRIM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class InitiateCallRequest {
   public static final String JSON_PROPERTY_APPLICATION_SID = "ApplicationSid";
   private String applicationSid;
@@ -85,9 +83,9 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;Url&#x60;. The default value is inherited from TeXML Application setting.
    */
   public enum UrlMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -129,9 +127,9 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;StatusCallback&#x60;.
    */
   public enum StatusCallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -167,13 +165,13 @@ public class InitiateCallRequest {
    * The call events for which Telnyx should send a webhook. Multiple events can be defined when separated by a space.
    */
   public enum StatusCallbackEventEnum {
-    INITIATED("initiated"),
+    INITIATED(String.valueOf("initiated")),
     
-    RINGING("ringing"),
+    RINGING(String.valueOf("ringing")),
     
-    ANSWERED("answered"),
+    ANSWERED(String.valueOf("answered")),
     
-    COMPLETED("completed");
+    COMPLETED(String.valueOf("completed"));
 
     private String value;
 
@@ -209,11 +207,11 @@ public class InitiateCallRequest {
    * Enables Answering Machine Detection.
    */
   public enum MachineDetectionEnum {
-    ENABLE("Enable"),
+    ENABLE(String.valueOf("Enable")),
     
-    DISABLE("Disable"),
+    DISABLE(String.valueOf("Disable")),
     
-    DETECTMESSAGEEND("DetectMessageEnd");
+    DETECT_MESSAGE_END(String.valueOf("DetectMessageEnd"));
 
     private String value;
 
@@ -249,9 +247,9 @@ public class InitiateCallRequest {
    * Allows you to chose between Premium and Standard detections.
    */
   public enum DetectionModeEnum {
-    PREMIUM("Premium"),
+    PREMIUM(String.valueOf("Premium")),
     
-    REGULAR("Regular");
+    REGULAR(String.valueOf("Regular"));
 
     private String value;
 
@@ -293,9 +291,9 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;AsyncAmdStatusCallback&#x60;. The default value is inherited from TeXML Application setting.
    */
   public enum AsyncAmdStatusCallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -355,9 +353,9 @@ public class InitiateCallRequest {
    * The number of channels in the final recording. Defaults to &#x60;mono&#x60;.
    */
   public enum RecordingChannelsEnum {
-    MONO("mono"),
+    MONO(String.valueOf("mono")),
     
-    DUAL("dual");
+    DUAL(String.valueOf("dual"));
 
     private String value;
 
@@ -396,9 +394,9 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;RecordingStatusCallback&#x60;. Defaults to &#x60;POST&#x60;.
    */
   public enum RecordingStatusCallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -440,11 +438,11 @@ public class InitiateCallRequest {
    * The audio track to record for the call. The default is &#x60;both&#x60;.
    */
   public enum RecordingTrackEnum {
-    INBOUND("inbound"),
+    INBOUND(String.valueOf("inbound")),
     
-    OUTBOUND("outbound"),
+    OUTBOUND(String.valueOf("outbound")),
     
-    BOTH("both");
+    BOTH(String.valueOf("both"));
 
     private String value;
 
@@ -486,9 +484,9 @@ public class InitiateCallRequest {
    * Whether to trim any leading and trailing silence from the recording. Defaults to &#x60;trim-silence&#x60;.
    */
   public enum TrimEnum {
-    TRIM_SILENCE("trim-silence"),
+    TRIM_SILENCE(String.valueOf("trim-silence")),
     
-    DO_NOT_TRIM("do-not-trim");
+    DO_NOT_TRIM(String.valueOf("do-not-trim"));
 
     private String value;
 

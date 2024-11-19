@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CallMachinePremiumDetectionEndedPayload.JSON_PROPERTY_TO,
   CallMachinePremiumDetectionEndedPayload.JSON_PROPERTY_RESULT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CallMachinePremiumDetectionEndedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -71,15 +69,15 @@ public class CallMachinePremiumDetectionEndedPayload {
    * Premium Answering Machine Detection result.
    */
   public enum ResultEnum {
-    HUMAN_RESIDENCE("human_residence"),
+    HUMAN_RESIDENCE(String.valueOf("human_residence")),
     
-    HUMAN_BUSINESS("human_business"),
+    HUMAN_BUSINESS(String.valueOf("human_business")),
     
-    MACHINE("machine"),
+    MACHINE(String.valueOf("machine")),
     
-    SILENCE("silence"),
+    SILENCE(String.valueOf("silence")),
     
-    FAX_DETECTED("fax_detected");
+    FAX_DETECTED(String.valueOf("fax_detected"));
 
     private String value;
 

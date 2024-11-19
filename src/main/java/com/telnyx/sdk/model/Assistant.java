@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -24,13 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.Tool;
+import com.telnyx.sdk.model.ToolsInner;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   Assistant.JSON_PROPERTY_INSTRUCTIONS,
   Assistant.JSON_PROPERTY_TOOLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class Assistant {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -68,7 +66,7 @@ public class Assistant {
   private String instructions;
 
   public static final String JSON_PROPERTY_TOOLS = "tools";
-  private List<Tool> tools = null;
+  private List<ToolsInner> tools = null;
 
   public Assistant() { 
   }
@@ -229,14 +227,14 @@ public class Assistant {
   }
 
 
-  public Assistant tools(List<Tool> tools) {
+  public Assistant tools(List<ToolsInner> tools) {
     this.tools = tools;
     return this;
   }
 
-  public Assistant addToolsItem(Tool toolsItem) {
+  public Assistant addtoolsItem(ToolsInner toolsItem) {
     if (this.tools == null) {
-      this.tools = new ArrayList<>(Arrays.asList());
+      this.tools = new ArrayList<>();
     }
     this.tools.add(toolsItem);
     return this;
@@ -251,14 +249,14 @@ public class Assistant {
   @JsonProperty(JSON_PROPERTY_TOOLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Tool> getTools() {
+  public List<ToolsInner> getTools() {
     return tools;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TOOLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTools(List<Tool> tools) {
+  public void setTools(List<ToolsInner> tools) {
     this.tools = tools;
   }
 

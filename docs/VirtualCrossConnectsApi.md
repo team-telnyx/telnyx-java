@@ -7,10 +7,8 @@ Method | HTTP request | Description
 [**createVirtualCrossConnect**](VirtualCrossConnectsApi.md#createVirtualCrossConnect) | **POST** /virtual_cross_connects | Create a Virtual Cross Connect
 [**deleteVirtualCrossConnect**](VirtualCrossConnectsApi.md#deleteVirtualCrossConnect) | **DELETE** /virtual_cross_connects/{id} | Delete a Virtual Cross Connect
 [**getVirtualCrossConnect**](VirtualCrossConnectsApi.md#getVirtualCrossConnect) | **GET** /virtual_cross_connects/{id} | Retrieve a Virtual Cross Connect
-[**getVirtualCrossConnectRegion**](VirtualCrossConnectsApi.md#getVirtualCrossConnectRegion) | **GET** /virtual_cross_connect_regions/{id} | Retrieve a Virtual Cross Connect Cloud Regions
-[**listVirtualCrossConnectRegions**](VirtualCrossConnectsApi.md#listVirtualCrossConnectRegions) | **GET** /virtual_cross_connect_regions | List all Virtual Cross Connect Cloud Regions
+[**listVirtualCrossConnectCoverage**](VirtualCrossConnectsApi.md#listVirtualCrossConnectCoverage) | **GET** /virtual_cross_connects_coverage | List Virtual Cross Connect Cloud Coverage
 [**listVirtualCrossConnects**](VirtualCrossConnectsApi.md#listVirtualCrossConnects) | **GET** /virtual_cross_connects | List all Virtual Cross Connects
-[**provisionVirtualCrossConnect**](VirtualCrossConnectsApi.md#provisionVirtualCrossConnect) | **POST** /virtual_cross_connects/{id}/actions/provision | Provision a Virtual Cross Connect
 [**updateVirtualCrossConnect**](VirtualCrossConnectsApi.md#updateVirtualCrossConnect) | **PATCH** /virtual_cross_connects/{id} | Update the Virtual Cross Connect
 
 
@@ -231,85 +229,13 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
-## getVirtualCrossConnectRegion
+## listVirtualCrossConnectCoverage
 
-> GetVirtualCrossConnectRegion200Response getVirtualCrossConnectRegion(id)
+> ListVirtualCrossConnectCoverage200Response listVirtualCrossConnectCoverage(pageNumber, pageSize, filtersAvailableBandwidthContains, filterCloudProvider, filterCloudProviderRegion, filterLocationRegion, filterLocationSite, filterLocationPop, filterLocationCode)
 
-Retrieve a Virtual Cross Connect Cloud Regions
+List Virtual Cross Connect Cloud Coverage
 
-Retrieve a Virtual Cross Connect Cloud Regions.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.VirtualCrossConnectsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        VirtualCrossConnectsApi apiInstance = new VirtualCrossConnectsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
-        try {
-            GetVirtualCrossConnectRegion200Response result = apiInstance.getVirtualCrossConnectRegion(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VirtualCrossConnectsApi#getVirtualCrossConnectRegion");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
-
-### Return type
-
-[**GetVirtualCrossConnectRegion200Response**](GetVirtualCrossConnectRegion200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## listVirtualCrossConnectRegions
-
-> ListVirtualCrossConnectRegions200Response listVirtualCrossConnectRegions(pageNumber, pageSize, filterRegionCode, filterCloudProvider)
-
-List all Virtual Cross Connect Cloud Regions
-
-List all Virtual Cross Connects Cloud Regions.<br /><br />This endpoint shows which cloud regions are available for the `region_code` your Virtual Cross Connect will be provisioned in.
+List Virtual Cross Connects Cloud Coverage.<br /><br />This endpoint shows which cloud regions are available for the `location_code` your Virtual Cross Connect will be provisioned in.
 
 ### Example
 
@@ -334,13 +260,18 @@ public class Example {
         VirtualCrossConnectsApi apiInstance = new VirtualCrossConnectsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
-        String filterRegionCode = "ashburn-va"; // String | The Telnyx region code
+        Integer filtersAvailableBandwidthContains = 50; // Integer | The available bandwidth to filter on.
         String filterCloudProvider = "aws"; // String | The Telnyx region code
+        String filterCloudProviderRegion = "us-east-1"; // String | The cloud provider region code to filter on
+        String filterLocationRegion = "AMER"; // String | The region of associated location to filter on.
+        String filterLocationSite = "SJC"; // String | The site of associated location to filter on.
+        String filterLocationPop = "SV1"; // String | The POP of associated location to filter on.
+        String filterLocationCode = "silicon_valley-ca"; // String | The code of associated location to filter on.
         try {
-            ListVirtualCrossConnectRegions200Response result = apiInstance.listVirtualCrossConnectRegions(pageNumber, pageSize, filterRegionCode, filterCloudProvider);
+            ListVirtualCrossConnectCoverage200Response result = apiInstance.listVirtualCrossConnectCoverage(pageNumber, pageSize, filtersAvailableBandwidthContains, filterCloudProvider, filterCloudProviderRegion, filterLocationRegion, filterLocationSite, filterLocationPop, filterLocationCode);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling VirtualCrossConnectsApi#listVirtualCrossConnectRegions");
+            System.err.println("Exception when calling VirtualCrossConnectsApi#listVirtualCrossConnectCoverage");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -357,12 +288,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
- **filterRegionCode** | **String**| The Telnyx region code | [optional]
+ **filtersAvailableBandwidthContains** | **Integer**| The available bandwidth to filter on. | [optional]
  **filterCloudProvider** | **String**| The Telnyx region code | [optional] [enum: aws, azure, gce]
+ **filterCloudProviderRegion** | **String**| The cloud provider region code to filter on | [optional]
+ **filterLocationRegion** | **String**| The region of associated location to filter on. | [optional]
+ **filterLocationSite** | **String**| The site of associated location to filter on. | [optional]
+ **filterLocationPop** | **String**| The POP of associated location to filter on. | [optional]
+ **filterLocationCode** | **String**| The code of associated location to filter on. | [optional]
 
 ### Return type
 
-[**ListVirtualCrossConnectRegions200Response**](ListVirtualCrossConnectRegions200Response.md)
+[**ListVirtualCrossConnectCoverage200Response**](ListVirtualCrossConnectCoverage200Response.md)
 
 ### Authorization
 
@@ -452,78 +388,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
-
-
-## provisionVirtualCrossConnect
-
-> CreateVirtualCrossConnect200Response provisionVirtualCrossConnect(id)
-
-Provision a Virtual Cross Connect
-
-Provision a new Virtual Cross Connect.<br /><br />This endpoint is only necessary for GCE cloud regions. Once you have patched your Cloud IPs, you must POST this request to trigger the provision.
-
-### Example
-
-```java
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.VirtualCrossConnectsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        VirtualCrossConnectsApi apiInstance = new VirtualCrossConnectsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
-        try {
-            CreateVirtualCrossConnect200Response result = apiInstance.provisionVirtualCrossConnect(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VirtualCrossConnectsApi#provisionVirtualCrossConnect");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
-
-### Return type
-
-[**CreateVirtualCrossConnect200Response**](CreateVirtualCrossConnect200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful response |  -  |
 | **0** | Unexpected error |  -  |
 
 

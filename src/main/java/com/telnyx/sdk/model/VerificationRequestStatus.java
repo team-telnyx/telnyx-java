@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,11 +29,10 @@ import com.telnyx.sdk.model.TFVerificationStatus;
 import com.telnyx.sdk.model.Url;
 import com.telnyx.sdk.model.UseCaseCategories;
 import com.telnyx.sdk.model.Volume;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -67,9 +66,11 @@ import com.telnyx.sdk.JSON;
   VerificationRequestStatus.JSON_PROPERTY_WEBHOOK_URL,
   VerificationRequestStatus.JSON_PROPERTY_ID,
   VerificationRequestStatus.JSON_PROPERTY_VERIFICATION_STATUS,
-  VerificationRequestStatus.JSON_PROPERTY_REASON
+  VerificationRequestStatus.JSON_PROPERTY_REASON,
+  VerificationRequestStatus.JSON_PROPERTY_CREATED_AT,
+  VerificationRequestStatus.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class VerificationRequestStatus {
   public static final String JSON_PROPERTY_BUSINESS_NAME = "businessName";
   private String businessName;
@@ -142,6 +143,12 @@ public class VerificationRequestStatus {
 
   public static final String JSON_PROPERTY_REASON = "reason";
   private String reason;
+
+  public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
+  private OffsetDateTime createdAt;
+
+  public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
+  private OffsetDateTime updatedAt;
 
   public VerificationRequestStatus() { 
   }
@@ -463,7 +470,7 @@ public class VerificationRequestStatus {
     return this;
   }
 
-  public VerificationRequestStatus addPhoneNumbersItem(TFPhoneNumber phoneNumbersItem) {
+  public VerificationRequestStatus addphoneNumbersItem(TFPhoneNumber phoneNumbersItem) {
     this.phoneNumbers.add(phoneNumbersItem);
     return this;
   }
@@ -598,7 +605,7 @@ public class VerificationRequestStatus {
     return this;
   }
 
-  public VerificationRequestStatus addOptInWorkflowImageURLsItem(Url optInWorkflowImageURLsItem) {
+  public VerificationRequestStatus addoptInWorkflowImageURLsItem(Url optInWorkflowImageURLsItem) {
     this.optInWorkflowImageURLs.add(optInWorkflowImageURLsItem);
     return this;
   }
@@ -780,6 +787,58 @@ public class VerificationRequestStatus {
   }
 
 
+  public VerificationRequestStatus createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Get createdAt
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2024-01-23T18:10:02.574Z", value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public VerificationRequestStatus updatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Get updatedAt
+   * @return updatedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2024-01-23T18:10:02.574Z", value = "")
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+
   /**
    * Return true if this VerificationRequestStatus object is equal to o.
    */
@@ -815,12 +874,14 @@ public class VerificationRequestStatus {
         Objects.equals(this.webhookUrl, verificationRequestStatus.webhookUrl) &&
         Objects.equals(this.id, verificationRequestStatus.id) &&
         Objects.equals(this.verificationStatus, verificationRequestStatus.verificationStatus) &&
-        Objects.equals(this.reason, verificationRequestStatus.reason);
+        Objects.equals(this.reason, verificationRequestStatus.reason) &&
+        Objects.equals(this.createdAt, verificationRequestStatus.createdAt) &&
+        Objects.equals(this.updatedAt, verificationRequestStatus.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(businessName, corporateWebsite, businessAddr1, businessAddr2, businessCity, businessState, businessZip, businessContactFirstName, businessContactLastName, businessContactEmail, businessContactPhone, messageVolume, phoneNumbers, useCase, useCaseSummary, productionMessageContent, optInWorkflow, optInWorkflowImageURLs, additionalInformation, isvReseller, webhookUrl, id, verificationStatus, reason);
+    return Objects.hash(businessName, corporateWebsite, businessAddr1, businessAddr2, businessCity, businessState, businessZip, businessContactFirstName, businessContactLastName, businessContactEmail, businessContactPhone, messageVolume, phoneNumbers, useCase, useCaseSummary, productionMessageContent, optInWorkflow, optInWorkflowImageURLs, additionalInformation, isvReseller, webhookUrl, id, verificationStatus, reason, createdAt, updatedAt);
   }
 
   @Override
@@ -851,6 +912,8 @@ public class VerificationRequestStatus {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    verificationStatus: ").append(toIndentedString(verificationStatus)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -9,7 +9,7 @@ HTTP request and response information.
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**request** | [**HttpRequest**](HttpRequest.md) |  |  [optional] |
-|**response** | [**HttpResponse**](HttpResponse.md) |  |  [optional] |
+|**response** | **Integer** | Response details, optional. |  [optional] |
 
 
 

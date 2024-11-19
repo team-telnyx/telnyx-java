@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PostNumbersFeatures200ResponseDataInner.JSON_PROPERTY_PHONE_NUMBER,
   PostNumbersFeatures200ResponseDataInner.JSON_PROPERTY_FEATURES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PostNumbersFeatures200ResponseDataInner {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -82,7 +80,7 @@ public class PostNumbersFeatures200ResponseDataInner {
     return this;
   }
 
-  public PostNumbersFeatures200ResponseDataInner addFeaturesItem(String featuresItem) {
+  public PostNumbersFeatures200ResponseDataInner addfeaturesItem(String featuresItem) {
     this.features.add(featuresItem);
     return this;
   }

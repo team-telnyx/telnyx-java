@@ -76,7 +76,7 @@
 |---- | -----|
 | ENABLE | &quot;Enable&quot; |
 | DISABLE | &quot;Disable&quot; |
-| DETECTMESSAGEEND | &quot;DetectMessageEnd&quot; |
+| DETECT_MESSAGE_END | &quot;DetectMessageEnd&quot; |
 
 
 

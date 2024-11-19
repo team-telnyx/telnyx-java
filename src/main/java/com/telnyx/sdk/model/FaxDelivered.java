@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -25,10 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.FaxDeliveredPayload;
+import com.telnyx.sdk.model.RecordType;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,10 +41,10 @@ import com.telnyx.sdk.JSON;
   FaxDelivered.JSON_PROPERTY_EVENT_TYPE,
   FaxDelivered.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class FaxDelivered {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+  private RecordType recordType;
 
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -54,7 +53,7 @@ public class FaxDelivered {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    FAX_DELIVERED("fax.delivered");
+    FAX_DELIVERED(String.valueOf("fax.delivered"));
 
     private String value;
 
@@ -92,43 +91,46 @@ public class FaxDelivered {
   public FaxDelivered() { 
   }
 
-  public FaxDelivered recordType(String recordType) {
+  @JsonCreator
+  public FaxDelivered(
+    @JsonProperty(JSON_PROPERTY_ID) UUID id
+  ) {
+    this();
+    this.id = id;
+  }
+
+  public FaxDelivered recordType(RecordType recordType) {
     this.recordType = recordType;
     return this;
   }
 
    /**
-   * Identifies record type.
+   * Get recordType
    * @return recordType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Identifies record type.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getRecordType() {
+  public RecordType getRecordType() {
     return recordType;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(String recordType) {
+  public void setRecordType(RecordType recordType) {
     this.recordType = recordType;
   }
 
 
-  public FaxDelivered id(UUID id) {
-    this.id = id;
-    return this;
-  }
-
    /**
-   * Identifies the type of resource.
+   * Identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Identifies the type of resource.")
+  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -137,11 +139,6 @@ public class FaxDelivered {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
 
 
   public FaxDelivered eventType(EventTypeEnum eventType) {

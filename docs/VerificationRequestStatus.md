@@ -32,6 +32,8 @@ A verification request and its status, suitable for returning to users
 |**id** | **UUID** |  |  |
 |**verificationStatus** | **TFVerificationStatus** |  |  |
 |**reason** | **String** |  |  [optional] |
+|**createdAt** | **OffsetDateTime** |  |  [optional] |
+|**updatedAt** | **OffsetDateTime** |  |  [optional] |
 
 
 

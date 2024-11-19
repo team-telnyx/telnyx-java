@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Error;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -36,19 +37,18 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   ValidateAddressResult.JSON_PROPERTY_RESULT,
-  ValidateAddressResult.JSON_PROPERTY_SUGGESTED,
   ValidateAddressResult.JSON_PROPERTY_RECORD_TYPE,
   ValidateAddressResult.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ValidateAddressResult {
   /**
    * Indicates whether an address is valid or invalid.
    */
   public enum ResultEnum {
-    VALID("valid"),
+    VALID(String.valueOf("valid")),
     
-    INVALID("invalid");
+    INVALID(String.valueOf("invalid"));
 
     private String value;
 
@@ -80,8 +80,6 @@ public class ValidateAddressResult {
   public static final String JSON_PROPERTY_RESULT = "result";
   private ResultEnum result;
 
-  public static final String JSON_PROPERTY_SUGGESTED = "suggested";
-  private String suggested;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -118,32 +116,6 @@ public class ValidateAddressResult {
   }
 
 
-  public ValidateAddressResult suggested(String suggested) {
-    this.suggested = suggested;
-    return this;
-  }
-
-   /**
-   * Get suggested
-   * @return suggested
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_SUGGESTED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getSuggested() {
-    return suggested;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SUGGESTED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuggested(String suggested) {
-    this.suggested = suggested;
-  }
-
-
   public ValidateAddressResult recordType(String recordType) {
     this.recordType = recordType;
     return this;
@@ -175,7 +147,7 @@ public class ValidateAddressResult {
     return this;
   }
 
-  public ValidateAddressResult addErrorsItem(Error errorsItem) {
+  public ValidateAddressResult adderrorsItem(Error errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }
@@ -217,14 +189,13 @@ public class ValidateAddressResult {
     }
     ValidateAddressResult validateAddressResult = (ValidateAddressResult) o;
     return Objects.equals(this.result, validateAddressResult.result) &&
-        Objects.equals(this.suggested, validateAddressResult.suggested) &&
         Objects.equals(this.recordType, validateAddressResult.recordType) &&
         Objects.equals(this.errors, validateAddressResult.errors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(result, suggested, recordType, errors);
+    return Objects.hash(result, recordType, errors);
   }
 
   @Override
@@ -232,7 +203,6 @@ public class ValidateAddressResult {
     StringBuilder sb = new StringBuilder();
     sb.append("class ValidateAddressResult {\n");
     sb.append("    result: ").append(toIndentedString(result)).append("\n");
-    sb.append("    suggested: ").append(toIndentedString(suggested)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("}");

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CallSpeakEndedPayload.JSON_PROPERTY_CLIENT_STATE,
   CallSpeakEndedPayload.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CallSpeakEndedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -63,11 +61,11 @@ public class CallSpeakEndedPayload {
    * Reflects how the command ended.
    */
   public enum StatusEnum {
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    CALL_HANGUP("call_hangup"),
+    CALL_HANGUP(String.valueOf("call_hangup")),
     
-    CANCELLED_AMD("cancelled_amd");
+    CANCELLED_AMD(String.valueOf("cancelled_amd"));
 
     private String value;
 

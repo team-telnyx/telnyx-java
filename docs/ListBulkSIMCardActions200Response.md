@@ -1,6 +1,6 @@
 
 
-# ListBulkSIMCardActions200Response
+# ListBulkSimCardActions200Response
 
 
 ## Properties

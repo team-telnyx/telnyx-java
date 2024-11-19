@@ -17,6 +17,9 @@
 |**recordingTrack** | [**RecordingTrackEnum**](#RecordingTrackEnum) | The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel). |  [optional] |
 |**trim** | [**TrimEnum**](#TrimEnum) | When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording. |  [optional] |
 |**customFileName** | **String** | The custom recording file name to be used instead of the default &#x60;call_leg_id&#x60;. Telnyx will still add a Unix timestamp suffix. |  [optional] |
+|**transcription** | **Boolean** | Enable post recording transcription. The default value is false. |  [optional] |
+|**transcriptionEngine** | [**TranscriptionEngineEnum**](#TranscriptionEngineEnum) | Engine to use for speech recognition. &#x60;A&#x60; - &#x60;Google&#x60;, &#x60;B&#x60; - &#x60;Telnyx&#x60;. |  [optional] |
+|**transcriptionLanguage** | [**StartRecordingRequestTranscriptionLanguage**](StartRecordingRequestTranscriptionLanguage.md) |  |  [optional] |
 
 
 
@@ -53,6 +56,15 @@
 | Name | Value |
 |---- | -----|
 | TRIM_SILENCE | &quot;trim-silence&quot; |
+
+
+
+## Enum: TranscriptionEngineEnum
+
+| Name | Value |
+|---- | -----|
+| A | &quot;A&quot; |
+| B | &quot;B&quot; |
 
 
 

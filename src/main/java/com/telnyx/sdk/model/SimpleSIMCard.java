@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -30,8 +30,6 @@ import com.telnyx.sdk.model.SimpleSIMCardDataLimit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -56,7 +54,7 @@ import com.telnyx.sdk.JSON;
   SimpleSIMCard.JSON_PROPERTY_CREATED_AT,
   SimpleSIMCard.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class SimpleSIMCard {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -71,9 +69,9 @@ public class SimpleSIMCard {
    * The type of SIM card
    */
   public enum TypeEnum {
-    PHYSICAL("physical"),
+    PHYSICAL(String.valueOf("physical")),
     
-    ESIM("esim");
+    ESIM(String.valueOf("esim"));
 
     private String value;
 
@@ -315,7 +313,7 @@ public class SimpleSIMCard {
     return this;
   }
 
-  public SimpleSIMCard addTagsItem(String tagsItem) {
+  public SimpleSIMCard addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }

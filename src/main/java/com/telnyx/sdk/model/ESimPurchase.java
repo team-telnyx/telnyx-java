@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -43,7 +41,7 @@ import com.telnyx.sdk.JSON;
   ESimPurchase.JSON_PROPERTY_AMOUNT,
   ESimPurchase.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ESimPurchase {
   public static final String JSON_PROPERTY_SIM_CARD_GROUP_ID = "sim_card_group_id";
   private UUID simCardGroupId;
@@ -58,11 +56,11 @@ public class ESimPurchase {
    * Status on which the SIM cards will be set after being successfully registered.
    */
   public enum StatusEnum {
-    ENABLED("enabled"),
+    ENABLED(String.valueOf("enabled")),
     
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    STANDBY("standby");
+    STANDBY(String.valueOf("standby"));
 
     private String value;
 
@@ -128,7 +126,7 @@ public class ESimPurchase {
     return this;
   }
 
-  public ESimPurchase addTagsItem(String tagsItem) {
+  public ESimPurchase addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }

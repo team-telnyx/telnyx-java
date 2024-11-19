@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -43,15 +41,15 @@ import com.telnyx.sdk.JSON;
   Filter.JSON_PROPERTY_TAGS_LIST,
   Filter.JSON_PROPERTY_BILLING_GROUP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class Filter {
   /**
    * Gets or Sets filterType
    */
   public enum FilterTypeEnum {
-    AND("and"),
+    AND(String.valueOf("and")),
     
-    OR("or");
+    OR(String.valueOf("or"));
 
     private String value;
 
@@ -90,11 +88,11 @@ public class Filter {
    * Gets or Sets cliFilter
    */
   public enum CliFilterEnum {
-    CONTAINS("contains"),
+    CONTAINS(String.valueOf("contains")),
     
-    STARTS_WITH("starts_with"),
+    STARTS_WITH(String.valueOf("starts_with")),
     
-    ENDS_WITH("ends_with");
+    ENDS_WITH(String.valueOf("ends_with"));
 
     private String value;
 
@@ -133,11 +131,11 @@ public class Filter {
    * Gets or Sets cldFilter
    */
   public enum CldFilterEnum {
-    CONTAINS("contains"),
+    CONTAINS(String.valueOf("contains")),
     
-    STARTS_WITH("starts_with"),
+    STARTS_WITH(String.valueOf("starts_with")),
     
-    ENDS_WITH("ends_with");
+    ENDS_WITH(String.valueOf("ends_with"));
 
     private String value;
 

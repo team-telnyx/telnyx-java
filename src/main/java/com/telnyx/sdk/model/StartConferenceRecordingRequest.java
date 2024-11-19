@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,15 +39,15 @@ import com.telnyx.sdk.JSON;
   StartConferenceRecordingRequest.JSON_PROPERTY_TRIM,
   StartConferenceRecordingRequest.JSON_PROPERTY_CUSTOM_FILE_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class StartConferenceRecordingRequest {
   /**
    * The audio file format used when storing the conference recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;.
    */
   public enum FormatEnum {
-    WAV("wav"),
+    WAV(String.valueOf("wav")),
     
-    MP3("mp3");
+    MP3(String.valueOf("mp3"));
 
     private String value;
 
@@ -91,7 +89,7 @@ public class StartConferenceRecordingRequest {
    * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
    */
   public enum TrimEnum {
-    TRIM_SILENCE("trim-silence");
+    TRIM_SILENCE(String.valueOf("trim-silence"));
 
     private String value;
 

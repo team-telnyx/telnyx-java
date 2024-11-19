@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.PortingAdditionalDocument;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreateAdditionalDocuments201Response.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateAdditionalDocuments201Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<PortingAdditionalDocument> data = null;
@@ -53,7 +51,7 @@ public class CreateAdditionalDocuments201Response {
     return this;
   }
 
-  public CreateAdditionalDocuments201Response addDataItem(PortingAdditionalDocument dataItem) {
+  public CreateAdditionalDocuments201Response adddataItem(PortingAdditionalDocument dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

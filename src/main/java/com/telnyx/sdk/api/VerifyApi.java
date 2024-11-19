@@ -21,7 +21,8 @@ import com.telnyx.sdk.model.RetrieveVerificationResponse;
 import java.util.UUID;
 import com.telnyx.sdk.model.UpdateVerifyProfileRequest;
 import com.telnyx.sdk.model.VerifyProfileResponseDataWrapper;
-import com.telnyx.sdk.model.VerifyVerificationCodeRequest;
+import com.telnyx.sdk.model.VerifyVerificationCodeRequestById;
+import com.telnyx.sdk.model.VerifyVerificationCodeRequestByPhoneNumber;
 import com.telnyx.sdk.model.VerifyVerificationCodeResponse;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class VerifyApi {
   private ApiClient apiClient;
 
@@ -60,7 +61,7 @@ public class VerifyApi {
   }
 
   /**
-   * Trigger a Flash call verification
+   * Trigger Flash call verification
    * 
    * @param createVerificationRequestFlashcall  (required)
    * @return CreateVerificationResponse
@@ -77,7 +78,7 @@ public class VerifyApi {
   }
 
   /**
-   * Trigger a Flash call verification
+   * Trigger Flash call verification
    * 
    * @param createVerificationRequestFlashcall  (required)
    * @return ApiResponse&lt;CreateVerificationResponse&gt;
@@ -129,7 +130,7 @@ public class VerifyApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Trigger a Call verification
+   * Trigger Call verification
    * 
    * @param createVerificationRequestCall  (required)
    * @return CreateVerificationResponse
@@ -146,7 +147,7 @@ public class VerifyApi {
   }
 
   /**
-   * Trigger a Call verification
+   * Trigger Call verification
    * 
    * @param createVerificationRequestCall  (required)
    * @return ApiResponse&lt;CreateVerificationResponse&gt;
@@ -198,7 +199,7 @@ public class VerifyApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Trigger a SMS verification
+   * Trigger SMS verification
    * 
    * @param createVerificationRequestSMS  (required)
    * @return CreateVerificationResponse
@@ -215,7 +216,7 @@ public class VerifyApi {
   }
 
   /**
-   * Trigger a SMS verification
+   * Trigger SMS verification
    * 
    * @param createVerificationRequestSMS  (required)
    * @return ApiResponse&lt;CreateVerificationResponse&gt;
@@ -336,7 +337,7 @@ public class VerifyApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Delete a Verify profile
+   * Delete Verify profile
    * 
    * @param verifyProfileId The identifier of the Verify profile to delete. (required)
    * @return VerifyProfileResponseDataWrapper
@@ -353,7 +354,7 @@ public class VerifyApi {
   }
 
   /**
-   * Delete a Verify profile
+   * Delete Verify profile
    * 
    * @param verifyProfileId The identifier of the Verify profile to delete. (required)
    * @return ApiResponse&lt;VerifyProfileResponseDataWrapper&gt;
@@ -406,7 +407,7 @@ public class VerifyApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Retrieve a Verify profile
+   * Retrieve Verify profile
    * Gets a single Verify profile.
    * @param verifyProfileId The identifier of the Verify profile to retrieve. (required)
    * @return VerifyProfileResponseDataWrapper
@@ -423,7 +424,7 @@ public class VerifyApi {
   }
 
   /**
-   * Retrieve a Verify profile
+   * Retrieve Verify profile
    * Gets a single Verify profile.
    * @param verifyProfileId The identifier of the Verify profile to retrieve. (required)
    * @return ApiResponse&lt;VerifyProfileResponseDataWrapper&gt;
@@ -476,7 +477,7 @@ public class VerifyApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Retrieve a Verify profile message templates
+   * Retrieve Verify profile message templates
    * List all Verify profile message templates.
    * @return ListVerifyProfileMessageTemplateResponse
    * @throws ApiException if fails to make API call
@@ -491,7 +492,7 @@ public class VerifyApi {
   }
 
   /**
-   * Retrieve a Verify profile message templates
+   * Retrieve Verify profile message templates
    * List all Verify profile message templates.
    * @return ApiResponse&lt;ListVerifyProfileMessageTemplateResponse&gt;
    * @throws ApiException if fails to make API call
@@ -728,7 +729,7 @@ private ApiResponse<ListVerifyProfilesResponse> listProfilesWithHttpInfo(String 
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Retrieve a verification
+   * Retrieve verification
    * 
    * @param verificationId The identifier of the verification to retrieve. (required)
    * @return RetrieveVerificationResponse
@@ -745,7 +746,7 @@ private ApiResponse<ListVerifyProfilesResponse> listProfilesWithHttpInfo(String 
   }
 
   /**
-   * Retrieve a verification
+   * Retrieve verification
    * 
    * @param verificationId The identifier of the verification to retrieve. (required)
    * @return ApiResponse&lt;RetrieveVerificationResponse&gt;
@@ -798,7 +799,7 @@ private ApiResponse<ListVerifyProfilesResponse> listProfilesWithHttpInfo(String 
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Update a Verify profile
+   * Update Verify profile
    * 
    * @param verifyProfileId The identifier of the Verify profile to update. (required)
    * @param updateVerifyProfileRequest  (required)
@@ -816,7 +817,7 @@ private ApiResponse<ListVerifyProfilesResponse> listProfilesWithHttpInfo(String 
   }
 
   /**
-   * Update a Verify profile
+   * Update Verify profile
    * 
    * @param verifyProfileId The identifier of the Verify profile to update. (required)
    * @param updateVerifyProfileRequest  (required)
@@ -875,10 +876,10 @@ private ApiResponse<ListVerifyProfilesResponse> listProfilesWithHttpInfo(String 
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
+   * Verify verification code by ID
    * 
-   * @param phoneNumber The phone number associated with the verification code being verified. (required)
-   * @param verifyVerificationCodeRequest  (required)
+   * @param verificationId The identifier of the verification to retrieve. (required)
+   * @param verifyVerificationCodeRequestById  (required)
    * @return VerifyVerificationCodeResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -888,15 +889,15 @@ private ApiResponse<ListVerifyProfilesResponse> listProfilesWithHttpInfo(String 
        <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public VerifyVerificationCodeResponse verifyVerificationCode(String phoneNumber, VerifyVerificationCodeRequest verifyVerificationCodeRequest) throws ApiException {
-    return verifyVerificationCodeWithHttpInfo(phoneNumber, verifyVerificationCodeRequest).getData();
+  public VerifyVerificationCodeResponse verifyVerificationCodeById(UUID verificationId, VerifyVerificationCodeRequestById verifyVerificationCodeRequestById) throws ApiException {
+    return verifyVerificationCodeByIdWithHttpInfo(verificationId, verifyVerificationCodeRequestById).getData();
   }
 
   /**
-   * Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
+   * Verify verification code by ID
    * 
-   * @param phoneNumber The phone number associated with the verification code being verified. (required)
-   * @param verifyVerificationCodeRequest  (required)
+   * @param verificationId The identifier of the verification to retrieve. (required)
+   * @param verifyVerificationCodeRequestById  (required)
    * @return ApiResponse&lt;VerifyVerificationCodeResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -906,17 +907,94 @@ private ApiResponse<ListVerifyProfilesResponse> listProfilesWithHttpInfo(String 
        <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<VerifyVerificationCodeResponse> verifyVerificationCodeWithHttpInfo(String phoneNumber, VerifyVerificationCodeRequest verifyVerificationCodeRequest) throws ApiException {
-    Object localVarPostBody = verifyVerificationCodeRequest;
+  public ApiResponse<VerifyVerificationCodeResponse> verifyVerificationCodeByIdWithHttpInfo(UUID verificationId, VerifyVerificationCodeRequestById verifyVerificationCodeRequestById) throws ApiException {
+    Object localVarPostBody = verifyVerificationCodeRequestById;
+    
+    // verify the required parameter 'verificationId' is set
+    if (verificationId == null) {
+      throw new ApiException(400, "Missing the required parameter 'verificationId' when calling verifyVerificationCodeById");
+    }
+    
+    // verify the required parameter 'verifyVerificationCodeRequestById' is set
+    if (verifyVerificationCodeRequestById == null) {
+      throw new ApiException(400, "Missing the required parameter 'verifyVerificationCodeRequestById' when calling verifyVerificationCodeById");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/verifications/{verification_id}/actions/verify"
+      .replaceAll("\\{" + "verification_id" + "\\}", apiClient.escapeString(verificationId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<VerifyVerificationCodeResponse> localVarReturnType = new GenericType<VerifyVerificationCodeResponse>() {};
+
+    return apiClient.invokeAPI("VerifyApi.verifyVerificationCodeById", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Verify verification code by phone number
+   * 
+   * @param phoneNumber The phone number associated with the verification code being verified. (required)
+   * @param verifyVerificationCodeRequestByPhoneNumber  (required)
+   * @return VerifyVerificationCodeResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verify response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public VerifyVerificationCodeResponse verifyVerificationCodeByPhoneNumber(String phoneNumber, VerifyVerificationCodeRequestByPhoneNumber verifyVerificationCodeRequestByPhoneNumber) throws ApiException {
+    return verifyVerificationCodeByPhoneNumberWithHttpInfo(phoneNumber, verifyVerificationCodeRequestByPhoneNumber).getData();
+  }
+
+  /**
+   * Verify verification code by phone number
+   * 
+   * @param phoneNumber The phone number associated with the verification code being verified. (required)
+   * @param verifyVerificationCodeRequestByPhoneNumber  (required)
+   * @return ApiResponse&lt;VerifyVerificationCodeResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Expected verify response to a valid request. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<VerifyVerificationCodeResponse> verifyVerificationCodeByPhoneNumberWithHttpInfo(String phoneNumber, VerifyVerificationCodeRequestByPhoneNumber verifyVerificationCodeRequestByPhoneNumber) throws ApiException {
+    Object localVarPostBody = verifyVerificationCodeRequestByPhoneNumber;
     
     // verify the required parameter 'phoneNumber' is set
     if (phoneNumber == null) {
-      throw new ApiException(400, "Missing the required parameter 'phoneNumber' when calling verifyVerificationCode");
+      throw new ApiException(400, "Missing the required parameter 'phoneNumber' when calling verifyVerificationCodeByPhoneNumber");
     }
     
-    // verify the required parameter 'verifyVerificationCodeRequest' is set
-    if (verifyVerificationCodeRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'verifyVerificationCodeRequest' when calling verifyVerificationCode");
+    // verify the required parameter 'verifyVerificationCodeRequestByPhoneNumber' is set
+    if (verifyVerificationCodeRequestByPhoneNumber == null) {
+      throw new ApiException(400, "Missing the required parameter 'verifyVerificationCodeRequestByPhoneNumber' when calling verifyVerificationCodeByPhoneNumber");
     }
     
     // create path and map variables
@@ -947,7 +1025,7 @@ private ApiResponse<ListVerifyProfilesResponse> listProfilesWithHttpInfo(String 
 
     GenericType<VerifyVerificationCodeResponse> localVarReturnType = new GenericType<VerifyVerificationCodeResponse>() {};
 
-    return apiClient.invokeAPI("VerifyApi.verifyVerificationCode", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("VerifyApi.verifyVerificationCodeByPhoneNumber", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

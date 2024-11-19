@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CreateExternalConnectionUploadRequest.JSON_PROPERTY_LOCATION_ID,
   CreateExternalConnectionUploadRequest.JSON_PROPERTY_CIVIC_ADDRESS_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateExternalConnectionUploadRequest {
   public static final String JSON_PROPERTY_NUMBER_IDS = "number_ids";
   private List<String> numberIds = null;
@@ -53,9 +51,9 @@ public class CreateExternalConnectionUploadRequest {
    * The use case of the upload request. NOTE: &#x60;calling_user_assignment&#x60; is not supported for toll free numbers.
    */
   public enum UsageEnum {
-    CALLING_USER_ASSIGNMENT("calling_user_assignment"),
+    CALLING_USER_ASSIGNMENT(String.valueOf("calling_user_assignment")),
     
-    FIRST_PARTY_APP_ASSIGNMENT("first_party_app_assignment");
+    FIRST_PARTY_APP_ASSIGNMENT(String.valueOf("first_party_app_assignment"));
 
     private String value;
 
@@ -91,9 +89,9 @@ public class CreateExternalConnectionUploadRequest {
    * Additional use cases of the upload request. If not provided, all supported usages will be used.
    */
   public enum AdditionalUsagesEnum {
-    CALLING_USER_ASSIGNMENT("calling_user_assignment"),
+    CALLING_USER_ASSIGNMENT(String.valueOf("calling_user_assignment")),
     
-    FIRST_PARTY_APP_ASSIGNMENT("first_party_app_assignment");
+    FIRST_PARTY_APP_ASSIGNMENT(String.valueOf("first_party_app_assignment"));
 
     private String value;
 
@@ -139,7 +137,7 @@ public class CreateExternalConnectionUploadRequest {
     return this;
   }
 
-  public CreateExternalConnectionUploadRequest addNumberIdsItem(String numberIdsItem) {
+  public CreateExternalConnectionUploadRequest addnumberIdsItem(String numberIdsItem) {
     if (this.numberIds == null) {
       this.numberIds = new ArrayList<>();
     }
@@ -199,7 +197,7 @@ public class CreateExternalConnectionUploadRequest {
     return this;
   }
 
-  public CreateExternalConnectionUploadRequest addAdditionalUsagesItem(AdditionalUsagesEnum additionalUsagesItem) {
+  public CreateExternalConnectionUploadRequest addadditionalUsagesItem(AdditionalUsagesEnum additionalUsagesItem) {
     if (this.additionalUsages == null) {
       this.additionalUsages = new ArrayList<>();
     }

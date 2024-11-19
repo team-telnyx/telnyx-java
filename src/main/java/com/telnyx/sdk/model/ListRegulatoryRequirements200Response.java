@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -24,13 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PaginationMeta;
 import com.telnyx.sdk.model.RegulatoryRequirements;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,16 +36,12 @@ import com.telnyx.sdk.JSON;
  * ListRegulatoryRequirements200Response
  */
 @JsonPropertyOrder({
-  ListRegulatoryRequirements200Response.JSON_PROPERTY_DATA,
-  ListRegulatoryRequirements200Response.JSON_PROPERTY_META
+  ListRegulatoryRequirements200Response.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ListRegulatoryRequirements200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<RegulatoryRequirements> data = null;
-
-  public static final String JSON_PROPERTY_META = "meta";
-  private PaginationMeta meta;
 
   public ListRegulatoryRequirements200Response() { 
   }
@@ -58,7 +51,7 @@ public class ListRegulatoryRequirements200Response {
     return this;
   }
 
-  public ListRegulatoryRequirements200Response addDataItem(RegulatoryRequirements dataItem) {
+  public ListRegulatoryRequirements200Response adddataItem(RegulatoryRequirements dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -87,32 +80,6 @@ public class ListRegulatoryRequirements200Response {
   }
 
 
-  public ListRegulatoryRequirements200Response meta(PaginationMeta meta) {
-    this.meta = meta;
-    return this;
-  }
-
-   /**
-   * Get meta
-   * @return meta
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PaginationMeta getMeta() {
-    return meta;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMeta(PaginationMeta meta) {
-    this.meta = meta;
-  }
-
-
   /**
    * Return true if this ListRegulatoryRequirements_200_response object is equal to o.
    */
@@ -125,13 +92,12 @@ public class ListRegulatoryRequirements200Response {
       return false;
     }
     ListRegulatoryRequirements200Response listRegulatoryRequirements200Response = (ListRegulatoryRequirements200Response) o;
-    return Objects.equals(this.data, listRegulatoryRequirements200Response.data) &&
-        Objects.equals(this.meta, listRegulatoryRequirements200Response.meta);
+    return Objects.equals(this.data, listRegulatoryRequirements200Response.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data, meta);
+    return Objects.hash(data);
   }
 
   @Override
@@ -139,7 +105,6 @@ public class ListRegulatoryRequirements200Response {
     StringBuilder sb = new StringBuilder();
     sb.append("class ListRegulatoryRequirements200Response {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

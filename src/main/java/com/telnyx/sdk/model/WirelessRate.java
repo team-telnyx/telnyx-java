@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,7 +36,7 @@ import com.telnyx.sdk.JSON;
   WirelessRate.JSON_PROPERTY_AMOUNT,
   WirelessRate.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class WirelessRate {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private String amount;
@@ -47,15 +45,15 @@ public class WirelessRate {
    * Currency of the rate and cost
    */
   public enum CurrencyEnum {
-    AUD("AUD"),
+    AUD(String.valueOf("AUD")),
     
-    CAD("CAD"),
+    CAD(String.valueOf("CAD")),
     
-    EUR("EUR"),
+    EUR(String.valueOf("EUR")),
     
-    GBP("GBP"),
+    GBP(String.valueOf("GBP")),
     
-    USD("USD");
+    USD(String.valueOf("USD"));
 
     private String value;
 

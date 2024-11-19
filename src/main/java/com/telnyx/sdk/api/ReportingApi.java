@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ReportingApi {
   private ApiClient apiClient;
 
@@ -123,7 +123,7 @@ public class ReportingApi {
   }
   /**
    * Delete a Wireless Detail Record (WDR) Report
-   * Deletes one specific WDR report
+   * Deletes one specific WDR report.
    * @param id Identifies the resource. (required)
    * @return CreateWdrReport201Response
    * @throws ApiException if fails to make API call
@@ -141,7 +141,7 @@ public class ReportingApi {
 
   /**
    * Delete a Wireless Detail Record (WDR) Report
-   * Deletes one specific WDR report
+   * Deletes one specific WDR report.
    * @param id Identifies the resource. (required)
    * @return ApiResponse&lt;CreateWdrReport201Response&gt;
    * @throws ApiException if fails to make API call
@@ -276,6 +276,7 @@ public class ReportingApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -294,6 +295,7 @@ public class ReportingApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */

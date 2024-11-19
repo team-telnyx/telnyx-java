@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CustomStorageConfigurationConfiguration;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,17 +37,17 @@ import com.telnyx.sdk.JSON;
   CustomStorageConfiguration.JSON_PROPERTY_BACKEND,
   CustomStorageConfiguration.JSON_PROPERTY_CONFIGURATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CustomStorageConfiguration {
   /**
    * Gets or Sets backend
    */
   public enum BackendEnum {
-    GCS("gcs"),
+    GCS(String.valueOf("gcs")),
     
-    S3("s3"),
+    S3(String.valueOf("s3")),
     
-    AZURE("azure");
+    AZURE(String.valueOf("azure"));
 
     private String value;
 

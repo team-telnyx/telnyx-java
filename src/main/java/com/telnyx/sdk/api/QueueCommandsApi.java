@@ -8,17 +8,17 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.ListQueueCallsResponse;
 import com.telnyx.sdk.model.QueueCallResponse;
 import com.telnyx.sdk.model.QueueResponse;
-import com.telnyx.sdk.model.ResourceNotFound;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class QueueCommandsApi {
   private ApiClient apiClient;
 
@@ -60,7 +60,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with a list of calls in a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public ListQueueCallsResponse listQueueCalls(String queueName, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -79,7 +79,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with a list of calls in a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListQueueCallsResponse> listQueueCallsWithHttpInfo(String queueName, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -135,7 +135,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call in a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public QueueCallResponse retrieveCallFromQueue(String queueName, String callControlId) throws ApiException {
@@ -153,7 +153,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call in a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<QueueCallResponse> retrieveCallFromQueueWithHttpInfo(String queueName, String callControlId) throws ApiException {
@@ -212,7 +212,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public QueueResponse retrieveCallQueue(String queueName) throws ApiException {
@@ -229,7 +229,7 @@ public class QueueCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a queue. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<QueueResponse> retrieveCallQueueWithHttpInfo(String queueName) throws ApiException {

@@ -5,7 +5,7 @@
 ## Enum
 
 
-* `_2FA` (value: `"2FA"`)
+* `_2_FA` (value: `"2FA"`)
 
 * `ACCOUNT_NOTIFICATION` (value: `"ACCOUNT_NOTIFICATION"`)
 

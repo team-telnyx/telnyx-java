@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -36,16 +34,16 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   CreateAndroidPushCredentialRequest.JSON_PROPERTY_TYPE,
-  CreateAndroidPushCredentialRequest.JSON_PROPERTY_SERVER_KEY,
+  CreateAndroidPushCredentialRequest.JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE,
   CreateAndroidPushCredentialRequest.JSON_PROPERTY_ALIAS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateAndroidPushCredentialRequest {
   /**
    * Type of mobile push credential. Should be &lt;code&gt;android&lt;/code&gt; here
    */
   public enum TypeEnum {
-    ANDROID("android");
+    ANDROID(String.valueOf("android"));
 
     private String value;
 
@@ -77,8 +75,8 @@ public class CreateAndroidPushCredentialRequest {
   public static final String JSON_PROPERTY_TYPE = "type";
   private TypeEnum type;
 
-  public static final String JSON_PROPERTY_SERVER_KEY = "server_key";
-  private String serverKey;
+  public static final String JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE = "project_account_json_file";
+  private Object projectAccountJsonFile;
 
   public static final String JSON_PROPERTY_ALIAS = "alias";
   private String alias;
@@ -112,29 +110,29 @@ public class CreateAndroidPushCredentialRequest {
   }
 
 
-  public CreateAndroidPushCredentialRequest serverKey(String serverKey) {
-    this.serverKey = serverKey;
+  public CreateAndroidPushCredentialRequest projectAccountJsonFile(Object projectAccountJsonFile) {
+    this.projectAccountJsonFile = projectAccountJsonFile;
     return this;
   }
 
    /**
-   * Server key as received from Google firebase
-   * @return serverKey
+   * Private key file in JSON format
+   * @return projectAccountJsonFile
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "BBBB0J56jd8kda:APA91vjb11BCjvxx3Jxja...", required = true, value = "Server key as received from Google firebase")
-  @JsonProperty(JSON_PROPERTY_SERVER_KEY)
+  @ApiModelProperty(example = "{\"private_key\":\"BBBB0J56jd8kda:APA91vjb11BCjvxx3Jxja...\",\"client_email\":\"account@customer.org\"}", required = true, value = "Private key file in JSON format")
+  @JsonProperty(JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getServerKey() {
-    return serverKey;
+  public Object getProjectAccountJsonFile() {
+    return projectAccountJsonFile;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SERVER_KEY)
+  @JsonProperty(JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setServerKey(String serverKey) {
-    this.serverKey = serverKey;
+  public void setProjectAccountJsonFile(Object projectAccountJsonFile) {
+    this.projectAccountJsonFile = projectAccountJsonFile;
   }
 
 
@@ -177,13 +175,13 @@ public class CreateAndroidPushCredentialRequest {
     }
     CreateAndroidPushCredentialRequest createAndroidPushCredentialRequest = (CreateAndroidPushCredentialRequest) o;
     return Objects.equals(this.type, createAndroidPushCredentialRequest.type) &&
-        Objects.equals(this.serverKey, createAndroidPushCredentialRequest.serverKey) &&
+        Objects.equals(this.projectAccountJsonFile, createAndroidPushCredentialRequest.projectAccountJsonFile) &&
         Objects.equals(this.alias, createAndroidPushCredentialRequest.alias);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, serverKey, alias);
+    return Objects.hash(type, projectAccountJsonFile, alias);
   }
 
   @Override
@@ -191,7 +189,7 @@ public class CreateAndroidPushCredentialRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateAndroidPushCredentialRequest {\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    serverKey: ").append(toIndentedString(serverKey)).append("\n");
+    sb.append("    projectAccountJsonFile: ").append(toIndentedString(projectAccountJsonFile)).append("\n");
     sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class SharedCampaignsApi {
   private ApiClient apiClient;
 
@@ -60,8 +60,8 @@ public class SharedCampaignsApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public Map<String, CampaignSharingStatus> getCampaignSharingStatus(String campaignId) throws ApiException {
-    return getCampaignSharingStatusWithHttpInfo(campaignId).getData();
+  public Map<String, CampaignSharingStatus> getPartnerCampaignSharingStatus(String campaignId) throws ApiException {
+    return getPartnerCampaignSharingStatusWithHttpInfo(campaignId).getData();
   }
 
   /**
@@ -77,12 +77,12 @@ public class SharedCampaignsApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Map<String, CampaignSharingStatus>> getCampaignSharingStatusWithHttpInfo(String campaignId) throws ApiException {
+  public ApiResponse<Map<String, CampaignSharingStatus>> getPartnerCampaignSharingStatusWithHttpInfo(String campaignId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'campaignId' is set
     if (campaignId == null) {
-      throw new ApiException(400, "Missing the required parameter 'campaignId' when calling getCampaignSharingStatus");
+      throw new ApiException(400, "Missing the required parameter 'campaignId' when calling getPartnerCampaignSharingStatus");
     }
     
     // create path and map variables
@@ -113,7 +113,7 @@ public class SharedCampaignsApi {
 
     GenericType<Map<String, CampaignSharingStatus>> localVarReturnType = new GenericType<Map<String, CampaignSharingStatus>>() {};
 
-    return apiClient.invokeAPI("SharedCampaignsApi.getCampaignSharingStatus", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("SharedCampaignsApi.getPartnerCampaignSharingStatus", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

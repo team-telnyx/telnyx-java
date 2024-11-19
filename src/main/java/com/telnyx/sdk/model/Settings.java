@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
   Settings.JSON_PROPERTY_IDP_CERT_FINGERPRINT,
   Settings.JSON_PROPERTY_IDP_CERT_FINGERPRINT_ALGORITHM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class Settings {
   public static final String JSON_PROPERTY_IDP_ENTITY_ID = "idp_entity_id";
   private String idpEntityId;
@@ -56,13 +54,13 @@ public class Settings {
    * The algorithm used to generate the identity provider&#39;s (IdP) certificate fingerprint
    */
   public enum IdpCertFingerprintAlgorithmEnum {
-    SHA1("sha1"),
+    SHA1(String.valueOf("sha1")),
     
-    SHA256("sha256"),
+    SHA256(String.valueOf("sha256")),
     
-    SHA384("sha384"),
+    SHA384(String.valueOf("sha384")),
     
-    SHA512("sha512");
+    SHA512(String.valueOf("sha512"));
 
     private String value;
 

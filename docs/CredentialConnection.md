@@ -10,7 +10,7 @@
 |**id** | **String** | Identifies the type of resource. |  [optional] |
 |**recordType** | **String** | Identifies the type of the resource. |  [optional] |
 |**active** | **Boolean** | Defaults to true |  [optional] |
-|**userName** | **String** | The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters). |  [optional] |
+|**userName** | **String** | The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters). At least one of the first 5 characters must be a letter. |  [optional] |
 |**password** | **String** | The password to be used as part of the credentials. Must be 8 to 128 characters long. |  [optional] |
 |**createdAt** | **String** | ISO-8601 formatted date indicating when the resource was created. |  [optional] |
 |**updatedAt** | **String** | ISO-8601 formatted date indicating when the resource was updated. |  [optional] |

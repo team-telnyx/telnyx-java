@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**recordType** | **String** | Identifies record type. |  [optional] |
-|**id** | **UUID** | Identifies the type of resource. |  [optional] |
+|**recordType** | [**RecordType**](RecordType.md) |  |  [optional] |
+|**id** | **UUID** | Identifies the resource. |  [optional] [readonly] |
 |**eventType** | [**EventTypeEnum**](#EventTypeEnum) | The type of event being delivered. |  [optional] |
 |**payload** | [**FaxFailedPayload**](FaxFailedPayload.md) |  |  [optional] |
 

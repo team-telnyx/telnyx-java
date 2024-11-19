@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.SipHeader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   ReferRequest.JSON_PROPERTY_SIP_AUTH_PASSWORD,
   ReferRequest.JSON_PROPERTY_SIP_HEADERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ReferRequest {
   public static final String JSON_PROPERTY_SIP_ADDRESS = "sip_address";
   private String sipAddress;
@@ -156,7 +154,7 @@ public class ReferRequest {
     return this;
   }
 
-  public ReferRequest addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+  public ReferRequest addcustomHeadersItem(CustomSipHeader customHeadersItem) {
     if (this.customHeaders == null) {
       this.customHeaders = new ArrayList<>();
     }
@@ -242,7 +240,7 @@ public class ReferRequest {
     return this;
   }
 
-  public ReferRequest addSipHeadersItem(SipHeader sipHeadersItem) {
+  public ReferRequest addsipHeadersItem(SipHeader sipHeadersItem) {
     if (this.sipHeaders == null) {
       this.sipHeaders = new ArrayList<>();
     }

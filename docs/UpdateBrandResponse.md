@@ -26,7 +26,7 @@
 |**vertical** | **Vertical** |  |  |
 |**altBusinessId** | **String** | Alternate business identifier such as DUNS, LEI, or GIIN |  [optional] |
 |**altBusinessIdType** | **AltBusinessIdType** |  |  [optional] |
-|**identityStatus** | **String** | TCR assessment of the brand identification status. |  [optional] |
+|**identityStatus** | **BrandIdentityStatus** |  |  [optional] |
 
 
 

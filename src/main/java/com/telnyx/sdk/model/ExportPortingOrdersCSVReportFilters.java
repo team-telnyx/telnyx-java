@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,27 +42,27 @@ import com.telnyx.sdk.JSON;
   ExportPortingOrdersCSVReportFilters.JSON_PROPERTY_CREATED_AT_LT,
   ExportPortingOrdersCSVReportFilters.JSON_PROPERTY_CREATED_AT_GT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ExportPortingOrdersCSVReportFilters {
   /**
    * Gets or Sets statusIn
    */
   public enum StatusInEnum {
-    DRAFT("draft"),
+    DRAFT(String.valueOf("draft")),
     
-    IN_PROCESS("in-process"),
+    IN_PROCESS(String.valueOf("in-process")),
     
-    SUBMITTED("submitted"),
+    SUBMITTED(String.valueOf("submitted")),
     
-    EXCEPTION("exception"),
+    EXCEPTION(String.valueOf("exception")),
     
-    FOC_DATE_CONFIRMED("foc-date-confirmed"),
+    FOC_DATE_CONFIRMED(String.valueOf("foc-date-confirmed")),
     
-    CANCEL_PENDING("cancel-pending"),
+    CANCEL_PENDING(String.valueOf("cancel-pending")),
     
-    PORTED("ported"),
+    PORTED(String.valueOf("ported")),
     
-    CANCELLED("cancelled");
+    CANCELLED(String.valueOf("cancelled"));
 
     private String value;
 
@@ -113,7 +111,7 @@ public class ExportPortingOrdersCSVReportFilters {
     return this;
   }
 
-  public ExportPortingOrdersCSVReportFilters addStatusInItem(StatusInEnum statusInItem) {
+  public ExportPortingOrdersCSVReportFilters addstatusInItem(StatusInEnum statusInItem) {
     if (this.statusIn == null) {
       this.statusIn = new ArrayList<>();
     }
@@ -147,7 +145,7 @@ public class ExportPortingOrdersCSVReportFilters {
     return this;
   }
 
-  public ExportPortingOrdersCSVReportFilters addCustomerReferenceInItem(String customerReferenceInItem) {
+  public ExportPortingOrdersCSVReportFilters addcustomerReferenceInItem(String customerReferenceInItem) {
     if (this.customerReferenceIn == null) {
       this.customerReferenceIn = new ArrayList<>();
     }

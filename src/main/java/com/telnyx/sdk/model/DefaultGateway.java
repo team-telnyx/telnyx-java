@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.InterfaceStatus;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,7 +43,7 @@ import com.telnyx.sdk.JSON;
   DefaultGateway.JSON_PROPERTY_WIREGUARD_PEER_ID,
   DefaultGateway.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class DefaultGateway {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -76,13 +74,15 @@ public class DefaultGateway {
     @JsonProperty(JSON_PROPERTY_ID) UUID id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
-    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt, 
+    @JsonProperty(JSON_PROPERTY_NETWORK_ID) UUID networkId
   ) {
     this();
     this.id = id;
     this.recordType = recordType;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.networkId = networkId;
   }
 
    /**
@@ -149,11 +149,6 @@ public class DefaultGateway {
 
 
 
-  public DefaultGateway networkId(UUID networkId) {
-    this.networkId = networkId;
-    return this;
-  }
-
    /**
    * Network ID.
    * @return networkId
@@ -168,11 +163,6 @@ public class DefaultGateway {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NETWORK_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNetworkId(UUID networkId) {
-    this.networkId = networkId;
-  }
 
 
   public DefaultGateway wireguardPeerId(UUID wireguardPeerId) {

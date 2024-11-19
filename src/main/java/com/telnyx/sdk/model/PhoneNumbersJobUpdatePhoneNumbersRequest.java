@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.UpdatePhoneNumberVoiceSettingsRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,7 +44,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_BILLING_GROUP_ID,
   PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_VOICE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = new ArrayList<>();
@@ -77,7 +75,7 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
     return this;
   }
 
-  public PhoneNumbersJobUpdatePhoneNumbersRequest addPhoneNumbersItem(String phoneNumbersItem) {
+  public PhoneNumbersJobUpdatePhoneNumbersRequest addphoneNumbersItem(String phoneNumbersItem) {
     this.phoneNumbers.add(phoneNumbersItem);
     return this;
   }
@@ -108,7 +106,7 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
     return this;
   }
 
-  public PhoneNumbersJobUpdatePhoneNumbersRequest addTagsItem(String tagsItem) {
+  public PhoneNumbersJobUpdatePhoneNumbersRequest addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }

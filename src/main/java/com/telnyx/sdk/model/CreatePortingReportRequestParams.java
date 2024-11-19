@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.ExportPortingOrdersCSVReport;
 import com.telnyx.sdk.model.ExportPortingOrdersCSVReportFilters;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -59,7 +57,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 @JsonDeserialize(using = CreatePortingReportRequestParams.CreatePortingReportRequestParamsDeserializer.class)
 @JsonSerialize(using = CreatePortingReportRequestParams.CreatePortingReportRequestParamsSerializer.class)
 public class CreatePortingReportRequestParams extends AbstractOpenApiSchema {

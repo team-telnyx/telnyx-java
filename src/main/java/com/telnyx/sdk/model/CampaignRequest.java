@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -67,11 +67,14 @@ import com.telnyx.sdk.JSON;
   CampaignRequest.JSON_PROPERTY_SUBSCRIBER_OPTOUT,
   CampaignRequest.JSON_PROPERTY_TAG,
   CampaignRequest.JSON_PROPERTY_TERMS_AND_CONDITIONS,
+  CampaignRequest.JSON_PROPERTY_PRIVACY_POLICY_LINK,
+  CampaignRequest.JSON_PROPERTY_TERMS_AND_CONDITIONS_LINK,
+  CampaignRequest.JSON_PROPERTY_EMBEDDED_LINK_SAMPLE,
   CampaignRequest.JSON_PROPERTY_USECASE,
   CampaignRequest.JSON_PROPERTY_WEBHOOK_U_R_L,
   CampaignRequest.JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CampaignRequest {
   public static final String JSON_PROPERTY_AFFILIATE_MARKETING = "affiliateMarketing";
   private Boolean affiliateMarketing;
@@ -162,6 +165,15 @@ public class CampaignRequest {
 
   public static final String JSON_PROPERTY_TERMS_AND_CONDITIONS = "termsAndConditions";
   private Boolean termsAndConditions;
+
+  public static final String JSON_PROPERTY_PRIVACY_POLICY_LINK = "privacyPolicyLink";
+  private String privacyPolicyLink;
+
+  public static final String JSON_PROPERTY_TERMS_AND_CONDITIONS_LINK = "termsAndConditionsLink";
+  private String termsAndConditionsLink;
+
+  public static final String JSON_PROPERTY_EMBEDDED_LINK_SAMPLE = "embeddedLinkSample";
+  private String embeddedLinkSample;
 
   public static final String JSON_PROPERTY_USECASE = "usecase";
   private String usecase;
@@ -466,7 +478,10 @@ public class CampaignRequest {
     return this;
   }
 
-  public CampaignRequest addMnoIdsItem(Integer mnoIdsItem) {
+  public CampaignRequest addmnoIdsItem(Integer mnoIdsItem) {
+    if (this.mnoIds == null) {
+      this.mnoIds = new LinkedHashSet<>();
+    }
     this.mnoIds.add(mnoIdsItem);
     return this;
   }
@@ -810,9 +825,9 @@ public class CampaignRequest {
     return this;
   }
 
-  public CampaignRequest addSubUsecasesItem(String subUsecasesItem) {
+  public CampaignRequest addsubUsecasesItem(String subUsecasesItem) {
     if (this.subUsecases == null) {
-      this.subUsecases.add(subUsecasesItem);
+      this.subUsecases = new LinkedHashSet<>();
     }
     this.subUsecases.add(subUsecasesItem);
     return this;
@@ -923,7 +938,10 @@ public class CampaignRequest {
     return this;
   }
 
-  public CampaignRequest addTagItem(String tagItem) {
+  public CampaignRequest addtagItem(String tagItem) {
+    if (this.tag == null) {
+      this.tag = new LinkedHashSet<>();
+    }
     this.tag.add(tagItem);
     return this;
   }
@@ -976,6 +994,84 @@ public class CampaignRequest {
   }
 
 
+  public CampaignRequest privacyPolicyLink(String privacyPolicyLink) {
+    this.privacyPolicyLink = privacyPolicyLink;
+    return this;
+  }
+
+   /**
+   * Link to the campaign&#39;s privacy policy.
+   * @return privacyPolicyLink
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Link to the campaign's privacy policy.")
+  @JsonProperty(JSON_PROPERTY_PRIVACY_POLICY_LINK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getPrivacyPolicyLink() {
+    return privacyPolicyLink;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PRIVACY_POLICY_LINK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPrivacyPolicyLink(String privacyPolicyLink) {
+    this.privacyPolicyLink = privacyPolicyLink;
+  }
+
+
+  public CampaignRequest termsAndConditionsLink(String termsAndConditionsLink) {
+    this.termsAndConditionsLink = termsAndConditionsLink;
+    return this;
+  }
+
+   /**
+   * Link to the campaign&#39;s terms and conditions.
+   * @return termsAndConditionsLink
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Link to the campaign's terms and conditions.")
+  @JsonProperty(JSON_PROPERTY_TERMS_AND_CONDITIONS_LINK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTermsAndConditionsLink() {
+    return termsAndConditionsLink;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TERMS_AND_CONDITIONS_LINK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTermsAndConditionsLink(String termsAndConditionsLink) {
+    this.termsAndConditionsLink = termsAndConditionsLink;
+  }
+
+
+  public CampaignRequest embeddedLinkSample(String embeddedLinkSample) {
+    this.embeddedLinkSample = embeddedLinkSample;
+    return this;
+  }
+
+   /**
+   * Sample of an embedded link that will be sent to subscribers.
+   * @return embeddedLinkSample
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Sample of an embedded link that will be sent to subscribers.")
+  @JsonProperty(JSON_PROPERTY_EMBEDDED_LINK_SAMPLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEmbeddedLinkSample() {
+    return embeddedLinkSample;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMBEDDED_LINK_SAMPLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEmbeddedLinkSample(String embeddedLinkSample) {
+    this.embeddedLinkSample = embeddedLinkSample;
+  }
+
+
   public CampaignRequest usecase(String usecase) {
     this.usecase = usecase;
     return this;
@@ -1012,7 +1108,7 @@ public class CampaignRequest {
    * @return webhookURL
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Webhook to which campaign status updates are sent.")
+  @ApiModelProperty(example = "https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93", value = "Webhook to which campaign status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1038,7 +1134,7 @@ public class CampaignRequest {
    * @return webhookFailoverURL
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Failover webhook to which campaign status updates are sent.")
+  @ApiModelProperty(example = "https://webhook.com/93711262-23e5-4048-a966-c0b2a16d5963", value = "Failover webhook to which campaign status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1096,6 +1192,9 @@ public class CampaignRequest {
         Objects.equals(this.subscriberOptout, campaignRequest.subscriberOptout) &&
         Objects.equals(this.tag, campaignRequest.tag) &&
         Objects.equals(this.termsAndConditions, campaignRequest.termsAndConditions) &&
+        Objects.equals(this.privacyPolicyLink, campaignRequest.privacyPolicyLink) &&
+        Objects.equals(this.termsAndConditionsLink, campaignRequest.termsAndConditionsLink) &&
+        Objects.equals(this.embeddedLinkSample, campaignRequest.embeddedLinkSample) &&
         Objects.equals(this.usecase, campaignRequest.usecase) &&
         Objects.equals(this.webhookURL, campaignRequest.webhookURL) &&
         Objects.equals(this.webhookFailoverURL, campaignRequest.webhookFailoverURL);
@@ -1103,7 +1202,7 @@ public class CampaignRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(affiliateMarketing, ageGated, autoRenewal, brandId, description, directLending, embeddedLink, embeddedPhone, helpKeywords, helpMessage, messageFlow, mnoIds, numberPool, optinKeywords, optinMessage, optoutKeywords, optoutMessage, referenceId, resellerId, sample1, sample2, sample3, sample4, sample5, subUsecases, subscriberHelp, subscriberOptin, subscriberOptout, tag, termsAndConditions, usecase, webhookURL, webhookFailoverURL);
+    return Objects.hash(affiliateMarketing, ageGated, autoRenewal, brandId, description, directLending, embeddedLink, embeddedPhone, helpKeywords, helpMessage, messageFlow, mnoIds, numberPool, optinKeywords, optinMessage, optoutKeywords, optoutMessage, referenceId, resellerId, sample1, sample2, sample3, sample4, sample5, subUsecases, subscriberHelp, subscriberOptin, subscriberOptout, tag, termsAndConditions, privacyPolicyLink, termsAndConditionsLink, embeddedLinkSample, usecase, webhookURL, webhookFailoverURL);
   }
 
   @Override
@@ -1140,6 +1239,9 @@ public class CampaignRequest {
     sb.append("    subscriberOptout: ").append(toIndentedString(subscriberOptout)).append("\n");
     sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
     sb.append("    termsAndConditions: ").append(toIndentedString(termsAndConditions)).append("\n");
+    sb.append("    privacyPolicyLink: ").append(toIndentedString(privacyPolicyLink)).append("\n");
+    sb.append("    termsAndConditionsLink: ").append(toIndentedString(termsAndConditionsLink)).append("\n");
+    sb.append("    embeddedLinkSample: ").append(toIndentedString(embeddedLinkSample)).append("\n");
     sb.append("    usecase: ").append(toIndentedString(usecase)).append("\n");
     sb.append("    webhookURL: ").append(toIndentedString(webhookURL)).append("\n");
     sb.append("    webhookFailoverURL: ").append(toIndentedString(webhookFailoverURL)).append("\n");

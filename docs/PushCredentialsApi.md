@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## createPushCredential
 
-> PushCredentialResponse createPushCredential(createPushCredentialRequest)
+> CredentialsResponse createPushCredential(createPushCredentialRequest)
 
 Creates a new mobile push credential
 
@@ -42,7 +42,7 @@ public class Example {
         PushCredentialsApi apiInstance = new PushCredentialsApi(defaultClient);
         CreatePushCredentialRequest createPushCredentialRequest = new CreatePushCredentialRequest(); // CreatePushCredentialRequest | Mobile push credential parameters that need to be sent in the request
         try {
-            PushCredentialResponse result = apiInstance.createPushCredential(createPushCredentialRequest);
+            CredentialsResponse result = apiInstance.createPushCredential(createPushCredentialRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PushCredentialsApi#createPushCredential");
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PushCredentialResponse**](PushCredentialResponse.md)
+[**CredentialsResponse**](CredentialsResponse.md)
 
 ### Authorization
 
@@ -158,7 +158,7 @@ null (empty response body)
 
 ## getPushCredentialById
 
-> PushCredentialResponse getPushCredentialById(pushCredentialId)
+> CredentialsResponse getPushCredentialById(pushCredentialId)
 
 Retrieves a mobile push credential
 
@@ -188,7 +188,7 @@ public class Example {
         PushCredentialsApi apiInstance = new PushCredentialsApi(defaultClient);
         UUID pushCredentialId = UUID.fromString("0ccc7b76-4df3-4bca-a05a-3da1ecc389f0"); // UUID | The unique identifier of a mobile push credential
         try {
-            PushCredentialResponse result = apiInstance.getPushCredentialById(pushCredentialId);
+            CredentialsResponse result = apiInstance.getPushCredentialById(pushCredentialId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PushCredentialsApi#getPushCredentialById");
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PushCredentialResponse**](PushCredentialResponse.md)
+[**CredentialsResponse**](CredentialsResponse.md)
 
 ### Authorization
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## listPushCredentials
 
-> ListPushCredentialsResponse listPushCredentials(filterType, filterAlias, pageSize, pageNumber)
+> CredentialsResponse listPushCredentials(filterType, filterAlias, pageSize, pageNumber)
 
 List mobile push credentials
 
@@ -264,7 +264,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListPushCredentialsResponse result = apiInstance.listPushCredentials(filterType, filterAlias, pageSize, pageNumber);
+            CredentialsResponse result = apiInstance.listPushCredentials(filterType, filterAlias, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PushCredentialsApi#listPushCredentials");
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPushCredentialsResponse**](ListPushCredentialsResponse.md)
+[**CredentialsResponse**](CredentialsResponse.md)
 
 ### Authorization
 

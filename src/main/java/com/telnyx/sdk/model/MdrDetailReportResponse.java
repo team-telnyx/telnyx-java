@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -55,7 +53,7 @@ import com.telnyx.sdk.JSON;
   MdrDetailReportResponse.JSON_PROPERTY_PROFILES,
   MdrDetailReportResponse.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class MdrDetailReportResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -70,9 +68,9 @@ public class MdrDetailReportResponse {
    * Gets or Sets directions
    */
   public enum DirectionsEnum {
-    INBOUND("INBOUND"),
+    INBOUND(String.valueOf("INBOUND")),
     
-    OUTBOUND("OUTBOUND");
+    OUTBOUND(String.valueOf("OUTBOUND"));
 
     private String value;
 
@@ -108,11 +106,11 @@ public class MdrDetailReportResponse {
    * Gets or Sets recordTypes
    */
   public enum RecordTypesEnum {
-    INCOMPLETE("INCOMPLETE"),
+    INCOMPLETE(String.valueOf("INCOMPLETE")),
     
-    COMPLETED("COMPLETED"),
+    COMPLETED(String.valueOf("COMPLETED")),
     
-    ERRORS("ERRORS");
+    ERRORS(String.valueOf("ERRORS"));
 
     private String value;
 
@@ -154,13 +152,13 @@ public class MdrDetailReportResponse {
    * Gets or Sets status
    */
   public enum StatusEnum {
-    PENDING("PENDING"),
+    PENDING(String.valueOf("PENDING")),
     
-    COMPLETE("COMPLETE"),
+    COMPLETE(String.valueOf("COMPLETE")),
     
-    FAILED("FAILED"),
+    FAILED(String.valueOf("FAILED")),
     
-    EXPIRED("EXPIRED");
+    EXPIRED(String.valueOf("EXPIRED"));
 
     private String value;
 
@@ -296,7 +294,7 @@ public class MdrDetailReportResponse {
     return this;
   }
 
-  public MdrDetailReportResponse addDirectionsItem(DirectionsEnum directionsItem) {
+  public MdrDetailReportResponse adddirectionsItem(DirectionsEnum directionsItem) {
     if (this.directions == null) {
       this.directions = new ArrayList<>();
     }
@@ -330,7 +328,7 @@ public class MdrDetailReportResponse {
     return this;
   }
 
-  public MdrDetailReportResponse addRecordTypesItem(RecordTypesEnum recordTypesItem) {
+  public MdrDetailReportResponse addrecordTypesItem(RecordTypesEnum recordTypesItem) {
     if (this.recordTypes == null) {
       this.recordTypes = new ArrayList<>();
     }
@@ -364,7 +362,7 @@ public class MdrDetailReportResponse {
     return this;
   }
 
-  public MdrDetailReportResponse addConnectionsItem(Long connectionsItem) {
+  public MdrDetailReportResponse addconnectionsItem(Long connectionsItem) {
     if (this.connections == null) {
       this.connections = new ArrayList<>();
     }
@@ -476,7 +474,7 @@ public class MdrDetailReportResponse {
     return this;
   }
 
-  public MdrDetailReportResponse addFiltersItem(Filter filtersItem) {
+  public MdrDetailReportResponse addfiltersItem(Filter filtersItem) {
     if (this.filters == null) {
       this.filters = new ArrayList<>();
     }

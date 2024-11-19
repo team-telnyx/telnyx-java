@@ -21,11 +21,11 @@
 
 | Name | Value |
 |---- | -----|
-| FIRSTPARTYAPPASSIGNMENT | &quot;FirstPartyAppAssignment&quot; |
-| INBOUNDCALLING | &quot;InboundCalling&quot; |
+| FIRST_PARTY_APP_ASSIGNMENT | &quot;FirstPartyAppAssignment&quot; |
+| INBOUND_CALLING | &quot;InboundCalling&quot; |
 | OFFICE365 | &quot;Office365&quot; |
-| OUTBOUNDCALLING | &quot;OutboundCalling&quot; |
-| USERASSIGNMENT | &quot;UserAssignment&quot; |
+| OUTBOUND_CALLING | &quot;OutboundCalling&quot; |
+| USER_ASSIGNMENT | &quot;UserAssignment&quot; |
 
 
 

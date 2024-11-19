@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class WdrDetailReportsApi {
   private ApiClient apiClient;
 
@@ -46,7 +46,7 @@ public class WdrDetailReportsApi {
   }
 
   /**
-   * 
+   * Get Report WDRs
    * Fetch all Wdr records 
    * @param startDate Start date (optional)
    * @param endDate End date (optional)
@@ -60,7 +60,7 @@ public class WdrDetailReportsApi {
    * @param phoneNumber  (optional)
    * @param pageNumber Page number (optional, default to 1)
    * @param pageSize Size of the page (optional, default to 20)
-   * @param sort  (optional)
+   * @param sort  (optional, default to created_at)
    * @return ExternalWdrGetDetailResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -74,7 +74,7 @@ public class WdrDetailReportsApi {
   }
 
   /**
-   * 
+   * Get Report WDRs
    * Fetch all Wdr records 
    * @param startDate Start date (optional)
    * @param endDate End date (optional)
@@ -88,7 +88,7 @@ public class WdrDetailReportsApi {
    * @param phoneNumber  (optional)
    * @param pageNumber Page number (optional, default to 1)
    * @param pageSize Size of the page (optional, default to 20)
-   * @param sort  (optional)
+   * @param sort  (optional, default to created_at)
    * @return ApiResponse&lt;ExternalWdrGetDetailResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details

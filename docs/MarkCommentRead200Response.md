@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**MarkCommentRead200ResponseData**](MarkCommentRead200ResponseData.md) |  |  [optional] |
+|**data** | [**Comment**](Comment.md) |  |  [optional] |
 
 
 

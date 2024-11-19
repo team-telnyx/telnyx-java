@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.RecordingResponseDataDownloadUrls;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -52,7 +50,7 @@ import com.telnyx.sdk.JSON;
   RecordingResponseData.JSON_PROPERTY_STATUS,
   RecordingResponseData.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class RecordingResponseData {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -67,9 +65,9 @@ public class RecordingResponseData {
    * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B.
    */
   public enum ChannelsEnum {
-    SINGLE("single"),
+    SINGLE(String.valueOf("single")),
     
-    DUAL("dual");
+    DUAL(String.valueOf("dual"));
 
     private String value;
 
@@ -120,7 +118,7 @@ public class RecordingResponseData {
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    RECORDING("recording");
+    RECORDING(String.valueOf("recording"));
 
     private String value;
 
@@ -162,9 +160,9 @@ public class RecordingResponseData {
    * The kind of event that led to this recording being created.
    */
   public enum SourceEnum {
-    CONFERENCE("conference"),
+    CONFERENCE(String.valueOf("conference")),
     
-    CALL("call");
+    CALL(String.valueOf("call"));
 
     private String value;
 
@@ -200,7 +198,7 @@ public class RecordingResponseData {
    * The status of the recording. Only resources for &#x60;completed&#x60; recordings are currently supported.
    */
   public enum StatusEnum {
-    COMPLETED("completed");
+    COMPLETED(String.valueOf("completed"));
 
     private String value;
 

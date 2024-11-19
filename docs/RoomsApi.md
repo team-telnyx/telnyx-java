@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createRoom**](RoomsApi.md#createRoom) | **POST** /rooms | Create a room.
 [**deleteRoom**](RoomsApi.md#deleteRoom) | **DELETE** /rooms/{room_id} | Delete a room.
-[**listRoomSessions**](RoomsApi.md#listRoomSessions) | **GET** /rooms/{room_id}/sessions | View a list of room sessions.
+[**listRoomSessionsView**](RoomsApi.md#listRoomSessionsView) | **GET** /rooms/{room_id}/sessions | View a list of room sessions.
 [**listRooms**](RoomsApi.md#listRooms) | **GET** /rooms | View a list of rooms.
 [**updateRoom**](RoomsApi.md#updateRoom) | **PATCH** /rooms/{room_id} | Update a room.
 [**viewRoom**](RoomsApi.md#viewRoom) | **GET** /rooms/{room_id} | View a room.
@@ -155,9 +155,9 @@ null (empty response body)
 | **404** | Resource not found |  -  |
 
 
-## listRoomSessions
+## listRoomSessionsView
 
-> ListRoomSessions200Response listRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber)
+> ListRoomSessions200Response listRoomSessionsView(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber)
 
 View a list of room sessions.
 
@@ -201,10 +201,10 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Integer pageNumber = 1; // Integer | The page number to load
         try {
-            ListRoomSessions200Response result = apiInstance.listRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber);
+            ListRoomSessions200Response result = apiInstance.listRoomSessionsView(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling RoomsApi#listRoomSessions");
+            System.err.println("Exception when calling RoomsApi#listRoomSessionsView");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Update room response. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Bad request |  -  |
 

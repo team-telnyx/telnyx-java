@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -34,8 +34,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -71,13 +69,13 @@ import com.telnyx.sdk.JSON;
   InboundMessagePayload.JSON_PROPERTY_VALID_UNTIL,
   InboundMessagePayload.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class InboundMessagePayload {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    MESSAGE("message");
+    MESSAGE(String.valueOf("message"));
 
     private String value;
 
@@ -113,7 +111,7 @@ public class InboundMessagePayload {
    * The direction of the message. Inbound messages are sent to you whereas outbound messages are sent from you.
    */
   public enum DirectionEnum {
-    INBOUND("inbound");
+    INBOUND(String.valueOf("inbound"));
 
     private String value;
 
@@ -152,9 +150,9 @@ public class InboundMessagePayload {
    * The type of message. This value can be either &#39;sms&#39; or &#39;mms&#39;.
    */
   public enum TypeEnum {
-    SMS("SMS"),
+    SMS(String.valueOf("SMS")),
     
-    MMS("MMS");
+    MMS(String.valueOf("MMS"));
 
     private String value;
 
@@ -375,7 +373,7 @@ public class InboundMessagePayload {
     return this;
   }
 
-  public InboundMessagePayload addToItem(InboundMessagePayloadToInner toItem) {
+  public InboundMessagePayload addtoItem(InboundMessagePayloadToInner toItem) {
     if (this.to == null) {
       this.to = new ArrayList<>();
     }
@@ -409,7 +407,7 @@ public class InboundMessagePayload {
     return this;
   }
 
-  public InboundMessagePayload addCcItem(InboundMessagePayloadCcInner ccItem) {
+  public InboundMessagePayload addccItem(InboundMessagePayloadCcInner ccItem) {
     if (this.cc == null) {
       this.cc = new ArrayList<>();
     }
@@ -495,7 +493,7 @@ public class InboundMessagePayload {
     return this;
   }
 
-  public InboundMessagePayload addMediaItem(InboundMessagePayloadMediaInner mediaItem) {
+  public InboundMessagePayload addmediaItem(InboundMessagePayloadMediaInner mediaItem) {
     if (this.media == null) {
       this.media = new ArrayList<>();
     }
@@ -651,7 +649,7 @@ public class InboundMessagePayload {
     return this;
   }
 
-  public InboundMessagePayload addTagsItem(String tagsItem) {
+  public InboundMessagePayload addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -847,7 +845,7 @@ public class InboundMessagePayload {
     return this;
   }
 
-  public InboundMessagePayload addErrorsItem(Error errorsItem) {
+  public InboundMessagePayload adderrorsItem(Error errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }

@@ -11,14 +11,13 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.ConnectionResponse;
 import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.ListConnectionsResponse;
-import com.telnyx.sdk.model.ResourceNotFound;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ConnectionsApi {
   private ApiClient apiClient;
 
@@ -49,7 +48,7 @@ public class ConnectionsApi {
   }
 
 
-private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -64,7 +63,7 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_name][contains]", filterConnectionNameContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound.outbound_voice_profile_id]", filterOutboundOutboundVoiceProfileId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound_voice_profile_id]", filterOutboundVoiceProfileId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -93,7 +92,7 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
     private Integer pageNumber;
     private Integer pageSize;
     private String filterConnectionNameContains;
-    private String filterOutboundOutboundVoiceProfileId;
+    private String filterOutboundVoiceProfileId;
     private String sort;
 
     private APIlistConnectionsRequest() {
@@ -130,12 +129,12 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
     }
 
     /**
-     * Set filterOutboundOutboundVoiceProfileId
-     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+     * Set filterOutboundVoiceProfileId
+     * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
      * @return APIlistConnectionsRequest
      */
-    public APIlistConnectionsRequest filterOutboundOutboundVoiceProfileId(String filterOutboundOutboundVoiceProfileId) {
-      this.filterOutboundOutboundVoiceProfileId = filterOutboundOutboundVoiceProfileId;
+    public APIlistConnectionsRequest filterOutboundVoiceProfileId(String filterOutboundVoiceProfileId) {
+      this.filterOutboundVoiceProfileId = filterOutboundVoiceProfileId;
       return this;
     }
 
@@ -159,7 +158,7 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
          <tr><td> 200 </td><td> Successful response with a list of connections. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
        </table>
      
      */
@@ -178,12 +177,12 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
          <tr><td> 200 </td><td> Successful response with a list of connections. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
        </table>
 
      */
     public ApiResponse<ListConnectionsResponse> executeWithHttpInfo() throws ApiException {
-      return listConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterOutboundOutboundVoiceProfileId, sort);
+      return listConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterOutboundVoiceProfileId, sort);
     }
   }
 
@@ -210,8 +209,8 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
        <tr><td> 200 </td><td> Successful response with details about a connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public ConnectionResponse retrieveConnection(String id) throws ApiException {
@@ -230,8 +229,8 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
        <tr><td> 200 </td><td> Successful response with details about a connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ConnectionResponse> retrieveConnectionWithHttpInfo(String id) throws ApiException {

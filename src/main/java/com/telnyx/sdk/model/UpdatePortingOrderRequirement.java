@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,19 +26,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * UpdatePortingOrderRequirement
+ * Specifies a value for a requirement on the Porting Order.
  */
+@ApiModel(description = "Specifies a value for a requirement on the Porting Order.")
 @JsonPropertyOrder({
   UpdatePortingOrderRequirement.JSON_PROPERTY_FIELD_VALUE,
   UpdatePortingOrderRequirement.JSON_PROPERTY_REQUIREMENT_TYPE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class UpdatePortingOrderRequirement {
   public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
   private String fieldValue;
@@ -55,11 +54,11 @@ public class UpdatePortingOrderRequirement {
   }
 
    /**
-   * identifies the document that satisfies this requirement
+   * identifies the document or provides the text value that satisfies this requirement
    * @return fieldValue
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "9787fb5f-cbe5-4de4-b765-3303774ee9fe", required = true, value = "identifies the document that satisfies this requirement")
+  @ApiModelProperty(example = "9787fb5f-cbe5-4de4-b765-3303774ee9fe", required = true, value = "identifies the document or provides the text value that satisfies this requirement")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -81,11 +80,11 @@ public class UpdatePortingOrderRequirement {
   }
 
    /**
-   * Identifies the requirement type that meets this requirement
+   * Identifies the requirement type that the &#x60;field_value&#x60; fulfills
    * @return requirementTypeId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "59b0762a-b274-4f76-ac32-4d5cf0272e66", required = true, value = "Identifies the requirement type that meets this requirement")
+  @ApiModelProperty(example = "59b0762a-b274-4f76-ac32-4d5cf0272e66", required = true, value = "Identifies the requirement type that the `field_value` fulfills")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

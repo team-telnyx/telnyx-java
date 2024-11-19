@@ -12,7 +12,6 @@ import com.telnyx.sdk.model.CreateFqdnConnectionRequest;
 import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.FQDNConnectionResponse;
 import com.telnyx.sdk.model.ListFQDNConnectionsResponse;
-import com.telnyx.sdk.model.ResourceNotFound;
 import com.telnyx.sdk.model.UpdateFqdnConnectionRequest;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class FqdnConnectionsApi {
   private ApiClient apiClient;
 
@@ -61,9 +60,9 @@ public class FqdnConnectionsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public FQDNConnectionResponse createFqdnConnection(CreateFqdnConnectionRequest createFqdnConnectionRequest) throws ApiException {
@@ -81,9 +80,9 @@ public class FqdnConnectionsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<FQDNConnectionResponse> createFqdnConnectionWithHttpInfo(CreateFqdnConnectionRequest createFqdnConnectionRequest) throws ApiException {
@@ -136,9 +135,9 @@ public class FqdnConnectionsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public FQDNConnectionResponse deleteFqdnConnection(String id) throws ApiException {
@@ -156,9 +155,9 @@ public class FqdnConnectionsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<FQDNConnectionResponse> deleteFqdnConnectionWithHttpInfo(String id) throws ApiException {
@@ -202,7 +201,7 @@ public class FqdnConnectionsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterFqdn, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterFqdn, String filterOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -218,7 +217,7 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_name][contains]", filterConnectionNameContains));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[fqdn]", filterFqdn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound.outbound_voice_profile_id]", filterOutboundOutboundVoiceProfileId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound_voice_profile_id]", filterOutboundVoiceProfileId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -248,7 +247,7 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
     private Integer pageSize;
     private String filterConnectionNameContains;
     private String filterFqdn;
-    private String filterOutboundOutboundVoiceProfileId;
+    private String filterOutboundVoiceProfileId;
     private String sort;
 
     private APIlistFqdnConnectionsRequest() {
@@ -295,12 +294,12 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
     }
 
     /**
-     * Set filterOutboundOutboundVoiceProfileId
-     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+     * Set filterOutboundVoiceProfileId
+     * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
      * @return APIlistFqdnConnectionsRequest
      */
-    public APIlistFqdnConnectionsRequest filterOutboundOutboundVoiceProfileId(String filterOutboundOutboundVoiceProfileId) {
-      this.filterOutboundOutboundVoiceProfileId = filterOutboundOutboundVoiceProfileId;
+    public APIlistFqdnConnectionsRequest filterOutboundVoiceProfileId(String filterOutboundVoiceProfileId) {
+      this.filterOutboundVoiceProfileId = filterOutboundVoiceProfileId;
       return this;
     }
 
@@ -324,8 +323,8 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
          <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
        </table>
      
      */
@@ -344,13 +343,13 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
          <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
        </table>
 
      */
     public ApiResponse<ListFQDNConnectionsResponse> executeWithHttpInfo() throws ApiException {
-      return listFqdnConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterFqdn, filterOutboundOutboundVoiceProfileId, sort);
+      return listFqdnConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterFqdn, filterOutboundVoiceProfileId, sort);
     }
   }
 
@@ -376,9 +375,9 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public FQDNConnectionResponse retrieveFqdnConnection(String id) throws ApiException {
@@ -396,9 +395,9 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<FQDNConnectionResponse> retrieveFqdnConnectionWithHttpInfo(String id) throws ApiException {
@@ -453,9 +452,9 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public FQDNConnectionResponse updateFqdnConnection(String id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {
@@ -474,9 +473,9 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<FQDNConnectionResponse> updateFqdnConnectionWithHttpInfo(String id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {

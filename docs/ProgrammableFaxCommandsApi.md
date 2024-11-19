@@ -82,8 +82,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful response upon accepting cancel fax command |  -  |
-| **404** | Resource not found |  -  |
-| **422** | Unprocessable entity |  -  |
+| **404** | The requested resource doesn&#39;t exist. |  -  |
+| **422** | The request was well-formed but was unable to be followed due to semantic errors. |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Refresh fax response |  -  |
-| **404** | Resource not found |  -  |
+| **404** | The requested resource doesn&#39;t exist. |  -  |
 | **0** | Unexpected error |  -  |
 
 

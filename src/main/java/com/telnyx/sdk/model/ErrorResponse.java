@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -24,12 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ErrorResponseErrorsInner;
+import com.telnyx.sdk.model.Error;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,20 +38,20 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   ErrorResponse.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ErrorResponse {
   public static final String JSON_PROPERTY_ERRORS = "errors";
-  private List<ErrorResponseErrorsInner> errors = null;
+  private List<Error> errors = null;
 
   public ErrorResponse() { 
   }
 
-  public ErrorResponse errors(List<ErrorResponseErrorsInner> errors) {
+  public ErrorResponse errors(List<Error> errors) {
     this.errors = errors;
     return this;
   }
 
-  public ErrorResponse addErrorsItem(ErrorResponseErrorsInner errorsItem) {
+  public ErrorResponse adderrorsItem(Error errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }
@@ -70,14 +68,14 @@ public class ErrorResponse {
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<ErrorResponseErrorsInner> getErrors() {
+  public List<Error> getErrors() {
     return errors;
   }
 
 
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setErrors(List<ErrorResponseErrorsInner> errors) {
+  public void setErrors(List<Error> errors) {
     this.errors = errors;
   }
 

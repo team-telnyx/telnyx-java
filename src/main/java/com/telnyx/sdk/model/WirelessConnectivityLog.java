@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -56,7 +54,7 @@ import com.telnyx.sdk.JSON;
   WirelessConnectivityLog.JSON_PROPERTY_STATE,
   WirelessConnectivityLog.JSON_PROPERTY_CELL_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class WirelessConnectivityLog {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -71,9 +69,9 @@ public class WirelessConnectivityLog {
    * The type of the session, &#39;registration&#39; being the initial authentication session and &#39;data&#39; the actual data transfer sessions.
    */
   public enum LogTypeEnum {
-    REGISTRATION("registration"),
+    REGISTRATION(String.valueOf("registration")),
     
-    DATA("data");
+    DATA(String.valueOf("data"));
 
     private String value;
 

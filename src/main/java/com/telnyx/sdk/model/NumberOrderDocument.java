@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   NumberOrderDocument.JSON_PROPERTY_REQUIREMENT_TYPE,
   NumberOrderDocument.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class NumberOrderDocument {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -65,11 +63,11 @@ public class NumberOrderDocument {
    * Gets or Sets requirementType
    */
   public enum RequirementTypeEnum {
-    ADDRESS_PROOF("address_proof"),
+    ADDRESS_PROOF(String.valueOf("address_proof")),
     
-    IDENTIFICATION("identification"),
+    IDENTIFICATION(String.valueOf("identification")),
     
-    REG_FORM("reg_form");
+    REG_FORM(String.valueOf("reg_form"));
 
     private String value;
 

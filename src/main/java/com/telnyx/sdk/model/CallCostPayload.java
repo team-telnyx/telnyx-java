@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   CallCostPayload.JSON_PROPERTY_TOTAL_COST,
   CallCostPayload.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CallCostPayload {
   public static final String JSON_PROPERTY_BILLED_DURATION_SECS = "billed_duration_secs";
   private Integer billedDurationSecs;
@@ -79,15 +77,15 @@ public class CallCostPayload {
    * Reflects how command ended.
    */
   public enum StatusEnum {
-    VALID("valid"),
+    VALID(String.valueOf("valid")),
     
-    INVALID("invalid"),
+    INVALID(String.valueOf("invalid")),
     
-    CALL_HANGUP("call_hangup"),
+    CALL_HANGUP(String.valueOf("call_hangup")),
     
-    CANCELLED("cancelled"),
+    CANCELLED(String.valueOf("cancelled")),
     
-    CANCELLED_AMD("cancelled_amd");
+    CANCELLED_AMD(String.valueOf("cancelled_amd"));
 
     private String value;
 
@@ -284,7 +282,7 @@ public class CallCostPayload {
     return this;
   }
 
-  public CallCostPayload addCostPartsItem(CallCostPayloadCostPartsInner costPartsItem) {
+  public CallCostPayload addcostPartsItem(CallCostPayloadCostPartsInner costPartsItem) {
     if (this.costParts == null) {
       this.costParts = new ArrayList<>();
     }

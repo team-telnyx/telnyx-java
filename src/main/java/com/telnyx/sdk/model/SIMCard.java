@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -31,8 +31,6 @@ import com.telnyx.sdk.model.SIMCardStatus;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -65,7 +63,7 @@ import com.telnyx.sdk.JSON;
   SIMCard.JSON_PROPERTY_CURRENT_MCC,
   SIMCard.JSON_PROPERTY_LIVE_DATA_SESSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class SIMCard {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -80,9 +78,9 @@ public class SIMCard {
    * The type of SIM card
    */
   public enum TypeEnum {
-    PHYSICAL("physical"),
+    PHYSICAL(String.valueOf("physical")),
     
-    ESIM("esim");
+    ESIM(String.valueOf("esim"));
 
     private String value;
 
@@ -169,11 +167,11 @@ public class SIMCard {
    * Indicates whether the device is actively connected to a network and able to run data.
    */
   public enum LiveDataSessionEnum {
-    CONNECTED("connected"),
+    CONNECTED(String.valueOf("connected")),
     
-    DISCONNECTED("disconnected"),
+    DISCONNECTED(String.valueOf("disconnected")),
     
-    UNKNOWN("unknown");
+    UNKNOWN(String.valueOf("unknown"));
 
     private String value;
 
@@ -397,7 +395,7 @@ public class SIMCard {
     return this;
   }
 
-  public SIMCard addTagsItem(String tagsItem) {
+  public SIMCard addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -431,7 +429,7 @@ public class SIMCard {
     return this;
   }
 
-  public SIMCard addAuthorizedImeisItem(String authorizedImeisItem) {
+  public SIMCard addauthorizedImeisItem(String authorizedImeisItem) {
     if (this.authorizedImeis == null) {
       this.authorizedImeis = new ArrayList<>();
     }

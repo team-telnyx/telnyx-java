@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,20 +26,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * PortingOrderDocuments
+ * Can be specified directly or via the &#x60;requirement_group_id&#x60; parameter.
  */
+@ApiModel(description = "Can be specified directly or via the `requirement_group_id` parameter.")
 @JsonPropertyOrder({
   PortingOrderDocuments.JSON_PROPERTY_LOA,
   PortingOrderDocuments.JSON_PROPERTY_INVOICE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PortingOrderDocuments {
   public static final String JSON_PROPERTY_LOA = "loa";
   private UUID loa;

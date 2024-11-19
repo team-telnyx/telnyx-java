@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class MdrUsageReportsApi {
   private ApiClient apiClient;
 
@@ -203,8 +203,8 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public MdrGetSyncUsageReportResponse getUsageReportSync(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
-    return getUsageReportSyncWithHttpInfo(aggregationType, startDate, endDate, profiles).getData();
+  public MdrGetSyncUsageReportResponse getUsageReportSyncMdr(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
+    return getUsageReportSyncMdrWithHttpInfo(aggregationType, startDate, endDate, profiles).getData();
   }
 
   /**
@@ -222,12 +222,12 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MdrGetSyncUsageReportResponse> getUsageReportSyncWithHttpInfo(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
+  public ApiResponse<MdrGetSyncUsageReportResponse> getUsageReportSyncMdrWithHttpInfo(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'aggregationType' is set
     if (aggregationType == null) {
-      throw new ApiException(400, "Missing the required parameter 'aggregationType' when calling getUsageReportSync");
+      throw new ApiException(400, "Missing the required parameter 'aggregationType' when calling getUsageReportSyncMdr");
     }
     
     // create path and map variables
@@ -261,7 +261,7 @@ public class MdrUsageReportsApi {
 
     GenericType<MdrGetSyncUsageReportResponse> localVarReturnType = new GenericType<MdrGetSyncUsageReportResponse>() {};
 
-    return apiClient.invokeAPI("MdrUsageReportsApi.getUsageReportSync", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("MdrUsageReportsApi.getUsageReportSyncMdr", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

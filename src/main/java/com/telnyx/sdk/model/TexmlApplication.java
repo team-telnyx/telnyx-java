@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -30,8 +30,6 @@ import com.telnyx.sdk.model.CreateTexmlApplicationRequestOutbound;
 import com.telnyx.sdk.model.DtmfType;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -57,7 +55,7 @@ import com.telnyx.sdk.JSON;
   TexmlApplication.JSON_PROPERTY_CREATED_AT,
   TexmlApplication.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class TexmlApplication {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -93,9 +91,9 @@ public class TexmlApplication {
    * HTTP request method Telnyx will use to interact with your XML Translator webhooks. Either &#39;get&#39; or &#39;post&#39;.
    */
   public enum VoiceMethodEnum {
-    GET("get"),
+    GET(String.valueOf("get")),
     
-    POST("post");
+    POST(String.valueOf("post"));
 
     private String value;
 
@@ -134,9 +132,9 @@ public class TexmlApplication {
    * HTTP request method Telnyx should use when requesting the status_callback URL.
    */
   public enum StatusCallbackMethodEnum {
-    GET("get"),
+    GET(String.valueOf("get")),
     
-    POST("post");
+    POST(String.valueOf("post"));
 
     private String value;
 
@@ -185,22 +183,25 @@ public class TexmlApplication {
 
   @JsonCreator
   public TexmlApplication(
-    @JsonProperty(JSON_PROPERTY_ID) String id, 
     @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
   ) {
     this();
-    this.id = id;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
 
+  public TexmlApplication id(String id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Uniquely identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -209,6 +210,11 @@ public class TexmlApplication {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(String id) {
+    this.id = id;
+  }
 
 
   public TexmlApplication recordType(String recordType) {

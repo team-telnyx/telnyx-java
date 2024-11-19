@@ -82,6 +82,7 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | Success |  -  |
+| **401** | Unauthorized |  -  |
 
 
 ## deleteObjects
@@ -156,6 +157,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
+| **401** | Unauthorized |  -  |
 
 
 ## getObject
@@ -456,4 +458,5 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
+| **401** | Unauthorized |  -  |
 

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -25,10 +25,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.DialogflowConfig;
+import com.telnyx.sdk.model.StreamBidirectionalCodec;
+import com.telnyx.sdk.model.StreamBidirectionalMode;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,12 +38,14 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   StartStreamingRequest.JSON_PROPERTY_STREAM_URL,
   StartStreamingRequest.JSON_PROPERTY_STREAM_TRACK,
+  StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE,
+  StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC,
   StartStreamingRequest.JSON_PROPERTY_ENABLE_DIALOGFLOW,
   StartStreamingRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG,
   StartStreamingRequest.JSON_PROPERTY_CLIENT_STATE,
   StartStreamingRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class StartStreamingRequest {
   public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
   private String streamUrl;
@@ -52,11 +54,11 @@ public class StartStreamingRequest {
    * Specifies which track should be streamed.
    */
   public enum StreamTrackEnum {
-    INBOUND_TRACK("inbound_track"),
+    INBOUND_TRACK(String.valueOf("inbound_track")),
     
-    OUTBOUND_TRACK("outbound_track"),
+    OUTBOUND_TRACK(String.valueOf("outbound_track")),
     
-    BOTH_TRACKS("both_tracks");
+    BOTH_TRACKS(String.valueOf("both_tracks"));
 
     private String value;
 
@@ -87,6 +89,12 @@ public class StartStreamingRequest {
 
   public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
   private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
+
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE = "stream_bidirectional_mode";
+  private StreamBidirectionalMode streamBidirectionalMode = StreamBidirectionalMode.MP3;
+
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC = "stream_bidirectional_codec";
+  private StreamBidirectionalCodec streamBidirectionalCodec = StreamBidirectionalCodec.PCMU;
 
   public static final String JSON_PROPERTY_ENABLE_DIALOGFLOW = "enable_dialogflow";
   private Boolean enableDialogflow = false;
@@ -152,6 +160,58 @@ public class StartStreamingRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStreamTrack(StreamTrackEnum streamTrack) {
     this.streamTrack = streamTrack;
+  }
+
+
+  public StartStreamingRequest streamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
+    this.streamBidirectionalMode = streamBidirectionalMode;
+    return this;
+  }
+
+   /**
+   * Get streamBidirectionalMode
+   * @return streamBidirectionalMode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamBidirectionalMode getStreamBidirectionalMode() {
+    return streamBidirectionalMode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
+    this.streamBidirectionalMode = streamBidirectionalMode;
+  }
+
+
+  public StartStreamingRequest streamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
+    this.streamBidirectionalCodec = streamBidirectionalCodec;
+    return this;
+  }
+
+   /**
+   * Get streamBidirectionalCodec
+   * @return streamBidirectionalCodec
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamBidirectionalCodec getStreamBidirectionalCodec() {
+    return streamBidirectionalCodec;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
+    this.streamBidirectionalCodec = streamBidirectionalCodec;
   }
 
 
@@ -273,6 +333,8 @@ public class StartStreamingRequest {
     StartStreamingRequest startStreamingRequest = (StartStreamingRequest) o;
     return Objects.equals(this.streamUrl, startStreamingRequest.streamUrl) &&
         Objects.equals(this.streamTrack, startStreamingRequest.streamTrack) &&
+        Objects.equals(this.streamBidirectionalMode, startStreamingRequest.streamBidirectionalMode) &&
+        Objects.equals(this.streamBidirectionalCodec, startStreamingRequest.streamBidirectionalCodec) &&
         Objects.equals(this.enableDialogflow, startStreamingRequest.enableDialogflow) &&
         Objects.equals(this.dialogflowConfig, startStreamingRequest.dialogflowConfig) &&
         Objects.equals(this.clientState, startStreamingRequest.clientState) &&
@@ -281,7 +343,7 @@ public class StartStreamingRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(streamUrl, streamTrack, enableDialogflow, dialogflowConfig, clientState, commandId);
+    return Objects.hash(streamUrl, streamTrack, streamBidirectionalMode, streamBidirectionalCodec, enableDialogflow, dialogflowConfig, clientState, commandId);
   }
 
   @Override
@@ -290,6 +352,8 @@ public class StartStreamingRequest {
     sb.append("class StartStreamingRequest {\n");
     sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
     sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
+    sb.append("    streamBidirectionalMode: ").append(toIndentedString(streamBidirectionalMode)).append("\n");
+    sb.append("    streamBidirectionalCodec: ").append(toIndentedString(streamBidirectionalCodec)).append("\n");
     sb.append("    enableDialogflow: ").append(toIndentedString(enableDialogflow)).append("\n");
     sb.append("    dialogflowConfig: ").append(toIndentedString(dialogflowConfig)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -51,7 +49,7 @@ import com.telnyx.sdk.JSON;
   VerifyDetailRecord.JSON_PROPERTY_CURRENCY,
   VerifyDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class VerifyDetailRecord {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -72,15 +70,15 @@ public class VerifyDetailRecord {
    * Depending on the type of verification, the &#x60;verify_channel_id&#x60; points to one of the following channel ids; --- verify_channel_type | verify_channel_id ------------------- | ----------------- sms, psd2           | messaging_id call, flashcall     | call_control_id whatsapp            | messaging_whatsapp_id --- 
    */
   public enum VerifyChannelTypeEnum {
-    SMS("sms"),
+    SMS(String.valueOf("sms")),
     
-    PSD2("psd2"),
+    PSD2(String.valueOf("psd2")),
     
-    CALL("call"),
+    CALL(String.valueOf("call")),
     
-    FLASHCALL("flashcall"),
+    FLASHCALL(String.valueOf("flashcall")),
     
-    WHATSAPP("whatsapp");
+    WHATSAPP(String.valueOf("whatsapp"));
 
     private String value;
 

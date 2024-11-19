@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -24,12 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.NewTool;
+import com.telnyx.sdk.model.ToolsInner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CreateAssistantRequest.JSON_PROPERTY_INSTRUCTIONS,
   CreateAssistantRequest.JSON_PROPERTY_TOOLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateAssistantRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -59,7 +57,7 @@ public class CreateAssistantRequest {
   private String instructions;
 
   public static final String JSON_PROPERTY_TOOLS = "tools";
-  private List<NewTool> tools = null;
+  private List<ToolsInner> tools = null;
 
   public CreateAssistantRequest() { 
   }
@@ -168,36 +166,36 @@ public class CreateAssistantRequest {
   }
 
 
-  public CreateAssistantRequest tools(List<NewTool> tools) {
+  public CreateAssistantRequest tools(List<ToolsInner> tools) {
     this.tools = tools;
     return this;
   }
 
-  public CreateAssistantRequest addToolsItem(NewTool toolsItem) {
+  public CreateAssistantRequest addtoolsItem(ToolsInner toolsItem) {
     if (this.tools == null) {
-      this.tools = new ArrayList<>(Arrays.asList());
+      this.tools = new ArrayList<>();
     }
     this.tools.add(toolsItem);
     return this;
   }
 
    /**
-   * Get tools
+   * The &#x60;function&#x60; tool type follows the same schema as the [OpenAI Assistants API](https://platform.openai.com/docs/api-reference/assistants/createAssistant). The &#x60;retrieval&#x60; tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.
    * @return tools
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The `function` tool type follows the same schema as the [OpenAI Assistants API](https://platform.openai.com/docs/api-reference/assistants/createAssistant). The `retrieval` tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.")
   @JsonProperty(JSON_PROPERTY_TOOLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<NewTool> getTools() {
+  public List<ToolsInner> getTools() {
     return tools;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TOOLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTools(List<NewTool> tools) {
+  public void setTools(List<ToolsInner> tools) {
     this.tools = tools;
   }
 

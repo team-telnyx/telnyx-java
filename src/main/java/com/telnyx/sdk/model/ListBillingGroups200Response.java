@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.BillingGroup;
 import com.telnyx.sdk.model.PaginationMeta;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -41,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListBillingGroups200Response.JSON_PROPERTY_DATA,
   ListBillingGroups200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ListBillingGroups200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<BillingGroup> data = null;
@@ -57,7 +56,7 @@ public class ListBillingGroups200Response {
     return this;
   }
 
-  public ListBillingGroups200Response addDataItem(BillingGroup dataItem) {
+  public ListBillingGroups200Response adddataItem(BillingGroup dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -113,7 +112,7 @@ public class ListBillingGroups200Response {
 
 
   /**
-   * Return true if this listBillingGroups_200_response object is equal to o.
+   * Return true if this ListBillingGroups_200_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

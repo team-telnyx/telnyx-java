@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -62,7 +60,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDeletedDetailed.JSON_PROPERTY_NUMBER_LEVEL_ROUTING,
   PhoneNumberDeletedDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PhoneNumberDeletedDetailed {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -77,23 +75,23 @@ public class PhoneNumberDeletedDetailed {
    * The phone number&#39;s current status.
    */
   public enum StatusEnum {
-    PURCHASE_PENDING("purchase-pending"),
+    PURCHASE_PENDING(String.valueOf("purchase-pending")),
     
-    PURCHASE_FAILED("purchase-failed"),
+    PURCHASE_FAILED(String.valueOf("purchase-failed")),
     
-    PORT_PENDING("port-pending"),
+    PORT_PENDING(String.valueOf("port-pending")),
     
-    PORT_FAILED("port-failed"),
+    PORT_FAILED(String.valueOf("port-failed")),
     
-    ACTIVE("active"),
+    ACTIVE(String.valueOf("active")),
     
-    DELETED("deleted"),
+    DELETED(String.valueOf("deleted")),
     
-    EMERGENCY_ONLY("emergency-only"),
+    EMERGENCY_ONLY(String.valueOf("emergency-only")),
     
-    PORTED_OUT("ported-out"),
+    PORTED_OUT(String.valueOf("ported-out")),
     
-    PORT_OUT_PENDING("port-out-pending");
+    PORT_OUT_PENDING(String.valueOf("port-out-pending"));
 
     private String value;
 
@@ -183,7 +181,7 @@ public class PhoneNumberDeletedDetailed {
    * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
    */
   public enum NumberLevelRoutingEnum {
-    DISABLED("disabled");
+    DISABLED(String.valueOf("disabled"));
 
     private String value;
 
@@ -219,17 +217,17 @@ public class PhoneNumberDeletedDetailed {
    * The phone number&#39;s type.
    */
   public enum PhoneNumberTypeEnum {
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    TOLL_FREE("toll_free"),
+    TOLL_FREE(String.valueOf("toll_free")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SHARED_COST("shared_cost"),
+    SHARED_COST(String.valueOf("shared_cost")),
     
-    LANDLINE("landline");
+    LANDLINE(String.valueOf("landline"));
 
     private String value;
 
@@ -266,7 +264,6 @@ public class PhoneNumberDeletedDetailed {
 
   @JsonCreator
   public PhoneNumberDeletedDetailed(
-    @JsonProperty(JSON_PROPERTY_ID) String id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
     @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
@@ -284,7 +281,6 @@ public class PhoneNumberDeletedDetailed {
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType
   ) {
     this();
-    this.id = id;
     this.recordType = recordType;
     this.phoneNumber = phoneNumber;
     this.status = status;
@@ -302,12 +298,17 @@ public class PhoneNumberDeletedDetailed {
     this.phoneNumberType = phoneNumberType;
   }
 
+  public PhoneNumberDeletedDetailed id(String id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Uniquely identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -316,6 +317,11 @@ public class PhoneNumberDeletedDetailed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(String id) {
+    this.id = id;
+  }
 
 
    /**
@@ -371,7 +377,7 @@ public class PhoneNumberDeletedDetailed {
     return this;
   }
 
-  public PhoneNumberDeletedDetailed addTagsItem(String tagsItem) {
+  public PhoneNumberDeletedDetailed addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }

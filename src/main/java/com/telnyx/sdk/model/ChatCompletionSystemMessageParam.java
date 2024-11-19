@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -35,25 +33,22 @@ import com.telnyx.sdk.JSON;
  * ChatCompletionSystemMessageParam
  */
 @JsonPropertyOrder({
-  ChatCompletionSystemMessageParam.JSON_PROPERTY_CONTENT,
   ChatCompletionSystemMessageParam.JSON_PROPERTY_ROLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ChatCompletionSystemMessageParam {
-  public static final String JSON_PROPERTY_CONTENT = "content";
-  private String content;
 
   /**
    * Gets or Sets role
    */
   public enum RoleEnum {
-    SYSTEM("system"),
+    SYSTEM(String.valueOf("system")),
     
-    USER("user"),
+    USER(String.valueOf("user")),
     
-    ASSISTANT("assistant"),
+    ASSISTANT(String.valueOf("assistant")),
     
-    TOOL("tool");
+    TOOL(String.valueOf("tool"));
 
     private String value;
 
@@ -88,31 +83,6 @@ public class ChatCompletionSystemMessageParam {
   public ChatCompletionSystemMessageParam() { 
   }
 
-  public ChatCompletionSystemMessageParam content(String content) {
-    this.content = content;
-    return this;
-  }
-
-   /**
-   * Get content
-   * @return content
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_CONTENT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getContent() {
-    return content;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONTENT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setContent(String content) {
-    this.content = content;
-  }
-
 
   public ChatCompletionSystemMessageParam role(RoleEnum role) {
     this.role = role;
@@ -137,38 +107,6 @@ public class ChatCompletionSystemMessageParam {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRole(RoleEnum role) {
     this.role = role;
-  }
-
-
-  /**
-   * Return true if this ChatCompletionSystemMessageParam object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ChatCompletionSystemMessageParam chatCompletionSystemMessageParam = (ChatCompletionSystemMessageParam) o;
-    return Objects.equals(this.content, chatCompletionSystemMessageParam.content) &&
-        Objects.equals(this.role, chatCompletionSystemMessageParam.role);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(content, role);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ChatCompletionSystemMessageParam {\n");
-    sb.append("    content: ").append(toIndentedString(content)).append("\n");
-    sb.append("    role: ").append(toIndentedString(role)).append("\n");
-    sb.append("}");
-    return sb.toString();
   }
 
   /**

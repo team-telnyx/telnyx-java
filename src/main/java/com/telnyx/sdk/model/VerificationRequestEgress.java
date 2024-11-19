@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -32,8 +32,6 @@ import com.telnyx.sdk.model.Volume;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -69,7 +67,7 @@ import com.telnyx.sdk.JSON;
   VerificationRequestEgress.JSON_PROPERTY_VERIFICATION_REQUEST_ID,
   VerificationRequestEgress.JSON_PROPERTY_VERIFICATION_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class VerificationRequestEgress {
   public static final String JSON_PROPERTY_BUSINESS_NAME = "businessName";
   private String businessName;
@@ -463,7 +461,7 @@ public class VerificationRequestEgress {
     return this;
   }
 
-  public VerificationRequestEgress addPhoneNumbersItem(TFPhoneNumber phoneNumbersItem) {
+  public VerificationRequestEgress addphoneNumbersItem(TFPhoneNumber phoneNumbersItem) {
     this.phoneNumbers.add(phoneNumbersItem);
     return this;
   }
@@ -598,7 +596,7 @@ public class VerificationRequestEgress {
     return this;
   }
 
-  public VerificationRequestEgress addOptInWorkflowImageURLsItem(Url optInWorkflowImageURLsItem) {
+  public VerificationRequestEgress addoptInWorkflowImageURLsItem(Url optInWorkflowImageURLsItem) {
     this.optInWorkflowImageURLs.add(optInWorkflowImageURLsItem);
     return this;
   }

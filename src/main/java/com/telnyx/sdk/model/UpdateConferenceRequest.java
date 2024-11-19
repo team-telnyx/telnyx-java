@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,7 +37,7 @@ import com.telnyx.sdk.JSON;
   UpdateConferenceRequest.JSON_PROPERTY_ANNOUNCE_URL,
   UpdateConferenceRequest.JSON_PROPERTY_ANNOUNCE_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class UpdateConferenceRequest {
   public static final String JSON_PROPERTY_STATUS = "Status";
   private String status;
@@ -51,9 +49,9 @@ public class UpdateConferenceRequest {
    * The HTTP method used to call the &#x60;AnnounceUrl&#x60;. Defaults to &#x60;POST&#x60;.
    */
   public enum AnnounceMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -120,11 +118,11 @@ public class UpdateConferenceRequest {
   }
 
    /**
-   * The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &lt;Play&gt;, &lt;Say&gt;, &lt;Pause&gt;, or &lt;Redirect&gt; verbs.
+   * The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60;, &#x60;&lt;Pause&gt;&#x60;, or &#x60;&lt;Redirect&gt;&#x60; verbs.
    * @return announceUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.example.com/announce.xml", value = "The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains <Play>, <Say>, <Pause>, or <Redirect> verbs.")
+  @ApiModelProperty(example = "https://www.example.com/announce.xml", value = "The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.")
   @JsonProperty(JSON_PROPERTY_ANNOUNCE_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

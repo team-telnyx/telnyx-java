@@ -20,6 +20,7 @@
 |**lsr** | **List&lt;URI&gt;** | The Local Service Request |  [optional] |
 |**pon** | **String** | Port order number assigned by the carrier the number will be ported out to |  [optional] |
 |**reason** | **String** | The reason why the order is being rejected by the user. If the order is authorized, this field can be left null |  [optional] |
+|**rejectionCode** | **Integer** | The rejection code for one of the valid rejections to reject a port out order |  [optional] |
 |**serviceAddress** | **String** | First line of billing address (street address) |  [optional] |
 |**focDate** | **String** | ISO 8601 formatted Date/Time of the FOC date |  [optional] |
 |**requestedFocDate** | **String** | ISO 8601 formatted Date/Time of the user requested FOC date |  [optional] |

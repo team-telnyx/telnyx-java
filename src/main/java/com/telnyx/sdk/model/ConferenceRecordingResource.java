@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -51,7 +49,7 @@ import com.telnyx.sdk.JSON;
   ConferenceRecordingResource.JSON_PROPERTY_SUBRESOURCE_URIS,
   ConferenceRecordingResource.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ConferenceRecordingResource {
   public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
   private String accountSid;
@@ -87,19 +85,19 @@ public class ConferenceRecordingResource {
    * How the recording was started.
    */
   public enum SourceEnum {
-    DIALVERB("DialVerb"),
+    DIAL_VERB(String.valueOf("DialVerb")),
     
-    CONFERENCE("Conference"),
+    CONFERENCE(String.valueOf("Conference")),
     
-    OUTBOUNDAPI("OutboundAPI"),
+    OUTBOUND_API(String.valueOf("OutboundAPI")),
     
-    TRUNKING("Trunking"),
+    TRUNKING(String.valueOf("Trunking")),
     
-    RECORDVERB("RecordVerb"),
+    RECORD_VERB(String.valueOf("RecordVerb")),
     
-    STARTCALLRECORDINGAPI("StartCallRecordingAPI"),
+    START_CALL_RECORDING_API(String.valueOf("StartCallRecordingAPI")),
     
-    STARTCONFERENCERECORDINGAPI("StartConferenceRecordingAPI");
+    START_CONFERENCE_RECORDING_API(String.valueOf("StartConferenceRecordingAPI"));
 
     private String value;
 
@@ -138,13 +136,13 @@ public class ConferenceRecordingResource {
    * The status of the recording.
    */
   public enum StatusEnum {
-    PROCESSING("processing"),
+    PROCESSING(String.valueOf("processing")),
     
-    ABSENT("absent"),
+    ABSENT(String.valueOf("absent")),
     
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    DELETED("deleted");
+    DELETED(String.valueOf("deleted"));
 
     private String value;
 

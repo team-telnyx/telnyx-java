@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** | Identifies the resource. |  [optional] [readonly] |
+|**id** | **String** | Uniquely identifies the resource. |  [optional] |
 |**recordType** | **String** | Identifies the type of the resource. |  [optional] |
 |**applicationName** | **String** | A user-assigned name to help manage the application. |  [optional] |
 |**active** | **Boolean** | Specifies whether the connection can be used. |  [optional] |

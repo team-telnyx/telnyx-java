@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -32,9 +32,6 @@ import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -67,7 +64,7 @@ import com.telnyx.sdk.JSON;
   UpdateCredentialConnectionRequest.JSON_PROPERTY_INBOUND,
   UpdateCredentialConnectionRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class UpdateCredentialConnectionRequest {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active;
@@ -88,11 +85,11 @@ public class UpdateCredentialConnectionRequest {
    * This feature enables inbound SIP URI calls to your Credential Auth Connection. If enabled for all (unrestricted) then anyone who calls the SIP URI &lt;your-username&gt;@telnyx.com will be connected to your Connection. You can also choose to allow only calls that are originated on any Connections under your account (internal).
    */
   public enum SipUriCallingPreferenceEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    UNRESTRICTED("unrestricted"),
+    UNRESTRICTED(String.valueOf("unrestricted")),
     
-    INTERNAL("internal");
+    INTERNAL(String.valueOf("internal"));
 
     private String value;
 
@@ -155,9 +152,9 @@ public class UpdateCredentialConnectionRequest {
    * Determines which webhook format will be used, Telnyx API v1 or v2.
    */
   public enum WebhookApiVersionEnum {
-    _1("1"),
+    _1(String.valueOf("1")),
     
-    _2("2");
+    _2(String.valueOf("2"));
 
     private String value;
 

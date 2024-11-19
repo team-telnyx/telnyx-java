@@ -996,7 +996,7 @@ Name | Type | Description  | Notes
 
 ## listExternalConnectionPhoneNumbers
 
-> ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterCivicAddressIdEq, filterLocationIdEq)
+> ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterPhoneNumbersContains, filterCivicAddressIdEq, filterLocationIdEq)
 
 List all phone numbers
 
@@ -1028,11 +1028,12 @@ public class Example {
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         String filterPhoneNumberEq = "+1234567890"; // String | The phone number to filter by
-        String filterPhoneNumberContains = "+15555555555"; // String | If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format.
+        String filterPhoneNumberContains = "+123"; // String | The partial phone number to filter by. Requires 3-15 digits.
+        String filterPhoneNumbersContains = "+15555555555"; // String | If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format.
         UUID filterCivicAddressIdEq = UUID.fromString("67ea7693-9cd5-4a68-8c76-abb3aa5bf5d2"); // UUID | The civic address ID to filter by
         UUID filterLocationIdEq = UUID.fromString("52545f6f-9cd5-4a68-8c76-abb3aa5bf5d2"); // UUID | The location ID to filter by
         try {
-            ListExternalConnectionPhoneNumbersResponse result = apiInstance.listExternalConnectionPhoneNumbers(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterCivicAddressIdEq, filterLocationIdEq);
+            ListExternalConnectionPhoneNumbersResponse result = apiInstance.listExternalConnectionPhoneNumbers(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterPhoneNumbersContains, filterCivicAddressIdEq, filterLocationIdEq);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExternalConnectionsApi#listExternalConnectionPhoneNumbers");
@@ -1054,7 +1055,8 @@ Name | Type | Description  | Notes
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **filterPhoneNumberEq** | **String**| The phone number to filter by | [optional]
- **filterPhoneNumberContains** | **String**| If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. | [optional]
+ **filterPhoneNumberContains** | **String**| The partial phone number to filter by. Requires 3-15 digits. | [optional]
+ **filterPhoneNumbersContains** | **String**| If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. | [optional]
  **filterCivicAddressIdEq** | **UUID**| The civic address ID to filter by | [optional]
  **filterLocationIdEq** | **UUID**| The location ID to filter by | [optional]
 
@@ -1258,7 +1260,7 @@ Name | Type | Description  | Notes
 
 ## listExternalConnections
 
-> GetAllExternalConnectionsResponse listExternalConnections(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumberContains)
+> GetAllExternalConnectionsResponse listExternalConnections(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumbersContains)
 
 List all External Connections
 
@@ -1291,9 +1293,9 @@ public class Example {
         String filterExternalSipConnection = "zoom"; // String | If present, connections with <code>external_sip_connection</code> matching the given value will be returned.
         String filterId = "1930241863466354012"; // String | If present, connections with <code>id</code> matching the given value will be returned.
         String filterCreatedAt = "2018-02-02T22:25:27.521Z"; // String | Filter by ISO 8601 formatted date-time string matching resource creation date-time.
-        String filterPhoneNumberContains = "+15555555555"; // String | If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format.
+        String filterPhoneNumbersContains = "+15555555555"; // String | If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format.
         try {
-            GetAllExternalConnectionsResponse result = apiInstance.listExternalConnections(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumberContains);
+            GetAllExternalConnectionsResponse result = apiInstance.listExternalConnections(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumbersContains);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExternalConnectionsApi#listExternalConnections");
@@ -1317,7 +1319,7 @@ Name | Type | Description  | Notes
  **filterExternalSipConnection** | **String**| If present, connections with &lt;code&gt;external_sip_connection&lt;/code&gt; matching the given value will be returned. | [optional] [enum: zoom, operator_connect]
  **filterId** | **String**| If present, connections with &lt;code&gt;id&lt;/code&gt; matching the given value will be returned. | [optional]
  **filterCreatedAt** | **String**| Filter by ISO 8601 formatted date-time string matching resource creation date-time. | [optional]
- **filterPhoneNumberContains** | **String**| If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. | [optional]
+ **filterPhoneNumbersContains** | **String**| If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. | [optional]
 
 ### Return type
 

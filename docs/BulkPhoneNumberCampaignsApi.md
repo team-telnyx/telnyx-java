@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## getPhoneNumberStatus
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## postAssignMessagingProfileToCampaign
@@ -224,5 +224,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **0** | Unexpected error |  -  |
 

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.MobileNetworkOperatorPreferencesResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CompleteOTAUpdateSettings.JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CompleteOTAUpdateSettings {
   public static final String JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES = "mobile_network_operators_preferences";
   private List<MobileNetworkOperatorPreferencesResponse> mobileNetworkOperatorsPreferences = null;
@@ -54,7 +52,7 @@ public class CompleteOTAUpdateSettings {
     return this;
   }
 
-  public CompleteOTAUpdateSettings addMobileNetworkOperatorsPreferencesItem(MobileNetworkOperatorPreferencesResponse mobileNetworkOperatorsPreferencesItem) {
+  public CompleteOTAUpdateSettings addmobileNetworkOperatorsPreferencesItem(MobileNetworkOperatorPreferencesResponse mobileNetworkOperatorsPreferencesItem) {
     if (this.mobileNetworkOperatorsPreferences == null) {
       this.mobileNetworkOperatorsPreferences = new ArrayList<>();
     }

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -25,9 +25,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -48,10 +50,10 @@ import com.telnyx.sdk.JSON;
   OutboundIp.JSON_PROPERTY_IP_AUTHENTICATION_TOKEN,
   OutboundIp.JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class OutboundIp {
   public static final String JSON_PROPERTY_CALL_PARKING_ENABLED = "call_parking_enabled";
-  private Boolean callParkingEnabled = false;
+  private JsonNullable<Boolean> callParkingEnabled = JsonNullable.<Boolean>of(false);
 
   public static final String JSON_PROPERTY_ANI_OVERRIDE = "ani_override";
   private String aniOverride = "";
@@ -60,11 +62,11 @@ public class OutboundIp {
    * Specifies when we apply your ani_override setting. Only applies when ani_override is not blank.
    */
   public enum AniOverrideTypeEnum {
-    ALWAYS("always"),
+    ALWAYS(String.valueOf("always")),
     
-    NORMAL("normal"),
+    NORMAL(String.valueOf("normal")),
     
-    EMERGENCY("emergency");
+    EMERGENCY(String.valueOf("emergency"));
 
     private String value;
 
@@ -112,17 +114,17 @@ public class OutboundIp {
    * This setting only affects connections with Fax-type Outbound Voice Profiles. The setting dictates whether or not Telnyx sends a t.38 reinvite.&lt;br/&gt;&lt;br/&gt; By default, Telnyx will send the re-invite. If set to &#x60;customer&#x60;, the caller is expected to send the t.38 reinvite.
    */
   public enum T38ReinviteSourceEnum {
-    TELNYX("telnyx"),
+    TELNYX(String.valueOf("telnyx")),
     
-    CUSTOMER("customer"),
+    CUSTOMER(String.valueOf("customer")),
     
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    PASSTHRU("passthru"),
+    PASSTHRU(String.valueOf("passthru")),
     
-    CALLER_PASSTHRU("caller-passthru"),
+    CALLER_PASSTHRU(String.valueOf("caller-passthru")),
     
-    CALLEE_PASSTHRU("callee-passthru");
+    CALLEE_PASSTHRU(String.valueOf("callee-passthru"));
 
     private String value;
 
@@ -152,7 +154,7 @@ public class OutboundIp {
   }
 
   public static final String JSON_PROPERTY_T38_REINVITE_SOURCE = "t38_reinvite_source";
-  private T38ReinviteSourceEnum t38ReinviteSource = T38ReinviteSourceEnum.TELNYX;
+  private T38ReinviteSourceEnum t38ReinviteSource = T38ReinviteSourceEnum.CUSTOMER;
 
   public static final String JSON_PROPERTY_TECH_PREFIX = "tech_prefix";
   private String techPrefix = "";
@@ -161,9 +163,9 @@ public class OutboundIp {
    * Gets or Sets ipAuthenticationMethod
    */
   public enum IpAuthenticationMethodEnum {
-    TECH_PREFIXP_CHARGE_INFO("tech-prefixp-charge-info"),
+    TECH_PREFIXP_CHARGE_INFO(String.valueOf("tech-prefixp-charge-info")),
     
-    TOKEN("token");
+    TOKEN(String.valueOf("token"));
 
     private String value;
 
@@ -205,7 +207,7 @@ public class OutboundIp {
   }
 
   public OutboundIp callParkingEnabled(Boolean callParkingEnabled) {
-    this.callParkingEnabled = callParkingEnabled;
+    this.callParkingEnabled = JsonNullable.<Boolean>of(callParkingEnabled);
     return this;
   }
 
@@ -215,18 +217,26 @@ public class OutboundIp {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "Forces all SIP calls originated on this connection to be \"parked\" instead of \"bridged\" to the destination specified on the URI. Parked calls will return ringback to the caller and will await for a Call Control command to define which action will be taken next.")
-  @JsonProperty(JSON_PROPERTY_CALL_PARKING_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonIgnore
 
   public Boolean getCallParkingEnabled() {
-    return callParkingEnabled;
+        return callParkingEnabled.orElse(null);
   }
-
 
   @JsonProperty(JSON_PROPERTY_CALL_PARKING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallParkingEnabled(Boolean callParkingEnabled) {
+
+  public JsonNullable<Boolean> getCallParkingEnabled_JsonNullable() {
+    return callParkingEnabled;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_CALL_PARKING_ENABLED)
+  public void setCallParkingEnabled_JsonNullable(JsonNullable<Boolean> callParkingEnabled) {
     this.callParkingEnabled = callParkingEnabled;
+  }
+
+  public void setCallParkingEnabled(Boolean callParkingEnabled) {
+    this.callParkingEnabled = JsonNullable.<Boolean>of(callParkingEnabled);
   }
 
 
@@ -528,7 +538,7 @@ public class OutboundIp {
       return false;
     }
     OutboundIp outboundIp = (OutboundIp) o;
-    return Objects.equals(this.callParkingEnabled, outboundIp.callParkingEnabled) &&
+    return equalsNullable(this.callParkingEnabled, outboundIp.callParkingEnabled) &&
         Objects.equals(this.aniOverride, outboundIp.aniOverride) &&
         Objects.equals(this.aniOverrideType, outboundIp.aniOverrideType) &&
         Objects.equals(this.channelLimit, outboundIp.channelLimit) &&
@@ -542,9 +552,20 @@ public class OutboundIp {
         Objects.equals(this.outboundVoiceProfileId, outboundIp.outboundVoiceProfileId);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
-    return Objects.hash(callParkingEnabled, aniOverride, aniOverrideType, channelLimit, instantRingbackEnabled, generateRingbackTone, localization, t38ReinviteSource, techPrefix, ipAuthenticationMethod, ipAuthenticationToken, outboundVoiceProfileId);
+    return Objects.hash(hashCodeNullable(callParkingEnabled), aniOverride, aniOverrideType, channelLimit, instantRingbackEnabled, generateRingbackTone, localization, t38ReinviteSource, techPrefix, ipAuthenticationMethod, ipAuthenticationToken, outboundVoiceProfileId);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override

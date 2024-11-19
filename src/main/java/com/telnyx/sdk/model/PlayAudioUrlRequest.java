@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Loopcount;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -48,7 +46,7 @@ import com.telnyx.sdk.JSON;
   PlayAudioUrlRequest.JSON_PROPERTY_CLIENT_STATE,
   PlayAudioUrlRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PlayAudioUrlRequest {
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
@@ -75,9 +73,9 @@ public class PlayAudioUrlRequest {
    * Specifies the type of audio provided in &#x60;audio_url&#x60; or &#x60;playback_content&#x60;.
    */
   public enum AudioTypeEnum {
-    MP3("mp3"),
+    MP3(String.valueOf("mp3")),
     
-    WAV("wav");
+    WAV(String.valueOf("wav"));
 
     private String value;
 

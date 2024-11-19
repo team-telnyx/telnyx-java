@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,7 +49,7 @@ import com.telnyx.sdk.JSON;
   VideoRegion.JSON_PROPERTY_MAX_ROWS,
   VideoRegion.JSON_PROPERTY_VIDEO_SOURCES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class VideoRegion {
   public static final String JSON_PROPERTY_X_POS = "x_pos";
   private JsonNullable<Integer> xPos = JsonNullable.<Integer>of(0);
@@ -331,7 +329,7 @@ public class VideoRegion {
     return this;
   }
 
-  public VideoRegion addVideoSourcesItem(UUID videoSourcesItem) {
+  public VideoRegion addvideoSourcesItem(UUID videoSourcesItem) {
     if (this.videoSources == null) {
       this.videoSources = new ArrayList<>();
     }

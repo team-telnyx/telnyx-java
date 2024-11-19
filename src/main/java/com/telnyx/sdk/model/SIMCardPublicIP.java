@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -37,16 +35,20 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   SIMCardPublicIP.JSON_PROPERTY_RECORD_TYPE,
+  SIMCardPublicIP.JSON_PROPERTY_REGION_CODE,
   SIMCardPublicIP.JSON_PROPERTY_SIM_CARD_ID,
   SIMCardPublicIP.JSON_PROPERTY_TYPE,
   SIMCardPublicIP.JSON_PROPERTY_IP,
   SIMCardPublicIP.JSON_PROPERTY_CREATED_AT,
   SIMCardPublicIP.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class SIMCardPublicIP {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
+
+  public static final String JSON_PROPERTY_REGION_CODE = "region_code";
+  private String regionCode;
 
   public static final String JSON_PROPERTY_SIM_CARD_ID = "sim_card_id";
   private UUID simCardId;
@@ -55,7 +57,7 @@ public class SIMCardPublicIP {
    * Gets or Sets type
    */
   public enum TypeEnum {
-    IPV4("ipv4");
+    IPV4(String.valueOf("ipv4"));
 
     private String value;
 
@@ -102,6 +104,7 @@ public class SIMCardPublicIP {
   @JsonCreator
   public SIMCardPublicIP(
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_REGION_CODE) String regionCode, 
     @JsonProperty(JSON_PROPERTY_TYPE) TypeEnum type, 
     @JsonProperty(JSON_PROPERTY_IP) String ip, 
     @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
@@ -109,6 +112,7 @@ public class SIMCardPublicIP {
   ) {
     this();
     this.recordType = recordType;
+    this.regionCode = regionCode;
     this.type = type;
     this.ip = ip;
     this.createdAt = createdAt;
@@ -126,6 +130,22 @@ public class SIMCardPublicIP {
 
   public String getRecordType() {
     return recordType;
+  }
+
+
+
+
+   /**
+   * Get regionCode
+   * @return regionCode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "dc2", value = "")
+  @JsonProperty(JSON_PROPERTY_REGION_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRegionCode() {
+    return regionCode;
   }
 
 
@@ -234,6 +254,7 @@ public class SIMCardPublicIP {
     }
     SIMCardPublicIP siMCardPublicIP = (SIMCardPublicIP) o;
     return Objects.equals(this.recordType, siMCardPublicIP.recordType) &&
+        Objects.equals(this.regionCode, siMCardPublicIP.regionCode) &&
         Objects.equals(this.simCardId, siMCardPublicIP.simCardId) &&
         Objects.equals(this.type, siMCardPublicIP.type) &&
         Objects.equals(this.ip, siMCardPublicIP.ip) &&
@@ -243,7 +264,7 @@ public class SIMCardPublicIP {
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, simCardId, type, ip, createdAt, updatedAt);
+    return Objects.hash(recordType, regionCode, simCardId, type, ip, createdAt, updatedAt);
   }
 
   @Override
@@ -251,6 +272,7 @@ public class SIMCardPublicIP {
     StringBuilder sb = new StringBuilder();
     sb.append("class SIMCardPublicIP {\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
+    sb.append("    regionCode: ").append(toIndentedString(regionCode)).append("\n");
     sb.append("    simCardId: ").append(toIndentedString(simCardId)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    ip: ").append(toIndentedString(ip)).append("\n");

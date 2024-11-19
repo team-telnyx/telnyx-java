@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CreatePortingReportRequestParams;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   PortingReport.JSON_PROPERTY_CREATED_AT,
   PortingReport.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PortingReport {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -56,7 +54,7 @@ public class PortingReport {
    * Identifies the type of report
    */
   public enum ReportTypeEnum {
-    EXPORT_PORTING_ORDERS_CSV("export_porting_orders_csv");
+    EXPORT_PORTING_ORDERS_CSV(String.valueOf("export_porting_orders_csv"));
 
     private String value;
 
@@ -92,9 +90,9 @@ public class PortingReport {
    * The current status of the report generation.
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    COMPLETED("completed");
+    COMPLETED(String.valueOf("completed"));
 
     private String value;
 

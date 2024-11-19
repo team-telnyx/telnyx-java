@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteUsageReport**](MdrUsageReportsApi.md#deleteUsageReport) | **DELETE** /reports/mdr_usage_reports/{id} | 
 [**getUsageReport**](MdrUsageReportsApi.md#getUsageReport) | **GET** /reports/mdr_usage_reports/{id} | 
-[**getUsageReportSync**](MdrUsageReportsApi.md#getUsageReportSync) | **GET** /reports/mdr_usage_reports/sync | 
+[**getUsageReportSyncMdr**](MdrUsageReportsApi.md#getUsageReportSyncMdr) | **GET** /reports/mdr_usage_reports/sync | 
 [**getUsageReports**](MdrUsageReportsApi.md#getUsageReports) | **GET** /reports/mdr_usage_reports | 
 [**submitUsageReport**](MdrUsageReportsApi.md#submitUsageReport) | **POST** /reports/mdr_usage_reports | 
 
@@ -154,9 +154,9 @@ Name | Type | Description  | Notes
 | **200** | Successful |  -  |
 
 
-## getUsageReportSync
+## getUsageReportSyncMdr
 
-> MdrGetSyncUsageReportResponse getUsageReportSync(aggregationType, startDate, endDate, profiles)
+> MdrGetSyncUsageReportResponse getUsageReportSyncMdr(aggregationType, startDate, endDate, profiles)
 
 
 
@@ -189,10 +189,10 @@ public class Example {
         OffsetDateTime endDate = OffsetDateTime.parse("2020-07-01T00:00-06:00"); // OffsetDateTime | 
         List<String> profiles = Arrays.asList(); // List<String> | 
         try {
-            MdrGetSyncUsageReportResponse result = apiInstance.getUsageReportSync(aggregationType, startDate, endDate, profiles);
+            MdrGetSyncUsageReportResponse result = apiInstance.getUsageReportSyncMdr(aggregationType, startDate, endDate, profiles);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MdrUsageReportsApi#getUsageReportSync");
+            System.err.println("Exception when calling MdrUsageReportsApi#getUsageReportSyncMdr");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

@@ -8,13 +8,12 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetFaxResponse;
 import com.telnyx.sdk.model.ListFaxesResponse;
 import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.RefreshFaxResponse;
-import com.telnyx.sdk.model.ResourceNotFound;
-import com.telnyx.sdk.model.SendFaxRequest;
 import com.telnyx.sdk.model.SendFaxResponse;
 import com.telnyx.sdk.model.SuccessfulResponseUponAcceptingCancelFaxCommand;
 import java.util.UUID;
@@ -24,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ProgrammableFaxCommandsApi {
   private ApiClient apiClient;
 
@@ -64,8 +63,8 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Successful response upon accepting cancel fax command </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -83,8 +82,8 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Successful response upon accepting cancel fax command </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -294,7 +293,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -312,7 +311,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -369,9 +368,6 @@ public class ProgrammableFaxCommandsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SendFaxResponse sendFax(SendFaxRequest sendFaxRequest) throws ApiException {
-    return sendFaxWithHttpInfo(sendFaxRequest).getData();
-  }
 
   /**
    * Send a fax
@@ -386,45 +382,9 @@ public class ProgrammableFaxCommandsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SendFaxResponse> sendFaxWithHttpInfo(SendFaxRequest sendFaxRequest) throws ApiException {
-    Object localVarPostBody = sendFaxRequest;
     
     // verify the required parameter 'sendFaxRequest' is set
-    if (sendFaxRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'sendFaxRequest' when calling sendFax");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/faxes";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json", "multipart/form-data"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<SendFaxResponse> localVarReturnType = new GenericType<SendFaxResponse>() {};
-
-    return apiClient.invokeAPI("ProgrammableFaxCommandsApi.sendFax", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
   /**
    * View a fax
    * 

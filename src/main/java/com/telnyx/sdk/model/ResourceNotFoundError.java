@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -24,16 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ResourceNotFoundErrorAllOfMeta;
-import com.telnyx.sdk.model.UpdateOutboundChannelsDefaultResponseErrorsInnerSource;
+import com.telnyx.sdk.model.ResourceNotFoundErrorErrorsInner;
+import java.util.ArrayList;
 import java.util.Arrays;
-import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,183 +36,47 @@ import com.telnyx.sdk.JSON;
  * ResourceNotFoundError
  */
 @JsonPropertyOrder({
-  ResourceNotFoundError.JSON_PROPERTY_CODE,
-  ResourceNotFoundError.JSON_PROPERTY_TITLE,
-  ResourceNotFoundError.JSON_PROPERTY_DETAIL,
-  ResourceNotFoundError.JSON_PROPERTY_SOURCE,
-  ResourceNotFoundError.JSON_PROPERTY_META
+  ResourceNotFoundError.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ResourceNotFoundError {
-  public static final String JSON_PROPERTY_CODE = "code";
-  private JsonNullable<Object> code = JsonNullable.<Object>of(null);
-
-  public static final String JSON_PROPERTY_TITLE = "title";
-  private JsonNullable<Object> title = JsonNullable.<Object>of(null);
-
-  public static final String JSON_PROPERTY_DETAIL = "detail";
-  private JsonNullable<Object> detail = JsonNullable.<Object>of(null);
-
-  public static final String JSON_PROPERTY_SOURCE = "source";
-  private UpdateOutboundChannelsDefaultResponseErrorsInnerSource source;
-
-  public static final String JSON_PROPERTY_META = "meta";
-  private ResourceNotFoundErrorAllOfMeta meta;
+  public static final String JSON_PROPERTY_ERRORS = "errors";
+  private List<ResourceNotFoundErrorErrorsInner> errors = null;
 
   public ResourceNotFoundError() { 
   }
 
-  public ResourceNotFoundError code(Object code) {
-    this.code = JsonNullable.<Object>of(code);
+  public ResourceNotFoundError errors(List<ResourceNotFoundErrorErrorsInner> errors) {
+    this.errors = errors;
+    return this;
+  }
+
+  public ResourceNotFoundError adderrorsItem(ResourceNotFoundErrorErrorsInner errorsItem) {
+    if (this.errors == null) {
+      this.errors = new ArrayList<>();
+    }
+    this.errors.add(errorsItem);
     return this;
   }
 
    /**
-   * Get code
-   * @return code
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "10005", value = "")
-  @JsonIgnore
-
-  public Object getCode() {
-        return code.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<Object> getCode_JsonNullable() {
-    return code;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_CODE)
-  public void setCode_JsonNullable(JsonNullable<Object> code) {
-    this.code = code;
-  }
-
-  public void setCode(Object code) {
-    this.code = JsonNullable.<Object>of(code);
-  }
-
-
-  public ResourceNotFoundError title(Object title) {
-    this.title = JsonNullable.<Object>of(title);
-    return this;
-  }
-
-   /**
-   * Get title
-   * @return title
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "Resource not found", value = "")
-  @JsonIgnore
-
-  public Object getTitle() {
-        return title.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<Object> getTitle_JsonNullable() {
-    return title;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  public void setTitle_JsonNullable(JsonNullable<Object> title) {
-    this.title = title;
-  }
-
-  public void setTitle(Object title) {
-    this.title = JsonNullable.<Object>of(title);
-  }
-
-
-  public ResourceNotFoundError detail(Object detail) {
-    this.detail = JsonNullable.<Object>of(detail);
-    return this;
-  }
-
-   /**
-   * Get detail
-   * @return detail
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "The requested resource or URL could not be found.", value = "")
-  @JsonIgnore
-
-  public Object getDetail() {
-        return detail.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<Object> getDetail_JsonNullable() {
-    return detail;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  public void setDetail_JsonNullable(JsonNullable<Object> detail) {
-    this.detail = detail;
-  }
-
-  public void setDetail(Object detail) {
-    this.detail = JsonNullable.<Object>of(detail);
-  }
-
-
-  public ResourceNotFoundError source(UpdateOutboundChannelsDefaultResponseErrorsInnerSource source) {
-    this.source = source;
-    return this;
-  }
-
-   /**
-   * Get source
-   * @return source
+   * Get errors
+   * @return errors
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public UpdateOutboundChannelsDefaultResponseErrorsInnerSource getSource() {
-    return source;
+  public List<ResourceNotFoundErrorErrorsInner> getErrors() {
+    return errors;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSource(UpdateOutboundChannelsDefaultResponseErrorsInnerSource source) {
-    this.source = source;
-  }
-
-
-  public ResourceNotFoundError meta(ResourceNotFoundErrorAllOfMeta meta) {
-    this.meta = meta;
-    return this;
-  }
-
-   /**
-   * Get meta
-   * @return meta
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public ResourceNotFoundErrorAllOfMeta getMeta() {
-    return meta;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMeta(ResourceNotFoundErrorAllOfMeta meta) {
-    this.meta = meta;
+  public void setErrors(List<ResourceNotFoundErrorErrorsInner> errors) {
+    this.errors = errors;
   }
 
 
@@ -234,38 +92,19 @@ public class ResourceNotFoundError {
       return false;
     }
     ResourceNotFoundError resourceNotFoundError = (ResourceNotFoundError) o;
-    return equalsNullable(this.code, resourceNotFoundError.code) &&
-        equalsNullable(this.title, resourceNotFoundError.title) &&
-        equalsNullable(this.detail, resourceNotFoundError.detail) &&
-        Objects.equals(this.source, resourceNotFoundError.source) &&
-        Objects.equals(this.meta, resourceNotFoundError.meta);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+    return Objects.equals(this.errors, resourceNotFoundError.errors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(code), hashCodeNullable(title), hashCodeNullable(detail), source, meta);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(errors);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceNotFoundError {\n");
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
-    sb.append("    source: ").append(toIndentedString(source)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
+    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

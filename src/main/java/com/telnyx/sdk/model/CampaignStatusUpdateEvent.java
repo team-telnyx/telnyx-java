@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,10 +37,9 @@ import com.telnyx.sdk.JSON;
   CampaignStatusUpdateEvent.JSON_PROPERTY_CAMPAIGN_ID,
   CampaignStatusUpdateEvent.JSON_PROPERTY_CREATE_DATE,
   CampaignStatusUpdateEvent.JSON_PROPERTY_CSP_ID,
-  CampaignStatusUpdateEvent.JSON_PROPERTY_IS_T_MOBILE_REGISTERED,
-  CampaignStatusUpdateEvent.JSON_PROPERTY_IS_T_MOBILE_SUSPENDED
+  CampaignStatusUpdateEvent.JSON_PROPERTY_IS_T_MOBILE_REGISTERED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CampaignStatusUpdateEvent {
   public static final String JSON_PROPERTY_BRAND_ID = "brandId";
   private String brandId;
@@ -58,9 +55,6 @@ public class CampaignStatusUpdateEvent {
 
   public static final String JSON_PROPERTY_IS_T_MOBILE_REGISTERED = "isTMobileRegistered";
   private Boolean isTMobileRegistered;
-
-  public static final String JSON_PROPERTY_IS_T_MOBILE_SUSPENDED = "isTMobileSuspended";
-  private Boolean isTMobileSuspended;
 
   public CampaignStatusUpdateEvent() { 
   }
@@ -195,32 +189,6 @@ public class CampaignStatusUpdateEvent {
   }
 
 
-  public CampaignStatusUpdateEvent isTMobileSuspended(Boolean isTMobileSuspended) {
-    this.isTMobileSuspended = isTMobileSuspended;
-    return this;
-  }
-
-   /**
-   * Indicates whether the campaign is suspended with T-Mobile.
-   * @return isTMobileSuspended
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Indicates whether the campaign is suspended with T-Mobile.")
-  @JsonProperty(JSON_PROPERTY_IS_T_MOBILE_SUSPENDED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getIsTMobileSuspended() {
-    return isTMobileSuspended;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IS_T_MOBILE_SUSPENDED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsTMobileSuspended(Boolean isTMobileSuspended) {
-    this.isTMobileSuspended = isTMobileSuspended;
-  }
-
-
   /**
    * Return true if this CampaignStatusUpdateEvent object is equal to o.
    */
@@ -237,13 +205,12 @@ public class CampaignStatusUpdateEvent {
         Objects.equals(this.campaignId, campaignStatusUpdateEvent.campaignId) &&
         Objects.equals(this.createDate, campaignStatusUpdateEvent.createDate) &&
         Objects.equals(this.cspId, campaignStatusUpdateEvent.cspId) &&
-        Objects.equals(this.isTMobileRegistered, campaignStatusUpdateEvent.isTMobileRegistered) &&
-        Objects.equals(this.isTMobileSuspended, campaignStatusUpdateEvent.isTMobileSuspended);
+        Objects.equals(this.isTMobileRegistered, campaignStatusUpdateEvent.isTMobileRegistered);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(brandId, campaignId, createDate, cspId, isTMobileRegistered, isTMobileSuspended);
+    return Objects.hash(brandId, campaignId, createDate, cspId, isTMobileRegistered);
   }
 
   @Override
@@ -255,7 +222,6 @@ public class CampaignStatusUpdateEvent {
     sb.append("    createDate: ").append(toIndentedString(createDate)).append("\n");
     sb.append("    cspId: ").append(toIndentedString(cspId)).append("\n");
     sb.append("    isTMobileRegistered: ").append(toIndentedString(isTMobileRegistered)).append("\n");
-    sb.append("    isTMobileSuspended: ").append(toIndentedString(isTMobileSuspended)).append("\n");
     sb.append("}");
     return sb.toString();
   }

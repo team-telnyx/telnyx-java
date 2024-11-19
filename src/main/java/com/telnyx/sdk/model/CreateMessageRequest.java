@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   CreateMessageRequest.JSON_PROPERTY_TYPE,
   CreateMessageRequest.JSON_PROPERTY_AUTO_DETECT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateMessageRequest {
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -82,9 +80,9 @@ public class CreateMessageRequest {
    * The protocol for sending the message, either SMS or MMS.
    */
   public enum TypeEnum {
-    SMS("SMS"),
+    SMS(String.valueOf("SMS")),
     
-    MMS("MMS");
+    MMS(String.valueOf("MMS"));
 
     private String value;
 
@@ -257,7 +255,7 @@ public class CreateMessageRequest {
     return this;
   }
 
-  public CreateMessageRequest addMediaUrlsItem(String mediaUrlsItem) {
+  public CreateMessageRequest addmediaUrlsItem(String mediaUrlsItem) {
     if (this.mediaUrls == null) {
       this.mediaUrls = new ArrayList<>();
     }

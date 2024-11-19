@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CustomSipHeader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   CallInitiatedPayload.JSON_PROPERTY_DIRECTION,
   CallInitiatedPayload.JSON_PROPERTY_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CallInitiatedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -79,9 +77,9 @@ public class CallInitiatedPayload {
    * Whether the call is &#x60;incoming&#x60; or &#x60;outgoing&#x60;.
    */
   public enum DirectionEnum {
-    INCOMING("incoming"),
+    INCOMING(String.valueOf("incoming")),
     
-    OUTGOING("outgoing");
+    OUTGOING(String.valueOf("outgoing"));
 
     private String value;
 
@@ -117,9 +115,9 @@ public class CallInitiatedPayload {
    * State received from a command.
    */
   public enum StateEnum {
-    PARKED("parked"),
+    PARKED(String.valueOf("parked")),
     
-    BRIDGING("bridging");
+    BRIDGING(String.valueOf("bridging"));
 
     private String value;
 
@@ -237,7 +235,7 @@ public class CallInitiatedPayload {
     return this;
   }
 
-  public CallInitiatedPayload addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+  public CallInitiatedPayload addcustomHeadersItem(CustomSipHeader customHeadersItem) {
     if (this.customHeaders == null) {
       this.customHeaders = new ArrayList<>();
     }

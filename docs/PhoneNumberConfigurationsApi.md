@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**getPhoneNumberVoiceSettings**](PhoneNumberConfigurationsApi.md#getPhoneNumberVoiceSettings) | **GET** /phone_numbers/{id}/voice | Retrieve a phone number with voice settings
 [**listPhoneNumbers**](PhoneNumberConfigurationsApi.md#listPhoneNumbers) | **GET** /phone_numbers | List phone numbers
 [**listPhoneNumbersWithVoiceSettings**](PhoneNumberConfigurationsApi.md#listPhoneNumbersWithVoiceSettings) | **GET** /phone_numbers/voice | List phone numbers with voice settings
+[**phoneNumberBundleStatusChange**](PhoneNumberConfigurationsApi.md#phoneNumberBundleStatusChange) | **PATCH** /phone_numbers/{id}/actions/bundle_status_change | Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
 [**retrievePhoneNumber**](PhoneNumberConfigurationsApi.md#retrievePhoneNumber) | **GET** /phone_numbers/{id} | Retrieve a phone number
 [**slimListPhoneNumbers**](PhoneNumberConfigurationsApi.md#slimListPhoneNumbers) | **GET** /phone_numbers/slim | Slim List phone numbers
 [**updatePhoneNumber**](PhoneNumberConfigurationsApi.md#updatePhoneNumber) | **PATCH** /phone_numbers/{id} | Update a phone number
@@ -425,6 +426,77 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers with voice settings. |  -  |
+| **0** | Unexpected error |  -  |
+
+
+## phoneNumberBundleStatusChange
+
+> PhoneNumberBundleStatusChange phoneNumberBundleStatusChange(id, phoneNumberBundleStatusChangeRequest)
+
+Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.PhoneNumberConfigurationsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        PhoneNumberConfigurationsApi apiInstance = new PhoneNumberConfigurationsApi(defaultClient);
+        String id = "1293384261075731499"; // String | Identifies the resource.
+        PhoneNumberBundleStatusChangeRequest phoneNumberBundleStatusChangeRequest = new PhoneNumberBundleStatusChangeRequest(); // PhoneNumberBundleStatusChangeRequest | 
+        try {
+            PhoneNumberBundleStatusChange result = apiInstance.phoneNumberBundleStatusChange(id, phoneNumberBundleStatusChangeRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PhoneNumberConfigurationsApi#phoneNumberBundleStatusChange");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Identifies the resource. |
+ **phoneNumberBundleStatusChangeRequest** | [**PhoneNumberBundleStatusChangeRequest**](PhoneNumberBundleStatusChangeRequest.md)|  |
+
+### Return type
+
+[**PhoneNumberBundleStatusChange**](PhoneNumberBundleStatusChange.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Phone number bundle status change success |  -  |
 | **0** | Unexpected error |  -  |
 
 

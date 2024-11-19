@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.PaginationMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListNumberBlockOrdersResponse.JSON_PROPERTY_DATA,
   ListNumberBlockOrdersResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ListNumberBlockOrdersResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<NumberBlockOrder> data = null;
@@ -58,7 +56,7 @@ public class ListNumberBlockOrdersResponse {
     return this;
   }
 
-  public ListNumberBlockOrdersResponse addDataItem(NumberBlockOrder dataItem) {
+  public ListNumberBlockOrdersResponse adddataItem(NumberBlockOrder dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

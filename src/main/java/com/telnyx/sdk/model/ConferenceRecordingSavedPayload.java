@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.CallRecordingSavedPayloadRecordingUrls;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -52,7 +50,7 @@ import com.telnyx.sdk.JSON;
   ConferenceRecordingSavedPayload.JSON_PROPERTY_RECORDING_STARTED_AT,
   ConferenceRecordingSavedPayload.JSON_PROPERTY_RECORDING_URLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ConferenceRecordingSavedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -67,9 +65,9 @@ public class ConferenceRecordingSavedPayload {
    * Whether recording was recorded in &#x60;single&#x60; or &#x60;dual&#x60; channel.
    */
   public enum ChannelsEnum {
-    SINGLE("single"),
+    SINGLE(String.valueOf("single")),
     
-    DUAL("dual");
+    DUAL(String.valueOf("dual"));
 
     private String value;
 
@@ -111,9 +109,9 @@ public class ConferenceRecordingSavedPayload {
    * The audio file format used when storing the call recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;.
    */
   public enum FormatEnum {
-    WAV("wav"),
+    WAV(String.valueOf("wav")),
     
-    MP3("mp3");
+    MP3(String.valueOf("mp3"));
 
     private String value;
 

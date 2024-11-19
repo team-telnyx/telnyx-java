@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortingOrderActivationSettings;
 import com.telnyx.sdk.model.PortingOrderDocuments;
 import com.telnyx.sdk.model.PortingOrderEndUser;
+import com.telnyx.sdk.model.PortingOrderMessaging;
 import com.telnyx.sdk.model.PortingOrderMisc;
 import com.telnyx.sdk.model.PortingOrderPhoneNumberConfiguration;
 import com.telnyx.sdk.model.PortingOrderRequirement;
@@ -37,8 +38,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -69,9 +68,10 @@ import com.telnyx.sdk.JSON;
   PortingOrder.JSON_PROPERTY_USER_FEEDBACK,
   PortingOrder.JSON_PROPERTY_USER_ID,
   PortingOrder.JSON_PROPERTY_WEBHOOK_URL,
-  PortingOrder.JSON_PROPERTY_RECORD_TYPE
+  PortingOrder.JSON_PROPERTY_RECORD_TYPE,
+  PortingOrder.JSON_PROPERTY_MESSAGING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PortingOrder {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -119,17 +119,17 @@ public class PortingOrder {
    * The type of the phone number
    */
   public enum PhoneNumberTypeEnum {
-    LANDLINE("landline"),
+    LANDLINE(String.valueOf("landline")),
     
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SHARED_COST("shared_cost"),
+    SHARED_COST(String.valueOf("shared_cost")),
     
-    TOLL_FREE("toll_free");
+    TOLL_FREE(String.valueOf("toll_free"));
 
     private String value;
 
@@ -181,6 +181,9 @@ public class PortingOrder {
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
+
+  public static final String JSON_PROPERTY_MESSAGING = "messaging";
+  private PortingOrderMessaging messaging;
 
   public PortingOrder() { 
   }
@@ -550,7 +553,7 @@ public class PortingOrder {
     return this;
   }
 
-  public PortingOrder addRequirementsItem(PortingOrderRequirement requirementsItem) {
+  public PortingOrder addrequirementsItem(PortingOrderRequirement requirementsItem) {
     if (this.requirements == null) {
       this.requirements = new ArrayList<>();
     }
@@ -559,11 +562,11 @@ public class PortingOrder {
   }
 
    /**
-   * List of documentation requirements for porting numbers.
+   * List of documentation requirements for porting numbers. Can be set directly or via the &#x60;requirement_group_id&#x60; parameter.
    * @return requirements
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "List of documentation requirements for porting numbers.")
+  @ApiModelProperty(value = "List of documentation requirements for porting numbers. Can be set directly or via the `requirement_group_id` parameter.")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -699,6 +702,32 @@ public class PortingOrder {
 
 
 
+  public PortingOrder messaging(PortingOrderMessaging messaging) {
+    this.messaging = messaging;
+    return this;
+  }
+
+   /**
+   * Get messaging
+   * @return messaging
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_MESSAGING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PortingOrderMessaging getMessaging() {
+    return messaging;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MESSAGING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMessaging(PortingOrderMessaging messaging) {
+    this.messaging = messaging;
+  }
+
+
   /**
    * Return true if this PortingOrder object is equal to o.
    */
@@ -732,12 +761,13 @@ public class PortingOrder {
         Objects.equals(this.userFeedback, portingOrder.userFeedback) &&
         Objects.equals(this.userId, portingOrder.userId) &&
         Objects.equals(this.webhookUrl, portingOrder.webhookUrl) &&
-        Objects.equals(this.recordType, portingOrder.recordType);
+        Objects.equals(this.recordType, portingOrder.recordType) &&
+        Objects.equals(this.messaging, portingOrder.messaging);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, customerReference, createdAt, updatedAt, status, supportKey, parentSupportKey, portingPhoneNumbersCount, oldServiceProviderOcn, documents, misc, endUser, activationSettings, phoneNumberConfiguration, phoneNumberType, description, requirements, requirementsMet, userFeedback, userId, webhookUrl, recordType);
+    return Objects.hash(id, customerReference, createdAt, updatedAt, status, supportKey, parentSupportKey, portingPhoneNumbersCount, oldServiceProviderOcn, documents, misc, endUser, activationSettings, phoneNumberConfiguration, phoneNumberType, description, requirements, requirementsMet, userFeedback, userId, webhookUrl, recordType, messaging);
   }
 
   @Override
@@ -766,6 +796,7 @@ public class PortingOrder {
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
+    sb.append("    messaging: ").append(toIndentedString(messaging)).append("\n");
     sb.append("}");
     return sb.toString();
   }

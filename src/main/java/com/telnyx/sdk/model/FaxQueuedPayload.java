@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Direction;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,9 +43,10 @@ import com.telnyx.sdk.JSON;
   FaxQueuedPayload.JSON_PROPERTY_TO,
   FaxQueuedPayload.JSON_PROPERTY_FROM,
   FaxQueuedPayload.JSON_PROPERTY_USER_ID,
-  FaxQueuedPayload.JSON_PROPERTY_STATUS
+  FaxQueuedPayload.JSON_PROPERTY_STATUS,
+  FaxQueuedPayload.JSON_PROPERTY_CLIENT_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class FaxQueuedPayload {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -77,7 +76,7 @@ public class FaxQueuedPayload {
    * The status of the fax.
    */
   public enum StatusEnum {
-    QUEUED("queued");
+    QUEUED(String.valueOf("queued"));
 
     private String value;
 
@@ -108,6 +107,9 @@ public class FaxQueuedPayload {
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
+
+  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+  private String clientState;
 
   public FaxQueuedPayload() { 
   }
@@ -346,6 +348,32 @@ public class FaxQueuedPayload {
   }
 
 
+  public FaxQueuedPayload clientState(String clientState) {
+    this.clientState = clientState;
+    return this;
+  }
+
+   /**
+   * State received from a command.
+   * @return clientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClientState() {
+    return clientState;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClientState(String clientState) {
+    this.clientState = clientState;
+  }
+
+
   /**
    * Return true if this FaxQueued_payload object is equal to o.
    */
@@ -366,12 +394,13 @@ public class FaxQueuedPayload {
         Objects.equals(this.to, faxQueuedPayload.to) &&
         Objects.equals(this.from, faxQueuedPayload.from) &&
         Objects.equals(this.userId, faxQueuedPayload.userId) &&
-        Objects.equals(this.status, faxQueuedPayload.status);
+        Objects.equals(this.status, faxQueuedPayload.status) &&
+        Objects.equals(this.clientState, faxQueuedPayload.clientState);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, direction, faxId, originalMediaUrl, mediaName, to, from, userId, status);
+    return Objects.hash(connectionId, direction, faxId, originalMediaUrl, mediaName, to, from, userId, status, clientState);
   }
 
   @Override
@@ -387,6 +416,7 @@ public class FaxQueuedPayload {
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("}");
     return sb.toString();
   }

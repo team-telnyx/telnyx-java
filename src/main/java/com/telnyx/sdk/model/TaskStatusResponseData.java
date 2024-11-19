@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -24,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.BackgroundTaskStatus;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +41,7 @@ import com.telnyx.sdk.JSON;
   TaskStatusResponseData.JSON_PROPERTY_CREATED_AT,
   TaskStatusResponseData.JSON_PROPERTY_FINISHED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class TaskStatusResponseData {
   public static final String JSON_PROPERTY_TASK_ID = "task_id";
   private UUID taskId;
@@ -51,7 +50,7 @@ public class TaskStatusResponseData {
   private String taskName;
 
   public static final String JSON_PROPERTY_STATUS = "status";
-  private String status;
+  private BackgroundTaskStatus status;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -114,7 +113,7 @@ public class TaskStatusResponseData {
   }
 
 
-  public TaskStatusResponseData status(String status) {
+  public TaskStatusResponseData status(BackgroundTaskStatus status) {
     this.status = status;
     return this;
   }
@@ -128,14 +127,14 @@ public class TaskStatusResponseData {
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getStatus() {
+  public BackgroundTaskStatus getStatus() {
     return status;
   }
 
 
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(String status) {
+  public void setStatus(BackgroundTaskStatus status) {
     this.status = status;
   }
 

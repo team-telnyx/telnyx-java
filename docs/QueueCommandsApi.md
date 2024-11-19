@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of calls in a queue. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | The requested resource doesn&#39;t exist. |  -  |
 
 
 ## retrieveCallFromQueue
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a call in a queue. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | The requested resource doesn&#39;t exist. |  -  |
 
 
 ## retrieveCallQueue
@@ -226,5 +226,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a queue. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | The requested resource doesn&#39;t exist. |  -  |
 

@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers job delete phone numbers requested. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **403** | Unauthorized response. Happens when the current user is not authorized to access the endpoint. |  -  |
 | **422** | Unprocessable Entity |  -  |
 | **0** | Unexpected error |  -  |
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers enable emergency requested. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **403** | Unauthorized response. Happens when the current user is not authorized to access the endpoint. |  -  |
 | **422** | Unprocessable Entity |  -  |
 | **0** | Unexpected error |  -  |
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 ## createUpdatePhoneNumbersJob
 
-> PhoneNumbersJobUpdatePhoneNumbers createUpdatePhoneNumbersJob().phoneNumbersJobUpdatePhoneNumbersRequest(phoneNumbersJobUpdatePhoneNumbersRequest).execute();
+> PhoneNumbersJobUpdatePhoneNumbers createUpdatePhoneNumbersJob().phoneNumbersJobUpdatePhoneNumbersRequest(phoneNumbersJobUpdatePhoneNumbersRequest).filterHasBundle(filterHasBundle).filterTag(filterTag).filterConnectionId(filterConnectionId).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceUsagePaymentMethod(filterVoiceUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).filterCustomerReference(filterCustomerReference).execute();
 
 Update a batch of numbers
 
@@ -192,9 +192,29 @@ public class Example {
 
         BulkPhoneNumberOperationsApi apiInstance = new BulkPhoneNumberOperationsApi(defaultClient);
         PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest = new PhoneNumbersJobUpdatePhoneNumbersRequest(); // PhoneNumbersJobUpdatePhoneNumbersRequest | 
+        String filterHasBundle = "filterHasBundle_example"; // String | Filter by phone number that have bundles.
+        String filterTag = "filterTag_example"; // String | Filter by phone number tags.
+        String filterConnectionId = "1521916448077776306"; // String | Filter by connection_id.
+        String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
+        String filterStatus = "purchase_pending"; // String | Filter by phone number status.
+        String filterVoiceConnectionNameContains = "test"; // String | Filter contains connection name. Requires at least three characters.
+        String filterVoiceUsagePaymentMethod = "pay-per-minute"; // String | Filter by usage_payment_method.
+        String filterBillingGroupId = "62e4bf2e-c278-4282-b524-488d9c9c43b2"; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
+        String filterEmergencyAddressId = "9102160989215728032"; // String | Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
+        String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
         try {
             PhoneNumbersJobUpdatePhoneNumbers result = api.createUpdatePhoneNumbersJob()
                 .phoneNumbersJobUpdatePhoneNumbersRequest(phoneNumbersJobUpdatePhoneNumbersRequest)
+                .filterHasBundle(filterHasBundle)
+                .filterTag(filterTag)
+                .filterConnectionId(filterConnectionId)
+                .filterPhoneNumber(filterPhoneNumber)
+                .filterStatus(filterStatus)
+                .filterVoiceConnectionNameContains(filterVoiceConnectionNameContains)
+                .filterVoiceUsagePaymentMethod(filterVoiceUsagePaymentMethod)
+                .filterBillingGroupId(filterBillingGroupId)
+                .filterEmergencyAddressId(filterEmergencyAddressId)
+                .filterCustomerReference(filterCustomerReference)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -214,6 +234,16 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **phoneNumbersJobUpdatePhoneNumbersRequest** | [**PhoneNumbersJobUpdatePhoneNumbersRequest**](PhoneNumbersJobUpdatePhoneNumbersRequest.md)|  |
+ **filterHasBundle** | **String**| Filter by phone number that have bundles. | [optional]
+ **filterTag** | **String**| Filter by phone number tags. | [optional]
+ **filterConnectionId** | **String**| Filter by connection_id. | [optional]
+ **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
+ **filterStatus** | **String**| Filter by phone number status. | [optional] [enum: purchase_pending, purchase_failed, port_pending, active, deleted, port_failed, emergency_only, ported_out, port_out_pending]
+ **filterVoiceConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters. | [optional]
+ **filterVoiceUsagePaymentMethod** | **String**| Filter by usage_payment_method. | [optional] [enum: pay-per-minute, channel]
+ **filterBillingGroupId** | **String**| Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. | [optional]
+ **filterEmergencyAddressId** | **String**| Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string &#39;null&#39;. | [optional]
+ **filterCustomerReference** | **String**| Filter numbers via the customer_reference set. | [optional]
 
 ### Return type
 
@@ -232,7 +262,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Phone numbers job update phone numbers requested. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **422** | Unprocessable Entity |  -  |
 | **0** | Unexpected error |  -  |
@@ -315,7 +345,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of phone numbers background jobs. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **422** | Unprocessable Entity |  -  |
 | **0** | Unexpected error |  -  |
 
@@ -387,7 +417,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Phone numbers job details. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Not Found |  -  |
 | **0** | Unexpected error |  -  |
 

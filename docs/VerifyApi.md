@@ -4,18 +4,19 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createFlashcallVerification**](VerifyApi.md#createFlashcallVerification) | **POST** /verifications/flashcall | Trigger a Flash call verification
-[**createVerificationCall**](VerifyApi.md#createVerificationCall) | **POST** /verifications/call | Trigger a Call verification
-[**createVerificationSms**](VerifyApi.md#createVerificationSms) | **POST** /verifications/sms | Trigger a SMS verification
+[**createFlashcallVerification**](VerifyApi.md#createFlashcallVerification) | **POST** /verifications/flashcall | Trigger Flash call verification
+[**createVerificationCall**](VerifyApi.md#createVerificationCall) | **POST** /verifications/call | Trigger Call verification
+[**createVerificationSms**](VerifyApi.md#createVerificationSms) | **POST** /verifications/sms | Trigger SMS verification
 [**createVerifyProfile**](VerifyApi.md#createVerifyProfile) | **POST** /verify_profiles | Create a Verify profile
-[**deleteProfile**](VerifyApi.md#deleteProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete a Verify profile
-[**getVerifyProfile**](VerifyApi.md#getVerifyProfile) | **GET** /verify_profiles/{verify_profile_id} | Retrieve a Verify profile
-[**listProfileMessageTemplates**](VerifyApi.md#listProfileMessageTemplates) | **GET** /verify_profiles/templates | Retrieve a Verify profile message templates
+[**deleteProfile**](VerifyApi.md#deleteProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete Verify profile
+[**getVerifyProfile**](VerifyApi.md#getVerifyProfile) | **GET** /verify_profiles/{verify_profile_id} | Retrieve Verify profile
+[**listProfileMessageTemplates**](VerifyApi.md#listProfileMessageTemplates) | **GET** /verify_profiles/templates | Retrieve Verify profile message templates
 [**listProfiles**](VerifyApi.md#listProfiles) | **GET** /verify_profiles | List all Verify profiles
 [**listVerifications**](VerifyApi.md#listVerifications) | **GET** /verifications/by_phone_number/{phone_number} | List verifications by phone number
-[**retrieveVerification**](VerifyApi.md#retrieveVerification) | **GET** /verifications/{verification_id} | Retrieve a verification
-[**updateVerifyProfile**](VerifyApi.md#updateVerifyProfile) | **PATCH** /verify_profiles/{verify_profile_id} | Update a Verify profile
-[**verifyVerificationCode**](VerifyApi.md#verifyVerificationCode) | **POST** /verifications/by_phone_number/{phone_number}/actions/verify | Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
+[**retrieveVerification**](VerifyApi.md#retrieveVerification) | **GET** /verifications/{verification_id} | Retrieve verification
+[**updateVerifyProfile**](VerifyApi.md#updateVerifyProfile) | **PATCH** /verify_profiles/{verify_profile_id} | Update Verify profile
+[**verifyVerificationCodeById**](VerifyApi.md#verifyVerificationCodeById) | **POST** /verifications/{verification_id}/actions/verify | Verify verification code by ID
+[**verifyVerificationCodeByPhoneNumber**](VerifyApi.md#verifyVerificationCodeByPhoneNumber) | **POST** /verifications/by_phone_number/{phone_number}/actions/verify | Verify verification code by phone number
 
 
 
@@ -23,7 +24,7 @@ Method | HTTP request | Description
 
 > CreateVerificationResponse createFlashcallVerification(createVerificationRequestFlashcall)
 
-Trigger a Flash call verification
+Trigger Flash call verification
 
 ### Example
 
@@ -92,7 +93,7 @@ Name | Type | Description  | Notes
 
 > CreateVerificationResponse createVerificationCall(createVerificationRequestCall)
 
-Trigger a Call verification
+Trigger Call verification
 
 ### Example
 
@@ -161,7 +162,7 @@ Name | Type | Description  | Notes
 
 > CreateVerificationResponse createVerificationSms(createVerificationRequestSMS)
 
-Trigger a SMS verification
+Trigger SMS verification
 
 ### Example
 
@@ -301,7 +302,7 @@ Name | Type | Description  | Notes
 
 > VerifyProfileResponseDataWrapper deleteProfile(verifyProfileId)
 
-Delete a Verify profile
+Delete Verify profile
 
 ### Example
 
@@ -371,7 +372,7 @@ Name | Type | Description  | Notes
 
 > VerifyProfileResponseDataWrapper getVerifyProfile(verifyProfileId)
 
-Retrieve a Verify profile
+Retrieve Verify profile
 
 Gets a single Verify profile.
 
@@ -443,7 +444,7 @@ Name | Type | Description  | Notes
 
 > ListVerifyProfileMessageTemplateResponse listProfileMessageTemplates()
 
-Retrieve a Verify profile message templates
+Retrieve Verify profile message templates
 
 List all Verify profile message templates.
 
@@ -657,7 +658,7 @@ Name | Type | Description  | Notes
 
 > RetrieveVerificationResponse retrieveVerification(verificationId)
 
-Retrieve a verification
+Retrieve verification
 
 ### Example
 
@@ -727,7 +728,7 @@ Name | Type | Description  | Notes
 
 > VerifyProfileResponseDataWrapper updateVerifyProfile(verifyProfileId, updateVerifyProfileRequest)
 
-Update a Verify profile
+Update Verify profile
 
 ### Example
 
@@ -795,11 +796,83 @@ Name | Type | Description  | Notes
 | **400** | Unexpected error |  -  |
 
 
-## verifyVerificationCode
+## verifyVerificationCodeById
 
-> VerifyVerificationCodeResponse verifyVerificationCode(phoneNumber, verifyVerificationCodeRequest)
+> VerifyVerificationCodeResponse verifyVerificationCodeById(verificationId, verifyVerificationCodeRequestById)
 
-Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
+Verify verification code by ID
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.VerifyApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        VerifyApi apiInstance = new VerifyApi(defaultClient);
+        UUID verificationId = UUID.fromString("12ade33a-21c0-473b-b055-b3c836e1c292"); // UUID | The identifier of the verification to retrieve.
+        VerifyVerificationCodeRequestById verifyVerificationCodeRequestById = new VerifyVerificationCodeRequestById(); // VerifyVerificationCodeRequestById | 
+        try {
+            VerifyVerificationCodeResponse result = apiInstance.verifyVerificationCodeById(verificationId, verifyVerificationCodeRequestById);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VerifyApi#verifyVerificationCodeById");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **verificationId** | **UUID**| The identifier of the verification to retrieve. |
+ **verifyVerificationCodeRequestById** | [**VerifyVerificationCodeRequestById**](VerifyVerificationCodeRequestById.md)|  |
+
+### Return type
+
+[**VerifyVerificationCodeResponse**](VerifyVerificationCodeResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Expected verify response to a valid request. |  -  |
+| **400** | Unexpected error |  -  |
+
+
+## verifyVerificationCodeByPhoneNumber
+
+> VerifyVerificationCodeResponse verifyVerificationCodeByPhoneNumber(phoneNumber, verifyVerificationCodeRequestByPhoneNumber)
+
+Verify verification code by phone number
 
 ### Example
 
@@ -823,12 +896,12 @@ public class Example {
 
         VerifyApi apiInstance = new VerifyApi(defaultClient);
         String phoneNumber = "+13035551234"; // String | The phone number associated with the verification code being verified.
-        VerifyVerificationCodeRequest verifyVerificationCodeRequest = new VerifyVerificationCodeRequest(); // VerifyVerificationCodeRequest | 
+        VerifyVerificationCodeRequestByPhoneNumber verifyVerificationCodeRequestByPhoneNumber = new VerifyVerificationCodeRequestByPhoneNumber(); // VerifyVerificationCodeRequestByPhoneNumber | 
         try {
-            VerifyVerificationCodeResponse result = apiInstance.verifyVerificationCode(phoneNumber, verifyVerificationCodeRequest);
+            VerifyVerificationCodeResponse result = apiInstance.verifyVerificationCodeByPhoneNumber(phoneNumber, verifyVerificationCodeRequestByPhoneNumber);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling VerifyApi#verifyVerificationCode");
+            System.err.println("Exception when calling VerifyApi#verifyVerificationCodeByPhoneNumber");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -844,7 +917,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **phoneNumber** | **String**| The phone number associated with the verification code being verified. |
- **verifyVerificationCodeRequest** | [**VerifyVerificationCodeRequest**](VerifyVerificationCodeRequest.md)|  |
+ **verifyVerificationCodeRequestByPhoneNumber** | [**VerifyVerificationCodeRequestByPhoneNumber**](VerifyVerificationCodeRequestByPhoneNumber.md)|  |
 
 ### Return type
 

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CompleteOTAUpdateSettings;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   CompleteOTAUpdate.JSON_PROPERTY_CREATED_AT,
   CompleteOTAUpdate.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CompleteOTAUpdate {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -62,7 +60,7 @@ public class CompleteOTAUpdate {
    * Represents the type of the operation requested. This will relate directly to the source of the request.
    */
   public enum TypeEnum {
-    SIM_CARD_NETWORK_PREFERENCES("sim_card_network_preferences");
+    SIM_CARD_NETWORK_PREFERENCES(String.valueOf("sim_card_network_preferences"));
 
     private String value;
 
@@ -98,11 +96,11 @@ public class CompleteOTAUpdate {
    * Gets or Sets status
    */
   public enum StatusEnum {
-    IN_PROGRESS("in-progress"),
+    IN_PROGRESS(String.valueOf("in-progress")),
     
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 

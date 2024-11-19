@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -31,9 +31,11 @@ import com.telnyx.sdk.model.BrandRelationship;
 import com.telnyx.sdk.model.EntityType;
 import com.telnyx.sdk.model.StockExchange;
 import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -45,6 +47,7 @@ import com.telnyx.sdk.JSON;
   TelnyxBrand.JSON_PROPERTY_ENTITY_TYPE,
   TelnyxBrand.JSON_PROPERTY_CSP_ID,
   TelnyxBrand.JSON_PROPERTY_BRAND_ID,
+  TelnyxBrand.JSON_PROPERTY_TCR_BRAND_ID,
   TelnyxBrand.JSON_PROPERTY_DISPLAY_NAME,
   TelnyxBrand.JSON_PROPERTY_COMPANY_NAME,
   TelnyxBrand.JSON_PROPERTY_FIRST_NAME,
@@ -71,9 +74,16 @@ import com.telnyx.sdk.JSON;
   TelnyxBrand.JSON_PROPERTY_OPTIONAL_ATTRIBUTES,
   TelnyxBrand.JSON_PROPERTY_MOCK,
   TelnyxBrand.JSON_PROPERTY_MOBILE_PHONE,
-  TelnyxBrand.JSON_PROPERTY_IS_RESELLER
+  TelnyxBrand.JSON_PROPERTY_IS_RESELLER,
+  TelnyxBrand.JSON_PROPERTY_WEBHOOK_U_R_L,
+  TelnyxBrand.JSON_PROPERTY_BUSINESS_CONTACT_EMAIL,
+  TelnyxBrand.JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L,
+  TelnyxBrand.JSON_PROPERTY_CREATED_AT,
+  TelnyxBrand.JSON_PROPERTY_UPDATED_AT,
+  TelnyxBrand.JSON_PROPERTY_STATUS,
+  TelnyxBrand.JSON_PROPERTY_FAILURE_REASONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class TelnyxBrand {
   public static final String JSON_PROPERTY_ENTITY_TYPE = "entityType";
   private EntityType entityType;
@@ -83,6 +93,9 @@ public class TelnyxBrand {
 
   public static final String JSON_PROPERTY_BRAND_ID = "brandId";
   private String brandId;
+
+  public static final String JSON_PROPERTY_TCR_BRAND_ID = "tcrBrandId";
+  private String tcrBrandId;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   private String displayName;
@@ -165,6 +178,64 @@ public class TelnyxBrand {
   public static final String JSON_PROPERTY_IS_RESELLER = "isReseller";
   private Boolean isReseller = false;
 
+  public static final String JSON_PROPERTY_WEBHOOK_U_R_L = "webhookURL";
+  private String webhookURL;
+
+  public static final String JSON_PROPERTY_BUSINESS_CONTACT_EMAIL = "businessContactEmail";
+  private String businessContactEmail;
+
+  public static final String JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L = "webhookFailoverURL";
+  private String webhookFailoverURL;
+
+  public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
+  private String createdAt;
+
+  public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
+  private String updatedAt;
+
+  /**
+   * Status of the brand
+   */
+  public enum StatusEnum {
+    OK(String.valueOf("OK")),
+    
+    REGISTRATION_PENDING(String.valueOf("REGISTRATION_PENDING")),
+    
+    REGISTRATION_FAILED(String.valueOf("REGISTRATION_FAILED"));
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  private StatusEnum status;
+
+  public static final String JSON_PROPERTY_FAILURE_REASONS = "failureReasons";
+  private JsonNullable<Object> failureReasons = JsonNullable.<Object>of(null);
+
   public TelnyxBrand() { 
   }
 
@@ -226,11 +297,11 @@ public class TelnyxBrand {
   }
 
    /**
-   * Unique identifier assigned to the brand by the registry.
+   * Unique identifier assigned to the brand.
    * @return brandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Unique identifier assigned to the brand by the registry.")
+  @ApiModelProperty(example = "4b20017f-8da9-a992-a6c0-683072fb7729", value = "Unique identifier assigned to the brand.")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -243,6 +314,32 @@ public class TelnyxBrand {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBrandId(String brandId) {
     this.brandId = brandId;
+  }
+
+
+  public TelnyxBrand tcrBrandId(String tcrBrandId) {
+    this.tcrBrandId = tcrBrandId;
+    return this;
+  }
+
+   /**
+   * Unique identifier assigned to the brand by the registry.
+   * @return tcrBrandId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "BBRAND1", value = "Unique identifier assigned to the brand by the registry.")
+  @JsonProperty(JSON_PROPERTY_TCR_BRAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTcrBrandId() {
+    return tcrBrandId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TCR_BRAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTcrBrandId(String tcrBrandId) {
+    this.tcrBrandId = tcrBrandId;
   }
 
 
@@ -948,6 +1045,196 @@ public class TelnyxBrand {
   }
 
 
+  public TelnyxBrand webhookURL(String webhookURL) {
+    this.webhookURL = webhookURL;
+    return this;
+  }
+
+   /**
+   * Webhook to which brand status updates are sent.
+   * @return webhookURL
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93", value = "Webhook to which brand status updates are sent.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookURL() {
+    return webhookURL;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWebhookURL(String webhookURL) {
+    this.webhookURL = webhookURL;
+  }
+
+
+  public TelnyxBrand businessContactEmail(String businessContactEmail) {
+    this.businessContactEmail = businessContactEmail;
+    return this;
+  }
+
+   /**
+   * Business contact email.  Required if &#x60;entityType&#x60; is &#x60;PUBLIC_PROFIT&#x60;.
+   * @return businessContactEmail
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "name@example.com", value = "Business contact email.  Required if `entityType` is `PUBLIC_PROFIT`.")
+  @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBusinessContactEmail() {
+    return businessContactEmail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBusinessContactEmail(String businessContactEmail) {
+    this.businessContactEmail = businessContactEmail;
+  }
+
+
+  public TelnyxBrand webhookFailoverURL(String webhookFailoverURL) {
+    this.webhookFailoverURL = webhookFailoverURL;
+    return this;
+  }
+
+   /**
+   * Failover webhook to which brand status updates are sent.
+   * @return webhookFailoverURL
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Failover webhook to which brand status updates are sent.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookFailoverURL() {
+    return webhookFailoverURL;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWebhookFailoverURL(String webhookFailoverURL) {
+    this.webhookFailoverURL = webhookFailoverURL;
+  }
+
+
+  public TelnyxBrand createdAt(String createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Date and time that the brand was created at.
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-03-08T17:57:48.801186", value = "Date and time that the brand was created at.")
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCreatedAt() {
+    return createdAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public TelnyxBrand updatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Date and time that the brand was last updated at.
+   * @return updatedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-03-08T17:57:48.801186", value = "Date and time that the brand was last updated at.")
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+
+  public TelnyxBrand status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Status of the brand
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Status of the brand")
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+
+  public TelnyxBrand failureReasons(Object failureReasons) {
+    this.failureReasons = JsonNullable.<Object>of(failureReasons);
+    return this;
+  }
+
+   /**
+   * Failure reasons for brand
+   * @return failureReasons
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Failure reasons for brand")
+  @JsonIgnore
+
+  public Object getFailureReasons() {
+        return failureReasons.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_FAILURE_REASONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<Object> getFailureReasons_JsonNullable() {
+    return failureReasons;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_FAILURE_REASONS)
+  public void setFailureReasons_JsonNullable(JsonNullable<Object> failureReasons) {
+    this.failureReasons = failureReasons;
+  }
+
+  public void setFailureReasons(Object failureReasons) {
+    this.failureReasons = JsonNullable.<Object>of(failureReasons);
+  }
+
+
   /**
    * Return true if this TelnyxBrand object is equal to o.
    */
@@ -963,6 +1250,7 @@ public class TelnyxBrand {
     return Objects.equals(this.entityType, telnyxBrand.entityType) &&
         Objects.equals(this.cspId, telnyxBrand.cspId) &&
         Objects.equals(this.brandId, telnyxBrand.brandId) &&
+        Objects.equals(this.tcrBrandId, telnyxBrand.tcrBrandId) &&
         Objects.equals(this.displayName, telnyxBrand.displayName) &&
         Objects.equals(this.companyName, telnyxBrand.companyName) &&
         Objects.equals(this.firstName, telnyxBrand.firstName) &&
@@ -989,12 +1277,30 @@ public class TelnyxBrand {
         Objects.equals(this.optionalAttributes, telnyxBrand.optionalAttributes) &&
         Objects.equals(this.mock, telnyxBrand.mock) &&
         Objects.equals(this.mobilePhone, telnyxBrand.mobilePhone) &&
-        Objects.equals(this.isReseller, telnyxBrand.isReseller);
+        Objects.equals(this.isReseller, telnyxBrand.isReseller) &&
+        Objects.equals(this.webhookURL, telnyxBrand.webhookURL) &&
+        Objects.equals(this.businessContactEmail, telnyxBrand.businessContactEmail) &&
+        Objects.equals(this.webhookFailoverURL, telnyxBrand.webhookFailoverURL) &&
+        Objects.equals(this.createdAt, telnyxBrand.createdAt) &&
+        Objects.equals(this.updatedAt, telnyxBrand.updatedAt) &&
+        Objects.equals(this.status, telnyxBrand.status) &&
+        equalsNullable(this.failureReasons, telnyxBrand.failureReasons);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(entityType, cspId, brandId, displayName, companyName, firstName, lastName, ein, phone, street, city, state, postalCode, country, email, stockSymbol, stockExchange, ipAddress, website, brandRelationship, vertical, altBusinessId, altBusinessIdType, universalEin, referenceId, identityStatus, optionalAttributes, mock, mobilePhone, isReseller);
+    return Objects.hash(entityType, cspId, brandId, tcrBrandId, displayName, companyName, firstName, lastName, ein, phone, street, city, state, postalCode, country, email, stockSymbol, stockExchange, ipAddress, website, brandRelationship, vertical, altBusinessId, altBusinessIdType, universalEin, referenceId, identityStatus, optionalAttributes, mock, mobilePhone, isReseller, webhookURL, businessContactEmail, webhookFailoverURL, createdAt, updatedAt, status, hashCodeNullable(failureReasons));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -1004,6 +1310,7 @@ public class TelnyxBrand {
     sb.append("    entityType: ").append(toIndentedString(entityType)).append("\n");
     sb.append("    cspId: ").append(toIndentedString(cspId)).append("\n");
     sb.append("    brandId: ").append(toIndentedString(brandId)).append("\n");
+    sb.append("    tcrBrandId: ").append(toIndentedString(tcrBrandId)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    companyName: ").append(toIndentedString(companyName)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
@@ -1031,6 +1338,13 @@ public class TelnyxBrand {
     sb.append("    mock: ").append(toIndentedString(mock)).append("\n");
     sb.append("    mobilePhone: ").append(toIndentedString(mobilePhone)).append("\n");
     sb.append("    isReseller: ").append(toIndentedString(isReseller)).append("\n");
+    sb.append("    webhookURL: ").append(toIndentedString(webhookURL)).append("\n");
+    sb.append("    businessContactEmail: ").append(toIndentedString(businessContactEmail)).append("\n");
+    sb.append("    webhookFailoverURL: ").append(toIndentedString(webhookFailoverURL)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    failureReasons: ").append(toIndentedString(failureReasons)).append("\n");
     sb.append("}");
     return sb.toString();
   }

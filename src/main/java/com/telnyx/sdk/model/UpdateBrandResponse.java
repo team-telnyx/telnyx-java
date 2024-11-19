@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -25,14 +25,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AltBusinessIdType;
+import com.telnyx.sdk.model.BrandIdentityStatus;
 import com.telnyx.sdk.model.BrandRelationship;
 import com.telnyx.sdk.model.EntityType;
 import com.telnyx.sdk.model.StockExchange;
 import com.telnyx.sdk.model.Vertical;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -61,7 +60,7 @@ import com.telnyx.sdk.JSON;
   UpdateBrandResponse.JSON_PROPERTY_ALT_BUSINESS_ID_TYPE,
   UpdateBrandResponse.JSON_PROPERTY_IDENTITY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class UpdateBrandResponse {
   public static final String JSON_PROPERTY_ENTITY_TYPE = "entityType";
   private EntityType entityType;
@@ -121,7 +120,7 @@ public class UpdateBrandResponse {
   private AltBusinessIdType altBusinessIdType;
 
   public static final String JSON_PROPERTY_IDENTITY_STATUS = "identityStatus";
-  private String identityStatus;
+  private BrandIdentityStatus identityStatus;
 
   public UpdateBrandResponse() { 
   }
@@ -620,28 +619,28 @@ public class UpdateBrandResponse {
   }
 
 
-  public UpdateBrandResponse identityStatus(String identityStatus) {
+  public UpdateBrandResponse identityStatus(BrandIdentityStatus identityStatus) {
     this.identityStatus = identityStatus;
     return this;
   }
 
    /**
-   * TCR assessment of the brand identification status.
+   * Get identityStatus
    * @return identityStatus
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "VERIFIED", value = "TCR assessment of the brand identification status.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IDENTITY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getIdentityStatus() {
+  public BrandIdentityStatus getIdentityStatus() {
     return identityStatus;
   }
 
 
   @JsonProperty(JSON_PROPERTY_IDENTITY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIdentityStatus(String identityStatus) {
+  public void setIdentityStatus(BrandIdentityStatus identityStatus) {
     this.identityStatus = identityStatus;
   }
 

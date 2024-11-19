@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class BulkPhoneNumberOperationsApi {
   private ApiClient apiClient;
 
@@ -118,7 +118,7 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createDeletePhoneNumbersJ
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job delete phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 403 </td><td> Unauthorized response. Happens when the current user is not authorized to access the endpoint. </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
@@ -138,7 +138,7 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createDeletePhoneNumbersJ
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job delete phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 403 </td><td> Unauthorized response. Happens when the current user is not authorized to access the endpoint. </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
@@ -171,7 +171,7 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createDeletePhoneNumbersJ
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Phone numbers enable emergency requested. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 403 </td><td> Unauthorized response. Happens when the current user is not authorized to access the endpoint. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
@@ -191,7 +191,7 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createDeletePhoneNumbersJ
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Phone numbers enable emergency requested. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 403 </td><td> Unauthorized response. Happens when the current user is not authorized to access the endpoint. </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
@@ -237,7 +237,7 @@ private ApiResponse<PhoneNumbersJobDeletePhoneNumbers> createDeletePhoneNumbersJ
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createUpdatePhoneNumbersJobWithHttpInfo(PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest) throws ApiException {
+private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createUpdatePhoneNumbersJobWithHttpInfo(PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest, String filterHasBundle, String filterTag, String filterConnectionId, String filterPhoneNumber, String filterStatus, String filterVoiceConnectionNameContains, String filterVoiceUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String filterCustomerReference) throws ApiException {
     Object localVarPostBody = phoneNumbersJobUpdatePhoneNumbersRequest;
     
     // verify the required parameter 'phoneNumbersJobUpdatePhoneNumbersRequest' is set
@@ -254,6 +254,16 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createUpdatePhoneNumbersJ
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[has_bundle]", filterHasBundle));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[tag]", filterTag));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_id]", filterConnectionId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.connection_name][contains]", filterVoiceConnectionNameContains));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.usage_payment_method]", filterVoiceUsagePaymentMethod));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[billing_group_id]", filterBillingGroupId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[emergency_address_id]", filterEmergencyAddressId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[customer_reference]", filterCustomerReference));
 
     
     
@@ -279,6 +289,16 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createUpdatePhoneNumbersJ
 
   public class APIcreateUpdatePhoneNumbersJobRequest {
     private PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest;
+    private String filterHasBundle;
+    private String filterTag;
+    private String filterConnectionId;
+    private String filterPhoneNumber;
+    private String filterStatus;
+    private String filterVoiceConnectionNameContains;
+    private String filterVoiceUsagePaymentMethod;
+    private String filterBillingGroupId;
+    private String filterEmergencyAddressId;
+    private String filterCustomerReference;
 
     private APIcreateUpdatePhoneNumbersJobRequest() {
     }
@@ -294,6 +314,106 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createUpdatePhoneNumbersJ
     }
 
     /**
+     * Set filterHasBundle
+     * @param filterHasBundle Filter by phone number that have bundles. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterHasBundle(String filterHasBundle) {
+      this.filterHasBundle = filterHasBundle;
+      return this;
+    }
+
+    /**
+     * Set filterTag
+     * @param filterTag Filter by phone number tags. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterTag(String filterTag) {
+      this.filterTag = filterTag;
+      return this;
+    }
+
+    /**
+     * Set filterConnectionId
+     * @param filterConnectionId Filter by connection_id. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterConnectionId(String filterConnectionId) {
+      this.filterConnectionId = filterConnectionId;
+      return this;
+    }
+
+    /**
+     * Set filterPhoneNumber
+     * @param filterPhoneNumber Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterPhoneNumber(String filterPhoneNumber) {
+      this.filterPhoneNumber = filterPhoneNumber;
+      return this;
+    }
+
+    /**
+     * Set filterStatus
+     * @param filterStatus Filter by phone number status. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterStatus(String filterStatus) {
+      this.filterStatus = filterStatus;
+      return this;
+    }
+
+    /**
+     * Set filterVoiceConnectionNameContains
+     * @param filterVoiceConnectionNameContains Filter contains connection name. Requires at least three characters. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterVoiceConnectionNameContains(String filterVoiceConnectionNameContains) {
+      this.filterVoiceConnectionNameContains = filterVoiceConnectionNameContains;
+      return this;
+    }
+
+    /**
+     * Set filterVoiceUsagePaymentMethod
+     * @param filterVoiceUsagePaymentMethod Filter by usage_payment_method. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterVoiceUsagePaymentMethod(String filterVoiceUsagePaymentMethod) {
+      this.filterVoiceUsagePaymentMethod = filterVoiceUsagePaymentMethod;
+      return this;
+    }
+
+    /**
+     * Set filterBillingGroupId
+     * @param filterBillingGroupId Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterBillingGroupId(String filterBillingGroupId) {
+      this.filterBillingGroupId = filterBillingGroupId;
+      return this;
+    }
+
+    /**
+     * Set filterEmergencyAddressId
+     * @param filterEmergencyAddressId Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string &#39;null&#39;. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterEmergencyAddressId(String filterEmergencyAddressId) {
+      this.filterEmergencyAddressId = filterEmergencyAddressId;
+      return this;
+    }
+
+    /**
+     * Set filterCustomerReference
+     * @param filterCustomerReference Filter numbers via the customer_reference set. (optional)
+     * @return APIcreateUpdatePhoneNumbersJobRequest
+     */
+    public APIcreateUpdatePhoneNumbersJobRequest filterCustomerReference(String filterCustomerReference) {
+      this.filterCustomerReference = filterCustomerReference;
+      return this;
+    }
+
+    /**
      * Execute createUpdatePhoneNumbersJob request
      * @return PhoneNumbersJobUpdatePhoneNumbers
      * @throws ApiException if fails to make API call
@@ -301,7 +421,7 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createUpdatePhoneNumbersJ
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job update phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
@@ -321,7 +441,7 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createUpdatePhoneNumbersJ
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 202 </td><td> Phone numbers job update phone numbers requested. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
@@ -329,7 +449,7 @@ private ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> createUpdatePhoneNumbersJ
 
      */
     public ApiResponse<PhoneNumbersJobUpdatePhoneNumbers> executeWithHttpInfo() throws ApiException {
-      return createUpdatePhoneNumbersJobWithHttpInfo(phoneNumbersJobUpdatePhoneNumbersRequest);
+      return createUpdatePhoneNumbersJobWithHttpInfo(phoneNumbersJobUpdatePhoneNumbersRequest, filterHasBundle, filterTag, filterConnectionId, filterPhoneNumber, filterStatus, filterVoiceConnectionNameContains, filterVoiceUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, filterCustomerReference);
     }
   }
 
@@ -441,7 +561,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers background jobs. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>
@@ -460,7 +580,7 @@ private ApiResponse<ListPhoneNumbersBackgroundJobsResponse> listPhoneNumbersJobs
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of phone numbers background jobs. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>
@@ -539,7 +659,7 @@ private ApiResponse<PhoneNumbersJob> retrievePhoneNumbersJobWithHttpInfo(String 
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Phone numbers job details. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>
@@ -558,7 +678,7 @@ private ApiResponse<PhoneNumbersJob> retrievePhoneNumbersJobWithHttpInfo(String 
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Phone numbers job details. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -24,11 +24,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.BrandIdentityStatus;
 import com.telnyx.sdk.model.EntityType;
 import java.util.Arrays;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -37,21 +40,32 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   BrandBasic.JSON_PROPERTY_BRAND_ID,
+  BrandBasic.JSON_PROPERTY_TCR_BRAND_ID,
   BrandBasic.JSON_PROPERTY_ENTITY_TYPE,
+  BrandBasic.JSON_PROPERTY_IDENTITY_STATUS,
   BrandBasic.JSON_PROPERTY_COMPANY_NAME,
   BrandBasic.JSON_PROPERTY_DISPLAY_NAME,
   BrandBasic.JSON_PROPERTY_EMAIL,
   BrandBasic.JSON_PROPERTY_WEBSITE,
-  BrandBasic.JSON_PROPERTY_CREATE_AT,
-  BrandBasic.JSON_PROPERTY_UPDATED_AT
+  BrandBasic.JSON_PROPERTY_FAILURE_REASONS,
+  BrandBasic.JSON_PROPERTY_STATUS,
+  BrandBasic.JSON_PROPERTY_CREATED_AT,
+  BrandBasic.JSON_PROPERTY_UPDATED_AT,
+  BrandBasic.JSON_PROPERTY_ASSIGNED_CAMPAINGS_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class BrandBasic {
   public static final String JSON_PROPERTY_BRAND_ID = "brandId";
   private String brandId;
 
+  public static final String JSON_PROPERTY_TCR_BRAND_ID = "tcrBrandId";
+  private String tcrBrandId;
+
   public static final String JSON_PROPERTY_ENTITY_TYPE = "entityType";
   private EntityType entityType;
+
+  public static final String JSON_PROPERTY_IDENTITY_STATUS = "identityStatus";
+  private BrandIdentityStatus identityStatus;
 
   public static final String JSON_PROPERTY_COMPANY_NAME = "companyName";
   private String companyName;
@@ -65,11 +79,57 @@ public class BrandBasic {
   public static final String JSON_PROPERTY_WEBSITE = "website";
   private String website;
 
-  public static final String JSON_PROPERTY_CREATE_AT = "createAt";
-  private String createAt;
+  public static final String JSON_PROPERTY_FAILURE_REASONS = "failureReasons";
+  private JsonNullable<Object> failureReasons = JsonNullable.<Object>of(null);
+
+  /**
+   * Status of the brand
+   */
+  public enum StatusEnum {
+    OK(String.valueOf("OK")),
+    
+    REGISTRATION_PENDING(String.valueOf("REGISTRATION_PENDING")),
+    
+    REGISTRATION_FAILED(String.valueOf("REGISTRATION_FAILED"));
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  private StatusEnum status;
+
+  public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
+  private String createdAt;
 
   public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
   private String updatedAt;
+
+  public static final String JSON_PROPERTY_ASSIGNED_CAMPAINGS_COUNT = "assignedCampaingsCount";
+  private Integer assignedCampaingsCount;
 
   public BrandBasic() { 
   }
@@ -100,6 +160,32 @@ public class BrandBasic {
   }
 
 
+  public BrandBasic tcrBrandId(String tcrBrandId) {
+    this.tcrBrandId = tcrBrandId;
+    return this;
+  }
+
+   /**
+   * Unique identifier assigned to the brand by the registry.
+   * @return tcrBrandId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "BBRAND1", value = "Unique identifier assigned to the brand by the registry.")
+  @JsonProperty(JSON_PROPERTY_TCR_BRAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTcrBrandId() {
+    return tcrBrandId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TCR_BRAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTcrBrandId(String tcrBrandId) {
+    this.tcrBrandId = tcrBrandId;
+  }
+
+
   public BrandBasic entityType(EntityType entityType) {
     this.entityType = entityType;
     return this;
@@ -123,6 +209,32 @@ public class BrandBasic {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEntityType(EntityType entityType) {
     this.entityType = entityType;
+  }
+
+
+  public BrandBasic identityStatus(BrandIdentityStatus identityStatus) {
+    this.identityStatus = identityStatus;
+    return this;
+  }
+
+   /**
+   * Get identityStatus
+   * @return identityStatus
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_IDENTITY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BrandIdentityStatus getIdentityStatus() {
+    return identityStatus;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IDENTITY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIdentityStatus(BrandIdentityStatus identityStatus) {
+    this.identityStatus = identityStatus;
   }
 
 
@@ -230,29 +342,89 @@ public class BrandBasic {
   }
 
 
-  public BrandBasic createAt(String createAt) {
-    this.createAt = createAt;
+  public BrandBasic failureReasons(Object failureReasons) {
+    this.failureReasons = JsonNullable.<Object>of(failureReasons);
+    return this;
+  }
+
+   /**
+   * Failure reasons for brand
+   * @return failureReasons
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Failure reasons for brand")
+  @JsonIgnore
+
+  public Object getFailureReasons() {
+        return failureReasons.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_FAILURE_REASONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<Object> getFailureReasons_JsonNullable() {
+    return failureReasons;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_FAILURE_REASONS)
+  public void setFailureReasons_JsonNullable(JsonNullable<Object> failureReasons) {
+    this.failureReasons = failureReasons;
+  }
+
+  public void setFailureReasons(Object failureReasons) {
+    this.failureReasons = JsonNullable.<Object>of(failureReasons);
+  }
+
+
+  public BrandBasic status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Status of the brand
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Status of the brand")
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+
+  public BrandBasic createdAt(String createdAt) {
+    this.createdAt = createdAt;
     return this;
   }
 
    /**
    * Date and time that the brand was created at.
-   * @return createAt
+   * @return createdAt
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "2021-03-08T17:57:48.801186", value = "Date and time that the brand was created at.")
-  @JsonProperty(JSON_PROPERTY_CREATE_AT)
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getCreateAt() {
-    return createAt;
+  public String getCreatedAt() {
+    return createdAt;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATE_AT)
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreateAt(String createAt) {
-    this.createAt = createAt;
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
   }
 
 
@@ -282,6 +454,32 @@ public class BrandBasic {
   }
 
 
+  public BrandBasic assignedCampaingsCount(Integer assignedCampaingsCount) {
+    this.assignedCampaingsCount = assignedCampaingsCount;
+    return this;
+  }
+
+   /**
+   * Number of campaigns associated with the brand
+   * @return assignedCampaingsCount
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2", value = "Number of campaigns associated with the brand")
+  @JsonProperty(JSON_PROPERTY_ASSIGNED_CAMPAINGS_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getAssignedCampaingsCount() {
+    return assignedCampaingsCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSIGNED_CAMPAINGS_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAssignedCampaingsCount(Integer assignedCampaingsCount) {
+    this.assignedCampaingsCount = assignedCampaingsCount;
+  }
+
+
   /**
    * Return true if this BrandBasic object is equal to o.
    */
@@ -295,18 +493,34 @@ public class BrandBasic {
     }
     BrandBasic brandBasic = (BrandBasic) o;
     return Objects.equals(this.brandId, brandBasic.brandId) &&
+        Objects.equals(this.tcrBrandId, brandBasic.tcrBrandId) &&
         Objects.equals(this.entityType, brandBasic.entityType) &&
+        Objects.equals(this.identityStatus, brandBasic.identityStatus) &&
         Objects.equals(this.companyName, brandBasic.companyName) &&
         Objects.equals(this.displayName, brandBasic.displayName) &&
         Objects.equals(this.email, brandBasic.email) &&
         Objects.equals(this.website, brandBasic.website) &&
-        Objects.equals(this.createAt, brandBasic.createAt) &&
-        Objects.equals(this.updatedAt, brandBasic.updatedAt);
+        equalsNullable(this.failureReasons, brandBasic.failureReasons) &&
+        Objects.equals(this.status, brandBasic.status) &&
+        Objects.equals(this.createdAt, brandBasic.createdAt) &&
+        Objects.equals(this.updatedAt, brandBasic.updatedAt) &&
+        Objects.equals(this.assignedCampaingsCount, brandBasic.assignedCampaingsCount);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(brandId, entityType, companyName, displayName, email, website, createAt, updatedAt);
+    return Objects.hash(brandId, tcrBrandId, entityType, identityStatus, companyName, displayName, email, website, hashCodeNullable(failureReasons), status, createdAt, updatedAt, assignedCampaingsCount);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -314,13 +528,18 @@ public class BrandBasic {
     StringBuilder sb = new StringBuilder();
     sb.append("class BrandBasic {\n");
     sb.append("    brandId: ").append(toIndentedString(brandId)).append("\n");
+    sb.append("    tcrBrandId: ").append(toIndentedString(tcrBrandId)).append("\n");
     sb.append("    entityType: ").append(toIndentedString(entityType)).append("\n");
+    sb.append("    identityStatus: ").append(toIndentedString(identityStatus)).append("\n");
     sb.append("    companyName: ").append(toIndentedString(companyName)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    website: ").append(toIndentedString(website)).append("\n");
-    sb.append("    createAt: ").append(toIndentedString(createAt)).append("\n");
+    sb.append("    failureReasons: ").append(toIndentedString(failureReasons)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    assignedCampaingsCount: ").append(toIndentedString(assignedCampaingsCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

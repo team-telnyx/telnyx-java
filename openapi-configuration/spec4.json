@@ -9171,7 +9171,7 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/ConnectionId"
+            "$ref": "#/components/schemas/ConnectionId"
           }
         ],
         "requestBody": {

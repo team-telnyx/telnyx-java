@@ -15,6 +15,7 @@
 |**customHeaders** | [**List&lt;CustomSipHeader&gt;**](CustomSipHeader.md) | Custom headers set on answer command |  [optional] |
 |**from** | **String** | Number or SIP URI placing the call. |  [optional] |
 |**to** | **String** | Destination number or SIP URI of the call. |  [optional] |
+|**startTime** | **OffsetDateTime** | ISO 8601 datetime of when the call started. |  [optional] |
 |**state** | [**StateEnum**](#StateEnum) | State received from a command. |  [optional] |
 
 

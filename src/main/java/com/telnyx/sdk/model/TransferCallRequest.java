@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -31,8 +31,6 @@ import com.telnyx.sdk.model.SoundModifications;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -63,7 +61,7 @@ import com.telnyx.sdk.JSON;
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL,
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class TransferCallRequest {
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
@@ -90,17 +88,17 @@ public class TransferCallRequest {
    * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#39;greeting_end&#39; or &#39;detect_words&#39; is used and a &#39;machine&#39; is detected, you will receive another &#39;call.machine.greeting.ended&#39; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#39;call.machine.greeting.ended&#39; if a beep is detected.
    */
   public enum AnsweringMachineDetectionEnum {
-    PREMIUM("premium"),
+    PREMIUM(String.valueOf("premium")),
     
-    DETECT("detect"),
+    DETECT(String.valueOf("detect")),
     
-    DETECT_BEEP("detect_beep"),
+    DETECT_BEEP(String.valueOf("detect_beep")),
     
-    DETECT_WORDS("detect_words"),
+    DETECT_WORDS(String.valueOf("detect_words")),
     
-    GREETING_END("greeting_end"),
+    GREETING_END(String.valueOf("greeting_end")),
     
-    DISABLED("disabled");
+    DISABLED(String.valueOf("disabled"));
 
     private String value;
 
@@ -151,9 +149,9 @@ public class TransferCallRequest {
    * Defines whether media should be encrypted on the new call leg.
    */
   public enum MediaEncryptionEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    SRTP("SRTP");
+    SRTP(String.valueOf("SRTP"));
 
     private String value;
 
@@ -198,11 +196,11 @@ public class TransferCallRequest {
    * Defines SIP transport protocol to be used on the call.
    */
   public enum SipTransportProtocolEnum {
-    UDP("UDP"),
+    UDP(String.valueOf("UDP")),
     
-    TCP("TCP"),
+    TCP(String.valueOf("TCP")),
     
-    TLS("TLS");
+    TLS(String.valueOf("TLS"));
 
     private String value;
 
@@ -244,9 +242,9 @@ public class TransferCallRequest {
    * HTTP request type used for &#x60;webhook_url&#x60;.
    */
   public enum WebhookUrlMethodEnum {
-    POST("POST"),
+    POST(String.valueOf("POST")),
     
-    GET("GET");
+    GET(String.valueOf("GET"));
 
     private String value;
 
@@ -417,11 +415,11 @@ public class TransferCallRequest {
   }
 
    /**
-   * The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a &#x60;call.hangup&#x60; webhook with a &#x60;hangup_cause&#x60; of &#x60;timeout&#x60; will be sent. Minimum value is 5 seconds. Maximum value is 120 seconds.
+   * The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a &#x60;call.hangup&#x60; webhook with a &#x60;hangup_cause&#x60; of &#x60;timeout&#x60; will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.
    * @return timeoutSecs
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "60", value = "The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 120 seconds.")
+  @ApiModelProperty(example = "60", value = "The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -522,7 +520,7 @@ public class TransferCallRequest {
     return this;
   }
 
-  public TransferCallRequest addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+  public TransferCallRequest addcustomHeadersItem(CustomSipHeader customHeadersItem) {
     if (this.customHeaders == null) {
       this.customHeaders = new ArrayList<>();
     }
@@ -712,7 +710,7 @@ public class TransferCallRequest {
     return this;
   }
 
-  public TransferCallRequest addSipHeadersItem(SipHeader sipHeadersItem) {
+  public TransferCallRequest addsipHeadersItem(SipHeader sipHeadersItem) {
     if (this.sipHeaders == null) {
       this.sipHeaders = new ArrayList<>();
     }

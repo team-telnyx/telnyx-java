@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CallLeftQueuePayload.JSON_PROPERTY_QUEUE_POSITION,
   CallLeftQueuePayload.JSON_PROPERTY_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CallLeftQueuePayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -71,15 +69,15 @@ public class CallLeftQueuePayload {
    * The reason for leaving the queue
    */
   public enum ReasonEnum {
-    BRIDGED("bridged"),
+    BRIDGED(String.valueOf("bridged")),
     
-    BRIDGING_IN_PROCESS("bridging-in-process"),
+    BRIDGING_IN_PROCESS(String.valueOf("bridging-in-process")),
     
-    HANGUP("hangup"),
+    HANGUP(String.valueOf("hangup")),
     
-    LEAVE("leave"),
+    LEAVE(String.valueOf("leave")),
     
-    TIMEOUT("timeout");
+    TIMEOUT(String.valueOf("timeout"));
 
     private String value;
 

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.RegionOutRegion;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   VirtualCrossConnectCombined.JSON_PROPERTY_NAME,
   VirtualCrossConnectCombined.JSON_PROPERTY_STATUS,
   VirtualCrossConnectCombined.JSON_PROPERTY_CLOUD_PROVIDER,
-  VirtualCrossConnectCombined.JSON_PROPERTY_CLOUD_REGION,
+  VirtualCrossConnectCombined.JSON_PROPERTY_CLOUD_PROVIDER_REGION,
   VirtualCrossConnectCombined.JSON_PROPERTY_BGP_ASN,
   VirtualCrossConnectCombined.JSON_PROPERTY_BANDWIDTH_MBPS,
   VirtualCrossConnectCombined.JSON_PROPERTY_PRIMARY_ENABLED,
@@ -65,7 +63,7 @@ import com.telnyx.sdk.JSON;
   VirtualCrossConnectCombined.JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT,
   VirtualCrossConnectCombined.JSON_PROPERTY_REGION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class VirtualCrossConnectCombined {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -92,11 +90,11 @@ public class VirtualCrossConnectCombined {
    * The Virtual Private Cloud with which you would like to establish a cross connect.
    */
   public enum CloudProviderEnum {
-    AWS("aws"),
+    AWS(String.valueOf("aws")),
     
-    AZURE("azure"),
+    AZURE(String.valueOf("azure")),
     
-    GCE("gce");
+    GCE(String.valueOf("gce"));
 
     private String value;
 
@@ -128,8 +126,8 @@ public class VirtualCrossConnectCombined {
   public static final String JSON_PROPERTY_CLOUD_PROVIDER = "cloud_provider";
   private CloudProviderEnum cloudProvider;
 
-  public static final String JSON_PROPERTY_CLOUD_REGION = "cloud_region";
-  private String cloudRegion;
+  public static final String JSON_PROPERTY_CLOUD_PROVIDER_REGION = "cloud_provider_region";
+  private String cloudProviderRegion;
 
   public static final String JSON_PROPERTY_BGP_ASN = "bgp_asn";
   private BigDecimal bgpAsn;
@@ -364,29 +362,29 @@ public class VirtualCrossConnectCombined {
   }
 
 
-  public VirtualCrossConnectCombined cloudRegion(String cloudRegion) {
-    this.cloudRegion = cloudRegion;
+  public VirtualCrossConnectCombined cloudProviderRegion(String cloudProviderRegion) {
+    this.cloudProviderRegion = cloudProviderRegion;
     return this;
   }
 
    /**
    * The region where your Virtual Private Cloud hosts are located.&lt;br /&gt;&lt;br /&gt;The available regions can be found using the /virtual_cross_connect_regions endpoint.
-   * @return cloudRegion
+   * @return cloudProviderRegion
   **/
   @javax.annotation.Nonnull
   @ApiModelProperty(example = "us-east-1", required = true, value = "The region where your Virtual Private Cloud hosts are located.<br /><br />The available regions can be found using the /virtual_cross_connect_regions endpoint.")
-  @JsonProperty(JSON_PROPERTY_CLOUD_REGION)
+  @JsonProperty(JSON_PROPERTY_CLOUD_PROVIDER_REGION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getCloudRegion() {
-    return cloudRegion;
+  public String getCloudProviderRegion() {
+    return cloudProviderRegion;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLOUD_REGION)
+  @JsonProperty(JSON_PROPERTY_CLOUD_PROVIDER_REGION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCloudRegion(String cloudRegion) {
-    this.cloudRegion = cloudRegion;
+  public void setCloudProviderRegion(String cloudProviderRegion) {
+    this.cloudProviderRegion = cloudProviderRegion;
   }
 
 
@@ -826,7 +824,7 @@ public class VirtualCrossConnectCombined {
         Objects.equals(this.name, virtualCrossConnectCombined.name) &&
         Objects.equals(this.status, virtualCrossConnectCombined.status) &&
         Objects.equals(this.cloudProvider, virtualCrossConnectCombined.cloudProvider) &&
-        Objects.equals(this.cloudRegion, virtualCrossConnectCombined.cloudRegion) &&
+        Objects.equals(this.cloudProviderRegion, virtualCrossConnectCombined.cloudProviderRegion) &&
         Objects.equals(this.bgpAsn, virtualCrossConnectCombined.bgpAsn) &&
         Objects.equals(this.bandwidthMbps, virtualCrossConnectCombined.bandwidthMbps) &&
         Objects.equals(this.primaryEnabled, virtualCrossConnectCombined.primaryEnabled) &&
@@ -847,7 +845,7 @@ public class VirtualCrossConnectCombined {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, createdAt, updatedAt, networkId, name, status, cloudProvider, cloudRegion, bgpAsn, bandwidthMbps, primaryEnabled, primaryCloudAccountId, primaryTelnyxIp, primaryCloudIp, primaryBgpKey, secondaryEnabled, secondaryCloudAccountId, secondaryTelnyxIp, secondaryCloudIp, secondaryBgpKey, regionCode, primaryRoutingAnnouncement, secondaryRoutingAnnouncement, region);
+    return Objects.hash(id, recordType, createdAt, updatedAt, networkId, name, status, cloudProvider, cloudProviderRegion, bgpAsn, bandwidthMbps, primaryEnabled, primaryCloudAccountId, primaryTelnyxIp, primaryCloudIp, primaryBgpKey, secondaryEnabled, secondaryCloudAccountId, secondaryTelnyxIp, secondaryCloudIp, secondaryBgpKey, regionCode, primaryRoutingAnnouncement, secondaryRoutingAnnouncement, region);
   }
 
   @Override
@@ -862,7 +860,7 @@ public class VirtualCrossConnectCombined {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    cloudProvider: ").append(toIndentedString(cloudProvider)).append("\n");
-    sb.append("    cloudRegion: ").append(toIndentedString(cloudRegion)).append("\n");
+    sb.append("    cloudProviderRegion: ").append(toIndentedString(cloudProviderRegion)).append("\n");
     sb.append("    bgpAsn: ").append(toIndentedString(bgpAsn)).append("\n");
     sb.append("    bandwidthMbps: ").append(toIndentedString(bandwidthMbps)).append("\n");
     sb.append("    primaryEnabled: ").append(toIndentedString(primaryEnabled)).append("\n");

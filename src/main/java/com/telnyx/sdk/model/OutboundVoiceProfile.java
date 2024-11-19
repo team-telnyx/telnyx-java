@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -15,16 +15,30 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Map;
+import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.OutboundCallRecording;
+import com.telnyx.sdk.model.ServicePlan;
+import com.telnyx.sdk.model.TrafficType;
+import com.telnyx.sdk.model.UsagePaymentMethod;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.telnyx.sdk.JSON;
 
 
 /**
@@ -50,7 +64,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   OutboundVoiceProfile.JSON_PROPERTY_CREATED_AT,
   OutboundVoiceProfile.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class OutboundVoiceProfile {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -330,7 +344,7 @@ public class OutboundVoiceProfile {
     return this;
   }
 
-  public OutboundVoiceProfile addTagsItem(String tagsItem) {
+  public OutboundVoiceProfile addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -390,7 +404,7 @@ public class OutboundVoiceProfile {
     return this;
   }
 
-  public OutboundVoiceProfile addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+  public OutboundVoiceProfile addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
     if (this.whitelistedDestinations == null) {
       this.whitelistedDestinations = new ArrayList<>(Arrays.asList("US", "CA"));
     }

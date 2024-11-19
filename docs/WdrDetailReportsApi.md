@@ -4,7 +4,7 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getPaginatedWdrs**](WdrDetailReportsApi.md#getPaginatedWdrs) | **GET** /reports/wdrs | 
+[**getPaginatedWdrs**](WdrDetailReportsApi.md#getPaginatedWdrs) | **GET** /reports/wdrs | Get Report WDRs
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ExternalWdrGetDetailResponse getPaginatedWdrs(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize, sort)
 
-
+Get Report WDRs
 
 Fetch all Wdr records 
 

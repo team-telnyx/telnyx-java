@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.HostedNumber;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -46,7 +47,7 @@ import com.telnyx.sdk.JSON;
   MessagingHostedNumberOrder.JSON_PROPERTY_STATUS,
   MessagingHostedNumberOrder.JSON_PROPERTY_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class MessagingHostedNumberOrder {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -61,11 +62,11 @@ public class MessagingHostedNumberOrder {
    * Gets or Sets status
    */
   public enum StatusEnum {
-    FAILED("failed"),
+    FAILED(String.valueOf("failed")),
     
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    SUCCESSFUL("successful");
+    SUCCESSFUL(String.valueOf("successful"));
 
     private String value;
 
@@ -210,7 +211,7 @@ public class MessagingHostedNumberOrder {
     return this;
   }
 
-  public MessagingHostedNumberOrder addPhoneNumbersItem(HostedNumber phoneNumbersItem) {
+  public MessagingHostedNumberOrder addphoneNumbersItem(HostedNumber phoneNumbersItem) {
     if (this.phoneNumbers == null) {
       this.phoneNumbers = new ArrayList<>();
     }

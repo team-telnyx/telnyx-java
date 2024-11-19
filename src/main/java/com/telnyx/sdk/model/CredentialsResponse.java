@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -25,10 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CustomStorageConfiguration;
+import com.telnyx.sdk.model.RecordType;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CredentialsResponse.JSON_PROPERTY_CONNECTION_ID,
   CredentialsResponse.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CredentialsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private CustomStorageConfiguration data;
@@ -49,7 +48,7 @@ public class CredentialsResponse {
   private String connectionId;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+  private RecordType recordType;
 
   public CredentialsResponse() { 
   }
@@ -106,28 +105,28 @@ public class CredentialsResponse {
   }
 
 
-  public CredentialsResponse recordType(String recordType) {
+  public CredentialsResponse recordType(RecordType recordType) {
     this.recordType = recordType;
     return this;
   }
 
    /**
-   * Identifies record type.
+   * Get recordType
    * @return recordType
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Identifies record type.")
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getRecordType() {
+  public RecordType getRecordType() {
     return recordType;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRecordType(String recordType) {
+  public void setRecordType(RecordType recordType) {
     this.recordType = recordType;
   }
 

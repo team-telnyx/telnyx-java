@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.UrlShortenerSettings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -53,7 +51,7 @@ import com.telnyx.sdk.JSON;
   CreateMessagingProfileRequest.JSON_PROPERTY_URL_SHORTENER_SETTINGS,
   CreateMessagingProfileRequest.JSON_PROPERTY_ALPHA_SENDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateMessagingProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -74,11 +72,11 @@ public class CreateMessagingProfileRequest {
    * Determines which webhook format will be used, Telnyx API v1, v2, or a legacy 2010-04-01 format.
    */
   public enum WebhookApiVersionEnum {
-    _1("1"),
+    _1(String.valueOf("1")),
     
-    _2("2"),
+    _2(String.valueOf("2")),
     
-    _2010_04_01("2010-04-01");
+    _2010_04_01(String.valueOf("2010-04-01"));
 
     private String value;
 
@@ -153,7 +151,7 @@ public class CreateMessagingProfileRequest {
     return this;
   }
 
-  public CreateMessagingProfileRequest addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+  public CreateMessagingProfileRequest addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
     this.whitelistedDestinations.add(whitelistedDestinationsItem);
     return this;
   }

@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 
 ## listCustomerServiceRecords
 
-> ListCustomerServiceRecords200Response listCustomerServiceRecords(pageNumber, pageSize, sort, filterPhoneNumberEq, filterPhoneNumberIn, filterStatusEq, filterStatusIn, filterCreatedAtLt)
+> ListCustomerServiceRecords200Response listCustomerServiceRecords(pageNumber, pageSize, sort, filterPhoneNumberEq, filterPhoneNumberIn, filterStatusEq, filterStatusIn, filterCreatedAtLt, filterCreatedAtGt)
 
 List customer service records
 
@@ -196,9 +196,10 @@ public class Example {
         List<String> filterPhoneNumberIn = Arrays.asList(); // List<String> | Filters records to those with at least one number in the list.
         String filterStatusEq = "pending"; // String | Filters records to those with a specific status.
         List<String> filterStatusIn = Arrays.asList(); // List<String> | Filters records to those with a least one status in the list.
-        OffsetDateTime filterCreatedAtLt = OffsetDateTime.parse("2020-01-01T00:00Z"); // OffsetDateTime | Filters records to those created after a specific date.
+        OffsetDateTime filterCreatedAtLt = OffsetDateTime.parse("2020-01-01T00:00Z"); // OffsetDateTime | Filters records to those created before a specific date.
+        OffsetDateTime filterCreatedAtGt = OffsetDateTime.parse("2020-01-01T00:00Z"); // OffsetDateTime | Filters records to those created after a specific date.
         try {
-            ListCustomerServiceRecords200Response result = apiInstance.listCustomerServiceRecords(pageNumber, pageSize, sort, filterPhoneNumberEq, filterPhoneNumberIn, filterStatusEq, filterStatusIn, filterCreatedAtLt);
+            ListCustomerServiceRecords200Response result = apiInstance.listCustomerServiceRecords(pageNumber, pageSize, sort, filterPhoneNumberEq, filterPhoneNumberIn, filterStatusEq, filterStatusIn, filterCreatedAtLt, filterCreatedAtGt);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CustomerServiceRecordApi#listCustomerServiceRecords");
@@ -223,7 +224,8 @@ Name | Type | Description  | Notes
  **filterPhoneNumberIn** | **List&lt;String&gt;**| Filters records to those with at least one number in the list. | [optional]
  **filterStatusEq** | **String**| Filters records to those with a specific status. | [optional] [enum: pending, completed, failed]
  **filterStatusIn** | **List&lt;String&gt;**| Filters records to those with a least one status in the list. | [optional] [enum: pending, completed, failed]
- **filterCreatedAtLt** | **OffsetDateTime**| Filters records to those created after a specific date. | [optional]
+ **filterCreatedAtLt** | **OffsetDateTime**| Filters records to those created before a specific date. | [optional]
+ **filterCreatedAtGt** | **OffsetDateTime**| Filters records to those created after a specific date. | [optional]
 
 ### Return type
 

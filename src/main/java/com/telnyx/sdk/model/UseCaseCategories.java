@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum UseCaseCategories {
   
-  _2FA("2FA"),
+  _2_FA("2FA"),
   
   APP_NOTIFICATIONS("App Notifications"),
   

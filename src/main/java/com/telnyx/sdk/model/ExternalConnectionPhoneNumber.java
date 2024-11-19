@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -46,7 +44,7 @@ import com.telnyx.sdk.JSON;
   ExternalConnectionPhoneNumber.JSON_PROPERTY_DISPLAYED_COUNTRY_CODE,
   ExternalConnectionPhoneNumber.JSON_PROPERTY_ACQUIRED_CAPABILITIES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ExternalConnectionPhoneNumber {
   public static final String JSON_PROPERTY_TICKET_ID = "ticket_id";
   private UUID ticketId;
@@ -70,15 +68,15 @@ public class ExternalConnectionPhoneNumber {
    * The capabilities that are available for this phone number on Microsoft Teams.
    */
   public enum AcquiredCapabilitiesEnum {
-    FIRSTPARTYAPPASSIGNMENT("FirstPartyAppAssignment"),
+    FIRST_PARTY_APP_ASSIGNMENT(String.valueOf("FirstPartyAppAssignment")),
     
-    INBOUNDCALLING("InboundCalling"),
+    INBOUND_CALLING(String.valueOf("InboundCalling")),
     
-    OFFICE365("Office365"),
+    OFFICE365(String.valueOf("Office365")),
     
-    OUTBOUNDCALLING("OutboundCalling"),
+    OUTBOUND_CALLING(String.valueOf("OutboundCalling")),
     
-    USERASSIGNMENT("UserAssignment");
+    USER_ASSIGNMENT(String.valueOf("UserAssignment"));
 
     private String value;
 
@@ -274,7 +272,7 @@ public class ExternalConnectionPhoneNumber {
     return this;
   }
 
-  public ExternalConnectionPhoneNumber addAcquiredCapabilitiesItem(AcquiredCapabilitiesEnum acquiredCapabilitiesItem) {
+  public ExternalConnectionPhoneNumber addacquiredCapabilitiesItem(AcquiredCapabilitiesEnum acquiredCapabilitiesItem) {
     if (this.acquiredCapabilities == null) {
       this.acquiredCapabilities = new ArrayList<>();
     }

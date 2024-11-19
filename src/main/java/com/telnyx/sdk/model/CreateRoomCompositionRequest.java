@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,9 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.VideoRegion;
 import java.util.Arrays;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -52,7 +49,7 @@ import com.telnyx.sdk.JSON;
   CreateRoomCompositionRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   CreateRoomCompositionRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class CreateRoomCompositionRequest {
   public static final String JSON_PROPERTY_FORMAT = "format";
   private JsonNullable<String> format = JsonNullable.<String>of("mp4");
@@ -185,7 +182,7 @@ public class CreateRoomCompositionRequest {
     return this;
   }
 
-  public CreateRoomCompositionRequest putVideoLayoutItem(String key, VideoRegion videoLayoutItem) {
+  public CreateRoomCompositionRequest putvideoLayoutItem(String key, VideoRegion videoLayoutItem) {
     if (this.videoLayout == null) {
       this.videoLayout = new HashMap<>();
     }

@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.SimpleSIMCard;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PurchaseESim202Response.JSON_PROPERTY_DATA,
   PurchaseESim202Response.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PurchaseESim202Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<SimpleSIMCard> data = null;
@@ -58,7 +56,7 @@ public class PurchaseESim202Response {
     return this;
   }
 
-  public PurchaseESim202Response addDataItem(SimpleSIMCard dataItem) {
+  public PurchaseESim202Response adddataItem(SimpleSIMCard dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -92,7 +90,7 @@ public class PurchaseESim202Response {
     return this;
   }
 
-  public PurchaseESim202Response addErrorsItem(Error errorsItem) {
+  public PurchaseESim202Response adderrorsItem(Error errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }

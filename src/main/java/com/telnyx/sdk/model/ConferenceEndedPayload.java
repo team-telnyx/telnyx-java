@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -45,7 +43,7 @@ import com.telnyx.sdk.JSON;
   ConferenceEndedPayload.JSON_PROPERTY_OCCURRED_AT,
   ConferenceEndedPayload.JSON_PROPERTY_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ConferenceEndedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -72,11 +70,11 @@ public class ConferenceEndedPayload {
    * Reason the conference ended.
    */
   public enum ReasonEnum {
-    ALL_LEFT("all_left"),
+    ALL_LEFT(String.valueOf("all_left")),
     
-    HOST_LEFT("host_left"),
+    HOST_LEFT(String.valueOf("host_left")),
     
-    TIME_EXCEEDED("time_exceeded");
+    TIME_EXCEEDED(String.valueOf("time_exceeded"));
 
     private String value;
 

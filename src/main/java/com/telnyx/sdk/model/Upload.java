@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.TnUploadEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -48,7 +46,7 @@ import com.telnyx.sdk.JSON;
   Upload.JSON_PROPERTY_ERROR_MESSAGE,
   Upload.JSON_PROPERTY_TN_UPLOAD_ENTRIES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class Upload {
   public static final String JSON_PROPERTY_TICKET_ID = "ticket_id";
   private UUID ticketId;
@@ -63,17 +61,17 @@ public class Upload {
    * Represents the status of the upload on Microsoft Teams.
    */
   public enum StatusEnum {
-    PENDING_UPLOAD("pending_upload"),
+    PENDING_UPLOAD(String.valueOf("pending_upload")),
     
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    IN_PROGRESS("in_progress"),
+    IN_PROGRESS(String.valueOf("in_progress")),
     
-    PARTIAL_SUCCESS("partial_success"),
+    PARTIAL_SUCCESS(String.valueOf("partial_success")),
     
-    SUCCESS("success"),
+    SUCCESS(String.valueOf("success")),
     
-    ERROR("error");
+    ERROR(String.valueOf("error"));
 
     private String value;
 
@@ -109,9 +107,9 @@ public class Upload {
    * Available usages for the numbers in the upload on Microsoft Teams.
    */
   public enum AvailableUsagesEnum {
-    CALLING_USER_ASSIGNMENT("calling_user_assignment"),
+    CALLING_USER_ASSIGNMENT(String.valueOf("calling_user_assignment")),
     
-    FIRST_PARTY_APP_ASSIGNMENT("first_party_app_assignment");
+    FIRST_PARTY_APP_ASSIGNMENT(String.valueOf("first_party_app_assignment"));
 
     private String value;
 
@@ -264,7 +262,7 @@ public class Upload {
     return this;
   }
 
-  public Upload addAvailableUsagesItem(AvailableUsagesEnum availableUsagesItem) {
+  public Upload addavailableUsagesItem(AvailableUsagesEnum availableUsagesItem) {
     if (this.availableUsages == null) {
       this.availableUsages = new ArrayList<>();
     }
@@ -350,7 +348,7 @@ public class Upload {
     return this;
   }
 
-  public Upload addTnUploadEntriesItem(TnUploadEntry tnUploadEntriesItem) {
+  public Upload addtnUploadEntriesItem(TnUploadEntry tnUploadEntriesItem) {
     if (this.tnUploadEntries == null) {
       this.tnUploadEntries = new ArrayList<>();
     }

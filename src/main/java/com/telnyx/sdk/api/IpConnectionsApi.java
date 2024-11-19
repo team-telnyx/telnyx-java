@@ -12,7 +12,6 @@ import com.telnyx.sdk.model.CreateIpConnectionRequest;
 import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.IpConnectionResponse;
 import com.telnyx.sdk.model.ListIpConnectionsResponse;
-import com.telnyx.sdk.model.ResourceNotFound;
 import com.telnyx.sdk.model.UpdateIpConnectionRequest;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class IpConnectionsApi {
   private ApiClient apiClient;
 
@@ -61,8 +60,8 @@ public class IpConnectionsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about an IP connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public IpConnectionResponse createIpConnection(CreateIpConnectionRequest createIpConnectionRequest) throws ApiException {
@@ -80,8 +79,8 @@ public class IpConnectionsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about an IP connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<IpConnectionResponse> createIpConnectionWithHttpInfo(CreateIpConnectionRequest createIpConnectionRequest) throws ApiException {
@@ -135,8 +134,8 @@ public class IpConnectionsApi {
        <tr><td> 200 </td><td> Successful response with details about an IP connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public IpConnectionResponse deleteIpConnection(String id) throws ApiException {
@@ -155,8 +154,8 @@ public class IpConnectionsApi {
        <tr><td> 200 </td><td> Successful response with details about an IP connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<IpConnectionResponse> deleteIpConnectionWithHttpInfo(String id) throws ApiException {
@@ -310,7 +309,7 @@ private ApiResponse<ListIpConnectionsResponse> listIpConnectionsWithHttpInfo(Int
          <tr><td> 200 </td><td> Successful response with a list of IP connections. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
        </table>
      
      */
@@ -329,7 +328,7 @@ private ApiResponse<ListIpConnectionsResponse> listIpConnectionsWithHttpInfo(Int
          <tr><td> 200 </td><td> Successful response with a list of IP connections. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
        </table>
 
      */
@@ -361,8 +360,8 @@ private ApiResponse<ListIpConnectionsResponse> listIpConnectionsWithHttpInfo(Int
        <tr><td> 200 </td><td> Successful response with details about an IP connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public IpConnectionResponse retrieveIpConnection(String id) throws ApiException {
@@ -381,8 +380,8 @@ private ApiResponse<ListIpConnectionsResponse> listIpConnectionsWithHttpInfo(Int
        <tr><td> 200 </td><td> Successful response with details about an IP connection. </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<IpConnectionResponse> retrieveIpConnectionWithHttpInfo(String id) throws ApiException {
@@ -437,9 +436,9 @@ private ApiResponse<ListIpConnectionsResponse> listIpConnectionsWithHttpInfo(Int
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an IP connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public IpConnectionResponse updateIpConnection(String id, UpdateIpConnectionRequest updateIpConnectionRequest) throws ApiException {
@@ -458,9 +457,9 @@ private ApiResponse<ListIpConnectionsResponse> listIpConnectionsWithHttpInfo(Int
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an IP connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> The requested resource doesn&#39;t exist. </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> The request was well-formed but was unable to be followed due to semantic errors. </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<IpConnectionResponse> updateIpConnectionWithHttpInfo(String id, UpdateIpConnectionRequest updateIpConnectionRequest) throws ApiException {

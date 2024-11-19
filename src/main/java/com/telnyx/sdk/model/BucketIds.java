@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -37,12 +35,16 @@ import com.telnyx.sdk.JSON;
  * BucketIds
  */
 @JsonPropertyOrder({
-  BucketIds.JSON_PROPERTY_BUCKET_IDS
+  BucketIds.JSON_PROPERTY_BUCKET_IDS,
+  BucketIds.JSON_PROPERTY_MAX_NUM_RESULTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class BucketIds {
   public static final String JSON_PROPERTY_BUCKET_IDS = "bucket_ids";
   private List<String> bucketIds = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_MAX_NUM_RESULTS = "max_num_results";
+  private Integer maxNumResults;
 
   public BucketIds() { 
   }
@@ -52,7 +54,7 @@ public class BucketIds {
     return this;
   }
 
-  public BucketIds addBucketIdsItem(String bucketIdsItem) {
+  public BucketIds addbucketIdsItem(String bucketIdsItem) {
     this.bucketIds.add(bucketIdsItem);
     return this;
   }
@@ -78,6 +80,32 @@ public class BucketIds {
   }
 
 
+  public BucketIds maxNumResults(Integer maxNumResults) {
+    this.maxNumResults = maxNumResults;
+    return this;
+  }
+
+   /**
+   * The maximum number of results to retrieve as context for the language model.
+   * @return maxNumResults
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The maximum number of results to retrieve as context for the language model.")
+  @JsonProperty(JSON_PROPERTY_MAX_NUM_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMaxNumResults() {
+    return maxNumResults;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_NUM_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxNumResults(Integer maxNumResults) {
+    this.maxNumResults = maxNumResults;
+  }
+
+
   /**
    * Return true if this BucketIds object is equal to o.
    */
@@ -90,12 +118,13 @@ public class BucketIds {
       return false;
     }
     BucketIds bucketIds = (BucketIds) o;
-    return Objects.equals(this.bucketIds, bucketIds.bucketIds);
+    return Objects.equals(this.bucketIds, bucketIds.bucketIds) &&
+        Objects.equals(this.maxNumResults, bucketIds.maxNumResults);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bucketIds);
+    return Objects.hash(bucketIds, maxNumResults);
   }
 
   @Override
@@ -103,6 +132,7 @@ public class BucketIds {
     StringBuilder sb = new StringBuilder();
     sb.append("class BucketIds {\n");
     sb.append("    bucketIds: ").append(toIndentedString(bucketIds)).append("\n");
+    sb.append("    maxNumResults: ").append(toIndentedString(maxNumResults)).append("\n");
     sb.append("}");
     return sb.toString();
   }

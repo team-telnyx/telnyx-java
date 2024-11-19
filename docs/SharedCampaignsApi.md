@@ -4,14 +4,14 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getCampaignSharingStatus**](SharedCampaignsApi.md#getCampaignSharingStatus) | **GET** /partnerCampaign/{campaignId}/sharing | Get Sharing Status
+[**getPartnerCampaignSharingStatus**](SharedCampaignsApi.md#getPartnerCampaignSharingStatus) | **GET** /partnerCampaign/{campaignId}/sharing | Get Sharing Status
 [**getPartnerCampaignsSharedByUser**](SharedCampaignsApi.md#getPartnerCampaignsSharedByUser) | **GET** /partnerCampaign/sharedByMe | Get Partner Campaigns Shared By User
 
 
 
-## getCampaignSharingStatus
+## getPartnerCampaignSharingStatus
 
-> Map&lt;String, CampaignSharingStatus&gt; getCampaignSharingStatus(campaignId)
+> Map&lt;String, CampaignSharingStatus&gt; getPartnerCampaignSharingStatus(campaignId)
 
 Get Sharing Status
 
@@ -38,10 +38,10 @@ public class Example {
         SharedCampaignsApi apiInstance = new SharedCampaignsApi(defaultClient);
         String campaignId = "campaignId_example"; // String | ID of the campaign in question
         try {
-            Map<String, CampaignSharingStatus> result = apiInstance.getCampaignSharingStatus(campaignId);
+            Map<String, CampaignSharingStatus> result = apiInstance.getPartnerCampaignSharingStatus(campaignId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SharedCampaignsApi#getCampaignSharingStatus");
+            System.err.println("Exception when calling SharedCampaignsApi#getPartnerCampaignSharingStatus");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

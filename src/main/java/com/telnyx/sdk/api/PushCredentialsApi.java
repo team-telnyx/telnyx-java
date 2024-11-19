@@ -9,8 +9,8 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreatePushCredentialRequest;
+import com.telnyx.sdk.model.CredentialsResponse;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.PushCredentialResponse;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PushCredentialsApi {
   private ApiClient apiClient;
 
@@ -52,7 +52,7 @@ public class PushCredentialsApi {
    * Creates a new mobile push credential
    * Creates a new mobile push credential
    * @param createPushCredentialRequest Mobile push credential parameters that need to be sent in the request (required)
-   * @return PushCredentialResponse
+   * @return CredentialsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -62,7 +62,7 @@ public class PushCredentialsApi {
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public PushCredentialResponse createPushCredential(CreatePushCredentialRequest createPushCredentialRequest) throws ApiException {
+  public CredentialsResponse createPushCredential(CreatePushCredentialRequest createPushCredentialRequest) throws ApiException {
     return createPushCredentialWithHttpInfo(createPushCredentialRequest).getData();
   }
 
@@ -70,7 +70,7 @@ public class PushCredentialsApi {
    * Creates a new mobile push credential
    * Creates a new mobile push credential
    * @param createPushCredentialRequest Mobile push credential parameters that need to be sent in the request (required)
-   * @return ApiResponse&lt;PushCredentialResponse&gt;
+   * @return ApiResponse&lt;CredentialsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -80,7 +80,7 @@ public class PushCredentialsApi {
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PushCredentialResponse> createPushCredentialWithHttpInfo(CreatePushCredentialRequest createPushCredentialRequest) throws ApiException {
+  public ApiResponse<CredentialsResponse> createPushCredentialWithHttpInfo(CreatePushCredentialRequest createPushCredentialRequest) throws ApiException {
     Object localVarPostBody = createPushCredentialRequest;
     
     // verify the required parameter 'createPushCredentialRequest' is set
@@ -113,7 +113,7 @@ public class PushCredentialsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PushCredentialResponse> localVarReturnType = new GenericType<PushCredentialResponse>() {};
+    GenericType<CredentialsResponse> localVarReturnType = new GenericType<CredentialsResponse>() {};
 
     return apiClient.invokeAPI("PushCredentialsApi.createPushCredential", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -194,7 +194,7 @@ public class PushCredentialsApi {
    * Retrieves a mobile push credential
    * Retrieves mobile push credential based on the given &#x60;push_credential_id&#x60;
    * @param pushCredentialId The unique identifier of a mobile push credential (required)
-   * @return PushCredentialResponse
+   * @return CredentialsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -205,7 +205,7 @@ public class PushCredentialsApi {
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public PushCredentialResponse getPushCredentialById(UUID pushCredentialId) throws ApiException {
+  public CredentialsResponse getPushCredentialById(UUID pushCredentialId) throws ApiException {
     return getPushCredentialByIdWithHttpInfo(pushCredentialId).getData();
   }
 
@@ -213,7 +213,7 @@ public class PushCredentialsApi {
    * Retrieves a mobile push credential
    * Retrieves mobile push credential based on the given &#x60;push_credential_id&#x60;
    * @param pushCredentialId The unique identifier of a mobile push credential (required)
-   * @return ApiResponse&lt;PushCredentialResponse&gt;
+   * @return ApiResponse&lt;CredentialsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -224,7 +224,7 @@ public class PushCredentialsApi {
        <tr><td> 422 </td><td> Unable to process request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PushCredentialResponse> getPushCredentialByIdWithHttpInfo(UUID pushCredentialId) throws ApiException {
+  public ApiResponse<CredentialsResponse> getPushCredentialByIdWithHttpInfo(UUID pushCredentialId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'pushCredentialId' is set
@@ -258,7 +258,7 @@ public class PushCredentialsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<PushCredentialResponse> localVarReturnType = new GenericType<PushCredentialResponse>() {};
+    GenericType<CredentialsResponse> localVarReturnType = new GenericType<CredentialsResponse>() {};
 
     return apiClient.invokeAPI("PushCredentialsApi.getPushCredentialById", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -271,7 +271,7 @@ public class PushCredentialsApi {
    * @param filterAlias Unique mobile push credential alias (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ListPushCredentialsResponse
+   * @return CredentialsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -280,6 +280,9 @@ public class PushCredentialsApi {
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
      </table>
    */
+  public CredentialsResponse listPushCredentials(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
+    return listPushCredentialsWithHttpInfo(filterType, filterAlias, pageSize, pageNumber).getData();
+  }
 
   /**
    * List mobile push credentials
@@ -288,7 +291,7 @@ public class PushCredentialsApi {
    * @param filterAlias Unique mobile push credential alias (optional)
    * @param pageSize The size of the page (optional, default to 20)
    * @param pageNumber The page number to load (optional, default to 1)
-   * @return ApiResponse&lt;ListPushCredentialsResponse&gt;
+   * @return ApiResponse&lt;CredentialsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -297,7 +300,7 @@ public class PushCredentialsApi {
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<String> listPushCredentialsWithHttpInfo(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<CredentialsResponse> listPushCredentialsWithHttpInfo(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -329,8 +332,10 @@ public class PushCredentialsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
+    GenericType<CredentialsResponse> localVarReturnType = new GenericType<CredentialsResponse>() {};
+
     return apiClient.invokeAPI("PushCredentialsApi.listPushCredentials", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, null, false);
+                               localVarAuthNames, localVarReturnType, false);
   }
 }

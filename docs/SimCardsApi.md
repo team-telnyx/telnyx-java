@@ -6,24 +6,24 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**bulkSimCardNetworkPreferences**](SimCardsApi.md#bulkSimCardNetworkPreferences) | **PUT** /actions/network_preferences/sim_cards | Bulk Network Preferences for SIM cards
 [**deleteNetworkPreferences**](SimCardsApi.md#deleteNetworkPreferences) | **POST** /sim_cards/{id}/actions/delete_network_preferences | Delete network preferences for a SIM card
-[**deleteSIMCardNetworkPreferences**](SimCardsApi.md#deleteSIMCardNetworkPreferences) | **DELETE** /sim_cards/{sim_card_id}/network_preferences | DELETE network preferences
+[**deleteSIMCardNetworkPreferences**](SimCardsApi.md#deleteSIMCardNetworkPreferences) | **DELETE** /sim_cards/{id}/network_preferences | Delete network preferences
 [**deleteSimCard**](SimCardsApi.md#deleteSimCard) | **DELETE** /sim_cards/{id} | Deletes a SIM card
 [**deleteSimCardDataUsageNotifications**](SimCardsApi.md#deleteSimCardDataUsageNotifications) | **DELETE** /sim_card_data_usage_notifications/{id} | Delete SIM card data usage notifications
 [**disableSimCard**](SimCardsApi.md#disableSimCard) | **POST** /sim_cards/{id}/actions/disable | Request a SIM card disable
 [**enableSimCard**](SimCardsApi.md#enableSimCard) | **POST** /sim_cards/{id}/actions/enable | Request a SIM card enable
 [**getSimCard**](SimCardsApi.md#getSimCard) | **GET** /sim_cards/{id} | Get SIM card
-[**getSimCardActivationCode**](SimCardsApi.md#getSimCardActivationCode) | **GET** /sim_cards/{sim_card_id}/activation_code | Get activation QR code for an eSIM
+[**getSimCardActivationCode**](SimCardsApi.md#getSimCardActivationCode) | **GET** /sim_cards/{id}/activation_code | Get activation code for an eSIM
 [**getSimCardDataUsageNotification**](SimCardsApi.md#getSimCardDataUsageNotification) | **GET** /sim_card_data_usage_notifications/{id} | Get a single SIM card data usage notification
-[**getSimCardDeviceDetails**](SimCardsApi.md#getSimCardDeviceDetails) | **GET** /sim_cards/{sim_card_id}/device_details | Get SIM card device details
-[**getSimCardNetworkPreferences**](SimCardsApi.md#getSimCardNetworkPreferences) | **GET** /sim_cards/{sim_card_id}/network_preferences | Get network preferences
-[**getSimCardPublicIp**](SimCardsApi.md#getSimCardPublicIp) | **GET** /sim_cards/{sim_card_id}/public_ip | Get SIM card public IP definition
+[**getSimCardDeviceDetails**](SimCardsApi.md#getSimCardDeviceDetails) | **GET** /sim_cards/{id}/device_details | Get SIM card device details
+[**getSimCardNetworkPreferences**](SimCardsApi.md#getSimCardNetworkPreferences) | **GET** /sim_cards/{id}/network_preferences | Get network preferences
+[**getSimCardPublicIp**](SimCardsApi.md#getSimCardPublicIp) | **GET** /sim_cards/{id}/public_ip | Get SIM card public IP definition
 [**getSimCards**](SimCardsApi.md#getSimCards) | **GET** /sim_cards | Get all SIM cards
-[**getWirelessConnectivityLogs**](SimCardsApi.md#getWirelessConnectivityLogs) | **GET** /sim_cards/{sim_card_id}/wireless_connectivity_logs | List wireless connectivity logs
+[**getWirelessConnectivityLogs**](SimCardsApi.md#getWirelessConnectivityLogs) | **GET** /sim_cards/{id}/wireless_connectivity_logs | List wireless connectivity logs
 [**listDataUsageNotifications**](SimCardsApi.md#listDataUsageNotifications) | **GET** /sim_card_data_usage_notifications | List SIM card data usage notifications
 [**patchSimCardDataUsageNotification**](SimCardsApi.md#patchSimCardDataUsageNotification) | **PATCH** /sim_card_data_usage_notifications/{id} | Updates information for a SIM Card Data Usage Notification
 [**postSimCardDataUsageNotification**](SimCardsApi.md#postSimCardDataUsageNotification) | **POST** /sim_card_data_usage_notifications | Create a new SIM card data usage notification
 [**purchaseESim**](SimCardsApi.md#purchaseESim) | **POST** /actions/purchase/esims | Purchase eSIMs
-[**putSimCardNetworkPreferences**](SimCardsApi.md#putSimCardNetworkPreferences) | **PUT** /sim_cards/{sim_card_id}/network_preferences | Set network preferences
+[**putSimCardNetworkPreferences**](SimCardsApi.md#putSimCardNetworkPreferences) | **PUT** /sim_cards/{id}/network_preferences | Set network preferences
 [**registerSimCards**](SimCardsApi.md#registerSimCards) | **POST** /actions/register/sim_cards | Register SIM cards
 [**removeSimCardPublicIp**](SimCardsApi.md#removeSimCardPublicIp) | **POST** /sim_cards/{id}/actions/remove_public_ip | Request removing a SIM card public IP
 [**setNetworkPreference**](SimCardsApi.md#setNetworkPreference) | **POST** /sim_cards/{id}/actions/set_network_preferences | Create or update network preferences for a SIM card
@@ -42,7 +42,7 @@ Method | HTTP request | Description
 
 Bulk Network Preferences for SIM cards
 
-This API allows dispatching the same operation described for the PUT sim_cards/:sim_card_id/network_preferences API for multiple SIM cards at once.<br/><br/>
+This API allows dispatching the same operation described for the PUT sim_cards/:id/network_preferences API for multiple SIM cards at once.<br/><br/>
 Although, a SIM card network preference may fail individually under any validation triggered as a consequence of its state. For example, a SIM can't have an in-progress OTA update for applying a Network Preference, so they'll fail when requested in this API. In that scenario, the specific error will be present in the response along with the successful definitions in the "errors" response node.
 
 
@@ -141,7 +141,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
             GetSimCardAction200Response result = apiInstance.deleteNetworkPreferences(id);
             System.out.println(result);
@@ -161,7 +161,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -186,9 +186,9 @@ Name | Type | Description  | Notes
 
 ## deleteSIMCardNetworkPreferences
 
-> GetSimCardNetworkPreferences200Response deleteSIMCardNetworkPreferences(simCardId)
+> GetSimCardNetworkPreferences200Response deleteSIMCardNetworkPreferences(id)
 
-DELETE network preferences
+Delete network preferences
 
 This API asynchronously removes the custom-defined network preferences settings. After this operation is done the Telnyx default settings, the same applied for an unaltered SIM card, will be in place.
 
@@ -215,9 +215,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
-            GetSimCardNetworkPreferences200Response result = apiInstance.deleteSIMCardNetworkPreferences(simCardId);
+            GetSimCardNetworkPreferences200Response result = apiInstance.deleteSIMCardNetworkPreferences(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#deleteSIMCardNetworkPreferences");
@@ -235,7 +235,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **simCardId** | **UUID**| Identifies a SIM card. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -254,6 +254,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | A successful network preferences deletion response. &lt;br/&gt;&lt;br/&gt; The delete won&#39;t be done right away - this is an asynchronous operation. The request will return the resource with an in-progress OTA update resource (in the ota_updates node) representing the delete operation. Similarly to the PUT API, the resource will only be deleted when the OTA updated is successfully completed. |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -289,7 +290,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
             GetSimCard200Response result = apiInstance.deleteSimCard(id);
             System.out.println(result);
@@ -309,7 +310,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -328,6 +329,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -399,7 +401,8 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -435,7 +438,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
             GetSimCardAction200Response result = apiInstance.disableSimCard(id);
             System.out.println(result);
@@ -455,7 +458,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -474,6 +477,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -510,7 +514,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
             GetSimCardAction200Response result = apiInstance.enableSimCard(id);
             System.out.println(result);
@@ -530,7 +534,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -583,7 +587,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         Boolean includeSimCardGroup = false; // Boolean | It includes the associated SIM card group object in the response when present.
         try {
             GetSimCard200Response result = apiInstance.getSimCard(id, includeSimCardGroup);
@@ -604,7 +608,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
  **includeSimCardGroup** | **Boolean**| It includes the associated SIM card group object in the response when present. | [optional] [default to false]
 
 ### Return type
@@ -624,16 +628,17 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
 ## getSimCardActivationCode
 
-> GetSimCardActivationCode200Response getSimCardActivationCode(simCardId)
+> GetSimCardActivationCode200Response getSimCardActivationCode(id)
 
-Get activation QR code for an eSIM
+Get activation code for an eSIM
 
-It returns the contents for the activation QR code for an eSIM.<br/><br/>
+It returns the activation code for an eSIM.<br/><br/>
  This API is only available for eSIMs. If the given SIM is a physical SIM card, or has already been installed, an error will be returned.
 
 
@@ -659,9 +664,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
-            GetSimCardActivationCode200Response result = apiInstance.getSimCardActivationCode(simCardId);
+            GetSimCardActivationCode200Response result = apiInstance.getSimCardActivationCode(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#getSimCardActivationCode");
@@ -679,7 +684,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **simCardId** | **UUID**| Identifies a SIM card. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -698,6 +703,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -769,14 +775,14 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
 | **404** | Resource not found |  -  |
 | **0** | Unexpected error |  -  |
 
 
 ## getSimCardDeviceDetails
 
-> GetSimCardDeviceDetails200Response getSimCardDeviceDetails(simCardId)
+> GetSimCardDeviceDetails200Response getSimCardDeviceDetails(id)
 
 Get SIM card device details
 
@@ -805,9 +811,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
-            GetSimCardDeviceDetails200Response result = apiInstance.getSimCardDeviceDetails(simCardId);
+            GetSimCardDeviceDetails200Response result = apiInstance.getSimCardDeviceDetails(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#getSimCardDeviceDetails");
@@ -825,7 +831,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **simCardId** | **UUID**| Identifies a SIM card. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -844,12 +850,13 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
 ## getSimCardNetworkPreferences
 
-> GetSimCardNetworkPreferences200Response getSimCardNetworkPreferences(simCardId, includeOtaUpdates)
+> GetSimCardNetworkPreferences200Response getSimCardNetworkPreferences(id, includeOtaUpdates)
 
 Get network preferences
 
@@ -878,10 +885,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         Boolean includeOtaUpdates = false; // Boolean | It includes the associated OTA update objects in the response when present.
         try {
-            GetSimCardNetworkPreferences200Response result = apiInstance.getSimCardNetworkPreferences(simCardId, includeOtaUpdates);
+            GetSimCardNetworkPreferences200Response result = apiInstance.getSimCardNetworkPreferences(id, includeOtaUpdates);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#getSimCardNetworkPreferences");
@@ -899,7 +906,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **simCardId** | **UUID**| Identifies a SIM card. |
+ **id** | **UUID**| Identifies the SIM. |
  **includeOtaUpdates** | **Boolean**| It includes the associated OTA update objects in the response when present. | [optional] [default to false]
 
 ### Return type
@@ -919,12 +926,13 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A successful network preferences definition response. |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
 ## getSimCardPublicIp
 
-> GetSimCardPublicIp200Response getSimCardPublicIp(simCardId)
+> GetSimCardPublicIp200Response getSimCardPublicIp(id)
 
 Get SIM card public IP definition
 
@@ -953,9 +961,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
-            GetSimCardPublicIp200Response result = apiInstance.getSimCardPublicIp(simCardId);
+            GetSimCardPublicIp200Response result = apiInstance.getSimCardPublicIp(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#getSimCardPublicIp");
@@ -973,7 +981,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **simCardId** | **UUID**| Identifies a SIM card. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -992,6 +1000,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -1029,7 +1038,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         Boolean includeSimCardGroup = false; // Boolean | It includes the associated SIM card group object in the response when present.
         UUID filterSimCardGroupId = UUID.fromString("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9"); // UUID | A valid SIM card group ID.
-        List<String> filterTags = Arrays.asList(); // List<String> | A list of SIM card tags to filter on.<br/><br/> If the SIM card contains <b><i>all</i></b> of the given <code>tags</code> they will be found.<br/><br/> For example, if the SIM cards have the following tags: <ul>   <li><code>['customers', 'staff', 'test']</code>   <li><code>['test']</code></li>   <li><code>['customers']</code></li> </ul> Searching for <code>['customers', 'test']</code> returns only the first because it's the only one with both tags.<br/> Searching for <code>test</code> returns the first two SIMs, because both of them have such tag.<br/> Searching for <code>customers</code> returns the first and last SIMs.<br/> 
+        List<String> filterTags = Arrays.asList(); // List<String> | A list of SIM card tags to filter on.<br/><br/>  If the SIM card contains <b><i>all</i></b> of the given <code>tags</code> they will be found.<br/><br/> For example, if the SIM cards have the following tags: <ul>   <li><code>['customers', 'staff', 'test']</code>   <li><code>['test']</code></li>   <li><code>['customers']</code></li> </ul> Searching for <code>['customers', 'test']</code> returns only the first because it's the only one with both tags.<br/> Searching for <code>test</code> returns the first two SIMs, because both of them have such tag.<br/> Searching for <code>customers</code> returns the first and last SIMs.<br/> 
         String filterIccid = "89310410106543789301"; // String | A search string to partially match for the SIM card's ICCID.
         List<String> filterStatus = Arrays.asList(); // List<String> | Filter by a SIM card's status.
         String sort = "current_billing_period_consumed_data.amount"; // String | Sorts SIM cards by the given field. Defaults to ascending order unless field is prefixed with a minus sign.
@@ -1056,7 +1065,7 @@ Name | Type | Description  | Notes
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **includeSimCardGroup** | **Boolean**| It includes the associated SIM card group object in the response when present. | [optional] [default to false]
  **filterSimCardGroupId** | **UUID**| A valid SIM card group ID. | [optional]
- **filterTags** | **List&lt;String&gt;**| A list of SIM card tags to filter on.&lt;br/&gt;&lt;br/&gt; If the SIM card contains &lt;b&gt;&lt;i&gt;all&lt;/i&gt;&lt;/b&gt; of the given &lt;code&gt;tags&lt;/code&gt; they will be found.&lt;br/&gt;&lt;br/&gt; For example, if the SIM cards have the following tags: &lt;ul&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;, &#39;staff&#39;, &#39;test&#39;]&lt;/code&gt;   &lt;li&gt;&lt;code&gt;[&#39;test&#39;]&lt;/code&gt;&lt;/li&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;]&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; Searching for &lt;code&gt;[&#39;customers&#39;, &#39;test&#39;]&lt;/code&gt; returns only the first because it&#39;s the only one with both tags.&lt;br/&gt; Searching for &lt;code&gt;test&lt;/code&gt; returns the first two SIMs, because both of them have such tag.&lt;br/&gt; Searching for &lt;code&gt;customers&lt;/code&gt; returns the first and last SIMs.&lt;br/&gt;  | [optional]
+ **filterTags** | **List&lt;String&gt;**| A list of SIM card tags to filter on.&lt;br/&gt;&lt;br/&gt;  If the SIM card contains &lt;b&gt;&lt;i&gt;all&lt;/i&gt;&lt;/b&gt; of the given &lt;code&gt;tags&lt;/code&gt; they will be found.&lt;br/&gt;&lt;br/&gt; For example, if the SIM cards have the following tags: &lt;ul&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;, &#39;staff&#39;, &#39;test&#39;]&lt;/code&gt;   &lt;li&gt;&lt;code&gt;[&#39;test&#39;]&lt;/code&gt;&lt;/li&gt;   &lt;li&gt;&lt;code&gt;[&#39;customers&#39;]&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; Searching for &lt;code&gt;[&#39;customers&#39;, &#39;test&#39;]&lt;/code&gt; returns only the first because it&#39;s the only one with both tags.&lt;br/&gt; Searching for &lt;code&gt;test&lt;/code&gt; returns the first two SIMs, because both of them have such tag.&lt;br/&gt; Searching for &lt;code&gt;customers&lt;/code&gt; returns the first and last SIMs.&lt;br/&gt;  | [optional]
  **filterIccid** | **String**| A search string to partially match for the SIM card&#39;s ICCID. | [optional]
  **filterStatus** | **List&lt;String&gt;**| Filter by a SIM card&#39;s status. | [optional] [enum: enabled, disabled, standby, data_limit_exceeded, unauthorized_imei]
  **sort** | **String**| Sorts SIM cards by the given field. Defaults to ascending order unless field is prefixed with a minus sign. | [optional] [enum: current_billing_period_consumed_data.amount]
@@ -1078,12 +1087,13 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
 ## getWirelessConnectivityLogs
 
-> GetWirelessConnectivityLogs200Response getWirelessConnectivityLogs(simCardId, pageNumber, pageSize)
+> GetWirelessConnectivityLogs200Response getWirelessConnectivityLogs(id, pageNumber, pageSize)
 
 List wireless connectivity logs
 
@@ -1111,11 +1121,11 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
-            GetWirelessConnectivityLogs200Response result = apiInstance.getWirelessConnectivityLogs(simCardId, pageNumber, pageSize);
+            GetWirelessConnectivityLogs200Response result = apiInstance.getWirelessConnectivityLogs(id, pageNumber, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#getWirelessConnectivityLogs");
@@ -1133,7 +1143,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **simCardId** | **UUID**| Identifies a SIM card. |
+ **id** | **UUID**| Identifies the SIM. |
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 
@@ -1153,7 +1163,8 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -1229,7 +1240,8 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -1303,7 +1315,8 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -1374,7 +1387,8 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | Successful response |  -  |
+| **201** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -1448,11 +1462,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 
 
 ## putSimCardNetworkPreferences
 
-> GetSimCardNetworkPreferences200Response putSimCardNetworkPreferences(simCardId, putSimCardNetworkPreferencesRequest)
+> GetSimCardNetworkPreferences200Response putSimCardNetworkPreferences(id, putSimCardNetworkPreferencesRequest)
 
 Set network preferences
 
@@ -1483,10 +1498,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID simCardId = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies a SIM card.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         PutSimCardNetworkPreferencesRequest putSimCardNetworkPreferencesRequest = new PutSimCardNetworkPreferencesRequest(); // PutSimCardNetworkPreferencesRequest | 
         try {
-            GetSimCardNetworkPreferences200Response result = apiInstance.putSimCardNetworkPreferences(simCardId, putSimCardNetworkPreferencesRequest);
+            GetSimCardNetworkPreferences200Response result = apiInstance.putSimCardNetworkPreferences(id, putSimCardNetworkPreferencesRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#putSimCardNetworkPreferences");
@@ -1504,7 +1519,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **simCardId** | **UUID**| Identifies a SIM card. |
+ **id** | **UUID**| Identifies the SIM. |
  **putSimCardNetworkPreferencesRequest** | [**PutSimCardNetworkPreferencesRequest**](PutSimCardNetworkPreferencesRequest.md)|  | [optional]
 
 ### Return type
@@ -1524,6 +1539,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | A successful network preferences definition response. &lt;br/&gt;&lt;br/&gt; The sent mobile_network_operators_preferences parameter won&#39;t be applied to the main resource right away - this is an asynchronous operation. While interacting with this API, you will face the following scenarios:    * The first request for this API will return an empty mobile_network_operators_preferences with an in-progress OTA update resource in the ota_updates node containing the exact sent parameters to indicate the operation progress. The value will be applied to the principal object when the OTA update finishes its processing, thus indicating the SIM card network preference current state.    * The subsequent requests will contain the current state, that is what&#39;s applied to the SIM card settings, and return the related OTA update in the ota_updates node.    The returned OTA updated (present in the ota_updates node) will, by default, be the resource related to the operation, not all of them. |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -1597,6 +1613,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 
 
 ## removeSimCardPublicIp
@@ -1630,7 +1647,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
             GetSimCardAction200Response result = apiInstance.removeSimCardPublicIp(id);
             System.out.println(result);
@@ -1650,7 +1667,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -1669,6 +1686,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -1706,7 +1724,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
             GetSimCardAction200Response result = apiInstance.setNetworkPreference(id);
             System.out.println(result);
@@ -1726,7 +1744,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -1897,7 +1915,7 @@ Name | Type | Description  | Notes
 
 ## setSimCardPublicIp
 
-> GetSimCardAction200Response setSimCardPublicIp(id)
+> GetSimCardAction200Response setSimCardPublicIp(id, regionCode)
 
 Request setting a SIM card public IP
 
@@ -1927,9 +1945,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
+        String regionCode = "dc2"; // String | The code of the region where the public IP should be assigned. A list of available regions can be found at the regions endpoint
         try {
-            GetSimCardAction200Response result = apiInstance.setSimCardPublicIp(id);
+            GetSimCardAction200Response result = apiInstance.setSimCardPublicIp(id, regionCode);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardsApi#setSimCardPublicIp");
@@ -1947,7 +1966,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
+ **regionCode** | **String**| The code of the region where the public IP should be assigned. A list of available regions can be found at the regions endpoint | [optional]
 
 ### Return type
 
@@ -1966,6 +1986,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -2002,7 +2023,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         try {
             GetSimCardAction200Response result = apiInstance.setSimCardStandby(id);
             System.out.println(result);
@@ -2022,7 +2043,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
 
 ### Return type
 
@@ -2041,6 +2062,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -2074,7 +2096,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardsApi apiInstance = new SimCardsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM.
         SIMCard siMCard = new SIMCard(); // SIMCard | 
         try {
             GetSimCard200Response result = apiInstance.updateSimCard(id, siMCard);
@@ -2095,7 +2117,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM. |
  **siMCard** | [**SIMCard**](SIMCard.md)|  |
 
 ### Return type
@@ -2115,6 +2137,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -2186,5 +2209,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 

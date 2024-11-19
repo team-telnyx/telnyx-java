@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class PhoneNumberSearchApi {
   private ApiClient apiClient;
 
@@ -50,18 +50,10 @@ public class PhoneNumberSearchApi {
   /**
    * List available phone number blocks
    * 
-   * @param filterPhoneNumberStartsWith Filter number blocks that start with a pattern (meant to be used after &#x60;national_destination_code&#x60; filter has been set). (optional)
-   * @param filterPhoneNumberEndsWith Filter numbers ending with a pattern. (optional)
-   * @param filterPhoneNumberContains Filter numbers containing a pattern. (optional)
    * @param filterLocality Filter phone numbers by city. (optional)
-   * @param filterAdministrativeArea Filter phone numbers by US state/CA province. (optional)
-   * @param filterCountryCode Filter phone numbers by ISO alpha-2 country code. (optional)
-   * @param filterNationalDestinationCode Filter by the national destination code of the number. This filter is only applicable to North American numbers. (optional)
-   * @param filterRateCenter Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers. (optional)
-   * @param filterNumberType Filter phone numbers by number type. (optional)
-   * @param filterFeatures Filter if the phone number should be used for voice, fax, mms, sms, emergency. (optional)
-   * @param filterMinimumBlockSize Filter number blocks by minimum blocks size (optional)
-   * @param filterLimit Limits the number of results. (optional)
+   * @param filterCountryCode Filter phone numbers by country. (optional)
+   * @param filterNationalDestinationCode Filter by the national destination code of the number. (optional)
+   * @param filterPhoneNumberType Filter phone numbers by number type. (optional)
    * @return ListAvailablePhoneNumbersBlocksResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -71,25 +63,17 @@ public class PhoneNumberSearchApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListAvailablePhoneNumbersBlocksResponse listAvailablePhoneNumberBlocks(String filterPhoneNumberStartsWith, String filterPhoneNumberEndsWith, String filterPhoneNumberContains, String filterLocality, String filterAdministrativeArea, String filterCountryCode, String filterNationalDestinationCode, String filterRateCenter, String filterNumberType, List<String> filterFeatures, Integer filterMinimumBlockSize, Integer filterLimit) throws ApiException {
-    return listAvailablePhoneNumberBlocksWithHttpInfo(filterPhoneNumberStartsWith, filterPhoneNumberEndsWith, filterPhoneNumberContains, filterLocality, filterAdministrativeArea, filterCountryCode, filterNationalDestinationCode, filterRateCenter, filterNumberType, filterFeatures, filterMinimumBlockSize, filterLimit).getData();
+  public ListAvailablePhoneNumbersBlocksResponse listAvailablePhoneNumberBlocks(String filterLocality, String filterCountryCode, String filterNationalDestinationCode, String filterPhoneNumberType) throws ApiException {
+    return listAvailablePhoneNumberBlocksWithHttpInfo(filterLocality, filterCountryCode, filterNationalDestinationCode, filterPhoneNumberType).getData();
   }
 
   /**
    * List available phone number blocks
    * 
-   * @param filterPhoneNumberStartsWith Filter number blocks that start with a pattern (meant to be used after &#x60;national_destination_code&#x60; filter has been set). (optional)
-   * @param filterPhoneNumberEndsWith Filter numbers ending with a pattern. (optional)
-   * @param filterPhoneNumberContains Filter numbers containing a pattern. (optional)
    * @param filterLocality Filter phone numbers by city. (optional)
-   * @param filterAdministrativeArea Filter phone numbers by US state/CA province. (optional)
-   * @param filterCountryCode Filter phone numbers by ISO alpha-2 country code. (optional)
-   * @param filterNationalDestinationCode Filter by the national destination code of the number. This filter is only applicable to North American numbers. (optional)
-   * @param filterRateCenter Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers. (optional)
-   * @param filterNumberType Filter phone numbers by number type. (optional)
-   * @param filterFeatures Filter if the phone number should be used for voice, fax, mms, sms, emergency. (optional)
-   * @param filterMinimumBlockSize Filter number blocks by minimum blocks size (optional)
-   * @param filterLimit Limits the number of results. (optional)
+   * @param filterCountryCode Filter phone numbers by country. (optional)
+   * @param filterNationalDestinationCode Filter by the national destination code of the number. (optional)
+   * @param filterPhoneNumberType Filter phone numbers by number type. (optional)
    * @return ApiResponse&lt;ListAvailablePhoneNumbersBlocksResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -99,7 +83,7 @@ public class PhoneNumberSearchApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListAvailablePhoneNumbersBlocksResponse> listAvailablePhoneNumberBlocksWithHttpInfo(String filterPhoneNumberStartsWith, String filterPhoneNumberEndsWith, String filterPhoneNumberContains, String filterLocality, String filterAdministrativeArea, String filterCountryCode, String filterNationalDestinationCode, String filterRateCenter, String filterNumberType, List<String> filterFeatures, Integer filterMinimumBlockSize, Integer filterLimit) throws ApiException {
+  public ApiResponse<ListAvailablePhoneNumbersBlocksResponse> listAvailablePhoneNumberBlocksWithHttpInfo(String filterLocality, String filterCountryCode, String filterNationalDestinationCode, String filterPhoneNumberType) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -111,18 +95,10 @@ public class PhoneNumberSearchApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][starts_with]", filterPhoneNumberStartsWith));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][ends_with]", filterPhoneNumberEndsWith));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][contains]", filterPhoneNumberContains));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[locality]", filterLocality));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[administrative_area]", filterAdministrativeArea));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[country_code]", filterCountryCode));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[national_destination_code]", filterNationalDestinationCode));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[rate_center]", filterRateCenter));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[number_type]", filterNumberType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[features]", filterFeatures));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[minimum_block_size]", filterMinimumBlockSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[limit]", filterLimit));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number_type]", filterPhoneNumberType));
 
     
     
@@ -218,7 +194,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterPhoneNumberStartsWith
-     * @param filterPhoneNumberStartsWith Filter numbers starting with a pattern (exclude NDC from start of this filter if used with &#x60;national_destination_code&#x60; filter). (optional)
+     * @param filterPhoneNumberStartsWith Filter numbers starting with a pattern (excludes NDC if used with &#x60;national_destination_code&#x60; filter). (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterPhoneNumberStartsWith(String filterPhoneNumberStartsWith) {
@@ -228,7 +204,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterPhoneNumberEndsWith
-     * @param filterPhoneNumberEndsWith Filter numbers ending with a pattern (max length of 4 digits if used with &#x60;national_destination_code&#x60; filter). (optional)
+     * @param filterPhoneNumberEndsWith Filter numbers ending with a pattern (excludes NDC if used with &#x60;national_destination_code&#x60; filter). (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterPhoneNumberEndsWith(String filterPhoneNumberEndsWith) {
@@ -238,7 +214,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterPhoneNumberContains
-     * @param filterPhoneNumberContains Filter numbers containing a pattern (must be used with &#x60;national_destination_code&#x60; filter and only searches within last 4 digits). (optional)
+     * @param filterPhoneNumberContains Filter numbers containing a pattern (excludes NDC if used with &#x60;national_destination_code&#x60; filter). (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterPhoneNumberContains(String filterPhoneNumberContains) {
@@ -258,7 +234,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterAdministrativeArea
-     * @param filterAdministrativeArea Filter phone numbers by US state/CA province. (optional)
+     * @param filterAdministrativeArea Find numbers in a particular US state or CA province. (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterAdministrativeArea(String filterAdministrativeArea) {
@@ -268,7 +244,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterCountryCode
-     * @param filterCountryCode Filter phone numbers by ISO alpha-2 country code. (optional)
+     * @param filterCountryCode Filter phone numbers by country. (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterCountryCode(String filterCountryCode) {
@@ -278,7 +254,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterNationalDestinationCode
-     * @param filterNationalDestinationCode Filter by the national destination code of the number. This filter is only applicable to North American numbers. (optional)
+     * @param filterNationalDestinationCode Filter by the national destination code of the number. (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterNationalDestinationCode(String filterNationalDestinationCode) {
@@ -288,7 +264,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterRateCenter
-     * @param filterRateCenter Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers. (optional)
+     * @param filterRateCenter Filter phone numbers by rate center. This filter is only applicable to USA and Canada numbers. (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterRateCenter(String filterRateCenter) {
@@ -308,7 +284,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterFeatures
-     * @param filterFeatures Filter if the phone number should be used for voice, fax, mms, sms, emergency. (optional)
+     * @param filterFeatures Filter phone numbers with specific features. (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterFeatures(List<String> filterFeatures) {
@@ -328,7 +304,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterBestEffort
-     * @param filterBestEffort Filter to determine if best effort results should be included. Only available in NANPA countries. (optional)
+     * @param filterBestEffort Filter to determine if best effort results should be included. Only available in USA/CANADA. (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterBestEffort(Boolean filterBestEffort) {
@@ -338,7 +314,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterQuickship
-     * @param filterQuickship Filter to exclude phone numbers that need additional time after to purchase to receive phone calls. Only available for toll-free numbers. (optional)
+     * @param filterQuickship Filter to exclude phone numbers that need additional time after to purchase to activate. Only applicable for +1 toll_free numbers. (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterQuickship(Boolean filterQuickship) {
@@ -348,7 +324,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterReservable
-     * @param filterReservable Filter to exclude phone numbers that cannot be reserved before purchase. (optional)
+     * @param filterReservable Filter to ensure only numbers that can be reserved are included in the results. (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterReservable(Boolean filterReservable) {
@@ -358,7 +334,7 @@ private ApiResponse<ListAvailablePhoneNumbersResponse> listAvailablePhoneNumbers
 
     /**
      * Set filterExcludeHeldNumbers
-     * @param filterExcludeHeldNumbers Filter to exclude phone numbers that are currently on hold for your account. (optional)
+     * @param filterExcludeHeldNumbers Filter to exclude phone numbers that are currently on hold/reserved for your account. (optional)
      * @return APIlistAvailablePhoneNumbersRequest
      */
     public APIlistAvailablePhoneNumbersRequest filterExcludeHeldNumbers(Boolean filterExcludeHeldNumbers) {

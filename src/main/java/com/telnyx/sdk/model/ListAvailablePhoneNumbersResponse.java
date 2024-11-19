@@ -1,6 +1,6 @@
 /*
  * Telnyx API
- * SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
+ * Notifications and Notification Settings.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: support@telnyx.com
@@ -26,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AvailablePhoneNumber;
 import com.telnyx.sdk.model.AvailablePhoneNumbersMetadata;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -41,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListAvailablePhoneNumbersResponse.JSON_PROPERTY_DATA,
   ListAvailablePhoneNumbersResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0")
 public class ListAvailablePhoneNumbersResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<AvailablePhoneNumber> data = null;
@@ -57,7 +56,7 @@ public class ListAvailablePhoneNumbersResponse {
     return this;
   }
 
-  public ListAvailablePhoneNumbersResponse addDataItem(AvailablePhoneNumber dataItem) {
+  public ListAvailablePhoneNumbersResponse adddataItem(AvailablePhoneNumber dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
