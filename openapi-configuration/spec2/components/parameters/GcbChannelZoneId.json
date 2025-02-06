@@ -1,9 +1,0 @@
-{
-  "name": "channel_zone_id",
-  "in": "path",
-  "description": "Channel zone identifier",
-  "required": true,
-  "schema": {
-    "type": "string"
-  }
-}

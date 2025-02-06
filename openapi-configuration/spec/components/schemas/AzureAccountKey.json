@@ -1,5 +1,0 @@
-{
-  "description": "Azure Blob Storage account key",
-  "type": "string",
-  "example": "bPxRfiCYEXAMPLEKEY"
-}

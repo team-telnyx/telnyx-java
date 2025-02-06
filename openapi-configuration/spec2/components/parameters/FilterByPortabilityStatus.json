@@ -1,8 +1,0 @@
-{
-  "name": "filter[portability_status]",
-  "in": "query",
-  "description": "Filter results by portability status",
-  "schema": {
-    "$ref": "../schemas/PortabilityStatus.json"
-  }
-}

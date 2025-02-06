@@ -1,9 +1,0 @@
-{
-  "name": "filter[tcr_brand_id]",
-  "in": "query",
-  "description": "Filter results by the TCR Brand id",
-  "schema": {
-    "type": "string",
-    "example": "BRANDID"
-  }
-}

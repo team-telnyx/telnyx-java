@@ -1,9 +1,0 @@
-{
-  "type": "string",
-  "enum": [
-    "default",
-    "intercom"
-  ],
-  "title": "SupportedEmbeddingLoaders",
-  "description": "Supported types of custom document loaders for embeddings."
-}

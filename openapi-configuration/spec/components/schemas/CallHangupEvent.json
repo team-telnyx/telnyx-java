@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Hangup Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallHangup.json"
-    }
-  }
-}

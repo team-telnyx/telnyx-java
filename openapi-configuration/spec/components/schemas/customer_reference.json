@@ -1,5 +1,0 @@
-{
-  "type": "string",
-  "description": "A customer reference string for customer look ups.",
-  "example": "MY REF 001"
-}

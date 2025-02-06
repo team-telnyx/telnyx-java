@@ -1,5 +1,0 @@
-{
-  "type": "string",
-  "description": "The locality of the address. For US addresses, this corresponds to the city of the address.",
-  "example": "Austin"
-}

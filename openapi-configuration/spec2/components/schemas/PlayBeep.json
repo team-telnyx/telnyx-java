@@ -1,6 +1,0 @@
-{
-  "type": "boolean",
-  "description": "Whether to play a beep when recording is started.",
-  "example": false,
-  "default": true
-}

@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call AI Gather Partial Results Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallAIGatherPartialResults.json"
-    }
-  }
-}

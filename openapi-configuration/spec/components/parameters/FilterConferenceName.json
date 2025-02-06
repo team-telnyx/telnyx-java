@@ -1,8 +1,0 @@
-{
-  "name": "filter[name]",
-  "in": "query",
-  "description": "If present, conferences will be filtered to those with a matching `name` attribute. Matching is case-sensitive",
-  "schema": {
-    "type": "string"
-  }
-}

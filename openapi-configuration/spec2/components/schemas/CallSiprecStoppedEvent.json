@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Siprec Stopped Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallSiprecStopped.json"
-    }
-  }
-}

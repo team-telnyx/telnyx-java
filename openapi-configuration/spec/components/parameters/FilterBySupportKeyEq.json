@@ -1,9 +1,0 @@
-{
-  "name": "filter[support_key][eq]",
-  "in": "query",
-  "description": "Filter results by support key",
-  "schema": {
-    "type": "string",
-    "example": "sr_a12345"
-  }
-}

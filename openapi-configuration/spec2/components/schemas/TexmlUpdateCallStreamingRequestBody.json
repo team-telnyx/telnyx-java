@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Texml Update Call Streaming Request Body",
-  "properties": {
-    "Status": {
-      "$ref": "./StreamStatus.json"
-    }
-  }
-}

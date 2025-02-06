@@ -1,6 +1,0 @@
-{
-  "description": "Url where status callbacks will be sent.",
-  "example": "http://webhook.com/callback",
-  "type": "string",
-  "format": "uri"
-}

@@ -1,8 +1,0 @@
-{
-  "name": "filter[activation_status]",
-  "in": "query",
-  "description": "Filter results by activation status",
-  "schema": {
-    "$ref": "../schemas/PortingOrderActivationStatus.json"
-  }
-}

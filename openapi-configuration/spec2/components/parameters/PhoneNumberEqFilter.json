@@ -1,9 +1,0 @@
-{
-  "name": "filter[phone_number][eq]",
-  "in": "query",
-  "description": "Filters records to those with a specified number.",
-  "schema": {
-    "type": "string",
-    "example": "+12441239999"
-  }
-}

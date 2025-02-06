@@ -1,9 +1,0 @@
-{
-  "title": "VerifiedNumberRecordType",
-  "enum": [
-    "verified_number"
-  ],
-  "type": "string",
-  "example": "verified_number",
-  "description": "The possible verified numbers record types."
-}

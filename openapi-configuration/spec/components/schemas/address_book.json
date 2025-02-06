@@ -1,6 +1,0 @@
-{
-  "type": "boolean",
-  "description": "Indicates whether or not the address should be considered part of your list of addresses that appear for regular use.",
-  "example": false,
-  "default": true
-}

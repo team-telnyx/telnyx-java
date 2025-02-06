@@ -1,9 +1,0 @@
-{
-  "name": "filter[cost.amount]",
-  "description": "The total monetary amount of the order.",
-  "schema": {
-    "type": "string",
-    "example": "2.53"
-  },
-  "in": "query"
-}

@@ -1,6 +1,0 @@
-{
-  "type": "string",
-  "format": "uuid",
-  "description": "The id from the Organization the authentication provider belongs to.",
-  "example": "24b4a4bb-c4df-46ad-bbcb-23fc741c5ad7"
-}

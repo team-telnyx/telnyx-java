@@ -1,7 +1,0 @@
-{
-  "title": "First Command Timeout Secs",
-  "type": "integer",
-  "description": "Specifies how many seconds to wait before timing out a dial command.",
-  "default": 30,
-  "example": 10
-}

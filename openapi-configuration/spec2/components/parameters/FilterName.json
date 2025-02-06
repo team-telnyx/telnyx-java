@@ -1,8 +1,0 @@
-{
-  "name": "filter[name]",
-  "in": "query",
-  "description": "Filter by name",
-  "schema": {
-    "type": "string"
-  }
-}

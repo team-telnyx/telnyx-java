@@ -1,9 +1,0 @@
-{
-  "name": "filter[cost.currency]",
-  "description": "Filter by ISO 4217 currency string.",
-  "schema": {
-    "type": "string",
-    "example": "USD"
-  },
-  "in": "query"
-}

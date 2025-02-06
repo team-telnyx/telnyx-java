@@ -1,5 +1,0 @@
-{
-  "type": "string",
-  "description": "The primary street address information about the address.",
-  "example": "600 Congress Avenue"
-}
