@@ -1,0 +1,115 @@
+{
+  "get": {
+    "description": "Returns a list of your Upload requests for the given external connection.",
+    "summary": "List all Upload requests",
+    "operationId": "ListExternalConnectionUploads",
+    "tags": [
+      "External Connections"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterUploadStatus.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterCivicAddressId.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterLocationId.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterPhoneNumberEq.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterPhoneNumberContains.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListUploadsResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Not found"
+      },
+      "422": {
+        "description": "Bad request"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "description": "Creates a new Upload request to Microsoft teams with the included phone numbers. Only one of civic_address_id or location_id must be provided, not both. The maximum allowed phone numbers for the numbers_ids array is 1000.",
+    "summary": "Creates an Upload request",
+    "operationId": "CreateExternalConnectionUpload",
+    "tags": [
+      "External Connections"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters that can be set when creating an Upload request.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateExternalConnectionUploadRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Create Upload request Response",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "description": "Describes wether or not the operation was successful"
+                },
+                "ticket_id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "Ticket id of the upload request"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Not found"
+      },
+      "413": {
+        "description": "Payload too large. The maximum allowed phone numbers for the numbers_ids array is 1000."
+      },
+      "422": {
+        "description": "Unprocessable Entity"
+      },
+      "504": {
+        "description": "Gateway Timeout"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

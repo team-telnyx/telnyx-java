@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the card (at most 200 characters)",
+      "example": "Elephant"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the card (at most 2000 characters)"
+    },
+    "media": {
+      "$ref": "./RCSMedia.json"
+    },
+    "suggestions": {
+      "type": "array",
+      "description": "List of suggestions to include in the card. Maximum 10 suggestions.",
+      "items": {
+        "$ref": "./RCSSuggestion.json"
+      }
+    }
+  }
+}

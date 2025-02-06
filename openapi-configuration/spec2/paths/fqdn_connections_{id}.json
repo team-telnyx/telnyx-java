@@ -1,0 +1,106 @@
+{
+  "delete": {
+    "description": "Deletes an FQDN connection.",
+    "summary": "Delete an FQDN connection",
+    "operationId": "DeleteFqdnConnection",
+    "tags": [
+      "FQDN Connections"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/FqdnConnectionResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "description": "Retrieves the details of an existing FQDN connection.",
+    "summary": "Retrieve an FQDN connection",
+    "operationId": "RetrieveFqdnConnection",
+    "tags": [
+      "FQDN Connections"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/FqdnConnectionResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "description": "Updates settings of an existing FQDN connection.",
+    "summary": "Update an FQDN connection",
+    "operationId": "UpdateFqdnConnection",
+    "tags": [
+      "FQDN Connections"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters that can be updated in a FQDN connection",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateFqdnConnectionRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/FqdnConnectionResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

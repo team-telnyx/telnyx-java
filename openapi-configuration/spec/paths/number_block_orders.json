@@ -1,0 +1,113 @@
+{
+  "get": {
+    "summary": "List number block orders",
+    "description": "Get a paginated list of number block orders.",
+    "operationId": "ListNumberBlockOrders",
+    "tags": [
+      "Phone Number Block Orders"
+    ],
+    "parameters": [
+      {
+        "name": "filter[status]",
+        "in": "query",
+        "description": "Filter number block orders by status.",
+        "schema": {
+          "type": "string",
+          "example": "pending"
+        }
+      },
+      {
+        "name": "filter[created_at][gt]",
+        "in": "query",
+        "description": "Filter number block orders later than this value.",
+        "schema": {
+          "type": "string",
+          "example": "2018-01-01T00:00:00.000000Z"
+        }
+      },
+      {
+        "name": "filter[created_at][lt]",
+        "in": "query",
+        "description": "Filter number block orders earlier than this value.",
+        "schema": {
+          "type": "string",
+          "example": "2018-01-01T00:00:00.000000Z"
+        }
+      },
+      {
+        "name": "filter[phone_numbers.starting_number]",
+        "in": "query",
+        "description": "Filter number block  orders having these phone numbers.",
+        "schema": {
+          "type": "string",
+          "example": "+19705555000"
+        }
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListNumberBlockOrdersResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create a number block order",
+    "description": "Creates a phone number block order.",
+    "operationId": "CreateNumberBlockOrder",
+    "tags": [
+      "Phone Number Block Orders"
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateNumberBlockOrderRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/NumberBlockOrderResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "callbacks": {
+      "numberOrderStatusUpdate": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/NumberOrderBlockEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return a HTTP 200, otherwise we will reattempt to deliver the webhook to the failover URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

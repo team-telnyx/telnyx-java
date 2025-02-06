@@ -1,0 +1,6 @@
+{
+  "type": "string",
+  "title": "Stream destination URL",
+  "description": "The destination WebSocket address where the stream is going to be delivered.",
+  "example": "wss://www.example.com/websocket"
+}

@@ -1,0 +1,5 @@
+{
+  "type": "string",
+  "description": "The first name associated with the address. An address must have either a first last name or a business name.",
+  "example": "Alfred"
+}

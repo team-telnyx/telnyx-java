@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "title": "Multiple conference recording resources",
+  "example": {
+    "participants": [],
+    "end": 0,
+    "first_page_uri": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Recordings.json?page=0&pagesize=20",
+    "next_page_uri": null,
+    "page": 0,
+    "page_size": 20,
+    "start": 0,
+    "uri": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Recordings.json?page=0&pagesize=20"
+  },
+  "properties": {
+    "recordings": {
+      "type": "array",
+      "items": {
+        "$ref": "./ConferenceRecordingResource.json"
+      }
+    },
+    "end": {
+      "type": "integer",
+      "description": "The number of the last element on the page, zero-indexed.",
+      "example": 19
+    },
+    "first_page_uri": {
+      "type": "string",
+      "description": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Recordings.json?page=0&pagesize=20",
+      "example": "accepted"
+    },
+    "next_page_uri": {
+      "type": "string",
+      "description": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Recordings.json?Page=1&PageSize=1&PageToken=MTY4AjgyNDkwNzIxMQ",
+      "example": "accepted"
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number, zero-indexed.",
+      "example": 0
+    },
+    "page_size": {
+      "type": "integer",
+      "description": "The number of items on the page",
+      "example": 20
+    },
+    "start": {
+      "type": "integer",
+      "description": "The number of the first element on the page, zero-indexed.",
+      "example": 0
+    },
+    "uri": {
+      "type": "string",
+      "description": "The URI of the current page.",
+      "example": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Recordings.json?Page=0&PageSize=1"
+    }
+  }
+}

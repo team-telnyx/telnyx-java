@@ -1,0 +1,19 @@
+{
+  "get": {
+    "summary": "Get country coverage",
+    "description": "Get country coverage",
+    "operationId": "retreiveCountryCoverage",
+    "tags": [
+      "Country Coverage"
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CountryCoverageResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

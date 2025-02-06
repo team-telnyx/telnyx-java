@@ -1,0 +1,75 @@
+{
+  "get": {
+    "summary": "List all porting events",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Returns a list of all porting events.",
+    "operationId": "listPortingEvents",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filter[type]",
+        "in": "query",
+        "description": "Filter by event type.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "porting_order.deleted",
+            "porting_order.loa_updated",
+            "porting_order.messaging_changed",
+            "porting_order.status_changed",
+            "porting_order.sharing_token_expired",
+            "porting_order.new_comment",
+            "porting_order.split"
+          ],
+          "example": "porting_order.deleted"
+        }
+      },
+      {
+        "name": "filter[porting_order_id]",
+        "in": "query",
+        "description": "Filter by porting order ID.",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "34dc46a9-53ed-4e01-9454-26227ea13326"
+        }
+      },
+      {
+        "name": "filter[created_at][gte]",
+        "in": "query",
+        "description": "Filter by created at greater than or equal to.",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2021-01-01T00:00:00Z"
+        }
+      },
+      {
+        "name": "filter[created_at][lte]",
+        "in": "query",
+        "description": "Filter by created at less than or equal to.",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2021-01-01T00:00:00Z"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPortingEventsResponse.json"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

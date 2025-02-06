@@ -1,0 +1,7 @@
+{
+  "title": "Int ID",
+  "type": "string",
+  "format": "int64",
+  "description": "Uniquely identifies the resource.",
+  "example": "1293384261075731499"
+}

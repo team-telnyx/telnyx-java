@@ -1,0 +1,5 @@
+{
+  "description": "The phone number, in E.164 format, the fax will be sent from.",
+  "type": "string",
+  "example": "+13125790015"
+}

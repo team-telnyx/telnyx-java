@@ -1,0 +1,45 @@
+{
+  "post": {
+    "summary": "Create a queue",
+    "description": "Create a new call queue with the specified name and maximum size.",
+    "operationId": "CreateQueue",
+    "tags": [
+      "Queue Commands"
+    ],
+    "requestBody": {
+      "description": "Queue creation request",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "queue_name"
+            ],
+            "properties": {
+              "queue_name": {
+                "type": "string",
+                "description": "Name of the queue to create",
+                "minLength": 1,
+                "maxLength": 255,
+                "example": "support"
+              },
+              "max_size": {
+                "$ref": "../components/schemas/QueueMaxSize.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/QueueResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

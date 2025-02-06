@@ -1,0 +1,68 @@
+{
+  "post": {
+    "summary": "Leave a conference",
+    "description": "Removes a call leg from a conference and moves it back to parked state. \n\n**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/leave-conference#callbacks) below):**\n\n- `conference.participant.left`\n",
+    "operationId": "LeaveConference",
+    "tags": [
+      "Conference Commands"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Uniquely identifies the conference by id or name",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Leave Conference request object",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/LeaveConferenceRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ConferenceCommandResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "callbacks": {
+      "conferenceParticipantLeft": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Conference leave conference participant left",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/ConferenceParticipantLeftEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "get": {
+    "tags": [
+      "Usage Reports (BETA)"
+    ],
+    "summary": "Get Telnyx product usage data (BETA)",
+    "description": "Get Telnyx usage data by product, broken out by the specified dimensions",
+    "operationId": "GetUsageReport",
+    "parameters": [
+      {
+        "name": "product",
+        "in": "query",
+        "description": "Telnyx product",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "product=wireless": {
+            "value": "wireless",
+            "summary": "wireless"
+          },
+          "product=messaging": {
+            "value": "messaging",
+            "summary": "messaging"
+          }
+        }
+      },
+      {
+        "name": "dimensions",
+        "in": "query",
+        "description": "Breakout by specified product dimensions",
+        "required": true,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "examples": {
+          "dimensions=direction&dimensions=currency&dimensions=message_type": {
+            "value": "dimensions=direction&dimensions=currency&dimensions=message_type",
+            "summary": "Dimensions aggregation list"
+          }
+        }
+      },
+      {
+        "name": "metrics",
+        "in": "query",
+        "description": "Specified product usage values",
+        "required": true,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "examples": {
+          "metrics=cost&metrics=billed_sec": {
+            "value": "metrics=cost&metrics=billed_sec",
+            "summary": "Metrics aggregation list"
+          }
+        }
+      },
+      {
+        "name": "start_date",
+        "in": "query",
+        "description": "The start date for the time range you are interested in. The maximum time range is 31 days. Format: YYYY-MM-DDTHH:mm:ssZ",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "start_date=2024-02-01T00:00:00Z": {
+            "value": "2024-02-01T00:00:00Z",
+            "summary": "Aggregate for records with timestamp starting at specified date and time."
+          }
+        }
+      },
+      {
+        "name": "end_date",
+        "in": "query",
+        "description": "The end date for the time range you are interested in. The maximum time range is 31 days. Format: YYYY-MM-DDTHH:mm:ssZ",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "end_date=2024-03-01T00:00:00Z": {
+            "value": "2024-03-01T00:00:00Z",
+            "summary": "Aggregate for records with timestamp ending at specified date and time."
+          }
+        }
+      },
+      {
+        "name": "date_range",
+        "in": "query",
+        "description": "A more user-friendly way to specify the timespan you want to filter by. More options can be found in the Telnyx API Reference docs.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "date_range=today": {
+            "value": "today",
+            "summary": "today - Searches for records with timestamp starting at `00:00:00` of the current day"
+          },
+          "date_range=last_3_days": {
+            "value": "last_3_days",
+            "summary": "last_3_days - Searches for records with timestamp starting at `00:00:00` since 3 days ago"
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "description": "Filter records on dimensions",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "filter[currency]=USD": {
+            "value": "filter[currency]=USD",
+            "summary": "Filter currency on USD"
+          },
+          "filter[direction]=inbound": {
+            "value": "filter[direction]=inbound",
+            "summary": "Filter direction on Inbound"
+          },
+          "filter[country_code]=NLD": {
+            "value": "filter[country_code]=NLD",
+            "summary": "Filter country code on NLD"
+          }
+        }
+      },
+      {
+        "name": "managed_accounts",
+        "in": "query",
+        "description": "Return the aggregations for all Managed Accounts under the user making the request.",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        },
+        "examples": {
+          "managed_accounts=true": {
+            "value": false,
+            "summary": "Fetch aggregations for all Managed Accounts"
+          }
+        }
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "Page[Number]",
+          "exclusiveMinimum": true,
+          "minimum": 1,
+          "type": "integer",
+          "default": 1
+        },
+        "name": "page[number]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "Page[Size]",
+          "maximum": 5000,
+          "type": "integer",
+          "default": 20
+        },
+        "name": "page[size]",
+        "in": "query"
+      },
+      {
+        "name": "sort",
+        "description": "Specifies the sort order for results",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "examples": {
+          "defaultOrder": {
+            "value": "",
+            "summary": "Default Order (No Sort)"
+          },
+          "sort=created_at": {
+            "value": "created_at",
+            "summary": "Sorts search results using the `created_at` date-time in ascending order"
+          },
+          "sort=-created_at": {
+            "value": "-created_at",
+            "summary": "Sorts search results using the `-created_at` date-time in descending order"
+          }
+        }
+      },
+      {
+        "name": "format",
+        "in": "query",
+        "description": "Specify the response format (csv or json). JSON is returned by default, even if not specified.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "csv",
+            "json"
+          ]
+        },
+        "examples": {
+          "format=json": {
+            "value": "json",
+            "summary": "Get the response in JSON format"
+          },
+          "format=csv": {
+            "value": "csv",
+            "summary": "Get the response in CSV format"
+          }
+        }
+      },
+      {
+        "name": "Authorization: Bearer <TOKEN>",
+        "in": "header",
+        "schema": {
+          "type": "string",
+          "description": "Authenticates the request with your Telnyx API V2 KEY"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/UsageReportsResponse.json"
+            }
+          },
+          "text/csv": {
+            "schema": {
+              "type": "string",
+              "description": "CSV formatted data",
+              "example": "user_id,direction,product,cost,billed_sec\n3ca7bd3d-7d82-4e07-9df4-009123068320,inbound,forking,0.000800,17.000000\n..."
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/ErrorResponse.json"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/ErrorResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "x-latency-category": "interactive"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Conference Participant Left Event",
+  "properties": {
+    "data": {
+      "$ref": "./ConferenceParticipantLeft.json"
+    }
+  }
+}

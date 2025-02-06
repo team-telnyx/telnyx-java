@@ -1,0 +1,71 @@
+{
+  "title": "PhoneNumberCampaign",
+  "required": [
+    "phoneNumber",
+    "campaignId",
+    "createdAt",
+    "updatedAt"
+  ],
+  "type": "object",
+  "properties": {
+    "phoneNumber": {
+      "title": "Phonenumber",
+      "type": "string",
+      "example": "+18005550199"
+    },
+    "brandId": {
+      "description": "Brand ID. Empty if the number is associated to a shared campaign.",
+      "title": "BrandId",
+      "type": "string",
+      "example": "7ba705b7-22af-493f-addc-ac04b7ca071c"
+    },
+    "tcrBrandId": {
+      "description": "TCR's alphanumeric ID for the brand.",
+      "title": "TcrBrandId",
+      "type": "string",
+      "example": "BBRAND1"
+    },
+    "campaignId": {
+      "description": "For shared campaigns, this is the TCR campaign ID, otherwise it is the campaign ID ",
+      "title": "Campaignid",
+      "type": "string"
+    },
+    "tcrCampaignId": {
+      "description": "TCR's alphanumeric ID for the campaign.",
+      "title": "TcrCampaignid",
+      "type": "string",
+      "example": "CCAMPA1"
+    },
+    "telnyxCampaignId": {
+      "description": "Campaign ID. Empty if the number is associated to a shared campaign.",
+      "title": "Telnyxcampaignid",
+      "type": "string",
+      "example": "3008dd9f-66d7-40e0-bf23-bf2d8d1a96ba"
+    },
+    "assignmentStatus": {
+      "description": "The assignment status of the number.",
+      "title": "AssignmentStatus",
+      "enum": [
+        "FAILED_ASSIGNMENT",
+        "PENDING_ASSIGNMENT",
+        "ASSIGNED",
+        "PENDING_UNASSIGNMENT",
+        "FAILED_UNASSIGNMENT"
+      ],
+      "example": "ASSIGNED"
+    },
+    "failureReasons": {
+      "description": "Extra info about a failure to assign/unassign a number. Relevant only if the assignmentStatus is either FAILED_ASSIGNMENT or FAILED_UNASSIGNMENT"
+    },
+    "createdAt": {
+      "title": "Createdat",
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "title": "Updatedat",
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "description": "Successful response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/PortingOrder.json"
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "phone_numbers_url": {
+                "type": "string",
+                "description": "Link to list all phone numbers"
+              }
+            }
+          }
+        },
+        "example": {
+          "data": {
+            "activation_settings": {
+              "activation_status": null,
+              "fast_port_eligible": true,
+              "foc_datetime_actual": null,
+              "foc_datetime_requested": "2022-04-08T15:00:00Z"
+            },
+            "created_at": "2022-03-24T14:22:28Z",
+            "customer_reference": "Test1234",
+            "description": "FP Telnyx",
+            "documents": {
+              "loa": "3a5b98a0-5049-47c3-96e1-aa6c8d119117",
+              "invoice": "3a5b98a0-5049-47c3-96e1-aa6c8d119117"
+            },
+            "end_user": {
+              "admin": {
+                "account_number": "123abc",
+                "auth_person_name": "Porter McPortersen II",
+                "billing_phone_number": "+13035551234",
+                "business_identifier": "abc123",
+                "entity_name": "Porter McPortersen",
+                "pin_passcode": "1234",
+                "tax_identifier": "1234abcd"
+              },
+              "location": {
+                "administrative_area": "TX",
+                "country_code": "US",
+                "extended_address": "14th Floor",
+                "locality": "Austin",
+                "postal_code": "78701",
+                "street_address": "600 Congress Avenue"
+              }
+            },
+            "id": "eef10fb8-f3df-4c67-97c5-e18179723222",
+            "misc": {
+              "new_billing_phone_number": null,
+              "remaining_numbers_action": null,
+              "type": "full"
+            },
+            "old_service_provider_ocn": "Unreal Communications",
+            "parent_support_key": "pr_4bec1a",
+            "phone_number_configuration": {
+              "billing_group_id": null,
+              "connection_id": "1752379429071357070",
+              "emergency_address_id": null,
+              "messaging_profile_id": null,
+              "tags": []
+            },
+            "phone_number_type": "local",
+            "porting_phone_numbers_count": 1,
+            "record_type": "porting_order",
+            "requirements": [],
+            "requirements_met": true,
+            "status": {
+              "details": [],
+              "value": "cancel-pending"
+            },
+            "support_key": "sr_10b316",
+            "updated_at": "2022-03-24T16:43:35Z",
+            "user_feedback": {
+              "user_comment": null,
+              "user_rating": null
+            },
+            "user_id": "40d68ba2-0847-4df2-be9c-b0e0cb673e75",
+            "webhook_url": "https://example.com/porting_webhooks"
+          },
+          "meta": {
+            "phone_numbers_url": "/v2/porting_phone_numbers?filter[porting_order_id]=eef10fb8-f3df-4c67-97c5-e18179723222"
+          }
+        }
+      }
+    }
+  }
+}

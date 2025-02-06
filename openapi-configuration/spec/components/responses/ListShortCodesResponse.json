@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of short codes.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Short Codes Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/ShortCode.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

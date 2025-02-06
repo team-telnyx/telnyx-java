@@ -1,0 +1,33 @@
+{
+  "get": {
+    "operationId": "GetWirelessConnectivityLogs",
+    "summary": "List wireless connectivity logs",
+    "description": "This API allows listing a paginated collection of Wireless Connectivity Logs associated with a SIM Card, for troubleshooting purposes.",
+    "tags": [
+      "SIM Cards"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/SIMCardId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/WirelessConnectivityLogCollectionResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

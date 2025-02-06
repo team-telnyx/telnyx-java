@@ -1,0 +1,17 @@
+{
+  "title": "PhoneNumberStatusResponsePaginated",
+  "required": [
+    "records",
+    "meta"
+  ],
+  "type": "object",
+  "properties": {
+    "records": {
+      "title": "Records",
+      "type": "array",
+      "items": {
+        "$ref": "./ProfileAssignmentPhoneNumbers.json"
+      }
+    }
+  }
+}

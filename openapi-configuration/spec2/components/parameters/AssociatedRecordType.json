@@ -1,0 +1,13 @@
+{
+  "name": "filter[associated_record_type][eq]",
+  "in": "query",
+  "description": "Filter by the associated record type",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "account",
+      "phone_number"
+    ],
+    "example": "phone_number"
+  }
+}

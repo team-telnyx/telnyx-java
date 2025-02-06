@@ -1,0 +1,17 @@
+{
+  "title": "VerifiedNumberResponse",
+  "type": "object",
+  "properties": {
+    "phone_number": {
+      "example": "+15551234567",
+      "type": "string"
+    },
+    "record_type": {
+      "$ref": "./VerifiedNumberRecordType.json"
+    },
+    "verified_at": {
+      "example": "2020-09-14T17:03:32.965812",
+      "type": "string"
+    }
+  }
+}

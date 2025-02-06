@@ -1,0 +1,12 @@
+{
+  "name": "sort",
+  "in": "query",
+  "description": "Set how the results will be ordered by the creation date.",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "asc",
+      "desc"
+    ]
+  }
+}

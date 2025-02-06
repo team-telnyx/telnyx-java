@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "total_pages": {
+      "type": "integer",
+      "example": 3
+    },
+    "total_results": {
+      "type": "integer",
+      "example": 55
+    },
+    "page_number": {
+      "type": "integer",
+      "example": 2
+    },
+    "page_size": {
+      "type": "integer",
+      "example": 25
+    }
+  }
+}

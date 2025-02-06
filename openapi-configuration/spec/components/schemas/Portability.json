@@ -1,0 +1,74 @@
+{
+  "type": "object",
+  "properties": {
+    "lrn": {
+      "type": "string",
+      "description": "Local Routing Number, if assigned to the requested phone number",
+      "example": "2245701999"
+    },
+    "ported_status": {
+      "type": "string",
+      "description": "Indicates whether or not the requested phone number has been ported",
+      "enum": [
+        "Y",
+        "N",
+        ""
+      ],
+      "example": "Y"
+    },
+    "ported_date": {
+      "type": "string",
+      "description": "ISO-formatted date when the requested phone number has been ported",
+      "example": "2017-10-20"
+    },
+    "ocn": {
+      "type": "string",
+      "description": "Operating Company Name (OCN) as per the Local Exchange Routing Guide (LERG) database",
+      "example": "073H"
+    },
+    "line_type": {
+      "type": "string",
+      "description": "Type of number",
+      "example": "voip"
+    },
+    "spid": {
+      "type": "string",
+      "description": "SPID (Service Provider ID)",
+      "example": "073H"
+    },
+    "spid_carrier_name": {
+      "type": "string",
+      "description": "Service provider name",
+      "example": "Telnyx/4"
+    },
+    "spid_carrier_type": {
+      "type": "string",
+      "description": "Service provider type",
+      "example": "3"
+    },
+    "altspid": {
+      "type": "string",
+      "description": "Alternative SPID (Service Provider ID). Often used when a carrier is using a number from another carrier",
+      "example": "073H"
+    },
+    "altspid_carrier_name": {
+      "type": "string",
+      "description": "Alternative service provider name",
+      "example": "Telnyx/4"
+    },
+    "altspid_carrier_type": {
+      "type": "string",
+      "description": "Alternative service provider type",
+      "example": "3"
+    },
+    "city": {
+      "type": "string",
+      "description": "City name extracted from the locality in the Local Exchange Routing Guide (LERG) database",
+      "example": "WAUKEGAN"
+    },
+    "state": {
+      "type": "string",
+      "example": "Illinois"
+    }
+  }
+}

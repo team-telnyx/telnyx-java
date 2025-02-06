@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "title": "Update Siprec Session Request",
+  "properties": {
+    "Status": {
+      "description": "The new status of the resource. Specifying `stopped` will end the siprec session.",
+      "example": "stopped",
+      "enum": [
+        "stopped"
+      ],
+      "type": "string"
+    }
+  }
+}

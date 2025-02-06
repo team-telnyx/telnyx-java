@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "title": "Texml Create Call Streaming Request Body",
+  "properties": {
+    "StatusCallback": {
+      "$ref": "./TexmlStatusCallback.json"
+    },
+    "StatusCallbackMethod": {
+      "$ref": "./TexmlStatusCallbackMethod.json"
+    },
+    "Track": {
+      "$ref": "./StreamTrack.json"
+    },
+    "Name": {
+      "$ref": "./StreamName.json"
+    },
+    "BidirectionalMode": {
+      "$ref": "./TexmlBidirectionalStreamMode.json"
+    },
+    "BidirectionalCodec": {
+      "$ref": "./TexmlBidirectionalStreamCodec.json"
+    },
+    "Url": {
+      "$ref": "./TexmlStreamUrl.json"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "delete": {
+    "summary": "Delete a list of call recordings",
+    "description": "Permanently deletes a list of call recordings.",
+    "operationId": "DeleteRecordings",
+    "tags": [
+      "Call Recordings"
+    ],
+    "requestBody": {
+      "$ref": "../components/requestBodies/DeleteRecordingsRequest.json"
+    },
+    "responses": {
+      "204": {
+        "description": "The recordings have been successfully deleted."
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

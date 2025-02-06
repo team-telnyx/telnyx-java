@@ -1,0 +1,49 @@
+{
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "execution_type": {
+      "type": "string",
+      "enum": [
+        "external_tool"
+      ],
+      "default": "external_tool"
+    },
+    "url": {
+      "description": "The URL of the external tool to be called. This URL is going to be used for the `call.ai_gather.tool_call` [callback](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks).",
+      "type": "string",
+      "example": "https://example.com/api/v1/function"
+    },
+    "headers": {
+      "description": "The headers to be sent to the external tool.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "description": "The value of the header. Note that we support mustache templating for the value. For example you can use `Bearer {{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret as the bearer token.",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": [
+    "name",
+    "url",
+    "parameters",
+    "description"
+  ],
+  "title": "ExternalFunctionDefinition"
+}

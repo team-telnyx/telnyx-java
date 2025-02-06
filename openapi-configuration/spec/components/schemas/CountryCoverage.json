@@ -1,0 +1,157 @@
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Country ISO code"
+    },
+    "numbers": {
+      "type": "boolean"
+    },
+    "features": {
+      "type": "array",
+      "description": "Set of features supported",
+      "items": {
+        "type": "string"
+      }
+    },
+    "phone_number_type": {
+      "type": "array",
+      "description": "Phone number type",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reservable": {
+      "type": "boolean",
+      "description": "Supports reservable"
+    },
+    "quickship": {
+      "type": "boolean",
+      "description": "Supports quickship"
+    },
+    "international_sms": {
+      "type": "boolean"
+    },
+    "p2p": {
+      "type": "boolean"
+    },
+    "local": {
+      "type": "object",
+      "properties": {
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reservable": {
+          "type": "boolean"
+        },
+        "quickship": {
+          "type": "boolean"
+        },
+        "international_sms": {
+          "type": "boolean"
+        },
+        "p2p": {
+          "type": "boolean"
+        }
+      }
+    },
+    "toll_free": {
+      "type": "object",
+      "properties": {
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reservable": {
+          "type": "boolean"
+        },
+        "quickship": {
+          "type": "boolean"
+        },
+        "international_sms": {
+          "type": "boolean"
+        },
+        "p2p": {
+          "type": "boolean"
+        }
+      }
+    },
+    "mobile": {
+      "type": "object"
+    },
+    "national": {
+      "type": "object"
+    },
+    "inventory_coverage": {
+      "type": "boolean",
+      "description": "Indicates whether country can be queried with inventory coverage endpoint"
+    },
+    "shared_cost": {
+      "type": "object"
+    }
+  },
+  "example": {
+    "United States of America": {
+      "code": "US",
+      "numbers": true,
+      "features": [
+        "hd_voice",
+        "emergency",
+        "voice",
+        "mms",
+        "fax",
+        "sms",
+        "international_sms"
+      ],
+      "phone_number_type": [
+        "local",
+        "local",
+        "local",
+        "local",
+        "toll_free"
+      ],
+      "reservable": true,
+      "quickship": true,
+      "international_sms": true,
+      "p2p": true,
+      "local": {
+        "features": [
+          "hd_voice",
+          "voice",
+          "international_sms",
+          "mms",
+          "fax",
+          "sms",
+          "emergency"
+        ],
+        "reservable": true,
+        "quickship": false,
+        "international_sms": true,
+        "p2p": true
+      },
+      "toll_free": {
+        "features": [
+          "voice",
+          "mms",
+          "fax",
+          "sms",
+          "emergency"
+        ],
+        "reservable": true,
+        "quickship": true,
+        "international_sms": false,
+        "p2p": false
+      },
+      "mobile": {},
+      "national": {},
+      "inventory_coverage": true,
+      "shared_cost": {}
+    }
+  }
+}

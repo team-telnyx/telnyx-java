@@ -1,0 +1,13 @@
+{
+  "name": "filter[status]",
+  "in": "query",
+  "description": "If present, conferences will be filtered by status.",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "init",
+      "in_progress",
+      "completed"
+    ]
+  }
+}

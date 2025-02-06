@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of conferences.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Conferences Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/Conference.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

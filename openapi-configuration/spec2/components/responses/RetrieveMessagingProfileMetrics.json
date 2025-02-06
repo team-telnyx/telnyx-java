@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a messaging profile's metrics.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Retrieve Messaging Profile Metrics Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/MessagingProfileDetailedMetrics.json"
+          }
+        }
+      }
+    }
+  }
+}

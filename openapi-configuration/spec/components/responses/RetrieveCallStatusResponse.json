@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a call status.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Retrieve Call Status Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/Call.json"
+          }
+        }
+      }
+    }
+  }
+}

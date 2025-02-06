@@ -1,0 +1,49 @@
+{
+  "allOf": [
+    {
+      "$ref": "./Record.json"
+    },
+    {
+      "type": "object",
+      "title": "Global IP",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "global_ip"
+        },
+        "ip_address": {
+          "type": "string",
+          "description": "The Global IP address.",
+          "readOnly": true,
+          "example": "198.51.100.1"
+        },
+        "ports": {
+          "type": "object",
+          "description": "A Global IP ports grouped by protocol code.",
+          "example": {
+            "tcp": [
+              80,
+              8080
+            ],
+            "udp": [
+              5000,
+              5050
+            ]
+          }
+        },
+        "name": {
+          "type": "string",
+          "description": "A user specified name for the address.",
+          "example": "test interface"
+        },
+        "description": {
+          "type": "string",
+          "description": "A user specified description for the address.",
+          "example": "test interface"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "title": "Start Forking Request",
+  "properties": {
+    "rx": {
+      "description": "The network target, <udp:ip_address:port>, where the call's incoming RTP media packets should be forwarded.",
+      "type": "string",
+      "example": "udp:192.0.2.1:9000"
+    },
+    "stream_type": {
+      "description": "Optionally specify a media type to stream. If `decrypted` selected, Telnyx will decrypt incoming SIP media before forking to the target. `rx` and `tx` are required fields if `decrypted` selected.",
+      "type": "string",
+      "enum": [
+        "decrypted"
+      ],
+      "default": "decrypted",
+      "example": "decrypted"
+    },
+    "tx": {
+      "description": "The network target, <udp:ip_address:port>, where the call's outgoing RTP media packets should be forwarded.",
+      "type": "string",
+      "example": "udp:192.0.2.1:9001"
+    },
+    "client_state": {
+      "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    },
+    "command_id": {
+      "description": "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.",
+      "type": "string",
+      "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+    }
+  },
+  "example": {
+    "rx": "udp:192.0.2.1:9000",
+    "tx": "udp:192.0.2.1:9001",
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+  }
+}

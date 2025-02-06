@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "upfront_cost": {
+      "type": "string",
+      "example": "3.21"
+    },
+    "monthly_cost": {
+      "type": "string",
+      "example": "6.54"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The ISO 4217 code for the currency.",
+      "example": "USD"
+    }
+  },
+  "example": {
+    "upfront_cost": "3.21",
+    "monthly_cost": "6.54",
+    "currency": "USD"
+  }
+}

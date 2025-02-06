@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "title": "Noise Suppression Direction",
+  "description": "The direction of the audio stream to be noise suppressed.",
+  "enum": [
+    "inbound",
+    "outbound",
+    "both"
+  ],
+  "default": "inbound",
+  "example": "outbound"
+}

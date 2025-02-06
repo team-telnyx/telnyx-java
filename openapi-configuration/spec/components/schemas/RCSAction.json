@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "description": "When tapped, initiates the corresponding native action on the device.",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Text that is shown in the suggested action. Maximum 25 characters.",
+      "example": "Hello world"
+    },
+    "postback_data": {
+      "type": "string",
+      "description": "Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters."
+    },
+    "fallback_url": {
+      "type": "string",
+      "description": "Fallback URL to use if a client doesn't support a suggested action. Fallback URLs open in new browser windows. Maximum 2048 characters.",
+      "format": "url"
+    },
+    "dial_action": {
+      "$ref": "./RCSDialAction.json"
+    },
+    "view_location_action": {
+      "$ref": "./RCSViewLocationAction.json"
+    },
+    "create_calendar_event_action": {
+      "$ref": "./RCSCreateCalendarEventAction.json"
+    },
+    "open_url_action": {
+      "$ref": "./RCSOpenUrlAction.json"
+    },
+    "share_location_action": {
+      "$ref": "./RCSShareLocationAction.json"
+    },
+    "compose_action": {
+      "$ref": "./RCSComposeAction.json"
+    }
+  }
+}

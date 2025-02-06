@@ -1,0 +1,57 @@
+{
+  "get": {
+    "summary": "Retrieve a phone number with voice settings",
+    "operationId": "GetPhoneNumberVoiceSettings",
+    "tags": [
+      "Phone Number Configurations"
+    ],
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/IntId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PhoneNumberWithVoiceSettingsResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update a phone number with voice settings",
+    "operationId": "UpdatePhoneNumberVoiceSettings",
+    "tags": [
+      "Phone Number Configurations"
+    ],
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/IntId.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Updated voice settings for the phone number.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdatePhoneNumberVoiceSettingsRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PhoneNumberWithVoiceSettingsResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

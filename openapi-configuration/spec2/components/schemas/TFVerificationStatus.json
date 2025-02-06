@@ -1,0 +1,13 @@
+{
+  "title": "VerificationStatus",
+  "enum": [
+    "Verified",
+    "Rejected",
+    "Waiting For Vendor",
+    "Waiting For Customer",
+    "Waiting For Telnyx",
+    "In Progress"
+  ],
+  "type": "string",
+  "description": "Tollfree verification status"
+}

@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "title": "Pause Recording Request",
+  "properties": {
+    "command_id": {
+      "description": "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.",
+      "type": "string",
+      "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+    },
+    "recording_id": {
+      "description": "Use this field to pause specific recording.",
+      "type": "string",
+      "format": "uuid",
+      "example": "86e00ab49-9487-4364-8ad6-23965965afb2"
+    }
+  }
+}

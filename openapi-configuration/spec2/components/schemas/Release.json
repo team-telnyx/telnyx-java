@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "title": "Phone Number Release",
+  "properties": {
+    "ticket_id": {
+      "$ref": "./UUID.json"
+    },
+    "tenant_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "ea175aba-f47c-4702-9400-efaa42688048"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_upload",
+        "pending",
+        "in_progress",
+        "complete",
+        "failed",
+        "expired",
+        "unknown"
+      ],
+      "description": "Represents the status of the release on Microsoft Teams.",
+      "example": "pending",
+      "default": "pending_upload"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "A message set if there is an error with the upload process."
+    },
+    "telephone_numbers": {
+      "type": "array",
+      "items": {
+        "$ref": "./TnReleaseEntry.json"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "allOf": [
+    {
+      "$ref": "./Record.json"
+    },
+    {
+      "$ref": "./Interface.json"
+    },
+    {
+      "type": "object",
+      "title": "WireguardInterface",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "wireguard_interface"
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "The Telnyx WireGuard peers `Peer.endpoint` value.",
+          "example": "203.0.113.0:51871",
+          "readOnly": true
+        },
+        "public_key": {
+          "type": "string",
+          "description": "The Telnyx WireGuard peers `Peer.PublicKey`.",
+          "readOnly": true,
+          "example": "qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU="
+        },
+        "enable_sip_trunking": {
+          "type": "boolean",
+          "description": "Enable SIP traffic forwarding over VPN interface.",
+          "example": false
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "properties": {
+    "region_type": {
+      "type": "string",
+      "example": "country_code",
+      "enum": [
+        "country_code",
+        "rate_center",
+        "state",
+        "location"
+      ]
+    },
+    "region_name": {
+      "type": "string",
+      "example": "US"
+    }
+  },
+  "example": {
+    "region_type": "country_code",
+    "region_name": "US"
+  }
+}

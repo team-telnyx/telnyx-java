@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "phone_number_type": {
+      "type": "string"
+    },
+    "requirements_met": {
+      "type": "boolean"
+    },
+    "requirements_status": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "record_type": {
+      "type": "string"
+    },
+    "bundle_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "regulatory_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "field_type": {
+            "type": "string"
+          },
+          "field_value": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

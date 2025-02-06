@@ -1,0 +1,96 @@
+{
+  "get": {
+    "summary": "Get all SIM card orders",
+    "description": "Get all SIM card orders according to filters.",
+    "operationId": "GetSimCardOrders",
+    "tags": [
+      "SIM Card Orders"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/FilterCreatedAt.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterUpdatedAt.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterQuantity.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterCostByAmount.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterCostByCurrency.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterAddressById.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterAddressByStreetAddress.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterAddressByExtendedAddress.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterAddressByLocality.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterAddressByAdministrativeArea.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterAddressByCountryCode.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterAddressByPostalCode.json"
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetAllSimCardOrdersResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/SimCardOrderCreate.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "tags": [
+      "SIM Card Orders"
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CreateSimCardOrderResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "summary": "Create a SIM card order",
+    "description": "Creates a new order for SIM cards.",
+    "operationId": "CreateSimCardOrder",
+    "x-latency-category": "responsive"
+  }
+}

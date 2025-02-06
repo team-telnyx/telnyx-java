@@ -1,0 +1,17 @@
+{
+  "description": "Unprocessable entity. Check the 'detail' field in response for details.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/UnprocessableEntityError.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

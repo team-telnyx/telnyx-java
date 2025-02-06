@@ -1,0 +1,31 @@
+{
+  "allOf": [
+    {
+      "type": "object",
+      "title": "Global IP Health Check Type",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "global_ip_health_check_type"
+        },
+        "health_check_type": {
+          "type": "string",
+          "description": "Global IP Health check type.",
+          "example": "http_status_2xx"
+        },
+        "health_check_params": {
+          "type": "object",
+          "description": "Global IP Health check params.",
+          "example": {
+            "health_check_params": {
+              "path": "str",
+              "port": "int"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

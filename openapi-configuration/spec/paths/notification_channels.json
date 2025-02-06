@@ -1,0 +1,87 @@
+{
+  "get": {
+    "description": "List notification channels.",
+    "summary": "List notification channels",
+    "operationId": "ListNotificationChannels",
+    "tags": [
+      "Notifications"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/ChannelTypeId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of notification channels.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../components/schemas/NotificationChannel.json"
+                  }
+                },
+                "meta": {
+                  "$ref": "../components/schemas/PaginationMeta.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "description": "Create a notification channel.",
+    "summary": "Create a notification channel",
+    "operationId": "CreateNotificationChannels",
+    "tags": [
+      "Notifications"
+    ],
+    "requestBody": {
+      "description": "Add a Notification Channel",
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/NotificationChannel.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "A Notification Channel response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/NotificationChannel.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

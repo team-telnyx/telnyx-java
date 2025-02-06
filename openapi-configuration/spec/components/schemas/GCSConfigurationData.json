@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "title": "Google Cloud Storage Configuration Data",
+  "properties": {
+    "credentials": {
+      "$ref": "./Credentials.json"
+    },
+    "bucket": {
+      "$ref": "./Bucket.json"
+    }
+  }
+}

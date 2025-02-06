@@ -1,0 +1,6 @@
+{
+  "type": "string",
+  "description": "The duration of this recording, given in seconds.",
+  "example": "12",
+  "nullable": true
+}

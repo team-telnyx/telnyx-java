@@ -1,0 +1,10 @@
+{
+  "description": "A response with recording resource.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/RecordingResponse.json"
+      }
+    }
+  }
+}

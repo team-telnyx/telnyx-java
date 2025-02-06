@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the data migration source.",
+      "readOnly": true
+    },
+    "provider": {
+      "type": "string",
+      "enum": [
+        "aws"
+      ],
+      "description": "Cloud provider from which to migrate data."
+    },
+    "provider_auth": {
+      "type": "object",
+      "properties": {
+        "access_key": {
+          "type": "string",
+          "description": "AWS Access Key."
+        },
+        "secret_access_key": {
+          "type": "string",
+          "description": "AWS Secret Access Key."
+        }
+      }
+    },
+    "bucket_name": {
+      "type": "string",
+      "description": "Bucket name to migrate the data from."
+    }
+  },
+  "required": [
+    "provider",
+    "provider_auth",
+    "bucket_name"
+  ]
+}

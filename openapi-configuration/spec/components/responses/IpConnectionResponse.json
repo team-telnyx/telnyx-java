@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about an IP connection.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Ip Connection Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/IpConnection.json"
+          }
+        }
+      }
+    }
+  }
+}

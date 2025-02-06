@@ -1,0 +1,93 @@
+{
+  "type": "object",
+  "title": "AuthenticationProvider",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Uniquely identifies the authentication provider.",
+      "example": "35146afd-df93-4963-b1e9-1a085e2ae874"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "example": "authentication_provider"
+    },
+    "name": {
+      "$ref": "./name.json"
+    },
+    "short_name": {
+      "$ref": "./short_name.json"
+    },
+    "organization_id": {
+      "$ref": "./organization_id.json"
+    },
+    "active": {
+      "$ref": "./active.json"
+    },
+    "settings": {
+      "type": "object",
+      "description": "The settings associated with the authentication provider.",
+      "properties": {
+        "assertion_consumer_service_url": {
+          "type": "string",
+          "description": "The Assertion Consumer Service URL for the service provider (Telnyx).",
+          "format": "uri",
+          "example": "https://api.telnyx.com/sso/saml/auth/myorg"
+        },
+        "service_provider_entity_id": {
+          "type": "string",
+          "description": "The Entity ID for the service provider (Telnyx).",
+          "format": "uri",
+          "example": "https://api.telnyx.com/sso/saml/metadata/myorg"
+        },
+        "idp_entity_id": {
+          "type": "string",
+          "description": "The Entity ID for the identity provider (IdP).",
+          "format": "uri",
+          "example": "https://myorg.myidp.com/saml/metadata"
+        },
+        "idp_sso_target_url": {
+          "type": "string",
+          "description": "The SSO target url for the identity provider (IdP).",
+          "format": "uri",
+          "example": "https://myorg.myidp.com/trust/saml2/http-post/sso"
+        },
+        "idp_cert_fingerprint": {
+          "type": "string",
+          "description": "The certificate fingerprint for the identity provider (IdP)",
+          "example": "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7"
+        },
+        "idp_cert_fingerprint_algorithm": {
+          "type": "string",
+          "description": "The algorithm used to generate the identity provider's (IdP) certificate fingerprint",
+          "enum": [
+            "sha1",
+            "sha256",
+            "sha384",
+            "sha512"
+          ],
+          "default": "sha1",
+          "example": "sha256"
+        },
+        "name_identifier_format": {
+          "type": "string",
+          "description": "The name identifier format associated with the authentication provider. This must be the same for both the Identity Provider (IdP) and the service provider (Telnyx).",
+          "example": "urn:oasis:names:tc:SAML:1.1:nameid-format"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "format": "date-time",
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date indicating when the resource was updated.",
+      "format": "date-time",
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  }
+}

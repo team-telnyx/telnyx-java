@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "A unique identifier for the room participant.",
+      "type": "string",
+      "format": "uuid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+    },
+    "session_id": {
+      "description": "Identify the room session that participant is part of.",
+      "type": "string",
+      "format": "uuid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777b0"
+    },
+    "context": {
+      "description": "Context provided to the given participant through the client SDK",
+      "type": "string",
+      "example": "Alice"
+    },
+    "joined_at": {
+      "description": "ISO 8601 timestamp when the participant joined the session.",
+      "type": "string",
+      "format": "datetime",
+      "example": "2021-03-26T17:51:59.588408Z"
+    },
+    "updated_at": {
+      "description": "ISO 8601 timestamp when the participant was updated.",
+      "type": "string",
+      "format": "datetime",
+      "example": "2021-03-26T17:51:59.588408Z"
+    },
+    "left_at": {
+      "description": "ISO 8601 timestamp when the participant left the session.",
+      "type": "string",
+      "format": "datetime",
+      "example": "2021-03-26T17:51:59.588408Z"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "room_participant",
+      "readOnly": true
+    }
+  },
+  "example": {
+    "id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
+    "session_id": "7b61621f-5fe4-4aad-ab11-9fd19e272e73",
+    "context": "Alice",
+    "joined_at": "2021-04-16T09:46:20.954863Z",
+    "updated_at": "2021-04-16T10:24:55.962200Z",
+    "left_at": "2021-04-16T10:24:55.962200Z",
+    "record_type": "room_participant"
+  }
+}

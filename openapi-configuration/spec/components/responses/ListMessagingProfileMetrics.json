@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of messaging profile metrics.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Messaging Profile Metrics Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/MessagingProfileHighLevelMetrics.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

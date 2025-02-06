@@ -1,0 +1,107 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "enum": [
+            "event"
+          ]
+        },
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "call.ai_gather.tool_call"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "call_control_id": {
+              "type": "string"
+            },
+            "tool_call": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "function"
+                  ]
+                },
+                "function": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "arguments": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "arguments"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "type",
+                "function"
+              ]
+            }
+          },
+          "required": [
+            "call_control_id",
+            "tool_call"
+          ]
+        }
+      },
+      "required": [
+        "record_type",
+        "event_type",
+        "id",
+        "occurred_at",
+        "payload"
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "example": {
+    "data": {
+      "record_type": "event",
+      "event_type": "call.ai_gather.tool_call",
+      "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+      "occurred_at": "2025-01-16T12:00:00.000000Z",
+      "payload": {
+        "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
+        "tool_call": {
+          "id": "call_abc123",
+          "type": "function",
+          "function": {
+            "name": "get_current_weather",
+            "arguments": {
+              "location": "Boston, MA"
+            }
+          }
+        }
+      }
+    }
+  }
+}

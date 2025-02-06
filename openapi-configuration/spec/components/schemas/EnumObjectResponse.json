@@ -1,0 +1,5 @@
+{
+  "title": "EnumObjectResponse",
+  "type": "object",
+  "example": "{\"AREIS\": \"AREIS\", \"BANDW\": \"Bandwidth\", \"SINCH\": \"Sinch\"}"
+}

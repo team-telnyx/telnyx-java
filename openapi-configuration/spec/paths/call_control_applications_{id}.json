@@ -1,0 +1,121 @@
+{
+  "delete": {
+    "description": "Deletes a call control application.",
+    "summary": "Delete a call control application",
+    "operationId": "DeleteCallControlApplication",
+    "tags": [
+      "Call Control Applications"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the resource.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "int64",
+          "example": "1293384261075731499"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CallControlApplicationResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "422": {
+        "description": "Bad request"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "get": {
+    "description": "Retrieves the details of an existing call control application.",
+    "summary": "Retrieve a call control application",
+    "operationId": "RetrieveCallControlApplication",
+    "tags": [
+      "Call Control Applications"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the resource.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "int64",
+          "example": "1293384261075731499"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CallControlApplicationResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "422": {
+        "description": "Bad request"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "patch": {
+    "summary": "Update a call control application",
+    "description": "Updates settings of an existing call control application.",
+    "operationId": "UpdateCallControlApplication",
+    "tags": [
+      "Call Control Applications"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the resource.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "int64",
+          "example": "1293384261075731499"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Update call control application request.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateCallControlApplicationRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CallControlApplicationResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "422": {
+        "description": "Bad request"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

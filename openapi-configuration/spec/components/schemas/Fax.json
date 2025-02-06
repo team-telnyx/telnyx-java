@@ -1,0 +1,113 @@
+{
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "description": "Identifies the type of the resource.",
+      "type": "string",
+      "example": "fax",
+      "enum": [
+        "fax"
+      ]
+    },
+    "id": {
+      "$ref": "./Id.json"
+    },
+    "connection_id": {
+      "$ref": "./ConnectionId.json"
+    },
+    "direction": {
+      "$ref": "./Direction.json"
+    },
+    "media_url": {
+      "$ref": "./MediaUrl.json"
+    },
+    "media_name": {
+      "$ref": "./MediaName.json"
+    },
+    "to": {
+      "$ref": "./To.json"
+    },
+    "from": {
+      "$ref": "./From.json"
+    },
+    "from_display_name": {
+      "description": "The string used as the caller id name (SIP From Display Name) presented to the destination (`to` number).",
+      "type": "string",
+      "example": "Company Name"
+    },
+    "quality": {
+      "$ref": "./Quality.json"
+    },
+    "status": {
+      "description": "Status of the fax",
+      "type": "string",
+      "example": "queued",
+      "enum": [
+        "queued",
+        "media.processed",
+        "originated",
+        "sending",
+        "delivered",
+        "failed",
+        "initiated",
+        "receiving",
+        "media.processing",
+        "received"
+      ]
+    },
+    "webhook_url": {
+      "description": "URL that will receive fax webhooks",
+      "type": "string"
+    },
+    "webhook_failover_url": {
+      "description": "Optional failover URL that will receive fax webhooks if webhook_url doesn't return a 2XX response",
+      "type": "string"
+    },
+    "store_media": {
+      "description": "Should fax media be stored on temporary URL. It does not support media_name.",
+      "type": "boolean"
+    },
+    "stored_media_url": {
+      "description": "If store_media was set to true, this is a link to temporary location. Link expires after 10 minutes.",
+      "type": "string"
+    },
+    "preview_url": {
+      "description": "If `store_preview` was set to `true`, this is a link to temporary location. Link expires after 10 minutes.",
+      "type": "string"
+    },
+    "client_state": {
+      "description": "State received from a command.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    },
+    "created_at": {
+      "description": "ISO 8601 timestamp when resource was created",
+      "type": "string",
+      "format": "datetime"
+    },
+    "updated_at": {
+      "description": "ISO 8601 timestamp when resource was updated",
+      "type": "string",
+      "format": "datetime"
+    }
+  },
+  "example": {
+    "record_type": "fax",
+    "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+    "connection_id": "c-1",
+    "direction": "outbound",
+    "from": "+123",
+    "to": "+456",
+    "media_url": "http://www.example.com/fax.pdf",
+    "store_media": true,
+    "stored_media_url": "https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51",
+    "preview_url": "https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b_preview.tiff?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51",
+    "quality": "high",
+    "webhook_url": "http://www.example.com/webhooks",
+    "webhook_failover_url": "",
+    "status": "queued",
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "created_at": "2020-05-05T09:59:12",
+    "updated_at": "2020-05-05T09:59:12"
+  }
+}

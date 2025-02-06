@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "title": "Conference Command Result",
+  "required": [
+    "result"
+  ],
+  "properties": {
+    "result": {
+      "type": "string",
+      "example": "ok"
+    }
+  },
+  "example": {
+    "result": "ok"
+  }
+}

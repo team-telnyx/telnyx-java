@@ -1,0 +1,10 @@
+{
+  "allOf": [
+    {
+      "$ref": "./WireguardInterface.json"
+    },
+    {
+      "$ref": "./RegionOut.json"
+    }
+  ]
+}

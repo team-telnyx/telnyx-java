@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "buckets": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Buckets"
+    }
+  },
+  "type": "object",
+  "required": [
+    "buckets"
+  ],
+  "title": "UserEmbeddedBuckets"
+}

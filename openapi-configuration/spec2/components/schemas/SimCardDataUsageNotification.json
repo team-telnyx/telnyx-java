@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "description": "The SIM card individual data usage notification information.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the resource.",
+      "readOnly": true,
+      "example": "79228acc-3f08-4e70-ac68-cb5aae8b537a"
+    },
+    "sim_card_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The identification UUID of the related SIM card resource.",
+      "example": "b34c1683-cd85-4493-b9a5-315eb4bc5e19"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "sim_card_data_usage_notification",
+      "readOnly": true
+    },
+    "threshold": {
+      "type": "object",
+      "description": "Data usage threshold that will trigger the notification.",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "format": "decimal",
+          "example": "2048.1"
+        },
+        "unit": {
+          "type": "string",
+          "example": "MB",
+          "enum": [
+            "MB",
+            "GB"
+          ]
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was created.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was updated.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  },
+  "example": {
+    "id": "79228acc-3f08-4e70-ac68-cb5aae8b537a",
+    "sim_card_id": "b34c1683-cd85-4493-b9a5-315eb4bc5e19",
+    "threshold": {
+      "amount": "2048.0",
+      "unit": "MB"
+    },
+    "created_at": "2018-02-02T22:25:27.521Z",
+    "updated_at": "2018-02-02T22:25:27.521Z"
+  }
+}

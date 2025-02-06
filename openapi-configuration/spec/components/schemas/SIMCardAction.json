@@ -1,0 +1,70 @@
+{
+  "type": "object",
+  "title": "SIMCardAction",
+  "description": "This object represents a SIM card action. It allows tracking the current status of an operation that impacts the SIM card.",
+  "properties": {
+    "id": {
+      "$ref": "./Id.json"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "sim_card_action",
+      "readOnly": true
+    },
+    "sim_card_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The related SIM card identifier.",
+      "readOnly": true,
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "action_type": {
+      "type": "string",
+      "description": "The operation type. It can be one of the following: <br/>\n<ul>\n <li><code>enable</code> - move the SIM card to the <code>enabled</code> status</li>\n <li><code>enable_standby_sim_card</code> - move a SIM card previously on the <code>standby</code> status to the <code>enabled</code> status after it consumes data.</li>\n <li><code>disable</code> - move the SIM card to the <code>disabled</code> status</li>\n <li><code>set_standby</code> - move the SIM card to the <code>standby</code> status</li>\n </ul>",
+      "enum": [
+        "enable",
+        "enable_standby_sim_card",
+        "disable",
+        "set_standby"
+      ],
+      "readOnly": true,
+      "example": "enable"
+    },
+    "status": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The current status of the SIM card action.",
+          "enum": [
+            "in-progress",
+            "completed",
+            "failed",
+            "interrupted"
+          ],
+          "readOnly": true,
+          "example": "completed"
+        },
+        "reason": {
+          "type": "string",
+          "description": "It describes why the SIM card action is in the current status. This will be <code>null</code> for self-explanatory statuses, such as <code>in-progress</code> and <code>completed</code> but will include further information on statuses like <code>interrupted</code> and <code>failed</code>.",
+          "readOnly": true,
+          "example": "The data limit was exceeded."
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "description": "A JSON object representation of the action params.",
+      "example": {},
+      "nullable": true,
+      "readOnly": true
+    },
+    "created_at": {
+      "$ref": "./CreatedAt.json"
+    },
+    "updated_at": {
+      "$ref": "./UpdatedAt.json"
+    }
+  }
+}

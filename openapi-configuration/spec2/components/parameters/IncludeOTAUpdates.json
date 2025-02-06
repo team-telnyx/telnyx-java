@@ -1,0 +1,10 @@
+{
+  "name": "include_ota_updates",
+  "description": "It includes the associated OTA update objects in the response when present.",
+  "schema": {
+    "default": false,
+    "type": "boolean",
+    "example": true
+  },
+  "in": "query"
+}

@@ -1,0 +1,33 @@
+{
+  "post": {
+    "summary": "Initiate an outbound call",
+    "description": "Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request URL configured for the connection in the Mission Control Portal.",
+    "x-latency-category": "responsive",
+    "x-group-parameters": "true",
+    "operationId": "InitiateTexmlCall",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ApplicationId.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Iniatiate Call request object",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/InitiateCallRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/InitiateCallResponse.json"
+      }
+    }
+  }
+}

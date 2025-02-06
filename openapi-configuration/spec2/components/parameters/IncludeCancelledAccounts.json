@@ -1,0 +1,11 @@
+{
+  "name": "include_cancelled_accounts",
+  "in": "query",
+  "required": false,
+  "description": "Specifies if cancelled accounts should be included in the results.",
+  "schema": {
+    "type": "boolean",
+    "example": "true",
+    "default": "false"
+  }
+}

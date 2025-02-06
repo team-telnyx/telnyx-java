@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "enum": [
+    "SRTP"
+  ],
+  "nullable": true,
+  "example": "SRTP",
+  "description": "Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS."
+}

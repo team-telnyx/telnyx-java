@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "description": "Specifies whether Telnyx is able to confirm portability this number in the United States & Canada. International phone numbers are provisional by default.",
+  "enum": [
+    "pending",
+    "confirmed",
+    "provisional"
+  ],
+  "example": "confirmed"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Successful Response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/CustomerServiceRecord.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "type": "string",
+  "description": "The unit in which the price is given.",
+  "example": "USD",
+  "nullable": true
+}

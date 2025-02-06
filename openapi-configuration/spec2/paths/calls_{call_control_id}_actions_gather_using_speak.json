@@ -1,0 +1,81 @@
+{
+  "post": {
+    "summary": "Gather using speak",
+    "description": "Convert text to speech and play it on the call until the required DTMF signals are gathered to build interactive menus.\n\nYou can pass a list of valid digits along with an 'invalid_payload', which will be played back at the beginning of each prompt. Speech will be interrupted when a DTMF signal is received. The `Answer` command must be issued before the `gather_using_speak` command.\n\n**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-using-speak#callbacks) below):**\n\n- `call.dtmf.received` (you may receive many of these webhooks)\n- `call.gather.ended`\n",
+    "operationId": "GatherUsingSpeak",
+    "tags": [
+      "Call Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/CallControlId.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Gather using speak request",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/GatherUsingSpeakRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CallControlCommandResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "callbacks": {
+      "callDtmfReceived": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Calls gather using speak call dtmf recieved",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallDtmfReceivedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "callGatherEnded": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Calls gather using speak call ai gather ended",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallGatherEndedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

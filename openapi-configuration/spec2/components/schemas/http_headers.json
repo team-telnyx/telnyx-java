@@ -1,0 +1,16 @@
+{
+  "description": "List of headers, limited to 10kB.",
+  "type": "array",
+  "example": [
+    [
+      "header_name",
+      "header_value"
+    ]
+  ],
+  "items": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  }
+}

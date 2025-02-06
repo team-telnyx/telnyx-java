@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "title": "Custom Storage Configuration",
+  "required": [
+    "backend",
+    "configuration"
+  ],
+  "properties": {
+    "backend": {
+      "type": "string",
+      "enum": [
+        "gcs",
+        "s3",
+        "azure"
+      ],
+      "example": "gcs"
+    },
+    "configuration": {
+      "oneOf": [
+        {
+          "$ref": "./GCSConfigurationData.json"
+        },
+        {
+          "$ref": "./S3ConfigurationData.json"
+        },
+        {
+          "$ref": "./AzureConfigurationData.json"
+        }
+      ]
+    }
+  }
+}

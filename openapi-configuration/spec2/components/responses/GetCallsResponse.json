@@ -1,0 +1,10 @@
+{
+  "description": "Multiple call resources.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/CallResourceIndex.json"
+      }
+    }
+  }
+}

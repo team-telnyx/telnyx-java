@@ -1,0 +1,10 @@
+{
+  "description": "Successful response upon initiating a TeXML call.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/InitiateCallResult.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Successful response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/VirtualCrossConnectCombined.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

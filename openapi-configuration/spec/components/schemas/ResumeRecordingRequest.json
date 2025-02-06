@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "title": "Resume Recording Request",
+  "properties": {
+    "client_state": {
+      "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    },
+    "command_id": {
+      "description": "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.",
+      "type": "string",
+      "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+    },
+    "recording_id": {
+      "description": "Uniquely identifies the resource.",
+      "type": "string",
+      "format": "uuid",
+      "example": "6e00ab49-9487-4364-8ad6-23965965afb2"
+    }
+  }
+}

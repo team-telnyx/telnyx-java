@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Streaming Stopped Event",
+  "properties": {
+    "data": {
+      "$ref": "./CallStreamingStopped.json"
+    }
+  }
+}

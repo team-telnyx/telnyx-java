@@ -1,0 +1,19 @@
+{
+  "allOf": [
+    {
+      "$ref": "./TelnyxBrand.json"
+    },
+    {
+      "type": "object",
+      "title": "TelnyxBrandWithCampaignsCount",
+      "properties": {
+        "assignedCampaignsCount": {
+          "title": "AssignedCampaignsCount",
+          "description": "Number of campaigns associated with the brand",
+          "type": "number",
+          "example": 3
+        }
+      }
+    }
+  ]
+}

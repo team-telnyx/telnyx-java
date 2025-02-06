@@ -1,0 +1,17 @@
+{
+  "value": {
+    "errors": [
+      {
+        "code": "10015",
+        "title": "Bad Request",
+        "detail": "must be present",
+        "source": {
+          "pointer": "/phone_numbers"
+        },
+        "meta": {
+          "url": "https://developers.telnyx.com/docs/overview/errors/10015"
+        }
+      }
+    ]
+  }
+}

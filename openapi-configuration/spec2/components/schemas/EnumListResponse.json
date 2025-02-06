@@ -1,0 +1,15 @@
+{
+  "title": "EnumListResponse",
+  "type": "array",
+  "items": {
+    "anyOf": [
+      {
+        "type": "string"
+      },
+      {
+        "type": "object"
+      }
+    ]
+  },
+  "example": "[\"BASIC_ACCOUNT\", \"SMALL_ACCOUNT\", \"MEDIUM_ACCOUNT\", \"LARGE_ACCOUNT\", \"KEY_ACCOUNT\"]"
+}

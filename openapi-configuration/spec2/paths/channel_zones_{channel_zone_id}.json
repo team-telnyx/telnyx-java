@@ -1,0 +1,59 @@
+{
+  "get": {
+    "summary": "Get a specific channel zone",
+    "description": "Get a specific channel zone",
+    "operationId": "GetChannelZone",
+    "tags": [
+      "ChannelZones"
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetGcbChannelZoneRequestResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "parameters": [
+    {
+      "$ref": "../components/parameters/GcbChannelZoneId.json"
+    }
+  ],
+  "patch": {
+    "summary": "Patch a channel zone",
+    "description": "Change the amount of reserved channels at a given channel zone",
+    "operationId": "PatchChannelZone",
+    "tags": [
+      "ChannelZones"
+    ],
+    "requestBody": {
+      "description": "Quantity of reserved channels",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "channels": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PatchGcbChannelZoneRequestResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-codegen-request-body-name": "body",
+    "x-latency-category": "interactive"
+  }
+}

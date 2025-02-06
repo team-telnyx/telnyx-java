@@ -1,0 +1,46 @@
+{
+  "delete": {
+    "summary": "Delete a recording transcription",
+    "description": "Permanently deletes a recording transcription.",
+    "operationId": "deleteRecordingTranscription",
+    "tags": [
+      "Call Recordings"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/RecordingTranscriptionId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/RecordingTranscriptionResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "summary": "Retrieve a recording transcription",
+    "description": "Retrieves the details of an existing recording transcription",
+    "operationId": "getRecordingTranscription",
+    "tags": [
+      "Call Recordings"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/RecordingTranscriptionId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/RecordingTranscriptionResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

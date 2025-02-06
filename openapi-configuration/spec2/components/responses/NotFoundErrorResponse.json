@@ -1,0 +1,10 @@
+{
+  "description": "Resource Not Found",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/Errors.json"
+      }
+    }
+  }
+}

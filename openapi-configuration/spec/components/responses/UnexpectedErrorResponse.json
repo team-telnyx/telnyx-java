@@ -1,0 +1,17 @@
+{
+  "description": "An unexpected error occurred.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/UnexpectedError.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

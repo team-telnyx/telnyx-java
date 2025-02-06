@@ -1,0 +1,10 @@
+{
+  "description": "Presigned URL Object Response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/PresignedObjectUrl.json"
+      }
+    }
+  }
+}

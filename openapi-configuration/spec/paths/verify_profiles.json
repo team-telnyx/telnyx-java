@@ -1,0 +1,127 @@
+{
+  "get": {
+    "tags": [
+      "Verify"
+    ],
+    "x-group-parameters": "true",
+    "summary": "List all Verify profiles",
+    "description": "Gets a paginated list of Verify profiles.",
+    "operationId": "ListProfiles",
+    "parameters": [
+      {
+        "required": false,
+        "schema": {
+          "title": "filter[name]",
+          "type": "string",
+          "description": "Optional filter for profile names."
+        },
+        "name": "filter[name]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "page[size]",
+          "type": "integer",
+          "default": 25
+        },
+        "name": "page[size]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "page[number]",
+          "type": "integer",
+          "default": 1
+        },
+        "name": "page[number]",
+        "in": "query"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Expected Verify profile response to a valid request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/ListVerifyProfilesResponse.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "tags": [
+      "Verify"
+    ],
+    "summary": "Create a Verify profile",
+    "description": "Creates a new Verify profile to associate verifications with.",
+    "operationId": "CreateVerifyProfile",
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "title": "Create Verify Profile Request",
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "example": "Test Profile",
+                "type": "string"
+              },
+              "webhook_url": {
+                "type": "string",
+                "example": "http://example.com/webhook"
+              },
+              "webhook_failover_url": {
+                "type": "string",
+                "example": "http://example.com/webhook/failover"
+              },
+              "sms": {
+                "type": "object",
+                "$ref": "../components/schemas/CreateVerifyProfileSMSRequest.json"
+              },
+              "call": {
+                "type": "object",
+                "$ref": "../components/schemas/CreateVerifyProfileCallRequest.json"
+              },
+              "flashcall": {
+                "type": "object",
+                "$ref": "../components/schemas/CreateVerifyProfileFlashcallRequest.json"
+              },
+              "language": {
+                "type": "string",
+                "example": "en-US"
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Expected Verify profile response to a valid request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/VerifyProfileResponseDataWrapper.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

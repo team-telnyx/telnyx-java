@@ -1,0 +1,104 @@
+{
+  "get": {
+    "summary": "List all call recordings",
+    "description": "Returns a list of your call recordings.",
+    "operationId": "GetRecordings",
+    "tags": [
+      "Call Recordings"
+    ],
+    "parameters": [
+      {
+        "name": "filter[conference_id]",
+        "in": "query",
+        "description": "Returns only recordings associated with a given conference",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1"
+        }
+      },
+      {
+        "name": "filter[created_at][gte]",
+        "in": "query",
+        "description": "Returns only recordings created later than or at given ISO 8601 datetime",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "2019-03-29T11:10:00Z"
+        }
+      },
+      {
+        "name": "filter[created_at][lte]",
+        "in": "query",
+        "description": "Returns only recordings created earlier than or at given ISO 8601 datetime",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "2019-03-29T11:10:00Z"
+        }
+      },
+      {
+        "name": "filter[call_leg_id]",
+        "in": "query",
+        "description": "If present, recordings will be filtered to those with a matching call_leg_id.",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1"
+        }
+      },
+      {
+        "name": "filter[call_session_id]",
+        "in": "query",
+        "description": "If present, recordings will be filtered to those with a matching call_session_id.",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1"
+        }
+      },
+      {
+        "name": "filter[from]",
+        "in": "query",
+        "description": "If present, recordings will be filtered to those with a matching `from` attribute. Matching is case-sensitive",
+        "schema": {
+          "type": "string",
+          "example": "1234567890"
+        }
+      },
+      {
+        "name": "filter[to]",
+        "in": "query",
+        "description": "If present, recordings will be filtered to those with a matching `to` attribute. Matching is case-sensitive",
+        "schema": {
+          "type": "string",
+          "example": "1234567890"
+        }
+      },
+      {
+        "name": "filter[connection_id]",
+        "in": "query",
+        "description": "If present, recordings will be filtered to those with a matching `connection_id` attribute. Matching is case-sensitive",
+        "schema": {
+          "type": "string",
+          "example": "175237942907135762"
+        }
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/RecordingsResponseBody.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "get": {
+    "summary": "List network coverage locations",
+    "description": "List all locations and the interfaces that region supports",
+    "operationId": "ListNetworkCoverage",
+    "tags": [
+      "Coverage"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filters[available_services][contains]",
+        "description": "The region of associated location to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "$ref": "../components/schemas/AvailableService.json"
+        }
+      },
+      {
+        "name": "filter[location.region]",
+        "description": "The region of associated location to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "AMER"
+        }
+      },
+      {
+        "name": "filter[location.site]",
+        "description": "The site of associated location to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "SJC"
+        }
+      },
+      {
+        "name": "filter[location.pop]",
+        "description": "The POP of associated location to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "SV1"
+        }
+      },
+      {
+        "name": "filter[location.code]",
+        "description": "The code of associated location to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "silicon_valley-ca"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/NetworkCoverageListResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

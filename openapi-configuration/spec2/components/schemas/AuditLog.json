@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "title": "Audit Log Entry",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the audit log entry.",
+      "example": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "user_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the user who made the change.",
+      "example": "550e8400-e29b-41d4-a716-446655440001"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "The type of the resource being audited.",
+      "example": "audit_event"
+    },
+    "resource_id": {
+      "type": "string",
+      "description": "Unique identifier for the resource that was changed.",
+      "example": "550e8400-e29b-41d4-a716-446655440002"
+    },
+    "alternate_resource_id": {
+      "type": "string",
+      "description": "An alternate identifier for a resource which may be considered unique enough to identify the resource but is not the primary identifier for the resource. For example, this field could be used to store the phone number value for a phone number when the primary database identifier is a separate distinct value.",
+      "example": "+14155551234",
+      "nullable": true
+    },
+    "change_made_by": {
+      "type": "string",
+      "enum": [
+        "telnyx",
+        "account_manager",
+        "account_owner",
+        "organization_member"
+      ],
+      "description": "Indicates if the change was made by Telnyx on your behalf, the organization owner, a member of your organization, or in the case of managed accounts, the account manager.",
+      "example": "organization_owner"
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "$ref": "./AuditEventChanges.json"
+      },
+      "description": "Details of the changes made to the resource.",
+      "example": [
+        {
+          "field": "field.name",
+          "to": "old value",
+          "from": "new value"
+        }
+      ],
+      "nullable": true
+    },
+    "organization_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the organization that owns the resource.",
+      "example": "550e8400-e29b-41d4-a716-446655440003"
+    },
+    "change_type": {
+      "type": "string",
+      "description": "The type of change that occurred.",
+      "example": "update"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the change occurred.",
+      "example": "2023-01-01T00:00:00Z"
+    }
+  }
+}

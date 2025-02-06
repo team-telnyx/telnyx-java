@@ -1,0 +1,10 @@
+{
+  "description": "Multiple conference recording resources.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/ConferenceRecordingResourceIndex.json"
+      }
+    }
+  }
+}

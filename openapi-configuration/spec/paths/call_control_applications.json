@@ -1,0 +1,73 @@
+{
+  "get": {
+    "description": "Return a list of call control applications.",
+    "summary": "List call control applications",
+    "operationId": "ListCallControlApplications",
+    "tags": [
+      "Call Control Applications"
+    ],
+    "x-group-parameters": "true",
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterApplicationName.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterOutboundVoiceProfileId.json"
+      },
+      {
+        "$ref": "../components/parameters/SortConnection.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListCallControlApplicationsResponse.json"
+      },
+      "400": {
+        "description": "Bad request"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "description": "Resource not found"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "post": {
+    "summary": "Create a call control application",
+    "description": "Create a call control application.",
+    "operationId": "CreateCallControlApplication",
+    "tags": [
+      "Call Control Applications"
+    ],
+    "x-endpoint-cost": "medium",
+    "requestBody": {
+      "description": "Create call control application request.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateCallControlApplicationRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/CallControlApplicationResponse.json"
+      },
+      "422": {
+        "description": "Bad Request"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

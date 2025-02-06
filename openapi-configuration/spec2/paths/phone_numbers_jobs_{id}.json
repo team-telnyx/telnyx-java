@@ -1,0 +1,75 @@
+{
+  "get": {
+    "summary": "Retrieve a phone numbers job",
+    "operationId": "RetrievePhoneNumbersJob",
+    "tags": [
+      "Bulk Phone Number Operations"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the Phone Numbers Job.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "x-group-parameters": "true",
+    "responses": {
+      "200": {
+        "description": "Phone numbers job details.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Phone Numbers Job",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/PhoneNumbersJob.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            },
+            "examples": {
+              "Resource not found": {
+                "value": {
+                  "errors": [
+                    {
+                      "code": "10005",
+                      "title": "Resource not found",
+                      "detail": "The requested resource or URL could not be found.",
+                      "source": {
+                        "pointer": "/base"
+                      },
+                      "meta": {
+                        "url": "https://developers.telnyx.com/docs/overview/errors/10005"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

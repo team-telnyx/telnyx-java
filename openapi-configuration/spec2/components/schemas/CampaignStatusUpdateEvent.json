@@ -1,0 +1,33 @@
+{
+  "title": "Campaign Status Update Event",
+  "type": "object",
+  "properties": {
+    "brandId": {
+      "title": "Brandid",
+      "type": "string",
+      "description": "Brand ID associated with the campaign.",
+      "example": "d88dd2aa-1bb9-4ef0-9ec8-1752b80316a5"
+    },
+    "campaignId": {
+      "title": "Campaignid",
+      "type": "string",
+      "description": "The ID of the campaign.",
+      "example": "4b300178-131c-d902-d54e-72d90ba1620j"
+    },
+    "createDate": {
+      "title": "CreateDate",
+      "type": "string",
+      "description": "Unix timestamp when campaign was created."
+    },
+    "cspId": {
+      "title": "Cspid",
+      "type": "string",
+      "description": "Alphanumeric identifier of the CSP associated with this campaign."
+    },
+    "isTMobileRegistered": {
+      "title": "IsTMobileRegistered",
+      "type": "boolean",
+      "description": "Indicates whether the campaign is registered with T-Mobile."
+    }
+  }
+}

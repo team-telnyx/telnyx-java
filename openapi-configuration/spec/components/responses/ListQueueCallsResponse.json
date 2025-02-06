@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of calls in a queue.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Queue Calls Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/QueueCall.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

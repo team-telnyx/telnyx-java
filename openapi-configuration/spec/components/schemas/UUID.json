@@ -1,0 +1,7 @@
+{
+  "title": "UUID",
+  "type": "string",
+  "format": "uuid",
+  "description": "Uniquely identifies the resource.",
+  "example": "542c3bca-d247-42bc-8fe7-e01d16ecd761"
+}

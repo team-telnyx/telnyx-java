@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "cost": {
+      "type": "string",
+      "example": "0"
+    },
+    "direction": {
+      "type": "string",
+      "example": "outbound"
+    },
+    "product": {
+      "type": "string",
+      "example": "outbound"
+    },
+    "connection": {
+      "type": "string",
+      "example": "all"
+    },
+    "received": {
+      "type": "string",
+      "example": "0"
+    },
+    "delivered": {
+      "type": "string",
+      "example": "0"
+    },
+    "currency": {
+      "type": "string",
+      "example": "USD"
+    },
+    "parts": {
+      "type": "string",
+      "example": "0"
+    },
+    "sent": {
+      "type": "string",
+      "example": "0"
+    },
+    "profile_id": {
+      "type": "string",
+      "example": "All"
+    },
+    "tags": {
+      "type": "string",
+      "example": "All"
+    },
+    "message_type": {
+      "type": "string",
+      "example": "SMS"
+    },
+    "tn_type": {
+      "type": "string",
+      "example": "TF"
+    },
+    "carrier_passthrough_fee": {
+      "type": "string",
+      "example": "0"
+    }
+  }
+}

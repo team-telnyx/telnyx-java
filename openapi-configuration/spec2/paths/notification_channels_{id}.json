@@ -1,0 +1,115 @@
+{
+  "delete": {
+    "description": "Delete a notification channel.",
+    "summary": "Delete a notification channel",
+    "operationId": "DeleteNotificationChannel",
+    "tags": [
+      "Notifications"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/Id.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A Notification Channel response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/NotificationChannel.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "description": "Get a notification channel.",
+    "summary": "Get a notification channel",
+    "operationId": "GetNotificationChannel",
+    "tags": [
+      "Notifications"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/Id.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A Notification Channel response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/NotificationChannel.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "description": "Update a notification channel.",
+    "summary": "Update a notification channel",
+    "operationId": "UpdateNotificationChannel",
+    "tags": [
+      "Notifications"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/Id.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Update notification channel object",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/NotificationChannel.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "A Notification Channel response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/NotificationChannel.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

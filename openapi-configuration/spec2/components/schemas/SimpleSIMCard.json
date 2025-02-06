@@ -1,0 +1,123 @@
+{
+  "type": "object",
+  "title": "SIMCard",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the resource.",
+      "readOnly": true,
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "sim_card",
+      "readOnly": true
+    },
+    "status": {
+      "$ref": "./SIMCardStatus.json"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of SIM card",
+      "readOnly": true,
+      "example": "physical",
+      "enum": [
+        "physical",
+        "esim"
+      ]
+    },
+    "iccid": {
+      "type": "string",
+      "description": "The ICCID is the identifier of the specific SIM card/chip. Each SIM is internationally identified by its integrated circuit card identifier (ICCID). ICCIDs are stored in the SIM card's memory and are also engraved or printed on the SIM card body during a process called personalization.\n",
+      "readOnly": true,
+      "example": "89310410106543789301"
+    },
+    "imsi": {
+      "type": "string",
+      "description": "SIM cards are identified on their individual network operators by a unique International Mobile Subscriber Identity (IMSI). <br/>\nMobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR).\n",
+      "readOnly": true,
+      "example": "081932214823362973"
+    },
+    "msisdn": {
+      "type": "string",
+      "description": "Mobile Station International Subscriber Directory Number (MSISDN) is a number used to identify a mobile phone number internationally. <br/>\nMSISDN is defined by the E.164 numbering plan. It includes a country code and a National Destination Code which identifies the subscriber's operator.\n",
+      "readOnly": true,
+      "example": "+13109976224"
+    },
+    "sim_card_group_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The group SIMCardGroup identification. This attribute can be <code>null</code> when it's present in an associated resource.",
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Searchable tags associated with the SIM card",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "personal",
+        "customers",
+        "active-customers"
+      ]
+    },
+    "data_limit": {
+      "type": "object",
+      "description": "The SIM card individual data limit configuration.",
+      "readOnly": true,
+      "properties": {
+        "amount": {
+          "type": "string",
+          "format": "decimal",
+          "example": "2048.0"
+        },
+        "unit": {
+          "type": "string",
+          "example": "MB",
+          "enum": [
+            "MB",
+            "GB"
+          ]
+        }
+      }
+    },
+    "current_billing_period_consumed_data": {
+      "type": "object",
+      "description": "The SIM card consumption so far in the current billing cycle.",
+      "readOnly": true,
+      "properties": {
+        "amount": {
+          "type": "string",
+          "format": "decimal",
+          "example": "2049.0"
+        },
+        "unit": {
+          "type": "string",
+          "example": "MB",
+          "default": "MB"
+        }
+      }
+    },
+    "actions_in_progress": {
+      "type": "boolean",
+      "description": "Indicate whether the SIM card has any pending (in-progress) actions.",
+      "readOnly": true,
+      "example": true,
+      "default": false
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was created.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was updated.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  }
+}

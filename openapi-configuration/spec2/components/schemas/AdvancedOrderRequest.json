@@ -1,0 +1,64 @@
+{
+  "properties": {
+    "country_code": {
+      "type": "string",
+      "maxLength": 2,
+      "minLength": 2,
+      "title": "Country Code",
+      "default": "US"
+    },
+    "comments": {
+      "type": "string",
+      "maxLength": 255,
+      "title": "Comments",
+      "default": ""
+    },
+    "quantity": {
+      "type": "integer",
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Quantity",
+      "default": 1
+    },
+    "area_code": {
+      "type": "string",
+      "maxLength": 3,
+      "title": "Area Code",
+      "default": ""
+    },
+    "phone_number_type": {
+      "items": {
+        "enum": [
+          "local",
+          "mobile",
+          "toll_free",
+          "shared_cost",
+          "national",
+          "landline"
+        ]
+      },
+      "default": ""
+    },
+    "features": {
+      "items": {
+        "enum": [
+          "sms",
+          "mms",
+          "voice",
+          "fax",
+          "emergency"
+        ]
+      },
+      "type": "array",
+      "uniqueItems": true,
+      "title": "Features"
+    },
+    "customer_reference": {
+      "type": "string",
+      "title": "Customer Reference",
+      "default": ""
+    }
+  },
+  "type": "object",
+  "title": "AdvancedOrderRequest"
+}

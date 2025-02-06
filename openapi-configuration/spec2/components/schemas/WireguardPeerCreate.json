@@ -1,0 +1,14 @@
+{
+  "allOf": [
+    {
+      "$ref": "./WireguardPeer.json"
+    },
+    {
+      "type": "object",
+      "title": "WireguardPeerCreate",
+      "required": [
+        "wireguard_interface_id"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "post": {
+    "summary": "Cancel a fax",
+    "description": "Cancel the outbound fax that is in one of the following states: `queued`, `media.processed`, `originated` or `sending` ",
+    "operationId": "CancelFax",
+    "tags": [
+      "Programmable Fax Commands"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The unique identifier of a fax.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "$ref": "../components/responses/CancelFaxResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "get": {
+    "tags": [
+      "Brands"
+    ],
+    "summary": "List External Vettings",
+    "description": "Get list of valid external vetting record for a given brand",
+    "operationId": "ListExternalVettings",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Brandid",
+          "type": "string"
+        },
+        "name": "brandId",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "tags": [
+      "Brands"
+    ],
+    "summary": "Order Brand External Vetting",
+    "description": "Order new external vetting for a brand",
+    "operationId": "PostOrderExternalVetting",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Brandid",
+          "type": "string"
+        },
+        "name": "brandId",
+        "in": "path"
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/OrderExternalVetting.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "put": {
+    "tags": [
+      "Brands"
+    ],
+    "summary": "Import External Vetting Record",
+    "description": "This operation can be used to import an external vetting record from a TCR-approved\nvetting provider. If the vetting provider confirms validity of the record, it will be\nsaved with the brand and will be considered for future campaign qualification.",
+    "operationId": "PutExternalVettingRecord",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Brandid",
+          "type": "string"
+        },
+        "name": "brandId",
+        "in": "path"
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/ImportExternalVetting.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/ExternalVetting.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "description": "Multiple participant resources.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/ParticipantResourceIndex.json"
+      }
+    }
+  }
+}

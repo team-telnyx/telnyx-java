@@ -1,0 +1,144 @@
+{
+  "title": "SIMCardOrder",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the resource.",
+      "readOnly": true,
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true,
+      "example": "sim_card_order"
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The amount of SIM cards requested in the SIM card order.",
+      "example": 21
+    },
+    "cost": {
+      "type": "object",
+      "description": "An object representing the total cost of the order.",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "A string representing the cost amount.",
+          "example": "2.32"
+        },
+        "currency": {
+          "type": "string",
+          "format": "currency",
+          "description": "Filter by ISO 4217 currency string.",
+          "example": "USD"
+        }
+      },
+      "example": {
+        "amount": "2.52",
+        "currency": "USD"
+      }
+    },
+    "order_address": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Uniquely identifies the address for the order.",
+          "format": "int64",
+          "example": "1293384261075731499"
+        },
+        "first_name": {
+          "type": "string",
+          "description": "The first name of the shipping recipient.",
+          "example": "John"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "The last name of the shipping recipient.",
+          "example": "Smith"
+        },
+        "business_name": {
+          "type": "string",
+          "description": "The name of the business where the address is located.",
+          "example": "Telnyx LLC"
+        },
+        "street_address": {
+          "type": "string",
+          "description": "The name of the street where the address is located.",
+          "example": "600 Congress Avenue"
+        },
+        "extended_address": {
+          "type": "string",
+          "description": "Supplemental field for address information.",
+          "example": "14th Floor"
+        },
+        "locality": {
+          "type": "string",
+          "description": "The name of the city where the address is located.",
+          "example": "Austin"
+        },
+        "administrative_area": {
+          "type": "string",
+          "description": "State or province where the address is located.",
+          "example": "TX"
+        },
+        "country_code": {
+          "type": "string",
+          "description": "The mobile operator two-character (ISO 3166-1 alpha-2) origin country code.",
+          "example": "US"
+        },
+        "postal_code": {
+          "type": "string",
+          "description": "Postal code for the address.",
+          "example": "78701"
+        }
+      },
+      "description": "An object representing the address information from when the order was submitted.",
+      "readOnly": true,
+      "example": {
+        "id": "1293384261075731499",
+        "street_address": "600 Congress Avenue",
+        "extended_address": "14th Floor",
+        "locality": "Austin",
+        "administrative_area": "TX",
+        "country_code": "US",
+        "postal_code": "78701"
+      }
+    },
+    "tracking_url": {
+      "type": "string",
+      "format": "url",
+      "description": "The URL used to get tracking information about the order.",
+      "example": "http://www.example.com/"
+    },
+    "status": {
+      "type": "string",
+      "description": "The current status of the SIM Card order.<ul> <li><code>pending</code> - the order is waiting to be processed.</li> <li><code>processing</code> - the order is currently being processed.</li> <li><code>ready_to_ship</code> - the order is ready to be shipped to the specified <b>address</b>.</li> <li><code>shipped</code> - the order was shipped and is on its way to be delivered to the specified <b>address</b>.</li> <li><code>delivered</code> - the order was delivered to the specified <b>address</b>.</li> <li><code>canceled</code> - the order was canceled.</li> </ul>",
+      "enum": [
+        "pending",
+        "processing",
+        "ready_to_ship",
+        "shipped",
+        "delivered",
+        "canceled"
+      ],
+      "example": "pending"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was last created.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was last updated.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  }
+}

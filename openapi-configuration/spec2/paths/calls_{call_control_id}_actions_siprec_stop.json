@@ -1,0 +1,59 @@
+{
+  "post": {
+    "summary": "SIPREC stop",
+    "description": "Stop SIPREC session.\n\n**Expected Webhooks:**\n\n- `siprec.stopped`\n",
+    "operationId": "StopSiprecSession",
+    "tags": [
+      "Call Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/CallControlId.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Stop siprec session",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/StopSiprecRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CallControlCommandResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "callbacks": {
+      "callStreamingStopped": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Calls siprec stop call streaming stopped",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallSiprecStoppedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

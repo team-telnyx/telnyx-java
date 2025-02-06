@@ -1,0 +1,10 @@
+{
+  "description": "Conference resource.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/ConferenceResource.json"
+      }
+    }
+  }
+}

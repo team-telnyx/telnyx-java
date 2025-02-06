@@ -1,0 +1,94 @@
+{
+  "get": {
+    "summary": "List Ips",
+    "description": "Get all IPs belonging to the user that match the given filters.",
+    "operationId": "ListIps",
+    "tags": [
+      "IPs"
+    ],
+    "x-group-parameters": "true",
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filter[connection_id]",
+        "description": "ID of the IP Connection to which this IP should be attached.",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[ip_address]",
+        "description": "IP adddress represented by this resource.",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "example": "192.168.0.0"
+        }
+      },
+      {
+        "name": "filter[port]",
+        "description": "Port to use when connecting to this IP.",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "example": 5060
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListIpsResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "description": "Create a new IP object.",
+    "summary": "Create an Ip",
+    "operationId": "CreateIp",
+    "tags": [
+      "IPs"
+    ],
+    "x-endpoint-cost": "medium",
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateIpRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/IpResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

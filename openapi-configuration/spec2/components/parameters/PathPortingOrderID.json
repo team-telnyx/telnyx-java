@@ -1,0 +1,10 @@
+{
+  "name": "id",
+  "description": "Porting Order id",
+  "in": "path",
+  "required": true,
+  "schema": {
+    "type": "string",
+    "format": "uuid"
+  }
+}

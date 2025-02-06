@@ -1,0 +1,25 @@
+{
+  "title": "PublicCompany",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "title": "Symbol",
+      "type": "string"
+    },
+    "exchange": {
+      "$ref": "./Exchange.json"
+    },
+    "iso2": {
+      "title": "Iso2",
+      "type": "string"
+    },
+    "isin": {
+      "title": "Isin",
+      "type": "string"
+    },
+    "displayName": {
+      "title": "Displayname",
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "get": {
+    "summary": "Retrieve a messaging hosted number order",
+    "operationId": "GetMessagingHostedNumberOrder",
+    "tags": [
+      "Messaging Hosted Number"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the type of resource.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/MessagingHostedNumberOrderResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

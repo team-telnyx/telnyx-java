@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "title": "Bidirectional Stream Target Legs",
+  "description": "Specifies which call legs should receive the bidirectional stream audio.",
+  "enum": [
+    "both",
+    "self",
+    "opposite"
+  ],
+  "default": "opposite",
+  "example": "both"
+}

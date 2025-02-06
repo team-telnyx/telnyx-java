@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "title": "PortingOrdersAllowedFocWindow",
+  "properties": {
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating the start of the range of foc window.",
+      "example": "2021-03-19T10:07:15.527Z",
+      "readOnly": true
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating the end of the range of foc window",
+      "example": "2021-03-19T10:07:15.527Z",
+      "readOnly": true
+    },
+    "record_type": {
+      "type": "string",
+      "example": "porting_order",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true
+    }
+  }
+}

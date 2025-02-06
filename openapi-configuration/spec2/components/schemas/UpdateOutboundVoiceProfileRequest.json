@@ -1,0 +1,107 @@
+{
+  "type": "object",
+  "title": "Outbound Voice Profile",
+  "required": [
+    "name"
+  ],
+  "example": {
+    "name": "office",
+    "traffic_type": "conversational",
+    "service_plan": "global",
+    "concurrent_call_limit": 10,
+    "enabled": true,
+    "tags": [
+      "office-profile"
+    ],
+    "usage_payment_method": "rate-deck",
+    "whitelisted_destinations": [
+      "US",
+      "BR",
+      "AU"
+    ],
+    "max_destination_rate": 10,
+    "daily_spend_limit": "100.00",
+    "daily_spend_limit_enabled": true,
+    "billing_group_id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "A user-supplied name to help with organization.",
+      "example": "office",
+      "minLength": 3
+    },
+    "traffic_type": {
+      "$ref": "./TrafficType.json"
+    },
+    "service_plan": {
+      "$ref": "./ServicePlan.json"
+    },
+    "concurrent_call_limit": {
+      "type": "integer",
+      "description": "Must be no more than your global concurrent call limit. Null means no limit.",
+      "example": 10,
+      "nullable": true
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Specifies whether the outbound voice profile can be used. Disabled profiles will result in outbound calls being blocked for the associated Connections.",
+      "example": true,
+      "default": true
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "office-profile"
+      ]
+    },
+    "usage_payment_method": {
+      "$ref": "./UsagePaymentMethod.json"
+    },
+    "whitelisted_destinations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The list of destinations you want to be able to call using this outbound voice profile formatted in alpha2.",
+      "example": [
+        "US",
+        "BR",
+        "AU"
+      ],
+      "default": [
+        "US",
+        "CA"
+      ]
+    },
+    "max_destination_rate": {
+      "type": "number",
+      "description": "Maximum rate (price per minute) for a Destination to be allowed when making outbound calls."
+    },
+    "daily_spend_limit": {
+      "type": "string",
+      "description": "The maximum amount of usage charges, in USD, you want Telnyx to allow on this outbound voice profile in a day before disallowing new calls.",
+      "example": "100.00"
+    },
+    "daily_spend_limit_enabled": {
+      "type": "boolean",
+      "description": "Specifies whether to enforce the daily_spend_limit on this outbound voice profile.",
+      "example": true,
+      "default": false
+    },
+    "call_recording": {
+      "$ref": "./OutboundCallRecording.json"
+    },
+    "billing_group_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the billing group associated with the outbound proflile. Defaults to null (for no group assigned).",
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+      "default": null,
+      "nullable": true
+    }
+  }
+}

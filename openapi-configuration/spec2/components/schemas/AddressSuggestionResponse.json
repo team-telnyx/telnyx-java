@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "accepted": {
+          "type": "boolean",
+          "description": "Indicates if the address suggestions are accepted."
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The UUID of the location."
+        },
+        "record_type": {
+          "type": "string",
+          "enum": [
+            "address_suggestion"
+          ]
+        }
+      }
+    }
+  }
+}

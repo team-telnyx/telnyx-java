@@ -1,0 +1,22 @@
+{
+  "description": "A response with a list of media resources",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List of media resources response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/MediaResource.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

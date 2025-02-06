@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "data": {
+      "$ref": "./ClusteringStatusResponse.json"
+    }
+  },
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "title": "ClusteringStatusResponseData"
+}

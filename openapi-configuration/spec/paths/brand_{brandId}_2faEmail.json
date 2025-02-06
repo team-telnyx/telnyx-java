@@ -1,0 +1,26 @@
+{
+  "post": {
+    "tags": [
+      "Brands"
+    ],
+    "summary": "Resend brand 2FA email",
+    "operationId": "ResendBrand2faEmail",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Brandid",
+          "type": "string"
+        },
+        "name": "brandId",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "post": {
+    "summary": "Transcription stop",
+    "description": "Stop real-time transcription.",
+    "operationId": "StopCallTranscription",
+    "tags": [
+      "Call Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/CallControlId.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Transcription stop request",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/TranscriptionStopRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CallControlCommandResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

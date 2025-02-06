@@ -1,0 +1,42 @@
+{
+  "put": {
+    "tags": [
+      "Brands"
+    ],
+    "summary": "Revet Brand",
+    "operationId": "RevetBrand",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Brandid",
+          "type": "string"
+        },
+        "name": "brandId",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "description": "This operation allows you to revet the brand. However, revetting is allowed once after the successful brand registration and thereafter limited to once every 3 months.",
+    "x-latency-category": "responsive"
+  }
+}

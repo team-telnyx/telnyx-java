@@ -1,0 +1,63 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "default": ""
+    },
+    "model": {
+      "type": "string",
+      "title": "Model"
+    },
+    "instructions": {
+      "type": "string",
+      "title": "Instructions"
+    },
+    "tools": {
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "./ChatCompletionToolParam.json"
+          },
+          {
+            "$ref": "./Retrieval.json"
+          }
+        ]
+      },
+      "type": "array",
+      "title": "Tools",
+      "default": [
+        {
+          "type": "retrieval",
+          "retrieval": {
+            "bucket_ids": [
+              "my_bucket_id_1"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "created_at",
+    "model",
+    "instructions"
+  ],
+  "title": "Assistant"
+}

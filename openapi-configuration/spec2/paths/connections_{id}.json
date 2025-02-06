@@ -1,0 +1,39 @@
+{
+  "get": {
+    "description": "Retrieves the high-level details of an existing connection. To retrieve specific authentication information, use the endpoint for the specific connection type.",
+    "summary": "Retrieve a connection",
+    "operationId": "RetrieveConnection",
+    "tags": [
+      "Connections"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "IP Connection ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ConnectionResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

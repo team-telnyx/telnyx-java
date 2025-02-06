@@ -1,0 +1,18 @@
+{
+  "description": "An array of Regulatory Requirements Responses",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/RegulatoryRequirements.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

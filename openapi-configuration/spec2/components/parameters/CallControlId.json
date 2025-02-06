@@ -1,0 +1,9 @@
+{
+  "name": "call_control_id",
+  "description": "Unique identifier and token for controlling the call",
+  "in": "path",
+  "required": true,
+  "schema": {
+    "type": "string"
+  }
+}

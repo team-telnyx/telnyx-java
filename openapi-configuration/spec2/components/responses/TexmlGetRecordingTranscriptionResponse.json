@@ -1,0 +1,12 @@
+{
+  "description": "Successful get Recording Transcription Response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Recording Transcription Response",
+        "$ref": "../schemas/TexmlRecordingTranscription.json"
+      }
+    }
+  }
+}

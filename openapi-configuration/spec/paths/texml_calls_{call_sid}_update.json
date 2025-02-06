@@ -1,0 +1,33 @@
+{
+  "post": {
+    "summary": "Update call",
+    "description": "Update TeXML call. Please note that the keys present in the payload MUST BE formatted in CamelCase as specified in the example.",
+    "x-latency-category": "responsive",
+    "x-group-parameters": "true",
+    "operationId": "UpdateTexmlCall",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/CallSid.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Update Call request object",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateCallRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/UpdateTeXMLCallResponse.json"
+      }
+    }
+  }
+}

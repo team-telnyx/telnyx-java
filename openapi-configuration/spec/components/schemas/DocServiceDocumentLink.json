@@ -1,0 +1,37 @@
+{
+  "allOf": [
+    {
+      "$ref": "./DocServiceRecord.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "description": "Identifies the type of the resource.",
+          "type": "string",
+          "readOnly": true,
+          "example": "document_link"
+        },
+        "document_id": {
+          "description": "Identifies the associated document.",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true,
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        },
+        "linked_record_type": {
+          "description": "The linked resource's record type.",
+          "type": "string",
+          "readOnly": true,
+          "example": "porting_order"
+        },
+        "linked_resource_id": {
+          "description": "Identifies the linked resource.",
+          "type": "string",
+          "readOnly": true,
+          "example": "132091b4-442b-4a2a-b87f-61e707e46d54"
+        }
+      }
+    }
+  ]
+}

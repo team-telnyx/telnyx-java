@@ -1,0 +1,9 @@
+{
+  "name": "page[after]",
+  "in": "query",
+  "description": "Opaque identifier of next page",
+  "schema": {
+    "type": "string",
+    "default": "null"
+  }
+}

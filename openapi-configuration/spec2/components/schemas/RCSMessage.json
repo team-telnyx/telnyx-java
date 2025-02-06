@@ -1,0 +1,36 @@
+{
+  "required": [
+    "agent_id",
+    "to",
+    "messaging_profile_id",
+    "agent_message"
+  ],
+  "type": "object",
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "description": "RCS Agent ID",
+      "example": "Agent007"
+    },
+    "to": {
+      "type": "string",
+      "description": "Phone number in +E.164 format",
+      "example": "+13125551234"
+    },
+    "messaging_profile_id": {
+      "type": "string",
+      "description": "A valid messaging profile ID"
+    },
+    "type": {
+      "type": "string",
+      "description": "Message type - must be set to \"RCS\"",
+      "example": "RCS",
+      "enum": [
+        "RCS"
+      ]
+    },
+    "agent_message": {
+      "$ref": "./RCSAgentMessage.json"
+    }
+  }
+}

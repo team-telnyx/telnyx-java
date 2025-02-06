@@ -1,0 +1,30 @@
+{
+  "post": {
+    "summary": "Share a porting order",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Creates a sharing token for a porting order. The token can be used to share the porting order with non-Telnyx users.",
+    "operationId": "SharePortingOrder",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PathPortingOrderID.json"
+      }
+    ],
+    "requestBody": {
+      "$ref": "../components/requestBodies/SharePortingOrder.json"
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/SharePortingOrder.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Porting Order not found"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

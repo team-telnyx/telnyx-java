@@ -1,0 +1,29 @@
+{
+  "description": "A Collection of Notification Channels",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "A UUID.",
+      "readOnly": true,
+      "example": "12455643-3cf1-4683-ad23-1cd32f7d5e0a"
+    },
+    "name": {
+      "type": "string",
+      "description": "A human readable name."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2019-10-15T10:07:15.527Z",
+      "readOnly": true
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was updated.",
+      "example": "2019-10-15T10:07:15.527Z",
+      "readOnly": true
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "string",
+  "example": "event",
+  "enum": [
+    "event"
+  ],
+  "description": "Identifies the type of the resource."
+}

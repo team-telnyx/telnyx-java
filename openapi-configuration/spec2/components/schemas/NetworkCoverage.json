@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "title": "NetworkCoverage",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true,
+      "example": "network_coverage"
+    },
+    "location": {
+      "$ref": "./Location.json"
+    },
+    "available_services": {
+      "type": "array",
+      "description": "List of interface types supported in this region.",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "./AvailableService.json"
+          }
+        ]
+      }
+    }
+  }
+}

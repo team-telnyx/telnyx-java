@@ -1,0 +1,124 @@
+{
+  "get": {
+    "summary": "List all billing groups",
+    "deprecated": false,
+    "description": "",
+    "operationId": "ListBillingGroups",
+    "tags": [
+      "Billing Groups"
+    ],
+    "parameters": [
+      {
+        "name": "page[number]",
+        "in": "query",
+        "description": "The page number to load",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "page[size]",
+        "in": "query",
+        "description": "The size of the page",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 250,
+          "default": 20
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated array of billing groups",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../components/schemas/BillingGroup.json"
+                  }
+                },
+                "meta": {
+                  "$ref": "../components/schemas/PaginationMeta.json"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create a billing group",
+    "deprecated": false,
+    "description": "",
+    "operationId": "CreateBillingGroup",
+    "tags": [
+      "Billing Groups"
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/NewBillingGroup.json"
+          },
+          "example": {
+            "name": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Expected billing group response to a valid request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/BillingGroup.json"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

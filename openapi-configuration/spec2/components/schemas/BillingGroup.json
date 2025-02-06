@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "billing_group"
+      ],
+      "description": "Identifies the type of the resource.",
+      "example": "billing_group"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the type of resource.",
+      "example": "f5586561-8ff0-4291-a0ac-84fe544797bd"
+    },
+    "organization_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the organization that owns the resource.",
+      "example": "f1486bae-f067-460c-ad43-73a92848f902"
+    },
+    "name": {
+      "type": "string",
+      "description": "A user-specified name for the billing group",
+      "example": "My billing group name"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2019-10-15T10:07:15.527Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was updated.",
+      "example": "2019-10-15T10:07:15.527Z"
+    },
+    "deleted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was removed.",
+      "example": null,
+      "nullable": true
+    }
+  },
+  "example": {
+    "record_type": "billing_group",
+    "id": "f5586561-8ff0-4291-a0ac-84fe544797bd",
+    "organization_id": "f1486bae-f067-460c-ad43-73a92848f902",
+    "name": "My billing group name",
+    "created_at": "2019-10-15T10:07:15.527Z",
+    "updated_at": "2019-10-15T10:07:15.527Z",
+    "deleted_at": null
+  }
+}

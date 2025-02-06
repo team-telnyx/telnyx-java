@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of number order phone numbers.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Number Order Phone Numbers Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/NumberOrderPhoneNumber.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

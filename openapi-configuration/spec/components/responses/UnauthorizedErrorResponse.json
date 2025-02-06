@@ -1,0 +1,17 @@
+{
+  "description": "The required authentication headers were either invalid or not included in the request.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/UnauthorizedError.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "get": {
+    "summary": "List available phone number blocks",
+    "operationId": "ListAvailablePhoneNumberBlocks",
+    "tags": [
+      "Phone Number Search"
+    ],
+    "parameters": [
+      {
+        "name": "filter[locality]",
+        "in": "query",
+        "description": "Filter phone numbers by city.",
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "generic": {
+            "value": "Chicago"
+          }
+        }
+      },
+      {
+        "name": "filter[country_code]",
+        "in": "query",
+        "description": "Filter phone numbers by country.",
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "generic": {
+            "value": "US",
+            "summary": "Must use 2 letter ISO alpha-2 country code"
+          }
+        }
+      },
+      {
+        "name": "filter[national_destination_code]",
+        "in": "query",
+        "description": "Filter by the national destination code of the number.",
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "generic": {
+            "value": "312"
+          }
+        }
+      },
+      {
+        "name": "filter[phone_number_type]",
+        "in": "query",
+        "description": "Filter phone numbers by number type.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "local",
+            "toll_free",
+            "mobile",
+            "national",
+            "shared_cost"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListAvailablePhoneNumbersBlockResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

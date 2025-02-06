@@ -1,0 +1,11 @@
+{
+  "title": "VerificationType",
+  "enum": [
+    "sms",
+    "call",
+    "flashcall"
+  ],
+  "type": "string",
+  "example": "sms",
+  "description": "The possible types of verification."
+}

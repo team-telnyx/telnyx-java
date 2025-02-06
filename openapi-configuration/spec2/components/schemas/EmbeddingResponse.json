@@ -1,0 +1,41 @@
+{
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Task ID"
+        },
+        "task_name": {
+          "type": "string",
+          "title": "Task Name"
+        },
+        "status": {
+          "type": "string",
+          "title": "Status"
+        },
+        "created_at": {
+          "type": "string",
+          "title": "Created At"
+        },
+        "finished_at": {
+          "type": "string",
+          "title": "Finished At",
+          "nullable": true
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "User ID"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "title": "EmbeddingResponse"
+}

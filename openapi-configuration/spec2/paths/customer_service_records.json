@@ -1,0 +1,128 @@
+{
+  "get": {
+    "tags": [
+      "Customer Service Record"
+    ],
+    "summary": "List customer service records",
+    "description": "List customer service records.",
+    "operationId": "ListCustomerServiceRecords",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "sort[]",
+        "in": "query",
+        "description": "Specifies the sort order for results. If not given, results are sorted by created_at in descending order.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "created_at",
+            "-created_at"
+          ],
+          "example": "created_at"
+        }
+      },
+      {
+        "$ref": "../components/parameters/PhoneNumberEqFilter.json"
+      },
+      {
+        "$ref": "../components/parameters/PhoneNumberInFilter.json"
+      },
+      {
+        "$ref": "../components/parameters/StatusEqFilter.json"
+      },
+      {
+        "$ref": "../components/parameters/StatusInFilter.json"
+      },
+      {
+        "$ref": "../components/parameters/CreatedAtLtFilter.json"
+      },
+      {
+        "$ref": "../components/parameters/CreatedAtGtFilter.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListCustomerServiceRecords.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedErrorResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/ForbiddenErrorResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityErrorResponse.json"
+      },
+      "500": {
+        "$ref": "../components/responses/UnexpectedErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "tags": [
+      "Customer Service Record"
+    ],
+    "summary": "Create a customer service record",
+    "description": "Create a new customer service record for the provided phone number.",
+    "operationId": "CreateCustomerServiceRecord",
+    "requestBody": {
+      "$ref": "../components/requestBodies/CreateCustomerServiceRecord.json"
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/CreateCustomerServiceRecord.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedErrorResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/ForbiddenErrorResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityErrorResponse.json"
+      },
+      "500": {
+        "$ref": "../components/responses/UnexpectedErrorResponse.json"
+      }
+    },
+    "callbacks": {
+      "CustomerServiceRecordStatusChanged": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Customer Service Record Status Changes",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "$ref": "../components/schemas/CustomerServiceRecordStatusChangedEvent.json"
+                      },
+                      "meta": {
+                        "$ref": "../components/schemas/CallbackWebhookMeta.json"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "type": "object",
+  "title": "FQDN Connection",
+  "required": [
+    "connection_name"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "int64",
+      "description": "Identifies the resource.",
+      "example": "1293384261075731499"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "example": "fqdn_connection"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Defaults to true"
+    },
+    "anchorsite_override": {
+      "$ref": "./AnchorsiteOverride.json"
+    },
+    "connection_name": {
+      "$ref": "./ConnectionName.json"
+    },
+    "transport_protocol": {
+      "$ref": "./FqdnConnectionTransportProtocol.json"
+    },
+    "default_on_hold_comfort_noise_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout."
+    },
+    "dtmf_type": {
+      "$ref": "./DtmfType.json"
+    },
+    "encode_contact_header_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios."
+    },
+    "encrypted_media": {
+      "$ref": "./EncryptedMedia.json"
+    },
+    "microsoft_teams_sbc": {
+      "type": "boolean",
+      "description": "The connection is enabled for Microsoft Teams Direct Routing.",
+      "default": false
+    },
+    "onnet_t38_passthrough_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable on-net T38 if you prefer that the sender and receiver negotiate T38 directly when both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call according to each leg's settings."
+    },
+    "user_name": {
+      "type": "string",
+      "description": "The username for the FQDN connection."
+    },
+    "password": {
+      "type": "string",
+      "description": "The password for the FQDN connection."
+    },
+    "rtp_pass_codecs_on_stream_change": {
+      "type": "boolean",
+      "description": "Defines if codecs should be passed on stream change."
+    },
+    "adjust_dtmf_timestamp": {
+      "type": "boolean",
+      "description": "Indicates whether DTMF timestamp adjustment is enabled."
+    },
+    "ignore_dtmf_duration": {
+      "type": "boolean",
+      "description": "Indicates whether DTMF duration should be ignored."
+    },
+    "ignore_mark_bit": {
+      "type": "boolean",
+      "description": "Indicates whether the mark bit should be ignored."
+    },
+    "call_cost_enabled": {
+      "type": "boolean",
+      "description": "Indicates whether call cost calculation is enabled."
+    },
+    "noise_suppression": {
+      "type": "boolean",
+      "description": "Indicates whether noise suppression is enabled."
+    },
+    "send_normalized_timestamps": {
+      "type": "boolean",
+      "description": "Indicates whether normalized timestamps should be sent."
+    },
+    "third_party_control_enabled": {
+      "type": "boolean",
+      "description": "Indicates whether third-party control is enabled."
+    },
+    "txt_name": {
+      "type": "string",
+      "description": "The name for the TXT record associated with the FQDN connection."
+    },
+    "txt_value": {
+      "type": "string",
+      "description": "The value for the TXT record associated with the FQDN connection."
+    },
+    "txt_ttl": {
+      "type": "integer",
+      "description": "The time to live for the TXT record associated with the FQDN connection."
+    },
+    "webhook_event_url": {
+      "$ref": "./WebhookEventUrl.json"
+    },
+    "webhook_event_failover_url": {
+      "$ref": "./WebhookEventFailoverUrl.json"
+    },
+    "webhook_api_version": {
+      "$ref": "./WebhookApiVersion.json"
+    },
+    "webhook_timeout_secs": {
+      "$ref": "./WebhookTimeoutSecs.json"
+    },
+    "rtcp_settings": {
+      "$ref": "./ConnectionRtcpSettings.json"
+    },
+    "created_at": {
+      "$ref": "./CreatedAt.json"
+    },
+    "updated_at": {
+      "$ref": "./UpdatedAt.json"
+    },
+    "inbound": {
+      "$ref": "./InboundFqdn.json"
+    },
+    "outbound": {
+      "$ref": "./OutboundFqdn.json"
+    }
+  },
+  "example": {
+    "id": "1293384261075731499",
+    "record_type": "fqdn_connection",
+    "active": true,
+    "anchorsite_override": "Latency",
+    "connection_name": "string",
+    "transport_protocol": "UDP",
+    "default_on_hold_comfort_noise_enabled": true,
+    "dtmf_type": "RFC 2833",
+    "encode_contact_header_enabled": true,
+    "encrypted_media": "SRTP",
+    "onnet_t38_passthrough_enabled": true,
+    "ios_push_credential_id": "ec0c8e5d-439e-4620-a0c1-9d9c8d02a836",
+    "android_push_credential_id": "06b09dfd-7154-4980-8b75-cebf7a9d4f8e",
+    "webhook_event_url": "https://example.com",
+    "webhook_event_failover_url": "https://failover.example.com",
+    "webhook_api_version": "1",
+    "webhook_timeout_secs": 25,
+    "rtcp_settings": {
+      "port": "rtcp-mux",
+      "capture_enabled": true,
+      "report_frequency_secs": 10
+    },
+    "created_at": "2018-02-02T22:25:27.521Z",
+    "updated_at": "2018-02-02T22:25:27.521Z",
+    "inbound": {
+      "ani_number_format": "+E.164",
+      "dnis_number_format": "+e164",
+      "codecs": [
+        "G722"
+      ],
+      "default_routing_method": "sequential",
+      "channel_limit": 10,
+      "generate_ringback_tone": true,
+      "isup_headers_enabled": true,
+      "prack_enabled": true,
+      "sip_compact_headers_enabled": true,
+      "sip_region": "US",
+      "sip_subdomain": "string",
+      "sip_subdomain_receive_settings": "only_my_connections",
+      "timeout_1xx_secs": 10,
+      "timeout_2xx_secs": 10,
+      "shaken_stir_enabled": true
+    },
+    "outbound": {
+      "ani_override": "string",
+      "ani_override_type": "always",
+      "call_parking_enabled": true,
+      "channel_limit": 10,
+      "generate_ringback_tone": true,
+      "instant_ringback_enabled": true,
+      "ip_authentication_method": "token",
+      "ip_authentication_token": "string",
+      "localization": "string",
+      "outbound_voice_profile_id": "1293384261075731499",
+      "t38_reinvite_source": "customer",
+      "tech_prefix": "string"
+    }
+  }
+}

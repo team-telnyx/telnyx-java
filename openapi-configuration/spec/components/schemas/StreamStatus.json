@@ -1,0 +1,9 @@
+{
+  "description": "The status of the Stream you wish to update.",
+  "default": "stopped",
+  "example": "stopped",
+  "type": "string",
+  "enum": [
+    "stopped"
+  ]
+}

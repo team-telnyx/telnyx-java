@@ -1,0 +1,10 @@
+{
+  "description": "Successful Response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/PhoneNumberCampaign.json"
+      }
+    }
+  }
+}

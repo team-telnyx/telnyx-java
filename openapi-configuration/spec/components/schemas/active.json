@@ -1,0 +1,6 @@
+{
+  "type": "boolean",
+  "description": "The active status of the authentication provider",
+  "default": true,
+  "example": true
+}

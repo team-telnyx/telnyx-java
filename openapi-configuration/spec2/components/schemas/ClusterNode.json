@@ -1,0 +1,18 @@
+{
+  "properties": {
+    "filename": {
+      "type": "string",
+      "description": "The corresponding source file of your embedded storage bucket that the node is from."
+    },
+    "text": {
+      "type": "string",
+      "description": "The text of the node."
+    }
+  },
+  "type": "object",
+  "required": [
+    "filename",
+    "text"
+  ],
+  "title": "ClusterNode"
+}

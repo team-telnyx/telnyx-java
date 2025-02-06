@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "title": "Upload",
+  "properties": {
+    "ticket_id": {
+      "$ref": "./UUID.json"
+    },
+    "tenant_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "ea175aba-f47c-4702-9400-efaa42688048"
+    },
+    "location_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "c37e5036-1e87-42e6-86a2-b3e8dd39a2ad"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_upload",
+        "pending",
+        "in_progress",
+        "partial_success",
+        "success",
+        "error"
+      ],
+      "description": "Represents the status of the upload on Microsoft Teams.",
+      "example": "error",
+      "default": "pending_upload"
+    },
+    "available_usages": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "calling_user_assignment",
+          "first_party_app_assignment"
+        ],
+        "description": "Available usages for the numbers in the upload on Microsoft Teams."
+      }
+    },
+    "error_code": {
+      "type": "string",
+      "description": "A code returned by Microsoft Teams if there is an error with the upload process."
+    },
+    "error_message": {
+      "type": "string",
+      "description": "A message set if there is an error with the upload process."
+    },
+    "tn_upload_entries": {
+      "type": "array",
+      "items": {
+        "$ref": "./TnUploadEntry.json"
+      }
+    }
+  }
+}

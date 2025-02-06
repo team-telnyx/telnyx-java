@@ -1,0 +1,14 @@
+{
+  "title": "PhoneNumber",
+  "required": [
+    "phoneNumber"
+  ],
+  "type": "object",
+  "properties": {
+    "phoneNumber": {
+      "title": "Phonenumber",
+      "type": "string"
+    }
+  },
+  "description": "A phone number"
+}

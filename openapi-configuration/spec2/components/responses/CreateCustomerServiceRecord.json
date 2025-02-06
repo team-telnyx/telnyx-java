@@ -1,0 +1,27 @@
+{
+  "description": "Successful Response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/CustomerServiceRecord.json"
+          }
+        },
+        "example": {
+          "data": {
+            "id": "db7cebdb-21a8-4e89-8f51-e03ba6b799bb",
+            "phone_number": "+2003271000",
+            "status": "pending",
+            "error_message": null,
+            "result": null,
+            "webhook_url": "https://example.com/webhook",
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z"
+          }
+        }
+      }
+    }
+  }
+}

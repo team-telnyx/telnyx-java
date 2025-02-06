@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "enum": [
+    "in-progress",
+    "completed",
+    "paused",
+    "stopped"
+  ],
+  "example": "paused"
+}

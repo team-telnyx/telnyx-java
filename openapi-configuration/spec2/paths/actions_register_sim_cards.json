@@ -1,0 +1,29 @@
+{
+  "post": {
+    "x-latency-category": "background",
+    "summary": "Register SIM cards",
+    "description": "Register the SIM cards associated with the provided registration codes to the current user's account.<br/><br/>\nIf <code>sim_card_group_id</code> is provided, the SIM cards will be associated with that group. Otherwise, the default group for the current user will be used.<br/><br/>\n",
+    "operationId": "RegisterSimCards",
+    "tags": [
+      "SIM Cards"
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/SIMCardRegistration.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "202": {
+        "$ref": "../components/responses/RegisterSimCardsResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      }
+    }
+  }
+}

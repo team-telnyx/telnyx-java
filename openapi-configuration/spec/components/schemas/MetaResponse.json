@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "description": "This should likely be a URL to the relevant documentation",
+      "example": "https://developers.telnyx.com/docs/overview/errors/10001"
+    }
+  }
+}

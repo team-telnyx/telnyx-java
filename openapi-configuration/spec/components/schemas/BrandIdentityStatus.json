@@ -1,0 +1,10 @@
+{
+  "title": "BrandIdentityStatus",
+  "enum": [
+    "VERIFIED",
+    "UNVERIFIED",
+    "SELF_DECLARED",
+    "VETTED_VERIFIED"
+  ],
+  "description": "The verification status of an active brand"
+}

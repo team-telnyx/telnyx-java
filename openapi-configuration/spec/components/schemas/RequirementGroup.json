@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "phone_number_type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "unapproved",
+        "pending-approval",
+        "declined"
+      ]
+    },
+    "action": {
+      "type": "string"
+    },
+    "customer_reference": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "requirement_group"
+    },
+    "regulatory_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "./UserRequirement.json"
+      }
+    }
+  }
+}

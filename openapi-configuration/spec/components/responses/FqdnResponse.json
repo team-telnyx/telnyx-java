@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about an FQDN connection.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "FQDN Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/Fqdn.json"
+          }
+        }
+      }
+    }
+  }
+}

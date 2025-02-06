@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "title": "Update Fax Application Request",
+  "required": [
+    "application_name",
+    "webhook_event_url"
+  ],
+  "properties": {
+    "application_name": {
+      "$ref": "./ApplicationName.json"
+    },
+    "active": {
+      "$ref": "./ConnectionActive.json"
+    },
+    "anchorsite_override": {
+      "$ref": "./AnchorsiteOverride.json"
+    },
+    "webhook_event_url": {
+      "$ref": "./WebhookEventUrl.json"
+    },
+    "webhook_event_failover_url": {
+      "$ref": "./WebhookEventFailoverUrl.json"
+    },
+    "webhook_timeout_secs": {
+      "$ref": "./WebhookTimeoutSecs.json"
+    },
+    "fax_email_recipient": {
+      "$ref": "./FaxEmailRecipient.json"
+    },
+    "inbound": {
+      "type": "object",
+      "properties": {
+        "channel_limit": {
+          "type": "integer",
+          "description": "When set, this will limit the number of concurrent inbound calls to phone numbers associated with this connection.",
+          "default": null,
+          "example": 10
+        },
+        "sip_subdomain": {
+          "type": "string",
+          "description": "Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the same way a phone number is used, from a SIP endpoint. Example: the subdomain \"example.sip.telnyx.com\" can be called from any SIP endpoint by using the SIP URI \"sip:@example.sip.telnyx.com\" where the user part can be any alphanumeric value. Please note TLS encrypted calls are not allowed for subdomain calls.",
+          "default": null,
+          "example": "example"
+        },
+        "sip_subdomain_receive_settings": {
+          "type": "string",
+          "description": "This option can be enabled to receive calls from: \"Anyone\" (any SIP endpoint in the public Internet) or \"Only my connections\" (any connection assigned to the same Telnyx user).",
+          "enum": [
+            "only_my_connections",
+            "from_anyone"
+          ],
+          "default": "from_anyone",
+          "example": "only_my_connections"
+        }
+      }
+    },
+    "outbound": {
+      "type": "object",
+      "properties": {
+        "channel_limit": {
+          "type": "integer",
+          "description": "When set, this will limit the number of concurrent outbound calls to phone numbers associated with this connection.",
+          "default": null,
+          "example": 10
+        },
+        "outbound_voice_profile_id": {
+          "$ref": "./OutboundVoiceProfileId.json"
+        }
+      }
+    }
+  },
+  "example": {
+    "application_name": "fax-router",
+    "active": false,
+    "anchorsite_override": "Amsterdam, Netherlands",
+    "webhook_event_url": "https://example.com",
+    "webhook_event_failover_url": "https://failover.example.com",
+    "webhook_timeout_secs": 25,
+    "inbound": {
+      "channel_limit": 10,
+      "sip_subdomain": "example",
+      "sip_subdomain_receive_settings": "only_my_connections"
+    },
+    "outbound": {
+      "channel_limit": 10,
+      "outbound_voice_profile_id": "1293384261075731499"
+    }
+  }
+}

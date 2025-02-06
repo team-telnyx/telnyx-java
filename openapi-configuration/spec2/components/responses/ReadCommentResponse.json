@@ -1,0 +1,22 @@
+{
+  "description": "A Comment Response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "allOf": [
+              {
+                "$ref": "../schemas/ReadComment.json"
+              },
+              {
+                "type": "object"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

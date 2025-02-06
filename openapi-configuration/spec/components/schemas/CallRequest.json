@@ -1,0 +1,547 @@
+{
+  "type": "object",
+  "title": "Dial Request",
+  "required": [
+    "connection_id",
+    "to",
+    "from"
+  ],
+  "example": {
+    "to": "+18005550100 or sip:username@sip.telnyx.com",
+    "from": "+18005550101",
+    "from_display_name": "Company Name",
+    "connection_id": "7267xxxxxxxxxxxxxx",
+    "conference_config": {
+      "conference_name": "telnyx-conference",
+      "start_conference_on_enter": true
+    },
+    "audio_url": "http://www.example.com/sounds/greeting.wav",
+    "timeout_secs": 60,
+    "timeout_limit_secs": 60,
+    "webhook_url": "https://www.example.com/server-b/",
+    "webhook_url_method": "POST",
+    "answering_machine_detection": "detect",
+    "answering_machine_detection_config": {
+      "total_analysis_time_millis": 5000,
+      "after_greeting_silence_millis": 1000,
+      "between_words_silence_millis": 1000,
+      "greeting_duration_millis": 1000,
+      "initial_silence_millis": 1000,
+      "maximum_number_of_words": 1000,
+      "maximum_word_length_millis": 2000,
+      "silence_threshold": 512,
+      "greeting_total_analysis_time_millis": 50000,
+      "greeting_silence_duration_millis": 2000
+    },
+    "custom_headers": [
+      {
+        "name": "head_1",
+        "value": "val_1"
+      },
+      {
+        "name": "head_2",
+        "value": "val_2"
+      }
+    ],
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
+    "link_to": "ilditnZK_eVysupV21KzmzN_sM29ygfauQojpm4BgFtfX5hXAcjotg==",
+    "media_encryption": "SRTP",
+    "sip_auth_username": "username",
+    "sip_auth_password": "password",
+    "sip_headers": [
+      {
+        "name": "User-to-User",
+        "value": "12345"
+      }
+    ],
+    "sip_transport_protocol": "TLS",
+    "stream_url": "wss://www.example.com/websocket",
+    "stream_track": "both_tracks",
+    "send_silence_when_idle": true,
+    "enable_dialogflow": false,
+    "dialogflow_config": {
+      "analyze_sentiment": false,
+      "partial_automated_agent_reply": false
+    }
+  },
+  "properties": {
+    "to": {
+      "description": "The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an array of strings",
+      "oneOf": [
+        {
+          "type": "string",
+          "example": "+18005550100 or sip:username@sip.telnyx.com"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": "[\"+18005550100\", \"sip:username@sip.telnyx.com\"]"
+        }
+      ]
+    },
+    "from": {
+      "description": "The `from` number to be used as the caller id presented to the destination (`to` number). The number should be in +E164 format.",
+      "type": "string",
+      "example": "+18005550101"
+    },
+    "from_display_name": {
+      "description": "The `from_display_name` string to be used as the caller id name (SIP From Display Name) presented to the destination (`to` number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the `from` field.",
+      "type": "string",
+      "example": "Company Name"
+    },
+    "connection_id": {
+      "type": "string",
+      "description": "The ID of the Call Control App (formerly ID of the connection) to be used when dialing the destination."
+    },
+    "audio_url": {
+      "type": "string",
+      "example": "http://example.com/message.wav",
+      "description": "The URL of a file to be played back to the callee when the call is answered. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request."
+    },
+    "media_name": {
+      "type": "string",
+      "example": "my_media_uploaded_to_media_storage_api",
+      "description": "The media_name of a file to be played back to the callee when the call is answered. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file."
+    },
+    "preferred_codecs": {
+      "type": "string",
+      "description": "The list of comma-separated codecs in a preferred order for the forked media to be received.",
+      "example": "G722,PCMU,PCMA,G729,OPUS,VP8,H264"
+    },
+    "timeout_secs": {
+      "description": "The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being called. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.",
+      "default": 30,
+      "type": "integer",
+      "example": 60,
+      "format": "int32"
+    },
+    "time_limit_secs": {
+      "description": "Sets the maximum duration of a Call Control Leg in seconds. If the time limit is reached, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `time_limit` will be sent. For example, by setting a time limit of 120 seconds, a Call Leg will be automatically terminated two minutes after being answered. The default time limit is 14400 seconds or 4 hours and this is also the maximum allowed call length.",
+      "default": 14400,
+      "type": "integer",
+      "example": 600,
+      "format": "int32",
+      "minimum": 30,
+      "maximum": 14400
+    },
+    "answering_machine_detection": {
+      "description": "Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a `call.machine.premium.detection.ended` webhook with one of the following results: `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect a beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we only send `call.machine.premium.greeting.ended`, and if we detect a beep after `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will receive another `call.machine.greeting.ended` webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive `call.machine.greeting.ended` if a beep is detected.",
+      "default": "disabled",
+      "type": "string",
+      "enum": [
+        "premium",
+        "detect",
+        "detect_beep",
+        "detect_words",
+        "greeting_end",
+        "disabled"
+      ]
+    },
+    "answering_machine_detection_config": {
+      "description": "Optional configuration parameters to modify 'answering_machine_detection' performance.",
+      "type": "object",
+      "properties": {
+        "total_analysis_time_millis": {
+          "description": "Maximum timeout threshold for overall detection.",
+          "default": 3500,
+          "type": "integer",
+          "example": 5000,
+          "format": "int32"
+        },
+        "after_greeting_silence_millis": {
+          "description": "Silence duration threshold after a greeting message or voice for it be considered human.",
+          "default": 800,
+          "type": "integer",
+          "example": 1000,
+          "format": "int32"
+        },
+        "between_words_silence_millis": {
+          "description": "Maximum threshold for silence between words.",
+          "default": 50,
+          "type": "integer",
+          "example": 100,
+          "format": "int32"
+        },
+        "greeting_duration_millis": {
+          "description": "Maximum threshold of a human greeting. If greeting longer than this value, considered machine.",
+          "default": 3500,
+          "type": "integer",
+          "example": 1500,
+          "format": "int32"
+        },
+        "initial_silence_millis": {
+          "description": "If initial silence duration is greater than this value, consider it a machine.",
+          "default": 3500,
+          "type": "integer",
+          "example": 1800,
+          "format": "int32"
+        },
+        "maximum_number_of_words": {
+          "description": "If number of detected words is greater than this value, consder it a machine.",
+          "default": 5,
+          "type": "integer",
+          "example": 3,
+          "format": "int32"
+        },
+        "maximum_word_length_millis": {
+          "description": "If a single word lasts longer than this threshold, consider it a machine.",
+          "default": 3500,
+          "type": "integer",
+          "example": 2000,
+          "format": "int32"
+        },
+        "silence_threshold": {
+          "description": "Minimum noise threshold for any analysis.",
+          "default": 256,
+          "type": "integer",
+          "example": 512,
+          "format": "int32"
+        },
+        "greeting_total_analysis_time_millis": {
+          "description": "If machine already detected, maximum timeout threshold to determine the end of the machine greeting.",
+          "default": 5000,
+          "type": "integer",
+          "example": 7500,
+          "format": "int32"
+        },
+        "greeting_silence_duration_millis": {
+          "description": "If machine already detected, maximum threshold for silence between words. If exceeded, the greeting is considered ended.",
+          "default": 1500,
+          "type": "integer",
+          "example": 2000,
+          "format": "int32"
+        }
+      }
+    },
+    "conference_config": {
+      "description": "Optional configuration parameters to dial new participant into a conference.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Conference ID to be joined",
+          "type": "string",
+          "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+          "format": "uuid"
+        },
+        "conference_name": {
+          "description": "Conference name to be joined",
+          "type": "string",
+          "example": "telnyx-conference"
+        },
+        "early_media": {
+          "description": "Controls the moment when dialled call is joined into conference. If set to `true` user will be joined as soon as media is available (ringback). If `false` user will be joined when call is answered. Defaults to `true`",
+          "type": "boolean",
+          "example": false,
+          "default": true
+        },
+        "end_conference_on_exit": {
+          "description": "Whether the conference should end and all remaining participants be hung up after the participant leaves the conference. Defaults to \"false\".",
+          "example": true,
+          "type": "boolean"
+        },
+        "soft_end_conference_on_exit": {
+          "description": "Whether the conference should end after the participant leaves the conference. NOTE this doesn't hang up the other participants. Defaults to \"false\".",
+          "example": true,
+          "type": "boolean"
+        },
+        "hold": {
+          "description": "Whether the participant should be put on hold immediately after joining the conference. Defaults to \"false\".",
+          "example": true,
+          "type": "boolean"
+        },
+        "hold_audio_url": {
+          "type": "string",
+          "example": "http://example.com/message.wav",
+          "description": "The URL of a file to be played to the participant when they are put on hold after joining the conference. hold_media_name and hold_audio_url cannot be used together in one request. Takes effect only when \"start_conference_on_create\" is set to \"false\". This property takes effect only if \"hold\" is set to \"true\"."
+        },
+        "hold_media_name": {
+          "type": "string",
+          "example": "my_media_uploaded_to_media_storage_api",
+          "description": "The media_name of a file to be played to the participant when they are put on hold after joining the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. Takes effect only when \"start_conference_on_create\" is set to \"false\". This property takes effect only if \"hold\" is set to \"true\"."
+        },
+        "mute": {
+          "description": "Whether the participant should be muted immediately after joining the conference. Defaults to \"false\".",
+          "example": true,
+          "type": "boolean"
+        },
+        "start_conference_on_enter": {
+          "description": "Whether the conference should be started after the participant joins the conference. Defaults to \"false\".",
+          "example": true,
+          "type": "boolean"
+        },
+        "start_conference_on_create": {
+          "description": "Whether the conference should be started on creation. If the conference isn't started all participants that join are automatically put on hold. Defaults to \"true\".",
+          "example": false,
+          "type": "boolean"
+        },
+        "supervisor_role": {
+          "description": "Sets the joining participant as a supervisor for the conference. A conference can have multiple supervisors. \"barge\" means the supervisor enters the conference as a normal participant. This is the same as \"none\". \"monitor\" means the supervisor is muted but can hear all participants. \"whisper\" means that only the specified \"whisper_call_control_ids\" can hear the supervisor. Defaults to \"none\".",
+          "example": "whisper",
+          "type": "string",
+          "enum": [
+            "barge",
+            "monitor",
+            "none",
+            "whisper"
+          ]
+        },
+        "whisper_call_control_ids": {
+          "description": "Array of unique call_control_ids the joining supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.",
+          "example": [
+            "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ",
+            "v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "beep_enabled": {
+          "description": "Whether a beep sound should be played when the participant joins and/or leaves the conference. Can be used to override the conference-level setting.",
+          "enum": [
+            "always",
+            "never",
+            "on_enter",
+            "on_exit"
+          ],
+          "example": "on_exit",
+          "type": "string"
+        }
+      }
+    },
+    "custom_headers": {
+      "description": "Custom headers to be added to the SIP INVITE.",
+      "type": "array",
+      "example": [
+        {
+          "name": "head_1",
+          "value": "val_1"
+        },
+        {
+          "name": "head_2",
+          "value": "val_2"
+        }
+      ],
+      "items": {
+        "$ref": "./CustomSipHeader.json"
+      }
+    },
+    "billing_group_id": {
+      "description": "Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing Group ID.",
+      "type": "string",
+      "format": "uuid",
+      "example": "f5586561-8ff0-4291-a0ac-84fe544797bd"
+    },
+    "client_state": {
+      "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    },
+    "command_id": {
+      "description": "Use this field to avoid duplicate commands. Telnyx will ignore others Dial commands with the same `command_id`.",
+      "type": "string",
+      "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+    },
+    "link_to": {
+      "description": "Use another call's control id for sharing the same call session id",
+      "type": "string",
+      "example": "ilditnZK_eVysupV21KzmzN_sM29ygfauQojpm4BgFtfX5hXAcjotg=="
+    },
+    "media_encryption": {
+      "description": "Defines whether media should be encrypted on the call.",
+      "default": "disabled",
+      "type": "string",
+      "enum": [
+        "disabled",
+        "SRTP"
+      ]
+    },
+    "sip_auth_username": {
+      "description": "SIP Authentication username used for SIP challenges.",
+      "type": "string"
+    },
+    "sip_auth_password": {
+      "description": "SIP Authentication password used for SIP challenges.",
+      "type": "string"
+    },
+    "sip_headers": {
+      "description": "SIP headers to be added to the SIP INVITE request. Currently only User-to-User header is supported.",
+      "type": "array",
+      "example": [
+        {
+          "name": "User-to-User",
+          "value": "value"
+        }
+      ],
+      "items": {
+        "$ref": "./SipHeader.json"
+      }
+    },
+    "sip_transport_protocol": {
+      "description": "Defines SIP transport protocol to be used on the call.",
+      "default": "UDP",
+      "type": "string",
+      "enum": [
+        "UDP",
+        "TCP",
+        "TLS"
+      ]
+    },
+    "sound_modifications": {
+      "$ref": "./SoundModifications.json"
+    },
+    "stream_url": {
+      "description": "The destination WebSocket address where the stream is going to be delivered.",
+      "type": "string",
+      "example": "wss://www.example.com/websocket"
+    },
+    "stream_track": {
+      "description": "Specifies which track should be streamed.",
+      "type": "string",
+      "enum": [
+        "inbound_track",
+        "outbound_track",
+        "both_tracks"
+      ],
+      "default": "inbound_track",
+      "example": "both_tracks"
+    },
+    "stream_bidirectional_mode": {
+      "$ref": "./StreamBidirectionalMode.json"
+    },
+    "stream_bidirectional_codec": {
+      "$ref": "./StreamBidirectionalCodec.json"
+    },
+    "stream_bidirectional_target_legs": {
+      "$ref": "./StreamBidirectionalTargetLegs.json"
+    },
+    "stream_bidirectional_sampling_rate": {
+      "$ref": "./StreamBidirectionalSamplingRate.json"
+    },
+    "send_silence_when_idle": {
+      "description": "Generate silence RTP packets when no transmission available.",
+      "type": "boolean",
+      "default": false,
+      "example": true
+    },
+    "webhook_url": {
+      "description": "Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.",
+      "type": "string",
+      "example": "https://www.example.com/server-b/"
+    },
+    "webhook_url_method": {
+      "description": "HTTP request type used for `webhook_url`.",
+      "default": "POST",
+      "type": "string",
+      "enum": [
+        "POST",
+        "GET"
+      ],
+      "example": "GET"
+    },
+    "record": {
+      "description": "Start recording automatically after an event. Disabled by default.",
+      "type": "string",
+      "enum": [
+        "record-from-answer"
+      ],
+      "example": "record-from-answer"
+    },
+    "record_channels": {
+      "description": "Defines which channel should be recorded ('single' or 'dual') when `record` is specified.",
+      "type": "string",
+      "enum": [
+        "single",
+        "dual"
+      ],
+      "default": "dual",
+      "example": "single"
+    },
+    "record_format": {
+      "description": "Defines the format of the recording ('wav' or 'mp3') when `record` is specified.",
+      "type": "string",
+      "enum": [
+        "wav",
+        "mp3"
+      ],
+      "default": "mp3",
+      "example": "wav"
+    },
+    "record_max_length": {
+      "description": "Defines the maximum length for the recording in seconds when `record` is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).",
+      "type": "integer",
+      "format": "int32",
+      "default": 0,
+      "example": 1000
+    },
+    "record_timeout_secs": {
+      "description": "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).",
+      "type": "integer",
+      "format": "int32",
+      "default": 0,
+      "example": 100
+    },
+    "record_track": {
+      "description": "The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).",
+      "type": "string",
+      "example": "outbound",
+      "default": "both",
+      "enum": [
+        "both",
+        "inbound",
+        "outbound"
+      ]
+    },
+    "record_trim": {
+      "description": "When set to `trim-silence`, silence will be removed from the beginning and end of the recording.",
+      "enum": [
+        "trim-silence"
+      ],
+      "type": "string",
+      "example": "trim-silence"
+    },
+    "record_custom_file_name": {
+      "description": "The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "example": "my_recording_file_name"
+    },
+    "supervise_call_control_id": {
+      "description": "The call leg which will be supervised by the new call.",
+      "type": "string",
+      "example": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+    },
+    "supervisor_role": {
+      "description": "The role of the supervisor call. 'barge' means that supervisor call hears and is being heard by both ends of the call (caller & callee). 'whisper' means that only supervised_call_control_id hears supervisor but supervisor can hear everything. 'monitor' means that nobody can hear supervisor call, but supervisor can hear everything on the call.",
+      "type": "string",
+      "enum": [
+        "barge",
+        "whisper",
+        "monitor"
+      ],
+      "default": "barge"
+    },
+    "enable_dialogflow": {
+      "description": "Enables Dialogflow for the current call. The default value is false.",
+      "type": "boolean",
+      "default": false,
+      "example": true
+    },
+    "dialogflow_config": {
+      "$ref": "./DialogflowConfig.json"
+    },
+    "transcription": {
+      "description": "Enable transcription upon call answer. The default value is false.",
+      "type": "boolean",
+      "default": false,
+      "example": true
+    },
+    "transcription_config": {
+      "$ref": "./TranscriptionStartRequest.json"
+    }
+  }
+}

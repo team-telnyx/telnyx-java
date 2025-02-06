@@ -1,0 +1,17 @@
+{
+  "title": "AccessIPRangePOST",
+  "required": [
+    "cidr_block"
+  ],
+  "type": "object",
+  "properties": {
+    "cidr_block": {
+      "title": "Cidr Block",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    }
+  }
+}

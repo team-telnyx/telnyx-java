@@ -1,0 +1,19 @@
+{
+  "description": "Successful response with a list of IPs.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Ips Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/Ip.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

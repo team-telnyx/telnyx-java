@@ -1,0 +1,9 @@
+{
+  "name": "account_sid",
+  "in": "path",
+  "required": true,
+  "description": "The id of the account the resource belongs to.",
+  "schema": {
+    "type": "string"
+  }
+}

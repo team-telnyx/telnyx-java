@@ -1,0 +1,10 @@
+{
+  "name": "filter[failed]",
+  "in": "query",
+  "description": "Delivery failed or not.",
+  "required": false,
+  "schema": {
+    "type": "boolean",
+    "example": false
+  }
+}

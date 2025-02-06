@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a number reservation.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Number Reservation Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/NumberReservation.json"
+          }
+        }
+      }
+    }
+  }
+}

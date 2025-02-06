@@ -1,0 +1,8 @@
+{
+  "name": "filter[sip_username]",
+  "in": "query",
+  "description": "Filter by sip_username",
+  "schema": {
+    "type": "string"
+  }
+}

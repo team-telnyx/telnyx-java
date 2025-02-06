@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "title": "Start Siprec Request",
+  "properties": {
+    "connector_name": {
+      "description": "Name of configured SIPREC connector to be used.",
+      "type": "string",
+      "example": "my-siprec-connector"
+    },
+    "siprec_track": {
+      "description": "Specifies which track should be sent on siprec session.",
+      "type": "string",
+      "enum": [
+        "inbound_track",
+        "outbound_track",
+        "both_tracks"
+      ],
+      "default": "both_tracks",
+      "example": "outbound_track"
+    },
+    "include_metadata_custom_headers": {
+      "description": "When set, custom parameters will be added as metadata (recording.session.ExtensionParameters). Otherwise, they’ll be added to sip headers.",
+      "example": true,
+      "type": "boolean",
+      "enum": [
+        true,
+        false
+      ]
+    },
+    "secure": {
+      "description": "Controls whether to encrypt media sent to your SRS using SRTP and TLS. When set you need to configure SRS port in your connector to 5061.",
+      "example": true,
+      "type": "boolean",
+      "enum": [
+        true,
+        false
+      ]
+    },
+    "session_timeout_secs": {
+      "description": "Sets `Session-Expires` header to the INVITE. A reinvite is sent every half the value set. Usefull for session keep alive. Minimum value is 90, set to 0 to disable.",
+      "example": 900,
+      "type": "integer",
+      "default": 1800
+    },
+    "client_state": {
+      "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    }
+  },
+  "example": {
+    "connector_name": "my-siprec-connector",
+    "siprec_track": "both_tracks",
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+  }
+}

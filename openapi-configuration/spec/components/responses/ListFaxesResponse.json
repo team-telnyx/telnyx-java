@@ -1,0 +1,28 @@
+{
+  "description": "List faxes response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Faxes Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/Fax.json"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "example": {
+              "page_number": 2,
+              "page_size": 1,
+              "total_pages": 3,
+              "total_results": 3
+            }
+          }
+        }
+      }
+    }
+  }
+}

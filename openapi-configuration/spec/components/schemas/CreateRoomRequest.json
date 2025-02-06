@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "properties": {
+    "unique_name": {
+      "description": "The unique (within the Telnyx account scope) name of the room.",
+      "type": "string",
+      "example": "My room"
+    },
+    "max_participants": {
+      "description": "The maximum amount of participants allowed in a room. If new participants try to join after that limit is reached, their request will be rejected.",
+      "type": "integer",
+      "example": 10,
+      "default": 10,
+      "minimum": 2,
+      "maximum": 50
+    },
+    "enable_recording": {
+      "description": "Enable or disable recording for that room.",
+      "type": "boolean",
+      "example": true,
+      "default": false
+    },
+    "webhook_event_url": {
+      "type": "string",
+      "format": "url",
+      "description": "The URL where webhooks related to this room will be sent. Must include a scheme, such as 'https'.",
+      "example": "https://example.com"
+    },
+    "webhook_event_failover_url": {
+      "type": "string",
+      "format": "url",
+      "description": "The failover URL where webhooks related to this room will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+      "example": "https://failover.example.com",
+      "nullable": true,
+      "default": ""
+    },
+    "webhook_timeout_secs": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 30,
+      "description": "Specifies how many seconds to wait before timing out a webhook.",
+      "example": 25,
+      "default": null,
+      "nullable": true
+    }
+  }
+}

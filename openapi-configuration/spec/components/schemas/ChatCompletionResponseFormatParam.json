@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "text",
+        "json_object"
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "title": "ChatCompletionResponseFormatParam"
+}

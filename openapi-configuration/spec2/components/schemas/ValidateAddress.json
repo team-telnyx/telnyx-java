@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "street_address": {
+      "$ref": "./street_address.json"
+    },
+    "extended_address": {
+      "$ref": "./extended_address.json"
+    },
+    "locality": {
+      "$ref": "./locality.json"
+    },
+    "administrative_area": {
+      "$ref": "./administrative_area.json"
+    },
+    "postal_code": {
+      "$ref": "./postal_code.json"
+    },
+    "country_code": {
+      "$ref": "./country_code.json"
+    }
+  }
+}

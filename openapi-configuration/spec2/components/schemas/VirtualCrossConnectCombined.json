@@ -1,0 +1,13 @@
+{
+  "allOf": [
+    {
+      "$ref": "./VirtualCrossConnectCreate.json"
+    },
+    {
+      "$ref": "./VirtualCrossConnectPatch.json"
+    },
+    {
+      "$ref": "./RegionOut.json"
+    }
+  ]
+}

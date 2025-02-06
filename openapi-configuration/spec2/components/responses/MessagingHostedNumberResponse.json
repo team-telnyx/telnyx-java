@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a messaging hosted number.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Retrieve Messaging Hosted Number Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/HostedNumber.json"
+          }
+        }
+      }
+    }
+  }
+}

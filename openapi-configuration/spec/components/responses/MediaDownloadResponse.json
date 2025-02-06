@@ -1,0 +1,11 @@
+{
+  "description": "A response describing a media resource",
+  "content": {
+    "*/*": {
+      "schema": {
+        "type": "string",
+        "format": "binary"
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "get": {
+    "summary": "Retrieves a phone number blocks job",
+    "operationId": "GetPhoneNumberBlocksJob",
+    "tags": [
+      "Phone Number Blocks Background Jobs"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the Phone Number Blocks Job.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "x-group-parameters": "true",
+    "responses": {
+      "200": {
+        "description": "Phone number blocks job details.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Phone Number Blocks Job",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/PhoneNumberBlocksJob.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

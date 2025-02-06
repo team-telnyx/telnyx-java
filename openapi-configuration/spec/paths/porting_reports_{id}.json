@@ -1,0 +1,34 @@
+{
+  "get": {
+    "tags": [
+      "Porting Orders"
+    ],
+    "summary": "Retrieve a report",
+    "description": "Retrieve a specific report generated.",
+    "operationId": "GetPortingReport",
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Identifies a report.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ShowPortingReport.json"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "title": "Global Outbound Channels Details for a Managed Account",
+  "properties": {
+    "channel_limit": {
+      "type": "integer",
+      "description": "Integer value that indicates the number of allocatable global outbound channels that are allocated to the managed account. If the value is 0 then the account will have no usable channels and will not be able to perform outbound calling.",
+      "example": 30
+    },
+    "email": {
+      "type": "string",
+      "description": "The email of the managed account.",
+      "example": "customer@example.org"
+    },
+    "id": {
+      "type": "string",
+      "description": "The user ID of the managed account.",
+      "example": "096abcde-1122-3344-ab77-ff0123456789"
+    },
+    "manager_account_id": {
+      "type": "string",
+      "description": "The user ID of the manager of the account.",
+      "example": "beeabcde-1122-3344-ab77-ff0123456789"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "The name of the type of data in the response.",
+      "example": "managed_account_global_outbound_settings"
+    }
+  },
+  "example": {
+    "channel_limit": 30,
+    "email": "allocate_demo@customer.com",
+    "id": "096abcde-1122-3344-ab77-ff0123456789",
+    "manager_account_id": "beeabcde-1122-3344-ab77-ff0123456789",
+    "record_type": "managed_account_global_outbound_settings"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Uniquely identifies the event.",
+      "format": "uuid",
+      "example": "eef3340b-8903-4466-b445-89b697315a3a"
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Identifies the event type",
+      "enum": [
+        "porting_order.deleted",
+        "porting_order.loa_updated",
+        "porting_order.messaging_changed",
+        "porting_order.status_changed",
+        "porting_order.sharing_token_expired",
+        "porting_order.new_comment",
+        "porting_order.split"
+      ],
+      "example": "porting_order.deleted"
+    },
+    "porting_order_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the porting order associated with the event.",
+      "example": "9471c873-e3eb-4ca1-957d-f9a451334d52"
+    },
+    "available_notification_methods": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "email",
+          "webhook",
+          "webhook_v1"
+        ]
+      },
+      "description": "Indicates the notification methods used."
+    },
+    "payload_status": {
+      "type": "string",
+      "description": "The status of the payload generation.",
+      "enum": [
+        "created",
+        "completed"
+      ],
+      "example": "created"
+    },
+    "payload": {
+      "oneOf": [
+        {
+          "$ref": "./WebhookPortingOrderDeletedPayload.json"
+        },
+        {
+          "$ref": "./WebhookPortingOrderMessagingChangedPayload.json"
+        },
+        {
+          "$ref": "./WebhookPortingOrderStatusChangedPayload.json"
+        },
+        {
+          "$ref": "./WebhookPortingOrderNewCommentPayload.json"
+        },
+        {
+          "$ref": "./WebhookPortingOrderSplitPayload.json"
+        }
+      ]
+    },
+    "record_type": {
+      "type": "string",
+      "example": "porting_event",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2021-03-19T10:07:15.527000Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was updated.",
+      "example": "2021-03-19T10:07:15.527000Z"
+    }
+  }
+}

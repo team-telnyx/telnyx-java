@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "body": {
+      "type": "string",
+      "example": "Please, let me know when the port completes"
+    }
+  }
+}

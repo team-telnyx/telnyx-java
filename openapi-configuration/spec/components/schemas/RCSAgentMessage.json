@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "content_message": {
+      "$ref": "./RCSContentMessage.json"
+    },
+    "event": {
+      "$ref": "./RCSEvent.json"
+    },
+    "expire_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp in UTC of when this message is considered expired",
+      "example": "2024-10-02T15:01:23Z"
+    },
+    "ttl": {
+      "type": "string",
+      "description": "Duration in seconds ending with 's'",
+      "example": "10.5s"
+    }
+  }
+}

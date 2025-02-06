@@ -1,0 +1,9 @@
+{
+  "name": "filter[fqdn]",
+  "in": "query",
+  "description": "If present, connections with an `fqdn` that equals the given value will be returned. Matching is case-sensitive, and the full string must match.",
+  "schema": {
+    "type": "string",
+    "default": null
+  }
+}

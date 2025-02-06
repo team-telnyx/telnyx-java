@@ -1,0 +1,11 @@
+{
+  "title": "BrandOptionalAttributes",
+  "type": "object",
+  "properties": {
+    "taxExemptStatus": {
+      "title": "Taxexemptstatus",
+      "type": "string",
+      "description": "The tax exempt status of the brand"
+    }
+  }
+}

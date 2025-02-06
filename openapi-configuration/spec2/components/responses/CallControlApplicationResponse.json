@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a call control application.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Call Control Application Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/CallControlApplication.json"
+          }
+        }
+      }
+    }
+  }
+}

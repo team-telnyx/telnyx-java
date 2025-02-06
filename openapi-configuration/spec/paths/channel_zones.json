@@ -1,0 +1,24 @@
+{
+  "get": {
+    "summary": "Get list of channel zones",
+    "description": "List of channel zones with their countries",
+    "operationId": "GetChannelZones",
+    "tags": [
+      "ChannelZones"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetGcbChannelZonesRequestResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

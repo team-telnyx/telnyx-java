@@ -1,0 +1,33 @@
+{
+  "get": {
+    "tags": [
+      "Embeddings"
+    ],
+    "summary": "List embedded buckets",
+    "description": "Get all embedding buckets for a user.",
+    "operationId": "GetEmbeddingBuckets",
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/UserEmbeddedBucketsData.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "description": "Information about messaging porting process.",
+  "properties": {
+    "messaging_capable": {
+      "type": "boolean",
+      "description": "Indicates whether the porting order can also port messaging capabilities.",
+      "example": true
+    },
+    "enable_messaging": {
+      "type": "boolean",
+      "description": "Indicates whether Telnyx will port messaging capabilities from the losing carrier. If false, any messaging capabilities will stay with their current provider.",
+      "example": true
+    },
+    "messaging_port_status": {
+      "type": "string",
+      "description": "The current status of the messaging porting.",
+      "enum": [
+        "not_applicable",
+        "pending",
+        "activating",
+        "exception",
+        "canceled",
+        "partial_port_complete",
+        "ported"
+      ],
+      "example": "pending"
+    },
+    "messaging_port_completed": {
+      "type": "boolean",
+      "description": "Indicates whether the messaging porting has been completed.",
+      "example": false
+    }
+  }
+}

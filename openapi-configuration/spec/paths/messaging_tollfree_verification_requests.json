@@ -1,0 +1,122 @@
+{
+  "get": {
+    "tags": [
+      "Messaging Tollfree Verification"
+    ],
+    "summary": "List Verification Requests",
+    "description": "Get a list of previously-submitted tollfree verification requests",
+    "operationId": "ListVerificationRequests",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Page",
+          "minimum": 1,
+          "type": "integer"
+        },
+        "name": "page",
+        "in": "query"
+      },
+      {
+        "description": "\n        Request this many records per page\n\n        This value is automatically clamped if the provided value is too large.\n        ",
+        "required": true,
+        "schema": {
+          "title": "Page Size",
+          "minimum": 1,
+          "type": "integer",
+          "description": "\n        Request this many records per page\n\n        This value is automatically clamped if the provided value is too large.\n        "
+        },
+        "name": "page_size",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "Date Start",
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": "date_start",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "Date End",
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": "date_end",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "$ref": "../components/schemas/TFVerificationStatus.json"
+        },
+        "name": "status",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "Phone Number",
+          "type": "string"
+        },
+        "name": "phone_number",
+        "in": "query"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Paginated_VerificationRequestStatus_.json"
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "tags": [
+      "Messaging Tollfree Verification"
+    ],
+    "summary": "Submit Verification Request",
+    "description": "Submit a new tollfree verification request",
+    "operationId": "SubmitVerificationRequest",
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/TFVerificationRequest.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/VerificationRequestEgress.json"
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

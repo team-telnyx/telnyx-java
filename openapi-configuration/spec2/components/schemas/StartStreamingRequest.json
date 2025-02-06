@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "title": "Start Streaming Request",
+  "properties": {
+    "stream_url": {
+      "description": "The destination WebSocket address where the stream is going to be delivered.",
+      "type": "string",
+      "example": "wss://www.example.com/websocket"
+    },
+    "stream_track": {
+      "description": "Specifies which track should be streamed.",
+      "type": "string",
+      "enum": [
+        "inbound_track",
+        "outbound_track",
+        "both_tracks"
+      ],
+      "default": "inbound_track",
+      "example": "both_tracks"
+    },
+    "stream_bidirectional_mode": {
+      "$ref": "./StreamBidirectionalMode.json"
+    },
+    "stream_bidirectional_codec": {
+      "$ref": "./StreamBidirectionalCodec.json"
+    },
+    "stream_bidirectional_target_legs": {
+      "$ref": "./StreamBidirectionalTargetLegs.json"
+    },
+    "enable_dialogflow": {
+      "description": "Enables Dialogflow for the current call. The default value is false.",
+      "type": "boolean",
+      "default": false,
+      "example": true
+    },
+    "dialogflow_config": {
+      "$ref": "./DialogflowConfig.json"
+    },
+    "client_state": {
+      "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    },
+    "command_id": {
+      "description": "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.",
+      "type": "string",
+      "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+    }
+  },
+  "example": {
+    "stream_url": "wss://www.example.com/websocket",
+    "stream_track": "both_tracks",
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
+    "enable_dialogflow": false,
+    "dialogflow_config": {
+      "analyze_sentiment": false,
+      "partial_automated_agent_reply": false
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "post": {
+    "tags": [
+      "RCS messaging"
+    ],
+    "summary": "Send an RCS message",
+    "requestBody": {
+      "description": "RCS message body",
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/RCSMessage.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/RCSResponse.json"
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

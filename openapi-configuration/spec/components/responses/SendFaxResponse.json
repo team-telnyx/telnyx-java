@@ -1,0 +1,16 @@
+{
+  "description": "Send fax response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Send Fax Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/Fax.json"
+          }
+        }
+      }
+    }
+  }
+}

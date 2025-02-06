@@ -1,0 +1,43 @@
+{
+  "post": {
+    "x-latency-category": "background",
+    "summary": "Deletes all numbers associated with a phone number block",
+    "description": "Creates a new background job to delete all the phone numbers associated with the given block. We will only consider the phone number block as deleted after all phone numbers associated with it are removed, so multiple executions of this job may be necessary in case some of the phone numbers present errors during the deletion process.",
+    "operationId": "CreatePhoneNumberBlockDeletionJob",
+    "tags": [
+      "Phone Number Blocks Background Jobs"
+    ],
+    "x-group-parameters": "true",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/PhoneNumberBlocksJobDeletePhoneNumberBlockRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Phone number blocks job delete phone numbers requested.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Phone Number Blocks Job Delete Phone Number Block",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/PhoneNumberBlocksJob.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    }
+  }
+}

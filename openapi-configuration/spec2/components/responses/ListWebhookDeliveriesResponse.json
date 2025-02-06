@@ -1,0 +1,21 @@
+{
+  "description": "A paginated array of webhook_delivery attempts",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/webhook_delivery.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMetaSimple.json"
+          }
+        }
+      }
+    }
+  }
+}

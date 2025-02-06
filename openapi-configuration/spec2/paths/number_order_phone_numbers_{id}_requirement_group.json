@@ -1,0 +1,62 @@
+{
+  "post": {
+    "summary": "Update requirement group for a phone number order",
+    "operationId": "updateNumberOrderPhoneNumberRequirementGroup",
+    "tags": [
+      "Requirement Groups"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "The unique identifier of the number order phone number",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "requirement_group_id"
+            ],
+            "properties": {
+              "requirement_group_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "The ID of the requirement group to associate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Successful response with updated phone number order details",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/NumberOrderPhoneNumberRequirementGroupResponse.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

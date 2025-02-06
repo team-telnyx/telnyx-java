@@ -1,0 +1,26 @@
+{
+  "title": "PhoneNumberCampaignPaginated",
+  "required": [
+    "records",
+    "page",
+    "totalRecords"
+  ],
+  "type": "object",
+  "properties": {
+    "records": {
+      "title": "Records",
+      "type": "array",
+      "items": {
+        "$ref": "./PhoneNumberCampaign.json"
+      }
+    },
+    "page": {
+      "title": "Page",
+      "type": "integer"
+    },
+    "totalRecords": {
+      "title": "Totalrecords",
+      "type": "integer"
+    }
+  }
+}

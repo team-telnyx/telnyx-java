@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the SSL certificate"
+    },
+    "issued_to": {
+      "type": "object",
+      "properties": {
+        "common_name": {
+          "type": "string",
+          "description": "The common name of the entity the certificate was issued to"
+        },
+        "organization": {
+          "type": "string",
+          "description": "The organization the certificate was issued to"
+        },
+        "organization_unit": {
+          "type": "string",
+          "description": "The organizational unit the certificate was issued to"
+        }
+      }
+    },
+    "issued_by": {
+      "type": "object",
+      "properties": {
+        "common_name": {
+          "type": "string",
+          "description": "The common name of the entity the certificate was issued by"
+        },
+        "organization": {
+          "type": "string",
+          "description": "The organization the certificate was issued by"
+        },
+        "organization_unit": {
+          "type": "string",
+          "description": "The organizational unit the certificate was issued by"
+        }
+      }
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2020-01-01T00:00:00Z",
+      "description": "The time the certificate is valid from"
+    },
+    "valid_to": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2020-01-01T00:00:00Z",
+      "description": "The time the certificate is valid to"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2020-01-01T00:00:00Z",
+      "description": "Time when SSL certificate was uploaded"
+    }
+  }
+}

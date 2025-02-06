@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "data": {
+      "items": {
+        "$ref": "./Assistant.json"
+      },
+      "type": "array",
+      "title": "Data"
+    }
+  },
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "title": "AssistantsListData"
+}

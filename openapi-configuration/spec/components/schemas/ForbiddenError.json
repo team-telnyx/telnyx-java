@@ -1,0 +1,29 @@
+{
+  "allOf": [
+    {
+      "$ref": "./GenericError.json"
+    },
+    {
+      "properties": {
+        "code": {
+          "example": "10010"
+        },
+        "title": {
+          "example": "Authorization failed"
+        },
+        "detail": {
+          "example": "You do not have permission to perform the requested action on the specified resource or resources."
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "example": "https://developers.telnyx.com/docs/overview/errors/10010"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

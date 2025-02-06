@@ -1,0 +1,10 @@
+{
+  "name": "StartTime<",
+  "in": "query",
+  "required": false,
+  "description": "Filters calls by their start date (before). Expected format is YYYY-MM-DD",
+  "schema": {
+    "type": "string"
+  },
+  "example": "2023-05-22"
+}

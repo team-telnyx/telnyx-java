@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "example": "pending"
+    },
+    "order_request_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "a11d58fe-88a4-494a-b752-8dea411993c6"
+    },
+    "country_code": {
+      "type": "string",
+      "example": "AT"
+    },
+    "is_block_number": {
+      "type": "boolean",
+      "example": false
+    },
+    "regulatory_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "field_value": {
+            "type": "string",
+            "example": "1234567890"
+          },
+          "field_type": {
+            "type": "string",
+            "example": "textual"
+          },
+          "status": {
+            "type": "string",
+            "example": "pending-approval"
+          }
+        }
+      }
+    },
+    "locality": {
+      "type": "string",
+      "example": "AUSTRIA"
+    },
+    "phone_number_type": {
+      "type": "string",
+      "example": "toll_free"
+    },
+    "bundle_id": {
+      "type": "string",
+      "format": "uuid",
+      "nullable": true
+    },
+    "sub_number_order_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "f826ed66-b27c-4340-9dc0-57dc3459f1bd"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "requirements_status": {
+      "type": "string",
+      "example": "requirement-info-under-review"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "613d517a-0432-4bae-a785-c11033bd0985"
+    },
+    "phone_number": {
+      "type": "string",
+      "example": "+43800300238"
+    },
+    "requirements_met": {
+      "type": "boolean",
+      "example": false
+    },
+    "record_type": {
+      "type": "string",
+      "example": "number_order_phone_number"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "title": "CreateVerificationRequestSMS",
+  "description": "The request body when creating a verification.",
+  "required": [
+    "phone_number",
+    "verify_profile_id"
+  ],
+  "type": "object",
+  "properties": {
+    "phone_number": {
+      "example": "+13035551234",
+      "type": "string",
+      "description": "+E164 formatted phone number."
+    },
+    "verify_profile_id": {
+      "example": "12ade33a-21c0-473b-b055-b3c836e1c292",
+      "type": "string",
+      "format": "uuid",
+      "description": "The identifier of the associated Verify profile."
+    },
+    "custom_code": {
+      "example": "43612",
+      "type": "string",
+      "description": "Send a self-generated numeric code to the end-user",
+      "nullable": true,
+      "default": null
+    },
+    "timeout_secs": {
+      "type": "integer",
+      "example": 300,
+      "description": "The number of seconds the verification code is valid for."
+    }
+  }
+}

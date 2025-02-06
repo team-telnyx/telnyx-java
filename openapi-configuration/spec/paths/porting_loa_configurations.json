@@ -1,0 +1,53 @@
+{
+  "get": {
+    "tags": [
+      "Porting Orders"
+    ],
+    "summary": "List LOA configurations",
+    "description": "List the LOA configurations.",
+    "operationId": "ListLoaConfigurations",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPortingLOAConfigurations.json"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "tags": [
+      "Porting Orders"
+    ],
+    "summary": "Create a LOA configuration",
+    "description": "Create a LOA configuration.",
+    "operationId": "CreateLoaConfiguration",
+    "requestBody": {
+      "$ref": "../components/requestBodies/CreatePortingLOAConfiguration.json"
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/CreatePortingLOAConfiguration.json"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

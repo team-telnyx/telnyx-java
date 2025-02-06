@@ -1,0 +1,251 @@
+{
+  "get": {
+    "summary": "View a list of faxes",
+    "description": "",
+    "operationId": "ListFaxes",
+    "x-latency-category": "background",
+    "tags": [
+      "Programmable Fax Commands"
+    ],
+    "parameters": [
+      {
+        "name": "filter[created_at][gte]",
+        "in": "query",
+        "description": "ISO 8601 date time for filtering faxes created after or on that date",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-02-02T22:25:27.521992Z"
+        }
+      },
+      {
+        "name": "filter[created_at][gt]",
+        "in": "query",
+        "description": "ISO 8601 date time for filtering faxes created after that date",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-02-02T22:25:27.521992Z"
+        }
+      },
+      {
+        "name": "filter[created_at][lte]",
+        "in": "query",
+        "description": "ISO 8601 formatted date time for filtering faxes created on or before that date",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-02-02T22:25:27.521992Z"
+        }
+      },
+      {
+        "name": "filter[created_at][lt]",
+        "in": "query",
+        "description": "ISO 8601 formatted date time for filtering faxes created before that date",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-02-02T22:25:27.521992Z"
+        }
+      },
+      {
+        "name": "filter[direction][eq]",
+        "in": "query",
+        "description": "The direction, inbound or outbound, for filtering faxes sent from this account",
+        "schema": {
+          "type": "string",
+          "example": "inbound"
+        }
+      },
+      {
+        "name": "filter[from][eq]",
+        "in": "query",
+        "description": "The phone number, in E.164 format for filtering faxes sent from this number",
+        "schema": {
+          "type": "string",
+          "example": "+13127367276"
+        }
+      },
+      {
+        "name": "filter[to][eq]",
+        "in": "query",
+        "description": "The phone number, in E.164 format for filtering faxes sent to this number",
+        "schema": {
+          "type": "string",
+          "example": "+13127367276"
+        }
+      },
+      {
+        "name": "page[size]",
+        "in": "query",
+        "description": "Number of fax resourcxes for the single page returned",
+        "schema": {
+          "type": "integer",
+          "example": 2
+        }
+      },
+      {
+        "name": "page[number]",
+        "in": "query",
+        "description": "Number of the page to be retrieved",
+        "schema": {
+          "type": "integer",
+          "example": 2
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListFaxesResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    }
+  },
+  "post": {
+    "summary": "Send a fax",
+    "operationId": "SendFax",
+    "description": "Send a fax. Files have size limits and page count limit validations. If a file is bigger than 50MB or has more than 350 pages it will fail with `file_size_limit_exceeded` and `page_count_limit_exceeded` respectively. \n\n**Expected Webhooks:**\n\n- `fax.queued`\n- `fax.media.processed`\n- `fax.sending.started`\n- `fax.delivered`\n- `fax.failed`\n",
+    "tags": [
+      "Programmable Fax Commands"
+    ],
+    "requestBody": {
+      "description": "Send fax request",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/SendFaxRequest.json"
+          }
+        },
+        "multipart/form-data": {
+          "schema": {
+            "$ref": "../components/schemas/SendFaxMultipartRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "$ref": "../components/responses/SendFaxResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "callbacks": {
+      "fax.queued": {
+        "{$response.body#/data/webhook_url}": {
+          "post": {
+            "summary": "Fax Queued",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/FaxQueued.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "fax.media.processed": {
+        "{$response.body#/data/webhook_url}": {
+          "post": {
+            "summary": "Fax Media Processed",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/FaxMediaProcessed.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "fax.sending.started": {
+        "{$response.body#/data/webhook_url}": {
+          "post": {
+            "summary": "Fax Sending Started",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/FaxSendingStarted.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "fax.delivered": {
+        "{$response.body#/data/webhook_url}": {
+          "post": {
+            "summary": "Fax Delivered",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/FaxDelivered.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "fax.failed": {
+        "{$response.body#/data/webhook_url}": {
+          "post": {
+            "summary": "Fax Failed",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/FaxFailed.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "title": "SIMCardGroup",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the resource.",
+      "readOnly": true,
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true,
+      "example": "sim_card_group"
+    },
+    "default": {
+      "description": "Indicates whether the SIM card group is the users default group.<br/>The default group is created for the user and can not be removed.",
+      "type": "boolean",
+      "example": true,
+      "readOnly": true
+    },
+    "name": {
+      "description": "A user friendly name for the SIM card group.",
+      "type": "string",
+      "example": "My Test Group"
+    },
+    "data_limit": {
+      "type": "object",
+      "description": "Upper limit on the amount of data the SIM cards, within the group, can use.",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "format": "decimal",
+          "example": "2048.1"
+        },
+        "unit": {
+          "type": "string",
+          "example": "MB"
+        }
+      }
+    },
+    "consumed_data": {
+      "$ref": "./ConsumedData.json"
+    },
+    "private_wireless_gateway_id": {
+      "description": "The identification of the related Private Wireless Gateway resource.",
+      "format": "uuid",
+      "type": "string",
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+      "default": null
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was created.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was updated.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  }
+}

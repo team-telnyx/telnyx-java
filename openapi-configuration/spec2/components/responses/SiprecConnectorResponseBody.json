@@ -1,0 +1,10 @@
+{
+  "description": "Return details of the SIPREC connector associated with the given name.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/SiprecConnectorResponse.json"
+      }
+    }
+  }
+}

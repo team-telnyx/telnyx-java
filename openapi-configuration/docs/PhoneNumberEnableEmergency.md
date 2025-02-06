@@ -1,0 +1,13 @@
+
+
+# PhoneNumberEnableEmergency
+
+
+## Properties
+
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**PhoneNumberWithVoiceSettings**](PhoneNumberWithVoiceSettings.md) |  |  [optional] |
+
+
+

@@ -1,0 +1,10 @@
+{
+  "description": "A list of audit log entries.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/AuditLogList.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "type": "string"
+    },
+    "requirement_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "field_type": {
+      "type": "string"
+    }
+  }
+}

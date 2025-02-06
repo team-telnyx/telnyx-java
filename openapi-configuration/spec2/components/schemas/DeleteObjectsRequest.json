@@ -1,0 +1,18 @@
+{
+  "type": "array",
+  "xml": {
+    "wrapped": true,
+    "name": "Delete"
+  },
+  "items": {
+    "type": "object",
+    "xml": {
+      "name": "Object"
+    },
+    "properties": {
+      "Key": {
+        "type": "string"
+      }
+    }
+  }
+}

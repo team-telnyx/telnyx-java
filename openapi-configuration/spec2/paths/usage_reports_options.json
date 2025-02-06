@@ -1,0 +1,73 @@
+{
+  "get": {
+    "tags": [
+      "Usage Reports (BETA)"
+    ],
+    "summary": "Get Usage Reports query options (BETA)",
+    "description": "Get the Usage Reports options for querying usage, including the products available and their respective metrics and dimensions",
+    "operationId": "ListUsageReportsOptions",
+    "parameters": [
+      {
+        "name": "product",
+        "in": "query",
+        "description": "Options (dimensions and metrics) for a given product. If none specified, all products will be returned.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "product=wireless": {
+            "value": "wireless",
+            "summary": "Specify a product if you know what you're looking for"
+          }
+        }
+      },
+      {
+        "name": "Authorization: Bearer <TOKEN>",
+        "in": "header",
+        "schema": {
+          "type": "string",
+          "description": "Authenticates the request with your Telnyx API V2 KEY"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/UsageReportsOptionsResponse.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/ErrorResponse.json"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/ErrorResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "x-latency-category": "interactive"
+  }
+}

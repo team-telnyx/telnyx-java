@@ -1,0 +1,59 @@
+{
+  "post": {
+    "summary": "Bridge calls",
+    "description": "Bridge two call control calls.\n\n**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/bridge-call#callbacks) below):**\n\n- `call.bridged` for Leg A\n- `call.bridged` for Leg B\n",
+    "operationId": "BridgeCall",
+    "tags": [
+      "Call Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/CallControlId.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Bridge call request",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/BridgeRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CallControlCommandResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "callbacks": {
+      "callBridged": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Calls bridge call bridged",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallBridgedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

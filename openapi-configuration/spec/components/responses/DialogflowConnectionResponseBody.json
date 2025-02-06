@@ -1,0 +1,10 @@
+{
+  "description": "Return details of the Dialogflow connection associated with the given CallControl connection.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/DialogflowConnectionResponse.json"
+      }
+    }
+  }
+}

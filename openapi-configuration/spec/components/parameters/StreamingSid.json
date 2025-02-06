@@ -1,0 +1,11 @@
+{
+  "description": "Uniquely identifies the streaming by id.",
+  "name": "streaming_sid",
+  "in": "path",
+  "required": true,
+  "schema": {
+    "format": "uuid",
+    "type": "string",
+    "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+  }
+}

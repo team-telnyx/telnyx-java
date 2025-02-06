@@ -1,0 +1,5 @@
+{
+  "description": "The URL (or list of URLs) to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together.",
+  "type": "string",
+  "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+}

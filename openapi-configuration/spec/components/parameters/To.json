@@ -1,0 +1,10 @@
+{
+  "name": "To",
+  "in": "query",
+  "required": false,
+  "description": "Filters calls by the to number.",
+  "schema": {
+    "type": "string"
+  },
+  "example": "+1312345678"
+}

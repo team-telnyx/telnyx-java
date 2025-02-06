@@ -1,0 +1,80 @@
+{
+  "get": {
+    "summary": "Retrieve regulatory requirements",
+    "operationId": "ListRegulatoryRequirements",
+    "tags": [
+      "Regulatory Requirements"
+    ],
+    "parameters": [
+      {
+        "name": "filter[phone_number]",
+        "in": "query",
+        "description": "Phone number to check requirements for",
+        "schema": {
+          "type": "string",
+          "example": "+41215470622"
+        },
+        "required": false
+      },
+      {
+        "name": "filter[requirement_group_id]",
+        "in": "query",
+        "description": "ID of requirement group to check requirements for",
+        "schema": {
+          "type": "string",
+          "example": "d4c0b4a6-7bd2-40c5-a3b9-2acd99e212b2"
+        },
+        "required": false
+      },
+      {
+        "name": "filter[country_code]",
+        "in": "query",
+        "description": "Country code(iso2) to check requirements for",
+        "schema": {
+          "type": "string",
+          "example": "DE"
+        },
+        "required": false
+      },
+      {
+        "name": "filter[phone_number_type]",
+        "in": "query",
+        "description": "Phone number type to check requirements for",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "local",
+            "toll_free",
+            "mobile",
+            "national",
+            "shared_cost"
+          ]
+        },
+        "required": false
+      },
+      {
+        "name": "filter[action]",
+        "in": "query",
+        "description": "Action to check requirements for",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "ordering",
+            "porting",
+            "action"
+          ]
+        },
+        "required": false
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/listRegulatoryRequirements.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

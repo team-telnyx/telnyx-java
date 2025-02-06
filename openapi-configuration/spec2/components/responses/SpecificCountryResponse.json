@@ -1,0 +1,15 @@
+{
+  "description": "Response for specific country coverage",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/CountryCoverage.json"
+          }
+        }
+      }
+    }
+  }
+}

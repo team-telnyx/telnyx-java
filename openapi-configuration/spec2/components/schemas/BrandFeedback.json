@@ -1,0 +1,24 @@
+{
+  "title": "BrandFeedback",
+  "required": [
+    "brandId",
+    "category"
+  ],
+  "type": "object",
+  "properties": {
+    "brandId": {
+      "title": "Brandid",
+      "type": "string",
+      "description": "ID of the brand being queried about",
+      "example": "d88dd2aa-1bb9-4ef0-9ec8-1752b80316a5"
+    },
+    "category": {
+      "title": "Category",
+      "type": "array",
+      "items": {
+        "$ref": "./BrandFeedbackCategory.json"
+      },
+      "description": "A list of reasons why brand creation/revetting didn't go as planned"
+    }
+  }
+}

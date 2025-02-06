@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Siprec Failed Event",
+  "properties": {
+    "data": {
+      "$ref": "./CallSiprecFailed.json"
+    }
+  }
+}

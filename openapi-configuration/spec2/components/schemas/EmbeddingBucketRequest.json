@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "bucket_name": {
+      "type": "string",
+      "title": "Bucket Name"
+    },
+    "document_chunk_size": {
+      "type": "integer",
+      "title": "Document Chunk Size",
+      "default": 1024
+    },
+    "document_chunk_overlap_size": {
+      "type": "integer",
+      "title": "Document Chunk Overlap Size",
+      "default": 512
+    },
+    "embedding_model": {
+      "allOf": [
+        {
+          "$ref": "./SupportedEmbeddingModels.json"
+        }
+      ],
+      "default": "thenlper/gte-large"
+    },
+    "loader": {
+      "allOf": [
+        {
+          "$ref": "./SupportedEmbeddingLoaders.json"
+        }
+      ],
+      "default": "default"
+    }
+  },
+  "type": "object",
+  "required": [
+    "bucket_name"
+  ],
+  "title": "EmbeddingBucketRequest"
+}

@@ -1,0 +1,33 @@
+{
+  "get": {
+    "tags": [
+      "Customer Service Record"
+    ],
+    "summary": "Get a customer service record",
+    "description": "Get a specific customer service record.",
+    "operationId": "GetCustomerServiceRecord",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PathCustomerServiceRecordId.json"
+      }
+    ],
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/ShowCustomerServiceRecord.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedErrorResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/ForbiddenErrorResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/ResourceNotFoundErrorResponse.json"
+      },
+      "500": {
+        "$ref": "../components/responses/UnexpectedErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "title": "AltBusinessIdType",
+  "enum": [
+    "NONE",
+    "DUNS",
+    "GIIN",
+    "LEI"
+  ],
+  "description": "An enumeration."
+}

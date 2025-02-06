@@ -1,0 +1,12 @@
+{
+  "description": "Successful response",
+  "content": {
+    "application/pdf": {
+      "schema": {
+        "type": "string",
+        "format": "binary",
+        "example": "%PDF-1.4..."
+      }
+    }
+  }
+}

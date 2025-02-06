@@ -1,0 +1,13 @@
+{
+  "title": "VerificationStatus",
+  "enum": [
+    "pending",
+    "accepted",
+    "invalid",
+    "expired",
+    "error"
+  ],
+  "type": "string",
+  "example": "accepted",
+  "description": "The possible statuses of the verification request."
+}

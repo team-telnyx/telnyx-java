@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of phone numbers.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Phone Numbers Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/PhoneNumberDetailed.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "description": "New participant resource.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/NewParticipantResource.json"
+      }
+    }
+  }
+}

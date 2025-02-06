@@ -1,0 +1,23 @@
+{
+  "properties": {
+    "bucket_name": {
+      "type": "string",
+      "title": "Bucket Name"
+    },
+    "query": {
+      "type": "string",
+      "title": "Query"
+    },
+    "num_of_docs": {
+      "type": "integer",
+      "title": "Num Of Docs",
+      "default": 3
+    }
+  },
+  "type": "object",
+  "required": [
+    "bucket_name",
+    "query"
+  ],
+  "title": "EmbeddingSimilaritySearchRequest"
+}

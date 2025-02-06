@@ -1,0 +1,19 @@
+{
+  "allOf": [
+    {
+      "$ref": "./GlobalIpAssignment.json"
+    },
+    {
+      "type": "object",
+      "title": "Global IP",
+      "properties": {
+        "global_ip_id": {
+          "readOnly": true
+        },
+        "wireguard_peer_id": {
+          "readOnly": true
+        }
+      }
+    }
+  ]
+}

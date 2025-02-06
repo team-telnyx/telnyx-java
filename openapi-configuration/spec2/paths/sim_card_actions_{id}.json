@@ -1,0 +1,27 @@
+{
+  "get": {
+    "operationId": "GetSimCardAction",
+    "summary": "Get SIM card action details",
+    "description": "This API fetches detailed information about a SIM card action to follow-up on an existing asynchronous operation.",
+    "tags": [
+      "SIM Card Actions"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SIMCardActionResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

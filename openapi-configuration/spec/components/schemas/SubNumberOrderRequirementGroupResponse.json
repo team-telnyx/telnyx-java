@@ -1,0 +1,106 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "order_request_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "country_code": {
+          "type": "string"
+        },
+        "phone_number_type": {
+          "type": "string"
+        },
+        "phone_numbers_count": {
+          "type": "integer"
+        },
+        "requirements_met": {
+          "type": "boolean"
+        },
+        "is_block_sub_number_order": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "customer_reference": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "record_type": {
+          "type": "string"
+        },
+        "regulatory_requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "./RegulatoryRequirement.json"
+          }
+        },
+        "phone_numbers": {
+          "type": "array",
+          "items": {
+            "$ref": "./SubNumberOrderPhoneNumber.json"
+          }
+        }
+      }
+    }
+  },
+  "example": {
+    "data": {
+      "country_code": "AT",
+      "created_at": "2018-01-01T00:00:00.000000Z",
+      "updated_at": "2018-01-01T00:00:00.000000Z",
+      "regulatory_requirements": [
+        {
+          "record_type": "phone_number_regulatory_requirement",
+          "requirement_id": "2708e569-696a-4fc7-9305-5fdb3eb9c7dd",
+          "field_type": "textual"
+        }
+      ],
+      "phone_numbers_count": 1,
+      "phone_numbers": [
+        {
+          "country_code": "AT",
+          "regulatory_requirements": [
+            {
+              "field_value": "4804570924",
+              "requirement_id": "2708e569-696a-4fc7-9305-5fdb3eb9c7dd",
+              "field_type": "textual",
+              "status": "pending-approval"
+            }
+          ],
+          "bundle_id": null,
+          "requirements_status": "requirement-info-under-review",
+          "phone_number_type": "toll_free",
+          "requirements_met": false,
+          "record_type": "number_order_phone_number",
+          "status": "pending",
+          "id": "613d517a-0432-4bae-a785-c11033bd0985",
+          "phone_number": "+43800300238"
+        }
+      ],
+      "is_block_sub_number_order": false,
+      "phone_number_type": "toll_free",
+      "requirements_met": false,
+      "id": "f826ed66-b27c-4340-9dc0-57dc3459f1bd",
+      "order_request_id": "a11d58fe-88a4-494a-b752-8dea411993c6",
+      "status": "pending",
+      "customer_reference": "missing",
+      "record_type": "sub_number_order"
+    }
+  }
+}

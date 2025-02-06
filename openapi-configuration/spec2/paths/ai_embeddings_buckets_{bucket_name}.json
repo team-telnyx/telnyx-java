@@ -1,0 +1,89 @@
+{
+  "delete": {
+    "tags": [
+      "Embeddings"
+    ],
+    "summary": "Disable AI for an Embedded Bucket",
+    "description": "Deletes an entire bucket's embeddings and disables the bucket for AI-use, returning it to normal storage pricing.",
+    "operationId": "embedding_bucket_files_public_embedding_buckets__bucket_name__delete",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "type": "string",
+          "title": "Bucket Name"
+        },
+        "name": "bucket_name",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Bucket Embeddings Deleted Successfully"
+      },
+      "404": {
+        "description": "Bucket Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/BucketNotFoundError.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "tags": [
+      "Embeddings"
+    ],
+    "summary": "Get file-level embedding statuses for a bucket",
+    "description": "Get all embedded files for a given user bucket, including their processing status.",
+    "operationId": "GetBucketName",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "type": "string",
+          "title": "Bucket Name"
+        },
+        "name": "bucket_name",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/EmbeddingsBucketFilesData.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

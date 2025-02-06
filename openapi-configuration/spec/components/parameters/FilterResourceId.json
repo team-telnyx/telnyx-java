@@ -1,0 +1,8 @@
+{
+  "name": "filter[resource_id]",
+  "in": "query",
+  "description": "Filter by resource_id",
+  "schema": {
+    "type": "string"
+  }
+}

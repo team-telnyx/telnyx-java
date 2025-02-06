@@ -1,0 +1,67 @@
+{
+  "type": "object",
+  "properties": {
+    "field_type": {
+      "type": "string",
+      "description": "Type of value expected on field_value field",
+      "enum": [
+        "document",
+        "textual"
+      ],
+      "example": "document"
+    },
+    "field_value": {
+      "type": "string",
+      "description": "Identifies the document that satisfies this requirement",
+      "example": "9787fb5f-cbe5-4de4-b765-3303774ee9fe"
+    },
+    "requirement_type": {
+      "type": "object",
+      "description": "Identifies the requirement type that meets this requirement",
+      "properties": {
+        "acceptance_criteria": {
+          "type": "object",
+          "description": "The acceptance criteria for the requirement type",
+          "example": {
+            "acceptable_values": []
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the requirement type",
+          "example": "A copy of the latest phone bill from the current provider"
+        },
+        "example": {
+          "type": "string",
+          "description": "An example of the requirement type",
+          "example": "Most recent phone bill"
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifies the requirement type",
+          "example": "53970723-fbff-4f46-a975-f62be6c1a585"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the requirement type",
+          "example": "Latest Invoice"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the requirement type",
+          "example": "document"
+        }
+      }
+    },
+    "requirement_status": {
+      "type": "string",
+      "description": "Status of the requirement",
+      "example": "approved"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "example": "porting_requirement"
+    }
+  }
+}

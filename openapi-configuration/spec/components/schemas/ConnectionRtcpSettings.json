@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "title": "Connection RTCP Settings",
+  "properties": {
+    "port": {
+      "enum": [
+        "rtcp-mux",
+        "rtp+1"
+      ],
+      "default": "rtp+1",
+      "description": "RTCP port by default is rtp+1, it can also be set to rtcp-mux"
+    },
+    "capture_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "BETA - Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx Mission Control Portal.",
+      "example": true
+    },
+    "report_frequency_secs": {
+      "type": "integer",
+      "default": 5,
+      "description": "RTCP reports are sent to customers based on the frequency set. Frequency is in seconds and it can be set to values from 5 to 3000 seconds.",
+      "example": 10
+    }
+  },
+  "example": {
+    "port": "rtcp-mux",
+    "capture_enabled": true,
+    "report_frequency_secs": 10
+  }
+}

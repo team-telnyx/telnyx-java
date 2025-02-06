@@ -1,0 +1,46 @@
+{
+  "delete": {
+    "summary": "Delete a call recording",
+    "description": "Permanently deletes a call recording.",
+    "operationId": "DeleteRecording",
+    "tags": [
+      "Call Recordings"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/RecordingId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/RecordingResponseBody.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "summary": "Retrieve a call recording",
+    "description": "Retrieves the details of an existing call recording.",
+    "operationId": "GetRecording",
+    "tags": [
+      "Call Recordings"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/RecordingId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/RecordingResponseBody.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

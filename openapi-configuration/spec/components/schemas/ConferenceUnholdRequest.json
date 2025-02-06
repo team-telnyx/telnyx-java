@@ -1,0 +1,21 @@
+{
+  "required": [
+    "call_control_ids"
+  ],
+  "type": "object",
+  "title": "Conference Unhold Request",
+  "properties": {
+    "call_control_ids": {
+      "description": "List of unique identifiers and tokens for controlling the call. Enter each call control ID to be unheld.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "example": {
+    "call_control_ids": [
+      "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+    ]
+  }
+}

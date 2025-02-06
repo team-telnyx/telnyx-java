@@ -1,0 +1,17 @@
+{
+  "value": {
+    "errors": [
+      {
+        "code": "10015",
+        "title": "Bad Request",
+        "detail": "You can have at most 20 pending or in progress jobs",
+        "source": {
+          "pointer": "/base"
+        },
+        "meta": {
+          "url": "https://developers.telnyx.com/docs/overview/errors/10015"
+        }
+      }
+    ]
+  }
+}

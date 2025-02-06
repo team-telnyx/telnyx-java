@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "error": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "error"
+  ],
+  "title": "FailClusteringProcessRequest"
+}

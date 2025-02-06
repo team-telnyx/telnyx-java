@@ -1,0 +1,81 @@
+{
+  "delete": {
+    "summary": "Delete the WireGuard Peer",
+    "description": "Delete the WireGuard peer.",
+    "operationId": "DeleteWireguardPeer",
+    "tags": [
+      "WireGuard Interfaces"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/WireguardPeerResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "summary": "Retrieve the WireGuard Peer",
+    "description": "Retrieve the WireGuard peer.",
+    "operationId": "GetWireguardPeer",
+    "tags": [
+      "WireGuard Interfaces"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/WireguardPeerResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update the WireGuard Peer",
+    "description": "Update the WireGuard peer.",
+    "operationId": "UpdateWireguardPeer",
+    "tags": [
+      "WireGuard Interfaces"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/WireguardPeerPatch.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/WireguardPeerResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntity.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

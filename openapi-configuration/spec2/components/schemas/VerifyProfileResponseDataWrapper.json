@@ -1,0 +1,10 @@
+{
+  "title": "VerifyProfileResponseDataWrapper",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "$ref": "./VerifyProfileResponse.json"
+    }
+  }
+}

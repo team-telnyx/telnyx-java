@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "properties": {
+    "content": {
+      "oneOf": [
+        {
+          "title": "Content String",
+          "type": "string"
+        },
+        {
+          "title": "Text and Image Array",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "image_url"
+                ]
+              },
+              "text": {
+                "type": "string"
+              },
+              "image_url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "system",
+        "user",
+        "assistant",
+        "tool"
+      ]
+    }
+  },
+  "required": [
+    "content",
+    "role"
+  ],
+  "title": "ChatCompletionSystemMessageParam"
+}

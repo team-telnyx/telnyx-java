@@ -1,0 +1,13 @@
+{
+  "title": "VettingStatus",
+  "enum": [
+    "PENDING",
+    "ACTIVE",
+    "EXPIRED",
+    "ERROR",
+    "CONTACT_VENDOR",
+    "SIMULATION"
+  ],
+  "type": "string",
+  "description": "An enumeration."
+}

@@ -1,0 +1,10 @@
+{
+  "description": "Successful SIPREC session update response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/TexmlUpdateSiprecSessionResponseBody.json"
+      }
+    }
+  }
+}

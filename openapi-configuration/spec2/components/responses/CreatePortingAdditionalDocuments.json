@@ -1,0 +1,31 @@
+{
+  "description": "Successful response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/PortingAdditionalDocument.json"
+            }
+          }
+        },
+        "example": {
+          "data": [
+            {
+              "id": "2acd1061-33cb-49b8-8014-beb6dc3fedbf",
+              "document_id": "40bc547a-7f96-4cd5-926a-da4842671e88",
+              "document_type": "loa",
+              "porting_order_id": "9d7b3b8e-4e67-4837-9c44-d110cd2c82a1",
+              "record_type": "porting_additional_document",
+              "created_at": "2023-06-01T10:00:00.00000Z",
+              "updated_at": "2023-06-01T10:00:00.00000Z"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

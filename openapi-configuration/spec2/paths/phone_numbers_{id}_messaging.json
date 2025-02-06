@@ -1,0 +1,67 @@
+{
+  "get": {
+    "summary": "Retrieve a phone number with messaging settings",
+    "operationId": "GetPhoneNumberMessagingSettings",
+    "tags": [
+      "Number Configurations"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the type of resource.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PhoneNumberWithMessagingSettingsResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update the messaging profile and/or messaging product of a phone number",
+    "operationId": "UpdatePhoneNumberMessagingSettings",
+    "tags": [
+      "Number Configurations"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The phone number to update.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "The new configuration to set for this phone number.\n\nTo avoid modifying a value, either omit the field or set its value to `null`.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdatePhoneNumberMessagingSettingsRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PhoneNumberWithMessagingSettingsResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

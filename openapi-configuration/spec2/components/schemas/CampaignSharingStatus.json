@@ -1,0 +1,26 @@
+{
+  "title": "CampaignSharingStatus",
+  "type": "object",
+  "properties": {
+    "downstreamCnpId": {
+      "title": "Downstreamcnpid",
+      "type": "string"
+    },
+    "sharedDate": {
+      "title": "Shareddate",
+      "type": "string"
+    },
+    "sharingStatus": {
+      "title": "Sharingstatus",
+      "type": "string"
+    },
+    "statusDate": {
+      "title": "Statusdate",
+      "type": "string"
+    },
+    "upstreamCnpId": {
+      "title": "Upstreamcnpid",
+      "type": "string"
+    }
+  }
+}

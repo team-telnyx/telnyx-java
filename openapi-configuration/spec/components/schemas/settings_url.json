@@ -1,0 +1,6 @@
+{
+  "type": "string",
+  "description": "The URL for the identity provider metadata file to populate the settings automatically. If the settings attribute is provided, that will be used instead.",
+  "format": "uri",
+  "example": "https://myorg.myidp.com/saml/metadata"
+}

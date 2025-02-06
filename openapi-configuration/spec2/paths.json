@@ -1,0 +1,29 @@
+{
+  "get": {
+    "tags": [
+      "Bucket"
+    ],
+    "summary": "ListBuckets",
+    "operationId": "ListBuckets",
+    "description": "List all Buckets.",
+    "externalDocs": {
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html"
+    },
+    "responses": {
+      "200": {
+        "description": "Success",
+        "content": {
+          "text/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/ListBucketsResponse"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

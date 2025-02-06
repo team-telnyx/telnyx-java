@@ -1,0 +1,9 @@
+{
+  "name": "filter[notification_profile_id][eq]",
+  "in": "query",
+  "description": "Filter by the id of a notification profile",
+  "schema": {
+    "type": "string",
+    "example": "12455643-3cf1-4683-ad23-1cd32f7d5e0a"
+  }
+}

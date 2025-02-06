@@ -1,0 +1,11 @@
+{
+  "name": "filter[created_after]",
+  "in": "query",
+  "description": "Filter for audit events created after a specific date.",
+  "required": false,
+  "schema": {
+    "type": "string",
+    "format": "date-time",
+    "example": "2021-01-01T00:00:00Z"
+  }
+}

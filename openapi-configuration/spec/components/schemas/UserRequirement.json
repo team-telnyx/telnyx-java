@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "requirement_id": {
+      "type": "string"
+    },
+    "field_value": {
+      "type": "string"
+    },
+    "field_type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "unapproved",
+        "pending-approval",
+        "declined"
+      ]
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

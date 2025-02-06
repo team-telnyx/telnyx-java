@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "title": "Texml Create Call Recording Request Body",
+  "properties": {
+    "PlayBeep": {
+      "$ref": "./PlayBeep.json"
+    },
+    "RecordingStatusCallbackEvent": {
+      "$ref": "./RecordingStatusCallbackEvent.json"
+    },
+    "RecordingStatusCallback": {
+      "$ref": "./TexmlStatusCallback.json"
+    },
+    "RecordingStatusCallbackMethod": {
+      "$ref": "./TexmlStatusCallbackMethod.json"
+    },
+    "RecordingChannels": {
+      "$ref": "./TexmlRecordingChannels.json"
+    },
+    "RecordingTrack": {
+      "$ref": "./RecordingTrack.json"
+    }
+  }
+}

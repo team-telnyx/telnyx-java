@@ -1,0 +1,9 @@
+{
+  "name": "conference_sid",
+  "in": "path",
+  "required": true,
+  "description": "The ConferenceSid that uniquely identifies a conference.",
+  "schema": {
+    "type": "string"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "title": "Transcription start request",
+  "properties": {
+    "transcription_engine": {
+      "description": "Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`.",
+      "type": "string",
+      "enum": [
+        "A",
+        "B"
+      ],
+      "default": "A",
+      "example": "A"
+    },
+    "language": {
+      "oneOf": [
+        {
+          "$ref": "./GoogleTranscriptionLanguage.json"
+        },
+        {
+          "$ref": "./TelnyxTranscriptionLanguage.json"
+        }
+      ],
+      "discriminator": {
+        "propertyName": "transcription_engine",
+        "mapping": {
+          "A": "./GoogleTranscriptionLanguage.json",
+          "B": "./TelnyxTranscriptionLanguage.json"
+        }
+      }
+    },
+    "interim_results": {
+      "type": "boolean",
+      "description": "Whether to send also interim results. If set to false, only final results will be sent. Applies to `google` engine only.",
+      "default": false,
+      "example": true
+    },
+    "enable_speaker_diarization": {
+      "type": "boolean",
+      "description": "Enables speaker diarization. Applies to `google` engine only.",
+      "default": false,
+      "example": true
+    },
+    "min_speaker_count": {
+      "description": "Defines minimum number of speakers in the conversation. Applies to `google` engine only.",
+      "type": "integer",
+      "example": 4,
+      "default": 2,
+      "format": "int32"
+    },
+    "max_speaker_count": {
+      "description": "Defines maximum number of speakers in the conversation. Applies to `google` engine only.",
+      "type": "integer",
+      "example": 4,
+      "default": 6,
+      "format": "int32"
+    },
+    "client_state": {
+      "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    },
+    "transcription_tracks": {
+      "description": "Indicates which leg of the call will be transcribed. Use `inbound` for the leg that requested the transcription, `outbound` for the other leg, and `both` for both legs of the call. Will default to `inbound`.",
+      "type": "string",
+      "example": "both",
+      "default": "inbound"
+    },
+    "command_id": {
+      "description": "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.",
+      "type": "string",
+      "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+    }
+  },
+  "example": {
+    "language": "en",
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+  }
+}

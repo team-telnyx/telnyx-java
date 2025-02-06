@@ -1,0 +1,11 @@
+{
+  "title": "BrandRelationship",
+  "enum": [
+    "BASIC_ACCOUNT",
+    "SMALL_ACCOUNT",
+    "MEDIUM_ACCOUNT",
+    "LARGE_ACCOUNT",
+    "KEY_ACCOUNT"
+  ],
+  "description": "Brand relationship to the CSP."
+}

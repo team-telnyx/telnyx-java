@@ -1,0 +1,54 @@
+{
+  "get": {
+    "summary": "List OTA updates",
+    "operationId": "ListOtaUpdates",
+    "tags": [
+      "OTA updates"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterBasicStatusLifecycle.json"
+      },
+      {
+        "name": "filter[sim_card_id]",
+        "description": "The SIM card identification UUID.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[type]",
+        "description": "Filter by type.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "sim_card_network_preferences"
+          ],
+          "example": "sim_card_network_preferences"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SearchOTAUpdateResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
+      "description": "Identifies the resource.",
+      "readOnly": true
+    },
+    "record_type": {
+      "type": "string",
+      "example": "phone_number_block_job",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "failed"
+      ],
+      "default": "pending",
+      "example": "pending",
+      "description": "Indicates the completion status of the background operation.",
+      "readOnly": true
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "delete_phone_number_block"
+      ],
+      "example": "delete_phone_number_block",
+      "description": "Identifies the type of the background job.",
+      "readOnly": true
+    },
+    "etc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the estimated time of completion of the background job.",
+      "readOnly": true
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "readOnly": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date indicating when the resource was updated.",
+      "readOnly": true
+    },
+    "successful_operations": {
+      "type": "array",
+      "items": {
+        "description": "The phone numbers successfully updated.",
+        "$ref": "./PhoneNumberBlocksJobSuccessfulOperation.json"
+      },
+      "readOnly": true
+    },
+    "failed_operations": {
+      "type": "array",
+      "items": {
+        "$ref": "./PhoneNumberBlocksJobFailedOperation.json"
+      },
+      "readOnly": true
+    }
+  },
+  "example": {
+    "id": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
+    "record_type": "phone_numbers_job",
+    "status": "pending",
+    "type": "delete_phone_number_block",
+    "etc": "2020-10-30T18:10:00.000Z",
+    "created_at": "2020-10-23T18:10:00.000Z",
+    "updated_at": "2020-10-23T18:10:01.000Z",
+    "successful_operations": [],
+    "failed_operations": []
+  }
+}

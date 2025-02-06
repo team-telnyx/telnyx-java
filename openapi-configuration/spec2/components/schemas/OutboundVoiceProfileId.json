@@ -1,0 +1,7 @@
+{
+  "title": "Outbound Voice Profile ID",
+  "type": "string",
+  "description": "Identifies the associated outbound voice profile.",
+  "format": "int64",
+  "example": "1293384261075731499"
+}

@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "phone_number_regulatory_requirement",
+      "readOnly": true
+    },
+    "requirement_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique id for a requirement.",
+      "example": "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576"
+    },
+    "field_type": {
+      "type": "string",
+      "enum": [
+        "textual",
+        "datetime",
+        "address",
+        "document"
+      ],
+      "example": "address",
+      "readOnly": true
+    },
+    "field_value": {
+      "type": "string",
+      "description": "The value of the requirement, this could be an id to a resource or a string value.",
+      "example": "45f45a04-b4be-4592-95b1-9306b9db2b21"
+    }
+  }
+}

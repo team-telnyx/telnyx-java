@@ -1,0 +1,7 @@
+{
+  "title": "Webhook Event URL",
+  "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+  "type": "string",
+  "format": "url",
+  "example": "https://example.com"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Conference Playback Ended Event",
+  "properties": {
+    "data": {
+      "$ref": "./ConferencePlaybackEnded.json"
+    }
+  }
+}

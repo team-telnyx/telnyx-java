@@ -1,0 +1,24 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id"
+    },
+    "object": {
+      "type": "string",
+      "title": "Object"
+    },
+    "deleted": {
+      "type": "boolean",
+      "title": "Deleted"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "object",
+    "deleted"
+  ],
+  "title": "AssistantDeletedResponse",
+  "description": "Aligns with the OpenAI API:\nhttps://platform.openai.com/docs/api-reference/assistants/deleteAssistant"
+}

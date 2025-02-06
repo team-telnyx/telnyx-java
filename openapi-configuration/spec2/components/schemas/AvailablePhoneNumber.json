@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "available_phone_number",
+      "enum": [
+        "available_phone_number"
+      ]
+    },
+    "phone_number": {
+      "type": "string",
+      "example": "+19705555098"
+    },
+    "vanity_format": {
+      "type": "string"
+    },
+    "best_effort": {
+      "type": "boolean",
+      "description": "Specifies whether the phone number is an exact match based on the search criteria or not.",
+      "example": false
+    },
+    "quickship": {
+      "type": "boolean",
+      "description": "Specifies whether the phone number can receive calls immediately after purchase or not.",
+      "example": true
+    },
+    "reservable": {
+      "type": "boolean",
+      "description": "Specifies whether the phone number can be reserved before purchase or not.",
+      "example": true
+    },
+    "region_information": {
+      "type": "array",
+      "items": {
+        "$ref": "./RegionInformation.json"
+      }
+    },
+    "cost_information": {
+      "$ref": "./CostInformation.json"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "$ref": "./Feature.json"
+      }
+    }
+  },
+  "example": {
+    "record_type": "available_phone_number",
+    "phone_number": "+19705555098",
+    "vanity_format": "",
+    "best_effort": false,
+    "quickship": true,
+    "reservable": true,
+    "region_information": [
+      {
+        "region_type": "country_code",
+        "region_name": "US"
+      }
+    ],
+    "cost_information": {
+      "upfront_cost": "3.21",
+      "monthly_cost": "6.54",
+      "currency": "USD"
+    },
+    "features": [
+      {
+        "name": "sms"
+      },
+      {
+        "name": "voice"
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "type",
+  "in": "query",
+  "required": false,
+  "description": "Specifies the type of number lookup to be performed",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "carrier",
+      "caller-name"
+    ]
+  }
+}

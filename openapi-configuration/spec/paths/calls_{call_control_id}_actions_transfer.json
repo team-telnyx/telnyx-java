@@ -1,0 +1,213 @@
+{
+  "post": {
+    "summary": "Transfer call",
+    "description": "Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.\n\n**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/transfer-call#callbacks) below):**\n\n- `call.initiated`\n- `call.bridged` to Leg B\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting\n- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested\n- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected\n",
+    "operationId": "TransferCall",
+    "tags": [
+      "Call Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/CallControlId.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Transfer call request",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/TransferCallRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CallControlCommandResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "callbacks": {
+      "callInitiated": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Call transfer callbacks",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallInitiatedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "callBridged": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Call transfer call bridged",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallBridgedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "callAnswered": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Call transfer call answered",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallAnsweredEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "callHangup": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Call transfer call hangup",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallHangupEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "callMachinePremiumDetectionEnded": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Call transfer call machine premium detection ended",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallMachinePremiumDetectionEndedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "callMachinePremiumGreetingEnded": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Call transfer call machine premium greeting ended",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallMachinePremiumGreetingEndedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "callMachineDetectionEnded": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Call transfer call machine detection ended",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallMachineDetectionEndedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "callMachineGreetingEnded": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Call transfer call machine greeting ended",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/CallMachineGreetingEndedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "filter[phone_number][eq]",
+  "in": "query",
+  "description": "The phone number to filter by",
+  "schema": {
+    "type": "string",
+    "format": "E164",
+    "example": "+1234567890"
+  }
+}

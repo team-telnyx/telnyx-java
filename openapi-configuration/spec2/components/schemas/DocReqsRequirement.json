@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "description": "Identifies the type of the resource.",
+      "type": "string",
+      "readOnly": true,
+      "example": "requirement"
+    },
+    "country_code": {
+      "description": "The 2-character (ISO 3166-1 alpha-2) country code where this requirement applies",
+      "type": "string",
+      "readOnly": false,
+      "example": "FR"
+    },
+    "locality": {
+      "description": "The locality where this requirement applies",
+      "type": "string",
+      "readOnly": false,
+      "example": "Nice"
+    },
+    "phone_number_type": {
+      "description": "Indicates the phone_number_type this requirement applies to. Leave blank if this requirement applies to all number_types.",
+      "type": "string",
+      "enum": [
+        "local",
+        "national",
+        "toll_free"
+      ],
+      "readOnly": false,
+      "example": "local"
+    },
+    "action": {
+      "description": "Indicates whether this requirement applies to ordering, porting, or both",
+      "type": "string",
+      "enum": [
+        "both",
+        "ordering",
+        "porting"
+      ],
+      "readOnly": false,
+      "example": "ordering"
+    },
+    "requirements_types": {
+      "description": "Lists the requirement types necessary to fulfill this requirement",
+      "type": "array",
+      "items": {
+        "$ref": "./DocReqsRequirementType.json"
+      },
+      "readOnly": true
+    },
+    "id": {
+      "description": "Identifies the associated document",
+      "type": "string",
+      "format": "uuid",
+      "readOnly": true,
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was created.",
+      "readOnly": true,
+      "example": "2021-04-09T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was last updated.",
+      "readOnly": true,
+      "example": "2021-04-12T20:20:20.020Z"
+    }
+  }
+}

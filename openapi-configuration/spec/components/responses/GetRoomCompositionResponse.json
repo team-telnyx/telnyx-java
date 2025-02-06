@@ -1,0 +1,15 @@
+{
+  "description": "Get room composition response.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/RoomComposition.json"
+          }
+        }
+      }
+    }
+  }
+}

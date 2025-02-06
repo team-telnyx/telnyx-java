@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "title": "SIMCardDeviceDetails",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "device_details",
+      "readOnly": true
+    },
+    "imei": {
+      "type": "string",
+      "description": "IMEI of the device where the SIM card is being used in.",
+      "format": "int64",
+      "example": "457032284023794",
+      "readOnly": true
+    },
+    "model_name": {
+      "type": "string",
+      "description": "Brand of the device where the SIM card is being used in.",
+      "example": "iPad Pro 11 2020 Cellular",
+      "readOnly": true
+    },
+    "brand_name": {
+      "type": "string",
+      "description": "Brand of the device where the SIM card is being used in.",
+      "example": "Apple",
+      "readOnly": true
+    },
+    "device_type": {
+      "type": "string",
+      "description": "Type of the device where the SIM card is being used in.",
+      "example": "Tablet",
+      "readOnly": true
+    },
+    "operating_system": {
+      "type": "string",
+      "description": "Operating system of the device where the SIM card is being used in.",
+      "example": "iOS 12",
+      "readOnly": true
+    }
+  }
+}

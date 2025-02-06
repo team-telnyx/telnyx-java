@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "nullable": false,
+  "required": [
+    "message_count",
+    "inbound_outbound_ratio",
+    "success_ratio",
+    "spam_ratio"
+  ],
+  "description": "High level health metrics about the number and it's messaging sending patterns.\n",
+  "properties": {
+    "message_count": {
+      "type": "integer",
+      "description": "The number of messages analyzed for the health metrics."
+    },
+    "inbound_outbound_ratio": {
+      "type": "number",
+      "format": "float",
+      "description": "The ratio of messages received to the number of messages sent."
+    },
+    "success_ratio": {
+      "type": "number",
+      "format": "float",
+      "description": "The ratio of messages sucessfully delivered to the number of messages attempted."
+    },
+    "spam_ratio": {
+      "type": "number",
+      "format": "float",
+      "description": "The ratio of messages blocked for spam to the number of messages attempted."
+    }
+  },
+  "example": {
+    "message_count": 10,
+    "inbound_outbound_ratio": 1,
+    "success_ratio": 2,
+    "spam_ratio": 10
+  }
+}

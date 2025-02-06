@@ -1,0 +1,94 @@
+{
+  "get": {
+    "x-latency-category": "background",
+    "operationId": "ListDataUsageNotifications",
+    "summary": "List SIM card data usage notifications",
+    "description": "Lists a paginated collection of SIM card data usage notifications. It enables exploring the collection using specific filters.",
+    "tags": [
+      "SIM Cards"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterSIMCardId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SimCardDataUsageNotificationCollectionResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "PostSimCardDataUsageNotification",
+    "summary": "Create a new SIM card data usage notification",
+    "description": "Creates a new SIM card data usage notification.",
+    "tags": [
+      "SIM Cards"
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "sim_card_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "The identification UUID of the related SIM card resource.",
+                "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+              },
+              "threshold": {
+                "type": "object",
+                "description": "Data usage threshold that will trigger the notification.",
+                "properties": {
+                  "amount": {
+                    "type": "string",
+                    "format": "decimal",
+                    "example": "2048.1"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "example": "MB",
+                    "enum": [
+                      "MB",
+                      "GB"
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "sim_card_id",
+              "threshold"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/CreateSimCardDataUsageNotificationResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

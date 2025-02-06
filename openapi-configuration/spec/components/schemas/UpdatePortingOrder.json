@@ -1,0 +1,62 @@
+{
+  "type": "object",
+  "title": "UpdatePortingOrder",
+  "properties": {
+    "misc": {
+      "$ref": "./PortingOrderMisc.json"
+    },
+    "end_user": {
+      "$ref": "./PortingOrderEndUser.json"
+    },
+    "documents": {
+      "$ref": "./PortingOrderDocuments.json"
+    },
+    "activation_settings": {
+      "type": "object",
+      "properties": {
+        "foc_datetime_requested": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 formatted Date/Time requested for the FOC date",
+          "example": "2021-03-19T10:07:15.527Z"
+        }
+      }
+    },
+    "phone_number_configuration": {
+      "$ref": "./PortingOrderPhoneNumberConfiguration.json"
+    },
+    "requirement_group_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "If present, we will read the current values from the specified Requirement Group into the Documents and Requirements for this Porting Order. Note that any future changes in the Requirement Group would have no impact on this Porting Order. We will return an error if a specified Requirement Group conflicts with documents or requirements in the same request.",
+      "example": "DE748D99-06FA-4D90-9F9A-F4B62696BADA"
+    },
+    "requirements": {
+      "type": "array",
+      "description": "List of requirements for porting numbers. ",
+      "items": {
+        "$ref": "./UpdatePortingOrderRequirement.json"
+      }
+    },
+    "user_feedback": {
+      "$ref": "./PortingOrderUserFeedback.json"
+    },
+    "webhook_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "customer_reference": {
+      "type": "string"
+    },
+    "messaging": {
+      "type": "object",
+      "properties": {
+        "enable_messaging": {
+          "type": "boolean",
+          "description": "Indicates whether Telnyx will port messaging capabilities from the losing carrier. If false, any messaging capabilities will stay with their current provider.",
+          "example": true
+        }
+      }
+    }
+  }
+}

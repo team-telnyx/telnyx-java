@@ -1,0 +1,74 @@
+{
+  "get": {
+    "tags": [
+      "Fine Tuning"
+    ],
+    "summary": "List fine tuning jobs",
+    "description": "Retrieve a list of all fine tuning jobs created by the user.",
+    "operationId": "get_finetuningjob_public_finetuning_get",
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/FineTuningJobsListData.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "tags": [
+      "Fine Tuning"
+    ],
+    "summary": "Create a fine tuning job",
+    "description": "Create a new fine tuning job.",
+    "operationId": "create_new_finetuningjob_public_finetuning_post",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateFineTuningJobRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/FineTuningJob.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

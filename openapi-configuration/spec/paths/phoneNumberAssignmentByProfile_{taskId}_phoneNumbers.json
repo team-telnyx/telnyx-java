@@ -1,0 +1,55 @@
+{
+  "get": {
+    "tags": [
+      "Bulk Phone Number Campaigns"
+    ],
+    "summary": "Get Phone Number Status",
+    "operationId": "GetPhoneNumberStatus",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Taskid",
+          "type": "string"
+        },
+        "name": "taskId",
+        "in": "path"
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "Recordsperpage",
+          "default": 20
+        },
+        "name": "recordsPerPage",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "Page",
+          "default": 1
+        },
+        "name": "page",
+        "in": "query"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/PhoneNumberStatusResponsePaginated.json"
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "description": "Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.",
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "title": "CampaignRecordSetCSP",
+  "type": "object",
+  "properties": {
+    "records": {
+      "title": "Records",
+      "type": "array",
+      "items": {
+        "$ref": "./CampaignCSP.json"
+      }
+    },
+    "page": {
+      "title": "Page",
+      "type": "integer",
+      "example": 1
+    },
+    "totalRecords": {
+      "title": "Totalrecords",
+      "type": "integer",
+      "example": 1
+    }
+  }
+}

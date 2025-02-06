@@ -1,0 +1,31 @@
+{
+  "get": {
+    "parameters": [
+      {
+        "name": "country_code",
+        "in": "path",
+        "description": "Country ISO code.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "US"
+        }
+      }
+    ],
+    "summary": "Get coverage for a specific country",
+    "description": "Get coverage for a specific country",
+    "operationId": "retreiveSpecificCountryCoverage",
+    "tags": [
+      "Country Coverage"
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SpecificCountryResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

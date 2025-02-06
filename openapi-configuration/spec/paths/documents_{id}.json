@@ -1,0 +1,164 @@
+{
+  "delete": {
+    "summary": "Delete a document",
+    "deprecated": false,
+    "description": "Delete a document.<br /><br />A document can only be deleted if it's not linked to a service. If it is linked to a service, it must be unlinked prior to deleting.",
+    "operationId": "DeleteDocument",
+    "tags": [
+      "Documents"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the resource.",
+        "required": true,
+        "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+        "schema": {
+          "format": "uuid",
+          "type": "string",
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/DocServiceDocument.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "summary": "Retrieve a document",
+    "deprecated": false,
+    "description": "Retrieve a document.",
+    "operationId": "RetrieveDocument",
+    "tags": [
+      "Documents"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the resource.",
+        "required": true,
+        "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+        "schema": {
+          "format": "uuid",
+          "type": "string",
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/DocServiceDocument.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update a document",
+    "deprecated": false,
+    "description": "Update a document.",
+    "operationId": "UpdateDocument",
+    "tags": [
+      "Documents"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the resource.",
+        "required": true,
+        "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+        "schema": {
+          "format": "uuid",
+          "type": "string",
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/DocServiceDocument.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/DocServiceDocument.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

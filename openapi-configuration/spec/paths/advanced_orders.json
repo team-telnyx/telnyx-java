@@ -1,0 +1,52 @@
+{
+  "get": {
+    "summary": "List Advanced Orders",
+    "tags": [
+      "Advanced Number Orders"
+    ],
+    "operationId": "list_advanced_orders_v2",
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/responses/ListAdvancedOrderResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create Advanced Order",
+    "operationId": "create_advanced_order_v2",
+    "tags": [
+      "Advanced Number Orders"
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/AdvancedOrderRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/responses/AdvancedOrderResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

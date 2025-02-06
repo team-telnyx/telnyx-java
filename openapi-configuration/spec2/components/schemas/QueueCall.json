@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "title": "QueueCall",
+  "required": [
+    "call_control_id",
+    "call_leg_id",
+    "call_session_id",
+    "is_alive",
+    "record_type",
+    "connection_id",
+    "from",
+    "to",
+    "enqueued_at",
+    "wait_time_secs",
+    "queue_position",
+    "queue_id"
+  ],
+  "example": {
+    "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+    "call_leg_id": "2dc6fc34-f9e0-11ea-b68e-02420a0f7768",
+    "call_session_id": "2dc1b3c8-f9e0-11ea-bc5a-02420a0f7768",
+    "record_type": "queue_call",
+    "connection_id": "7267xxxxxxxxxxxxxx",
+    "from": "+18005550101",
+    "to": "+18005550102",
+    "enqueued_at": "2019-01-23T18:10:02.574Z",
+    "wait_time_secs": 145,
+    "queue_position": 3,
+    "queue_id": "ae1626cc-6f42-11ea-becd-02420a0f8b69"
+  },
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "queue_call"
+      ],
+      "example": "queue_call"
+    },
+    "call_session_id": {
+      "description": "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call",
+      "type": "string",
+      "example": "428c31b6-7af4-4bcb-b68e-5013ef9657c1"
+    },
+    "call_leg_id": {
+      "description": "ID that is unique to the call and can be used to correlate webhook events",
+      "type": "string",
+      "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1"
+    },
+    "call_control_id": {
+      "description": "Unique identifier and token for controlling the call.",
+      "type": "string",
+      "example": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+    },
+    "connection_id": {
+      "type": "string",
+      "example": "7267xxxxxxxxxxxxxx",
+      "description": "Call Control App ID (formerly Telnyx connection ID) used in the call."
+    },
+    "from": {
+      "type": "string",
+      "example": "+35319605860",
+      "description": "Number or SIP URI placing the call."
+    },
+    "to": {
+      "type": "string",
+      "example": "+13129457420",
+      "description": "Destination number or SIP URI of the call."
+    },
+    "enqueued_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the call was put in the queue",
+      "example": "2019-01-23T18:10:02.574Z"
+    },
+    "wait_time_secs": {
+      "type": "integer",
+      "description": "The time the call has been waiting in the queue, given in seconds",
+      "example": 272
+    },
+    "queue_position": {
+      "type": "integer",
+      "description": "Current position of the call in the queue",
+      "example": 3
+    },
+    "queue_id": {
+      "type": "string",
+      "description": "Unique identifier of the queue the call is in.",
+      "example": "ae1626cc-6f42-11ea-becd-02420a0f8b69"
+    }
+  }
+}

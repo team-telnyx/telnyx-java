@@ -1,0 +1,15 @@
+{
+  "description": "Successful response with information about a single managed account.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/ManagedAccount.json"
+          }
+        }
+      }
+    }
+  }
+}

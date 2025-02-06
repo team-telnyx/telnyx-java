@@ -1,0 +1,9 @@
+{
+  "name": "filter[customer_reference][eq]",
+  "in": "query",
+  "required": false,
+  "description": "Filter addresses via the customer reference set. Matching is not case-sensitive.",
+  "schema": {
+    "type": "string"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "post": {
+    "summary": "Extend a number reservation",
+    "description": "Extends reservation expiry time on all phone numbers.",
+    "operationId": "ExtendNumberReservationExpiryTime",
+    "tags": [
+      "Phone Number Reservations"
+    ],
+    "parameters": [
+      {
+        "name": "number_reservation_id",
+        "in": "path",
+        "description": "The number reservation ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/NumberReservationResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

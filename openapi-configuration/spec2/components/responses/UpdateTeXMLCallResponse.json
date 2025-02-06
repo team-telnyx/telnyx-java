@@ -1,0 +1,16 @@
+{
+  "description": "Successful response upon updating a TeXML call.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "TeXML REST Command Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/UpdateCommandResult.json"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "filter[porting_order_id]",
+  "in": "query",
+  "description": "Filter results by porting order id",
+  "schema": {
+    "type": "string",
+    "format": "uuid",
+    "example": "f3575e15-32ce-400e-a4c0-dd78800c20b0"
+  }
+}

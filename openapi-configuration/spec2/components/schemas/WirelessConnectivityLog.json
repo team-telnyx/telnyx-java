@@ -1,0 +1,118 @@
+{
+  "type": "object",
+  "title": "WirelessConnectivityLog",
+  "description": "This object represents a wireless connectivity session log that happened through a SIM card. It aids in finding out potential problems when the SIM is not able to attach properly.",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "wireless_connectivity_log",
+      "readOnly": true
+    },
+    "id": {
+      "type": "integer",
+      "example": 137509451,
+      "description": "Uniquely identifies the session.",
+      "readOnly": true
+    },
+    "sim_card_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The identification UUID of the related SIM card resource.",
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "log_type": {
+      "type": "string",
+      "enum": [
+        "registration",
+        "data"
+      ],
+      "example": "registration",
+      "description": "The type of the session, 'registration' being the initial authentication session and 'data' the actual data transfer sessions.",
+      "readOnly": true
+    },
+    "imsi": {
+      "type": "string",
+      "description": "SIM cards are identified on their individual network operators by a unique International Mobile Subscriber Identity (IMSI). <br/>\nMobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR).\n",
+      "readOnly": true,
+      "example": "081932214823362973"
+    },
+    "imei": {
+      "type": "string",
+      "description": "The International Mobile Equipment Identity (or IMEI) is a number, usually unique, that identifies the device currently being used connect to the network.",
+      "readOnly": true,
+      "example": "490154203237518"
+    },
+    "mobile_country_code": {
+      "type": "string",
+      "description": "It's a three decimal digit that identifies a country.<br/><br/>\nThis code is commonly seen joined with a Mobile Network Code (MNC) in a tuple that allows identifying a carrier known as PLMN (Public Land Mobile Network) code.",
+      "readOnly": true,
+      "example": "310"
+    },
+    "mobile_network_code": {
+      "type": "string",
+      "description": "It's a two to three decimal digits that identify a network.<br/><br/>\n This code is commonly seen joined with a Mobile Country Code (MCC) in a tuple that allows identifying a carrier known as PLMN (Public Land Mobile Network) code.",
+      "readOnly": true,
+      "example": "410"
+    },
+    "start_time": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the session started.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "stop_time": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the session ended.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the record was created.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "last_seen": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the last heartbeat to the device was successfully recorded.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "apn": {
+      "type": "string",
+      "description": "The Access Point Name (APN) identifies the packet data network that a mobile data user wants to communicate with.",
+      "readOnly": true,
+      "example": "data00.telnyx"
+    },
+    "ipv4": {
+      "type": "string",
+      "description": "The SIM's address in the currently connected network. This IPv4 address is usually obtained dynamically, so it may vary according to the location or new connections.\n",
+      "readOnly": true,
+      "example": "192.168.0.0"
+    },
+    "ipv6": {
+      "type": "string",
+      "description": "The SIM's address in the currently connected network. This IPv6 address is usually obtained dynamically, so it may vary according to the location or new connections.\n",
+      "readOnly": true,
+      "example": "2001:cdba:0000:0000:0000:0000:3257:9652"
+    },
+    "radio_access_technology": {
+      "type": "string",
+      "description": "The radio technology the SIM card used during the session.",
+      "readOnly": true,
+      "example": "LTE"
+    },
+    "state": {
+      "type": "string",
+      "description": "The state of the SIM card after when the session happened.",
+      "readOnly": true,
+      "example": "provisioned"
+    },
+    "cell_id": {
+      "type": "string",
+      "description": "The cell ID to which the SIM connected.",
+      "readOnly": true,
+      "example": "311210-6813"
+    }
+  }
+}

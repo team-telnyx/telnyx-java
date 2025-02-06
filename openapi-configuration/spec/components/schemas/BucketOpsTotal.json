@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "bytes_sent": {
+      "type": "integer",
+      "description": "The number of bytes sent",
+      "example": 123456
+    },
+    "bytes_received": {
+      "type": "integer",
+      "description": "The number of bytes received",
+      "example": 123456
+    },
+    "ops": {
+      "type": "integer",
+      "description": "The number of operations",
+      "example": 123456
+    },
+    "successful_ops": {
+      "type": "integer",
+      "description": "The number of successful operations",
+      "example": 123456
+    }
+  }
+}

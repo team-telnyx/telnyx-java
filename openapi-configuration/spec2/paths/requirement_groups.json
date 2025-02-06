@@ -1,0 +1,174 @@
+{
+  "get": {
+    "summary": "List requirement groups",
+    "operationId": "GetRequirementGroups",
+    "tags": [
+      "Requirement Groups"
+    ],
+    "parameters": [
+      {
+        "name": "filter[country_code]",
+        "in": "query",
+        "description": "Filter requirement groups by country code (iso alpha 2)",
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "generic": {
+            "value": "FR"
+          }
+        }
+      },
+      {
+        "name": "filter[phone_number_type]",
+        "in": "query",
+        "description": "Filter requirement groups by phone number type.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "local",
+            "toll_free",
+            "mobile",
+            "national",
+            "shared_cost"
+          ]
+        }
+      },
+      {
+        "name": "filter[action]",
+        "in": "query",
+        "description": "Filter requirement groups by action type",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "ordering",
+            "porting",
+            "action"
+          ]
+        }
+      },
+      {
+        "name": "filter[status]",
+        "in": "query",
+        "description": "Filter requirement groups by status",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "approved",
+            "unapproved",
+            "pending-approval",
+            "declined"
+          ]
+        }
+      },
+      {
+        "name": "filter[customer_reference]",
+        "in": "query",
+        "description": "Filter requirement groups by customer reference",
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "generic": {
+            "value": "12345"
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "List requirement groups",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "../components/schemas/RequirementGroup.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create a new requirement group",
+    "operationId": "CreateRequirementGroup",
+    "tags": [
+      "Requirement Groups"
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "country_code": {
+                "type": "string",
+                "description": "ISO alpha 2 country code",
+                "example": "US"
+              },
+              "phone_number_type": {
+                "type": "string",
+                "enum": [
+                  "local",
+                  "toll_free",
+                  "mobile",
+                  "national",
+                  "shared_cost"
+                ],
+                "example": "local"
+              },
+              "action": {
+                "type": "string",
+                "enum": [
+                  "ordering",
+                  "porting"
+                ],
+                "example": "ordering"
+              },
+              "customer_reference": {
+                "type": "string",
+                "example": "My Requirement Group"
+              },
+              "regulatory_requirements": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "requirement_id": {
+                      "type": "string"
+                    },
+                    "field_value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "country_code",
+              "phone_number_type",
+              "action"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Requirement group created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/RequirementGroup.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

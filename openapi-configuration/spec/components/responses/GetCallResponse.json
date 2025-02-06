@@ -1,0 +1,10 @@
+{
+  "description": "Call resource.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/CallResource.json"
+      }
+    }
+  }
+}

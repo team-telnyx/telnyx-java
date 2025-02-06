@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "data": {
+      "$ref": "./SummaryResponse.json"
+    }
+  },
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "title": "SummaryResponseData"
+}

@@ -1,0 +1,103 @@
+{
+  "allOf": [
+    {
+      "$ref": "./Record.json"
+    },
+    {
+      "$ref": "./Interface.json"
+    },
+    {
+      "type": "object",
+      "title": "VirtualCrossConnect",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "virtual_cross_connect"
+        },
+        "cloud_provider": {
+          "type": "string",
+          "enum": [
+            "aws",
+            "azure",
+            "gce"
+          ],
+          "description": "The Virtual Private Cloud with which you would like to establish a cross connect.",
+          "example": "aws"
+        },
+        "cloud_provider_region": {
+          "type": "string",
+          "description": "The region where your Virtual Private Cloud hosts are located.<br /><br />The available regions can be found using the /virtual_cross_connect_regions endpoint.",
+          "example": "us-east-1"
+        },
+        "bgp_asn": {
+          "type": "number",
+          "description": "The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value will be assigned by Telnyx.",
+          "example": 1234
+        },
+        "bandwidth_mbps": {
+          "type": "number",
+          "description": "The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.<br /><br />The available bandwidths can be found using the /virtual_cross_connect_regions endpoint.",
+          "example": 50
+        },
+        "primary_enabled": {
+          "type": "boolean",
+          "description": "Indicates whether the primary circuit is enabled. Setting this to `false` will disable the circuit.",
+          "example": true,
+          "readOnly": true
+        },
+        "primary_cloud_account_id": {
+          "type": "string",
+          "description": "The identifier for your Virtual Private Cloud. The number will be different based upon your Cloud provider.",
+          "example": "123456789012"
+        },
+        "primary_telnyx_ip": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "The IP address assigned to the Telnyx side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.",
+          "example": "169.254.0.1"
+        },
+        "primary_cloud_ip": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.",
+          "example": "169.254.0.2"
+        },
+        "primary_bgp_key": {
+          "type": "string",
+          "description": "The authentication key for BGP peer configuration.",
+          "example": "yFV4wEPtPVPfDUGLWiyQzwga"
+        },
+        "secondary_enabled": {
+          "type": "boolean",
+          "description": "Indicates whether the secondary circuit is enabled. Setting this to `false` will disable the circuit.",
+          "example": true,
+          "readOnly": true
+        },
+        "secondary_cloud_account_id": {
+          "type": "string",
+          "description": "The identifier for your Virtual Private Cloud. The number will be different based upon your Cloud provider.<br /><br />This attribute is only necessary for GCE.",
+          "example": ""
+        },
+        "secondary_telnyx_ip": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "The IP address assigned to the Telnyx side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.",
+          "example": "169.254.0.3"
+        },
+        "secondary_cloud_ip": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.",
+          "example": "169.254.0.4"
+        },
+        "secondary_bgp_key": {
+          "type": "string",
+          "description": "The authentication key for BGP peer configuration.",
+          "example": "ge1lONeK9RcA83uuWaw9DvZy"
+        }
+      }
+    }
+  ]
+}

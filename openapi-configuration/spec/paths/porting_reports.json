@@ -1,0 +1,78 @@
+{
+  "get": {
+    "tags": [
+      "Porting Orders"
+    ],
+    "summary": "List porting related reports",
+    "description": "List the reports generated about porting operations.",
+    "operationId": "ListPortingReports",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filter[report_type]",
+        "in": "query",
+        "description": "Filter reports of a specific type",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "export_porting_orders_csv"
+          ],
+          "example": "export_porting_orders_csv"
+        }
+      },
+      {
+        "name": "filter[status]",
+        "in": "query",
+        "description": "Filter reports of a specific status",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "completed"
+          ],
+          "example": "completed"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPortingReports.json"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "tags": [
+      "Porting Orders"
+    ],
+    "summary": "Create a porting related report",
+    "description": "Generate reports about porting operations.",
+    "operationId": "CreatePortingReport",
+    "requestBody": {
+      "$ref": "../components/requestBodies/CreatePortingReport.json"
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/CreatePortingReport.json"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

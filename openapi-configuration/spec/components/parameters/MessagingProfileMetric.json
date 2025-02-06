@@ -1,0 +1,10 @@
+{
+  "name": "id",
+  "in": "query",
+  "description": "The id of the messaging profile(s) to retrieve",
+  "required": false,
+  "schema": {
+    "type": "string",
+    "format": "uuid"
+  }
+}

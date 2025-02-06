@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Transcription Event",
+  "properties": {
+    "data": {
+      "$ref": "./Transcription.json"
+    }
+  }
+}

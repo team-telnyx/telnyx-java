@@ -1,0 +1,29 @@
+{
+  "get": {
+    "summary": "Retrieve a comment",
+    "operationId": "RetrieveComment",
+    "tags": [
+      "Phone Number Orders"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The comment ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CommentResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

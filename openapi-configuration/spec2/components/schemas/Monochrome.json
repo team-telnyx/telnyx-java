@@ -1,0 +1,5 @@
+{
+  "description": "The flag to enable monochrome, true black and white fax results.",
+  "type": "boolean",
+  "default": false
+}

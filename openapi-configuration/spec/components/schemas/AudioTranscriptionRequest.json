@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "properties": {
+    "file": {
+      "description": "The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with `file_url`",
+      "type": "string",
+      "format": "binary"
+    },
+    "file_url": {
+      "description": "Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`",
+      "type": "string",
+      "example": "https://example.com/file.mp3"
+    },
+    "model": {
+      "description": "ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency.",
+      "example": "distil-whisper/distil-large-v2",
+      "default": "distil-whisper/distil-large-v2",
+      "type": "string",
+      "enum": [
+        "distil-whisper/distil-large-v2",
+        "openai/whisper-large-v3-turbo"
+      ]
+    },
+    "response_format": {
+      "description": "The format of the transcript output. Use `verbose_json` to take advantage of timestamps.",
+      "example": "json",
+      "type": "string",
+      "default": "json",
+      "enum": [
+        "json",
+        "verbose_json"
+      ]
+    },
+    "timestamp_granularities[]": {
+      "description": "The timestamp granularities to populate for this transcription. `response_format` must be set verbose_json to use timestamp granularities. Currently `segment` is supported.",
+      "example": "json",
+      "type": "string",
+      "enum": [
+        "segment"
+      ]
+    }
+  },
+  "required": [
+    "model"
+  ]
+}

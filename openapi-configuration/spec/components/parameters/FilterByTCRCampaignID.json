@@ -1,0 +1,9 @@
+{
+  "name": "filter[tcr_campaign_id]",
+  "in": "query",
+  "description": "Filter results by the TCR Campaign id",
+  "schema": {
+    "type": "string",
+    "example": "CAMPID3"
+  }
+}

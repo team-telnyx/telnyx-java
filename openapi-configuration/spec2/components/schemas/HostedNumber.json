@@ -1,0 +1,37 @@
+{
+  "example": [
+    {
+      "record_type": "messaging_hosted_number",
+      "id": "bf6307bd-884d-4c1f-b6ea-c62b8c495d3c",
+      "phone_number": "+18665550001",
+      "status": "successful"
+    }
+  ],
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "messaging_hosted_number"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the type of resource.",
+      "readOnly": true
+    },
+    "phone_number": {
+      "type": "string",
+      "format": "+E.164",
+      "description": "The messaging hosted phone number (+E.164 format)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "deleted",
+        "failed",
+        "pending",
+        "successful"
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Uniquely identifies this phone number configuration",
+      "format": "uuid",
+      "example": "eef3340b-8903-4466-b445-89b697315a3a"
+    },
+    "user_bundle_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the associated user bundle",
+      "example": "daa4308e-742f-4867-97f2-3073db13319a"
+    },
+    "porting_phone_number_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the associated porting phone number",
+      "example": "f1486bae-f067-460c-ad43-73a92848f902"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "porting_phone_number_configuration",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2021-03-19T10:07:15.527000Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was updated.",
+      "example": "2021-03-19T10:07:15.527000Z"
+    }
+  }
+}

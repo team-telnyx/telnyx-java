@@ -1,0 +1,17 @@
+{
+  "title": "AccessIPAddressPOST",
+  "required": [
+    "ip_address"
+  ],
+  "type": "object",
+  "properties": {
+    "ip_address": {
+      "title": "Ip Address",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    }
+  }
+}

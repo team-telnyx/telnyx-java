@@ -1,0 +1,5 @@
+{
+  "description": "AWS credentials access key id.",
+  "type": "string",
+  "example": "AKIAIOSFODNN7EXAMPLE"
+}

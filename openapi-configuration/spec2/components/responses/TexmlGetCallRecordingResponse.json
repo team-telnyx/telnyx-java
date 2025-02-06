@@ -1,0 +1,10 @@
+{
+  "description": "Retrieves call recording resource.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/TexmlGetCallRecordingResponseBody.json"
+      }
+    }
+  }
+}

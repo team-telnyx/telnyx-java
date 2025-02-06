@@ -1,0 +1,30 @@
+{
+  "get": {
+    "summary": "Retrieve a conference",
+    "description": "Retrieve an existing conference",
+    "operationId": "RetrieveConference",
+    "tags": [
+      "Conference Commands"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Uniquely identifies the conference by id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ConferenceResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

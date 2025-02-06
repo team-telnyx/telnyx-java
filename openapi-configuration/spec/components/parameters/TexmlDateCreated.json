@@ -1,0 +1,11 @@
+{
+  "name": "DateCreated",
+  "in": "query",
+  "required": false,
+  "description": "Filters recording by the creation date. Expected format is ISO8601 date or date-time, ie. {YYYY}-{MM}-{DD} or {YYYY}-{MM}-{DD}T{hh}:{mm}:{ss}Z. Also accepts inequality operators, e.g. DateCreated>=2023-05-22.",
+  "schema": {
+    "type": "string",
+    "format": "datetime-iso8601",
+    "example": "2023-05-22"
+  }
+}

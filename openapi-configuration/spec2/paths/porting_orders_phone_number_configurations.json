@@ -1,0 +1,164 @@
+{
+  "get": {
+    "summary": "List all phone number configurations",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Returns a list of phone number configurations paginated.",
+    "operationId": "ListPhoneNumberConfigurations",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterByPortingOrderID.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterByPortingOrderIdIn.json"
+      },
+      {
+        "name": "filter[porting_order.status]",
+        "in": "query",
+        "description": "Filter results by a specific porting order status",
+        "schema": {
+          "type": "string",
+          "example": "foc-date-confirmed",
+          "enum": [
+            "activation-in-progress",
+            "cancel-pending",
+            "cancelled",
+            "draft",
+            "exception",
+            "foc-date-confirmed",
+            "in-process",
+            "ported",
+            "submitted"
+          ]
+        }
+      },
+      {
+        "name": "filter[porting_order.status][in][]",
+        "in": "query",
+        "description": "Filter results by specific porting order statuses",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "in-process",
+              "submitted"
+            ],
+            "enum": [
+              "activation-in-progress",
+              "cancel-pending",
+              "cancelled",
+              "draft",
+              "exception",
+              "foc-date-confirmed",
+              "in-process",
+              "ported",
+              "submitted"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter[porting_phone_number]",
+        "in": "query",
+        "description": "Filter results by a specific porting phone number ID",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "5d6f7ede-1961-4717-bfb5-db392c5efc2d"
+        }
+      },
+      {
+        "name": "filter[porting_phone_number][in][]",
+        "in": "query",
+        "description": "Filter results by a list of porting phone number IDs",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid",
+            "example": "5d6f7ede-1961-4717-bfb5-db392c5efc2d"
+          }
+        }
+      },
+      {
+        "name": "filter[user_bundle_id]",
+        "in": "query",
+        "description": "Filter results by a specific user bundle ID",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "5d6f7ede-1961-4717-bfb5-db392c5efc2d"
+        }
+      },
+      {
+        "name": "filter[user_bundle_id][in][]",
+        "in": "query",
+        "description": "Filter results by a list of user bundle IDs",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid",
+            "example": "5d6f7ede-1961-4717-bfb5-db392c5efc2d"
+          }
+        }
+      },
+      {
+        "name": "sort[]",
+        "in": "query",
+        "description": "Specifies the sort order for results. If not given, results are sorted by created_at in descending order.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "created_at",
+            "-created_at"
+          ],
+          "example": "created_at"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPortingPhoneNumberConfigurations.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create a list of phone number configurations",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Creates a list of phone number configurations.",
+    "operationId": "CreatePhoneNumberConfigurations",
+    "requestBody": {
+      "$ref": "../components/requestBodies/CreatePortingPhoneNumberConfigurations.json"
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/CreatePortingPhoneNumberConfigurations.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

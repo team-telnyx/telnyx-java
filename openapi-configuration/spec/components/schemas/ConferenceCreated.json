@@ -1,0 +1,84 @@
+{
+  "type": "object",
+  "title": "Conference Created",
+  "example": {
+    "record_type": "event",
+    "event_type": "conference.created",
+    "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+    "occurred_at": "2018-02-02T22:25:27.521992Z",
+    "payload": {
+      "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+      "connection_id": "7267xxxxxxxxxxxxxx",
+      "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+      "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+      "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+      "conference_id": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+      "occured_at": "2018-02-02T22:25:27.521Z"
+    }
+  },
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "event",
+      "enum": [
+        "event"
+      ],
+      "description": "Identifies the type of the resource."
+    },
+    "event_type": {
+      "type": "string",
+      "example": "conference.created",
+      "enum": [
+        "conference.created"
+      ],
+      "description": "The type of event being delivered."
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+      "description": "Identifies the type of resource."
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "call_control_id": {
+          "type": "string",
+          "example": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+          "description": "Call ID used to issue commands via Call Control API."
+        },
+        "connection_id": {
+          "type": "string",
+          "example": "7267xxxxxxxxxxxxxx",
+          "description": "Call Control App ID (formerly Telnyx connection ID) used in the call."
+        },
+        "call_leg_id": {
+          "type": "string",
+          "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+          "description": "ID that is unique to the call and can be used to correlate webhook events."
+        },
+        "call_session_id": {
+          "type": "string",
+          "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+          "description": "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call."
+        },
+        "client_state": {
+          "type": "string",
+          "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+          "description": "State received from a command."
+        },
+        "conference_id": {
+          "type": "string",
+          "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+          "description": "Conference ID that the participant joined."
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-02-02T22:25:27.521Z",
+          "description": "ISO 8601 datetime of when the event occurred."
+        }
+      }
+    }
+  }
+}

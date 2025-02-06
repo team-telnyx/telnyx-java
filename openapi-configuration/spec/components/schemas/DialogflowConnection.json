@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "title": "Dialogflow Connection Params",
+  "required": [
+    "service_account"
+  ],
+  "properties": {
+    "service_account": {
+      "description": "The JSON map to connect your Dialoglow account.",
+      "type": "object",
+      "example": "{\"service_account\":{\"type\":\"service_account\",\"project_id\":\"your-project-id\",\"private_key_id\":\"your-private-key\",\"private_key\":\"-----BEGIN PRIVATE KEY-----n-----END PRIVATE\",\"client_email\":\"example@example.com\",\"client_id\":\"your-client-id\",\"auth_uri\":\"http://example.com\",\"token_uri\":\"http://example.com\",\"auth_provider_x509_cert_url\":\"http://example.com\",\"client_x509_cert_url\":\"http://example.com\"}}"
+    },
+    "dialogflow_api": {
+      "description": "Determine which Dialogflow will be used.",
+      "type": "string",
+      "enum": [
+        "cx",
+        "es"
+      ],
+      "example": "cx",
+      "default": "es"
+    },
+    "conversation_profile_id": {
+      "description": "The id of a configured conversation profile on your Dialogflow account. (If you use Dialogflow CX, this param is required)",
+      "type": "string",
+      "example": "a-VMHLWzTmKjiJw5S6O0-w"
+    },
+    "location": {
+      "description": "The region of your agent is. (If you use Dialogflow CX, this param is required)",
+      "type": "string",
+      "example": "global"
+    },
+    "environment": {
+      "description": "Which Dialogflow environment will be used.",
+      "type": "string",
+      "example": "development"
+    }
+  },
+  "example": {
+    "service_Account": "{\"type\":\"service_account\",\"project_id\":\"your-project-id\",\"private_key_id\":\"your-private-key\",\"private_key\":\"-----BEGIN PRIVATE KEY-----n-----END PRIVATE\",\"client_email\":\"example@example.com\",\"client_id\":\"your-client-id\",\"auth_uri\":\"http://example.com\",\"token_uri\":\"http://example.com\",\"auth_provider_x509_cert_url\":\"http://example.com\",\"client_x509_cert_url\":\"http://example.com\"}",
+    "dialogflow_api": "cx",
+    "conversation_profile_id": "a-VMHLWzTmKjiJw5S6O0-w",
+    "location": "global",
+    "environment": "development"
+  }
+}

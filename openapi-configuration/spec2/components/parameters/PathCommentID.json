@@ -1,0 +1,9 @@
+{
+  "name": "id",
+  "in": "path",
+  "description": "Comment id",
+  "required": true,
+  "schema": {
+    "type": "string"
+  }
+}

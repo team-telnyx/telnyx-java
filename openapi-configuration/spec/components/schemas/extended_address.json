@@ -1,0 +1,5 @@
+{
+  "type": "string",
+  "description": "Additional street address information about the address such as, but not limited to, unit number or apartment number.",
+  "example": "14th Floor"
+}

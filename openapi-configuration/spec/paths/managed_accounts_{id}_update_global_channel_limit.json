@@ -1,0 +1,47 @@
+{
+  "patch": {
+    "summary": "Update the amount of allocatable global outbound channels allocated to a specific managed account.",
+    "description": "Update the amount of allocatable global outbound channels allocated to a specific managed account.",
+    "operationId": "UpdateManagedAccountGlobalChannelLimit",
+    "tags": [
+      "Managed Accounts"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Managed Account User ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters that define the changes to the global outbounds channels for the managed account",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateManagedAccountGlobalChannelLimitRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/UpdateManagedAccountGlobalChannelLimitResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableManagedAccountEntity.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "delete": {
+    "description": "Deletes an existing IP connection.",
+    "summary": "Delete an Ip connection",
+    "operationId": "DeleteIpConnection",
+    "tags": [
+      "IP Connections"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the type of resource.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/IpConnectionResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "description": "Retrieves the details of an existing ip connection.",
+    "summary": "Retrieve an Ip connection",
+    "operationId": "RetrieveIpConnection",
+    "tags": [
+      "IP Connections"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "IP Connection ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/IpConnectionResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "description": "Updates settings of an existing IP connection.",
+    "summary": "Update an Ip connection",
+    "operationId": "UpdateIpConnection",
+    "tags": [
+      "IP Connections"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the type of resource.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters that can be updated in a IP connection",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateIpConnectionRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/IpConnectionResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

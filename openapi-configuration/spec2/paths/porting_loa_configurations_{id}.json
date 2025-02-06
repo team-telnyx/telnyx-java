@@ -1,0 +1,104 @@
+{
+  "delete": {
+    "tags": [
+      "Porting Orders"
+    ],
+    "summary": "Delete a LOA configuration",
+    "description": "Delete a specific LOA configuration.",
+    "operationId": "DeleteLoaConfiguration",
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Identifies a LOA configuration.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "No content"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "tags": [
+      "Porting Orders"
+    ],
+    "summary": "Retrieve a LOA configuration",
+    "description": "Retrieve a specific LOA configuration.",
+    "operationId": "GetLoaConfiguration",
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Identifies a LOA configuration.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ShowPortingLOAConfiguration.json"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "tags": [
+      "Porting Orders"
+    ],
+    "summary": "Update a LOA configuration",
+    "description": "Update a specific LOA configuration.",
+    "operationId": "UpdateLoaConfiguration",
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Identifies a LOA configuration.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "requestBody": {
+      "$ref": "../components/requestBodies/CreatePortingLOAConfiguration.json"
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/UpdatePortingLOAConfiguration.json"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

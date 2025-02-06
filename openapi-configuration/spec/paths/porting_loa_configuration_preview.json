@@ -1,0 +1,25 @@
+{
+  "post": {
+    "tags": [
+      "Porting Orders"
+    ],
+    "summary": "Preview the LOA configuration parameters",
+    "description": "Preview the LOA template that would be generated without need to create LOA configuration.",
+    "operationId": "PreviewLoaConfigurationParams",
+    "requestBody": {
+      "$ref": "../components/requestBodies/CreatePortingLOAConfiguration.json"
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/DownloadLOATemplate.json"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

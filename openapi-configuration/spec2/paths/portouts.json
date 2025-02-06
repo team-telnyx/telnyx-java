@@ -1,0 +1,163 @@
+{
+  "get": {
+    "summary": "List portout requests",
+    "description": "Returns the portout requests according to filters",
+    "operationId": "ListPortoutRequest",
+    "tags": [
+      "Number Portout"
+    ],
+    "parameters": [
+      {
+        "name": "filter[carrier_name]",
+        "in": "query",
+        "description": "Filter by new carrier name.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[spid]",
+        "in": "query",
+        "description": "Filter by new carrier spid.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[status]",
+        "in": "query",
+        "description": "Filter by portout status.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "authorized",
+            "ported",
+            "rejected",
+            "rejected-pending",
+            "canceled"
+          ]
+        }
+      },
+      {
+        "name": "filter[status_in]",
+        "in": "query",
+        "description": "Filter by a list of portout statuses",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "authorized",
+              "ported",
+              "rejected",
+              "rejected-pending",
+              "canceled"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter[ported_out_at][gte]",
+        "in": "query",
+        "description": "Filter by ported_out_at date greater than or equal.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-09-04T00:00:00.000Z"
+        }
+      },
+      {
+        "name": "filter[ported_out_at][lte]",
+        "in": "query",
+        "description": "Filter by ported_out_at date less than or equal.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-09-04T00:00:00.000Z"
+        }
+      },
+      {
+        "name": "filter[inserted_at][gte]",
+        "in": "query",
+        "description": "Filter by inserted_at date greater than or equal.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-09-04T00:00:00.000Z"
+        }
+      },
+      {
+        "name": "filter[inserted_at][lte]",
+        "in": "query",
+        "description": "Filter by inserted_at date less than or equal.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-09-04T00:00:00.000Z"
+        }
+      },
+      {
+        "name": "filter[foc_date]",
+        "in": "query",
+        "description": "Filter by foc_date. Matches all portouts with the same date",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-09-04T00:00:00.000Z"
+        }
+      },
+      {
+        "name": "filter[phone_number]",
+        "in": "query",
+        "description": "Filter by a phone number on the portout. Matches all portouts with the phone number",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "+13035551212"
+        }
+      },
+      {
+        "name": "filter[support_key]",
+        "in": "query",
+        "description": "Filter by the portout's support_key",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "PO_abc123"
+        }
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPortoutResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

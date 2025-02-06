@@ -1,0 +1,36 @@
+{
+  "title": "Phone Number object",
+  "required": [
+    "record_type",
+    "channel_zone_id",
+    "phone_number"
+  ],
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "channel_zone_phone_number"
+      ],
+      "example": "channel_zone_phone_number"
+    },
+    "channel_zone_id": {
+      "type": "string",
+      "example": "1653e6a1-4bfd-4857-97c6-6a51e1c34477"
+    },
+    "id": {
+      "type": "string",
+      "example": "3da3c749-bb7d-4ad6-acae-ca0d415ae08b"
+    },
+    "phone_number": {
+      "type": "string",
+      "format": "+E.164",
+      "example": "+15554441234"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the phone number was created",
+      "example": "2019-01-23T18:10:02.574Z"
+    }
+  }
+}

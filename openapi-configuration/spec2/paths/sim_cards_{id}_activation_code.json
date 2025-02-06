@@ -1,0 +1,27 @@
+{
+  "get": {
+    "summary": "Get activation code for an eSIM",
+    "description": "It returns the activation code for an eSIM.<br/><br/>\n This API is only available for eSIMs. If the given SIM is a physical SIM card, or has already been installed, an error will be returned.\n",
+    "operationId": "GetSimCardActivationCode",
+    "tags": [
+      "SIM Cards"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/SIMCardId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SIMCardActivationCodeResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

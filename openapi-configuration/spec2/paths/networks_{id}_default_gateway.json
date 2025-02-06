@@ -1,0 +1,78 @@
+{
+  "delete": {
+    "summary": "Delete Default Gateway.",
+    "description": "Delete Default Gateway.",
+    "operationId": "DeleteDefaultGateway",
+    "tags": [
+      "Networks"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/DefaultGatewayResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "summary": "Get Default Gateway status.",
+    "description": "Get Default Gateway status.",
+    "operationId": "GetDefaultGateway",
+    "tags": [
+      "Networks"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/DefaultGatewayResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create Default Gateway.",
+    "description": "Create Default Gateway.",
+    "operationId": "CreateDefaultGateway",
+    "tags": [
+      "Networks"
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/DefaultGateway.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/DefaultGatewayResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

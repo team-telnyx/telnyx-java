@@ -1,0 +1,24 @@
+{
+  "allOf": [
+    {
+      "$ref": "./Record.json"
+    },
+    {
+      "type": "object",
+      "title": "Network",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "network"
+        },
+        "name": {
+          "type": "string",
+          "description": "A user specified name for the network.",
+          "example": "test network"
+        }
+      }
+    }
+  ]
+}

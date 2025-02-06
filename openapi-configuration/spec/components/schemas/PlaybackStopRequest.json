@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "title": "Playback Stop Request",
+  "properties": {
+    "overlay": {
+      "description": "When enabled, it stops the audio being played in the overlay queue.",
+      "type": "boolean",
+      "example": true,
+      "default": false
+    },
+    "stop": {
+      "description": "Use `current` to stop the current audio being played. Use `all` to stop the current audio file being played and clear all audio files from the queue.",
+      "type": "string",
+      "example": "current",
+      "default": "all"
+    },
+    "client_state": {
+      "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    },
+    "command_id": {
+      "description": "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.",
+      "type": "string",
+      "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+    }
+  },
+  "example": {
+    "overlay": false,
+    "stop": "all",
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+  }
+}

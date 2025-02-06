@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "data": {
+      "$ref": "./TextClusteringResponse.json"
+    }
+  },
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "title": "TextClusteringResponseData"
+}

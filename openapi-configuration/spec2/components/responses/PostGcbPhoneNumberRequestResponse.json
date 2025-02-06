@@ -1,0 +1,10 @@
+{
+  "description": "A new inserted phone number",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/GcbPhoneNumber.json"
+      }
+    }
+  }
+}

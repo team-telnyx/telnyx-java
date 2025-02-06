@@ -1,0 +1,61 @@
+{
+  "description": "The parameters for generating a port-outs CSV report.",
+  "type": "object",
+  "required": [
+    "filters"
+  ],
+  "properties": {
+    "filters": {
+      "type": "object",
+      "description": "The filters to apply to the export port-out CSV report.",
+      "properties": {
+        "status__in": {
+          "type": "array",
+          "description": "The status of the port-outs to include in the report.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "authorized",
+              "ported",
+              "rejected",
+              "rejected-pending",
+              "canceled"
+            ]
+          }
+        },
+        "customer_reference__in": {
+          "type": "array",
+          "description": "The customer reference of the port-outs to include in the report.",
+          "items": {
+            "type": "string",
+            "example": "my-customer-reference"
+          }
+        },
+        "end_user_name": {
+          "type": "string",
+          "description": "The end user name of the port-outs to include in the report.",
+          "example": "McPortersen"
+        },
+        "phone_numbers__overlaps": {
+          "type": "array",
+          "description": "A list of phone numbers that the port-outs phone numbers must overlap with.",
+          "items": {
+            "type": "string",
+            "example": "+1234567890"
+          }
+        },
+        "created_at__lt": {
+          "type": "string",
+          "description": "The date and time the port-out was created before.",
+          "format": "date-time"
+        },
+        "created_at__gt": {
+          "type": "string",
+          "description": "The date and time the port-out was created after.",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

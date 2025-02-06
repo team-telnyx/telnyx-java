@@ -1,0 +1,90 @@
+{
+  "get": {
+    "tags": [
+      "CDR Usage Reports"
+    ],
+    "description": "Generate and fetch voice usage report synchronously. This endpoint will both generate and fetch the voice report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. ",
+    "summary": "Generates and fetches CDR Usage Reports",
+    "operationId": "GetCDRUsageReportSync",
+    "parameters": [
+      {
+        "name": "start_date",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-07-01T00:00:00-06:00"
+        }
+      },
+      {
+        "name": "end_date",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-07-01T00:00:00-06:00"
+        }
+      },
+      {
+        "name": "aggregation_type",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "no_aggregation",
+          "enum": [
+            "NO_AGGREGATION",
+            "CONNECTION",
+            "TAG",
+            "BILLING_GROUP"
+          ]
+        }
+      },
+      {
+        "name": "product_breakdown",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "no_breakdown",
+          "enum": [
+            "NO_BREAKDOWN",
+            "DID_VS_TOLL_FREE",
+            "COUNTRY",
+            "DID_VS_TOLL_FREE_PER_COUNTRY"
+          ]
+        }
+      },
+      {
+        "name": "connections",
+        "in": "query",
+        "schema": {
+          "type": "array",
+          "example": 1234567890123,
+          "items": {
+            "type": "number",
+            "example": 1234567890123
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/CdrGetSyncUsageReportResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "x-latency-category": "background"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "filter[address_book][eq]",
+  "in": "query",
+  "required": false,
+  "description": "If present, only returns results with the <code>address_book</code> flag set to the given value.",
+  "schema": {
+    "type": "string",
+    "default": "null"
+  }
+}

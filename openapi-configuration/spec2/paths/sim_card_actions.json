@@ -1,0 +1,57 @@
+{
+  "get": {
+    "operationId": "ListSimCardActions",
+    "summary": "List SIM card actions",
+    "description": "This API lists a paginated collection of SIM card actions. It enables exploring a collection of existing asynchronous operations using specific filters.",
+    "tags": [
+      "SIM Card Actions"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterSIMCardId.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterBasicStatusLifecycle.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterBulkSIMCardActionId.json"
+      },
+      {
+        "name": "filter[action_type]",
+        "description": "Filter by action type.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "enable",
+            "enable_standby_sim_card",
+            "disable",
+            "set_standby",
+            "remove_public_ip",
+            "set_public_ip"
+          ],
+          "example": "disable"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SimCardActionCollectionResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

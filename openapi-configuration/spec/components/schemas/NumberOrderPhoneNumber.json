@@ -1,0 +1,101 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "dc8e4d67-33a0-4cbb-af74-7b58f05bd494",
+      "readOnly": true
+    },
+    "record_type": {
+      "type": "string",
+      "example": "number_order_phone_number",
+      "readOnly": true
+    },
+    "phone_number": {
+      "type": "string",
+      "format": "e164_phone_number",
+      "example": "+19705555098"
+    },
+    "order_request_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "dc8e4d67-33a0-4cbb-af74-7b58f05bd495"
+    },
+    "sub_number_order_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "dc8e4d67-33a0-4cbb-af74-7b58f05bd496"
+    },
+    "country_code": {
+      "type": "string",
+      "example": "US"
+    },
+    "phone_number_type": {
+      "type": "string",
+      "example": "local",
+      "enum": [
+        "local",
+        "toll_free",
+        "mobile",
+        "national",
+        "shared_cost",
+        "landline"
+      ]
+    },
+    "regulatory_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "./SubNumberOrderRegulatoryRequirementWithValue.json"
+      }
+    },
+    "requirements_met": {
+      "type": "boolean",
+      "description": "True if all requirements are met for a phone number, false otherwise.",
+      "example": true,
+      "readOnly": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "success",
+        "failure"
+      ],
+      "description": "The status of the phone number in the order.",
+      "readOnly": true
+    },
+    "bundle_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": null,
+      "readOnly": true
+    },
+    "locality": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "datetime",
+      "example": "024-05-31T11:14:00+00:00"
+    },
+    "requirements_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "cancelled",
+        "deleted",
+        "requirement-info-exception",
+        "requirement-info-pending",
+        "requirement-info-under-review"
+      ],
+      "description": "Status of requirements (if applicable)",
+      "readOnly": true
+    },
+    "is_block_number": {
+      "type": "boolean",
+      "example": false
+    }
+  }
+}

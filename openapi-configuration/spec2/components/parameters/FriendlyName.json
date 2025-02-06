@@ -1,0 +1,10 @@
+{
+  "name": "FriendlyName",
+  "in": "query",
+  "required": false,
+  "description": "Filters conferences by their friendly name.",
+  "schema": {
+    "type": "string"
+  },
+  "example": "weekly_review_call"
+}

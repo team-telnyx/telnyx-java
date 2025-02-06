@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "title": "Texml Get Call Recording Transcription Response Body",
+  "properties": {
+    "account_sid": {
+      "$ref": "./AccountSid.json"
+    },
+    "call_sid": {
+      "$ref": "./CallControlId.json"
+    },
+    "api_version": {
+      "type": "string",
+      "description": "The version of the API that was used to make the request.",
+      "example": "2010-04-01"
+    },
+    "date_created": {
+      "$ref": "./DateTimeRFC2822.json"
+    },
+    "date_updated": {
+      "$ref": "./DateTimeRFC2822.json"
+    },
+    "duration": {
+      "$ref": "./TexmlRecordingDuration.json"
+    },
+    "sid": {
+      "$ref": "./TexmlSid.json"
+    },
+    "recording_sid": {
+      "$ref": "./TexmlSid.json"
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the recording transcriptions. The transcription text will be available only when the status is completed.",
+      "enum": [
+        "in-progress",
+        "completed"
+      ],
+      "example": "completed"
+    },
+    "transcription_text": {
+      "type": "string",
+      "description": "The recording's transcribed text",
+      "example": "Good morning, how may I help you?"
+    },
+    "uri": {
+      "type": "string",
+      "description": "The relative URI for the recording transcription resource.",
+      "example": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json"
+    }
+  }
+}

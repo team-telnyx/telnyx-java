@@ -1,0 +1,42 @@
+{
+  "allOf": [
+    {
+      "type": "object",
+      "title": "VirtualCrossConnectPatch",
+      "properties": {
+        "primary_enabled": {
+          "type": "boolean",
+          "description": "Indicates whether the primary circuit is enabled. Setting this to `false` will disable the circuit.",
+          "example": true
+        },
+        "primary_routing_announcement": {
+          "description": "Whether the primary BGP route is being announced.",
+          "type": "boolean",
+          "example": false
+        },
+        "primary_cloud_ip": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned.",
+          "example": "169.254.0.2"
+        },
+        "secondary_enabled": {
+          "type": "boolean",
+          "description": "Indicates whether the secondary circuit is enabled. Setting this to `false` will disable the circuit.",
+          "example": true
+        },
+        "secondary_routing_announcement": {
+          "description": "Whether the secondary BGP route is being announced.",
+          "type": "boolean",
+          "example": false
+        },
+        "secondary_cloud_ip": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned.",
+          "example": "169.254.0.4"
+        }
+      }
+    }
+  ]
+}

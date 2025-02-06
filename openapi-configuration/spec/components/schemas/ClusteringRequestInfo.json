@@ -1,0 +1,38 @@
+{
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "./TaskStatus.json"
+    },
+    "bucket": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finished_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "min_cluster_size": {
+      "type": "integer"
+    },
+    "min_subcluster_size": {
+      "type": "integer"
+    }
+  },
+  "type": "object",
+  "required": [
+    "task_id",
+    "status",
+    "bucket",
+    "created_at",
+    "finished_at",
+    "min_cluster_size",
+    "min_subcluster_size"
+  ],
+  "title": "ClusteringRequestInfo"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Success Action Response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "result": {
+                "type": "string",
+                "example": "ok"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

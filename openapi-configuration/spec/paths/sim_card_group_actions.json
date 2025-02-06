@@ -1,0 +1,50 @@
+{
+  "get": {
+    "operationId": "GetSimCardGroupActions",
+    "summary": "List SIM card group actions",
+    "description": "This API allows listing a paginated collection a SIM card group actions. It allows to explore a collection of existing asynchronous operation using specific filters.",
+    "tags": [
+      "SIM Card Group Actions"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterSIMCardGroupId.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterBasicStatusLifecycle.json"
+      },
+      {
+        "name": "filter[type]",
+        "description": "Filter by action type.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "set_private_wireless_gateway",
+            "remove_private_wireless_gateway"
+          ],
+          "example": "set_private_wireless_gateway"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SimCardGroupActionCollectionResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

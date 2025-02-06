@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "properties": {
+    "phone_number": {
+      "type": "string",
+      "description": "The phone number that is being verified.",
+      "example": "+12223334444"
+    },
+    "has_csr_coverage": {
+      "type": "boolean",
+      "description": "Indicates whether the phone number is covered or not.",
+      "example": true
+    },
+    "reason": {
+      "type": "string",
+      "description": "The reason why the phone number is not covered. Only returned if `has_csr_coverage` is false.",
+      "example": "The phone number '+19999999999' is invalid."
+    },
+    "additional_data_required": {
+      "type": "array",
+      "description": "Additional data required to perform CSR for the phone number. Only returned if `has_csr_coverage` is true.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "name",
+          "authorized_person_name",
+          "account_number",
+          "customer_code",
+          "pin",
+          "address_line_1",
+          "city",
+          "state",
+          "zip_code",
+          "billing_phone_number"
+        ],
+        "example": "name"
+      }
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "example": "customer_service_record_phone_number_coverage"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "type": "object",
+  "title": "UserAddress",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Uniquely identifies the user address.",
+      "example": "c3527e69-dc5a-4b3e-8f44-99d209f83c1d"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "example": "user_address"
+    },
+    "customer_reference": {
+      "$ref": "./customer_reference.json"
+    },
+    "first_name": {
+      "$ref": "./first_name.json"
+    },
+    "last_name": {
+      "$ref": "./last_name.json"
+    },
+    "business_name": {
+      "$ref": "./business_name.json"
+    },
+    "phone_number": {
+      "$ref": "./phone_number.json"
+    },
+    "street_address": {
+      "$ref": "./street_address.json"
+    },
+    "extended_address": {
+      "$ref": "./extended_address.json"
+    },
+    "locality": {
+      "$ref": "./locality.json"
+    },
+    "administrative_area": {
+      "$ref": "./administrative_area.json"
+    },
+    "neighborhood": {
+      "$ref": "./neighborhood.json"
+    },
+    "borough": {
+      "$ref": "./borough.json"
+    },
+    "postal_code": {
+      "$ref": "./postal_code.json"
+    },
+    "country_code": {
+      "$ref": "./country_code.json"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date indicating when the resource was updated.",
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  }
+}

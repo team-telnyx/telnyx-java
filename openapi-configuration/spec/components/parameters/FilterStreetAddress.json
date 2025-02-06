@@ -1,0 +1,10 @@
+{
+  "name": "filter[street_address][contains]",
+  "in": "query",
+  "required": false,
+  "description": "If present, addresses with <code>street_address</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.",
+  "schema": {
+    "type": "string",
+    "default": "null"
+  }
+}

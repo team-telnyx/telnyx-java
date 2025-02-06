@@ -1,0 +1,43 @@
+{
+  "title": "BrandFeedbackCategory",
+  "required": [
+    "id",
+    "displayName",
+    "description",
+    "fields"
+  ],
+  "type": "object",
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string",
+      "description": "One of `TAX_ID`, `STOCK_SYMBOL`, `GOVERNMENT_ENTITY`, `NONPROFIT`, and `OTHERS`",
+      "example": "TAX_ID"
+    },
+    "displayName": {
+      "title": "Displayname",
+      "type": "string",
+      "description": "Human-readable version of the `id` field",
+      "example": "Tax Id"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string",
+      "description": "Long-form description of the feedback with additional information",
+      "example": "Tax Id does not match with the company name or business type."
+    },
+    "fields": {
+      "title": "Fields",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of relevant fields in the originally-submitted brand json",
+      "example": [
+        "ein",
+        "companyName",
+        "entityType"
+      ]
+    }
+  }
+}

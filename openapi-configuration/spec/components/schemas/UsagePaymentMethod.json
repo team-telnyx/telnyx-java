@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "description": "Setting for how costs for outbound profile are calculated.",
+  "enum": [
+    "rate-deck"
+  ],
+  "example": "rate-deck",
+  "default": "rate-deck"
+}

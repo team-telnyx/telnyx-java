@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number",
+      "description": "Unique identifier of the segment."
+    },
+    "start": {
+      "type": "number",
+      "description": "Start time of the segment in seconds."
+    },
+    "end": {
+      "type": "number",
+      "description": "End time of the segment in seconds."
+    },
+    "text": {
+      "type": "string",
+      "description": "Text content of the segment."
+    }
+  },
+  "required": [
+    "id",
+    "start",
+    "end",
+    "text"
+  ]
+}

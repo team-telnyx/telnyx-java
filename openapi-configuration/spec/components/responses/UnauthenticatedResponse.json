@@ -1,0 +1,26 @@
+{
+  "description": "Unauthorized",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/ErrorResponse.json"
+      },
+      "examples": {
+        "Authentication Failed": {
+          "value": {
+            "errors": [
+              {
+                "code": "10009",
+                "title": "Authentication failed",
+                "detail": "Could not understand the provided credentials.",
+                "meta": {
+                  "url": "https://developers.telnyx.com/docs/overview/errors/10009"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

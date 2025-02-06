@@ -1,0 +1,84 @@
+{
+  "get": {
+    "description": "Returns a list of your notifications profiles.",
+    "summary": "List all Notifications Profiles",
+    "operationId": "FindNotificationsProfiles",
+    "tags": [
+      "Notifications"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of notification profiles.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../components/schemas/NotificationProfile.json"
+                  }
+                },
+                "meta": {
+                  "$ref": "../components/schemas/PaginationMeta.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "description": "Create a notification profile.",
+    "summary": "Create a notification profile",
+    "operationId": "CreateNotificationProfile",
+    "tags": [
+      "Notifications"
+    ],
+    "requestBody": {
+      "description": "Add a Notification Profile",
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/NotificationProfile.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "A Notification Profile response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/NotificationProfile.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "get": {
+    "summary": "Download a porting order loa template",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Download a porting order loa template",
+    "operationId": "GetPortingOrderLoaTemplate",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PathPortingOrderID.json"
+      },
+      {
+        "name": "loa_configuration_id",
+        "in": "query",
+        "description": "The identifier of the LOA configuration to use for the template. If not provided, the default LOA configuration will be used.",
+        "example": "a36c2277-446b-4d11-b4ea-322e02a5c08d",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/DownloadLOATemplate.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

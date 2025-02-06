@@ -1,0 +1,10 @@
+{
+  "name": "filter[created_at][lt]",
+  "in": "query",
+  "description": "Filters records to those created before a specific date.",
+  "schema": {
+    "type": "string",
+    "format": "date-time",
+    "example": "2020-01-01T00:00:00Z"
+  }
+}

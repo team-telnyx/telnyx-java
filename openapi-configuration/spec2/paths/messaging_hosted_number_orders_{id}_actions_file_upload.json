@@ -1,0 +1,47 @@
+{
+  "post": {
+    "summary": "Upload file required for a messaging hosted number order",
+    "operationId": "UploadMessagingHostedNumberOrderFile",
+    "tags": [
+      "Messaging Hosted Number"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the type of resource.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Message payload",
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "$ref": "../components/schemas/UploadFileMessagingHostedNumberOrderRequest.json"
+          },
+          "encoding": {
+            "loa": {
+              "contentType": "application/pdf"
+            },
+            "bill": {
+              "contentType": "application/pdf"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/MessagingHostedNumberOrderResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

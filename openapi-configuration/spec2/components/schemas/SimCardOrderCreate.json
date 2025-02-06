@@ -1,0 +1,22 @@
+{
+  "title": "SimCardOrderCreate",
+  "type": "object",
+  "properties": {
+    "address_id": {
+      "type": "string",
+      "description": "Uniquely identifies the address for the order.",
+      "format": "int64",
+      "example": "1293384261075731499"
+    },
+    "quantity": {
+      "description": "The amount of SIM cards to order.",
+      "type": "integer",
+      "minimum": 1,
+      "example": 23
+    }
+  },
+  "required": [
+    "address_id",
+    "quantity"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "description": "Forbidden",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/Error.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "get": {
+    "description": "Returns a list of your TeXML Applications.",
+    "summary": "List all TeXML Applications",
+    "operationId": "FindTexmlApplications",
+    "tags": [
+      "TeXML Applications"
+    ],
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filter[friendly_name][contains]",
+        "in": "query",
+        "description": "If present, applications with <code>friendly_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.",
+        "schema": {
+          "type": "string",
+          "default": "null"
+        }
+      },
+      {
+        "$ref": "../components/parameters/FilterOutboundVoiceProfileId.json"
+      },
+      {
+        "$ref": "../components/parameters/SortApplication.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetAllTexmlApplicationsResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "post": {
+    "description": "Creates a TeXML Application.",
+    "summary": "Creates a TeXML Application",
+    "operationId": "CreateTexmlApplication",
+    "tags": [
+      "TeXML Applications"
+    ],
+    "x-endpoint-cost": "medium",
+    "parameters": [],
+    "requestBody": {
+      "description": "Parameters that can be set when creating a TeXML Application",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateTexmlApplicationRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/TexmlApplicationResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "get": {
+    "summary": "List all Global IP Allowed Ports",
+    "description": "List all Global IP Allowed Ports",
+    "operationId": "ListGlobalIpAllowedPorts",
+    "tags": [
+      "Global IPs"
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GlobalIpAllowedPortListResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "ledger_billing_group_report"
+      ],
+      "description": "Identifies the type of the resource.",
+      "example": "ledger_billing_group_report"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the type of resource."
+    },
+    "organization_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Uniquely identifies the organization that owns the resource."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the ledger billing group report",
+      "enum": [
+        "pending",
+        "complete",
+        "failed",
+        "deleted"
+      ]
+    },
+    "report_url": {
+      "type": "string",
+      "description": "External url of the ledger billing group report, if the status is complete",
+      "format": "uri",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was updated."
+    }
+  },
+  "example": {
+    "record_type": "ledger_billing_group_report",
+    "id": "f5586561-8ff0-4291-a0ac-84fe544797bd",
+    "organization_id": "f5586561-8ff0-4291-a0ac-84fe544797bd",
+    "report_url": "https://example.com",
+    "created_at": "2019-10-15T10:07:15.527Z",
+    "updated_at": "2019-10-15T10:07:15.527Z"
+  }
+}

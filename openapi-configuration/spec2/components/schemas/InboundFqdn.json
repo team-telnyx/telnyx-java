@@ -1,0 +1,165 @@
+{
+  "type": "object",
+  "title": "Inbound FQDN",
+  "properties": {
+    "ani_number_format": {
+      "type": "string",
+      "enum": [
+        "+E.164",
+        "E.164",
+        "+E.164-national",
+        "E.164-national"
+      ],
+      "default": "E.164-national",
+      "description": "This setting allows you to set the format with which the caller's number (ANI) is sent for inbound phone calls."
+    },
+    "dnis_number_format": {
+      "type": "string",
+      "enum": [
+        "+e164",
+        "e164",
+        "national",
+        "sip_username"
+      ],
+      "default": "e164"
+    },
+    "codecs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.",
+      "default": [
+        "G722",
+        "G711U",
+        "G711A",
+        "G729",
+        "OPUS",
+        "H.264"
+      ]
+    },
+    "default_routing_method": {
+      "type": "string",
+      "enum": [
+        "sequential",
+        "round-robin"
+      ],
+      "nullable": true,
+      "default": "sequential",
+      "description": "Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or null, other values are not allowed."
+    },
+    "default_primary_fqdn_id": {
+      "type": "string",
+      "format": "int64",
+      "nullable": true,
+      "default": null,
+      "description": "The default primary FQDN to use for the number. Only settable if the connection is\nof FQDN type. Value must be the ID of an FQDN set on the connection."
+    },
+    "default_secondary_fqdn_id": {
+      "type": "string",
+      "format": "int64",
+      "nullable": true,
+      "default": null,
+      "description": "The default secondary FQDN to use for the number. Only settable if the connection is\nof FQDN type. Value must be the ID of an FQDN set on the connection."
+    },
+    "default_tertiary_fqdn_id": {
+      "type": "string",
+      "format": "int64",
+      "nullable": true,
+      "default": null,
+      "description": "The default tertiary FQDN to use for the number. Only settable if the connection is\nof FQDN type. Value must be the ID of an FQDN set on the connection."
+    },
+    "channel_limit": {
+      "type": "integer",
+      "default": null,
+      "nullable": true,
+      "description": "When set, this will limit the total number of inbound calls to phone numbers associated with this connection."
+    },
+    "generate_ringback_tone": {
+      "type": "boolean",
+      "default": false,
+      "description": "Generate ringback tone through 183 session progress message with early media."
+    },
+    "isup_headers_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "When set, inbound phone calls will receive ISUP parameters via SIP headers. (Only when available and only when using TCP or TLS transport.)"
+    },
+    "prack_enabled": {
+      "type": "boolean",
+      "description": "Enable PRACK messages as defined in RFC3262.",
+      "default": false
+    },
+    "sip_compact_headers_enabled": {
+      "type": "boolean",
+      "description": "Defaults to true.",
+      "default": true
+    },
+    "sip_region": {
+      "type": "string",
+      "default": "US",
+      "description": "Selects which `sip_region` to receive inbound calls from. If null, the default region (US) will be used.",
+      "enum": [
+        "US",
+        "Europe",
+        "Australia"
+      ]
+    },
+    "sip_subdomain": {
+      "type": "string",
+      "default": null,
+      "nullable": true,
+      "description": "Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the same way a phone number is used, from a SIP endpoint. Example: the subdomain \"example.sip.telnyx.com\" can be called from any SIP endpoint by using the SIP URI \"sip:@example.sip.telnyx.com\" where the user part can be any alphanumeric value. Please note TLS encrypted calls are not allowed for subdomain calls."
+    },
+    "sip_subdomain_receive_settings": {
+      "type": "string",
+      "description": "This option can be enabled to receive calls from: \"Anyone\" (any SIP endpoint in the public Internet) or \"Only my connections\" (any connection assigned to the same Telnyx user).",
+      "enum": [
+        "only_my_connections",
+        "from_anyone"
+      ],
+      "default": "from_anyone"
+    },
+    "timeout_1xx_secs": {
+      "type": "integer",
+      "description": "Time(sec) before aborting if connection is not made.",
+      "minimum": 1,
+      "maximum": 120,
+      "default": 3
+    },
+    "timeout_2xx_secs": {
+      "type": "integer",
+      "description": "Time(sec) before aborting if call is unanswered (min: 1, max: 600).",
+      "minimum": 1,
+      "maximum": 600,
+      "default": 90
+    },
+    "shaken_stir_enabled": {
+      "type": "boolean",
+      "description": "When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.",
+      "default": false
+    }
+  },
+  "example": {
+    "ani_number_format": "+E.164",
+    "dnis_number_format": "+e164",
+    "codecs": [
+      "G722"
+    ],
+    "default_routing_method": "sequential",
+    "default_primary_fqdn_id": "1293384261075731497",
+    "default_secondary_fqdn_id": "1293384261075731498",
+    "default_tertiary_fqdn_id": "1293384261075731499",
+    "channel_limit": 10,
+    "generate_ringback_tone": true,
+    "isup_headers_enabled": true,
+    "prack_enabled": true,
+    "sip_compact_headers_enabled": true,
+    "sip_region": "US",
+    "sip_subdomain": "test",
+    "sip_subdomain_receive_settings": "only_my_connections",
+    "timeout_1xx_secs": 10,
+    "timeout_2xx_secs": 20,
+    "shaken_stir_enabled": true
+  }
+}

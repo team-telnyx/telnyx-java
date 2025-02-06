@@ -1,0 +1,10 @@
+{
+  "name": "filter[address.id]",
+  "description": "Uniquely identifies the address for the order.",
+  "schema": {
+    "type": "string",
+    "format": "int64",
+    "example": "1293384261075731499"
+  },
+  "in": "query"
+}

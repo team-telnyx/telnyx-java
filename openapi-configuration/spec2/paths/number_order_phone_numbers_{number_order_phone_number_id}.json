@@ -1,0 +1,68 @@
+{
+  "get": {
+    "summary": "Retrieve a single phone number within a number order.",
+    "description": "Get an existing phone number in number order.",
+    "operationId": "GetNumberOrderPhoneNumber",
+    "tags": [
+      "Phone Number Orders"
+    ],
+    "parameters": [
+      {
+        "name": "number_order_phone_number_id",
+        "in": "path",
+        "description": "The number order phone number ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/NumberOrderPhoneNumberResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update requirements for a single phone number within a number order.",
+    "description": "Updates requirements for a single phone number within a number order.",
+    "operationId": "UpdateNumberOrderPhoneNumber",
+    "tags": [
+      "Phone Number Orders"
+    ],
+    "parameters": [
+      {
+        "name": "number_order_phone_number_id",
+        "in": "path",
+        "description": "The number order phone number ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateNumberOrderPhoneNumberRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/NumberOrderPhoneNumberResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}
