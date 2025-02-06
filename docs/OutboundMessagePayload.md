@@ -23,7 +23,7 @@
 |**encoding** | **String** | Encoding scheme used for the message body. |  [optional] |
 |**parts** | **Integer** | Number of parts into which the message&#39;s body must be split. |  [optional] |
 |**tags** | **List&lt;String&gt;** | Tags associated with the resource. |  [optional] |
-|**cost** | [**InboundMessagePayloadCost**](InboundMessagePayloadCost.md) |  |  [optional] |
+|**cost** | [**OutboundMessagePayloadCost**](OutboundMessagePayloadCost.md) |  |  [optional] |
 |**receivedAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the message request was received. |  [optional] |
 |**sentAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the message was sent. |  [optional] |
 |**completedAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the message was finalized. |  [optional] |

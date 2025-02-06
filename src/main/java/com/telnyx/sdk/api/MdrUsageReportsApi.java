@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MdrUsageReportsApi {
   private ApiClient apiClient;
 
@@ -53,7 +53,7 @@ public class MdrUsageReportsApi {
   }
 
   /**
-   * 
+   * Delete MDR Usage Report
    * Delete messaging usage report by id
    * @param id  (required)
    * @return MdrDeleteUsageReportsResponse
@@ -69,7 +69,7 @@ public class MdrUsageReportsApi {
   }
 
   /**
-   * 
+   * Delete MDR Usage Report
    * Delete messaging usage report by id
    * @param id  (required)
    * @return ApiResponse&lt;MdrDeleteUsageReportsResponse&gt;
@@ -121,7 +121,7 @@ public class MdrUsageReportsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * 
+   * Retrieve messaging report
    * Fetch a single messaging usage report by id
    * @param id  (required)
    * @return MdrGetUsageReportsByIdResponse
@@ -132,12 +132,12 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public MdrGetUsageReportsByIdResponse getUsageReport(UUID id) throws ApiException {
-    return getUsageReportWithHttpInfo(id).getData();
+  public MdrGetUsageReportsByIdResponse getMDRUsageReport(UUID id) throws ApiException {
+    return getMDRUsageReportWithHttpInfo(id).getData();
   }
 
   /**
-   * 
+   * Retrieve messaging report
    * Fetch a single messaging usage report by id
    * @param id  (required)
    * @return ApiResponse&lt;MdrGetUsageReportsByIdResponse&gt;
@@ -148,12 +148,12 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MdrGetUsageReportsByIdResponse> getUsageReportWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<MdrGetUsageReportsByIdResponse> getMDRUsageReportWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getUsageReport");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getMDRUsageReport");
     }
     
     // create path and map variables
@@ -184,12 +184,12 @@ public class MdrUsageReportsApi {
 
     GenericType<MdrGetUsageReportsByIdResponse> localVarReturnType = new GenericType<MdrGetUsageReportsByIdResponse>() {};
 
-    return apiClient.invokeAPI("MdrUsageReportsApi.getUsageReport", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("MdrUsageReportsApi.getMDRUsageReport", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * 
+   * Generate and fetch MDR Usage Report
    * Generate and fetch messaging usage report synchronously. This endpoint will both generate and fetch the messaging report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
    * @param aggregationType  (required)
    * @param startDate  (optional)
@@ -203,12 +203,12 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public MdrGetSyncUsageReportResponse getUsageReportSync(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
-    return getUsageReportSyncWithHttpInfo(aggregationType, startDate, endDate, profiles).getData();
+  public MdrGetSyncUsageReportResponse getMDRUsageReportSync(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
+    return getMDRUsageReportSyncWithHttpInfo(aggregationType, startDate, endDate, profiles).getData();
   }
 
   /**
-   * 
+   * Generate and fetch MDR Usage Report
    * Generate and fetch messaging usage report synchronously. This endpoint will both generate and fetch the messaging report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
    * @param aggregationType  (required)
    * @param startDate  (optional)
@@ -222,12 +222,12 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MdrGetSyncUsageReportResponse> getUsageReportSyncWithHttpInfo(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
+  public ApiResponse<MdrGetSyncUsageReportResponse> getMDRUsageReportSyncWithHttpInfo(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'aggregationType' is set
     if (aggregationType == null) {
-      throw new ApiException(400, "Missing the required parameter 'aggregationType' when calling getUsageReportSync");
+      throw new ApiException(400, "Missing the required parameter 'aggregationType' when calling getMDRUsageReportSync");
     }
     
     // create path and map variables
@@ -261,12 +261,12 @@ public class MdrUsageReportsApi {
 
     GenericType<MdrGetSyncUsageReportResponse> localVarReturnType = new GenericType<MdrGetSyncUsageReportResponse>() {};
 
-    return apiClient.invokeAPI("MdrUsageReportsApi.getUsageReportSync", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("MdrUsageReportsApi.getMDRUsageReportSync", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * 
+   * Fetch all Messaging usage reports
    * Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified time period and breakdown
    * @param pageNumber Page number (optional, default to 1)
    * @param pageSize Size of the page (optional, default to 20)
@@ -283,7 +283,7 @@ public class MdrUsageReportsApi {
   }
 
   /**
-   * 
+   * Fetch all Messaging usage reports
    * Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified time period and breakdown
    * @param pageNumber Page number (optional, default to 1)
    * @param pageSize Size of the page (optional, default to 20)
@@ -332,7 +332,7 @@ public class MdrUsageReportsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * 
+   * Create MDR Usage Report
    * Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period. 
    * @param mdrPostUsageReportRequest Mdr usage report data (required)
    * @return MdrPostUsageReportsResponse
@@ -348,7 +348,7 @@ public class MdrUsageReportsApi {
   }
 
   /**
-   * 
+   * Create MDR Usage Report
    * Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period. 
    * @param mdrPostUsageReportRequest Mdr usage report data (required)
    * @return ApiResponse&lt;MdrPostUsageReportsResponse&gt;

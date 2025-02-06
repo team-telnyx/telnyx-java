@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CallReferStartedPayload;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,13 +42,13 @@ import com.telnyx.sdk.JSON;
   CallReferStarted.JSON_PROPERTY_OCCURRED_AT,
   CallReferStarted.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallReferStarted {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -86,7 +84,7 @@ public class CallReferStarted {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    CALL_REFER_STARTED("call.refer.started");
+    CALL_REFER_STARTED(String.valueOf("call.refer.started"));
 
     private String value;
 

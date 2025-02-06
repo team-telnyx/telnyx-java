@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRecordResultAddress.JSON_PROPERTY_STREET_ADDRESS,
   CustomerServiceRecordResultAddress.JSON_PROPERTY_FULL_ADDRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CustomerServiceRecordResultAddress {
   public static final String JSON_PROPERTY_ADMINISTRATIVE_AREA = "administrative_area";
   private String administrativeArea;

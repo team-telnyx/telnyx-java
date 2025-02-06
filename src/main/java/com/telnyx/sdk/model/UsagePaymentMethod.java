@@ -31,8 +31,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum UsagePaymentMethod {
   
-  TARIFF("tariff"),
-  
   RATE_DECK("rate-deck");
 
   private String value;

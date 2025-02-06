@@ -23,7 +23,6 @@ import com.telnyx.sdk.model.LeaveConferenceRequest;
 import com.telnyx.sdk.model.ListConferencesResponse;
 import com.telnyx.sdk.model.ListParticipantsResponse;
 import com.telnyx.sdk.model.PauseConferenceRecordingRequest;
-import com.telnyx.sdk.model.ResourceNotFound;
 import com.telnyx.sdk.model.ResumeConferenceRecordingRequest;
 import com.telnyx.sdk.model.StartConferenceRecordingRequest;
 import com.telnyx.sdk.model.StopRecordingRequest;
@@ -34,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConferenceCommandsApi {
   private ApiClient apiClient;
 
@@ -66,7 +65,7 @@ public class ConferenceCommandsApi {
 
   /**
    * Create conference
-   * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; - &#x60;conference.floor.changed&#x60; 
+   * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/create-conference#callbacks) below):**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; - &#x60;conference.floor.changed&#x60; 
    * @param createConferenceRequest Create a conference (required)
    * @return ConferenceResponse
    * @throws ApiException if fails to make API call
@@ -74,7 +73,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -84,7 +83,7 @@ public class ConferenceCommandsApi {
 
   /**
    * Create conference
-   * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; - &#x60;conference.floor.changed&#x60; 
+   * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/create-conference#callbacks) below):**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; - &#x60;conference.floor.changed&#x60; 
    * @param createConferenceRequest Create a conference (required)
    * @return ApiResponse&lt;ConferenceResponse&gt;
    * @throws ApiException if fails to make API call
@@ -92,7 +91,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -146,8 +145,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -166,8 +165,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -218,7 +217,7 @@ public class ConferenceCommandsApi {
   }
   /**
    * Join a conference
-   * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the &#x60;max_participants&#x60; parameter in conference creation request.   **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
+   * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the &#x60;max_participants&#x60; parameter in conference creation request.   **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/join-conference#callbacks) below):**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
    * @param id Uniquely identifies the conference by id or name (required)
    * @param joinConferenceRequest Join Conference request object (required)
    * @return ConferenceCommandResponse
@@ -227,7 +226,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -237,7 +236,7 @@ public class ConferenceCommandsApi {
 
   /**
    * Join a conference
-   * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the &#x60;max_participants&#x60; parameter in conference creation request.   **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
+   * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the &#x60;max_participants&#x60; parameter in conference creation request.   **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/join-conference#callbacks) below):**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
    * @param id Uniquely identifies the conference by id or name (required)
    * @param joinConferenceRequest Join Conference request object (required)
    * @return ApiResponse&lt;ConferenceCommandResponse&gt;
@@ -246,7 +245,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -297,7 +296,7 @@ public class ConferenceCommandsApi {
   }
   /**
    * Leave a conference
-   * Removes a call leg from a conference and moves it back to parked state. **Expected Webhooks:**  - &#x60;conference.participant.left&#x60; 
+   * Removes a call leg from a conference and moves it back to parked state.   **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/leave-conference#callbacks) below):**  - &#x60;conference.participant.left&#x60; 
    * @param id Uniquely identifies the conference by id or name (required)
    * @param leaveConferenceRequest Leave Conference request object (required)
    * @return ConferenceCommandResponse
@@ -306,7 +305,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -316,7 +315,7 @@ public class ConferenceCommandsApi {
 
   /**
    * Leave a conference
-   * Removes a call leg from a conference and moves it back to parked state. **Expected Webhooks:**  - &#x60;conference.participant.left&#x60; 
+   * Removes a call leg from a conference and moves it back to parked state.   **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/leave-conference#callbacks) below):**  - &#x60;conference.participant.left&#x60; 
    * @param id Uniquely identifies the conference by id or name (required)
    * @param leaveConferenceRequest Leave Conference request object (required)
    * @return ApiResponse&lt;ConferenceCommandResponse&gt;
@@ -325,7 +324,7 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -389,8 +388,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -413,8 +412,8 @@ public class ConferenceCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with a list of conference participants. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -560,7 +559,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        </table>
      
@@ -578,7 +577,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of conferences. </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        </table>
 
@@ -610,8 +609,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -630,8 +629,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -691,8 +690,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -711,8 +710,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -772,8 +771,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -792,8 +791,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -853,8 +852,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -873,8 +872,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -933,7 +932,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ConferenceResponse retrieveConference(String id) throws ApiException {
@@ -950,7 +949,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a conference. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ConferenceResponse> retrieveConferenceWithHttpInfo(String id) throws ApiException {
@@ -1004,8 +1003,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1024,8 +1023,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1076,7 +1075,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
   }
   /**
    * Conference recording start
-   * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
+   * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-conference-recording#callbacks) below):**  - &#x60;conference.recording.saved&#x60;
    * @param id Specifies the conference to record by id or name (required)
    * @param startConferenceRecordingRequest  (required)
    * @return ConferenceCommandResponse
@@ -1085,8 +1084,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1096,7 +1095,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
   /**
    * Conference recording start
-   * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
+   * Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-conference-recording#callbacks) below):**  - &#x60;conference.recording.saved&#x60;
    * @param id Specifies the conference to record by id or name (required)
    * @param startConferenceRecordingRequest  (required)
    * @return ApiResponse&lt;ConferenceCommandResponse&gt;
@@ -1105,8 +1104,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1166,8 +1165,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1186,8 +1185,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1238,7 +1237,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
   }
   /**
    * Conference recording stop
-   * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
+   * Stop recording the conference.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-conference-recording#callbacks) below):**  - &#x60;conference.recording.saved&#x60; 
    * @param id Specifies the conference to stop the recording for by id or name (required)
    * @param stopRecordingRequest Stop recording conference request (required)
    * @return ConferenceCommandResponse
@@ -1247,8 +1246,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1258,7 +1257,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
 
   /**
    * Conference recording stop
-   * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
+   * Stop recording the conference.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-conference-recording#callbacks) below):**  - &#x60;conference.recording.saved&#x60; 
    * @param id Specifies the conference to stop the recording for by id or name (required)
    * @param stopRecordingRequest Stop recording conference request (required)
    * @return ApiResponse&lt;ConferenceCommandResponse&gt;
@@ -1267,8 +1266,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1328,8 +1327,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1348,8 +1347,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1409,8 +1408,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1429,8 +1428,8 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1490,7 +1489,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -1509,7 +1508,7 @@ private ApiResponse<ListConferencesResponse> listConferencesWithHttpInfo(String 
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response upon making a conference command. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */

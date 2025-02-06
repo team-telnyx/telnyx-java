@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NotificationsApi {
   private ApiClient apiClient;
 
@@ -254,7 +254,7 @@ public class NotificationsApi {
   /**
    * Delete a notification channel
    * Delete a notification channel.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return CreateNotificationChannels200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -271,7 +271,7 @@ public class NotificationsApi {
   /**
    * Delete a notification channel
    * Delete a notification channel.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;CreateNotificationChannels200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -324,7 +324,7 @@ public class NotificationsApi {
   /**
    * Delete a notification profile
    * Delete a notification profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return CreateNotificationProfile200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -341,7 +341,7 @@ public class NotificationsApi {
   /**
    * Delete a notification profile
    * Delete a notification profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;CreateNotificationProfile200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -394,7 +394,7 @@ public class NotificationsApi {
   /**
    * Delete a notification setting
    * Delete a notification setting.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return CreateNotificationSetting200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -412,7 +412,7 @@ public class NotificationsApi {
   /**
    * Delete a notification setting
    * Delete a notification setting.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;CreateNotificationSetting200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -673,7 +673,7 @@ public class NotificationsApi {
   /**
    * Get a notification channel
    * Get a notification channel.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return CreateNotificationChannels200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -690,7 +690,7 @@ public class NotificationsApi {
   /**
    * Get a notification channel
    * Get a notification channel.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;CreateNotificationChannels200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -743,7 +743,7 @@ public class NotificationsApi {
   /**
    * Get a notification profile
    * Get a notification profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return CreateNotificationProfile200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -760,7 +760,7 @@ public class NotificationsApi {
   /**
    * Get a notification profile
    * Get a notification profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;CreateNotificationProfile200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -813,7 +813,7 @@ public class NotificationsApi {
   /**
    * Get a notification setting
    * Get a notification setting.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return CreateNotificationSetting200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -830,7 +830,7 @@ public class NotificationsApi {
   /**
    * Get a notification setting
    * Get a notification setting.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;CreateNotificationSetting200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1037,7 +1037,7 @@ public class NotificationsApi {
   /**
    * Update a notification channel
    * Update a notification channel.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param notificationChannel Update notification channel object (required)
    * @return CreateNotificationChannels200Response
    * @throws ApiException if fails to make API call
@@ -1055,7 +1055,7 @@ public class NotificationsApi {
   /**
    * Update a notification channel
    * Update a notification channel.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param notificationChannel Update notification channel object (required)
    * @return ApiResponse&lt;CreateNotificationChannels200Response&gt;
    * @throws ApiException if fails to make API call
@@ -1114,7 +1114,7 @@ public class NotificationsApi {
   /**
    * Update a notification profile
    * Update a notification profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param notificationProfile Update notification profile object (required)
    * @return CreateNotificationProfile200Response
    * @throws ApiException if fails to make API call
@@ -1132,7 +1132,7 @@ public class NotificationsApi {
   /**
    * Update a notification profile
    * Update a notification profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param notificationProfile Update notification profile object (required)
    * @return ApiResponse&lt;CreateNotificationProfile200Response&gt;
    * @throws ApiException if fails to make API call

@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -43,7 +41,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRecordPhoneNumberCoverage.JSON_PROPERTY_ADDITIONAL_DATA_REQUIRED,
   CustomerServiceRecordPhoneNumberCoverage.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CustomerServiceRecordPhoneNumberCoverage {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -58,25 +56,25 @@ public class CustomerServiceRecordPhoneNumberCoverage {
    * Gets or Sets additionalDataRequired
    */
   public enum AdditionalDataRequiredEnum {
-    NAME("name"),
+    NAME(String.valueOf("name")),
     
-    AUTHORIZED_PERSON_NAME("authorized_person_name"),
+    AUTHORIZED_PERSON_NAME(String.valueOf("authorized_person_name")),
     
-    ACCOUNT_NUMBER("account_number"),
+    ACCOUNT_NUMBER(String.valueOf("account_number")),
     
-    CUSTOMER_CODE("customer_code"),
+    CUSTOMER_CODE(String.valueOf("customer_code")),
     
-    PIN("pin"),
+    PIN(String.valueOf("pin")),
     
-    ADDRESS_LINE_1("address_line_1"),
+    ADDRESS_LINE_1(String.valueOf("address_line_1")),
     
-    CITY("city"),
+    CITY(String.valueOf("city")),
     
-    STATE("state"),
+    STATE(String.valueOf("state")),
     
-    ZIP_CODE("zip_code"),
+    ZIP_CODE(String.valueOf("zip_code")),
     
-    BILLING_PHONE_NUMBER("billing_phone_number");
+    BILLING_PHONE_NUMBER(String.valueOf("billing_phone_number"));
 
     private String value;
 
@@ -197,7 +195,7 @@ public class CustomerServiceRecordPhoneNumberCoverage {
     return this;
   }
 
-  public CustomerServiceRecordPhoneNumberCoverage addAdditionalDataRequiredItem(AdditionalDataRequiredEnum additionalDataRequiredItem) {
+  public CustomerServiceRecordPhoneNumberCoverage addadditionalDataRequiredItem(AdditionalDataRequiredEnum additionalDataRequiredItem) {
     if (this.additionalDataRequired == null) {
       this.additionalDataRequired = new ArrayList<>();
     }

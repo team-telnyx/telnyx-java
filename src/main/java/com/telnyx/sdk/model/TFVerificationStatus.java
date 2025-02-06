@@ -39,6 +39,8 @@ public enum TFVerificationStatus {
   
   WAITING_FOR_CUSTOMER("Waiting For Customer"),
   
+  WAITING_FOR_TELNYX("Waiting For Telnyx"),
+  
   IN_PROGRESS("In Progress");
 
   private String value;

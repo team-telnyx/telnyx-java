@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PostPortabilityCheckRequest.JSON_PROPERTY_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PostPortabilityCheckRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = null;
@@ -52,7 +50,7 @@ public class PostPortabilityCheckRequest {
     return this;
   }
 
-  public PostPortabilityCheckRequest addPhoneNumbersItem(String phoneNumbersItem) {
+  public PostPortabilityCheckRequest addphoneNumbersItem(String phoneNumbersItem) {
     if (this.phoneNumbers == null) {
       this.phoneNumbers = new ArrayList<>();
     }

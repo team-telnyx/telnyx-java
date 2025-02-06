@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -48,7 +46,7 @@ import com.telnyx.sdk.JSON;
   CreateShortCodeMessageRequest.JSON_PROPERTY_TYPE,
   CreateShortCodeMessageRequest.JSON_PROPERTY_AUTO_DETECT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateShortCodeMessageRequest {
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -78,9 +76,9 @@ public class CreateShortCodeMessageRequest {
    * The protocol for sending the message, either SMS or MMS.
    */
   public enum TypeEnum {
-    SMS("SMS"),
+    SMS(String.valueOf("SMS")),
     
-    MMS("MMS");
+    MMS(String.valueOf("MMS"));
 
     private String value;
 
@@ -227,7 +225,7 @@ public class CreateShortCodeMessageRequest {
     return this;
   }
 
-  public CreateShortCodeMessageRequest addMediaUrlsItem(String mediaUrlsItem) {
+  public CreateShortCodeMessageRequest addmediaUrlsItem(String mediaUrlsItem) {
     if (this.mediaUrls == null) {
       this.mediaUrls = new ArrayList<>();
     }

@@ -25,9 +25,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
-import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -36,129 +33,159 @@ import com.telnyx.sdk.JSON;
  * Location
  */
 @JsonPropertyOrder({
-  Location.JSON_PROPERTY_ID,
-  Location.JSON_PROPERTY_ADDITIONAL_INFO,
-  Location.JSON_PROPERTY_DESCRIPTION,
-  Location.JSON_PROPERTY_IS_DEFAULT
+  Location.JSON_PROPERTY_REGION,
+  Location.JSON_PROPERTY_SITE,
+  Location.JSON_PROPERTY_POP,
+  Location.JSON_PROPERTY_CODE,
+  Location.JSON_PROPERTY_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Location {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
+  public static final String JSON_PROPERTY_REGION = "region";
+  private String region;
 
-  public static final String JSON_PROPERTY_ADDITIONAL_INFO = "additional_info";
-  private String additionalInfo;
+  public static final String JSON_PROPERTY_SITE = "site";
+  private String site;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  private String description;
+  public static final String JSON_PROPERTY_POP = "pop";
+  private String pop;
 
-  public static final String JSON_PROPERTY_IS_DEFAULT = "is_default";
-  private Boolean isDefault;
+  public static final String JSON_PROPERTY_CODE = "code";
+  private String code;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  private String name;
 
   public Location() { 
   }
 
-  public Location id(UUID id) {
-    this.id = id;
+  public Location region(String region) {
+    this.region = region;
     return this;
   }
 
    /**
-   * Uniquely identifies the resource.
-   * @return id
+   * Identifies the geographical region of location.
+   * @return region
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "542c3bca-d247-42bc-8fe7-e01d16ecd761", value = "Uniquely identifies the resource.")
-  @JsonProperty(JSON_PROPERTY_ID)
+  @ApiModelProperty(example = "AMER", value = "Identifies the geographical region of location.")
+  @JsonProperty(JSON_PROPERTY_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public UUID getId() {
-    return id;
+  public String getRegion() {
+    return region;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(JSON_PROPERTY_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
+  public void setRegion(String region) {
+    this.region = region;
   }
 
 
-  public Location additionalInfo(String additionalInfo) {
-    this.additionalInfo = additionalInfo;
+  public Location site(String site) {
+    this.site = site;
     return this;
   }
 
    /**
-   * Get additionalInfo
-   * @return additionalInfo
+   * Site of location.
+   * @return site
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Main building, Suite 504", value = "")
-  @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
+  @ApiModelProperty(example = "ORD", value = "Site of location.")
+  @JsonProperty(JSON_PROPERTY_SITE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getAdditionalInfo() {
-    return additionalInfo;
+  public String getSite() {
+    return site;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
+  @JsonProperty(JSON_PROPERTY_SITE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAdditionalInfo(String additionalInfo) {
-    this.additionalInfo = additionalInfo;
+  public void setSite(String site) {
+    this.site = site;
   }
 
 
-  public Location description(String description) {
-    this.description = description;
+  public Location pop(String pop) {
+    this.pop = pop;
     return this;
   }
 
    /**
-   * Get description
-   * @return description
+   * Point of presence of location.
+   * @return pop
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Chicago Office", value = "")
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @ApiModelProperty(example = "CH1", value = "Point of presence of location.")
+  @JsonProperty(JSON_PROPERTY_POP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getDescription() {
-    return description;
+  public String getPop() {
+    return pop;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(JSON_PROPERTY_POP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(String description) {
-    this.description = description;
+  public void setPop(String pop) {
+    this.pop = pop;
   }
 
 
-  public Location isDefault(Boolean isDefault) {
-    this.isDefault = isDefault;
+  public Location code(String code) {
+    this.code = code;
     return this;
   }
 
    /**
-   * Represents whether the location is the default or not.
-   * @return isDefault
+   * Location code.
+   * @return code
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Represents whether the location is the default or not.")
-  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @ApiModelProperty(example = "chicago-il", value = "Location code.")
+  @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getIsDefault() {
-    return isDefault;
+  public String getCode() {
+    return code;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsDefault(Boolean isDefault) {
-    this.isDefault = isDefault;
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+
+  public Location name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Human readable name of location.
+   * @return name
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Chicago IL, US", value = "Human readable name of location.")
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(String name) {
+    this.name = name;
   }
 
 
@@ -174,25 +201,27 @@ public class Location {
       return false;
     }
     Location location = (Location) o;
-    return Objects.equals(this.id, location.id) &&
-        Objects.equals(this.additionalInfo, location.additionalInfo) &&
-        Objects.equals(this.description, location.description) &&
-        Objects.equals(this.isDefault, location.isDefault);
+    return Objects.equals(this.region, location.region) &&
+        Objects.equals(this.site, location.site) &&
+        Objects.equals(this.pop, location.pop) &&
+        Objects.equals(this.code, location.code) &&
+        Objects.equals(this.name, location.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, additionalInfo, description, isDefault);
+    return Objects.hash(region, site, pop, code, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Location {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
+    sb.append("    region: ").append(toIndentedString(region)).append("\n");
+    sb.append("    site: ").append(toIndentedString(site)).append("\n");
+    sb.append("    pop: ").append(toIndentedString(pop)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

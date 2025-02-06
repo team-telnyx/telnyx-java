@@ -24,10 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -35,29 +35,34 @@ import com.telnyx.sdk.JSON;
  * UpdateConferenceRequest
  */
 @JsonPropertyOrder({
-  UpdateConferenceRequest.JSON_PROPERTY_STATUS,
-  UpdateConferenceRequest.JSON_PROPERTY_ANNOUNCE_URL,
-  UpdateConferenceRequest.JSON_PROPERTY_ANNOUNCE_METHOD
+  UpdateConferenceRequest.JSON_PROPERTY_CALL_CONTROL_ID,
+  UpdateConferenceRequest.JSON_PROPERTY_COMMAND_ID,
+  UpdateConferenceRequest.JSON_PROPERTY_SUPERVISOR_ROLE,
+  UpdateConferenceRequest.JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateConferenceRequest {
-  public static final String JSON_PROPERTY_STATUS = "Status";
-  private String status;
+  public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
+  private String callControlId;
 
-  public static final String JSON_PROPERTY_ANNOUNCE_URL = "AnnounceUrl";
-  private String announceUrl;
+  public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
+  private String commandId;
 
   /**
-   * The HTTP method used to call the &#x60;AnnounceUrl&#x60;. Defaults to &#x60;POST&#x60;.
+   * Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \&quot;barge\&quot; means the supervisor enters the conference as a normal participant. This is the same as \&quot;none\&quot;. \&quot;monitor\&quot; means the supervisor is muted but can hear all participants. \&quot;whisper\&quot; means that only the specified \&quot;whisper_call_control_ids\&quot; can hear the supervisor. Defaults to \&quot;none\&quot;.
    */
-  public enum AnnounceMethodEnum {
-    GET("GET"),
+  public enum SupervisorRoleEnum {
+    BARGE(String.valueOf("barge")),
     
-    POST("POST");
+    MONITOR(String.valueOf("monitor")),
+    
+    NONE(String.valueOf("none")),
+    
+    WHISPER(String.valueOf("whisper"));
 
     private String value;
 
-    AnnounceMethodEnum(String value) {
+    SupervisorRoleEnum(String value) {
       this.value = value;
     }
 
@@ -72,8 +77,8 @@ public class UpdateConferenceRequest {
     }
 
     @JsonCreator
-    public static AnnounceMethodEnum fromValue(String value) {
-      for (AnnounceMethodEnum b : AnnounceMethodEnum.values()) {
+    public static SupervisorRoleEnum fromValue(String value) {
+      for (SupervisorRoleEnum b : SupervisorRoleEnum.values()) {
         if (b.value.equals(value)) {
           return b;
         }
@@ -82,87 +87,124 @@ public class UpdateConferenceRequest {
     }
   }
 
-  public static final String JSON_PROPERTY_ANNOUNCE_METHOD = "AnnounceMethod";
-  private AnnounceMethodEnum announceMethod;
+  public static final String JSON_PROPERTY_SUPERVISOR_ROLE = "supervisor_role";
+  private SupervisorRoleEnum supervisorRole;
+
+  public static final String JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS = "whisper_call_control_ids";
+  private List<String> whisperCallControlIds = null;
 
   public UpdateConferenceRequest() { 
   }
 
-  public UpdateConferenceRequest status(String status) {
-    this.status = status;
+  public UpdateConferenceRequest callControlId(String callControlId) {
+    this.callControlId = callControlId;
     return this;
   }
 
    /**
-   * The new status of the resource. Specifying &#x60;completed&#x60; will end the conference and hang up all participants.
-   * @return status
+   * Unique identifier and token for controlling the call
+   * @return callControlId
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "completed", value = "The new status of the resource. Specifying `completed` will end the conference and hang up all participants.")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @javax.annotation.Nonnull
+  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==", required = true, value = "Unique identifier and token for controlling the call")
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getStatus() {
-    return status;
+  public String getCallControlId() {
+    return callControlId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(String status) {
-    this.status = status;
+  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCallControlId(String callControlId) {
+    this.callControlId = callControlId;
   }
 
 
-  public UpdateConferenceRequest announceUrl(String announceUrl) {
-    this.announceUrl = announceUrl;
+  public UpdateConferenceRequest commandId(String commandId) {
+    this.commandId = commandId;
     return this;
   }
 
    /**
-   * The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &lt;Play&gt;, &lt;Say&gt;, &lt;Pause&gt;, or &lt;Redirect&gt; verbs.
-   * @return announceUrl
+   * Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same &#x60;command_id&#x60; as one that has already been executed.
+   * @return commandId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.example.com/announce.xml", value = "The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains <Play>, <Say>, <Pause>, or <Redirect> verbs.")
-  @JsonProperty(JSON_PROPERTY_ANNOUNCE_URL)
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.")
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getAnnounceUrl() {
-    return announceUrl;
+  public String getCommandId() {
+    return commandId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANNOUNCE_URL)
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAnnounceUrl(String announceUrl) {
-    this.announceUrl = announceUrl;
+  public void setCommandId(String commandId) {
+    this.commandId = commandId;
   }
 
 
-  public UpdateConferenceRequest announceMethod(AnnounceMethodEnum announceMethod) {
-    this.announceMethod = announceMethod;
+  public UpdateConferenceRequest supervisorRole(SupervisorRoleEnum supervisorRole) {
+    this.supervisorRole = supervisorRole;
     return this;
   }
 
    /**
-   * The HTTP method used to call the &#x60;AnnounceUrl&#x60;. Defaults to &#x60;POST&#x60;.
-   * @return announceMethod
+   * Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \&quot;barge\&quot; means the supervisor enters the conference as a normal participant. This is the same as \&quot;none\&quot;. \&quot;monitor\&quot; means the supervisor is muted but can hear all participants. \&quot;whisper\&quot; means that only the specified \&quot;whisper_call_control_ids\&quot; can hear the supervisor. Defaults to \&quot;none\&quot;.
+   * @return supervisorRole
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "GET", value = "The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.")
-  @JsonProperty(JSON_PROPERTY_ANNOUNCE_METHOD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @javax.annotation.Nonnull
+  @ApiModelProperty(example = "whisper", required = true, value = "Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \"barge\" means the supervisor enters the conference as a normal participant. This is the same as \"none\". \"monitor\" means the supervisor is muted but can hear all participants. \"whisper\" means that only the specified \"whisper_call_control_ids\" can hear the supervisor. Defaults to \"none\".")
+  @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public AnnounceMethodEnum getAnnounceMethod() {
-    return announceMethod;
+  public SupervisorRoleEnum getSupervisorRole() {
+    return supervisorRole;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ANNOUNCE_METHOD)
+  @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSupervisorRole(SupervisorRoleEnum supervisorRole) {
+    this.supervisorRole = supervisorRole;
+  }
+
+
+  public UpdateConferenceRequest whisperCallControlIds(List<String> whisperCallControlIds) {
+    this.whisperCallControlIds = whisperCallControlIds;
+    return this;
+  }
+
+  public UpdateConferenceRequest addwhisperCallControlIdsItem(String whisperCallControlIdsItem) {
+    if (this.whisperCallControlIds == null) {
+      this.whisperCallControlIds = new ArrayList<>();
+    }
+    this.whisperCallControlIds.add(whisperCallControlIdsItem);
+    return this;
+  }
+
+   /**
+   * Array of unique call_control_ids the supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.
+   * @return whisperCallControlIds
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[\"v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ\",\"v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw\"]", value = "Array of unique call_control_ids the supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.")
+  @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAnnounceMethod(AnnounceMethodEnum announceMethod) {
-    this.announceMethod = announceMethod;
+
+  public List<String> getWhisperCallControlIds() {
+    return whisperCallControlIds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWhisperCallControlIds(List<String> whisperCallControlIds) {
+    this.whisperCallControlIds = whisperCallControlIds;
   }
 
 
@@ -178,23 +220,25 @@ public class UpdateConferenceRequest {
       return false;
     }
     UpdateConferenceRequest updateConferenceRequest = (UpdateConferenceRequest) o;
-    return Objects.equals(this.status, updateConferenceRequest.status) &&
-        Objects.equals(this.announceUrl, updateConferenceRequest.announceUrl) &&
-        Objects.equals(this.announceMethod, updateConferenceRequest.announceMethod);
+    return Objects.equals(this.callControlId, updateConferenceRequest.callControlId) &&
+        Objects.equals(this.commandId, updateConferenceRequest.commandId) &&
+        Objects.equals(this.supervisorRole, updateConferenceRequest.supervisorRole) &&
+        Objects.equals(this.whisperCallControlIds, updateConferenceRequest.whisperCallControlIds);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, announceUrl, announceMethod);
+    return Objects.hash(callControlId, commandId, supervisorRole, whisperCallControlIds);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateConferenceRequest {\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    announceUrl: ").append(toIndentedString(announceUrl)).append("\n");
-    sb.append("    announceMethod: ").append(toIndentedString(announceMethod)).append("\n");
+    sb.append("    callControlId: ").append(toIndentedString(callControlId)).append("\n");
+    sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
+    sb.append("    supervisorRole: ").append(toIndentedString(supervisorRole)).append("\n");
+    sb.append("    whisperCallControlIds: ").append(toIndentedString(whisperCallControlIds)).append("\n");
     sb.append("}");
     return sb.toString();
   }

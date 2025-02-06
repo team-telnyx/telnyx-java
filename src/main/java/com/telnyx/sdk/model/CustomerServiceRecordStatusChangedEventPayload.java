@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRecordStatusChangedEventPayload.JSON_PROPERTY_STATUS,
   CustomerServiceRecordStatusChangedEventPayload.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CustomerServiceRecordStatusChangedEventPayload {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -54,11 +52,11 @@ public class CustomerServiceRecordStatusChangedEventPayload {
    * The status of the customer service record
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 

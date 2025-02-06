@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.InterfaceStatus;
 import com.telnyx.sdk.model.RegionOutRegion;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   PublicInternetGatewayRead.JSON_PROPERTY_REGION_CODE,
   PublicInternetGatewayRead.JSON_PROPERTY_REGION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PublicInternetGatewayRead {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;

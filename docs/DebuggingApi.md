@@ -10,13 +10,13 @@ Method | HTTP request | Description
 
 ## listCallEvents
 
-> ListCallEventsResponse listCallEvents().filterCallLegId(filterCallLegId).filterCallSessionId(filterCallSessionId).filterStatus(filterStatus).filterType(filterType).filterEventTimestampGt(filterEventTimestampGt).filterEventTimestampGte(filterEventTimestampGte).filterEventTimestampLt(filterEventTimestampLt).filterEventTimestampLte(filterEventTimestampLte).filterEventTimestampEq(filterEventTimestampEq).pageNumber(pageNumber).pageSize(pageSize).execute();
+> ListCallEventsResponse listCallEvents().filterLegId(filterLegId).filterApplicationSessionId(filterApplicationSessionId).filterConnectionId(filterConnectionId).filterProduct(filterProduct).filterFrom(filterFrom).filterTo(filterTo).filterFailed(filterFailed).filterType(filterType).filterName(filterName).filterOccurredAtGt(filterOccurredAtGt).filterOccurredAtGte(filterOccurredAtGte).filterOccurredAtLt(filterOccurredAtLt).filterOccurredAtLte(filterOccurredAtLte).filterOccurredAtEq(filterOccurredAtEq).pageNumber(pageNumber).pageSize(pageSize).execute();
 
 List call events
 
-Filters call events by given filter parameters. Events are ordered by `event_timestamp`. If filter for `call_leg_id` or `call_session_id` is not present, it only filters events from the last 24 hours.
+Filters call events by given filter parameters. Events are ordered by `occurred_at`. If filter for `leg_id` or `application_session_id` is not present, it only filters events from the last 24 hours.
 
-**Note**: Only one `filter[event_timestamp]` can be passed.
+**Note**: Only one `filter[occurred_at]` can be passed.
 
 
 ### Example
@@ -41,28 +41,38 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DebuggingApi apiInstance = new DebuggingApi(defaultClient);
-        UUID filterCallLegId = UUID.randomUUID(); // UUID | The unique identifier of an individual call leg.
-        UUID filterCallSessionId = UUID.randomUUID(); // UUID | The unique identifier of the call control session. A session may include multiple call leg events.
-        String filterStatus = "delivered"; // String | Event status
+        UUID filterLegId = UUID.randomUUID(); // UUID | The unique identifier of an individual call leg.
+        UUID filterApplicationSessionId = UUID.randomUUID(); // UUID | The unique identifier of the call session. A session may include multiple call leg events.
+        String filterConnectionId = "filterConnectionId_example"; // String | The unique identifier of the conection.
+        String filterProduct = "call_control"; // String | Filter by product.
+        String filterFrom = "+12025550142"; // String | Filter by From number.
+        String filterTo = "+12025550142"; // String | Filter by To number.
+        Boolean filterFailed = false; // Boolean | Delivery failed or not.
         String filterType = "command"; // String | Event type
-        String filterEventTimestampGt = "2019-03-29T11:10:00Z"; // String | Event timestamp: greater than
-        String filterEventTimestampGte = "2019-03-29T11:10:00Z"; // String | Event timestamp: greater than or equal
-        String filterEventTimestampLt = "2019-03-29T11:10:00Z"; // String | Event timestamp: lower than
-        String filterEventTimestampLte = "2019-03-29T11:10:00Z"; // String | Event timestamp: lower than or equal
-        String filterEventTimestampEq = "2019-03-29T11:10:00Z"; // String | Event timestamp: equal
+        String filterName = "webhook"; // String | Event name
+        String filterOccurredAtGt = "2019-03-29T11:10:00Z"; // String | Event occurred_at: greater than
+        String filterOccurredAtGte = "2019-03-29T11:10:00Z"; // String | Event occurred_at: greater than or equal
+        String filterOccurredAtLt = "2019-03-29T11:10:00Z"; // String | Event occurred_at: lower than
+        String filterOccurredAtLte = "2019-03-29T11:10:00Z"; // String | Event occurred_at: lower than or equal
+        String filterOccurredAtEq = "2019-03-29T11:10:00Z"; // String | Event occurred_at: equal
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
             ListCallEventsResponse result = api.listCallEvents()
-                .filterCallLegId(filterCallLegId)
-                .filterCallSessionId(filterCallSessionId)
-                .filterStatus(filterStatus)
+                .filterLegId(filterLegId)
+                .filterApplicationSessionId(filterApplicationSessionId)
+                .filterConnectionId(filterConnectionId)
+                .filterProduct(filterProduct)
+                .filterFrom(filterFrom)
+                .filterTo(filterTo)
+                .filterFailed(filterFailed)
                 .filterType(filterType)
-                .filterEventTimestampGt(filterEventTimestampGt)
-                .filterEventTimestampGte(filterEventTimestampGte)
-                .filterEventTimestampLt(filterEventTimestampLt)
-                .filterEventTimestampLte(filterEventTimestampLte)
-                .filterEventTimestampEq(filterEventTimestampEq)
+                .filterName(filterName)
+                .filterOccurredAtGt(filterOccurredAtGt)
+                .filterOccurredAtGte(filterOccurredAtGte)
+                .filterOccurredAtLt(filterOccurredAtLt)
+                .filterOccurredAtLte(filterOccurredAtLte)
+                .filterOccurredAtEq(filterOccurredAtEq)
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
                 .execute();
@@ -83,15 +93,20 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filterCallLegId** | **UUID**| The unique identifier of an individual call leg. | [optional]
- **filterCallSessionId** | **UUID**| The unique identifier of the call control session. A session may include multiple call leg events. | [optional]
- **filterStatus** | **String**| Event status | [optional] [enum: delivered, failed]
+ **filterLegId** | **UUID**| The unique identifier of an individual call leg. | [optional]
+ **filterApplicationSessionId** | **UUID**| The unique identifier of the call session. A session may include multiple call leg events. | [optional]
+ **filterConnectionId** | **String**| The unique identifier of the conection. | [optional]
+ **filterProduct** | **String**| Filter by product. | [optional] [enum: call_control, fax, texml]
+ **filterFrom** | **String**| Filter by From number. | [optional]
+ **filterTo** | **String**| Filter by To number. | [optional]
+ **filterFailed** | **Boolean**| Delivery failed or not. | [optional]
  **filterType** | **String**| Event type | [optional] [enum: command, webhook]
- **filterEventTimestampGt** | **String**| Event timestamp: greater than | [optional]
- **filterEventTimestampGte** | **String**| Event timestamp: greater than or equal | [optional]
- **filterEventTimestampLt** | **String**| Event timestamp: lower than | [optional]
- **filterEventTimestampLte** | **String**| Event timestamp: lower than or equal | [optional]
- **filterEventTimestampEq** | **String**| Event timestamp: equal | [optional]
+ **filterName** | **String**| Event name | [optional]
+ **filterOccurredAtGt** | **String**| Event occurred_at: greater than | [optional]
+ **filterOccurredAtGte** | **String**| Event occurred_at: greater than or equal | [optional]
+ **filterOccurredAtLt** | **String**| Event occurred_at: lower than | [optional]
+ **filterOccurredAtLte** | **String**| Event occurred_at: lower than or equal | [optional]
+ **filterOccurredAtEq** | **String**| Event occurred_at: equal | [optional]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
 

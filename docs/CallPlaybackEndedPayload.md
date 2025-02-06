@@ -16,6 +16,7 @@
 |**mediaName** | **String** | The name of the audio media file being played back, if media_name has been used to start. |  [optional] |
 |**overlay** | **Boolean** | Whether the stopped audio was in overlay mode or not. |  [optional] |
 |**status** | [**StatusEnum**](#StatusEnum) | Reflects how command ended. |  [optional] |
+|**statusDetail** | **String** | Provides details in case of failure. |  [optional] |
 
 
 
@@ -26,10 +27,10 @@
 | FILE_NOT_FOUND | &quot;file_not_found&quot; |
 | CALL_HANGUP | &quot;call_hangup&quot; |
 | UNKNOWN | &quot;unknown&quot; |
-| FAILED | &quot;failed&quot; |
+| CANCELLED | &quot;cancelled&quot; |
 | CANCELLED_AMD | &quot;cancelled_amd&quot; |
 | COMPLETED | &quot;completed&quot; |
-| FAILED2 | &quot;failed&quot; |
+| FAILED | &quot;failed&quot; |
 
 
 

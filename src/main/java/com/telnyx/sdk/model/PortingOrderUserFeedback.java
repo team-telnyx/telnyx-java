@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,7 +36,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderUserFeedback.JSON_PROPERTY_USER_RATING,
   PortingOrderUserFeedback.JSON_PROPERTY_USER_COMMENT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrderUserFeedback {
   public static final String JSON_PROPERTY_USER_RATING = "user_rating";
   private Integer userRating;
@@ -55,11 +53,11 @@ public class PortingOrderUserFeedback {
   }
 
    /**
-   * Once an order is ported, cancellation is requested or the request is canceled, the user may rate their experience
+   * Once an order is ported, cancellation is requested or the request is cancelled, the user may rate their experience
    * @return userRating
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "5", value = "Once an order is ported, cancellation is requested or the request is canceled, the user may rate their experience")
+  @ApiModelProperty(example = "5", value = "Once an order is ported, cancellation is requested or the request is cancelled, the user may rate their experience")
   @JsonProperty(JSON_PROPERTY_USER_RATING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

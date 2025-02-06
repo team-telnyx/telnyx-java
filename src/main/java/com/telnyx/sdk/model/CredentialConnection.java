@@ -32,9 +32,6 @@ import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -69,7 +66,7 @@ import com.telnyx.sdk.JSON;
   CredentialConnection.JSON_PROPERTY_INBOUND,
   CredentialConnection.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CredentialConnection {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -102,11 +99,11 @@ public class CredentialConnection {
    * This feature enables inbound SIP URI calls to your Credential Auth Connection. If enabled for all (unrestricted) then anyone who calls the SIP URI &lt;your-username&gt;@telnyx.com will be connected to your Connection. You can also choose to allow only calls that are originated on any Connections under your account (internal).
    */
   public enum SipUriCallingPreferenceEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    UNRESTRICTED("unrestricted"),
+    UNRESTRICTED(String.valueOf("unrestricted")),
     
-    INTERNAL("internal");
+    INTERNAL(String.valueOf("internal"));
 
     private String value;
 
@@ -163,9 +160,9 @@ public class CredentialConnection {
    * Determines which webhook format will be used, Telnyx API v1 or v2.
    */
   public enum WebhookApiVersionEnum {
-    _1("1"),
+    _1(String.valueOf("1")),
     
-    _2("2");
+    _2(String.valueOf("2"));
 
     private String value;
 
@@ -296,11 +293,11 @@ public class CredentialConnection {
   }
 
    /**
-   * The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters).
+   * The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters). At least one of the first 5 characters must be a letter.
    * @return userName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "myusername123", value = "The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters).")
+  @ApiModelProperty(example = "myusername123", value = "The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters). At least one of the first 5 characters must be a letter.")
   @JsonProperty(JSON_PROPERTY_USER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

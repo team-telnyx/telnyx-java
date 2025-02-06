@@ -10,12 +10,14 @@
 |**id** | **UUID** |  |  [optional] [readonly] |
 |**recordType** | **String** |  |  [optional] [readonly] |
 |**phoneNumber** | **String** |  |  [optional] |
-|**regulatoryGroupId** | **String** |  |  [optional] [readonly] |
-|**regulatoryRequirements** | [**List&lt;PhoneNumberRegulatoryRequirement&gt;**](PhoneNumberRegulatoryRequirement.md) |  |  [optional] |
+|**countryIsoAlpha2** | **String** | The ISO 3166-1 alpha-2 country code of the phone number. |  [optional] [readonly] |
+|**regulatoryRequirements** | [**List&lt;SubNumberOrderRegulatoryRequirementWithValue&gt;**](SubNumberOrderRegulatoryRequirementWithValue.md) |  |  [optional] |
 |**requirementsMet** | **Boolean** | True if all requirements are met for a phone number, false otherwise. |  [optional] [readonly] |
 |**requirementsStatus** | [**RequirementsStatusEnum**](#RequirementsStatusEnum) | Status of document requirements (if applicable) |  [optional] [readonly] |
 |**status** | [**StatusEnum**](#StatusEnum) | The status of the phone number in the order. |  [optional] [readonly] |
+|**bundleId** | **UUID** |  |  [optional] [readonly] |
 |**phoneNumberType** | [**PhoneNumberTypeEnum**](#PhoneNumberTypeEnum) | Phone number type |  [optional] [readonly] |
+|**countryCode** | **String** | Country code of the phone number |  [optional] [readonly] |
 
 
 

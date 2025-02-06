@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ConferenceEndedBy;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -48,13 +46,13 @@ import com.telnyx.sdk.JSON;
   Conference.JSON_PROPERTY_ENDED_BY,
   Conference.JSON_PROPERTY_CONNECTION_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Conference {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    CONFERENCE("conference");
+    CONFERENCE(String.valueOf("conference"));
 
     private String value;
 
@@ -108,11 +106,11 @@ public class Conference {
    * Status of the conference
    */
   public enum StatusEnum {
-    INIT("init"),
+    INIT(String.valueOf("init")),
     
-    IN_PROGRESS("in_progress"),
+    IN_PROGRESS(String.valueOf("in_progress")),
     
-    COMPLETED("completed");
+    COMPLETED(String.valueOf("completed"));
 
     private String value;
 
@@ -148,13 +146,13 @@ public class Conference {
    * Reason why the conference ended
    */
   public enum EndReasonEnum {
-    ALL_LEFT("all_left"),
+    ALL_LEFT(String.valueOf("all_left")),
     
-    ENDED_VIA_API("ended_via_api"),
+    ENDED_VIA_API(String.valueOf("ended_via_api")),
     
-    HOST_LEFT("host_left"),
+    HOST_LEFT(String.valueOf("host_left")),
     
-    TIME_EXCEEDED("time_exceeded");
+    TIME_EXCEEDED(String.valueOf("time_exceeded"));
 
     private String value;
 

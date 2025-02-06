@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.SlimPhoneNumberDetailed;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListPhoneNumbersResponse1.JSON_PROPERTY_DATA,
   ListPhoneNumbersResponse1.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListPhoneNumbersResponse1 {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<SlimPhoneNumberDetailed> data = null;
@@ -58,7 +56,7 @@ public class ListPhoneNumbersResponse1 {
     return this;
   }
 
-  public ListPhoneNumbersResponse1 addDataItem(SlimPhoneNumberDetailed dataItem) {
+  public ListPhoneNumbersResponse1 adddataItem(SlimPhoneNumberDetailed dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

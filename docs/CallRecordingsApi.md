@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 ## createCustomStorageCredentials
 
-> CredentialsResponse createCustomStorageCredentials(connectionId, customStorageConfiguration)
+> CredentialsResponse createCustomStorageCredentials(connectionIdWireless, customStorageConfiguration)
 
 Create a custom storage credential
 
@@ -47,10 +47,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         CallRecordingsApi apiInstance = new CallRecordingsApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionIdWireless = "1293384261075731461"; // String | Telnyx connection id
         CustomStorageConfiguration customStorageConfiguration = new CustomStorageConfiguration(); // CustomStorageConfiguration | Creates new credentials resource for given connection_id.
         try {
-            CredentialsResponse result = apiInstance.createCustomStorageCredentials(connectionId, customStorageConfiguration);
+            CredentialsResponse result = apiInstance.createCustomStorageCredentials(connectionIdWireless, customStorageConfiguration);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CallRecordingsApi#createCustomStorageCredentials");
@@ -68,7 +68,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionIdWireless** | **String**| Telnyx connection id |
  **customStorageConfiguration** | [**CustomStorageConfiguration**](CustomStorageConfiguration.md)| Creates new credentials resource for given connection_id. |
 
 ### Return type
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## deleteCustomStorageCredentials
 
-> deleteCustomStorageCredentials(connectionId)
+> deleteCustomStorageCredentials(connectionIdWireless)
 
 Delete a stored credential
 
@@ -120,9 +120,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         CallRecordingsApi apiInstance = new CallRecordingsApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionIdWireless = "1293384261075731461"; // String | Telnyx connection id
         try {
-            apiInstance.deleteCustomStorageCredentials(connectionId);
+            apiInstance.deleteCustomStorageCredentials(connectionIdWireless);
         } catch (ApiException e) {
             System.err.println("Exception when calling CallRecordingsApi#deleteCustomStorageCredentials");
             System.err.println("Status code: " + e.getCode());
@@ -139,7 +139,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionIdWireless** | **String**| Telnyx connection id |
 
 ### Return type
 
@@ -376,7 +376,7 @@ null (empty response body)
 
 ## getCustomStorageCredentials
 
-> CredentialsResponse getCustomStorageCredentials(connectionId)
+> CredentialsResponse getCustomStorageCredentials(connectionIdWireless)
 
 Retrieve a stored credential
 
@@ -403,9 +403,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         CallRecordingsApi apiInstance = new CallRecordingsApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionIdWireless = "1293384261075731461"; // String | Telnyx connection id
         try {
-            CredentialsResponse result = apiInstance.getCustomStorageCredentials(connectionId);
+            CredentialsResponse result = apiInstance.getCustomStorageCredentials(connectionIdWireless);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CallRecordingsApi#getCustomStorageCredentials");
@@ -423,7 +423,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionIdWireless** | **String**| Telnyx connection id |
 
 ### Return type
 
@@ -747,7 +747,7 @@ Name | Type | Description  | Notes
 
 ## updateCustomStorageCredentials
 
-> CredentialsResponse updateCustomStorageCredentials(connectionId, customStorageConfiguration)
+> CredentialsResponse updateCustomStorageCredentials(connectionIdWireless, customStorageConfiguration)
 
 Update a stored credential
 
@@ -774,10 +774,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         CallRecordingsApi apiInstance = new CallRecordingsApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionIdWireless = "1293384261075731461"; // String | Telnyx connection id
         CustomStorageConfiguration customStorageConfiguration = new CustomStorageConfiguration(); // CustomStorageConfiguration | Creates new credentials resource for given connection_id.
         try {
-            CredentialsResponse result = apiInstance.updateCustomStorageCredentials(connectionId, customStorageConfiguration);
+            CredentialsResponse result = apiInstance.updateCustomStorageCredentials(connectionIdWireless, customStorageConfiguration);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CallRecordingsApi#updateCustomStorageCredentials");
@@ -795,7 +795,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionIdWireless** | **String**| Telnyx connection id |
  **customStorageConfiguration** | [**CustomStorageConfiguration**](CustomStorageConfiguration.md)| Creates new credentials resource for given connection_id. |
 
 ### Return type

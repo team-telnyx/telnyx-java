@@ -31,17 +31,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum RecordingSource {
   
-  STARTCALLRECORDINGAPI("StartCallRecordingAPI"),
+  START_CALL_RECORDING_API("StartCallRecordingAPI"),
   
-  STARTCONFERENCERECORDINGAPI("StartConferenceRecordingAPI"),
+  START_CONFERENCE_RECORDING_API("StartConferenceRecordingAPI"),
   
-  OUTBOUNDAPI("OutboundAPI"),
+  OUTBOUND_API("OutboundAPI"),
   
-  DIALVERB("DialVerb"),
+  DIAL_VERB("DialVerb"),
   
   CONFERENCE("Conference"),
   
-  RECORDVERB("RecordVerb"),
+  RECORD_VERB("RecordVerb"),
   
   TRUNKING("Trunking");
 

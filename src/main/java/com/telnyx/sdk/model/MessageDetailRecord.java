@@ -28,8 +28,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -70,7 +68,7 @@ import com.telnyx.sdk.JSON;
   MessageDetailRecord.JSON_PROPERTY_PARTS,
   MessageDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessageDetailRecord {
   public static final String JSON_PROPERTY_UUID = "uuid";
   private String uuid;
@@ -118,9 +116,9 @@ public class MessageDetailRecord {
    * Logical direction of the message from the Telnyx customer&#39;s perspective. It&#39;s inbound when the Telnyx customer receives the message, or outbound otherwise
    */
   public enum DirectionEnum {
-    INBOUND("inbound"),
+    INBOUND(String.valueOf("inbound")),
     
-    OUTBOUND("outbound");
+    OUTBOUND(String.valueOf("outbound"));
 
     private String value;
 
@@ -165,11 +163,11 @@ public class MessageDetailRecord {
    * Describes the Messaging service used to send the message. Available services are: Short Message Service (SMS), Multimedia Messaging Service (MMS), and Rich Communication Services (RCS)
    */
   public enum MessageTypeEnum {
-    SMS("SMS"),
+    SMS(String.valueOf("SMS")),
     
-    MMS("MMS"),
+    MMS(String.valueOf("MMS")),
     
-    RCS("RCS");
+    RCS(String.valueOf("RCS"));
 
     private String value;
 
@@ -217,19 +215,19 @@ public class MessageDetailRecord {
    * Final status of the message after the delivery attempt
    */
   public enum StatusEnum {
-    GW_TIMEOUT("gw_timeout"),
+    GW_TIMEOUT(String.valueOf("gw_timeout")),
     
-    DELIVERED("delivered"),
+    DELIVERED(String.valueOf("delivered")),
     
-    DLR_UNCONFIRMED("dlr_unconfirmed"),
+    DLR_UNCONFIRMED(String.valueOf("dlr_unconfirmed")),
     
-    DLR_TIMEOUT("dlr_timeout"),
+    DLR_TIMEOUT(String.valueOf("dlr_timeout")),
     
-    RECEIVED("received"),
+    RECEIVED(String.valueOf("received")),
     
-    GW_REJECT("gw_reject"),
+    GW_REJECT(String.valueOf("gw_reject")),
     
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 
@@ -1018,7 +1016,7 @@ public class MessageDetailRecord {
     return this;
   }
 
-  public MessageDetailRecord addErrorsItem(String errorsItem) {
+  public MessageDetailRecord adderrorsItem(String errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }

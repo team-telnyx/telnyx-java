@@ -5,7 +5,7 @@ All URIs are relative to *https://api.telnyx.com/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**listRequirementTypes**](RequirementTypesApi.md#listRequirementTypes) | **GET** /requirement_types | List all requirement types
-[**retrieveRequirementType**](RequirementTypesApi.md#retrieveRequirementType) | **GET** /requirement_types/{id} | Retrieve a requirement types
+[**retrieveRequirementType**](RequirementTypesApi.md#retrieveRequirementType) | **GET** /requirement_types/{id} | Retrieve a requirement type
 
 
 
@@ -79,14 +79,14 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## retrieveRequirementType
 
 > RetrieveRequirementType200Response retrieveRequirementType(id)
 
-Retrieve a requirement types
+Retrieve a requirement type
 
 Retrieve a requirement type by id
 
@@ -151,5 +151,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 

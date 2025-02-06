@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**content** | **String** |  |  |
+|**content** | [**ChatCompletionSystemMessageParamContent**](ChatCompletionSystemMessageParamContent.md) |  |  |
 |**role** | [**RoleEnum**](#RoleEnum) |  |  |
 
 

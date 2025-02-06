@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Cursor;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -37,13 +35,17 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   CursorPaginationMeta.JSON_PROPERTY_CURSORS,
+  CursorPaginationMeta.JSON_PROPERTY_TOTAL_ITEMS,
   CursorPaginationMeta.JSON_PROPERTY_NEXT,
   CursorPaginationMeta.JSON_PROPERTY_PREVIOUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CursorPaginationMeta {
   public static final String JSON_PROPERTY_CURSORS = "cursors";
   private Cursor cursors;
+
+  public static final String JSON_PROPERTY_TOTAL_ITEMS = "total_items";
+  private Integer totalItems;
 
   public static final String JSON_PROPERTY_NEXT = "next";
   private String next;
@@ -80,6 +82,32 @@ public class CursorPaginationMeta {
   }
 
 
+  public CursorPaginationMeta totalItems(Integer totalItems) {
+    this.totalItems = totalItems;
+    return this;
+  }
+
+   /**
+   * Get totalItems
+   * @return totalItems
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "50", value = "")
+  @JsonProperty(JSON_PROPERTY_TOTAL_ITEMS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTotalItems() {
+    return totalItems;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL_ITEMS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotalItems(Integer totalItems) {
+    this.totalItems = totalItems;
+  }
+
+
   public CursorPaginationMeta next(String next) {
     this.next = next;
     return this;
@@ -90,7 +118,7 @@ public class CursorPaginationMeta {
    * @return next
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "/v2/recording_transcriptions?page[after]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=", value = "Path to next page.")
+  @ApiModelProperty(example = "/v2/connections/1234567890/active_calls?page[after]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=", value = "Path to next page.")
   @JsonProperty(JSON_PROPERTY_NEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -116,7 +144,7 @@ public class CursorPaginationMeta {
    * @return previous
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "/v2/recording_transcriptions?page[before]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=", value = "Path to previous page.")
+  @ApiModelProperty(example = "/v2/connections/1234567890/active_calls?page[before]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=", value = "Path to previous page.")
   @JsonProperty(JSON_PROPERTY_PREVIOUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -145,13 +173,14 @@ public class CursorPaginationMeta {
     }
     CursorPaginationMeta cursorPaginationMeta = (CursorPaginationMeta) o;
     return Objects.equals(this.cursors, cursorPaginationMeta.cursors) &&
+        Objects.equals(this.totalItems, cursorPaginationMeta.totalItems) &&
         Objects.equals(this.next, cursorPaginationMeta.next) &&
         Objects.equals(this.previous, cursorPaginationMeta.previous);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursors, next, previous);
+    return Objects.hash(cursors, totalItems, next, previous);
   }
 
   @Override
@@ -159,6 +188,7 @@ public class CursorPaginationMeta {
     StringBuilder sb = new StringBuilder();
     sb.append("class CursorPaginationMeta {\n");
     sb.append("    cursors: ").append(toIndentedString(cursors)).append("\n");
+    sb.append("    totalItems: ").append(toIndentedString(totalItems)).append("\n");
     sb.append("    next: ").append(toIndentedString(next)).append("\n");
     sb.append("    previous: ").append(toIndentedString(previous)).append("\n");
     sb.append("}");

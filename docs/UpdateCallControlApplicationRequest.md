@@ -26,10 +26,10 @@
 
 | Name | Value |
 |---- | -----|
-| LATENCY_ | &quot;\&quot;Latency\&quot;&quot; |
-| CHICAGO_IL_ | &quot;\&quot;Chicago, IL\&quot;&quot; |
-| ASHBURN_VA_ | &quot;\&quot;Ashburn, VA\&quot;&quot; |
-| SAN_JOSE_CA_ | &quot;\&quot;San Jose, CA\&quot;&quot; |
+| _LATENCY_ | &quot;\&quot;Latency\&quot;&quot; |
+| _CHICAGO_IL_ | &quot;\&quot;Chicago, IL\&quot;&quot; |
+| _ASHBURN_VA_ | &quot;\&quot;Ashburn, VA\&quot;&quot; |
+| _SAN_JOSE_CA_ | &quot;\&quot;San Jose, CA\&quot;&quot; |
 
 
 

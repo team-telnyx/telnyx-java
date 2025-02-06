@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CallResource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   CallResourceIndex.JSON_PROPERTY_START,
   CallResourceIndex.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallResourceIndex {
   public static final String JSON_PROPERTY_CALLS = "calls";
   private List<CallResource> calls = null;
@@ -81,7 +79,7 @@ public class CallResourceIndex {
     return this;
   }
 
-  public CallResourceIndex addCallsItem(CallResource callsItem) {
+  public CallResourceIndex addcallsItem(CallResource callsItem) {
     if (this.calls == null) {
       this.calls = new ArrayList<>();
     }

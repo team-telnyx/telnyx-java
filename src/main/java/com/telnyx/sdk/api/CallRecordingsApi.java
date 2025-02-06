@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallRecordingsApi {
   private ApiClient apiClient;
 
@@ -55,7 +55,7 @@ public class CallRecordingsApi {
   /**
    * Create a custom storage credential
    * Creates a custom storage credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @param customStorageConfiguration Creates new credentials resource for given connection_id. (required)
    * @return CredentialsResponse
    * @throws ApiException if fails to make API call
@@ -66,14 +66,14 @@ public class CallRecordingsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CredentialsResponse createCustomStorageCredentials(String connectionId, CustomStorageConfiguration customStorageConfiguration) throws ApiException {
-    return createCustomStorageCredentialsWithHttpInfo(connectionId, customStorageConfiguration).getData();
+  public CredentialsResponse createCustomStorageCredentials(String connectionIdWireless, CustomStorageConfiguration customStorageConfiguration) throws ApiException {
+    return createCustomStorageCredentialsWithHttpInfo(connectionIdWireless, customStorageConfiguration).getData();
   }
 
   /**
    * Create a custom storage credential
    * Creates a custom storage credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @param customStorageConfiguration Creates new credentials resource for given connection_id. (required)
    * @return ApiResponse&lt;CredentialsResponse&gt;
    * @throws ApiException if fails to make API call
@@ -84,12 +84,12 @@ public class CallRecordingsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CredentialsResponse> createCustomStorageCredentialsWithHttpInfo(String connectionId, CustomStorageConfiguration customStorageConfiguration) throws ApiException {
+  public ApiResponse<CredentialsResponse> createCustomStorageCredentialsWithHttpInfo(String connectionIdWireless, CustomStorageConfiguration customStorageConfiguration) throws ApiException {
     Object localVarPostBody = customStorageConfiguration;
     
-    // verify the required parameter 'connectionId' is set
-    if (connectionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling createCustomStorageCredentials");
+    // verify the required parameter 'connectionIdWireless' is set
+    if (connectionIdWireless == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionIdWireless' when calling createCustomStorageCredentials");
     }
     
     // verify the required parameter 'customStorageConfiguration' is set
@@ -99,7 +99,7 @@ public class CallRecordingsApi {
     
     // create path and map variables
     String localVarPath = "/custom_storage_credentials/{connection_id}"
-      .replaceAll("\\{" + "connection_id" + "\\}", apiClient.escapeString(connectionId.toString()));
+      .replaceAll("\\{" + "connection_id_wireless" + "\\}", apiClient.escapeString(connectionIdWireless.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -132,7 +132,7 @@ public class CallRecordingsApi {
   /**
    * Delete a stored credential
    * Deletes a stored custom credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -141,14 +141,14 @@ public class CallRecordingsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public void deleteCustomStorageCredentials(String connectionId) throws ApiException {
-    deleteCustomStorageCredentialsWithHttpInfo(connectionId);
+  public void deleteCustomStorageCredentials(String connectionIdWireless) throws ApiException {
+    deleteCustomStorageCredentialsWithHttpInfo(connectionIdWireless);
   }
 
   /**
    * Delete a stored credential
    * Deletes a stored custom credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -158,17 +158,17 @@ public class CallRecordingsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deleteCustomStorageCredentialsWithHttpInfo(String connectionId) throws ApiException {
+  public ApiResponse<Void> deleteCustomStorageCredentialsWithHttpInfo(String connectionIdWireless) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'connectionId' is set
-    if (connectionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling deleteCustomStorageCredentials");
+    // verify the required parameter 'connectionIdWireless' is set
+    if (connectionIdWireless == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionIdWireless' when calling deleteCustomStorageCredentials");
     }
     
     // create path and map variables
     String localVarPath = "/custom_storage_credentials/{connection_id}"
-      .replaceAll("\\{" + "connection_id" + "\\}", apiClient.escapeString(connectionId.toString()));
+      .replaceAll("\\{" + "connection_id_wireless" + "\\}", apiClient.escapeString(connectionIdWireless.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -405,7 +405,7 @@ public class CallRecordingsApi {
   /**
    * Retrieve a stored credential
    * Returns the information about custom storage credentials.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @return CredentialsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -415,14 +415,14 @@ public class CallRecordingsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CredentialsResponse getCustomStorageCredentials(String connectionId) throws ApiException {
-    return getCustomStorageCredentialsWithHttpInfo(connectionId).getData();
+  public CredentialsResponse getCustomStorageCredentials(String connectionIdWireless) throws ApiException {
+    return getCustomStorageCredentialsWithHttpInfo(connectionIdWireless).getData();
   }
 
   /**
    * Retrieve a stored credential
    * Returns the information about custom storage credentials.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @return ApiResponse&lt;CredentialsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -432,17 +432,17 @@ public class CallRecordingsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CredentialsResponse> getCustomStorageCredentialsWithHttpInfo(String connectionId) throws ApiException {
+  public ApiResponse<CredentialsResponse> getCustomStorageCredentialsWithHttpInfo(String connectionIdWireless) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'connectionId' is set
-    if (connectionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling getCustomStorageCredentials");
+    // verify the required parameter 'connectionIdWireless' is set
+    if (connectionIdWireless == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionIdWireless' when calling getCustomStorageCredentials");
     }
     
     // create path and map variables
     String localVarPath = "/custom_storage_credentials/{connection_id}"
-      .replaceAll("\\{" + "connection_id" + "\\}", apiClient.escapeString(connectionId.toString()));
+      .replaceAll("\\{" + "connection_id_wireless" + "\\}", apiClient.escapeString(connectionIdWireless.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -769,7 +769,7 @@ public class CallRecordingsApi {
   /**
    * Update a stored credential
    * Updates a stored custom credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @param customStorageConfiguration Creates new credentials resource for given connection_id. (required)
    * @return CredentialsResponse
    * @throws ApiException if fails to make API call
@@ -780,14 +780,14 @@ public class CallRecordingsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CredentialsResponse updateCustomStorageCredentials(String connectionId, CustomStorageConfiguration customStorageConfiguration) throws ApiException {
-    return updateCustomStorageCredentialsWithHttpInfo(connectionId, customStorageConfiguration).getData();
+  public CredentialsResponse updateCustomStorageCredentials(String connectionIdWireless, CustomStorageConfiguration customStorageConfiguration) throws ApiException {
+    return updateCustomStorageCredentialsWithHttpInfo(connectionIdWireless, customStorageConfiguration).getData();
   }
 
   /**
    * Update a stored credential
    * Updates a stored custom credentials configuration.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @param customStorageConfiguration Creates new credentials resource for given connection_id. (required)
    * @return ApiResponse&lt;CredentialsResponse&gt;
    * @throws ApiException if fails to make API call
@@ -798,12 +798,12 @@ public class CallRecordingsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CredentialsResponse> updateCustomStorageCredentialsWithHttpInfo(String connectionId, CustomStorageConfiguration customStorageConfiguration) throws ApiException {
+  public ApiResponse<CredentialsResponse> updateCustomStorageCredentialsWithHttpInfo(String connectionIdWireless, CustomStorageConfiguration customStorageConfiguration) throws ApiException {
     Object localVarPostBody = customStorageConfiguration;
     
-    // verify the required parameter 'connectionId' is set
-    if (connectionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling updateCustomStorageCredentials");
+    // verify the required parameter 'connectionIdWireless' is set
+    if (connectionIdWireless == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionIdWireless' when calling updateCustomStorageCredentials");
     }
     
     // verify the required parameter 'customStorageConfiguration' is set
@@ -813,7 +813,7 @@ public class CallRecordingsApi {
     
     // create path and map variables
     String localVarPath = "/custom_storage_credentials/{connection_id}"
-      .replaceAll("\\{" + "connection_id" + "\\}", apiClient.escapeString(connectionId.toString()));
+      .replaceAll("\\{" + "connection_id_wireless" + "\\}", apiClient.escapeString(connectionIdWireless.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();

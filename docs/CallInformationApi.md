@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## listConnectionActiveCalls
 
-> ActiveCallsResponse listConnectionActiveCalls(connectionId).pageLimit(pageLimit).pageAfter(pageAfter).pageBefore(pageBefore).execute();
+> ActiveCallsResponse listConnectionActiveCalls(connectionIdWireless).pageLimit(pageLimit).pageAfter(pageAfter).pageBefore(pageBefore).execute();
 
 List all active calls for given connection
 
@@ -39,12 +39,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         CallInformationApi apiInstance = new CallInformationApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionIdWireless = "1293384261075731461"; // String | Telnyx connection id
         Integer pageLimit = 20; // Integer | Limit of records per single page
         String pageAfter = "null"; // String | Opaque identifier of next page
         String pageBefore = "null"; // String | Opaque identifier of previous page
         try {
-            ActiveCallsResponse result = api.listConnectionActiveCalls(connectionId)
+            ActiveCallsResponse result = api.listConnectionActiveCalls(connectionIdWireless)
                 .pageLimit(pageLimit)
                 .pageAfter(pageAfter)
                 .pageBefore(pageBefore)
@@ -66,7 +66,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionIdWireless** | **String**| Telnyx connection id |
  **pageLimit** | **Integer**| Limit of records per single page | [optional] [default to 20]
  **pageAfter** | **String**| Opaque identifier of next page | [optional] [default to null]
  **pageBefore** | **String**| Opaque identifier of previous page | [optional] [default to null]

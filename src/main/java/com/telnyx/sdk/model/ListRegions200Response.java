@@ -24,11 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.Region;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,20 +38,20 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   ListRegions200Response.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListRegions200Response {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<String> data = null;
+  private List<Region> data = null;
 
   public ListRegions200Response() { 
   }
 
-  public ListRegions200Response data(List<String> data) {
+  public ListRegions200Response data(List<Region> data) {
     this.data = data;
     return this;
   }
 
-  public ListRegions200Response addDataItem(String dataItem) {
+  public ListRegions200Response adddataItem(Region dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -69,14 +68,14 @@ public class ListRegions200Response {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<String> getData() {
+  public List<Region> getData() {
     return data;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(List<String> data) {
+  public void setData(List<Region> data) {
     this.data = data;
   }
 

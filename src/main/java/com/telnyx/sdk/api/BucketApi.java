@@ -9,14 +9,14 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreateBucketRequest;
-import com.telnyx.sdk.model.ListBucketsResponse;
+import com.telnyx.sdk.model.ListBuckets200Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BucketApi {
   private ApiClient apiClient;
 
@@ -128,6 +128,7 @@ public class BucketApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 204 </td><td> Success </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    * 
    * @see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html">DeleteBucket Documentation</a>
@@ -146,6 +147,7 @@ public class BucketApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 204 </td><td> Success </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    * 
    * @see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html">DeleteBucket Documentation</a>
@@ -262,34 +264,36 @@ public class BucketApi {
   /**
    * ListBuckets
    * List all Buckets.
-   * @return ListBucketsResponse
+   * @return ListBuckets200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    * 
    * @see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html">ListBuckets Documentation</a>
    */
-  public ListBucketsResponse listBuckets() throws ApiException {
+  public ListBuckets200Response listBuckets() throws ApiException {
     return listBucketsWithHttpInfo().getData();
   }
 
   /**
    * ListBuckets
    * List all Buckets.
-   * @return ApiResponse&lt;ListBucketsResponse&gt;
+   * @return ApiResponse&lt;ListBuckets200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    * 
    * @see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html">ListBuckets Documentation</a>
    */
-  public ApiResponse<ListBucketsResponse> listBucketsWithHttpInfo() throws ApiException {
+  public ApiResponse<ListBuckets200Response> listBucketsWithHttpInfo() throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -317,7 +321,7 @@ public class BucketApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListBucketsResponse> localVarReturnType = new GenericType<ListBucketsResponse>() {};
+    GenericType<ListBuckets200Response> localVarReturnType = new GenericType<ListBuckets200Response>() {};
 
     return apiClient.invokeAPI("BucketApi.listBuckets", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

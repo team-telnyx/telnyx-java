@@ -11,7 +11,7 @@
 |**id** | **UUID** | Identifies the type of resource. |  [optional] |
 |**organizationId** | **UUID** | Uniquely identifies the organization that owns the resource. |  [optional] |
 |**status** | [**StatusEnum**](#StatusEnum) | Status of the ledger billing group report |  [optional] |
-|**reportUrl** | **String** | External url of the ledger billing group report, if the status is complete |  [optional] |
+|**reportUrl** | **URI** | External url of the ledger billing group report, if the status is complete |  [optional] |
 |**createdAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the resource was created. |  [optional] |
 |**updatedAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the resource was updated. |  [optional] |
 

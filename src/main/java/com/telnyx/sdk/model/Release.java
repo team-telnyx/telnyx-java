@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.TnReleaseEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -46,7 +44,7 @@ import com.telnyx.sdk.JSON;
   Release.JSON_PROPERTY_TELEPHONE_NUMBERS,
   Release.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Release {
   public static final String JSON_PROPERTY_TICKET_ID = "ticket_id";
   private UUID ticketId;
@@ -58,19 +56,19 @@ public class Release {
    * Represents the status of the release on Microsoft Teams.
    */
   public enum StatusEnum {
-    PENDING_UPLOAD("pending_upload"),
+    PENDING_UPLOAD(String.valueOf("pending_upload")),
     
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    IN_PROGRESS("in_progress"),
+    IN_PROGRESS(String.valueOf("in_progress")),
     
-    COMPLETE("complete"),
+    COMPLETE(String.valueOf("complete")),
     
-    FAILED("failed"),
+    FAILED(String.valueOf("failed")),
     
-    EXPIRED("expired"),
+    EXPIRED(String.valueOf("expired")),
     
-    UNKNOWN("unknown");
+    UNKNOWN(String.valueOf("unknown"));
 
     private String value;
 
@@ -223,7 +221,7 @@ public class Release {
     return this;
   }
 
-  public Release addTelephoneNumbersItem(TnReleaseEntry telephoneNumbersItem) {
+  public Release addtelephoneNumbersItem(TnReleaseEntry telephoneNumbersItem) {
     if (this.telephoneNumbers == null) {
       this.telephoneNumbers = new ArrayList<>();
     }

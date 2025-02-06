@@ -7,7 +7,9 @@
 
 * `PENDING` (value: `"pending"`)
 
-* `PROCESSING` (value: `"processing"`)
+* `STARTING` (value: `"starting"`)
+
+* `RUNNING` (value: `"running"`)
 
 * `COMPLETED` (value: `"completed"`)
 

@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   UpdateCallRequest.JSON_PROPERTY_STATUS_CALLBACK_METHOD,
   UpdateCallRequest.JSON_PROPERTY_TEXML
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateCallRequest {
   public static final String JSON_PROPERTY_STATUS = "Status";
   private String status;
@@ -56,9 +54,9 @@ public class UpdateCallRequest {
    * HTTP request type used for &#x60;Url&#x60;.
    */
   public enum MethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -97,9 +95,9 @@ public class UpdateCallRequest {
    * HTTP request type used for &#x60;FallbackUrl&#x60;.
    */
   public enum FallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -138,9 +136,9 @@ public class UpdateCallRequest {
    * HTTP request type used for &#x60;StatusCallback&#x60;.
    */
   public enum StatusCallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 

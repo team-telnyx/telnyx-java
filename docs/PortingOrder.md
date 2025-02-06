@@ -23,12 +23,13 @@
 |**phoneNumberConfiguration** | [**PortingOrderPhoneNumberConfiguration**](PortingOrderPhoneNumberConfiguration.md) |  |  [optional] |
 |**phoneNumberType** | [**PhoneNumberTypeEnum**](#PhoneNumberTypeEnum) | The type of the phone number |  [optional] |
 |**description** | **String** | A description of the porting order |  [optional] [readonly] |
-|**requirements** | [**List&lt;PortingOrderRequirement&gt;**](PortingOrderRequirement.md) | List of documentation requirements for porting numbers. |  [optional] |
+|**requirements** | [**List&lt;PortingOrderRequirement&gt;**](PortingOrderRequirement.md) | List of documentation requirements for porting numbers. Can be set directly or via the &#x60;requirement_group_id&#x60; parameter. |  [optional] |
 |**requirementsMet** | **Boolean** | Is true when the required documentation is met |  [optional] |
 |**userFeedback** | [**PortingOrderUserFeedback**](PortingOrderUserFeedback.md) |  |  [optional] |
 |**userId** | **UUID** | Identifies the user (or organization) who requested the porting order |  [optional] |
 |**webhookUrl** | **URI** |  |  [optional] |
 |**recordType** | **String** | Identifies the type of the resource. |  [optional] [readonly] |
+|**messaging** | [**PortingOrderMessaging**](PortingOrderMessaging.md) |  |  [optional] |
 
 
 

@@ -26,8 +26,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,15 +41,19 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreateVerificationRequestSMS.JSON_PROPERTY_PHONE_NUMBER,
   CreateVerificationRequestSMS.JSON_PROPERTY_VERIFY_PROFILE_ID,
+  CreateVerificationRequestSMS.JSON_PROPERTY_CUSTOM_CODE,
   CreateVerificationRequestSMS.JSON_PROPERTY_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateVerificationRequestSMS {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
 
   public static final String JSON_PROPERTY_VERIFY_PROFILE_ID = "verify_profile_id";
   private UUID verifyProfileId;
+
+  public static final String JSON_PROPERTY_CUSTOM_CODE = "custom_code";
+  private JsonNullable<String> customCode = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs;
@@ -107,6 +113,40 @@ public class CreateVerificationRequestSMS {
   }
 
 
+  public CreateVerificationRequestSMS customCode(String customCode) {
+    this.customCode = JsonNullable.<String>of(customCode);
+    return this;
+  }
+
+   /**
+   * Send a self-generated numeric code to the end-user
+   * @return customCode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "43612", value = "Send a self-generated numeric code to the end-user")
+  @JsonIgnore
+
+  public String getCustomCode() {
+        return customCode.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getCustomCode_JsonNullable() {
+    return customCode;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
+  public void setCustomCode_JsonNullable(JsonNullable<String> customCode) {
+    this.customCode = customCode;
+  }
+
+  public void setCustomCode(String customCode) {
+    this.customCode = JsonNullable.<String>of(customCode);
+  }
+
+
   public CreateVerificationRequestSMS timeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
     return this;
@@ -147,12 +187,24 @@ public class CreateVerificationRequestSMS {
     CreateVerificationRequestSMS createVerificationRequestSMS = (CreateVerificationRequestSMS) o;
     return Objects.equals(this.phoneNumber, createVerificationRequestSMS.phoneNumber) &&
         Objects.equals(this.verifyProfileId, createVerificationRequestSMS.verifyProfileId) &&
+        equalsNullable(this.customCode, createVerificationRequestSMS.customCode) &&
         Objects.equals(this.timeoutSecs, createVerificationRequestSMS.timeoutSecs);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, verifyProfileId, timeoutSecs);
+    return Objects.hash(phoneNumber, verifyProfileId, hashCodeNullable(customCode), timeoutSecs);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -161,6 +213,7 @@ public class CreateVerificationRequestSMS {
     sb.append("class CreateVerificationRequestSMS {\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    verifyProfileId: ").append(toIndentedString(verifyProfileId)).append("\n");
+    sb.append("    customCode: ").append(toIndentedString(customCode)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
     sb.append("}");
     return sb.toString();

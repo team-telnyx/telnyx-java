@@ -5,7 +5,7 @@
 ## Enum
 
 
-* `_2FA` (value: `"2FA"`)
+* `_2_FA` (value: `"2FA"`)
 
 * `APP_NOTIFICATIONS` (value: `"App Notifications"`)
 

@@ -105,9 +105,10 @@ public class CallCommandsApiTest {
         String inboundCallControlId = "1473920583829348434";
         String clientState = Base64.getEncoder().encodeToString(inboundCallControlId.getBytes());
 
+        CallRequestTo toNumber = new CallRequestTo(TestConfiguration.TEST_TO_NUMBER);
         CallRequest outboundCallRequest = new CallRequest()
                 .from(TestConfiguration.TEST_FROM_NUMBER)
-                .to(TestConfiguration.TEST_TO_NUMBER)
+                .to(toNumber)
                 .connectionId(connectionId)
                 .clientState(clientState);
 

@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   NotificationChannel.JSON_PROPERTY_CREATED_AT,
   NotificationChannel.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NotificationChannel {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -56,13 +54,13 @@ public class NotificationChannel {
    * A Channel Type ID
    */
   public enum ChannelTypeIdEnum {
-    SMS("sms"),
+    SMS(String.valueOf("sms")),
     
-    VOICE("voice"),
+    VOICE(String.valueOf("voice")),
     
-    EMAIL("email"),
+    EMAIL(String.valueOf("email")),
     
-    WEBHOOK("webhook");
+    WEBHOOK(String.valueOf("webhook"));
 
     private String value;
 

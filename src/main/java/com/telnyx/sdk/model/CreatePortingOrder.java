@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CreatePortingOrder.JSON_PROPERTY_PHONE_NUMBERS,
   CreatePortingOrder.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePortingOrder {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = new ArrayList<>();
@@ -56,7 +54,7 @@ public class CreatePortingOrder {
     return this;
   }
 
-  public CreatePortingOrder addPhoneNumbersItem(String phoneNumbersItem) {
+  public CreatePortingOrder addphoneNumbersItem(String phoneNumbersItem) {
     this.phoneNumbers.add(phoneNumbersItem);
     return this;
   }

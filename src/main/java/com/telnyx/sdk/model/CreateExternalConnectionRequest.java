@@ -24,14 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.CreateExternalConnectionRequestInbound;
-import com.telnyx.sdk.model.CreateExternalConnectionRequestOutbound;
+import com.telnyx.sdk.model.ExternalConnectionInbound;
+import com.telnyx.sdk.model.ExternalConnectionOutbound;
 import com.telnyx.sdk.model.ExternalSipConnectionZoomOnly;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -51,7 +48,7 @@ import com.telnyx.sdk.JSON;
   CreateExternalConnectionRequest.JSON_PROPERTY_INBOUND,
   CreateExternalConnectionRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateExternalConnectionRequest {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active = true;
@@ -69,10 +66,10 @@ public class CreateExternalConnectionRequest {
   private JsonNullable<Integer> webhookTimeoutSecs = JsonNullable.<Integer>undefined();
 
   public static final String JSON_PROPERTY_INBOUND = "inbound";
-  private CreateExternalConnectionRequestInbound inbound;
+  private ExternalConnectionInbound inbound;
 
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
-  private CreateExternalConnectionRequestOutbound outbound;
+  private ExternalConnectionOutbound outbound;
 
   public CreateExternalConnectionRequest() { 
   }
@@ -225,7 +222,7 @@ public class CreateExternalConnectionRequest {
   }
 
 
-  public CreateExternalConnectionRequest inbound(CreateExternalConnectionRequestInbound inbound) {
+  public CreateExternalConnectionRequest inbound(ExternalConnectionInbound inbound) {
     this.inbound = inbound;
     return this;
   }
@@ -239,19 +236,19 @@ public class CreateExternalConnectionRequest {
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CreateExternalConnectionRequestInbound getInbound() {
+  public ExternalConnectionInbound getInbound() {
     return inbound;
   }
 
 
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInbound(CreateExternalConnectionRequestInbound inbound) {
+  public void setInbound(ExternalConnectionInbound inbound) {
     this.inbound = inbound;
   }
 
 
-  public CreateExternalConnectionRequest outbound(CreateExternalConnectionRequestOutbound outbound) {
+  public CreateExternalConnectionRequest outbound(ExternalConnectionOutbound outbound) {
     this.outbound = outbound;
     return this;
   }
@@ -265,14 +262,14 @@ public class CreateExternalConnectionRequest {
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CreateExternalConnectionRequestOutbound getOutbound() {
+  public ExternalConnectionOutbound getOutbound() {
     return outbound;
   }
 
 
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutbound(CreateExternalConnectionRequestOutbound outbound) {
+  public void setOutbound(ExternalConnectionOutbound outbound) {
     this.outbound = outbound;
   }
 

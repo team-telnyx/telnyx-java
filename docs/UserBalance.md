@@ -7,6 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**pending** | **BigDecimal** | The account’s pending amount. |  [optional] |
 |**recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional] |
 |**balance** | **BigDecimal** | The account&#39;s current balance. |  [optional] |
 |**creditLimit** | **BigDecimal** | The account&#39;s credit limit. |  [optional] |

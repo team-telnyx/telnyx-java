@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -47,13 +45,13 @@ import com.telnyx.sdk.JSON;
   QueueCall.JSON_PROPERTY_QUEUE_POSITION,
   QueueCall.JSON_PROPERTY_QUEUE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class QueueCall {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    QUEUE_CALL("queue_call");
+    QUEUE_CALL(String.valueOf("queue_call"));
 
     private String value;
 

@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CampaignSharingStatus.JSON_PROPERTY_STATUS_DATE,
   CampaignSharingStatus.JSON_PROPERTY_UPSTREAM_CNP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CampaignSharingStatus {
   public static final String JSON_PROPERTY_DOWNSTREAM_CNP_ID = "downstreamCnpId";
   private String downstreamCnpId;

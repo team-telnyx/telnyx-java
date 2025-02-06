@@ -267,7 +267,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             CreateNotificationChannels200Response result = apiInstance.deleteNotificationChannel(id);
             System.out.println(result);
@@ -287,7 +287,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -339,7 +339,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             CreateNotificationProfile200Response result = apiInstance.deleteNotificationProfile(id);
             System.out.println(result);
@@ -359,7 +359,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -411,7 +411,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             CreateNotificationSetting200Response result = apiInstance.deleteNotificationSetting(id);
             System.out.println(result);
@@ -431,7 +431,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -705,7 +705,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             CreateNotificationChannels200Response result = apiInstance.getNotificationChannel(id);
             System.out.println(result);
@@ -725,7 +725,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -777,7 +777,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             CreateNotificationProfile200Response result = apiInstance.getNotificationProfile(id);
             System.out.println(result);
@@ -797,7 +797,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -849,7 +849,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             CreateNotificationSetting200Response result = apiInstance.getNotificationSetting(id);
             System.out.println(result);
@@ -869,7 +869,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -1079,7 +1079,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         NotificationChannel notificationChannel = new NotificationChannel(); // NotificationChannel | Update notification channel object
         try {
             CreateNotificationChannels200Response result = apiInstance.updateNotificationChannel(id, notificationChannel);
@@ -1100,7 +1100,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **notificationChannel** | [**NotificationChannel**](NotificationChannel.md)| Update notification channel object |
 
 ### Return type
@@ -1153,7 +1153,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         NotificationsApi apiInstance = new NotificationsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         NotificationProfile notificationProfile = new NotificationProfile(); // NotificationProfile | Update notification profile object
         try {
             CreateNotificationProfile200Response result = apiInstance.updateNotificationProfile(id, notificationProfile);
@@ -1174,7 +1174,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **notificationProfile** | [**NotificationProfile**](NotificationProfile.md)| Update notification profile object |
 
 ### Return type

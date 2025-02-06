@@ -29,7 +29,7 @@
 
 * `ACTIVE` (value: `"Active"`)
 
-* `CANCELED` (value: `"Canceled"`)
+* `CANCELLED` (value: `"Cancelled"`)
 
 
 

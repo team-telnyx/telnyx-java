@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RequirementsApi {
   private ApiClient apiClient;
 
@@ -63,7 +63,7 @@ public class RequirementsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ListRequirements200Response listRequirements(String filterCountryCode, String filterPhoneNumberType, String filterAction, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -85,7 +85,7 @@ public class RequirementsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListRequirements200Response> listRequirementsWithHttpInfo(String filterCountryCode, String filterPhoneNumberType, String filterAction, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -138,7 +138,7 @@ public class RequirementsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveDocumentRequirements200Response retrieveDocumentRequirements(UUID id) throws ApiException {
@@ -155,7 +155,7 @@ public class RequirementsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveDocumentRequirements200Response> retrieveDocumentRequirementsWithHttpInfo(UUID id) throws ApiException {

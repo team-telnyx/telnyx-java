@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | **List&lt;String&gt;** |  |  [optional] |
+|**data** | [**List&lt;Region&gt;**](Region.md) |  |  [optional] |
 
 
 

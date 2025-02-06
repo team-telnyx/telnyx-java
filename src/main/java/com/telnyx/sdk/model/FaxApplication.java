@@ -25,13 +25,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AnchorsiteOverride;
-import com.telnyx.sdk.model.CreateExternalConnectionRequestOutbound;
-import com.telnyx.sdk.model.CreateFaxApplicationRequestInbound;
+import com.telnyx.sdk.model.ExternalConnectionOutbound;
+import com.telnyx.sdk.model.FaxApplicationInbound;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -56,7 +53,7 @@ import com.telnyx.sdk.JSON;
   FaxApplication.JSON_PROPERTY_CREATED_AT,
   FaxApplication.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class FaxApplication {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -83,10 +80,10 @@ public class FaxApplication {
   private JsonNullable<Integer> webhookTimeoutSecs = JsonNullable.<Integer>undefined();
 
   public static final String JSON_PROPERTY_INBOUND = "inbound";
-  private CreateFaxApplicationRequestInbound inbound;
+  private FaxApplicationInbound inbound;
 
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
-  private CreateExternalConnectionRequestOutbound outbound;
+  private ExternalConnectionOutbound outbound;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -97,20 +94,17 @@ public class FaxApplication {
   public FaxApplication() { 
   }
 
-  @JsonCreator
-  public FaxApplication(
-    @JsonProperty(JSON_PROPERTY_ID) String id
-  ) {
-    this();
+  public FaxApplication id(String id) {
     this.id = id;
+    return this;
   }
 
    /**
-   * Identifies the resource.
+   * Uniquely identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -119,6 +113,11 @@ public class FaxApplication {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(String id) {
+    this.id = id;
+  }
 
 
   public FaxApplication recordType(String recordType) {
@@ -321,7 +320,7 @@ public class FaxApplication {
   }
 
 
-  public FaxApplication inbound(CreateFaxApplicationRequestInbound inbound) {
+  public FaxApplication inbound(FaxApplicationInbound inbound) {
     this.inbound = inbound;
     return this;
   }
@@ -335,19 +334,19 @@ public class FaxApplication {
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CreateFaxApplicationRequestInbound getInbound() {
+  public FaxApplicationInbound getInbound() {
     return inbound;
   }
 
 
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInbound(CreateFaxApplicationRequestInbound inbound) {
+  public void setInbound(FaxApplicationInbound inbound) {
     this.inbound = inbound;
   }
 
 
-  public FaxApplication outbound(CreateExternalConnectionRequestOutbound outbound) {
+  public FaxApplication outbound(ExternalConnectionOutbound outbound) {
     this.outbound = outbound;
     return this;
   }
@@ -361,14 +360,14 @@ public class FaxApplication {
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CreateExternalConnectionRequestOutbound getOutbound() {
+  public ExternalConnectionOutbound getOutbound() {
     return outbound;
   }
 
 
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutbound(CreateExternalConnectionRequestOutbound outbound) {
+  public void setOutbound(ExternalConnectionOutbound outbound) {
     this.outbound = outbound;
   }
 

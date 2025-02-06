@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,6 +36,7 @@ import com.telnyx.sdk.JSON;
   InitiateCallRequest.JSON_PROPERTY_APPLICATION_SID,
   InitiateCallRequest.JSON_PROPERTY_TO,
   InitiateCallRequest.JSON_PROPERTY_FROM,
+  InitiateCallRequest.JSON_PROPERTY_CALLER_ID,
   InitiateCallRequest.JSON_PROPERTY_URL,
   InitiateCallRequest.JSON_PROPERTY_URL_METHOD,
   InitiateCallRequest.JSON_PROPERTY_FALLBACK_URL,
@@ -67,7 +66,7 @@ import com.telnyx.sdk.JSON;
   InitiateCallRequest.JSON_PROPERTY_SIP_AUTH_USERNAME,
   InitiateCallRequest.JSON_PROPERTY_TRIM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class InitiateCallRequest {
   public static final String JSON_PROPERTY_APPLICATION_SID = "ApplicationSid";
   private String applicationSid;
@@ -78,6 +77,9 @@ public class InitiateCallRequest {
   public static final String JSON_PROPERTY_FROM = "From";
   private String from;
 
+  public static final String JSON_PROPERTY_CALLER_ID = "CallerId";
+  private String callerId;
+
   public static final String JSON_PROPERTY_URL = "Url";
   private String url;
 
@@ -85,9 +87,9 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;Url&#x60;. The default value is inherited from TeXML Application setting.
    */
   public enum UrlMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -129,9 +131,9 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;StatusCallback&#x60;.
    */
   public enum StatusCallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -167,13 +169,13 @@ public class InitiateCallRequest {
    * The call events for which Telnyx should send a webhook. Multiple events can be defined when separated by a space.
    */
   public enum StatusCallbackEventEnum {
-    INITIATED("initiated"),
+    INITIATED(String.valueOf("initiated")),
     
-    RINGING("ringing"),
+    RINGING(String.valueOf("ringing")),
     
-    ANSWERED("answered"),
+    ANSWERED(String.valueOf("answered")),
     
-    COMPLETED("completed");
+    COMPLETED(String.valueOf("completed"));
 
     private String value;
 
@@ -209,11 +211,11 @@ public class InitiateCallRequest {
    * Enables Answering Machine Detection.
    */
   public enum MachineDetectionEnum {
-    ENABLE("Enable"),
+    ENABLE(String.valueOf("Enable")),
     
-    DISABLE("Disable"),
+    DISABLE(String.valueOf("Disable")),
     
-    DETECTMESSAGEEND("DetectMessageEnd");
+    DETECT_MESSAGE_END(String.valueOf("DetectMessageEnd"));
 
     private String value;
 
@@ -249,9 +251,9 @@ public class InitiateCallRequest {
    * Allows you to chose between Premium and Standard detections.
    */
   public enum DetectionModeEnum {
-    PREMIUM("Premium"),
+    PREMIUM(String.valueOf("Premium")),
     
-    REGULAR("Regular");
+    REGULAR(String.valueOf("Regular"));
 
     private String value;
 
@@ -293,9 +295,9 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;AsyncAmdStatusCallback&#x60;. The default value is inherited from TeXML Application setting.
    */
   public enum AsyncAmdStatusCallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -355,9 +357,9 @@ public class InitiateCallRequest {
    * The number of channels in the final recording. Defaults to &#x60;mono&#x60;.
    */
   public enum RecordingChannelsEnum {
-    MONO("mono"),
+    MONO(String.valueOf("mono")),
     
-    DUAL("dual");
+    DUAL(String.valueOf("dual"));
 
     private String value;
 
@@ -396,9 +398,9 @@ public class InitiateCallRequest {
    * HTTP request type used for &#x60;RecordingStatusCallback&#x60;. Defaults to &#x60;POST&#x60;.
    */
   public enum RecordingStatusCallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -440,11 +442,11 @@ public class InitiateCallRequest {
    * The audio track to record for the call. The default is &#x60;both&#x60;.
    */
   public enum RecordingTrackEnum {
-    INBOUND("inbound"),
+    INBOUND(String.valueOf("inbound")),
     
-    OUTBOUND("outbound"),
+    OUTBOUND(String.valueOf("outbound")),
     
-    BOTH("both");
+    BOTH(String.valueOf("both"));
 
     private String value;
 
@@ -486,9 +488,9 @@ public class InitiateCallRequest {
    * Whether to trim any leading and trailing silence from the recording. Defaults to &#x60;trim-silence&#x60;.
    */
   public enum TrimEnum {
-    TRIM_SILENCE("trim-silence"),
+    TRIM_SILENCE(String.valueOf("trim-silence")),
     
-    DO_NOT_TRIM("do-not-trim");
+    DO_NOT_TRIM(String.valueOf("do-not-trim"));
 
     private String value;
 
@@ -598,6 +600,32 @@ public class InitiateCallRequest {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFrom(String from) {
     this.from = from;
+  }
+
+
+  public InitiateCallRequest callerId(String callerId) {
+    this.callerId = callerId;
+    return this;
+  }
+
+   /**
+   * To be used as the caller id name (SIP From Display Name) presented to the destination (&#x60;To&#x60; number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and &#x60;-_~!.+&#x60; special characters. If ommited, the display name will be the same as the number in the &#x60;From&#x60; field.
+   * @return callerId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Info", value = "To be used as the caller id name (SIP From Display Name) presented to the destination (`To` number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and `-_~!.+` special characters. If ommited, the display name will be the same as the number in the `From` field.")
+  @JsonProperty(JSON_PROPERTY_CALLER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCallerId() {
+    return callerId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CALLER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCallerId(String callerId) {
+    this.callerId = callerId;
   }
 
 
@@ -1346,6 +1374,7 @@ public class InitiateCallRequest {
     return Objects.equals(this.applicationSid, initiateCallRequest.applicationSid) &&
         Objects.equals(this.to, initiateCallRequest.to) &&
         Objects.equals(this.from, initiateCallRequest.from) &&
+        Objects.equals(this.callerId, initiateCallRequest.callerId) &&
         Objects.equals(this.url, initiateCallRequest.url) &&
         Objects.equals(this.urlMethod, initiateCallRequest.urlMethod) &&
         Objects.equals(this.fallbackUrl, initiateCallRequest.fallbackUrl) &&
@@ -1378,7 +1407,7 @@ public class InitiateCallRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicationSid, to, from, url, urlMethod, fallbackUrl, statusCallback, statusCallbackMethod, statusCallbackEvent, machineDetection, detectionMode, asyncAmd, asyncAmdStatusCallback, asyncAmdStatusCallbackMethod, machineDetectionTimeout, machineDetectionSpeechThreshold, machineDetectionSpeechEndThreshold, machineDetectionSilenceTimeout, cancelPlaybackOnMachineDetection, cancelPlaybackOnDetectMessageEnd, preferredCodecs, record, recordingChannels, recordingStatusCallback, recordingStatusCallbackMethod, recordingStatusCallbackEvent, recordingTimeout, recordingTrack, sipAuthPassword, sipAuthUsername, trim);
+    return Objects.hash(applicationSid, to, from, callerId, url, urlMethod, fallbackUrl, statusCallback, statusCallbackMethod, statusCallbackEvent, machineDetection, detectionMode, asyncAmd, asyncAmdStatusCallback, asyncAmdStatusCallbackMethod, machineDetectionTimeout, machineDetectionSpeechThreshold, machineDetectionSpeechEndThreshold, machineDetectionSilenceTimeout, cancelPlaybackOnMachineDetection, cancelPlaybackOnDetectMessageEnd, preferredCodecs, record, recordingChannels, recordingStatusCallback, recordingStatusCallbackMethod, recordingStatusCallbackEvent, recordingTimeout, recordingTrack, sipAuthPassword, sipAuthUsername, trim);
   }
 
   @Override
@@ -1388,6 +1417,7 @@ public class InitiateCallRequest {
     sb.append("    applicationSid: ").append(toIndentedString(applicationSid)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
+    sb.append("    callerId: ").append(toIndentedString(callerId)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    urlMethod: ").append(toIndentedString(urlMethod)).append("\n");
     sb.append("    fallbackUrl: ").append(toIndentedString(fallbackUrl)).append("\n");

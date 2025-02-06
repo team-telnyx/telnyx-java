@@ -29,8 +29,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   PortingOrdersActivationJob.JSON_PROPERTY_CREATED_AT,
   PortingOrdersActivationJob.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrdersActivationJob {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -58,13 +56,13 @@ public class PortingOrdersActivationJob {
    * Specifies the status of this activation job
    */
   public enum StatusEnum {
-    CREATED("created"),
+    CREATED(String.valueOf("created")),
     
-    IN_PROCESS("in-process"),
+    IN_PROCESS(String.valueOf("in-process")),
     
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 
@@ -100,9 +98,9 @@ public class PortingOrdersActivationJob {
    * Specifies the type of this activation job
    */
   public enum ActivationTypeEnum {
-    SCHEDULED("scheduled"),
+    SCHEDULED(String.valueOf("scheduled")),
     
-    ON_DEMAND("on-demand");
+    ON_DEMAND(String.valueOf("on-demand"));
 
     private String value;
 
@@ -265,7 +263,7 @@ public class PortingOrdersActivationJob {
     return this;
   }
 
-  public PortingOrdersActivationJob addActivationWindowsItem(PortingOrdersActivationJobActivationWindowsInner activationWindowsItem) {
+  public PortingOrdersActivationJob addactivationWindowsItem(PortingOrdersActivationJobActivationWindowsInner activationWindowsItem) {
     if (this.activationWindows == null) {
       this.activationWindows = new ArrayList<>();
     }

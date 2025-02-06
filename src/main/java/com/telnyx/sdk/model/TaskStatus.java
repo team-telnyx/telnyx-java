@@ -27,13 +27,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * An enumeration.
+ * Gets or Sets TaskStatus
  */
 public enum TaskStatus {
   
   PENDING("pending"),
   
-  PROCESSING("processing"),
+  STARTING("starting"),
+  
+  RUNNING("running"),
   
   COMPLETED("completed"),
   

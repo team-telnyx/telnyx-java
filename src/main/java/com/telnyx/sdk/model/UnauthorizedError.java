@@ -28,9 +28,6 @@ import com.telnyx.sdk.model.UnauthorizedErrorAllOfMeta;
 import com.telnyx.sdk.model.UpdateOutboundChannelsDefaultResponseErrorsInnerSource;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -48,7 +45,7 @@ import com.telnyx.sdk.JSON;
   UnauthorizedError.JSON_PROPERTY_SOURCE,
   UnauthorizedError.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UnauthorizedError {
   public static final String JSON_PROPERTY_CODE = "code";
   private JsonNullable<Object> code = JsonNullable.<Object>of(null);

@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -43,13 +41,13 @@ import com.telnyx.sdk.JSON;
   CallEvent.JSON_PROPERTY_TYPE,
   CallEvent.JSON_PROPERTY_METADATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallEvent {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    CALL_EVENT("call_event");
+    CALL_EVENT(String.valueOf("call_event"));
 
     private String value;
 
@@ -97,9 +95,9 @@ public class CallEvent {
    * Event type
    */
   public enum TypeEnum {
-    COMMAND("command"),
+    COMMAND(String.valueOf("command")),
     
-    WEBHOOK("webhook");
+    WEBHOOK(String.valueOf("webhook"));
 
     private String value;
 

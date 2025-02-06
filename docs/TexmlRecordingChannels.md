@@ -5,7 +5,7 @@
 ## Enum
 
 
-* `MONO` (value: `"mono"`)
+* `SINGLE` (value: `"single"`)
 
 * `DUAL` (value: `"dual"`)
 

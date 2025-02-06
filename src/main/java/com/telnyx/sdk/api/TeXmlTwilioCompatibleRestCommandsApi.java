@@ -9,7 +9,6 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.ListRecordingTranscriptionsResponse;
-import com.telnyx.sdk.model.ResourceNotFound;
 import com.telnyx.sdk.model.TexmlRecordingTranscription;
 import java.util.UUID;
 
@@ -18,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TeXmlTwilioCompatibleRestCommandsApi {
   private ApiClient apiClient;
 
@@ -78,7 +77,7 @@ private ApiResponse<Void> deleteTeXMLRecordingTranscriptionWithHttpInfo(String a
     
     
     final String[] localVarAccepts = {
-      "application/json"
+      
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -111,7 +110,7 @@ private ApiResponse<Void> deleteTeXMLRecordingTranscriptionWithHttpInfo(String a
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 204 </td><td> The resource was deleted successfully. </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        </table>
      
      */
@@ -128,7 +127,7 @@ private ApiResponse<Void> deleteTeXMLRecordingTranscriptionWithHttpInfo(String a
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 204 </td><td> The resource was deleted successfully. </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        </table>
 
      */
@@ -215,7 +214,7 @@ private ApiResponse<TexmlRecordingTranscription> getTeXMLRecordingTranscriptionW
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful get Recording Transcription Response </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        </table>
      
      */
@@ -232,7 +231,7 @@ private ApiResponse<TexmlRecordingTranscription> getTeXMLRecordingTranscriptionW
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful get Recording Transcription Response </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        </table>
 
      */
@@ -335,7 +334,7 @@ private ApiResponse<ListRecordingTranscriptionsResponse> getTeXMLRecordingTransc
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful list Recording Transcriptions Response </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        </table>
      
      */
@@ -352,7 +351,7 @@ private ApiResponse<ListRecordingTranscriptionsResponse> getTeXMLRecordingTransc
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful list Recording Transcriptions Response </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        </table>
 
      */
@@ -363,7 +362,7 @@ private ApiResponse<ListRecordingTranscriptionsResponse> getTeXMLRecordingTransc
 
   /**
    * List recording transcriptions
-   * Returns multiple recording transcriptions resources for an account.
+   * Returns multiple recording transcription resources for an account.
    * @param accountSid The id of the account the resource belongs to. (required)
    * @return getTeXMLRecordingTranscriptionsRequest
    * @throws ApiException if fails to make API call

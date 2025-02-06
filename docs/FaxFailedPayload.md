@@ -17,6 +17,7 @@
 |**userId** | **UUID** | Identifier of the user to whom the fax belongs |  [optional] |
 |**failureReason** | [**FailureReasonEnum**](#FailureReasonEnum) | Cause of the sending failure |  [optional] |
 |**status** | [**StatusEnum**](#StatusEnum) | The status of the fax. |  [optional] |
+|**clientState** | **String** | State received from a command. |  [optional] |
 
 
 

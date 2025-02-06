@@ -30,8 +30,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -58,15 +56,15 @@ import com.telnyx.sdk.JSON;
   PhoneNumberWithMessagingSettings.JSON_PROPERTY_MESSAGING_PRODUCT,
   PhoneNumberWithMessagingSettings.JSON_PROPERTY_FEATURES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberWithMessagingSettings {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    PHONE_NUMBER("messaging_phone_number"),
+    MESSAGING_PHONE_NUMBER(String.valueOf("messaging_phone_number")),
     
-    SETTINGS("messaging_settings");
+    MESSAGING_SETTINGS(String.valueOf("messaging_settings"));
 
     private String value;
 
@@ -120,17 +118,17 @@ public class PhoneNumberWithMessagingSettings {
    * The type of the phone number
    */
   public enum TypeEnum {
-    LONG_CODE("long-code"),
+    LONG_CODE(String.valueOf("long-code")),
     
-    TOLL_FREE("toll-free"),
+    TOLL_FREE(String.valueOf("toll-free")),
     
-    SHORT_CODE("short-code"),
+    SHORT_CODE(String.valueOf("short-code")),
     
-    LONGCODE("longcode"),
+    LONGCODE(String.valueOf("longcode")),
     
-    TOLLFREE("tollfree"),
+    TOLLFREE(String.valueOf("tollfree")),
     
-    SHORTCODE("shortcode");
+    SHORTCODE(String.valueOf("shortcode"));
 
     private String value;
 

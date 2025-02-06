@@ -27,11 +27,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B. &#x60;mono&#x60; mixes both tracks into a single channel.
+ * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B. &#x60;single&#x60; mixes both tracks into a single channel.
  */
 public enum TexmlRecordingChannels {
   
-  MONO("mono"),
+  SINGLE("single"),
   
   DUAL("dual");
 

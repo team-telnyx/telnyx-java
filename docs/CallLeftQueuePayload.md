@@ -15,6 +15,7 @@
 |**queue** | **String** | The name of the queue |  [optional] |
 |**queuePosition** | **Integer** | Last position of the call in the queue. |  [optional] |
 |**reason** | [**ReasonEnum**](#ReasonEnum) | The reason for leaving the queue |  [optional] |
+|**waitTimeSecs** | **Integer** | Time call spent in the queue in seconds. |  [optional] |
 
 
 

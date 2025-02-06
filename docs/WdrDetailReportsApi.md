@@ -4,7 +4,7 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getPaginatedWdrs**](WdrDetailReportsApi.md#getPaginatedWdrs) | **GET** /reports/wdrs | 
+[**getPaginatedWdrs**](WdrDetailReportsApi.md#getPaginatedWdrs) | **GET** /reports/wdrs | Fetches all Wdr records
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ExternalWdrGetDetailResponse getPaginatedWdrs(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize, sort)
 
-
+Fetches all Wdr records
 
 Fetch all Wdr records 
 
@@ -49,7 +49,7 @@ public class Example {
         String phoneNumber = "+12345678910"; // String | 
         Integer pageNumber = 1; // Integer | Page number
         Integer pageSize = 20; // Integer | Size of the page
-        List<String> sort = Arrays.asList(); // List<String> | 
+        String sort = "created_at"; // String | 
         try {
             ExternalWdrGetDetailResponse result = apiInstance.getPaginatedWdrs(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize, sort);
             System.out.println(result);
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
  **phoneNumber** | **String**|  | [optional]
  **pageNumber** | **Integer**| Page number | [optional] [default to 1]
  **pageSize** | **Integer**| Size of the page | [optional] [default to 20]
- **sort** | **List&lt;String&gt;**|  | [optional]
+ **sort** | **String**|  | [optional] [default to created_at]
 
 ### Return type
 

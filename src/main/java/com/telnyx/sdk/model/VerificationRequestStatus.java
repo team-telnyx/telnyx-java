@@ -32,8 +32,6 @@ import com.telnyx.sdk.model.Volume;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -69,7 +67,7 @@ import com.telnyx.sdk.JSON;
   VerificationRequestStatus.JSON_PROPERTY_VERIFICATION_STATUS,
   VerificationRequestStatus.JSON_PROPERTY_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VerificationRequestStatus {
   public static final String JSON_PROPERTY_BUSINESS_NAME = "businessName";
   private String businessName;
@@ -208,7 +206,7 @@ public class VerificationRequestStatus {
    * @return businessAddr1
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "311 W Superior St", required = true, value = "")
+  @ApiModelProperty(example = "600 Congress Avenue", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_ADDR1)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -234,7 +232,7 @@ public class VerificationRequestStatus {
    * @return businessAddr2
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "121 W Superior St", value = "")
+  @ApiModelProperty(example = "14th Floor", value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_ADDR2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -260,7 +258,7 @@ public class VerificationRequestStatus {
    * @return businessCity
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "Chicago", required = true, value = "")
+  @ApiModelProperty(example = "Austin", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -286,7 +284,7 @@ public class VerificationRequestStatus {
    * @return businessState
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "Illinois", required = true, value = "")
+  @ApiModelProperty(example = "Texas", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -312,7 +310,7 @@ public class VerificationRequestStatus {
    * @return businessZip
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "60654", required = true, value = "")
+  @ApiModelProperty(example = "78701", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_ZIP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -463,7 +461,7 @@ public class VerificationRequestStatus {
     return this;
   }
 
-  public VerificationRequestStatus addPhoneNumbersItem(TFPhoneNumber phoneNumbersItem) {
+  public VerificationRequestStatus addphoneNumbersItem(TFPhoneNumber phoneNumbersItem) {
     this.phoneNumbers.add(phoneNumbersItem);
     return this;
   }
@@ -598,7 +596,7 @@ public class VerificationRequestStatus {
     return this;
   }
 
-  public VerificationRequestStatus addOptInWorkflowImageURLsItem(Url optInWorkflowImageURLsItem) {
+  public VerificationRequestStatus addoptInWorkflowImageURLsItem(Url optInWorkflowImageURLsItem) {
     this.optInWorkflowImageURLs.add(optInWorkflowImageURLsItem);
     return this;
   }

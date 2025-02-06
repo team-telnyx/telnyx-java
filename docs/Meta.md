@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**totalPages** | **Integer** |  |  [optional] |
-|**totalResults** | **Integer** |  |  [optional] |
-|**pageNumber** | **Integer** |  |  [optional] |
-|**pageSize** | **Integer** |  |  [optional] |
+|**totalPages** | **Integer** |  |  |
+|**totalResults** | **Integer** |  |  |
+|**pageNumber** | **Integer** |  |  |
+|**pageSize** | **Integer** |  |  |
 
 
 

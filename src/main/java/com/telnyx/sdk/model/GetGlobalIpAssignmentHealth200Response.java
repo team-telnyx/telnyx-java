@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.GlobalIpAssignmentHealthMetric;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   GetGlobalIpAssignmentHealth200Response.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GetGlobalIpAssignmentHealth200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<GlobalIpAssignmentHealthMetric> data = null;
@@ -53,7 +51,7 @@ public class GetGlobalIpAssignmentHealth200Response {
     return this;
   }
 
-  public GetGlobalIpAssignmentHealth200Response addDataItem(GlobalIpAssignmentHealthMetric dataItem) {
+  public GetGlobalIpAssignmentHealth200Response adddataItem(GlobalIpAssignmentHealthMetric dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

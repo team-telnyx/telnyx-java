@@ -3,26 +3,19 @@
 # ResponseSubmitCampaignPublicCampaignbuilderPost
 
 ## anyOf schemas
-* [CampaignCSP](CampaignCSP.md)
 * [Object](Object.md)
+* [TelnyxCampaignCSP](TelnyxCampaignCSP.md)
 
 ## Example
 ```java
 // Import classes:
 import com.telnyx.sdk.model.ResponseSubmitCampaignPublicCampaignbuilderPost;
-import com.telnyx.sdk.model.CampaignCSP;
 import com.telnyx.sdk.model.Object;
+import com.telnyx.sdk.model.TelnyxCampaignCSP;
 
 public class Example {
     public static void main(String[] args) {
         ResponseSubmitCampaignPublicCampaignbuilderPost exampleResponseSubmitCampaignPublicCampaignbuilderPost = new ResponseSubmitCampaignPublicCampaignbuilderPost();
-
-        // create a new CampaignCSP
-        CampaignCSP exampleCampaignCSP = new CampaignCSP();
-        // set ResponseSubmitCampaignPublicCampaignbuilderPost to CampaignCSP
-        exampleResponseSubmitCampaignPublicCampaignbuilderPost.setActualInstance(exampleCampaignCSP);
-        // to get back the CampaignCSP set earlier
-        CampaignCSP testCampaignCSP = (CampaignCSP) exampleResponseSubmitCampaignPublicCampaignbuilderPost.getActualInstance();
 
         // create a new Object
         Object exampleObject = new Object();
@@ -30,6 +23,13 @@ public class Example {
         exampleResponseSubmitCampaignPublicCampaignbuilderPost.setActualInstance(exampleObject);
         // to get back the Object set earlier
         Object testObject = (Object) exampleResponseSubmitCampaignPublicCampaignbuilderPost.getActualInstance();
+
+        // create a new TelnyxCampaignCSP
+        TelnyxCampaignCSP exampleTelnyxCampaignCSP = new TelnyxCampaignCSP();
+        // set ResponseSubmitCampaignPublicCampaignbuilderPost to TelnyxCampaignCSP
+        exampleResponseSubmitCampaignPublicCampaignbuilderPost.setActualInstance(exampleTelnyxCampaignCSP);
+        // to get back the TelnyxCampaignCSP set earlier
+        TelnyxCampaignCSP testTelnyxCampaignCSP = (TelnyxCampaignCSP) exampleResponseSubmitCampaignPublicCampaignbuilderPost.getActualInstance();
     }
 }
 ```

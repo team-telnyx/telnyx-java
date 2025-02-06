@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DialogflowIntegrationApi {
   private ApiClient apiClient;
 
@@ -50,7 +50,7 @@ public class DialogflowIntegrationApi {
   /**
    * Create a Dialogflow Connection
    * Save Dialogflow Credentiails to Telnyx, so it can be used with other Telnyx services.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @param dialogflowConnection The params expected to create/update a Dialogflow Connection for given connection_id. (required)
    * @return DialogflowConnectionResponse
    * @throws ApiException if fails to make API call
@@ -61,14 +61,14 @@ public class DialogflowIntegrationApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DialogflowConnectionResponse createDialogflowConnection(String connectionId, DialogflowConnection dialogflowConnection) throws ApiException {
-    return createDialogflowConnectionWithHttpInfo(connectionId, dialogflowConnection).getData();
+  public DialogflowConnectionResponse createDialogflowConnection(String connectionIdWireless, DialogflowConnection dialogflowConnection) throws ApiException {
+    return createDialogflowConnectionWithHttpInfo(connectionIdWireless, dialogflowConnection).getData();
   }
 
   /**
    * Create a Dialogflow Connection
    * Save Dialogflow Credentiails to Telnyx, so it can be used with other Telnyx services.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @param dialogflowConnection The params expected to create/update a Dialogflow Connection for given connection_id. (required)
    * @return ApiResponse&lt;DialogflowConnectionResponse&gt;
    * @throws ApiException if fails to make API call
@@ -79,12 +79,12 @@ public class DialogflowIntegrationApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DialogflowConnectionResponse> createDialogflowConnectionWithHttpInfo(String connectionId, DialogflowConnection dialogflowConnection) throws ApiException {
+  public ApiResponse<DialogflowConnectionResponse> createDialogflowConnectionWithHttpInfo(String connectionIdWireless, DialogflowConnection dialogflowConnection) throws ApiException {
     Object localVarPostBody = dialogflowConnection;
     
-    // verify the required parameter 'connectionId' is set
-    if (connectionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling createDialogflowConnection");
+    // verify the required parameter 'connectionIdWireless' is set
+    if (connectionIdWireless == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionIdWireless' when calling createDialogflowConnection");
     }
     
     // verify the required parameter 'dialogflowConnection' is set
@@ -94,7 +94,7 @@ public class DialogflowIntegrationApi {
     
     // create path and map variables
     String localVarPath = "/dialogflow_connections/{connection_id}"
-      .replaceAll("\\{" + "connection_id" + "\\}", apiClient.escapeString(connectionId.toString()));
+      .replaceAll("\\{" + "connection_id_wireless" + "\\}", apiClient.escapeString(connectionIdWireless.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -127,7 +127,7 @@ public class DialogflowIntegrationApi {
   /**
    * Delete stored Dialogflow Connection
    * Deletes a stored Dialogflow Connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -136,14 +136,14 @@ public class DialogflowIntegrationApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public void deleteDialogflowConnection(String connectionId) throws ApiException {
-    deleteDialogflowConnectionWithHttpInfo(connectionId);
+  public void deleteDialogflowConnection(String connectionIdWireless) throws ApiException {
+    deleteDialogflowConnectionWithHttpInfo(connectionIdWireless);
   }
 
   /**
    * Delete stored Dialogflow Connection
    * Deletes a stored Dialogflow Connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -153,17 +153,17 @@ public class DialogflowIntegrationApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deleteDialogflowConnectionWithHttpInfo(String connectionId) throws ApiException {
+  public ApiResponse<Void> deleteDialogflowConnectionWithHttpInfo(String connectionIdWireless) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'connectionId' is set
-    if (connectionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling deleteDialogflowConnection");
+    // verify the required parameter 'connectionIdWireless' is set
+    if (connectionIdWireless == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionIdWireless' when calling deleteDialogflowConnection");
     }
     
     // create path and map variables
     String localVarPath = "/dialogflow_connections/{connection_id}"
-      .replaceAll("\\{" + "connection_id" + "\\}", apiClient.escapeString(connectionId.toString()));
+      .replaceAll("\\{" + "connection_id_wireless" + "\\}", apiClient.escapeString(connectionIdWireless.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -194,7 +194,7 @@ public class DialogflowIntegrationApi {
   /**
    * Retrieve stored Dialogflow Connection
    * Return details of the Dialogflow connection associated with the given CallControl connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @return DialogflowConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -204,14 +204,14 @@ public class DialogflowIntegrationApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DialogflowConnectionResponse getDialogflowConnection(String connectionId) throws ApiException {
-    return getDialogflowConnectionWithHttpInfo(connectionId).getData();
+  public DialogflowConnectionResponse getDialogflowConnection(String connectionIdWireless) throws ApiException {
+    return getDialogflowConnectionWithHttpInfo(connectionIdWireless).getData();
   }
 
   /**
    * Retrieve stored Dialogflow Connection
    * Return details of the Dialogflow connection associated with the given CallControl connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @return ApiResponse&lt;DialogflowConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -221,17 +221,17 @@ public class DialogflowIntegrationApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DialogflowConnectionResponse> getDialogflowConnectionWithHttpInfo(String connectionId) throws ApiException {
+  public ApiResponse<DialogflowConnectionResponse> getDialogflowConnectionWithHttpInfo(String connectionIdWireless) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'connectionId' is set
-    if (connectionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling getDialogflowConnection");
+    // verify the required parameter 'connectionIdWireless' is set
+    if (connectionIdWireless == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionIdWireless' when calling getDialogflowConnection");
     }
     
     // create path and map variables
     String localVarPath = "/dialogflow_connections/{connection_id}"
-      .replaceAll("\\{" + "connection_id" + "\\}", apiClient.escapeString(connectionId.toString()));
+      .replaceAll("\\{" + "connection_id_wireless" + "\\}", apiClient.escapeString(connectionIdWireless.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -264,7 +264,7 @@ public class DialogflowIntegrationApi {
   /**
    * Update stored Dialogflow Connection
    * Updates a stored Dialogflow Connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @param dialogflowConnection The params expected to create/update a Dialogflow Connection for given connection_id. (required)
    * @return DialogflowConnectionResponse
    * @throws ApiException if fails to make API call
@@ -275,14 +275,14 @@ public class DialogflowIntegrationApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public DialogflowConnectionResponse updateDialogflowConnection(String connectionId, DialogflowConnection dialogflowConnection) throws ApiException {
-    return updateDialogflowConnectionWithHttpInfo(connectionId, dialogflowConnection).getData();
+  public DialogflowConnectionResponse updateDialogflowConnection(String connectionIdWireless, DialogflowConnection dialogflowConnection) throws ApiException {
+    return updateDialogflowConnectionWithHttpInfo(connectionIdWireless, dialogflowConnection).getData();
   }
 
   /**
    * Update stored Dialogflow Connection
    * Updates a stored Dialogflow Connection.
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @param dialogflowConnection The params expected to create/update a Dialogflow Connection for given connection_id. (required)
    * @return ApiResponse&lt;DialogflowConnectionResponse&gt;
    * @throws ApiException if fails to make API call
@@ -293,12 +293,12 @@ public class DialogflowIntegrationApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DialogflowConnectionResponse> updateDialogflowConnectionWithHttpInfo(String connectionId, DialogflowConnection dialogflowConnection) throws ApiException {
+  public ApiResponse<DialogflowConnectionResponse> updateDialogflowConnectionWithHttpInfo(String connectionIdWireless, DialogflowConnection dialogflowConnection) throws ApiException {
     Object localVarPostBody = dialogflowConnection;
     
-    // verify the required parameter 'connectionId' is set
-    if (connectionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling updateDialogflowConnection");
+    // verify the required parameter 'connectionIdWireless' is set
+    if (connectionIdWireless == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionIdWireless' when calling updateDialogflowConnection");
     }
     
     // verify the required parameter 'dialogflowConnection' is set
@@ -308,7 +308,7 @@ public class DialogflowIntegrationApi {
     
     // create path and map variables
     String localVarPath = "/dialogflow_connections/{connection_id}"
-      .replaceAll("\\{" + "connection_id" + "\\}", apiClient.escapeString(connectionId.toString()));
+      .replaceAll("\\{" + "connection_id_wireless" + "\\}", apiClient.escapeString(connectionIdWireless.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();

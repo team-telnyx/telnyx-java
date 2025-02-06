@@ -64,7 +64,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filterCountryCode** | **String**| Filters results to those applying to a 2-character (ISO 3166-1 alpha-2) country code | [optional]
- **filterPhoneNumberType** | **String**| Filters results to those applying to a specific &#x60;phone_number_type&#x60; | [optional] [enum: local, national, toll-free]
+ **filterPhoneNumberType** | **String**| Filters results to those applying to a specific &#x60;phone_number_type&#x60; | [optional] [enum: local, national, toll_free]
  **filterAction** | **String**| Filters requirements to those applying to a specific action. | [optional] [enum: ordering, porting]
  **sort** | **String**| Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a &#x60;-&#x60; in front of the field name. | [optional] [enum: action, country_code, locality, phone_number_type]
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## retrieveDocumentRequirements
@@ -159,5 +159,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 

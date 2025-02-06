@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** | Identifies the resource. |  [optional] [readonly] |
+|**id** | **String** | Uniquely identifies the resource. |  [optional] |
 |**recordType** | **String** | Identifies the type of the resource. |  [optional] |
 |**friendlyName** | **String** | A user-assigned name to help manage the application. |  [optional] |
 |**active** | **Boolean** | Specifies whether the connection can be used. |  [optional] |
@@ -20,8 +20,8 @@
 |**voiceMethod** | [**VoiceMethodEnum**](#VoiceMethodEnum) | HTTP request method Telnyx will use to interact with your XML Translator webhooks. Either &#39;get&#39; or &#39;post&#39;. |  [optional] |
 |**statusCallback** | **String** | URL for Telnyx to send requests to containing information about call progress events. |  [optional] |
 |**statusCallbackMethod** | [**StatusCallbackMethodEnum**](#StatusCallbackMethodEnum) | HTTP request method Telnyx should use when requesting the status_callback URL. |  [optional] |
-|**inbound** | [**CreateTexmlApplicationRequestInbound**](CreateTexmlApplicationRequestInbound.md) |  |  [optional] |
-|**outbound** | [**CreateTexmlApplicationRequestOutbound**](CreateTexmlApplicationRequestOutbound.md) |  |  [optional] |
+|**inbound** | [**TexmlApplicationInbound**](TexmlApplicationInbound.md) |  |  [optional] |
+|**outbound** | [**TexmlApplicationOutbound**](TexmlApplicationOutbound.md) |  |  [optional] |
 |**createdAt** | **String** | ISO 8601 formatted date-time indicating when the resource was created. |  [optional] [readonly] |
 |**updatedAt** | **String** | ISO 8601 formatted date-time indicating when the resource was updated. |  [optional] [readonly] |
 

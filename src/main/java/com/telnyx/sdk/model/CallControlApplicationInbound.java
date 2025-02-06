@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CallControlApplicationInbound.JSON_PROPERTY_SIP_SUBDOMAIN,
   CallControlApplicationInbound.JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallControlApplicationInbound {
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
   private Integer channelLimit;
@@ -55,9 +53,9 @@ public class CallControlApplicationInbound {
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).
    */
   public enum SipSubdomainReceiveSettingsEnum {
-    ONLY_MY_CONNECTIONS("only_my_connections"),
+    ONLY_MY_CONNECTIONS(String.valueOf("only_my_connections")),
     
-    FROM_ANYONE("from_anyone");
+    FROM_ANYONE(String.valueOf("from_anyone"));
 
     private String value;
 

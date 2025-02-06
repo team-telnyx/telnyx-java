@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
  **pageSize** | **Integer**|          Request this many records per page          This value is automatically clamped if the provided value is too large.          |
  **dateStart** | **OffsetDateTime**|  | [optional]
  **dateEnd** | **OffsetDateTime**|  | [optional]
- **status** | **TFVerificationStatus**|  | [optional] [enum: Verified, Rejected, Waiting For Vendor, Waiting For Customer, In Progress]
+ **status** | **TFVerificationStatus**|  | [optional] [enum: Verified, Rejected, Waiting For Vendor, Waiting For Customer, Waiting For Telnyx, In Progress]
  **phoneNumber** | **String**|  | [optional]
 
 ### Return type

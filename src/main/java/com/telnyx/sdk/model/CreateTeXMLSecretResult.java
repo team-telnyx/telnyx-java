@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreateTeXMLSecretResult.JSON_PROPERTY_NAME,
   CreateTeXMLSecretResult.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateTeXMLSecretResult {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -47,7 +45,7 @@ public class CreateTeXMLSecretResult {
    * Gets or Sets value
    */
   public enum ValueEnum {
-  VALUE("*****");
+    u(String.valueOf("*****"));
 
     private String value;
 

@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** | Identifies the resource. |  [optional] [readonly] |
+|**id** | **String** | Uniquely identifies the resource. |  [optional] |
 |**recordType** | **String** | Identifies the type of the resource. |  [optional] [readonly] |
 |**phoneNumber** | **String** | The +E.164-formatted phone number associated with this record. |  [optional] [readonly] |
 |**status** | [**StatusEnum**](#StatusEnum) | The phone number&#39;s current status. |  [optional] [readonly] |
@@ -29,7 +29,6 @@
 |**purchasedAt** | **String** | ISO 8601 formatted date indicating the time the request was made to purchase the number. |  [optional] [readonly] |
 |**createdAt** | **String** | ISO 8601 formatted date indicating when the time it took to activate after the purchase. |  [optional] [readonly] |
 |**updatedAt** | **String** | ISO 8601 formatted date indicating when the resource was updated. |  [optional] [readonly] |
-|**numberLevelRouting** | [**NumberLevelRoutingEnum**](#NumberLevelRoutingEnum) | Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings. |  [optional] |
 |**phoneNumberType** | [**PhoneNumberTypeEnum**](#PhoneNumberTypeEnum) | The phone number&#39;s type. |  [optional] [readonly] |
 
 
@@ -47,14 +46,6 @@
 | EMERGENCY_ONLY | &quot;emergency-only&quot; |
 | PORTED_OUT | &quot;ported-out&quot; |
 | PORT_OUT_PENDING | &quot;port-out-pending&quot; |
-
-
-
-## Enum: NumberLevelRoutingEnum
-
-| Name | Value |
-|---- | -----|
-| DISABLED | &quot;disabled&quot; |
 
 
 

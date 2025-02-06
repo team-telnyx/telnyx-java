@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -45,7 +43,7 @@ import com.telnyx.sdk.JSON;
   CallGatherEndedPayload.JSON_PROPERTY_DIGITS,
   CallGatherEndedPayload.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallGatherEndedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -75,17 +73,17 @@ public class CallGatherEndedPayload {
    * Reflects how command ended.
    */
   public enum StatusEnum {
-    VALID("valid"),
+    VALID(String.valueOf("valid")),
     
-    INVALID("invalid"),
+    INVALID(String.valueOf("invalid")),
     
-    CALL_HANGUP("call_hangup"),
+    CALL_HANGUP(String.valueOf("call_hangup")),
     
-    CANCELLED("cancelled"),
+    CANCELLED(String.valueOf("cancelled")),
     
-    CANCELLED_AMD("cancelled_amd"),
+    CANCELLED_AMD(String.valueOf("cancelled_amd")),
     
-    TIMEOUT("timeout");
+    TIMEOUT(String.valueOf("timeout"));
 
     private String value;
 

@@ -81,8 +81,8 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **201** | Successful response with details about an FQDN connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -97,6 +97,7 @@ Deletes an FQDN connection.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -115,7 +116,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         FqdnConnectionsApi apiInstance = new FqdnConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             FQDNConnectionResponse result = apiInstance.deleteFqdnConnection(id);
             System.out.println(result);
@@ -135,7 +136,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -155,14 +156,14 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an FQDN connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
 ## listFqdnConnections
 
-> ListFQDNConnectionsResponse listFqdnConnections().pageNumber(pageNumber).pageSize(pageSize).filterConnectionNameContains(filterConnectionNameContains).filterFqdn(filterFqdn).filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId).sort(sort).execute();
+> ListFQDNConnectionsResponse listFqdnConnections().pageNumber(pageNumber).pageSize(pageSize).filterConnectionNameContains(filterConnectionNameContains).filterFqdn(filterFqdn).filterOutboundVoiceProfileId(filterOutboundVoiceProfileId).sort(sort).execute();
 
 List FQDN connections
 
@@ -193,7 +194,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         String filterConnectionNameContains = "My Connection"; // String | If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
         String filterFqdn = "filterFqdn_example"; // String | If present, connections with an `fqdn` that equals the given value will be returned. Matching is case-sensitive, and the full string must match.
-        String filterOutboundOutboundVoiceProfileId = "1293384261075731499"; // String | Identifies the associated outbound voice profile.
+        String filterOutboundVoiceProfileId = "1293384261075731499"; // String | Identifies the associated outbound voice profile.
         String sort = "created_at"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
         try {
             ListFQDNConnectionsResponse result = api.listFqdnConnections()
@@ -201,7 +202,7 @@ public class Example {
                 .pageSize(pageSize)
                 .filterConnectionNameContains(filterConnectionNameContains)
                 .filterFqdn(filterFqdn)
-                .filterOutboundOutboundVoiceProfileId(filterOutboundOutboundVoiceProfileId)
+                .filterOutboundVoiceProfileId(filterOutboundVoiceProfileId)
                 .sort(sort)
                 .execute();
             System.out.println(result);
@@ -225,7 +226,7 @@ Name | Type | Description  | Notes
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **filterConnectionNameContains** | **String**| If present, connections with &lt;code&gt;connection_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. | [optional]
  **filterFqdn** | **String**| If present, connections with an &#x60;fqdn&#x60; that equals the given value will be returned. Matching is case-sensitive, and the full string must match. | [optional]
- **filterOutboundOutboundVoiceProfileId** | **String**| Identifies the associated outbound voice profile. | [optional]
+ **filterOutboundVoiceProfileId** | **String**| Identifies the associated outbound voice profile. | [optional]
  **sort** | **String**| Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. | [optional] [default to created_at] [enum: created_at, connection_name, active]
 
 ### Return type
@@ -247,8 +248,8 @@ Name | Type | Description  | Notes
 | **200** | Successful response with a list of FQDN connections. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## retrieveFqdnConnection
@@ -262,6 +263,7 @@ Retrieves the details of an existing FQDN connection.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -280,7 +282,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         FqdnConnectionsApi apiInstance = new FqdnConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             FQDNConnectionResponse result = apiInstance.retrieveFqdnConnection(id);
             System.out.println(result);
@@ -300,7 +302,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -320,8 +322,8 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an FQDN connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -336,6 +338,7 @@ Updates settings of an existing FQDN connection.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -354,7 +357,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         FqdnConnectionsApi apiInstance = new FqdnConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest(); // UpdateFqdnConnectionRequest | Parameters that can be updated in a FQDN connection
         try {
             FQDNConnectionResponse result = apiInstance.updateFqdnConnection(id, updateFqdnConnectionRequest);
@@ -375,7 +378,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **updateFqdnConnectionRequest** | [**UpdateFqdnConnectionRequest**](UpdateFqdnConnectionRequest.md)| Parameters that can be updated in a FQDN connection |
 
 ### Return type
@@ -396,7 +399,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an FQDN connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 

@@ -6,8 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createRoom**](RoomsApi.md#createRoom) | **POST** /rooms | Create a room.
 [**deleteRoom**](RoomsApi.md#deleteRoom) | **DELETE** /rooms/{room_id} | Delete a room.
-[**listRoomSessions**](RoomsApi.md#listRoomSessions) | **GET** /rooms/{room_id}/sessions | View a list of room sessions.
 [**listRooms**](RoomsApi.md#listRooms) | **GET** /rooms | View a list of rooms.
+[**retrieveListRoomSessions**](RoomsApi.md#retrieveListRoomSessions) | **GET** /rooms/{room_id}/sessions | View a list of room sessions.
 [**updateRoom**](RoomsApi.md#updateRoom) | **PATCH** /rooms/{room_id} | Update a room.
 [**viewRoom**](RoomsApi.md#viewRoom) | **GET** /rooms/{room_id} | View a room.
 
@@ -155,104 +155,6 @@ null (empty response body)
 | **404** | Resource not found |  -  |
 
 
-## listRoomSessions
-
-> ListRoomSessions200Response listRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber)
-
-View a list of room sessions.
-
-
-
-### Example
-
-```java
-import java.time.LocalDate;
-import java.util.UUID;
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.RoomsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        RoomsApi apiInstance = new RoomsApi(defaultClient);
-        UUID roomId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room.
-        LocalDate filterDateCreatedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions created on that date.
-        LocalDate filterDateCreatedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions created after that date.
-        LocalDate filterDateCreatedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions created before that date.
-        LocalDate filterDateUpdatedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions updated on that date.
-        LocalDate filterDateUpdatedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions updated after that date.
-        LocalDate filterDateUpdatedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions updated before that date.
-        LocalDate filterDateEndedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions ended on that date.
-        LocalDate filterDateEndedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions ended after that date.
-        LocalDate filterDateEndedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions ended before that date.
-        Boolean filterActive = true; // Boolean | Filter active or inactive room sessions.
-        Boolean includeParticipants = true; // Boolean | To decide if room participants should be included in the response.
-        Integer pageSize = 20; // Integer | The size of the page
-        Integer pageNumber = 1; // Integer | The page number to load
-        try {
-            ListRoomSessions200Response result = apiInstance.listRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling RoomsApi#listRoomSessions");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **roomId** | **UUID**| The unique identifier of a room. |
- **filterDateCreatedAtEq** | **LocalDate**| ISO 8601 date for filtering room sessions created on that date. | [optional]
- **filterDateCreatedAtGte** | **LocalDate**| ISO 8601 date for filtering room sessions created after that date. | [optional]
- **filterDateCreatedAtLte** | **LocalDate**| ISO 8601 date for filtering room sessions created before that date. | [optional]
- **filterDateUpdatedAtEq** | **LocalDate**| ISO 8601 date for filtering room sessions updated on that date. | [optional]
- **filterDateUpdatedAtGte** | **LocalDate**| ISO 8601 date for filtering room sessions updated after that date. | [optional]
- **filterDateUpdatedAtLte** | **LocalDate**| ISO 8601 date for filtering room sessions updated before that date. | [optional]
- **filterDateEndedAtEq** | **LocalDate**| ISO 8601 date for filtering room sessions ended on that date. | [optional]
- **filterDateEndedAtGte** | **LocalDate**| ISO 8601 date for filtering room sessions ended after that date. | [optional]
- **filterDateEndedAtLte** | **LocalDate**| ISO 8601 date for filtering room sessions ended before that date. | [optional]
- **filterActive** | **Boolean**| Filter active or inactive room sessions. | [optional]
- **includeParticipants** | **Boolean**| To decide if room participants should be included in the response. | [optional]
- **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
- **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
-
-### Return type
-
-[**ListRoomSessions200Response**](ListRoomSessions200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | List room sessions response. |  -  |
-
-
 ## listRooms
 
 > ListRooms200Response listRooms(filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterUniqueName, includeSessions, pageSize, pageNumber)
@@ -342,6 +244,104 @@ Name | Type | Description  | Notes
 | **200** | List rooms response. |  -  |
 
 
+## retrieveListRoomSessions
+
+> ListRoomSessions200Response retrieveListRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber)
+
+View a list of room sessions.
+
+
+
+### Example
+
+```java
+import java.time.LocalDate;
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.RoomsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        RoomsApi apiInstance = new RoomsApi(defaultClient);
+        UUID roomId = UUID.fromString("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"); // UUID | The unique identifier of a room.
+        LocalDate filterDateCreatedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions created on that date.
+        LocalDate filterDateCreatedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions created after that date.
+        LocalDate filterDateCreatedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions created before that date.
+        LocalDate filterDateUpdatedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions updated on that date.
+        LocalDate filterDateUpdatedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions updated after that date.
+        LocalDate filterDateUpdatedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions updated before that date.
+        LocalDate filterDateEndedAtEq = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions ended on that date.
+        LocalDate filterDateEndedAtGte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions ended after that date.
+        LocalDate filterDateEndedAtLte = LocalDate.parse("Sat Apr 24 19:00:00 CDT 2021"); // LocalDate | ISO 8601 date for filtering room sessions ended before that date.
+        Boolean filterActive = true; // Boolean | Filter active or inactive room sessions.
+        Boolean includeParticipants = true; // Boolean | To decide if room participants should be included in the response.
+        Integer pageSize = 20; // Integer | The size of the page
+        Integer pageNumber = 1; // Integer | The page number to load
+        try {
+            ListRoomSessions200Response result = apiInstance.retrieveListRoomSessions(roomId, filterDateCreatedAtEq, filterDateCreatedAtGte, filterDateCreatedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterActive, includeParticipants, pageSize, pageNumber);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling RoomsApi#retrieveListRoomSessions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **roomId** | **UUID**| The unique identifier of a room. |
+ **filterDateCreatedAtEq** | **LocalDate**| ISO 8601 date for filtering room sessions created on that date. | [optional]
+ **filterDateCreatedAtGte** | **LocalDate**| ISO 8601 date for filtering room sessions created after that date. | [optional]
+ **filterDateCreatedAtLte** | **LocalDate**| ISO 8601 date for filtering room sessions created before that date. | [optional]
+ **filterDateUpdatedAtEq** | **LocalDate**| ISO 8601 date for filtering room sessions updated on that date. | [optional]
+ **filterDateUpdatedAtGte** | **LocalDate**| ISO 8601 date for filtering room sessions updated after that date. | [optional]
+ **filterDateUpdatedAtLte** | **LocalDate**| ISO 8601 date for filtering room sessions updated before that date. | [optional]
+ **filterDateEndedAtEq** | **LocalDate**| ISO 8601 date for filtering room sessions ended on that date. | [optional]
+ **filterDateEndedAtGte** | **LocalDate**| ISO 8601 date for filtering room sessions ended after that date. | [optional]
+ **filterDateEndedAtLte** | **LocalDate**| ISO 8601 date for filtering room sessions ended before that date. | [optional]
+ **filterActive** | **Boolean**| Filter active or inactive room sessions. | [optional]
+ **includeParticipants** | **Boolean**| To decide if room participants should be included in the response. | [optional]
+ **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
+ **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
+
+### Return type
+
+[**ListRoomSessions200Response**](ListRoomSessions200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | List room sessions response. |  -  |
+
+
 ## updateRoom
 
 > CreateRoom201Response updateRoom(roomId, patchRoomRequest)
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Update room response. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Bad request |  -  |
 

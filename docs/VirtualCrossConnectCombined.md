@@ -15,7 +15,7 @@
 |**name** | **String** | A user specified name for the interface. |  [optional] |
 |**status** | **InterfaceStatus** |  |  [optional] |
 |**cloudProvider** | [**CloudProviderEnum**](#CloudProviderEnum) | The Virtual Private Cloud with which you would like to establish a cross connect. |  |
-|**cloudRegion** | **String** | The region where your Virtual Private Cloud hosts are located.&lt;br /&gt;&lt;br /&gt;The available regions can be found using the /virtual_cross_connect_regions endpoint. |  |
+|**cloudProviderRegion** | **String** | The region where your Virtual Private Cloud hosts are located.&lt;br /&gt;&lt;br /&gt;The available regions can be found using the /virtual_cross_connect_regions endpoint. |  |
 |**bgpAsn** | **BigDecimal** | The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value will be assigned by Telnyx. |  |
 |**bandwidthMbps** | **BigDecimal** | The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;The available bandwidths can be found using the /virtual_cross_connect_regions endpoint. |  [optional] |
 |**primaryEnabled** | **Boolean** | Indicates whether the primary circuit is enabled. Setting this to &#x60;false&#x60; will disable the circuit. |  [optional] |

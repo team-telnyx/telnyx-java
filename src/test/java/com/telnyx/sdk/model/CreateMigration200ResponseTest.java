@@ -18,29 +18,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.BulkSIMCardActionDetailed;
-import com.telnyx.sdk.model.PaginationMeta;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
+import com.telnyx.sdk.model.MigrationParams;
+import java.util.Arrays;
 
-
-
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
- * Model tests for ListBulkSIMCardActions200Response
+ * Model tests for CreateMigration200Response
  */
-public class ListBulkSIMCardActions200ResponseTest {
-    private final ListBulkSIMCardActions200Response model = new ListBulkSIMCardActions200Response();
+public class CreateMigration200ResponseTest {
+    private final CreateMigration200Response model = new CreateMigration200Response();
 
     /**
-     * Model tests for ListBulkSIMCardActions200Response
+     * Model tests for CreateMigration200Response
      */
     @Test
-    public void testListBulkSIMCardActions200Response() {
-        // TODO: test ListBulkSIMCardActions200Response
+    public void testCreateMigration200Response() {
+        // TODO: test CreateMigration200Response
     }
 
     /**
@@ -49,14 +45,6 @@ public class ListBulkSIMCardActions200ResponseTest {
     @Test
     public void dataTest() {
         // TODO: test data
-    }
-
-    /**
-     * Test the property 'meta'
-     */
-    @Test
-    public void metaTest() {
-        // TODO: test meta
     }
 
 }

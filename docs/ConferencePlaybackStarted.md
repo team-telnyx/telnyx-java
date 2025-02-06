@@ -10,7 +10,7 @@
 |**recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional] |
 |**eventType** | [**EventTypeEnum**](#EventTypeEnum) | The type of event being delivered. |  [optional] |
 |**id** | **UUID** | Identifies the type of resource. |  [optional] |
-|**payload** | [**ConferencePlaybackEndedPayload**](ConferencePlaybackEndedPayload.md) |  |  [optional] |
+|**payload** | [**ConferencePlaybackStartedPayload**](ConferencePlaybackStartedPayload.md) |  |  [optional] |
 
 
 

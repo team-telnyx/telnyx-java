@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -43,7 +41,7 @@ import com.telnyx.sdk.JSON;
   EmbeddingsBucketFiles.JSON_PROPERTY_LAST_EMBEDDED_AT,
   EmbeddingsBucketFiles.JSON_PROPERTY_ERROR_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class EmbeddingsBucketFiles {
   public static final String JSON_PROPERTY_FILENAME = "filename";
   private String filename;

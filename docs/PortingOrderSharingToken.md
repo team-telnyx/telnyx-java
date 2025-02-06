@@ -22,8 +22,8 @@
 
 | Name | Value |
 |---- | -----|
-| READ | &quot;porting_order.document.read&quot; |
-| UPDATE | &quot;porting_order.document.update&quot; |
+| PORTING_ORDER_DOCUMENT_READ | &quot;porting_order.document.read&quot; |
+| PORTING_ORDER_DOCUMENT_UPDATE | &quot;porting_order.document.update&quot; |
 
 
 

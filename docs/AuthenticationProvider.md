@@ -14,8 +14,8 @@
 |**organizationId** | **UUID** | The id from the Organization the authentication provider belongs to. |  [optional] |
 |**active** | **Boolean** | The active status of the authentication provider |  [optional] |
 |**settings** | [**AuthenticationProviderSettings**](AuthenticationProviderSettings.md) |  |  [optional] |
-|**createdAt** | **String** | ISO 8601 formatted date indicating when the resource was created. |  [optional] |
-|**updatedAt** | **String** | ISO 8601 formatted date indicating when the resource was updated. |  [optional] |
+|**createdAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the resource was created. |  [optional] |
+|**updatedAt** | **OffsetDateTime** | ISO 8601 formatted date indicating when the resource was updated. |  [optional] |
 
 
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## listAvailablePhoneNumberBlocks
 
-> ListAvailablePhoneNumbersBlocksResponse listAvailablePhoneNumberBlocks(filterPhoneNumberStartsWith, filterPhoneNumberEndsWith, filterPhoneNumberContains, filterLocality, filterAdministrativeArea, filterCountryCode, filterNationalDestinationCode, filterRateCenter, filterNumberType, filterFeatures, filterMinimumBlockSize, filterLimit)
+> ListAvailablePhoneNumbersBlocksResponse listAvailablePhoneNumberBlocks(filterLocality, filterCountryCode, filterNationalDestinationCode, filterPhoneNumberType)
 
 List available phone number blocks
 
@@ -36,20 +36,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PhoneNumberSearchApi apiInstance = new PhoneNumberSearchApi(defaultClient);
-        String filterPhoneNumberStartsWith = "201"; // String | Filter number blocks that start with a pattern (meant to be used after `national_destination_code` filter has been set).
-        String filterPhoneNumberEndsWith = "8000"; // String | Filter numbers ending with a pattern.
-        String filterPhoneNumberContains = "456"; // String | Filter numbers containing a pattern.
         String filterLocality = "Chicago"; // String | Filter phone numbers by city.
-        String filterAdministrativeArea = "IL"; // String | Filter phone numbers by US state/CA province.
-        String filterCountryCode = "US"; // String | Filter phone numbers by ISO alpha-2 country code.
-        String filterNationalDestinationCode = "312"; // String | Filter by the national destination code of the number. This filter is only applicable to North American numbers.
-        String filterRateCenter = "CHICAGO HEIGHTS"; // String | Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers.
-        String filterNumberType = "toll-free"; // String | Filter phone numbers by number type.
-        List<String> filterFeatures = Arrays.asList(); // List<String> | Filter if the phone number should be used for voice, fax, mms, sms, emergency.
-        Integer filterMinimumBlockSize = 100; // Integer | Filter number blocks by minimum blocks size
-        Integer filterLimit = 100; // Integer | Limits the number of results.
+        String filterCountryCode = "US"; // String | Filter phone numbers by country.
+        String filterNationalDestinationCode = "312"; // String | Filter by the national destination code of the number.
+        String filterPhoneNumberType = "local"; // String | Filter phone numbers by number type.
         try {
-            ListAvailablePhoneNumbersBlocksResponse result = apiInstance.listAvailablePhoneNumberBlocks(filterPhoneNumberStartsWith, filterPhoneNumberEndsWith, filterPhoneNumberContains, filterLocality, filterAdministrativeArea, filterCountryCode, filterNationalDestinationCode, filterRateCenter, filterNumberType, filterFeatures, filterMinimumBlockSize, filterLimit);
+            ListAvailablePhoneNumbersBlocksResponse result = apiInstance.listAvailablePhoneNumberBlocks(filterLocality, filterCountryCode, filterNationalDestinationCode, filterPhoneNumberType);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PhoneNumberSearchApi#listAvailablePhoneNumberBlocks");
@@ -67,18 +59,10 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filterPhoneNumberStartsWith** | **String**| Filter number blocks that start with a pattern (meant to be used after &#x60;national_destination_code&#x60; filter has been set). | [optional]
- **filterPhoneNumberEndsWith** | **String**| Filter numbers ending with a pattern. | [optional]
- **filterPhoneNumberContains** | **String**| Filter numbers containing a pattern. | [optional]
  **filterLocality** | **String**| Filter phone numbers by city. | [optional]
- **filterAdministrativeArea** | **String**| Filter phone numbers by US state/CA province. | [optional]
- **filterCountryCode** | **String**| Filter phone numbers by ISO alpha-2 country code. | [optional]
- **filterNationalDestinationCode** | **String**| Filter by the national destination code of the number. This filter is only applicable to North American numbers. | [optional]
- **filterRateCenter** | **String**| Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers. | [optional]
- **filterNumberType** | **String**| Filter phone numbers by number type. | [optional] [enum: toll-free]
- **filterFeatures** | **List&lt;String&gt;**| Filter if the phone number should be used for voice, fax, mms, sms, emergency. | [optional] [enum: sms, mms, voice, fax, emergency]
- **filterMinimumBlockSize** | **Integer**| Filter number blocks by minimum blocks size | [optional]
- **filterLimit** | **Integer**| Limits the number of results. | [optional]
+ **filterCountryCode** | **String**| Filter phone numbers by country. | [optional]
+ **filterNationalDestinationCode** | **String**| Filter by the national destination code of the number. | [optional]
+ **filterPhoneNumberType** | **String**| Filter phone numbers by number type. | [optional] [enum: local, toll_free, mobile, national, shared_cost]
 
 ### Return type
 
@@ -127,21 +111,21 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         PhoneNumberSearchApi apiInstance = new PhoneNumberSearchApi(defaultClient);
-        String filterPhoneNumberStartsWith = "FREE"; // String | Filter numbers starting with a pattern (exclude NDC from start of this filter if used with `national_destination_code` filter).
-        String filterPhoneNumberEndsWith = "CALL"; // String | Filter numbers ending with a pattern (max length of 4 digits if used with `national_destination_code` filter).
-        String filterPhoneNumberContains = "FOO"; // String | Filter numbers containing a pattern (must be used with `national_destination_code` filter and only searches within last 4 digits).
+        String filterPhoneNumberStartsWith = "TACO"; // String | Filter numbers starting with a pattern (excludes NDC if used with `national_destination_code` filter).
+        String filterPhoneNumberEndsWith = "TACO"; // String | Filter numbers ending with a pattern (excludes NDC if used with `national_destination_code` filter).
+        String filterPhoneNumberContains = "TACO"; // String | Filter numbers containing a pattern (excludes NDC if used with `national_destination_code` filter).
         String filterLocality = "Chicago"; // String | Filter phone numbers by city.
-        String filterAdministrativeArea = "IL"; // String | Filter phone numbers by US state/CA province.
-        String filterCountryCode = "US"; // String | Filter phone numbers by ISO alpha-2 country code.
-        String filterNationalDestinationCode = "312"; // String | Filter by the national destination code of the number. This filter is only applicable to North American numbers.
-        String filterRateCenter = "CHICAGO HEIGHTS"; // String | Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers.
+        String filterAdministrativeArea = "IL"; // String | Find numbers in a particular US state or CA province.
+        String filterCountryCode = "US"; // String | Filter phone numbers by country.
+        String filterNationalDestinationCode = "312"; // String | Filter by the national destination code of the number.
+        String filterRateCenter = "Chicago Heights"; // String | Filter phone numbers by rate center. This filter is only applicable to USA and Canada numbers.
         String filterPhoneNumberType = "local"; // String | Filter phone numbers by number type.
-        List<String> filterFeatures = Arrays.asList(); // List<String> | Filter if the phone number should be used for voice, fax, mms, sms, emergency.
+        List<String> filterFeatures = Arrays.asList(); // List<String> | Filter phone numbers with specific features.
         Integer filterLimit = 100; // Integer | Limits the number of results.
-        Boolean filterBestEffort = false; // Boolean | Filter to determine if best effort results should be included. Only available in NANPA countries.
-        Boolean filterQuickship = true; // Boolean | Filter to exclude phone numbers that need additional time after to purchase to receive phone calls. Only available for toll-free numbers.
-        Boolean filterReservable = true; // Boolean | Filter to exclude phone numbers that cannot be reserved before purchase.
-        Boolean filterExcludeHeldNumbers = false; // Boolean | Filter to exclude phone numbers that are currently on hold for your account.
+        Boolean filterBestEffort = true; // Boolean | Filter to determine if best effort results should be included. Only available in USA/CANADA.
+        Boolean filterQuickship = true; // Boolean | Filter to exclude phone numbers that need additional time after to purchase to activate. Only applicable for +1 toll_free numbers.
+        Boolean filterReservable = true; // Boolean | Filter to ensure only numbers that can be reserved are included in the results.
+        Boolean filterExcludeHeldNumbers = true; // Boolean | Filter to exclude phone numbers that are currently on hold/reserved for your account.
         try {
             ListAvailablePhoneNumbersResponse result = api.listAvailablePhoneNumbers()
                 .filterPhoneNumberStartsWith(filterPhoneNumberStartsWith)
@@ -177,21 +161,21 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filterPhoneNumberStartsWith** | **String**| Filter numbers starting with a pattern (exclude NDC from start of this filter if used with &#x60;national_destination_code&#x60; filter). | [optional]
- **filterPhoneNumberEndsWith** | **String**| Filter numbers ending with a pattern (max length of 4 digits if used with &#x60;national_destination_code&#x60; filter). | [optional]
- **filterPhoneNumberContains** | **String**| Filter numbers containing a pattern (must be used with &#x60;national_destination_code&#x60; filter and only searches within last 4 digits). | [optional]
+ **filterPhoneNumberStartsWith** | **String**| Filter numbers starting with a pattern (excludes NDC if used with &#x60;national_destination_code&#x60; filter). | [optional]
+ **filterPhoneNumberEndsWith** | **String**| Filter numbers ending with a pattern (excludes NDC if used with &#x60;national_destination_code&#x60; filter). | [optional]
+ **filterPhoneNumberContains** | **String**| Filter numbers containing a pattern (excludes NDC if used with &#x60;national_destination_code&#x60; filter). | [optional]
  **filterLocality** | **String**| Filter phone numbers by city. | [optional]
- **filterAdministrativeArea** | **String**| Filter phone numbers by US state/CA province. | [optional]
- **filterCountryCode** | **String**| Filter phone numbers by ISO alpha-2 country code. | [optional]
- **filterNationalDestinationCode** | **String**| Filter by the national destination code of the number. This filter is only applicable to North American numbers. | [optional]
- **filterRateCenter** | **String**| Filter phone numbers by NANP rate center. This filter is only applicable to North American numbers. | [optional]
- **filterPhoneNumberType** | **String**| Filter phone numbers by number type. | [optional] [enum: local, toll_free, mobile, national, shared_cost, landline]
- **filterFeatures** | **List&lt;String&gt;**| Filter if the phone number should be used for voice, fax, mms, sms, emergency. | [optional] [enum: sms, mms, voice, fax, emergency]
+ **filterAdministrativeArea** | **String**| Find numbers in a particular US state or CA province. | [optional]
+ **filterCountryCode** | **String**| Filter phone numbers by country. | [optional]
+ **filterNationalDestinationCode** | **String**| Filter by the national destination code of the number. | [optional]
+ **filterRateCenter** | **String**| Filter phone numbers by rate center. This filter is only applicable to USA and Canada numbers. | [optional]
+ **filterPhoneNumberType** | **String**| Filter phone numbers by number type. | [optional] [enum: local, toll_free, mobile, national, shared_cost]
+ **filterFeatures** | **List&lt;String&gt;**| Filter phone numbers with specific features. | [optional] [enum: sms, mms, voice, fax, emergency, hd_voice, international_sms, local_calling]
  **filterLimit** | **Integer**| Limits the number of results. | [optional]
- **filterBestEffort** | **Boolean**| Filter to determine if best effort results should be included. Only available in NANPA countries. | [optional]
- **filterQuickship** | **Boolean**| Filter to exclude phone numbers that need additional time after to purchase to receive phone calls. Only available for toll-free numbers. | [optional]
- **filterReservable** | **Boolean**| Filter to exclude phone numbers that cannot be reserved before purchase. | [optional]
- **filterExcludeHeldNumbers** | **Boolean**| Filter to exclude phone numbers that are currently on hold for your account. | [optional]
+ **filterBestEffort** | **Boolean**| Filter to determine if best effort results should be included. Only available in USA/CANADA. | [optional]
+ **filterQuickship** | **Boolean**| Filter to exclude phone numbers that need additional time after to purchase to activate. Only applicable for +1 toll_free numbers. | [optional]
+ **filterReservable** | **Boolean**| Filter to ensure only numbers that can be reserved are included in the results. | [optional]
+ **filterExcludeHeldNumbers** | **Boolean**| Filter to exclude phone numbers that are currently on hold/reserved for your account. | [optional]
 
 ### Return type
 

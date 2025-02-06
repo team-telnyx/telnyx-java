@@ -23,6 +23,7 @@
 | Name | Value |
 |---- | -----|
 | BEEP_DETECTED | &quot;beep_detected&quot; |
+| NO_BEEP_DETECTED | &quot;no_beep_detected&quot; |
 
 
 

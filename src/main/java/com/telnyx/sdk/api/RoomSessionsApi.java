@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RoomSessionsApi {
   private ApiClient apiClient;
 
@@ -192,110 +192,6 @@ public class RoomSessionsApi {
     GenericType<EndSession200Response> localVarReturnType = new GenericType<EndSession200Response>() {};
 
     return apiClient.invokeAPI("RoomSessionsApi.kickParticipantInSession", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * View a list of room participants.
-   * 
-   * @param roomSessionId The unique identifier of a room session. (required)
-   * @param filterDateJoinedAtEq ISO 8601 date for filtering room participants that joined on that date. (optional)
-   * @param filterDateJoinedAtGte ISO 8601 date for filtering room participants that joined after that date. (optional)
-   * @param filterDateJoinedAtLte ISO 8601 date for filtering room participants that joined before that date. (optional)
-   * @param filterDateUpdatedAtEq ISO 8601 date for filtering room participants updated on that date. (optional)
-   * @param filterDateUpdatedAtGte ISO 8601 date for filtering room participants updated after that date. (optional)
-   * @param filterDateUpdatedAtLte ISO 8601 date for filtering room participants updated before that date. (optional)
-   * @param filterDateLeftAtEq ISO 8601 date for filtering room participants that left on that date. (optional)
-   * @param filterDateLeftAtGte ISO 8601 date for filtering room participants that left after that date. (optional)
-   * @param filterDateLeftAtLte ISO 8601 date for filtering room participants that left before that date. (optional)
-   * @param filterContext Filter room participants based on the context. (optional)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @return ListRoomParticipants200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> List room participants response. </td><td>  -  </td></tr>
-     </table>
-   */
-  public ListRoomParticipants200Response listRoomParticipants(UUID roomSessionId, LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, Integer pageSize, Integer pageNumber) throws ApiException {
-    return listRoomParticipantsWithHttpInfo(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber).getData();
-  }
-
-  /**
-   * View a list of room participants.
-   * 
-   * @param roomSessionId The unique identifier of a room session. (required)
-   * @param filterDateJoinedAtEq ISO 8601 date for filtering room participants that joined on that date. (optional)
-   * @param filterDateJoinedAtGte ISO 8601 date for filtering room participants that joined after that date. (optional)
-   * @param filterDateJoinedAtLte ISO 8601 date for filtering room participants that joined before that date. (optional)
-   * @param filterDateUpdatedAtEq ISO 8601 date for filtering room participants updated on that date. (optional)
-   * @param filterDateUpdatedAtGte ISO 8601 date for filtering room participants updated after that date. (optional)
-   * @param filterDateUpdatedAtLte ISO 8601 date for filtering room participants updated before that date. (optional)
-   * @param filterDateLeftAtEq ISO 8601 date for filtering room participants that left on that date. (optional)
-   * @param filterDateLeftAtGte ISO 8601 date for filtering room participants that left after that date. (optional)
-   * @param filterDateLeftAtLte ISO 8601 date for filtering room participants that left before that date. (optional)
-   * @param filterContext Filter room participants based on the context. (optional)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @return ApiResponse&lt;ListRoomParticipants200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> List room participants response. </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<ListRoomParticipants200Response> listRoomParticipantsWithHttpInfo(UUID roomSessionId, LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, Integer pageSize, Integer pageNumber) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'roomSessionId' is set
-    if (roomSessionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'roomSessionId' when calling listRoomParticipants");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/room_sessions/{room_session_id}/participants"
-      .replaceAll("\\{" + "room_session_id" + "\\}", apiClient.escapeString(roomSessionId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_joined_at][eq]", filterDateJoinedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_joined_at][gte]", filterDateJoinedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_joined_at][lte]", filterDateJoinedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][eq]", filterDateUpdatedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][gte]", filterDateUpdatedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][lte]", filterDateUpdatedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_left_at][eq]", filterDateLeftAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_left_at][gte]", filterDateLeftAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_left_at][lte]", filterDateLeftAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[context]", filterContext));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListRoomParticipants200Response> localVarReturnType = new GenericType<ListRoomParticipants200Response>() {};
-
-    return apiClient.invokeAPI("RoomSessionsApi.listRoomParticipants", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -473,6 +369,110 @@ public class RoomSessionsApi {
     GenericType<EndSession200Response> localVarReturnType = new GenericType<EndSession200Response>() {};
 
     return apiClient.invokeAPI("RoomSessionsApi.muteParticipantInSession", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * View a list of room participants.
+   * 
+   * @param roomSessionId The unique identifier of a room session. (required)
+   * @param filterDateJoinedAtEq ISO 8601 date for filtering room participants that joined on that date. (optional)
+   * @param filterDateJoinedAtGte ISO 8601 date for filtering room participants that joined after that date. (optional)
+   * @param filterDateJoinedAtLte ISO 8601 date for filtering room participants that joined before that date. (optional)
+   * @param filterDateUpdatedAtEq ISO 8601 date for filtering room participants updated on that date. (optional)
+   * @param filterDateUpdatedAtGte ISO 8601 date for filtering room participants updated after that date. (optional)
+   * @param filterDateUpdatedAtLte ISO 8601 date for filtering room participants updated before that date. (optional)
+   * @param filterDateLeftAtEq ISO 8601 date for filtering room participants that left on that date. (optional)
+   * @param filterDateLeftAtGte ISO 8601 date for filtering room participants that left after that date. (optional)
+   * @param filterDateLeftAtLte ISO 8601 date for filtering room participants that left before that date. (optional)
+   * @param filterContext Filter room participants based on the context. (optional)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @return ListRoomParticipants200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> List room participants response. </td><td>  -  </td></tr>
+     </table>
+   */
+  public ListRoomParticipants200Response retrieveListRoomParticipants(UUID roomSessionId, LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, Integer pageSize, Integer pageNumber) throws ApiException {
+    return retrieveListRoomParticipantsWithHttpInfo(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber).getData();
+  }
+
+  /**
+   * View a list of room participants.
+   * 
+   * @param roomSessionId The unique identifier of a room session. (required)
+   * @param filterDateJoinedAtEq ISO 8601 date for filtering room participants that joined on that date. (optional)
+   * @param filterDateJoinedAtGte ISO 8601 date for filtering room participants that joined after that date. (optional)
+   * @param filterDateJoinedAtLte ISO 8601 date for filtering room participants that joined before that date. (optional)
+   * @param filterDateUpdatedAtEq ISO 8601 date for filtering room participants updated on that date. (optional)
+   * @param filterDateUpdatedAtGte ISO 8601 date for filtering room participants updated after that date. (optional)
+   * @param filterDateUpdatedAtLte ISO 8601 date for filtering room participants updated before that date. (optional)
+   * @param filterDateLeftAtEq ISO 8601 date for filtering room participants that left on that date. (optional)
+   * @param filterDateLeftAtGte ISO 8601 date for filtering room participants that left after that date. (optional)
+   * @param filterDateLeftAtLte ISO 8601 date for filtering room participants that left before that date. (optional)
+   * @param filterContext Filter room participants based on the context. (optional)
+   * @param pageSize The size of the page (optional, default to 20)
+   * @param pageNumber The page number to load (optional, default to 1)
+   * @return ApiResponse&lt;ListRoomParticipants200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> List room participants response. </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<ListRoomParticipants200Response> retrieveListRoomParticipantsWithHttpInfo(UUID roomSessionId, LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, Integer pageSize, Integer pageNumber) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'roomSessionId' is set
+    if (roomSessionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'roomSessionId' when calling retrieveListRoomParticipants");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/room_sessions/{room_session_id}/participants"
+      .replaceAll("\\{" + "room_session_id" + "\\}", apiClient.escapeString(roomSessionId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_joined_at][eq]", filterDateJoinedAtEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_joined_at][gte]", filterDateJoinedAtGte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_joined_at][lte]", filterDateJoinedAtLte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][eq]", filterDateUpdatedAtEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][gte]", filterDateUpdatedAtGte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_updated_at][lte]", filterDateUpdatedAtLte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_left_at][eq]", filterDateLeftAtEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_left_at][gte]", filterDateLeftAtGte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_left_at][lte]", filterDateLeftAtLte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[context]", filterContext));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ListRoomParticipants200Response> localVarReturnType = new GenericType<ListRoomParticipants200Response>() {};
+
+    return apiClient.invokeAPI("RoomSessionsApi.retrieveListRoomParticipants", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

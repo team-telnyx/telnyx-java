@@ -37,7 +37,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DetailRecordsApi apiInstance = new DetailRecordsApi(defaultClient);
-        String filterRecordType = "amd"; // String | Filter by the given record type.
+        String filterRecordType = "ai-voice-assistant"; // String | Filter by the given record type.
         String filterDateRange = "yesterday"; // String | Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days.
         Map<String, Object> filter = new HashMap(); // Map<String, Object> | Filter records on a given record attribute and value. <br/>Example: filter[status]=delivered
         Integer pageNumber = 1; // Integer | Page number
@@ -62,7 +62,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filterRecordType** | **String**| Filter by the given record type. | [enum: amd, conference, conference-participant, media_storage, messaging, verify, whatsapp, whatsapp-conversation, wireless]
+ **filterRecordType** | **String**| Filter by the given record type. | [enum: ai-voice-assistant, amd, call-control, conference, conference-participant, embedding, fax, inference, inference-speech-to-text, media_storage, media-streaming, messaging, noise-suppression, recording, sip-trunking, siprec-client, stt, tts, verify, webrtc, wireless]
  **filterDateRange** | **String**| Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days. | [optional] [enum: yesterday, today, tomorrow, last_week, this_week, next_week, last_month, this_month, next_month]
  **filter** | **Map&lt;String,Object&gt;**| Filter records on a given record attribute and value. &lt;br/&gt;Example: filter[status]&#x3D;delivered | [optional]
  **pageNumber** | **Integer**| Page number | [optional] [default to 1]

@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.LogMessageMeta;
 import com.telnyx.sdk.model.LogMessageSource;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -43,7 +41,7 @@ import com.telnyx.sdk.JSON;
   LogMessage.JSON_PROPERTY_SOURCE,
   LogMessage.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class LogMessage {
   public static final String JSON_PROPERTY_CODE = "code";
   private Integer code;

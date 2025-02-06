@@ -24,14 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.SIMCardCurrentBillingPeriodConsumedData;
 import com.telnyx.sdk.model.SIMCardStatus;
+import com.telnyx.sdk.model.SimpleSIMCardCurrentBillingPeriodConsumedData;
 import com.telnyx.sdk.model.SimpleSIMCardDataLimit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -56,7 +54,7 @@ import com.telnyx.sdk.JSON;
   SimpleSIMCard.JSON_PROPERTY_CREATED_AT,
   SimpleSIMCard.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SimpleSIMCard {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -71,9 +69,9 @@ public class SimpleSIMCard {
    * The type of SIM card
    */
   public enum TypeEnum {
-    PHYSICAL("physical"),
+    PHYSICAL(String.valueOf("physical")),
     
-    ESIM("esim");
+    ESIM(String.valueOf("esim"));
 
     private String value;
 
@@ -124,7 +122,7 @@ public class SimpleSIMCard {
   private SimpleSIMCardDataLimit dataLimit;
 
   public static final String JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA = "current_billing_period_consumed_data";
-  private SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData;
+  private SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData;
 
   public static final String JSON_PROPERTY_ACTIONS_IN_PROGRESS = "actions_in_progress";
   private Boolean actionsInProgress = false;
@@ -315,7 +313,7 @@ public class SimpleSIMCard {
     return this;
   }
 
-  public SimpleSIMCard addTagsItem(String tagsItem) {
+  public SimpleSIMCard addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -370,7 +368,7 @@ public class SimpleSIMCard {
   }
 
 
-  public SimpleSIMCard currentBillingPeriodConsumedData(SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
+  public SimpleSIMCard currentBillingPeriodConsumedData(SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
     this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
     return this;
   }
@@ -384,14 +382,14 @@ public class SimpleSIMCard {
   @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SIMCardCurrentBillingPeriodConsumedData getCurrentBillingPeriodConsumedData() {
+  public SimpleSIMCardCurrentBillingPeriodConsumedData getCurrentBillingPeriodConsumedData() {
     return currentBillingPeriodConsumedData;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCurrentBillingPeriodConsumedData(SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
+  public void setCurrentBillingPeriodConsumedData(SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
     this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
   }
 

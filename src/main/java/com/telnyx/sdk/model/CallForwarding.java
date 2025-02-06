@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CallForwarding.JSON_PROPERTY_FORWARDS_TO,
   CallForwarding.JSON_PROPERTY_FORWARDING_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallForwarding {
   public static final String JSON_PROPERTY_CALL_FORWARDING_ENABLED = "call_forwarding_enabled";
   private Boolean callForwardingEnabled = true;
@@ -52,9 +50,9 @@ public class CallForwarding {
    * Call forwarding type. &#39;forwards_to&#39; must be set for this to have an effect.
    */
   public enum ForwardingTypeEnum {
-    ALWAYS("always"),
+    ALWAYS(String.valueOf("always")),
     
-    ON_FAILURE("on_failure");
+    ON_FAILURE(String.valueOf("on_failure"));
 
     private String value;
 

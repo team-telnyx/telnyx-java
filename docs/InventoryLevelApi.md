@@ -42,7 +42,7 @@ public class Example {
         Integer filterNxx = 202; // Integer | 
         String filterAdministrativeArea = "LA"; // String | 
         String filterPhoneNumberType = "local"; // String | 
-        String filterCountryCode = "US"; // String | 
+        String filterCountryCode = "AT"; // String | 
         Boolean filterCount = true; // Boolean | 
         List<String> filterFeatures = Arrays.asList(); // List<String> | Filter if the phone number should be used for voice, fax, mms, sms, emergency. Returns features in the response when used.
         try {
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
  **filterNxx** | **Integer**|  | [optional]
  **filterAdministrativeArea** | **String**|  | [optional]
  **filterPhoneNumberType** | **String**|  | [optional] [enum: local, toll_free, national, mobile, landline, shared_cost]
- **filterCountryCode** | **String**|  | [optional] [enum: US, CA, GB]
+ **filterCountryCode** | **String**|  | [optional] [enum: AT, AU, BE, BG, CA, CH, CN, CY, CZ, DE, DK, EE, ES, FI, FR, GB, GR, HU, HR, IE, IT, LT, LU, LV, NL, NZ, MX, NO, PL, PT, RO, SE, SG, SI, SK, US]
  **filterCount** | **Boolean**|  | [optional]
  **filterFeatures** | **List&lt;String&gt;**| Filter if the phone number should be used for voice, fax, mms, sms, emergency. Returns features in the response when used. | [optional] [enum: sms, mms, voice, fax, emergency]
 

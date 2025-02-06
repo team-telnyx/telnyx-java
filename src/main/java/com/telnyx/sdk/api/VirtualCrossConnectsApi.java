@@ -10,8 +10,7 @@ import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreateVirtualCrossConnect200Response;
 import com.telnyx.sdk.model.Errors;
-import com.telnyx.sdk.model.GetVirtualCrossConnectRegion200Response;
-import com.telnyx.sdk.model.ListVirtualCrossConnectRegions200Response;
+import com.telnyx.sdk.model.ListVirtualCrossConnectCoverage200Response;
 import com.telnyx.sdk.model.ListVirtualCrossConnects200Response;
 import java.util.UUID;
 import com.telnyx.sdk.model.VirtualCrossConnectCreate;
@@ -22,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VirtualCrossConnectsApi {
   private ApiClient apiClient;
 
@@ -264,83 +263,18 @@ public class VirtualCrossConnectsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Retrieve a Virtual Cross Connect Cloud Regions
-   * Retrieve a Virtual Cross Connect Cloud Regions.
-   * @param id Identifies the resource. (required)
-   * @return GetVirtualCrossConnectRegion200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public GetVirtualCrossConnectRegion200Response getVirtualCrossConnectRegion(UUID id) throws ApiException {
-    return getVirtualCrossConnectRegionWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Retrieve a Virtual Cross Connect Cloud Regions
-   * Retrieve a Virtual Cross Connect Cloud Regions.
-   * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;GetVirtualCrossConnectRegion200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<GetVirtualCrossConnectRegion200Response> getVirtualCrossConnectRegionWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getVirtualCrossConnectRegion");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/virtual_cross_connect_regions/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetVirtualCrossConnectRegion200Response> localVarReturnType = new GenericType<GetVirtualCrossConnectRegion200Response>() {};
-
-    return apiClient.invokeAPI("VirtualCrossConnectsApi.getVirtualCrossConnectRegion", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * List all Virtual Cross Connect Cloud Regions
-   * List all Virtual Cross Connects Cloud Regions.&lt;br /&gt;&lt;br /&gt;This endpoint shows which cloud regions are available for the &#x60;region_code&#x60; your Virtual Cross Connect will be provisioned in.
+   * List Virtual Cross Connect Cloud Coverage
+   * List Virtual Cross Connects Cloud Coverage.&lt;br /&gt;&lt;br /&gt;This endpoint shows which cloud regions are available for the &#x60;location_code&#x60; your Virtual Cross Connect will be provisioned in.
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @param filterRegionCode The Telnyx region code (optional)
+   * @param filtersAvailableBandwidthContains The available bandwidth to filter on. (optional)
    * @param filterCloudProvider The Telnyx region code (optional)
-   * @return ListVirtualCrossConnectRegions200Response
+   * @param filterCloudProviderRegion The cloud provider region code to filter on (optional)
+   * @param filterLocationRegion The region of associated location to filter on. (optional)
+   * @param filterLocationSite The site of associated location to filter on. (optional)
+   * @param filterLocationPop The POP of associated location to filter on. (optional)
+   * @param filterLocationCode The code of associated location to filter on. (optional)
+   * @return ListVirtualCrossConnectCoverage200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -349,18 +283,23 @@ public class VirtualCrossConnectsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListVirtualCrossConnectRegions200Response listVirtualCrossConnectRegions(Integer pageNumber, Integer pageSize, String filterRegionCode, String filterCloudProvider) throws ApiException {
-    return listVirtualCrossConnectRegionsWithHttpInfo(pageNumber, pageSize, filterRegionCode, filterCloudProvider).getData();
+  public ListVirtualCrossConnectCoverage200Response listVirtualCrossConnectCoverage(Integer pageNumber, Integer pageSize, Integer filtersAvailableBandwidthContains, String filterCloudProvider, String filterCloudProviderRegion, String filterLocationRegion, String filterLocationSite, String filterLocationPop, String filterLocationCode) throws ApiException {
+    return listVirtualCrossConnectCoverageWithHttpInfo(pageNumber, pageSize, filtersAvailableBandwidthContains, filterCloudProvider, filterCloudProviderRegion, filterLocationRegion, filterLocationSite, filterLocationPop, filterLocationCode).getData();
   }
 
   /**
-   * List all Virtual Cross Connect Cloud Regions
-   * List all Virtual Cross Connects Cloud Regions.&lt;br /&gt;&lt;br /&gt;This endpoint shows which cloud regions are available for the &#x60;region_code&#x60; your Virtual Cross Connect will be provisioned in.
+   * List Virtual Cross Connect Cloud Coverage
+   * List Virtual Cross Connects Cloud Coverage.&lt;br /&gt;&lt;br /&gt;This endpoint shows which cloud regions are available for the &#x60;location_code&#x60; your Virtual Cross Connect will be provisioned in.
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @param filterRegionCode The Telnyx region code (optional)
+   * @param filtersAvailableBandwidthContains The available bandwidth to filter on. (optional)
    * @param filterCloudProvider The Telnyx region code (optional)
-   * @return ApiResponse&lt;ListVirtualCrossConnectRegions200Response&gt;
+   * @param filterCloudProviderRegion The cloud provider region code to filter on (optional)
+   * @param filterLocationRegion The region of associated location to filter on. (optional)
+   * @param filterLocationSite The site of associated location to filter on. (optional)
+   * @param filterLocationPop The POP of associated location to filter on. (optional)
+   * @param filterLocationCode The code of associated location to filter on. (optional)
+   * @return ApiResponse&lt;ListVirtualCrossConnectCoverage200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -369,11 +308,11 @@ public class VirtualCrossConnectsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListVirtualCrossConnectRegions200Response> listVirtualCrossConnectRegionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterRegionCode, String filterCloudProvider) throws ApiException {
+  public ApiResponse<ListVirtualCrossConnectCoverage200Response> listVirtualCrossConnectCoverageWithHttpInfo(Integer pageNumber, Integer pageSize, Integer filtersAvailableBandwidthContains, String filterCloudProvider, String filterCloudProviderRegion, String filterLocationRegion, String filterLocationSite, String filterLocationPop, String filterLocationCode) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
-    String localVarPath = "/virtual_cross_connect_regions";
+    String localVarPath = "/virtual_cross_connects_coverage";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -383,8 +322,13 @@ public class VirtualCrossConnectsApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[region_code]", filterRegionCode));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filters[available_bandwidth][contains]", filtersAvailableBandwidthContains));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[cloud_provider]", filterCloudProvider));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[cloud_provider_region]", filterCloudProviderRegion));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[location.region]", filterLocationRegion));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[location.site]", filterLocationSite));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[location.pop]", filterLocationPop));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[location.code]", filterLocationCode));
 
     
     
@@ -401,9 +345,9 @@ public class VirtualCrossConnectsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListVirtualCrossConnectRegions200Response> localVarReturnType = new GenericType<ListVirtualCrossConnectRegions200Response>() {};
+    GenericType<ListVirtualCrossConnectCoverage200Response> localVarReturnType = new GenericType<ListVirtualCrossConnectCoverage200Response>() {};
 
-    return apiClient.invokeAPI("VirtualCrossConnectsApi.listVirtualCrossConnectRegions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("VirtualCrossConnectsApi.listVirtualCrossConnectCoverage", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -475,76 +419,6 @@ public class VirtualCrossConnectsApi {
     GenericType<ListVirtualCrossConnects200Response> localVarReturnType = new GenericType<ListVirtualCrossConnects200Response>() {};
 
     return apiClient.invokeAPI("VirtualCrossConnectsApi.listVirtualCrossConnects", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * Provision a Virtual Cross Connect
-   * Provision a new Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;This endpoint is only necessary for GCE cloud regions. Once you have patched your Cloud IPs, you must POST this request to trigger the provision.
-   * @param id Identifies the resource. (required)
-   * @return CreateVirtualCrossConnect200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public CreateVirtualCrossConnect200Response provisionVirtualCrossConnect(UUID id) throws ApiException {
-    return provisionVirtualCrossConnectWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Provision a Virtual Cross Connect
-   * Provision a new Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;This endpoint is only necessary for GCE cloud regions. Once you have patched your Cloud IPs, you must POST this request to trigger the provision.
-   * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;CreateVirtualCrossConnect200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<CreateVirtualCrossConnect200Response> provisionVirtualCrossConnectWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling provisionVirtualCrossConnect");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/virtual_cross_connects/{id}/actions/provision"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateVirtualCrossConnect200Response> localVarReturnType = new GenericType<CreateVirtualCrossConnect200Response>() {};
-
-    return apiClient.invokeAPI("VirtualCrossConnectsApi.provisionVirtualCrossConnect", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

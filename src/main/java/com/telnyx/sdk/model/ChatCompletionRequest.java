@@ -24,14 +24,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ChatCompletionRequestToolsInner;
+import com.telnyx.sdk.model.ChatCompletionResponseFormatParam;
 import com.telnyx.sdk.model.ChatCompletionSystemMessageParam;
+import com.telnyx.sdk.model.ToolsInner;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -43,54 +42,56 @@ import com.telnyx.sdk.JSON;
   ChatCompletionRequest.JSON_PROPERTY_MESSAGES,
   ChatCompletionRequest.JSON_PROPERTY_MODEL,
   ChatCompletionRequest.JSON_PROPERTY_STREAM,
-  ChatCompletionRequest.JSON_PROPERTY_MAX_TOKENS,
   ChatCompletionRequest.JSON_PROPERTY_TEMPERATURE,
-  ChatCompletionRequest.JSON_PROPERTY_MIN_P,
-  ChatCompletionRequest.JSON_PROPERTY_N,
+  ChatCompletionRequest.JSON_PROPERTY_MAX_TOKENS,
   ChatCompletionRequest.JSON_PROPERTY_TOOLS,
   ChatCompletionRequest.JSON_PROPERTY_TOOL_CHOICE,
+  ChatCompletionRequest.JSON_PROPERTY_RESPONSE_FORMAT,
+  ChatCompletionRequest.JSON_PROPERTY_GUIDED_JSON,
+  ChatCompletionRequest.JSON_PROPERTY_GUIDED_REGEX,
+  ChatCompletionRequest.JSON_PROPERTY_GUIDED_CHOICE,
+  ChatCompletionRequest.JSON_PROPERTY_MIN_P,
+  ChatCompletionRequest.JSON_PROPERTY_N,
   ChatCompletionRequest.JSON_PROPERTY_USE_BEAM_SEARCH,
   ChatCompletionRequest.JSON_PROPERTY_BEST_OF,
   ChatCompletionRequest.JSON_PROPERTY_LENGTH_PENALTY,
   ChatCompletionRequest.JSON_PROPERTY_EARLY_STOPPING,
+  ChatCompletionRequest.JSON_PROPERTY_LOGPROBS,
+  ChatCompletionRequest.JSON_PROPERTY_TOP_LOGPROBS,
   ChatCompletionRequest.JSON_PROPERTY_FREQUENCY_PENALTY,
   ChatCompletionRequest.JSON_PROPERTY_PRESENCE_PENALTY,
   ChatCompletionRequest.JSON_PROPERTY_TOP_P,
   ChatCompletionRequest.JSON_PROPERTY_OPENAI_API_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ChatCompletionRequest {
   public static final String JSON_PROPERTY_MESSAGES = "messages";
   private List<ChatCompletionSystemMessageParam> messages = new ArrayList<>();
 
   public static final String JSON_PROPERTY_MODEL = "model";
-  private String model = "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO";
+  private String model = "meta-llama/Meta-Llama-3.1-8B-Instruct";
 
   public static final String JSON_PROPERTY_STREAM = "stream";
   private Boolean stream = false;
 
+  public static final String JSON_PROPERTY_TEMPERATURE = "temperature";
+  private BigDecimal temperature = new BigDecimal("0.1");
+
   public static final String JSON_PROPERTY_MAX_TOKENS = "max_tokens";
   private Integer maxTokens;
 
-  public static final String JSON_PROPERTY_TEMPERATURE = "temperature";
-  private BigDecimal temperature;
-
-  public static final String JSON_PROPERTY_MIN_P = "min_p";
-  private BigDecimal minP;
-
-  public static final String JSON_PROPERTY_N = "n";
-  private BigDecimal n;
-
   public static final String JSON_PROPERTY_TOOLS = "tools";
-  private List<ChatCompletionRequestToolsInner> tools = null;
+  private List<ToolsInner> tools = null;
 
   /**
    * Gets or Sets toolChoice
    */
   public enum ToolChoiceEnum {
-    NONE("none"),
+    NONE(String.valueOf("none")),
     
-    AUTO("auto");
+    AUTO(String.valueOf("auto")),
+    
+    REQUIRED(String.valueOf("required"));
 
     private String value;
 
@@ -122,6 +123,24 @@ public class ChatCompletionRequest {
   public static final String JSON_PROPERTY_TOOL_CHOICE = "tool_choice";
   private ToolChoiceEnum toolChoice;
 
+  public static final String JSON_PROPERTY_RESPONSE_FORMAT = "response_format";
+  private ChatCompletionResponseFormatParam responseFormat;
+
+  public static final String JSON_PROPERTY_GUIDED_JSON = "guided_json";
+  private Object guidedJson;
+
+  public static final String JSON_PROPERTY_GUIDED_REGEX = "guided_regex";
+  private String guidedRegex;
+
+  public static final String JSON_PROPERTY_GUIDED_CHOICE = "guided_choice";
+  private List<String> guidedChoice = null;
+
+  public static final String JSON_PROPERTY_MIN_P = "min_p";
+  private BigDecimal minP;
+
+  public static final String JSON_PROPERTY_N = "n";
+  private BigDecimal n;
+
   public static final String JSON_PROPERTY_USE_BEAM_SEARCH = "use_beam_search";
   private Boolean useBeamSearch = false;
 
@@ -129,16 +148,22 @@ public class ChatCompletionRequest {
   private Integer bestOf;
 
   public static final String JSON_PROPERTY_LENGTH_PENALTY = "length_penalty";
-  private BigDecimal lengthPenalty = new BigDecimal("1.0");
+  private BigDecimal lengthPenalty = new BigDecimal("1");
 
   public static final String JSON_PROPERTY_EARLY_STOPPING = "early_stopping";
   private Boolean earlyStopping = false;
 
+  public static final String JSON_PROPERTY_LOGPROBS = "logprobs";
+  private Boolean logprobs = false;
+
+  public static final String JSON_PROPERTY_TOP_LOGPROBS = "top_logprobs";
+  private Integer topLogprobs;
+
   public static final String JSON_PROPERTY_FREQUENCY_PENALTY = "frequency_penalty";
-  private BigDecimal frequencyPenalty = new BigDecimal("0.0");
+  private BigDecimal frequencyPenalty = new BigDecimal("0");
 
   public static final String JSON_PROPERTY_PRESENCE_PENALTY = "presence_penalty";
-  private BigDecimal presencePenalty = new BigDecimal("0.0");
+  private BigDecimal presencePenalty = new BigDecimal("0");
 
   public static final String JSON_PROPERTY_TOP_P = "top_p";
   private BigDecimal topP;
@@ -154,7 +179,7 @@ public class ChatCompletionRequest {
     return this;
   }
 
-  public ChatCompletionRequest addMessagesItem(ChatCompletionSystemMessageParam messagesItem) {
+  public ChatCompletionRequest addmessagesItem(ChatCompletionSystemMessageParam messagesItem) {
     this.messages.add(messagesItem);
     return this;
   }
@@ -186,11 +211,11 @@ public class ChatCompletionRequest {
   }
 
    /**
-   * The language model to chat with. If you are optimizing for speed, try [mistralai/Mistral-7B-Instruct-v0.1](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1). For quality, try [NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO)
+   * The language model to chat with. If you are optimizing for speed + price, try &#x60;meta-llama/Meta-Llama-3.1-8B-Instruct&#x60;. For quality, try &#x60;meta-llama/Meta-Llama-3.1-70B-Instruct&#x60;. Or explore our [LLM Library](https://telnyx.com/products/llm-library).
    * @return model
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The language model to chat with. If you are optimizing for speed, try [mistralai/Mistral-7B-Instruct-v0.1](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1). For quality, try [NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO)")
+  @ApiModelProperty(value = "The language model to chat with. If you are optimizing for speed + price, try `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our [LLM Library](https://telnyx.com/products/llm-library).")
   @JsonProperty(JSON_PROPERTY_MODEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -232,32 +257,6 @@ public class ChatCompletionRequest {
   }
 
 
-  public ChatCompletionRequest maxTokens(Integer maxTokens) {
-    this.maxTokens = maxTokens;
-    return this;
-  }
-
-   /**
-   * Maximum number of completion tokens the model should generate.
-   * @return maxTokens
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "128", value = "Maximum number of completion tokens the model should generate.")
-  @JsonProperty(JSON_PROPERTY_MAX_TOKENS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getMaxTokens() {
-    return maxTokens;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MAX_TOKENS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMaxTokens(Integer maxTokens) {
-    this.maxTokens = maxTokens;
-  }
-
-
   public ChatCompletionRequest temperature(BigDecimal temperature) {
     this.temperature = temperature;
     return this;
@@ -268,7 +267,7 @@ public class ChatCompletionRequest {
    * @return temperature
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "0.8", value = "Adjusts the \"creativity\" of the model. Lower values make the model more deterministic and repetitive, while higher values make the model more random and creative.")
+  @ApiModelProperty(value = "Adjusts the \"creativity\" of the model. Lower values make the model more deterministic and repetitive, while higher values make the model more random and creative.")
   @JsonProperty(JSON_PROPERTY_TEMPERATURE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -284,64 +283,38 @@ public class ChatCompletionRequest {
   }
 
 
-  public ChatCompletionRequest minP(BigDecimal minP) {
-    this.minP = minP;
+  public ChatCompletionRequest maxTokens(Integer maxTokens) {
+    this.maxTokens = maxTokens;
     return this;
   }
 
    /**
-   * This is an alternative to &#x60;temperature&#x60; that [many prefer](https://github.com/huggingface/transformers/issues/27670). Must be in [0, 1].
-   * @return minP
+   * Maximum number of completion tokens the model should generate.
+   * @return maxTokens
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "0.1", value = "This is an alternative to `temperature` that [many prefer](https://github.com/huggingface/transformers/issues/27670). Must be in [0, 1].")
-  @JsonProperty(JSON_PROPERTY_MIN_P)
+  @ApiModelProperty(value = "Maximum number of completion tokens the model should generate.")
+  @JsonProperty(JSON_PROPERTY_MAX_TOKENS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public BigDecimal getMinP() {
-    return minP;
+  public Integer getMaxTokens() {
+    return maxTokens;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MIN_P)
+  @JsonProperty(JSON_PROPERTY_MAX_TOKENS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMinP(BigDecimal minP) {
-    this.minP = minP;
+  public void setMaxTokens(Integer maxTokens) {
+    this.maxTokens = maxTokens;
   }
 
 
-  public ChatCompletionRequest n(BigDecimal n) {
-    this.n = n;
-    return this;
-  }
-
-   /**
-   * This will return multiple choices for you instead of a single chat completion.
-   * @return n
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "2", value = "This will return multiple choices for you instead of a single chat completion.")
-  @JsonProperty(JSON_PROPERTY_N)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getN() {
-    return n;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_N)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setN(BigDecimal n) {
-    this.n = n;
-  }
-
-
-  public ChatCompletionRequest tools(List<ChatCompletionRequestToolsInner> tools) {
+  public ChatCompletionRequest tools(List<ToolsInner> tools) {
     this.tools = tools;
     return this;
   }
 
-  public ChatCompletionRequest addToolsItem(ChatCompletionRequestToolsInner toolsItem) {
+  public ChatCompletionRequest addtoolsItem(ToolsInner toolsItem) {
     if (this.tools == null) {
       this.tools = new ArrayList<>();
     }
@@ -350,22 +323,22 @@ public class ChatCompletionRequest {
   }
 
    /**
-   * The &#x60;retrieval&#x60; tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.
+   * The &#x60;function&#x60; tool type follows the same schema as the [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat). The &#x60;retrieval&#x60; tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.
    * @return tools
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The `retrieval` tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.")
+  @ApiModelProperty(value = "The `function` tool type follows the same schema as the [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat). The `retrieval` tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.")
   @JsonProperty(JSON_PROPERTY_TOOLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<ChatCompletionRequestToolsInner> getTools() {
+  public List<ToolsInner> getTools() {
     return tools;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TOOLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTools(List<ChatCompletionRequestToolsInner> tools) {
+  public void setTools(List<ToolsInner> tools) {
     this.tools = tools;
   }
 
@@ -393,6 +366,170 @@ public class ChatCompletionRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setToolChoice(ToolChoiceEnum toolChoice) {
     this.toolChoice = toolChoice;
+  }
+
+
+  public ChatCompletionRequest responseFormat(ChatCompletionResponseFormatParam responseFormat) {
+    this.responseFormat = responseFormat;
+    return this;
+  }
+
+   /**
+   * Get responseFormat
+   * @return responseFormat
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_RESPONSE_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ChatCompletionResponseFormatParam getResponseFormat() {
+    return responseFormat;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESPONSE_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResponseFormat(ChatCompletionResponseFormatParam responseFormat) {
+    this.responseFormat = responseFormat;
+  }
+
+
+  public ChatCompletionRequest guidedJson(Object guidedJson) {
+    this.guidedJson = guidedJson;
+    return this;
+  }
+
+   /**
+   * Must be a valid JSON schema. If specified, the output will follow the JSON schema.
+   * @return guidedJson
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Must be a valid JSON schema. If specified, the output will follow the JSON schema.")
+  @JsonProperty(JSON_PROPERTY_GUIDED_JSON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getGuidedJson() {
+    return guidedJson;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GUIDED_JSON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGuidedJson(Object guidedJson) {
+    this.guidedJson = guidedJson;
+  }
+
+
+  public ChatCompletionRequest guidedRegex(String guidedRegex) {
+    this.guidedRegex = guidedRegex;
+    return this;
+  }
+
+   /**
+   * If specified, the output will follow the regex pattern.
+   * @return guidedRegex
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "If specified, the output will follow the regex pattern.")
+  @JsonProperty(JSON_PROPERTY_GUIDED_REGEX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGuidedRegex() {
+    return guidedRegex;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GUIDED_REGEX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGuidedRegex(String guidedRegex) {
+    this.guidedRegex = guidedRegex;
+  }
+
+
+  public ChatCompletionRequest guidedChoice(List<String> guidedChoice) {
+    this.guidedChoice = guidedChoice;
+    return this;
+  }
+
+  public ChatCompletionRequest addguidedChoiceItem(String guidedChoiceItem) {
+    if (this.guidedChoice == null) {
+      this.guidedChoice = new ArrayList<>();
+    }
+    this.guidedChoice.add(guidedChoiceItem);
+    return this;
+  }
+
+   /**
+   * If specified, the output will be exactly one of the choices.
+   * @return guidedChoice
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "If specified, the output will be exactly one of the choices.")
+  @JsonProperty(JSON_PROPERTY_GUIDED_CHOICE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getGuidedChoice() {
+    return guidedChoice;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GUIDED_CHOICE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGuidedChoice(List<String> guidedChoice) {
+    this.guidedChoice = guidedChoice;
+  }
+
+
+  public ChatCompletionRequest minP(BigDecimal minP) {
+    this.minP = minP;
+    return this;
+  }
+
+   /**
+   * This is an alternative to &#x60;top_p&#x60; that [many prefer](https://github.com/huggingface/transformers/issues/27670). Must be in [0, 1].
+   * @return minP
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "This is an alternative to `top_p` that [many prefer](https://github.com/huggingface/transformers/issues/27670). Must be in [0, 1].")
+  @JsonProperty(JSON_PROPERTY_MIN_P)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getMinP() {
+    return minP;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MIN_P)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMinP(BigDecimal minP) {
+    this.minP = minP;
+  }
+
+
+  public ChatCompletionRequest n(BigDecimal n) {
+    this.n = n;
+    return this;
+  }
+
+   /**
+   * This will return multiple choices for you instead of a single chat completion.
+   * @return n
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "This will return multiple choices for you instead of a single chat completion.")
+  @JsonProperty(JSON_PROPERTY_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getN() {
+    return n;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setN(BigDecimal n) {
+    this.n = n;
   }
 
 
@@ -432,7 +569,7 @@ public class ChatCompletionRequest {
    * @return bestOf
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2", value = "This is used with `use_beam_search` to determine how many candidate beams to explore.")
+  @ApiModelProperty(value = "This is used with `use_beam_search` to determine how many candidate beams to explore.")
   @JsonProperty(JSON_PROPERTY_BEST_OF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -500,6 +637,58 @@ public class ChatCompletionRequest {
   }
 
 
+  public ChatCompletionRequest logprobs(Boolean logprobs) {
+    this.logprobs = logprobs;
+    return this;
+  }
+
+   /**
+   * Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the &#x60;content&#x60; of &#x60;message&#x60;.
+   * @return logprobs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the `content` of `message`.")
+  @JsonProperty(JSON_PROPERTY_LOGPROBS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getLogprobs() {
+    return logprobs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOGPROBS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLogprobs(Boolean logprobs) {
+    this.logprobs = logprobs;
+  }
+
+
+  public ChatCompletionRequest topLogprobs(Integer topLogprobs) {
+    this.topLogprobs = topLogprobs;
+    return this;
+  }
+
+   /**
+   * This is used with &#x60;logprobs&#x60;. An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability.
+   * @return topLogprobs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "This is used with `logprobs`. An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability.")
+  @JsonProperty(JSON_PROPERTY_TOP_LOGPROBS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTopLogprobs() {
+    return topLogprobs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOP_LOGPROBS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTopLogprobs(Integer topLogprobs) {
+    this.topLogprobs = topLogprobs;
+  }
+
+
   public ChatCompletionRequest frequencyPenalty(BigDecimal frequencyPenalty) {
     this.frequencyPenalty = frequencyPenalty;
     return this;
@@ -510,7 +699,7 @@ public class ChatCompletionRequest {
    * @return frequencyPenalty
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1.5", value = "Higher values will penalize the model from repeating the same output tokens.")
+  @ApiModelProperty(value = "Higher values will penalize the model from repeating the same output tokens.")
   @JsonProperty(JSON_PROPERTY_FREQUENCY_PENALTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -536,7 +725,7 @@ public class ChatCompletionRequest {
    * @return presencePenalty
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1.5", value = "Higher values will penalize the model from repeating the same output tokens.")
+  @ApiModelProperty(value = "Higher values will penalize the model from repeating the same output tokens.")
   @JsonProperty(JSON_PROPERTY_PRESENCE_PENALTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -558,11 +747,11 @@ public class ChatCompletionRequest {
   }
 
    /**
-   * An alternative to &#x60;temperature&#x60;.
+   * An alternative or complement to &#x60;temperature&#x60;. This adjusts how many of the top possibilities to consider.
    * @return topP
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "An alternative to `temperature`.")
+  @ApiModelProperty(value = "An alternative or complement to `temperature`. This adjusts how many of the top possibilities to consider.")
   @JsonProperty(JSON_PROPERTY_TOP_P)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -619,16 +808,22 @@ public class ChatCompletionRequest {
     return Objects.equals(this.messages, chatCompletionRequest.messages) &&
         Objects.equals(this.model, chatCompletionRequest.model) &&
         Objects.equals(this.stream, chatCompletionRequest.stream) &&
-        Objects.equals(this.maxTokens, chatCompletionRequest.maxTokens) &&
         Objects.equals(this.temperature, chatCompletionRequest.temperature) &&
-        Objects.equals(this.minP, chatCompletionRequest.minP) &&
-        Objects.equals(this.n, chatCompletionRequest.n) &&
+        Objects.equals(this.maxTokens, chatCompletionRequest.maxTokens) &&
         Objects.equals(this.tools, chatCompletionRequest.tools) &&
         Objects.equals(this.toolChoice, chatCompletionRequest.toolChoice) &&
+        Objects.equals(this.responseFormat, chatCompletionRequest.responseFormat) &&
+        Objects.equals(this.guidedJson, chatCompletionRequest.guidedJson) &&
+        Objects.equals(this.guidedRegex, chatCompletionRequest.guidedRegex) &&
+        Objects.equals(this.guidedChoice, chatCompletionRequest.guidedChoice) &&
+        Objects.equals(this.minP, chatCompletionRequest.minP) &&
+        Objects.equals(this.n, chatCompletionRequest.n) &&
         Objects.equals(this.useBeamSearch, chatCompletionRequest.useBeamSearch) &&
         Objects.equals(this.bestOf, chatCompletionRequest.bestOf) &&
         Objects.equals(this.lengthPenalty, chatCompletionRequest.lengthPenalty) &&
         Objects.equals(this.earlyStopping, chatCompletionRequest.earlyStopping) &&
+        Objects.equals(this.logprobs, chatCompletionRequest.logprobs) &&
+        Objects.equals(this.topLogprobs, chatCompletionRequest.topLogprobs) &&
         Objects.equals(this.frequencyPenalty, chatCompletionRequest.frequencyPenalty) &&
         Objects.equals(this.presencePenalty, chatCompletionRequest.presencePenalty) &&
         Objects.equals(this.topP, chatCompletionRequest.topP) &&
@@ -637,7 +832,7 @@ public class ChatCompletionRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(messages, model, stream, maxTokens, temperature, minP, n, tools, toolChoice, useBeamSearch, bestOf, lengthPenalty, earlyStopping, frequencyPenalty, presencePenalty, topP, openaiApiKey);
+    return Objects.hash(messages, model, stream, temperature, maxTokens, tools, toolChoice, responseFormat, guidedJson, guidedRegex, guidedChoice, minP, n, useBeamSearch, bestOf, lengthPenalty, earlyStopping, logprobs, topLogprobs, frequencyPenalty, presencePenalty, topP, openaiApiKey);
   }
 
   @Override
@@ -647,16 +842,22 @@ public class ChatCompletionRequest {
     sb.append("    messages: ").append(toIndentedString(messages)).append("\n");
     sb.append("    model: ").append(toIndentedString(model)).append("\n");
     sb.append("    stream: ").append(toIndentedString(stream)).append("\n");
-    sb.append("    maxTokens: ").append(toIndentedString(maxTokens)).append("\n");
     sb.append("    temperature: ").append(toIndentedString(temperature)).append("\n");
-    sb.append("    minP: ").append(toIndentedString(minP)).append("\n");
-    sb.append("    n: ").append(toIndentedString(n)).append("\n");
+    sb.append("    maxTokens: ").append(toIndentedString(maxTokens)).append("\n");
     sb.append("    tools: ").append(toIndentedString(tools)).append("\n");
     sb.append("    toolChoice: ").append(toIndentedString(toolChoice)).append("\n");
+    sb.append("    responseFormat: ").append(toIndentedString(responseFormat)).append("\n");
+    sb.append("    guidedJson: ").append(toIndentedString(guidedJson)).append("\n");
+    sb.append("    guidedRegex: ").append(toIndentedString(guidedRegex)).append("\n");
+    sb.append("    guidedChoice: ").append(toIndentedString(guidedChoice)).append("\n");
+    sb.append("    minP: ").append(toIndentedString(minP)).append("\n");
+    sb.append("    n: ").append(toIndentedString(n)).append("\n");
     sb.append("    useBeamSearch: ").append(toIndentedString(useBeamSearch)).append("\n");
     sb.append("    bestOf: ").append(toIndentedString(bestOf)).append("\n");
     sb.append("    lengthPenalty: ").append(toIndentedString(lengthPenalty)).append("\n");
     sb.append("    earlyStopping: ").append(toIndentedString(earlyStopping)).append("\n");
+    sb.append("    logprobs: ").append(toIndentedString(logprobs)).append("\n");
+    sb.append("    topLogprobs: ").append(toIndentedString(topLogprobs)).append("\n");
     sb.append("    frequencyPenalty: ").append(toIndentedString(frequencyPenalty)).append("\n");
     sb.append("    presencePenalty: ").append(toIndentedString(presencePenalty)).append("\n");
     sb.append("    topP: ").append(toIndentedString(topP)).append("\n");

@@ -88,7 +88,7 @@ public class ConnectionsApiTest {
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
                 .filterConnectionNameContains(filterConnectionNameContains)
-                .filterOutboundOutboundVoiceProfileId(filterOutboundVoiceProfileId)
+                .filterOutboundVoiceProfileId(filterOutboundVoiceProfileId)
                 .sort(sort)
                 .execute();
 
@@ -132,7 +132,6 @@ public class ConnectionsApiTest {
                         .generateRingbackTone(true)
                         .isupHeadersEnabled(true)
                         .prackEnabled(true)
-                        .privacyZoneEnabled(true)
                         .sipCompactHeadersEnabled(true)
                         .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
                         .sipSubdomain("example.sip.telnyx.com" + System.currentTimeMillis())

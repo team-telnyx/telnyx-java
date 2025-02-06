@@ -14,6 +14,7 @@
 |**clientState** | **String** | State received from a command. |  [optional] |
 |**queue** | **String** | The name of the queue |  [optional] |
 |**currentPosition** | **Integer** | Current position of the call in the queue. |  [optional] |
+|**queueAvgWaitTimeSecs** | **Integer** | Average time call spends in the queue in seconds. |  [optional] |
 
 
 

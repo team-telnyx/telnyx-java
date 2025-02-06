@@ -8,6 +8,8 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.AIAssistantStartRequest;
+import com.telnyx.sdk.model.AIAssistantStopRequest;
 import com.telnyx.sdk.model.AnswerRequest;
 import com.telnyx.sdk.model.BridgeRequest;
 import com.telnyx.sdk.model.CallControlCommandResponse;
@@ -16,6 +18,7 @@ import com.telnyx.sdk.model.ClientStateUpdateRequest;
 import com.telnyx.sdk.model.EnqueueRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GatherRequest;
+import com.telnyx.sdk.model.GatherUsingAIRequest;
 import com.telnyx.sdk.model.GatherUsingAudioRequest;
 import com.telnyx.sdk.model.GatherUsingSpeakRequest;
 import com.telnyx.sdk.model.HangupRequest;
@@ -30,13 +33,16 @@ import com.telnyx.sdk.model.RejectRequest;
 import com.telnyx.sdk.model.ResumeRecordingRequest;
 import com.telnyx.sdk.model.RetrieveCallStatusResponse;
 import com.telnyx.sdk.model.SendDTMFRequest;
+import com.telnyx.sdk.model.SendSIPInfoRequest;
 import com.telnyx.sdk.model.SpeakRequest;
 import com.telnyx.sdk.model.StartForkingRequest;
 import com.telnyx.sdk.model.StartRecordingRequest;
+import com.telnyx.sdk.model.StartSiprecRequest;
 import com.telnyx.sdk.model.StartStreamingRequest;
 import com.telnyx.sdk.model.StopForkingRequest;
 import com.telnyx.sdk.model.StopGatherRequest;
 import com.telnyx.sdk.model.StopRecordingRequest;
+import com.telnyx.sdk.model.StopSiprecRequest;
 import com.telnyx.sdk.model.StopStreamingRequest;
 import com.telnyx.sdk.model.TranscriptionStartRequest;
 import com.telnyx.sdk.model.TranscriptionStopRequest;
@@ -47,7 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallCommandsApi {
   private ApiClient apiClient;
 
@@ -79,7 +85,7 @@ public class CallCommandsApi {
 
   /**
    * Answer call
-   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
+   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/answer-call#callbacks) below):**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param answerRequest Answer call request (required)
    * @return CallControlCommandResponse
@@ -97,7 +103,7 @@ public class CallCommandsApi {
 
   /**
    * Answer call
-   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks:**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
+   * Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/answer-call#callbacks) below):**  - &#x60;call.answered&#x60; - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param answerRequest Answer call request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -156,7 +162,7 @@ public class CallCommandsApi {
   }
   /**
    * Bridge calls
-   * Bridge two call control calls.  **Expected Webhooks:**  - &#x60;call.bridged&#x60; for Leg A - &#x60;call.bridged&#x60; for Leg B 
+   * Bridge two call control calls.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/bridge-call#callbacks) below):**  - &#x60;call.bridged&#x60; for Leg A - &#x60;call.bridged&#x60; for Leg B 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param bridgeRequest Bridge call request (required)
    * @return CallControlCommandResponse
@@ -174,7 +180,7 @@ public class CallCommandsApi {
 
   /**
    * Bridge calls
-   * Bridge two call control calls.  **Expected Webhooks:**  - &#x60;call.bridged&#x60; for Leg A - &#x60;call.bridged&#x60; for Leg B 
+   * Bridge two call control calls.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/bridge-call#callbacks) below):**  - &#x60;call.bridged&#x60; for Leg A - &#x60;call.bridged&#x60; for Leg B 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param bridgeRequest Bridge call request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -232,8 +238,239 @@ public class CallCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Gather using AI
+   * Gather parameters defined in the request payload using a voice assistant.   You can pass parameters described as a JSON Schema object and the voice assistant will attempt to gather these informations.   **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) below):**  - &#x60;call.ai_gather.ended&#x60; - &#x60;call.ai_gather.partial_results&#x60; (if &#x60;send_partial_results&#x60; is set to &#x60;true&#x60;) - &#x60;call.ai_gather.tool_call&#x60; (if &#x60;assistant.tools&#x60; are configured)
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param gatherUsingAIRequest Gather using AI request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callGatherUsingAI(String callControlId, GatherUsingAIRequest gatherUsingAIRequest) throws ApiException {
+    return callGatherUsingAIWithHttpInfo(callControlId, gatherUsingAIRequest).getData();
+  }
+
+  /**
+   * Gather using AI
+   * Gather parameters defined in the request payload using a voice assistant.   You can pass parameters described as a JSON Schema object and the voice assistant will attempt to gather these informations.   **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) below):**  - &#x60;call.ai_gather.ended&#x60; - &#x60;call.ai_gather.partial_results&#x60; (if &#x60;send_partial_results&#x60; is set to &#x60;true&#x60;) - &#x60;call.ai_gather.tool_call&#x60; (if &#x60;assistant.tools&#x60; are configured)
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param gatherUsingAIRequest Gather using AI request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callGatherUsingAIWithHttpInfo(String callControlId, GatherUsingAIRequest gatherUsingAIRequest) throws ApiException {
+    Object localVarPostBody = gatherUsingAIRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callGatherUsingAI");
+    }
+    
+    // verify the required parameter 'gatherUsingAIRequest' is set
+    if (gatherUsingAIRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'gatherUsingAIRequest' when calling callGatherUsingAI");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/gather_using_ai"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callGatherUsingAI", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Start AI Assistant (BETA)
+   * **BETA** - Start an AI assistant on the call.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param aiAssistantStartRequest AI Assistant request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callStartAIAssistant(String callControlId, AIAssistantStartRequest aiAssistantStartRequest) throws ApiException {
+    return callStartAIAssistantWithHttpInfo(callControlId, aiAssistantStartRequest).getData();
+  }
+
+  /**
+   * Start AI Assistant (BETA)
+   * **BETA** - Start an AI assistant on the call.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param aiAssistantStartRequest AI Assistant request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callStartAIAssistantWithHttpInfo(String callControlId, AIAssistantStartRequest aiAssistantStartRequest) throws ApiException {
+    Object localVarPostBody = aiAssistantStartRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callStartAIAssistant");
+    }
+    
+    // verify the required parameter 'aiAssistantStartRequest' is set
+    if (aiAssistantStartRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'aiAssistantStartRequest' when calling callStartAIAssistant");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/ai_assistant_start"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callStartAIAssistant", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Stop AI Assistant (BETA)
+   * **BETA** - Stop an AI assistant on the call.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param aiAssistantStopRequest AI Assistant request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse callStopAIAssistant(String callControlId, AIAssistantStopRequest aiAssistantStopRequest) throws ApiException {
+    return callStopAIAssistantWithHttpInfo(callControlId, aiAssistantStopRequest).getData();
+  }
+
+  /**
+   * Stop AI Assistant (BETA)
+   * **BETA** - Stop an AI assistant on the call.
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param aiAssistantStopRequest AI Assistant request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> callStopAIAssistantWithHttpInfo(String callControlId, AIAssistantStopRequest aiAssistantStopRequest) throws ApiException {
+    Object localVarPostBody = aiAssistantStopRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling callStopAIAssistant");
+    }
+    
+    // verify the required parameter 'aiAssistantStopRequest' is set
+    if (aiAssistantStopRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'aiAssistantStopRequest' when calling callStopAIAssistant");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/ai_assistant_stop"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.callStopAIAssistant", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Dial
-   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
+   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks (see [schema](https://developers.telnyx.com/api/call-control/dial-call#callbacks) below):**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
    * @param callRequest Call request (required)
    * @return RetrieveCallStatusResponse
    * @throws ApiException if fails to make API call
@@ -250,7 +487,7 @@ public class CallCommandsApi {
 
   /**
    * Dial
-   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
+   * Dial a number or SIP URI from a given connection. A successful response will include a &#x60;call_leg_id&#x60; which can be used to correlate the command with subsequent webhooks.  **Expected Webhooks (see [schema](https://developers.telnyx.com/api/call-control/dial-call#callbacks) below):**  - &#x60;call.initiated&#x60; - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected - &#x60;streaming.started&#x60;, &#x60;streaming.stopped&#x60; or &#x60;streaming.failed&#x60; if &#x60;stream_url&#x60; was set 
    * @param callRequest Call request (required)
    * @return ApiResponse&lt;RetrieveCallStatusResponse&gt;
    * @throws ApiException if fails to make API call
@@ -379,7 +616,7 @@ public class CallCommandsApi {
   }
   /**
    * Gather
-   * Gather DTMF signals to build interactive menus.  You can pass a list of valid digits. The &#x60;Answer&#x60; command must be issued before the &#x60;gather&#x60; command.  **Expected Webhooks:**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
+   * Gather DTMF signals to build interactive menus.  You can pass a list of valid digits. The &#x60;Answer&#x60; command must be issued before the &#x60;gather&#x60; command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-call#callbacks) below):**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param gatherRequest Gather (required)
    * @return CallControlCommandResponse
@@ -397,7 +634,7 @@ public class CallCommandsApi {
 
   /**
    * Gather
-   * Gather DTMF signals to build interactive menus.  You can pass a list of valid digits. The &#x60;Answer&#x60; command must be issued before the &#x60;gather&#x60; command.  **Expected Webhooks:**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
+   * Gather DTMF signals to build interactive menus.  You can pass a list of valid digits. The &#x60;Answer&#x60; command must be issued before the &#x60;gather&#x60; command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-call#callbacks) below):**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param gatherRequest Gather (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -456,7 +693,7 @@ public class CallCommandsApi {
   }
   /**
    * Gather using audio
-   * Play an audio file on the call until the required DTMF signals are gathered to build interactive menus.  You can pass a list of valid digits along with an &#39;invalid_audio_url&#39;, which will be played back at the beginning of each prompt. Playback will be interrupted when a DTMF signal is received. The &#x60;Answer command must be issued before the &#x60;gather_using_audio&#x60; command.  **Expected Webhooks:**  - &#x60;call.playback.started&#x60; - &#x60;call.playback.ended&#x60; - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
+   * Play an audio file on the call until the required DTMF signals are gathered to build interactive menus.  You can pass a list of valid digits along with an &#39;invalid_audio_url&#39;, which will be played back at the beginning of each prompt. Playback will be interrupted when a DTMF signal is received. The &#x60;Answer command must be issued before the &#x60;gather_using_audio&#x60; command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-using-audio#callbacks) below):**  - &#x60;call.playback.started&#x60; - &#x60;call.playback.ended&#x60; - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param gatherUsingAudioRequest Gather using audio request (required)
    * @return CallControlCommandResponse
@@ -474,7 +711,7 @@ public class CallCommandsApi {
 
   /**
    * Gather using audio
-   * Play an audio file on the call until the required DTMF signals are gathered to build interactive menus.  You can pass a list of valid digits along with an &#39;invalid_audio_url&#39;, which will be played back at the beginning of each prompt. Playback will be interrupted when a DTMF signal is received. The &#x60;Answer command must be issued before the &#x60;gather_using_audio&#x60; command.  **Expected Webhooks:**  - &#x60;call.playback.started&#x60; - &#x60;call.playback.ended&#x60; - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
+   * Play an audio file on the call until the required DTMF signals are gathered to build interactive menus.  You can pass a list of valid digits along with an &#39;invalid_audio_url&#39;, which will be played back at the beginning of each prompt. Playback will be interrupted when a DTMF signal is received. The &#x60;Answer command must be issued before the &#x60;gather_using_audio&#x60; command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-using-audio#callbacks) below):**  - &#x60;call.playback.started&#x60; - &#x60;call.playback.ended&#x60; - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param gatherUsingAudioRequest Gather using audio request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -533,7 +770,7 @@ public class CallCommandsApi {
   }
   /**
    * Gather using speak
-   * Convert text to speech and play it on the call until the required DTMF signals are gathered to build interactive menus.  You can pass a list of valid digits along with an &#39;invalid_payload&#39;, which will be played back at the beginning of each prompt. Speech will be interrupted when a DTMF signal is received. The &#x60;Answer&#x60; command must be issued before the &#x60;gather_using_speak&#x60; command.  **Expected Webhooks:**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
+   * Convert text to speech and play it on the call until the required DTMF signals are gathered to build interactive menus.  You can pass a list of valid digits along with an &#39;invalid_payload&#39;, which will be played back at the beginning of each prompt. Speech will be interrupted when a DTMF signal is received. The &#x60;Answer&#x60; command must be issued before the &#x60;gather_using_speak&#x60; command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-using-speak#callbacks) below):**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param gatherUsingSpeakRequest Gather using speak request (required)
    * @return CallControlCommandResponse
@@ -551,7 +788,7 @@ public class CallCommandsApi {
 
   /**
    * Gather using speak
-   * Convert text to speech and play it on the call until the required DTMF signals are gathered to build interactive menus.  You can pass a list of valid digits along with an &#39;invalid_payload&#39;, which will be played back at the beginning of each prompt. Speech will be interrupted when a DTMF signal is received. The &#x60;Answer&#x60; command must be issued before the &#x60;gather_using_speak&#x60; command.  **Expected Webhooks:**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
+   * Convert text to speech and play it on the call until the required DTMF signals are gathered to build interactive menus.  You can pass a list of valid digits along with an &#39;invalid_payload&#39;, which will be played back at the beginning of each prompt. Speech will be interrupted when a DTMF signal is received. The &#x60;Answer&#x60; command must be issued before the &#x60;gather_using_speak&#x60; command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-using-speak#callbacks) below):**  - &#x60;call.dtmf.received&#x60; (you may receive many of these webhooks) - &#x60;call.gather.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param gatherUsingSpeakRequest Gather using speak request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -610,7 +847,7 @@ public class CallCommandsApi {
   }
   /**
    * Hangup call
-   * Hang up the call.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; - &#x60;call.recording.saved&#x60; 
+   * Hang up the call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/hangup-call#callbacks) below):**  - &#x60;call.hangup&#x60; - &#x60;call.recording.saved&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param hangupRequest Hangup request (required)
    * @return CallControlCommandResponse
@@ -628,7 +865,7 @@ public class CallCommandsApi {
 
   /**
    * Hangup call
-   * Hang up the call.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; - &#x60;call.recording.saved&#x60; 
+   * Hang up the call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/hangup-call#callbacks) below):**  - &#x60;call.hangup&#x60; - &#x60;call.recording.saved&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param hangupRequest Hangup request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -995,7 +1232,7 @@ public class CallCommandsApi {
   }
   /**
    * SIP Refer a call
-   * Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.  **Expected Webhooks:**  - &#x60;call.refer.started&#x60; - &#x60;call.refer.completed&#x60; - &#x60;call.refer.failed&#x60; 
+   * Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/refer-call#callbacks) below):**  - &#x60;call.refer.started&#x60; - &#x60;call.refer.completed&#x60; - &#x60;call.refer.failed&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param referRequest Refer request (required)
    * @return CallControlCommandResponse
@@ -1013,7 +1250,7 @@ public class CallCommandsApi {
 
   /**
    * SIP Refer a call
-   * Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.  **Expected Webhooks:**  - &#x60;call.refer.started&#x60; - &#x60;call.refer.completed&#x60; - &#x60;call.refer.failed&#x60; 
+   * Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/refer-call#callbacks) below):**  - &#x60;call.refer.started&#x60; - &#x60;call.refer.completed&#x60; - &#x60;call.refer.failed&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param referRequest Refer request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1072,7 +1309,7 @@ public class CallCommandsApi {
   }
   /**
    * Reject a call
-   * Reject an incoming call.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; 
+   * Reject an incoming call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/reject-call#callbacks) below):**  - &#x60;call.hangup&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param rejectRequest Reject request (required)
    * @return CallControlCommandResponse
@@ -1090,7 +1327,7 @@ public class CallCommandsApi {
 
   /**
    * Reject a call
-   * Reject an incoming call.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; 
+   * Reject an incoming call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/reject-call#callbacks) below):**  - &#x60;call.hangup&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param rejectRequest Reject request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1302,8 +1539,85 @@ public class CallCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Send SIP info
+   * Sends SIP info from this leg.  **Expected Webhooks:**  - &#x60;call.sip_info.received&#x60; (to be received on the target call leg) 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param sendSIPInfoRequest Send SIP INFO request (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse sendSIPInfo(String callControlId, SendSIPInfoRequest sendSIPInfoRequest) throws ApiException {
+    return sendSIPInfoWithHttpInfo(callControlId, sendSIPInfoRequest).getData();
+  }
+
+  /**
+   * Send SIP info
+   * Sends SIP info from this leg.  **Expected Webhooks:**  - &#x60;call.sip_info.received&#x60; (to be received on the target call leg) 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param sendSIPInfoRequest Send SIP INFO request (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> sendSIPInfoWithHttpInfo(String callControlId, SendSIPInfoRequest sendSIPInfoRequest) throws ApiException {
+    Object localVarPostBody = sendSIPInfoRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling sendSIPInfo");
+    }
+    
+    // verify the required parameter 'sendSIPInfoRequest' is set
+    if (sendSIPInfoRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'sendSIPInfoRequest' when calling sendSIPInfo");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/send_sip_info"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.sendSIPInfo", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Speak text
-   * Convert text to speech and play it back on the call. If multiple speak text commands are issued consecutively, the audio files will be placed in a queue awaiting playback.  **Expected Webhooks:**  - &#x60;call.speak.started&#x60; - &#x60;call.speak.ended&#x60; 
+   * Convert text to speech and play it back on the call. If multiple speak text commands are issued consecutively, the audio files will be placed in a queue awaiting playback.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/speak-call#callbacks) below):**  - &#x60;call.speak.started&#x60; - &#x60;call.speak.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param speakRequest Speak request (required)
    * @return CallControlCommandResponse
@@ -1321,7 +1635,7 @@ public class CallCommandsApi {
 
   /**
    * Speak text
-   * Convert text to speech and play it back on the call. If multiple speak text commands are issued consecutively, the audio files will be placed in a queue awaiting playback.  **Expected Webhooks:**  - &#x60;call.speak.started&#x60; - &#x60;call.speak.ended&#x60; 
+   * Convert text to speech and play it back on the call. If multiple speak text commands are issued consecutively, the audio files will be placed in a queue awaiting playback.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/speak-call#callbacks) below):**  - &#x60;call.speak.started&#x60; - &#x60;call.speak.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param speakRequest Speak request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1380,7 +1694,7 @@ public class CallCommandsApi {
   }
   /**
    * Forking start
-   * Call forking allows you to stream the media from a call to a specific target in realtime.  This stream can be used to enable realtime audio analysis to support a  variety of use cases, including fraud detection, or the creation of AI-generated audio responses.  Requests must specify either the &#x60;target&#x60; attribute or the &#x60;rx&#x60; and &#x60;tx&#x60; attributes.  **Expected Webhooks:**  - &#x60;call.fork.started&#x60; - &#x60;call.fork.stopped&#x60;  **Simple Telnyx RTP Encapsulation Protocol (STREP)**  *Note: This header/encapsulation is not used when the &#x60;rx&#x60; and &#x60;tx&#x60; parameters have been specified; it only applies when media is forked using the &#x60;target&#x60; attribute.*  If the destination for forked media is specified using the \&quot;target\&quot; attribute, the RTP will be encapsulated in an extra Telnyx protocol, which adds a 24 byte header to the RTP payload in each packet. The STREP header includes the Call Control &#x60;call_leg_id&#x60; for stream identification, along with bits that represent the direction (inbound or outbound) of the media. This 24-byte header sits between the UDP header and the RTP header.  The STREP header makes it possible to fork RTP for multiple calls (or two RTP streams for the same call) to the same IP:port, where the streams can be demultiplexed by your application using the information in the header. Of course, it&#39;s still possible to ignore this header completely, for example, if sending forked media for different calls to different ports or IP addresses. In this case, simply strip 24 bytes (or use the second byte to find the header length) from the received UDP payload to get the RTP (RTP header and payload).  &#x60;&#x60;&#x60; STREP Specification    0                   1                   2                   3   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |1 1|Version|L|D|    HeaderLen  |  reserved (2 bytes)           |  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |       reserved (4 bytes, for UDP ports or anything else)      |  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |               The call_leg_id                                 |  |                   from Call Control                           |  |                       (128 bits / 16 bytes)                   |  |                           (this is binary data)               |  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   11    Static bits 11, always set to 11 to easily distinguish forked media    from RTP (10) and T.38 media (usually 00) and SIP (which begins    with a capital letter, so begins with bits 01). This is a magic number.   Version    Four bits to indicate the version number of the protocol, starting at 0001.   L    One bit to represent the leg of the call (A or B).    0 represents the A (first) leg of the call.    1 represents the B (second) leg of the call.   D    One bit to represent the direction of this RTP stream.    0 represents media received by Telnyx.    1 represents media transmitted by Telnyx.   HeaderLen (1 byte)    The length of the header in bytes.    Note that this value does not include the length of the payload. The total    size of the RTP can be calculated by subtracting the HeaderLen from the UDP    length (minus 8 for the UDP header).    In version 1, this value will always be 24.   Reserved (6 bytes)    Reserved for future use and to make sure that the header is a multiple of 32 bits   Call Leg ID    A 128-bit identifier for the call leg.    This is the call_leg_id from Call Control. &#x60;&#x60;&#x60; 
+   * Call forking allows you to stream the media from a call to a specific target in realtime.  This stream can be used to enable realtime audio analysis to support a  variety of use cases, including fraud detection, or the creation of AI-generated audio responses.  Requests must specify either the &#x60;target&#x60; attribute or the &#x60;rx&#x60; and &#x60;tx&#x60; attributes.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-fork#callbacks) below):**  - &#x60;call.fork.started&#x60; - &#x60;call.fork.stopped&#x60;  
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param startForkingRequest Fork media request (required)
    * @return CallControlCommandResponse
@@ -1398,7 +1712,7 @@ public class CallCommandsApi {
 
   /**
    * Forking start
-   * Call forking allows you to stream the media from a call to a specific target in realtime.  This stream can be used to enable realtime audio analysis to support a  variety of use cases, including fraud detection, or the creation of AI-generated audio responses.  Requests must specify either the &#x60;target&#x60; attribute or the &#x60;rx&#x60; and &#x60;tx&#x60; attributes.  **Expected Webhooks:**  - &#x60;call.fork.started&#x60; - &#x60;call.fork.stopped&#x60;  **Simple Telnyx RTP Encapsulation Protocol (STREP)**  *Note: This header/encapsulation is not used when the &#x60;rx&#x60; and &#x60;tx&#x60; parameters have been specified; it only applies when media is forked using the &#x60;target&#x60; attribute.*  If the destination for forked media is specified using the \&quot;target\&quot; attribute, the RTP will be encapsulated in an extra Telnyx protocol, which adds a 24 byte header to the RTP payload in each packet. The STREP header includes the Call Control &#x60;call_leg_id&#x60; for stream identification, along with bits that represent the direction (inbound or outbound) of the media. This 24-byte header sits between the UDP header and the RTP header.  The STREP header makes it possible to fork RTP for multiple calls (or two RTP streams for the same call) to the same IP:port, where the streams can be demultiplexed by your application using the information in the header. Of course, it&#39;s still possible to ignore this header completely, for example, if sending forked media for different calls to different ports or IP addresses. In this case, simply strip 24 bytes (or use the second byte to find the header length) from the received UDP payload to get the RTP (RTP header and payload).  &#x60;&#x60;&#x60; STREP Specification    0                   1                   2                   3   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |1 1|Version|L|D|    HeaderLen  |  reserved (2 bytes)           |  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |       reserved (4 bytes, for UDP ports or anything else)      |  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |               The call_leg_id                                 |  |                   from Call Control                           |  |                       (128 bits / 16 bytes)                   |  |                           (this is binary data)               |  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   11    Static bits 11, always set to 11 to easily distinguish forked media    from RTP (10) and T.38 media (usually 00) and SIP (which begins    with a capital letter, so begins with bits 01). This is a magic number.   Version    Four bits to indicate the version number of the protocol, starting at 0001.   L    One bit to represent the leg of the call (A or B).    0 represents the A (first) leg of the call.    1 represents the B (second) leg of the call.   D    One bit to represent the direction of this RTP stream.    0 represents media received by Telnyx.    1 represents media transmitted by Telnyx.   HeaderLen (1 byte)    The length of the header in bytes.    Note that this value does not include the length of the payload. The total    size of the RTP can be calculated by subtracting the HeaderLen from the UDP    length (minus 8 for the UDP header).    In version 1, this value will always be 24.   Reserved (6 bytes)    Reserved for future use and to make sure that the header is a multiple of 32 bits   Call Leg ID    A 128-bit identifier for the call leg.    This is the call_leg_id from Call Control. &#x60;&#x60;&#x60; 
+   * Call forking allows you to stream the media from a call to a specific target in realtime.  This stream can be used to enable realtime audio analysis to support a  variety of use cases, including fraud detection, or the creation of AI-generated audio responses.  Requests must specify either the &#x60;target&#x60; attribute or the &#x60;rx&#x60; and &#x60;tx&#x60; attributes.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-fork#callbacks) below):**  - &#x60;call.fork.started&#x60; - &#x60;call.fork.stopped&#x60;  
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param startForkingRequest Fork media request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1457,7 +1771,7 @@ public class CallCommandsApi {
   }
   /**
    * Play audio URL
-   * Play an audio file on the call. If multiple play audio commands are issued consecutively, the audio files will be placed in a queue awaiting playback.  *Notes:*  - When &#x60;overlay&#x60; is enabled, &#x60;target_legs&#x60; is limited to &#x60;self&#x60;. - A customer cannot Play Audio with &#x60;overlay&#x3D;true&#x60; unless there is a Play Audio with &#x60;overlay&#x3D;false&#x60; actively playing.  **Expected Webhooks:**  - &#x60;call.playback.started&#x60; - &#x60;call.playback.ended&#x60; 
+   * Play an audio file on the call. If multiple play audio commands are issued consecutively, the audio files will be placed in a queue awaiting playback.  *Notes:*  - When &#x60;overlay&#x60; is enabled, &#x60;target_legs&#x60; is limited to &#x60;self&#x60;. - A customer cannot Play Audio with &#x60;overlay&#x3D;true&#x60; unless there is a Play Audio with &#x60;overlay&#x3D;false&#x60; actively playing.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-playback#callbacks) below):**  - &#x60;call.playback.started&#x60; - &#x60;call.playback.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param playAudioUrlRequest Play audio URL request (required)
    * @return CallControlCommandResponse
@@ -1475,7 +1789,7 @@ public class CallCommandsApi {
 
   /**
    * Play audio URL
-   * Play an audio file on the call. If multiple play audio commands are issued consecutively, the audio files will be placed in a queue awaiting playback.  *Notes:*  - When &#x60;overlay&#x60; is enabled, &#x60;target_legs&#x60; is limited to &#x60;self&#x60;. - A customer cannot Play Audio with &#x60;overlay&#x3D;true&#x60; unless there is a Play Audio with &#x60;overlay&#x3D;false&#x60; actively playing.  **Expected Webhooks:**  - &#x60;call.playback.started&#x60; - &#x60;call.playback.ended&#x60; 
+   * Play an audio file on the call. If multiple play audio commands are issued consecutively, the audio files will be placed in a queue awaiting playback.  *Notes:*  - When &#x60;overlay&#x60; is enabled, &#x60;target_legs&#x60; is limited to &#x60;self&#x60;. - A customer cannot Play Audio with &#x60;overlay&#x3D;true&#x60; unless there is a Play Audio with &#x60;overlay&#x3D;false&#x60; actively playing.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-playback#callbacks) below):**  - &#x60;call.playback.started&#x60; - &#x60;call.playback.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param playAudioUrlRequest Play audio URL request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1534,7 +1848,7 @@ public class CallCommandsApi {
   }
   /**
    * Recording start
-   * Start recording the call. Recording will stop on call hang-up, or can be initiated via the Stop Recording command.  **Expected Webhooks:**  - &#x60;call.recording.saved&#x60; 
+   * Start recording the call. Recording will stop on call hang-up, or can be initiated via the Stop Recording command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-record#callbacks) below):**  - &#x60;call.recording.saved&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param startRecordingRequest Start recording audio request (required)
    * @return CallControlCommandResponse
@@ -1552,7 +1866,7 @@ public class CallCommandsApi {
 
   /**
    * Recording start
-   * Start recording the call. Recording will stop on call hang-up, or can be initiated via the Stop Recording command.  **Expected Webhooks:**  - &#x60;call.recording.saved&#x60; 
+   * Start recording the call. Recording will stop on call hang-up, or can be initiated via the Stop Recording command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-record#callbacks) below):**  - &#x60;call.recording.saved&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param startRecordingRequest Start recording audio request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1611,7 +1925,7 @@ public class CallCommandsApi {
   }
   /**
    * Streaming start
-   * Start streaming the media from a call to a specific WebSocket address or Dialogflow connection in near-realtime. Audio will be delivered as base64-encoded RTP payload (raw audio), wrapped in JSON payloads.   **Example: Starting a stream to a Websocket address**   The &#x60;stream_url&#x60; param is mandatory.  &#x60;&#x60;&#x60; curl -X POST \\    --header \&quot;Content-Type: application/json\&quot; \\    --header \&quot;Accept: application/json\&quot; \\    --header \&quot;Authorization: Bearer YOUR_API_KEY\&quot; \\    --data &#39;{  \&quot;stream_url\&quot;: \&quot;wss://www.example.com/websocket\&quot;,\\  \&quot;client_state\&quot;:\&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;,\\  \&quot;command_id\&quot;:\&quot;891510ac-f3e4-11e8-af5b-de00688a4901\&quot; \\  }&#39; \\    https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start  &#x60;&#x60;&#x60;    **Example: Starting a stream to a Dialogflow connection**    Enable the Dialogflow integration by sending &#x60;\&quot;enable_dialogflow\&quot;: true&#x60; in the request. You need to have a Dialogflow connection associated with your Call Control application first, [click here for instructions](https://developers.telnyx.com/docs/voice/programmable-voice/dialogflow-es). &#x60;&#x60;&#x60; curl -X POST \\    --header \&quot;Content-Type: application/json\&quot; \\    --header \&quot;Accept: application/json\&quot; \\    --header \&quot;Authorization: Bearer YOUR_API_KEY\&quot; \\    --data &#39;{  \&quot;client_state\&quot;:\&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;, \\  \&quot;command_id\&quot;:\&quot;891510ac-f3e4-11e8-af5b-de00688a4901\&quot;, \\  \&quot;enable_dialogflow\&quot;: true \\  }&#39; \\    https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start  &#x60;&#x60;&#x60;  **Expected Webhooks:**  - &#x60;streaming.started&#x60; - &#x60;streaming.stopped&#x60; - &#x60;streaming.failed&#x60;  **WebSocket events**  When the WebSocket connection is established, the following event is being sent over it: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;connected\&quot;,   \&quot;version\&quot;: \&quot;1.0.0\&quot; } &#x60;&#x60;&#x60; And when the call is started, an event which contains information about the encoding and &#x60;stream_id&#x60; that identifies a particular stream: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;start\&quot;,   \&quot;sequence_number\&quot;: \&quot;1\&quot;,   \&quot;start\&quot;: {     \&quot;user_id\&quot;: \&quot;3e6f995f-85f7-4705-9741-53b116d28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg\&quot;,      \&quot;client_state\&quot;: \&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;,     \&quot;media_format\&quot;: {       \&quot;encoding\&quot;: \&quot;audio/x-mulaw\&quot;,       \&quot;sample_rate\&quot;: 8000,       \&quot;channels\&quot;: 1     }   },   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot; } &#x60;&#x60;&#x60; The start event is followed by the following media events that contain base64-encoded RTP payload (raw audio, no RTP headers) (: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;sequence_number\&quot;: \&quot;4\&quot;,   \&quot;media\&quot;: {      \&quot;track\&quot;: \&quot;inbound/outbound\&quot;,      \&quot;chunk\&quot;: \&quot;2\&quot;,     \&quot;timestamp\&quot;: \&quot;5\&quot;,     \&quot;payload\&quot;: \&quot;no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic\&quot;    },   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;  } &#x60;&#x60;&#x60; Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.  When the call ends, the stop event over WebSockets connection is sent: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;stop\&quot;,   \&quot;sequence_number\&quot;: \&quot;5\&quot;,   \&quot;stop\&quot;: {     \&quot;user_id\&quot;: \&quot;3e6f995f-85f7-4705-9741-53b116d28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;    },     \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;   } &#x60;&#x60;&#x60;  **Bidirectional Media Streaming**  Media can be sent back to the call through the websocket as well. This is done in a way very similar to the [playback_start](https://developers.telnyx.com/docs/api/v2/call-control/Call-Commands#callPlaybackStart) command, when using a base64 encoded mp3 file in the payload. Simply send a packet to the websocket connection as follows:  &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;media\&quot;: {     \&quot;payload\&quot; : &lt;your base64 encoded mp3 file&gt;   } } &#x60;&#x60;&#x60;  The payload, which is a base64-encoded mp3 file, will be played on the call.  Some limitations to be aware of:  - Media payloads can only be submitted once per second. - Media _must_ be base64 encoded mp3  **Stream Errors**  Any errors in the media packet, including when a rate limit is reached, will result in an error frame being sent to your websocket server. The error frame will appear as follows:  &#x60;&#x60;&#x60; {   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;,   \&quot;event\&quot;: \&quot;error\&quot;,   \&quot;sequence_number\&quot;: \&quot;6\&quot;,   \&quot;error\&quot;: {     \&quot;title\&quot;: \&quot;rate_limit_reached\&quot;,     \&quot;code\&quot;: \&quot;100005\&quot;,     \&quot;detail\&quot;: \&quot;Too many requests\&quot;   } } &#x60;&#x60;&#x60;  Possible errors are as follows:  - Error 100002: &#x60;\&quot;unknown_error\&quot;&#x60; - Error 100003: &#x60;\&quot;malformed_frame\&quot;&#x60; - Error 100004: &#x60;\&quot;invalid_media\&quot;&#x60; - Error 100005: &#x60;\&quot;rate_limit_reached\&quot;&#x60; 
+   * Start streaming the media from a call to a specific WebSocket address or Dialogflow connection in near-realtime. Audio will be delivered as base64-encoded RTP payload (raw audio), wrapped in JSON payloads.  Please find more details about media streaming messages specification under the [link](https://developers.telnyx.com/docs/voice/programmable-voice/media-streaming).
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param startStreamingRequest Start streaming media request (required)
    * @return CallControlCommandResponse
@@ -1629,7 +1943,7 @@ public class CallCommandsApi {
 
   /**
    * Streaming start
-   * Start streaming the media from a call to a specific WebSocket address or Dialogflow connection in near-realtime. Audio will be delivered as base64-encoded RTP payload (raw audio), wrapped in JSON payloads.   **Example: Starting a stream to a Websocket address**   The &#x60;stream_url&#x60; param is mandatory.  &#x60;&#x60;&#x60; curl -X POST \\    --header \&quot;Content-Type: application/json\&quot; \\    --header \&quot;Accept: application/json\&quot; \\    --header \&quot;Authorization: Bearer YOUR_API_KEY\&quot; \\    --data &#39;{  \&quot;stream_url\&quot;: \&quot;wss://www.example.com/websocket\&quot;,\\  \&quot;client_state\&quot;:\&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;,\\  \&quot;command_id\&quot;:\&quot;891510ac-f3e4-11e8-af5b-de00688a4901\&quot; \\  }&#39; \\    https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start  &#x60;&#x60;&#x60;    **Example: Starting a stream to a Dialogflow connection**    Enable the Dialogflow integration by sending &#x60;\&quot;enable_dialogflow\&quot;: true&#x60; in the request. You need to have a Dialogflow connection associated with your Call Control application first, [click here for instructions](https://developers.telnyx.com/docs/voice/programmable-voice/dialogflow-es). &#x60;&#x60;&#x60; curl -X POST \\    --header \&quot;Content-Type: application/json\&quot; \\    --header \&quot;Accept: application/json\&quot; \\    --header \&quot;Authorization: Bearer YOUR_API_KEY\&quot; \\    --data &#39;{  \&quot;client_state\&quot;:\&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;, \\  \&quot;command_id\&quot;:\&quot;891510ac-f3e4-11e8-af5b-de00688a4901\&quot;, \\  \&quot;enable_dialogflow\&quot;: true \\  }&#39; \\    https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start  &#x60;&#x60;&#x60;  **Expected Webhooks:**  - &#x60;streaming.started&#x60; - &#x60;streaming.stopped&#x60; - &#x60;streaming.failed&#x60;  **WebSocket events**  When the WebSocket connection is established, the following event is being sent over it: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;connected\&quot;,   \&quot;version\&quot;: \&quot;1.0.0\&quot; } &#x60;&#x60;&#x60; And when the call is started, an event which contains information about the encoding and &#x60;stream_id&#x60; that identifies a particular stream: &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;start\&quot;,   \&quot;sequence_number\&quot;: \&quot;1\&quot;,   \&quot;start\&quot;: {     \&quot;user_id\&quot;: \&quot;3e6f995f-85f7-4705-9741-53b116d28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg\&quot;,      \&quot;client_state\&quot;: \&quot;aGF2ZSBhIG5pY2UgZGF5ID1d\&quot;,     \&quot;media_format\&quot;: {       \&quot;encoding\&quot;: \&quot;audio/x-mulaw\&quot;,       \&quot;sample_rate\&quot;: 8000,       \&quot;channels\&quot;: 1     }   },   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot; } &#x60;&#x60;&#x60; The start event is followed by the following media events that contain base64-encoded RTP payload (raw audio, no RTP headers) (: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;sequence_number\&quot;: \&quot;4\&quot;,   \&quot;media\&quot;: {      \&quot;track\&quot;: \&quot;inbound/outbound\&quot;,      \&quot;chunk\&quot;: \&quot;2\&quot;,     \&quot;timestamp\&quot;: \&quot;5\&quot;,     \&quot;payload\&quot;: \&quot;no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic\&quot;    },   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;  } &#x60;&#x60;&#x60; Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.  When the call ends, the stop event over WebSockets connection is sent: &#x60;&#x60;&#x60; {    \&quot;event\&quot;: \&quot;stop\&quot;,   \&quot;sequence_number\&quot;: \&quot;5\&quot;,   \&quot;stop\&quot;: {     \&quot;user_id\&quot;: \&quot;3e6f995f-85f7-4705-9741-53b116d28237\&quot;,     \&quot;call_control_id\&quot;: \&quot;v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ\&quot;    },     \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;   } &#x60;&#x60;&#x60;  **Bidirectional Media Streaming**  Media can be sent back to the call through the websocket as well. This is done in a way very similar to the [playback_start](https://developers.telnyx.com/docs/api/v2/call-control/Call-Commands#callPlaybackStart) command, when using a base64 encoded mp3 file in the payload. Simply send a packet to the websocket connection as follows:  &#x60;&#x60;&#x60; {   \&quot;event\&quot;: \&quot;media\&quot;,   \&quot;media\&quot;: {     \&quot;payload\&quot; : &lt;your base64 encoded mp3 file&gt;   } } &#x60;&#x60;&#x60;  The payload, which is a base64-encoded mp3 file, will be played on the call.  Some limitations to be aware of:  - Media payloads can only be submitted once per second. - Media _must_ be base64 encoded mp3  **Stream Errors**  Any errors in the media packet, including when a rate limit is reached, will result in an error frame being sent to your websocket server. The error frame will appear as follows:  &#x60;&#x60;&#x60; {   \&quot;stream_id\&quot;: \&quot;32de0dea-53cb-4b21-89a4-9e1819c043bc\&quot;,   \&quot;event\&quot;: \&quot;error\&quot;,   \&quot;sequence_number\&quot;: \&quot;6\&quot;,   \&quot;error\&quot;: {     \&quot;title\&quot;: \&quot;rate_limit_reached\&quot;,     \&quot;code\&quot;: \&quot;100005\&quot;,     \&quot;detail\&quot;: \&quot;Too many requests\&quot;   } } &#x60;&#x60;&#x60;  Possible errors are as follows:  - Error 100002: &#x60;\&quot;unknown_error\&quot;&#x60; - Error 100003: &#x60;\&quot;malformed_frame\&quot;&#x60; - Error 100004: &#x60;\&quot;invalid_media\&quot;&#x60; - Error 100005: &#x60;\&quot;rate_limit_reached\&quot;&#x60; 
+   * Start streaming the media from a call to a specific WebSocket address or Dialogflow connection in near-realtime. Audio will be delivered as base64-encoded RTP payload (raw audio), wrapped in JSON payloads.  Please find more details about media streaming messages specification under the [link](https://developers.telnyx.com/docs/voice/programmable-voice/media-streaming).
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param startStreamingRequest Start streaming media request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1688,7 +2002,7 @@ public class CallCommandsApi {
   }
   /**
    * Transcription start
-   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.  **Expected Webhooks:**  - &#x60;call.transcription&#x60; 
+   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-transcription#callbacks) below):**  - &#x60;call.transcription&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param transcriptionStartRequest Transcription start request (required)
    * @return CallControlCommandResponse
@@ -1706,7 +2020,7 @@ public class CallCommandsApi {
 
   /**
    * Transcription start
-   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.  **Expected Webhooks:**  - &#x60;call.transcription&#x60; 
+   * Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-transcription#callbacks) below):**  - &#x60;call.transcription&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param transcriptionStartRequest Transcription start request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1764,8 +2078,85 @@ public class CallCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * SIPREC start
+   * Start siprec session to configured in SIPREC connector SRS.   **Expected Webhooks:**  - &#x60;siprec.started&#x60; - &#x60;siprec.stopped&#x60; - &#x60;siprec.failed&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param startSiprecRequest Start siprec session to configured in SIPREC connector SRS. (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse startSiprecSession(String callControlId, StartSiprecRequest startSiprecRequest) throws ApiException {
+    return startSiprecSessionWithHttpInfo(callControlId, startSiprecRequest).getData();
+  }
+
+  /**
+   * SIPREC start
+   * Start siprec session to configured in SIPREC connector SRS.   **Expected Webhooks:**  - &#x60;siprec.started&#x60; - &#x60;siprec.stopped&#x60; - &#x60;siprec.failed&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param startSiprecRequest Start siprec session to configured in SIPREC connector SRS. (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> startSiprecSessionWithHttpInfo(String callControlId, StartSiprecRequest startSiprecRequest) throws ApiException {
+    Object localVarPostBody = startSiprecRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling startSiprecSession");
+    }
+    
+    // verify the required parameter 'startSiprecRequest' is set
+    if (startSiprecRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'startSiprecRequest' when calling startSiprecSession");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/siprec_start"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.startSiprecSession", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Forking stop
-   * Stop forking a call.  **Expected Webhooks:**  - &#x60;call.fork.stopped&#x60; 
+   * Stop forking a call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-fork#callbacks) below):**  - &#x60;call.fork.stopped&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param stopForkingRequest Stop forking media request (required)
    * @return CallControlCommandResponse
@@ -1783,7 +2174,7 @@ public class CallCommandsApi {
 
   /**
    * Forking stop
-   * Stop forking a call.  **Expected Webhooks:**  - &#x60;call.fork.stopped&#x60; 
+   * Stop forking a call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-fork#callbacks) below):**  - &#x60;call.fork.stopped&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param stopForkingRequest Stop forking media request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1842,7 +2233,7 @@ public class CallCommandsApi {
   }
   /**
    * Gather stop
-   * Stop current gather.  **Expected Webhooks:**  - &#x60;call.gather.ended&#x60; 
+   * Stop current gather.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-gather#callbacks) below):**  - &#x60;call.gather.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param stopGatherRequest Stop current gather (required)
    * @return CallControlCommandResponse
@@ -1860,7 +2251,7 @@ public class CallCommandsApi {
 
   /**
    * Gather stop
-   * Stop current gather.  **Expected Webhooks:**  - &#x60;call.gather.ended&#x60; 
+   * Stop current gather.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-gather#callbacks) below):**  - &#x60;call.gather.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param stopGatherRequest Stop current gather (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1919,7 +2310,7 @@ public class CallCommandsApi {
   }
   /**
    * Stop audio playback
-   * Stop audio being played on the call.  **Expected Webhooks:**  - &#x60;call.playback.ended&#x60; or &#x60;call.speak.ended&#x60; 
+   * Stop audio being played on the call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-playback#callbacks) below):**  - &#x60;call.playback.ended&#x60; or &#x60;call.speak.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param playbackStopRequest Stop audio playback request (required)
    * @return CallControlCommandResponse
@@ -1937,7 +2328,7 @@ public class CallCommandsApi {
 
   /**
    * Stop audio playback
-   * Stop audio being played on the call.  **Expected Webhooks:**  - &#x60;call.playback.ended&#x60; or &#x60;call.speak.ended&#x60; 
+   * Stop audio being played on the call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-playback#callbacks) below):**  - &#x60;call.playback.ended&#x60; or &#x60;call.speak.ended&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param playbackStopRequest Stop audio playback request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -1996,7 +2387,7 @@ public class CallCommandsApi {
   }
   /**
    * Recording stop
-   * Stop recording the call.  **Expected Webhooks:**  - &#x60;call.recording.saved&#x60; 
+   * Stop recording the call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-recording#callbacks) below):**  - &#x60;call.recording.saved&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param stopRecordingRequest Stop recording call request (required)
    * @return CallControlCommandResponse
@@ -2014,7 +2405,7 @@ public class CallCommandsApi {
 
   /**
    * Recording stop
-   * Stop recording the call.  **Expected Webhooks:**  - &#x60;call.recording.saved&#x60; 
+   * Stop recording the call.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-recording#callbacks) below):**  - &#x60;call.recording.saved&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param stopRecordingRequest Stop recording call request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -2073,7 +2464,7 @@ public class CallCommandsApi {
   }
   /**
    * Streaming stop
-   * Stop streaming a call to a WebSocket.  **Expected Webhooks:**  - &#x60;streaming.stopped&#x60; 
+   * Stop streaming a call to a WebSocket.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-streaming#callbacks) below):**  - &#x60;streaming.stopped&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param stopStreamingRequest Stop streaming media request (required)
    * @return CallControlCommandResponse
@@ -2091,7 +2482,7 @@ public class CallCommandsApi {
 
   /**
    * Streaming stop
-   * Stop streaming a call to a WebSocket.  **Expected Webhooks:**  - &#x60;streaming.stopped&#x60; 
+   * Stop streaming a call to a WebSocket.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-streaming#callbacks) below):**  - &#x60;streaming.stopped&#x60; 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param stopStreamingRequest Stop streaming media request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -2226,8 +2617,85 @@ public class CallCommandsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * SIPREC stop
+   * Stop SIPREC session.  **Expected Webhooks:**  - &#x60;siprec.stopped&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param stopSiprecRequest Stop siprec session (required)
+   * @return CallControlCommandResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CallControlCommandResponse stopSiprecSession(String callControlId, StopSiprecRequest stopSiprecRequest) throws ApiException {
+    return stopSiprecSessionWithHttpInfo(callControlId, stopSiprecRequest).getData();
+  }
+
+  /**
+   * SIPREC stop
+   * Stop SIPREC session.  **Expected Webhooks:**  - &#x60;siprec.stopped&#x60; 
+   * @param callControlId Unique identifier and token for controlling the call (required)
+   * @param stopSiprecRequest Stop siprec session (required)
+   * @return ApiResponse&lt;CallControlCommandResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response upon making a call control command. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CallControlCommandResponse> stopSiprecSessionWithHttpInfo(String callControlId, StopSiprecRequest stopSiprecRequest) throws ApiException {
+    Object localVarPostBody = stopSiprecRequest;
+    
+    // verify the required parameter 'callControlId' is set
+    if (callControlId == null) {
+      throw new ApiException(400, "Missing the required parameter 'callControlId' when calling stopSiprecSession");
+    }
+    
+    // verify the required parameter 'stopSiprecRequest' is set
+    if (stopSiprecRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'stopSiprecRequest' when calling stopSiprecSession");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/calls/{call_control_id}/actions/siprec_stop"
+      .replaceAll("\\{" + "call_control_id" + "\\}", apiClient.escapeString(callControlId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CallControlCommandResponse> localVarReturnType = new GenericType<CallControlCommandResponse>() {};
+
+    return apiClient.invokeAPI("CallCommandsApi.stopSiprecSession", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Transfer call
-   * Transfer a call to a new destination. If the transfer is unsuccessful, a &#x60;call.hangup&#x60; webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.bridged&#x60; to Leg B - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected 
+   * Transfer a call to a new destination. If the transfer is unsuccessful, a &#x60;call.hangup&#x60; webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/transfer-call#callbacks) below):**  - &#x60;call.initiated&#x60; - &#x60;call.bridged&#x60; to Leg B - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param transferCallRequest Transfer call request (required)
    * @return CallControlCommandResponse
@@ -2245,7 +2713,7 @@ public class CallCommandsApi {
 
   /**
    * Transfer call
-   * Transfer a call to a new destination. If the transfer is unsuccessful, a &#x60;call.hangup&#x60; webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.  **Expected Webhooks:**  - &#x60;call.initiated&#x60; - &#x60;call.bridged&#x60; to Leg B - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected 
+   * Transfer a call to a new destination. If the transfer is unsuccessful, a &#x60;call.hangup&#x60; webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/transfer-call#callbacks) below):**  - &#x60;call.initiated&#x60; - &#x60;call.bridged&#x60; to Leg B - &#x60;call.answered&#x60; or &#x60;call.hangup&#x60; - &#x60;call.machine.detection.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested - &#x60;call.machine.greeting.ended&#x60; if &#x60;answering_machine_detection&#x60; was requested to detect the end of machine greeting - &#x60;call.machine.premium.detection.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested - &#x60;call.machine.premium.greeting.ended&#x60; if &#x60;answering_machine_detection&#x3D;premium&#x60; was requested and a beep was detected 
    * @param callControlId Unique identifier and token for controlling the call (required)
    * @param transferCallRequest Transfer call request (required)
    * @return ApiResponse&lt;CallControlCommandResponse&gt;
@@ -2379,10 +2847,4 @@ public class CallCommandsApi {
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
-
-public CallControlCommandResponse callRecordResume(String callControlId,
-        ResumeRecordingRequest resumeRecordingRequest) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'callRecordResume'");
-}
 }

@@ -4,11 +4,11 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteUsageReport**](MdrUsageReportsApi.md#deleteUsageReport) | **DELETE** /reports/mdr_usage_reports/{id} | 
-[**getUsageReport**](MdrUsageReportsApi.md#getUsageReport) | **GET** /reports/mdr_usage_reports/{id} | 
-[**getUsageReportSync**](MdrUsageReportsApi.md#getUsageReportSync) | **GET** /reports/mdr_usage_reports/sync | 
-[**getUsageReports**](MdrUsageReportsApi.md#getUsageReports) | **GET** /reports/mdr_usage_reports | 
-[**submitUsageReport**](MdrUsageReportsApi.md#submitUsageReport) | **POST** /reports/mdr_usage_reports | 
+[**deleteUsageReport**](MdrUsageReportsApi.md#deleteUsageReport) | **DELETE** /reports/mdr_usage_reports/{id} | Delete MDR Usage Report
+[**getMDRUsageReport**](MdrUsageReportsApi.md#getMDRUsageReport) | **GET** /reports/mdr_usage_reports/{id} | Retrieve messaging report
+[**getMDRUsageReportSync**](MdrUsageReportsApi.md#getMDRUsageReportSync) | **GET** /reports/mdr_usage_reports/sync | Generate and fetch MDR Usage Report
+[**getUsageReports**](MdrUsageReportsApi.md#getUsageReports) | **GET** /reports/mdr_usage_reports | Fetch all Messaging usage reports
+[**submitUsageReport**](MdrUsageReportsApi.md#submitUsageReport) | **POST** /reports/mdr_usage_reports | Create MDR Usage Report
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > MdrDeleteUsageReportsResponse deleteUsageReport(id)
 
-
+Delete MDR Usage Report
 
 Delete messaging usage report by id
 
@@ -83,11 +83,11 @@ Name | Type | Description  | Notes
 | **200** | Successful |  -  |
 
 
-## getUsageReport
+## getMDRUsageReport
 
-> MdrGetUsageReportsByIdResponse getUsageReport(id)
+> MdrGetUsageReportsByIdResponse getMDRUsageReport(id)
 
-
+Retrieve messaging report
 
 Fetch a single messaging usage report by id
 
@@ -115,10 +115,10 @@ public class Example {
         MdrUsageReportsApi apiInstance = new MdrUsageReportsApi(defaultClient);
         UUID id = UUID.randomUUID(); // UUID | 
         try {
-            MdrGetUsageReportsByIdResponse result = apiInstance.getUsageReport(id);
+            MdrGetUsageReportsByIdResponse result = apiInstance.getMDRUsageReport(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MdrUsageReportsApi#getUsageReport");
+            System.err.println("Exception when calling MdrUsageReportsApi#getMDRUsageReport");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -154,11 +154,11 @@ Name | Type | Description  | Notes
 | **200** | Successful |  -  |
 
 
-## getUsageReportSync
+## getMDRUsageReportSync
 
-> MdrGetSyncUsageReportResponse getUsageReportSync(aggregationType, startDate, endDate, profiles)
+> MdrGetSyncUsageReportResponse getMDRUsageReportSync(aggregationType, startDate, endDate, profiles)
 
-
+Generate and fetch MDR Usage Report
 
 Generate and fetch messaging usage report synchronously. This endpoint will both generate and fetch the messaging report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
 
@@ -189,10 +189,10 @@ public class Example {
         OffsetDateTime endDate = OffsetDateTime.parse("2020-07-01T00:00-06:00"); // OffsetDateTime | 
         List<String> profiles = Arrays.asList(); // List<String> | 
         try {
-            MdrGetSyncUsageReportResponse result = apiInstance.getUsageReportSync(aggregationType, startDate, endDate, profiles);
+            MdrGetSyncUsageReportResponse result = apiInstance.getMDRUsageReportSync(aggregationType, startDate, endDate, profiles);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling MdrUsageReportsApi#getUsageReportSync");
+            System.err.println("Exception when calling MdrUsageReportsApi#getMDRUsageReportSync");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 > MdrGetUsageReportsResponse getUsageReports(pageNumber, pageSize)
 
-
+Fetch all Messaging usage reports
 
 Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified time period and breakdown
 
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 
 > MdrPostUsageReportsResponse submitUsageReport(mdrPostUsageReportRequest)
 
-
+Create MDR Usage Report
 
 Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period. 
 

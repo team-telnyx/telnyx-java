@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.EmbeddingSimilaritySearchDocument;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   EmbeddingSimilaritySearchResponse.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class EmbeddingSimilaritySearchResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<EmbeddingSimilaritySearchDocument> data = new ArrayList<>();
@@ -53,7 +51,7 @@ public class EmbeddingSimilaritySearchResponse {
     return this;
   }
 
-  public EmbeddingSimilaritySearchResponse addDataItem(EmbeddingSimilaritySearchDocument dataItem) {
+  public EmbeddingSimilaritySearchResponse adddataItem(EmbeddingSimilaritySearchDocument dataItem) {
     this.data.add(dataItem);
     return this;
   }

@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -43,10 +41,9 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberRequest.JSON_PROPERTY_HD_VOICE_ENABLED,
   UpdatePhoneNumberRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
   UpdatePhoneNumberRequest.JSON_PROPERTY_CONNECTION_ID,
-  UpdatePhoneNumberRequest.JSON_PROPERTY_BILLING_GROUP_ID,
-  UpdatePhoneNumberRequest.JSON_PROPERTY_NUMBER_LEVEL_ROUTING
+  UpdatePhoneNumberRequest.JSON_PROPERTY_BILLING_GROUP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePhoneNumberRequest {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -68,43 +65,6 @@ public class UpdatePhoneNumberRequest {
 
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private String billingGroupId;
-
-  /**
-   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
-   */
-  public enum NumberLevelRoutingEnum {
-    ENABLED("enabled"),
-    DISABLED("disabled");
-
-    private String value;
-
-    NumberLevelRoutingEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static NumberLevelRoutingEnum fromValue(String value) {
-      for (NumberLevelRoutingEnum b : NumberLevelRoutingEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_NUMBER_LEVEL_ROUTING = "number_level_routing";
-  private NumberLevelRoutingEnum numberLevelRouting = NumberLevelRoutingEnum.ENABLED;
 
   public UpdatePhoneNumberRequest() { 
   }
@@ -138,7 +98,7 @@ public class UpdatePhoneNumberRequest {
     return this;
   }
 
-  public UpdatePhoneNumberRequest addTagsItem(String tagsItem) {
+  public UpdatePhoneNumberRequest addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -297,32 +257,6 @@ public class UpdatePhoneNumberRequest {
   }
 
 
-  public UpdatePhoneNumberRequest numberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-    return this;
-  }
-
-   /**
-   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
-   * @return numberLevelRouting
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.")
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public NumberLevelRoutingEnum getNumberLevelRouting() {
-    return numberLevelRouting;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNumberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-  }
-
-
   /**
    * Return true if this UpdatePhoneNumberRequest object is equal to o.
    */
@@ -341,13 +275,12 @@ public class UpdatePhoneNumberRequest {
         Objects.equals(this.hdVoiceEnabled, updatePhoneNumberRequest.hdVoiceEnabled) &&
         Objects.equals(this.customerReference, updatePhoneNumberRequest.customerReference) &&
         Objects.equals(this.connectionId, updatePhoneNumberRequest.connectionId) &&
-        Objects.equals(this.billingGroupId, updatePhoneNumberRequest.billingGroupId) &&
-        Objects.equals(this.numberLevelRouting, updatePhoneNumberRequest.numberLevelRouting);
+        Objects.equals(this.billingGroupId, updatePhoneNumberRequest.billingGroupId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, tags, externalPin, hdVoiceEnabled, customerReference, connectionId, billingGroupId, numberLevelRouting);
+    return Objects.hash(id, tags, externalPin, hdVoiceEnabled, customerReference, connectionId, billingGroupId);
   }
 
   @Override
@@ -361,7 +294,6 @@ public class UpdatePhoneNumberRequest {
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
-    sb.append("    numberLevelRouting: ").append(toIndentedString(numberLevelRouting)).append("\n");
     sb.append("}");
     return sb.toString();
   }

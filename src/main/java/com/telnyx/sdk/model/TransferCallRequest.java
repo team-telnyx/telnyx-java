@@ -31,8 +31,6 @@ import com.telnyx.sdk.model.SoundModifications;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,6 +43,7 @@ import com.telnyx.sdk.JSON;
   TransferCallRequest.JSON_PROPERTY_FROM,
   TransferCallRequest.JSON_PROPERTY_FROM_DISPLAY_NAME,
   TransferCallRequest.JSON_PROPERTY_AUDIO_URL,
+  TransferCallRequest.JSON_PROPERTY_EARLY_MEDIA,
   TransferCallRequest.JSON_PROPERTY_MEDIA_NAME,
   TransferCallRequest.JSON_PROPERTY_TIMEOUT_SECS,
   TransferCallRequest.JSON_PROPERTY_TIME_LIMIT_SECS,
@@ -63,7 +62,7 @@ import com.telnyx.sdk.JSON;
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL,
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TransferCallRequest {
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
@@ -76,6 +75,9 @@ public class TransferCallRequest {
 
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
+
+  public static final String JSON_PROPERTY_EARLY_MEDIA = "early_media";
+  private Boolean earlyMedia = true;
 
   public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
   private String mediaName;
@@ -90,17 +92,17 @@ public class TransferCallRequest {
    * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#39;greeting_end&#39; or &#39;detect_words&#39; is used and a &#39;machine&#39; is detected, you will receive another &#39;call.machine.greeting.ended&#39; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#39;call.machine.greeting.ended&#39; if a beep is detected.
    */
   public enum AnsweringMachineDetectionEnum {
-    PREMIUM("premium"),
+    PREMIUM(String.valueOf("premium")),
     
-    DETECT("detect"),
+    DETECT(String.valueOf("detect")),
     
-    DETECT_BEEP("detect_beep"),
+    DETECT_BEEP(String.valueOf("detect_beep")),
     
-    DETECT_WORDS("detect_words"),
+    DETECT_WORDS(String.valueOf("detect_words")),
     
-    GREETING_END("greeting_end"),
+    GREETING_END(String.valueOf("greeting_end")),
     
-    DISABLED("disabled");
+    DISABLED(String.valueOf("disabled"));
 
     private String value;
 
@@ -151,9 +153,9 @@ public class TransferCallRequest {
    * Defines whether media should be encrypted on the new call leg.
    */
   public enum MediaEncryptionEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    SRTP("SRTP");
+    SRTP(String.valueOf("SRTP"));
 
     private String value;
 
@@ -198,11 +200,11 @@ public class TransferCallRequest {
    * Defines SIP transport protocol to be used on the call.
    */
   public enum SipTransportProtocolEnum {
-    UDP("UDP"),
+    UDP(String.valueOf("UDP")),
     
-    TCP("TCP"),
+    TCP(String.valueOf("TCP")),
     
-    TLS("TLS");
+    TLS(String.valueOf("TLS"));
 
     private String value;
 
@@ -244,9 +246,9 @@ public class TransferCallRequest {
    * HTTP request type used for &#x60;webhook_url&#x60;.
    */
   public enum WebhookUrlMethodEnum {
-    POST("POST"),
+    POST(String.valueOf("POST")),
     
-    GET("GET");
+    GET(String.valueOf("GET"));
 
     private String value;
 
@@ -385,6 +387,32 @@ public class TransferCallRequest {
   }
 
 
+  public TransferCallRequest earlyMedia(Boolean earlyMedia) {
+    this.earlyMedia = earlyMedia;
+    return this;
+  }
+
+   /**
+   * If set to false, early media will not be passed to the originating leg.
+   * @return earlyMedia
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "false", value = "If set to false, early media will not be passed to the originating leg.")
+  @JsonProperty(JSON_PROPERTY_EARLY_MEDIA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getEarlyMedia() {
+    return earlyMedia;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EARLY_MEDIA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEarlyMedia(Boolean earlyMedia) {
+    this.earlyMedia = earlyMedia;
+  }
+
+
   public TransferCallRequest mediaName(String mediaName) {
     this.mediaName = mediaName;
     return this;
@@ -417,11 +445,11 @@ public class TransferCallRequest {
   }
 
    /**
-   * The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a &#x60;call.hangup&#x60; webhook with a &#x60;hangup_cause&#x60; of &#x60;timeout&#x60; will be sent. Minimum value is 5 seconds. Maximum value is 120 seconds.
+   * The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a &#x60;call.hangup&#x60; webhook with a &#x60;hangup_cause&#x60; of &#x60;timeout&#x60; will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.
    * @return timeoutSecs
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "60", value = "The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 120 seconds.")
+  @ApiModelProperty(example = "60", value = "The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -522,7 +550,7 @@ public class TransferCallRequest {
     return this;
   }
 
-  public TransferCallRequest addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+  public TransferCallRequest addcustomHeadersItem(CustomSipHeader customHeadersItem) {
     if (this.customHeaders == null) {
       this.customHeaders = new ArrayList<>();
     }
@@ -712,7 +740,7 @@ public class TransferCallRequest {
     return this;
   }
 
-  public TransferCallRequest addSipHeadersItem(SipHeader sipHeadersItem) {
+  public TransferCallRequest addsipHeadersItem(SipHeader sipHeadersItem) {
     if (this.sipHeaders == null) {
       this.sipHeaders = new ArrayList<>();
     }
@@ -861,6 +889,7 @@ public class TransferCallRequest {
         Objects.equals(this.from, transferCallRequest.from) &&
         Objects.equals(this.fromDisplayName, transferCallRequest.fromDisplayName) &&
         Objects.equals(this.audioUrl, transferCallRequest.audioUrl) &&
+        Objects.equals(this.earlyMedia, transferCallRequest.earlyMedia) &&
         Objects.equals(this.mediaName, transferCallRequest.mediaName) &&
         Objects.equals(this.timeoutSecs, transferCallRequest.timeoutSecs) &&
         Objects.equals(this.timeLimitSecs, transferCallRequest.timeLimitSecs) &&
@@ -882,7 +911,7 @@ public class TransferCallRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, fromDisplayName, audioUrl, mediaName, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, targetLegClientState, commandId, mediaEncryption, sipAuthUsername, sipAuthPassword, sipHeaders, sipTransportProtocol, soundModifications, webhookUrl, webhookUrlMethod);
+    return Objects.hash(to, from, fromDisplayName, audioUrl, earlyMedia, mediaName, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, clientState, targetLegClientState, commandId, mediaEncryption, sipAuthUsername, sipAuthPassword, sipHeaders, sipTransportProtocol, soundModifications, webhookUrl, webhookUrlMethod);
   }
 
   @Override
@@ -893,6 +922,7 @@ public class TransferCallRequest {
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    fromDisplayName: ").append(toIndentedString(fromDisplayName)).append("\n");
     sb.append("    audioUrl: ").append(toIndentedString(audioUrl)).append("\n");
+    sb.append("    earlyMedia: ").append(toIndentedString(earlyMedia)).append("\n");
     sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
     sb.append("    timeLimitSecs: ").append(toIndentedString(timeLimitSecs)).append("\n");

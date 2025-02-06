@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,19 +36,19 @@ import com.telnyx.sdk.JSON;
   SIMCardActionsSummary.JSON_PROPERTY_STATUS,
   SIMCardActionsSummary.JSON_PROPERTY_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardActionsSummary {
   /**
    * Gets or Sets status
    */
   public enum StatusEnum {
-    IN_PROGRESS("in-progress"),
+    IN_PROGRESS(String.valueOf("in-progress")),
     
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    FAILED("failed"),
+    FAILED(String.valueOf("failed")),
     
-    INTERRUPTED("interrupted");
+    INTERRUPTED(String.valueOf("interrupted"));
 
     private String value;
 

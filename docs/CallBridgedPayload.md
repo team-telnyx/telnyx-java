@@ -14,15 +14,6 @@
 |**clientState** | **String** | State received from a command. |  [optional] |
 |**from** | **String** | Number or SIP URI placing the call. |  [optional] |
 |**to** | **String** | Destination number or SIP URI of the call. |  [optional] |
-|**state** | [**StateEnum**](#StateEnum) | State received from a command. |  [optional] |
-
-
-
-## Enum: StateEnum
-
-| Name | Value |
-|---- | -----|
-| BRIDGED | &quot;bridged&quot; |
 
 
 

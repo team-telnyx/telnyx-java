@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## createDialogflowConnection
 
-> DialogflowConnectionResponse createDialogflowConnection(connectionId, dialogflowConnection)
+> DialogflowConnectionResponse createDialogflowConnection(connectionIdWireless, dialogflowConnection)
 
 Create a Dialogflow Connection
 
@@ -40,10 +40,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DialogflowIntegrationApi apiInstance = new DialogflowIntegrationApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionIdWireless = "1293384261075731461"; // String | Telnyx connection id
         DialogflowConnection dialogflowConnection = new DialogflowConnection(); // DialogflowConnection | The params expected to create/update a Dialogflow Connection for given connection_id.
         try {
-            DialogflowConnectionResponse result = apiInstance.createDialogflowConnection(connectionId, dialogflowConnection);
+            DialogflowConnectionResponse result = apiInstance.createDialogflowConnection(connectionIdWireless, dialogflowConnection);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DialogflowIntegrationApi#createDialogflowConnection");
@@ -61,7 +61,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionIdWireless** | **String**| Telnyx connection id |
  **dialogflowConnection** | [**DialogflowConnection**](DialogflowConnection.md)| The params expected to create/update a Dialogflow Connection for given connection_id. |
 
 ### Return type
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## deleteDialogflowConnection
 
-> deleteDialogflowConnection(connectionId)
+> deleteDialogflowConnection(connectionIdWireless)
 
 Delete stored Dialogflow Connection
 
@@ -113,9 +113,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DialogflowIntegrationApi apiInstance = new DialogflowIntegrationApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionIdWireless = "1293384261075731461"; // String | Telnyx connection id
         try {
-            apiInstance.deleteDialogflowConnection(connectionId);
+            apiInstance.deleteDialogflowConnection(connectionIdWireless);
         } catch (ApiException e) {
             System.err.println("Exception when calling DialogflowIntegrationApi#deleteDialogflowConnection");
             System.err.println("Status code: " + e.getCode());
@@ -132,7 +132,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionIdWireless** | **String**| Telnyx connection id |
 
 ### Return type
 
@@ -156,7 +156,7 @@ null (empty response body)
 
 ## getDialogflowConnection
 
-> DialogflowConnectionResponse getDialogflowConnection(connectionId)
+> DialogflowConnectionResponse getDialogflowConnection(connectionIdWireless)
 
 Retrieve stored Dialogflow Connection
 
@@ -183,9 +183,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DialogflowIntegrationApi apiInstance = new DialogflowIntegrationApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionIdWireless = "1293384261075731461"; // String | Telnyx connection id
         try {
-            DialogflowConnectionResponse result = apiInstance.getDialogflowConnection(connectionId);
+            DialogflowConnectionResponse result = apiInstance.getDialogflowConnection(connectionIdWireless);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DialogflowIntegrationApi#getDialogflowConnection");
@@ -203,7 +203,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionIdWireless** | **String**| Telnyx connection id |
 
 ### Return type
 
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 
 ## updateDialogflowConnection
 
-> DialogflowConnectionResponse updateDialogflowConnection(connectionId, dialogflowConnection)
+> DialogflowConnectionResponse updateDialogflowConnection(connectionIdWireless, dialogflowConnection)
 
 Update stored Dialogflow Connection
 
@@ -254,10 +254,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DialogflowIntegrationApi apiInstance = new DialogflowIntegrationApi(defaultClient);
-        String connectionId = "connectionId_example"; // String | Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+        String connectionIdWireless = "1293384261075731461"; // String | Telnyx connection id
         DialogflowConnection dialogflowConnection = new DialogflowConnection(); // DialogflowConnection | The params expected to create/update a Dialogflow Connection for given connection_id.
         try {
-            DialogflowConnectionResponse result = apiInstance.updateDialogflowConnection(connectionId, dialogflowConnection);
+            DialogflowConnectionResponse result = apiInstance.updateDialogflowConnection(connectionIdWireless, dialogflowConnection);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DialogflowIntegrationApi#updateDialogflowConnection");
@@ -275,7 +275,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectionId** | **String**| Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. |
+ **connectionIdWireless** | **String**| Telnyx connection id |
  **dialogflowConnection** | [**DialogflowConnection**](DialogflowConnection.md)| The params expected to create/update a Dialogflow Connection for given connection_id. |
 
 ### Return type

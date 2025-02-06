@@ -31,9 +31,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum TrafficType {
   
-  CONVERSATIONAL("conversational"),
-  
-  SHORT_DURATION("short_duration");
+  CONVERSATIONAL("conversational");
 
   private String value;
 

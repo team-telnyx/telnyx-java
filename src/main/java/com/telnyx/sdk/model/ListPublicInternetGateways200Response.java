@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.PublicInternetGatewayRead;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListPublicInternetGateways200Response.JSON_PROPERTY_DATA,
   ListPublicInternetGateways200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListPublicInternetGateways200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<PublicInternetGatewayRead> data = null;
@@ -58,7 +56,7 @@ public class ListPublicInternetGateways200Response {
     return this;
   }
 
-  public ListPublicInternetGateways200Response addDataItem(PublicInternetGatewayRead dataItem) {
+  public ListPublicInternetGateways200Response adddataItem(PublicInternetGatewayRead dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

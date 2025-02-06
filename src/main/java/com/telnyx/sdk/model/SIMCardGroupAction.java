@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.SIMCardGroupActionSettings;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   SIMCardGroupAction.JSON_PROPERTY_CREATED_AT,
   SIMCardGroupAction.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardGroupAction {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -62,9 +60,9 @@ public class SIMCardGroupAction {
    * Represents the type of the operation requested.
    */
   public enum TypeEnum {
-    SET_PRIVATE_WIRELESS_GATEWAY("set_private_wireless_gateway"),
+    SET_PRIVATE_WIRELESS_GATEWAY(String.valueOf("set_private_wireless_gateway")),
     
-    REMOVE_PRIVATE_WIRELESS_GATEWAY("remove_private_wireless_gateway");
+    REMOVE_PRIVATE_WIRELESS_GATEWAY(String.valueOf("remove_private_wireless_gateway"));
 
     private String value;
 
@@ -100,11 +98,11 @@ public class SIMCardGroupAction {
    * Gets or Sets status
    */
   public enum StatusEnum {
-    IN_PROGRESS("in-progress"),
+    IN_PROGRESS(String.valueOf("in-progress")),
     
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 

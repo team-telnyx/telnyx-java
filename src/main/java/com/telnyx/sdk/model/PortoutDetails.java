@@ -28,8 +28,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -52,6 +50,7 @@ import com.telnyx.sdk.JSON;
   PortoutDetails.JSON_PROPERTY_LSR,
   PortoutDetails.JSON_PROPERTY_PON,
   PortoutDetails.JSON_PROPERTY_REASON,
+  PortoutDetails.JSON_PROPERTY_REJECTION_CODE,
   PortoutDetails.JSON_PROPERTY_SERVICE_ADDRESS,
   PortoutDetails.JSON_PROPERTY_FOC_DATE,
   PortoutDetails.JSON_PROPERTY_REQUESTED_FOC_DATE,
@@ -65,7 +64,7 @@ import com.telnyx.sdk.JSON;
   PortoutDetails.JSON_PROPERTY_INSERTED_AT,
   PortoutDetails.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortoutDetails {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -106,6 +105,9 @@ public class PortoutDetails {
   public static final String JSON_PROPERTY_REASON = "reason";
   private String reason;
 
+  public static final String JSON_PROPERTY_REJECTION_CODE = "rejection_code";
+  private Integer rejectionCode;
+
   public static final String JSON_PROPERTY_SERVICE_ADDRESS = "service_address";
   private String serviceAddress;
 
@@ -125,17 +127,17 @@ public class PortoutDetails {
    * Status of portout request
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    AUTHORIZED("authorized"),
+    AUTHORIZED(String.valueOf("authorized")),
     
-    PORTED("ported"),
+    PORTED(String.valueOf("ported")),
     
-    REJECTED("rejected"),
+    REJECTED(String.valueOf("rejected")),
     
-    REJECTED_PENDING("rejected-pending"),
+    REJECTED_PENDING(String.valueOf("rejected-pending")),
     
-    CANCELED("canceled");
+    CANCELED(String.valueOf("canceled"));
 
     private String value;
 
@@ -243,7 +245,7 @@ public class PortoutDetails {
     return this;
   }
 
-  public PortoutDetails addPhoneNumbersItem(String phoneNumbersItem) {
+  public PortoutDetails addphoneNumbersItem(String phoneNumbersItem) {
     if (this.phoneNumbers == null) {
       this.phoneNumbers = new ArrayList<>();
     }
@@ -459,7 +461,7 @@ public class PortoutDetails {
     return this;
   }
 
-  public PortoutDetails addLsrItem(URI lsrItem) {
+  public PortoutDetails addlsrItem(URI lsrItem) {
     if (this.lsr == null) {
       this.lsr = new ArrayList<>();
     }
@@ -537,6 +539,32 @@ public class PortoutDetails {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReason(String reason) {
     this.reason = reason;
+  }
+
+
+  public PortoutDetails rejectionCode(Integer rejectionCode) {
+    this.rejectionCode = rejectionCode;
+    return this;
+  }
+
+   /**
+   * The rejection code for one of the valid rejections to reject a port out order
+   * @return rejectionCode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "1002", value = "The rejection code for one of the valid rejections to reject a port out order")
+  @JsonProperty(JSON_PROPERTY_REJECTION_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRejectionCode() {
+    return rejectionCode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REJECTION_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRejectionCode(Integer rejectionCode) {
+    this.rejectionCode = rejectionCode;
   }
 
 
@@ -877,6 +905,7 @@ public class PortoutDetails {
         Objects.equals(this.lsr, portoutDetails.lsr) &&
         Objects.equals(this.pon, portoutDetails.pon) &&
         Objects.equals(this.reason, portoutDetails.reason) &&
+        Objects.equals(this.rejectionCode, portoutDetails.rejectionCode) &&
         Objects.equals(this.serviceAddress, portoutDetails.serviceAddress) &&
         Objects.equals(this.focDate, portoutDetails.focDate) &&
         Objects.equals(this.requestedFocDate, portoutDetails.requestedFocDate) &&
@@ -893,7 +922,7 @@ public class PortoutDetails {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumbers, authorizedName, carrierName, currentCarrier, endUserName, city, state, zip, lsr, pon, reason, serviceAddress, focDate, requestedFocDate, spid, supportKey, status, alreadyPorted, userId, vendor, createdAt, insertedAt, updatedAt);
+    return Objects.hash(id, recordType, phoneNumbers, authorizedName, carrierName, currentCarrier, endUserName, city, state, zip, lsr, pon, reason, rejectionCode, serviceAddress, focDate, requestedFocDate, spid, supportKey, status, alreadyPorted, userId, vendor, createdAt, insertedAt, updatedAt);
   }
 
   @Override
@@ -913,6 +942,7 @@ public class PortoutDetails {
     sb.append("    lsr: ").append(toIndentedString(lsr)).append("\n");
     sb.append("    pon: ").append(toIndentedString(pon)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("    rejectionCode: ").append(toIndentedString(rejectionCode)).append("\n");
     sb.append("    serviceAddress: ").append(toIndentedString(serviceAddress)).append("\n");
     sb.append("    focDate: ").append(toIndentedString(focDate)).append("\n");
     sb.append("    requestedFocDate: ").append(toIndentedString(requestedFocDate)).append("\n");

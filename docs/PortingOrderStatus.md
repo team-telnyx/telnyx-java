@@ -23,7 +23,7 @@ Porting order status
 | EXCEPTION | &quot;exception&quot; |
 | FOC_DATE_CONFIRMED | &quot;foc-date-confirmed&quot; |
 | PORTED | &quot;ported&quot; |
-| CANCELED | &quot;canceled&quot; |
+| CANCELLED | &quot;cancelled&quot; |
 | CANCEL_PENDING | &quot;cancel-pending&quot; |
 
 

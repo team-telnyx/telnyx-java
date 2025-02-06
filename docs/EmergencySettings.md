@@ -22,6 +22,7 @@ The emergency services settings for a phone number.
 | ACTIVE | &quot;active&quot; |
 | PROVISIONING | &quot;provisioning&quot; |
 | DEPROVISIONING | &quot;deprovisioning&quot; |
+| PROVISIONING_FAILED | &quot;provisioning-failed&quot; |
 
 
 

@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.OutboundMessagePayload;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,13 +42,13 @@ import com.telnyx.sdk.JSON;
   OutboundMessage.JSON_PROPERTY_OCCURRED_AT,
   OutboundMessage.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class OutboundMessage {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -89,9 +87,9 @@ public class OutboundMessage {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    SENT("message.sent"),
+    MESSAGE_SENT(String.valueOf("message.sent")),
     
-    FINALIZED("message.finalized");
+    MESSAGE_FINALIZED(String.valueOf("message.finalized"));
 
     private String value;
 

@@ -27,8 +27,8 @@
 
 | Name | Value |
 |---- | -----|
-| PHONE_NUMBER | &quot;messaging_phone_number&quot; |
-| SETTINGS | &quot;messaging_settings&quot; |
+| MESSAGING_PHONE_NUMBER | &quot;messaging_phone_number&quot; |
+| MESSAGING_SETTINGS | &quot;messaging_settings&quot; |
 
 
 

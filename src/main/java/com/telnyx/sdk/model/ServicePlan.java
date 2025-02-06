@@ -27,13 +27,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Indicates the coverage of the termination regions. International and Global are the same but International may only be used for high volume/short duration Outbound Voice Profiles.
+ * Indicates the coverage of the termination regions.
  */
 public enum ServicePlan {
-  
-  US("us"),
-  
-  INTERNATIONAL("international"),
   
   GLOBAL("global");
 

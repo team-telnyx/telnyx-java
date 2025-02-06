@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   SIMCardDeviceDetails.JSON_PROPERTY_DEVICE_TYPE,
   SIMCardDeviceDetails.JSON_PROPERTY_OPERATING_SYSTEM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardDeviceDetails {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;

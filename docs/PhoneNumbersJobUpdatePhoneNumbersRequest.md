@@ -13,6 +13,7 @@
 |**customerReference** | **String** | A customer reference string for customer look ups. |  [optional] |
 |**connectionId** | **String** | Identifies the connection associated with the phone number. |  [optional] |
 |**billingGroupId** | **String** | Identifies the billing group associated with the phone number. |  [optional] |
+|**hdVoiceEnabled** | **Boolean** | Indicates whether to enable or disable HD Voice on each phone number. HD Voice is a paid feature and may not be available for all phone numbers, more details about it can be found in the Telnyx support documentation. |  [optional] |
 |**voice** | [**UpdatePhoneNumberVoiceSettingsRequest**](UpdatePhoneNumberVoiceSettingsRequest.md) |  |  [optional] |
 
 

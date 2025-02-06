@@ -29,8 +29,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -43,7 +41,7 @@ import com.telnyx.sdk.JSON;
   AudioTranscriptionResponse.JSON_PROPERTY_DURATION,
   AudioTranscriptionResponse.JSON_PROPERTY_SEGMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AudioTranscriptionResponse {
   public static final String JSON_PROPERTY_TEXT = "text";
   private String text;
@@ -114,7 +112,7 @@ public class AudioTranscriptionResponse {
     return this;
   }
 
-  public AudioTranscriptionResponse addSegmentsItem(AudioTranscriptionResponseSegments segmentsItem) {
+  public AudioTranscriptionResponse addsegmentsItem(AudioTranscriptionResponseSegments segmentsItem) {
     if (this.segments == null) {
       this.segments = new ArrayList<>();
     }

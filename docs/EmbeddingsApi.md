@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**getBucketName**](EmbeddingsApi.md#getBucketName) | **GET** /ai/embeddings/buckets/{bucket_name} | Get file-level embedding statuses for a bucket
 [**getEmbeddingBuckets**](EmbeddingsApi.md#getEmbeddingBuckets) | **GET** /ai/embeddings/buckets | List embedded buckets
 [**getEmbeddingTask**](EmbeddingsApi.md#getEmbeddingTask) | **GET** /ai/embeddings/{task_id} | Get an embedding task&#39;s status
+[**getTasksByStatus**](EmbeddingsApi.md#getTasksByStatus) | **GET** /ai/embeddings | Get Tasks by Status
 [**postEmbedding**](EmbeddingsApi.md#postEmbedding) | **POST** /ai/embeddings | Embed documents
 [**postEmbeddingSimilaritySearch**](EmbeddingsApi.md#postEmbeddingSimilaritySearch) | **POST** /ai/embeddings/similarity-search | Search for documents
 
@@ -281,6 +282,77 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TaskStatusResponse**](TaskStatusResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **422** | Validation Error |  -  |
+
+
+## getTasksByStatus
+
+> BackgroundTasksQueryResponseData getTasksByStatus(status)
+
+Get Tasks by Status
+
+Retrieve tasks for the user that are either `queued`, `processing`, `failed`, `success` or `partial_success` based on the query string. Defaults to `queued` and `processing`.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.EmbeddingsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        EmbeddingsApi apiInstance = new EmbeddingsApi(defaultClient);
+        List<String> status = Arrays.asList(); // List<String> | List of task statuses i.e. `status=queued&status=processing`
+        try {
+            BackgroundTasksQueryResponseData result = apiInstance.getTasksByStatus(status);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling EmbeddingsApi#getTasksByStatus");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **List&lt;String&gt;**| List of task statuses i.e. &#x60;status&#x3D;queued&amp;status&#x3D;processing&#x60; | [optional]
+
+### Return type
+
+[**BackgroundTasksQueryResponseData**](BackgroundTasksQueryResponseData.md)
 
 ### Authorization
 

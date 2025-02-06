@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**acceptanceCriteria** | [**DocReqsRequirementTypeAcceptanceCriteria**](DocReqsRequirementTypeAcceptanceCriteria.md) |  |  [optional] |
 |**description** | **String** | Describes the requirement type |  [optional] |
-|**example** | **String** | Provides one or more examples of acceptable documents |  [optional] |
+|**example** | **String** | Provides one or more example of acceptable documents |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | Defines the type of this requirement type |  [optional] |
 |**name** | **String** | A short descriptive name for this requirement_type |  [optional] [readonly] |
 |**recordType** | **String** | Identifies the type of the resource |  [optional] [readonly] |

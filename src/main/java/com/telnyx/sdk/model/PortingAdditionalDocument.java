@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   PortingAdditionalDocument.JSON_PROPERTY_CREATED_AT,
   PortingAdditionalDocument.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingAdditionalDocument {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -56,13 +54,13 @@ public class PortingAdditionalDocument {
    * Identifies the type of additional document
    */
   public enum DocumentTypeEnum {
-    LOA("loa"),
+    LOA(String.valueOf("loa")),
     
-    INVOICE("invoice"),
+    INVOICE(String.valueOf("invoice")),
     
-    CSR("csr"),
+    CSR(String.valueOf("csr")),
     
-    OTHER("other");
+    OTHER(String.valueOf("other"));
 
     private String value;
 

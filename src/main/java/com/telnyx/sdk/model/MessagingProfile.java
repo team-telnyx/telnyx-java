@@ -30,8 +30,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -47,6 +45,8 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   MessagingProfile.JSON_PROPERTY_RECORD_TYPE,
   MessagingProfile.JSON_PROPERTY_ID,
+  MessagingProfile.JSON_PROPERTY_MMS_FALL_BACK_TO_SMS,
+  MessagingProfile.JSON_PROPERTY_MMS_TRANSCODING,
   MessagingProfile.JSON_PROPERTY_NAME,
   MessagingProfile.JSON_PROPERTY_ENABLED,
   MessagingProfile.JSON_PROPERTY_WEBHOOK_URL,
@@ -58,15 +58,17 @@ import com.telnyx.sdk.JSON;
   MessagingProfile.JSON_PROPERTY_V1_SECRET,
   MessagingProfile.JSON_PROPERTY_NUMBER_POOL_SETTINGS,
   MessagingProfile.JSON_PROPERTY_URL_SHORTENER_SETTINGS,
-  MessagingProfile.JSON_PROPERTY_ALPHA_SENDER
+  MessagingProfile.JSON_PROPERTY_ALPHA_SENDER,
+  MessagingProfile.JSON_PROPERTY_DAILY_SPEND_LIMIT,
+  MessagingProfile.JSON_PROPERTY_DAILY_SPEND_LIMIT_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessagingProfile {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    MESSAGING_PROFILE("messaging_profile");
+    MESSAGING_PROFILE(String.valueOf("messaging_profile"));
 
     private String value;
 
@@ -101,6 +103,12 @@ public class MessagingProfile {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
 
+  public static final String JSON_PROPERTY_MMS_FALL_BACK_TO_SMS = "mms_fall_back_to_sms";
+  private Boolean mmsFallBackToSms = false;
+
+  public static final String JSON_PROPERTY_MMS_TRANSCODING = "mms_transcoding";
+  private Boolean mmsTranscoding = false;
+
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
@@ -117,11 +125,11 @@ public class MessagingProfile {
    * Determines which webhook format will be used, Telnyx API v1, v2, or a legacy 2010-04-01 format.
    */
   public enum WebhookApiVersionEnum {
-    _1("1"),
+    _1(String.valueOf("1")),
     
-    _2("2"),
+    _2(String.valueOf("2")),
     
-    _2010_04_01("2010-04-01");
+    _2010_04_01(String.valueOf("2010-04-01"));
 
     private String value;
 
@@ -174,6 +182,12 @@ public class MessagingProfile {
   public static final String JSON_PROPERTY_ALPHA_SENDER = "alpha_sender";
   private JsonNullable<String> alphaSender = JsonNullable.<String>undefined();
 
+  public static final String JSON_PROPERTY_DAILY_SPEND_LIMIT = "daily_spend_limit";
+  private String dailySpendLimit;
+
+  public static final String JSON_PROPERTY_DAILY_SPEND_LIMIT_ENABLED = "daily_spend_limit_enabled";
+  private Boolean dailySpendLimitEnabled;
+
   public MessagingProfile() { 
   }
 
@@ -221,6 +235,58 @@ public class MessagingProfile {
   }
 
 
+
+
+  public MessagingProfile mmsFallBackToSms(Boolean mmsFallBackToSms) {
+    this.mmsFallBackToSms = mmsFallBackToSms;
+    return this;
+  }
+
+   /**
+   * enables SMS fallback for MMS messages.
+   * @return mmsFallBackToSms
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "enables SMS fallback for MMS messages.")
+  @JsonProperty(JSON_PROPERTY_MMS_FALL_BACK_TO_SMS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getMmsFallBackToSms() {
+    return mmsFallBackToSms;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MMS_FALL_BACK_TO_SMS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMmsFallBackToSms(Boolean mmsFallBackToSms) {
+    this.mmsFallBackToSms = mmsFallBackToSms;
+  }
+
+
+  public MessagingProfile mmsTranscoding(Boolean mmsTranscoding) {
+    this.mmsTranscoding = mmsTranscoding;
+    return this;
+  }
+
+   /**
+   * enables automated resizing of MMS media.
+   * @return mmsTranscoding
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "enables automated resizing of MMS media.")
+  @JsonProperty(JSON_PROPERTY_MMS_TRANSCODING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getMmsTranscoding() {
+    return mmsTranscoding;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MMS_TRANSCODING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMmsTranscoding(Boolean mmsTranscoding) {
+    this.mmsTranscoding = mmsTranscoding;
+  }
 
 
   public MessagingProfile name(String name) {
@@ -374,7 +440,7 @@ public class MessagingProfile {
     return this;
   }
 
-  public MessagingProfile addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+  public MessagingProfile addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
     if (this.whitelistedDestinations == null) {
       this.whitelistedDestinations = new ArrayList<>();
     }
@@ -563,6 +629,58 @@ public class MessagingProfile {
   }
 
 
+  public MessagingProfile dailySpendLimit(String dailySpendLimit) {
+    this.dailySpendLimit = dailySpendLimit;
+    return this;
+  }
+
+   /**
+   * The maximum amount of money (in USD) that can be spent by this profile before midnight UTC.
+   * @return dailySpendLimit
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The maximum amount of money (in USD) that can be spent by this profile before midnight UTC.")
+  @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDailySpendLimit() {
+    return dailySpendLimit;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDailySpendLimit(String dailySpendLimit) {
+    this.dailySpendLimit = dailySpendLimit;
+  }
+
+
+  public MessagingProfile dailySpendLimitEnabled(Boolean dailySpendLimitEnabled) {
+    this.dailySpendLimitEnabled = dailySpendLimitEnabled;
+    return this;
+  }
+
+   /**
+   * Whether to enforce the value configured by &#x60;daily_spend_limit&#x60;.
+   * @return dailySpendLimitEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Whether to enforce the value configured by `daily_spend_limit`.")
+  @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDailySpendLimitEnabled() {
+    return dailySpendLimitEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDailySpendLimitEnabled(Boolean dailySpendLimitEnabled) {
+    this.dailySpendLimitEnabled = dailySpendLimitEnabled;
+  }
+
+
   /**
    * Return true if this MessagingProfile object is equal to o.
    */
@@ -577,6 +695,8 @@ public class MessagingProfile {
     MessagingProfile messagingProfile = (MessagingProfile) o;
     return Objects.equals(this.recordType, messagingProfile.recordType) &&
         Objects.equals(this.id, messagingProfile.id) &&
+        Objects.equals(this.mmsFallBackToSms, messagingProfile.mmsFallBackToSms) &&
+        Objects.equals(this.mmsTranscoding, messagingProfile.mmsTranscoding) &&
         Objects.equals(this.name, messagingProfile.name) &&
         Objects.equals(this.enabled, messagingProfile.enabled) &&
         equalsNullable(this.webhookUrl, messagingProfile.webhookUrl) &&
@@ -588,7 +708,9 @@ public class MessagingProfile {
         Objects.equals(this.v1Secret, messagingProfile.v1Secret) &&
         equalsNullable(this.numberPoolSettings, messagingProfile.numberPoolSettings) &&
         equalsNullable(this.urlShortenerSettings, messagingProfile.urlShortenerSettings) &&
-        equalsNullable(this.alphaSender, messagingProfile.alphaSender);
+        equalsNullable(this.alphaSender, messagingProfile.alphaSender) &&
+        Objects.equals(this.dailySpendLimit, messagingProfile.dailySpendLimit) &&
+        Objects.equals(this.dailySpendLimitEnabled, messagingProfile.dailySpendLimitEnabled);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -597,7 +719,7 @@ public class MessagingProfile {
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, name, enabled, hashCodeNullable(webhookUrl), hashCodeNullable(webhookFailoverUrl), webhookApiVersion, whitelistedDestinations, createdAt, updatedAt, v1Secret, hashCodeNullable(numberPoolSettings), hashCodeNullable(urlShortenerSettings), hashCodeNullable(alphaSender));
+    return Objects.hash(recordType, id, mmsFallBackToSms, mmsTranscoding, name, enabled, hashCodeNullable(webhookUrl), hashCodeNullable(webhookFailoverUrl), webhookApiVersion, whitelistedDestinations, createdAt, updatedAt, v1Secret, hashCodeNullable(numberPoolSettings), hashCodeNullable(urlShortenerSettings), hashCodeNullable(alphaSender), dailySpendLimit, dailySpendLimitEnabled);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -613,6 +735,8 @@ public class MessagingProfile {
     sb.append("class MessagingProfile {\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    mmsFallBackToSms: ").append(toIndentedString(mmsFallBackToSms)).append("\n");
+    sb.append("    mmsTranscoding: ").append(toIndentedString(mmsTranscoding)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
@@ -625,6 +749,8 @@ public class MessagingProfile {
     sb.append("    numberPoolSettings: ").append(toIndentedString(numberPoolSettings)).append("\n");
     sb.append("    urlShortenerSettings: ").append(toIndentedString(urlShortenerSettings)).append("\n");
     sb.append("    alphaSender: ").append(toIndentedString(alphaSender)).append("\n");
+    sb.append("    dailySpendLimit: ").append(toIndentedString(dailySpendLimit)).append("\n");
+    sb.append("    dailySpendLimitEnabled: ").append(toIndentedString(dailySpendLimitEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

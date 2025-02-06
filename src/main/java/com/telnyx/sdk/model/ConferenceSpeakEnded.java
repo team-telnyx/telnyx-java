@@ -24,11 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ConferenceSpeakEndedPayload;
+import com.telnyx.sdk.model.ConferenceSpeakStartedPayload;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,13 +40,13 @@ import com.telnyx.sdk.JSON;
   ConferenceSpeakEnded.JSON_PROPERTY_ID,
   ConferenceSpeakEnded.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConferenceSpeakEnded {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -84,7 +82,7 @@ public class ConferenceSpeakEnded {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    CONFERENCE_SPEAK_ENDED("conference.speak.ended");
+    CONFERENCE_SPEAK_ENDED(String.valueOf("conference.speak.ended"));
 
     private String value;
 
@@ -120,7 +118,7 @@ public class ConferenceSpeakEnded {
   private UUID id;
 
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
-  private ConferenceSpeakEndedPayload payload;
+  private ConferenceSpeakStartedPayload payload;
 
   public ConferenceSpeakEnded() { 
   }
@@ -203,7 +201,7 @@ public class ConferenceSpeakEnded {
   }
 
 
-  public ConferenceSpeakEnded payload(ConferenceSpeakEndedPayload payload) {
+  public ConferenceSpeakEnded payload(ConferenceSpeakStartedPayload payload) {
     this.payload = payload;
     return this;
   }
@@ -217,14 +215,14 @@ public class ConferenceSpeakEnded {
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public ConferenceSpeakEndedPayload getPayload() {
+  public ConferenceSpeakStartedPayload getPayload() {
     return payload;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPayload(ConferenceSpeakEndedPayload payload) {
+  public void setPayload(ConferenceSpeakStartedPayload payload) {
     this.payload = payload;
   }
 

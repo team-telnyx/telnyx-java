@@ -47,7 +47,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 @JsonDeserialize(using=Location1Inner.Location1InnerDeserializer.class)
 @JsonSerialize(using = Location1Inner.Location1InnerSerializer.class)
 public class Location1Inner extends AbstractOpenApiSchema {

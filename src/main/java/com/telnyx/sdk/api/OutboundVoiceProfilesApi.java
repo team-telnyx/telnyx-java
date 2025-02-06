@@ -11,6 +11,7 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.CreateOutboundVoiceProfileRequest;
 import com.telnyx.sdk.model.ListOutboundVoiceProfilesResponse;
 import com.telnyx.sdk.model.OutboundVoiceProfileResponse;
+import java.util.UUID;
 import com.telnyx.sdk.model.UpdateOutboundVoiceProfileRequest;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class OutboundVoiceProfilesApi {
   private ApiClient apiClient;
 
@@ -124,7 +125,7 @@ public class OutboundVoiceProfilesApi {
   /**
    * Delete an outbound voice profile
    * Deletes an existing outbound voice profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return OutboundVoiceProfileResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -136,14 +137,14 @@ public class OutboundVoiceProfilesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public OutboundVoiceProfileResponse deleteOutboundVoiceProfile(String id) throws ApiException {
+  public OutboundVoiceProfileResponse deleteOutboundVoiceProfile(UUID id) throws ApiException {
     return deleteOutboundVoiceProfileWithHttpInfo(id).getData();
   }
 
   /**
    * Delete an outbound voice profile
    * Deletes an existing outbound voice profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;OutboundVoiceProfileResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -155,7 +156,7 @@ public class OutboundVoiceProfilesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<OutboundVoiceProfileResponse> deleteOutboundVoiceProfileWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<OutboundVoiceProfileResponse> deleteOutboundVoiceProfileWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -198,7 +199,7 @@ public class OutboundVoiceProfilesApi {
   /**
    * Retrieve an outbound voice profile
    * Retrieves the details of an existing outbound voice profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return OutboundVoiceProfileResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -210,14 +211,14 @@ public class OutboundVoiceProfilesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public OutboundVoiceProfileResponse getOutboundVoiceProfile(String id) throws ApiException {
+  public OutboundVoiceProfileResponse getOutboundVoiceProfile(UUID id) throws ApiException {
     return getOutboundVoiceProfileWithHttpInfo(id).getData();
   }
 
   /**
    * Retrieve an outbound voice profile
    * Retrieves the details of an existing outbound voice profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;OutboundVoiceProfileResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -229,7 +230,7 @@ public class OutboundVoiceProfilesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<OutboundVoiceProfileResponse> getOutboundVoiceProfileWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<OutboundVoiceProfileResponse> getOutboundVoiceProfileWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -408,7 +409,7 @@ private ApiResponse<ListOutboundVoiceProfilesResponse> listOutboundVoiceProfiles
   /**
    * Updates an existing outbound voice profile.
    * Updates an existing outbound voice profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param updateOutboundVoiceProfileRequest Parameters that can be updated on an outbound voice profile (required)
    * @return OutboundVoiceProfileResponse
    * @throws ApiException if fails to make API call
@@ -421,14 +422,14 @@ private ApiResponse<ListOutboundVoiceProfilesResponse> listOutboundVoiceProfiles
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public OutboundVoiceProfileResponse updateOutboundVoiceProfile(String id, UpdateOutboundVoiceProfileRequest updateOutboundVoiceProfileRequest) throws ApiException {
+  public OutboundVoiceProfileResponse updateOutboundVoiceProfile(UUID id, UpdateOutboundVoiceProfileRequest updateOutboundVoiceProfileRequest) throws ApiException {
     return updateOutboundVoiceProfileWithHttpInfo(id, updateOutboundVoiceProfileRequest).getData();
   }
 
   /**
    * Updates an existing outbound voice profile.
    * Updates an existing outbound voice profile.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param updateOutboundVoiceProfileRequest Parameters that can be updated on an outbound voice profile (required)
    * @return ApiResponse&lt;OutboundVoiceProfileResponse&gt;
    * @throws ApiException if fails to make API call
@@ -441,7 +442,7 @@ private ApiResponse<ListOutboundVoiceProfilesResponse> listOutboundVoiceProfiles
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<OutboundVoiceProfileResponse> updateOutboundVoiceProfileWithHttpInfo(String id, UpdateOutboundVoiceProfileRequest updateOutboundVoiceProfileRequest) throws ApiException {
+  public ApiResponse<OutboundVoiceProfileResponse> updateOutboundVoiceProfileWithHttpInfo(UUID id, UpdateOutboundVoiceProfileRequest updateOutboundVoiceProfileRequest) throws ApiException {
     Object localVarPostBody = updateOutboundVoiceProfileRequest;
     
     // verify the required parameter 'id' is set

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CdrUsageReportsApi {
   private ApiClient apiClient;
 
@@ -48,7 +48,7 @@ public class CdrUsageReportsApi {
   }
 
   /**
-   * 
+   * Generates and fetches CDR Usage Reports
    * Generate and fetch voice usage report synchronously. This endpoint will both generate and fetch the voice report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
    * @param aggregationType  (required)
    * @param productBreakdown  (required)
@@ -63,12 +63,12 @@ public class CdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public CdrGetSyncUsageReportResponse getUsageReportSync(String aggregationType, String productBreakdown, OffsetDateTime startDate, OffsetDateTime endDate, List<BigDecimal> connections) throws ApiException {
-    return getUsageReportSyncWithHttpInfo(aggregationType, productBreakdown, startDate, endDate, connections).getData();
+  public CdrGetSyncUsageReportResponse getCDRUsageReportSync(String aggregationType, String productBreakdown, OffsetDateTime startDate, OffsetDateTime endDate, List<BigDecimal> connections) throws ApiException {
+    return getCDRUsageReportSyncWithHttpInfo(aggregationType, productBreakdown, startDate, endDate, connections).getData();
   }
 
   /**
-   * 
+   * Generates and fetches CDR Usage Reports
    * Generate and fetch voice usage report synchronously. This endpoint will both generate and fetch the voice report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
    * @param aggregationType  (required)
    * @param productBreakdown  (required)
@@ -83,17 +83,17 @@ public class CdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CdrGetSyncUsageReportResponse> getUsageReportSyncWithHttpInfo(String aggregationType, String productBreakdown, OffsetDateTime startDate, OffsetDateTime endDate, List<BigDecimal> connections) throws ApiException {
+  public ApiResponse<CdrGetSyncUsageReportResponse> getCDRUsageReportSyncWithHttpInfo(String aggregationType, String productBreakdown, OffsetDateTime startDate, OffsetDateTime endDate, List<BigDecimal> connections) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'aggregationType' is set
     if (aggregationType == null) {
-      throw new ApiException(400, "Missing the required parameter 'aggregationType' when calling getUsageReportSync");
+      throw new ApiException(400, "Missing the required parameter 'aggregationType' when calling getCDRUsageReportSync");
     }
     
     // verify the required parameter 'productBreakdown' is set
     if (productBreakdown == null) {
-      throw new ApiException(400, "Missing the required parameter 'productBreakdown' when calling getUsageReportSync");
+      throw new ApiException(400, "Missing the required parameter 'productBreakdown' when calling getCDRUsageReportSync");
     }
     
     // create path and map variables
@@ -128,7 +128,7 @@ public class CdrUsageReportsApi {
 
     GenericType<CdrGetSyncUsageReportResponse> localVarReturnType = new GenericType<CdrGetSyncUsageReportResponse>() {};
 
-    return apiClient.invokeAPI("CdrUsageReportsApi.getUsageReportSync", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("CdrUsageReportsApi.getCDRUsageReportSync", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

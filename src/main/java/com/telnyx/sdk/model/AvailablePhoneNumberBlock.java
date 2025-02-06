@@ -30,8 +30,6 @@ import com.telnyx.sdk.model.RegionInformation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,13 +45,13 @@ import com.telnyx.sdk.JSON;
   AvailablePhoneNumberBlock.JSON_PROPERTY_COST_INFORMATION,
   AvailablePhoneNumberBlock.JSON_PROPERTY_FEATURES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AvailablePhoneNumberBlock {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    AVAILABLE_PHONE_NUMBER_BLOCK("available_phone_number_block");
+    AVAILABLE_PHONE_NUMBER_BLOCK(String.valueOf("available_phone_number_block"));
 
     private String value;
 
@@ -186,7 +184,7 @@ public class AvailablePhoneNumberBlock {
     return this;
   }
 
-  public AvailablePhoneNumberBlock addRegionInformationItem(RegionInformation regionInformationItem) {
+  public AvailablePhoneNumberBlock addregionInformationItem(RegionInformation regionInformationItem) {
     if (this.regionInformation == null) {
       this.regionInformation = new ArrayList<>();
     }
@@ -246,7 +244,7 @@ public class AvailablePhoneNumberBlock {
     return this;
   }
 
-  public AvailablePhoneNumberBlock addFeaturesItem(Feature featuresItem) {
+  public AvailablePhoneNumberBlock addfeaturesItem(Feature featuresItem) {
     if (this.features == null) {
       this.features = new ArrayList<>();
     }

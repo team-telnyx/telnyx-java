@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -53,7 +51,7 @@ import com.telnyx.sdk.JSON;
   DynamicEmergencyAddress.JSON_PROPERTY_CREATED_AT,
   DynamicEmergencyAddress.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DynamicEmergencyAddress {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -68,11 +66,11 @@ public class DynamicEmergencyAddress {
    * Status of dynamic emergency address
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    ACTIVATED("activated"),
+    ACTIVATED(String.valueOf("activated")),
     
-    REJECTED("rejected");
+    REJECTED(String.valueOf("rejected"));
 
     private String value;
 
@@ -138,11 +136,11 @@ public class DynamicEmergencyAddress {
    * Gets or Sets countryCode
    */
   public enum CountryCodeEnum {
-    US("US"),
+    US(String.valueOf("US")),
     
-    CA("CA"),
+    CA(String.valueOf("CA")),
     
-    PR("PR");
+    PR(String.valueOf("PR"));
 
     private String value;
 
@@ -275,7 +273,7 @@ public class DynamicEmergencyAddress {
    * @return houseNumber
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "311", required = true, value = "")
+  @ApiModelProperty(example = "600", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_HOUSE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -327,7 +325,7 @@ public class DynamicEmergencyAddress {
    * @return streetPreDirectional
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "W", value = "")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STREET_PRE_DIRECTIONAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -353,7 +351,7 @@ public class DynamicEmergencyAddress {
    * @return streetName
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "Superior", required = true, value = "")
+  @ApiModelProperty(example = "Congress", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_STREET_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -379,7 +377,7 @@ public class DynamicEmergencyAddress {
    * @return streetSuffix
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "St", value = "")
   @JsonProperty(JSON_PROPERTY_STREET_SUFFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -457,7 +455,7 @@ public class DynamicEmergencyAddress {
    * @return locality
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "Chicago", required = true, value = "")
+  @ApiModelProperty(example = "Austin", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -483,7 +481,7 @@ public class DynamicEmergencyAddress {
    * @return administrativeArea
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "IL", required = true, value = "")
+  @ApiModelProperty(example = "TX", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -509,7 +507,7 @@ public class DynamicEmergencyAddress {
    * @return postalCode
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "60654", required = true, value = "")
+  @ApiModelProperty(example = "78701", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

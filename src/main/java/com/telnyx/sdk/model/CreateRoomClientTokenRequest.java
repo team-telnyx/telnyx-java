@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreateRoomClientTokenRequest.JSON_PROPERTY_TOKEN_TTL_SECS,
   CreateRoomClientTokenRequest.JSON_PROPERTY_REFRESH_TOKEN_TTL_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateRoomClientTokenRequest {
   public static final String JSON_PROPERTY_TOKEN_TTL_SECS = "token_ttl_secs";
   private Integer tokenTtlSecs = 600;

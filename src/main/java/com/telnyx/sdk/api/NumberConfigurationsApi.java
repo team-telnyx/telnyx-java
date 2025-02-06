@@ -8,8 +8,10 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.BulkMessagingSettingsUpdatePhoneNumbersRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListMessagingSettingsResponse;
+import com.telnyx.sdk.model.RetrieveBulkUpdateMessagingSettingsResponse;
 import com.telnyx.sdk.model.RetrieveMessagingSettingsResponse;
 import com.telnyx.sdk.model.UpdatePhoneNumberMessagingSettingsRequest;
 
@@ -18,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NumberConfigurationsApi {
   private ApiClient apiClient;
 
@@ -49,6 +51,145 @@ public class NumberConfigurationsApi {
   }
 
   /**
+   * Update the messaging profile of multiple phone numbers
+   * 
+   * @param bulkMessagingSettingsUpdatePhoneNumbersRequest  (required)
+   * @return RetrieveBulkUpdateMessagingSettingsResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about messaging bulk update phone numbers. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public RetrieveBulkUpdateMessagingSettingsResponse bulkUpdateMessagingSettingsOnPhoneNumbers(BulkMessagingSettingsUpdatePhoneNumbersRequest bulkMessagingSettingsUpdatePhoneNumbersRequest) throws ApiException {
+    return bulkUpdateMessagingSettingsOnPhoneNumbersWithHttpInfo(bulkMessagingSettingsUpdatePhoneNumbersRequest).getData();
+  }
+
+  /**
+   * Update the messaging profile of multiple phone numbers
+   * 
+   * @param bulkMessagingSettingsUpdatePhoneNumbersRequest  (required)
+   * @return ApiResponse&lt;RetrieveBulkUpdateMessagingSettingsResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about messaging bulk update phone numbers. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<RetrieveBulkUpdateMessagingSettingsResponse> bulkUpdateMessagingSettingsOnPhoneNumbersWithHttpInfo(BulkMessagingSettingsUpdatePhoneNumbersRequest bulkMessagingSettingsUpdatePhoneNumbersRequest) throws ApiException {
+    Object localVarPostBody = bulkMessagingSettingsUpdatePhoneNumbersRequest;
+    
+    // verify the required parameter 'bulkMessagingSettingsUpdatePhoneNumbersRequest' is set
+    if (bulkMessagingSettingsUpdatePhoneNumbersRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'bulkMessagingSettingsUpdatePhoneNumbersRequest' when calling bulkUpdateMessagingSettingsOnPhoneNumbers");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/messaging_numbers_bulk_updates";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<RetrieveBulkUpdateMessagingSettingsResponse> localVarReturnType = new GenericType<RetrieveBulkUpdateMessagingSettingsResponse>() {};
+
+    return apiClient.invokeAPI("NumberConfigurationsApi.bulkUpdateMessagingSettingsOnPhoneNumbers", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Retrieve bulk update status
+   * 
+   * @param orderId Order ID to verify bulk update status. (required)
+   * @return RetrieveBulkUpdateMessagingSettingsResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about messaging bulk update phone numbers. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public RetrieveBulkUpdateMessagingSettingsResponse getBulkUpdateMessagingSettingsOnPhoneNumbersStatus(String orderId) throws ApiException {
+    return getBulkUpdateMessagingSettingsOnPhoneNumbersStatusWithHttpInfo(orderId).getData();
+  }
+
+  /**
+   * Retrieve bulk update status
+   * 
+   * @param orderId Order ID to verify bulk update status. (required)
+   * @return ApiResponse&lt;RetrieveBulkUpdateMessagingSettingsResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about messaging bulk update phone numbers. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<RetrieveBulkUpdateMessagingSettingsResponse> getBulkUpdateMessagingSettingsOnPhoneNumbersStatusWithHttpInfo(String orderId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'orderId' is set
+    if (orderId == null) {
+      throw new ApiException(400, "Missing the required parameter 'orderId' when calling getBulkUpdateMessagingSettingsOnPhoneNumbersStatus");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/messaging_numbers_bulk_updates/{order_id}"
+      .replaceAll("\\{" + "order_id" + "\\}", apiClient.escapeString(orderId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<RetrieveBulkUpdateMessagingSettingsResponse> localVarReturnType = new GenericType<RetrieveBulkUpdateMessagingSettingsResponse>() {};
+
+    return apiClient.invokeAPI("NumberConfigurationsApi.getBulkUpdateMessagingSettingsOnPhoneNumbersStatus", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Retrieve a phone number with messaging settings
    * 
    * @param id Identifies the type of resource. (required)
@@ -57,7 +198,7 @@ public class NumberConfigurationsApi {
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a phone number including messaging settings. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -74,7 +215,7 @@ public class NumberConfigurationsApi {
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a phone number including messaging settings. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -229,16 +370,16 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
     return new APIlistPhoneNumbersWithMessagingSettingsRequest();
   }
   /**
-   * Update a phone number with messaging settings
+   * Update the messaging profile and/or messaging product of a phone number
    * 
-   * @param id Identifies the type of resource. (required)
-   * @param updatePhoneNumberMessagingSettingsRequest Updated messaging settings for the phone number (required)
+   * @param id The phone number to update. (required)
+   * @param updatePhoneNumberMessagingSettingsRequest The new configuration to set for this phone number.  To avoid modifying a value, either omit the field or set its value to &#x60;null&#x60;. (required)
    * @return RetrieveMessagingSettingsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a phone number including messaging settings. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -247,16 +388,16 @@ private ApiResponse<ListMessagingSettingsResponse> listPhoneNumbersWithMessaging
   }
 
   /**
-   * Update a phone number with messaging settings
+   * Update the messaging profile and/or messaging product of a phone number
    * 
-   * @param id Identifies the type of resource. (required)
-   * @param updatePhoneNumberMessagingSettingsRequest Updated messaging settings for the phone number (required)
+   * @param id The phone number to update. (required)
+   * @param updatePhoneNumberMessagingSettingsRequest The new configuration to set for this phone number.  To avoid modifying a value, either omit the field or set its value to &#x60;null&#x60;. (required)
    * @return ApiResponse&lt;RetrieveMessagingSettingsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a phone number including voice settings. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a phone number including messaging settings. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */

@@ -26,8 +26,11 @@
 |**website** | **String** | Brand website URL. |  [optional] |
 |**vertical** | **Vertical** | Vertical or industry segment of the brand. |  |
 |**isReseller** | **Boolean** |  |  [optional] |
-|**mock** | **Boolean** | Mock brand for testing purposes |  [optional] |
+|**mock** | **Boolean** | Mock brand for testing purposes. Defaults to false. |  [optional] |
 |**mobilePhone** | **String** | Valid mobile phone number in e.164 international format. |  [optional] |
+|**businessContactEmail** | **String** | Business contact email.  Required if &#x60;entityType&#x60; is &#x60;PUBLIC_PROFIT&#x60;. |  [optional] |
+|**webhookURL** | **String** | Webhook URL for brand status updates. |  [optional] |
+|**webhookFailoverURL** | **String** | Webhook failover URL for brand status updates. |  [optional] |
 
 
 

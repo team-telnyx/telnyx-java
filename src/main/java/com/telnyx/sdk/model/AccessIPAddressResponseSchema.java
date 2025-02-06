@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CloudflareSyncStatus;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -46,7 +44,7 @@ import com.telnyx.sdk.JSON;
   AccessIPAddressResponseSchema.JSON_PROPERTY_CREATED_AT,
   AccessIPAddressResponseSchema.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AccessIPAddressResponseSchema {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;

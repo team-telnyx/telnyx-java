@@ -4,15 +4,15 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getUsageReportSync**](CdrUsageReportsApi.md#getUsageReportSync) | **GET** /reports/cdr_usage_reports/sync | 
+[**getCDRUsageReportSync**](CdrUsageReportsApi.md#getCDRUsageReportSync) | **GET** /reports/cdr_usage_reports/sync | Generates and fetches CDR Usage Reports
 
 
 
-## getUsageReportSync
+## getCDRUsageReportSync
 
-> CdrGetSyncUsageReportResponse getUsageReportSync(aggregationType, productBreakdown, startDate, endDate, connections)
+> CdrGetSyncUsageReportResponse getCDRUsageReportSync(aggregationType, productBreakdown, startDate, endDate, connections)
 
-
+Generates and fetches CDR Usage Reports
 
 Generate and fetch voice usage report synchronously. This endpoint will both generate and fetch the voice report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
 
@@ -44,10 +44,10 @@ public class Example {
         OffsetDateTime endDate = OffsetDateTime.parse("2020-07-01T00:00-06:00"); // OffsetDateTime | 
         List<BigDecimal> connections = Arrays.asList(); // List<BigDecimal> | 
         try {
-            CdrGetSyncUsageReportResponse result = apiInstance.getUsageReportSync(aggregationType, productBreakdown, startDate, endDate, connections);
+            CdrGetSyncUsageReportResponse result = apiInstance.getCDRUsageReportSync(aggregationType, productBreakdown, startDate, endDate, connections);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CdrUsageReportsApi#getUsageReportSync");
+            System.err.println("Exception when calling CdrUsageReportsApi#getCDRUsageReportSync");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

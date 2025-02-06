@@ -22,7 +22,8 @@ import org.junit.*;
 import static java.lang.Thread.sleep;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
+
+import java.util.UUID;
 
 /**
  * API tests for FqdnConnectionsApi
@@ -50,20 +51,6 @@ public class FqdnConnectionsApiTest {
         }
     }
 
-    @Ignore
-    @After
-    public void tearDown() throws InterruptedException {
-        try {
-            api.deleteFqdnConnection(existingFqdnConnection.getId());
-        } catch (ApiException e) {
-            e.printStackTrace();
-            //ignore
-        }
-
-        //todo: Find a better way to avoid rate limiting during integration testing against production system
-        //sleep(100);
-    }
-
     /**
      * Create an Fqdn connection
      *
@@ -81,7 +68,6 @@ public class FqdnConnectionsApiTest {
                 .generateRingbackTone(true)
                 .isupHeadersEnabled(true)
                 .prackEnabled(true)
-                .privacyZoneEnabled(true)
                 .sipCompactHeadersEnabled(false)
                 .sipRegion(InboundFqdn.SipRegionEnum.EUROPE)
                 .sipSubdomain("example2.sip.telnyx.com")
@@ -111,28 +97,6 @@ public class FqdnConnectionsApiTest {
         String actualId = actualFqdnConnectionResponse.getData().getId();
 
         assertNotNull(actualId);
-
-        //Clean-up
-        try {
-            api.deleteFqdnConnection(actualId);
-        } catch (ApiException e) {
-            // ignore
-        }
-    }
-
-    /**
-     * Delete an Fqdn connection
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Ignore
-    @Test
-    public void deleteFqdnConnection_whenValidId_returnsDeletedFqdnConnection() throws ApiException {
-        String actualId = api.deleteFqdnConnection(existingFqdnConnection.getId())
-                .getData()
-                .getId();
-
-        assertEquals(existingFqdnConnection.getId(), actualId);
     }
 
     /**
@@ -160,8 +124,9 @@ public class FqdnConnectionsApiTest {
     @Ignore
     @Test
     public void retrieveFqdnConnection_whenFqdnConnectionExists_returnsFqdnConnection() throws ApiException {
-        FqdnConnection actualFqdnConnection = api.retrieveFqdnConnection(existingFqdnConnection.getId()).getData();
-
+        UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
+        FqdnConnection actualFqdnConnection = api.retrieveFqdnConnection(fqdnConnectionId).getData();
+        
         assertEquals(existingFqdnConnection.getId(), actualFqdnConnection.getId());
     }
 
@@ -182,7 +147,6 @@ public class FqdnConnectionsApiTest {
                 .generateRingbackTone(true)
                 .isupHeadersEnabled(true)
                 .prackEnabled(true)
-                .privacyZoneEnabled(true)
                 .sipCompactHeadersEnabled(false)
                 .sipRegion(InboundFqdn.SipRegionEnum.EUROPE)
                 .sipSubdomain("update-example.sip.telnyx.com")
@@ -208,8 +172,9 @@ public class FqdnConnectionsApiTest {
                 .rtcpSettings(connectionRtcpSettings)
                 .transportProtocol(FqdnConnectionTransportProtocol.TCP);
 
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(existingFqdnConnection.getId(), updateFqdnConnectionRequest).getData();
-
+                UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
+                FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
+                
         assertEquals(updateFqdnConnectionRequest.getActive(), actualFqdnConnection.getActive());
         assertEquals(updateFqdnConnectionRequest.getAnchorsiteOverride(), actualFqdnConnection.getAnchorsiteOverride());
         assertEquals(updateFqdnConnectionRequest.getConnectionName(), actualFqdnConnection.getConnectionName());
@@ -224,35 +189,6 @@ public class FqdnConnectionsApiTest {
     }
 
     /**
-     * Ensure updating Fqdn connections
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    @Ignore("Ignoring this test until we clean up the spec to remove default values on update request objects")
-    public void updateFqdnConnection_whenNullableFieldNotIncluded_doesNotUpdateNullableFieldToDefaultValue() throws ApiException {
-        CreateFqdnConnectionRequest createFqdnConnectionRequest = new CreateFqdnConnectionRequest()
-                .connectionName("test-update-fqdn-connection-" + System.currentTimeMillis())
-                .transportProtocol(FqdnConnectionTransportProtocol.TLS);
-
-        FqdnConnection existingTLSConnectionRequest = api.createFqdnConnection(createFqdnConnectionRequest).getData();
-
-        UpdateFqdnConnectionRequest connectionNameUpdateRequest = new UpdateFqdnConnectionRequest()
-                .connectionName("updated-fqdn-connection");
-
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(existingTLSConnectionRequest.getId(), connectionNameUpdateRequest).getData();
-
-        assertEquals("Transport Protocol should remain unchanged when not provided in update request", existingTLSConnectionRequest.getTransportProtocol(), actualFqdnConnection.getTransportProtocol());
-
-        //Clean-up
-        try {
-            api.deleteFqdnConnection(existingTLSConnectionRequest.getId());
-        } catch (ApiException e) {
-            // ignore
-        }
-    }
-
-    /**
      * Update an Fqdn connection, setting encrypted media to null
      *
      * @throws ApiException if the Api call fails
@@ -263,8 +199,8 @@ public class FqdnConnectionsApiTest {
         UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
                 .encryptedMedia(null);
 
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(existingFqdnConnection.getId(), updateFqdnConnectionRequest).getData();
-
+        UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
+        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
         assertNull(actualFqdnConnection.getEncryptedMedia());
     }
 
@@ -282,8 +218,8 @@ public class FqdnConnectionsApiTest {
         UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
                 .inbound(inboundFqdn);
 
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(existingFqdnConnection.getId(), updateFqdnConnectionRequest).getData();
-
+        UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
+        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
         assertNull(actualFqdnConnection.getInbound().getChannelLimit());
     }
 
@@ -300,8 +236,10 @@ public class FqdnConnectionsApiTest {
 
         UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
                 .inbound(inboundFqdn);
-
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(existingFqdnConnection.getId(), updateFqdnConnectionRequest).getData();
+        
+        
+        UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
+        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
 
         assertNull(actualFqdnConnection.getInbound().getDefaultRoutingMethod());
     }
@@ -319,8 +257,10 @@ public class FqdnConnectionsApiTest {
 
         UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
                 .inbound(inboundFqdn);
+        
+        UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
+        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
 
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(existingFqdnConnection.getId(), updateFqdnConnectionRequest).getData();
 
         assertNull(actualFqdnConnection.getInbound().getSipSubdomain());
     }

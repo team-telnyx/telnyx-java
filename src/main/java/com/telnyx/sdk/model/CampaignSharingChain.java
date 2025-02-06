@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CampaignSharingStatus;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CampaignSharingChain.JSON_PROPERTY_SHARED_BY_ME,
   CampaignSharingChain.JSON_PROPERTY_SHARED_WITH_ME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CampaignSharingChain {
   public static final String JSON_PROPERTY_SHARED_BY_ME = "sharedByMe";
   private CampaignSharingStatus sharedByMe;

@@ -26,38 +26,37 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.BulkSIMCardActionDetailed;
 import com.telnyx.sdk.model.PaginationMeta;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * ListBulkSIMCardActions200Response
+ * ListBulkSimCardActions200Response
  */
 @JsonPropertyOrder({
-  ListBulkSIMCardActions200Response.JSON_PROPERTY_DATA,
-  ListBulkSIMCardActions200Response.JSON_PROPERTY_META
+  ListBulkSimCardActions200Response.JSON_PROPERTY_DATA,
+  ListBulkSimCardActions200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ListBulkSIMCardActions200Response {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+public class ListBulkSimCardActions200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<BulkSIMCardActionDetailed> data = null;
 
   public static final String JSON_PROPERTY_META = "meta";
   private PaginationMeta meta;
 
-  public ListBulkSIMCardActions200Response() { 
+  public ListBulkSimCardActions200Response() { 
   }
 
-  public ListBulkSIMCardActions200Response data(List<BulkSIMCardActionDetailed> data) {
+  public ListBulkSimCardActions200Response data(List<BulkSIMCardActionDetailed> data) {
     this.data = data;
     return this;
   }
 
-  public ListBulkSIMCardActions200Response addDataItem(BulkSIMCardActionDetailed dataItem) {
+  public ListBulkSimCardActions200Response adddataItem(BulkSIMCardActionDetailed dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -86,7 +85,7 @@ public class ListBulkSIMCardActions200Response {
   }
 
 
-  public ListBulkSIMCardActions200Response meta(PaginationMeta meta) {
+  public ListBulkSimCardActions200Response meta(PaginationMeta meta) {
     this.meta = meta;
     return this;
   }
@@ -113,7 +112,7 @@ public class ListBulkSIMCardActions200Response {
 
 
   /**
-   * Return true if this ListBulkSIMCardActions_200_response object is equal to o.
+   * Return true if this ListBulkSimCardActions_200_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -123,9 +122,9 @@ public class ListBulkSIMCardActions200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ListBulkSIMCardActions200Response listBulkSIMCardActions200Response = (ListBulkSIMCardActions200Response) o;
-    return Objects.equals(this.data, listBulkSIMCardActions200Response.data) &&
-        Objects.equals(this.meta, listBulkSIMCardActions200Response.meta);
+    ListBulkSimCardActions200Response listBulkSimCardActions200Response = (ListBulkSimCardActions200Response) o;
+    return Objects.equals(this.data, listBulkSimCardActions200Response.data) &&
+        Objects.equals(this.meta, listBulkSimCardActions200Response.meta);
   }
 
   @Override
@@ -136,7 +135,7 @@ public class ListBulkSIMCardActions200Response {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ListBulkSIMCardActions200Response {\n");
+    sb.append("class ListBulkSimCardActions200Response {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");

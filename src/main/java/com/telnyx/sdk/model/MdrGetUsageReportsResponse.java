@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.PaginationMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   MdrGetUsageReportsResponse.JSON_PROPERTY_DATA,
   MdrGetUsageReportsResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MdrGetUsageReportsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<MdrUsageReportResponse> data = null;
@@ -58,7 +56,7 @@ public class MdrGetUsageReportsResponse {
     return this;
   }
 
-  public MdrGetUsageReportsResponse addDataItem(MdrUsageReportResponse dataItem) {
+  public MdrGetUsageReportsResponse adddataItem(MdrUsageReportResponse dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

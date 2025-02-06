@@ -18,8 +18,8 @@
 |**voiceMethod** | [**VoiceMethodEnum**](#VoiceMethodEnum) | HTTP request method Telnyx will use to interact with your XML Translator webhooks. Either &#39;get&#39; or &#39;post&#39;. |  [optional] |
 |**statusCallback** | **String** | URL for Telnyx to send requests to containing information about call progress events. |  [optional] |
 |**statusCallbackMethod** | [**StatusCallbackMethodEnum**](#StatusCallbackMethodEnum) | HTTP request method Telnyx should use when requesting the status_callback URL. |  [optional] |
-|**inbound** | [**CreateTexmlApplicationRequestInbound**](CreateTexmlApplicationRequestInbound.md) |  |  [optional] |
-|**outbound** | [**CreateTexmlApplicationRequestOutbound**](CreateTexmlApplicationRequestOutbound.md) |  |  [optional] |
+|**inbound** | [**TexmlApplicationInbound**](TexmlApplicationInbound.md) |  |  [optional] |
+|**outbound** | [**TexmlApplicationOutbound**](TexmlApplicationOutbound.md) |  |  [optional] |
 
 
 

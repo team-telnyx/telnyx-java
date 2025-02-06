@@ -33,7 +33,7 @@ Create conference
 
 Create a conference from an existing call leg using a `call_control_id` and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.
 
-**Expected Webhooks:**
+**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/create-conference#callbacks) below):**
 
 - `conference.created`
 - `conference.participant.joined`
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a conference. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -177,8 +177,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -190,7 +190,7 @@ Join a conference
 
 Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the `call_control_id` of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the `max_participants` parameter in conference creation request. 
 
-**Expected Webhooks:**
+**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/join-conference#callbacks) below):**
 
 - `conference.participant.joined`
 - `conference.participant.left`
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -268,7 +268,9 @@ Name | Type | Description  | Notes
 
 Leave a conference
 
-Removes a call leg from a conference and moves it back to parked state. **Expected Webhooks:**
+Removes a call leg from a conference and moves it back to parked state. 
+
+**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/leave-conference#callbacks) below):**
 
 - `conference.participant.left`
 
@@ -335,7 +337,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -417,8 +419,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of conference participants. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -501,7 +503,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of conferences. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -575,8 +577,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -650,8 +652,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -725,8 +727,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -800,8 +802,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -873,7 +875,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a conference. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## speakTextToConference
@@ -946,8 +948,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -959,7 +961,7 @@ Conference recording start
 
 Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.
 
-**Expected Webhooks:**
+**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-conference-recording#callbacks) below):**
 
 - `conference.recording.saved`
 
@@ -1025,8 +1027,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1100,8 +1102,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1113,7 +1115,7 @@ Conference recording stop
 
 Stop recording the conference.
 
-**Expected Webhooks:**
+**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-conference-recording#callbacks) below):**
 
 - `conference.recording.saved`
 
@@ -1180,8 +1182,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1255,8 +1257,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1330,8 +1332,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -1405,6 +1407,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response upon making a conference command. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **422** | Unprocessable entity |  -  |
 

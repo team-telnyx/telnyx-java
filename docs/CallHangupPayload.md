@@ -12,10 +12,13 @@
 |**callLegId** | **String** | ID that is unique to the call and can be used to correlate webhook events. |  [optional] |
 |**callSessionId** | **String** | ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call. |  [optional] |
 |**clientState** | **String** | State received from a command. |  [optional] |
+|**customHeaders** | [**List&lt;CustomSipHeader&gt;**](CustomSipHeader.md) | Custom headers set on answer command |  [optional] |
+|**sipHeaders** | [**List&lt;SipHeader&gt;**](SipHeader.md) | User-to-User and Diversion headers from sip invite. |  [optional] |
 |**from** | **String** | Number or SIP URI placing the call. |  [optional] |
 |**to** | **String** | Destination number or SIP URI of the call. |  [optional] |
 |**startTime** | **OffsetDateTime** | ISO 8601 datetime of when the call started. |  [optional] |
 |**state** | [**StateEnum**](#StateEnum) | State received from a command. |  [optional] |
+|**tags** | **List&lt;String&gt;** | Array of tags associated to number. |  [optional] |
 |**hangupCause** | [**HangupCauseEnum**](#HangupCauseEnum) | The reason the call was ended (&#x60;call_rejected&#x60;, &#x60;normal_clearing&#x60;, &#x60;originator_cancel&#x60;, &#x60;timeout&#x60;, &#x60;time_limit&#x60;, &#x60;user_busy&#x60;, &#x60;not_found&#x60; or &#x60;unspecified&#x60;). |  [optional] |
 |**hangupSource** | [**HangupSourceEnum**](#HangupSourceEnum) | The party who ended the call (&#x60;callee&#x60;, &#x60;caller&#x60;, &#x60;unknown&#x60;). |  [optional] |
 |**sipHangupCause** | **String** | The reason the call was ended (SIP response code). If the SIP response is unavailable (in inbound calls for example) this is set to &#x60;unspecified&#x60;. |  [optional] |

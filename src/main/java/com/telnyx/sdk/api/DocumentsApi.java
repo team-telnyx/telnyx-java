@@ -8,11 +8,10 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreateDocServiceDocumentRequest;
 import com.telnyx.sdk.model.CreateDocument200Response;
+import com.telnyx.sdk.model.CreateDocumentRequest;
 import com.telnyx.sdk.model.DocServiceDocument;
 import com.telnyx.sdk.model.Errors;
-import java.io.File;
 import com.telnyx.sdk.model.ListDocumentLinks200Response;
 import com.telnyx.sdk.model.ListDocuments200Response;
 import java.util.UUID;
@@ -22,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DocumentsApi {
   private ApiClient apiClient;
 
@@ -55,7 +54,7 @@ public class DocumentsApi {
   /**
    * Upload a document
    * Upload a document.&lt;br /&gt;&lt;br /&gt;Uploaded files must be linked to a service within 30 minutes or they will be automatically deleted.
-   * @param createDocServiceDocumentRequest  (required)
+   * @param createDocumentRequest  (required)
    * @return CreateDocument200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -63,17 +62,17 @@ public class DocumentsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateDocument200Response createDocument(CreateDocServiceDocumentRequest createDocServiceDocumentRequest) throws ApiException {
-    return createDocumentWithHttpInfo(createDocServiceDocumentRequest).getData();
+  public CreateDocument200Response createDocument(CreateDocumentRequest createDocumentRequest) throws ApiException {
+    return createDocumentWithHttpInfo(createDocumentRequest).getData();
   }
 
   /**
    * Upload a document
    * Upload a document.&lt;br /&gt;&lt;br /&gt;Uploaded files must be linked to a service within 30 minutes or they will be automatically deleted.
-   * @param createDocServiceDocumentRequest  (required)
+   * @param createDocumentRequest  (required)
    * @return ApiResponse&lt;CreateDocument200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -81,15 +80,15 @@ public class DocumentsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateDocument200Response> createDocumentWithHttpInfo(CreateDocServiceDocumentRequest createDocServiceDocumentRequest) throws ApiException {
-    Object localVarPostBody = createDocServiceDocumentRequest;
+  public ApiResponse<CreateDocument200Response> createDocumentWithHttpInfo(CreateDocumentRequest createDocumentRequest) throws ApiException {
+    Object localVarPostBody = createDocumentRequest;
     
-    // verify the required parameter 'createDocServiceDocumentRequest' is set
-    if (createDocServiceDocumentRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createDocServiceDocumentRequest' when calling createDocument");
+    // verify the required parameter 'createDocumentRequest' is set
+    if (createDocumentRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'createDocumentRequest' when calling createDocument");
     }
     
     // create path and map variables
@@ -133,7 +132,7 @@ public class DocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateDocument200Response deleteDocument(UUID id) throws ApiException {
@@ -150,7 +149,7 @@ public class DocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateDocument200Response> deleteDocumentWithHttpInfo(UUID id) throws ApiException {
@@ -197,16 +196,16 @@ public class DocumentsApi {
    * Download a document
    * Download a document.
    * @param id Identifies the resource. (required)
-   * @return File
+   * @return Object
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public File downloadDocument(UUID id) throws ApiException {
+  public Object downloadDocument(UUID id) throws ApiException {
     return downloadDocumentWithHttpInfo(id).getData();
   }
 
@@ -214,16 +213,16 @@ public class DocumentsApi {
    * Download a document
    * Download a document.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;File&gt;
+   * @return ApiResponse&lt;Object&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<File> downloadDocumentWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<Object> downloadDocumentWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -246,7 +245,7 @@ public class DocumentsApi {
     
     
     final String[] localVarAccepts = {
-      "*", "application/json"
+      "*/*", "application/json"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -257,7 +256,7 @@ public class DocumentsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<File> localVarReturnType = new GenericType<File>() {};
+    GenericType<Object> localVarReturnType = new GenericType<Object>() {};
 
     return apiClient.invokeAPI("DocumentsApi.downloadDocument", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -277,7 +276,7 @@ public class DocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ListDocumentLinks200Response listDocumentLinks(Integer pageNumber, Integer pageSize, UUID filterDocumentId, String filterLinkedRecordType, UUID filterLinkedResourceId) throws ApiException {
@@ -298,7 +297,7 @@ public class DocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListDocumentLinks200Response> listDocumentLinksWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterDocumentId, String filterLinkedRecordType, UUID filterLinkedResourceId) throws ApiException {
@@ -357,7 +356,7 @@ public class DocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ListDocuments200Response listDocuments(String filterFilenameContains, String filterCustomerReferenceEq, String filterCustomerReferenceIn, String filterCreatedAtGt, String filterCreatedAtLt, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -381,7 +380,7 @@ public class DocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListDocuments200Response> listDocumentsWithHttpInfo(String filterFilenameContains, String filterCustomerReferenceEq, String filterCustomerReferenceIn, String filterCreatedAtGt, String filterCreatedAtLt, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -436,7 +435,7 @@ public class DocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateDocument200Response retrieveDocument(UUID id) throws ApiException {
@@ -453,7 +452,7 @@ public class DocumentsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateDocument200Response> retrieveDocumentWithHttpInfo(UUID id) throws ApiException {
@@ -500,14 +499,14 @@ public class DocumentsApi {
    * Update a document
    * Update a document.
    * @param id Identifies the resource. (required)
-   * @param docServiceDocument  (required)
+   * @param docServiceDocument  (optional)
    * @return CreateDocument200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateDocument200Response updateDocument(UUID id, DocServiceDocument docServiceDocument) throws ApiException {
@@ -518,14 +517,14 @@ public class DocumentsApi {
    * Update a document
    * Update a document.
    * @param id Identifies the resource. (required)
-   * @param docServiceDocument  (required)
+   * @param docServiceDocument  (optional)
    * @return ApiResponse&lt;CreateDocument200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateDocument200Response> updateDocumentWithHttpInfo(UUID id, DocServiceDocument docServiceDocument) throws ApiException {
@@ -534,11 +533,6 @@ public class DocumentsApi {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling updateDocument");
-    }
-    
-    // verify the required parameter 'docServiceDocument' is set
-    if (docServiceDocument == null) {
-      throw new ApiException(400, "Missing the required parameter 'docServiceDocument' when calling updateDocument");
     }
     
     // create path and map variables

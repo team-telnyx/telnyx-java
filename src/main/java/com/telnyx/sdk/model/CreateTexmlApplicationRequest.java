@@ -25,13 +25,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AnchorsiteOverride;
-import com.telnyx.sdk.model.CreateTexmlApplicationRequestInbound;
-import com.telnyx.sdk.model.CreateTexmlApplicationRequestOutbound;
 import com.telnyx.sdk.model.DtmfType;
+import com.telnyx.sdk.model.TexmlApplicationInbound;
+import com.telnyx.sdk.model.TexmlApplicationOutbound;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -53,7 +51,7 @@ import com.telnyx.sdk.JSON;
   CreateTexmlApplicationRequest.JSON_PROPERTY_INBOUND,
   CreateTexmlApplicationRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateTexmlApplicationRequest {
   public static final String JSON_PROPERTY_FRIENDLY_NAME = "friendly_name";
   private String friendlyName;
@@ -83,9 +81,9 @@ public class CreateTexmlApplicationRequest {
    * HTTP request method Telnyx will use to interact with your XML Translator webhooks. Either &#39;get&#39; or &#39;post&#39;.
    */
   public enum VoiceMethodEnum {
-    GET("get"),
+    GET(String.valueOf("get")),
     
-    POST("post");
+    POST(String.valueOf("post"));
 
     private String value;
 
@@ -124,9 +122,9 @@ public class CreateTexmlApplicationRequest {
    * HTTP request method Telnyx should use when requesting the status_callback URL.
    */
   public enum StatusCallbackMethodEnum {
-    GET("get"),
+    GET(String.valueOf("get")),
     
-    POST("post");
+    POST(String.valueOf("post"));
 
     private String value;
 
@@ -159,10 +157,10 @@ public class CreateTexmlApplicationRequest {
   private StatusCallbackMethodEnum statusCallbackMethod = StatusCallbackMethodEnum.POST;
 
   public static final String JSON_PROPERTY_INBOUND = "inbound";
-  private CreateTexmlApplicationRequestInbound inbound;
+  private TexmlApplicationInbound inbound;
 
   public static final String JSON_PROPERTY_OUTBOUND = "outbound";
-  private CreateTexmlApplicationRequestOutbound outbound;
+  private TexmlApplicationOutbound outbound;
 
   public CreateTexmlApplicationRequest() { 
   }
@@ -453,7 +451,7 @@ public class CreateTexmlApplicationRequest {
   }
 
 
-  public CreateTexmlApplicationRequest inbound(CreateTexmlApplicationRequestInbound inbound) {
+  public CreateTexmlApplicationRequest inbound(TexmlApplicationInbound inbound) {
     this.inbound = inbound;
     return this;
   }
@@ -467,19 +465,19 @@ public class CreateTexmlApplicationRequest {
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CreateTexmlApplicationRequestInbound getInbound() {
+  public TexmlApplicationInbound getInbound() {
     return inbound;
   }
 
 
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInbound(CreateTexmlApplicationRequestInbound inbound) {
+  public void setInbound(TexmlApplicationInbound inbound) {
     this.inbound = inbound;
   }
 
 
-  public CreateTexmlApplicationRequest outbound(CreateTexmlApplicationRequestOutbound outbound) {
+  public CreateTexmlApplicationRequest outbound(TexmlApplicationOutbound outbound) {
     this.outbound = outbound;
     return this;
   }
@@ -493,14 +491,14 @@ public class CreateTexmlApplicationRequest {
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CreateTexmlApplicationRequestOutbound getOutbound() {
+  public TexmlApplicationOutbound getOutbound() {
     return outbound;
   }
 
 
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutbound(CreateTexmlApplicationRequestOutbound outbound) {
+  public void setOutbound(TexmlApplicationOutbound outbound) {
     this.outbound = outbound;
   }
 

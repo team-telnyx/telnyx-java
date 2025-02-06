@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.Direction;
 import com.telnyx.sdk.model.Quality;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -53,16 +51,18 @@ import com.telnyx.sdk.JSON;
   Fax.JSON_PROPERTY_WEBHOOK_FAILOVER_URL,
   Fax.JSON_PROPERTY_STORE_MEDIA,
   Fax.JSON_PROPERTY_STORED_MEDIA_URL,
+  Fax.JSON_PROPERTY_PREVIEW_URL,
+  Fax.JSON_PROPERTY_CLIENT_STATE,
   Fax.JSON_PROPERTY_CREATED_AT,
   Fax.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Fax {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    FAX("fax");
+    FAX(String.valueOf("fax"));
 
     private String value;
 
@@ -125,25 +125,25 @@ public class Fax {
    * Status of the fax
    */
   public enum StatusEnum {
-    QUEUED("queued"),
+    QUEUED(String.valueOf("queued")),
     
-    MEDIA_PROCESSED("media.processed"),
+    MEDIA_PROCESSED(String.valueOf("media.processed")),
     
-    ORIGINATED("originated"),
+    ORIGINATED(String.valueOf("originated")),
     
-    SENDING("sending"),
+    SENDING(String.valueOf("sending")),
     
-    DELIVERED("delivered"),
+    DELIVERED(String.valueOf("delivered")),
     
-    FAILED("failed"),
+    FAILED(String.valueOf("failed")),
     
-    INITIATED("initiated"),
+    INITIATED(String.valueOf("initiated")),
     
-    RECEIVING("receiving"),
+    RECEIVING(String.valueOf("receiving")),
     
-    MEDIA_PROCESSING("media.processing"),
+    MEDIA_PROCESSING(String.valueOf("media.processing")),
     
-    RECEIVED("received");
+    RECEIVED(String.valueOf("received"));
 
     private String value;
 
@@ -186,6 +186,12 @@ public class Fax {
 
   public static final String JSON_PROPERTY_STORED_MEDIA_URL = "stored_media_url";
   private String storedMediaUrl;
+
+  public static final String JSON_PROPERTY_PREVIEW_URL = "preview_url";
+  private String previewUrl;
+
+  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+  private String clientState;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -306,11 +312,11 @@ public class Fax {
   }
 
    /**
-   * The URL to the PDF used for the fax&#39;s media. media_url and media_name/contents can&#39;t be submitted together.
+   * The URL (or list of URLs) to the PDF used for the fax&#39;s media. media_url and media_name/contents can&#39;t be submitted together.
    * @return mediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together.")
+  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL (or list of URLs) to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -586,6 +592,58 @@ public class Fax {
   }
 
 
+  public Fax previewUrl(String previewUrl) {
+    this.previewUrl = previewUrl;
+    return this;
+  }
+
+   /**
+   * If &#x60;store_preview&#x60; was set to &#x60;true&#x60;, this is a link to temporary location. Link expires after 10 minutes.
+   * @return previewUrl
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "If `store_preview` was set to `true`, this is a link to temporary location. Link expires after 10 minutes.")
+  @JsonProperty(JSON_PROPERTY_PREVIEW_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getPreviewUrl() {
+    return previewUrl;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PREVIEW_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPreviewUrl(String previewUrl) {
+    this.previewUrl = previewUrl;
+  }
+
+
+  public Fax clientState(String clientState) {
+    this.clientState = clientState;
+    return this;
+  }
+
+   /**
+   * State received from a command.
+   * @return clientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClientState() {
+    return clientState;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClientState(String clientState) {
+    this.clientState = clientState;
+  }
+
+
   public Fax createdAt(String createdAt) {
     this.createdAt = createdAt;
     return this;
@@ -665,13 +723,15 @@ public class Fax {
         Objects.equals(this.webhookFailoverUrl, fax.webhookFailoverUrl) &&
         Objects.equals(this.storeMedia, fax.storeMedia) &&
         Objects.equals(this.storedMediaUrl, fax.storedMediaUrl) &&
+        Objects.equals(this.previewUrl, fax.previewUrl) &&
+        Objects.equals(this.clientState, fax.clientState) &&
         Objects.equals(this.createdAt, fax.createdAt) &&
         Objects.equals(this.updatedAt, fax.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, connectionId, direction, mediaUrl, mediaName, to, from, fromDisplayName, quality, status, webhookUrl, webhookFailoverUrl, storeMedia, storedMediaUrl, createdAt, updatedAt);
+    return Objects.hash(recordType, id, connectionId, direction, mediaUrl, mediaName, to, from, fromDisplayName, quality, status, webhookUrl, webhookFailoverUrl, storeMedia, storedMediaUrl, previewUrl, clientState, createdAt, updatedAt);
   }
 
   @Override
@@ -693,6 +753,8 @@ public class Fax {
     sb.append("    webhookFailoverUrl: ").append(toIndentedString(webhookFailoverUrl)).append("\n");
     sb.append("    storeMedia: ").append(toIndentedString(storeMedia)).append("\n");
     sb.append("    storedMediaUrl: ").append(toIndentedString(storedMediaUrl)).append("\n");
+    sb.append("    previewUrl: ").append(toIndentedString(previewUrl)).append("\n");
+    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");

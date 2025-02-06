@@ -32,8 +32,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -61,7 +59,7 @@ import com.telnyx.sdk.JSON;
   UpdateOutboundVoiceProfileRequest.JSON_PROPERTY_CALL_RECORDING,
   UpdateOutboundVoiceProfileRequest.JSON_PROPERTY_BILLING_GROUP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateOutboundVoiceProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -248,7 +246,7 @@ public class UpdateOutboundVoiceProfileRequest {
     return this;
   }
 
-  public UpdateOutboundVoiceProfileRequest addTagsItem(String tagsItem) {
+  public UpdateOutboundVoiceProfileRequest addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -308,7 +306,7 @@ public class UpdateOutboundVoiceProfileRequest {
     return this;
   }
 
-  public UpdateOutboundVoiceProfileRequest addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+  public UpdateOutboundVoiceProfileRequest addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
     if (this.whitelistedDestinations == null) {
       this.whitelistedDestinations = new ArrayList<>(Arrays.asList("US", "CA"));
     }

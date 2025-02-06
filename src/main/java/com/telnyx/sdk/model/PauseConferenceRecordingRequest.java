@@ -25,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,13 +37,13 @@ import com.telnyx.sdk.JSON;
   PauseConferenceRecordingRequest.JSON_PROPERTY_COMMAND_ID,
   PauseConferenceRecordingRequest.JSON_PROPERTY_RECORDING_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PauseConferenceRecordingRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
 
   public static final String JSON_PROPERTY_RECORDING_ID = "recording_id";
-  private String recordingId;
+  private UUID recordingId;
 
   public PauseConferenceRecordingRequest() { 
   }
@@ -75,7 +74,7 @@ public class PauseConferenceRecordingRequest {
   }
 
 
-  public PauseConferenceRecordingRequest recordingId(String recordingId) {
+  public PauseConferenceRecordingRequest recordingId(UUID recordingId) {
     this.recordingId = recordingId;
     return this;
   }
@@ -85,18 +84,18 @@ public class PauseConferenceRecordingRequest {
    * @return recordingId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to pause specific recording.")
+  @ApiModelProperty(value = "Use this field to pause specific recording.")
   @JsonProperty(JSON_PROPERTY_RECORDING_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getRecordingId() {
+  public UUID getRecordingId() {
     return recordingId;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RECORDING_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordingId(String recordingId) {
+  public void setRecordingId(UUID recordingId) {
     this.recordingId = recordingId;
   }
 

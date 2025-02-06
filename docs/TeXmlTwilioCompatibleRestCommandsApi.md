@@ -75,13 +75,13 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | The resource was deleted successfully. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTeXMLRecordingTranscription
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful get Recording Transcription Response |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTeXMLRecordingTranscriptions
@@ -165,7 +165,7 @@ Name | Type | Description  | Notes
 
 List recording transcriptions
 
-Returns multiple recording transcriptions resources for an account.
+Returns multiple recording transcription resources for an account.
 
 ### Example
 
@@ -234,5 +234,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful list Recording Transcriptions Response |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 

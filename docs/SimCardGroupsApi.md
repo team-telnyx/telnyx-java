@@ -82,6 +82,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -115,7 +116,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM group.
         try {
             CreateSimCardGroup200Response result = apiInstance.deleteSimCardGroup(id);
             System.out.println(result);
@@ -135,7 +136,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM group. |
 
 ### Return type
 
@@ -154,6 +155,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -231,13 +233,14 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
 ## getSimCardGroup
 
-> CreateSimCardGroup200Response getSimCardGroup(id)
+> CreateSimCardGroup200Response getSimCardGroup(id, includeIccids)
 
 Get SIM card group
 
@@ -265,9 +268,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM group.
+        Boolean includeIccids = false; // Boolean | It includes a list of associated ICCIDs.
         try {
-            CreateSimCardGroup200Response result = apiInstance.getSimCardGroup(id);
+            CreateSimCardGroup200Response result = apiInstance.getSimCardGroup(id, includeIccids);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardGroupsApi#getSimCardGroup");
@@ -285,7 +289,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM group. |
+ **includeIccids** | **Boolean**| It includes a list of associated ICCIDs. | [optional] [default to false]
 
 ### Return type
 
@@ -304,6 +309,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -337,7 +343,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM group.
         try {
             GetSimCardGroupAction200Response result = apiInstance.removeSimCardGroupPrivateWirelessGateway(id);
             System.out.println(result);
@@ -357,7 +363,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM group. |
 
 ### Return type
 
@@ -376,6 +382,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -409,7 +416,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM group.
         SetPrivateWirelessGatewayForSimCardGroupRequest setPrivateWirelessGatewayForSimCardGroupRequest = new SetPrivateWirelessGatewayForSimCardGroupRequest(); // SetPrivateWirelessGatewayForSimCardGroupRequest | 
         try {
             GetSimCardGroupAction200Response result = apiInstance.setPrivateWirelessGatewayForSimCardGroup(id, setPrivateWirelessGatewayForSimCardGroupRequest);
@@ -430,7 +437,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM group. |
  **setPrivateWirelessGatewayForSimCardGroupRequest** | [**SetPrivateWirelessGatewayForSimCardGroupRequest**](SetPrivateWirelessGatewayForSimCardGroupRequest.md)|  |
 
 ### Return type
@@ -450,6 +457,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -483,7 +491,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         SimCardGroupsApi apiInstance = new SimCardGroupsApi(defaultClient);
-        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
+        UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the SIM group.
         SIMCardGroupPatch siMCardGroupPatch = new SIMCardGroupPatch(); // SIMCardGroupPatch | 
         try {
             CreateSimCardGroup200Response result = apiInstance.updateSimCardGroup(id, siMCardGroupPatch);
@@ -504,7 +512,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **UUID**| Identifies the resource. |
+ **id** | **UUID**| Identifies the SIM group. |
  **siMCardGroupPatch** | [**SIMCardGroupPatch**](SIMCardGroupPatch.md)|  |
 
 ### Return type
@@ -524,5 +532,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 

@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RequirementTypesApi {
   private ApiClient apiClient;
 
@@ -59,7 +59,7 @@ public class RequirementTypesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ListRequirementTypes200Response listRequirementTypes(String filterNameContains, String sort) throws ApiException {
@@ -77,7 +77,7 @@ public class RequirementTypesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListRequirementTypes200Response> listRequirementTypesWithHttpInfo(String filterNameContains, String sort) throws ApiException {
@@ -117,7 +117,7 @@ public class RequirementTypesApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Retrieve a requirement types
+   * Retrieve a requirement type
    * Retrieve a requirement type by id
    * @param id Uniquely identifies the requirement_type record (required)
    * @return RetrieveRequirementType200Response
@@ -126,7 +126,7 @@ public class RequirementTypesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public RetrieveRequirementType200Response retrieveRequirementType(UUID id) throws ApiException {
@@ -134,7 +134,7 @@ public class RequirementTypesApi {
   }
 
   /**
-   * Retrieve a requirement types
+   * Retrieve a requirement type
    * Retrieve a requirement type by id
    * @param id Uniquely identifies the requirement_type record (required)
    * @return ApiResponse&lt;RetrieveRequirementType200Response&gt;
@@ -143,7 +143,7 @@ public class RequirementTypesApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<RetrieveRequirementType200Response> retrieveRequirementTypeWithHttpInfo(UUID id) throws ApiException {

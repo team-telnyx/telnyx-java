@@ -9,6 +9,9 @@
 |------------ | ------------- | ------------- | -------------|
 |**streamUrl** | **String** | The destination WebSocket address where the stream is going to be delivered. |  [optional] |
 |**streamTrack** | [**StreamTrackEnum**](#StreamTrackEnum) | Specifies which track should be streamed. |  [optional] |
+|**streamBidirectionalMode** | **StreamBidirectionalMode** |  |  [optional] |
+|**streamBidirectionalCodec** | **StreamBidirectionalCodec** |  |  [optional] |
+|**streamBidirectionalTargetLegs** | **StreamBidirectionalTargetLegs** |  |  [optional] |
 |**enableDialogflow** | **Boolean** | Enables Dialogflow for the current call. The default value is false. |  [optional] |
 |**dialogflowConfig** | [**DialogflowConfig**](DialogflowConfig.md) |  |  [optional] |
 |**clientState** | **String** | Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string. |  [optional] |

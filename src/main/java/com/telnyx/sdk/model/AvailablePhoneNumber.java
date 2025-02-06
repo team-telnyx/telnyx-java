@@ -30,8 +30,6 @@ import com.telnyx.sdk.model.RegionInformation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -50,13 +48,13 @@ import com.telnyx.sdk.JSON;
   AvailablePhoneNumber.JSON_PROPERTY_COST_INFORMATION,
   AvailablePhoneNumber.JSON_PROPERTY_FEATURES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AvailablePhoneNumber {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    AVAILABLE_PHONE_NUMBER("available_phone_number");
+    AVAILABLE_PHONE_NUMBER(String.valueOf("available_phone_number"));
 
     private String value;
 
@@ -276,7 +274,7 @@ public class AvailablePhoneNumber {
     return this;
   }
 
-  public AvailablePhoneNumber addRegionInformationItem(RegionInformation regionInformationItem) {
+  public AvailablePhoneNumber addregionInformationItem(RegionInformation regionInformationItem) {
     if (this.regionInformation == null) {
       this.regionInformation = new ArrayList<>();
     }
@@ -336,7 +334,7 @@ public class AvailablePhoneNumber {
     return this;
   }
 
-  public AvailablePhoneNumber addFeaturesItem(Feature featuresItem) {
+  public AvailablePhoneNumber addfeaturesItem(Feature featuresItem) {
     if (this.features == null) {
       this.features = new ArrayList<>();
     }

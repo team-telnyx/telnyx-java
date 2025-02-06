@@ -14,7 +14,9 @@
 |**phoneNumberType** | [**PhoneNumberTypeEnum**](#PhoneNumberTypeEnum) |  |  [optional] |
 |**coverageType** | [**CoverageTypeEnum**](#CoverageTypeEnum) |  |  [optional] |
 |**recordType** | **String** |  |  [optional] |
+|**administrativeArea** | **String** |  |  [optional] |
 |**count** | **Integer** |  |  [optional] |
+|**advanceRequirements** | **Boolean** | Indicates if the phone number requires advance requirements. |  [optional] |
 
 
 

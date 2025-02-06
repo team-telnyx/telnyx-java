@@ -10,7 +10,7 @@ import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.AssignProfileToCampaignRequest;
 import com.telnyx.sdk.model.AssignmentTaskStatusResponse;
-import com.telnyx.sdk.model.HTTPValidationError;
+import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.PhoneNumberStatusResponsePaginated;
 import com.telnyx.sdk.model.ResponseAssignMessagingProfileToCampaignPublicPhonenumberassignmentbyprofilePost;
 
@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BulkPhoneNumberCampaignsApi {
   private ApiClient apiClient;
 
@@ -59,7 +59,7 @@ public class BulkPhoneNumberCampaignsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public AssignmentTaskStatusResponse getAssignmentTaskStatus(String taskId) throws ApiException {
@@ -76,7 +76,7 @@ public class BulkPhoneNumberCampaignsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<AssignmentTaskStatusResponse> getAssignmentTaskStatusWithHttpInfo(String taskId) throws ApiException {
@@ -131,7 +131,7 @@ public class BulkPhoneNumberCampaignsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public PhoneNumberStatusResponsePaginated getPhoneNumberStatus(String taskId, Object recordsPerPage, Object page) throws ApiException {
@@ -150,7 +150,7 @@ public class BulkPhoneNumberCampaignsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<PhoneNumberStatusResponsePaginated> getPhoneNumberStatusWithHttpInfo(String taskId, Object recordsPerPage, Object page) throws ApiException {
@@ -205,7 +205,7 @@ public class BulkPhoneNumberCampaignsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ResponseAssignMessagingProfileToCampaignPublicPhonenumberassignmentbyprofilePost postAssignMessagingProfileToCampaign(AssignProfileToCampaignRequest assignProfileToCampaignRequest) throws ApiException {
@@ -222,7 +222,7 @@ public class BulkPhoneNumberCampaignsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ResponseAssignMessagingProfileToCampaignPublicPhonenumberassignmentbyprofilePost> postAssignMessagingProfileToCampaignWithHttpInfo(AssignProfileToCampaignRequest assignProfileToCampaignRequest) throws ApiException {

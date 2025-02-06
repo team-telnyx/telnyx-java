@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -36,19 +34,23 @@ import com.telnyx.sdk.JSON;
  * UserBalance
  */
 @JsonPropertyOrder({
+  UserBalance.JSON_PROPERTY_PENDING,
   UserBalance.JSON_PROPERTY_RECORD_TYPE,
   UserBalance.JSON_PROPERTY_BALANCE,
   UserBalance.JSON_PROPERTY_CREDIT_LIMIT,
   UserBalance.JSON_PROPERTY_AVAILABLE_CREDIT,
   UserBalance.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UserBalance {
+  public static final String JSON_PROPERTY_PENDING = "pending";
+  private BigDecimal pending;
+
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    BALANCE("balance");
+    BALANCE(String.valueOf("balance"));
 
     private String value;
 
@@ -94,6 +96,32 @@ public class UserBalance {
 
   public UserBalance() { 
   }
+
+  public UserBalance pending(BigDecimal pending) {
+    this.pending = pending;
+    return this;
+  }
+
+   /**
+   * The account’s pending amount.
+   * @return pending
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "10.00", value = "The account’s pending amount.")
+  @JsonProperty(JSON_PROPERTY_PENDING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getPending() {
+    return pending;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PENDING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPending(BigDecimal pending) {
+    this.pending = pending;
+  }
+
 
   public UserBalance recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -237,7 +265,8 @@ public class UserBalance {
       return false;
     }
     UserBalance userBalance = (UserBalance) o;
-    return Objects.equals(this.recordType, userBalance.recordType) &&
+    return Objects.equals(this.pending, userBalance.pending) &&
+        Objects.equals(this.recordType, userBalance.recordType) &&
         Objects.equals(this.balance, userBalance.balance) &&
         Objects.equals(this.creditLimit, userBalance.creditLimit) &&
         Objects.equals(this.availableCredit, userBalance.availableCredit) &&
@@ -246,13 +275,14 @@ public class UserBalance {
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, balance, creditLimit, availableCredit, currency);
+    return Objects.hash(pending, recordType, balance, creditLimit, availableCredit, currency);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserBalance {\n");
+    sb.append("    pending: ").append(toIndentedString(pending)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
     sb.append("    creditLimit: ").append(toIndentedString(creditLimit)).append("\n");

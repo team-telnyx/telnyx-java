@@ -25,10 +25,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CustomStorageConfiguration;
+import com.telnyx.sdk.model.RecordType;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,16 +41,16 @@ import com.telnyx.sdk.JSON;
   CredentialsResponse.JSON_PROPERTY_CONNECTION_ID,
   CredentialsResponse.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CredentialsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private CustomStorageConfiguration data;
 
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
-  private String connectionId;
+  private List<Object> connectionId = new ArrayList<>();
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+  private RecordType recordType;
 
   public CredentialsResponse() { 
   }
@@ -80,54 +81,59 @@ public class CredentialsResponse {
   }
 
 
-  public CredentialsResponse connectionId(String connectionId) {
+  public CredentialsResponse connectionId(List<Object> connectionId) {
     this.connectionId = connectionId;
     return this;
   }
 
+  public CredentialsResponse addconnectionIdItem(Object connectionIdItem) {
+    this.connectionId.add(connectionIdItem);
+    return this;
+  }
+
    /**
-   * The ID of the connection used to send the fax.
+   * An array of wireless connection objects.
    * @return connectionId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "234423", required = true, value = "The ID of the connection used to send the fax.")
+  @ApiModelProperty(required = true, value = "An array of wireless connection objects.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getConnectionId() {
+  public List<Object> getConnectionId() {
     return connectionId;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setConnectionId(String connectionId) {
+  public void setConnectionId(List<Object> connectionId) {
     this.connectionId = connectionId;
   }
 
 
-  public CredentialsResponse recordType(String recordType) {
+  public CredentialsResponse recordType(RecordType recordType) {
     this.recordType = recordType;
     return this;
   }
 
    /**
-   * Identifies record type.
+   * Get recordType
    * @return recordType
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Identifies record type.")
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getRecordType() {
+  public RecordType getRecordType() {
     return recordType;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRecordType(String recordType) {
+  public void setRecordType(RecordType recordType) {
     this.recordType = recordType;
   }
 

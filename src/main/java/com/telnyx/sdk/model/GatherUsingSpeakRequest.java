@@ -24,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.GatherUsingSpeakRequestVoiceSettings;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,6 +39,7 @@ import com.telnyx.sdk.JSON;
   GatherUsingSpeakRequest.JSON_PROPERTY_PAYLOAD_TYPE,
   GatherUsingSpeakRequest.JSON_PROPERTY_SERVICE_LEVEL,
   GatherUsingSpeakRequest.JSON_PROPERTY_VOICE,
+  GatherUsingSpeakRequest.JSON_PROPERTY_VOICE_SETTINGS,
   GatherUsingSpeakRequest.JSON_PROPERTY_LANGUAGE,
   GatherUsingSpeakRequest.JSON_PROPERTY_MINIMUM_DIGITS,
   GatherUsingSpeakRequest.JSON_PROPERTY_MAXIMUM_DIGITS,
@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   GatherUsingSpeakRequest.JSON_PROPERTY_CLIENT_STATE,
   GatherUsingSpeakRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GatherUsingSpeakRequest {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private String payload;
@@ -63,9 +63,9 @@ public class GatherUsingSpeakRequest {
    * The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).
    */
   public enum PayloadTypeEnum {
-    TEXT("text"),
+    TEXT(String.valueOf("text")),
     
-    SSML("ssml");
+    SSML(String.valueOf("ssml"));
 
     private String value;
 
@@ -101,9 +101,9 @@ public class GatherUsingSpeakRequest {
    * This parameter impacts speech quality, language options and payload types. When using &#x60;basic&#x60;, only the &#x60;en-US&#x60; language and payload type &#x60;text&#x60; are allowed.
    */
   public enum ServiceLevelEnum {
-    BASIC("basic"),
+    BASIC(String.valueOf("basic")),
     
-    PREMIUM("premium");
+    PREMIUM(String.valueOf("premium"));
 
     private String value;
 
@@ -135,105 +135,73 @@ public class GatherUsingSpeakRequest {
   public static final String JSON_PROPERTY_SERVICE_LEVEL = "service_level";
   private ServiceLevelEnum serviceLevel = ServiceLevelEnum.PREMIUM;
 
-  /**
-   * The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of &#x60;Polly.&lt;voice&gt;&#x60;, e.g. &#x60;Polly.Brian&#x60;. All standard Amazon Polly voices are supported.
-   */
-  public enum VoiceEnum {
-    MALE("male"),
-    
-    FEMALE("female");
-
-    private String value;
-
-    VoiceEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static VoiceEnum fromValue(String value) {
-      for (VoiceEnum b : VoiceEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_VOICE = "voice";
-  private VoiceEnum voice;
+  private String voice;
+
+  public static final String JSON_PROPERTY_VOICE_SETTINGS = "voice_settings";
+  private GatherUsingSpeakRequestVoiceSettings voiceSettings;
 
   /**
    * The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified.
    */
   public enum LanguageEnum {
-    ARB("arb"),
+    ARB(String.valueOf("arb")),
     
-    CMN_CN("cmn-CN"),
+    CMN_CN(String.valueOf("cmn-CN")),
     
-    CY_GB("cy-GB"),
+    CY_GB(String.valueOf("cy-GB")),
     
-    DA_DK("da-DK"),
+    DA_DK(String.valueOf("da-DK")),
     
-    DE_DE("de-DE"),
+    DE_DE(String.valueOf("de-DE")),
     
-    EN_AU("en-AU"),
+    EN_AU(String.valueOf("en-AU")),
     
-    EN_GB("en-GB"),
+    EN_GB(String.valueOf("en-GB")),
     
-    EN_GB_WLS("en-GB-WLS"),
+    EN_GB_WLS(String.valueOf("en-GB-WLS")),
     
-    EN_IN("en-IN"),
+    EN_IN(String.valueOf("en-IN")),
     
-    EN_US("en-US"),
+    EN_US(String.valueOf("en-US")),
     
-    ES_ES("es-ES"),
+    ES_ES(String.valueOf("es-ES")),
     
-    ES_MX("es-MX"),
+    ES_MX(String.valueOf("es-MX")),
     
-    ES_US("es-US"),
+    ES_US(String.valueOf("es-US")),
     
-    FR_CA("fr-CA"),
+    FR_CA(String.valueOf("fr-CA")),
     
-    FR_FR("fr-FR"),
+    FR_FR(String.valueOf("fr-FR")),
     
-    HI_IN("hi-IN"),
+    HI_IN(String.valueOf("hi-IN")),
     
-    IS_IS("is-IS"),
+    IS_IS(String.valueOf("is-IS")),
     
-    IT_IT("it-IT"),
+    IT_IT(String.valueOf("it-IT")),
     
-    JA_JP("ja-JP"),
+    JA_JP(String.valueOf("ja-JP")),
     
-    KO_KR("ko-KR"),
+    KO_KR(String.valueOf("ko-KR")),
     
-    NB_NO("nb-NO"),
+    NB_NO(String.valueOf("nb-NO")),
     
-    NL_NL("nl-NL"),
+    NL_NL(String.valueOf("nl-NL")),
     
-    PL_PL("pl-PL"),
+    PL_PL(String.valueOf("pl-PL")),
     
-    PT_BR("pt-BR"),
+    PT_BR(String.valueOf("pt-BR")),
     
-    PT_PT("pt-PT"),
+    PT_PT(String.valueOf("pt-PT")),
     
-    RO_RO("ro-RO"),
+    RO_RO(String.valueOf("ro-RO")),
     
-    RU_RU("ru-RU"),
+    RU_RU(String.valueOf("ru-RU")),
     
-    SV_SE("sv-SE"),
+    SV_SE(String.valueOf("sv-SE")),
     
-    TR_TR("tr-TR");
+    TR_TR(String.valueOf("tr-TR"));
 
     private String value;
 
@@ -399,29 +367,55 @@ public class GatherUsingSpeakRequest {
   }
 
 
-  public GatherUsingSpeakRequest voice(VoiceEnum voice) {
+  public GatherUsingSpeakRequest voice(String voice) {
     this.voice = voice;
     return this;
   }
 
    /**
-   * The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of &#x60;Polly.&lt;voice&gt;&#x60;, e.g. &#x60;Polly.Brian&#x60;. All standard Amazon Polly voices are supported.
+   * Specifies the voice used in speech synthesis.  - Define voices using the format &#x60;&lt;Provider&gt;.&lt;Model&gt;.&lt;VoiceId&gt;&#x60;. Specifying only the provider will give default values for voice_id and model_id.   **Supported Providers:** - **AWS:** Use &#x60;AWS.Polly.&lt;VoiceId&gt;&#x60; (e.g., &#x60;AWS.Polly.Joanna&#x60;). For neural voices, which provide more realistic, human-like speech, append &#x60;-Neural&#x60; to the &#x60;VoiceId&#x60; (e.g., &#x60;AWS.Polly.Joanna-Neural&#x60;). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use &#x60;Azure.&lt;VoiceId&gt;. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use &#x60;ElevenLabs.&lt;ModelId&gt;.&lt;VoiceId&gt;&#x60; (e.g., &#x60;ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM&#x60;). The &#x60;ModelId&#x60; part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in &#x60;\&quot;voice_settings\&quot;: {\&quot;api_key_ref\&quot;: \&quot;&lt;secret_identifier&gt;\&quot;}&#x60;. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use &#x60;Telnyx.&lt;model_id&gt;.&lt;voice_id&gt;&#x60;  For service_level basic, you may define the gender of the speaker (male or female).
    * @return voice
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "female", required = true, value = "The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of `Polly.<voice>`, e.g. `Polly.Brian`. All standard Amazon Polly voices are supported.")
+  @ApiModelProperty(example = "Telnyx.KokoroTTS.af", required = true, value = "Specifies the voice used in speech synthesis.  - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the provider will give default values for voice_id and model_id.   **Supported Providers:** - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `\"voice_settings\": {\"api_key_ref\": \"<secret_identifier>\"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`  For service_level basic, you may define the gender of the speaker (male or female).")
   @JsonProperty(JSON_PROPERTY_VOICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public VoiceEnum getVoice() {
+  public String getVoice() {
     return voice;
   }
 
 
   @JsonProperty(JSON_PROPERTY_VOICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVoice(VoiceEnum voice) {
+  public void setVoice(String voice) {
     this.voice = voice;
+  }
+
+
+  public GatherUsingSpeakRequest voiceSettings(GatherUsingSpeakRequestVoiceSettings voiceSettings) {
+    this.voiceSettings = voiceSettings;
+    return this;
+  }
+
+   /**
+   * Get voiceSettings
+   * @return voiceSettings
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_VOICE_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public GatherUsingSpeakRequestVoiceSettings getVoiceSettings() {
+    return voiceSettings;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VOICE_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVoiceSettings(GatherUsingSpeakRequestVoiceSettings voiceSettings) {
+    this.voiceSettings = voiceSettings;
   }
 
 
@@ -702,6 +696,7 @@ public class GatherUsingSpeakRequest {
         Objects.equals(this.payloadType, gatherUsingSpeakRequest.payloadType) &&
         Objects.equals(this.serviceLevel, gatherUsingSpeakRequest.serviceLevel) &&
         Objects.equals(this.voice, gatherUsingSpeakRequest.voice) &&
+        Objects.equals(this.voiceSettings, gatherUsingSpeakRequest.voiceSettings) &&
         Objects.equals(this.language, gatherUsingSpeakRequest.language) &&
         Objects.equals(this.minimumDigits, gatherUsingSpeakRequest.minimumDigits) &&
         Objects.equals(this.maximumDigits, gatherUsingSpeakRequest.maximumDigits) &&
@@ -716,7 +711,7 @@ public class GatherUsingSpeakRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(payload, invalidPayload, payloadType, serviceLevel, voice, language, minimumDigits, maximumDigits, maximumTries, timeoutMillis, terminatingDigit, validDigits, interDigitTimeoutMillis, clientState, commandId);
+    return Objects.hash(payload, invalidPayload, payloadType, serviceLevel, voice, voiceSettings, language, minimumDigits, maximumDigits, maximumTries, timeoutMillis, terminatingDigit, validDigits, interDigitTimeoutMillis, clientState, commandId);
   }
 
   @Override
@@ -728,6 +723,7 @@ public class GatherUsingSpeakRequest {
     sb.append("    payloadType: ").append(toIndentedString(payloadType)).append("\n");
     sb.append("    serviceLevel: ").append(toIndentedString(serviceLevel)).append("\n");
     sb.append("    voice: ").append(toIndentedString(voice)).append("\n");
+    sb.append("    voiceSettings: ").append(toIndentedString(voiceSettings)).append("\n");
     sb.append("    language: ").append(toIndentedString(language)).append("\n");
     sb.append("    minimumDigits: ").append(toIndentedString(minimumDigits)).append("\n");
     sb.append("    maximumDigits: ").append(toIndentedString(maximumDigits)).append("\n");

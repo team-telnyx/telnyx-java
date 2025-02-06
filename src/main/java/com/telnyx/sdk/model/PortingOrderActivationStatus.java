@@ -55,7 +55,7 @@ public enum PortingOrderActivationStatus {
   
   ACTIVE("Active"),
   
-  CANCELED("Canceled");
+  CANCELLED("Cancelled");
 
   private String value;
 

@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   CreateConferenceRequest.JSON_PROPERTY_MAX_PARTICIPANTS,
   CreateConferenceRequest.JSON_PROPERTY_START_CONFERENCE_ON_CREATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateConferenceRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -59,13 +57,13 @@ public class CreateConferenceRequest {
    * Whether a beep sound should be played when participants join and/or leave the conference.
    */
   public enum BeepEnabledEnum {
-    ALWAYS("always"),
+    ALWAYS(String.valueOf("always")),
     
-    NEVER("never"),
+    NEVER(String.valueOf("never")),
     
-    ON_ENTER("on_enter"),
+    ON_ENTER(String.valueOf("on_enter")),
     
-    ON_EXIT("on_exit");
+    ON_EXIT(String.valueOf("on_exit"));
 
     private String value;
 

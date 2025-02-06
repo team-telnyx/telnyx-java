@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   RegistrationStatus.JSON_PROPERTY_USER_AGENT,
   RegistrationStatus.JSON_PROPERTY_LAST_REGISTRATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegistrationStatus {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -53,17 +51,17 @@ public class RegistrationStatus {
    * The current registration status of your SIP connection
    */
   public enum StatusEnum {
-    NOT_APPLICABLE("Not Applicable"),
+    NOT_APPLICABLE(String.valueOf("Not Applicable")),
     
-    NOT_REGISTERED("Not Registered"),
+    NOT_REGISTERED(String.valueOf("Not Registered")),
     
-    FAILED("Failed"),
+    FAILED(String.valueOf("Failed")),
     
-    EXPIRED("Expired"),
+    EXPIRED(String.valueOf("Expired")),
     
-    REGISTERED("Registered"),
+    REGISTERED(String.valueOf("Registered")),
     
-    UNREGISTERED("Unregistered");
+    UNREGISTERED(String.valueOf("Unregistered"));
 
     private String value;
 

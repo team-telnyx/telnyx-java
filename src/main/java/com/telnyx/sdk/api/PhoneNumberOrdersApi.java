@@ -15,9 +15,7 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListComments200Response;
 import com.telnyx.sdk.model.ListNumberOrderPhoneNumbersResponse;
 import com.telnyx.sdk.model.ListNumberOrdersResponse;
-import com.telnyx.sdk.model.ListRegulatoryRequirements200Response;
 import com.telnyx.sdk.model.ListSubNumberOrdersResponse;
-import com.telnyx.sdk.model.MarkCommentRead200Response;
 import com.telnyx.sdk.model.NumberOrderPhoneNumberResponse;
 import com.telnyx.sdk.model.NumberOrderResponse;
 import com.telnyx.sdk.model.SubNumberOrderResponse;
@@ -31,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberOrdersApi {
   private ApiClient apiClient;
 
@@ -61,6 +59,76 @@ public class PhoneNumberOrdersApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Cancel a sub number order
+   * Allows you to cancel a sub number order in &#39;pending&#39; status.
+   * @param subNumberOrderId The ID of the sub number order. (required)
+   * @return SubNumberOrderResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a sub number order. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public SubNumberOrderResponse cancelSubNumberOrder(String subNumberOrderId) throws ApiException {
+    return cancelSubNumberOrderWithHttpInfo(subNumberOrderId).getData();
+  }
+
+  /**
+   * Cancel a sub number order
+   * Allows you to cancel a sub number order in &#39;pending&#39; status.
+   * @param subNumberOrderId The ID of the sub number order. (required)
+   * @return ApiResponse&lt;SubNumberOrderResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a sub number order. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<SubNumberOrderResponse> cancelSubNumberOrderWithHttpInfo(String subNumberOrderId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'subNumberOrderId' is set
+    if (subNumberOrderId == null) {
+      throw new ApiException(400, "Missing the required parameter 'subNumberOrderId' when calling cancelSubNumberOrder");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/sub_number_orders/{sub_number_order_id}/cancel"
+      .replaceAll("\\{" + "sub_number_order_id" + "\\}", apiClient.escapeString(subNumberOrderId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<SubNumberOrderResponse> localVarReturnType = new GenericType<SubNumberOrderResponse>() {};
+
+    return apiClient.invokeAPI("PhoneNumberOrdersApi.cancelSubNumberOrder", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
   /**
    * Create a comment
    * 
@@ -200,8 +268,8 @@ public class PhoneNumberOrdersApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Retrieve a number order phone number.
-   * Get an existing number order phone number.
+   * Retrieve a single phone number within a number order.
+   * Get an existing phone number in number order.
    * @param numberOrderPhoneNumberId The number order phone number ID. (required)
    * @return NumberOrderPhoneNumberResponse
    * @throws ApiException if fails to make API call
@@ -217,8 +285,8 @@ public class PhoneNumberOrdersApi {
   }
 
   /**
-   * Retrieve a number order phone number.
-   * Get an existing number order phone number.
+   * Retrieve a single phone number within a number order.
+   * Get an existing phone number in number order.
    * @param numberOrderPhoneNumberId The number order phone number ID. (required)
    * @return ApiResponse&lt;NumberOrderPhoneNumberResponse&gt;
    * @throws ApiException if fails to make API call
@@ -345,7 +413,7 @@ public class PhoneNumberOrdersApi {
   /**
    * Retrieve all comments
    * 
-   * @param filterCommentRecordType Record type that the comment relates to i.e number_order, sub_number_order or number_order_phone_number (required)
+   * @param filterCommentRecordType Record type that the comment relates to (required)
    * @param filterCommentRecordId ID of the record the comments relate to (required)
    * @return ListComments200Response
    * @throws ApiException if fails to make API call
@@ -363,7 +431,7 @@ public class PhoneNumberOrdersApi {
   /**
    * Retrieve all comments
    * 
-   * @param filterCommentRecordType Record type that the comment relates to i.e number_order, sub_number_order or number_order_phone_number (required)
+   * @param filterCommentRecordType Record type that the comment relates to (required)
    * @param filterCommentRecordId ID of the record the comments relate to (required)
    * @return ApiResponse&lt;ListComments200Response&gt;
    * @throws ApiException if fails to make API call
@@ -602,78 +670,8 @@ private ApiResponse<ListNumberOrdersResponse> listNumberOrdersWithHttpInfo(Strin
   public APIlistNumberOrdersRequest listNumberOrders() throws ApiException {
     return new APIlistNumberOrdersRequest();
   }
-  /**
-   * Retrieve regulartory requirements
-   * 
-   * @param filterPhoneNumber Record type phone number/ phone numbers (required)
-   * @return ListRegulatoryRequirements200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> An array of Regulatory Requiremenst Responses </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ListRegulatoryRequirements200Response listRegulatoryRequirements(String filterPhoneNumber) throws ApiException {
-    return listRegulatoryRequirementsWithHttpInfo(filterPhoneNumber).getData();
-  }
 
-  /**
-   * Retrieve regulartory requirements
-   * 
-   * @param filterPhoneNumber Record type phone number/ phone numbers (required)
-   * @return ApiResponse&lt;ListRegulatoryRequirements200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> An array of Regulatory Requiremenst Responses </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<ListRegulatoryRequirements200Response> listRegulatoryRequirementsWithHttpInfo(String filterPhoneNumber) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'filterPhoneNumber' is set
-    if (filterPhoneNumber == null) {
-      throw new ApiException(400, "Missing the required parameter 'filterPhoneNumber' when calling listRegulatoryRequirements");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/phone_numbers_regulatory_requirements";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListRegulatoryRequirements200Response> localVarReturnType = new GenericType<ListRegulatoryRequirements200Response>() {};
-
-    return apiClient.invokeAPI("PhoneNumberOrdersApi.listRegulatoryRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-
-private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo(UUID filterUserId, UUID filterOrderRequestId, String filterCountryCode, String filterPhoneNumberType, Integer filterPhoneNumbersCount, Boolean filterIncludePhoneNumbers) throws ApiException {
+private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo(String filterStatus, UUID filterOrderRequestId, String filterCountryCode, String filterPhoneNumberType, Integer filterPhoneNumbersCount) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -685,12 +683,11 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[user_id]", filterUserId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[order_request_id]", filterOrderRequestId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[country_code]", filterCountryCode));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number_type]", filterPhoneNumberType));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_numbers_count]", filterPhoneNumbersCount));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[include_phone_numbers]", filterIncludePhoneNumbers));
 
     
     
@@ -715,23 +712,22 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
   }
 
   public class APIlistSubNumberOrdersRequest {
-    private UUID filterUserId;
+    private String filterStatus;
     private UUID filterOrderRequestId;
     private String filterCountryCode;
     private String filterPhoneNumberType;
     private Integer filterPhoneNumbersCount;
-    private Boolean filterIncludePhoneNumbers;
 
     private APIlistSubNumberOrdersRequest() {
     }
 
     /**
-     * Set filterUserId
-     * @param filterUserId User ID of the user who owns the sub number order (optional)
+     * Set filterStatus
+     * @param filterStatus Filter sub number orders by status. (optional)
      * @return APIlistSubNumberOrdersRequest
      */
-    public APIlistSubNumberOrdersRequest filterUserId(UUID filterUserId) {
-      this.filterUserId = filterUserId;
+    public APIlistSubNumberOrdersRequest filterStatus(String filterStatus) {
+      this.filterStatus = filterStatus;
       return this;
     }
 
@@ -776,16 +772,6 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
     }
 
     /**
-     * Set filterIncludePhoneNumbers
-     * @param filterIncludePhoneNumbers Include the first 50 phone number objects for each sub order in the results. Note: use of this filter could produce unexpected results due to payload size. (optional, default to false)
-     * @return APIlistSubNumberOrdersRequest
-     */
-    public APIlistSubNumberOrdersRequest filterIncludePhoneNumbers(Boolean filterIncludePhoneNumbers) {
-      this.filterIncludePhoneNumbers = filterIncludePhoneNumbers;
-      return this;
-    }
-
-    /**
      * Execute listSubNumberOrders request
      * @return ListSubNumberOrdersResponse
      * @throws ApiException if fails to make API call
@@ -815,7 +801,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
 
      */
     public ApiResponse<ListSubNumberOrdersResponse> executeWithHttpInfo() throws ApiException {
-      return listSubNumberOrdersWithHttpInfo(filterUserId, filterOrderRequestId, filterCountryCode, filterPhoneNumberType, filterPhoneNumbersCount, filterIncludePhoneNumbers);
+      return listSubNumberOrdersWithHttpInfo(filterStatus, filterOrderRequestId, filterCountryCode, filterPhoneNumberType, filterPhoneNumbersCount);
     }
   }
 
@@ -834,7 +820,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
    * Mark a comment as read
    * 
    * @param id The comment ID. (required)
-   * @return MarkCommentRead200Response
+   * @return CreateComment200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -843,7 +829,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public MarkCommentRead200Response markCommentRead(String id) throws ApiException {
+  public CreateComment200Response markCommentRead(String id) throws ApiException {
     return markCommentReadWithHttpInfo(id).getData();
   }
 
@@ -851,7 +837,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
    * Mark a comment as read
    * 
    * @param id The comment ID. (required)
-   * @return ApiResponse&lt;MarkCommentRead200Response&gt;
+   * @return ApiResponse&lt;CreateComment200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -860,7 +846,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MarkCommentRead200Response> markCommentReadWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<CreateComment200Response> markCommentReadWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -894,7 +880,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<MarkCommentRead200Response> localVarReturnType = new GenericType<MarkCommentRead200Response>() {};
+    GenericType<CreateComment200Response> localVarReturnType = new GenericType<CreateComment200Response>() {};
 
     return apiClient.invokeAPI("PhoneNumberOrdersApi.markCommentRead", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -1043,6 +1029,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
   /**
    * Retrieve a list of phone numbers associated to orders
    * Get a list of phone numbers associated to orders.
+   * @param filterCountryCode Country code of the order phone number. (optional)
    * @return ListNumberOrderPhoneNumbersResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1052,13 +1039,14 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListNumberOrderPhoneNumbersResponse retrieveOrderPhoneNumbers() throws ApiException {
-    return retrieveOrderPhoneNumbersWithHttpInfo().getData();
+  public ListNumberOrderPhoneNumbersResponse retrieveOrderPhoneNumbers(String filterCountryCode) throws ApiException {
+    return retrieveOrderPhoneNumbersWithHttpInfo(filterCountryCode).getData();
   }
 
   /**
    * Retrieve a list of phone numbers associated to orders
    * Get a list of phone numbers associated to orders.
+   * @param filterCountryCode Country code of the order phone number. (optional)
    * @return ApiResponse&lt;ListNumberOrderPhoneNumbersResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1068,7 +1056,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListNumberOrderPhoneNumbersResponse> retrieveOrderPhoneNumbersWithHttpInfo() throws ApiException {
+  public ApiResponse<ListNumberOrderPhoneNumbersResponse> retrieveOrderPhoneNumbersWithHttpInfo(String filterCountryCode) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -1080,6 +1068,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[country_code]", filterCountryCode));
 
     
     
@@ -1180,8 +1169,8 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Update a number order phone number.
-   * Updates a number order phone number.
+   * Update requirements for a single phone number within a number order.
+   * Updates requirements for a single phone number within a number order.
    * @param numberOrderPhoneNumberId The number order phone number ID. (required)
    * @param updateNumberOrderPhoneNumberRequest  (required)
    * @return NumberOrderPhoneNumberResponse
@@ -1198,8 +1187,8 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
   }
 
   /**
-   * Update a number order phone number.
-   * Updates a number order phone number.
+   * Update requirements for a single phone number within a number order.
+   * Updates requirements for a single phone number within a number order.
    * @param numberOrderPhoneNumberId The number order phone number ID. (required)
    * @param updateNumberOrderPhoneNumberRequest  (required)
    * @return ApiResponse&lt;NumberOrderPhoneNumberResponse&gt;
@@ -1257,7 +1246,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Update a sub number order
+   * Update a sub number order&#39;s requirements
    * Updates a sub number order.
    * @param subNumberOrderId The sub number order ID. (required)
    * @param updateSubNumberOrderRequest  (required)
@@ -1275,7 +1264,7 @@ private ApiResponse<ListSubNumberOrdersResponse> listSubNumberOrdersWithHttpInfo
   }
 
   /**
-   * Update a sub number order
+   * Update a sub number order&#39;s requirements
    * Updates a sub number order.
    * @param subNumberOrderId The sub number order ID. (required)
    * @param updateSubNumberOrderRequest  (required)

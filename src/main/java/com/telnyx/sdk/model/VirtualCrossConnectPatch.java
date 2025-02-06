@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   VirtualCrossConnectPatch.JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT,
   VirtualCrossConnectPatch.JSON_PROPERTY_SECONDARY_CLOUD_IP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VirtualCrossConnectPatch {
   public static final String JSON_PROPERTY_PRIMARY_ENABLED = "primary_enabled";
   private Boolean primaryEnabled;

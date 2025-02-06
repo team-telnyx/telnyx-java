@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -51,7 +49,7 @@ import com.telnyx.sdk.JSON;
   JoinConferenceRequest.JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS,
   JoinConferenceRequest.JSON_PROPERTY_BEEP_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class JoinConferenceRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -87,13 +85,13 @@ public class JoinConferenceRequest {
    * Sets the joining participant as a supervisor for the conference. A conference can have multiple supervisors. \&quot;barge\&quot; means the supervisor enters the conference as a normal participant. This is the same as \&quot;none\&quot;. \&quot;monitor\&quot; means the supervisor is muted but can hear all participants. \&quot;whisper\&quot; means that only the specified \&quot;whisper_call_control_ids\&quot; can hear the supervisor. Defaults to \&quot;none\&quot;.
    */
   public enum SupervisorRoleEnum {
-    BARGE("barge"),
+    BARGE(String.valueOf("barge")),
     
-    MONITOR("monitor"),
+    MONITOR(String.valueOf("monitor")),
     
-    NONE("none"),
+    NONE(String.valueOf("none")),
     
-    WHISPER("whisper");
+    WHISPER(String.valueOf("whisper"));
 
     private String value;
 
@@ -132,13 +130,13 @@ public class JoinConferenceRequest {
    * Whether a beep sound should be played when the participant joins and/or leaves the conference. Can be used to override the conference-level setting.
    */
   public enum BeepEnabledEnum {
-    ALWAYS("always"),
+    ALWAYS(String.valueOf("always")),
     
-    NEVER("never"),
+    NEVER(String.valueOf("never")),
     
-    ON_ENTER("on_enter"),
+    ON_ENTER(String.valueOf("on_enter")),
     
-    ON_EXIT("on_exit");
+    ON_EXIT(String.valueOf("on_exit"));
 
     private String value;
 
@@ -464,7 +462,7 @@ public class JoinConferenceRequest {
     return this;
   }
 
-  public JoinConferenceRequest addWhisperCallControlIdsItem(String whisperCallControlIdsItem) {
+  public JoinConferenceRequest addwhisperCallControlIdsItem(String whisperCallControlIdsItem) {
     if (this.whisperCallControlIds == null) {
       this.whisperCallControlIds = new ArrayList<>();
     }

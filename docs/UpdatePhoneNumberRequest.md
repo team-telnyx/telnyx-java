@@ -14,15 +14,6 @@
 |**customerReference** | **String** | A customer reference string for customer look ups. |  [optional] |
 |**connectionId** | **String** | Identifies the connection associated with the phone number. |  [optional] |
 |**billingGroupId** | **String** | Identifies the billing group associated with the phone number. |  [optional] |
-|**numberLevelRouting** | [**NumberLevelRoutingEnum**](#NumberLevelRoutingEnum) | Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings. |  [optional] |
-
-
-
-## Enum: NumberLevelRoutingEnum
-
-| Name | Value |
-|---- | -----|
-| DISABLED | &quot;disabled&quot; |
 
 
 

@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,7 +37,7 @@ import com.telnyx.sdk.JSON;
   DownlinkData.JSON_PROPERTY_AMOUNT,
   DownlinkData.JSON_PROPERTY_UNIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DownlinkData {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private BigDecimal amount;
@@ -48,11 +46,11 @@ public class DownlinkData {
    * Transmission unit
    */
   public enum UnitEnum {
-    B("B"),
+    B(String.valueOf("B")),
     
-    KB("KB"),
+    KB(String.valueOf("KB")),
     
-    MB("MB");
+    MB(String.valueOf("MB"));
 
     private String value;
 
