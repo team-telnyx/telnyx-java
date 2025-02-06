@@ -724,7 +724,7 @@ docs/ListAvailablePhoneNumbersResponse.md
 docs/ListBillingGroups200Response.md
 docs/ListBuckets200Response.md
 docs/ListBuckets200ResponseBucketsInner.md
-docs/ListBulkSimCardActions200Response.md
+docs/ListBulkSIMCardActions200Response.md
 docs/ListCSVDownloadsResponse.md
 docs/ListCallControlApplicationsResponse.md
 docs/ListCallEventsResponse.md
@@ -2340,7 +2340,7 @@ src/main/java/com/telnyx/sdk/model/ListAvailablePhoneNumbersResponse.java
 src/main/java/com/telnyx/sdk/model/ListBillingGroups200Response.java
 src/main/java/com/telnyx/sdk/model/ListBuckets200Response.java
 src/main/java/com/telnyx/sdk/model/ListBuckets200ResponseBucketsInner.java
-src/main/java/com/telnyx/sdk/model/ListBulkSimCardActions200Response.java
+src/main/java/com/telnyx/sdk/model/ListBulkSIMCardActions200Response.java
 src/main/java/com/telnyx/sdk/model/ListCSVDownloadsResponse.java
 src/main/java/com/telnyx/sdk/model/ListCallControlApplicationsResponse.java
 src/main/java/com/telnyx/sdk/model/ListCallEventsResponse.java
@@ -3860,7 +3860,7 @@ src/test/java/com/telnyx/sdk/model/ListAvailablePhoneNumbersResponseTest.java
 src/test/java/com/telnyx/sdk/model/ListBillingGroups200ResponseTest.java
 src/test/java/com/telnyx/sdk/model/ListBuckets200ResponseBucketsInnerTest.java
 src/test/java/com/telnyx/sdk/model/ListBuckets200ResponseTest.java
-src/test/java/com/telnyx/sdk/model/ListBulkSimCardActions200ResponseTest.java
+src/test/java/com/telnyx/sdk/model/ListBulkSIMCardActions200ResponseTest.java
 src/test/java/com/telnyx/sdk/model/ListCSVDownloadsResponseTest.java
 src/test/java/com/telnyx/sdk/model/ListCallControlApplicationsResponseTest.java
 src/test/java/com/telnyx/sdk/model/ListCallEventsResponseTest.java

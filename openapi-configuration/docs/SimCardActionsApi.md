@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 ## listBulkSimCardActions
 
-> ListBulkSimCardActions200Response listBulkSimCardActions(pageNumber, pageSize, filterActionType)
+> ListBulkSIMCardActions200Response listBulkSimCardActions(pageNumber, pageSize, filterActionType)
 
 List bulk SIM card actions
 
@@ -190,7 +190,7 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         String filterActionType = "bulk_set_public_ips"; // String | Filter by action type.
         try {
-            ListBulkSimCardActions200Response result = apiInstance.listBulkSimCardActions(pageNumber, pageSize, filterActionType);
+            ListBulkSIMCardActions200Response result = apiInstance.listBulkSimCardActions(pageNumber, pageSize, filterActionType);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SimCardActionsApi#listBulkSimCardActions");
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListBulkSimCardActions200Response**](ListBulkSimCardActions200Response.md)
+[**ListBulkSIMCardActions200Response**](ListBulkSIMCardActions200Response.md)
 
 ### Authorization
 

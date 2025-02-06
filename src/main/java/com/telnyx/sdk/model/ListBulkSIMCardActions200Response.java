@@ -34,7 +34,7 @@ import com.telnyx.sdk.JSON;
 
 
 /**
- * ListBulkSimCardActions200Response
+ * ListBulkSIMCardActions200Response
  */
 @JsonPropertyOrder({
   ListBulkSIMCardActions200Response.JSON_PROPERTY_DATA,
@@ -122,9 +122,9 @@ public class ListBulkSIMCardActions200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ListBulkSIMCardActions200Response listBulkSimCardActions200Response = (ListBulkSIMCardActions200Response) o;
-    return Objects.equals(this.data, listBulkSimCardActions200Response.data) &&
-        Objects.equals(this.meta, listBulkSimCardActions200Response.meta);
+    ListBulkSIMCardActions200Response ListBulkSIMCardActions200Response = (ListBulkSIMCardActions200Response) o;
+    return Objects.equals(this.data, ListBulkSIMCardActions200Response.data) &&
+        Objects.equals(this.meta, ListBulkSIMCardActions200Response.meta);
   }
 
   @Override
@@ -135,7 +135,7 @@ public class ListBulkSIMCardActions200Response {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ListBulkSimCardActions200Response {\n");
+    sb.append("class ListBulkSIMCardActions200Response {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");

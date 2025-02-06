@@ -11,7 +11,7 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetBulkSimCardAction200Response;
 import com.telnyx.sdk.model.GetSimCardAction200Response;
-import com.telnyx.sdk.model.ListBulkSimCardActions200Response;
+import com.telnyx.sdk.model.ListBulkSIMCardActions200Response;
 import com.telnyx.sdk.model.ListSimCardActions200Response;
 import java.util.UUID;
 
@@ -200,7 +200,7 @@ public class SimCardActionsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterActionType Filter by action type. (optional)
-   * @return ListBulkSimCardActions200Response
+   * @return ListBulkSIMCardActions200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -210,7 +210,7 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListBulkSimCardActions200Response listBulkSimCardActions(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
+  public ListBulkSIMCardActions200Response listBulkSimCardActions(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
     return listBulkSimCardActionsWithHttpInfo(pageNumber, pageSize, filterActionType).getData();
   }
 
@@ -220,7 +220,7 @@ public class SimCardActionsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterActionType Filter by action type. (optional)
-   * @return ApiResponse&lt;ListBulkSimCardActions200Response&gt;
+   * @return ApiResponse&lt;ListBulkSIMCardActions200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -230,7 +230,7 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListBulkSimCardActions200Response> listBulkSimCardActionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
+  public ApiResponse<ListBulkSIMCardActions200Response> listBulkSimCardActionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -261,7 +261,7 @@ public class SimCardActionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListBulkSimCardActions200Response> localVarReturnType = new GenericType<ListBulkSimCardActions200Response>() {};
+    GenericType<ListBulkSIMCardActions200Response> localVarReturnType = new GenericType<ListBulkSIMCardActions200Response>() {};
 
     return apiClient.invokeAPI("SimCardActionsApi.listBulkSimCardActions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
